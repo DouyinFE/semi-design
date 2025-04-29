@@ -1,54 +1,37 @@
 import { addMonths, Locale as dateFnsLocale } from 'date-fns';
-import isValidDate from './isValidDate';
-import { compatibleParse } from './parser';
-import isTimestamp from './isTimestamp';
+import { TZDate } from '@date-fns/tz';
 
-/**
- * get left panel picker date and right panel picker date
- */
-export default function getDefaultPickerDate(options: GetDefaultPickerValueDateOptions) {
-    const { defaultPickerValue, format, dateFnsLocale } = options;
-    let nowDate = Array.isArray(defaultPickerValue) ? defaultPickerValue[0] : defaultPickerValue;
-    let nextDate = Array.isArray(defaultPickerValue) ? defaultPickerValue[1] : undefined;
-
-    switch (true) {
-        case isValidDate(nowDate):
-            break;
-        case isTimestamp(nowDate):
-            nowDate = new Date(nowDate);
-            break;
-        case typeof nowDate === 'string':
-            nowDate = compatibleParse(nowDate as string, format, undefined, dateFnsLocale);
-            break;
-        default:
-            nowDate = new Date();
-            break;
-    }
-
-    switch (true) {
-        case isValidDate(nextDate):
-            break;
-        case isTimestamp(nextDate):
-            nextDate = new Date(nextDate);
-            break;
-        case typeof nextDate === 'string':
-            nextDate = compatibleParse(nextDate as string, format, undefined, dateFnsLocale);
-            break;
-        default:
-            nextDate = addMonths(nowDate as Date, 1);
-            break;
-    }
-
-    return {
-        nowDate: nowDate as Date,
-        nextDate: nextDate as Date,
-    };
-}
+import { TZDateUtil } from 'utils/date-fns-extra';
 
 type BaseValueType = string | number | Date;
 
 interface GetDefaultPickerValueDateOptions {
     defaultPickerValue?: BaseValueType | BaseValueType[];
     format: string;
-    dateFnsLocale: dateFnsLocale
+    dateFnsLocale: dateFnsLocale;
+    timeZone?: string
+}
+
+/**
+ * get left panel picker date and right panel picker date
+ */
+export default function getDefaultPickerDate(options: GetDefaultPickerValueDateOptions) {
+    const { defaultPickerValue, format, dateFnsLocale, timeZone } = options;
+    let nowDate = Array.isArray(defaultPickerValue) ? defaultPickerValue[0] : defaultPickerValue;
+    let nextDate = Array.isArray(defaultPickerValue) ? defaultPickerValue[1] : undefined;
+
+    let nowTZDate = TZDateUtil.createTZDate(timeZone);
+    if (nowDate) {
+        nowTZDate = TZDateUtil.parse({ date: nowDate, formatToken: format, locale: dateFnsLocale, timeZone });
+    }
+
+    let nextTZDate = addMonths(nowTZDate, 1);
+    if (nextDate) {
+        nextTZDate = TZDateUtil.parse({ date: nextDate, formatToken: format, locale: dateFnsLocale, timeZone });
+    }
+
+    return {
+        nowDate: nowTZDate,
+        nextDate: nextTZDate,
+    };
 }

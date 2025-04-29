@@ -1,11 +1,10 @@
-import { format, isValid, isSameSecond, isEqual as isDateEqual, isDate } from 'date-fns';
-import { get, isObject, isString, isEqual, isFunction } from 'lodash';
+import { isValid, isSameSecond, isEqual as isDateEqual, isDate, Locale } from 'date-fns';
+import { get, isObject, isEqual, isFunction } from 'lodash';
+import { TZDate } from '@date-fns/tz';
 
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import { isValidDate, isTimestamp } from './_utils/index';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
-import { utcToZonedTime, zonedTimeToUtc } from '../utils/date-fns-extra';
-import { compatibleParse } from './_utils/parser';
+import { TZDateUtil } from '../utils/date-fns-extra';
 import { getDefaultFormatTokenByType } from './_utils/getDefaultFormatToken';
 import { strings } from './constants';
 import { strings as inputStrings } from '../input/constants';
@@ -13,11 +12,10 @@ import { strings as inputStrings } from '../input/constants';
 import getInsetInputFormatToken from './_utils/getInsetInputFormatToken';
 import getInsetInputValueFromInsetInputStr from './_utils/getInsetInputValueFromInsetInputStr';
 
-import type { ArrayElement, Motion } from '../utils/type';
+import type { ArrayElement } from '../utils/type';
 import type { Type, DateInputFoundationProps, InsetInputValue } from './inputFoundation';
 import type { MonthsGridFoundationProps } from './monthsGridFoundation';
 import type { WeekStartNumber } from './_utils/getMonthTable';
-import isValidTimeZone from './_utils/isValidTimeZone';
 import warning from '../utils/warning';
 
 export type ValidateStatus = ArrayElement<typeof strings.STATUS>;
@@ -65,6 +63,8 @@ export type TriggerRenderProps = {
     componentProps?: DatePickerFoundationProps
 };
 
+// 所有暴露给用户的日期，使用 Date 类型
+// 所有内部的日期，使用 TZDate 类型
 export type DateOffsetType = (selectedDate?: Date) => Date;
 export type DensityType = 'default' | 'compact';
 export type DisabledDateType = (date?: Date, options?: DisabledDateOptions) => boolean;
@@ -177,9 +177,9 @@ export interface DatePickerFoundationState {
     isRange: boolean;
     /** value of trigger input */
     inputValue: string;
-    value: Date[];
+    value: TZDate[];
     // Save last selected date, maybe include null
-    cachedSelectedValue: (Date | null)[];
+    cachedSelectedValue: (TZDate | null)[];
     prevTimeZone: string | number;
     rangeInputFocus: RangeType;
     autofocus: boolean;
@@ -202,9 +202,9 @@ export interface DatePickerAdapter extends DefaultAdapter<DatePickerFoundationPr
     notifyConfirm: DatePickerFoundationProps['onConfirm'];
     notifyOpenChange: DatePickerFoundationProps['onOpenChange'];
     notifyPresetsClick: DatePickerFoundationProps['onPresetClick'];
-    updateValue: (value: Date[]) => void;
+    updateValue: (value: TZDate[]) => void;
     updatePrevTimezone: (prevTimeZone: string | number) => void;
-    updateCachedSelectedValue: (cachedSelectedValue: Date[]) => void;
+    updateCachedSelectedValue: (cachedSelectedValue: TZDate[]) => void;
     updateInputValue: (inputValue: string) => void;
     needConfirm: () => boolean;
     typeIsYearOrMonth: () => boolean;
@@ -245,7 +245,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     initFromProps({ value, timeZone, prevTimeZone }: Pick<DatePickerFoundationProps, 'value' | 'timeZone'> & { prevTimeZone?: string | number }) {
         const _value = (Array.isArray(value) ? [...value] : (value || value === 0) && [value]) || [];
 
-        const result = this.parseWithTimezone(_value, timeZone, prevTimeZone);
+        const result = this._parseValue({ value: _value, timeZone });
         this._adapter.updatePrevTimezone(prevTimeZone);
         // reset input value when value update
         this.clearInputValue();
@@ -263,35 +263,29 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * 
      * If the user passes an empty value, you need to set the range input focus to rangeStart, so that the user can continue to select from the beginning after clearing
      */
-    initRangeInputFocus(result: Date[]) {
+    initRangeInputFocus(result: TZDate[]) {
         const { triggerRender } = this.getProps();
         if (this._isRangeType() && isFunction(triggerRender) && result.length === 0) {
             this._adapter.setRangeInputFocus('rangeStart');
         }
     }
 
-    /**
-     * value 可能是 UTC value 也可能是 zoned value
-     * 
-     * UTC value -> 受控传入的 value
-     * 
-     * zoned value -> statue.value，保存的是当前计算机时区下选择的日期
-     * 
-     * 如果是时区变化，则需要将旧 zoned value 转为新时区下的 zoned value
-     * 
-     * 如果是 value 变化，则不需要传入之前的时区，将 UTC value 转为 zoned value 即可
-     * 
-     */
-    parseWithTimezone(value: ValueType, timeZone: string | number, prevTimeZone: string | number) {
-        const result: Date[] = [];
+    _parseSingle(options: { date: BaseValueType | TZDate; timeZone: string | number; locale?: Locale; formatToken?: string }): TZDate | null {
+        const { dateFnsLocale, format } = this._adapter.getProps();
+        const { date, timeZone } = options;
+        const currentLocale = options.locale ?? dateFnsLocale;
+        const currentFormatToken = options.formatToken ?? format;
+        return TZDateUtil.parse({ date, timeZone, locale: currentLocale, formatToken: currentFormatToken });
+    }
+
+    _parseValue(options: { value: ValueType | TZDate | TZDate[]; timeZone: string | number }): TZDate[] {
+        const { value, timeZone } = options;
+        const result: TZDate[] = [];
         if (Array.isArray(value) && value.length) {
             for (const v of value) {
-                let parsedV = (v || v === 0) && this._parseValue(v);
+                let parsedV = (v || v === 0) && this._parseSingle({ date: v, timeZone });
                 if (parsedV) {
-                    if (isValidTimeZone(prevTimeZone)) {
-                        parsedV = zonedTimeToUtc(parsedV, prevTimeZone);
-                    }
-                    result.push(isValidTimeZone(timeZone) ? utcToZonedTime(parsedV, timeZone) : parsedV);
+                    result.push(parsedV);
                 } else {
                     warning(true, `[Semi DatePicker] value cannot be parsed, value: ${String(v)}`);
                 }
@@ -303,35 +297,6 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
     _isMultiple() {
         return Boolean(this.getProp('multiple'));
-    }
-
-    /**
-     *
-     *  Verify and parse the following three format inputs
-     *
-        1. Date object
-        2. ISO 9601-compliant string
-        3. ts timestamp
-
-        Unified here to format the incoming value and output it as a Date object
-     *
-     */
-    _parseValue(value: BaseValueType): Date {
-        const dateFnsLocale = this._adapter.getProp('dateFnsLocale');
-        let dateObj: Date;
-        if (!value && value !== 0) {
-            return new Date();
-        }
-        if (isValidDate(value)) {
-            dateObj = value as Date;
-        } else if (isString(value)) {
-            dateObj = compatibleParse(value as string, this.getProp('format'), undefined, dateFnsLocale);
-        } else if (isTimestamp(value)) {
-            dateObj = new Date(value);
-        } else {
-            throw new TypeError('defaultValue should be valid Date object/timestamp or string');
-        }
-        return dateObj;
     }
 
     destroy() {
@@ -372,7 +337,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     /**
      * call it when change state value or input value
      */
-    resetCachedSelectedValue(willUpdateDates?: Date[]) {
+    resetCachedSelectedValue(willUpdateDates?: TZDate[]) {
         const { value, cachedSelectedValue } = this._adapter.getStates();
         const newCachedSelectedValue = Array.isArray(willUpdateDates) ? willUpdateDates : value;
         if (!isEqual(newCachedSelectedValue, cachedSelectedValue)) {
@@ -444,30 +409,6 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     resetFocus(e?: any) {
         this._adapter.setRangeInputFocus(false);
         this._adapter.notifyBlur(e);
-    }
-
-    /**
-     * cachedSelectedValue can be `(Date|null)[]` or `null`
-     */
-    isCachedSelectedValueValid(dates: Date[]) {
-        const cachedSelectedValue = dates || this._adapter.getState('cachedSelectedValue');
-        const { type } = this._adapter.getProps();
-        let isValid = true;
-        switch (true) {
-            case type === 'dateRange':
-            case type === 'dateTimeRange':
-                if (!this._isRangeValueComplete(cachedSelectedValue)) {
-                    isValid = false;
-                }
-                break;
-            default:
-                const value = cachedSelectedValue?.filter(item => item);
-                if (!(Array.isArray(value) && value.length)) {
-                    isValid = false;
-                }
-                break;
-        }
-        return isValid;
     }
 
     /**
@@ -610,7 +551,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * Since the clear button is not integrated in Input, you need to manually clear value, inputValue, cachedValue
      */
     handleRangeInputClear(e: any) {
-        const value: Date[] = [];
+        const value: TZDate[] = [];
         const inputValue = '';
         if (!this._isControlledComponent('value')) {
             this._updateValueAndInput(value, true, inputValue);
@@ -627,6 +568,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
     // Parses input only after user returns
     handleInputComplete(input: any = '') {
+        const { timeZone } = this._adapter.getProps();
         // console.log(input);
         let parsedResult = input ?
             this._isMultiple() ?
@@ -638,7 +580,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
         // Use the current date as the value when the current input is empty and the last input is also empty
         if (!parsedResult || !parsedResult.length) {
-            const nowDate = new Date();
+            const nowDate = TZDateUtil.createTZDate(timeZone);
             if (this._isRangeType()) {
                 parsedResult = [nowDate, nowDate];
             } else {
@@ -657,29 +599,25 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     /**
      * Parse the input, return the time object if it is valid,
      *  otherwise return "
-     *
-     * @param {string} input
-     * @returns  {Date [] | '}
      */
-    parseInput(input = '', format?: string) {
-        let result: Date[] = [];
+    parseInput(input = '', format?: string): TZDate[] {
+        let result: TZDate[] = [];
         // console.log(input);
-        const { dateFnsLocale, rangeSeparator } = this.getProps();
+        const { dateFnsLocale, rangeSeparator, timeZone } = this._adapter.getProps();
 
         if (input && input.length) {
             const type = this.getProp('type');
             const formatToken = format || this.getProp('format') || getDefaultFormatTokenByType(type);
-            let parsedResult,
-                formatedInput;
-            const nowDate = new Date();
+            let parsedResult: TZDate | null | TZDate[];
+            let formattedInput: string;
             switch (type) {
                 case 'date':
                 case 'dateTime':
                 case 'month':
-                    parsedResult = input ? compatibleParse(input, formatToken, nowDate, dateFnsLocale) : '';
-                    formatedInput = parsedResult && isValid(parsedResult) && this.localeFormat(parsedResult as Date, formatToken);
-                    if (parsedResult && formatedInput === input) {
-                        result = [parsedResult as Date];
+                    parsedResult = input ? this._parseSingle({ date: input, timeZone, formatToken, locale: dateFnsLocale }) : null;
+                    formattedInput = parsedResult && isValid(parsedResult) && this._formatSingle({ date: parsedResult, formatToken });
+                    if (parsedResult && formattedInput === input) {
+                        result = [parsedResult as TZDate];
                     }
                     break;
                 case 'dateRange':
@@ -690,14 +628,14 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
                     parsedResult =
                         values &&
                         values.reduce((arr, cur) => {
-                            const parsedVal = cur && compatibleParse(cur, formatToken, nowDate, dateFnsLocale);
+                            const parsedVal = cur && this._parseSingle({ date: cur, timeZone, formatToken, locale: dateFnsLocale });
                             parsedVal && arr.push(parsedVal);
                             return arr;
                         }, []);
-                    formatedInput =
+                    formattedInput =
                         parsedResult &&
-                        parsedResult.map(v => v && isValid(v) && this.localeFormat(v, formatToken)).join(separator);
-                    if (parsedResult && formatedInput === input) {
+                        parsedResult.map(v => v && isValid(v) && this._formatSingle({ date: v, formatToken })).join(separator);
+                    if (parsedResult && formattedInput === input) {
                         parsedResult.sort((d1, d2) => d1.getTime() - d2.getTime());
                         result = parsedResult;
                     }
@@ -713,38 +651,37 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     /**
      * get date which may include null from input
      */
-    getLooseDateFromInput(input: string): Array<Date | null> {
+    getLooseDateFromInput(input: string): Array<TZDate | null> {
         const value = this._isMultiple() ? this.parseMultipleInputLoose(input) : this.parseInputLoose(input);
         return value;
     }
 
     /**
-     * parse input into `Array<Date|null>`, loose means return value includes `null`
+     * parse input into `Array<TZDate|null>`, loose means return value includes `null`
      * 
      * @example
      * ```javascript
-     * parseInputLoose('2022-03-15 ~ '); // [Date, null]
-     * parseInputLoose(' ~ 2022-03-15 '); // [null, Date]
+     * parseInputLoose('2022-03-15 ~ '); // [TZDate, null]
+     * parseInputLoose(' ~ 2022-03-15 '); // [null, TZDate]
      * parseInputLoose(''); // []
      * parseInputLoose('2022-03- ~ 2022-0'); // [null, null]
      * ```
      */
-    parseInputLoose(input = ''): Array<Date | null> {
-        let result: Array<Date | null> = [];
-        const { dateFnsLocale, rangeSeparator, type, format } = this.getProps();
+    parseInputLoose(input = ''): Array<TZDate | null> {
+        let result: Array<TZDate | null> = [];
+        const { dateFnsLocale, rangeSeparator, type, format, timeZone } = this._adapter.getProps();
 
         if (input && input.length) {
             const formatToken = format || getDefaultFormatTokenByType(type);
-            let parsedResult, formatedInput;
-            const nowDate = new Date();
+            let parsedResult, formattedInput;
             switch (type) {
                 case 'date':
                 case 'dateTime':
                 case 'month':
-                    const _parsedResult = compatibleParse(input, formatToken, nowDate, dateFnsLocale);
-                    if (isValidDate(_parsedResult)) {
-                        formatedInput = this.localeFormat(_parsedResult as Date, formatToken);
-                        if (formatedInput === input) {
+                    const _parsedResult = this._parseSingle({ date: input, timeZone, formatToken, locale: dateFnsLocale });
+                    if (_parsedResult) {
+                        formattedInput = this._formatSingle({ date: _parsedResult, formatToken });
+                        if (formattedInput === input) {
                             parsedResult = _parsedResult;
                         }
                     } else {
@@ -760,11 +697,11 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
                         values &&
                         values.reduce((arr, cur) => {
                             let parsedVal = null;
-                            const _parsedResult = compatibleParse(cur, formatToken, nowDate, dateFnsLocale);
-                            if (isValidDate(_parsedResult)) {
-                                formatedInput = this.localeFormat(_parsedResult as Date, formatToken);
-                                if (formatedInput === cur) {
-                                    parsedVal = _parsedResult;
+                            const _parsedResult = this._parseSingle({ date: input, timeZone, formatToken, locale: dateFnsLocale });
+                            if (_parsedResult) {
+                                formattedInput = this._formatSingle({ date: _parsedResult, formatToken });
+                                if (formattedInput === input) {
+                                    parsedResult = _parsedResult;
                                 }
                             }
                             arr.push(parsedVal);
@@ -784,19 +721,19 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     }
 
     /**
-     * parse multiple into `Array<Date|null>`, loose means return value includes `null`
+     * parse multiple into `Array<TZDate|null>`, loose means return value includes `null`
      * 
      * @example
      * ```javascript
-     * parseMultipleInputLoose('2021-01-01,2021-10-15'); // [Date, Date];
-     * parseMultipleInputLoose('2021-01-01,2021-10-'); // [Date, null];
+     * parseMultipleInputLoose('2021-01-01,2021-10-15'); // [TZDate, TZDate];
+     * parseMultipleInputLoose('2021-01-01,2021-10-'); // [TZDate, null];
      * parseMultipleInputLoose(''); // [];
      * ```
      */
     parseMultipleInputLoose(input = '', separator: string = strings.DEFAULT_SEPARATOR_MULTIPLE, needDedupe = false) {
         const max = this.getProp('max');
         const inputArr = input.split(separator);
-        const result: Date[] = [];
+        const result: TZDate[] = [];
 
         for (const curInput of inputArr) {
             let tmpParsed = curInput && this.parseInputLoose(curInput);
@@ -822,16 +759,11 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     /**
      * Parses the input when multiple is true, if valid,
      *  returns a list of time objects, otherwise returns an array
-     *
-     * @param {string} [input='']
-     * @param {string} [separator=',']
-     * @param {boolean} [needDedupe=false]
-     * @returns {Date[]}
      */
-    parseMultipleInput(input = '', separator: string = strings.DEFAULT_SEPARATOR_MULTIPLE, needDedupe = false) {
+    parseMultipleInput(input = '', separator: string = strings.DEFAULT_SEPARATOR_MULTIPLE, needDedupe = false): TZDate[] {
         const max = this.getProp('max');
         const inputArr = input.split(separator);
-        const result: Date[] = [];
+        const result: TZDate[] = [];
 
         for (const curInput of inputArr) {
             let tmpParsed = curInput && this.parseInput(curInput);
@@ -857,11 +789,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
     /**
      * dates[] => string
-     *
-     * @param {Date[]} dates
-     * @returns {string}
      */
-    formatDates(dates: Date[] = [], customFormat?: string) {
+    formatDates(dates: TZDate[] = [], customFormat?: string) {
         let str = '';
         const rangeSeparator = this.getProp('rangeSeparator');
 
@@ -873,7 +802,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
                 case 'date':
                 case 'dateTime':
                 case 'month':
-                    str = this.localeFormat(dates[0], formatToken);
+                    str = this._formatSingle({ date: dates[0], formatToken });
                     break;
 
                 case 'dateRange':
@@ -881,13 +810,16 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
                 case 'monthRange':
                     const startIsTruthy = !isNullOrUndefined(dates[0]);
                     const endIsTruthy = !isNullOrUndefined(dates[1]);
+                    const start = startIsTruthy && this._formatSingle({ date: dates[0], formatToken });
+                    const end = endIsTruthy && this._formatSingle({ date: dates[1], formatToken });
+
                     if (startIsTruthy && endIsTruthy) {
-                        str = `${this.localeFormat(dates[0], formatToken)}${rangeSeparator}${this.localeFormat(dates[1], formatToken)}`;
+                        str = `${start}${rangeSeparator}${end}`;
                     } else {
                         if (startIsTruthy) {
-                            str = `${this.localeFormat(dates[0], formatToken)}${rangeSeparator}`;
+                            str = `${start}${rangeSeparator}`;
                         } else if (endIsTruthy) {
-                            str = `${rangeSeparator}${this.localeFormat(dates[1], formatToken)}`;
+                            str = `${rangeSeparator}${end}`;
                         }
                     }
                     break;
@@ -901,11 +833,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
     /**
      * dates[] => string
-     *
-     * @param {Date[]} dates
-     * @returns {string}
      */
-    formatMultipleDates(dates: Date[] = [], separator: string = strings.DEFAULT_SEPARATOR_MULTIPLE, customFormat?: string) {
+    formatMultipleDates(dates: TZDate[] = [], separator: string = strings.DEFAULT_SEPARATOR_MULTIPLE, customFormat?: string) {
         const strs = [];
         if (Array.isArray(dates) && dates.length) {
             const type = this.getProp('type');
@@ -934,12 +863,9 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * Update date value and the value of the input box
      * 1. Select Update
      * 2. Input Update
-     * @param {Date|''} value
-     * @param {Boolean} forceUpdateValue
-     * @param {String} input
      */
-    _updateValueAndInput(value: Date | Array<Date>, forceUpdateValue?: boolean, input?: string) {
-        let _value: Array<Date>;
+    _updateValueAndInput(value: TZDate | Array<TZDate>, forceUpdateValue?: boolean, input?: string) {
+        let _value: Array<TZDate>;
         if (forceUpdateValue || value) {
             if (!Array.isArray(value)) {
                 _value = value ? [value] : [];
@@ -958,10 +884,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
     /**
      * when changing the selected value through the date panel
-     * @param {*} value
-     * @param {*} options
      */
-    handleSelectedChange(value: Date[], options?: { fromPreset?: boolean; needCheckFocusRecord?: boolean }) {
+    handleSelectedChange(value: TZDate[], options?: { fromPreset?: boolean; needCheckFocusRecord?: boolean }) {
         const { type, format, rangeSeparator, insetInput } = this._adapter.getProps();
         const { value: stateValue } = this.getStates();
         const controlled = this._isControlledComponent();
@@ -1018,20 +942,18 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
     /**
      * when changing the year and month through the panel when the type is year or month or monthRange
-     * @param {*} item
      */
     handleYMSelectedChange(item: { currentMonth?: { left: number; right: number }; currentYear?: { left: number; right: number } } = {}) {
-        // console.log(item);
         const { currentMonth, currentYear } = item;
-        const { type } = this.getProps();
+        const { type, timeZone } = this._adapter.getProps();
+        const normalizedTimeZone = TZDateUtil.normalizeTimeZone(timeZone);
 
         if (type === 'month') {
-            const date = new Date(currentYear['left'], currentMonth['left'] - 1);
-
+            const date = new TZDate(currentYear['left'], currentMonth['left'] - 1, normalizedTimeZone);
             this.handleSelectedChange([date]);
         } else {
-            const dateLeft = new Date(currentYear['left'], currentMonth['left'] - 1);
-            const dateRight = new Date(currentYear['right'], currentMonth['right'] - 1);
+            const dateLeft = new TZDate(currentYear['left'], currentMonth['left'] - 1, normalizedTimeZone);
+            const dateRight = new TZDate(currentYear['right'], currentMonth['right'] - 1, normalizedTimeZone);
 
             this.handleSelectedChange([dateLeft, dateRight]);
 
@@ -1063,7 +985,6 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
     handlePresetClick(item: PresetType, e: any) {
         const { type, timeZone } = this.getProps();
-        const prevTimeZone = this.getState('prevTimezone');
         const start = typeof item.start === 'function' ? item.start() : item.start;
         const end = typeof item.end === 'function' ? item.end() : item.end;
 
@@ -1072,12 +993,12 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
             case 'month':
             case 'dateTime':
             case 'date':
-                value = this.parseWithTimezone([start], timeZone, prevTimeZone);
+                value = this._parseValue({ value: [start], timeZone });
                 this.handleSelectedChange(value);
                 break;
             case 'dateTimeRange':
             case 'dateRange':
-                value = this.parseWithTimezone([start, end], timeZone, prevTimeZone);
+                value = this._parseValue({ value: [start, end], timeZone });
                 this.handleSelectedChange(value, { needCheckFocusRecord: false });
                 break;
             default:
@@ -1088,39 +1009,13 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
     /**
      * 根据 type 处理 onChange 返回的参数
-     *
-     *  - 返回的日期需要把用户时间转换为设置的时区时间
-     *      - 用户时间：用户计算机系统时间
-     *      - 时区时间：通过 ConfigProvider 设置的 timeZone
-     *  - 例子：用户设置时区为+9，计算机所在时区为+8区，然后用户选择了22:00
-     *      - DatePicker 内部保存日期 state 为 +8 的 22:00 => a = new Date("2021-05-25 22:00:00")
-     *      - 传出去时，需要把 +8 的 22:00 => +9 的 22:00 => b = zonedTimeToUtc(a, "+09:00");
-     *
-     * According to the type processing onChange returned parameters
-     *
-     *   - the returned date needs to convert the user time to the set time zone time
-     *       - user time: user computer system time
-     *       - time zone time: timeZone set by ConfigProvider
-     *   - example: the user sets the time zone to + 9, the computer's time zone is + 8 zone, and then the user selects 22:00
-     *       - DatePicker internal save date state is + 8 22:00 = > a = new Date ("2021-05-25 22:00:00")
-     *       - when passed out, you need to + 8 22:00 = > + 9 22:00 = > b = zonedTimeToUtc (a, "+ 09:00");
-     *
-     *  e.g.
-     *  let a = new Date ("2021-05-25 22:00:00");
-     *       = > Tue May 25 2021 22:00:00 GMT + 0800 (China Standard Time)
-     *  let b = zonedTimeToUtc (a, "+ 09:00");
-     *       = > Tue May 25 2021 21:00:00 GMT + 0800 (China Standard Time)
-     *
-     * @param {Date|Date[]} value
-     * @return {{ notifyDate: Date|Date[], notifyValue: string|string[]}}
+     * 
+     * 需返回 UTC Date
      */
-    disposeCallbackArgs(value: Date | Date[]) {
-        let _value = Array.isArray(value) ? value : (value && [value]) || [];
-        const timeZone = this.getProp('timeZone');
+    disposeCallbackArgs(value: TZDate | TZDate[]) {
+        const tzValue = Array.isArray(value) ? value : (value && [value]) || [];
+        const exposeValue = tzValue.map(date => TZDateUtil.expose(date));
 
-        if (isValidTimeZone(timeZone)) {
-            _value = _value.map(date => zonedTimeToUtc(date, timeZone));
-        }
         const type = this.getProp('type');
         const formatToken = this.getProp('format') || getDefaultFormatTokenByType(type);
 
@@ -1131,18 +1026,18 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
             case 'dateTime':
             case 'month':
                 if (!this._isMultiple()) {
-                    notifyValue = _value[0] && this.localeFormat(_value[0], formatToken);
-                    [notifyDate] = _value;
+                    notifyValue = tzValue[0] && this._formatSingle({ date: tzValue[0], formatToken });
+                    [notifyDate] = exposeValue;
                 } else {
-                    notifyValue = _value.map(v => v && this.localeFormat(v, formatToken));
-                    notifyDate = [..._value];
+                    notifyValue = tzValue.map(v => v && this._formatSingle({ date: tzValue[0], formatToken }));
+                    notifyDate = [...exposeValue];
                 }
                 break;
             case 'dateRange':
             case 'dateTimeRange':
             case 'monthRange':
-                notifyValue = _value.map(v => v && this.localeFormat(v, formatToken));
-                notifyDate = [..._value];
+                notifyValue = tzValue.map(v => v && this._formatSingle({ date: tzValue[0], formatToken }));
+                notifyDate = [...exposeValue];
                 break;
             default:
                 break;
@@ -1156,9 +1051,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
     /**
      * Notice: Check whether the date is the same as the state value before calling
-     * @param {Date[]} value
      */
-    _notifyChange(value: Date[]) {
+    _notifyChange(value: TZDate[]) {
         if (this._isRangeType() && !this._isRangeValueComplete(value)) {
             return;
         }
@@ -1174,7 +1068,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     /**
      * Get the date changed through the date panel or enter
      */
-    _getChangedDates(dates: Date[]) {
+    _getChangedDates(dates: TZDate[]) {
         const type = this._adapter.getProp('type');
         const { cachedSelectedValue: lastDate } = this._adapter.getStates();
         const changedDates = [];
@@ -1208,19 +1102,19 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * @param value The date that needs to be judged whether to disable
      * @param selectedValue Selected date, when selecting a range, pass this date to the second parameter of `disabledDate`
      */
-    _someDateDisabled(value: Date[], selectedValue: Date[]) {
+    _someDateDisabled(value: TZDate[], selectedValue: TZDate[]) {
         const { rangeInputFocus } = this.getStates();
         const disabledOptions = { rangeStart: '', rangeEnd: '', rangeInputFocus };
 
         // DisabledDate needs to pass the second parameter
         if (this._isRangeType() && Array.isArray(selectedValue)) {
             if (isValid(selectedValue[0])) {
-                const rangeStart = format(selectedValue[0], 'yyyy-MM-dd');
+                const rangeStart = this._formatSingle({ date: selectedValue[0], formatToken: 'yyyy-MM-dd' });
                 disabledOptions.rangeStart = rangeStart;
             }
 
             if (isValid(selectedValue[1])) {
-                const rangeEnd = format(selectedValue[1], 'yyyy-MM-dd');
+                const rangeEnd = this._formatSingle({ date: selectedValue[1], formatToken: 'yyyy-MM-dd' });
                 disabledOptions.rangeEnd = rangeEnd;
             }
         }
@@ -1236,16 +1130,16 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         return isSomeDateDisabled;
     }
 
-
     /**
      * Format locale date
      * locale get from LocaleProvider
-     * @param {Date} date
-     * @param {String} token
      */
-    localeFormat(date: Date, token: string) {
-        const dateFnsLocale = this._adapter.getProp('dateFnsLocale');
-        return format(date, token, { locale: dateFnsLocale });
+    _formatSingle(options: { date: TZDate; formatToken?: string; locale?: Locale }) {
+        const { date } = options;
+        const { dateFnsLocale, format } = this._adapter.getProps();
+        const currentToken = options.formatToken ?? format;
+        const currentLocale = options.locale ?? dateFnsLocale;
+        return TZDateUtil.format({ date, formatToken: currentToken, locale: currentLocale });
     }
 
     _isRangeType = () => {
@@ -1253,7 +1147,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         return /range/i.test(type);
     };
 
-    _isRangeValueComplete = (value: Date[] | Date) => {
+    _isRangeValueComplete = (value: TZDate[] | TZDate) => {
         let result = false;
         if (Array.isArray(value)) {
             result = !value.some(date => isNullOrUndefined(date));
@@ -1266,11 +1160,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * Before passing the date to the user, you need to convert the date to UTC time
      * dispose date from computer date to utc date
      * When given timeZone prop, you should convert computer date to utc date before passing to user
-     * @param {(date: Date) => Boolean} fn
-     * @param {Date|Date[]} date
-     * @returns {Boolean}
      */
-    disposeDateFn(fn: (date: Date, ...rest: any) => boolean, date: Date | Date[], ...rest: any[]) {
+    disposeDateFn(fn: (date: Date, ...rest: any) => boolean, date: TZDate | TZDate[], ...rest: any[]) {
         const { notifyDate } = this.disposeCallbackArgs(date);
 
         const dateIsArray = Array.isArray(date);
@@ -1289,21 +1180,17 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     /**
      * Determine whether the date is disabled
      * Whether the date is disabled
-     * @param {Date} date
-     * @returns {Boolean}
      */
-    disabledDisposeDate(date: Date, ...rest: any[]) {
-        const { disabledDate } = this.getProps();
+    disabledDisposeDate(date: TZDate, ...rest: any[]) {
+        const { disabledDate } = this._adapter.getProps();
         return this.disposeDateFn(disabledDate, date, ...rest);
     }
 
     /**
      * Determine whether the date is disabled
      * Whether the date time is disabled
-     * @param {Date|Date[]} date
-     * @returns {Object}
      */
-    disabledDisposeTime(date: Date | Date[], ...rest: any[]) {
+    disabledDisposeTime(date: TZDate | TZDate[], ...rest: any[]) {
         const { disabledTime } = this.getProps();
         return this.disposeDateFn(disabledTime, date, ...rest);
     }

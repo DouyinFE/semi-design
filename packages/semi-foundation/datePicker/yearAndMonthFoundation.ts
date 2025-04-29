@@ -5,6 +5,7 @@ import { ArrayElement } from '../utils/type';
 import { strings } from './constants';
 import { PanelType } from './monthsGridFoundation';
 import copy from 'fast-copy';
+import { TZDate } from '@date-fns/tz';
 
 type Type = ArrayElement<typeof strings.TYPE_SET>;
 
@@ -18,7 +19,7 @@ export interface YearAndMonthFoundationProps {
     monthCycled?: boolean;
     yearCycled?: boolean;
     noBackBtn?: boolean;
-    disabledDate?: (date: Date) => boolean;
+    disabledDate?: (date: TZDate) => boolean;
     density?: string;
     presetPosition?: PresetPosition;
     renderQuickControls?: any;
@@ -26,7 +27,8 @@ export interface YearAndMonthFoundationProps {
     type?: Type;
     yearAndMonthOpts?: any;
     startYear?: number;
-    endYear?: number
+    endYear?: number;
+    timeZone?: number | string
 }
 
 export interface YearAndMonthFoundationState {
@@ -118,7 +120,7 @@ export default class YearAndMonthFoundation extends BaseFoundation<YearAndMonthA
      * After selecting a year, if the currentMonth is disabled, automatically select a non-disabled month
      */
     autoSelectMonth(item: YearScrollItem, panelType: PanelType, year: { left: number; right: number }) {
-        const { disabledDate, locale } = this._adapter.getProps();
+        const { disabledDate } = this._adapter.getProps();
         const { months, currentMonth } = this._adapter.getStates();
 
         const oppositeType = panelType === strings.PANEL_TYPE_LEFT ? 'right' : 'left';

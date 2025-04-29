@@ -10,9 +10,12 @@ import {
     isTimeFormatLike
 } from './utils';
 import { split, isUndefined } from 'lodash';
-import { isValid, format, getHours } from 'date-fns';
-import { utcToZonedTime, zonedTimeToUtc } from '../utils/date-fns-extra';
+import { isValid, format, getHours, Locale } from 'date-fns';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
+import { TZDate } from '@date-fns/tz';
+
+export type BaseValueType = string | number | Date | undefined;
+export type Type = 'time' | 'timeRange';
 
 export type Position =
     | 'top'
@@ -30,14 +33,75 @@ export type Position =
     | 'leftTopOver'
     | 'rightTopOver';
 
-export interface TimePickerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
+export interface TimePickerFoundationProps {
+    open?: boolean;
+    timeZone?: string | number;
+    dateFnsLocale?: Locale;
+    rangeSeparator?: string;
+    autoAdjustOverflow?: boolean;
+    autoFocus?: boolean; // TODO: autoFocus did not take effect
+    borderless?: boolean;
+    className?: string;
+    clearText?: string;
+    clearIcon?: any;
+    defaultOpen?: boolean;
+    defaultValue?: BaseValueType | BaseValueType[];
+    disabled?: boolean;
+    disabledHours?: () => number[];
+    disabledMinutes?: (selectedHour: number) => number[];
+    disabledSeconds?: (selectedHour: number, selectedMinute: number) => number[];
+    focusOnOpen?: boolean;
+    format?: string;
+    getPopupContainer?: () => HTMLElement;
+    hideDisabledOptions?: boolean;
+    hourStep?: number;
+    id?: string;
+    inputReadOnly?: boolean;
+    inputStyle?: Record<string, any>;
+    insetLabelId?: string;
+    localeCode?: string;
+    minuteStep?: number;
+    motion?: boolean;
+    placeholder?: string;
+    popupClassName?: string;
+    position?: Position;
+    prefixCls?: string;
+    preventScroll?: boolean;
+    secondStep?: number;
+    showClear?: boolean;
+    stopPropagation?: boolean;
+    triggerRender?: (props?: any) => any;
+    type?: Type;
+    use12Hours?: boolean;
+    value?: BaseValueType | BaseValueType[];
+    zIndex?: number | string;
+    onBlur?: (e: any) => void;
+    onChange?: TimePickerAdapter['notifyChange'];
+    onChangeWithDateFirst?: boolean;
+    onFocus?: (e: any) => void;
+    onOpenChange?: (open: boolean) => void
+}
+
+export interface TimePickerFoundationState {
+    open: boolean;
+    value: TZDate[];
+    inputValue: string;
+    currentSelectPanel: string | number;
+    isAM: [boolean, boolean];
+    showHour: boolean;
+    showMinute: boolean;
+    showSecond: boolean;
+    invalid: boolean
+}
+
+export interface TimePickerAdapter extends DefaultAdapter<TimePickerFoundationProps, TimePickerFoundationState> {
     togglePanel: (show: boolean) => void;
     registerClickOutSide: () => void;
     setInputValue: (inputValue: string, cb?: () => void) => void;
     unregisterClickOutSide: () => void;
     notifyOpenChange: (open: boolean) => void;
-    notifyChange(value: Date | Date[], input: string | string[]): void;
-    notifyChange(input: string | string[], value: Date | Date[]): void;
+    notifyChange(value: TZDate | TZDate[], input: string | string[]): void;
+    notifyChange(input: string | string[], value: TZDate | TZDate[]): void;
     notifyFocus: (e: any) => void;
     notifyBlur: (e: any) => void;
     isRangePicker: () => boolean
@@ -45,9 +109,9 @@ export interface TimePickerAdapter<P = Record<string, any>, S = Record<string, a
 
 // TODO: split, timePicker different components cannot share a foundation
 
-class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TimePickerAdapter<P, S>, P, S> {
+class TimePickerFoundation extends BaseFoundation<TimePickerAdapter> {
 
-    constructor(adapter: TimePickerAdapter<P, S>) {
+    constructor(adapter: TimePickerAdapter) {
         super({ ...adapter });
     }
 
@@ -113,7 +177,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             value = value ? [value] : [];
         }
 
-        const parsedValues: Date[] = [];
+        const parsedValues: TZDate[] = [];
         let invalid = false;
         (value as any[]).forEach(v => {
             const pv = parseToDate(v, formatToken, dateFnsLocale);
@@ -123,8 +187,8 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         });
 
         const isAM = [true, false];
-        parsedValues.map((item, idx)=>{
-            isAM[idx]= getHours(item) < 12;
+        parsedValues.map((item, idx) => {
+            isAM[idx] = getHours(item) < 12;
         });
 
         if (parsedValues.length === value.length) {
@@ -166,10 +230,10 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         // console.log(result, index);
         const formatToken = this.getValidFormat();
         const dateFnsLocale = this.getProp('dateFnsLocale');
-        const oldValue: Date[] = this.getState('value');
+        const { value: oldValue } = this._adapter.getStates();
         let isAM = this.getState('isAM');
 
-        const value: Date[] = transformToArray(oldValue);
+        const value: TZDate[] = transformToArray(oldValue);
         isAM = transformToArray(isAM);
 
         if (result) {
@@ -287,7 +351,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
 
         const dates = this.parseInput(input);
         const invalid = this.validateDates(dates);
-        const states: { invalid: boolean; value?: Date[] } = { invalid };
+        const states: { invalid: boolean; value?: TZDate[] } = { invalid };
         const oldValue = this.getState('value');
         let value = transformToArray(oldValue);
 
@@ -306,7 +370,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
     }
 
     /* istanbul ignore next */
-    doValidate(args: string | Array<Date>) {
+    doValidate(args: string | Array<TZDate>) {
         if (typeof args === 'string') {
             return this.validateStr(args);
         } else if (Array.isArray(args)) {
@@ -321,7 +385,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         return this.validateDates(dates);
     }
 
-    validateDates(dates: Array<Date> = []) {
+    validateDates(dates: Array<TZDate> = []) {
         let invalid = dates.some(d => isNaN(Number(d)));
 
         if (!invalid) {
@@ -358,7 +422,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         }
     }
 
-    formatValue(dates: Date[]): string {
+    formatValue(dates: TZDate[]): string {
         const validFormat = this.getValidFormat();
         const rangeSeparator = this.getProp('rangeSeparator');
         const dateFnsLocale = this.getProp('dateFnsLocale');
@@ -395,9 +459,9 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         return [];
     }
 
-    parseValue(value: string | Date | Array<string | Date> = []) {
+    parseValue(value: string | Date | Array<string | Date> = []): TZDate[] {
         const formatToken = this.getValidFormat();
-        const dateFnsLocale = this.getProp('dateFnsLocale');
+        const { dateFnsLocale, timeZone } = this._adapter.getProps();
 
         let _value = value;
         if (!Array.isArray(_value)) {
@@ -411,9 +475,9 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         return [];
     }
 
-    _notifyChange(value: Date[], inputValue: string) {
+    _notifyChange(value: TZDate[], inputValue: string) {
         let str: string | string[] = inputValue;
-        let _value: Date | Date[] = value;
+        let _value: TZDate | TZDate[] = value;
         const timeZone = this.getProp('timeZone');
         if (this._adapter.isRangePicker()) {
             const rangeSeparator = this.getProp('rangeSeparator');
@@ -440,7 +504,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         }
     }
 
-    _hasChanged(dates: Date[] = [], oldDates: Date[] = []) {
+    _hasChanged(dates: TZDate[] = [], oldDates: TZDate[] = []) {
         const formatToken = this.getValidFormat();
         const dateFnsLocale = this.getProp('dateFnsLocale');
 

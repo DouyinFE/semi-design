@@ -8,7 +8,11 @@ import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/timePicker/constants';
 import Popover, { PopoverProps } from '../popover';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
-import TimePickerFoundation, { TimePickerAdapter } from '@douyinfe/semi-foundation/timePicker/foundation';
+import TimePickerFoundation, {
+    TimePickerAdapter,
+    TimePickerFoundationProps,
+    TimePickerFoundationState,
+} from '@douyinfe/semi-foundation/timePicker/foundation';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import Combobox from './Combobox';
 import TimeInput from './TimeInput';
@@ -29,86 +33,32 @@ export interface Panel {
     panelFooter?: React.ReactNode | React.ReactNode[]
 }
 
-export type BaseValueType = string | number | Date | undefined;
-
-export type Type = 'time' | 'timeRange';
-
 export type TimePickerProps = {
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
     'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
     'aria-invalid'?: React.AriaAttributes['aria-invalid'];
     'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
     'aria-required'?: React.AriaAttributes['aria-required'];
-    autoAdjustOverflow?: boolean;
-    autoFocus?: boolean; // TODO: autoFocus did not take effect
-    borderless?: boolean;
-    className?: string;
-    clearText?: string;
     clearIcon?: React.ReactNode;
-    dateFnsLocale?: Locale['dateFnsLocale'];
-    defaultOpen?: boolean;
-    defaultValue?: BaseValueType | BaseValueType[];
-    disabled?: boolean;
-    disabledHours?: () => number[];
-    disabledMinutes?: (selectedHour: number) => number[];
-    disabledSeconds?: (selectedHour: number, selectedMinute: number) => number[];
     dropdownMargin?: PopoverProps['margin'];
-    focusOnOpen?: boolean;
-    format?: string;
-    getPopupContainer?: () => HTMLElement;
-    hideDisabledOptions?: boolean;
-    hourStep?: number;
-    id?: string;
-    inputReadOnly?: boolean;
     inputStyle?: React.CSSProperties;
     insetLabel?: React.ReactNode;
-    insetLabelId?: string;
     locale?: Locale['TimePicker'];
-    localeCode?: string;
-    minuteStep?: number;
-    motion?: boolean;
-    open?: boolean;
-    panelFooter?: React.ReactNode | React.ReactNode[];
-    panelHeader?: React.ReactNode | React.ReactNode[];
-    panels?: Panel[]; // FIXME:
-    placeholder?: string;
-    popupClassName?: string;
     popupStyle?: React.CSSProperties;
     position?: Position;
-    prefixCls?: string;
-    preventScroll?: boolean;
-    rangeSeparator?: string;
     scrollItemProps?: ScrollItemProps<any>;
-    secondStep?: number;
-    showClear?: boolean;
     size?: InputSize;
-    stopPropagation?: boolean;
     style?: React.CSSProperties;
-    timeZone?: string | number;
     triggerRender?: (props?: any) => React.ReactNode;
-    type?: Type;
-    use12Hours?: boolean;
     validateStatus?: ValidateStatus;
-    value?: BaseValueType | BaseValueType[];
-    zIndex?: number | string;
     onBlur?: React.FocusEventHandler<HTMLInputElement>;
     onChange?: TimePickerAdapter['notifyChange'];
     onChangeWithDateFirst?: boolean;
     onFocus?: React.FocusEventHandler<HTMLInputElement>;
     onOpenChange?: (open: boolean) => void
-};
+} & TimePickerFoundationProps;
 
-export interface TimePickerState {
-    open: boolean;
-    value: Date[];
-    inputValue: string;
-    currentSelectPanel: string | number;
-    isAM: [boolean, boolean];
-    showHour: boolean;
-    showMinute: boolean;
-    showSecond: boolean;
-    invalid: boolean
-}
+export interface TimePickerState extends TimePickerFoundationState { }
 
 export default class TimePicker extends BaseComponent<TimePickerProps, TimePickerState> {
     static contextType = ConfigContext;
@@ -217,7 +167,6 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
 
     clickOutSideHandler: (e: MouseEvent) => void;
 
-
     constructor(props: TimePickerProps) {
         super(props);
         const { format = strings.DEFAULT_FORMAT } = props;
@@ -231,7 +180,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
             showHour: Boolean(format.match(/HH|hh|H|h/g)),
             showMinute: Boolean(format.match(/mm/g)),
             showSecond: Boolean(format.match(/ss/g)),
-            invalid: undefined
+            invalid: undefined,
         };
 
         this.foundation = new TimePickerFoundation(this.adapter);
@@ -254,9 +203,10 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                     const panel = this.savePanelRef && this.savePanelRef.current;
                     const trigger = this.timePickerRef && this.timePickerRef.current;
                     const target = e.target as Element;
-                    const path = e.composedPath && e.composedPath() || [target];
+                    const path = (e.composedPath && e.composedPath()) || [target];
 
-                    if (!(panel && panel.contains(target)) &&
+                    if (
+                        !(panel && panel.contains(target)) &&
                         !(trigger && trigger.contains(target)) &&
                         !(path.includes(trigger) || path.includes(panel))
                     ) {
@@ -311,10 +261,8 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         this.setState({ currentSelectPanel });
     };
 
-    handlePanelChange = (
-        value: { isAM: boolean; value: string; timeStampValue: number },
-        index: number
-    ) => this.foundation.handlePanelChange(value, index);
+    handlePanelChange = (value: { isAM: boolean; value: string; timeStampValue: number }, index: number) =>
+        this.foundation.handlePanelChange(value, index);
 
     handleInput = (value: string) => this.foundation.handleInputChange(value);
 
@@ -335,9 +283,17 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
             panelProps.panelHeader = get(
                 panels,
                 index,
-                isNullOrUndefined(panelHeader) ? get(defaultHeaderMap, index, null) : Array.isArray(panelHeader) ? panelHeader[index] : panelHeader
+                isNullOrUndefined(panelHeader)
+                    ? get(defaultHeaderMap, index, null)
+                    : Array.isArray(panelHeader)
+                        ? panelHeader[index]
+                        : panelHeader
             );
-            panelProps.panelFooter = get(panels, index, Array.isArray(panelFooter) ? panelFooter[index] : panelFooter) as React.ReactNode;
+            panelProps.panelFooter = get(
+                panels,
+                index,
+                Array.isArray(panelFooter) ? panelFooter[index] : panelFooter
+            ) as React.ReactNode;
         }
 
         return panelProps;

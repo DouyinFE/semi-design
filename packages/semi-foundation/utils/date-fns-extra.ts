@@ -1,11 +1,6 @@
-import {
-    toDate,
-    format as dateFnsFormat,
-    utcToZonedTime as dateFnsUtcToZonedTime,
-    zonedTimeToUtc as dateFnsZonedTimeToUtc,
-    OptionsWithTZ
-} from 'date-fns-tz';
-import { parse as dateFnsParse } from 'date-fns';
+import { parse as dateFnsParse, Locale, format as dateFnsFormat, isValid, parseISO } from 'date-fns';
+import { tz, TZDate } from '@date-fns/tz';
+import { isNumber } from 'lodash';
 
 /**
  * Need to be IANA logo without daylight saving time
@@ -133,80 +128,98 @@ export function isValidTimezoneIANAString(timeZoneString: string) {
     }
 }
 
-/**
- *
- * @param {string | number | Date} date
- * @param {string} formatToken
- * @param {object} [options]
- * @param {string} [options.timeZone]
- * @returns {Date}
- */
-/* istanbul ignore next */
-const parse = (date: string | number | Date, formatToken: string, options?: any) => {
-    if (typeof date === 'string') {
-        date = dateFnsParse(date, formatToken, new Date(), options);
+export class TZDateUtil {
+    /**
+     * 在指定时区，以 Date.now() 创建一个 TZDate
+     */
+    static createTZDate(timeZone: string | number) {
+        const normalizedTimeZone = TZDateUtil.normalizeTimeZone(timeZone);
+        return new TZDate(Date.now(), normalizedTimeZone);
     }
-    if (options && options.timeZone != null && options.timeZone !== '') {
-        const timeZone = toIANA(options.timeZone);
-        options = { ...options, timeZone };
+    /**
+     * 将日期字符串转为 Date 对象
+     */
+    private static compatibleParse(options: {
+        date: string;
+        timeZone: string;
+        formatToken?: string;
+        baseDate?: Date;
+        locale?: Locale
+    }): Date | null {
+        let { date, formatToken, baseDate, locale, timeZone } = options;
+        let result = null;
+        if (date) {
+            if (formatToken) {
+                baseDate = baseDate || new Date();
+                result = dateFnsParse(date, formatToken, baseDate, { locale, in: tz(timeZone) });
+            }
+            if (!isValid(result)) {
+                result = parseISO(date);
+            }
+            if (!isValid(result)) {
+                result = new Date(Date.parse(date));
+            }
+            const yearInvalid = isValid(result) && String(result.getFullYear()).length > 4;
+            if (!isValid(result) || yearInvalid) {
+                result = null;
+            }
+        }
+        return result;
+    }
+    /**
+     * 将日期转为 TZDate
+     * 
+     * - timeZone：不设置默认为本地时区
+     */
+    static parse(options: { date: string | number | Date | TZDate; formatToken?: string; timeZone?: string | number; locale?: Locale }): TZDate | null {
+        const { date, timeZone } = options;
+        const normalizedTimeZone = TZDateUtil.normalizeTimeZone(timeZone);
+
+        let utcDate: Date | null = null;
+        if (TZDateUtil.isValidDate(date)) {
+            utcDate = date as Date;
+        } else if (date instanceof TZDate) {
+            utcDate = new Date(date);
+        } else if (TZDateUtil.isTimestamp(date)) {
+            utcDate = new Date(date as number);
+        } else if (typeof date === 'string') {
+            utcDate = TZDateUtil.compatibleParse({ ...options, timeZone: normalizedTimeZone, date });
+        }
+        if (!utcDate) {
+            return null;
+        }
+        return new TZDate(utcDate, normalizedTimeZone);
+    }
+    /**
+     * 将 TZDate 按照 format 格式化
+     */
+    static format(options: { date: TZDate; formatToken: string; locale?: Locale }) {
+        const { date, formatToken, locale } = options;
+        return dateFnsFormat(date, formatToken, { locale });
+    }
+    /**
+     * 将 TZDate 转为 UTC Date
+     */
+    static expose(date: TZDate): Date {
+        return new Date(date);
     }
 
-    return toDate(date, options);
-};
-
-/* istanbul ignore next */
-const format = (date: number | Date, formatToken: string, options?: any) => {
-    if (options && options.timeZone != null && options.timeZone !== '') {
-        const timeZone = toIANA(options.timeZone);
-        options = { ...options, timeZone };
-
-        date = dateFnsUtcToZonedTime(date, timeZone, options);
+    /**
+     * 将 ConfigProvider 的 timeZone 转为 IANA 时区
+     */
+    static normalizeTimeZone(timeZone?: string | number): string {
+        if (typeof timeZone !== undefined) {
+            return toIANA(timeZone);
+        } else {
+            return Intl.DateTimeFormat().resolvedOptions().timeZone;
+        }
     }
 
-    return dateFnsFormat(date, formatToken, options);
-};
+    static isValidDate(date: any) {
+        return date && Object.prototype.toString.call(date) === '[object Date]' && !isNaN(date as any);
+    }
 
-/**
- * Returns a Date which will format as the local time of any time zone from a specific UTC time
- * 
- * @example
- * ```javascript
- * import { utcToZonedTime } from 'date-fns-tz'
- * const { isoDate, timeZone } = fetchInitialValues() // 2014-06-25T10:00:00.000Z, America/New_York
- * const date = utcToZonedTime(isoDate, timeZone) // In June 10am UTC is 6am in New York (-04:00)
- * renderDatePicker(date) // 2014-06-25 06:00:00 (in the system time zone)
- * renderTimeZoneSelect(timeZone) // America/New_York
- * ```
- * 
- * @see https://github.com/marnusw/date-fns-tz#utctozonedtime
- */
-const utcToZonedTime = (date: string | number | Date, timeZone: string | number, options?: OptionsWithTZ) => dateFnsUtcToZonedTime(date, toIANA(timeZone), options);
-
-/**
- * Given a date and any time zone, returns a Date with the equivalent UTC time
- * 
- * @example
- * ```
- * import { zonedTimeToUtc } from 'date-fns-tz'
- * const date = getDatePickerValue() // e.g. 2014-06-25 10:00:00 (picked in any time zone)
- * const timeZone = getTimeZoneValue() // e.g. America/Los_Angeles
- * const utcDate = zonedTimeToUtc(date, timeZone) // In June 10am in Los Angeles is 5pm UTC
- * postToServer(utcDate.toISOString(), timeZone) // post 2014-06-25T17:00:00.000Z, America/Los_Angeles
- * ```
- * 
- * @see https://github.com/marnusw/date-fns-tz#zonedtimetoutc
- */
-const zonedTimeToUtc = (date: string | number | Date, timeZone: string | number, options?: OptionsWithTZ) => dateFnsZonedTimeToUtc(date, toIANA(timeZone), options);
-
-/**
- * return current system hour offset based on utc:
- *
- * ```
- * 8 => "GMT+08:00"
- * -9.5 => "GMT-09:30"
- * -8 => "GMT-08:00"
- * ```
- */
-const getCurrentTimeZone = () => new Date().getTimezoneOffset() / 60;
-
-export { format, parse, utcToZonedTime, zonedTimeToUtc, getCurrentTimeZone };
+    static isTimestamp(ts: any) {
+        return isNumber(ts) && TZDateUtil.isValidDate(new Date(ts));
+    }
+}
