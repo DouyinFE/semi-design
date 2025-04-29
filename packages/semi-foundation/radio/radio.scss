@@ -202,6 +202,7 @@ $inner-width: $width-icon-medium;
 
         .#{$module}-inner-checked {
             .#{$module}-inner-display {
+                color: $color-radio_checked-icon-disabled;
                 background: $color-radio_checked-bg-disabled;
                 border-color: $color-radio_checked-border-disabled;
             }
@@ -363,10 +364,12 @@ $inner-width: $width-icon-medium;
 
         .#{$module}-inner-checked {
             .#{$module}-inner-display {
+                color: $color-radio_checked-icon-disabled;
                 background: $color-radio_checked-bg-disabled;
                 border-color: $color-radio_checked-border-disabled;
 
                 &:hover {
+                    color: $color-radio_checked-icon-disabled;
                     background: $color-radio_checked-bg-disabled;
                     border-color: $color-radio_checked-border-disabled;
                 }
