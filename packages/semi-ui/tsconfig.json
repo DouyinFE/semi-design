@@ -1,32 +1,20 @@
 {
     "compilerOptions": {
-        "target": "ES2015",
-        "baseUrl": "./",
-        "outDir": "lib",
-        "sourceMap": true,
-        "allowJs": true,
-        "module": "es6",
-        "lib": ["esnext", "dom"],
-        "moduleResolution": "node",
-        "noImplicitAny": false,
-        "jsx": "react",
-        "paths": {
-            "@douyinfe/semi-foundation/*": ["../semi-foundation/*"],
-            "@douyinfe/semi-ui/*": ["../semi-ui/*"],
-            "@douyinfe/semi-theme-default/*": ["../semi-theme-default/*"],
-            "@douyinfe/semi-icons": ["../semi-icons/src"]
-        },
-        "forceConsistentCasingInFileNames": true,
-        "allowSyntheticDefaultImports": true,
-        "experimentalDecorators": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": false,
+        "target": "es5",
+        "module": "commonjs",
+        "strict": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
-        "declaration": true,
-        "strictNullChecks": false,
-        "strict": true
+        "forceConsistentCasingInFileNames": true,
+        "outDir": "./dist",
+        "rootDir": "."
     },
-    "include": ["**/*.tsx", "**/*.ts"],
-    "exclude": ["node_modules", "packages/rollup-plugin-semi-svg"]
+    "include": [
+        "utils/**/*",
+        "scripts/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
 }

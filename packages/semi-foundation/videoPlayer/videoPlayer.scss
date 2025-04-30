@@ -1,0 +1,271 @@
+@import './variables.scss';
+@import './animation.scss';
+
+$module: #{$prefix}-videoPlayer;
+
+.#{$module} {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+
+    // Hide native controls
+    ::-webkit-media-controls {
+        display: none;
+    }
+    
+    &-wrapper {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    
+    }
+
+    &-pause {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        @include all-center;
+
+        svg {
+            font-size: 88px;
+            // todo: 设计稿颜色需要对齐
+            color: var(--semi-color-default);
+        }
+    }
+
+    &-error {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        @include all-center;
+        background-color: $color-videoPlayer_error-bg;
+        color: $color-videoPlayer_error-text;
+    }
+
+    &-notification {
+        position: absolute;
+        bottom: $height-videoPlayer_controls_menu-default + $spacing-videoPlayer_notification-bottom;
+        left: $spacing-videoPlayer_notification-left;
+        text-align: center;
+        background-color: $color-videoPlayer_notification-bg;
+        color: $color-videoPlayer_notification-text;
+        padding: $spacing-videoPlayer_notification_text-paddingY $spacing-videoPlayer_notification_text-paddingX;
+        line-height: $font-videoPlayer_notification-lineHeight;
+        border-radius: $radius-videoPlayer_notification;
+        font-size: $font-videoPlayer_notification-fontSize;
+    }
+
+    &-mirror {
+        video {
+            transform: rotateX(0deg) rotateY(180deg);
+        }
+    }
+
+    &-controls {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: fit-content;
+        opacity: 1;
+        transition: opacity $animation_duration-videoPlayer_controls-show ease-in-out;
+        z-index: 1;
+
+        &-hide {
+            opacity: 0;
+        }
+
+        &-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            height: $height-videoPlayer_controls_menu-default;
+            background-color: $color-videoPlayer_controls-bg;
+            padding: $spacing-videoPlayer-controls-padding;
+
+            &-left,
+            &-right {
+                display: flex;
+                align-items: center;
+            }
+
+            &-item {
+                margin-right: $spacing-videoPlayer-controls_item-gap;
+            }
+
+            &-button {
+                svg {
+                    color: $color-videoPlayer_controls-text;
+                }
+            }
+        }
+
+        &-time {
+            color: $color-videoPlayer_controls-text;
+            font-size: $font-videoPlayer_controls_time_text-fontSize;
+            margin-right: $spacing-videoPlayer-controls_item-gap;
+            font-variant-numeric: tabular-nums; 
+        }
+
+        &-popover {
+            background-color: transparent;
+        }
+
+        &-volume {
+            box-sizing: border-box;
+            width: $width-videoPlayer_controls_volume-default;
+            height: $height-videoPlayer_controls_volume-default;
+            background-color: $color-videoPlayer_controls_item-bg;
+            color: $color-videoPlayer_controls_popup_item-text-default;
+            border-radius: $radius-videoPlayer_controls_popup;
+            padding: $spacing-videoPlayer-controls_volume_popup-paddingY $spacing-videoPlayer-controls_volume_popup-paddingX;
+            line-height: $font-videoPlayer_controls_popup_item-lineHeight;
+            font-size: $font-videoPlayer_controls_item-fontSize;
+
+            &-title {
+                padding: $spacing-videoPlayer-controls_volume_title-paddingX $spacing-videoPlayer-controls_volume_title-paddingY;
+                text-align: center;
+            }
+        }
+
+        &-popup {
+            @include all-center;
+            width: $width-videoPlayer_controls_popup_item-default;
+            height: $height-videoPlayer_controls_popup-default;
+            background-color: $color-videoPlayer_controls_item_popup-bg;
+            color: $color-videoPlayer_controls-text;
+            font-weight: $font-videoPlayer_controls_popup_item-fontWeight;
+            font-size: $font-videoPlayer_controls_item-fontSize;
+            line-height: $font-videoPlayer_controls_popup_item-lineHeight;
+            border-radius: $radius-videoPlayer_controls_item;
+
+            &-menu {
+                width: $width-videoPlayer_controls_popup-default;
+                background-color: $color-videoPlayer_controls_item_popup-bg;
+                border-radius: $radius-videoPlayer_controls_popup;
+
+                &-item {
+                    @include all-center;
+                    padding: $spacing-videoPlayer-controls_popup-paddingY $spacing-videoPlayer-controls_popup-paddingX;
+                    height: $height-videoPlayer_controls_popup_item-default;
+                    color: $color-videoPlayer_controls-text;
+                    font-size: $font-videoPlayer_controls_item-fontSize;
+                }
+
+                .#{$prefix}-dropdown-item-active {
+                    color: $color-videoPlayer_controls_popup_item-text-active;
+                    font-weight: $font-videoPlayer_controls_popup_item-fontWeight;
+                }
+            }
+        }
+
+    }
+
+    // 未播放状态下显示控制栏
+    // &:not(.#{$module}-playing) {
+    //     .#{$module}-controls {
+    //         opacity: 1;
+    //     }
+    // }
+
+    &-progress {
+
+        &-wrapper {
+            position: relative;
+            height: $height-videoPlayer_progress_bar-default;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin: $spacing-videoPlayer-progress_bar_wrapper-marginY $spacing-videoPlayer-progress_bar_wrapper-marginX;
+        }
+
+        &-markers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        &-slider {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            bottom: 0;
+            border-radius: $radius-videoPlayer_progress_bar;
+
+            &-active, &:hover {
+                .#{$module}-progress-slider-list, 
+                .#{$module}-progress-slider-played,
+                .#{$module}-progress-slider-buffered {
+                    transform: scaleY($height-videoPlayer_progress_bar-hover / $height-videoPlayer_progress_bar-default); 
+                    transform-origin: center;
+                    transition: transform $animation_duration-videoPlayer_slider-in;
+                    transition-timing-function: $animation_function-videoPlayer_slider-in;
+                }
+            }
+
+            &-list {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                background-color: $color-videoPlayer_progress_bar-bg-unplayed;
+                height: $height-videoPlayer_progress_bar-default;
+                width: calc(100% - $spacing-videoPlayer-progress_bar_chapter-marginRight);
+                margin-right: $spacing-videoPlayer-progress_bar_chapter-marginRight;
+                border-radius: $radius-videoPlayer_progress_bar;
+                transform-origin: center; 
+                transition: transform $animation_duration-videoPlayer_slider-out;
+                transition-timing-function: $animation_function-videoPlayer_slider-out;
+            }
+
+            &-played {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                background-color: $color-videoPlayer_progress_bar-bg-played;
+                height: $height-videoPlayer_progress_bar-default;
+                border-radius: $radius-videoPlayer_progress_bar;
+                transform-origin: center; 
+                transition: transform $animation_duration-videoPlayer_slider-out;
+                transition-timing-function: $animation_function-videoPlayer_slider-out;
+            }
+
+            &-buffered {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                background-color: $color-videoPlayer_progress_bar-bg-loaded;
+                height: $height-videoPlayer_progress_bar-default;
+                border-radius: $radius-videoPlayer_progress_bar;
+                transform-origin: center; 
+                transition: transform $animation_duration-videoPlayer_slider-out;
+                transition-timing-function: $animation_function-videoPlayer_slider-out;
+            }
+        }
+
+        &-handle {
+            box-sizing: border-box;
+            position: absolute;
+            width: $height-videoPlayer_progress_bar_handle;
+            height: $height-videoPlayer_progress_bar_handle;
+            background-color: $color-videoPlayer_progress_bar_handle-bg;
+            border: 1px solid $color-videoPlayer_progress_bar_handle-border;
+            box-shadow: 0px 0px 4px 0px $color-videoPlayer_progress_bar_handle-shadow;
+            border-radius: $radius-videoPlayer_progress_bar_handle;
+        }
+        
+    }
+} 
