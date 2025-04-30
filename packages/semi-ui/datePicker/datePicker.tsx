@@ -25,6 +25,8 @@ import Footer from './footer';
 import Trigger from '../trigger';
 import YearAndMonth, { YearAndMonthProps } from './yearAndMonth';
 import '@douyinfe/semi-foundation/datePicker/datePicker.scss';
+import { TZDate } from '@date-fns/tz';
+
 import { Locale } from '../locale/interface';
 import { TimePickerProps } from '../timePicker/TimePicker';
 import { ScrollItemProps } from '../scrollList/scrollItem';
@@ -566,7 +568,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     }
 
     renderDateInput() {
-        const { insetInput, dateFnsLocale, density, type, format, rangeSeparator, defaultPickerValue } = this.props;
+        const { insetInput, dateFnsLocale, density, type, format, rangeSeparator, defaultPickerValue, timeZone } = this.props;
         const { insetInputValue, value } = this.state;
 
         const props = {
@@ -575,14 +577,15 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             insetInputValue,
             rangeSeparator,
             type,
-            value: value as Date[],
+            value: value as TZDate[],
             handleInsetDateFocus: this.handleInsetDateFocus,
             handleInsetTimeFocus: this.handleInsetTimeFocus,
             onInsetInputChange: this.handleInsetInputChange,
             rangeInputStartRef: this.rangeInputStartRef,
             rangeInputEndRef: this.rangeInputEndRef,
             density,
-            defaultPickerValue
+            defaultPickerValue,
+            timeZone
         };
 
         return insetInput ? <DateInput {...props} insetInput={insetInput} /> : null;
@@ -672,7 +675,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             clearIcon,
             disabled: inputDisabled,
             inputValue,
-            value: value as Date[],
+            value: value as TZDate[],
             defaultPickerValue,
             onChange: this.handleInputChange,
             onEnterPress: this.handleInputComplete,
@@ -797,7 +800,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     renderYearMonthPanel = (locale: Locale['DatePicker'], localeCode: string) => {
-        const { density, presetPosition, yearAndMonthOpts, type, startYear, endYear } = this.props;
+        const { density, presetPosition, yearAndMonthOpts, type, startYear, endYear, timeZone } = this.props;
 
         const date = this.state.value[0];
         const year = { left: 0, right: 0 };
@@ -834,6 +837,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 yearAndMonthOpts={yearAndMonthOpts}
                 startYear={startYear}
                 endYear={endYear}
+                timeZone={timeZone}
             />
         );
     };

@@ -12,6 +12,7 @@ import getDefaultPickerDate from './_utils/getDefaultPickerDate';
 import { compatibleParse } from './_utils/parser';
 import { isValidDate } from './_utils';
 import copy from 'fast-copy';
+import { TZDate } from '@date-fns/tz';
 
 const KEY_CODE_ENTER = 'Enter';
 const KEY_CODE_TAB = 'Tab';
@@ -51,7 +52,7 @@ export interface InsetInputProps {
 
 export interface DateInputFoundationProps extends DateInputElementProps, DateInputEventHandlerProps {
     [x: string]: any;
-    value?: Date[];
+    value?: TZDate[];
     disabled?: boolean;
     type?: Type;
     showClear?: boolean;
@@ -65,7 +66,8 @@ export interface DateInputFoundationProps extends DateInputElementProps, DateInp
     insetInput?: boolean | InsetInputProps;
     insetInputValue?: InsetInputValue;
     density?: typeof strings.DENSITY_SET[number];
-    defaultPickerValue?: ValueType
+    defaultPickerValue?: ValueType;
+    timeZone?: string | number
 }
 
 export interface InsetInputValue {
@@ -202,9 +204,9 @@ export default class InputFoundation extends BaseFoundation<DateInputAdapter> {
 
     _autoFillTimeToInsetInputValue(options: { insetInputValue: InsetInputValue; format: string; valuePath: string}) {
         const { valuePath, insetInputValue, format } = options;
-        const { type, defaultPickerValue, dateFnsLocale } = this._adapter.getProps();
+        const { type, defaultPickerValue, dateFnsLocale, timeZone } = this._adapter.getProps();
         const insetInputValueWithTime = copy(insetInputValue);
-        const { nowDate, nextDate } = getDefaultPickerDate({ defaultPickerValue, format, dateFnsLocale });
+        const { nowDate, nextDate } = getDefaultPickerDate({ defaultPickerValue, format, dateFnsLocale, timeZone });
 
         if (type.includes('Time')) {
             let timeStr = '';

@@ -18,6 +18,7 @@ import { noop } from '@douyinfe/semi-foundation/utils/function';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import { IconCalendar, IconCalendarClock, IconClear } from '@douyinfe/semi-icons';
 import { BaseValueType, ValueType } from '@douyinfe/semi-foundation/datePicker/foundation';
+import { TZDate } from '@date-fns/tz';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import Input from '../input/index';
@@ -33,11 +34,12 @@ export interface DateInputProps extends DateInputFoundationProps, BaseProps {
     onFocus?: (e: React.MouseEvent<HTMLInputElement>, rangeType?: RangeType) => void;
     onClear?: (e: React.MouseEvent<HTMLDivElement>) => void;
     onInsetInputChange?: (options: InsetInputChangeProps) => void;
-    value?: Date[];
+    value?: TZDate[];
     inputRef?: React.RefObject<HTMLInputElement>;
     rangeInputStartRef?: React.RefObject<HTMLInputElement>;
     rangeInputEndRef?: React.RefObject<HTMLInputElement>;
-    showClearIgnoreDisabled?: boolean
+    showClearIgnoreDisabled?: boolean;
+    timeZone?: string | number
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -75,6 +77,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             PropTypes.object,
             PropTypes.array,
         ]),
+        timeZone: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     };
 
     static defaultProps = {

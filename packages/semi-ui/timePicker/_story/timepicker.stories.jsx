@@ -7,6 +7,8 @@ import { get } from 'lodash';
 import Callbacks from './Callbacks';
 import CustomTrigger from './CustomTrigger';
 import DisabledTime from './DisabledTime';
+import TimeZone from './TimeZone';
+import WithoutTimeZone from './WithoutTimeZone';
 
 let TimePicker;
 
@@ -20,7 +22,9 @@ export default {
 export {
   Callbacks,
   CustomTrigger,
-  DisabledTime
+  DisabledTime,
+  TimeZone,
+  WithoutTimeZone
 }
 
 // auto add scrollItemProps.cycled = false, prevent waiting indefinitely in snapshot testing

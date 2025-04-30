@@ -7,6 +7,7 @@ import RTLForm from './RTLDirection/RTLForm';
 import ConfigContext from '../context';
 import { Button, ConfigProvider, Select, Tooltip, } from '../../index';
 import semiGlobal from "../../_utils/semi-global";
+import FixTimeZoneDST from './FixTimeZoneDST';
 
 export default {
     title: 'ConfigProvider',
@@ -15,7 +16,7 @@ export default {
     },
 };
 
-export { ChangeTimeZone, GetContainer };
+export { ChangeTimeZone, GetContainer, FixTimeZoneDST };
 
 export const RTLTableDemo = () => (
     <RTLWrapper>

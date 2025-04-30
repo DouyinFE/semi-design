@@ -112,7 +112,7 @@ module.exports = {
             '@douyinfe/semi-animation-styled': resolve('packages/semi-animation-styled'),
             '@douyinfe/semi-json-viewer-core': resolve('packages/semi-json-viewer-core/src'),
         };
-        config.devtool = 'source-map';
+        config.devtool = 'eval-source-map';
         // config.output.publicPath = "/storybook/"
 
         return config;

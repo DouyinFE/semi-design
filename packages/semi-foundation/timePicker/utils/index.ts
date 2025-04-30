@@ -41,14 +41,6 @@ export const parseToDate = (input: string | Date | number, formatToken = strings
  */
 export const parseToTimestamp = (input: string | Date | number, formatToken = strings.DEFAULT_FORMAT, dateFnsLocale = defaultLocale) => Number(parseToDate(input, formatToken, dateFnsLocale));
 
-/**
- *
- * @param {Date|number} dateOrTimestamp
- * @param {string} formatToken
- * @returns {string}
- */
-export const formatToString = (dateOrTimestamp: Date | number, formatToken = strings.DEFAULT_FORMAT, dateFnsLocale = defaultLocale) => format(dateOrTimestamp, formatToken, { locale: dateFnsLocale });
-
 export const hourIsDisabled = (disabledHours: () => boolean, hour: number) => {
     if (typeof disabledHours === 'function') {
         const disabledOptions = disabledHours();

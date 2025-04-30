@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { DatePicker, ConfigProvider, Select } from '@douyinfe/semi-ui';
 import * as _ from 'lodash';
 import * as dateFns from 'date-fns';
-import { utcToZonedTime } from 'date-fns-tz';
+// import { utcToZonedTime } from 'date-fns-tz';
 
 const { Option } = Select;
 
@@ -165,7 +165,7 @@ function Demo() {
                             console.log('selected', date);
                         }}
                     />
-                    <DatePicker
+                    {/* <DatePicker
                         type="dateTime"
                         disabledTime={str => {
                             const date = new Date(str);
@@ -178,7 +178,7 @@ function Demo() {
                         onChange={date => {
                             console.log('selected', date);
                         }}
-                    />
+                    /> */}
                 </div>
             </ConfigProvider>
         </div>

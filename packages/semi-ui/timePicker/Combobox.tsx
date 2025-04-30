@@ -2,34 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { format as dateFnsFormat } from 'date-fns';
 import { noop } from 'lodash';
+import { TZDate } from '@date-fns/tz';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { strings } from '@douyinfe/semi-foundation/timePicker/constants';
 import ScrollList from '../scrollList/index';
 import ScrollItem from '../scrollList/scrollItem';
-import ComboboxFoundation, { formatOption } from '@douyinfe/semi-foundation/timePicker/ComboxFoundation';
+import ComboboxFoundation, {
+    ComboboxFoundationProps,
+    formatOption,
+} from '@douyinfe/semi-foundation/timePicker/ComboxFoundation';
 import LocaleConsumer from '../locale/localeConsumer';
 import { TimePickerProps } from './TimePicker';
 import { Locale } from '../locale/interface';
 
-
-export type ComboboxProps = Pick<TimePickerProps, 'format' | 'prefixCls' | 'disabledHours' |
-'disabledMinutes' |
-'disabledSeconds' |
-'hideDisabledOptions' |
-'use12Hours' |
-'scrollItemProps' |
-'panelFooter' |
-'panelHeader'> & BaseProps & {
-    defaultOpenValue?: TimePickerProps['value'];
-    showHour?: boolean;
-    showMinute?: boolean;
-    showSecond?: boolean;
-    onChange?: (value: { isAM: boolean; value: string; timeStampValue: number }) => void;
-    onCurrentSelectPanelChange?: (range: string) => void;
-    isAM?: boolean;
-    timeStampValue?: any
-};
+export interface ComboboxProps
+    extends ComboboxFoundationProps, BaseProps,
+    Pick<TimePickerProps, 'prefixCls' | 'scrollItemProps' | 'panelFooter' | 'panelHeader'> { }
 
 export interface ComboboxState {
     showHour: boolean;
@@ -62,7 +51,7 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
         onCurrentSelectPanelChange: PropTypes.func,
         use12Hours: PropTypes.bool,
         isAM: PropTypes.bool,
-        timeStampValue: PropTypes.any,
+        timeStampValue: PropTypes.object,
         scrollItemProps: PropTypes.object,
     };
 
@@ -175,8 +164,7 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
         }
         const disabledOptions = disabledHours();
 
-        let hourOptionsAdj,
-            hourAdj;
+        let hourOptionsAdj, hourAdj;
         if (use12Hours) {
             hourOptionsAdj = [12].concat(hourOptions.filter(h => h < 12 && h > 0));
             hourAdj = hour % 12 || 12;
@@ -300,7 +288,8 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
         );
     }
 
-    getDisplayDateFromTimeStamp = (timeStampValue: Date | string) => this.foundation.getDisplayDateFromTimeStamp(timeStampValue);
+    getDisplayDateFromTimeStamp = (timeStampValue: TZDate) =>
+        this.foundation.getDisplayDateFromTimeStamp(timeStampValue);
 
     render() {
         const { timeStampValue, panelHeader, panelFooter } = this.props;

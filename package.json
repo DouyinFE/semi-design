@@ -67,7 +67,7 @@
         "cross-env": "^5.2.1",
         "css": "^2.2.4",
         "cypress-real-events": "^1.8.1",
-        "date-fns": "^2.23.0",
+        "date-fns": "^4.1.0",
         "debug": "^4.3.2",
         "execa": "5",
         "fast-xml-parser": "^4.2.7",
@@ -231,7 +231,8 @@
         "@types/react": "^18.0.5",
         "@types/react-dom": "^18.0.1",
         "babel-plugin-lodash/@babel/types": "~7.20.0",
-        "cheerio": "1.0.0-rc.12"
+        "cheerio": "1.0.0-rc.12",
+        "@douyinfe/semi-site-banner/**/@douyinfe/semi-ui": "*"
     },
     "lint-staged": {
         "src/**/*.{js,jsx,ts,tsx}": [

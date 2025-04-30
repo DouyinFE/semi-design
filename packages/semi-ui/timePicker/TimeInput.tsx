@@ -12,7 +12,6 @@ import { TimePickerProps } from './TimePicker';
 
 
 export type TimeInputProps = Pick<TimePickerProps,
-'value' |
 'format' |
 'prefixCls' |
 'placeholder' |
@@ -20,7 +19,7 @@ export type TimeInputProps = Pick<TimePickerProps,
 'inputReadOnly' |
 'disabled' |
 'type' |
-'timeZone' | 
+'timeZone' |
 'defaultOpen' |
 'disabledHours' |
 'disabledMinutes' |
@@ -33,7 +32,7 @@ export type TimeInputProps = Pick<TimePickerProps,
 'localeCode' |
 'insetLabel' |
 'validateStatus' |
-'borderless'|
+'borderless' |
 'preventScroll'> & BaseProps & {
     onChange?: (value: string) => void;
     onEsc?: () => void;
@@ -41,7 +40,8 @@ export type TimeInputProps = Pick<TimePickerProps,
     defaultOpenValue?: boolean;
     currentSelectPanel?: string;
     timeStampValue?: any;
-    invalid?: boolean
+    invalid?: boolean;
+    value?: string
 };
 
 class TimeInput extends BaseComponent<TimeInputProps, any> {
@@ -186,7 +186,7 @@ class TimeInput extends BaseComponent<TimeInputProps, any> {
                 hideSuffix
                 className={inputCls}
                 ref={this.setRef as any}
-                value={value as any}
+                value={value}
                 placeholder={placeholder || locale.placeholder[type]}
                 readonly={Boolean(inputReadOnly)}
                 onChange={this.handleChange}

@@ -2,6 +2,7 @@
  *
  * @param {string} month
  */
+import { TZDate } from '@date-fns/tz';
 import {
     startOfMonth,
     lastDayOfMonth,
@@ -68,7 +69,7 @@ function getWeeks(date: Date, weekStartsOn: WeekStartNumber = 0) {
     return weeks;
 }
 
-const getMonthTable = (month: Date, weekStartsOn: WeekStartNumber) => {
+const getMonthTable = (month: TZDate, weekStartsOn: WeekStartNumber) => {
     const weeks = getWeeks(month, weekStartsOn);
     const monthText = format(month, 'yyyy-MM');
     return { monthText, weeks, month };

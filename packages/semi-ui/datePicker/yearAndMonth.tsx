@@ -15,6 +15,7 @@ import { setYear, setMonth, set } from 'date-fns';
 import { Locale } from '../locale/interface';
 import { strings } from '@douyinfe/semi-foundation/datePicker/constants';
 import { PanelType } from '@douyinfe/semi-foundation/datePicker/monthsGridFoundation';
+import { TZDateUtil } from '@douyinfe/semi-foundation/utils/date-fns-extra';
 
 
 const prefixCls = `${BASE_CLASS_PREFIX}-datepicker`;
@@ -43,6 +44,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
         type: PropTypes.oneOf(strings.TYPE_SET),
         startYear: PropTypes.number,
         endYear: PropTypes.number,
+        timeZone: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     };
 
     static defaultProps = {
@@ -59,11 +61,9 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
 
     constructor(props: YearAndMonthProps) {
         super(props);
-        const now = new Date();
+        let { currentYear, currentMonth, timeZone } = props;
 
-        let { currentYear, currentMonth } = props;
-
-        const { year, month } = getYearAndMonth(currentYear, currentMonth);
+        const { year, month } = getYearAndMonth(currentYear, currentMonth, timeZone);
 
         this.state = {
             years: getYears(props.startYear, props.endYear).map(year => ({
@@ -114,7 +114,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
 
     static getDerivedStateFromProps(props: YearAndMonthProps, state: YearAndMonthState) {
         const willUpdateStates: Partial<YearAndMonthState> = {};
-        const { year, month } = getYearAndMonth(props.currentYear, props.currentMonth);
+        const { year, month } = getYearAndMonth(props.currentYear, props.currentMonth, props.timeZone);
 
         if (!isEqual(props.currentYear, state.currentYear)) {
             willUpdateStates.currentYear = year;
@@ -129,8 +129,9 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
 
     renderColYear(panelType: PanelType) {
         const { years, currentYear, currentMonth, months } = this.state;
-        const { disabledDate, localeCode, yearCycled, yearAndMonthOpts } = this.props;
-        const currentDate = setMonth(Date.now(), currentMonth[panelType] - 1);
+        const { disabledDate, localeCode, yearCycled, yearAndMonthOpts, timeZone } = this.props;
+        const now = TZDateUtil.createTZDate(timeZone);
+        const currentDate = setMonth(now, currentMonth[panelType] - 1);
         const left = strings.PANEL_TYPE_LEFT;
         const right = strings.PANEL_TYPE_RIGHT;
 
@@ -194,9 +195,10 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
 
     renderColMonth(panelType: PanelType) {
         const { months, currentMonth, currentYear } = this.state;
-        const { locale, localeCode, monthCycled, disabledDate, yearAndMonthOpts } = this.props;
+        const { locale, localeCode, monthCycled, disabledDate, yearAndMonthOpts, timeZone } = this.props;
         let transform = (val: string) => val;
-        const currentDate = setYear(Date.now(), currentYear[panelType]);
+        const now = TZDateUtil.createTZDate(timeZone);
+        const currentDate = setYear(now, currentYear[panelType]);
         const left = strings.PANEL_TYPE_LEFT;
         const right = strings.PANEL_TYPE_RIGHT;
 

@@ -4,10 +4,11 @@ import getMonthTable, { WeekStartNumber } from './_utils/getMonthTable';
 import getDayOfWeek from './_utils/getDayOfWeek';
 import { format } from 'date-fns';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
+import { TZDate } from '@date-fns/tz';
 
 export interface MonthFoundationProps {
     forwardRef: any;
-    month: Date;
+    month: TZDate;
     selected: Set<string>;
     rangeStart: string;
     rangeEnd: string;
@@ -16,7 +17,7 @@ export interface MonthFoundationProps {
     onDayClick: (day: MonthDayInfo) => void;
     onDayHover: (day: MonthDayInfo) => void;
     weekStartsOn: WeekStartNumber;
-    disabledDate: (day: Date, options?: { rangeStart: string; rangeEnd: string }) => boolean;
+    disabledDate: (day: TZDate, options?: { rangeStart: string; rangeEnd: string }) => boolean;
     weeksRowNum: number;
     onWeeksRowNumChange: (weeksRowNum: number) => void;
     renderDate: () => void;
@@ -28,7 +29,8 @@ export interface MonthFoundationProps {
     focusRecordsRef: any;
     locale: any;
     localeCode: string;
-    multiple: boolean
+    multiple: boolean;
+    timeZone?: string | number
 }
 
 export type MonthDayInfo = {
@@ -44,7 +46,7 @@ export type MonthDayInfo = {
 export interface MonthInfo {
     weeks: Array<MonthDayInfo[]>;
     monthText: string ;
-    month?: Date
+    month?: TZDate
 }
 
 export interface MonthFoundationState {
@@ -82,18 +84,18 @@ export default class CalendarMonthFoundation extends BaseFoundation<MonthAdapter
     }
 
     _getToday() {
-        const today = new Date();
+        const { timeZone } = this._adapter.getProps();
+        const today = new TZDate(timeZone);
         const todayText = format(today, 'yyyy-MM-dd');
 
         this._adapter.updateToday(todayText);
     }
 
     getMonthTable() {
-        const month: Date = this._adapter.getProp('month');
-        const weeksRowNum = this.getState('weeksRowNum');
+        const { month, weekStartsOn } = this._adapter.getProps();
+        const { weeksRowNum } = this._adapter.getStates();
         if (month) {
             this.updateWeekDays();
-            const weekStartsOn: WeekStartNumber = this._adapter.getProp('weekStartsOn');
             const monthTable = getMonthTable(month, weekStartsOn);
             const { weeks } = monthTable;
             this._adapter.updateMonthTable(monthTable);
@@ -109,7 +111,7 @@ export default class CalendarMonthFoundation extends BaseFoundation<MonthAdapter
     }
 
     updateWeekDays() {
-        const weekStartsOn = this._adapter.getProp('weekStartsOn');
+        const { weekStartsOn } = this._adapter.getProps();
         const weekdays = getDayOfWeek({ weekStartsOn });
         this._adapter.setWeekDays(weekdays);
     }

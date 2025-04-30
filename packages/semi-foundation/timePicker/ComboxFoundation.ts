@@ -1,7 +1,11 @@
+import { TZDate } from '@date-fns/tz';
+
 import { strings } from './constants';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { isValidDate } from '../datePicker/_utils/index';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
+import { TZDateUtil } from '../utils/date-fns-extra';
+import { TimePickerFoundationProps } from './foundation';
 
 const HOUR = 1000 * 60 * 60;
 const DAY = 24 * HOUR;
@@ -33,9 +37,43 @@ function generateOptions(length: number, disabledOptions: number[], hideDisabled
     return arr;
 }
 
-class ComboboxFoundation extends BaseFoundation<DefaultAdapter> {
+export interface ComboboxFoundationProps extends Pick<
+TimePickerFoundationProps,
+| 'format'
+| 'disabledHours'
+| 'disabledMinutes'
+| 'disabledSeconds'
+| 'hideDisabledOptions'
+| 'use12Hours'
+| 'timeZone'
+| 'hourStep'
+| 'minuteStep'
+| 'secondStep'
+| 'position'
+| 'type'
+> {
+    defaultOpenValue?: TimePickerFoundationProps['value'];
+    showHour?: boolean;
+    showMinute?: boolean;
+    showSecond?: boolean;
+    onChange?: (value: { isAM: boolean; value: string; timeStampValue: number }) => void;
+    onCurrentSelectPanelChange?: (range: string) => void;
+    isAM?: boolean;
+    timeStampValue?: TZDate
+}
 
-    constructor(adapter: DefaultAdapter) {
+export interface ComboboxFoundationState {
+    showHour: boolean;
+    showMinute: boolean;
+    showSecond: boolean;
+    hourOptions: number[];
+    minuteOptions: number[];
+    secondOptions: number[]
+}
+
+class ComboboxFoundation extends BaseFoundation<DefaultAdapter<ComboboxFoundationProps, ComboboxFoundationState>> {
+
+    constructor(adapter: DefaultAdapter<ComboboxFoundationProps, ComboboxFoundationState>) {
         super({ ...adapter });
     }
 
@@ -52,7 +90,7 @@ class ComboboxFoundation extends BaseFoundation<DefaultAdapter> {
             hideDisabledOptions,
             minuteStep,
             secondStep,
-        } = this.getProps();
+        } = this._adapter.getProps();
 
         const format = this.getValidFormat();
 
@@ -130,23 +168,32 @@ class ComboboxFoundation extends BaseFoundation<DefaultAdapter> {
      * from 13-bit timestamp  -> get display date
      * by combobox use
      */
-    getDisplayDateFromTimeStamp(timeStamp: Date | string) {
-        let date;
+    getDisplayDateFromTimeStamp(timeStamp: TZDate): TZDate {
+        const timeZone = this._getTimeZone();
+        let date: TZDate;
         if (timeStamp) {
-            date = new Date(timeStamp);
+            date = new TZDate(timeStamp, timeZone);
         }
         if (!timeStamp || !isValidDate(date)) {
             return this.createDateDefault();
         }
         return date;
     }
+
+    _getTimeZone(_timeZone?: string | number) {
+        const { timeZone } = this._adapter.getProps();
+        const currentTimeZone = _timeZone ?? timeZone;
+        const normalizedTimeZone = TZDateUtil.normalizeTimeZone(currentTimeZone);
+        return normalizedTimeZone;
+    }
+
     /**
      * create a date at 00:00:00
      */
-
     createDateDefault() {
-        const now = new Date();
-        return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const timeZone = this._getTimeZone();
+        const now = TZDateUtil.createTZDate(timeZone);
+        return new TZDate(now.getFullYear(), now.getMonth(), now.getDate(), timeZone);
     }
 }
 
