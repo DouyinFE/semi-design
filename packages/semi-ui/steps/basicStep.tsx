@@ -104,13 +104,14 @@ const BasicStep = (props: BasicStepProps) => {
             onChange?.();
         }
     };
+    const titleNoText = !title && title !== 0;
     return (
         <div role={props["role"]} aria-label={props["aria-label"]} tabIndex={0} aria-current="step"
             className={classString} style={style} onClick={e => handleClick(e)} onKeyDown={handleKeyDown}>
             <div className={`${prefixCls}-container`}>
                 <div className={`${prefixCls}-left`}>{renderIcon()}</div>
                 <div className={`${prefixCls}-content`}>
-                    <div className={`${prefixCls}-title`}>
+                    <div className={classnames(`${prefixCls}-title`, { [`${prefixCls}-title-has-no-title`]: titleNoText })}>
                         <div className={`${prefixCls}-title-text`}>{title}</div>
                     </div>
                     {description && <div className={`${prefixCls}-description`}>{description}</div>}
