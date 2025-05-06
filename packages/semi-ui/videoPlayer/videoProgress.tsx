@@ -82,13 +82,15 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
         const newMarkers = hasMarkers ? [defaultMarker, ...markers] : [defaultMarker];
         const markersList: MarkerListItem[] = hasMarkers ? newMarkers.map((marker: MarkerListItem | Marker, index: number) => {
             const endTime = index === newMarkers.length - 1 ? max : newMarkers[index + 1].time;
-            if (!(marker.time > max || endTime > max)) {
+            if (marker.time > max || endTime > max) {
                 return {};
             }
             return {
                 left: `${(marker.time / max) * 100}%`,
                 width: `${max ? (endTime - marker.time) / max * 100 : 100}%`,
-                endTime: endTime
+                endTime: endTime,
+                time: marker.time,
+                title: marker.title
             };
         }) : [defaultMarker];
         return markersList;
@@ -197,6 +199,17 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
         });
     }
 
+    renderTooltipContent = () => {
+        const { movingInfo } = this.state;
+        if (this.markersList.length > 0) {
+            const marker = this.markersList.find((marker: MarkerListItem) => {
+                return movingInfo && movingInfo.progress * this.props.max > marker.time && movingInfo.progress * this.props.max < marker.endTime;
+            });
+            return marker && marker.title;
+        }
+        return movingInfo && formatTime(movingInfo.progress * this.props.max);
+    }
+
     render() {
         const { showTooltip, max, value: currentValue, bufferedValue } = this.props;
         const { movingInfo, isHandleHovering, isDragging, activeIndex } = this.state;
@@ -255,8 +268,9 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
         return showTooltip ? (
             <Tooltip
                 position={'top'}
+                // todo: 分章节标题展示与设计对齐
                 content={movingInfo && formatTime(movingInfo.progress * max)}
-                // spacing={-5}
+                // content={this.renderTooltipContent()}
                 style={{ 'left': movingInfo?.offset }}
             >
                 {sliderContent}

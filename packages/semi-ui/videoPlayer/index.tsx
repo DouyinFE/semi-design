@@ -32,7 +32,6 @@ export interface VideoPlayerProps {
     onPlay?: () => void;
     onQualityChange?: (quality: string) => void;
     onRateChange?: (rate: number) => void;
-    onReady?: () => void;
     onRouteChange?: (route: string) => void;
     onVolumeChange?: (volume: number) => void;
     playbackRateList: { label: string; value: number }[];
@@ -130,7 +129,6 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
             notifyPlay: () => this.props.onPlay?.(),
             notifyQualityChange: (quality: string) => this.props.onQualityChange?.(quality),
             notifyRateChange: (rate: number) => this.props.onRateChange?.(rate),
-            notifyReady: () => this.props.onReady?.(),
             notifyRouteChange: (route: string) => this.props.onRouteChange?.(route),
             notifyVolumeChange: (volume: number) => this.props.onVolumeChange?.(volume),
             setBufferedValue: (bufferedValue: number) => this.setState({ bufferedValue }),
@@ -417,7 +415,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
     }
 
     render() {
-        const { poster, markers, qualityList, routeList, width, height, autoPlay, style, className } = this.props;
+        const { poster, markers, qualityList, routeList, width, height, autoPlay, style, className, loop } = this.props;
         const { isPlaying, playbackRate, playbackRateList, isMirror, currentTime, totalTime, currentQuality, currentRoute, src, bufferedValue, showControls } = this.state;
 
         return (
@@ -435,13 +433,12 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                     <video 
                         ref={this.videoRef} 
                         autoPlay={autoPlay}
+                        loop={loop}
                         controls={false}
                         src={src}
                         poster={poster}
                         onTimeUpdate={this.handleTimeUpdate}
                         onDurationChange={this.handleDurationChange}
-                        onPlay={this.handlePlay}
-                        onPause={this.handlePause}
                         onClick={() => { this.foundation.handlePlayOrPause();}}
                         // An error occurred while getting the media data, or the resource is in an unsupported format.
                         onError={this.handleError}

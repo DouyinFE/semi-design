@@ -1,6 +1,7 @@
 // Color
 $color-videoPlayer_error-bg: var(--semi-color-disabled-bg); // error 背景色
 $color-videoPlayer_error-text: var(--semi-color-grey-8); // error 字体色
+$color-videoPlayer_pause-bg: var(--semi-color-text-1); // 暂停按钮颜色
 $color-videoPlayer_notification-bg: var(--semi-color-overlay-bg); // notification 背景色
 $color-videoPlayer_notification-text: var(--semi-color-default); // notification 字体色
 $color-videoPlayer_controls-bg: var(--semi-color-text-1); // 控制栏背景色
@@ -38,6 +39,7 @@ $spacing-videoPlayer_notification_text-paddingY: 8px; // notification 文字垂�
 $spacing-videoPlayer_notification_text-paddingX: 12px; // notification 文字水平方向 padding
 $spacing-videoPlayer-controls-padding: $spacing-base-tight $spacing-base; // 控制栏 padding
 $spacing-videoPlayer-controls_item-gap: $spacing-tight; // 控制栏 item 间距
+$spacing-videoPlayer-controls_time-paddingX: 8px; // 控制栏时间 paddingX
 $spacing-videoPlayer-controls_volume_title-paddingX: 10px; // 控制栏音量标题文字 paddingX
 $spacing-videoPlayer-controls_volume_title-paddingY: 0px; // 控制栏音量标题文字 paddingX
 $spacing-videoPlayer-controls_volume_popup-paddingY: 0px; // 控制栏音量弹层 paddingX

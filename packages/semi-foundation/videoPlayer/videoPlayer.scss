@@ -18,6 +18,7 @@ $module: #{$prefix}-videoPlayer;
         width: 100%;
         height: 100%;
         position: relative;
+        line-height: 0;
 
         video {
             width: 100%;
@@ -37,8 +38,7 @@ $module: #{$prefix}-videoPlayer;
 
         svg {
             font-size: 88px;
-            // todo: 设计稿颜色需要对齐
-            color: var(--semi-color-default);
+            color: $color-videoPlayer_pause-bg;
         }
     }
 
@@ -116,6 +116,7 @@ $module: #{$prefix}-videoPlayer;
             color: $color-videoPlayer_controls-text;
             font-size: $font-videoPlayer_controls_time_text-fontSize;
             margin-right: $spacing-videoPlayer-controls_item-gap;
+            padding: 0 $spacing-videoPlayer-controls_time-paddingX;
             font-variant-numeric: tabular-nums; 
         }
 

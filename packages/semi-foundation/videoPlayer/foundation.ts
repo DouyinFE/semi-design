@@ -7,7 +7,6 @@ export interface VideoPlayerAdapter<P = Record<string, any>, S = Record<string, 
     notifyPlay: () => void;
     notifyQualityChange: (quality: string) => void;
     notifyRateChange: (rate: number) => void;
-    notifyReady: () => void;
     notifyRouteChange: (route: string) => void;
     notifyVolumeChange: (volume: number) => void;
     setBufferedValue: (bufferedValue: number) => void;
@@ -34,9 +33,11 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
     private controlsTimer: NodeJS.Timeout | null;
 
     init() {
+        const { volume, muted } = this.getProps();
         const video = this._adapter.getVideo();
         if (video) {
             this._adapter.setTotalTime(video.duration);
+            this.handleVolumeChange(muted ? 0 : volume);
         }
         this.registerEvent();
     }
@@ -106,6 +107,7 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         if (video) {
             video.play();
             this._adapter.setIsPlaying(true);
+            this._adapter.notifyPlay();
         }
     }
 
@@ -114,6 +116,7 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         if (video) {
             video.pause();
             this._adapter.setIsPlaying(false);
+            this._adapter.notifyPause();
         }
     }
 
@@ -199,12 +202,14 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         this._adapter.setQuality(quality.value);
         this._adapter.notifyQualityChange(quality.value);
         this.handleTemporaryNotification(`Switching to ${quality.label}`);
+        this.restorePlayPosition();
     }
 
     handleRouteChange(route: { label: string; value: string }) {
         this._adapter.setRoute(route.value);
         this._adapter.notifyRouteChange?.(route.value);
         this.handleTemporaryNotification(`Switching to ${route.label}`);
+        this.restorePlayPosition();
     }
 
     handleMirror = () => {
@@ -231,6 +236,22 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         setTimeout(() => {
             this._adapter.setShowNotification(false);
         }, 1000);
+    }
+
+    restorePlayPosition() {
+        const video = this._adapter.getVideo();
+        if (!video) return;
+        const wasPlaying = !video.paused;
+        const currentTime = video.currentTime;
+
+        const handleLoaded = () => {
+            video.currentTime = currentTime;
+            if (wasPlaying) {
+                video.play();
+            }
+            video.removeEventListener('loadeddata', handleLoaded);
+        };
+        video.addEventListener('loadeddata', handleLoaded);
     }
 
     registerEvent = () => {

@@ -12,7 +12,13 @@ export const BasicUsage = () => {
                 src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4'}
                 poster={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg'}
                 width={'100%'}
-                height={'100%'}
+                height={'100%'} 
+                onPause={() => {
+                    console.log('pause');
+                }}
+                onPlay={() => {
+                    console.log('play');
+                }}
             />
         </div>
     )
@@ -75,6 +81,19 @@ export const playbackRateList = () => {
 }
 
 // 音量设置
+export const Volume = () => {
+    const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
+    const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
+    return (
+        <VideoPlayer 
+            src={src}
+            poster={poster}
+            muted={true}
+            volume={0}
+        />
+    );
+}
+
 export const NoResource = () => {
     return (
         <div>
@@ -97,16 +116,16 @@ export const Chapter = () => {
                 poster={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg'}
                 markers={[
                     {
-                        time: 5,
-                        title: 'this is a marker in 5s'
+                        time: 4,
+                        title: '片头'
                     },
                     {
-                        time: 20,
-                        title: 'this is a marker in 20s'
+                        time: 38,
+                        title: '功能介绍'
                     },
                     {
-                        time: 30,
-                        title: 'this is a marker in 30s'
+                        time: 51,
+                        title: '片尾'
                     }
                 ]}
             />
@@ -167,7 +186,7 @@ export const QualityAndLine = () => {
                 defaultRoute={'线路1'}
                 qualityList={[
                     { label: '1080p', value: '1080p' },
-                    { label: '720p', value: '720p' },
+                    { label: '480p', value: '480p' },
                 ]}
                 routeList={[
                     { label: '线路1', value: '线路1' },
