@@ -15,6 +15,7 @@ import Tooltip from '../tooltip/index';
 import Spin from '../spin/index';
 import { isElement } from '../_base/reactUtils';
 import { RenderFileItemProps } from './interface';
+import Typography, { ShowTooltip } from '../typography';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -48,7 +49,8 @@ export interface FileCardProps extends RenderFileItemProps {
     className?: string;
     style?: CSSProperties;
     picWidth?: string | number;
-    picHeight?: string | number
+    picHeight?: string | number;
+    showTooltip?: boolean | ShowTooltip
 }
 
 export interface FileCardState {
@@ -77,7 +79,8 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
         style: PropTypes.object,
         url: PropTypes.string,
         validateMessage: PropTypes.node,
-        index: PropTypes.number
+        index: PropTypes.number,
+        showTooltip: PropTypes.oneOfType([PropTypes.bool, PropTypes.object])
     };
 
     static defaultProps = {
@@ -87,6 +90,7 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
         onRetry: (): void => undefined,
         preview: false,
         size: '',
+        showTooltip: true,
     };
 
     constructor(props: FileCardProps) {
@@ -227,7 +231,7 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
     }
 
     renderFile(locale: Locale["Upload"]) {
-        const { name, size, percent, url, showRetry: propsShowRetry, showReplace: propsShowReplace, preview, previewFile, status, style, onPreviewClick, renderFileOperation } = this.props;
+        const { name, size, percent, url, showRetry: propsShowRetry, showReplace: propsShowReplace, preview, previewFile, status, style, onPreviewClick, renderFileOperation, showTooltip } = this.props;
         const { fallbackPreview } = this.state;
         const fileCardCls = cls({
             [`${prefixCls}-file-card`]: true,
@@ -258,9 +262,9 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
                 </div>
                 <div className={`${infoCls}-main`}>
                     <div className={`${infoCls}-main-text`}>
-                        <span className={`${infoCls}-name`}>
+                        <Typography.Text className={`${infoCls}-name`} ellipsis={{ showTooltip }}>
                             {name}
-                        </span>
+                        </Typography.Text>
                         <span>
                             <span className={`${infoCls}-size`}>{fileSize}</span>
                             {showReplace && (
