@@ -69,12 +69,19 @@ $basicType: #{$module}-basic;
 
             .#{$item}-title {
                 max-width: $width-steps_basic_item_title-maxWidth;
-                
+                min-height: $height-steps_basic_item_left-icon; // 保证横线高度居中
+                display: flex;
+                align-items: center;
+
                 .#{$item}-title-text {
                     @include text-overflow-hidden;
                     transition: color $transition_duration-steps_item_title-text $transition_function-steps_item_title-text $transition_delay-steps_item_title-text
-                       
                 }
+            }
+            .#{$item}-title-has-no-title {
+                min-width: 0;
+                width: 0;
+                flex: 0 0 auto;
             }
 
         }
