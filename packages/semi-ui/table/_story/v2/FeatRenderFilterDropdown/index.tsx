@@ -42,8 +42,8 @@ export default function App() {
                     <Space vertical align='start' style={{ padding: 8 }}>
                         <Input ref={inputRef} value={tempFilteredValue[0]} onChange={handleChange}/>
                         <Space>
-                            <Button onClick={() => confirm({ closeDropdown: true })}>筛选 + 关闭</Button>
-                            <Button onClick={() => clear({ closeDropdown: true })}>清除 + 关闭</Button>
+                            <Button onClick={() => confirm({ closeDropdown: true })}>筛选+关闭</Button>
+                            <Button onClick={() => clear({ closeDropdown: true })}>清除+关闭</Button>
                             <Button onClick={() => close()}>直接关闭</Button>
                         </Space>
                     </Space>

@@ -6,7 +6,8 @@ $height-inputNumber_button_inner_large: $height-control-large - 2px; // 隐藏�
 $height-inputNumber_button_inner_small: $height-control-small - 2px; // 隐藏步进器的数字输入框高度 - 小
 
 $width-inputNumber_button: 14px; // 步进器按钮宽度
-$radius-inputNumber: var(--semi-border-radius-small);
+$radius-inputNumber: var(--semi-border-radius-small); // 步进器按钮圆角 - 外部
+$radius-inputNumber_inner: var(--semi-border-radius-small); // 步进器按钮圆角 - 内部
 $spacing-inputNumber_button-marginLeft: 4px; // 步进器按钮左侧外边距
 $color-inputNumber_button-text-default: var(--semi-color-text-2); // 步进器按钮图标颜色
 $color-inputNumber_button-text-disabled: var(--semi-color-disabled-text); // 步进器按钮图标颜色 - 禁用

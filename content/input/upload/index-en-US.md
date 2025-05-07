@@ -32,6 +32,59 @@ import { IconUpload } from '@douyinfe/semi-icons';
     </Upload>
 );
 ```
+### File name too long ellipsis
+
+Customize the file name tooltip using the `showTooltip` property
+
+When the type is `boolean`, control whether to show the tooltip
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const action = 'https://api.semi.design/upload';
+    const button = (
+        <Button icon={<IconUpload />} theme="light">
+            Click upload
+        </Button>
+    );
+    return (
+        <>
+            <Upload action={action} showTooltip={false}>
+                {button}
+            </Upload>
+        </>
+    );
+}
+```
+
+When the type is `object`, you can customize the tooltip style.
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button, Tooltip } from '@douyinfe/semi-ui';
+
+() => {
+    const action = 'https://api.semi.design/upload';
+    const button = (
+        <Button icon={<IconUpload />} theme="light">
+            Click upload
+        </Button>
+    );
+    return (
+        <>
+            <Upload action={action} showTooltip={{ 
+                renderTooltip: (content, children) => {
+                    return <Tooltip content={content} position="bottom">{children}</Tooltip>
+                } 
+            }}>
+                {button}
+            </Upload>
+        </>
+    );
+}
+```
 
 ### Add prompt text
 
@@ -1404,6 +1457,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |showPicInfo| Whether to display picture information, only valid in photo wall mode | boolean| false | 2.2.0 |
 |showReplace | When the upload is successful, whether to display the replace button inside the fileCard | boolean | false | 1.21.0 |
 |showRetry | When uploading fails, whether to display the retry button inside the fileCard | boolean | true | 1.0.0 |
+|showTooltip | When the file name is too long, whether to display the tooltip and related configurations: type, the component that carries the floating layer content, supports Tooltip \| Popover; opts, other properties that need to be passed to the floating layer component; renderTooltip, custom rendering of the popup layer component | boolean \| {type: 'tooltip' \| 'popover', opts: object, renderTooltip: (content: ReactNode, children: ReactNode) => ReactNode} | true |  |
 |showUploadList | Whether to display the file list | boolean | true | |
 |style | Style | CSSProperties | | |
 |transformFile | After selecting the file, the callback function before uploading the file can be used to customize the conversion processing of the file | (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => FileItem | | 1.0.0 |

@@ -13,7 +13,32 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.79.0-beta.0 (2025-04-23)
+- 【Style】
+    - 修改 Progress 中背景色和进度颜色的实现方式，保证主题配置生效 [#2808](https://github.com/DouyinFE/semi-design/pull/2808)
+    - 修复 Chat 内容区域的宽度被内容中的 table 撑开, 滚动区域为整条内容的问题，修改后滚动区域在 table 内部  [#2776](https://github.com/DouyinFE/semi-design/issues/2776) [#2775](https://github.com/DouyinFE/semi-design/pull/2775)
+- 【Design Token】
+    - Chat 增加 $width-chat_chatBox_avatar 用于设置头像宽度 [#2775](https://github.com/DouyinFE/semi-design/pull/2775)
+    - 增加 Cascader 在大尺寸/小尺寸下的内边距 token 设置，包括$spacing-cascader_small_selection-paddingLeft，$spacing-cascader_small_selection-paddingRight 等 token [#2809](https://github.com/DouyinFE/semi-design/pull/2809)
+    - 增加 Button 在小尺寸/大尺寸上的字体设置 token，包括$font-button_small-fontSize， $font-button_small-lineHeight，$font-button_small-fontWeight 等 token [#2809](https://github.com/DouyinFE/semi-design/pull/2809)
+    - 修改 Popover 中箭头的背景色和边框颜色的实现方式，保证在 DSM 配置中可以通过主题配置的方式修改 Popover 的箭头的背景色和边框颜色。新增加 $color-popover-arrow-border, $color-popover-arrow-bg 两个和箭头相关的 Token。 [#2806](https://github.com/DouyinFE/semi-design/pull/2806)
+    - 增加 inputNumber 在 innerButton 模式下步进器的圆角 token $radius-inputNumber_inner [#2809](https://github.com/DouyinFE/semi-design/pull/2809)
+- 【Fix】
+    - 修复在排序热区为整个表头时候，在伸缩结束后，会触发意外的排序问题  [#2802](https://github.com/DouyinFE/semi-design/issues/2802) [#2803](https://github.com/DouyinFE/semi-design/pull/2803)
 
+#### 🎉 2.78.0 (2025-04-08)
+- 【Fix】
+    - BackTop 组件的 target 不存在时候的兜底操作，避免 TypeError [#2786](https://github.com/DouyinFE/semi-design/pull/2786)
+    - 修复 Chat 组件在解析消息的 content 为数组的文本内容时， markdownRenderProps 未生效问题 [#2794](https://github.com/DouyinFE/semi-design/pull/2794)
+    - 修复 Collapse Tabs 初次加载无法将 activeTab 滚动到视口内问题 [#2787](https://github.com/DouyinFE/semi-design/pull/2787)
+- 【Style】
+    - 修复Table 中具有排序的表头单元格在明暗切换时候的闪动 [#2795](https://github.com/DouyinFE/semi-design/pull/2795)
+- 【Design Token】
+    - ScrollList 新增 $color-scrollList_header-bg 用于控制 header 颜色 [#2789](https://github.com/DouyinFE/semi-design/pull/2789)
+
+#### 🎉 2.78.0-beta.0 (2025-04-01)
+- 【Feat】
+    - Cropper 增加 preview API 用于支持实时预览裁切效果  [#2783](https://github.com/DouyinFE/semi-design/issues/2783)
 #### 🎉 2.77.0 (2025-03-25)
 - 【Fix】
     - 修复 UserGuide 在气泡模式下点击穿透的问题 [#2764](https://github.com/DouyinFE/semi-design/pull/2764)

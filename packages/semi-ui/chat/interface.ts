@@ -4,7 +4,9 @@ import { Upload } from '../index';
 import type { FileItem, UploadProps } from '../upload';
 import { EnableUploadProps, Message } from '@douyinfe/semi-foundation/chat/foundation';
 import type { TooltipProps } from '../tooltip';
-import { MarkdownRenderProps } from '../markdownRender';
+import { MarkdownRenderProps as OriginMarkdownRenderProps } from '../markdownRender';
+
+export type MarkdownRenderProps = Partial<OriginMarkdownRenderProps>;
 
 export { Message };
 export interface CommonChatsProps {

@@ -81,12 +81,18 @@ $module: #{$prefix}-progress;
             display: block;
         }
 
+        &-ring-track {
+            stroke: $color-progress_default-bg;
+        }
+
         &-ring-inner {
             transition: stroke-dashoffset $motion-progress-transition_duration;
             transition-timing-function: $motion-progress-transition_timing_function;
 
             transform: rotate(-90deg);
             transform-origin: 50% 50%;
+
+            stroke: $color-progress_track_inner-bg;
         }
 
         &-text {
