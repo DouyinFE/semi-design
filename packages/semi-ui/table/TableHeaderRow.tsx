@@ -197,12 +197,25 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
             
             if (typeof column.clickToSort === 'function') {
                 if (props.onClick) {
+                    const onClick = props.onClick;
                     props.onClick = (e: any) => {
-                        props.onClick(e);
+                        onClick(e);
                         column.clickToSort(e);
                     };
                 } else {
                     props.onClick = column.clickToSort;
+                }
+            }
+
+            if (typeof column.mouseDown === 'function') {
+                if (props.onMouseDown) {
+                    const onMouseDown = props.onMouseDown;
+                    props.onMouseDown = (e: any) => {
+                        onMouseDown(e);
+                        column.mouseDown(e);
+                    };
+                } else {
+                    props.onMouseDown = column.mouseDown;
                 }
             }
 

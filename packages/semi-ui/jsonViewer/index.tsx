@@ -24,6 +24,7 @@ import { createPortal } from 'react-dom';
 import { isEqual } from "lodash";
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
+
 const prefixCls = cssClasses.PREFIX;
 
 export type { JsonViewerOptions };
@@ -45,7 +46,7 @@ export interface JsonViewerState {
     customRenderMap: Map<HTMLElement, React.ReactNode>
 }
 
-interface SearchOptions {
+export interface SearchOptions {
     caseSensitive: boolean;
     wholeWord: boolean;
     regex: boolean
@@ -127,6 +128,11 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
             },
             showSearchBar: () => {
                 this.setState({ showSearchBar: !this.state.showSearchBar });
+                this.setState({ searchOptions: {
+                    caseSensitive: false,
+                    wholeWord: false,
+                    regex: false,
+                } });
             },
         };
     }
@@ -137,6 +143,30 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
 
     format() {
         this.foundation.jsonViewer.format();
+    }
+
+    search(searchText: string, caseSensitive?: boolean, wholeWord?: boolean, regex?: boolean) {
+        this.foundation.search(searchText, caseSensitive, wholeWord, regex);
+    }
+
+    getSearchResults() {
+        return this.foundation.getSearchResults();
+    }
+
+    prevSearch(step?: number) {
+        this.foundation.prevSearch(step);
+    }
+
+    nextSearch(step?: number) {
+        this.foundation.nextSearch(step);
+    }
+
+    replace(replaceText: string) {
+        this.foundation.replace(replaceText);
+    }
+
+    replaceAll(replaceText: string) {
+        this.foundation.replaceAll(replaceText);
     }
 
     getStyle() {

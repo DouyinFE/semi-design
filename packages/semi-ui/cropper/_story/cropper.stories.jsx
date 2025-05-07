@@ -317,4 +317,79 @@ export const NoResizeBox = () => {
   );
 }
 
+export const RealTimePreview  = () => {
+  const [rotate, setRotate] = useState(0);
+  const [zoom, setZoom] = useState(1);
+  const [cropperUrl, setCropperUrl ] = useState('');
+  const ref = useRef();
+
+  const onZoomChange = useCallback((value) => {
+    setZoom(value);
+  })
+
+  const onSliderChange = useCallback((value) => {
+    setRotate(value);
+  }, []);
+
+  const onButtonClick = useCallback(() => {
+    const canvas = ref.current.getCropperCanvas();
+    const url = canvas.toDataURL();
+    setCropperUrl(url);
+  }, []);
+
+  const preview = useCallback(() => {
+    const previewContainer = document.getElementById('previewContainer');
+    return previewContainer;
+  }, []);
+
+  return (
+      <div id='cropper-container'>
+           <Cropper 
+              ref={ref} 
+              src={"https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg"}
+              // src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/16.jpeg'}
+              style={containerStyle}
+              rotate={rotate}
+              zoom={zoom}
+              onZoomChange={onZoomChange}
+              preview={preview}
+           />
+           <div style={actionStyle} >
+            <span>Rotate</span>
+            <Slider
+              style={{ width: 720}}
+              value={rotate}
+              step={1}
+              min={-360}
+              max={360}
+              onChange={onSliderChange}
+            />
+           </div>
+           <div style={actionStyle} >
+            <span>Zoom</span>
+            <Slider
+              style={{ width: 720}}
+              value={zoom}
+              step={0.1}
+              min={0.1}
+              max={3}
+              onChange={onZoomChange}
+            />
+           </div>
+           <br />
+           <div style={{ display: 'flex', columnGap: 10}}>
+              <div style={{width: '50%', flexGrow: 1 }}>
+                <Button onClick={onButtonClick}>Cropper</Button>
+                <br /><br />
+                <img src={cropperUrl} style={{ width: '100%'}} />
+              </div>
+              <div style={{width: '50%', flexGrow: 1 }}>
+                <span style={{marginBottom: 4}}>Preview</span>
+                <div id='previewContainer' style={{height: 300, marginTop: 8}}/>
+              </div>
+           </div>
+      </div>
+  );
+};
+
 

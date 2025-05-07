@@ -73,11 +73,9 @@ class Progress extends Component<ProgressProps, ProgressState> {
         direction: strings.DEFAULT_DIRECTION,
         format: (text: string): string => `${text}%`,
         motion: true,
-        orbitStroke: 'var(--semi-color-fill-0)',
         percent: 0,
         showInfo: false,
         size: strings.DEFAULT_SIZE,
-        stroke: strings.STROKE_DEFAULT,
         strokeGradient: false,
         strokeLinecap: strings.DEFAULT_LINECAP,
         strokeWidth: 4,
@@ -170,6 +168,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
             wrapper: cls(`${prefixCls}-circle`, className),
             svg: cls(`${prefixCls}-circle-ring`),
             circle: cls(`${prefixCls}-circle-ring-inner`),
+            track: cls(`${prefixCls}-circle-ring-track`),
         };
         const perc = this.calcPercent(percent);
         const percNumber = this.calcPercent(percentNumber);
@@ -210,12 +209,13 @@ class Progress extends Component<ProgressProps, ProgressState> {
             >
                 <svg key={size} className={classNames.svg} height={width} width={width} aria-hidden>
                     <circle
+                        className={classNames.track}
                         strokeDashoffset={0}
                         strokeWidth={strokeWidth}
                         strokeDasharray={strokeDasharray}
                         strokeLinecap={strokeLinecap}
                         fill="transparent"
-                        stroke={orbitStroke}
+                        style={{ stroke: orbitStroke }}
                         r={radius}
                         cx={cx}
                         cy={cy}
@@ -228,7 +228,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
                         strokeDasharray={strokeDasharray}
                         strokeLinecap={strokeLinecap}
                         fill="transparent"
-                        stroke={_stroke}
+                        style={{ stroke: _stroke }}
                         r={radius}
                         cx={cx}
                         cy={cy}
@@ -260,7 +260,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
         if (typeof color !== 'undefined') {
             return color;
         }
-        return strings.STROKE_DEFAULT;
+        return null;
     }
 
     renderLineProgress(): ReactNode {
