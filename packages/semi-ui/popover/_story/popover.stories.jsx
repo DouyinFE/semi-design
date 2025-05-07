@@ -682,3 +682,37 @@ export const FixNestedPopover = () => {
         </div>
     );
 }
+
+export const CustomBg = () => {
+  return (
+      <div id='popup-parent' style={{ position: 'relative' }}>
+          <Popover
+              content={
+                  <article style={{ padding: 4 }}>
+                      Hi, Semi UI Popover.
+                  </article>
+              }
+              trigger='custom'
+              visible
+              position='right'
+              showArrow
+              style={{
+                  backgroundColor: 'rgba(var(--semi-blue-4),1)',
+                  borderColor: 'rgba(var(--semi-blue-4),1)',
+                  color: 'var(--semi-color-white)',
+                  borderWidth: 1,
+                  borderStyle: 'solid',
+              }}
+          >
+              <Tag
+                  style={{
+                      backgroundColor: 'rgba(var(--semi-blue-4),1)',
+                      color: 'var(--semi-color-white)'
+                  }}
+              >
+                  Colorful Popover
+              </Tag>
+          </Popover>
+      </div>
+  );
+}

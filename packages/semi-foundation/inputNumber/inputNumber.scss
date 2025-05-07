@@ -65,6 +65,8 @@ $module: #{$prefix}-input-number;
 
     &-suffix-btns-inner {
         margin-left: $spacing-inputNumber_button_inner-marginLeft;
+        border-radius: $radius-inputNumber_inner;
+        overflow: hidden
     }
 
     .#{$prefix}-input-clearbtn {

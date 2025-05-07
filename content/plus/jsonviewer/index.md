@@ -261,12 +261,19 @@ render(CustomRenderJsonComponent);
 
 ## Methods
 
-绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
+可以通过 `ref` 调用组件实例上绑定的方法，实现某些特殊交互。
 
 | 名称    | 描述     |
 |---------|--------|
 | getValue()  | 获取当前值 |
-| format() | 格式化 |
+| format() | 格式化当前内容 |
+| search(searchText: string, caseSensitive?: boolean, wholeWord?: boolean, regex?: boolean) | 搜索文本，可选参数控制大小写敏感、全词匹配和正则表达式 |
+| getSearchResults() | 获取当前搜索结果 |
+| prevSearch(step?: number) | 导航到上一个搜索结果，可选步长参数 |
+| nextSearch(step?: number) | 导航到下一个搜索结果，可选步长参数 |
+| replace(replaceText: string) | 替换当前搜索匹配项 |
+| replaceAll(replaceText: string) | 替换所有搜索匹配项 |
+
 
 
 ### Performance 
