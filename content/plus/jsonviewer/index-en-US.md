@@ -271,6 +271,12 @@ Methods bound to the component instance can be called via `ref` to achieve certa
 | ---------- | ---------------------- |
 | getValue() | Get current value      |
 | format()   | Format current content |
+| search(searchText: string, caseSensitive?: boolean, wholeWord?: boolean, regex?: boolean) | Search for text with optional parameters |
+| getSearchResults() | Get current search results |
+| prevSearch(step?: number) | Navigate to previous search result, with optional step size |
+| nextSearch(step?: number) | Navigate to next search result, with optional step size |
+| replace(replaceText: string) | Replace current search match |
+| replaceAll(replaceText: string) | Replace all search matches |
 
 ### Performance
 

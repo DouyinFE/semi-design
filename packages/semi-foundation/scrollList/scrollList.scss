@@ -22,6 +22,7 @@ $module: #{$prefix}-scrolllist;
     &-header {
         text-align: center;
         padding: $spacing-scrollList_header-paddingY $spacing-scrollList_header-paddingX;
+        background: $color-scrollList_header-bg;
 
         &-title {
             padding: $spacing-scrollList_header_title-paddingY $spacing-scrollList_header_title-paddingX;

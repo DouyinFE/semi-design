@@ -1092,8 +1092,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             column = { ...column, title: newTitle };
             if (clickColumnToSorter) {
                 column.clickToSort = e => {
-                    this.foundation.handleSort(column, e);
+                    this.foundation.handleSort(column, e, true);
                 };
+                column.mouseDown = this.foundation.handleMouseDown;
                 column.sortOrder = sortOrder;
                 column.showSortTip = showSortTip;
             }
