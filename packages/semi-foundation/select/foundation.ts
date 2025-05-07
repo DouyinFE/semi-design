@@ -81,22 +81,36 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
         const autoFocus = this.getProp('autoFocus');
         if (autoFocus) {
-            this.focus();
+            this.focus(originalOptions);
         }
     }
 
-    focus() {
+    focus(optionsForOpen?: BasicOptionProps[]) { // Modified signature
         const isFilterable = this._isFilterable();
         const isMultiple = this._isMultiple();
-        this._adapter.updateFocusState(true);
+        const { isOpen } = this.getStates(); // 获取当前下拉框的打开状态
+
+        this._adapter.updateFocusState(true); // 设置组件的焦点状态
         this._adapter.setIsFocusInContainer(false);
-        if (isFilterable && isMultiple) {
-            // when filter and multiple, only focus input
-            this.focusInput();
-        } else if (isFilterable && !isMultiple) {
-            // when filter and not multiple, only show input and focus input
-            this.toggle2SearchInput(true);
+
+        if (isFilterable) { // 如果开启了过滤（搜索）功能
+            if (isMultiple) {
+                // 对于多选且可搜索的情况，输入框是触发器的一部分
+                // 聚焦输入框并打开下拉列表
+                this.focusInput(); // 确保触发器内的输入框被聚焦
+                if (!isOpen) { // 如果下拉列表尚未打开
+                    this.open(undefined, optionsForOpen); // 打开下拉列表，并传递 optionsForOpen
+                }
+            } else {
+                // 对于单选且可搜索的情况，会显示一个独立的输入框
+                // 显示输入框，聚焦它，并打开下拉列表
+                this.toggle2SearchInput(true); // 显示并聚焦专用的输入框
+                if (!isOpen) { // 如果下拉列表尚未打开
+                    this.open(undefined, optionsForOpen); // 打开下拉列表，并传递 optionsForOpen
+                }
+            }
         } else {
+            // 如果不可搜索，则仅聚焦触发器本身
             this._focusTrigger();
         }
     }
