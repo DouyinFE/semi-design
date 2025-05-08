@@ -9,8 +9,8 @@ export default {
 
 export const _Switch = () => (
   <div>
-    <Switch onChange={(v, e) => console.log(v)} aria-label='power-switch'></Switch>
-    <Switch defaultChecked={true} onChange={(v, e) => console.log(v)} aria-label='mode-switch'></Switch>
+    <Switch loading disabled onChange={(v, e) => console.log(v)} aria-label='power-switch'></Switch>
+    <Switch loading disabled defaultChecked={true} onChange={(v, e) => console.log(v)} aria-label='mode-switch'></Switch>
   </div>
 );
 

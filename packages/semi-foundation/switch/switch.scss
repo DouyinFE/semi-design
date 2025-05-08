@@ -100,7 +100,7 @@ $module: #{$prefix}-switch;
 
     &-disabled.#{$module}-loading:not(.#{$module}-checked) {
         &:hover {
-            background-color: $color-switch_default-bg-hover;
+            background-color: $color-switch_spin_unchecked-bg-default;
         }
     }
 
