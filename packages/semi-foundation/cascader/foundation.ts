@@ -242,7 +242,7 @@ export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, Basi
     updateLoadedKeyRefValue: (keys: Set<string>) => void;
     getLoadedKeyRefValue: () => Set<string>;
     setEmptyContentMinWidth: (minWidth: number) => void;
-    getTriggerWidth: () => number;
+    getTriggerWidth: () => number
 }
 
 export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, BasicCascaderProps, BasicCascaderInnerData> {
@@ -521,7 +521,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             }
             keyEntities[key] = optionNotExist as BasicEntity;
             // Fix: 1155, if the data is loaded asynchronously to update treeData, the emptying operation should not be done when entering the updateSelectedKey method
-        } else if (loading) {
+        } else if (loading || loadingKeys?.size) {
             // Use assign to avoid overwriting the'not-exist- * 'property of keyEntities after asynchronous loading
             // Overwriting'not-exist- * 'will cause selectionContent to be emptied unexpectedly when clicking on a dropDown item
             updateStates.keyEntities = assign(keyEntityState, keyEntities);

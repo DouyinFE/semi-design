@@ -2518,3 +2518,99 @@ export const PrefixSuffix = () => {
     </>
   )
 }
+
+export const Fixed2831 = () => {
+    const [value, setValue] = useState(undefined);
+    const [productAndBusinessData, setProductAndBusinessData] = useState([
+        {
+        label: 'TCS Manager',
+        value: 'TCS Manager',
+        children: [
+            {
+            label: '0',
+            value: '0',
+            },
+            {
+            label: '1',
+            value: '1',
+            },
+            {
+            label: '2',
+            value: '2',
+            },
+            {
+            label: '3',
+            value: '3',
+            },
+        ],
+        },
+        {
+        label: 'AAA Manager',
+        value: 'AAA Manager',
+        children: [
+            {
+            label: '4',
+            value: '4',
+            },
+            {
+            label: '5',
+            value: '5',
+            },
+            {
+            label: '6',
+            value: '6',
+            },
+            {
+            label: '7',
+            value: '7',
+            },
+        ],
+        },
+    ]);
+    return (
+        <Cascader
+            value={value}
+            field="ss"
+            placeholder={('tcs_manager_business_info')}
+            treeData={productAndBusinessData}
+            showNext="hover"
+            changeOnSelect
+            showClear
+            autoAdjustOverflow={false}
+            onChange={(value) => {setValue(value)}}
+            loadData={selectedOpt => {
+                if (!selectedOpt) {
+                return Promise.resolve();
+                }
+                const targetOpt = selectedOpt[selectedOpt.length - 1];
+                const { value } = targetOpt;
+                if (!value) {
+                return Promise.resolve();
+                }
+                return new Promise( (res) => {
+                    setTimeout(() => {
+                        setProductAndBusinessData(origin => {
+                        const newData = origin.map(i => {
+                        const children = (i.children || []).map((j, jIndex) => {
+                            if (j.children || j.value !== value) {
+                            return { ...j };
+                            }
+                            const subChildren = Array.from({ length: 5 }).map((i, index) => ({
+                            label: jIndex + '' + index,
+                            value: jIndex + '' + index,
+                            disabled: false,
+                            isLeaf: true,
+                            }));
+                            return { ...j, children: subChildren };
+                        });
+                        return { ...i, children };
+                        });
+                        return newData;
+                    });
+                        res();
+                    }, 2000);
+                });
+            }}
+            />
+    );
+}
