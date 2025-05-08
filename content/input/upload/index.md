@@ -35,6 +35,60 @@ import { IconUpload } from '@douyinfe/semi-icons';
 };
 ```
 
+### 文件名超长省略
+
+通过 `showTooltip` 属性，自定义设置文件名弹出提示
+
+当类型为 `boolean` 时，控制是否弹出提示
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const action = 'https://api.semi.design/upload';
+    const button = (
+        <Button icon={<IconUpload />} theme="light">
+            点击上传
+        </Button>
+    );
+    return (
+        <>
+            <Upload action={action} showTooltip={false}>
+                {button}
+            </Upload>
+        </>
+    );
+}
+```
+
+当类型为 `object` 时，可以自定义弹出样式
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button, Tooltip } from '@douyinfe/semi-ui';
+
+() => {
+    const action = 'https://api.semi.design/upload';
+    const button = (
+        <Button icon={<IconUpload />} theme="light">
+            点击上传
+        </Button>
+    );
+    return (
+        <>
+            <Upload action={action} showTooltip={{ 
+                renderTooltip: (content, children) => {
+                    return <Tooltip content={content} position="bottom">{children}</Tooltip>
+                } 
+            }}>
+                {button}
+            </Upload>
+        </>
+    );
+}
+```
+
 ### 添加提示文本
 
 通过 `prompt` 插槽，设置自定义提示文本  
@@ -1413,6 +1467,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |showPicInfo| 是否显示图片信息，只在照片墙模式下有效| boolean| false | 2.2.0 |
 |showReplace | 上传成功时，是否展示在 fileCard 内部展示替换按钮 | boolean | false |  |
 |showRetry | 上传失败时，是否展示在 fileCard 内部展示重试按钮 | boolean | true |  |
+|showTooltip | 文件名超长时，是否展示 tooltip 及相关配置: type，浮层内容承载的组件，支持 Tooltip \| Popover；opts，其他需要透传给浮层组件的属性； renderTooltip，自定义渲染弹出层组件 | boolean \| {type: 'tooltip' \| 'popover', opts: object, renderTooltip: (content: ReactNode, children: ReactNode) => ReactNode} | true |  |
 |showUploadList | 是否显示文件列表 | boolean | true |  |
 |style | 样式 | CSSProperties |  |  |
 |transformFile | 选中文件后，上传文件前的回调函数，可用于对文件进行自定义转换处理 | (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => FileItem |  |  |
