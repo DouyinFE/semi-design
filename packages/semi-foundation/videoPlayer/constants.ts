@@ -26,4 +26,13 @@ const numbers = {
     DEFAULT_PLAYBACK_RATE: 1,
 } as const;
 
-export { cssClasses, strings, numbers }; 
+const DEFAULT_PLAYBACK_RATE = [
+    { label: '2.0x', value: 2 },
+    { label: '1.5x', value: 1.5 },
+    { label: '1.25x', value: 1.25 },
+    { label: '1.0x', value: 1 },
+    { label: '0.75x', value: 0.75 },
+    { label: '0.5x', value: 0.5 },
+];
+
+export { cssClasses, strings, numbers, DEFAULT_PLAYBACK_RATE }; 

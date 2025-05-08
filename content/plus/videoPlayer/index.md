@@ -228,7 +228,7 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
         },
         {
             start: 38,
-            title: 'figma plugin'
+            title: 'Figma Plugin'
         },
         {
             start: 51,
@@ -254,6 +254,7 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 | className  | 类名                                         | string                               | -   |
 | clickToPlay | 是否启用点击以播放                            | boolean                              | true   |
 | controlsList | 设置菜单栏展示控件，默认展示所有控件                       | string[]                              | ['play', 'next', 'time', 'volume', 'playbackRate', 'quality', 'route', 'mirror', 'fullscreen', 'pictureInPicture']   |
+| crossOrigin | 该枚举属性指明是否使用 CORS 来获取相关视频。允许 CORS 的资源可在 <canvas> 元素中被重用，而不会被污染。允许的值有 'anonymous' 和 'use-credentials'                           | React.MediaHTMLAttributes<HTMLVideoElement>['crossOrigin']                              | -  |
 | defaultPlaybackRate | 默认倍率                            | number                              | 1   |
 | defaultPlaybackRate | 默认视频清晰度                       | string                              | -   |
 | defaultRoute | 默认线路                       | string                              | -   |

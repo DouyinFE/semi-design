@@ -196,6 +196,15 @@ const local: Locale = {
         replace: '교체',
         replaceAll: '모두 교체',
     },
+    VideoPlayer: {
+        rateChange: '속도를 ${rate}로 변경',
+        qualityChange: '품질을 ${quality}로 변경',
+        routeChange: '경로를 ${route}로 변경',
+        mirror: '거울',
+        cancelMirror: '거울 해제',
+        loading: '로딩 중...',
+        stall: '로딩 실패',
+    }
 };
 
 // [i18n-Korea]

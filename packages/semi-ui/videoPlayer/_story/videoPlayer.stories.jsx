@@ -125,7 +125,7 @@ export const Chapter = () => {
                     },
                     {
                         start: 38,
-                        title: 'figma plugin'
+                        title: 'Figma Plugin'
                     },
                     {
                         start: 51,
@@ -207,6 +207,14 @@ export const QualityAndLine = () => {
                     setRoute(route);
                 }}
             />
+        </div>
+    )
+}
+
+export const ScrollDemo = () => {
+    return (
+        <div style={{ height: 1000, overflow: 'auto' }}>
+            <VideoPlayer />
         </div>
     )
 }

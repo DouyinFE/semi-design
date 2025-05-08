@@ -2,7 +2,7 @@
 import React from 'react';
 import cls from 'classnames';
 import BaseComponent from '../_base/baseComponent';
-import { cssClasses, numbers, strings } from '@douyinfe/semi-foundation/videoPlayer/constants';
+import { cssClasses, DEFAULT_PLAYBACK_RATE, numbers, strings } from '@douyinfe/semi-foundation/videoPlayer/constants';
 import VideoPlayerFoundation, { VideoPlayerAdapter } from '@douyinfe/semi-foundation/videoPlayer/foundation';
 import '@douyinfe/semi-foundation/videoPlayer/videoPlayer.scss';
 import { IconPlay, IconPause, IconVolume1, IconVolume2, IconRestart, IconFlipHorizontal, IconMinimize, IconMaximize, IconMute, IconPlayCircle, IconMiniPlayer } from '@douyinfe/semi-icons';
@@ -13,6 +13,9 @@ import Dropdown from '../dropdown';
 import VideoProgress from './videoProgress';
 import { formatTime } from './utils';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
+import LocaleConsumer from '../locale/localeConsumer';
+import { Locale } from '../locale/interface';
+
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -22,6 +25,7 @@ export interface VideoPlayerProps {
     className?: string;
     clickToPlay: boolean;
     controlsList?: Array<string>;
+    crossOrigin?: React.MediaHTMLAttributes<HTMLVideoElement>['crossOrigin'];
     defaultPlaybackRate: number;
     defaultQuality?: string;
     defaultRoute?: string;
@@ -80,14 +84,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
         controlsList: [strings.PLAY, strings.NEXT, strings.TIME, strings.VOLUME, strings.PLAYBACK_RATE, strings.QUALITY, strings.ROUTE, strings.MIRROR, strings.FULLSCREEN, strings.PICTURE_IN_PICTURE],
         loop: false,
         muted: false,
-        playbackRateList: [
-            { label: '2.0x', value: 2 },
-            { label: '1.5x', value: 1.5 },
-            { label: '1.25x', value: 1.25 },
-            { label: '1.0x', value: 1 },
-            { label: '0.75x', value: 0.75 },
-            { label: '0.5x', value: 0.5 },
-        ],
+        playbackRateList: DEFAULT_PLAYBACK_RATE,
         seekTime: numbers.DEFAULT_SEEK_TIME,
         volume: numbers.DEFAULT_VOLUME,
     };
@@ -197,12 +194,12 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
         this.foundation.handleCanPlay();
     }
 
-    handleWaiting = () => {
-        this.foundation.handleWaiting();
+    handleWaiting = (locale: Locale['VideoPlayer']) => {
+        this.foundation.handleWaiting(locale);
     }
 
-    handleStalled = () => {
-        this.foundation.handleStalled();
+    handleStalled = (locale: Locale['VideoPlayer']) => {
+        this.foundation.handleStalled(locale);
     }
 
     handleProgress = () => {
@@ -221,20 +218,20 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
         this.foundation.handleVolumeSilent();
     }
 
-    handleRateChange = (option: { label: string; value: number }) => {
-        this.foundation.handleRateChange(option);
+    handleRateChange = (option: { label: string; value: number }, locale: Locale['VideoPlayer']) => {
+        this.foundation.handleRateChange(option, locale);
     }
 
-    handleQualityChange = (option: { label: string; value: string }) => {
-        this.foundation.handleQualityChange(option);
+    handleQualityChange = (option: { label: string; value: string }, locale: Locale['VideoPlayer']) => {
+        this.foundation.handleQualityChange(option, locale);
     }
 
-    handleRouteChange = (option: { label: string; value: string }) => {
-        this.foundation.handleRouteChange(option);
+    handleRouteChange = (option: { label: string; value: string }, locale: Locale['VideoPlayer']) => {
+        this.foundation.handleRouteChange(option, locale);
     }
     
-    handleMirror = () => {
-        this.foundation.handleMirror();
+    handleMirror = (locale: Locale['VideoPlayer']) => {
+        this.foundation.handleMirror(locale);
     }
 
     handleFullscreen = () => {
@@ -376,7 +373,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
         );
     }
 
-    renderDropdownButton = (currentValue: string | number, list: { label: string; value: number | string }[], handleChange: (option: { label: string; value: any }) => void, name: string) => {
+    renderDropdownButton = (currentValue: string | number, list: { label: string; value: number | string }[], handleChange: (option: { label: string; value: any }, locale: Locale['VideoPlayer']) => void, name: string, locale: Locale['VideoPlayer']) => {
         if (this.foundation.shouldShowControlItem(name)) {
             return (
                 <Dropdown 
@@ -388,7 +385,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                                 <Dropdown.Item 
                                     className={cls(`${cssClasses.PREFIX_CONTROLS}-popup-menu-item`)} 
                                     key={option.value} 
-                                    onClick={() => handleChange(option)} 
+                                    onClick={() => handleChange(option, locale)} 
                                     active={option.value === currentValue}
                                 >
                                     {option.label}
@@ -396,7 +393,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                             ))}
                         </Dropdown.Menu>
                     } 
-                    onChange={handleChange}
+                    onChange={(option: { label: string; value: any }) => handleChange(option, locale)}
                 >
                     <div 
                         className={cls(
@@ -413,76 +410,83 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
     }
 
     render() {
-        const { poster, markers, qualityList, routeList, width, height, autoPlay, style, className, loop, captionsSrc } = this.props;
+        const { poster, markers, qualityList, routeList, width, height, autoPlay, style, className, loop, captionsSrc, crossOrigin } = this.props;
         const { isPlaying, playbackRate, playbackRateList, isMirror, currentTime, totalTime, currentQuality, currentRoute, src, bufferedValue, showControls } = this.state;
 
         return (
-            <div 
-                className={cls(`${prefixCls}`,
-                    className,
-                    { [`${prefixCls}-mirror`]: isMirror },
-                )}
-                style={{ width, height, ...style }}
-                ref={this.videoWrapperRef}
-                onMouseEnter={this.handleMouseEnterWrapper}
-                onMouseLeave={this.handleMouseLeaveWrapper}
-            >
-                <div className={cls(`${prefixCls}-wrapper`)}>
-                    <video 
-                        ref={this.videoRef} 
-                        autoPlay={autoPlay}
-                        loop={loop}
-                        controls={false}
-                        src={src}
-                        poster={poster}
-                        onTimeUpdate={this.handleTimeUpdate}
-                        onDurationChange={this.handleDurationChange}
-                        onClick={() => { this.foundation.handlePlayOrPause();}}
-                        // An error occurred while getting the media data, or the resource is in an unsupported format.
-                        onError={this.handleError}
-                        onCanPlay={this.handleCanPlay}
-                        // Playback stopped due to temporary lack of data.
-                        onWaiting={this.handleWaiting}
-                        // The user agent attempted to fetch media data but was unexpectedly unable to fetch the data.
-                        onStalled={this.handleStalled}
-                        onProgress={this.handleProgress}
-                    >
-                        <track kind="captions" src={captionsSrc}/>
-                    </video>
-                    {this.isResourceNotFound() && this.renderResourceNotFound()}
-                </div>
-                {this.renderPauseIcon()}
-                {this.renderError()}
-                {this.renderNotification()}
-                <div className={cls(`${cssClasses.PREFIX_CONTROLS}`,
-                    { [`${cssClasses.PREFIX_CONTROLS}-hide`]: !showControls }
-                )}>
-                    <VideoProgress 
-                        key={totalTime}
-                        value={currentTime} 
-                        max={totalTime} 
-                        onChange={this.handleTimeChange}
-                        markers={markers}
-                        bufferedValue={bufferedValue}
-                    />
-                    <div className={cls(`${cssClasses.PREFIX_CONTROLS}-menu`)}>
-                        <div className={cls(`${cssClasses.PREFIX_CONTROLS}-menu-left`)}>
-                            {this.renderIconButton(isPlaying ? <IconPause /> : <IconPlay />, isPlaying ? this.handlePause : this.handlePlay, strings.PLAY)}
-                            {this.renderIconButton(<IconRestart rotate={180} />, isPlaying ? this.handlePause : this.handlePlay, strings.NEXT)}
-                            {this.renderTime()}
-                            {this.renderVolume()}
-                            {this.renderDropdownButton(playbackRate, playbackRateList, this.handleRateChange, strings.PLAYBACK_RATE)}
+            <LocaleConsumer componentName="VideoPlayer">
+                {(locale: Locale['VideoPlayer']) => { 
+                    return (
+                        <div 
+                            className={cls(`${prefixCls}`,
+                                className,
+                                { [`${prefixCls}-mirror`]: isMirror },
+                            )}
+                            style={{ width, height, ...style }}
+                            ref={this.videoWrapperRef}
+                            onMouseEnter={this.handleMouseEnterWrapper}
+                            onMouseLeave={this.handleMouseLeaveWrapper} 
+                        >
+                            <div className={cls(`${prefixCls}-wrapper`)}>
+                                <video 
+                                    ref={this.videoRef} 
+                                    autoPlay={autoPlay}
+                                    loop={loop}
+                                    controls={false}
+                                    crossOrigin={crossOrigin}
+                                    src={src}
+                                    poster={poster}
+                                    onTimeUpdate={this.handleTimeUpdate}
+                                    onDurationChange={this.handleDurationChange}
+                                    onClick={() => { this.foundation.handlePlayOrPause();}}
+                                    // An error occurred while getting the media data, or the resource is in an unsupported format.
+                                    onError={this.handleError}
+                                    onCanPlay={this.handleCanPlay}
+                                    // Playback stopped due to temporary lack of data.
+                                    onWaiting={() => this.handleWaiting(locale)}
+                                    // The user agent attempted to fetch media data but was unexpectedly unable to fetch the data.
+                                    onStalled={() => this.handleStalled(locale)}
+                                    onProgress={this.handleProgress}
+                                >
+                                    <track kind="captions" src={captionsSrc}/>
+                                </video>
+                                {this.isResourceNotFound() && this.renderResourceNotFound()}
+                            </div>
+                            {this.renderPauseIcon()}
+                            {this.renderError()}
+                            {this.renderNotification()}
+                            <div className={cls(`${cssClasses.PREFIX_CONTROLS}`,
+                                { [`${cssClasses.PREFIX_CONTROLS}-hide`]: !showControls }
+                            )}>
+                                <VideoProgress 
+                                    key={totalTime}
+                                    value={currentTime} 
+                                    max={totalTime} 
+                                    onChange={this.handleTimeChange}
+                                    markers={markers}
+                                    bufferedValue={bufferedValue}
+                                />
+                                <div className={cls(`${cssClasses.PREFIX_CONTROLS}-menu`)}>
+                                    <div className={cls(`${cssClasses.PREFIX_CONTROLS}-menu-left`)}>
+                                        {this.renderIconButton(isPlaying ? <IconPause /> : <IconPlay />, isPlaying ? this.handlePause : this.handlePlay, strings.PLAY)}
+                                        {this.renderIconButton(<IconRestart rotate={180} />, isPlaying ? this.handlePause : this.handlePlay, strings.NEXT)}
+                                        {this.renderTime()}
+                                        {this.renderVolume()}
+                                        {this.renderDropdownButton(playbackRate, playbackRateList, this.handleRateChange, strings.PLAYBACK_RATE, locale)}
+                                    </div>
+                                    <div className={cls(`${cssClasses.PREFIX_CONTROLS}-menu-right`)}>
+                                        {qualityList && qualityList.length > 0 && this.renderDropdownButton(currentQuality, qualityList, this.handleQualityChange, strings.QUALITY, locale)}
+                                        {routeList && routeList.length > 0 && this.renderDropdownButton(currentRoute, routeList, this.handleRouteChange, strings.ROUTE, locale)}
+                                        {this.renderIconButton(<IconFlipHorizontal />, () => this.handleMirror(locale), strings.MIRROR)}
+                                        {this.renderIconButton(this.foundation.checkFullScreen() ? <IconMinimize /> : <IconMaximize />, this.handleFullscreen, strings.FULLSCREEN)}
+                                        {this.renderIconButton(<IconMiniPlayer />, this.handlePictureInPicture, strings.PICTURE_IN_PICTURE)}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div className={cls(`${cssClasses.PREFIX_CONTROLS}-menu-right`)}>
-                            {qualityList && qualityList.length > 0 && this.renderDropdownButton(currentQuality, qualityList, this.handleQualityChange, strings.QUALITY)}
-                            {routeList && routeList.length > 0 && this.renderDropdownButton(currentRoute, routeList, this.handleRouteChange, strings.ROUTE)}
-                            {this.renderIconButton(<IconFlipHorizontal />, this.handleMirror, strings.MIRROR)}
-                            {this.renderIconButton(this.foundation.checkFullScreen() ? <IconMinimize /> : <IconMaximize />, this.handleFullscreen, strings.FULLSCREEN)}
-                            {this.renderIconButton(<IconMiniPlayer />, this.handlePictureInPicture, strings.PICTURE_IN_PICTURE)}
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    );
+                }}
+            </LocaleConsumer>
         );
     }
 }

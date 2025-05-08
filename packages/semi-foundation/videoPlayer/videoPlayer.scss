@@ -1,4 +1,3 @@
-// @use "sass:math";
 @import './variables.scss';
 @import './animation.scss';
 
@@ -184,16 +183,13 @@ $module: #{$prefix}-videoPlayer;
     // }
 
     &-progress {
-
-        &-wrapper {
-            position: relative;
-            height: $height-videoPlayer_progress_bar-default;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            margin: $spacing-videoPlayer-progress_bar_wrapper-marginY $spacing-videoPlayer-progress_bar_wrapper-marginX;
-        }
+        position: relative;
+        height: $height-videoPlayer_progress_bar-default;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin: $spacing-videoPlayer-progress_bar_wrapper-marginY $spacing-videoPlayer-progress_bar_wrapper-marginX;
 
         &-markers {
             position: absolute;
@@ -203,6 +199,15 @@ $module: #{$prefix}-videoPlayer;
 
         &-tooltip {
             top: $spacing-videoPlayer-progress_bar_tooltip-top;
+            background-color: $color-videoPlayer_progress_bar_tooltip-bg;
+
+            &-content {
+                @include all-center;
+            }
+
+            path {
+                fill: $color-videoPlayer_progress_bar_tooltip-bg;
+            }
         }
 
         &-slider {
@@ -217,7 +222,7 @@ $module: #{$prefix}-videoPlayer;
                 .#{$module}-progress-slider-list, 
                 .#{$module}-progress-slider-played,
                 .#{$module}-progress-slider-buffered {
-                    transform: scaleY($height-videoPlayer_progress_bar-hover / $height-videoPlayer_progress_bar-default); 
+                    transform: scaleY(calc($height-videoPlayer_progress_bar-hover / $height-videoPlayer_progress_bar-default)); 
                     transform-origin: center;
                     transition: transform $animation_duration-videoPlayer_slider-in;
                     transition-timing-function: $animation_function-videoPlayer_slider-in;

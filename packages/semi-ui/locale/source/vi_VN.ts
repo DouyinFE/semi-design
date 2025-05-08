@@ -198,6 +198,15 @@ const local: Locale = {
         replace: 'Thay thế',
         replaceAll: 'Thay thế tất cả',
     },
+    VideoPlayer: {
+        rateChange: 'Thay đổi tốc độ thành ${rate}',
+        qualityChange: 'Thay đổi chất lượng thành ${quality}',
+        routeChange: 'Thay đổi tuyến đường thành ${route}',
+        mirror: 'Gương',
+        cancelMirror: 'Hủy gương',
+        loading: 'Đang tải...',
+        stall: 'Tải không thành công',
+    }
 };
 
 // [i18n-Vietnam] 越南语

@@ -196,6 +196,15 @@ const local: Locale = {
         replace: 'Değiştir',
         replaceAll: 'Tümünü değiştir',
     },
+    VideoPlayer: {
+        rateChange: 'Hızı ${rate}\'e değiştir',
+        qualityChange: 'Kaliteyi ${quality}\'e değiştir',
+        routeChange: 'Rota ${route}\'e değiştir',
+        mirror: 'Ayna',
+        cancelMirror: 'Aynayı kaldır',
+        loading: 'Yükleniyor...',
+        stall: 'Yükleme başarısız',
+    }
 };
 
 // [i18n-Turkish] 

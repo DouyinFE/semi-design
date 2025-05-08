@@ -20,7 +20,7 @@ interface VideoProgressProps {
 interface VideoProgressState {
     isDragging: boolean;
     isHandleHovering: boolean;
-    movingInfo: { progress: number; offset: number } | null;
+    movingInfo: { progress: number; offset: number; value: number } | null;
     activeIndex: number
 }
 
@@ -50,7 +50,7 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
             isDragging: false,
             isHandleHovering: false,
             movingInfo: null,
-            activeIndex: -1 // Used to determine which slider the current handle is on under the dragging state
+            activeIndex: -1, // Used to determine which slider the current handle is on under the dragging state
         };
 
         this.sliderRef = React.createRef();
@@ -142,7 +142,8 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
         this.setState({
             movingInfo: {
                 progress: percentage,
-                offset: offset - rect.width / 2
+                offset: offset - rect.width / 2,
+                value
             },
         });
     };
@@ -200,17 +201,26 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
 
     renderTooltipContent = () => {
         const { movingInfo } = this.state;
-        if (this.markersList.length > 0) {
-            const marker = this.markersList.find((marker: MarkerListItem) => {
-                return movingInfo && movingInfo.progress * this.props.max > marker.start && movingInfo.progress * this.props.max < marker.end;
+        if (this.markersList.length > 0 && movingInfo) {
+            const hoverIndex = this.markersList.findIndex((marker: MarkerListItem) => {
+                return movingInfo?.value > marker.start && movingInfo?.value < marker.end;
             });
-            return marker && marker.title;
+            return (
+                <>
+                    <div className={cls(`${cssClasses.PREFIX_PROGRESS}-tooltip-content`)}>
+                        {this.markersList[hoverIndex]?.title}
+                    </div>
+                    <div className={cls(`${cssClasses.PREFIX_PROGRESS}-tooltip-content`)}>
+                        {formatTime(movingInfo.progress * this.props.max)}
+                    </div>
+                </>
+            );
         }
         return movingInfo && formatTime(movingInfo.progress * this.props.max);
     }
 
     render() {
-        const { showTooltip, max, value: currentValue, bufferedValue } = this.props;
+        const { showTooltip, max, value: currentValue } = this.props;
         const { movingInfo, isHandleHovering, isDragging, activeIndex } = this.state;
         const sliderContent = (
             <div
@@ -218,7 +228,7 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
                 tabIndex={0}
                 aria-valuenow={currentValue as number}
                 ref={this.sliderRef}
-                className={cls(`${cssClasses.PREFIX_PROGRESS}-wrapper`)}
+                className={cls(`${cssClasses.PREFIX_PROGRESS}`)}
                 onMouseDown={this.handleMouseDown}
                 onMouseUp={this.handleMouseUp}
                 onMouseEnter={this.handleMouseEnter}
@@ -228,7 +238,7 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
                     {
                         this.markersList.map((marker: MarkerListItem, index: number) => (
                             <div
-                                key={marker.start}   
+                                key={`${marker.start}-${index}`}   
                                 className={cls(`${cssClasses.PREFIX_PROGRESS}-slider`,
                                     { [`${cssClasses.PREFIX_PROGRESS}-slider-active`]: index === activeIndex && isDragging }
                                 )}
@@ -267,10 +277,8 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
         return showTooltip ? (
             <Tooltip
                 position={'top'}
-                // todo: 分章节标题展示与设计对齐
-                content={movingInfo && formatTime(movingInfo.progress * max)}
                 className={cls(`${cssClasses.PREFIX_PROGRESS}-tooltip`)}
-                // content={this.renderTooltipContent()}
+                content={this.renderTooltipContent()}
                 style={{ 'left': movingInfo?.offset }}
             >
                 {sliderContent}

@@ -123,13 +123,13 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         this._adapter.setShowNotification(false);
     }
 
-    handleWaiting = () => {
-        this._adapter.setNotificationContent('loading...');
+    handleWaiting = (locale: any) => {
+        this._adapter.setNotificationContent(locale.loading);
         this._adapter.setShowNotification(true);
     }
 
-    handleStalled = () => {
-        this._adapter.setNotificationContent('loading failed');
+    handleStalled = (locale: any) => {
+        this._adapter.setNotificationContent(locale.stall);
         this._adapter.setShowNotification(true);
     }
 
@@ -188,33 +188,33 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         }
     }
 
-    handleRateChange(rate: { label: string; value: number }) {
+    handleRateChange(rate: { label: string; value: number }, locale: any) {
         const video = this._adapter.getVideo();
         if (!video) return;
         video.playbackRate = rate.value;
         this._adapter.setPlaybackRate(rate.value);
         this._adapter.notifyRateChange(rate.value);
-        this.handleTemporaryNotification(`Switching Rate to ${rate.label}`);
+        this.handleTemporaryNotification(locale.rateChange.replace('${rate}', rate.label));
     }
 
-    handleQualityChange(quality: { label: string; value: string }) {
+    handleQualityChange(quality: { label: string; value: string }, locale: any) {
         this._adapter.setQuality(quality.value);
         this._adapter.notifyQualityChange(quality.value);
-        this.handleTemporaryNotification(`Switching to ${quality.label}`);
+        this.handleTemporaryNotification(locale.qualityChange.replace('${quality}', quality.label));
         this.restorePlayPosition();
     }
 
-    handleRouteChange(route: { label: string; value: string }) {
+    handleRouteChange(route: { label: string; value: string }, locale: any) {
         this._adapter.setRoute(route.value);
         this._adapter.notifyRouteChange?.(route.value);
-        this.handleTemporaryNotification(`Switching to ${route.label}`);
+        this.handleTemporaryNotification(locale.routeChange.replace('${route}', route.label));
         this.restorePlayPosition();
     }
 
-    handleMirror = () => {
+    handleMirror = (locale: any) => {
         const { isMirror } = this.getStates();
         this._adapter.setIsMirror(!isMirror);
-        this.handleTemporaryNotification(!isMirror ? `Video mirrored` : `Video mirrored cancelled`);
+        this.handleTemporaryNotification(!isMirror ? locale.mirror : locale.cancelMirror);
     }
 
     handlePictureInPicture = () => {

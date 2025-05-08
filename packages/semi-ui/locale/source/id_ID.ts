@@ -195,6 +195,15 @@ const local: Locale = {
         replace: 'Ganti',
         replaceAll: 'Ganti Semua',
     },
+    VideoPlayer: {
+        rateChange: 'Ubah kecepatan ke ${rate}',
+        qualityChange: 'Ubah kualitas ke ${quality}',
+        routeChange: 'Ubah rute ke ${route}',
+        mirror: 'Cermin',
+        cancelMirror: 'Hapus cermin',
+        loading: 'Memuat...',
+        stall: 'Memuat gagal',
+    }
 };
 
 // [i18n-Indonesia(ID)]

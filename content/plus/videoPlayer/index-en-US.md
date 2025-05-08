@@ -254,6 +254,7 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 | className  | Class name                                         | string                               | -   |
 | clickToPlay | Whether to enable click to play                         | boolean                              | true   |
 | controlsList | Set the menu bar to display controls. All controls are displayed by default.                       | string[]                              | ['play', 'next', 'time', 'volume', 'playbackRate', 'quality', 'route', 'mirror', 'fullscreen', 'pictureInPicture']   |
+| crossOrigin | This enum attribute indicates whether CORS is used to fetch the video. CORS-enabled resources can be reused in <canvas> elements without being polluted. Allowed values ​​are 'anonymous' and 'use-credentials' | React.MediaHTMLAttributes<HTMLVideoElement>['crossOrigin'] | - |
 | defaultPlaybackRate | Default playback rate                            | number                              | 1   |
 | defaultPlaybackRate | Default video resolution                       | string                              | -   |
 | defaultRoute | Default Line                       | string                              | -   |
