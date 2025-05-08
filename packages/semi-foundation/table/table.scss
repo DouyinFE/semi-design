@@ -148,14 +148,14 @@ $module: #{$prefix}-table;
                         background-image: linear-gradient(0deg, $color-table_th-clickSort-bg-hover, $color-table_th-clickSort-bg-hover);
                         background-color: $color-table_cell-bg-hover;
                         
-                        &.#{$module}-cell-fixed {
-                            &-left,
-                            &-right {
-                                &::before {
-                                    background-color: transparent;
-                                }
-                            }
-                        }
+                        // &.#{$module}-cell-fixed {
+                        //     &-left,
+                        //     &-right {
+                        //         &::before {
+                        //             background-color: transparent;
+                        //         }
+                        //     }
+                        // }
                     }
                 }
 
@@ -164,19 +164,19 @@ $module: #{$prefix}-table;
                     &-right {
                         z-index: $z-table_fixed_column;
                         position: sticky;
-                        background-color: $color-table-bg-default;
+                        background-color: $color-table_th-bg-default;
 
-                        &::before {
-                            background-color: $color-table_th-bg-default;
-                            content: '';
-                            position: absolute;
-                            left: 0;
-                            top: 0;
-                            right: 0;
-                            bottom: 0;
-                            display: block;
-                            z-index: -1;
-                        }
+                        // &::before {
+                        //     background-color: $color-table_th-bg-default;
+                        //     content: '';
+                        //     position: absolute;
+                        //     left: 0;
+                        //     top: 0;
+                        //     right: 0;
+                        //     bottom: 0;
+                        //     display: block;
+                        //     z-index: -1;
+                        // }
                     }
 
                     &-left-last {
@@ -270,18 +270,19 @@ $module: #{$prefix}-table;
                         &-left,
                         &-right {
                             background-image: linear-gradient(0deg, $color-table_body-bg-default, $color-table_body-bg-default);
+                            background-color: $color-table_body-bg-hover;
 
-                            &::before {
-                                background-color: $color-table_body-bg-hover;
-                                content: '';
-                                position: absolute;
-                                left: 0;
-                                top: 0;
-                                right: 0;
-                                bottom: 0;
-                                display: block;
-                                z-index: -1;
-                            }
+                            // &::before {
+                            //     background-color: $color-table_body-bg-hover;
+                            //     content: '';
+                            //     position: absolute;
+                            //     left: 0;
+                            //     top: 0;
+                            //     right: 0;
+                            //     bottom: 0;
+                            //     display: block;
+                            //     z-index: -1;
+                            // }
                         }
                     }
                 }
