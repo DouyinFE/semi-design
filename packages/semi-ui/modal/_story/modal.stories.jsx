@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import en_GB from '../../locale/source/en_GB';
 
-import { Select, Modal, Button, Tooltip, Popover, ConfigProvider, Tag, Space } from '../../index';
+import { Select, Modal, Button, Tooltip, Popover, ConfigProvider, Tag, Space, DragMove } from '../../index';
 import CollapsibleInModal from './CollapsibleInModal';
 import DynamicContextDemo from './DynamicContext';
 
@@ -341,3 +341,28 @@ export const UseModalAfterClose = () => {
   );
 };
 UseModalAfterClose.storyName = "useModal afterClose";
+
+export const DraggableModal = () => {
+    const [visible, setVisible] = useState(false);
+    return (
+        <div>
+            <Button onClick={() => setVisible(true)}>Open Modal</Button>
+            <Modal
+                title="可拖拽Modal"
+                visible={visible}
+                onCancel={() => setVisible(false)}
+                modalRender={(modal) => (
+                    <DragMove>{modal}</DragMove>
+                )}
+            >
+                <p>This is the content of a basic sidesheet.</p>
+                <p>Here is more content...</p>
+            </Modal>
+        </div>
+    );
+};
+
+
+DraggableModal.story = {
+    name: 'draggable modal',
+};
