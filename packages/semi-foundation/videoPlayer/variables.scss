@@ -4,7 +4,7 @@ $color-videoPlayer_error-text: var(--semi-color-grey-8); // error 字体色
 $color-videoPlayer_pause-bg: var(--semi-color-text-1); // 暂停按钮颜色
 $color-videoPlayer_notification-bg: var(--semi-color-overlay-bg); // notification 背景色
 $color-videoPlayer_notification-text: var(--semi-color-default); // notification 字体色
-$color-videoPlayer_controls-bg: var(--semi-color-text-1); // 控制栏背景色
+$color-videoPlayer_controls-bg: rgba(28, 31, 35, 0.8); // 控制栏背景色
 $color-videoPlayer_controls_item-bg: var(--semi-color-overlay-bg); // 控制栏 item 背景色
 $color-videoPlayer_controls-text: #fff; // 控制栏文字色
 $color-videoPlayer_controls_item_popup-bg: var(--semi-color-overlay-bg); // 控制栏弹层背景色
@@ -48,6 +48,8 @@ $spacing-videoPlayer-controls_popup-paddingX: $spacing-tight; // 控制栏弹层
 $spacing-videoPlayer-controls_popup-paddingY: 0px; // 控制栏弹层元素 paddingY
 $spacing-videoPlayer-progress_bar_wrapper-marginX: $spacing-tight; // 进度条 wrapper marginX
 $spacing-videoPlayer-progress_bar_wrapper-marginY: 0px; // 进度条 wrapper marginY
+$spacing-videoPlayer-progress_bar_tooltip-top: -5px; // 进度条 Tooltip top 值
+
 
 
 // Radius

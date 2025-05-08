@@ -219,16 +219,20 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     const markers = [
         {
-            time: 5,
-            title: 'this is a marker in 5s'
+            start: 0,
+            title: '片头'
         },
         {
-            time: 20,
-            title: 'this is a marker in 20s'
+            start: 4,
+            title: '功能介绍'
         },
         {
-            time: 30,
-            title: 'this is a marker in 30s'
+            start: 38,
+            title: 'figma plugin'
+        },
+        {
+            start: 51,
+            title: '片尾'
         }
     ];
 
@@ -277,7 +281,7 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 #### Marker
 | 属性        | 说明                                        | 类型                                  | 默认值   |
 |------------|---------------------------------------------|--------------------------------------|-------|
-| time   | 时间点                                  | number                              | 
+| start   | 起始时间点                                  | number                              | 
 | title   | 标题                                  | string                              | 
 
 

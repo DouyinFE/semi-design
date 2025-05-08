@@ -12,9 +12,5 @@
     "include": [
         "utils/**/*",
         "scripts/**/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "dist"
     ]
 }

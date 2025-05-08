@@ -18,6 +18,7 @@ const prefixCls = cssClasses.PREFIX;
 
 export interface VideoPlayerProps {
     autoPlay: boolean;
+    captionsSrc?: string;
     className?: string;
     clickToPlay: boolean;
     controlsList?: Array<string>;
@@ -48,7 +49,7 @@ export interface VideoPlayerProps {
 }
 
 export interface Marker {
-    time: number;
+    start: number;
     title: string
 }
 
@@ -165,14 +166,11 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
     }
 
     handleMouseEnterWrapper = () => {
-        this.adapter.setShowControls(true);
+        this.foundation.handleMouseEnterWrapper();
     }
 
     handleMouseLeaveWrapper = () => {
-        const { isPlaying } = this.state;
-        if (isPlaying) {
-            this.adapter.setShowControls(false);
-        }
+        this.foundation.handleMouseLeaveWrapper();
     }
 
     handleTimeChange = (value: number) => {
@@ -415,7 +413,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
     }
 
     render() {
-        const { poster, markers, qualityList, routeList, width, height, autoPlay, style, className, loop } = this.props;
+        const { poster, markers, qualityList, routeList, width, height, autoPlay, style, className, loop, captionsSrc } = this.props;
         const { isPlaying, playbackRate, playbackRateList, isMirror, currentTime, totalTime, currentQuality, currentRoute, src, bufferedValue, showControls } = this.state;
 
         return (
@@ -449,7 +447,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                         onStalled={this.handleStalled}
                         onProgress={this.handleProgress}
                     >
-                        <track kind="captions" src={src} />
+                        <track kind="captions" src={captionsSrc}/>
                     </video>
                     {this.isResourceNotFound() && this.renderResourceNotFound()}
                 </div>
@@ -459,18 +457,14 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                 <div className={cls(`${cssClasses.PREFIX_CONTROLS}`,
                     { [`${cssClasses.PREFIX_CONTROLS}-hide`]: !showControls }
                 )}>
-                    <div className={cls(`${cssClasses.PREFIX_CONTROLS}-progress`)}>
-                        {
-                            <VideoProgress 
-                                key={totalTime}
-                                value={currentTime} 
-                                max={totalTime} 
-                                onChange={this.handleTimeChange}
-                                markers={markers}
-                                bufferedValue={bufferedValue}
-                            />
-                        }
-                    </div>
+                    <VideoProgress 
+                        key={totalTime}
+                        value={currentTime} 
+                        max={totalTime} 
+                        onChange={this.handleTimeChange}
+                        markers={markers}
+                        bufferedValue={bufferedValue}
+                    />
                     <div className={cls(`${cssClasses.PREFIX_CONTROLS}-menu`)}>
                         <div className={cls(`${cssClasses.PREFIX_CONTROLS}-menu-left`)}>
                             {this.renderIconButton(isPlaying ? <IconPause /> : <IconPlay />, isPlaying ? this.handlePause : this.handlePlay, strings.PLAY)}

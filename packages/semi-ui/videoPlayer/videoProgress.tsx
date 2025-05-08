@@ -25,11 +25,11 @@ interface VideoProgressState {
 }
 
 interface MarkerListItem {
-    time: number;
+    start: number;
+    end: number;
     title: string;
     left: string;
-    width: string;
-    endTime: number
+    width: string
 }
 
 export default class VideoProgress extends React.Component<VideoProgressProps, VideoProgressState> {
@@ -58,41 +58,36 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
         this.markersList = this.getMarkerList();
     }
 
-    componentDidMount() {
-        document.addEventListener('mousemove', this.handleDocumentMouseMove);
-        document.addEventListener('mouseup', this.handleDocumentMouseUp);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('mousemove', this.handleDocumentMouseMove);
-        document.removeEventListener('mouseup', this.handleDocumentMouseUp);
-    }
-
     // add left and width to markers
     getMarkerList = () => {
         const { markers, max } = this.props;
         const hasMarkers = markers && markers.length > 0;
         const defaultMarker: MarkerListItem = {
-            time: 0,
+            start: 0,
+            end: max,
             title: '',
             left: '0px',
             width: '100%',
-            endTime: max
         };
         const newMarkers = hasMarkers ? [defaultMarker, ...markers] : [defaultMarker];
-        const markersList: MarkerListItem[] = hasMarkers ? newMarkers.map((marker: MarkerListItem | Marker, index: number) => {
-            const endTime = index === newMarkers.length - 1 ? max : newMarkers[index + 1].time;
-            if (marker.time > max || endTime > max) {
-                return {};
-            }
-            return {
-                left: `${(marker.time / max) * 100}%`,
-                width: `${max ? (endTime - marker.time) / max * 100 : 100}%`,
-                endTime: endTime,
-                time: marker.time,
-                title: marker.title
-            };
-        }) : [defaultMarker];
+        let markersList: MarkerListItem[] = [];
+        if (hasMarkers) {
+            newMarkers.forEach((marker: MarkerListItem | Marker, index: number) => {
+                const end = index === newMarkers.length - 1 ? max : newMarkers[index + 1].start;
+                if (!(marker.start > max || end > max)) {
+                    const item = {
+                        left: `${(marker.start / max) * 100}%`,
+                        width: `${max ? (end - marker.start) / max * 100 : 100}%`,
+                        end: end,
+                        start: marker.start,
+                        title: marker.title
+                    };
+                    markersList.push(item);
+                }
+            });
+        } else {
+            markersList.push(defaultMarker);
+        }
         return markersList;
     }
 
@@ -106,11 +101,15 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
         if (this.state.isDragging) {
             this.setState({ isDragging: false });
         }
+        document.removeEventListener('mousemove', this.handleDocumentMouseMove);
+        document.removeEventListener('mouseup', this.handleDocumentMouseUp);
     };
 
     handleMouseDown = (e: any) => {
         this.setState({ isDragging: true });
         this.handleMouseEvent(e, true);
+        document.addEventListener('mousemove', this.handleDocumentMouseMove);
+        document.addEventListener('mouseup', this.handleDocumentMouseUp);
     };
 
     handleMouseUp = () => {
@@ -151,7 +150,7 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
     handleSliderMouseEnter = (index: number) => {
         const { value: currentValue } = this.props;
         const currentSlider = this.markersList[index];
-        if (currentSlider.time < currentValue && currentSlider.endTime > currentValue) {
+        if (currentSlider.start < currentValue && currentSlider.end > currentValue) {
             this.setState({ isHandleHovering: true });
         } else {
             this.setState({ isHandleHovering: false });
@@ -161,7 +160,7 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
     handleSliderMouseLeave = (index: number) => {
         const { value: currentValue } = this.props;
         const currentSlider = this.markersList[index];
-        if (currentSlider.time < currentValue && currentSlider.endTime > currentValue) {
+        if (currentSlider.start < currentValue && currentSlider.end > currentValue) {
             this.setState({ isHandleHovering: false });
         }
     }
@@ -169,31 +168,31 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
     // Get the width of the video being played
     getPlayedWidth = (marker: MarkerListItem) => {
         const { value: currentValue } = this.props;
-        const { time, endTime } = marker;
-        if (currentValue > endTime) {
+        const { start, end } = marker;
+        if (currentValue > end) {
             return 'calc(100% - 2px)';
-        } else if (currentValue < time) {
+        } else if (currentValue < start) {
             return '0%';
         } else {
-            return `${(currentValue - time) / (endTime - time) * 100}%`;
+            return `${(currentValue - start) / (end - start) * 100}%`;
         }
     }
 
     getLoadedWidth = (marker: MarkerListItem) => {
         const { bufferedValue } = this.props;
-        const { time, endTime } = marker;
-        if (bufferedValue > endTime) {
+        const { start, end } = marker;
+        if (bufferedValue > end) {
             return 'calc(100% - 2px)';
-        } else if (bufferedValue < time) {
+        } else if (bufferedValue < start) {
             return '0%';
         } else {
-            return `${(bufferedValue - time) / (endTime - time) * 100}%`;
+            return `${(bufferedValue - start) / (end - start) * 100}%`;
         }
     }
 
     setActiveIndex = (currentValue: number) => {
         this.markersList.map((marker: MarkerListItem, index: number) => {
-            if (currentValue < marker.endTime && currentValue > marker.time) {
+            if (currentValue < marker.end && currentValue > marker.start) {
                 this.setState({ activeIndex: index, isHandleHovering: true });
             }
         });
@@ -203,7 +202,7 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
         const { movingInfo } = this.state;
         if (this.markersList.length > 0) {
             const marker = this.markersList.find((marker: MarkerListItem) => {
-                return movingInfo && movingInfo.progress * this.props.max > marker.time && movingInfo.progress * this.props.max < marker.endTime;
+                return movingInfo && movingInfo.progress * this.props.max > marker.start && movingInfo.progress * this.props.max < marker.end;
             });
             return marker && marker.title;
         }
@@ -229,7 +228,7 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
                     {
                         this.markersList.map((marker: MarkerListItem, index: number) => (
                             <div
-                                key={marker.time}
+                                key={marker.start}   
                                 className={cls(`${cssClasses.PREFIX_PROGRESS}-slider`,
                                     { [`${cssClasses.PREFIX_PROGRESS}-slider-active`]: index === activeIndex && isDragging }
                                 )}
@@ -270,6 +269,7 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
                 position={'top'}
                 // todo: 分章节标题展示与设计对齐
                 content={movingInfo && formatTime(movingInfo.progress * max)}
+                className={cls(`${cssClasses.PREFIX_PROGRESS}-tooltip`)}
                 // content={this.renderTooltipContent()}
                 style={{ 'left': movingInfo?.offset }}
             >

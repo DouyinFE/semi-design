@@ -219,16 +219,20 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     const markers = [
         {
-            time: 5,
-            title: 'this is a marker in 5s'
+            start: 0,
+            title: 'Start'
         },
         {
-            time: 20,
-            title: 'this is a marker in 20s'
+            start: 4,
+            title: 'Function Introduction'
         },
         {
-            time: 30,
-            title: 'this is a marker in 30s'
+            start: 38,
+            title: 'Figma Plugin'
+        },
+        {
+            start: 51,
+            title: 'Ending'
         }
     ];
 
@@ -277,7 +281,7 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 #### Marker
 | Properties | Description | Type | Default Value |
 |------------|---------------------------------------------|--------------------------------------|-------|
-| time   | time point                                  | number                              | 
+| start   | start time point                                  | number                              | 
 | title   | title                                  | string                              | 
 
 

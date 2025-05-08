@@ -1,4 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
+import { numbers } from './constants';
+import { throttle } from 'lodash';
 
 export interface VideoPlayerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getVideo: () => HTMLVideoElement | null;
@@ -61,17 +63,14 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         }
     }
 
-    handleMouseMove = () => {
-        const isFullScreen = this.checkFullScreen();
-        if (!isFullScreen) {
-            return;
-        }
+    handleMouseMove = throttle(() => {
         this._adapter.setShowControls(true);
         this.clearTimer();
         this.controlsTimer = setTimeout(() => {
             this._adapter.setShowControls(false);
         }, 3000);
-    }
+    }, 200);
+
 
     handleTimeChange(value: number) {
         const video = this._adapter.getVideo();
@@ -254,11 +253,31 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         video.addEventListener('loadeddata', handleLoaded);
     }
 
+    handleMouseEnterWrapper = () => {
+        this._adapter.setShowControls(true);
+    }
+
+    handleMouseLeaveWrapper = () => {
+        const { isPlaying } = this.getStates();
+        if (isPlaying) {
+            this._adapter.setShowControls(false);
+        }
+    }
+
+    handleFullscreenChange = () => {
+        const isFullScreen = this.checkFullScreen();
+        if (isFullScreen) {
+            document.addEventListener('mousemove', this.handleMouseMove);
+        } else {
+            document.removeEventListener('mousemove', this.handleMouseMove);
+        }
+    }
+
     registerEvent = () => {
         const video = this._adapter.getVideo();
         if (!video) return;
         document.addEventListener('keydown', (e) => this.handleBodyKeyDown(e));
-        document.addEventListener('mousemove', this.handleMouseMove);
+        document.addEventListener('fullscreenchange', this.handleFullscreenChange);
         video.addEventListener('leavepictureinpicture', this.handleLeavePictureInPicture);
     }
 
@@ -266,7 +285,7 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         const video = this._adapter.getVideo();
         if (!video) return;
         document.removeEventListener('keydown', (e) => this.handleBodyKeyDown(e));
-        document.removeEventListener('mousemove', this.handleMouseMove);
+        document.removeEventListener('fullscreenchange', this.handleFullscreenChange);
         video.removeEventListener('leavepictureinpicture', this.handleLeavePictureInPicture);
     }
 
@@ -276,9 +295,9 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         if (e.key === ' ') {
             this.handlePlayOrPause();
         } else if (e.key === 'ArrowUp') {
-            this.handleVolumeChange(volume + 10);
+            this.handleVolumeChange(volume + numbers.DEFAULT_VOLUME_STEP);
         } else if (e.key === 'ArrowDown') { 
-            this.handleVolumeChange(volume - 10);   
+            this.handleVolumeChange(volume - numbers.DEFAULT_VOLUME_STEP);   
         } else if (e.key === 'ArrowLeft') {
             this.handleTimeChange(currentTime - seekTime);
         } else if (e.key === 'ArrowRight') {

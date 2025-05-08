@@ -116,15 +116,19 @@ export const Chapter = () => {
                 poster={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg'}
                 markers={[
                     {
-                        time: 4,
+                        start: 0,
                         title: '片头'
                     },
                     {
-                        time: 38,
+                        start: 4,
                         title: '功能介绍'
                     },
                     {
-                        time: 51,
+                        start: 38,
+                        title: 'figma plugin'
+                    },
+                    {
+                        start: 51,
                         title: '片尾'
                     }
                 ]}

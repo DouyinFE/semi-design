@@ -22,6 +22,7 @@ const strings = {
 const numbers = {
     DEFAULT_VOLUME: 100,
     DEFAULT_SEEK_TIME: 10,
+    DEFAULT_VOLUME_STEP: 10,
     DEFAULT_PLAYBACK_RATE: 1,
 } as const;
 

@@ -105,7 +105,6 @@ module.exports = () => {
         let data = fs.readFileSync(mdxPath, { encoding: 'utf-8' });
         let dataArray = data.split('---');
         let yaml = dataArray[1];
-        console.log('yaml', yaml);
         const yamlArray = yaml.split('\n');
         let done = false;
         let localeDone = false;
