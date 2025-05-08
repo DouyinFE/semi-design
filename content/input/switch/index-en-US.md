@@ -63,6 +63,27 @@ import { Switch } from '@douyinfe/semi-ui';
 );
 ```
 
+### Type
+
+You can specify the theme color by using "type".
+
+```jsx live=true
+import React from 'react';
+import { Switch } from '@douyinfe/semi-ui';
+
+() => (
+    <div>
+        <Space>
+          <Switch defaultChecked={true}></Switch>
+          <Switch defaultChecked={true} type="primary"></Switch>
+          <Switch defaultChecked={true} type="danger"></Switch>
+          <Switch defaultChecked={true} type="tertiary"></Switch>
+          <Switch defaultChecked={true} type="warning"></Switch>
+        </Space>
+    </div>
+);
+```
+
 ### Disabled
 
 ```jsx live=true
@@ -190,6 +211,7 @@ import { Switch } from '@douyinfe/semi-ui';
 | onMouseLeave | A callback when the mouse moves out | function () |  |  |
 | size | Size, optional value `large`, `default`, `small` | string | 'default' |  |
 | style | Inline style | object | {} |  |
+| type | and optional values primary ', tertiary ', 'success', 'warning', 'danger' | string | 'success' |  |
 | uncheckedText | Content displayed when closed, invalid when size is small | React Node |  | 0.25.0 |
 
 ## Accessibility
