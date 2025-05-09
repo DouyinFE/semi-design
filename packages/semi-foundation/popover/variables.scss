@@ -2,6 +2,8 @@
 $color-tooltip_arrow-icon-default: unset; // 箭头图标
 $color-popover-bg-default: var(--semi-color-bg-3); // 默认背景色
 $color-popover-border-default: var(--semi-color-border); // 默认描边颜色
+$color-popover-arrow-border: var(--semi-color-border); // 箭头描边颜色
+$color-popover-arrow-bg: var(--semi-color-bg-3); // 箭头默认背景色
 
 // Width/Height
 $width-popover_arrow: 24px; // 水平箭头宽度 ignore-semi-css-trans

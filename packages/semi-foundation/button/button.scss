@@ -6,7 +6,6 @@ $module: #{$prefix}-button;
 
 .#{$module} {
     @include shadow-0;
-    @include font-size-regular;
     height: $height-button_default;
     display: inline-flex;
     align-items: center;
@@ -19,6 +18,8 @@ $module: #{$prefix}-button;
     padding-right: $spacing-button_default-paddingRight;
     padding-top: $spacing-button_default-paddingTop;
     padding-bottom: $spacing-button_default-paddingTop;
+    font-size: $font-button-fontSize;
+    line-height: $font-button-lineHeight;
     font-weight: $font-button-fontWeight;
     outline: none;
     vertical-align: middle;
@@ -313,6 +314,9 @@ $module: #{$prefix}-button;
         padding-bottom: $spacing-button_small-paddingBottom;
         padding-left: $spacing-button_small-paddingLeft;
         padding-right: $spacing-button_small-paddingRight;
+        font-size: $font-button_small-fontSize;
+        line-height: $font-button_small-lineHeight;
+        font-weight: $font-button_small-fontWeight;
     }
 
     &-size-large {
@@ -321,6 +325,9 @@ $module: #{$prefix}-button;
         padding-bottom: $spacing-button_large-paddingBottom;
         padding-left: $spacing-button_large-paddingLeft;
         padding-right: $spacing-button_large-paddingRight;
+        font-size: $font-button_large-fontSize;
+        line-height: $font-button_large-lineHeight;
+        font-weight: $font-button_large-fontWeight;
     }
 
     &-block {

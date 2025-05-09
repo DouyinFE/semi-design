@@ -8,7 +8,9 @@ function getAllComponents(components: string[]) {
     const specialCaseBefore = {
         'AvatarGroup': 'Avatar',
         'CheckboxGroup': 'Checkbox',
-        'TagGroup': 'Tag'
+        'TagGroup': 'Tag',
+        'ButtonGroup': 'Button',
+        'SplitButtonGroup': 'Button',
     };
 
     /*
@@ -69,6 +71,7 @@ function getScssImportPaths(components: string[]) {
         'Portal': `${pathsObj.foundationPath}_portal/portal.scss`,
         "TextArea": `${pathsObj.foundationPath}input/textarea.scss`,
         "IconButton": `${pathsObj.foundationPath}button/iconButton.scss`,
+        "SplitButtonGroup": `${pathsObj.foundationPath}button/SplitButtonGroup.scss`,
     };
     const cssPaths = ["Base", ...components].map(componentName => {
         const lowFirstLetter = componentName.slice(0, 1).toLowerCase() + componentName.slice(1);

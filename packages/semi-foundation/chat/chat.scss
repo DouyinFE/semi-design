@@ -138,6 +138,8 @@ $module: #{$prefix}-chat;
 
         &-avatar {
             flex-shrink: 0;
+            width: $width-chat_chatBox_avatar;
+            height: $width-chat_chatBox_avatar;
 
             &-hidden {
                 visibility: hidden;
@@ -208,6 +210,7 @@ $module: #{$prefix}-chat;
             align-items: flex-start;
             position: relative;
             row-gap: $spacing-chat_chatBox_wrap;
+            max-width: calc(100% - $spacing-chat_chatBox-columnGap - $width-chat_chatBox_avatar);
         }
 
 
@@ -217,6 +220,8 @@ $module: #{$prefix}-chat;
                 padding: $spacing-chat_chatBox_content-paddingY $spacing-chat_chatBox_content-paddingX;
                 border-radius: $radius-chat_chatBox_content;
                 background-color: $color-chat_chatBox_content_bg;
+                max-width: 100%;
+                box-sizing: border-box;
             }
 
             code {
