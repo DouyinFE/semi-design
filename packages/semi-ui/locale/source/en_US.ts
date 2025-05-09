@@ -195,6 +195,15 @@ const local: Locale = {
         replace: 'Replace',
         replaceAll: 'Replace All',
     },
+    VideoPlayer: {
+        rateChange: 'Switch rate to ${rate}',
+        qualityChange: 'Switch quality to ${quality}',
+        routeChange: 'Switch route to ${route}',
+        mirror: 'Mirror',
+        cancelMirror: 'Cancel mirror',
+        loading: 'Loading...',
+        stall: 'Loading failed',
+    }
 };
 
 // [i18n-English(US)]

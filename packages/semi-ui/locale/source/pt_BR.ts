@@ -203,6 +203,15 @@ const local: Locale = {
         replace: 'Substituir',
         replaceAll: 'Substituir tudo',
     },
+    VideoPlayer: {
+        rateChange: 'Mudar velocidade para ${rate}',
+        qualityChange: 'Mudar qualidade para ${quality}',
+        routeChange: 'Mudar rota para ${route}',
+        mirror: 'Espelho',
+        cancelMirror: 'Remover espelho',
+        loading: 'Carregando...',
+        stall: 'Carregamento falhou',
+    }
 };
 
 // 葡萄牙语

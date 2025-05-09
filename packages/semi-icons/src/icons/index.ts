@@ -264,6 +264,7 @@ export { default as IconMenu } from './IconMenu';
 export { default as IconMicrophone } from './IconMicrophone';
 export { default as IconMicrophoneOff } from './IconMicrophoneOff';
 export { default as IconMinimize } from './IconMinimize';
+export { default as IconMiniPlayer } from './IconMiniPlayer';
 export { default as IconMinus } from './IconMinus';
 export { default as IconMinusCircle } from './IconMinusCircle';
 export { default as IconMinusCircleStroked } from './IconMinusCircleStroked';

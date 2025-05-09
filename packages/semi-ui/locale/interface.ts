@@ -194,5 +194,14 @@ export interface Locale {
         search: string;
         replace: string;
         replaceAll: string
+    };
+    VideoPlayer: {
+        rateChange: string;
+        qualityChange: string;
+        routeChange: string;
+        mirror: string;
+        cancelMirror: string;
+        loading: string;
+        stall: string
     }
 }

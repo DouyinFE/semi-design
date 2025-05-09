@@ -200,6 +200,15 @@ const locale: Locale = {
         replace: 'Reemplazar',
         replaceAll: 'Reemplazar todo',
     },
+    VideoPlayer: {
+        rateChange: 'Cambiar velocidad a ${rate}',
+        qualityChange: 'Cambiar calidad a ${quality}',
+        routeChange: 'Cambiar ruta a ${route}',
+        mirror: 'Espejo',
+        cancelMirror: 'Cancelar espejo',
+        loading: 'Cargando...',
+        stall: 'Carga fallida',
+    }
 };
 
 export default locale;

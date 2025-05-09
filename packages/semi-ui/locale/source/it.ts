@@ -195,6 +195,15 @@ const local: Locale = {
         replace: 'Sostituisci',
         replaceAll: 'Sostituisci tutto',
     },
+    VideoPlayer: {
+        rateChange: 'Cambia velocità a ${rate}',
+        qualityChange: 'Cambia qualità a ${quality}',
+        routeChange: 'Cambia route a ${route}',
+        mirror: 'Specchio',
+        cancelMirror: 'Rimuovi specchio',
+        loading: 'Caricamento in corso...',
+        stall: 'Caricamento fallito',
+    }
 };
 
 // [i18n-Italian]

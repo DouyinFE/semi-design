@@ -200,6 +200,15 @@ const local: Locale = {
         replace: 'Ersätt',
         replaceAll: 'Ersätt alla',
     },
+    VideoPlayer: {
+        rateChange: 'Ändra hastighet till ${rate}',
+        qualityChange: 'Ändra kvalitet till ${quality}',
+        routeChange: 'Ändra väg till ${route}',
+        mirror: 'Spegel',
+        cancelMirror: 'Ta bort spegel',
+        loading: 'Läser in...',
+        stall: 'Läsning misslyckades',
+    }
 };
 
 export default local;
