@@ -28,10 +28,14 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <VideoPlayer 
-            src={src}
-            poster={poster}
-        />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer
+                width={800}
+                height={450} 
+                src={src}
+                poster={poster}
+            />
+        </div>
     );
 };
 ```
@@ -48,11 +52,15 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     const controlsList = ['play', 'time', 'volume', 'playbackRate', 'fullscreen'];
     return (
-        <VideoPlayer 
-            src={src}
-            poster={poster}
-            controlsList={controlsList}
-        />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer
+                width={800}
+                height={450} 
+                src={src}
+                poster={poster}
+                controlsList={controlsList}
+            />
+        </div>
     );
 };
 ```
@@ -67,16 +75,20 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 () => {
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
-    const controlsList = ['play', 'time', 'volume', 'playbackRate', 'fullscreen'];
     return (
-        <VideoPlayer 
-            src={src}
-            poster={poster}
-            loop={true}
-        />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer 
+                width={800}
+                height={450}
+                src={src}
+                poster={poster}
+                loop={true}
+            />
+        </div>
     );
 };
 ```
+
 ### 快进快退
 通过 `seekTime` 设置快进快退时间，通过键盘左右键执行快进快退
 
@@ -91,24 +103,30 @@ import { VideoPlayer, Select } from '@douyinfe/semi-ui';
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
         <div>
-            <span style={{ marginBottom: 10 }}>请选择快进快退时间</span>
-            <Select
-                value={seekTime}
-                style={{ width: 100, marginLeft: 10 }}
-                onChange={(value) => setSeekTime(value)}
-                optionList={[
-                    { label: '5s', value: 5 },
-                    { label: '10s', value: 10 },
-                    { label: '15s', value: 15 },
-                ]}
-                placeholder='请选择快进快退时间'
-            />
-            <VideoPlayer 
-                style={{ marginTop: 10 }}
-                src={src}
-                poster={poster}
-                seekTime={seekTime}
-            />
+            <div>
+                <span style={{ marginBottom: 10 }}>请选择快进快退时间</span>
+                <Select
+                    value={seekTime}
+                    style={{ width: 100, marginLeft: 10 }}
+                    onChange={(value) => setSeekTime(value)}
+                    optionList={[
+                        { label: '5s', value: 5 },
+                        { label: '10s', value: 10 },
+                        { label: '15s', value: 15 },
+                    ]}
+                    placeholder='请选择快进快退时间'
+                />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+                <VideoPlayer 
+                    width={800}
+                    height={450}
+                    style={{ marginTop: 10 }}
+                    src={src}
+                    poster={poster}
+                    seekTime={seekTime}
+                />
+            </div>
         </div>
     );
 };
@@ -131,11 +149,15 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <VideoPlayer 
-            src={src}
-            poster={poster}
-            playbackRateList={playbackRateList}
-        />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer
+                width={800}
+                height={450} 
+                src={src}
+                poster={poster}
+                playbackRateList={playbackRateList}
+            />
+        </div>
     );
 };
 ```
@@ -151,11 +173,15 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <VideoPlayer 
-            src={src}
-            poster={poster}
-            muted={true}
-        />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer
+                width={800}
+                height={450} 
+                src={src}
+                poster={poster}
+                muted={true}
+            />
+        </div>
     );
 };
 ```
@@ -190,19 +216,23 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     };
 
     return (
-        <VideoPlayer 
-            src={src}
-            poster={poster}
-            defaultQuality={'1080p'}
-            qualityList={[
-                { label: '1080p', value: '1080p' },
-                { label: '480p', value: '480p' },
-            ]}
-            onQualityChange={(quality) => {
-                console.log('quality change', quality);
-                updateVideoSource(quality);
-            }}
-        />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer 
+                width={800}
+                height={450}
+                src={src}
+                poster={poster}
+                defaultQuality={'1080p'}
+                qualityList={[
+                    { label: '1080p', value: '1080p' },
+                    { label: '480p', value: '480p' },
+                ]}
+                onQualityChange={(quality) => {
+                    console.log('quality change', quality);
+                    updateVideoSource(quality);
+                }}
+            />
+        </div>
     );
 };
 ```
@@ -237,11 +267,15 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     ];
 
     return (
-        <VideoPlayer 
-            src={src}
-            poster={poster}
-            markers={markers}
-        />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer
+                width={800}
+                height={450} 
+                src={src}
+                poster={poster}
+                markers={markers}
+            />
+        </div>
     );
 };
 ```
@@ -261,8 +295,9 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
             <VideoPlayer 
                 src={src}
                 poster={poster}
-                width={500}
-                height={500}
+                width={1000}
+                height={450}
+                theme={'light'}
             />
         </div>
     );
@@ -277,7 +312,7 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 | className  | 类名                                         | string                               | -   |
 | clickToPlay | 是否启用点击以播放                            | boolean                              | true   |
 | controlsList | 设置菜单栏展示控件，默认展示所有控件                       | string[]                              | ['play', 'next', 'time', 'volume', 'playbackRate', 'quality', 'route', 'mirror', 'fullscreen', 'pictureInPicture']   |
-| crossOrigin | 该枚举属性指明是否使用 CORS 来获取相关视频。允许 CORS 的资源可在 <canvas> 元素中被重用，而不会被污染。允许的值有 'anonymous' 和 'use-credentials'                           | React.MediaHTMLAttributes<HTMLVideoElement>['crossOrigin']                              | -  |
+| crossOrigin | 该枚举属性指明是否使用 CORS 来获取相关视频。允许 CORS 的资源可在 'canvas' 元素中被重用，而不会被污染。允许的值有 'anonymous' 和 'use-credentials'  | 'anonymous' \|'use-credentials'                                | -  |
 | defaultPlaybackRate | 默认倍率                            | number                              | 1   |
 | defaultPlaybackRate | 默认视频清晰度                       | string                              | -   |
 | defaultRoute | 默认线路                       | string                              | -   |

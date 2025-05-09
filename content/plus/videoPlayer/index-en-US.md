@@ -28,10 +28,14 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <VideoPlayer 
-            src={src}
-            poster={poster}
-        />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer
+                width={800}
+                height={450} 
+                src={src}
+                poster={poster}
+            />
+        </div>
     );
 };
 ```
@@ -48,18 +52,21 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     const controlsList = ['play', 'time', 'volume', 'playbackRate', 'fullscreen'];
     return (
-        <VideoPlayer 
-            src={src}
-            poster={poster}
-            controlsList={controlsList}
-        />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer
+                width={800}
+                height={450} 
+                src={src}
+                poster={poster}
+                controlsList={controlsList}
+            />
+        </div>
     );
 };
 ```
 
 ### Loop playback
 Use `loop` to set loop playback
-
 ```jsx live=true dir="column"
 import React from 'react';
 import { VideoPlayer } from '@douyinfe/semi-ui';
@@ -67,15 +74,19 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 () => {
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
-    const controlsList = ['play', 'time', 'volume', 'playbackRate', 'fullscreen'];
     return (
-        <VideoPlayer 
-            src={src}
-            poster={poster}
-            loop={true}
-        />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer 
+                width={800}
+                height={450}
+                src={src}
+                poster={poster}
+                loop={true}
+            />
+        </div>
     );
 };
+```
 ```
 ### Fast forward and rewind
 Use `seekTime` to set the fast forward and rewind time, and use the left and right keys on the keyboard to fast forward and rewind.
@@ -103,12 +114,16 @@ import { VideoPlayer, Select } from '@douyinfe/semi-ui';
                 ]}
                 placeholder='Please select the fast forward and rewind time'
             />
-            <VideoPlayer 
-                style={{ marginTop: 10 }}
-                src={src}
-                poster={poster}
-                seekTime={seekTime}
-            />
+            <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+                <VideoPlayer 
+                    width={800}
+                    height={450}
+                    style={{ marginTop: 10 }}
+                    src={src}
+                    poster={poster}
+                    seekTime={seekTime}
+                />
+            </div>
         </div>
     );
 };
@@ -131,11 +146,15 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <VideoPlayer 
-            src={src}
-            poster={poster}
-            playbackRateList={playbackRateList}
-        />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer
+                width={800}
+                height={450} 
+                src={src}
+                poster={poster}
+                playbackRateList={playbackRateList}
+            />
+        </div>
     );
 };
 ```
@@ -151,11 +170,15 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <VideoPlayer 
-            src={src}
-            poster={poster}
-            muted={true}
-        />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer
+                width={800}
+                height={450} 
+                src={src}
+                poster={poster}
+                muted={true}
+            />
+        </div>
     );
 };
 ```
@@ -190,19 +213,23 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     };
 
     return (
-        <VideoPlayer 
-            src={src}
-            poster={poster}
-            defaultQuality={'1080p'}
-            qualityList={[
-                { label: '1080p', value: '1080p' },
-                { label: '480p', value: '480p' },
-            ]}
-            onQualityChange={(quality) => {
-                console.log('quality change', quality);
-                updateVideoSource(quality);
-            }}
-        />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer 
+                width={800}
+                height={450}
+                src={src}
+                poster={poster}
+                defaultQuality={'1080p'}
+                qualityList={[
+                    { label: '1080p', value: '1080p' },
+                    { label: '480p', value: '480p' },
+                ]}
+                onQualityChange={(quality) => {
+                    console.log('quality change', quality);
+                    updateVideoSource(quality);
+                }}
+            />
+        </div>
     );
 };
 ```
@@ -237,11 +264,39 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     ];
 
     return (
-        <VideoPlayer 
-            src={src}
-            poster={poster}
-            markers={markers}
-        />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer
+                width={800}
+                height={450} 
+                src={src}
+                poster={poster}
+                markers={markers}
+            />
+        </div>
+    );
+};
+```
+
+### Theme
+Set the theme via `theme`, the theme only affects the background color
+
+```jsx live=true dir="column"
+import React from 'react';
+import { VideoPlayer } from '@douyinfe/semi-ui';
+
+() => {
+    const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
+    const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
+    return (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer 
+                src={src}
+                poster={poster}
+                width={1000}
+                height={450}
+                theme={'light'}
+            />
+        </div>
     );
 };
 ```
@@ -254,7 +309,7 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 | className  | Class name                                         | string                               | -   |
 | clickToPlay | Whether to enable click to play                         | boolean                              | true   |
 | controlsList | Set the menu bar to display controls. All controls are displayed by default.                       | string[]                              | ['play', 'next', 'time', 'volume', 'playbackRate', 'quality', 'route', 'mirror', 'fullscreen', 'pictureInPicture']   |
-| crossOrigin | This enum attribute indicates whether CORS is used to fetch the video. CORS-enabled resources can be reused in <canvas> elements without being polluted. Allowed values ​​are 'anonymous' and 'use-credentials' | React.MediaHTMLAttributes<HTMLVideoElement>['crossOrigin'] | - |
+| crossOrigin | This enum attribute indicates whether CORS is used to fetch the video. CORS-enabled resources can be reused in 'canvas' elements without being polluted. Allowed values ​​are 'anonymous' and 'use-credentials' | 'anonymous' \|'use-credentials'   | - |
 | defaultPlaybackRate | Default playback rate                            | number                              | 1   |
 | defaultPlaybackRate | Default video resolution                       | string                              | -   |
 | defaultRoute | Default Line                       | string                              | -   |

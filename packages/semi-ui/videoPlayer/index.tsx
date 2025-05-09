@@ -16,7 +16,7 @@ import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
 import ErrorSVG from './ErrorSvg';
-
+import { Marker } from '@douyinfe/semi-foundation/videoPlayer/progressFoundation';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -52,11 +52,6 @@ export interface VideoPlayerProps {
     theme: string;
     volume: number;
     width?: number | string
-}
-
-export interface Marker {
-    start: number;
-    title: string
 }
 
 export interface VideoPlayerState {
@@ -453,7 +448,9 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                             onMouseEnter={this.handleMouseEnterWrapper}
                             onMouseLeave={this.handleMouseLeaveWrapper} 
                         >
-                            <div className={cls(`${prefixCls}-wrapper`)}>
+                            <div className={cls(`${prefixCls}-wrapper`,
+                                { [`${cssClasses.PREFIX}-wrapper-${theme}`]: theme }
+                            )}>
                                 <video 
                                     ref={this.videoRef} 
                                     autoPlay={autoPlay}
@@ -477,9 +474,6 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                                     <track kind="captions" src={captionsSrc}/>
                                 </video>
                                 {this.isResourceNotFound() && this.renderResourceNotFound()}
-                            </div>
-                            <div className={cls(`${cssClasses.PREFIX}-theme`, 
-                                { [`${cssClasses.PREFIX}-theme-${theme}`]: theme })}>
                             </div>
                             {this.renderPoster()}
                             {this.renderPauseIcon()}

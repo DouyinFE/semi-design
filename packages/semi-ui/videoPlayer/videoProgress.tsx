@@ -2,12 +2,13 @@ import React from 'react';
 import cls from 'classnames';
 import '@douyinfe/semi-foundation/videoPlayer/videoPlayer.scss';
 import { cssClasses } from '@douyinfe/semi-foundation/videoPlayer/constants';
+import VideoProgressFoundation, { Marker, MarkerListItem, VideoProgressAdapter } from '@douyinfe/semi-foundation/videoPlayer/progressFoundation';
 import Tooltip from '../tooltip';
 import { noop } from 'lodash';
-import { Marker } from './index';
 import { formatTime } from './utils';
+import BaseComponent from '../_base/baseComponent';
 
-interface VideoProgressProps {
+export interface VideoProgressProps {
     value: number;
     onChange: (value: number) => void;
     className?: string;
@@ -17,22 +18,14 @@ interface VideoProgressProps {
     bufferedValue: number
 }
 
-interface VideoProgressState {
+export interface VideoProgressState {
     isDragging: boolean;
     isHandleHovering: boolean;
     movingInfo: { progress: number; offset: number; value: number } | null;
     activeIndex: number
 }
 
-interface MarkerListItem {
-    start: number;
-    end: number;
-    title: string;
-    left: string;
-    width: string
-}
-
-export default class VideoProgress extends React.Component<VideoProgressProps, VideoProgressState> {
+export default class VideoProgress extends BaseComponent<VideoProgressProps, VideoProgressState> {
     static defaultProps = {
         value: 0,
         onChange: noop,
@@ -43,6 +36,7 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
     private sliderRef: React.RefObject<HTMLDivElement>;
     private handleRef: React.RefObject<HTMLDivElement>;
     private markersList: MarkerListItem[];
+    foundation: VideoProgressFoundation;
 
     constructor(props: VideoProgressProps) {
         super(props);
@@ -55,18 +49,30 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
 
         this.sliderRef = React.createRef();
         this.handleRef = React.createRef();
-        this.markersList = this.getMarkerList();
+        this.markersList = this.initMarkerList();
+        this.foundation = new VideoProgressFoundation(this.adapter);
     }
 
-    // add left and width to markers
-    getMarkerList = () => {
+    get adapter(): VideoProgressAdapter<VideoProgressProps, VideoProgressState> {
+        return {
+            ...super.adapter,
+            getSliderRef: () => this.sliderRef.current,
+            getMarkersList: () => this.markersList,
+            setIsDragging: (isDragging: boolean) => this.setState({ isDragging }),
+            setIsHandleHovering: (isHandleHovering: boolean) => this.setState({ isHandleHovering }),
+            setActiveIndex: (activeIndex: number) => this.setState({ activeIndex }),
+            setMovingInfo: (movingInfo: { progress: number; offset: number; value: number } | null) => this.setState({ movingInfo }),
+        };
+    }
+
+    initMarkerList = () => {
         const { markers, max } = this.props;
         const hasMarkers = markers && markers.length > 0;
         const defaultMarker: MarkerListItem = {
             start: 0,
             end: max,
+            left: '0',
             title: '',
-            left: '0px',
             width: '100%',
         };
         const newMarkers = hasMarkers ? [defaultMarker, ...markers] : [defaultMarker];
@@ -91,112 +97,12 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
         return markersList;
     }
 
-    handleDocumentMouseMove = (e: MouseEvent) => {
-        if (this.state.isDragging) {
-            this.handleMouseEvent(e, true);
-        }
-    };
-
-    handleDocumentMouseUp = () => {
-        if (this.state.isDragging) {
-            this.setState({ isDragging: false });
-        }
-        document.removeEventListener('mousemove', this.handleDocumentMouseMove);
-        document.removeEventListener('mouseup', this.handleDocumentMouseUp);
-    };
-
-    handleMouseDown = (e: any) => {
-        this.setState({ isDragging: true });
-        this.handleMouseEvent(e, true);
-        document.addEventListener('mousemove', this.handleDocumentMouseMove);
-        document.addEventListener('mouseup', this.handleDocumentMouseUp);
-    };
-
-    handleMouseUp = () => {
-        if (this.state.isDragging) {
-            this.setState({ isDragging: false });
-        }
-    };
-
     handleMouseEnter = (e: any) => {
-        this.handleMouseEvent(e, false);
+        this.foundation.handleMouseEvent(e, false);
     }
 
     handleMouseMove = (e: any) => {
-        this.handleMouseEvent(e, true);
-    }
-
-    handleMouseEvent = (e: any, shouldSetValue: boolean = true) => {
-        if (!this.sliderRef.current) return;
-        const rect = this.sliderRef.current.getBoundingClientRect();
-        const offset = (e.clientX - rect.left);
-        const total = rect.width;
-        const percentage = Math.min(Math.max(offset / total, 0), 1);
-        const value = percentage * this.props.max;
-        
-        if (shouldSetValue && (this.state.isDragging || e.type === 'mousedown')) {
-            this.setActiveIndex(value);
-            this.props.onChange(value);
-        }
-
-        this.setState({
-            movingInfo: {
-                progress: percentage,
-                offset: offset - rect.width / 2,
-                value
-            },
-        });
-    };
-
-    handleSliderMouseEnter = (index: number) => {
-        const { value: currentValue } = this.props;
-        const currentSlider = this.markersList[index];
-        if (currentSlider.start < currentValue && currentSlider.end > currentValue) {
-            this.setState({ isHandleHovering: true });
-        } else {
-            this.setState({ isHandleHovering: false });
-        }
-    }
-
-    handleSliderMouseLeave = (index: number) => {
-        const { value: currentValue } = this.props;
-        const currentSlider = this.markersList[index];
-        if (currentSlider.start < currentValue && currentSlider.end > currentValue) {
-            this.setState({ isHandleHovering: false });
-        }
-    }
-
-    // Get the width of the video being played
-    getPlayedWidth = (marker: MarkerListItem) => {
-        const { value: currentValue } = this.props;
-        const { start, end } = marker;
-        if (currentValue > end) {
-            return 'calc(100% - 2px)';
-        } else if (currentValue < start) {
-            return '0%';
-        } else {
-            return `${(currentValue - start) / (end - start) * 100}%`;
-        }
-    }
-
-    getLoadedWidth = (marker: MarkerListItem) => {
-        const { bufferedValue } = this.props;
-        const { start, end } = marker;
-        if (bufferedValue > end) {
-            return 'calc(100% - 2px)';
-        } else if (bufferedValue < start) {
-            return '0%';
-        } else {
-            return `${(bufferedValue - start) / (end - start) * 100}%`;
-        }
-    }
-
-    setActiveIndex = (currentValue: number) => {
-        this.markersList.map((marker: MarkerListItem, index: number) => {
-            if (currentValue < marker.end && currentValue > marker.start) {
-                this.setState({ activeIndex: index, isHandleHovering: true });
-            }
-        });
+        this.foundation.handleMouseEvent(e, true);
     }
 
     renderTooltipContent = () => {
@@ -229,8 +135,8 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
                 aria-valuenow={currentValue as number}
                 ref={this.sliderRef}
                 className={cls(`${cssClasses.PREFIX_PROGRESS}`)}
-                onMouseDown={this.handleMouseDown}
-                onMouseUp={this.handleMouseUp}
+                onMouseDown={this.foundation.handleMouseDown}
+                onMouseUp={this.foundation.handleMouseUp}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseMove={this.handleMouseMove}
             >
@@ -243,17 +149,17 @@ export default class VideoProgress extends React.Component<VideoProgressProps, V
                                     { [`${cssClasses.PREFIX_PROGRESS}-slider-active`]: index === activeIndex && isDragging }
                                 )}
                                 style={{ left: marker.left, width: marker.width }}
-                                onMouseEnter={() => this.handleSliderMouseEnter(index)}
-                                onMouseLeave={() => this.handleSliderMouseLeave(index)}
+                                onMouseEnter={() => this.foundation.handleSliderMouseEnter(index)}
+                                onMouseLeave={() => this.foundation.handleSliderMouseLeave(index)}
                             >
                                 <div className={cls(`${cssClasses.PREFIX_PROGRESS}-slider-list`)} />
                                 <div
                                     className={cls(`${cssClasses.PREFIX_PROGRESS}-slider-buffered`)}
-                                    style={{ width: this.getLoadedWidth(marker) }}
+                                    style={{ width: this.foundation.getLoadedWidth(marker) }}
                                 />
                                 <div
                                     className={cls(`${cssClasses.PREFIX_PROGRESS}-slider-played`)}
-                                    style={{ width: this.getPlayedWidth(marker) }}
+                                    style={{ width: this.foundation.getPlayedWidth(marker) }}
                                 />
                             </div>
                         ))

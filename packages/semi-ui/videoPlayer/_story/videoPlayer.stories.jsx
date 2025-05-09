@@ -12,7 +12,7 @@ export const BasicUsage = () => {
                 src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4'}
                 poster={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg'}
                 width={'500px'}
-                height={'300px'} 
+                height={'280px'} 
                 onPause={() => {
                     console.log('pause');
                 }}
@@ -30,7 +30,7 @@ export const ControlList = () => {
         <div>
             <VideoPlayer 
                 width={'500px'}
-                height={'300px'} 
+                height={'280px'} 
                 src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4'}
                 poster={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg'}
                 controlsList={['play', 'time', 'volume', 'playbackRate', 'fullscreen',]}
@@ -46,8 +46,8 @@ export const Theme = () => {
             <VideoPlayer 
                 src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4'}
                 poster={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg'}
-                width={'500px'}
-                height={'300px'} 
+                width={'1000px'}
+                height={'450px'} 
                 controlsList={['play', 'time', 'volume', 'playbackRate', 'fullscreen',]}
             />
             <br />
@@ -55,8 +55,8 @@ export const Theme = () => {
             <VideoPlayer 
                 src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4'}
                 poster={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg'}
-                width={'500px'}
-                height={'300px'} 
+                width={'1000px'}
+                height={'450px'} 
                 theme={'light'}
                 controlsList={['play', 'time', 'volume', 'playbackRate', 'fullscreen',]}
             />
@@ -83,7 +83,7 @@ export const SetSeekTime = () => {
             <br />
             <VideoPlayer 
                 width={'500px'}
-                height={'300px'} 
+                height={'280px'} 
                 src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4'}
                 poster={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg'}
                 seekTime={seekTime}
@@ -98,7 +98,7 @@ export const playbackRateList = () => {
         <div>
             <VideoPlayer 
                 width={'500px'}
-                height={'300px'} 
+                height={'280px'} 
                 playbackRateList={[
                     { label: '0.5x', value: 0.5 },
                     { label: '1.0x', value: 1 },
@@ -119,7 +119,7 @@ export const Volume = () => {
     return (
         <VideoPlayer 
             width={'500px'}
-            height={'300px'} 
+            height={'280px'} 
             src={src}
             poster={poster}
             muted={true}
@@ -134,7 +134,7 @@ export const NoResource = () => {
             <Typography.Title heading={3} style={{ margin: '8px 0' }} >dark theme</Typography.Title>
             <VideoPlayer 
                 width={'500px'}
-                height={'300px'} 
+                height={'280px'} 
                 src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-videoss.mp4'}
                 poster={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg'}
             />
@@ -145,7 +145,7 @@ export const NoResource = () => {
                 poster={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg'}
                 theme={'light'}
                 width={'500px'}
-                height={'300px'} 
+                height={'280px'} 
             />
         </div>
     )
@@ -261,7 +261,7 @@ export const ScrollDemo = () => {
                     poster={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg'}
                     theme={'light'}
                     width={500}
-                    height={300}
+                    height={280}
                 />
             </div>
         </div>

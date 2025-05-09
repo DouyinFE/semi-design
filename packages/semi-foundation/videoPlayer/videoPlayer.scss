@@ -13,26 +13,6 @@ $module: #{$prefix}-videoPlayer;
     ::-webkit-media-controls {
         display: none;
     }
-
-    &-theme {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        pointer-events: none;
-
-        &-dark {
-            background-color: $color-videoPlayer_theme_dark-bg;
-            color: $color-videoPlayer_theme_dark-text;
-        }
-
-        &-light {
-            background-color: $color-videoPlayer_theme_light-bg;
-            color: $color-videoPlayer_theme_light-text;
-        }
-    }
     
     &-wrapper {
         width: 100%;
@@ -44,6 +24,16 @@ $module: #{$prefix}-videoPlayer;
             width: 100%;
             height: 100%;
             object-fit: contain;
+        }
+
+        &-dark {
+            background-color: $color-videoPlayer_theme_dark-bg;
+            color: $color-videoPlayer_theme_dark-text;
+        }
+
+        &-light {
+            background-color: $color-videoPlayer_theme_light-bg;
+            color: $color-videoPlayer_theme_light-text;
         }
     
     }
