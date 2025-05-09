@@ -1,6 +1,8 @@
 // Color
-$color-videoPlayer_error-bg: var(--semi-color-disabled-bg); // error 背景色
-$color-videoPlayer_error-text: var(--semi-color-grey-8); // error 字体色
+$color-videoPlayer_theme_dark-text: var(--semi-color-white); // dark theme 字体色
+$color-videoPlayer_theme_dark-bg: rgba(var(--semi-grey-8), 1); // dark theme 背景色
+$color-videoPlayer_theme_light-text: rgba(var(--semi-grey-8), 1); // light theme 字体色
+$color-videoPlayer_theme_light-bg: var(--semi-color-disabled-bg); // light theme 背景色
 $color-videoPlayer_pause-bg: var(--semi-color-text-1); // 暂停按钮颜色
 $color-videoPlayer_notification-bg: var(--semi-color-overlay-bg); // notification 背景色
 $color-videoPlayer_notification-text: var(--semi-color-default); // notification 字体色
@@ -17,7 +19,6 @@ $color-videoPlayer_progress_bar_handle-bg: #fff; // handle 背景色
 $color-videoPlayer_progress_bar_handle-border: var(--semi-color-primary); // handle 边框色
 $color-videoPlayer_progress_bar_handle-shadow: var(--semi-color-shadow); // handle 阴影色
 $color-videoPlayer_progress_bar_tooltip-bg: rgba(28, 31, 35, 0.8); // tooltip 背景色
-
 
 // Width/Height
 $height-videoPlayer_progress_bar-default: 20px; // 进度条热区 default 高度
@@ -50,8 +51,7 @@ $spacing-videoPlayer-controls_popup-paddingY: 0px; // 控制栏弹层元素 padd
 $spacing-videoPlayer-progress_bar_wrapper-marginX: $spacing-tight; // 进度条 wrapper marginX
 $spacing-videoPlayer-progress_bar_wrapper-marginY: 0px; // 进度条 wrapper marginY
 $spacing-videoPlayer-progress_bar_tooltip-top: -5px; // 进度条 Tooltip top 值
-
-
+$spacing-videoPlayer_error_svg-marginBottom: 12px; // error svg marginBottom
 
 // Radius
 $radius-videoPlayer_notification: 3px; // notification 圆角
@@ -64,8 +64,11 @@ $radius-videoPlayer_controls_popup: 4px; // 控制栏弹层圆角
 $font-videoPlayer_notification-fontSize: $font-size-regular; // notification 字体大小
 $font-videoPlayer_controls_item-fontSize: $font-size-small; // 控制栏 item 字体大小
 $font-videoPlayer_controls_time_text-fontSize: $font-size-regular; // 控制栏时间字体大小
+$font-videoPlayer_error-fontSize: $font-size-regular; // error 字体大小
 $font-videoPlayer_notification-lineHeight: 20px; // notification 行高
 $font-videoPlayer_controls_popup_item-lineHeight: 16px; // 控制栏 item 行高
 $font-videoPlayer_controls_popup_item-fontWeight: 600; // 控制栏 item 字体粗细
+$font-videoPlayer_error-fontWeight: 600; // error 字体粗细
+
 
 

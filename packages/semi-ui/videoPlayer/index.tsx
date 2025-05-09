@@ -15,6 +15,7 @@ import { formatTime } from './utils';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
+import ErrorSVG from './ErrorSvg';
 
 
 const prefixCls = cssClasses.PREFIX;
@@ -48,6 +49,7 @@ export interface VideoPlayerProps {
     seekTime?: number;
     src?: string;
     style?: React.CSSProperties;
+    theme: string;
     volume: number;
     width?: number | string
 }
@@ -86,6 +88,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
         muted: false,
         playbackRateList: DEFAULT_PLAYBACK_RATE,
         seekTime: numbers.DEFAULT_SEEK_TIME,
+        theme: strings.DARK,
         volume: numbers.DEFAULT_VOLUME,
     };
 
@@ -206,6 +209,10 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
         this.foundation.handleProgress();
     }
 
+    handleEnded = () => {
+        this.foundation.handleEnded();
+    }
+
     handleDurationChange = () => {
         this.foundation.handleDurationChange();
     }
@@ -281,12 +288,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
         if (!isPlaying && !isError) {
             return (
                 // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-                <div 
-                    className={cls(`${prefixCls}-pause`)} 
-                    onClick={() => {
-                        this.foundation.handlePlayOrPause();
-                    }}
-                >
+                <div className={cls(`${prefixCls}-pause`)} >
                     <IconPlayCircle />
                 </div>
             );
@@ -295,13 +297,37 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
     }
 
     renderError = () => {
-        // todo: 增加 svg, 讨论背景颜色
-        const { isPlaying, isError } = this.state;
+        const { isError } = this.state;
+        const { theme } = this.props;
         if (isError) {
             return (
-                <div className={cls(`${prefixCls}-error`)}>
-                    video load error
+                <div className={cls(`${prefixCls}-error`, 
+                    { [`${prefixCls}-error-${theme}`]: theme })}
+                >
+                    <div className={cls(`${prefixCls}-error-svg`)}>
+                        <ErrorSVG />
+                    </div>
+                    Video load error
                 </div>
+            );
+        }
+        return null;
+    }
+
+    renderPoster = () => {
+        const { poster, width, height } = this.props;
+        const { isPlaying, currentTime, totalTime } = this.state;
+        const isHide = currentTime > 0 && currentTime < totalTime;
+        if (!isPlaying && poster) {
+            return (
+                <img 
+                    className={cls(`${prefixCls}-poster`, 
+                        { [`${prefixCls}-poster-hide`]: isHide }
+                    )}
+                    style={{ width: width, height: height }} 
+                    src={poster} 
+                    alt="poster" 
+                />
             );
         }
         return null;
@@ -410,7 +436,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
     }
 
     render() {
-        const { poster, markers, qualityList, routeList, width, height, autoPlay, style, className, loop, captionsSrc, crossOrigin } = this.props;
+        const { markers, qualityList, routeList, width, height, autoPlay, style, className, loop, captionsSrc, crossOrigin, theme } = this.props;
         const { isPlaying, playbackRate, playbackRateList, isMirror, currentTime, totalTime, currentQuality, currentRoute, src, bufferedValue, showControls } = this.state;
 
         return (
@@ -435,7 +461,6 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                                     controls={false}
                                     crossOrigin={crossOrigin}
                                     src={src}
-                                    poster={poster}
                                     onTimeUpdate={this.handleTimeUpdate}
                                     onDurationChange={this.handleDurationChange}
                                     onClick={() => { this.foundation.handlePlayOrPause();}}
@@ -447,11 +472,16 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                                     // The user agent attempted to fetch media data but was unexpectedly unable to fetch the data.
                                     onStalled={() => this.handleStalled(locale)}
                                     onProgress={this.handleProgress}
+                                    onEnded={this.handleEnded}
                                 >
                                     <track kind="captions" src={captionsSrc}/>
                                 </video>
                                 {this.isResourceNotFound() && this.renderResourceNotFound()}
                             </div>
+                            <div className={cls(`${cssClasses.PREFIX}-theme`, 
+                                { [`${cssClasses.PREFIX}-theme-${theme}`]: theme })}>
+                            </div>
+                            {this.renderPoster()}
                             {this.renderPauseIcon()}
                             {this.renderError()}
                             {this.renderNotification()}

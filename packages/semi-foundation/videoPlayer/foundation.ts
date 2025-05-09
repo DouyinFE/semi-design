@@ -33,6 +33,7 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
     }
 
     private controlsTimer: NodeJS.Timeout | null;
+    private scrollPosition: { x: number; y: number } | null = null;
 
     init() {
         const { volume, muted } = this.getProps();
@@ -141,6 +142,11 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         }
     }
 
+    handleEnded = () => {
+        this._adapter.setIsPlaying(false);
+        this._adapter.setShowControls(true);
+    }
+
     handleVolumeChange(value: number) {
         const video = this._adapter.getVideo();
         if (!video) return;
@@ -184,7 +190,16 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         const videoWrapper = this._adapter.getVideoWrapper();
         const isFullScreen = this.checkFullScreen();
         if (videoWrapper) {
-            isFullScreen ? document.exitFullscreen() : videoWrapper.requestFullscreen();
+            if (isFullScreen) {
+                document.exitFullscreen();
+            } else {
+                // record scroll position before entering fullscreen
+                this.scrollPosition = {
+                    x: window.scrollX,
+                    y: window.scrollY
+                };
+                videoWrapper.requestFullscreen();
+            }
         }
     }
 
@@ -269,6 +284,14 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         if (isFullScreen) {
             document.addEventListener('mousemove', this.handleMouseMove);
         } else {
+            // according to the exit fullScreen has two way, Esc && click the button
+            // so we need to restore scroll position after exiting fullscreen
+            if (this.scrollPosition) {
+                setTimeout(() => {
+                    window.scrollTo(this.scrollPosition.x, this.scrollPosition.y);
+                    this.scrollPosition = null;
+                }, 100);
+            }
             document.removeEventListener('mousemove', this.handleMouseMove);
         }
     }

@@ -275,6 +275,7 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 | seekTime | Fast forward and rewind time                   | number                              | 10   |
 | src | Video playback address                       | string                              | -   |
 | style | Style                                          | CSSProperties                        | - |
+| theme | Theme settings, different theme components have different background colors | 'dark' \| 'light' | 'dark' |
 | volume | Default volume                      | number                              | 100  |
 | width | width                   | string \| number                                | -   |
 

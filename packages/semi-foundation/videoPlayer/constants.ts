@@ -7,6 +7,8 @@ const cssClasses = {
 } as const;
 
 const strings = {
+    DARK: 'dark',
+    LIGHT: 'light',
     PLAY: 'play',
     NEXT: 'next',
     TIME: 'time',

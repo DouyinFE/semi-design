@@ -246,6 +246,29 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 };
 ```
 
+### 主题
+通过 `theme` 设置主题， 主题仅影响背景色
+
+```jsx live=true dir="column"
+import React from 'react';
+import { VideoPlayer } from '@douyinfe/semi-ui';
+
+() => {
+    const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
+    const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
+    return (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+            <VideoPlayer 
+                src={src}
+                poster={poster}
+                width={500}
+                height={500}
+            />
+        </div>
+    );
+};
+```
+
 ### API
 
 | 属性        | 说明                                        | 类型                                  | 默认值   |
@@ -275,6 +298,7 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 | seekTime | 快进快退时间                   | number                              | 10   |
 | src | 视频播放地址                       | string                              | -   |
 | style | 样式                                          | CSSProperties                        | - |
+| theme | 主题设置，不同主题组件的背景色不同                 | 'dark' \| 'light'                        | 'dark' |
 | volume | 默认音量                      | number                              | 100  |
 | width | 宽度                   | string \| number                                | -   |
 
