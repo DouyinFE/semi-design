@@ -5464,6 +5464,7 @@ type Filter = {
 | renderCell         | Custom rendering checkbox                                                                                 | ({ selected: boolean, record: RecordType, originNode: JSX.Element, inHeader: boolean, disabled: boolean, indeterminate: boolean, index?: number, selectRow?: (selected: boolean, e: Event) => void, selectAll?: (selected: boolean, e: Event) => void }) => ReactNode |        |      **2.52.0**      |
 | width | Custom list selection box width | string | number |  |
 | onChange | A callback in the event of a change in the selected item. The first parameter will save the row keys selected last time, even if you do paging control or update the dataSource [FAQ](#faq) | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void |  |  |
+| onHeaderCell | Set the head cell property | (column: RecordType, columnIndex: number) => object |  |
 | onSelect | Callback when the user manually clicks the selection box of a row | (record: RecordType, selected: boolean, selectedRows: RecordType[], nativeEvent: MouseEvent) => void |  |  |
 | onSelectAll | The user manually clicks the callback of the header selection box, and all optional rows in the dataSource will be selected/unselected | (selected: boolean, selectedRows: RecordType[], changedRows: RecordType[]) => void |  |  |
 
