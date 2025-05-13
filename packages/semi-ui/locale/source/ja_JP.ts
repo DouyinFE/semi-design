@@ -204,6 +204,8 @@ const local: Locale = {
         cancelMirror: '鏡像を解除',
         loading: '読み込み中...',
         stall: '読み込みに失敗しました',
+        noResource: 'リソースなし',
+        videoError: '動画の読み込みエラー'
     }
 };
 

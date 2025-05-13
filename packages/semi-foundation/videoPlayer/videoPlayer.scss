@@ -72,6 +72,11 @@ $module: #{$prefix}-videoPlayer;
         &-dark {
             background-color: $color-videoPlayer_theme_dark-bg;
             color: $color-videoPlayer_theme_dark-text;
+
+            path {
+                fill: $color-videoPlayer_theme_dark-text;
+            }
+            
         }
 
         &-light {
@@ -219,16 +224,9 @@ $module: #{$prefix}-videoPlayer;
 
     }
 
-    // 未播放状态下显示控制栏
-    // &:not(.#{$module}-playing) {
-    //     .#{$module}-controls {
-    //         opacity: 1;
-    //     }
-    // }
-
     &-progress {
         position: relative;
-        height: $height-videoPlayer_progress_bar-default;
+        height: $height-videoPlayer_progress_bar_hotSpot-default;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -243,14 +241,9 @@ $module: #{$prefix}-videoPlayer;
 
         &-tooltip {
             top: $spacing-videoPlayer-progress_bar_tooltip-top;
-            background-color: $color-videoPlayer_progress_bar_tooltip-bg;
 
             &-content {
                 @include all-center;
-            }
-
-            path {
-                fill: $color-videoPlayer_progress_bar_tooltip-bg;
             }
         }
 
@@ -266,8 +259,7 @@ $module: #{$prefix}-videoPlayer;
                 .#{$module}-progress-slider-list, 
                 .#{$module}-progress-slider-played,
                 .#{$module}-progress-slider-buffered {
-                    transform: scaleY(calc($height-videoPlayer_progress_bar-hover / $height-videoPlayer_progress_bar-default)); 
-                    transform-origin: center;
+                    height: $height-videoPlayer_progress_bar-hover;
                     transition: transform $animation_duration-videoPlayer_slider-in;
                     transition-timing-function: $animation_function-videoPlayer_slider-in;
                 }
@@ -282,8 +274,7 @@ $module: #{$prefix}-videoPlayer;
                 width: calc(100% - $spacing-videoPlayer-progress_bar_chapter-marginRight);
                 margin-right: $spacing-videoPlayer-progress_bar_chapter-marginRight;
                 border-radius: $radius-videoPlayer_progress_bar;
-                transform-origin: center; 
-                transition: transform $animation_duration-videoPlayer_slider-out;
+                transition: transform $animation_duration-videoPlayer_slider-in;
                 transition-timing-function: $animation_function-videoPlayer_slider-out;
             }
 
@@ -294,8 +285,7 @@ $module: #{$prefix}-videoPlayer;
                 background-color: $color-videoPlayer_progress_bar-bg-played;
                 height: $height-videoPlayer_progress_bar-default;
                 border-radius: $radius-videoPlayer_progress_bar;
-                transform-origin: center; 
-                transition: transform $animation_duration-videoPlayer_slider-out;
+                transition: transform $animation_duration-videoPlayer_slider-in;
                 transition-timing-function: $animation_function-videoPlayer_slider-out;
             }
 
@@ -306,8 +296,7 @@ $module: #{$prefix}-videoPlayer;
                 background-color: $color-videoPlayer_progress_bar-bg-loaded;
                 height: $height-videoPlayer_progress_bar-default;
                 border-radius: $radius-videoPlayer_progress_bar;
-                transform-origin: center; 
-                transition: transform $animation_duration-videoPlayer_slider-out;
+                transition: transform $animation_duration-videoPlayer_slider-in;
                 transition-timing-function: $animation_function-videoPlayer_slider-out;
             }
         }

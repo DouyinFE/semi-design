@@ -110,29 +110,26 @@ export default class VideoProgressFoundation<P = Record<string, any>, S = Record
         });
     }
 
+    getValueWidth = (marker: MarkerListItem, value: number) => {
+        const { start, end } = marker;
+        if (value > end) {
+            return 'calc(100% - 2px)';
+        } else if (value < start) {
+            return '0%';
+        } else {
+            return `${(value - start) / (end - start) * 100}%`;
+        }
+    }
+
     // Get the width of the video being played
     getPlayedWidth = (marker: MarkerListItem) => {
         const { value: currentValue } = this.getProps();
-        const { start, end } = marker;
-        if (currentValue > end) {
-            return 'calc(100% - 2px)';
-        } else if (currentValue < start) {
-            return '0%';
-        } else {
-            return `${(currentValue - start) / (end - start) * 100}%`;
-        }
+        return this.getValueWidth(marker, currentValue);
     }
 
     getLoadedWidth = (marker: MarkerListItem) => {
         const { bufferedValue } = this.getProps();
-        const { start, end } = marker;
-        if (bufferedValue > end) {
-            return 'calc(100% - 2px)';
-        } else if (bufferedValue < start) {
-            return '0%';
-        } else {
-            return `${(bufferedValue - start) / (end - start) * 100}%`;
-        }
+        return this.getValueWidth(marker, bufferedValue);
     }
 
 

@@ -4,7 +4,7 @@ localeCode: zh-CN
 category: Plus
 title: VideoPlayer 视频播放器
 width: 60%
-icon: doc-userGuide
+icon: doc-videoplayer
 brief: 用于播放视频
 showNew: true
 ---
@@ -28,14 +28,11 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer
-                width={800}
-                height={450} 
-                src={src}
-                poster={poster}
-            />
-        </div>
+        <VideoPlayer
+            height={630} 
+            src={src}
+            poster={poster}
+        />
     );
 };
 ```
@@ -52,15 +49,12 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     const controlsList = ['play', 'time', 'volume', 'playbackRate', 'fullscreen'];
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer
-                width={800}
-                height={450} 
-                src={src}
-                poster={poster}
-                controlsList={controlsList}
-            />
-        </div>
+        <VideoPlayer
+            height={630} 
+            src={src}
+            poster={poster}
+            controlsList={controlsList}
+        />
     );
 };
 ```
@@ -76,15 +70,12 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer 
-                width={800}
-                height={450}
-                src={src}
-                poster={poster}
-                loop={true}
-            />
-        </div>
+        <VideoPlayer 
+            height={630}
+            src={src}
+            poster={poster}
+            loop={true}
+        />
     );
 };
 ```
@@ -117,16 +108,13 @@ import { VideoPlayer, Select } from '@douyinfe/semi-ui';
                     placeholder='请选择快进快退时间'
                 />
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-                <VideoPlayer 
-                    width={800}
-                    height={450}
-                    style={{ marginTop: 10 }}
-                    src={src}
-                    poster={poster}
-                    seekTime={seekTime}
-                />
-            </div>
+            <VideoPlayer 
+                height={630}
+                style={{ marginTop: 10 }}
+                src={src}
+                poster={poster}
+                seekTime={seekTime}
+            />
         </div>
     );
 };
@@ -149,15 +137,12 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer
-                width={800}
-                height={450} 
-                src={src}
-                poster={poster}
-                playbackRateList={playbackRateList}
-            />
-        </div>
+        <VideoPlayer
+            height={630} 
+            src={src}
+            poster={poster}
+            playbackRateList={playbackRateList}
+        />
     );
 };
 ```
@@ -173,15 +158,12 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer
-                width={800}
-                height={450} 
-                src={src}
-                poster={poster}
-                muted={true}
-            />
-        </div>
+        <VideoPlayer
+            height={630} 
+            src={src}
+            poster={poster}
+            muted={true}
+        />
     );
 };
 ```
@@ -216,23 +198,20 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer 
-                width={800}
-                height={450}
-                src={src}
-                poster={poster}
-                defaultQuality={'1080p'}
-                qualityList={[
-                    { label: '1080p', value: '1080p' },
-                    { label: '480p', value: '480p' },
-                ]}
-                onQualityChange={(quality) => {
-                    console.log('quality change', quality);
-                    updateVideoSource(quality);
-                }}
-            />
-        </div>
+        <VideoPlayer 
+            height={630}
+            src={src}
+            poster={poster}
+            defaultQuality={'1080p'}
+            qualityList={[
+                { label: '1080p', value: '1080p' },
+                { label: '480p', value: '480p' },
+            ]}
+            onQualityChange={(quality) => {
+                console.log('quality change', quality);
+                updateVideoSource(quality);
+            }}
+        />
     );
 };
 ```
@@ -267,15 +246,12 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     ];
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer
-                width={800}
-                height={450} 
-                src={src}
-                poster={poster}
-                markers={markers}
-            />
-        </div>
+        <VideoPlayer
+            height={630} 
+            src={src}
+            poster={poster}
+            markers={markers}
+        />
     );
 };
 ```
@@ -291,15 +267,12 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer 
-                src={src}
-                poster={poster}
-                width={1000}
-                height={450}
-                theme={'light'}
-            />
-        </div>
+        <VideoPlayer 
+            src={src}
+            poster={poster}
+            height={630}
+            theme={'light'}
+        />
     );
 };
 ```
@@ -309,6 +282,7 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 | 属性        | 说明                                        | 类型                                  | 默认值   |
 |------------|---------------------------------------------|--------------------------------------|-------|
 | autoPlay   | 是否自动播放                                  | boolean                              | false   |
+| captionsSrc   | 字幕资源                                  | string                              | -   |
 | className  | 类名                                         | string                               | -   |
 | clickToPlay | 是否启用点击以播放                            | boolean                              | true   |
 | controlsList | 设置菜单栏展示控件，默认展示所有控件                       | string[]                              | ['play', 'next', 'time', 'volume', 'playbackRate', 'quality', 'route', 'mirror', 'fullscreen', 'pictureInPicture']   |

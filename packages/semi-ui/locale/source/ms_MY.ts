@@ -203,6 +203,8 @@ const local: Locale = {
         cancelMirror: 'Hapus cermin',
         loading: 'Memuat...',
         stall: 'Memuat gagal',
+        noResource: 'Tiada sumber',
+        videoError: 'Ralat memuatkan video'
     }
 };
 

@@ -202,6 +202,8 @@ export interface Locale {
         mirror: string;
         cancelMirror: string;
         loading: string;
-        stall: string
+        stall: string;
+        noResource: string;
+        videoError: string
     }
 }

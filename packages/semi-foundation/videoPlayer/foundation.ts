@@ -76,8 +76,10 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
     handleTimeChange(value: number) {
         const video = this._adapter.getVideo();
         if (!video) return;
-        video.currentTime = value;
-        this._adapter.setCurrentTime(value);
+        if (!Number.isNaN(value)) {
+            video.currentTime = value;
+            this._adapter.setCurrentTime(value);
+        }
     }
 
     handleTimeUpdate() {
@@ -150,7 +152,7 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
     handleVolumeChange(value: number) {
         const video = this._adapter.getVideo();
         if (!video) return;
-        const volume = Math.floor(value);
+        const volume = Math.floor(value > 0 ? value : 0);
         video.volume = volume / 100;
         this._adapter.setVolume(volume);
         this._adapter.setMuted(volume === 0 ? true : false);
@@ -290,7 +292,7 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
                 setTimeout(() => {
                     window.scrollTo(this.scrollPosition.x, this.scrollPosition.y);
                     this.scrollPosition = null;
-                }, 100);
+                }, 0);
             }
             document.removeEventListener('mousemove', this.handleMouseMove);
         }
@@ -317,10 +319,10 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         const { seekTime } = this.getProps();
         if (e.key === ' ') {
             this.handlePlayOrPause();
-        } else if (e.key === 'ArrowUp') {
-            this.handleVolumeChange(volume + numbers.DEFAULT_VOLUME_STEP);
-        } else if (e.key === 'ArrowDown') { 
-            this.handleVolumeChange(volume - numbers.DEFAULT_VOLUME_STEP);   
+        // } else if (e.key === 'ArrowUp') {
+        //     this.handleVolumeChange(volume + numbers.DEFAULT_VOLUME_STEP);
+        // } else if (e.key === 'ArrowDown') { 
+        //     this.handleVolumeChange(volume - numbers.DEFAULT_VOLUME_STEP);   
         } else if (e.key === 'ArrowLeft') {
             this.handleTimeChange(currentTime - seekTime);
         } else if (e.key === 'ArrowRight') {

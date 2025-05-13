@@ -1,5 +1,5 @@
 // Color
-$color-videoPlayer_theme_dark-text: var(--semi-color-white); // dark theme 字体色
+$color-videoPlayer_theme_dark-text: var(--semi-color-bg-0); // dark theme 字体色
 $color-videoPlayer_theme_dark-bg: rgba(var(--semi-grey-8), 1); // dark theme 背景色
 $color-videoPlayer_theme_light-text: rgba(var(--semi-grey-8), 1); // light theme 字体色
 $color-videoPlayer_theme_light-bg: var(--semi-color-disabled-bg); // light theme 背景色
@@ -18,10 +18,9 @@ $color-videoPlayer_progress_bar-bg-unplayed: rgba(var(--semi-grey-5), 1); // 进
 $color-videoPlayer_progress_bar_handle-bg: #fff; // handle 背景色
 $color-videoPlayer_progress_bar_handle-border: var(--semi-color-primary); // handle 边框色
 $color-videoPlayer_progress_bar_handle-shadow: var(--semi-color-shadow); // handle 阴影色
-$color-videoPlayer_progress_bar_tooltip-bg: rgba(28, 31, 35, 0.8); // tooltip 背景色
 
 // Width/Height
-$height-videoPlayer_progress_bar-default: 20px; // 进度条热区 default 高度
+$height-videoPlayer_progress_bar_hotSpot-default: 20px; // 进度条热区 default 高度
 $height-videoPlayer_progress_bar-default: 4px; // 进度条 default 高度
 $height-videoPlayer_progress_bar-hover: 10px; // 进度条 hover 高度
 $height-videoPlayer_progress_bar_handle: 16px; // 进度条 handle 高度
@@ -50,7 +49,7 @@ $spacing-videoPlayer-controls_popup-paddingX: $spacing-tight; // 控制栏弹层
 $spacing-videoPlayer-controls_popup-paddingY: 0px; // 控制栏弹层元素 paddingY
 $spacing-videoPlayer-progress_bar_wrapper-marginX: $spacing-tight; // 进度条 wrapper marginX
 $spacing-videoPlayer-progress_bar_wrapper-marginY: 0px; // 进度条 wrapper marginY
-$spacing-videoPlayer-progress_bar_tooltip-top: -5px; // 进度条 Tooltip top 值
+$spacing-videoPlayer-progress_bar_tooltip-top: 6px; // 进度条 Tooltip top 值
 $spacing-videoPlayer_error_svg-marginBottom: 12px; // error svg marginBottom
 
 // Radius

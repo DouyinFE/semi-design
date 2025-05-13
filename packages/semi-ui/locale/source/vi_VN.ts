@@ -206,6 +206,8 @@ const local: Locale = {
         cancelMirror: 'Hủy gương',
         loading: 'Đang tải...',
         stall: 'Tải không thành công',
+        noResource: 'Không có tài nguyên',
+        videoError: 'Lỗi tải video'
     }
 };
 

@@ -203,6 +203,8 @@ const local: Locale = {
         cancelMirror: 'Spiegelung aufheben',
         loading: 'Wird geladen...',
         stall: 'Laden fehlgeschlagen',
+        noResource: 'Keine Ressource',
+        videoError: 'Video-Ladefehler'
     }
 };
 

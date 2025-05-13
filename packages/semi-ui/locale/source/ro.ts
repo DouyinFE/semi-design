@@ -203,7 +203,9 @@ const local: Locale = {
         cancelMirror: 'Anulează oglindirea',
         loading: 'Se încarcă',
         stall: 'Se încarcă',
-    }
+        noResource: 'Nicio resursă',
+        videoError: 'Eroare la încărcarea videoclipului'
+    },
 };
 
 // [i18n-Romanian] 罗马尼亚语

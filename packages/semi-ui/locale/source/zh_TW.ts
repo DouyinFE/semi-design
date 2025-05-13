@@ -204,6 +204,8 @@ const local: Locale = {
         cancelMirror: '取消鏡像',
         loading: '加載中...',
         stall: '加載失敗',
+        noResource: '暫無資源',
+        videoError: '視頻加載錯誤'
     }
 };
 

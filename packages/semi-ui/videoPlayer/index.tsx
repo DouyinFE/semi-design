@@ -270,10 +270,10 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
         return null;
     }
 
-    renderResourceNotFound = () => {
+    renderResourceNotFound = (locale: Locale['VideoPlayer']) => {
         return (
             <div className={cls(`${prefixCls}-resource-not-found`)}>
-                no resource
+                {locale.noResource}
             </div>
         );
     }
@@ -291,7 +291,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
         return null;
     }
 
-    renderError = () => {
+    renderError = (locale: Locale['VideoPlayer']) => {
         const { isError } = this.state;
         const { theme } = this.props;
         if (isError) {
@@ -302,7 +302,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                     <div className={cls(`${prefixCls}-error-svg`)}>
                         <ErrorSVG />
                     </div>
-                    Video load error
+                    {locale.videoError}
                 </div>
             );
         }
@@ -310,7 +310,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
     }
 
     renderPoster = () => {
-        const { poster, width, height } = this.props;
+        const { poster } = this.props;
         const { isPlaying, currentTime, totalTime } = this.state;
         const isHide = currentTime > 0 && currentTime < totalTime;
         if (!isPlaying && poster) {
@@ -319,7 +319,6 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                     className={cls(`${prefixCls}-poster`, 
                         { [`${prefixCls}-poster-hide`]: isHide }
                     )}
-                    style={{ width: width, height: height }} 
                     src={poster} 
                     alt="poster" 
                 />
@@ -369,6 +368,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                             `${cssClasses.PREFIX_CONTROLS}-menu-item`, 
                             `${cssClasses.PREFIX_CONTROLS}-menu-button`)
                         }
+                        theme={'borderless'}
                         icon={this.getVolumeIcon()}
                         onClick={this.handleVolumeSilent}
                     />
@@ -384,6 +384,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
         }
         return (
             <Button
+                theme={'borderless'}
                 className={cls(
                     `${cssClasses.PREFIX_CONTROLS}-menu-item`, 
                     `${cssClasses.PREFIX_CONTROLS}-menu-button`
@@ -473,11 +474,11 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                                 >
                                     <track kind="captions" src={captionsSrc}/>
                                 </video>
-                                {this.isResourceNotFound() && this.renderResourceNotFound()}
+                                {this.isResourceNotFound() && this.renderResourceNotFound(locale)}
                             </div>
                             {this.renderPoster()}
                             {this.renderPauseIcon()}
-                            {this.renderError()}
+                            {this.renderError(locale)}
                             {this.renderNotification()}
                             <div className={cls(`${cssClasses.PREFIX_CONTROLS}`,
                                 { [`${cssClasses.PREFIX_CONTROLS}-hide`]: !showControls }

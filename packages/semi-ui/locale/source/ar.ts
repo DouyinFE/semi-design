@@ -203,6 +203,8 @@ const local: Locale = {
         cancelMirror: 'إلغاء المرآة',
         loading: 'جار التحميل...',
         stall: 'فشل التحميل',
+        noResource: 'لا يوجد مورد',
+        videoError: 'خطأ في تحميل الفيديو'
     }
 };
 

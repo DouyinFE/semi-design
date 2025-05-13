@@ -210,6 +210,8 @@ const local: Locale = {
         cancelMirror: 'Spiegel opheffen',
         loading: 'Laden...',
         stall: 'Laden mislukt',
+        noResource: 'Geen bron',
+        videoError: 'Fout bij laden video'
     }
 };
 

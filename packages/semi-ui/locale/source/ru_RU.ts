@@ -206,6 +206,8 @@ const local: Locale = {
         cancelMirror: 'Отменить зеркало',
         loading: 'Загрузка...',
         stall: 'Загрузка не удалась',
+        noResource: 'Нет ресурса',
+        videoError: 'Ошибка загрузки видео'
     }
 };
 

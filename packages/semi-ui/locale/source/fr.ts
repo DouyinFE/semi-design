@@ -203,6 +203,8 @@ const local: Locale = {
         cancelMirror: 'Annuler le miroir',
         loading: 'Chargement...',
         stall: 'Chargement échoué',
+        noResource: 'Aucune ressource',
+        videoError: 'Erreur de chargement de la vidéo'
     }
 };
 

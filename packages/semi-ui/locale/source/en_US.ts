@@ -203,6 +203,8 @@ const local: Locale = {
         cancelMirror: 'Cancel mirror',
         loading: 'Loading...',
         stall: 'Loading failed',
+        noResource: 'No resource',
+        videoError: 'Video load error',
     }
 };
 

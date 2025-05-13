@@ -211,6 +211,8 @@ const local: Locale = {
         cancelMirror: 'Odwróć lustrzane odbicie',
         loading: 'Ładowanie...',
         stall: 'Ładowanie nie powiodło się',
+        noResource: 'Brak zasobu',
+        videoError: 'Błąd ładowania wideo'
     }
 };
 

@@ -207,6 +207,8 @@ const local: Locale = {
         cancelMirror: 'ยกเลิกกลับหน้า',
         loading: 'กำลังโหลด...',
         stall: 'กำลังโหลดล้มเหลว',
+        noResource: 'ไม่มีทรัพยากร',
+        videoError: 'เกิดข้อผิดพลาดในการโหลดวิดีโอ'
     }
 };
 

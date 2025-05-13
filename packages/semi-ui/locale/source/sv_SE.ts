@@ -208,6 +208,8 @@ const local: Locale = {
         cancelMirror: 'Ta bort spegel',
         loading: 'Läser in...',
         stall: 'Läsning misslyckades',
+        noResource: 'Ingen resurs',
+        videoError: 'Fel vid inläsning av video'
     }
 };
 

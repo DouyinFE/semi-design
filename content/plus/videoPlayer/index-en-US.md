@@ -4,7 +4,7 @@ localeCode: en-US
 category: Plus
 title: VideoPlayer
 width: 60%
-icon: doc-userGuide
+icon: doc-videoplayer
 brief: Used to play video
 showNew: true
 ---
@@ -28,14 +28,11 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer
-                width={800}
-                height={450} 
-                src={src}
-                poster={poster}
-            />
-        </div>
+        <VideoPlayer
+            height={630} 
+            src={src}
+            poster={poster}
+        />
     );
 };
 ```
@@ -52,15 +49,12 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     const controlsList = ['play', 'time', 'volume', 'playbackRate', 'fullscreen'];
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer
-                width={800}
-                height={450} 
-                src={src}
-                poster={poster}
-                controlsList={controlsList}
-            />
-        </div>
+        <VideoPlayer
+            height={630} 
+            src={src}
+            poster={poster}
+            controlsList={controlsList}
+        />
     );
 };
 ```
@@ -75,19 +69,16 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer 
-                width={800}
-                height={450}
-                src={src}
-                poster={poster}
-                loop={true}
-            />
-        </div>
+        <VideoPlayer 
+            height={630}
+            src={src}
+            poster={poster}
+            loop={true}
+        />
     );
 };
 ```
-```
+
 ### Fast forward and rewind
 Use `seekTime` to set the fast forward and rewind time, and use the left and right keys on the keyboard to fast forward and rewind.
 
@@ -114,16 +105,13 @@ import { VideoPlayer, Select } from '@douyinfe/semi-ui';
                 ]}
                 placeholder='Please select the fast forward and rewind time'
             />
-            <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-                <VideoPlayer 
-                    width={800}
-                    height={450}
-                    style={{ marginTop: 10 }}
-                    src={src}
-                    poster={poster}
-                    seekTime={seekTime}
-                />
-            </div>
+            <VideoPlayer 
+                height={630}
+                style={{ marginTop: 10 }}
+                src={src}
+                poster={poster}
+                seekTime={seekTime}
+            />
         </div>
     );
 };
@@ -146,15 +134,12 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer
-                width={800}
-                height={450} 
-                src={src}
-                poster={poster}
-                playbackRateList={playbackRateList}
-            />
-        </div>
+        <VideoPlayer
+            height={630} 
+            src={src}
+            poster={poster}
+            playbackRateList={playbackRateList}
+        />
     );
 };
 ```
@@ -170,15 +155,12 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer
-                width={800}
-                height={450} 
-                src={src}
-                poster={poster}
-                muted={true}
-            />
-        </div>
+        <VideoPlayer
+            height={630} 
+            src={src}
+            poster={poster}
+            muted={true}
+        />
     );
 };
 ```
@@ -213,23 +195,20 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer 
-                width={800}
-                height={450}
-                src={src}
-                poster={poster}
-                defaultQuality={'1080p'}
-                qualityList={[
-                    { label: '1080p', value: '1080p' },
-                    { label: '480p', value: '480p' },
-                ]}
-                onQualityChange={(quality) => {
-                    console.log('quality change', quality);
-                    updateVideoSource(quality);
-                }}
-            />
-        </div>
+        <VideoPlayer 
+            height={630}
+            src={src}
+            poster={poster}
+            defaultQuality={'1080p'}
+            qualityList={[
+                { label: '1080p', value: '1080p' },
+                { label: '480p', value: '480p' },
+            ]}
+            onQualityChange={(quality) => {
+                console.log('quality change', quality);
+                updateVideoSource(quality);
+            }}
+        />
     );
 };
 ```
@@ -264,15 +243,12 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     ];
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer
-                width={800}
-                height={450} 
-                src={src}
-                poster={poster}
-                markers={markers}
-            />
-        </div>
+        <VideoPlayer
+            height={630} 
+            src={src}
+            poster={poster}
+            markers={markers}
+        />
     );
 };
 ```
@@ -288,15 +264,12 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
     const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
-            <VideoPlayer 
-                src={src}
-                poster={poster}
-                width={1000}
-                height={450}
-                theme={'light'}
-            />
-        </div>
+        <VideoPlayer 
+            height={630}
+            src={src}
+            poster={poster}
+            theme={'light'}
+        />
     );
 };
 ```
@@ -306,6 +279,7 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 | Properties | Description | Type | Default Value |
 |------------|---------------------------------------------|--------------------------------------|-------|
 | autoPlay   | Whether to play automatically                                  | boolean                              | false   |
+| captionsSrc   | captions source                                | string                              | -   |
 | className  | Class name                                         | string                               | -   |
 | clickToPlay | Whether to enable click to play                         | boolean                              | true   |
 | controlsList | Set the menu bar to display controls. All controls are displayed by default.                       | string[]                              | ['play', 'next', 'time', 'volume', 'playbackRate', 'quality', 'route', 'mirror', 'fullscreen', 'pictureInPicture']   |

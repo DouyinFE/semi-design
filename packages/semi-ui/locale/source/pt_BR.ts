@@ -211,6 +211,8 @@ const local: Locale = {
         cancelMirror: 'Remover espelho',
         loading: 'Carregando...',
         stall: 'Carregamento falhou',
+        noResource: 'Sem recurso',
+        videoError: 'Erro ao carregar vídeo'
     }
 };
 

@@ -204,6 +204,8 @@ const local: Locale = {
         cancelMirror: 'Aynayı kaldır',
         loading: 'Yükleniyor...',
         stall: 'Yükleme başarısız',
+        noResource: 'Kaynak yok',
+        videoError: 'Video yükleme hatası'
     }
 };
 

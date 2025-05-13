@@ -208,6 +208,8 @@ const locale: Locale = {
         cancelMirror: 'Cancelar espejo',
         loading: 'Cargando...',
         stall: 'Carga fallida',
+        noResource: 'Sin recursos',
+        videoError: 'Error al cargar el video'
     }
 };
 
