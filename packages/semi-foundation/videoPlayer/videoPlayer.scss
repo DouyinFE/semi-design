@@ -195,16 +195,17 @@ $module: #{$prefix}-videoPlayer;
             @include all-center;
             width: $width-videoPlayer_controls_popup_item-default;
             height: $height-videoPlayer_controls_popup-default;
-            background-color: $color-videoPlayer_controls_item_popup-bg;
+            background-color: $color-videoPlayer_controls_item_popup-bg-default;
             color: $color-videoPlayer_controls-text;
             font-weight: $font-videoPlayer_controls_popup_item-fontWeight;
             font-size: $font-videoPlayer_controls_item-fontSize;
             line-height: $font-videoPlayer_controls_popup_item-lineHeight;
             border-radius: $radius-videoPlayer_controls_item;
+            cursor: pointer;
 
             &-menu {
                 width: $width-videoPlayer_controls_popup-default;
-                background-color: $color-videoPlayer_controls_item_popup-bg;
+                background-color: $color-videoPlayer_controls_item_popup-bg-default;
                 border-radius: $radius-videoPlayer_controls_popup;
 
                 &-item {
@@ -213,11 +214,16 @@ $module: #{$prefix}-videoPlayer;
                     height: $height-videoPlayer_controls_popup_item-default;
                     color: $color-videoPlayer_controls-text;
                     font-size: $font-videoPlayer_controls_item-fontSize;
+
+                    &:hover {
+                        background-color: $color-videoPlayer_controls_item_popup-bg-hover !important;
+                    }
                 }
 
                 .#{$prefix}-dropdown-item-active {
                     color: $color-videoPlayer_controls_popup_item-text-active;
                     font-weight: $font-videoPlayer_controls_popup_item-fontWeight;
+                    cursor: pointer;
                 }
             }
         }
@@ -310,6 +316,7 @@ $module: #{$prefix}-videoPlayer;
             border: 1px solid $color-videoPlayer_progress_bar_handle-border;
             box-shadow: 0px 0px 4px 0px $color-videoPlayer_progress_bar_handle-shadow;
             border-radius: $radius-videoPlayer_progress_bar_handle;
+            top: $spacing-videoPlayer_progress_bar_handle-top;
         }
         
     }

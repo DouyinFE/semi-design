@@ -32,7 +32,6 @@ describe('videoPlayer', () => {
     it('set play list', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=videoplayer--playback-rate-list');
         cy.get('.semi-videoPlayer-controls-menu-item').contains('1.0x').trigger('mouseover');
-        cy.get('.semi-videoPlayer-controls-popup-menu-item').contains('0.5x').should('exist');
         cy.get('.semi-videoPlayer-controls-popup-menu-item').contains('1.0x').should('exist');
         cy.get('.semi-videoPlayer-controls-popup-menu-item').contains('1.5x').should('exist');
         cy.get('.semi-videoPlayer-controls-popup-menu-item').contains('2.0x').should('exist');

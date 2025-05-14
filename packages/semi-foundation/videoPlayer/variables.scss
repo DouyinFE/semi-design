@@ -9,7 +9,8 @@ $color-videoPlayer_notification-text: var(--semi-color-default); // notification
 $color-videoPlayer_controls-bg: rgba(28, 31, 35, 0.8); // 控制栏背景色
 $color-videoPlayer_controls_item-bg: var(--semi-color-overlay-bg); // 控制栏 item 背景色
 $color-videoPlayer_controls-text: #fff; // 控制栏文字色
-$color-videoPlayer_controls_item_popup-bg: var(--semi-color-overlay-bg); // 控制栏弹层背景色
+$color-videoPlayer_controls_item_popup-bg-default: var(--semi-color-overlay-bg); // 控制栏弹层背景色
+$color-videoPlayer_controls_item_popup-bg-hover: rgba(67, 68, 74, 1); // 控制栏弹层背景色 - hover
 $color-videoPlayer_controls_popup_item-text-default: rgba(#fff, 0.7); // 控制栏文字色
 $color-videoPlayer_controls_popup_item-text-active: var(--semi-color-primary); // 控制栏弹层文字色 - 选中
 $color-videoPlayer_progress_bar-bg-played: var(--semi-color-primary); // 进度条已播放部分背景色
@@ -50,6 +51,7 @@ $spacing-videoPlayer-controls_popup-paddingY: 0px; // 控制栏弹层元素 padd
 $spacing-videoPlayer-progress_bar_wrapper-marginX: $spacing-tight; // 进度条 wrapper marginX
 $spacing-videoPlayer-progress_bar_wrapper-marginY: 0px; // 进度条 wrapper marginY
 $spacing-videoPlayer-progress_bar_tooltip-top: 6px; // 进度条 Tooltip top 值
+$spacing-videoPlayer_progress_bar_handle-top: 15px; // 进度条 handle top 值
 $spacing-videoPlayer_error_svg-marginBottom: 12px; // error svg marginBottom
 
 // Radius

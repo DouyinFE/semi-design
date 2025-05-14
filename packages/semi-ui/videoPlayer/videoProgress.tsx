@@ -170,7 +170,6 @@ export default class VideoProgress extends BaseComponent<VideoProgressProps, Vid
                     className={cls(`${cssClasses.PREFIX_PROGRESS}-handle`)}
                     style={{
                         left: `calc(${((max ? (currentValue || 1) / max : 0) * 100)}% - 8px)`,
-                        top: 15,
                         transform: 'translateY(-50%)',
                         opacity: (isHandleHovering || isDragging) ? 1 : 0,
                         transition: 'opacity 0.3s',

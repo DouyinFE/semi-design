@@ -34,7 +34,6 @@ const DEFAULT_PLAYBACK_RATE = [
     { label: '1.25x', value: 1.25 },
     { label: '1.0x', value: 1 },
     { label: '0.75x', value: 0.75 },
-    { label: '0.5x', value: 0.5 },
 ];
 
 export { cssClasses, strings, numbers, DEFAULT_PLAYBACK_RATE }; 
