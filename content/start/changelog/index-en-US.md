@@ -15,6 +15,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.80.0-beta.0 (2025-05-14)
+- 【Feat】
+    - add VideoPlayer component support
 
 #### 🎉 2.79.0 (2025-05-08)
 - 【Feat】
