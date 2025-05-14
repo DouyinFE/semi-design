@@ -198,6 +198,17 @@ const local: Locale = {
         replace: 'Заменить',
         replaceAll: 'Заменить все',
     },
+    VideoPlayer: {
+        rateChange: 'Изменить скорость на ${rate}',
+        qualityChange: 'Изменить качество на ${quality}',
+        routeChange: 'Изменить маршрут на ${route}',
+        mirror: 'Зеркало',
+        cancelMirror: 'Отменить зеркало',
+        loading: 'Загрузка...',
+        stall: 'Загрузка не удалась',
+        noResource: 'Нет ресурса',
+        videoError: 'Ошибка загрузки видео'
+    }
 };
 
 // [i18n-Russia] 俄罗斯语

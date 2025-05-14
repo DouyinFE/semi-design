@@ -203,6 +203,17 @@ const local: Locale = {
         replace: 'Zastąp',
         replaceAll: 'Zastąp wszystko',
     },
+    VideoPlayer: {
+        rateChange: 'Zmień prędkość na ${rate}',
+        qualityChange: 'Zmień jakość na ${quality}',
+        routeChange: 'Zmień ścieżkę na ${route}',
+        mirror: 'Lustrzane odbicie',
+        cancelMirror: 'Odwróć lustrzane odbicie',
+        loading: 'Ładowanie...',
+        stall: 'Ładowanie nie powiodło się',
+        noResource: 'Brak zasobu',
+        videoError: 'Błąd ładowania wideo'
+    }
 };
 
 export default local;

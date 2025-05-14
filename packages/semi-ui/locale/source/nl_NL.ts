@@ -202,6 +202,17 @@ const local: Locale = {
         replace: 'Vervangen',
         replaceAll: 'Alle vervangen',
     },
+    VideoPlayer: {
+        rateChange: 'Verander snelheid naar ${rate}',
+        qualityChange: 'Verander kwaliteit naar ${quality}',
+        routeChange: 'Verander route naar ${route}',
+        mirror: 'Spiegel',
+        cancelMirror: 'Spiegel opheffen',
+        loading: 'Laden...',
+        stall: 'Laden mislukt',
+        noResource: 'Geen bron',
+        videoError: 'Fout bij laden video'
+    }
 };
 
 export default local;

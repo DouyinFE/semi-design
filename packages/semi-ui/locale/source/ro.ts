@@ -195,6 +195,17 @@ const local: Locale = {
         replace: 'Înlocuiește',
         replaceAll: 'Înlocuiește toate',
     },
+    VideoPlayer: {
+        rateChange: 'Schimbați viteza la ${rate}',
+        qualityChange: 'Schimbați calitatea la ${quality}',
+        routeChange: 'Schimbați ruta la ${route}',
+        mirror: 'Mirror',
+        cancelMirror: 'Anulează oglindirea',
+        loading: 'Se încarcă',
+        stall: 'Se încarcă',
+        noResource: 'Nicio resursă',
+        videoError: 'Eroare la încărcarea videoclipului'
+    },
 };
 
 // [i18n-Romanian] 罗马尼亚语
