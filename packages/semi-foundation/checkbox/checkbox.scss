@@ -81,6 +81,7 @@ $module: #{$prefix}-checkbox;
 
         .#{$module}-inner-checked {
             .#{$module}-inner-display {
+                color: $color-checkbox_checked-icon-disabled;
                 background: $color-checkbox_checked-bg-disabled;
                 box-shadow: none;
             }

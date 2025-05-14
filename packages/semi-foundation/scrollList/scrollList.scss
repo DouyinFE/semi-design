@@ -12,7 +12,7 @@ $module: #{$prefix}-scrolllist;
     background: $color-scrollList-bg;
     box-shadow: $shadow-scrollList;
     border-radius: $radius-scrollList;
-
+    overflow: hidden;
     @include font-size-regular;
     user-select: none;
 

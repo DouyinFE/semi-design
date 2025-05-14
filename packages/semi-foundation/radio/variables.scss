@@ -13,7 +13,7 @@ $color-radio_primary-bg-hover: var(--semi-color-primary-hover); // 选中项悬�
 $color-radio_primary-bg-active: var(--semi-color-primary-active); // 选中项按下态背景颜色
 $color-radio_primary-border-default: var(--semi-color-primary); // 选中项描边颜色
 $color-radio_primary-bg-default: var(--semi-color-primary); // 选中项背景颜色
-$color-radio_primary-text-default: rgba(var(--semi-white), 1); // 选中项原点颜色
+$color-radio_primary-text-default: rgba(var(--semi-white), 1); // 选中项圆点颜色
 
 $color-radio_checked-bg-disabled: var(--semi-color-primary-disabled); // 选中项禁用态背景颜色
 $color-radio_default-border-disabled: var(--semi-color-border); // 禁用态描边颜色
@@ -23,6 +23,7 @@ $color-radio_disabled-bg-default: var(--semi-color-disabled-fill); // 禁用态�
 $color-radio_disabled-bg-hover: transparent;
 $color-radio_disabled-text-default: var(--semi-color-disabled-text); // 禁用态文本颜色
 $color-radio_disabled-border-default: var(--semi-color-border); // 禁用态描边颜色
+$color-radio_checked-icon-disabled: rgba(var(--semi-white), 1); // 禁用态圆点颜色
 
 $color-radio_buttonRadio-text-default: var(--semi-color-text-1); // 按钮样式单选文本颜色
 $color-radio_buttonRadio-bg-default: var(--semi-color-fill-0); // 按钮样式单选背景颜色

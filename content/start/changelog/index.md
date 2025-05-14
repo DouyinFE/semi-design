@@ -13,6 +13,22 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.79.0 (2025-05-08)
+- 【Feat】
+    - Upload 添加文件名超长时弹出文件名提示功能 [@yatbfm](https://github.com/yatbfm) [#2753](https://github.com/DouyinFE/semi-design/pull/2753)
+- 【Fix】
+    - 修复 Switch 组件 loading 加 disabled 态 hover 后样式问题 [@LonelySnowman](https://github.com/LonelySnowman) [#2778](https://github.com/DouyinFE/semi-design/pull/2778)
+    - 修复 Table 组件在 onHeaderCell 中通过 style 设置表头背景色时候，fixed 表头中不生效问题 [BUG] Table 的 column 设置 fixed 后，通过 onHeaderCell 设置的 style 样式有问题 [#2814](https://github.com/DouyinFE/semi-design/issues/2814)
+- 【Style】
+    - Dropdown 增加 $radius-dropdown_item token 用于设置面板中的各选项圆角 [#2817](https://github.com/DouyinFE/semi-design/pull/2817)
+    - ScrollList 最外层增加 overflow: hidden 的样式设置 [#2818](https://github.com/DouyinFE/semi-design/pull/2818)
+    - 修复禁用，选中的 Checkbox 组件内部的对勾在悬停状态时，颜色未受到正确 token 控制问题 [#2819](https://github.com/DouyinFE/semi-design/pull/2819)
+    - 增加 $color-radio_checked-icon-disabled token 用于允许用户配置选中，禁用状态下的 Radio 的原点颜色 [#2820](https://github.com/DouyinFE/semi-design/pull/2820)
+- 【Chore】
+    - Webpack/Rspack 插件的 web components loader 增加其他组件的样式插入支持。增加的组件为AudioPlayer， Chat，CodeHighlight， ColorPicker， Cropper，HotKeys，JsonViewer， MarkdownRender，PinCode， Resizable， UserGuide， ButtonGroup，SplitButton，List，TimePicker。[#2812](https://github.com/DouyinFE/semi-design/pull/2812)
+    - 当 Tree组件 key 错传为 number 时抛出 warning [@LonelySnowman](https://github.com/LonelySnowman) [#2773](https://github.com/DouyinFE/semi-design/pull/2773)
+
+
 #### 🎉 2.79.0-beta.0 (2025-04-23)
 - 【Style】
     - 修改 Progress 中背景色和进度颜色的实现方式，保证主题配置生效 [#2808](https://github.com/DouyinFE/semi-design/pull/2808)

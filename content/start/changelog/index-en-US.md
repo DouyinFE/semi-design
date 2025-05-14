@@ -16,6 +16,22 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.79.0 (2025-05-08)
+- 【Feat】
+    - Upload Added a pop-up file name prompt function when the file name is too long [@yatbfm](https://github.com/yatbfm)
+- 【Fix】
+    - Fix Switch component loading and disabled state hover style issue [@LonelySnowman](https://github.com/LonelySnowman)
+    - Fixed the issue that when the Table component sets the header background color through style in onHeaderCell, the fixed header does not take effect [#2814](https://github.com/DouyinFE/semi-design/issues/2814)
+- 【Style】
+    - Dropdown adds $radius-dropdown_item token to set the radius of each option in the panel [#2817](https://github.com/DouyinFE/semi-design/pull/2817)
+    - Add overflow: hidden style setting to the outermost layer of ScrollList [#2818](https://github.com/DouyinFE/semi-design/pull/2818)
+    - Fixed the problem that the color of the checkbox inside the selected Checkbox component is not controlled by the correct token when it is in the hovering state. [#2819](https://github.com/DouyinFE/semi-design/pull/2819)
+    - Added $color-radio_checked-icon-disabled token to allow users to configure the origin color of the Radio in the selected and disabled states [#2820](https://github.com/DouyinFE/semi-design/pull/2820)
+- 【Chore】
+   - The web components loader of the Webpack/Rspack plugin adds style insertion support for other components. The added components are AudioPlayer, Chat, CodeHighlight, ColorPicker, Cropper, HotKeys, JsonViewer, MarkdownRender, PinCode, Resizable, UserGuide, ButtonGroup, SplitButton, List, and TimePicker.[#2812](https://github.com/DouyinFE/semi-design/pull/2812)
+    - Throws a warning when the Tree component key is incorrectly passed as a number [@LonelySnowman](https://github.com/LonelySnowman) [#2773](https://github.com/DouyinFE/semi-design/pull/2773)
+
+
 #### 🎉 2.79.0-beta.0 (2025-04-23)
 - 【Style】
     - Modify the implementation of background color and progress color in Progress to ensure that the design theme configuration takes effect [#2808](https://github.com/DouyinFE/semi-design/pull/2808)

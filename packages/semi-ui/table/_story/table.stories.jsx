@@ -49,6 +49,7 @@ import ExpandRowByClick from './ExpandRowByClick';
 import FixAllColumnsWithoutWidth from './FixAllColumnsWithoutWidth';
 import HugeData from "./HugeData"
 import RowSelectionRenderCell from './RowSelectionRenderCell';
+import RowBg from './RowBg';
 
 export default {
   title: 'Table'
@@ -653,3 +654,5 @@ export const _RowSelectionRenderCell = () => <RowSelectionRenderCell />;
 _RowSelectionRenderCell.story = {
   name: 'RowSelection RenderCell',
 };
+
+export const RowBgDemo = () => <RowBg />;
