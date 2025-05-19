@@ -15,6 +15,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.80.0 (2025-05-19)
+- 【Fix】
+    - Fixed the display problem of cascader with single selection, controlled value and value undefined, asynchronous loading, and showNext set to hover when loading multiple projects at the same time.  [#2831 ](https://github.com/DouyinFE/semi-design/issues/2831)  [#2832](https://github.com/DouyinFE/semi-design/pull/2832)
+
 #### 🎉 2.80.0-beta.0 (2025-05-14)
 - 【Feat】
     - add VideoPlayer component support
