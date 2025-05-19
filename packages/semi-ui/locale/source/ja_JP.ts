@@ -196,6 +196,17 @@ const local: Locale = {
         replace: '置換',
         replaceAll: 'すべて置換',
     },
+    VideoPlayer: {
+        rateChange: '速さを${rate}に変更',
+        qualityChange: '品質を${quality}に変更',
+        routeChange: 'ルートを${route}に変更',
+        mirror: '鏡像',
+        cancelMirror: '鏡像を解除',
+        loading: '読み込み中...',
+        stall: '読み込みに失敗しました',
+        noResource: 'リソースなし',
+        videoError: '動画の読み込みエラー'
+    }
 };
 
 // [i18n-Japan]

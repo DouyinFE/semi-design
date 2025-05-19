@@ -91,6 +91,7 @@ const order = [
     'locale',
     'jsonviewer',
     'audioPlayer',
+    'videoPlayer',
 ];
 let { exec } = require('child_process');
 let fs = require('fs');

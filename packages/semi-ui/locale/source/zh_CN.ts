@@ -196,6 +196,17 @@ const local: Locale = {
         replace: '替换',
         replaceAll: '全部替换',
     },
+    VideoPlayer: {
+        rateChange: '切换速率至 ${rate}',
+        qualityChange: '切换清晰度至${quality}',
+        routeChange: '切换线路至${route}',
+        mirror: '镜像',
+        cancelMirror: '取消镜像',
+        loading: '加载中...',
+        stall: '加载失败',
+        noResource: '暂无资源',
+        videoError: '视频加载错误'
+    }
 };
 
 // 中文

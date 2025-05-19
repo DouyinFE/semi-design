@@ -195,6 +195,17 @@ const local: Locale = {
         replace: 'Remplacer',
         replaceAll: 'Remplacer tout',
     },
+    VideoPlayer: {
+        rateChange: 'Changer la vitesse à ${rate}',
+        qualityChange: 'Changer la qualité à ${quality}',
+        routeChange: 'Changer la route à ${route}',
+        mirror: 'Miroir',
+        cancelMirror: 'Annuler le miroir',
+        loading: 'Chargement...',
+        stall: 'Chargement échoué',
+        noResource: 'Aucune ressource',
+        videoError: 'Erreur de chargement de la vidéo'
+    }
 };
 
 // [i18n-French]

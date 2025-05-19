@@ -28,7 +28,8 @@ Chat 对话,
 HotKeys 快捷键,
 DragMove 拖拽移动,
 JsonViewer Json编辑器,
-AudioPlayer 音频播放器
+AudioPlayer 音频播放器,
+VideoPlayer 视频播放器
 ```
 
 ## 输入类

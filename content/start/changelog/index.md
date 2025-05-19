@@ -13,6 +13,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.80.0-beta.0 (2025-05-14)
+- 【Feat】
+    - 新增 VideoPlayer 组件 [#2822](https://github.com/DouyinFE/semi-design/pull/2822)
+
 #### 🎉 2.79.0 (2025-05-08)
 - 【Feat】
     - Upload 添加文件名超长时弹出文件名提示功能 [@yatbfm](https://github.com/yatbfm) [#2753](https://github.com/DouyinFE/semi-design/pull/2753)
