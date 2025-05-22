@@ -23,7 +23,7 @@ import { Cropper } from '@douyinfe/semi-ui';
 
 ### Basic usage
 
-Use `sr` to set the cropped image; use `shape` to set the shape of the cropping box, which defaults to square.
+Use `src` to set the cropped image; use `shape` to set the shape of the cropping box, which defaults to square.
 
 ```jsx live=true dir=column noInline=true
 import { Cropper, Button, RadioGroup, Radio } from '@douyinfe/semi-ui';

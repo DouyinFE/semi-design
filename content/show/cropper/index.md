@@ -26,7 +26,7 @@ import { Cropper } from '@douyinfe/semi-ui';
 
 ### 基本用法
 
-通过 `sr` 设置被裁切的图片; 可通过 `shape` 设置裁切框形状，默认为方形。
+通过 `src` 设置被裁切的图片; 可通过 `shape` 设置裁切框形状，默认为方形。
 
 ```jsx live=true dir=column noInline=true
 import { Cropper, Button, RadioGroup, Radio } from '@douyinfe/semi-ui';
