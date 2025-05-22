@@ -78,6 +78,7 @@ jobs:
                   parallel: true
                   group: 'Cypress - Chrome'
                   spec: cypress/e2e/*
+                  env: coverage=false
               env:
                   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
                   # Recommended: pass the GitHub token lets this action correctly
