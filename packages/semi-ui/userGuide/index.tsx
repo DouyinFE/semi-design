@@ -428,7 +428,6 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         );
     }
 
-    // render indicator component
     renderIndicator = () => {
         const { steps } = this.props;
         const { current } = this.state;
