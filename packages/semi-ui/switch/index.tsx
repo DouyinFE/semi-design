@@ -8,6 +8,9 @@ import '@douyinfe/semi-foundation/switch/switch.scss';
 
 import { noop } from 'lodash';
 import Spin from '../spin';
+
+export type SwitchType = 'primary' | 'tertiary' | 'success' | 'warning' | 'danger';
+
 export interface SwitchProps {
     'aria-label'?: React.AriaAttributes['aria-label'];
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
@@ -26,8 +29,9 @@ export interface SwitchProps {
     size?: 'large' | 'default' | 'small';
     checkedText?: React.ReactNode;
     uncheckedText?: React.ReactNode;
-    id?: string
-} 
+    id?: string;
+    type?: SwitchType
+}
 
 export interface SwitchState {
     nativeControlChecked: boolean;
@@ -55,6 +59,7 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
         size: PropTypes.oneOf<SwitchProps['size']>(strings.SIZE_MAP),
         uncheckedText: PropTypes.node,
         id: PropTypes.string,
+        type: PropTypes.oneOf(strings.SWITCH_TYPES),
     };
 
     static defaultProps: Partial<SwitchProps> = {
@@ -65,6 +70,7 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
         onMouseEnter: noop,
         onMouseLeave: noop,
         size: 'default',
+        type: 'success'
     };
 
     private switchRef: React.RefObject<HTMLInputElement>;
@@ -125,8 +131,9 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
 
     render() {
         const { nativeControlChecked, nativeControlDisabled, focusVisible } = this.state;
-        const { className, style, onMouseEnter, onMouseLeave, size, checkedText, uncheckedText, loading, id, ...rest } = this.props;
+        const { className, style, onMouseEnter, onMouseLeave, size, checkedText, uncheckedText, loading, id, type, ...rest } = this.props;
         const wrapperCls = cls(className, {
+            [`${cssClasses.PREFIX}-${type}`]: true,
             [cssClasses.PREFIX]: true,
             [cssClasses.CHECKED]: nativeControlChecked,
             [cssClasses.DISABLED]: nativeControlDisabled,

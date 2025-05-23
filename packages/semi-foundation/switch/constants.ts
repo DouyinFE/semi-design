@@ -18,6 +18,7 @@ const cssClasses = {
 
 const strings = {
     SIZE_MAP: ['default', 'small', 'large'],
+    SWITCH_TYPES: ['primary', 'tertiary', 'success', 'warning', 'danger'],
 } as const;
 
 export { cssClasses, strings };
