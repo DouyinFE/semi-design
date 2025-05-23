@@ -504,7 +504,10 @@ export class PieceTreeBase {
         return value;
     }
 
-    public getValueInRange2(startPosition: NodePosition, endPosition: NodePosition): string {
+    public getValueInRange2(startPosition: NodePosition | null, endPosition: NodePosition | null): string {
+        if (!startPosition || !endPosition) {
+            return "";
+        }
         if (startPosition.node === endPosition.node) {
             const node = startPosition.node;
             const buffer = this._buffers[node.piece.bufferIndex].buffer;
