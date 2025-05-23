@@ -431,6 +431,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             updateContainerPosition: () => {
                 const positionInBody = document.body.getAttribute('data-position');
                 if (positionInBody) {
+                    this.containerPosition = positionInBody;
                     return;
                 }
                 requestAnimationFrame(() => {
