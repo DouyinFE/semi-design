@@ -66,6 +66,11 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         uploadTipProps: PropTypes.object,
         mode: PropTypes.string,
         markdownRenderProps: PropTypes.object,
+        /**
+         * 是否允许输入框发送文字消息和文件
+         * 默认true，受控属性
+         */
+        allowSend: PropTypes.bool,
     };
 
     static defaultProps = getDefaultPropsFromGlobalConfig(Chat.__SemiComponentName__, {
@@ -386,6 +391,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     </span>)}
                     {/* input area */}
                     <InputBox
+                        allowSend={this.props.allowSend}
                         showClearContext={showClearContext}
                         uploadRef={this.uploadRef}
                         manualUpload={this.adapter.manualUpload}

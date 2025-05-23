@@ -13,6 +13,7 @@ const { PREFIX_INPUT_BOX } = cssClasses;
 const { SEND_HOT_KEY } = strings;
 const textAutoSize = { minRows: 1, maxRows: 5 };
 
+// 新增 allowSend props，控制输入和发送
 class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
 
     inputAreaRef: React.RefObject<any>;
@@ -64,7 +65,7 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
     }
 
     renderUploadButton = () => {
-        const { uploadProps, uploadRef, uploadTipProps, clickUpload } = this.props;
+        const { uploadProps, uploadRef, uploadTipProps, clickUpload, allowSend = true } = this.props;
         if (!clickUpload) {
             return null;
         }
@@ -76,6 +77,7 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
                 [className]: className
             }),
             onChange: this.foundation.onAttachmentAdd,
+            disabled: !allowSend,
         };
         const uploadNode = <Upload
             ref={uploadRef}
@@ -86,6 +88,7 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
                 className={`${PREFIX_INPUT_BOX}-uploadButton`}
                 icon={<IconChainStroked size="extra-large" />}
                 theme='borderless'
+                disabled={!allowSend}
             />}
         </Upload>;
         return (uploadTipProps ? <Tooltip {...uploadTipProps}><span>{uploadNode}</span></Tooltip> : uploadNode);
@@ -129,9 +132,10 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
 
     renderSendButton = () => {
         const disabledSend = this.foundation.getDisableSend();
+        const { allowSend = true } = this.props;
         return (
             <Button
-                disabled={disabledSend}
+                disabled={disabledSend || !allowSend}
                 theme='solid'
                 type='primary'
                 className={`${PREFIX_INPUT_BOX}-sendButton`}
@@ -143,7 +147,7 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
     }
 
     render() {
-        const { onClearContext, renderInputArea, onSend, style, className, showClearContext } = this.props;
+        const { onClearContext, renderInputArea, onSend, style, className, showClearContext, allowSend = true } = this.props;
         const clearNode = this.renderClearButton();
         const uploadNode = this.renderUploadButton();
         const inputNode = this.renderInputArea();
