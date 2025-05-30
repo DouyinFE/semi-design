@@ -92,7 +92,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this._mounted = true;
         this._bindEvent();
         this._shouldShow();
-        this._initContainerPosition();
         if (!wrapperId) {
             this._adapter.setId();
         }
@@ -316,6 +315,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     };
 
     show = () => {
+        this._initContainerPosition();
         if (this._adapter.getAnimatingState()) {
             return;
         }
@@ -1134,6 +1134,9 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     }
 
     _initContainerPosition() {
+        if (this._adapter.getContainerPosition() || !this._adapter.containerIsBody()) {
+            return;
+        }
         this._adapter.updateContainerPosition();
     }
 

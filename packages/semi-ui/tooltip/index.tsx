@@ -429,13 +429,21 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             },
             canMotion: () => Boolean(this.props.motion),
             updateContainerPosition: () => {
-                const container = this.getPopupContainer();
-                if (container && isHTMLElement(container)) {
-                    // getComputedStyle need first parameter is Element type
-                    const computedStyle = window.getComputedStyle(container);
-                    const position = computedStyle.getPropertyValue('position');
-                    this.containerPosition = position;
+                const positionInBody = document.body.getAttribute('data-position');
+                if (positionInBody) {
+                    this.containerPosition = positionInBody;
+                    return;
                 }
+                requestAnimationFrame(() => {
+                    const container = this.getPopupContainer();
+                    if (container && isHTMLElement(container)) {
+                        // getComputedStyle need first parameter is Element type
+                        const computedStyle = window.getComputedStyle(container);
+                        const position = computedStyle.getPropertyValue('position');
+                        document.body.setAttribute('data-position', position);
+                        this.containerPosition = position;
+                    }
+                });
             },
             getContainerPosition: () => this.containerPosition,
             getContainer: () => this.containerEl && this.containerEl.current,
