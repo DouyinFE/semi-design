@@ -215,6 +215,7 @@ export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, Basi
     notifyClear?: () => void;
     updateInputValue: (value: string) => void;
     updateInputPlaceHolder: (value: string) => void;
+    updateScrollTop(panelIndex?: number, targetKey?: string): void;
     focusInput: () => void;
     blurInput: () => void;
     registerClickOutsideHandler: (cb: (e: any) => void) => void;
@@ -424,6 +425,9 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         }
     }
 
+    updateScrollTop(panelIndex?: number, targetKey?: string) {
+        this._adapter.updateScrollTop(panelIndex, targetKey);
+    }
     // call when props.value change
     handleValueChange(value: BasicValue) {
         const { keyEntities } = this.getStates();
