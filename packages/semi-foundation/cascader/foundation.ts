@@ -215,6 +215,7 @@ export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, Basi
     notifyClear?: () => void;
     updateInputValue: (value: string) => void;
     updateInputPlaceHolder: (value: string) => void;
+    updateScrollTop(panelIndex?: number, targetKey?: string): void;
     focusInput: () => void;
     blurInput: () => void;
     registerClickOutsideHandler: (cb: (e: any) => void) => void;
@@ -242,7 +243,7 @@ export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, Basi
     updateLoadedKeyRefValue: (keys: Set<string>) => void;
     getLoadedKeyRefValue: () => Set<string>;
     setEmptyContentMinWidth: (minWidth: number) => void;
-    getTriggerWidth: () => number;
+    getTriggerWidth: () => number
 }
 
 export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, BasicCascaderProps, BasicCascaderInnerData> {
@@ -424,6 +425,9 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         }
     }
 
+    updateScrollTop(panelIndex?: number, targetKey?: string) {
+        this._adapter.updateScrollTop(panelIndex, targetKey);
+    }
     // call when props.value change
     handleValueChange(value: BasicValue) {
         const { keyEntities } = this.getStates();
@@ -521,7 +525,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             }
             keyEntities[key] = optionNotExist as BasicEntity;
             // Fix: 1155, if the data is loaded asynchronously to update treeData, the emptying operation should not be done when entering the updateSelectedKey method
-        } else if (loading) {
+        } else if (loading || loadingKeys?.size) {
             // Use assign to avoid overwriting the'not-exist- * 'property of keyEntities after asynchronous loading
             // Overwriting'not-exist- * 'will cause selectionContent to be emptied unexpectedly when clicking on a dropDown item
             updateStates.keyEntities = assign(keyEntityState, keyEntities);

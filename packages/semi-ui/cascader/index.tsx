@@ -400,7 +400,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                                 callback();
                                 this.setState({ loading: false });
                                 resolve();
-                            })
+                            });
                         });
                     });
                 }
@@ -433,8 +433,50 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             },
             getLoadedKeyRefValue: () => {
                 return this.loadedKeysRef.current;
-            }
+            },
+            updateScrollTop: (panelIndex?: number, targetKey?: string) => {
+                if (panelIndex === undefined || targetKey === undefined) {
+                    const { selectedKeys } = this.state;
+                    if (selectedKeys.size > 0) {
+                        const selectedKey = [...selectedKeys][0];
+                        this.scrollToItem(selectedKey);
+                    }
+                    return;
+                }
+                this.scrollToItemInPanel(panelIndex, targetKey);
+            },
         };
+    }
+
+    private scrollToItem = (targetKey: string) => {
+        const panels = document.querySelectorAll(`.${prefixcls}-option-list`);
+
+        panels.forEach((panel, index) => {
+            const targetOption = panel.querySelector(`[id$="${targetKey}"]`) as HTMLElement;
+            if (targetOption) {
+                this.scrollToItemInPanel(index, targetKey);
+            }
+        });
+    }
+
+    private scrollToItemInPanel = (panelIndex: number, targetKey: string) => {
+        const panelSelector = `.${prefixcls}-option-list:nth-child(${panelIndex + 1})`;
+        const panel = document.querySelector(panelSelector) as HTMLElement;
+        if (!panel) return;
+        const targetOption = panel.querySelector(`[id$="${targetKey}"]`) as HTMLElement;
+        if (targetOption) {
+            const panelRect = panel.getBoundingClientRect();
+            const optionRect = targetOption.getBoundingClientRect();
+            const panelScrollTop = panel.scrollTop;
+            const targetScrollTop = panelScrollTop + 
+                (optionRect.top - panelRect.top) - 
+                (panelRect.height / 2) + 
+                (optionRect.height / 2);
+            panel.scrollTo({
+                top: Math.max(0, targetScrollTop),
+                behavior: 'smooth'
+            });
+        }
     }
 
     static getDerivedStateFromProps(props: CascaderProps, prevState: CascaderState) {
@@ -615,7 +657,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const { size, disabled, placeholder, maxTagCount, showRestTagsPopover, restTagsPopoverProps, checkRelation } = this.props;
         const { inputValue, checkedKeys, keyEntities, resolvedCheckedKeys, inputPlaceHolder } = this.state;
         const tagInputcls = cls(`${prefixcls}-tagInput-wrapper`);
-        const realKeys = this.mergeType === strings.NONE_MERGE_TYPE  || checkRelation === strings.UN_RELATED ?
+        const realKeys = this.mergeType === strings.NONE_MERGE_TYPE || checkRelation === strings.UN_RELATED ?
             checkedKeys : resolvedCheckedKeys;
         return (
             <TagInput
@@ -730,9 +772,9 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
         const renderData = this.foundation.getRenderData();
         const isEmpty = !renderData || !renderData.length;
-        const realDropDownStyle = isEmpty ? {...dropdownStyle, minWidth: this.state.emptyContentMinWidth } : dropdownStyle;
+        const realDropDownStyle = isEmpty ? { ...dropdownStyle, minWidth: this.state.emptyContentMinWidth } : dropdownStyle;
         const content = (
-            <div className={popoverCls} role="listbox" style={realDropDownStyle} onKeyDown={this.foundation.handleKeyDown}>
+            <div className={popoverCls} role="listbox" style={realDropDownStyle} onKeyDown={this.foundation.handleKeyDown} tabIndex={-1}>
                 {topSlot}
                 <Item
                     activeKeys={activeKeys}
@@ -945,6 +987,13 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         this.foundation.handleClearEnterPress(e);
     };
 
+    handlePopoverVisibleChange = (status) => {
+        if (!status) {
+            return;
+        }
+        this.foundation.updateScrollTop();    
+    };
+
     showClearBtn = () => {
         const { showClear, disabled, multiple } = this.props;
         const { selectedKeys, isOpen, isHovering, checkedKeys, inputValue } = this.state;
@@ -1106,7 +1155,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 stopPropagation={stopPropagation}
                 mouseLeaveDelay={mouseLeaveDelay}
                 mouseEnterDelay={mouseEnterDelay}
-                afterClose={()=>this.foundation.updateSearching(false)}
+                onVisibleChange={status => this.handlePopoverVisibleChange(status)}
+                afterClose={() => this.foundation.updateSearching(false)}
             >
                 {selection}
             </Popover>
