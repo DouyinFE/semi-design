@@ -214,6 +214,83 @@ const treeData5 = [
   },
 ];
 
+const treeData6 =  [
+  {
+    label: 'Node1',
+    value: '0-0',
+  },
+  {
+    label: 'Node2',
+    value: '0-1',
+  },
+    {
+    label: 'Node3',
+    value: '0-2',
+  },
+  {
+    label: 'Node4',
+    value: '0-3',
+  },
+  {
+    label: 'Node5',
+    value: '0-4',
+  },
+  {
+    label: 'Node6',
+    value: '0-5',
+  },  {
+    label: 'Node7',
+    value: '0-6',
+  },
+  {
+    label: 'Node8',
+    value: '0-7',
+        children: [
+      {
+        label: 'Child Node1',
+        value: '0-0-1',
+      },
+      {
+        label: 'Child Node2',
+        value: '0-0-2',
+        key: '0-0-2',
+      },
+      {
+        label: 'Child Node3',
+        value: '0-0-3',
+      },
+      {
+        label: 'Child Node4',
+        value: '0-0-4',
+      },
+      {
+        label: 'Child Node5',
+        value: '0-0-5',
+      },
+      {
+        label: 'Child Node6',
+        value: '0-0-6',
+      },
+      {
+        label: 'Child Node7',
+        value: '0-0-7',
+      },
+      {
+        label: 'Child Node8',
+        value: '0-0-8',
+      },
+      {
+        label: 'Child Node9',
+        value: '0-0-9',
+      },
+      {
+        label: 'Child Node10',
+        value: '0-0-10',
+      },
+    ],
+  }
+]
+
 const treeOrder = [
     {
         label: '-1',
@@ -2514,6 +2591,20 @@ export const PrefixSuffix = () => {
         treeData={treeData2}
         placeholder="请选择所在地区"
         filterTreeNode
+      />
+    </>
+  )
+}
+
+export const ScrollToPanel = () => {
+  return (
+    <>
+      <Cascader
+        prefix={<IconGift />}
+        suffix={<IconGift />}
+        style={{ width: 300 }}
+        treeData={treeData6}
+        placeholder="Please select"
       />
     </>
   )

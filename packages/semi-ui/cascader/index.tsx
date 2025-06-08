@@ -436,10 +436,16 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             },
             updateScrollTop: (panelIndex?: number, targetKey?: string) => {
                 if (panelIndex === undefined || targetKey === undefined) {
-                    const { selectedKeys } = this.state;
+                    const { selectedKeys, activeKeys } = this.state;
+
                     if (selectedKeys.size > 0) {
                         const selectedKey = [...selectedKeys][0];
                         this.scrollToItem(selectedKey);
+                    } else if (activeKeys.size > 0) {
+                        const activeKeysArray = [...activeKeys];
+                        activeKeysArray.forEach((key, panelIndex) => {
+                            this.scrollToItemInPanel(panelIndex, key);
+                        });
                     }
                     return;
                 }
@@ -449,14 +455,22 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     }
 
     private scrollToItem = (targetKey: string) => {
-        const panels = document.querySelectorAll(`.${prefixcls}-option-list`);
+        const { activeKeys } = this.state;
+        const activeKeysArray = [...activeKeys];
 
-        panels.forEach((panel, index) => {
-            const targetOption = panel.querySelector(`[id$="${targetKey}"]`) as HTMLElement;
-            if (targetOption) {
-                this.scrollToItemInPanel(index, targetKey);
-            }
-        });
+        if (activeKeysArray.length > 0) {
+            activeKeysArray.forEach((key, panelIndex) => {
+                this.scrollToItemInPanel(panelIndex, key);
+            });
+        } else {
+            const panels = document.querySelectorAll(`.${prefixcls}-option-list`);
+            panels.forEach((panel, index) => {
+                const targetOption = panel.querySelector(`[id$="${targetKey}"]`) as HTMLElement;
+                if (targetOption) {
+                    this.scrollToItemInPanel(index, targetKey);
+                }
+            });
+        }
     }
 
     private scrollToItemInPanel = (panelIndex: number, targetKey: string) => {
