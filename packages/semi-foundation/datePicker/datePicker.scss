@@ -934,6 +934,7 @@ $module-list: #{$prefix}-scrolllist;
 
                 .#{$prefix}-input-wrapper {
                     background-color: transparent;
+                    height: fit-content;
                     border: none;
                 }
 
