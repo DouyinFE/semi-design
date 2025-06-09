@@ -605,7 +605,7 @@ function Demo(props = {}) {
 
 ### Draggable Modal
 
-The modal content is rendered customly through modalRender, and the draggable Modal is implemented through the DragMove component.
+The modal content is rendered customly through `modalRender`, and the draggable Modal is implemented through the DragMove component.
 
 ```jsx live=true hideInDSM
 import React, { useState } from 'react';

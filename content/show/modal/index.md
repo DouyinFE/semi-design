@@ -613,7 +613,7 @@ function Demo(props = {}) {
 
 ### 可拖拽 Modal
 
-通过 modalRender 自定义渲染 Modal 内容，可拖拽 Modal 通过 DragMove 组件实现。
+通过 `modalRender` 自定义渲染 Modal 内容，可拖拽 Modal 通过 DragMove 组件实现。
 
 ```jsx live=true hideInDSM
 import React, { useState } from 'react';
