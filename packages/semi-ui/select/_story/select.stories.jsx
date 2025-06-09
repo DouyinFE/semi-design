@@ -3720,3 +3720,22 @@ export const fix2465 = () => {
         </div>
     );
 }
+
+
+export const Fix2853 = () => {
+  return (
+    <Select placeholder="" style={{ width: 180 }} filter>
+        <Select.OptGroup key="a" label={<div>a</div>} >
+            <Select.Option value="a-1" key="a-1">a-1</Select.Option>
+            <Select.Option value="a-2" key="a-2">a-2</Select.Option>
+        </Select.OptGroup>
+        <Select.OptGroup label={<div>b</div>} >
+            <Select.Option value="b-1">b-1</Select.Option>
+            <Select.Option value="b-2">b-2</Select.Option>
+        </Select.OptGroup>
+        <Select.OptGroup label={<div>c</div>} >
+            <Select.Option value="c-1">c-1</Select.Option>
+        </Select.OptGroup>
+    </Select>
+  )
+}
