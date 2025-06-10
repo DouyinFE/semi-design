@@ -251,13 +251,17 @@ $module: #{$prefix}-button;
         color: $color-button_disabled_solid-text-default;
         cursor: not-allowed;
 
-        &:not(.#{$module}-borderless):not(.#{$module}-light):hover {
+        &:not(.#{$module}-borderless):not(.#{$module}-light):not(.#{$module}-outline):hover {
             color: $color-button_disabled-text-hover;
         }
 
         &.#{$module}-light,
         &.#{$module}-borderless {
             color: $color-button_disabled-text-default;
+        }
+
+        &.#{$module}-outline {
+            color: $color-button_disabled_outline_text-default;
         }
     }
 
