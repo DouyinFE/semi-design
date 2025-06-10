@@ -936,6 +936,14 @@ $module-list: #{$prefix}-scrolllist;
                     background-color: transparent;
                     height: fit-content;
                     border: none;
+
+                    &:active  {
+                        background-color: transparent;
+                    }
+
+                    &:hover {
+                        background-color: transparent;
+                    }
                 }
 
                 &-focus {
