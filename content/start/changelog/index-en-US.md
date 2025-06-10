@@ -15,9 +15,18 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.80.1 (2025-06-10)
+- 【Fix】
+    - Modify the timing of getting the container's position in Tooltip to improve the performance of component initialization [#2841](https://github.com/DouyinFE/semi-design/pull/2841)
+    - fix the problem that when the Select group label is ReactNode, the optionList display is incorrect after filtering [#2854](https://github.com/DouyinFE/semi-design/pull/2854)
+- 【Style】
+    - Adjust the height of the input-wrapper layer in the range type DatePicker to center the content [#2855](https://github.com/DouyinFE/semi-design/pull/2855)
+
+
 #### 🎉 2.80.0 (2025-05-19)
 - 【Fix】
-    - Fixed the display problem of cascader with single selection, controlled value and value undefined, asynchronous loading, and showNext set to hover when loading multiple projects at the same time.  [#2831 ](https://github.com/DouyinFE/semi-design/issues/2831)  [#2832](https://github.com/DouyinFE/semi-design/pull/2832)
+    - Fixed the display problem of cascader with single selection, controlled value and value undefined, asynchronous loading, and showNext set to hover when loading multiple projects at the same time.  [#2831](https://github.com/DouyinFE/semi-design/issues/2831)  [#2832](https://github.com/DouyinFE/semi-design/pull/2832)
 
 #### 🎉 2.80.0-beta.0 (2025-05-14)
 - 【Feat】
