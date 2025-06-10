@@ -13,13 +13,6 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
-#### 🎉 2.80.1 (2025-06-10)
-- 【Fix】
-    - 修改 Tooltip 中获取 container 的 position 时机，提升组件初始化的性能 [#2841](https://github.com/DouyinFE/semi-design/pull/2841)
-    - 修复 Select 在分组 label 为 ReactNode 的情况下，filter 后 optionList 展示有误问题 [#2854](https://github.com/DouyinFE/semi-design/pull/2854)
-- 【Style】
-    - 调整 range 类型的DatePicker 中 input-wrapper 层的高度, 让内容居中 [#2855](https://github.com/DouyinFE/semi-design/pull/2855)
-
 #### 🎉 2.80.0 (2025-05-19)
 - 【Fix】
     - 修复单选，受控 value且 value 为undefined，异步加载，showNext 为 hover 的 cascader 在同时加载多个项目时的显示问题  [#2831](https://github.com/DouyinFE/semi-design/issues/2831) [#2832](https://github.com/DouyinFE/semi-design/pull/2832)
