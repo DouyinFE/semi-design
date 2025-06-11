@@ -503,6 +503,8 @@ class Input extends BaseComponent<InputProps, InputState> {
             onKeyUp: e => this.foundation.handleKeyUp(e),
             onKeyDown: e => this.foundation.handleKeyDown(e),
             onKeyPress: e => this.foundation.handleKeyPress(e),
+            onCompositionStart: this.foundation.handleCompositionStart,
+            onCompositionEnd: this.foundation.handleCompositionEnd,
             value: inputValue,
         };
         if (!isFunction(getValueLength)) {
