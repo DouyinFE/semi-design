@@ -1067,27 +1067,3 @@ export const FixTextAreaAutoFocus = () => {
     </div>
   )
 };
-
-export const Test111 = () => {
- function getValueLength(str) {
-    if (isString(str)) {
-      const splitter = new GraphemeSplitter();
-      return splitter.countGraphemes(str);
-    } else {
-      return -1;
-    }
-  }
-
-  const [getVisibleLengthFC, setGetVisibleLength] = useState(() => getValueLength);
-  return (
-    <div>
-      <Input
-        maxLength={5}
-        getValueLength={getVisibleLengthFC}
-        onChange={(value) => {
-          console.log('value', value);
-        }}
-      />
-    </div>
-  )
-}
