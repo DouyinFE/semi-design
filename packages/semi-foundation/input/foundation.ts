@@ -99,12 +99,17 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
     handleCompositionEnd = (e: any) => {
         const value = e.target.value;
         this.compositionEnter = false;
-        const { getValueLength } = this.getProps();
+        const { getValueLength, maxLength, minLength } = this.getProps();
         if (!isFunction(getValueLength)) {
             return;
         }
-        const nextValue = this.getNextValue(value);
-        this.changeInput(nextValue, e);
+        if (maxLength) {
+            const nextValue = this.getNextValue(value);
+            nextValue !== value && this.changeInput(nextValue, e);
+        }
+        if (minLength) {
+            this.handleVisibleMinLength(value);
+        } 
     }
 
     /**
