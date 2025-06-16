@@ -42,6 +42,8 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
         };
     }
 
+    compositionEnter: boolean = false;
+
     constructor(adapter: TextAreaAdapter) {
         super({
             ...TextAreaFoundation.textAreaDefaultAdapter,
@@ -58,18 +60,53 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
     handleChange(value: string, e: any) {
         const { maxLength, minLength, getValueLength } = this._adapter.getProps();
         let nextValue = value;
-        if (maxLength && isFunction(getValueLength)) {
-            nextValue = this.handleVisibleMaxLength(value);
+        if (!this.compositionEnter) {
+            nextValue = this.getNextValue(nextValue);
         }
-        if (minLength && isFunction(getValueLength)) {
-            this.handleVisibleMinLength(nextValue);
-        }
+        this._changeValue(nextValue, e);
+    }
+
+    _changeValue = (value: any, e: any) => {
         if (this._isControlledComponent()) {
-            this._adapter.notifyChange(nextValue, e);
+            this._adapter.notifyChange(value, e);
         } else {
-            this._adapter.setValue(nextValue);
-            this._adapter.notifyChange(nextValue, e);
+            this._adapter.setValue(value);
+            this._adapter.notifyChange(value, e);
         }
+    }
+
+    getNextValue = (value: any) => {
+        const { maxLength, minLength, getValueLength } = this._adapter.getProps();
+        if (!isFunction(getValueLength)) {
+            return value;
+        }
+        if (maxLength) {
+            return this.handleVisibleMaxLength(value);
+        }
+        if (minLength) {
+            this.handleVisibleMinLength(value);
+        }
+        return value;
+    }
+
+    handleCompositionStart = () => {
+        this.compositionEnter = true;
+    }
+
+    handleCompositionEnd = (e: any) => {
+        this.compositionEnter = false;
+        const { getValueLength, maxLength, minLength } = this.getProps();
+        if (!isFunction(getValueLength)) {
+            return;
+        }
+        const value = e.target.value;
+        if (maxLength) {
+            const nextValue = this.handleVisibleMaxLength(value);
+            nextValue !== value && this._changeValue(nextValue, e);
+        }
+        if (minLength) {
+            this.handleVisibleMinLength(value);
+        } 
     }
 
     /**

@@ -301,6 +301,8 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             onBlur: (e: React.FocusEvent<HTMLTextAreaElement>) => this.foundation.handleBlur(e.nativeEvent),
             onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => this.foundation.handleKeyDown(e),
             value: value === null || value === undefined ? '' : value,
+            onCompositionStart: this.foundation.handleCompositionStart,
+            onCompositionEnd: this.foundation.handleCompositionEnd,
         };
         if (!isFunction(getValueLength)) {
             (itemProps as any).maxLength = maxLength;
