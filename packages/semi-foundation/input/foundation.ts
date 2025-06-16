@@ -104,7 +104,7 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
             return;
         }
         if (maxLength) {
-            const nextValue = this.getNextValue(value);
+            const nextValue = this.handleVisibleMaxLength(value);
             nextValue !== value && this.changeInput(nextValue, e);
         }
         if (minLength) {
