@@ -13,6 +13,30 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.81.0 (2025-06-16)
+- 【Fix】
+    - 修复 Input、TextArea 组件在同时设置 maxLength 和getValueLength时候，中文输入会在未输入完成时候被截断 [#2858](https://github.com/DouyinFE/semi-design/issues/2858) [#2859](https://github.com/DouyinFE/semi-design/pull/2859)
+- 【Style】
+    - 对于范围类型的 DatePicker，增加其中设置的 hover/active 状态下的 input 背景色的优先级 [#2856](https://github.com/DouyinFE/semi-design/pull/2856)
+- 【Design Token】
+    - 增加 $color-button_disabled_outline_text-default 用于设置边框模式的 Button 的禁用状态文字颜色  [#2861](https://github.com/DouyinFE/semi-design/issues/2861) [#2857](https://github.com/DouyinFE/semi-design/pull/2857)
+
+
+#### 🎉 2.81.0-beta.0 (2025-06-10)
+- 【Style】
+    - 调整 range 类型的DatePicker 中 input-wrapper 层的高度, 让内容居中 [#2855](https://github.com/DouyinFE/semi-design/pull/2855)
+- 【Fix】
+    - 修复 Select 在分组 label 为 ReactNode 的情况下，filter 后 optionList 展示有误问题 [#2854](https://github.com/DouyinFE/semi-design/pull/2854)
+    - 修改 Tooltip 中获取 container 的 position 时机，提升组件初始化的性能 [#2841](https://github.com/DouyinFE/semi-design/pull/2841)
+
+#### 🎉 2.80.0 (2025-05-19)
+- 【Fix】
+    - 修复单选，受控 value且 value 为undefined，异步加载，showNext 为 hover 的 cascader 在同时加载多个项目时的显示问题  [#2831](https://github.com/DouyinFE/semi-design/issues/2831) [#2832](https://github.com/DouyinFE/semi-design/pull/2832)
+
+#### 🎉 2.80.0-beta.0 (2025-05-14)
+- 【Feat】
+    - 新增 VideoPlayer 组件 [#2822](https://github.com/DouyinFE/semi-design/pull/2822)
+
 #### 🎉 2.79.0 (2025-05-08)
 - 【Feat】
     - Upload 添加文件名超长时弹出文件名提示功能 [@yatbfm](https://github.com/yatbfm) [#2753](https://github.com/DouyinFE/semi-design/pull/2753)

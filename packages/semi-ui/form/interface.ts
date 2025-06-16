@@ -123,9 +123,9 @@ export interface BaseFormProps <Values extends Record<string, any> = any> extend
     labelAlign?: 'left' | 'right';
     labelCol?: Record<string, any>;
     wrapperCol?: Record<string, any>;
-    render?: (internalProps: FormFCChild) => React.ReactNode;
+    render?: (internalProps: FormFCChild<Values>) => React.ReactNode;
     component?: React.FC<any> | React.ComponentClass<any>;
-    children?: React.ReactNode | ((internalProps: FormFCChild) => React.ReactNode);
+    children?: React.ReactNode | ((internalProps: FormFCChild<Values>) => React.ReactNode);
     autoScrollToError?: boolean | ScrollIntoViewOptions;
     disabled?: boolean;
     showValidateIcon?: boolean;

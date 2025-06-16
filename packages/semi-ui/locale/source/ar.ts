@@ -195,6 +195,17 @@ const local: Locale = {
         replace: 'استبدل',
         replaceAll: 'استبدل الكل',
     },
+    VideoPlayer: {
+        rateChange: 'تحويل السرعة إلى ${rate}',
+        qualityChange: 'تحويل الجودة إلى ${quality}',
+        routeChange: 'تحويل المسار إلى ${route}',
+        mirror: 'المرآة',
+        cancelMirror: 'إلغاء المرآة',
+        loading: 'جار التحميل...',
+        stall: 'فشل التحميل',
+        noResource: 'لا يوجد مورد',
+        videoError: 'خطأ في تحميل الفيديو'
+    }
 };
 
 // [i18n-Arabic]

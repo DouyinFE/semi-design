@@ -908,8 +908,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             const parentGroup = option._parentGroup;
             const optionContent = this.renderOption(option, optionIndex);
             if (parentGroup && !groupStatus.has(parentGroup.label)) {
+                const groupKey = typeof parentGroup.label === 'string' || typeof parentGroup.label === 'number'
+                    ? parentGroup.label
+                    : parentGroup.key;
                 // when use with OptionGroup and group content not already insert
-                const groupContent = <OptionGroup {...parentGroup} key={parentGroup.label} />;
+                const groupContent = <OptionGroup {...parentGroup} key={groupKey}/>;
                 groupStatus.set(parentGroup.label, true);
                 content.push(groupContent);
             }

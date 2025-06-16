@@ -36,6 +36,7 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
     }
 
     _timer: number | null;
+    compositionEnter: boolean = false;
 
     constructor(adapter: InputAdapter) {
         super({ ...InputFoundation.inputDefaultAdapter, ...adapter });
@@ -55,26 +56,60 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
     }
 
     handleChange(value: any, e: any) {
-        const { maxLength, minLength, getValueLength } = this._adapter.getProps();
         let nextValue = value;
-        if (maxLength && isFunction(getValueLength)) {
-            nextValue = this.handleVisibleMaxLength(value);
+        if (!this.compositionEnter) {
+            nextValue = this.getNextValue(nextValue);
         }
-        if (minLength && isFunction(getValueLength)) {
-            this.handleVisibleMinLength(nextValue);
+        this.changeInput(nextValue, e);
+    }
+
+    getNextValue = (value: any) => {
+        const { maxLength, minLength, getValueLength } = this._adapter.getProps();
+        if (!isFunction(getValueLength)) {
+            return value;
         }
+        if (maxLength) {
+            return this.handleVisibleMaxLength(value);
+        }
+        if (minLength) {
+            this.handleVisibleMinLength(value);
+        }
+        return value;
+    }
+
+    changeInput = (value: any, e: any) => {
         if (this._isControlledComponent()) {
             /**
              * If it is a controlled component, directly notify the caller of the modified value.
              * Truncate the input value from the input box if the input value exceeds the maximum length limit.
              *  Even in controlled components, characters that exceed the length limit cannot be entered through the input box.
              */
-            this._adapter.notifyChange(nextValue, e);
+            this._adapter.notifyChange(value, e);
         } else {
-            this._adapter.setValue(nextValue);
-            this._adapter.notifyChange(nextValue, e);
+            this._adapter.setValue(value);
+            this._adapter.notifyChange(value, e);
             // this.checkAllowClear(value);
         }
+    }
+
+    handleCompositionStart = () => {
+        this.compositionEnter = true;
+    }
+
+    handleCompositionEnd = (e: any) => {
+        const value = e.target.value;
+        this.compositionEnter = false;
+        const { getValueLength, maxLength, minLength } = this.getProps();
+        if (!isFunction(getValueLength)) {
+            return;
+        }
+        if (maxLength) {
+            const nextValue = this.handleVisibleMaxLength(value);
+            nextValue !== value && this.changeInput(nextValue, e);
+        }
+        if (minLength) {
+            this.handleVisibleMinLength(value);
+        } 
     }
 
     /**

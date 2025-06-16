@@ -199,6 +199,17 @@ const local: Locale = {
         replace: 'แทนที่',
         replaceAll: 'แทนที่ทั้งหมด',
     },
+    VideoPlayer: {
+        rateChange: 'เปลี่ยนความเร็วเป็น ${rate}',
+        qualityChange: 'เปลี่ยนคุณภาพเป็น ${quality}',
+        routeChange: 'เปลี่ยนเส้นทางเป็น ${route}',
+        mirror: 'กลับหน้า',
+        cancelMirror: 'ยกเลิกกลับหน้า',
+        loading: 'กำลังโหลด...',
+        stall: 'กำลังโหลดล้มเหลว',
+        noResource: 'ไม่มีทรัพยากร',
+        videoError: 'เกิดข้อผิดพลาดในการโหลดวิดีโอ'
+    }
 };
 
 // [i18n-Thai]
