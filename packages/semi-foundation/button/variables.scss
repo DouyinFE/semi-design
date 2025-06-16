@@ -80,10 +80,11 @@ $color-button_tertiary_outline-border-default: var(--semi-color-border); // 边�
 $color-button_tertiary_solid-text-default: var(--semi-color-text-1); // 浅色第三按钮文字颜色
 
 // disabled
-$color-button_disabled_solid-text-default: var(--semi-color-disabled-text); // 禁用按钮文字颜色
-$color-button_disabled-text-default: var(--semi-color-disabled-text); // 禁用按钮文字颜色
+$color-button_disabled_solid-text-default: var(--semi-color-disabled-text); // 禁用按钮文字颜色 - 深色主题
+$color-button_disabled-text-default: var(--semi-color-disabled-text); // 禁用按钮文字颜色 - 浅色主题或无背景
+$color-button_disabled_outline_text-default: var(--semi-color-disabled-text); // 禁用按钮文字颜色 - 边框模式
 $color-button_disabled-bg-default: var(--semi-color-disabled-bg); // 禁用按钮背景颜色
-$color-button_disabled-text-hover: $color-button_disabled-text-default; // 禁用按钮文字颜色 - 悬浮
+$color-button_disabled-text-hover: $color-button_disabled-text-default; // 禁用按钮文字颜色 - 深色主题 - 悬浮
 $color-button_disabled-bg-hover: var(--semi-color-disabled-bg); // 禁用按钮背景颜色 - 悬浮
 $color-button_disabled_primary-bg-default: $color-button_disabled-bg-default; // 禁用 primary 按钮背景颜色
 $color-button_disabled_secondary-bg-default: $color-button_disabled-bg-default; // 禁用 secondary 按钮背景颜色
