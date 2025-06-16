@@ -13,6 +13,15 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.81.0 (2025-06-16)
+- 【Fix】
+    - 修复 Input、TextArea 组件在同时设置 maxLength 和getValueLength时候，中文输入会在未输入完成时候被截断 [#2858](https://github.com/DouyinFE/semi-design/issues/2858) [#2859](https://github.com/DouyinFE/semi-design/pull/2859)
+- 【Style】
+    - 对于范围类型的 DatePicker，增加其中设置的 hover/active 状态下的 input 背景色的优先级 [#2856](https://github.com/DouyinFE/semi-design/pull/2856)
+- 【Design Token】
+    - 增加 $color-button_disabled_outline_text-default 用于设置边框模式的 Button 的禁用状态文字颜色  [#2861](https://github.com/DouyinFE/semi-design/issues/2861) [#2857](https://github.com/DouyinFE/semi-design/pull/2857)
+
+
 #### 🎉 2.81.0-beta.0 (2025-06-10)
 - 【Style】
     - 调整 range 类型的DatePicker 中 input-wrapper 层的高度, 让内容居中 [#2855](https://github.com/DouyinFE/semi-design/pull/2855)

@@ -16,11 +16,19 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.81.0 (2025-06-16)
+- 【Fix】
+    - Fixed the problem that when maxLength and getValueLength are set at the same time in the Input、TextArea  component, the Chinese input will be truncated before the input is completed  [#2858](https://github.com/DouyinFE/semi-design/issues/2858)
+- 【Style】
+    - For range-type DatePicker, increase the priority of the input background color set in the hover/active state [#2856](https://github.com/DouyinFE/semi-design/pull/2856)
+- 【Design Token】
+    - Add $color-button_disabled_outline_text-default to set the disabled state text color of Button in outline mode  [#2861](https://github.com/DouyinFE/semi-design/issues/2861) 
+
+
 #### 🎉 2.81.0-beta.0 (2025-06-10)
 - 【Style】
     - Adjust the height of the input-wrapper layer in the range type DatePicker to center the content
 - 【Fix】
-    - fix the problem that when the Select group label is ReactNode, the optionList display is incorrect after filtering
     - Modify the timing of getting the container's position in Tooltip to improve the performance of component initialization
 
 
