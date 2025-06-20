@@ -1067,3 +1067,10 @@ export const FixTextAreaAutoFocus = () => {
     </div>
   )
 };
+
+export const LongPlaceholder = () => {
+  return (<Input 
+    placeholder="Long placeholder test Long placeholder test Long placeholder test"
+    style={{width: 200}}
+  />)
+};
