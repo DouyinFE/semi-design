@@ -106,7 +106,7 @@ export default class YearAndMonthFoundation extends BaseFoundation<YearAndMonthA
         month[panelType] = item.month;
 
         // Make sure the time on the right panel is always greater than or equal to the time on the left panel
-        if (type === 'monthRange' && panelType === left && currentYear[left] === currentYear[right] && item.value > month[right]) {
+        if (type === 'monthRange' && panelType === left && currentYear[left] === currentYear[right] && item.month > month[right]) {
             month[right] = item.month ;
         } 
 
