@@ -13,6 +13,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.82.0-beta.0 (2025-06-23)
+- 【Fix】
+  - 修复 DatePicker 在 monthRange 且多语言情况下，点击月份无法自动滚动到非禁用项问题  [#2870 ](https://github.com/DouyinFE/semi-design/issues/2870) [#2871](https://github.com/DouyinFE/semi-design/pull/2871)
+
 #### 🎉 2.81.0 (2025-06-16)
 - 【Fix】
     - 修复 Input、TextArea 组件在同时设置 maxLength 和getValueLength时候，中文输入会在未输入完成时候被截断 [#2858](https://github.com/DouyinFE/semi-design/issues/2858) [#2859](https://github.com/DouyinFE/semi-design/pull/2859)

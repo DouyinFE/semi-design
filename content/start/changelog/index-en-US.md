@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.82.0-beta.0 (2025-06-23)
+- 【Fix】
+  - fix the issue that DatePicker cannot automatically scroll to non-disabled items when clicking on the month in monthRange and multi-language  [#2870 ](https://github.com/DouyinFE/semi-design/issues/2870) [#2871](https://github.com/DouyinFE/semi-design/pull/2871)
+
 #### 🎉 2.81.0 (2025-06-16)
 - 【Fix】
     - Fixed the problem that when maxLength and getValueLength are set at the same time in the Input、TextArea  component, the Chinese input will be truncated before the input is completed  [#2858](https://github.com/DouyinFE/semi-design/issues/2858)
