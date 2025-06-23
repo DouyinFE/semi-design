@@ -17,8 +17,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 ---
 
 #### 🎉 2.82.0-beta.0 (2025-06-23)
+- 【Feat】
+    - Modal supports modalRender parameter to customize rendering [#2655](https://github.com/DouyinFE/semi-design/issues/2655)
 - 【Fix】
-  - fix the issue that DatePicker cannot automatically scroll to non-disabled items when clicking on the month in monthRange and multi-language  [#2870 ](https://github.com/DouyinFE/semi-design/issues/2870) [#2871](https://github.com/DouyinFE/semi-design/pull/2871)
+  - fix the issue that DatePicker cannot automatically scroll to non-disabled items when clicking on the month in monthRange and multi-language  [#2870](https://github.com/DouyinFE/semi-design/issues/2870) [#2871](https://github.com/DouyinFE/semi-design/pull/2871)
 
 #### 🎉 2.81.0 (2025-06-16)
 - 【Fix】
