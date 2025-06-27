@@ -12,6 +12,7 @@ const order = [
     'content-guidelines',
     'changelog',
     'update-to-v2',
+    'design-source',
     'tokens',
     'layout',
     'grid',
