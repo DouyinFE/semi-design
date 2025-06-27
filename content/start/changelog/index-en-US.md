@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.82.0 (2025-06-27)
+- 【Style】
+    - Fixed the problem that when Select is in multiple/small size, if the token of border is not set to 1, the minimum height will be incorrect. Abandon the default size minimum width setting token $height-select_multiple_content_wrapper-minHeight  [#2877](https://github.com/DouyinFE/semi-design/issues/2877)[#2878](https://github.com/DouyinFE/semi-design/pull/2878)
+
+
 #### 🎉 2.82.0-beta.0 (2025-06-23)
 - 【Feat】
     - Modal supports modalRender parameter to customize rendering [#2655](https://github.com/DouyinFE/semi-design/issues/2655)

@@ -13,6 +13,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.82.0 (2025-06-27)
+- 【Style】
+    - 修复 Select 在 multiple/small 尺寸时候，如果 border 的 token 设置不为 1， 则最小高度会不正确问题。 废弃默认尺寸最小宽度设置 token $height-select_multiple_content_wrapper-minHeight   [#2877](https://github.com/DouyinFE/semi-design/issues/2877) [#2878](https://github.com/DouyinFE/semi-design/pull/2878)
+
 #### 🎉 2.82.0-beta.0 (2025-06-23)
 - 【Feat】
     - Modal 支持 modalRender 参数自定义渲染弹窗 [#2655](https://github.com/DouyinFE/semi-design/issues/2655)

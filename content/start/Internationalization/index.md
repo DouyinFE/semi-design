@@ -1,5 +1,5 @@
 ---
-order: 7
+order: 0
 category: 开始
 title: Internationalization 国际化
 icon: doc-internationalization
