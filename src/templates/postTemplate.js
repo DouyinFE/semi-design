@@ -18,6 +18,7 @@ import PageAnchor from 'components/PageAnchor';
 import PrevAndNext from 'components/PrevAndNext';
 import SEO from 'components/seo';
 import DesignToken from 'components/DesignToken';
+import MyImage from 'components/MyImage';
 import ChartContact from '../components/ChartContact';
 import { makeAnchorId } from '../utils';
 import ComponentOverview from 'components/ComponentOverview';
@@ -103,6 +104,7 @@ const SemiComponents = {
     Radio,
     DesignToken,
     ImageBox,
+    MyImage,
     // content guideline demo 
     CheckboxGroup: CheckboxGroup,
     Descriptions: Descriptions,
