@@ -35,6 +35,7 @@ import FullPalette from 'components/FullPalette';
 import ColorConverter from 'components/ColorConverter';
 import JumpToToken from 'components/JumpToToken';
 import DesignToCodeFeature from 'components/DesignToCodeFeature';
+import InternationalizationTabs from 'components/InternationalizationTabs';
 import copy from 'copy-text-to-clipboard';
 import '@douyinfe/semi-site-doc-style';
 import SemiSiteChangeLogDiff from 'components/SemiSiteChangeLogDiff';
@@ -524,7 +525,8 @@ const components = {
     ApiType,
     StickyHeaderTable,
     FeatureCard,
-    ClickOpen
+    ClickOpen,
+    InternationalizationTabs,
 };
 
 const getPrevAndNext = pageContext => {
@@ -712,7 +714,7 @@ export default function Template(args) {
             <div className={'pageAnchor'}>
                 {(tabValue === 'rd' || (["Accessibility "].includes(enTitle))) && (
                     //  The external network does not display related materials
-                    <PageAnchor slug={pageContext.slug} data={MATERIAL_LIST_URL ? current.tableOfContents.items : current.tableOfContents.items.filter(item => !(item.title === '相关物料' || item.title === 'Related Material'))} />
+                    <PageAnchor slug={pageContext.slug} data={MATERIAL_LIST_URL ? current.tableOfContents.items : current.tableOfContents?.items?.filter(item => !(item.title === '相关物料' || item.title === 'Related Material'))} />
                 )}
                 {
                     iframeAnchorData && tabValue === 'ued' && <DesignPageAnchor data={iframeAnchorData} />

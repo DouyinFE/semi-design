@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 88
+order: 89
 category: 反馈类
 title: Toast 提示
 icon: doc-toast

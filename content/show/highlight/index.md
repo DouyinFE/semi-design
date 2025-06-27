@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 67
+order: 68
 category: 展示类
 title: Highlight 高亮文本
 icon: doc-highlight

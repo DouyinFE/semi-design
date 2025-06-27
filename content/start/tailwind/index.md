@@ -3,7 +3,7 @@ category: 开始
 title: Tailwind 搭配使用
 icon: doc-tailwind
 localeCode: zh-CN
-order: 9
+order: 10
 brief: 更优雅地使用 TailwindCSS 与 Semi
 ---
 
