@@ -362,7 +362,26 @@ export const DraggableModal = () => {
     );
 };
 
-
 DraggableModal.story = {
     name: 'draggable modal',
 };
+
+export const FullScreen = () => {
+   const [visible, setVisible] = useState(false);
+    return (
+        <div>
+            <Button onClick={() => setVisible(true)}>Open Modal</Button>
+            <Modal
+                title="可拖拽Modal"
+                visible={visible}
+                fullScreen
+                // motion 为 false 是为了保证 e2e 取高度值的时候，拿到的不是动画中的值
+                motion={false}
+                onCancel={() => setVisible(false)}
+            >
+                <p>This is the content of a basic sidesheet.</p>
+                <p>Here is more content...</p>
+            </Modal>
+        </div>
+    );
+}
