@@ -340,3 +340,11 @@ export const MaxItemCountAndMoreType = () => (
     <Breadcrumb.Item>第四层</Breadcrumb.Item>
   </Breadcrumb>
 );
+
+export const NoLink = () => (
+  <Breadcrumb>
+    <Breadcrumb.Item icon={<IconHome size="small" />} noLink >Test</Breadcrumb.Item>
+    <Breadcrumb.Item icon={<IconArticle size="small" />}>Breadcrumb</Breadcrumb.Item>
+    <Breadcrumb.Item>With Icon</Breadcrumb.Item>
+  </Breadcrumb>
+)
