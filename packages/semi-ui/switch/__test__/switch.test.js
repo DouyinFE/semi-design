@@ -125,4 +125,17 @@ describe('Switch', () => {
         expect(wrapper.exists(`.${BASE_CLASS_PREFIX}-switch-loading`)).toEqual(false);
     });
 
+    it('switch with type', () => {
+        const wrapper = shallow(<Switch />);
+        expect(wrapper.exists(`.${BASE_CLASS_PREFIX}-switch-success`)).toEqual(true);
+        const wrapperDanger = shallow(<Switch type="danger" />);
+        expect(wrapperDanger.exists(`.${BASE_CLASS_PREFIX}-switch-danger`)).toEqual(true);
+        const wrapperPrimary = shallow(<Switch type="primary" />);
+        expect(wrapperPrimary.exists(`.${BASE_CLASS_PREFIX}-switch-primary`)).toEqual(true);
+        const wrapperWarning = shallow(<Switch type="warning" />);
+        expect(wrapperWarning.exists(`.${BASE_CLASS_PREFIX}-switch-warning`)).toEqual(true);
+        const wrapperTertiary = shallow(<Switch type="tertiary" />);
+        expect(wrapperTertiary.exists(`.${BASE_CLASS_PREFIX}-switch-tertiary`)).toEqual(true);
+    });
+
 });
