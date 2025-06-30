@@ -1,5 +1,5 @@
 ---
-order: 0
+order: 7
 category: Start
 title: Internationalization
 icon: doc-internationalization

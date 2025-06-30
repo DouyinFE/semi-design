@@ -86,7 +86,7 @@ const conceptIntroduction = `
 
 而具体到实际的本地应用，我们在：国际化到本地化的桥梁 locale 一文中有详细的说明，介绍了如何通过 locale 来判断用户语言、地区和文化偏好，从而设定正确的展示方式、日期格式、小数点符号等，以完成国际化到本地化的衔接。
 
-你也可以直接查看我们的[国际化组件 LocaleProvider](https://semi.bytedance.net/zh-CN/other/locale)，用于为 Semi 组件提供多语言支持。
+你也可以直接查看我们的[国际化组件 LocaleProvider](/zh-CN/other/locale)，用于为 Semi 组件提供多语言支持。
 `;
 
 // 设计原则
@@ -474,7 +474,7 @@ However, "internationalization" and "localization" are not mutually exclusive. A
 
 As for actual local applications, we have a detailed description in the article "locale, the bridge from internationalization to localization", which introduces how to use locale to determine the user's language, region and cultural preferences, so as to set the correct display method, date format, decimal point symbol, etc., to complete the connection from internationalization to localization.
 
-You can also directly check our [internationalization component LocaleProvider](https://semi.bytedance.net/zh-CN/other/locale) to provide multi-language support for Semi components.
+You can also directly check our [internationalization component LocaleProvider](/en-US/other/locale) to provide multi-language support for Semi components.
 `;
 
 // Design principles EN
