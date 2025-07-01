@@ -329,7 +329,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
                 const clickOutsideHandler = (e: Event) => {
                     const optionInstance = this.optionsRef && this.optionsRef.current;
                     const triggerDom = this.triggerRef && this.triggerRef.current;
-                    const optionsDom = ReactDOM.findDOMNode(optionInstance);
+                    const optionsDom = optionInstance as Element;
                     const target = e.target as Element;
                     const path = e.composedPath && e.composedPath() || [target];
                     if (

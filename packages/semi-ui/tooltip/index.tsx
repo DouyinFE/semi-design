@@ -360,8 +360,15 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     }
                     let el = this.triggerEl && this.triggerEl.current;
                     let popupEl = this.containerEl && this.containerEl.current;
+                    
+                    /* REACT_18_START */
                     el = ReactDOM.findDOMNode(el as React.ReactInstance);
                     popupEl = ReactDOM.findDOMNode(popupEl as React.ReactInstance) as HTMLDivElement;
+                    /* REACT_18_END */
+                    /* REACT_19_START */
+                    // el = el as HTMLElement;
+                    // popupEl = popupEl as HTMLDivElement;
+                    /* REACT_19_END */
                     const target = e.target as Element;
                     const path = (e as any).composedPath && (e as any).composedPath() || [target];
                     const isClickTriggerToHide = this.props.clickTriggerToHide ? el && (el as any).contains(target) || path.includes(el) : false;
@@ -450,7 +457,12 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             getTriggerNode: () => {
                 let triggerDOM = this.triggerEl.current;
                 if (!isHTMLElement(this.triggerEl.current)) {
+                    /* REACT_18_START */
                     triggerDOM = ReactDOM.findDOMNode(this.triggerEl.current as React.ReactInstance);
+                    /* REACT_18_END */
+                    /* REACT_19_START */
+                    // triggerDOM = this.triggerEl.current as HTMLElement;
+                    /* REACT_19_END */
                 }
                 return triggerDOM as Element;
             },
@@ -475,7 +487,12 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             },
             getTriggerDOM: () => {
                 if (this.triggerEl.current) {
+                    /* REACT_18_START */
                     return ReactDOM.findDOMNode(this.triggerEl.current as ReactInstance) as HTMLElement;
+                    /* REACT_18_END */
+                    /* REACT_19_START */
+                    // return this.triggerEl.current as HTMLElement;
+                    /* REACT_19_END */
                 } else {
                     return null;
                 }
@@ -492,7 +509,12 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             let triggerEle = this.triggerEl.current;
             if (triggerEle) {
                 if (!(triggerEle instanceof HTMLElement)) {
+                    /* REACT_18_START */
                     triggerEle = findDOMNode(triggerEle as ReactInstance);
+                    /* REACT_18_END */
+                    /* REACT_19_START */
+                    // triggerEle = triggerEle as HTMLElement;
+                    /* REACT_19_END */
                 }
             }
             this.foundation.updateStateIfCursorOnTrigger(triggerEle as HTMLElement);
