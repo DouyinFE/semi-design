@@ -110,7 +110,7 @@ import { Switch } from '@douyinfe/semi-ui';
 );
 ```
 
-相比于通过 chekedText 与 uncheckedText 设置内嵌的文本，我们更推荐将文本说明放置在 Switch 外部
+相比于通过 checkedText 与 uncheckedText 设置内嵌的文本，我们更推荐将文本说明放置在 Switch 外部
 
 ```jsx live=true
 import React, { useState } from 'react';
