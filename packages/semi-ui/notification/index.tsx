@@ -1,5 +1,10 @@
 import React, { CSSProperties } from 'react';
+/* REACT_18_START */
 import ReactDOM from 'react-dom';
+/* REACT_18_END */
+/* REACT_19_START */
+// import { createRoot } from 'react-dom/client';
+/* REACT_19_END */
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import ConfigContext, { ContextValue } from '../configProvider/context';
@@ -65,6 +70,9 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     static defaultProps = {};
     static useNotification: typeof useNotification;
     private static wrapperId: string;
+    /* REACT_19_START */
+    // private static root: any = null;
+    /* REACT_19_END */
     private noticeStorage: NoticeInstance[];
     private removeItemStorage: NoticeInstance[];
 
@@ -115,9 +123,20 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
             } else {
                 document.body.appendChild(div);
             }
+            /* REACT_18_START */
             ReactDOM.render(React.createElement(NotificationList, { ref: instance => (ref = instance) }), div, () => {
                 ref.add({ ...notice, id });
             });
+            /* REACT_18_END */
+            
+            /* REACT_19_START */
+            // if (!this.root) {
+            //     this.root = createRoot(div);
+            // }
+            // this.root.render(React.createElement(NotificationList, { ref: instance => (ref = instance) }));
+            // // 在 React 19 中，render 是同步的，所以可以立即执行 callback
+            // ref.add({ ...notice, id });
+            /* REACT_19_END */
         } else {
             if (ref.has(`${id}`)) {
                 ref.update(id, notice);
@@ -165,8 +184,20 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
         if (ref) {
             ref.destroyAll();
             const wrapper = document.querySelector(`#${this.wrapperId}`);
+            
+            /* REACT_18_START */
             ReactDOM.unmountComponentAtNode(wrapper);
             wrapper && wrapper.parentNode.removeChild(wrapper);
+            /* REACT_18_END */
+            
+            /* REACT_19_START */
+            // if (this.root) {
+            //     this.root.unmount();
+            //     this.root = null;
+            // }
+            // wrapper && wrapper.parentNode.removeChild(wrapper);
+            /* REACT_19_END */
+            
             ref = null;
             this.wrapperId = null;
         }

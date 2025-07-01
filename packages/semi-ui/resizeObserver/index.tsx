@@ -72,7 +72,13 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
             // using findDOMNode for two reasons:
             // 1. cloning to insert a ref is unwieldy and not performant.
             // 2. ensure that we resolve to an actual DOM node (instead of any JSX ref instance).
+            
+            /* REACT_18_START */
             return findDOMNode(this.childNode || this);
+            /* REACT_18_END */
+            /* REACT_19_START */
+            // return this.childNode || this;
+            /* REACT_19_END */
         } catch (error) {
             // swallow error if findDOMNode is run on unmounted component.
             return null;
