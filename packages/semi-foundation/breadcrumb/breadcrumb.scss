@@ -32,7 +32,9 @@ $module: #{$prefix}-breadcrumb;
     }
 
     &-item {
-        display: inline;
+        display: inline-flex;
+        align-items: center;
+        column-gap: $spacing-breadcrumb_item_text-marginLeft;
         // flex-shrink: 0;
         margin-right: $spacing-breadcrumb_item-marginRight;
         color: $color-breadcrumb_default-text-default;
@@ -91,9 +93,6 @@ $module: #{$prefix}-breadcrumb;
     // }
 
     &-item-link {
-        display: inline-flex;
-        align-items: center;
-        column-gap: $spacing-breadcrumb_item_text-marginLeft;
         text-decoration: inherit;
         transition: color $transition_duration-breadcrumb_link-text $transition-function_breadcrumb_link-text $transition_delay-breadcrumb_link-text;
         transform: scale($transform_scale-breadcrumb_link-text);
