@@ -6,6 +6,7 @@ const order = [
     'dark-mode',
     'accessibility',
     'internationalization',
+    'design-source',
     'overview',
     'faq',
     "tailwind",

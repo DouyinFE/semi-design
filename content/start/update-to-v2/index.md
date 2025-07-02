@@ -3,7 +3,7 @@ category: 开始
 title: Update 从 1.x 到 2.0
 icon: doc-updateV2
 localeCode: zh-CN
-order: 14
+order: 15
 ---
 
 ### 升级准备

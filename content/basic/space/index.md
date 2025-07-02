@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 23
+order: 24
 category: 基础
 title:  Space 间距
 icon: doc-space
