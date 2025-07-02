@@ -3,7 +3,7 @@ category: Getting Started
 title:  Design Resources & Tools
 icon: doc-theme
 localeCode: en-US
-order: 15
+order: 8
 ---
 
 Semi Design provides a wealth of design resources to support designers and developers to collaborate efficiently. Whether you are a community user or an internal Bytedance designer, you can find design tools that suit you here, including UI Kit resource packs and efficient Figma plug-ins.

@@ -3,7 +3,7 @@ category: 开始
 title: 设计资源及工具
 icon: doc-theme
 localeCode: zh-CN
-order: 15
+order: 8
 ---
 
 Semi Design 提供了丰富的设计资源，助力设计师和开发者高效协作。无论你是社区用户还是字节跳动内部设计师，都能在这里找到适合自己的设计工具，包括 UI Kit 资源包和高效的 Figma 插件。
