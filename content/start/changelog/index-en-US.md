@@ -16,6 +16,13 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.82.1 (2025-07-02)
+- 【Fix】
+    - Fix the problem that Modal does not cover the entire screen when fullScreen is true. Affected version: v2.82.0 [#2880](https://github.com/DouyinFE/semi-design/issues/2880)
+- 【Style】
+    - When the length of the placeholder of the Input exceeds the length, the content exceeding the length will be omitted [#2869](https://github.com/DouyinFE/semi-design/issues/2869)
+
+
 #### 🎉 2.82.0 (2025-06-27)
 - 【Style】
     - Fixed the problem that when Select is in multiple/small size, if the token of border is not set to 1, the minimum height will be incorrect. Abandon the default size minimum width setting token $height-select_multiple_content_wrapper-minHeight  [#2877](https://github.com/DouyinFE/semi-design/issues/2877)[#2878](https://github.com/DouyinFE/semi-design/pull/2878)
