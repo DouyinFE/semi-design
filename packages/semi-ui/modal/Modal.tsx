@@ -35,7 +35,8 @@ export interface ModalReactProps extends ModalProps {
     footer?: ReactNode;
     header?: ReactNode;
     onCancel?: (e: React.MouseEvent) => void | Promise<any>;
-    onOk?: (e: React.MouseEvent) => void | Promise<any>
+    onOk?: (e: React.MouseEvent) => void | Promise<any>;
+    stopPropagation?: boolean
 }
 
 
@@ -82,6 +83,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         lazyRender: PropTypes.bool,
         direction: PropTypes.oneOf(strings.directions),
         fullScreen: PropTypes.bool,
+        stopPropagation: PropTypes.bool,
     };
 
 
@@ -338,6 +340,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             zIndex,
             getPopupContainer,
             visible,
+            stopPropagation,
             ...restProps
         } = this.props;
         let style = styleFromProps;
@@ -399,6 +402,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                                         ref={this.modalRef}
                                         footer={renderFooter}
                                         onClose={this.handleCancel}
+                                        stopPropagation={stopPropagation}
 
                                     /></Portal>:<></>;
                                 }
