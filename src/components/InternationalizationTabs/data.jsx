@@ -55,7 +55,7 @@ const conceptIntroduction = `
         description={<p>各国技术发展水平也有较大的差异。技术发展水平较高的国家和地区往往拥有先进的设计软件和工具及前沿的设计方法和理念。而在技术发展水平较慢的地区，用户可能更关注产品的基本功能和实用性，对新技术的接受程度较低。这就要求我们进行有针对性的设计调整。</p>}
     />
 </div>
-我们在：[不同国家和地区的产品体验诉求差异的6大原因](https://bytedance.larkoffice.com/wiki/JiRTwdBmZifcJEkar7Kcl19Rn8d) 一文中，对以上因素如何影响国际化设计进行了详细的解读，通过了解这些影响因素，我们可以更好地从本质上熟悉并运用国际化设计。
+我们在：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/JiRTwdBmZifcJEkar7Kcl19Rn8d">i18n 设计差异根因</a> 一文中，对以上因素如何影响国际化设计进行了详细的解读，通过了解这些影响因素，我们可以更好地从本质上熟悉并运用国际化设计。
 
 
 ## 二. i18n 和 l10n 的区别与联系
@@ -86,7 +86,7 @@ const conceptIntroduction = `
 
 而具体到实际的本地应用，我们在：国际化到本地化的桥梁 locale 一文中有详细的说明，介绍了如何通过 locale 来判断用户语言、地区和文化偏好，从而设定正确的展示方式、日期格式、小数点符号等，以完成国际化到本地化的衔接。
 
-你也可以直接查看我们的[国际化组件 LocaleProvider](/zh-CN/other/locale)，用于为 Semi 组件提供多语言支持。
+你也可以直接查看我们的<a href="/zh-CN/other/locale" target="_blank">国际化组件 LocaleProvider</a>，用于为 Semi 组件提供多语言支持。
 `;
 
 // 设计原则
@@ -151,27 +151,28 @@ const textDesignSpecification = `
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/font1.png" alt="文字设计" />
 
 
-这三种类型的文字会在**字形的高度和文案的长度**上存在一定的差异，相关规范的详细内容可以查看文档：[i18n 文字设计规范](https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh)
+这三种类型的文字会在**字形的高度和文案的长度**上存在一定的差异，相关规范的详细内容可以查看文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh">i18n 文字设计规范</a>
 
 
 ## 二. 页面框架与排版布局
 国际化产品设计的界面布局应该充分体现可扩展性原则，主要表现在以下六个方面 ：
+
 一是**栅格框架的适配布局**，不依赖某一种特定的语言长度，而要充分考虑到不同语言的差异进行适配：
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/font2.png" alt="栅格框架的适配布局" />
 
 
 二是**局部文字的溢出处理**，在局部特殊场景中对文本内容要考虑到溢出情况的处理方式，如：折行、省略、滚动等。在 Semi 的组件设置上，我们**未来**也对组件的排版进行了优化设计，避免出现因文字过长而被裁剪的问题。
 
-三是**特殊语种的阅读顺序**，阿拉伯语的阅读顺序为 RTL，界面设计需要进行镜像处理，详见 [i18n RTL 设计规范](https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy)。
+三是**特殊语种的阅读顺序**，阿拉伯语的阅读顺序为 RTL，界面设计需要进行镜像处理，详见 <a target="_blank" href="https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy">i18n RTL 设计规范</a>。
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/font3.png" alt="特殊语种的阅读顺序" />
 
-四是**表单场景的内容排序**，由于各种文字长度差异较大，我们推荐表单采用上下布局方式，同时也要将本文和表单控件区分开，避免混排。更多设计建议详见：[表单设计规范](https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh#share-XyWUdRl2GoP2wGxcYgflg3dwgOb)。
+四是**表单场景的内容排序**，由于各种文字长度差异较大，我们推荐表单采用上下布局方式，同时也要将本文和表单控件区分开，避免混排。更多设计建议详见：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh#share-XyWUdRl2GoP2wGxcYgflg3dwgOb">表单设计规范</a>。
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/font4.png" alt="表单场景的内容排序" />
 
-五是**多种语言的文字混用**，界面整体需要跟随主语言的习惯和方式，但是混排语言内部跟随混排语言的习惯和方式。更多设计建议详见：[多种语言文字混用设计规范](https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh#share-YgNAdOeFiox7KlxLEpSlhhBxgFg)
+五是**多种语言的文字混用**，界面整体需要跟随主语言的习惯和方式，但是混排语言内部跟随混排语言的习惯和方式。更多设计建议详见：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh#share-YgNAdOeFiox7KlxLEpSlhhBxgFg">多种语言文字混用设计规范</a>
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/font5.png" alt="多种语言的文字混用" />
 
-六是**图片文字的分离原则**，将所有可本地化的文本内容从代码中分离，存储在独立的资源文件中，便于翻译和维护。更多设计建议详见：[内容分离原则](https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh#share-O2HfdEcRioSfP4xPxkAlKMLvgZd)
+六是**图片文字的分离原则**，将所有可本地化的文本内容从代码中分离，存储在独立的资源文件中，便于翻译和维护。更多设计建议详见：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh#share-O2HfdEcRioSfP4xPxkAlKMLvgZd">内容分离原则</a>
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/font6.png" alt="图片文字的分离原则" />
 `;
 
@@ -180,7 +181,7 @@ const graphicDesignSpecification = `
 在全球化产品设计中，图形（图标、插图、图像等）的适配是 i18n 的重要环节。本文档旨在说明不同语言和文化对视觉符号的解读差异，并制定统一的图形设计规范，可确保产品在全球市场的可用性和文化包容性。
 
 ## 一. 图形设计的注意事项
-国际化产品中的图形设计有以下四个注意事项，更多设计案例可以阅读文档：[图形设计的注意事项](https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh)
+国际化产品中的图形设计有以下四个注意事项，更多设计案例可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh">i18n 图形设计规范</a>
 <div style={{ display: 'flex', gap: 24, marginBottom: '1.46em' }}>
     <ColorCard
         color="blue"
@@ -226,7 +227,7 @@ const graphicDesignSpecification = `
     title="3.参考颜色的固定搭配"
     description="有些事物具有固定的颜色搭配，可能和设计师以往所熟悉的颜色搭配认知不同，因此在设计时需要前置做好调研。"
 />
-更多设计案例可以阅读文档：[颜色使用规范](https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh)
+更多设计案例可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh">颜色使用规范</a>
 
 
 ### 图标（Icon & symbol）使用规范
@@ -241,7 +242,7 @@ const graphicDesignSpecification = `
     title="2.保证图形语义的清晰性"
     description="遵循 “ 5 秒原则”，即用户应在 5 秒内理解图标的含义。若需解释，则需优化或补充文字进行兜底。同一产品内的图标需保持线宽、配色、风格的统一性。"
 />
-更多设计案例可以阅读文档：[图标使用规范](https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh#share-XlpidxNlkosDdsxFFnNlanREgWd)
+更多设计案例可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh#share-XlpidxNlkosDdsxFFnNlanREgWd">图标使用规范</a>
 
 ### 图片（Image）使用规范
 全球化设计中的图片选择需要注意多元、包容，友好、亲切，我们总结出了以下两点通用规范：
@@ -255,7 +256,7 @@ const graphicDesignSpecification = `
     title="2.使用多元化的人物形象"
     description="除非针对于本地化市场，在国际化设计中，尽量展示多元化的肤色，避免单一肤色。"
 />
-更多设计案例可以阅读文档：[图片使用规范](https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh#share-GluWdlhmloWbDgxWYAMlHJYkgHe)
+更多设计案例可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh#share-GluWdlhmloWbDgxWYAMlHJYkgHe">图片使用规范</a>
 
 ### 表情包（Emoji）使用规范
 全球化设计中的表情包在风格上应注意积极阳光，体现包容与种族友好，使用通用认知的 emoji，而不使用隐喻。我们总结出了以下两点通用规范：
@@ -269,7 +270,7 @@ const graphicDesignSpecification = `
     title="2.注意各地区理解差异"
     description="不同地区及文化的用户对于 Emoji 的认知理解上存在差异，在使用时，尽量根据场景选择具有通用认知的表情与物体，减少细分场景中多 Emoji 的使用。"
 />
-更多设计案例可以阅读文档：[表情包使用规范](https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh#share-VpNwdmNG6oM1xQx8tF3lmeFjglh)
+更多设计案例可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh#share-VpNwdmNG6oM1xQx8tF3lmeFjglh">表情包使用规范</a>
 `;
 
 // 设计规范 - 信息呈现规范
@@ -281,7 +282,7 @@ const informationPresentationSpecification = `
 许多国家有自己的传统日期格式，但同时也支持国际标准格式。国际标准格式如下：
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/format1.png" alt="日期格式" />
 
-更多设计规范可以阅读文档：[日期格式规范](https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-XB6Xda5bsoC0GpxxuQjlaTI2g0b)
+更多设计规范可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-XB6Xda5bsoC0GpxxuQjlaTI2g0b">日期格式规范</a>
 
 ### 时区及时间格式
 时间的国际标准格式如下：
@@ -290,7 +291,7 @@ const informationPresentationSpecification = `
 时区的国际标准格式如下：
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/format3.png" alt="时区格式" />
 
-更多设计规范可以阅读文档：[时区及时间格式规范](https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-LfaodgtvroTjenxHwtFlH4NDg6Z)
+更多设计规范可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-LfaodgtvroTjenxHwtFlH4NDg6Z">时区及时间格式规范</a>
 
 ## 二. 数字及货币展示规范
 ### 数字格式
@@ -298,25 +299,25 @@ const informationPresentationSpecification = `
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/format4.png" alt="数字格式" />
 
 
-更多使用规则可以阅读文档：[数字格式规范](https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-K6vidvdGPoAfuKxH9K7lhoMXgBb)
+更多使用规则可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-K6vidvdGPoAfuKxH9K7lhoMXgBb">数字格式规范</a>
 
 ### 货币格式
 货币和语言、国家都不是一一对应的关系，同一种语言可能会属于不同国家，使用不同的货币。另外，货币代码、货币符号和货币单位的使用方式都有不同的规则：
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/format5.png" alt="数字格式" />
 
-更多使用规则可以阅读文档：[货币格式规范](https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-HYX5dkvIbompivxEBgiliR3VgLd)
+更多使用规则可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-HYX5dkvIbompivxEBgiliR3VgLd">货币格式规范</a>
 
 ## 三. 度量单位展示规范
 全世界绝大多数国家采用都采用国际单位制（SI），只有美国采用英制单位，缅甸采用缅甸传统计量单位，但目前缅甸政府在推动使用国际单位制：
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/format6.png" alt="度量单位展示规范" />
 
-更多使用规则可以阅读文档：[度量单位使用规范](https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-GmBjd4pL9o1V5yxIaW7lF1djgSe)
+更多使用规则可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-GmBjd4pL9o1V5yxIaW7lF1djgSe">度量单位使用规范</a>
 
 ## 四. 联系方式展示规范
 在国际化设计中，联系方式的规范需要考虑不同国家和地区的文化、语言和习惯差异，以确保信息的准确传达和易于理解：
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/format7.png" alt="联系方式展示规范" />
 
-更多使用规则可以阅读文档：[联系方式使用规范](https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-KdY9dNvBxoP1Coxbgu5l07Hzgsh)
+更多使用规则可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-KdY9dNvBxoP1Coxbgu5l07Hzgsh">联系方式使用规范</a>
 `;
 
 // 设计规范 - RTL 设计规范
@@ -361,30 +362,30 @@ const rtlDesignSpecification = `
 在 RTL 文本环境下，整体的页面布局需要镜像，以保证信息按顺序合理进行展示。尤其注意列表的排布顺序，以确保信息按照逻辑顺序排列，符合用户的阅读习惯：
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/RTL-rule1.png" alt="RTL 页面布局规范" />
 
-更多设计规则可以阅读文档：[RTL 布局规范](https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-QNSzdDbxLoMy4axWqkhleAQogHc)
+更多设计规则可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-QNSzdDbxLoMy4axWqkhleAQogHc">RTL 布局规范</a>
 
-## 文本排版规范
+### 文本排版规范
 在 RTL 的设计中，我们可以从文本的对齐方式、文本的呈现顺序两个方面来了解相关的设计规范：
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/RTL-rule2.png" alt="RTL 文本排版规范" />
-更多设计规则可以阅读文档：[RTL 文本信息规范](https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-Aogvdn7mrodrHUxJ7ymlq1Vsgmd)
+更多设计规则可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-Aogvdn7mrodrHUxJ7ymlq1Vsgmd">RTL 文本信息规范</a>
 
-## 信息名词规范
+### 信息名词规范
 在 RTL 的设计中，信息的呈现方式和信息的内容有很强的关联性，有些信息不需要做阅读顺序的调整，有些则需要：
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/RTL-rule3.png" alt="RTL 信息名词规范" />
 
-更多设计规则可以阅读文档：[RTL 信息名词规范](https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-OIrqd7jLco4XmAxle4elSdFpg3d)
+更多设计规则可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-OIrqd7jLco4XmAxle4elSdFpg3d">RTL 信息名词规范</a>
 
-## 视觉元素规范
+### 视觉元素规范
 在 RTL 的设计中，我们需要根据图片、图标和其他各类元素的含义和应用场景来判断是否需要更改图标的方向：
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/RTL-rule4.png" alt="RTL 视觉元素规范" />
 
-更多设计规则可以阅读文档：[RTL 图标和图片规范](https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-EGq0dIcoYoKOLNxk5ZPlNB5Ngpe)
+更多设计规则可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-EGq0dIcoYoKOLNxk5ZPlNB5Ngpe">RTL 图标和图片规范</a>
 
-## 交互操作规范
+### 交互操作规范
 在 RTL 的设计中，交互操作也通常需要换方向，以符合用户的阅读和操作习惯，提升用户体验：
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/RTL-rule5.png" alt="RTL 交互操作规范" />
 
-更多设计规则可以阅读文档：[RTL 交互操作规范](https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-CiowdLCZ2oNKLjx0yyql4rofgMd)
+更多设计规则可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-CiowdLCZ2oNKLjx0yyql4rofgMd">RTL 交互操作规范</a>
 `;
 
 // Concept Introduction EN
@@ -444,7 +445,7 @@ image='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzl
 description={<p>There are also large differences in the level of technological development among countries. Countries and regions with higher levels of technological development often have advanced design software and tools as well as cutting-edge design methods and concepts. In regions with slower technological development, users may pay more attention to the basic functions and practicality of products and have a lower degree of acceptance of new technologies. This requires us to make targeted design adjustments. </p>}
 />
 </div>
-In the article: [6 reasons for differences in product experience demands in different countries and regions](https://bytedance.larkoffice.com/wiki/JiRTwdBmZifcJEkar7Kcl19Rn8d), we have made a detailed interpretation of how the above factors affect international design. By understanding these influencing factors, we can better understand and apply international design from the essence.
+In the article: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/JiRTwdBmZifcJEkar7Kcl19Rn8d">Root causes of i18n design differences</a>, we have made a detailed interpretation of how the above factors affect international design. By understanding these influencing factors, we can better understand and apply international design from the essence.
 
 ## 2. The difference and connection between i18n and l10n
 We can summarize the definition and focus of internationalization and localization as follows:
@@ -474,7 +475,7 @@ However, "internationalization" and "localization" are not mutually exclusive. A
 
 As for actual local applications, we have a detailed description in the article "locale, the bridge from internationalization to localization", which introduces how to use locale to determine the user's language, region and cultural preferences, so as to set the correct display method, date format, decimal point symbol, etc., to complete the connection from internationalization to localization.
 
-You can also directly check our [internationalization component LocaleProvider](/en-US/other/locale) to provide multi-language support for Semi components.
+You can also directly check our <a target="_blank" href="/en-US/other/locale">internationalization component LocaleProvider</a> to provide multi-language support for Semi components.
 `;
 
 // Design principles EN
@@ -539,7 +540,7 @@ In international design, the structure, reading habits, and font presentation of
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/font1.png" alt="Text Design and Font Selection" />
 
 
-This type of text will have certain differences in **the height of the character shape and the length of the text**. The detailed content of the relevant specifications can be viewed in the document: [i18n text design specification](https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh)
+This type of text will have certain differences in **the height of the character shape and the length of the text**. The detailed content of the relevant specifications can be viewed in the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh">i18n text design specification</a>
 
 
 ## 2. Page Framework and Typography Layout
@@ -549,16 +550,16 @@ First, **grid frame adaptation layout**, which does not rely on a specific langu
 
 Second, **local text overflow processing**, in local special scenes, the text content should consider the overflow processing method, such as: line break, omission, scrolling, etc. In the component settings of Semi, we will also optimize the layout of components in the **future** to avoid the problem of text being cut due to excessive length.
 
-Third, the reading order of special languages. The reading order of Arabic is RTL. The interface design needs to be mirrored. For details, see [i18n RTL design specifications](https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy).
+Third, the reading order of special languages. The reading order of Arabic is RTL. The interface design needs to be mirrored. For details, see <a target="_blank" href="https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy">i18n RTL design specifications</a>.
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/font3.png" alt="Reading order of special languages" />
 
-Fourth, the content sorting of form scenes. Due to the large difference in the length of various texts, we recommend that the form adopts a top-down layout. At the same time, the text and form controls should be distinguished to avoid mixing. For more design suggestions, see: [Form Design Specifications](https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh#share-XyWUdRl2GoP2wGxcYgflg3dwgOb).
+Fourth, the content sorting of form scenes. Due to the large difference in the length of various texts, we recommend that the form adopts a top-down layout. At the same time, the text and form controls should be distinguished to avoid mixing. For more design suggestions, see: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh#share-XyWUdRl2GoP2wGxcYgflg3dwgOb">Form Design Specifications</a>.
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/font4.png" alt="Content sorting in form scenes" />
 
-Fifth, **mixed text in multiple languages**, the overall interface needs to follow the habits and methods of the main language, but the mixed language follows the habits and methods of the mixed language. For more design suggestions, please see: [Design specifications for mixed use of multiple languages](https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh#share-YgNAdOeFiox7KlxLEpSlhhBxgFg)
+Fifth, **mixed text in multiple languages**, the overall interface needs to follow the habits and methods of the main language, but the mixed language follows the habits and methods of the mixed language. For more design suggestions, please see: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh#share-YgNAdOeFiox7KlxLEpSlhhBxgFg">Design specifications for mixed use of multiple languages</a>
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/font5.png" alt="Mixed use of multiple languages" />
 
-Sixth, the **separation principle of images and text**, separate all localizable text content from the code and store it in a separate resource file for easy translation and maintenance. For more design suggestions, see: [Content separation principle](https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh#share-O2HfdEcRioSfP4xPxkAlKMLvgZd)
+Sixth, the **separation principle of images and text**, separate all localizable text content from the code and store it in a separate resource file for easy translation and maintenance. For more design suggestions, see: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/XzQWwuZhRiuUjYkTqrIcJr3InSh#share-O2HfdEcRioSfP4xPxkAlKMLvgZd">Content separation principle</a>
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/font6.png" alt="The principle of separation of images and text" />
 `;
 
@@ -566,7 +567,7 @@ const graphicDesignSpecificationEn = `
 In the globalization product design, the adaptation of graphics (icons, illustrations, images, etc.) is an important part of i18n. This document aims to explain the differences in the interpretation of visual symbols by different languages and cultures, and to establish unified graphic design specifications to ensure the usability and cultural inclusiveness of products in the global market.
 
 ## 1. Graphic Design Considerations
-There are four important considerations for graphic design in international products, more design cases can be read in the document: [Graphic Design Considerations](https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh)
+There are four important considerations for graphic design in international products, more design cases can be read in the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh">i18n graphic design specifications</a>
 <div style={{ display: 'flex', gap: 24, marginBottom: '1.46em' }}>
     <ColorCard
         color="blue"
@@ -612,7 +613,7 @@ In the process of using color, we have summarized the following three general sp
     title="3. Reference the Fixed Color Combination"
     description="Some things have a fixed color combination, which may be different from the color combination that designers are familiar with. Therefore, it is necessary to do research in advance during design."
 />
-More design cases can be read in the document: [Color Usage Specifications](https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh)
+More design cases can be read in the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh">Color Usage Specifications</a>
 
 ###  Icon & symbol Usage Specifications
 In globalization design, icons and symbols are not only functional carriers, but also bridges for cultural communication. Their selection needs to take into account multiple dimensions such as cultural universality, functional communication, and technical adaptation. We have summarized the following two general specifications:
@@ -626,7 +627,7 @@ In globalization design, icons and symbols are not only functional carriers, but
     title="2. Ensure Clarity of Graphic Semantics"
     description="Follow the 5-second rule, that is, the user should understand the meaning of the icon within 5 seconds. If an explanation is needed, it is necessary to optimize or supplement text to provide a fallback."
 />
-More design cases can be read in the document: [Icon & symbol Usage Specifications](https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh#share-XlpidxNlkosDdsxFFnNlanREgWd)
+More design cases can be read in the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh#share-XlpidxNlkosDdsxFFnNlanREgWd">Icon & symbol Usage Specifications</a>
 
 
 ###  Image Usage Specifications
@@ -641,7 +642,7 @@ In globalization design, the selection of images needs to pay attention to diver
     title="2. Use Diverse Character Images"
     description="Unless for local market, in international design, try to show diverse skin colors to avoid single skin color."
 />
-More design cases can be read in the document: [Image Usage Specifications](https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh#share-GluWdlhmloWbDgxWYAMlHJYkgHe)
+More design cases can be read in the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh#share-GluWdlhmloWbDgxWYAMlHJYkgHe">Image Usage Specifications</a>
 
 ###  Emoji Usage Specifications
 In globalization design, the style of emoji should pay attention to positive and sunny, reflect inclusiveness and racial friendliness, use emoji with universal recognition, and avoid metaphor. We have summarized the following two general specifications:
@@ -655,7 +656,7 @@ In globalization design, the style of emoji should pay attention to positive and
     title="2. Consider the Regional Differences of Emoji"
     description="There are differences in the understanding of Emoji by users in different regions and cultures. When using, try to select expressions and objects with universal recognition as much as possible according to the scene to reduce the use of multiple Emoji in细分场景。"
 />
-More design cases can be read in the document: [Emoji Usage Specifications](https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh#share-VpNwdmNG6oM1xQx8tF3lmeFjglh)
+More design cases can be read in the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh#share-VpNwdmNG6oM1xQx8tF3lmeFjglh">Emoji Usage Specifications</a>
 `;
 
 const informationPresentationSpecificationEn = `
@@ -666,7 +667,7 @@ In international design, different countries have different times, dates, number
 Many countries have their own traditional date formats, but they also support international standard formats. The international standard format is as follows:
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/format1.png" alt="Date format" />
 
-For more design specifications, please read the document: [Date format specification](https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-XB6Xda5bsoC0GpxxuQjlaTI2g0b)
+For more design specifications, please read the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-XB6Xda5bsoC0GpxxuQjlaTI2g0b">Date format specification</a>
 
 ### Time zone and time format
 The international standard format of time is as follows:
@@ -675,32 +676,32 @@ The international standard format of time is as follows:
 The international standard format of the time zone is as follows:
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/format3.png" alt="Time zone format" />
 
-For more design specifications, please read the document: [Time zone and time format specifications](https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-LfaodgtvroTjenxHwtFlH4NDg6Z)
+For more design specifications, please read the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-LfaodgtvroTjenxHwtFlH4NDg6Z">Time zone and time format specifications</a>
 
 ## 2. Number and currency display specifications
 ### Number format
 Different countries and regions have different ways of expressing numbers, thousands and decimal points:
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/format4.png" alt="Number format" />
 
-For more usage rules, please read the document: [Number format specifications](https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-K6vidvdGPoAfuKxH9K7lhoMXgBb)
+For more usage rules, please read the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-K6vidvdGPoAfuKxH9K7lhoMXgBb">Number format specifications</a>
 
 ### Currency format
 There is no one-to-one correspondence between currency, language and country. The same language may belong to different countries and use different currencies. In addition, there are different rules for the use of currency codes, currency symbols, and currency units:
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/format5.png" alt="Number format" />
 
-For more usage rules, you can read the document: [Currency format specification](https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-HYX5dkvIbompivxEBgiliR3VgLd)
+For more usage rules, you can read the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-HYX5dkvIbompivxEBgiliR3VgLd">Currency format specification</a>
 
 ## 3. Unit display specification
 The vast majority of countries in the world use the International System of Units (SI), only the United States uses the Imperial system, and Myanmar uses Myanmar's traditional measurement units, but the Myanmar government is currently promoting the use of the International System of Units:
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/format6.png" alt="Measurement unit display specifications" />
 
-For more usage rules, please read the document: [Measurement unit usage specifications](https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-GmBjd4pL9o1V5yxIaW7lF1djgSe)
+For more usage rules, please read the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-GmBjd4pL9o1V5yxIaW7lF1djgSe">Measurement unit usage specifications</a>
 
 ## 4. Contact information display specifications
 In international design, the contact information specifications need to take into account the cultural, language and customary differences of different countries and regions to ensure accurate communication and easy understanding of information:
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/format7.png" alt="Contact information display specifications" />
 
-For more usage rules, please read the document: [Contact information usage specifications](https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-KdY9dNvBxoP1Coxbgu5l07Hzgsh)
+For more usage rules, please read the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/RNuywpB7oi7hYPkNH0OceXcGnyf#share-KdY9dNvBxoP1Coxbgu5l07Hzgsh">Contact information usage specifications</a>
 `;
 
 
@@ -745,32 +746,103 @@ There are four basic methods of RTL design in international products:
 In the RTL text environment, the overall page layout needs to be mirrored to ensure that information is displayed in a reasonable order. Especially pay attention to the arrangement order of lists to ensure that information is arranged in a logical order, consistent with the reading habits of users:
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/RTL-rule1.png" alt="RTL 页面布局规范" />
 
-More design rules can be read in the document: [RTL Layout Specification](https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-QNSzdDbxLoMy4axWqkhleAQogHc)
+More design rules can be read in the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-QNSzdDbxLoMy4axWqkhleAQogHc">RTL Layout Specification</a>
 
 ### Text Layout Specification
 In the RTL design, we can understand the relevant design specifications from two aspects: the alignment of text and the order of text presentation:
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/RTL-rule2.png" alt="RTL 文本排版规范" />
 
-More design rules can be read in the document: [RTL Text Information Specification](https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-Aogvdn7mrodrHUxJ7ymlq1Vsgmd)
+More design rules can be read in the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-Aogvdn7mrodrHUxJ7ymlq1Vsgmd">RTL Text Information Specification</a>
 
 ### Information Noun Specification
 In the RTL design, the presentation method of information and the content of information are strongly related. Some information does not need to be adjusted for reading order, while some do:
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/RTL-rule3.png" alt="RTL 信息名词规范" />
 
-More design rules can be read in the document: [RTL Information Noun Specification](https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-OIrqd7jLco4XmAxle4elSdFpg3d)
+More design rules can be read in the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-OIrqd7jLco4XmAxle4elSdFpg3d">RTL Information Noun Specification</a>
 
 ### Visual Element Specification
 In the RTL design, we need to determine whether to change the direction of icons and images according to the meaning and application scenarios of pictures, icons and other elements:
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/RTL-rule4.png" alt="RTL 视觉元素规范" />
 
-More design rules can be read in the document: [RTL Icon and Image Specification](https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-EGq0dIcoYoKOLNxk5ZPlNB5Ngpe)
+More design rules can be read in the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-EGq0dIcoYoKOLNxk5ZPlNB5Ngpe">RTL Icon and Image Specification</a>
 
 ### Interaction Operation Specification
 In the RTL design, interaction operations also need to be changed in direction to conform to the reading and operation habits of users, improving user experience:
 <img className="gatsby-img" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/RTL-rule5.png" alt="RTL 交互操作规范" />
 
-More design rules can be read in the document: [RTL Interaction Operation Specification](https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-CiowdLCZ2oNKLjx0yyql4rofgMd)
+More design rules can be read in the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/XJj9wCkU1ibmCuksSCych7c2nHy#share-CiowdLCZ2oNKLjx0yyql4rofgMd">RTL Interaction Operation Specification</a>
 `;
+
+const conceptIntroductionAnchor = [
+    { title: '为什么我们要做 i18n？', url: "一. WHY｜为什么我们要做 i18n？" },
+    { title: 'i18n和l10n 的区别与联系', url: "二. i18n 和 l10n 的区别与联系" }
+];
+
+const conceptIntroductionAnchorEn = [
+    { title: 'Why do we do i18n', url: "1. WHY｜Why do we do i18n?" },
+    { title: 'The difference and connection between i18n and l10n', url: "2. The difference and connection between i18n and l10n" }
+];
+
+const textDesignSpecificationAnchor = [
+    { title: '文字设计与字体选择', url: "一. 文字设计与字体选择" },
+    { title: '页面框架与排版布局', url: "二. 页面框架与排版布局" }
+];
+
+const textDesignSpecificationAnchorEn = [
+    { title: 'Text Design and Font Selection', url: "1. Text Design and Font Selection" },
+    { title: 'Page Framework and Typography Layout', url: "2. Page Framework and Typography Layout" }
+];
+
+const graphicDesignSpecificationAnchor = [
+    { title: '注意事项', url: "一. 图形设计的注意事项" },
+    { title: '色彩规范', url: "色彩（Color）使用规范" },
+    { title: '图标规范', url: "图标（icon-&-symbol）使用规范" },
+    { title: '图片规范', url: "图片（Image）使用规范" },
+    { title: '表情包规范', url: "表情包（Emoji）使用规范" }
+];
+
+const graphicDesignSpecificationAnchorEn = [
+    { title: 'Considerations', url: "1. Graphic Design Considerations" },
+    { title: 'Color Specification', url: "Color Usage Specifications" },
+    { title: 'Icon & Symbol Specification', url: "Icon & symbol Usage Specifications" },
+    { title: 'Image Specification', url: "Image Usage Specifications" },
+    { title: 'Emoji Specification', url: "Emoji Usage Specifications" }
+];
+
+const informationPresentationSpecificationAnchor = [
+    { title: '时间及日期格式规范', url: "一. 时间及日期格式规范" },
+    { title: '数字及货币展示规范', url: "二. 数字及货币展示规范" },
+    { title: '度量单位展示规范', url: "三. 度量单位展示规范" },
+    { title: '联系方式展示规范', url: "四. 联系方式展示规范" },
+];
+
+const informationPresentationSpecificationAnchorEn = [
+    { title: 'Time and Date Format Specification', url: "1. Time and date format specifications" },
+    { title: 'Number and Currency Display Specifications', url: "2. Number and Currency Display Specifications" },
+    { title: 'Unit Display Specification', url: "3. Unit Display Specification" },
+    { title: 'Contact Information Display Specifications', url: "4. Contact Information Display Specifications" },
+];
+
+const rtlDesignSpecificationAnchor = [
+    { title: '基本方法', url: "一. RTL 设计的基本方法" },
+    { title: '页面布局规范', url: "页面布局规范" },
+    { title: '文本排版规范', url: "文本排版规范" },
+    { title: '信息名词规范', url: "信息名词规范" },
+    { title: '视觉元素规范', url: "视觉元素规范" },
+    { title: '交互操作规范', url: "交互操作规范" },
+];
+
+const rtlDesignSpecificationAnchorEn = [
+    { title: 'Basic Methods', url: "1. Basic Methods of RTL Design" },
+    { title: 'Page Layout Specification', url: "Page Layout Specification" },
+    { title: 'Text Layout Specification', url: "Text Layout Specification" },
+    { title: 'Information Noun Specification', url: "Information Noun Specification" },
+    { title: 'Visual Element Specification', url: "Visual Element Specification" },
+    { title: 'Interaction Operation Specification', url: "Interaction Operation Specification" },
+];
+
+
+
 
 export {
     conceptIntroduction,
@@ -785,4 +857,14 @@ export {
     graphicDesignSpecificationEn,
     informationPresentationSpecificationEn,
     rtlDesignSpecificationEn,
+    conceptIntroductionAnchor,
+    conceptIntroductionAnchorEn,
+    textDesignSpecificationAnchor,
+    textDesignSpecificationAnchorEn,
+    graphicDesignSpecificationAnchor,
+    graphicDesignSpecificationAnchorEn,
+    informationPresentationSpecificationAnchor,
+    informationPresentationSpecificationAnchorEn,
+    rtlDesignSpecificationAnchor,
+    rtlDesignSpecificationAnchorEn,
 };

@@ -71,7 +71,7 @@ const ColorCard = ({ color, icon, title, description }) => {
                 {icon}
                 {title}
             </div>
-            <p className="internationalization-color-card-description">{description}</p>
+            <div className="internationalization-color-card-description md markdown gatsby-p">{description}</div> 
         </div>
     );
 };
@@ -80,7 +80,7 @@ const ColorList = ({ color, title, description }) => {
     return (
         <div className={`internationalization-color-list internationalization-color-list-${color}`}>
             <div className={`internationalization-color-list-${color}-title`}>{title}</div>
-            <p className="internationalization-color-list-description">{description}</p>
+            <div className="md markdown gatsby-p internationalization-color-list-description">{description}</div>
         </div>
     );
 };

@@ -4,7 +4,10 @@ import { IconLink, IconArticle, IconTextRectangle, IconBriefcase, IconLikeHeart,
 import { useIntl } from 'react-intl';
 import { makeAnchorId } from '../../utils';
 import { ImageCard, ImageList, TextCard, ColorCard, ColorList, ColorImageCard } from './cards';
-import { conceptIntroduction, designPrinciples, textDesignSpecification, graphicDesignSpecification, informationPresentationSpecification, rtlDesignSpecification, conceptIntroductionEn, designPrinciplesEn, textDesignSpecificationEn, graphicDesignSpecificationEn, informationPresentationSpecificationEn, rtlDesignSpecificationEn } from './data';
+import { conceptIntroduction, designPrinciples, textDesignSpecification, graphicDesignSpecification, informationPresentationSpecification, rtlDesignSpecification, conceptIntroductionEn, designPrinciplesEn, textDesignSpecificationEn, graphicDesignSpecificationEn, informationPresentationSpecificationEn, rtlDesignSpecificationEn,
+    conceptIntroductionAnchor, conceptIntroductionAnchorEn, textDesignSpecificationAnchor, textDesignSpecificationAnchorEn, graphicDesignSpecificationAnchor, graphicDesignSpecificationAnchorEn, informationPresentationSpecificationAnchor, informationPresentationSpecificationAnchorEn, rtlDesignSpecificationAnchor, rtlDesignSpecificationAnchorEn,
+} from './data';
+import InnerAnchor from './innerAnchor';
 
 const components = {
     h2: ({ children }) => {
@@ -37,6 +40,34 @@ const components = {
             </>
         );
     },
+    h3: ({ children }) => {
+        const intl = useIntl();
+        const onIconLinkClick = () => {
+            copy(`${window.location.href.replace(window.location.hash, '')}#${window.encodeURI(children)}`);
+            Toast.success({
+                content: intl.formatMessage({
+                    id: 'editor.copy.success',
+                }),
+                duration: 3,
+            });
+        };
+        return (
+            <h3 className="md markdown gatsby-h3" id={makeAnchorId(children)}>
+                {children}
+                <IconLink
+                    tabIndex={0}
+                    role="button"
+                    className={'anchor-link-button-icon'}
+                    onClick={onIconLinkClick}
+                    onKeyPress={(e) => {
+                        if (['Enter', ' '].includes(e?.key)) {
+                            onIconLinkClick(e);
+                        }
+                    }}
+                />
+            </h3>
+        );
+    },
     p: ({ children }) => <div className="md markdown gatsby-p">{children}</div>,
     ul: ({ children }) => <ul className="md markdown gatsby-ul">{children}</ul>,
     li: ({ children }) => <li className="md markdown gatsby-li">{children}</li>,
@@ -63,8 +94,9 @@ const components = {
 };
 
 const DesignSpecificationsTabs = ({ locale }) => {
-    const [key, setKey] = useState('textDesignSpecification');
     const isChinese = locale === 'zh-CN';
+    const [key, setKey] = useState('textDesignSpecification');
+    const [innerAnchorData, setInnerAnchorData] = useState(isChinese ? textDesignSpecificationAnchor : textDesignSpecificationAnchorEn);
     const contentList = {
         textDesignSpecification: isChinese ? textDesignSpecification : textDesignSpecificationEn,
         graphicDesignSpecification: isChinese ? graphicDesignSpecification : graphicDesignSpecificationEn,
@@ -73,27 +105,45 @@ const DesignSpecificationsTabs = ({ locale }) => {
     };
 
     return (
-        <Tabs
-            type="button"
-            style={{ marginTop: '1.46em' }}
-            tabList={[
-                { tab: isChinese ? '文字设计规范' : 'Text Design Specification', itemKey: 'textDesignSpecification' },
-                { tab: isChinese ? '图形设计规范' : 'Graphic Design Specification', itemKey: 'graphicDesignSpecification' },
-                { tab: isChinese ? '信息呈现规范' : 'Information Presentation Specification', itemKey: 'informationPresentationSpecification' },
-                { tab: isChinese ? 'RTL 设计规范' : 'RTL Design Specification', itemKey: 'rtlDesignSpecification' },
-            ]}
-            onChange={key => {
-                setKey(key);
-            }}
-        >
-            <MarkdownRender style={{ marginTop: '1.46em' }} raw={contentList[key]} components={components} />
-        </Tabs>
+        <>
+            <InnerAnchor data={innerAnchorData} />
+            <Tabs
+                type="button"
+                style={{ marginTop: '1.46em' }}
+                tabList={[
+                    { tab: isChinese ? '文字设计规范' : 'Text Design Specification', itemKey: 'textDesignSpecification' },
+                    { tab: isChinese ? '图形设计规范' : 'Graphic Design Specification', itemKey: 'graphicDesignSpecification' },
+                    { tab: isChinese ? '信息呈现规范' : 'Information Presentation Specification', itemKey: 'informationPresentationSpecification' },
+                    { tab: isChinese ? 'RTL 设计规范' : 'RTL Design Specification', itemKey: 'rtlDesignSpecification' },
+                ]}
+                onChange={key => {
+                    setKey(key);
+                    switch (key) {
+                        case 'textDesignSpecification':
+                            setInnerAnchorData(isChinese ? textDesignSpecificationAnchor : textDesignSpecificationAnchorEn);
+                            break;
+                        case 'graphicDesignSpecification':
+                            setInnerAnchorData(isChinese ? graphicDesignSpecificationAnchor : graphicDesignSpecificationAnchorEn);
+                            break;
+                        case 'informationPresentationSpecification':
+                            setInnerAnchorData(isChinese ? informationPresentationSpecificationAnchor : informationPresentationSpecificationAnchorEn);
+                            break;
+                        case 'rtlDesignSpecification':
+                            setInnerAnchorData(isChinese ? rtlDesignSpecificationAnchor : rtlDesignSpecificationAnchorEn);
+                            break;
+                    }
+                }}
+            >
+                <MarkdownRender style={{ marginTop: '1.46em' }} raw={contentList[key]} components={components} />
+            </Tabs>
+        </>
     );
 };
 
 const InternationalizationTabs = ({ locale }) => {
-    const [key, setKey] = useState('conceptIntroduction');
     const isChinese = locale === 'zh-CN';
+    const [key, setKey] = useState('conceptIntroduction');
+    const [anchorData, setAnchorData] = useState(isChinese ? conceptIntroductionAnchor : conceptIntroductionAnchorEn);
 
     const contentList = {
         'conceptIntroduction': <MarkdownRender raw={isChinese ? conceptIntroduction : conceptIntroductionEn} components={components} />,
@@ -101,19 +151,27 @@ const InternationalizationTabs = ({ locale }) => {
         'designSpecificationsTabs': <DesignSpecificationsTabs locale={locale} />
     };
     return (
-        <Tabs
-            type="line"
-            tabList={[
-                { tab: isChinese ? '概念介绍' : 'Concept Introduction', itemKey: 'conceptIntroduction' },
-                { tab: isChinese ? '设计原则' : 'Design Principles', itemKey: 'designPrinciples' },
-                { tab: isChinese ? '设计规范' : 'Design Specifications', itemKey: 'designSpecificationsTabs' },
-            ]}
-            onChange={key => {
-                setKey(key);
-            }}
-        >
-            {contentList[key]}
-        </Tabs>
+        <>
+            <InnerAnchor data={anchorData} />
+            <Tabs
+                type="line"
+                tabList={[
+                    { tab: isChinese ? '概念介绍' : 'Concept Introduction', itemKey: 'conceptIntroduction' },
+                    { tab: isChinese ? '设计原则' : 'Design Principles', itemKey: 'designPrinciples' },
+                    { tab: isChinese ? '设计规范' : 'Design Specifications', itemKey: 'designSpecificationsTabs' },
+                ]}
+                onChange={key => {
+                    setKey(key);
+                    if (key === 'conceptIntroduction') {
+                        setAnchorData(isChinese ? conceptIntroductionAnchor : conceptIntroductionAnchorEn);
+                    } else {
+                        setAnchorData([]);
+                    } 
+                }}
+            >
+                {contentList[key]}
+            </Tabs>
+        </>
     );
 };
 

@@ -2,6 +2,7 @@
     padding: 16px 20px;
     min-width: 200px;
     font-weight: 600;
+    font-size: 16px;
     display: flex;
     align-items: center;
     background-color: $bg;
@@ -15,6 +16,7 @@
     display: flex;
     align-items: center;
     background-color: $bg;
+    font-size: 16px;
     
     .semi-icon {
         color: $icon-color;
@@ -93,6 +95,9 @@
 
         &-description {
             padding: 16px 20px;
+            .gatsby-p {
+                margin-bottom: 0 !important;
+            }
         }
     }
 
@@ -162,6 +167,7 @@
 
     &-color-card {
         border-radius: 6px;
+        flex: 1;
 
         &-blue {
             border: 1px solid rgba(var(--semi-light-blue-1), 1);
@@ -194,6 +200,7 @@
 
         &-description {
             padding: 16px 20px;
+            margin-bottom: 0 !important;
         }
     }
 
@@ -202,6 +209,7 @@
         flex-direction: row;
         border-radius: 6px;
         margin-bottom: 24px;
+        height: 100%;
 
         &-violet {
             border: 1px solid rgba(var(--semi-violet-1), 1);
@@ -233,6 +241,7 @@
 
         &-description {
             padding: 16px 20px;
+            margin-bottom: 0 !important;
         }
     }
 
