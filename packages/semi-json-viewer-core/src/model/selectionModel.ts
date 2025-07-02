@@ -188,8 +188,7 @@ export class SelectionModel {
             
             col = totalOffset;
         }
-
-        row = (lineElement as any).lineNumber || 1;
+        row = (lineElement as any)?.lineNumber || 1;
         return { row, col: col + 1 };
     }
 

@@ -187,6 +187,12 @@ export class EditWidget {
                         endColumn: endColumn,
                     } as Range);
                 }
+                // if(this._selectionModel.isSelectedAll) {
+                //     op.keepPosition = {
+                //         lineNumber: startLineNumber + 1,
+                //         column: 1,
+                //     };
+                // }
                 op.type = 'delete';
                 op.rangeLength = op.oldText.length;
                 break;
