@@ -487,9 +487,6 @@ semiGlobal 是单例模式，会影响整个站点，如果你只想覆盖某些
 import { semiGlobal } from "@douiyinfe/semi-ui";
 
 semiGlobal.config.overrideDefaultProps = {
-    Button: {
-        type: 'warning',
-    },
     Select: {
         zIndex: 2000,
     },
