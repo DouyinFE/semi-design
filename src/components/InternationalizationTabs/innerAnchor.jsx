@@ -17,7 +17,7 @@ const PageAnchor = props => {
                 <span
                     key={item.title}
                 >
-                    <Anchor.Link href={'#' + CSS.escape(makeAnchorId(item.url)) } title={item.title} key={item.title} />
+                    <Anchor.Link href={'#' + makeAnchorId(item.url) } title={item.title} key={item.title} />
                 </span>
             );
         });

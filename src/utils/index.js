@@ -11,6 +11,7 @@ const makeAnchorId = id => {
         .replace(/\s/g, '-')
         .replace(/(\(|\))/g, 'aaa')
         .replace(/\./g, '-')
+        .replace(/\&/g, '-')
         .replace(/(^[^\u4e00-\u9fa5^a-z%])/, 'n$1');
 
 };
