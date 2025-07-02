@@ -16,8 +16,8 @@ Semi Design UI Kit 提供了完整的组件库和设计规范，覆盖主流设�
 ## Figma 插件
 Semi Toolbox 是一款由 Semi 团队打造，一款基于为设计师提效的功能插件。
 - 社区用户: [Semi Toolbox](https://www.figma.com/community/plugin/1450409416307888169/semi-toolbox)
-- Bytedance Design 用户：[Semi Toolbox](https://www.figma.com/community/plugin/1435200322193309779)
-- Tiktok Design 用户： [Semi Toolbox](https://www.figma.com/community/plugin/1435204511882469475)
+- ByteDance Design 用户：[Semi Toolbox](https://www.figma.com/community/plugin/1435200322193309779)
+- TikTok Design 用户： [Semi Toolbox](https://www.figma.com/community/plugin/1435204511882469475)
 
 Semi Toolbox 支持内容填充，表格生成，数据可视化图表生成，及主题同步。
 

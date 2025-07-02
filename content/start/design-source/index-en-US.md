@@ -6,7 +6,7 @@ localeCode: en-US
 order: 8
 ---
 
-Semi Design provides a wealth of design resources to support designers and developers to collaborate efficiently. Whether you are a community user or an internal Bytedance designer, you can find design tools that suit you here, including UI Kit resource packs and efficient Figma plug-ins.
+Semi Design provides a wealth of design resources to support designers and developers to collaborate efficiently. Whether you are a community user or an internal ByteDance designer, you can find design tools that suit you here, including UI Kit resource packs and efficient Figma plug-ins.
 
 ## UI Kit
 Semi Design UI Kit provides a complete component library and design specifications, covering mainstream design scenarios, helping designers quickly build high-quality interfaces. Supports multi-platform use, facilitating team collaboration and asset reuse.
@@ -16,8 +16,8 @@ Semi Design UI Kit provides a complete component library and design specificatio
 ## Figma plugin
 Semi Toolbox is a functional plug-in built by the Semi team to improve efficiency for designers.
 - Community users: [Semi Toolbox](https://www.figma.com/community/plugin/1450409416307888169/semi-toolbox)
-- Bytedance Design users: [Semi Toolbox](https://www.figma.com/community/plugin/1435200322193309779)
-- Tiktok Design user: [Semi Toolbox](https://www.figma.com/community/plugin/1435204511882469475)
+- ByteDance Design users: [Semi Toolbox](https://www.figma.com/community/plugin/1435200322193309779)
+- TikTok Design user: [Semi Toolbox](https://www.figma.com/community/plugin/1435204511882469475)
 
 Semi Toolbox supports content filling, table generation, data visualization chart generation, and theme synchronization.
 
