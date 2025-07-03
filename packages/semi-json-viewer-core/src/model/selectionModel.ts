@@ -56,11 +56,9 @@ export class SelectionModel {
     public updateFromSelection() {
         const selection = window.getSelection();
         if (!selection || selection.rangeCount === 0) return;
-
-        const range = selection.getRangeAt(0);
-        this.isCollapsed = range.collapsed;
-        const startContainer = range.startContainer;
-        const endContainer = range.endContainer;
+        this.isCollapsed = selection.isCollapsed;
+        const startContainer = selection.anchorNode;
+        const endContainer = selection.focusNode;
 
         let { row: row1, col: col1 } = this.convertRangeToModelPosition(startContainer, selection, true);
         let { row: row2, col: col2 } = this.convertRangeToModelPosition(endContainer, selection, false);
@@ -77,6 +75,7 @@ export class SelectionModel {
         this.startCol = col1;
         this.endRow = row2;
         this.endCol = col2;
+        console.log('updateFromSelection', row1, col1, row2, col2);
         this._jsonModel.lastChangeBufferPos = {
             lineNumber: this._row,
             column: this._col,
