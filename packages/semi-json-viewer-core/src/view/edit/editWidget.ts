@@ -178,6 +178,9 @@ export class EditWidget {
                 }
                 break;
             case 'deleteContentBackward':
+                if(this._jsonModel.isStartPosition() && this._selectionModel.isCollapsed){
+                    return;
+                }
                 if (this._selectionModel.isCollapsed) {
                     op.rangeOffset -= 1;
                     op.oldText = this._jsonModel.getValueInRange({
