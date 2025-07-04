@@ -17,7 +17,7 @@ Semi Design UI Kit provides a complete component library and design specificatio
 Semi Toolbox is a functional plug-in built by the Semi team to improve efficiency for designers.
 - Community users: [Semi Toolbox](https://www.figma.com/community/plugin/1450409416307888169/semi-toolbox)
 - ByteDance Design users: [Semi Toolbox](https://www.figma.com/community/plugin/1435200322193309779)
-- TikTok Design user: [Semi Toolbox](https://www.figma.com/community/plugin/1435204511882469475)
+- Design users outside CN area: [Semi Toolbox](https://www.figma.com/community/plugin/1435204511882469475)
 
 Semi Toolbox supports content filling, table generation, data visualization chart generation, and theme synchronization.
 
