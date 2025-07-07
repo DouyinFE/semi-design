@@ -95,7 +95,7 @@ const designPrinciples = `
 为了保证国际化的设计思维能够在设计中被正确的应用，我们总结出了三个设计原则，分别是：多元包容（Inclusiveness）；本地适配（Local Adaptive）和可扩展性（Scalability）。
 
 <ImageList
-    title="多元包容（Inclusiveness）"
+    title="多元包容｜Inclusiveness"
     image="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/principle1.png"
     description={
         <>
