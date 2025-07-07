@@ -59,13 +59,47 @@ export class EditWidget {
         this._view.contentDom.addEventListener('keydown', (e: KeyboardEvent) => {
             this._handleKeyDown(e);
         });
+
+        this._view.contentDom.addEventListener('mousedown', e => {
+            if (e.button !== 0) return; // 只处理左键
+            this._selectionModel.isSelecting = true;
+            this._selectionModel.updateFromSelectingStart();
+        });
+
+        this._view.contentDom.addEventListener('mousemove', e => {
+            if (!this._selectionModel.isSelecting) return;
+            if (e.button !== 0) return; // 只处理左键
+        });
+
+        this._view.contentDom.addEventListener('mouseup', e => {
+            if (e.button !== 0) return; // 只处理左键
+            this._selectionModel.updateFromSelectingEnd();
+        });
     }
 
     private buildBaseOperation(type: IModelContentChangeEvent['type'] = 'insert') {
-        const startRow = this._selectionModel.startRow;
-        const startCol = this._selectionModel.startCol;
-        const endRow = this._selectionModel.endRow;
-        const endCol = this._selectionModel.endCol;
+        let startRow = this._selectionModel.startRow;
+        let startCol = this._selectionModel.startCol;
+        let endRow = this._selectionModel.endRow;
+        let endCol = this._selectionModel.endCol;
+
+        // 验证并修正位置信息，确保在有效范围内
+        const lineCount = this._jsonModel.getLineCount();
+        if (startRow > lineCount) {
+            startRow = lineCount;
+            startCol = this._jsonModel.getLineLength(lineCount) + 1;
+        }
+        if (endRow > lineCount) {
+            endRow = lineCount;
+            endCol = this._jsonModel.getLineLength(lineCount) + 1;
+        }
+        
+        // 确保最小值为1
+        startRow = Math.max(1, startRow);
+        startCol = Math.max(1, startCol);
+        endRow = Math.max(1, endRow);
+        endCol = Math.max(1, endCol);
+
         const startOffset = this._jsonModel.getOffsetAt(startRow, startCol);
         const endOffset = this._jsonModel.getOffsetAt(endRow, endCol);
         const op: IModelContentChangeEvent = {
@@ -119,7 +153,10 @@ export class EditWidget {
     private _handleBeforeInput(e: InputEvent) {
         if (this._isComposition) return;
         e.preventDefault();
-        this._selectionModel.updateFromSelection();
+        if (!this._selectionModel.isSelecting) {
+            this._selectionModel.updateFromSelection();
+        }
+        // this._selectionModel.updateFromSelection();
         const op = this.buildBaseOperation();
         const { startLineNumber, startColumn, endLineNumber, endColumn } = op.range;
 
@@ -178,7 +215,7 @@ export class EditWidget {
                 }
                 break;
             case 'deleteContentBackward':
-                if(this._jsonModel.isStartPosition() && this._selectionModel.isCollapsed){
+                if (this._jsonModel.isStartPosition() && this._selectionModel.isCollapsed) {
                     return;
                 }
                 if (this._selectionModel.isCollapsed) {
@@ -206,6 +243,7 @@ export class EditWidget {
                 break;
         }
         this._selectionModel.isSelectedAll = false;
+        this._selectionModel.isSelecting = false;
 
         this._jsonModel.applyOperation(op);
     }
@@ -281,7 +319,11 @@ export class EditWidget {
     }
 
     private _handleKeyDown(e: KeyboardEvent) {
-        this._selectionModel.updateFromSelection();
+        // this._selectionModel.updateFromSelection();
+        
+        if (!this._selectionModel.isSelecting) {
+            this._selectionModel.updateFromSelection();
+        }
         const startRow = this._selectionModel.startRow;
         const startCol = this._selectionModel.startCol;
         const endRow = this._selectionModel.endRow;
