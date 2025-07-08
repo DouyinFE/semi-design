@@ -73,7 +73,7 @@ const conceptIntroduction = `
     />
     <TextCard
         color="cyan"
-        title="本地化 Localization (L10n)"
+        title="本地化 Localization (l10n)"
         description={[
             "定义：对一个特定文化进行深入研究，以设计更符合当地用户习惯的设计，即使这种设计无法被其他文化的用户所理解",
             "侧重：如何获得最佳的体验",
@@ -462,7 +462,7 @@ We can summarize the definition and focus of internationalization and localizati
     />
     <TextCard
         color="cyan"
-        title="Localization (L10n)"
+        title="Localization (l10n)"
         description={[
             "Definition: Deeply study a specific culture to design a design that is more in line with the habits of local users, even if this design cannot be understood by users of other cultures",
             "Focus: How to get the best experience",
