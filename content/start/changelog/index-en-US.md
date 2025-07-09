@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.83.0-beta.0 (2025-07-09)
+- 【Style】
+    - Fix the style problem of BreadCrumb's item in noLink mode [#2883](https://github.com/DouyinFE/semi-design/issues/2883)
+
 #### 🎉 2.82.1 (2025-07-02)
 - 【Fix】
     - Fix the problem that Modal does not cover the entire screen when fullScreen is true. Affected version: v2.82.0 [#2880](https://github.com/DouyinFE/semi-design/issues/2880)

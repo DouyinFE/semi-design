@@ -13,6 +13,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.83.0-beta.0 (2025-07-09)
+- 【Style】
+    - 修复 BreadCrumb 的 item 在 noLink 模式下的样式问题 [#2883](https://github.com/DouyinFE/semi-design/issues/2883) [#2884](https://github.com/DouyinFE/semi-design/pull/2884)
+
 #### 🎉 2.82.1 (2025-07-02)
 - 【Fix】
     - 修复 Modal 在 fullScreen 为 true 时候，并没有铺满整个屏幕问题。影响版本：v2.82.0  [#2880](https://github.com/DouyinFE/semi-design/issues/2880) [#2881](https://github.com/DouyinFE/semi-design/pull/2881)
