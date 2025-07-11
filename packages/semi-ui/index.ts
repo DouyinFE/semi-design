@@ -129,3 +129,7 @@ export { default as Cropper } from './cropper';
 export { default as AudioPlayer } from './audioPlayer';
 export { default as UserGuide } from './userGuide';
 export { default as VideoPlayer } from './videoPlayer';
+
+export { default as AILoading } from './aiLoading';
+export { default as AICard } from './aiCard';
+export { default as FloatButton } from './floatButton';

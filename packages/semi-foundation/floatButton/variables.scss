@@ -1,0 +1,81 @@
+// Color
+$color-floatbutton_iconBtn-default-bg: #f6f6fc;
+$color-floatbutton_iconBtn-default-bgGradient: linear-gradient(315deg, #e945ff 0%, #a647ff 30%, #6b61ff 60%, #2e8cff 100%);
+$color-floatbutton_iconBtn_disabled-bg: #f5f5f5; // for var(--semi-color-disabled-bg)
+$color-floatbutton_rectangle-outline: #ffffff; // var(--semi-color-bg-1)
+$color-floatbutton_rectangle-bg: #e45b5b; // var(--semi-color-danger)
+$color-floatbutton_badge-outline: #ffffff; // var(--semi-color-bg-1)
+$color-floatbutton_badge-bg: #e45b5b; // var(--semi-color-danger)
+$color-floatbutton_badge-text: #f6f6fc; // var(--semi-color-bg-2)
+$color-floatbutton_group-bg: #ffffff; // var(--semi-color-bg-0)
+$color-floatbutton_group-text: #1d2129; // var(--semi-color-text-0)
+$color-floatbutton_group_item-bg: #f6f6fc; // rgb(var(--semi-grey-0))
+
+// Width/Height
+$width-floatbutton_iconBtn-small: 12px;
+$height-floatbutton_iconBtn-small: 12px;
+$width-floatbutton_iconBtn-medium: 16px;
+$height-floatbutton_iconBtn-medium: 16px;
+$width-floatbutton_iconBtn-large: 24px;
+$height-floatbutton_iconBtn-large: 24px;
+$width-floatbutton_iconImg-small: 12px;
+$height-floatbutton_iconImg-small: 12px;
+$width-floatbutton_iconImg-medium: 16px;
+$height-floatbutton_iconImg-medium: 16px;
+$width-floatbutton_iconImg-large: 24px;
+$height-floatbutton_iconImg-large: 24px;
+$width-floatbutton_rectangle: 6px;
+$height-floatbutton_rectangle: 6px;
+$width-floatbutton_rectangle-outline: 1px;
+$width-floatbutton_badge-outline: 1px;
+$radius-floatbutton_iconBtn: 30px;
+$radius-floatbutton_rectangle: 9px;
+$radius-floatbutton_badge: 9px;
+$radius-floatbutton_group: 8px;
+$radius-floatbutton_group_item: 4px;
+$width-floatbutton_group_item_text-minWidth: 56px;
+
+// Spacing
+$spacing-floatbutton_iconBtn-paddingTop: 8px;
+$spacing-floatbutton_iconBtn-paddingRight: 8px;
+$spacing-floatbutton_iconBtn-paddingBottom: 8px;
+$spacing-floatbutton_iconBtn-paddingLeft: 8px;
+$spacing-floatbutton_iconBtn-marginTop: 4px;
+$spacing-floatbutton_iconBtn-marginRight: 0px;
+$spacing-floatbutton_iconBtn-marginBottom: 0px;
+$spacing-floatbutton_iconBtn-marginLeft: 0px;
+$spacing-floatbutton_iconBtn-marginLeftNext: 5px; // for & + &
+$spacing-floatbutton_iconImg-paddingTop: 0px;
+$spacing-floatbutton_iconImg-paddingRight: 0px;
+$spacing-floatbutton_iconImg-paddingBottom: 0px;
+$spacing-floatbutton_iconImg-paddingLeft: 0px;
+$spacing-floatbutton_rectangle-marginLeft: 8px;
+$spacing-floatbutton_rectangle-top: 2px;
+$spacing-floatbutton_rectangle_small-left: 15px;
+$spacing-floatbutton_rectangle_small-top: 0px;
+$spacing-floatbutton_rectangle_medium-left: 24px;
+$spacing-floatbutton_rectangle_large-left: 32px;
+$spacing-floatbutton_rectangle_group-left: 100px;
+$spacing-floatbutton_rectangle_group-top: -2px;
+$spacing-floatbutton_badge-top: -6px;
+$spacing-floatbutton_badge-right: -8px;
+$spacing-floatbutton_badge-paddingTop: 0px;
+$spacing-floatbutton_badge-paddingRight: 4px;
+$spacing-floatbutton_badge-paddingBottom: 0px;
+$spacing-floatbutton_badge-paddingLeft: 4px;
+$spacing-floatbutton_group-paddingTop: 6px;
+$spacing-floatbutton_group-paddingRight: 6px;
+$spacing-floatbutton_group-paddingBottom: 6px;
+$spacing-floatbutton_group-paddingLeft: 6px;
+$spacing-floatbutton_group_item-paddingTop: 6px;
+$spacing-floatbutton_group_item-paddingRight: 12px;
+$spacing-floatbutton_group_item-paddingBottom: 6px;
+$spacing-floatbutton_group_item-paddingLeft: 12px;
+$spacing-floatbutton_group_item-marginRight: 4px;
+$spacing-floatbutton_group_item_text-marginLeft: 8px;
+
+// Font
+$font-floatbutton_badge-fontSize: 12px;
+$font-floatbutton_badge-lineHeight: 16px;
+$font-floatbutton_badge-letterSpacing: 0;
+$font-floatbutton_group-fontSize: 14px;

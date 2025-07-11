@@ -1,0 +1,137 @@
+@import './variables.scss';
+
+.semi-floatbutton {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  &-iconBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-floatbutton_iconBtn;
+    padding: $spacing-floatbutton_iconBtn-paddingTop $spacing-floatbutton_iconBtn-paddingRight $spacing-floatbutton_iconBtn-paddingBottom $spacing-floatbutton_iconBtn-paddingLeft;
+    position: relative;
+    margin: $spacing-floatbutton_iconBtn-marginTop $spacing-floatbutton_iconBtn-marginRight $spacing-floatbutton_iconBtn-marginBottom $spacing-floatbutton_iconBtn-marginLeft;
+    &-small {
+      width: $width-floatbutton_iconBtn-small;
+      height: $height-floatbutton_iconBtn-small;
+    }
+    &-medium {
+      width: $width-floatbutton_iconBtn-medium;
+      height: $height-floatbutton_iconBtn-medium;
+    }
+    &-large {
+      width: $width-floatbutton_iconBtn-large;
+      height: $height-floatbutton_iconBtn-large;
+    }
+    &-default {
+      background: $color-floatbutton_iconBtn-default-bg;
+      background-image: $color-floatbutton_iconBtn-default-bgGradient;
+    }
+    &-disabled {
+      background: $color-floatbutton_iconBtn_disabled-bg;
+    }
+    & + & {
+      margin-left: $spacing-floatbutton_iconBtn-marginLeftNext;
+    }
+  }
+
+  &-iconImg {
+    &-small {
+      width: $width-floatbutton_iconImg-small;
+      height: $height-floatbutton_iconImg-small;
+    }
+    &-medium {
+      width: $width-floatbutton_iconImg-medium;
+      height: $height-floatbutton_iconImg-medium;
+    }
+    &-large {
+      width: $width-floatbutton_iconImg-large;
+      height: $height-floatbutton_iconImg-large;
+    }
+  }
+
+  &-rectangle {
+    position: absolute;
+    flex-shrink: 0;
+    margin-left: $spacing-floatbutton_rectangle-marginLeft;
+    outline-width: $width-floatbutton_rectangle-outline;
+    outline-style: solid;
+    outline-color: $color-floatbutton_rectangle-outline;
+    border-radius: $radius-floatbutton_rectangle;
+    background: $color-floatbutton_rectangle-bg;
+    width: $width-floatbutton_rectangle;
+    height: $height-floatbutton_rectangle;
+    top: $spacing-floatbutton_rectangle-top;
+
+    &-small {
+      left: $spacing-floatbutton_rectangle_small-left;
+      top: $spacing-floatbutton_rectangle_small-top;
+    }
+    &-medium {
+      left: $spacing-floatbutton_rectangle_medium-left;
+    }
+    &-large {
+      left: $spacing-floatbutton_rectangle_large-left;
+    }
+    &-group {
+      left: $spacing-floatbutton_rectangle_group-left;
+      top: $spacing-floatbutton_rectangle_group-top;
+    }
+  }
+
+  &-badge {
+    display: inline-flex;
+    position: absolute;
+    top: $spacing-floatbutton_badge-top;
+    right: $spacing-floatbutton_badge-right;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    outline-width: $width-floatbutton_badge-outline;
+    outline-style: solid;
+    outline-color: $color-floatbutton_badge-outline;
+    border-radius: $radius-floatbutton_badge;
+    background: $color-floatbutton_badge-bg;
+    padding: $spacing-floatbutton_badge-paddingTop $spacing-floatbutton_badge-paddingRight $spacing-floatbutton_badge-paddingBottom $spacing-floatbutton_badge-paddingLeft;
+    font-size: $font-floatbutton_badge-fontSize;
+    color: $color-floatbutton_badge-text;
+    line-height: $font-floatbutton_badge-lineHeight;
+    letter-spacing: $font-floatbutton_badge-letterSpacing;
+  }
+
+  &-group {
+    display: inline-flex;
+    align-items: flex-end;
+    background: $color-floatbutton_group-bg;
+    border-radius: $radius-floatbutton_group;
+    padding: $spacing-floatbutton_group-paddingTop $spacing-floatbutton_group-paddingRight $spacing-floatbutton_group-paddingBottom $spacing-floatbutton_group-paddingLeft;
+    color: $color-floatbutton_group-text;
+    font-size: $font-floatbutton_group-fontSize;
+    .semi-floatbutton-group-item {
+      display: inline-flex;
+      align-items: center;
+      border-radius: $radius-floatbutton_group_item;
+      background: $color-floatbutton_group_item-bg;
+      padding: $spacing-floatbutton_group_item-paddingTop $spacing-floatbutton_group_item-paddingRight $spacing-floatbutton_group_item-paddingBottom $spacing-floatbutton_group_item-paddingLeft;
+      margin-right: $spacing-floatbutton_group_item-marginRight;
+      position: relative;
+      &-text {
+        margin-left: $spacing-floatbutton_group_item_text-marginLeft;
+        min-width: $width-floatbutton_group_item_text-minWidth;
+      }
+    }
+    .semi-floatbutton-rectangle-group {
+      position: absolute;
+      top: $spacing-floatbutton_rectangle_group-top;
+      left: $spacing-floatbutton_rectangle_group-left;
+    }
+    .semi-floatbutton-badge {
+      position: absolute;
+      top: $spacing-floatbutton_badge-top;
+      right: $spacing-floatbutton_badge-right;
+    }
+  }
+}
+

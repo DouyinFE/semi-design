@@ -1,0 +1,60 @@
+// COLOR
+$color-ai_loading_default-text-default: var(--semi-color-text-3);
+$color-ai_loading_small_dots-dot1-default: #5338ff;
+$color-ai_loading_small_dots-dot2-default: #b030f0;
+$color-ai_loading_small_dots-dot3-default: #e72dff;
+$color-ai_loading_large_dots-dot1-default: #5338ff;
+$color-ai_loading_large_dots-dot2-default: #b030f0;
+$color-ai_loading_large_dots-dot3-default: #e72dff;
+$color-ai_loading_large_track-bg-default: var(--semi-color-fill-0);
+$color-ai_loading_large_track-bgcolor-default: #00000000;
+$color-ai_loading_large_track-bgimage-default: linear-gradient(#2e32380d, #2e32380d);
+$color-ai_loading_large_track_inner-bg-default: var(--AI-Light-General-general-5);
+$color-ai_loading_large_track_inner-bgimage-default: linear-gradient(271.15deg,#e945ff 0%,#a647ff 30%,#6b61ff 60%,#2e8cff 100%);
+$color-ai_loading_large_info_title-text-default: var(--semi-color-text-0);
+$color-ai_loading_large_info_desc-text-default: var(--semi-color-text-1);
+
+// WIDTH/HEIGHT
+$width-ai_loading_small-default: 119px;
+$width-ai_loading_small_dots-default: 13px;
+$height-ai_loading_small_dots-default: 4px;
+$width-ai_loading_small_dots_dot-default: 3px;
+$height-ai_loading_small_dots_dot-default: 3px;
+$width-ai_loading_small_text-minWidth: 67px;
+$width-ai_loading_large-default: 261px;
+$width-ai_loading_large_dots-default: 24px;
+$height-ai_loading_large_dots-default: 7px;
+$width-ai_loading_large_dots_dot-default: 6px;
+$height-ai_loading_large_dots_dot-default: 6px;
+$width-ai_loading_large_track-default: 250px;
+$height-ai_loading_large_track-default: 4px;
+$width-ai_loading_large_track_inner-default: 200px;
+$width-ai_loading_colored_icon-default: 16px;
+$height-ai_loading_colored_icon-default: 16px;
+
+// SPACING
+$spacing-ai_loading_small_text-marginLeft: 8px;
+$spacing-ai_loading_large_dots-paddingRight: 1px;
+$spacing-ai_loading_large_track-marginTop: 24px;
+$spacing-ai_loading_large_info-marginTop: 24px;
+$spacing-ai_loading_large_info_desc-marginTop: 8px;
+$spacing-ai_loading_colored-padding: 8px;
+
+// RADIUS
+$radius-ai_loading_small_dots-dot: 50%;
+$radius-ai_loading_large_dots-dot: 50%;
+$radius-ai_loading_large_track-default: 3px;
+$radius-ai_loading_large_track_inner-default: 3px;
+$radius-ai_loading_colored-default: 3px;
+
+// FONT
+$font-ai_loading_default-lineHeight: 20px;
+$font-ai_loading_default-fontSize: 14px;
+$font-ai_loading_small-letterSpacing: -0.14px;
+$font-ai_loading_large-letterSpacing: 0;
+$font-ai_loading_large_info_title-lineHeight: 22px;
+$font-ai_loading_large_info_title-fontSize: 16px;
+$font-ai_loading_large_info_title-fontWeight: 600;
+$font-ai_loading_large_info_desc-lineHeight: 20px;
+$font-ai_loading_large_info_desc-fontSize: 14px;
+$font-ai_loading_large_info_desc-fontWeight: 400;

@@ -1,0 +1,117 @@
+@import './variables.scss'; 
+
+.semi-ai-card-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: $color-ai_card_section_default-text-default;
+  font-family: Inter;
+  font-size: $font-ai_card_section_default-fontSize;
+  font-weight: $font-ai_card_section_default-fontWeight;
+
+  &-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      border-radius: $radius-ai_card_section_block;
+      padding: 0;
+      box-sizing: border-box;
+      
+      &-header {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          padding-top: $spacing-ai_card_section_block_header-paddingTop;
+          padding-right: $spacing-ai_card_section_block_header-paddingRight;
+          padding-bottom: $spacing-ai_card_section_block_header-paddingBottom;
+          padding-left: $spacing-ai_card_section_block_header-paddingLeft;
+      }
+
+      &-icon {
+          width: $width-ai_card_section_block_icon;
+          height: $height-ai_card_section_block_icon;
+          flex-shrink: 0;
+          margin-right: $spacing-ai_card_section_block_icon-marginRight;
+      }
+
+      &-title {
+          flex-shrink: 0;
+          min-width: $width-ai_card_section_block_title-minWidth;
+      }
+
+      &-footer {
+          margin-top: $spacing-ai_card_section_block_footer-marginTop;
+      }
+  }
+
+  &-default {
+      background: $color-ai_card_section_default-bg-default;
+      border: 1px solid $color-ai_card_section_default-border-default;
+      padding-top: $spacing-ai_card_section_default-paddingTop;
+      padding-right: $spacing-ai_card_section_default-paddingRight;
+      padding-bottom: $spacing-ai_card_section_default-paddingBottom;
+      padding-left: $spacing-ai_card_section_default-paddingLeft;
+      width: $width-ai_card_section_default;
+      height: $height-ai_card_section_default;
+  }
+  &-stroked {
+      background: $color-ai_card_section_stroked-bg-default;
+      padding-top: $spacing-ai_card_section_stroked-paddingTop;
+      padding-right: $spacing-ai_card_section_stroked-paddingRight;
+      padding-bottom: $spacing-ai_card_section_stroked-paddingBottom;
+      padding-left: $spacing-ai_card_section_stroked-paddingLeft;
+      width: $width-ai_card_section_stroked;
+      height: $height-ai_card_section_stroked;
+  }
+  &-filled {
+      background: $color-ai_card_section_filled-bg-default;
+      background-image: $color-ai_card_section_filled-bgImage-default;
+      padding-top: $spacing-ai_card_section_filled-paddingTop;
+      padding-right: $spacing-ai_card_section_filled-paddingRight;
+      padding-bottom: $spacing-ai_card_section_filled-paddingBottom;
+      padding-left: $spacing-ai_card_section_filled-paddingLeft;
+      width: $width-ai_card_section_filled;
+      height: $height-ai_card_section_filled;
+  }
+  &-filled-top {
+      background: $color-ai_card_section_filled_top-bg-default;
+      padding-top: $spacing-ai_card_section_filled_top-paddingTop;
+      padding-right: $spacing-ai_card_section_filled_top-paddingRight;
+      padding-bottom: $spacing-ai_card_section_filled_top-paddingBottom;
+      padding-left: $spacing-ai_card_section_filled_top-paddingLeft;
+      .ai-card-section-block-header {
+          padding-top: $spacing-ai_card_section_block_header-paddingTop;
+          padding-right: $spacing-ai_card_section_block_header-paddingRight;
+          padding-bottom: $spacing-ai_card_section_block_header-paddingBottom;
+          padding-left: $spacing-ai_card_section_block_header-paddingLeft;
+      }
+      .ai-card-section-filled-top-bg {
+          background: $color-ai_card_section_filled_top_bg-bg-default;
+          border-radius: $radius-ai_card_section_filled_top_bg;
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+          overflow: hidden;
+      }
+  }
+  &-separator {
+      flex-grow: 1;
+      border-radius: $radius-ai_card_section_separator;
+      background: $color-ai_card_section_separator-bg-default;
+      padding: $spacing-ai_card_section_separator-padding;
+      overflow: hidden;
+  }
+  &-rectangle {
+      flex-grow: 1;
+      align-self: stretch;
+      background: $color-ai_card_section_rectangle-bg-default;
+      background-image: $color-ai_card_section_rectangle-bgImage-default;
+  }
+}
+
+
+
+  
+  
+  

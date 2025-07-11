@@ -1,0 +1,57 @@
+// Color
+$color-ai_card_section_default-text-default: var(--semi-color-text-0);
+$color-ai_card_section_default-bg-default: var(--semi-color-white);
+$color-ai_card_section_default-border-default: var(--AI-light-general-1, #ffffff);
+$color-ai_card_section_stroked-bg-default: var(--semi-color-white);
+$color-ai_card_section_filled-bg-default: var(--AI-Light-General-general-0);
+$color-ai_card_section_filled-bgImage-default: linear-gradient(308.66deg, #fff2ff 0%, #f8edff 30%, #f4f4ff 60%, #eff7ff 100%);
+$color-ai_card_section_filled_top-bg-default: var(--semi-color-bg-0);
+$color-ai_card_section_filled_top_bg-bg-default: var(--AI-Light-Background-top-0);
+$color-ai_card_section_separator-bg-default: #fff;
+$color-ai_card_section_rectangle-bg-default: var(--AI-Light-General-general-0);
+$color-ai_card_section_rectangle-bgImage-default: linear-gradient(302.99deg, #fff2ff 0%, #f8edff 30%, #f4f4ff 60%, #eff7ff 100%);
+
+// Width / Height
+$width-ai_card_section_block_icon: 20px;
+$height-ai_card_section_block_icon: 20px;
+$width-ai_card_section_block_title-minWidth: 101px;
+$width-ai_card_section_default: 382px;
+$height-ai_card_section_default: 319px;
+$width-ai_card_section_stroked: 382px;
+$height-ai_card_section_stroked: 320px;
+$width-ai_card_section_filled: 414px;
+$height-ai_card_section_filled: 336px;
+
+// Spacing
+$spacing-ai_card_section_block_header-paddingTop: 24px;
+$spacing-ai_card_section_block_header-paddingRight: 16px;
+$spacing-ai_card_section_block_header-paddingBottom: 24px;
+$spacing-ai_card_section_block_header-paddingLeft: 16px;
+$spacing-ai_card_section_block_icon-marginRight: 8px;
+$spacing-ai_card_section_block_footer-marginTop: auto;
+$spacing-ai_card_section_default-paddingTop: 0;
+$spacing-ai_card_section_default-paddingRight: 23px;
+$spacing-ai_card_section_default-paddingBottom: 23px;
+$spacing-ai_card_section_default-paddingLeft: 23px;
+$spacing-ai_card_section_stroked-paddingTop: 0;
+$spacing-ai_card_section_stroked-paddingRight: 24px;
+$spacing-ai_card_section_stroked-paddingBottom: 24px;
+$spacing-ai_card_section_stroked-paddingLeft: 24px;
+$spacing-ai_card_section_filled-paddingTop: 0;
+$spacing-ai_card_section_filled-paddingRight: 8px;
+$spacing-ai_card_section_filled-paddingBottom: 8px;
+$spacing-ai_card_section_filled-paddingLeft: 8px;
+$spacing-ai_card_section_filled_top-paddingTop: 0;
+$spacing-ai_card_section_filled_top-paddingRight: 0;
+$spacing-ai_card_section_filled_top-paddingBottom: 164px;
+$spacing-ai_card_section_filled_top-paddingLeft: 0;
+$spacing-ai_card_section_separator-padding: 12px;
+
+// Radius
+$radius-ai_card_section_block: 8px;
+$radius-ai_card_section_filled_top_bg: 8px;
+$radius-ai_card_section_separator: 7px;
+
+// Font
+$font-ai_card_section_default-fontSize: 18px;
+$font-ai_card_section_default-fontWeight: 600;
