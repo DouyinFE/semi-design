@@ -281,7 +281,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                 props.contentClassName,
                 {
                     [`${cssClasses.DIALOG}-content-fullScreen`]: props.isFullScreen,
-                    [`${cssClasses.DIALOG}-content-height-set`]: props.height
+                    [`${cssClasses.DIALOG}-content-height-set`]: props.height || get(props.style, 'height')
                 }])}>
             {header}
             {body}

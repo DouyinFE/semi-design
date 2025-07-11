@@ -67,7 +67,15 @@ describe('modal', () => {
 
     it('set height', () => {
         cy.visit("http://localhost:6006/iframe.html?id=modal--set-height&viewMode=story");
-        // 测试 classname 为 .semi-modal-content-fullScreen 的高度和 classname 为 .semi-modal-mask 高度一致
+        cy.get(".semi-button").click();
+        cy.get('.semi-modal-content').then($content => {
+            const contentHeight = $content[0].getBoundingClientRect().height;
+            expect(contentHeight).to.be.equal(300);
+        });
+    });
+
+    it('set height in style', () => {
+        cy.visit("http://localhost:6006/iframe.html?id=modal--set-height-in-style&viewMode=story");
         cy.get(".semi-button").click();
         cy.get('.semi-modal-content').then($content => {
             const contentHeight = $content[0].getBoundingClientRect().height;
