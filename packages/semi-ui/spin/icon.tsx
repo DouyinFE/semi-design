@@ -1,5 +1,8 @@
 import React from 'react';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
+import semiGlobal from '../_utils/semi-global';
+import { get } from 'lodash';
+import cls from 'classnames';
 
 let _id = -1;
 
@@ -8,11 +11,16 @@ export interface IconProps {
     component?: React.ReactNode;
     size?: number;
     className?: string;
-    type?: string
+    type?: string;
+    customIconCls?: string;
 }
 
 function Icon(props: IconProps = {}) {
-    const { id: propsId, className, ...rest } = props;
+    const { id: propsId, className, customIconCls, ...rest } = props;
+    const globalIndicator = get(semiGlobal, 'config.overrideDefaultProps.Spin.indicator');
+    if (globalIndicator && React.isValidElement(globalIndicator)) {
+        return React.cloneElement(globalIndicator, { className: cls({ [customIconCls]: customIconCls, [className]: className }) } as any);
+    }
     let _propsId = propsId;
     if (isNullOrUndefined(_propsId)) {
         _id++;

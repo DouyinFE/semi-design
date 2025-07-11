@@ -18,6 +18,7 @@ import type { TimePickerProps } from "../timePicker";
 import type { ToastReactProps } from "../toast";
 import type { TooltipProps } from "../tooltip";
 import type { MarkdownRenderProps } from "../markdownRender";
+import { SpinProps } from "../spin";
 
 class SemiGlobal {
 
@@ -70,7 +71,7 @@ class SemiGlobal {
             // Skeleton?: Partial<SkeletonProps>;
             // Slider?: Partial<SliderProps>;
             // Space?: Partial<SpaceProps>;
-            // Spin?: Partial<SpinProps>;
+            Spin?: Partial<SpinProps>;
             // Steps?: Partial<StepsProps>;
             // Switch?: Partial<SwitchProps>;
             // Table?: Partial<TableProps>;

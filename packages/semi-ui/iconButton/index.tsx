@@ -92,7 +92,7 @@ class IconButton extends PureComponent<IconButtonProps> {
         let IconElem = null;
 
         if (loading && !otherProps.disabled) {
-            IconElem = <SpinIcon />;
+            IconElem = <SpinIcon customIconCls={`${prefixCls}-content-loading-icon`}/>;
         } else if (React.isValidElement(icon)) {
             IconElem = icon;
         }
