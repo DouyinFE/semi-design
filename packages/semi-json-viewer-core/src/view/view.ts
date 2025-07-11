@@ -175,6 +175,7 @@ export class View {
             e.stopPropagation();
             this._completeWidget.hide();
             this._selectionModel.isSelectedAll = false;
+            this._selectionModel.isSelecting = false;
             this._selectionModel.updateFromSelection();
         });
 
@@ -283,6 +284,7 @@ export class View {
         if (height !== this._measuredHeights[index]) {
             this._measuredHeights[index] = height;
             this._scalingCellSizeAndPositionManager.resetCell(index);
+            this._scalingCellSizeAndPositionManager.getSizeAndPositionOfCell(index);
             this._scrollDom.style.height = `${this._scalingCellSizeAndPositionManager.getTotalSize()}px`;
         }
     }

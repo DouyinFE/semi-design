@@ -440,9 +440,9 @@ export class JSONCompletion {
                     documentation: '',
                 });
             }
-            if (value.type === 'boolean') {
-                this.addBooleanValueCompletion(!value.value, separatorAfter, collector);
-            }
+            // if (value.type === 'boolean') {
+            //     this.addBooleanValueCompletion(!value.value, separatorAfter, collector);
+            // }
         };
 
         if (node.type === 'property') {

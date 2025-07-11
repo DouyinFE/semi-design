@@ -19,6 +19,7 @@ export class SelectionModel {
     public preEndCol: number;
     public isCollapsed: boolean;
     public isSelectedAll: boolean = false;
+    public isSelecting: boolean = false;
     private _view: View;
     private _jsonModel: JSONModel;
     constructor(row: number, col: number, view: View, jsonModel: JSONModel) {
@@ -53,34 +54,79 @@ export class SelectionModel {
         } as Position;
     }
 
+    /**
+     * 同步 DOM 选区到模型，更新完整选区
+     */
     public updateFromSelection() {
-        const selection = window.getSelection();
-        if (!selection || selection.rangeCount === 0) return;
-
-        const range = selection.getRangeAt(0);
-        this.isCollapsed = range.collapsed;
-        const startContainer = range.startContainer;
-        const endContainer = range.endContainer;
+        const selection = this._getValidSelection();
+        if (!selection) return;
+        this.isCollapsed = selection.isCollapsed;
+        const startContainer = selection.anchorNode;
+        const endContainer = selection.focusNode;
 
         let { row: row1, col: col1 } = this.convertRangeToModelPosition(startContainer, selection, true);
         let { row: row2, col: col2 } = this.convertRangeToModelPosition(endContainer, selection, false);
-        if (row1 > row2) {
+        // 保证 row1/col1 是起点，row2/col2 是终点
+        if (row1 > row2 || (row1 === row2 && col1 > col2)) {
             [row1, row2] = [row2, row1];
             [col1, col2] = [col2, col1];
-        } else if (row1 === row2 && col1 > col2) {
-            [col1, col2] = [col2, col1];
         }
-
-        this._row = row1;
-        this._col = col1;
-        this.startRow = row1;
-        this.startCol = col1;
-        this.endRow = row2;
-        this.endCol = col2;
+        this._setSelection(row1, col1, row2, col2);
         this._jsonModel.lastChangeBufferPos = {
             lineNumber: this._row,
             column: this._col,
         };
+    }
+
+    /**
+     * 仅更新选区起点（如拖拽选择时）
+     */
+    public updateFromSelectingStart() {
+        const selection = this._getValidSelection();
+        if (!selection) return;
+        this.isCollapsed = selection.isCollapsed;
+        const startContainer = selection.anchorNode;
+        let { row, col } = this.convertRangeToModelPosition(startContainer, selection, true);
+        this._setSelection(row, col, this.endRow, this.endCol);
+    }
+
+    /**
+     * 仅更新选区终点（如拖拽选择时）
+     */
+    public updateFromSelectingEnd() {
+        const selection = this._getValidSelection();
+        if (!selection) return;
+        this.isCollapsed = selection.isCollapsed;
+        const endContainer = selection.focusNode;
+        let { row, col } = this.convertRangeToModelPosition(endContainer, selection, false);
+        this._setSelection(this.startRow, this.startCol, row, col);
+        this._jsonModel.lastChangeBufferPos = {
+            lineNumber: this._row,
+            column: this._col,
+        };
+    }
+
+    /**
+     * 获取有效的 Selection 对象
+     */
+    private _getValidSelection(): Selection | null {
+        const selection = window.getSelection();
+        if (!selection || selection.rangeCount === 0 || !selection.anchorNode || !selection.focusNode) {
+            return null;
+        }
+        return selection;
+    }
+
+    /**
+     * 批量设置选区
+     */
+    private _setSelection(startRow: number, startCol: number, endRow: number, endCol: number) {
+        this._row = startRow;
+        this._col = startCol;
+        this.startRow = startRow;
+        this.startCol = startCol;
+        this.endRow = endRow;
+        this.endCol = endCol;
     }
 
     public toViewPosition() {
@@ -98,6 +144,11 @@ export class SelectionModel {
 
         const row = this._jsonModel.lastChangeBufferPos.lineNumber;
         const col = this._jsonModel.lastChangeBufferPos.column - 1;
+
+        if (this.isSelecting) {
+            
+        }
+
         const lineElement = this._view.getLineElement(row);
         
         if (!lineElement) return;
@@ -188,8 +239,7 @@ export class SelectionModel {
             
             col = totalOffset;
         }
-
-        row = (lineElement as any).lineNumber || 1;
+        row = (lineElement as any)?.lineNumber || 1;
         return { row, col: col + 1 };
     }
 
@@ -210,5 +260,6 @@ export class SelectionModel {
             column: this.startCol,
         };
     }
+    
 }
 

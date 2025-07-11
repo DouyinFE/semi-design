@@ -352,4 +352,9 @@ export class JSONModel {
         }
         return uniqueSearchRanges.map(matchMapper).reduce((arr, matches: FindMatch[]) => arr.concat(matches), []);
     }
+
+    isStartPosition() {
+        const { lineNumber, column } = this.lastChangeBufferPos;
+        return lineNumber === 1 && column === 1;
+    }
 }
