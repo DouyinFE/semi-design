@@ -385,3 +385,23 @@ export const FullScreen = () => {
         </div>
     );
 }
+
+export const SetHeight = () => {
+  const [visible, setVisible] = useState(false);
+  return (
+      <div>
+          <Button onClick={() => setVisible(true)}>Open Modal</Button>
+          <Modal
+              title="高度设置的Modal"
+              visible={visible}
+              height={300}
+              // motion 为 false 是为了保证 e2e 取高度值的时候，拿到的不是动画中的值
+              motion={false}
+              onCancel={() => setVisible(false)}
+          >
+              <p>This is the content of a basic sidesheet.</p>
+              <p>Here is more content...</p>
+          </Modal>
+      </div>
+  );
+}
