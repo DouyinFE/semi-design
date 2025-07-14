@@ -181,6 +181,7 @@ export class View {
 
         this.emitter.on('contentChanged', () => {
             this.resetScalingManagerConfigAndCell(0);
+            this._measuredHeights = {};
             if (this._jsonModel.lastChangeBufferPos.lineNumber >= this.visibleLineCount + this.startLineNumber) {
                 this.scrollToLine(this._jsonModel.lastChangeBufferPos.lineNumber - this.visibleLineCount + 1);
                 return;
