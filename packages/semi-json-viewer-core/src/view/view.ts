@@ -175,11 +175,13 @@ export class View {
             e.stopPropagation();
             this._completeWidget.hide();
             this._selectionModel.isSelectedAll = false;
+            this._selectionModel.isSelecting = false;
             this._selectionModel.updateFromSelection();
         });
 
         this.emitter.on('contentChanged', () => {
             this.resetScalingManagerConfigAndCell(0);
+            this._measuredHeights = {};
             if (this._jsonModel.lastChangeBufferPos.lineNumber >= this.visibleLineCount + this.startLineNumber) {
                 this.scrollToLine(this._jsonModel.lastChangeBufferPos.lineNumber - this.visibleLineCount + 1);
                 return;
@@ -283,6 +285,7 @@ export class View {
         if (height !== this._measuredHeights[index]) {
             this._measuredHeights[index] = height;
             this._scalingCellSizeAndPositionManager.resetCell(index);
+            this._scalingCellSizeAndPositionManager.getSizeAndPositionOfCell(index);
             this._scrollDom.style.height = `${this._scalingCellSizeAndPositionManager.getTotalSize()}px`;
         }
     }
