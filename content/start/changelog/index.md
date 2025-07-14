@@ -13,9 +13,18 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
-#### 🎉 2.83.0-beta.0 (2025-07-09)
+#### 🎉 2.83.0 (2025-07-14)
+- 【Fix】
+    - 修复JsonViewer 全选删除后继续删除报错问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复JsonViewer 始光标删除行为报错问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复JsonViewer 选区边界问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复JsonViewer 代码补全无法点击问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复JsonViewer 代码补全布尔类型提示问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复JsonViewer 拖动选择复制删除不完全问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复 Modal 中的 height 设置未生效问题，影响版本 2.82.0-2.82.1  [#2899 ](https://github.com/DouyinFE/semi-design/issues/2899) [#2901](https://github.com/DouyinFE/semi-design/pull/2901)
 - 【Style】
-    - 修复 BreadCrumb 的 item 在 noLink 模式下的样式问题 [#2883](https://github.com/DouyinFE/semi-design/issues/2883) [#2884](https://github.com/DouyinFE/semi-design/pull/2884)
+    - 修复 BreadCrumb 的 item 在 noLink 模式下的样式问题  [#2883 ](https://github.com/DouyinFE/semi-design/issues/2883) [#2884](https://github.com/DouyinFE/semi-design/pull/2884)
+
 
 #### 🎉 2.82.1 (2025-07-02)
 - 【Fix】

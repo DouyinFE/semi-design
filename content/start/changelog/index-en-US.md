@@ -16,9 +16,18 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
-#### 🎉 2.83.0-beta.0 (2025-07-09)
+#### 🎉 2.83.0 (2025-07-14)
+- 【Fix】
+    - Fixed the error problem of JsonViewer continuing to delete after selecting all [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fixed the error problem of JsonViewer initial cursor deletion behavior [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fixed the JsonViewer selection boundary problem [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fixed the JsonViewer code completion cannot be clicked [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fixed the JsonViewer code completion Boolean type prompt problem [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fixed the JsonViewer drag selection copy deletion incomplete problem [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fix the problem that the height setting in Modal does not take effect, affecting version 2.82.0-2.82.1  [#2899 ](https://github.com/DouyinFE/semi-design/issues/2899)
 - 【Style】
-    - Fix the style problem of BreadCrumb's item in noLink mode [#2883](https://github.com/DouyinFE/semi-design/issues/2883)
+    - Fix the style problem of BreadCrumb's item in noLink mode  [#2883 ](https://github.com/DouyinFE/semi-design/issues/2883)
+
 
 #### 🎉 2.82.1 (2025-07-02)
 - 【Fix】
