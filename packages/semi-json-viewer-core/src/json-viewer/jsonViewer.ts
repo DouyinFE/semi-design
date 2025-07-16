@@ -15,7 +15,8 @@ export interface JsonViewerOptions {
     readOnly?: boolean;
     formatOptions?: FormattingOptions;
     completionOptions?: CompletionOptions;
-    customRenderRule?: CustomRenderRule[]
+    customRenderRule?: CustomRenderRule[];
+    prefixCls?: string
 }
 
 export interface CompletionOptions {

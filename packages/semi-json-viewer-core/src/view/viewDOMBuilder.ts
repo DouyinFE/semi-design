@@ -5,11 +5,13 @@ export class ViewDOMBuilder {
     private _lineHeight: number;
     private _options?: JsonViewerOptions;
     private _totalLines: number;
+    public prefixCls: string;
 
     constructor(lineHeight: number, totalLines: number, options?: JsonViewerOptions) {
         this._lineHeight = lineHeight;
         this._totalLines = totalLines;
         this._options = options;
+        this.prefixCls = options?.prefixCls || 'semi-json-viewer';
     }
 
     public createRenderContainer(): HTMLElement {
@@ -24,7 +26,7 @@ export class ViewDOMBuilder {
     }
 
     public createLineNumberContainer(): HTMLElement {
-        const lineNumberClass = 'semi-json-viewer-line-number-container';
+        const lineNumberClass = `${this._options?.prefixCls}-line-number-container`;
         const lineNumberContainer = elt('div', lineNumberClass);
         setStyles(lineNumberContainer, {
             position: 'absolute',
@@ -36,7 +38,7 @@ export class ViewDOMBuilder {
     }
 
     public createContentContainer(): HTMLElement {
-        const contentClass = 'semi-json-viewer-content-container';
+        const contentClass = `${this.prefixCls}-content-container`;
         const contentContainer = elt('div', contentClass);
         setStyles(contentContainer, {
             position: 'absolute',

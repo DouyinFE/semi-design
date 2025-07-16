@@ -207,7 +207,7 @@ export class SelectionModel {
         
         let lineElement: HTMLElement | null;
         if (node instanceof HTMLElement) {
-            lineElement = node.closest('.semi-json-viewer-view-line');
+            lineElement = node.closest(`.${this._view.prefixCls}-view-line`);
         } else {
             lineElement = getLineElement(node);
             if (!lineElement) return { row, col };
