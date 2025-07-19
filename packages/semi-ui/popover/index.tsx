@@ -50,7 +50,8 @@ export interface PopoverProps extends BaseProps {
     clickToHide?: TooltipProps['clickToHide'];
     disableFocusListener?: boolean;
     afterClose?: () => void;
-    keepDOM?: boolean
+    keepDOM?: boolean;
+    exist?: boolean
 }
 
 export interface PopoverState {
@@ -90,6 +91,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         prefixCls: PropTypes.string,
         guardFocus: PropTypes.bool,
         disableArrowKeyDown: PropTypes.bool,
+        exist: PropTypes.bool,
     };
     static __SemiComponentName__ = "Popover";
 
@@ -160,6 +162,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
             position,
             style,
             trigger,
+            exist,
             ...attr
         } = this.props;
         let { spacing } = this.props;
@@ -193,6 +196,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
                 showArrow={arrow}
                 arrowBounding={arrowBounding}
                 role={role}
+                exist={exist}
             >
                 {children}
             </Tooltip>
