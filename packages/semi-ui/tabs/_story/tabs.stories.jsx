@@ -1188,3 +1188,21 @@ export const CollapseScrollIntoViewDemo = () => {
     </div>
   )
 }
+
+export const DisplayHiddenTabBarOnCollapse = () => {
+  const [activeKey, setActiveKey] = useState('Tab-9');
+  return (
+    <div>
+      <div style={{ height: 1000, backgroundColor: 'lightPink' }}>
+        Tabs in the end of the page
+      </div>
+      <Tabs style={{ width: 500, margin: '20px' }} type="card" collapsible activeKey={activeKey} onChange={(e) => {
+          setActiveKey(e)
+        }}>
+      {[...Array(15).keys()].map(i => (
+        <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>content of tab {i}</TabPane>
+      ))}
+    </Tabs>
+    </div>
+  )
+}

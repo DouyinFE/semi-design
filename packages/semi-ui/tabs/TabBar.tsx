@@ -19,7 +19,8 @@ export interface TabBarState {
     rePosKey: number;
     startInd: number;
     uuid: string;
-    currentVisibleItems: string[]
+    currentVisibleItems: string[];
+    isFirstShowInViewport: boolean
 }
 
 export interface OverflowItem extends PlainTab {
@@ -51,21 +52,14 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             rePosKey: 0,
             startInd: 0,
             uuid: '',
-            currentVisibleItems: []
+            currentVisibleItems: [],
+            isFirstShowInViewport: true,
         };
     }
 
     componentDidMount() {
         this.setState({
             uuid: getUuidv4(),
-        }, () => {
-            // Perform the scroll in the setState callback to ensure the uuid is updated to the DOM
-            if (this.props.collapsible) {
-                // Add a small delay to ensure the DOM is fully rendered
-                requestAnimationFrame(() => {
-                    this.scrollActiveTabItemIntoView();
-                });
-            }
         });
     }
 
@@ -257,10 +251,23 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                 className={`${cssClasses.TABS_BAR}-overflow-list`}
                 visibleItemRenderer={this.renderTabItem as any}
                 onVisibleStateChange={(visibleMap) => {
+                    const { isFirstShowInViewport } = this.state;
+                    const { collapsible } = this.props;
                     const visibleMapWithItemKey: Map<string, boolean> = new Map();
                     visibleMap.forEach((v, k ) => {
                         visibleMapWithItemKey.set(this._getItemKeyByBarItemKey(k), v);
                     });
+                    // only when the tabs component appears in the viewport for the first time triggered scrollActiveTabItemIntoView
+                    // refer to issue 2917 https://github.com/DouyinFE/semi-design/issues/2917
+                    if (isFirstShowInViewport && collapsible) {
+                        const isShowInViewport = Array.from(visibleMapWithItemKey.values()).some(item => item);
+                        if (isShowInViewport) {
+                            this.scrollActiveTabItemIntoView();
+                            this.setState({
+                                isFirstShowInViewport: false
+                            });
+                        }
+                    }
                     this.props.onVisibleTabsChange?.(visibleMapWithItemKey);
                 }}
             />
