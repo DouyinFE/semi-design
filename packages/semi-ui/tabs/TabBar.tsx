@@ -19,8 +19,7 @@ export interface TabBarState {
     rePosKey: number;
     startInd: number;
     uuid: string;
-    currentVisibleItems: string[];
-    isFirstShowInViewport: boolean
+    currentVisibleItems: string[]
 }
 
 export interface OverflowItem extends PlainTab {
@@ -45,6 +44,8 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         more: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
     };
 
+    private isFirstShowInViewport: boolean;
+
     constructor(props: TabBarProps) {
         super(props);
         this.state = {
@@ -53,8 +54,8 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             startInd: 0,
             uuid: '',
             currentVisibleItems: [],
-            isFirstShowInViewport: true,
         };
+        this.isFirstShowInViewport = true;
     }
 
     componentDidMount() {
@@ -125,14 +126,14 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         );
     };
 
-    scrollTabItemIntoViewByKey = (key: string, logicalPosition: ScrollLogicalPosition = 'nearest') => {
+    scrollTabItemIntoViewByKey = (key: string, logicalPosition: ScrollLogicalPosition = 'nearest', behavior?: ScrollBehavior) => {
         const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
-        tabItem?.scrollIntoView({ behavior: 'smooth', block: logicalPosition, inline: logicalPosition });
+        tabItem?.scrollIntoView({ behavior: behavior || 'smooth', block: logicalPosition, inline: logicalPosition });
     }
 
-    scrollActiveTabItemIntoView = (logicalPosition?: ScrollLogicalPosition) => {
+    scrollActiveTabItemIntoView = (logicalPosition?: ScrollLogicalPosition, behavior?: ScrollBehavior) => {
         const key = this._getBarItemKeyByItemKey(this.props.activeKey);
-        this.scrollTabItemIntoViewByKey(key, logicalPosition);
+        this.scrollTabItemIntoViewByKey(key, logicalPosition, behavior);
     }
 
     renderTabComponents = (list: Array<PlainTab>): Array<ReactNode> => list.map(panel => this.renderTabItem(panel));
@@ -251,21 +252,17 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                 className={`${cssClasses.TABS_BAR}-overflow-list`}
                 visibleItemRenderer={this.renderTabItem as any}
                 onVisibleStateChange={(visibleMap) => {
-                    const { isFirstShowInViewport } = this.state;
-                    const { collapsible } = this.props;
                     const visibleMapWithItemKey: Map<string, boolean> = new Map();
                     visibleMap.forEach((v, k ) => {
                         visibleMapWithItemKey.set(this._getItemKeyByBarItemKey(k), v);
                     });
                     // only when the tabs component appears in the viewport for the first time triggered scrollActiveTabItemIntoView
                     // refer to issue 2917 https://github.com/DouyinFE/semi-design/issues/2917
-                    if (isFirstShowInViewport && collapsible) {
+                    if (this.isFirstShowInViewport) {
                         const isShowInViewport = Array.from(visibleMapWithItemKey.values()).some(item => item);
                         if (isShowInViewport) {
-                            this.scrollActiveTabItemIntoView();
-                            this.setState({
-                                isFirstShowInViewport: false
-                            });
+                            this.scrollActiveTabItemIntoView('nearest', 'auto');
+                            this.isFirstShowInViewport = false;
                         }
                     }
                     this.props.onVisibleTabsChange?.(visibleMapWithItemKey);
