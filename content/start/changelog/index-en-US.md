@@ -15,6 +15,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.84.0-beta.0 (2025-07-21)
+- 【Fix】
+    - fix collapsible Tabs causing abnormal scrolling behavior of pages not triggered within the viewport
+- 【Feat】
+    - Supports configuring global Spin indicators, Added $animation_duration-button_icon_loading, $animation_duration-button_icon_customIcon_loading design token used to configure the animation duration of different types of loading in the button  [#2695 ](https://github.com/DouyinFE/semi-design/issues/2695)
 
 #### 🎉 2.83.0 (2025-07-14)
 - 【Fix】
