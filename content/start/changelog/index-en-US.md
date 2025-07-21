@@ -25,9 +25,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed the JsonViewer code completion Boolean type prompt problem [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
     - Fixed the JsonViewer drag selection copy deletion incomplete problem [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
     - Fix the problem that the height setting in Modal does not take effect, affecting version 2.82.0-2.82.1  [#2899 ](https://github.com/DouyinFE/semi-design/issues/2899)
-- 【Style】
-    - Fix the style problem of BreadCrumb's item in noLink mode  [#2883 ](https://github.com/DouyinFE/semi-design/issues/2883)
 
+#### 🎉 2.83.0-beta.0 (2025-07-09)
+- 【Style】
+    - Fix the style problem of BreadCrumb's item in noLink mode [#2883](https://github.com/DouyinFE/semi-design/issues/2883)
 
 #### 🎉 2.82.1 (2025-07-02)
 - 【Fix】
