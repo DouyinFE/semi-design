@@ -27,7 +27,7 @@ $module: #{$prefix}-badge;
         z-index: $z-badge;
         text-align: center;
         @include font-size-small;
-        font-weight: $font-size-regular;
+        font-weight: $font-weight-regular;
         color: $color-badge_default-text-default;
     }
 
