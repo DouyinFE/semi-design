@@ -64,6 +64,9 @@ export interface PreviewProps extends BaseProps {
     minZoom?: number;
     previewCls?: string;
     previewStyle?: React.CSSProperties;
+    renderLeftIcon?: React.ReactElement | ((index: number) => ReactNode);
+    renderRightIcon?: React.ReactElement | ((index: number) => ReactNode);
+    renderCloseIcon?: React.ReactElement | (() => React.ReactElement);
     renderHeader?: (info: any) => ReactNode;
     renderPreviewMenu?: (props: MenuProps) => ReactNode;
     getPopupContainer?: () => HTMLElement;
@@ -129,7 +132,8 @@ export interface HeaderProps {
     title?: string;
     titleStyle?: React.CSSProperties;
     className?: string;
-    onClose?: (e: React.MouseEvent<HTMLElement>) => void
+    onClose?: (e: React.MouseEvent<HTMLElement>) => void;
+    renderCloseIcon?: React.ReactElement | (() => React.ReactElement)
 }
 
 export interface FooterProps extends SliderProps {

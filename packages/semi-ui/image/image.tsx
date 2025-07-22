@@ -70,7 +70,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
             willUpdateStates.src = props.src;
             willUpdateStates.loadStatus = "loading";
         }
-        
+
         if (isObject(props.preview)) {
             const { visible } = props.preview;
             if (isBoolean(visible)) {
@@ -129,7 +129,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         const { placeholder } = this.props;
         return (
             placeholder ? (
-                <div className={prefixClsName}> 
+                <div className={prefixClsName}>
                     {placeholder}
                 </div>
             ) : this.renderDefaultLoading()
@@ -139,13 +139,13 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
     renderError = () => {
         const { fallback } = this.props;
         const prefixClsName = `${prefixCls}-status`;
-        const fallbackNode = typeof fallback === "string" ? (<img style={{ width: "100%", height: "100%" }}src={fallback} alt="fallback"/>) : fallback;
+        const fallbackNode = typeof fallback === "string" ? (<img style={{ width: "100%", height: "100%" }} src={fallback} alt="fallback" />) : fallback;
         return (
             fallback ? (
                 <div className={prefixClsName}>
                     {fallbackNode}
                 </div>
-            ) :this.renderDefaultError()
+            ) : this.renderDefaultError()
         );
     }
 
@@ -167,28 +167,28 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
 
     renderMask = () => (<div className={`${prefixCls}-mask`}>
         <div className={`${prefixCls}-mask-info`}>
-            <IconEyeOpened size="extra-large"/>
+            <IconEyeOpened size="extra-large" />
             <span className={`${prefixCls}-mask-info-text`}>{this.getLocalTextByKey("preview")}</span>
         </div>
     </div>);
 
     render() {
         const { src, loadStatus, previewVisible } = this.state;
-        const { src: picSrc, width, height, alt, style, className, crossOrigin, preview, 
+        const { src: picSrc, width, height, alt, style, className, crossOrigin, preview,
             fallback, placeholder, imageID, setDownloadName, imgCls, imgStyle,
-            ...restProps 
+            ...restProps
         } = this.props;
         const outerStyle = Object.assign({ width, height }, style);
         const outerCls = cls(prefixCls, className);
         const canPreview = loadStatus === "success" && preview && !this.isInGroup();
         const showPreviewCursor = preview && loadStatus === "success";
         const previewSrc = isObject(preview) ? ((preview as any).src ?? src) : src;
-        const previewProps = isObject(preview) && canPreview ? { 
-            ...omit(preview, ['className', 'style', 'previewCls', 'previewStyle']), 
-            className: preview?.previewCls, 
-            style: preview?.previewStyle 
-        }: {} as any;
-        return ( 
+        const previewProps = isObject(preview) && canPreview ? {
+            ...omit(preview, ['className', 'style', 'previewCls', 'previewStyle']),
+            className: preview?.previewCls,
+            style: preview?.previewStyle
+        } : {} as any;
+        return (
             <div
                 style={outerStyle}
                 className={outerCls}
@@ -213,7 +213,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
                     onLoad={this.handleLoaded}
                 />
                 {loadStatus !== "success" && this.renderExtra()}
-                {canPreview && 
+                {canPreview &&
                     <PreviewInner
                         {...previewProps}
                         src={previewSrc}
@@ -225,5 +225,5 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
                 }
             </div>
         );
-    } 
+    }
 }

@@ -121,7 +121,7 @@ export default class Footer extends BaseComponent<FooterProps> {
             <Tooltip content={content} key={`tooltip-${key}`} zIndex={zIndex + 1}>
                 {element}
             </Tooltip>
-        ): element;
+        ) : element;
     }
 
     getLocalTextByKey = (key: string) => (
