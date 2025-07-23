@@ -1,8 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
-
-let _id = -1;
 
 export interface IconProps {
     id?: number;
@@ -13,41 +10,26 @@ export interface IconProps {
 }
 
 function Icon(props: IconProps = {}) {
-    const { id: propsId, className, ...rest } = props;
-    let _propsId = propsId;
-    if (isNullOrUndefined(_propsId)) {
-        _id++;
-        _propsId = _id;
-    }
-    const id = `linearGradient-${_propsId}`;
+    const { id, className, ...rest } = props;
     return (
         <svg
             {...rest}
             className={className}
-            width="48"
-            height="48"
-            viewBox="0 0 36 36"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden
-            data-icon="spin"
+            width="100%" 
+            height="100%" 
+            viewBox="0 0 100 100"
         >
-            <defs>
-                <linearGradient x1="0%" y1="100%" x2="100%" y2="100%" id={id}>
-                    <stop stopColor="currentColor" stopOpacity="0" offset="0%" />
-                    <stop stopColor="currentColor" stopOpacity="0.50" offset="39.9430698%" />
-                    <stop stopColor="currentColor" offset="100%" />
-                </linearGradient>
-            </defs>
-            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                <rect fillOpacity="0.01" fill="none" x="0" y="0" width="36" height="36" />
-                <path
-                    d="M34,18 C34,9.163444 26.836556,2 18,2 C11.6597233,2 6.18078805,5.68784135 3.59122325,11.0354951"
-                    stroke={`url(#${id})`}
-                    strokeWidth="4"
-                    strokeLinecap="round"
-                />
-            </g>
+            <circle 
+                cx="50" 
+                cy="50" 
+                r="35" 
+                stroke="currentColor"
+                strokeWidth="11" 
+                strokeLinecap="round" 
+                strokeMiterlimit="10" 
+                fill="none"
+            >
+            </circle>
         </svg>
     );
 }
