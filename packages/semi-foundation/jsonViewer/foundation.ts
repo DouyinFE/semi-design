@@ -1,7 +1,8 @@
 import { JsonViewer, JsonViewerOptions, CustomRenderRule } from '@douyinfe/semi-json-viewer-core';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-
+import { cssClasses } from './constants';
 export type { JsonViewerOptions, CustomRenderRule };
+
 export interface JsonViewerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getEditorRef: () => HTMLElement;
     getSearchRef: () => HTMLInputElement;
@@ -22,7 +23,10 @@ class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
     init() {
         const props = this.getProps();
         const editorRef = this._adapter.getEditorRef();
-        this.jsonViewer = new JsonViewer(editorRef, props.value, props.options);
+        this.jsonViewer = new JsonViewer(editorRef, props.value, {
+            prefixCls: cssClasses.PREFIX,
+            ...props.options
+        });
         this.jsonViewer.emitter.on('customRender', (e) => {
             this._adapter.notifyCustomRender(e.customRenderMap);
         });

@@ -36,7 +36,7 @@ export class ErrorWidget {
             const child = line.children[i];
             offset += child.textContent?.length || 0;
             if (offset > start.column && offset <= end.column) {
-                const className = 'semi-json-viewer-error';
+                const className = `${this._view.prefixCls}-error`;
                 child.classList.add(className);
             }
         }
