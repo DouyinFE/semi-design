@@ -231,4 +231,27 @@ describe('slider', () => {
         cy.get('.semi-slider-handle').eq(0).trigger('mouseover');
         cy.get('.semi-slider-handle-tooltip').eq(0).should('have.text', '0');
     });
+
+    it('should update value correctly in a scrollable container', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--fix-2931&args=&viewMode=story', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
+        const parentSelector = '#horizontal-slider-container';
+        const sliderHandleSelector = `${parentSelector} .semi-slider-handle`;
+        const sliderTrackSelector = `${parentSelector} .semi-slider-rail`;
+
+        // Scroll the container to the right
+        cy.get(parentSelector).scrollTo('right');
+
+        // test track click
+        let handleInitialPos;
+        cy.get(sliderHandleSelector).then(($handle) => {
+            handleInitialPos = $handle.position();
+        });
+
+        cy.get(sliderTrackSelector).trigger('click', { pageX: 500, pageY: 0, force: true });
+        cy.get('@consoleLog').should('be.calledWith', 'value改变了50');
+    });
 });
