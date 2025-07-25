@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-ui",
-    "version": "2.38.3-alpha.2-path-settimeout",
+    "version": "2.38.3-alpha.3-patch-fix-2932",
     "description": "",
     "main": "lib/cjs/index.js",
     "module": "lib/es/index.js",
@@ -17,12 +17,12 @@
         "lib/*"
     ],
     "dependencies": {
-        "@douyinfe/semi-animation": "2.38.3-alpha.2-path-settimeout",
-        "@douyinfe/semi-animation-react": "2.38.3-alpha.2-path-settimeout",
-        "@douyinfe/semi-foundation": "2.38.3-alpha.2-path-settimeout",
-        "@douyinfe/semi-icons": "2.38.3-alpha.2-path-settimeout",
-        "@douyinfe/semi-illustrations": "2.38.3-alpha.2-path-settimeout",
-        "@douyinfe/semi-theme-default": "2.38.3-alpha.2-path-settimeout",
+        "@douyinfe/semi-animation": "2.38.3-alpha.3-patch-fix-2932",
+        "@douyinfe/semi-animation-react": "2.38.3-alpha.3-patch-fix-2932",
+        "@douyinfe/semi-foundation": "2.38.3-alpha.3-patch-fix-2932",
+        "@douyinfe/semi-icons": "2.38.3-alpha.3-patch-fix-2932",
+        "@douyinfe/semi-illustrations": "2.38.3-alpha.3-patch-fix-2932",
+        "@douyinfe/semi-theme-default": "2.38.3-alpha.3-patch-fix-2932",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
         "copy-text-to-clipboard": "^2.1.1",
