@@ -199,6 +199,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     foundation: TooltipFoundation;
     context: ContextValue;
     isAnimating: boolean = false;
+    cachedLatestTransitionState: "leave"|"enter" = "enter"  // 先修复了 #2605，但是出现了 #2682，所以我们更新 transitionState 状态的时候，不再通过 return 空 state 来获取尚未应用的 state 而是放在 this 上缓存
     constructor(props: TooltipProps) {
         super(props);
         this.state = {
@@ -242,6 +243,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             off: (...args: any[]) => this.eventManager.off(...args),
             getAnimatingState: () => this.isAnimating,
             insertPortal: (content: TooltipProps['content'], { position, ...containerStyle }: { position: Position }) => {
+                this.cachedLatestTransitionState = "enter";
                 this.setState(
                     {
                         isInsert: true,
@@ -250,12 +252,9 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     },
                     () => {
                         setTimeout(() => {
-                            this.setState((oldState) => {
-                                if ( oldState.transitionState === 'enter' ) {
-                                    this.eventManager.emit('portalInserted');
-                                }
-                                return {};
-                            });
+                            if ( this.cachedLatestTransitionState === 'enter' ) {
+                                this.eventManager.emit('portalInserted');
+                            }
                             // waiting child component mounted
 
                         }, 0);
@@ -346,6 +345,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
                 willUpdateStates.transitionState = visible ? 'enter' : 'leave';
                 willUpdateStates.visible = visible;
+                this.cachedLatestTransitionState = willUpdateStates.transitionState as "enter"|"leave";
+
                 this.mounted && this.setState(willUpdateStates as TooltipState, () => {
                     cb();
                 });
@@ -366,8 +367,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     const path = (e as any).composedPath && (e as any).composedPath() || [target];
                     const isClickTriggerToHide = this.props.clickTriggerToHide ? el && (el as any).contains(target) || path.includes(el) : false;
                     if (
-                        el && !(el as any).contains(target) && 
-                        popupEl && !(popupEl as any).contains(target) && 
+                        el && !(el as any).contains(target) &&
+                        popupEl && !(popupEl as any).contains(target) &&
                         !(path.includes(popupEl) || path.includes(el)) ||
                         isClickTriggerToHide
                     ) {
