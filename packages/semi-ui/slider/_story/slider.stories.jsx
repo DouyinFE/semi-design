@@ -429,6 +429,28 @@ RangeMinSlider.story = {
 
 export const Fix2931 = () => (
   <div>
+    <h3>horizontal scroll to show</h3>
+    <div style={{ display: 'flex', width: '100%', height: '200px', marginLeft: '100px' }}>
+      <div 
+        id="horizontal-slider-container" 
+        style={{ 
+          flex: 1, 
+          overflow: "auto", 
+          backgroundColor: 'lightPink', 
+          position: 'relative',
+          paddingLeft: "1500px"
+        }}
+      >
+        <Slider 
+          style={{ width: 2000 }} 
+          showBoundary 
+          onChange={value => {
+            console.log('value改变了' + value);
+          }}
+        />
+      </div>
+      <div style={{ width: 300, backgroundColor: 'lightBlue' }}></div>
+    </div>
     <h3>horizontal</h3>
     <div style={{ display: 'flex', width: '100%', height: '200px', marginLeft: '100px' }}>
       <div 
