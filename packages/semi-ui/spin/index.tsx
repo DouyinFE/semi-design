@@ -6,6 +6,7 @@ import { cssClasses as css, strings } from '@douyinfe/semi-foundation/spin/const
 import SpinFoundation from '@douyinfe/semi-foundation/spin/foundation';
 import SpinIcon from './icon';
 import '@douyinfe/semi-foundation/spin/spin.scss';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 
 const prefixCls = css.PREFIX;
 
@@ -40,13 +41,15 @@ class Spin extends BaseComponent<SpinProps, SpinState> {
         style: PropTypes.object,
     };
 
-    static defaultProps: SpinProps = {
+    static __SemiComponentName__ = "Spin";
+
+    static defaultProps = getDefaultPropsFromGlobalConfig(Spin.__SemiComponentName__, {
         size: 'middle',
         spinning: true,
         children: null,
         indicator: null,
         delay: 0,
-    };
+    });
 
     constructor(props: SpinProps) {
         super(props);

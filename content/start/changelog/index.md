@@ -13,6 +13,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.84.0-beta.0 (2025-07-21)
+- 【Fix】
+    - 修复 collapsible Tabs 导致未在视口内触发的页面异常滚动行为 [#2918](https://github.com/DouyinFE/semi-design/pull/2918)
+- 【Feat】
+    - 支持配置全局的 Spin 的指示器，新增 $animation_duration-button_icon_loading，$animation_duration-button_icon_customIcon_loading 设计 token 用于配置 button 中不同类型的 loading 的动画时长   [#2695 ](https://github.com/DouyinFE/semi-design/issues/2695) [#2897](https://github.com/DouyinFE/semi-design/pull/2897)
+    
 #### 🎉 2.83.0 (2025-07-14)
 - 【Fix】
     - 修复JsonViewer 全选删除后继续删除报错问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
