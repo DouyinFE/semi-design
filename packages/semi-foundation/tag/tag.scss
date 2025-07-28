@@ -156,16 +156,18 @@ $types: "ghost", "solid", "light";
         }
     }
 
-    .#{$module}-close {
-        color: $color-tag_close-icon_deep-default;
-        opacity: .8;
+    &-solid {
+        .#{$module}-close {
+            color: $color-tag_close-icon_deep-default;
+            opacity: .8;
 
-        &:hover {
-            opacity: 1.0;
-        }
+            &:hover {
+                opacity: 1.0;
+            }
 
-        &:active {
-            opacity: .9;
+            &:active {
+                opacity: .9;
+            }
         }
     }
 }
