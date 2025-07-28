@@ -4,6 +4,30 @@
 $module: #{$prefix}-button;
 
 .#{$module} {
+    @keyframes #{$prefix}-animation-rotate {
+        from {
+            transform: rotate(0);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes #{$prefix}-animation-circle {
+        0% {
+            stroke-dasharray: 1, 220;
+            stroke-dashoffset: 0;
+        }
+        50% {
+            stroke-dasharray: 150, 220;
+            stroke-dashoffset: -68px;
+        }
+        100% {
+            stroke-dasharray: 150, 220;
+            stroke-dashoffset: -218px;
+        }
+    }
+
     &.#{$module}-with-icon {
         display: inline-flex;
         align-items: center;
@@ -24,8 +48,12 @@ $module: #{$prefix}-button;
             &>svg {
                 width: 16px;
                 height: 16px;
-                animation: .6s linear infinite #{$prefix}-animation-rotate;
+                animation: 1200ms linear infinite #{$prefix}-animation-rotate;
                 animation-fill-mode: forwards;
+
+                & > circle {
+                    animation: 2500ms ease-in-out infinite #{$prefix}-animation-circle;
+                }
             }
         }
     }
