@@ -384,3 +384,15 @@ export const maxWidth = () => {
     </Tag>
   </>
 )}
+
+export const Solid = () => (
+    <Space wrap>
+        {[false, true].map(close => {
+          return <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }} >{['amber', 'blue', 'cyan', 'green', 'grey', 'indigo',  
+                'light-blue', 'light-green', 'lime', 'orange', 'pink',  
+                'purple', 'red', 'teal', 'violet', 'yellow', 'white'
+            ].map(item => (<Tag type="solid" color={item} key={item} closable={close}> {item} </Tag>))}</div>
+          ;
+        })}
+    </Space>
+)
