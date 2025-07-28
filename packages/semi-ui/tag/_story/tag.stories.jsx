@@ -385,7 +385,7 @@ export const maxWidth = () => {
   </>
 )}
 
-export const Solid = () => (
+export const Type = () => (
     <Space wrap>
       {['solid', 'light', 'ghost'].map(type => {
         return <div>
