@@ -48,7 +48,7 @@ export function createThemeLoaderRule(opts?: SemiWebpackPluginOptions) {
 
 export function createOmitCssLoaderRule(_opts?: SemiWebpackPluginOptions) {
     return {
-        test: /@douyinfe(\/|\\)+semi-(ui|icons)(\/|\\)+.+\.js$/,
+        test: /@douyinfe\/semi-(ui|icons)\/lib\/.+\.js$/,
         use: [{ loader: OMIT_CSS_LOADER }],
     };
 }
