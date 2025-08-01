@@ -89,6 +89,9 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         showClear: PropTypes.bool,
         onClear: PropTypes.func,
         onResize: PropTypes.func,
+        onCompositionStart: PropTypes.func,
+        onCompositionEnd: PropTypes.func,
+        onCompositionUpdate: PropTypes.func,
         getValueLength: PropTypes.func,
         disabledEnterStartNewLine: PropTypes.bool,
         // TODO
@@ -109,6 +112,9 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         onKeyDown: noop,
         onResize: noop,
         onClear: noop,
+        onCompositionStart: noop,
+        onCompositionEnd: noop,
+        onCompositionUpdate: noop,
         // resize: false,
     };
 
@@ -163,6 +169,9 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             notifyPressEnter: (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
                 this.props.onEnterPress && this.props.onEnterPress(e);
             },
+            notifyCompositionStart: (e: React.CompositionEvent<HTMLTextAreaElement>) => this.props.onCompositionStart(e),
+            notifyCompositionEnd: (e: React.CompositionEvent<HTMLTextAreaElement>) => this.props.onCompositionEnd(e),
+            notifyCompositionUpdate: (e: React.CompositionEvent<HTMLTextAreaElement>) => this.props.onCompositionUpdate(e),
             setMinLength: (minLength: number) => this.setState({ minLength }),
         };
     }
@@ -303,6 +312,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             value: value === null || value === undefined ? '' : value,
             onCompositionStart: this.foundation.handleCompositionStart,
             onCompositionEnd: this.foundation.handleCompositionEnd,
+            onCompositionUpdate: this.foundation.handleCompositionUpdate,
         };
         if (!isFunction(getValueLength)) {
             (itemProps as any).maxLength = maxLength;

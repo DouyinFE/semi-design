@@ -18,7 +18,10 @@ export interface TextAreaDefaultAdapter {
     notifyKeyDown: noopFunction;
     notifyEnterPress: noopFunction;
     toggleHovering(hovering: boolean): void;
-    notifyClear(e: any): void
+    notifyClear(e: any): void;
+    notifyCompositionStart(e: any): void;
+    notifyCompositionEnd(e: any): void;
+    notifyCompositionUpdate(e: any): void
 }
 
 export interface TextAreaAdapter extends Partial<DefaultAdapter>, Partial<TextAreaDefaultAdapter> {
@@ -89,12 +92,14 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
         return value;
     }
 
-    handleCompositionStart = () => {
+    handleCompositionStart = (e) => {
         this.compositionEnter = true;
+        this._adapter.notifyCompositionStart(e);
     }
 
     handleCompositionEnd = (e: any) => {
         this.compositionEnter = false;
+        this._adapter.notifyCompositionEnd(e); 
         const { getValueLength, maxLength, minLength } = this.getProps();
         if (!isFunction(getValueLength)) {
             return;
@@ -107,6 +112,10 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
         if (minLength) {
             this.handleVisibleMinLength(value);
         } 
+    }
+    
+    handleCompositionUpdate = (e) => {
+        this._adapter.notifyCompositionUpdate(e);
     }
 
     /**
