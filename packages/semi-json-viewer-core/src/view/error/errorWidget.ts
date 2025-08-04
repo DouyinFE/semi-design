@@ -29,7 +29,8 @@ export class ErrorWidget {
     }
 
     private findDomByPos(start: { lineNumber: number; column: number }, end: { lineNumber: number; column: number }, errMessage: string) {
-        const line = this._view.getLineElement(start.lineNumber);
+        let line = this._view.getLineElement(start.lineNumber);
+        line = line?.children[0] as HTMLElement;
         if (!line) return;
         let offset = 1;
         for (let i = 0; i < line.children.length; i++) {
