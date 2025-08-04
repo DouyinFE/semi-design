@@ -133,14 +133,19 @@ export default class SemiWebpackPlugin {
                         loader: extraCssLoader
                     }
                 ];
-                const commonLoaderList = [
+                const commonLoaderList: any[] = [
                     {
                         loader: cssLoader,
                         options: {
                             sourceMap: false,
                         }
                     }, {
-                        loader: scssLoader
+                        loader: scssLoader,
+                        options: {
+                            sassOptions: {
+                                silenceDeprecations: ['import', 'legacy-js-api', 'global-builtin'],
+                            },
+                        }
                     },
                     {
                         loader: path.join(__dirname, 'semi-theme-loader'),
