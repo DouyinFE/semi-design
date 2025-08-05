@@ -64,7 +64,7 @@ yarn add -D @douyinfe/semi-rspack-plugin
 // webComponentPath：指定需要插入样式的 shadow DOM 的路径
 // 1. 支持 Boolean 类型，传入 true，为默认路径 src/*
 // 2. 支持 RegExp 正则表达式，通过正则表达式匹配路径
-webComponentPath: Boolean | RegExp
+webComponentPath: Boolean | RegExp;
 ```
 
 举个 🌰，如果 shadow DOM 在路径 src/components 下，则进行如下配置：
@@ -101,7 +101,7 @@ export default defineConfig({
         }
       });
 
-      config.plugins.push(new SemiPlugin({
+      config.plugins.push(new RspackPlugin({
         webComponentPath: true,
       }));
     }
@@ -142,7 +142,7 @@ class TestShadowDom extends HTMLElement {
     // Semi 插件在编译阶段将解析以下语句，将 importSemiComponentStyle 函数具体实现插入到该文件中
     importSemiComponentStyle(
           'SEMI_INSERT_STYLE_BEGIN["Button", "Select"]SEMI_INSERT_STYLE_END',
-          root，
+          root,
           () => {}
     );
     const container = document.createElement('div');
@@ -180,7 +180,7 @@ class TestShadowDom extends HTMLElement {
 
     importSemiComponentStyle(
           'SEMI_INSERT_STYLE_BEGIN["Button"]SEMI_INSERT_STYLE_END',
-          this.shadowRoot，
+          this.shadowRoot,
           () => {}
     );
     const container = document.createElement('div');
