@@ -13,6 +13,13 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.84.0 (2025-07-29)
+- 【Fix】
+    - 修复 InputNumber 因为 js 精度计算有误问题 [#2937](https://github.com/DouyinFE/semi-design/pull/2937)
+    - 修复 Slider 在可滚动条件下点击或者拖动方式更新 handle 位置不正确问题 [#2932](https://github.com/DouyinFE/semi-design/pull/2932)
+- 【Style】
+    - 修复 type 为 solid，color 为 white 的 Tag 的关闭图标颜色错误问题 [#2935](https://github.com/DouyinFE/semi-design/pull/2935)
+
 #### 🎉 2.84.0-beta.0 (2025-07-21)
 - 【Fix】
     - 修复 collapsible Tabs 导致未在视口内触发的页面异常滚动行为 [#2918](https://github.com/DouyinFE/semi-design/pull/2918)

@@ -229,10 +229,9 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
      */
     handleMousePos = (clientX: number, clientY: number) => {
         const parentRect = this._adapter.getParentRect();
-        const scrollParent = this._adapter.getScrollParentVal();
         const parentX = parentRect ? parentRect.left : 0;
         const parentY = parentRect ? parentRect.top : 0;
-        return { x: clientX - parentX + scrollParent.scrollLeft, y: clientY - parentY + scrollParent.scrollTop };
+        return { x: clientX - parentX, y: clientY - parentY };
     };
 
     /**
@@ -383,7 +382,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
      * @memberof SliderFoundation
      */
     outPutValue = (inputValue: SliderProps['value']) => {
-        const checkHowManyDecimals = (num: number)=>{
+        const checkHowManyDecimals = (num: number) => {
             const reg = /^\d+(\.\d+)?$/;
             if (reg.test(String(num))) {
                 return num.toString().split('.')[1]?.length ?? 0;
@@ -391,10 +390,10 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
             return 0;
         };
         const step = this._adapter.getProp('step');
-        const transWay = (()=>{
+        const transWay = (() => {
             const decimals = checkHowManyDecimals(step);
             const multipler = Math.pow(10, decimals);
-            return (value: number)=>{
+            return (value: number) => {
                 return Math.round(value * multipler) / multipler;
             };
         })();

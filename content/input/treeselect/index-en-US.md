@@ -1430,7 +1430,7 @@ function Demo() {
 | expandAll | Set whether to expand all nodes by default. If the data (`treeData`) changes, the default expansion will still be affected by this api | boolean | false |- |
 | expandedKeys        | （Controlled）Keys of expanded nodes. Direct child nodes will be displayed.  | string[]                    | -       | - |
 | expandIcon | Custom expand icon, [example](/en-US/navigation/tree#Custom%20expansion%20icon) | ReactNode \| (props: expandProps)=>ReactNode | - | 2.75.0 |
-| keyMaps | Customize the key, label, and value fields in the node | object |  - | 2.47.0 |
+| keyMaps | Customize the key, label, and value fields in the node. If you set a custom name for the label in keyMaps and enable search, to ensure correct search, you need to set treeNodeFilterProp to one of the keys of treeData or use a custom search function through filterTreeNode. | object |  - | 2.47.0 |
 | filterTreeNode           | Toggle whether searchable or pass in a function to customize search behavior, data parameter provided since v2.28.0 | boolean\| <ApiType detail='(inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean'>Function</ApiType> | false       | -       |
 | getPopupContainer        | Container to render pop-up, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.                                                    | function():HTMLElement                                            | -           | -       |
 | labelEllipsis | Toggle whether to ellipsis label when overflow | boolean | false\|true(virtualized) | - |  

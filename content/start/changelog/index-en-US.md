@@ -15,6 +15,13 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.84.0 (2025-07-29)
+- 【Fix】
+    - fix the problem that InputNumber calculation is incorrect due to js precision
+    - fixed the problem that the handle position of Slider is incorrect when clicking or dragging under scrollable conditions
+- 【Style】
+    - Fixed the issue that the close icon of a tag with type solid and color white has incorrect color
+
 #### 🎉 2.84.0-beta.0 (2025-07-21)
 - 【Fix】
     - fix collapsible Tabs causing abnormal scrolling behavior of pages not triggered within the viewport
