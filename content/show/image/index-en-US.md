@@ -520,6 +520,9 @@ Other attributes same as [img](https://developer.mozilla.org/en-US/docs/Web/HTML
 | previewCls        | Custom preview style class name                                                                                                                                       | string           | - | |
 | previewStyle        | Custom preview style                                                                                                                                       | object           | - | |
 | prevTip          | Previous operation button prompt                                                                                                                                         | string  | "Previous" | |
+| renderCloseIcon  | custom close icon | ReactElement ｜ ()=>ReactElement | - | 2.85.0 |
+| renderLeftIcon   | custom left icon | ReactElement ｜ (index)=>ReactElement | - | 2.85.0 |
+| renderRightIcon  | custom right icon | ReactElement ｜ (index)=>ReactElement | - | 2.85.0 |
 | renderHeader     | Custom render preview top info                                                                                                                                           |(info: reactNode) => ReactNode  | - | |
 | renderPreviewMenu | Custom render preview bottom menu information                                                                                                                            | (props: MenuProps) => ReactNode; | - | |
 | rotateTip        | Tips for rotating action buttons                                                                                                                                         |string        | "Rotate" | |

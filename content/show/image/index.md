@@ -522,6 +522,9 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | previewCls        | 自定义预览样式类名                                                                                                                                       | string           | - | |
 | previewStyle        | 自定义预览样式                                                                                                                                       | object           | - | |
 | prevTip           | 上一步操作按钮提示                                                                                                                                        | string         | "上一步" | |
+| renderCloseIcon  | 自定义关闭icon | ReactElement ｜ () => ReactElement | - | 2.85.0 |
+| renderLeftIcon   | 自定义向左icon | ReactElement ｜ (index) => ReactElement | - | 2.85.0 |
+| renderRightIcon  | 自定义向右icon | ReactElement ｜ (index) => ReactElement | - | 2.85.0 |
 | renderHeader      | 自定义渲染预览顶部信息                                                                                                                                      | (info: ReactNode) => ReactNode  | - | |
 | renderPreviewMenu | 自定义渲染预览底部菜单信息                                                                                                                                    | (props: MenuProps) => ReactNode;| - | |
 | rotateTip         | 旋转操作按钮提示                                                                                                                                         | string         | "旋转" | |

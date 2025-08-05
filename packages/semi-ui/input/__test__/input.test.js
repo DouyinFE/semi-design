@@ -282,4 +282,31 @@ describe('Input', () => {
     expect(inputGroup.find('input').at(0).instance().disabled).toBe(false);
     expect(inputGroup.find('input').at(1).instance().disabled).toBe(true);
   })
+
+  it('test onCompositionStart callback', () => {
+    const spyOnCompositionStart = sinon.spy();
+    const input = mount(<Input onCompositionStart={spyOnCompositionStart} />);
+    const inputDom = input.find('input');
+    
+    inputDom.simulate('compositionstart', { target: { value: 'test' } });
+    expect(spyOnCompositionStart.calledOnce).toBe(true);
+  });
+
+  it('test onCompositionEnd callback', () => {
+      const spyOnCompositionEnd = sinon.spy();
+      const input =  mount(<Input onCompositionEnd={spyOnCompositionEnd} />);
+      const inputDom = input.find('input');
+      
+      inputDom.simulate('compositionend', { target: { value: 'test' } });
+      expect(spyOnCompositionEnd.calledOnce).toBe(true);
+  });
+
+  it('test onCompositionUpdate callback', () => {
+      const spyOnCompositionUpdate = sinon.spy();
+      const input =  mount(<Input onCompositionUpdate={spyOnCompositionUpdate} />);
+      const inputDom = input.find('input');
+      
+      inputDom.simulate('compositionupdate', { target: { value: 'test' } });
+      expect(spyOnCompositionUpdate.calledOnce).toBe(true);
+  });
 });
