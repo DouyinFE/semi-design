@@ -68,7 +68,6 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         showTooltip: false,
         zoomStep: 0.1,
         infinite: false,
-        closable: true,
         closeOnEsc: true,
         lazyLoad: false,
         preLoad: true,
@@ -163,7 +162,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                     headerDom && headerDom.contains(target) ||
                     footerDom && footerDom.contains(target) ||
                     leftIconDom && leftIconDom.contains(target) ||
-                    rightIconDom && rightIconDom.contains(target)
+                    rightIconDom && rightIconDom.contains(target)  
                 ) {
                     // Move in the operation area, return false
                     return false;
@@ -172,7 +171,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                 return true;
             },
             changeImageZoom: (...args) => {
-                this.imageRef?.current && this.imageRef.current.foundation.changeZoom(...args);
+                this.imageRef?.current && this.imageRef.current.foundation.changeZoom(...args)
             }
         };
 
@@ -208,9 +207,9 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         this.imageWrapRef = null;
         this.imageRef = React.createRef<PreviewImage>();
         this.headerRef = React.createRef<HTMLElement>();
-        this.footerRef = React.createRef<HTMLElement>();
-        this.leftIconRef = React.createRef<HTMLDivElement>();
-        this.rightIconRef = React.createRef<HTMLDivElement>();
+        this.footerRef= React.createRef<HTMLElement>();
+        this.leftIconRef= React.createRef<HTMLDivElement>();
+        this.rightIconRef= React.createRef<HTMLDivElement>();
     }
 
     static getDerivedStateFromProps(props: PreviewInnerProps, state: PreviewInnerStates) {
@@ -370,9 +369,6 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             originTip,
             showTooltip,
             disableDownload,
-            renderLeftIcon,
-            renderRightIcon,
-            renderCloseIcon,
             renderPreviewMenu,
             renderHeader,
         } = this.props;
@@ -402,14 +398,11 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         const total = imgSrc.length;
         const showPrev = total !== 1 && (infinite || currentIndex !== 0);
         const showNext = total !== 1 && (infinite || currentIndex !== total - 1);
-
-        const leftIcon = typeof renderLeftIcon === 'function' ? renderLeftIcon(currentIndex) : renderLeftIcon;
-        const rightIcon = typeof renderRightIcon === 'function' ? renderRightIcon(currentIndex) : renderRightIcon;
         return (
             visible && <Portal
                 getPopupContainer={getPopupContainer}
                 style={wrapperStyle}
-            >
+            >  
                 {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                 <div
                     className={previewWrapperCls}
@@ -419,7 +412,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                     ref={this.registryImageWrapRef}
                     onMouseMove={this.handleMouseMove}
                 >
-                    <Header ref={this.headerRef} className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader} closable={closable} renderCloseIcon={renderCloseIcon} />
+                    <Header ref={this.headerRef} className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader} closable={closable}/>
                     <PreviewImage
                         ref={this.imageRef}
                         src={imgSrc[currentIndex]}
@@ -440,7 +433,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                             className={cls(`${previewPrefixCls}-icon`, `${previewPrefixCls}-prev`, hideViewerCls)}
                             onClick={(): void => this.handleSwitchImage("prev")}
                         >
-                            {React.isValidElement(leftIcon) ? leftIcon : <IconArrowLeft size="large" />}
+                            <IconArrowLeft size="large" />
                         </div>
                     )}
                     {showNext && (
@@ -450,7 +443,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                             className={cls(`${previewPrefixCls}-icon`, `${previewPrefixCls}-next`, hideViewerCls)}
                             onClick={(): void => this.handleSwitchImage("next")}
                         >
-                            {React.isValidElement(rightIcon) ? rightIcon : <IconArrowRight size="large" />}
+                            <IconArrowRight size="large" />
                         </div>
                     )}
                     <Footer
