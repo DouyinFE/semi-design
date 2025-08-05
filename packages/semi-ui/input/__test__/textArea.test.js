@@ -224,4 +224,31 @@ describe('TextArea', () => {
             truncateValue(value, length, expectedCalcTimes);
         }
     });
+
+    it('test onCompositionStart callback', () => {
+        const spyOnCompositionStart = sinon.spy();
+        const textArea = mount(<TextArea onCompositionStart={spyOnCompositionStart} />);
+        const textareaDom = textArea.find('textarea');
+        
+        textareaDom.simulate('compositionstart', { target: { value: 'test' } });
+        expect(spyOnCompositionStart.calledOnce).toBe(true);
+    });
+
+    it('test onCompositionEnd callback', () => {
+        const spyOnCompositionEnd = sinon.spy();
+        const textArea = mount(<TextArea onCompositionEnd={spyOnCompositionEnd} />);
+        const textareaDom = textArea.find('textarea');
+        
+        textareaDom.simulate('compositionend', { target: { value: 'test' } });
+        expect(spyOnCompositionEnd.calledOnce).toBe(true);
+    });
+
+    it('test onCompositionUpdate callback', () => {
+        const spyOnCompositionUpdate = sinon.spy();
+        const textArea = mount(<TextArea onCompositionUpdate={spyOnCompositionUpdate} />);
+        const textareaDom = textArea.find('textarea');
+        
+        textareaDom.simulate('compositionupdate', { target: { value: 'test' } });
+        expect(spyOnCompositionUpdate.calledOnce).toBe(true);
+    });
 });
