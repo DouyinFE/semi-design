@@ -13,6 +13,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.85.0-beta.0 (2025-08-05)
+- 【Feat】
+    - Input/TextArea 增加 onCompositionStart/onCompositionEnd/onCompositionUpdate 的回调 [#2922](https://github.com/DouyinFE/semi-design/pull/2922)
+    - semi webpack 和 rspack 插件在 sass-loader 中添加内置 silenceDeprecations 选项（'import', 'legacy-js-api', 'global-builtin'）静默 sass 相关的弃用警告 [#2944](https://github.com/DouyinFE/semi-design/pull/2944)
+    - Image 组件增加 renderCloseIcon/renderLeftIcon/renderRightIcon API [@rubbishmaker](https://github.com/rubbishmaker) [#2919](https://github.com/DouyinFE/semi-design/pull/2919)
+- 【Fix】
+    - 修复 tooltip 在某些场景有 updateState warning 的问题 [#2682](https://github.com/DouyinFE/semi-design/issues/2682) [#2928](https://github.com/DouyinFE/semi-design/pull/2928)
+    - 修复JsonViewer错误信息不展示问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2943](https://github.com/DouyinFE/semi-design/pull/2943)
+
+
 #### 🎉 2.84.0 (2025-07-29)
 - 【Fix】
     - 修复 InputNumber 因为 js 精度计算有误问题 [#2937](https://github.com/DouyinFE/semi-design/pull/2937)

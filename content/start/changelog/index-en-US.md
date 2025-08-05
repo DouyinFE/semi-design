@@ -15,6 +15,17 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.85.0-beta.0 (2025-08-05)
+- 【Feat】
+    - Input and TextArea adds callback function for onCompositionStart/onCompositionEnd/onCompositionUpdate [#2922](https://github.com/DouyinFE/semi-design/pull/2922)
+    - webpack and rspack plugins in semi add built-in silenceDeprecations options ('import', 'legacy-js-api', 'global-builtin') to sass-loader to silence sass-related deprecation warnings [#2944](https://github.com/DouyinFE/semi-design/pull/2944)
+    - Image component add renderCloseIcon/renderLeftIcon/renderRightIcon API [@rubbishmaker](https://github.com/rubbishmaker)[#2919](https://github.com/DouyinFE/semi-design/pull/2919)
+- 【Fix】
+    - Fixed the issue that tooltip has updateState warning in some scenarios [#2682](https://github.com/DouyinFE/semi-design/issues/2682)
+    - fixed the error message display issue [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)[#2943](https://github.com/DouyinFE/semi-design/pull/2943)
+
+
 #### 🎉 2.84.0 (2025-07-29)
 - 【Fix】
     - fix the problem that InputNumber calculation is incorrect due to js precision
