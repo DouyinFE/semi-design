@@ -21,7 +21,10 @@ import {
     IconWindowAdaptionStroked,
     IconRealSizeStroked,
     IconUploadError,
-    IconInfoCircle
+    IconInfoCircle,
+    IconEyeClosed,
+    IconLeftCircleStroked,
+    IconCenterRightStroked
 } from "@douyinfe/semi-icons";
 
 export default {
@@ -778,4 +781,25 @@ export const previewClsAndPreviewStyle = () => {
             })}
         </ImagePreview> 
     </>
+}
+
+export const RenderPreviewIcon = () => {
+    // 自定义关闭，左右切换按钮
+    return <ImagePreview
+       renderCloseIcon={<IconEyeClosed size="large" />}
+       renderLeftIcon={<IconLeftCircleStroked size="large" />}
+       renderRightIcon={<IconCenterRightStroked size="large" />}
+    >
+        {srcList1.map((src, index) => {
+            return (
+                <Image 
+                    key={index} 
+                    src={src} 
+                    width={200} 
+                    alt={`lamp${index + 1}`} 
+                    style={{ marginRight: 5 }}
+                />
+            );
+        })}
+    </ImagePreview> 
 }

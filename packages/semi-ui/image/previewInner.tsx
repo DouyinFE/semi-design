@@ -404,7 +404,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         const showNext = total !== 1 && (infinite || currentIndex !== total - 1);
 
         const leftIcon = typeof renderLeftIcon === 'function' ? renderLeftIcon(currentIndex) : renderLeftIcon;
-        const rightIcon = typeof renderRightIcon === 'function' ? renderRightIcon(currentIndex) : renderLeftIcon;
+        const rightIcon = typeof renderRightIcon === 'function' ? renderRightIcon(currentIndex) : renderRightIcon;
         return (
             visible && <Portal
                 getPopupContainer={getPopupContainer}
