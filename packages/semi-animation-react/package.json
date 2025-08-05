@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-animation-react",
-    "version": "2.83.0",
+    "version": "2.84.0",
     "description": "motion library for semi-ui-react",
     "keywords": [
         "motion",
@@ -25,8 +25,8 @@
         "prepublishOnly": "npm run build:lib"
     },
     "dependencies": {
-        "@douyinfe/semi-animation": "2.83.0",
-        "@douyinfe/semi-animation-styled": "2.83.0",
+        "@douyinfe/semi-animation": "2.84.0",
+        "@douyinfe/semi-animation-styled": "2.84.0",
         "classnames": "^2.2.6"
     },
     "devDependencies": {

@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-next",
-    "version": "2.83.0",
+    "version": "2.84.0",
     "description": "Plugin that support Semi Design in Next.js",
     "author": "伍浩威 <wuhaowei.whw@bytedance.com>",
     "homepage": "",
@@ -22,7 +22,7 @@
         "typescript": "^4"
     },
     "dependencies": {
-        "@douyinfe/semi-webpack-plugin": "2.83.0"
+        "@douyinfe/semi-webpack-plugin": "2.84.0"
     },
     "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a"
 }

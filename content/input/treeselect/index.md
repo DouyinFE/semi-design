@@ -1413,7 +1413,7 @@ function Demo() {
 | expandAll | 设置是否默认展开所有节点，若后续数据(`treeData`)发生改变，默认的展开情况也是会受到这个 api 影响的                                                         | boolean | false |
 | expandedKeys | （受控）展开的节点，默认展开节点显示其直接子级                                                                                                   | string[] | - |
 | expandIcon | 自定义展开图标，使用[示例](/zh-CN/navigation/tree#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%95%E5%BC%80%20Icon) | ReactNode \| (props: expandProps)=>ReactNode | - | 2.75.0 |
-| keyMaps | 自定义节点中 key、label、value 的字段。v2.47.0后提供                                                                                                | object |  - |
+| keyMaps | 自定义节点中 key、label、value 的字段。v2.47.0后提供。如果 keyMaps 中设置 label 的自定义名称并且开启了搜索，为保证搜索正确，需要将 treeNodeFilterProp 设置为 treeData 的键之一或者通过 filterTreeNode 自定义搜索函数                                                                                            | object |  - |
 | filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNodeData` 的属性值, data 参数自 v2.28.0 开始提供                         | boolean\| <ApiType detail='(inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean'>Function</ApiType> | false |
 | getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                                                       | function():HTMLElement | - |
 | labelEllipsis | 是否开启label的超出省略，默认虚拟化状态下开启                                                                                                   | boolean | false\|true(虚拟化) | 

@@ -15,6 +15,18 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.84.0 (2025-07-29)
+- 【Fix】
+    - fix the problem that InputNumber calculation is incorrect due to js precision
+    - fixed the problem that the handle position of Slider is incorrect when clicking or dragging under scrollable conditions
+- 【Style】
+    - Fixed the issue that the close icon of a tag with type solid and color white has incorrect color
+
+#### 🎉 2.84.0-beta.0 (2025-07-21)
+- 【Fix】
+    - fix collapsible Tabs causing abnormal scrolling behavior of pages not triggered within the viewport
+- 【Feat】
+    - Supports configuring global Spin indicators, Added $animation_duration-button_icon_loading, $animation_duration-button_icon_customIcon_loading design token used to configure the animation duration of different types of loading in the button  [#2695 ](https://github.com/DouyinFE/semi-design/issues/2695)
 
 #### 🎉 2.83.0 (2025-07-14)
 - 【Fix】
@@ -25,9 +37,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed the JsonViewer code completion Boolean type prompt problem [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
     - Fixed the JsonViewer drag selection copy deletion incomplete problem [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
     - Fix the problem that the height setting in Modal does not take effect, affecting version 2.82.0-2.82.1  [#2899 ](https://github.com/DouyinFE/semi-design/issues/2899)
-- 【Style】
-    - Fix the style problem of BreadCrumb's item in noLink mode  [#2883 ](https://github.com/DouyinFE/semi-design/issues/2883)
 
+#### 🎉 2.83.0-beta.0 (2025-07-09)
+- 【Style】
+    - Fix the style problem of BreadCrumb's item in noLink mode [#2883](https://github.com/DouyinFE/semi-design/issues/2883)
 
 #### 🎉 2.82.1 (2025-07-02)
 - 【Fix】

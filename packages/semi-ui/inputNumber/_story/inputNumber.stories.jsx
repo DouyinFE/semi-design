@@ -969,3 +969,14 @@ export const TestInputNumber = () => {
   </div>
   )
 }
+
+
+export const Fix2936 = () => {
+  return (
+    <div style={{ width: 280 }}>
+        <label>点击增加按钮，值会变成 0.08 </label>
+        <InputNumber step={0.01} max={0.08} min={0.01} defaultValue={0.07} />
+        <br/><br/>
+    </div>
+  )
+}

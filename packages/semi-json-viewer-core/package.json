@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-json-viewer-core",
-    "version": "2.83.0",
+    "version": "2.84.0",
     "description": "",
     "main": "lib/index.js",
     "module": "lib/index.js",

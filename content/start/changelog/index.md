@@ -13,6 +13,19 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.84.0 (2025-07-29)
+- 【Fix】
+    - 修复 InputNumber 因为 js 精度计算有误问题 [#2937](https://github.com/DouyinFE/semi-design/pull/2937)
+    - 修复 Slider 在可滚动条件下点击或者拖动方式更新 handle 位置不正确问题 [#2932](https://github.com/DouyinFE/semi-design/pull/2932)
+- 【Style】
+    - 修复 type 为 solid，color 为 white 的 Tag 的关闭图标颜色错误问题 [#2935](https://github.com/DouyinFE/semi-design/pull/2935)
+
+#### 🎉 2.84.0-beta.0 (2025-07-21)
+- 【Fix】
+    - 修复 collapsible Tabs 导致未在视口内触发的页面异常滚动行为 [#2918](https://github.com/DouyinFE/semi-design/pull/2918)
+- 【Feat】
+    - 支持配置全局的 Spin 的指示器，新增 $animation_duration-button_icon_loading，$animation_duration-button_icon_customIcon_loading 设计 token 用于配置 button 中不同类型的 loading 的动画时长   [#2695 ](https://github.com/DouyinFE/semi-design/issues/2695) [#2897](https://github.com/DouyinFE/semi-design/pull/2897)
+    
 #### 🎉 2.83.0 (2025-07-14)
 - 【Fix】
     - 修复JsonViewer 全选删除后继续删除报错问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
@@ -22,9 +35,11 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
     - 修复JsonViewer 代码补全布尔类型提示问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
     - 修复JsonViewer 拖动选择复制删除不完全问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
     - 修复 Modal 中的 height 设置未生效问题，影响版本 2.82.0-2.82.1  [#2899 ](https://github.com/DouyinFE/semi-design/issues/2899) [#2901](https://github.com/DouyinFE/semi-design/pull/2901)
-- 【Style】
-    - 修复 BreadCrumb 的 item 在 noLink 模式下的样式问题  [#2883 ](https://github.com/DouyinFE/semi-design/issues/2883) [#2884](https://github.com/DouyinFE/semi-design/pull/2884)
 
+
+#### 🎉 2.83.0-beta.0 (2025-07-09)
+- 【Style】
+    - 修复 BreadCrumb 的 item 在 noLink 模式下的样式问题 [#2883](https://github.com/DouyinFE/semi-design/issues/2883) [#2884](https://github.com/DouyinFE/semi-design/pull/2884)
 
 #### 🎉 2.82.1 (2025-07-02)
 - 【Fix】

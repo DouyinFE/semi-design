@@ -1,14 +1,14 @@
 {
     "name": "@douyinfe/semi-foundation",
-    "version": "2.83.0",
+    "version": "2.84.0",
     "description": "",
     "scripts": {
         "build:lib": "node ./scripts/compileLib.js",
         "prepublishOnly": "npm run build:lib"
     },
     "dependencies": {
-        "@douyinfe/semi-animation": "2.83.0",
-        "@douyinfe/semi-json-viewer-core": "2.83.0",
+        "@douyinfe/semi-animation": "2.84.0",
+        "@douyinfe/semi-json-viewer-core": "2.84.0",
         "@mdx-js/mdx": "^3.0.1",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",

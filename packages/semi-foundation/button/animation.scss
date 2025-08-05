@@ -65,3 +65,6 @@ $transform_scale-button_light: var(--semi-transform_scale-none);//浅色按钮-�
 $transform_scale-button_warning: var(--semi-transform_scale-none);//警告按钮-放大
 $transform_scale-button_danger: var(--semi-transform_scale-none);//危险按钮-放大
 $transform_scale-button_borderless: var(--semi-transform_scale-none);//无边框按钮-放大
+
+$animation_duration-button_icon_loading: 600ms; // 加载图标容器旋转一周时长
+$animation_duration-button_icon_customIcon_loading: 1600ms; // 自定义指示器时旋转一周时长
