@@ -4,6 +4,7 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { ArrayElement } from '../utils/type';
 import { strings } from './constants';
 import { handlePrevent } from '../utils/a11y';
+import { getUuidShort } from "../utils/uuid";
 
 const REGS = {
     TOP: /top/i,
@@ -81,7 +82,7 @@ export interface PopupContainerDOMRect extends DOMRectLikeType {
 export default class Tooltip<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TooltipAdapter<P, S>, P, S> {
     _timer: ReturnType<typeof setTimeout>;
     _mounted: boolean;
-
+    anchorName = `--native-semi-anchor-${getUuidShort()}`
     constructor(adapter: TooltipAdapter<P, S>) {
         super({ ...adapter });
         this._timer = null;
@@ -134,7 +135,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     unBindResizeEvent() {
         this._adapter.unregisterResizeHandler(this.onResize);
     }
-  
+
     removePortal = () => {
         this._adapter.removePortal();
     }
@@ -196,6 +197,29 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             const triggerEventSet = this.getState("triggerEventSet");
             triggerEventSet[eventNames.mouseEnter]?.();
         }
+    }
+
+    getNativeAnchorStyle = () => {
+        const style = {
+            positionAnchor: this.anchorName,
+            position: "fixed",
+        };
+        const position = this._adapter.getProp("position");
+        const spacing = this._adapter.getProp("spacing");
+        if (position === "top") {
+            style['bottom'] = `anchor(top)`;
+            style['justifySelf'] = "anchor-center";
+            style["transform"] = `translateY(-${spacing}px)`;
+           
+        } else if (position === "bottom") {
+            style['top'] = `anchor(bottom)`;
+            style['justifySelf'] = "anchor-center";
+            style["transform"] = `translateY(${spacing}px)`;
+
+        } else {
+            throw new Error(`Currently, not support position ${position} when enable native anchor ability, only 'top' 'bottom'.`);
+        }
+        return style;
     }
 
     _generateEvent(types: ArrayElement<typeof strings.TRIGGER_SET>) {
