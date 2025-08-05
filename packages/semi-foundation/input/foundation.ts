@@ -23,6 +23,9 @@ export interface InputAdapter extends Partial<DefaultAdapter>, Partial<InputDefa
     notifyKeyUp(e: any): void;
     notifyKeyPress(e: any): void;
     notifyEnterPress(e: any): void;
+    notifyCompositionStart(e: any): void;
+    notifyCompositionEnd(e: any): void;
+    notifyCompositionUpdate(e: any): void;
     isEventTarget(e: any): boolean
 }
 
@@ -92,13 +95,15 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
         }
     }
 
-    handleCompositionStart = () => {
+    handleCompositionStart = (e) => {
         this.compositionEnter = true;
+        this._adapter.notifyCompositionStart(e);
     }
 
     handleCompositionEnd = (e: any) => {
         const value = e.target.value;
         this.compositionEnter = false;
+        this._adapter.notifyCompositionEnd(e); 
         const { getValueLength, maxLength, minLength } = this.getProps();
         if (!isFunction(getValueLength)) {
             return;
@@ -109,7 +114,11 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
         }
         if (minLength) {
             this.handleVisibleMinLength(value);
-        } 
+        }
+    }
+
+    handleCompositionUpdate = (e) => {
+        this._adapter.notifyCompositionUpdate(e);
     }
 
     /**

@@ -463,6 +463,9 @@ Answers to some questions:
 | onKeyDown         | Callback invoked when keydown                                                                                                                                                                 | function(e:event)               |           |
 | onKeyPress        | Callback invoked when keypress                                                                                                                                                                | function(e:event)               |           |
 | onKeyUp           | Callback invoked when keyup                                                                                                                                                                   | function(e:event)               |           |
+| onCompositionStart           | Callback invoked when compositionstart                                       | function(e:event)               |           |
+| onCompositionEnd           | Callback invoked when compositionend                                        | function(e:event)               |           |
+| onCompositionUpdate           |Callback invoked when compositionupdate                                      | function(e:event)               |           |
 ### TextArea
 
 > Other attributes are same with html `<textarea>`
@@ -497,6 +500,9 @@ Answers to some questions:
 | onKeyPress        | Callback invoked when keypress, html event                                                                             | (e:event) => void               | -       |
 | onKeyUp           | Callback invoked when keyup, html event                                                                                | (e:event) => void               | -       |
 | onResize          | Callback invoked when height changes in autosize mode **v>=0.37.0**                                                    | ({ height:number }) => void     | -       |
+| onCompositionStart           | Callback invoked when compositionstart **>=2.85.0** | function(e:event)               |           |
+| onCompositionEnd           | Callback invoked when compositionend **>=2.85.0** | function(e:event)               |           |
+| onCompositionUpdate           | Callback invoked when compositionupdate **>=2.85.0**  | function(e:event)               |           |
 
 ### InputGroup
 
