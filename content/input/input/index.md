@@ -476,9 +476,10 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | onKeyDown         | keydown回调                                      | function(e:event)               |           |
 | onKeyPress        | keypress回调                                     | function(e:event)               |           |
 | onKeyUp           | keyup回调                                        | function(e:event)               |           |
-| onCompositionStart           | compositionstart回调                                        | function(e:event)               |           |
-| onCompositionEnd           | compositionend回调                                        | function(e:event)               |           |
-| onCompositionUpdate           | compositionupdate回调                                        | function(e:event)               |           |
+| onCompositionStart | onCompositionStart回调, **>=2.85.0**  | function(e:event) | - |
+| onCompositionEnd | onCompositionEnd回调, **>=2.85.0**  | function(e:event) | - |
+| onCompositionUpdate | onCompositionUpdate回调, **>=2.85.0**  | function(e:event) | - |
+
 ### TextArea
 
 > 其他属性与 html textarea 标签保持一致
@@ -512,9 +513,9 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | onKeyPress   | keypress 回调，html 事件            | (e:event) => void               | -      |
 | onKeyUp      | keyup 回调，html 事件               | (e:event) => void               | -      |
 | onResize     | 触发高度变化时的回调 **>=v0.37.0** | ({ height:number }) => void    | -      |
-| onCompositionStart           | onCompositionStart回调                                        | function(e:event)               |           |
-| onCompositionEnd           | onCompositionEnd回调                                        | function(e:event)               |           |
-| onCompositionUpdate           | onCompositionUpdate回调                                        | function(e:event)               |           |
+| onCompositionStart | onCompositionStart回调, **>=2.85.0**   | function(e:event) | - |
+| onCompositionEnd | onCompositionEnd回调, **>=2.85.0**  | function(e:event) | - |
+| onCompositionUpdate | onCompositionUpdate回调, **>=2.85.0**  | function(e:event) | - |
 
 ### InputGroup
 
