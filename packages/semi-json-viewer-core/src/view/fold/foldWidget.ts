@@ -65,7 +65,7 @@ export class FoldWidget {
     }
 
     private _createFoldingIcon(lineNumber: number): HTMLElement {
-        const foldingIconClass = 'semi-json-viewer-folding-icon';
+        const foldingIconClass = `${this._view.prefixCls}-folding-icon`;
 
         const foldingIcon = elt('span', foldingIconClass);
         const isCollapsed = this._foldingModel.isCollapsed(lineNumber);
@@ -97,7 +97,7 @@ export class FoldWidget {
     }
 
     removeAllFoldingIcons() {
-        const foldingIconClass = 'semi-json-viewer-folding-icon';
+        const foldingIconClass = `${this._view.prefixCls}-folding-icon`;
         const foldingIcons = this._view.lineScrollDom.querySelectorAll(`.${foldingIconClass}`);
         foldingIcons.forEach(icon => icon.remove());
     }

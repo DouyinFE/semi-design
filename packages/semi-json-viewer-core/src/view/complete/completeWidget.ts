@@ -104,7 +104,7 @@ export class CompleteWidget {
     }
 
     private createCompleteContainer(): HTMLElement {
-        const className = 'semi-json-viewer-complete-container';
+        const className = `${this._view.prefixCls}-complete-container`;
         const container = elt('div', className);
         setStyles(container, {
             display: 'none',
@@ -113,7 +113,7 @@ export class CompleteWidget {
     }
 
     private createSuggestionsContainer(): HTMLElement {
-        const className = 'semi-json-viewer-complete-suggestions-container';
+        const className = `${this._view.prefixCls}-complete-suggestions-container`;
         const container = elt('div', className);
         setStyles(container, {
             maxHeight: '200px',
@@ -203,12 +203,12 @@ export class CompleteWidget {
     }
 
     private _renderCompletions() {
-        const className = 'semi-json-viewer-complete-suggestions-item';
+        const className = `${this._view.prefixCls}-complete-suggestions-item`;
         this._suggestionsContainer.innerHTML = this._suggestions
             .map(
                 (item, index) => `
         <li class="${className}" style="background-color: ${index === this._selectedIndex ? 'var(--semi-color-fill-0)' : 'transparent'
-                    }" data-index="${index}">
+}" data-index="${index}">
             ${item.label}
         </li>
     `
