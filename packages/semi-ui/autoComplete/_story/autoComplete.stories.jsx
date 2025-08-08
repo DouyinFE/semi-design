@@ -4,6 +4,7 @@ import CustomTrigger from './CustomTrigger';
 import AutoComplete from '../index';
 import { Form, Avatar } from '../../index';
 import { IconSearch } from '@douyinfe/semi-icons';
+import { debounce } from 'lodash';
 
 export default {
     title: 'AutoComplete',
@@ -414,4 +415,38 @@ export const AutoScrollToKeyboardUpDown = () => {
         >
         </AutoComplete>
     </>
+}
+
+export const Fix2951 = () => {
+     let initList = [
+        '1.60','1.62','1.63','1.64'
+    ];
+
+    const [loading, setLoading] = useState(false);
+    const [list, setList] = useState([]);
+
+    const handleSearch = (inputValue) => {
+        setLoading(true);
+        let newList = [];
+        if (inputValue) {
+            newList = initList.filter(item => item.includes(inputValue));
+        }
+        setTimeout(() => {
+            setList(newList);
+            setLoading(false);
+        }, 1000);
+    };
+
+    const search = debounce(handleSearch, 200);
+
+    return (
+        <AutoComplete
+            data={list}
+            style={{ width: 250 }}
+            prefix={<IconSearch />}
+            onSearch={search}
+            loading={loading}
+            defaultActiveFirstOption={true}
+        ></AutoComplete>
+    );
 }
