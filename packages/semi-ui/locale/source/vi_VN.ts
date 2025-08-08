@@ -208,6 +208,10 @@ const local: Locale = {
         stall: 'Tải không thành công',
         noResource: 'Không có tài nguyên',
         videoError: 'Lỗi tải video'
+    },
+    Feedback: {
+        submit: 'Nộp',
+        cancel: 'Hủy'
     }
 };
 

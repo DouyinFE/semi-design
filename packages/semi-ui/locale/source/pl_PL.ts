@@ -213,6 +213,10 @@ const local: Locale = {
         stall: 'Ładowanie nie powiodło się',
         noResource: 'Brak zasobu',
         videoError: 'Błąd ładowania wideo'
+    },
+    Feedback: {
+        submit: 'Wyślij',
+        cancel: 'Anuluj'
     }
 };
 

@@ -209,6 +209,10 @@ const local: Locale = {
         stall: 'กำลังโหลดล้มเหลว',
         noResource: 'ไม่มีทรัพยากร',
         videoError: 'เกิดข้อผิดพลาดในการโหลดวิดีโอ'
+    },
+    Feedback: {
+        submit: 'ส่ง',
+        cancel: 'ยกเลิก'
     }
 };
 

@@ -1,0 +1,233 @@
+---
+localeCode: zh-CN
+order: 87
+category: 基础 
+title: Feedback 反馈
+icon: doc-divider 
+brief: 快速定义各类型反馈
+---
+
+## 代码演示
+
+### 如何引入
+
+Feedback 自 2.85.0 支持。
+
+```jsx import
+import { Feedback } from '@douyinfe/semi-ui';
+```
+
+### 基本使用
+
+通过 `visible` 设置是否显示。默认反馈展示内容是 emoji 形式。 可通过 `onValueChange` 获取当前选择的内容。
+
+```jsx live=true
+import React, { useState, useCallback } from 'react';
+import { Feedback, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const [visible, setVisible] = useState(false);
+    const handleOk = useCallback(() => setVisible(false), []);
+    const handleCancel = useCallback(() => setVisible(false), []);
+    const onValueChange = useCallback((value) => {
+        console.log('emoji value', value);
+    });
+
+    return (<>
+        <Button onClick={() => setVisible(!visible)} >
+            展示反馈: Popup, emoji
+        </Button>
+        <Feedback
+            title="Why did you choose this rating?"
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            onValueChange={onValueChange}
+        />
+    </>);
+};
+```
+
+### 文字类型
+
+设置 `type` 为 `text` 可获得多行输入框形式的 feedback，可通过 `textAreaProps` 设置多行输入框的参数。
+
+```jsx live=true
+import React, { useState, useCallback } from 'react';
+import { Feedback, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const [visible, setVisible] = useState(false);
+    const handleOk = useCallback(() => setVisible(false), []);
+    const handleCancel = useCallback(() => setVisible(false), []);
+
+    return (<>
+        <Button onClick={() => setVisible(!visible)} >
+            展示反馈: Popup, text
+        </Button>
+        <Feedback
+            type="text"
+            textAreaProps={{ maxCount: 200 }}
+            title="Why did you choose this rating?"
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+        />
+    </>);
+};
+```
+
+### 单选反馈
+
+设置 `type` 为 `radio` 可获得单选形式的 feedback，可通过 `radioProps` 设置多行输入框的参数。
+
+```jsx live=true
+import React, { useState, useCallback } from 'react';
+import { Feedback, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const [visible, setVisible] = useState(false);
+    const handleOk = useCallback(() => setVisible(false), []);
+    const handleCancel = useCallback(() => setVisible(false), []);
+
+    return (<>
+        <Button onClick={() => setVisible(!visible)} >
+            展示反馈: Popup, radio
+        </Button>
+        <Feedback
+            type="radio"
+            radioProps={{
+                options: ['Guest', 'Developer', 'Maintainer'],
+            }}
+            title="Why did you choose this rating?"
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+        />
+    </>);
+};
+```
+
+### 多选反馈
+
+设置 `type` 为 `checkbox` 可获得多选形式的 feedback，可通过 `checkboxProps` 设置多行输入框的参数。
+
+```jsx live=true
+import React, { useState, useCallback } from 'react';
+import { Feedback, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const [visible, setVisible] = useState(false);
+    const handleOk = useCallback(() => setVisible(false), []);
+    const handleCancel = useCallback(() => setVisible(false), []);
+
+    return (<>
+        <Button onClick={() => setVisible(!visible)} >
+            展示反馈: Popup, checkbox
+        </Button>
+        <Feedback
+            type="checkbox"
+            checkboxProps={{
+                options: ['抖音', '火山', '皮皮虾']
+            }}
+            title="Why did you choose this rating?"
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+        />
+    </>);
+};
+```
+
+### 自定义反馈内容
+
+设置 `type` 为 `custom` 可获得多选形式的 feedback，可通过 `renderContent` 设置多行输入框的参数。
+
+```jsx live=true
+import React, { useState, useCallback } from 'react';
+import { Feedback, Button, TextArea } from '@douyinfe/semi-ui';
+
+() => {
+    const [visible, setVisible] = useState(false);
+    const [value, setValue] = useState(value);
+    const handleOk = useCallback(() => setVisible(false), []);
+    const handleCancel = useCallback(() => setVisible(false), []);
+    const onTextAreaChange = useCallback((value) => {
+        setValue(value);
+    }, []);
+    const renderContent = useCallback(() => {
+        return <>
+            <span>这是一段自定义的内容</span>
+            <TextArea
+                value={value}
+                onChange={onTextAreaChange}
+            />
+        </>;
+    }, [onTextAreaChange]);
+
+    return (<>
+        <Button onClick={() => setVisible(!visible)} >
+            展示反馈: Popup, custom
+        </Button>
+        <Feedback
+            type="checkbox"
+            checkboxProps={{
+                options: ['抖音', '火山', '皮皮虾']
+            }}
+            title="Why did you choose this rating?"
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            renderContent={renderContent}
+        />
+    </>);
+};
+```
+
+### 模态对话框形式
+
+可通过 `mode` 反馈的形式，默认是 `popup`, 设置为 `modal` 可获得模态对话框形式的展示。
+
+```jsx live=true
+import React, { useState, useCallback } from 'react';
+import { Feedback, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const [visible, setVisible] = useState(false);
+    const handleOk = useCallback(() => setVisible(false), []);
+    const handleCancel = useCallback(() => setVisible(false), []);
+    const onValueChange = useCallback((value) => {
+        console.log('emoji value', value);
+    });
+
+    return (<>
+        <Button onClick={() => setVisible(!visible)} >
+            展示反馈: Modal, emoji
+        </Button>
+        <Feedback
+            mode="modal"
+            title="Why did you choose this rating?"
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            onValueChange={onValueChange}
+        />
+    </>);
+};
+```
+
+## API 参考
+
+| 属性 | 说明 | 类型 | 默认值 |
+|-----|-----|------|-------|
+| checkboxProps | 设置多行输入框的参数 | TextAreaProps | - |
+| radioProps | 设置多行输入框的参数 | TextAreaProps | - |
+| renderContent | 自定义反馈内容展示 | (content: ReactNode) => ReactNode | - |
+| mode | 展示模式，支持 popup、modal | boolean | popup |
+| onValueChange | 在反馈内容变化时候的回调|function  | (value: string \| string[] \| Object) |
+| showThankText | 是否展示感谢反馈的文本 | boolean | true |
+| type | 反馈内容的类型，支持 text、emoji、radio，checkbox，custom| boolean | emoji |
+| textareaProps | 设置多行输入框的参数 | TextAreaProps | - |
+
+除去以上参数外，如果 `mode` 为 `modal`, 支持传入 `ModalProps` 类型的参数，如果 `modal` 为 `popup`, 支持传入 `SideSheetProps` 参数。
+

@@ -206,6 +206,10 @@ const local: Locale = {
         stall: '読み込みに失敗しました',
         noResource: 'リソースなし',
         videoError: '動画の読み込みエラー'
+    },
+    Feedback: {
+        submit: '送信',
+        cancel: 'キャンセル'
     }
 };
 

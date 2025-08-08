@@ -210,6 +210,10 @@ const local: Locale = {
         stall: 'Läsning misslyckades',
         noResource: 'Ingen resurs',
         videoError: 'Fel vid inläsning av video'
+    },
+    Feedback: {
+        submit: 'Skicka',
+        cancel: 'Avbryt'
     }
 };
 

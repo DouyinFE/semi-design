@@ -208,6 +208,10 @@ const local: Locale = {
         stall: 'Загрузка не удалась',
         noResource: 'Нет ресурса',
         videoError: 'Ошибка загрузки видео'
+    },
+    Feedback: {
+        submit: 'Отправить',
+        cancel: 'Отмена'
     }
 };
 

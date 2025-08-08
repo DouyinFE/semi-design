@@ -206,6 +206,10 @@ const local: Locale = {
         noResource: 'Nicio resursă',
         videoError: 'Eroare la încărcarea videoclipului'
     },
+    Feedback: {
+        submit: 'Trimite',
+        cancel: 'Anulează'
+    }
 };
 
 // [i18n-Romanian] 罗马尼亚语

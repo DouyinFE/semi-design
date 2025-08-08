@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 25
+order: 26
 category: Plus
 title:  Chat 对话
 icon: doc-chat

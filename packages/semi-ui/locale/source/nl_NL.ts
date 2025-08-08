@@ -212,6 +212,10 @@ const local: Locale = {
         stall: 'Laden mislukt',
         noResource: 'Geen bron',
         videoError: 'Fout bij laden video'
+    },
+    Feedback: {
+        submit: 'Versturen',
+        cancel: 'Annuleren'
     }
 };
 

@@ -2,6 +2,7 @@
 import React, { useCallback, useState } from 'react';
 import withPropsCombinations from 'react-storybook-addon-props-combinations';
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
+import { IconAIFilledLevel1, IconAIFilledLevel3 } from '@douyinfe/semi-icons';
 
 import { Tag, TagGroup } from '../../index';
 import { Space } from '@douyinfe/semi-ui';
@@ -384,3 +385,63 @@ export const maxWidth = () => {
     </Tag>
   </>
 )}
+
+export const ColorFulTag = () => {
+  const tagList = [
+  { colorful: true, children: 'AI', type: 'solid', prefixIcon: <IconAIFilledLevel1 size="small"/>},
+  { colorful: true, children: 'AI', type: 'light', prefixIcon: <IconAIFilledLevel3 size="small" /> },
+  { colorful: true, children: 'AI', type: 'ghost', prefixIcon: <IconAIFilledLevel3 size="small"/> },
+  { colorful: true, children: 'AI', type: 'solid', gradient: true, prefixIcon: <IconAIFilledLevel1 size="small"/> },
+  { colorful: true, children: 'AI', type: 'light', gradient: true, prefixIcon: <IconAIFilledLevel1 size="small" /> },
+  { colorful: true, children: 'AI', type: 'ghost', gradient: true, prefixIcon: <IconAIFilledLevel1 size="small"/> },
+  ]
+  return (
+    <>
+      <span>Colorful Tag, small</span><br /><br />
+      <div style={{ display: 'flex', flexDirection: 'row', columnGap: 30 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gridGap: '10px', width: 'fit-content'}}>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small"/>} colorful={true} type="solid" shape='circle' gradient>AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel3 size="small" />} colorful={true} type="light" shape='circle' gradient>AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel3 size="small"/>} colorful={true} type="ghost"  shape='circle' gradient >AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small"/>} colorful={true} type="solid" shape='circle' >AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small" />} colorful={true} type="light" shape='circle'>AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small"/>} colorful={true} type="ghost" shape='circle'>AI</Tag>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gridGap: '10px', width: 'fit-content'}}>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small"/>} colorful={true} type="solid"  gradient>AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel3 size="small" />} colorful={true} type="light" gradient>AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel3 size="small"/>} colorful={true} type="ghost"  gradient >AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small"/>} colorful={true} type="solid"  >AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small" />} colorful={true} type="light" >AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small"/>} colorful={true} type="ghost" >AI</Tag>
+        </div>
+      </div>
+      <br />
+      <span>Colorful Tag, large</span><br /><br />
+      <div style={{ display: 'flex', flexDirection: 'row', columnGap: 30 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gridGap: '10px', width: 'fit-content'}}>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small"/>} colorful={true} type="solid" shape='circle' gradient size="large">AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel3 size="small" />} colorful={true} type="light" shape='circle' gradient size="large">AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel3 size="small"/>} colorful={true} type="ghost"  shape='circle' gradient size="large">AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small"/>} colorful={true} type="solid" shape='circle' size="large">AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small" />} colorful={true} type="light" shape='circle' size="large">AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small"/>} colorful={true} type="ghost" shape='circle' size="large">AI</Tag>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gridGap: '10px', width: 'fit-content'}}>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small"/>} colorful={true} type="solid"  gradient size="large">AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel3 size="small" />} colorful={true} type="light"  gradient size="large">AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel3 size="small"/>} colorful={true} type="ghost"   gradient size="large">AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small"/>} colorful={true} type="solid"  size="large">AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small" />} colorful={true} type="light"size="large" >AI</Tag>
+          <Tag prefixIcon={<IconAIFilledLevel1 size="small"/>} colorful={true} type="ghost" size="large">AI</Tag>
+        </div>
+      </div><br />
+      <span>Colorful Tag, Group</span><br /><br />
+      <TagGroup
+        maxTagCount={5}
+        tagList={tagList}
+      ></TagGroup>
+    </>
+  )
+}
+

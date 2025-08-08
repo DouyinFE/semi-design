@@ -205,6 +205,10 @@ const local: Locale = {
         stall: 'Memuat gagal',
         noResource: 'Tiada sumber',
         videoError: 'Ralat memuatkan video'
+    },
+    Feedback: {
+        submit: 'Hantar',
+        cancel: 'Batal'
     }
 };
 

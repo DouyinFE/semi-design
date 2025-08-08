@@ -210,6 +210,10 @@ const locale: Locale = {
         stall: 'Carga fallida',
         noResource: 'Sin recursos',
         videoError: 'Error al cargar el video'
+    },
+    Feedback: {
+        submit: 'Enviar',
+        cancel: 'Cancelar'
     }
 };
 

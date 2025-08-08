@@ -205,5 +205,9 @@ export interface Locale {
         stall: string;
         noResource: string;
         videoError: string
+    };
+    Feedback: {
+        submit: string;
+        cancel: string
     }
 }

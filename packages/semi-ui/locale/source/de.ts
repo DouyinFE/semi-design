@@ -205,6 +205,10 @@ const local: Locale = {
         stall: 'Laden fehlgeschlagen',
         noResource: 'Keine Ressource',
         videoError: 'Video-Ladefehler'
+    },
+    Feedback: {
+        submit: 'Absenden',
+        cancel: 'Abbrechen'
     }
 };
 

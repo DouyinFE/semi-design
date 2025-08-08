@@ -8,7 +8,7 @@ import './index.scss';
 const { Title } = Typography;
 
 const IconCategory = props => {
-    const { groups, pkgType } = props;
+    const { groups, pkgType, threeColumn, className } = props;
     const [categorySet, $categorySet] = useState(new Set());
     useEffect(() => {
         $categorySet(new Set(Array.from(Array(groups.length), (g, i) => i)));
@@ -25,7 +25,7 @@ const IconCategory = props => {
         });
     };
     return groups.map((g, i) => (
-        <article key={i} className="semi-icons-category">
+        <article key={i} className={`semi-icons-category ${className}`} >
             <Title heading={5}>
                 <span id={g[0]} className="semi-icons-title" onClick={() => handleToggle(i)}>
                     {g[0]}&nbsp;&nbsp;
@@ -44,7 +44,7 @@ const IconCategory = props => {
                     position: 'relative',
                 }}
             >
-                <ul className="semi-icons-content">
+                <ul className={threeColumn ? "semi-icons-content-three-column" : "semi-icons-content"}>
                     {g[1].map(icon => (
                         <SemiIcon key={icon.name} name={icon.name} pkgType={pkgType} />
                     ))}

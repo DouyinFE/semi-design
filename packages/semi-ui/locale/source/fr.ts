@@ -205,6 +205,10 @@ const local: Locale = {
         stall: 'Chargement échoué',
         noResource: 'Aucune ressource',
         videoError: 'Erreur de chargement de la vidéo'
+    },
+    Feedback: {
+        submit: 'Soumettre',
+        cancel: 'Annuler'
     }
 };
 

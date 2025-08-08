@@ -205,6 +205,10 @@ const local: Locale = {
         stall: 'فشل التحميل',
         noResource: 'لا يوجد مورد',
         videoError: 'خطأ في تحميل الفيديو'
+    },
+    Feedback: {
+        submit: 'إرسال',
+        cancel: 'إلغاء'
     }
 };
 

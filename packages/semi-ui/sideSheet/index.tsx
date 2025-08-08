@@ -30,7 +30,10 @@ export interface SideSheetReactProps extends SideSheetProps {
     title?: React.ReactNode;
     footer?: React.ReactNode;
     children?: React.ReactNode;
-    onCancel?: (e: React.MouseEvent | React.KeyboardEvent) => void
+    onCancel?: (e: React.MouseEvent | React.KeyboardEvent) => void;
+    // innerProps: for Feedback
+    canVerticalSetWidth?: boolean
+
 }
 
 export type {
@@ -212,6 +215,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
             zIndex,
             getPopupContainer,
             keepDOM,
+            canVerticalSetWidth,
             ...props
         } = this.props;
         let wrapperStyle: CSSProperties = {
@@ -235,7 +239,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
             [`${prefixCls}-hidden`]: keepDOM && this.state.displayNone,
         });
         const contentProps = {
-            ...(isVertical ? (width ? { width } : {}) : { width: "100%" }),
+            ...((isVertical || canVerticalSetWidth) ? (width ? { width } : {}) : { width: "100%" }),
             ...props,
             visible,
             motion: false,
@@ -261,7 +265,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
                         onAnimationEnd={this.updateState /* for no mask case*/}
                     >
                         {({ animationClassName, animationStyle, animationEventsNeedBind }) => {
-                            return shouldRender ?<Portal getPopupContainer={getPopupContainer} style={wrapperStyle}>
+                            return shouldRender ? <Portal getPopupContainer={getPopupContainer} style={wrapperStyle}>
                                 <SideSheetContent
                                     {...contentProps}
                                     maskExtraProps={maskAnimationEventsNeedBind}
@@ -272,7 +276,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
                                     style={{ ...animationStyle, ...style }}>
                                     {children}
                                 </SideSheetContent>
-                            </Portal>:<></>; 
+                            </Portal> : <></>; 
 
                         }}
                     </CSSAnimation>;

@@ -35,18 +35,21 @@ const colors = [
     'amber',
     'orange',
     'grey',
+    'ai purple',
+    'ai general'
 ];
 export const ColorBlock = ({ colorKey, colorVar }) => {
     const niceName = colorKey.replace('--semi-', '').replace(/-/g, ' ');
+    const isAiGeneral = colorKey.includes('--semi-ai-general-');
     const isStartsWithColor = niceName.indexOf('color') === 0 || niceName.indexOf('overlay') >= 0;
-    const color = isStartsWithColor ? colorVar : `rgb(${colorVar})`;
+    const color = (isStartsWithColor || isAiGeneral) ? colorVar : `rgb(${colorVar})`;
     const colorName = toUpper(niceName);
-    const wrate = chroma.contrast(color, '#ffffff');
-    const wscore = scoreFromRatio(wrate);
-    const brate = chroma.contrast(color, '#000000');
-    const bscore = scoreFromRatio(brate);
+    const wrate = isAiGeneral ? null : chroma.contrast(color, '#ffffff');
+    const wscore = isAiGeneral ? 'fail' : scoreFromRatio(wrate);
+    const brate = isAiGeneral ? null : chroma.contrast(color, '#000000');
+    const bscore = isAiGeneral ? 'fail' : scoreFromRatio(brate);
     const colorCapClassName = wscore !== 'Fail' ? 'white' : 'black';
-    const clipText = isStartsWithColor ? `var(${colorKey})` : `rgba(var(${colorKey}), 1)`;
+    const clipText = (isStartsWithColor || isAiGeneral) ? `var(${colorKey})` : `rgba(var(${colorKey}), 1)`;
 
     const copied = e => {
         Toast.success({
@@ -69,18 +72,17 @@ export const ColorBlock = ({ colorKey, colorVar }) => {
         >
             <div
                 className={styles['color-rect']}
-                style={{
-                    backgroundColor: color,
-                }}
+                data-color={color}
+                style={isAiGeneral ? { background: color } : { backgroundColor: color }}
             />
             <div className={cls(styles['color-cap'], styles[colorCapClassName])}>
                 <span className={styles['color-name']}>{colorName}</span>
                 <span className={styles['color-value']}>{colorVar}</span>
             </div>
-            <div className={styles.ratios}>
+            {!isAiGeneral && <div className={styles.ratios}>
                 {wscore === 'Fail' ? '' : <span className={cls(styles['color-ratio'], styles.white)}>{wscore}</span>}
                 {bscore === 'Fail' ? '' : <span className={cls(styles['color-ratio'], styles.black)}>{bscore}</span>}
-            </div>
+            </div>}
         </Clipboard>
     );
 };
@@ -110,7 +112,6 @@ const FullPalette = props => {
 
         return <>{res.map(item => item)}</>;
     };
-
     const lP = pl(palette.light);
     const dP = pl(palette.dark);
     return (

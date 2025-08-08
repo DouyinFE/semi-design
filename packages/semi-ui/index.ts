@@ -129,3 +129,6 @@ export { default as Cropper } from './cropper';
 export { default as AudioPlayer } from './audioPlayer';
 export { default as UserGuide } from './userGuide';
 export { default as VideoPlayer } from './videoPlayer';
+export { default as Feedback } from './feedback';
+export { default as FloatButton } from './floatButton';
+export { default as FloatButtonGroup } from './floatButton/floatButtonGroup';

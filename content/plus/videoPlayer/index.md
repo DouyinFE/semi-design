@@ -1,5 +1,5 @@
 ---
-order: 95
+order: 97
 localeCode: zh-CN
 category: Plus
 title: VideoPlayer 视频播放器

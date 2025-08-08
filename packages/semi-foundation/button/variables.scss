@@ -15,6 +15,16 @@ $color-button_primary_outline-border-default: var(--semi-color-border); // 边�
 
 $color-button_primary_borderless-text-default: var(--semi-color-primary); // 主要按钮无边框文字颜色
 
+$color-button_primary_solid_colorful-bg-default: var(--semi-color-ai-general); // colorful 主要按钮背景颜色 - 深色主题
+$color-button_primary_solid_colorful-bg-hover: var(--semi-color-ai-general-hover); // colorful 主要按钮背景颜色 - 深色主题 - 悬浮
+
+$color-button_primary_light_colorful-text-default: var(--semi-color-ai-general); // colorful 主要按钮文字颜色 - 浅色色主题
+
+$color-button_primary_light_outline-text-default: var(--semi-color-ai-purple); // colorful 主要按钮文字颜色 - 边框模式
+$color-button_primary_light_outline-border: var(--semi-color-ai-purple); // colorful 主要按钮文字颜色 - 边框模式
+
+$color-button_primary_light_borderless-text-default: var(--semi-color-ai-general); // colorful 主要按钮文字颜色 - 无背景
+
 // secondary
 $color-button_secondary-bg-default: var(--semi-color-secondary); // 次要按钮背景颜色
 $color-button_secondary-border-default: var(--semi-color-secondary); // 次要按钮描边颜色
@@ -68,6 +78,10 @@ $color-button_warning_borderless-text-default: var(--semi-color-warning); // 警
 $color-button_tertiary-bg-default: var(--semi-color-tertiary); // 第三按钮背景颜色
 $color-button_tertiary-border-default: var(--semi-color-tertiary); // 第三按钮描边颜色
 $color-button_tertiary-text-default: rgba(var(--semi-white), 1); // 第三按钮文字颜色
+
+$color-button_tertiary_solid_colorful-bg-default: var(--semi-color-ai-general-0); // colorful 第三按钮背景颜色
+$color-button_tertiary_solid_colorful-bg-hover: var(--semi-color-ai-general-1); // colorful 第三按钮背景颜色 - 悬浮
+$color-button_tertiary_solid_colorful-text-default: var(--semi-color-ai-general); // colorful 第三按钮文字颜色
 
 $color-button_tertiary-bg-hover: var(--semi-color-tertiary-hover); // 第三按钮背景颜色 - 悬浮
 $color-button_tertiary-border-hover: var(--semi-color-tertiary-hover); // 第三按钮描边颜色 - 悬浮

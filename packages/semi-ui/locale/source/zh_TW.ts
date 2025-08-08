@@ -206,6 +206,10 @@ const local: Locale = {
         stall: '加載失敗',
         noResource: '暫無資源',
         videoError: '視頻加載錯誤'
+    },
+    Feedback: {
+        submit: '提交',
+        cancel: '取消'
     }
 };
 

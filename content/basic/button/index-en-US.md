@@ -52,7 +52,7 @@ function ButtonDemo() {
 
 -   `var(--semi-color-primary)`: main
 -   `var(--semi-color-secondary)`: secondary
--   `var(--semi-color-colored)`: third
+-   `var(--semi-color-tertiary)`: third
 -   `var(--semi-color-warning)`: warning
 -   `var(--semi-color-danger)`: danger
 

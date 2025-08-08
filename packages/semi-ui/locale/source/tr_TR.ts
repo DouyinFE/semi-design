@@ -206,6 +206,10 @@ const local: Locale = {
         stall: 'Yükleme başarısız',
         noResource: 'Kaynak yok',
         videoError: 'Video yükleme hatası'
+    },
+    Feedback: {
+        submit: 'Göndermek',
+        cancel: 'İptal'
     }
 };
 
