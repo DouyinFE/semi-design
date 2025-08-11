@@ -109,7 +109,7 @@ class IconButton extends PureComponent<IconButtonProps> {
                     } else {
                         fill = [
                             'var(--semi-button-colorful-multiple-fill-0)',
-                            'var(--semi-button-colorful-multiple-fill-1)',
+                            'var(--semi-button-colorful-multiple-fill-1)', 
                             'var(--semi-button-colorful-multiple-fill-2)',
                             'var(--semi-button-colorful-multiple-fill-3)',
                         ];

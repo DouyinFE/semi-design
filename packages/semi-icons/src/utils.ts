@@ -31,18 +31,22 @@ function getFillColor(fill: string | string[] | undefined, num: number) {
         return new Array(num).fill(fill);
     } else if (Array.isArray(fill)) {
         const fillLength = fill.length;
-        if (fillLength === num) {
-            return fill;
-        } else if (fillLength < num) {
+        let result: string[] = fill;
+        if (fillLength < num) {
             let i = 0;
-            const result: string[] = [];
+            result = [];
             while (i < num) {
                 result.push(fill[i % fillLength]);
                 i++;
             }
             return result;
+        } else if (fillLength > num) {
+            result = fill.slice(0, num);
         }
-        return fill.slice(0, num);
+        if (num === 4) {
+            return result.reverse();
+        } 
+        return result;
     }
     if (num === 2) {
         return [
@@ -51,10 +55,10 @@ function getFillColor(fill: string | string[] | undefined, num: number) {
         ];
     }
     return [
-        'rgba(233,69,255)',
-        'rgba(166,71,255)',
+        'rgba(46,140,255)',
         'rgba(107,97,255)',
-        'rgba(46,140,255)'
+        'rgba(166,71,255)',
+        'rgba(233,69,255)',
     ];
 }
 

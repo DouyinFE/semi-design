@@ -167,7 +167,7 @@ import { IconAIEditLevel1 } from '@douyinfe/semi-icons';
 };
 ```
 
-### 悬浮按钮组件
+### 悬浮按钮组
 
 可通过  `items` 传入子项
 
@@ -178,6 +178,7 @@ import { IconAIEditLevel1, IconAIStrokedLevel3, IconSearchStroked, IconHelpCircl
 
 () => {
     return (<>
+        <span>The last row at the bottom right of the page</span>
         <FloatButtonGroup 
             style={{
                 insetInlineEnd: 24,
@@ -208,7 +209,7 @@ import { IconAIEditLevel1, IconAIStrokedLevel3, IconSearchStroked, IconHelpCircl
 
 | 属性 | 说明 | 类型 | 默认值 |
 |-----|-----|------|-------|
-| badge | 徽章参数 ｜ BadgeProps | - |
+| badge | 徽章参数 | BadgeProps | - |
 | colorful | 多彩悬浮按钮 | boolean | false |
 | className | 样式类名 |  string | - |
 | disabled | 禁用状态 | boolean | false|
@@ -234,5 +235,5 @@ import { IconAIEditLevel1, IconAIStrokedLevel3, IconSearchStroked, IconHelpCircl
 |-----|-----|------|-------|
 | className | 样式类名 |  string | - |
 | disabled | 禁用状态 | boolean | false|
-| items | 单个子项的信息｜ FloatButtonGroupItem | - |
+| items | 单个子项的信息 | FloatButtonGroupItem | - |
 | style | 样式 | CSSProperties  | - |

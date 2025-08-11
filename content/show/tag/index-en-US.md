@@ -93,6 +93,37 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 };
 ```
 
+### AI style - colorful labels
+
+Set `colorful` to `true` to get colorful labels.
+
+```jsx live=true direction
+import React from 'react';
+import { Tag, Space } from '@douyinfe/semi-ui';
+import { IconAIFilledLevel1, IconAIFilledLevel3 } from '@douyin/semi-icons';
+
+() => (
+    <div style={{ display: 'flex', flexDirection: 'column', rowGap: 30 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gridGap: '10px', width: 'fit-content'}}>
+            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small"/>} type="solid" shape='circle' gradient>AI</Tag>
+            <Tag colorful prefixIcon={<IconAIFilledLevel3 size="small" />} type="light" shape='circle' gradient>AI</Tag>
+            <Tag colorful prefixIcon={<IconAIFilledLevel3 size="small"/>} type="ghost" shape='circle' gradient >AI</Tag>
+            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small"/>} type="solid" shape='circle' >AI</Tag>
+            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small" />} type="light" shape='circle'>AI</Tag>
+            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small"/>} type="ghost" shape='circle'>AI</Tag>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gridGap: '10px', width: 'fit-content' }}>
+            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small"/>} type="solid" gradient>AI</Tag>
+            <Tag colorful prefixIcon={<IconAIFilledLevel3 size="small" />} type="light" gradient>AI</Tag>
+            <Tag colorful prefixIcon={<IconAIFilledLevel3 size="small"/>} type="ghost" gradient >AI</Tag>
+            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small"/>} type="solid" >AI</Tag>
+            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small" />} type="light" >AI</Tag>
+            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small"/>} type="ghost" >AI</Tag>
+        </div>
+    </div>
+);
+```
+
 ### Type
 
 Tag supports three different types, including: `light`(default), `ghost`, `solid`.
@@ -346,6 +377,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | className | Class name | string |  |  |
 | closable | Toggle whether the tag can be closed | boolean | false |  |
 | color | Color of tags, one of `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow`、 `white` | string | `grey` |  |
+| colorful | Colorful labels | boolean | false | 2.86.0|
 | prefixIcon | prefix icon | ReactNode | | 2.44.0 |
 | suffixIcon | suffix icon | ReactNode | | 2.44.0 |
 | shape | Shape of tag, one of `square`、 `circle` | string | `square` | 2.20.0 |

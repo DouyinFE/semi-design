@@ -38,7 +38,7 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
             展示反馈: Popup, emoji
         </Button>
         <Feedback
-            title="Why did you choose this rating?"
+            title="您对本产品的评分是？"
             visible={visible}
             onOk={handleOk}
             onCancel={handleCancel}
@@ -68,7 +68,7 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
         <Feedback
             type="text"
             textAreaProps={{ maxCount: 200 }}
-            title="Why did you choose this rating?"
+            title="您对本产品的建议是？"
             visible={visible}
             onOk={handleOk}
             onCancel={handleCancel}
@@ -97,9 +97,9 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
         <Feedback
             type="radio"
             radioProps={{
-                options: ['Guest', 'Developer', 'Maintainer'],
+                options: ['访客', '开发者', '维护者'],
             }}
-            title="Why did you choose this rating?"
+            title="您的身份是"
             visible={visible}
             onOk={handleOk}
             onCancel={handleCancel}
@@ -128,9 +128,9 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
         <Feedback
             type="checkbox"
             checkboxProps={{
-                options: ['抖音', '火山', '皮皮虾']
+                options: ['抖音', '火山', '豆包']
             }}
-            title="Why did you choose this rating?"
+            title="您最常使用以下哪些产品？"
             visible={visible}
             onOk={handleOk}
             onCancel={handleCancel}
@@ -170,11 +170,8 @@ import { Feedback, Button, TextArea } from '@douyinfe/semi-ui';
             展示反馈: Popup, custom
         </Button>
         <Feedback
-            type="checkbox"
-            checkboxProps={{
-                options: ['抖音', '火山', '皮皮虾']
-            }}
-            title="Why did you choose this rating?"
+            type="custom"
+            title="您对本产品的建议是？"
             visible={visible}
             onOk={handleOk}
             onCancel={handleCancel}
@@ -220,14 +217,15 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
 
 | 属性 | 说明 | 类型 | 默认值 |
 |-----|-----|------|-------|
-| checkboxProps | 设置多行输入框的参数 | TextAreaProps | - |
-| radioProps | 设置多行输入框的参数 | TextAreaProps | - |
+| checkboxProps | 设置多选的参数 | TextAreaProps | - |
+| radioProps | 设置单选的参数 | TextAreaProps | - |
 | renderContent | 自定义反馈内容展示 | (content: ReactNode) => ReactNode | - |
+| ModalProps | 当 mode 为 modal 时候，用于设置 modal 的参数 | ModalProps | - |
 | mode | 展示模式，支持 popup、modal | boolean | popup |
 | onValueChange | 在反馈内容变化时候的回调|function  | (value: string \| string[] \| Object) |
 | showThankText | 是否展示感谢反馈的文本 | boolean | true |
+| SideSheetProps | 当 modal 为 popup 时，用于设置内部的 SideSheet 的参数 | SideSheetProps | - |
 | type | 反馈内容的类型，支持 text、emoji、radio，checkbox，custom| boolean | emoji |
 | textareaProps | 设置多行输入框的参数 | TextAreaProps | - |
 
-除去以上参数外，如果 `mode` 为 `modal`, 支持传入 `ModalProps` 类型的参数，如果 `modal` 为 `popup`, 支持传入 `SideSheetProps` 参数。
 

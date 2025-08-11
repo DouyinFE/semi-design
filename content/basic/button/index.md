@@ -338,38 +338,41 @@ import { Button } from '../../index';
 import { IconAIFilledLevel1, IconAIFilledLevel2, IconAIFilledLevel3 } from '@douyinfe/semi-icons';
 
 function ButtonDemo() {
-    return (['Colorful', undefined].map(content => (<div style={{ display: 'flex', rowGap: 16, marginTop: 20, marginLeft: 10, flexDirection: 'column' }}>
+    return (['Colorful', undefined].map(content => (<div 
+        key={content}
+        style={{ display: 'flex', rowGap: 16, marginTop: 20, marginLeft: 10, flexDirection: 'column' }}
+    >
         <div style={{ display: 'flex', columnGap: 16 }}>
-            <Button colorful  theme="solid" type="primary" icon={<IconAIFilledLevel1 />}>{content}</Button>
-            <Button colorful  theme="solid" type="primary" loading >{content}</Button>
-            <Button colorful  theme="solid" type="primary" icon={<IconAIFilledLevel1 />} disabled >{content}</Button>
-            <Button colorful  theme="solid" type="tertiary" icon={<IconAIFilledLevel3 />}>{content}</Button>
-            <Button colorful  theme="solid" type="tertiary" loading >{content}</Button>
-            <Button colorful  theme="solid" type="tertiary" icon={<IconAIFilledLevel3 />} disabled >{content}</Button>
+            <Button colorful theme="solid" type="primary" icon={<IconAIFilledLevel1 />}>{content}</Button>
+            <Button colorful theme="solid" type="primary" loading >{content}</Button>
+            <Button colorful theme="solid" type="primary" icon={<IconAIFilledLevel1 />} disabled >{content}</Button>
+            <Button colorful theme="solid" type="tertiary" icon={<IconAIFilledLevel3 />}>{content}</Button>
+            <Button colorful theme="solid" type="tertiary" loading >{content}</Button>
+            <Button colorful theme="solid" type="tertiary" icon={<IconAIFilledLevel3 />} disabled >{content}</Button>
         </div>
         <div style={{ display: 'flex', columnGap: 16 }}>
-            <Button  colorful theme="light" type="primary" icon={<IconAIFilledLevel3 />}>{content}</Button>
-            <Button  colorful theme="light" type="primary" loading >{content}</Button>
-            <Button  colorful theme="light" type="primary" icon={<IconAIFilledLevel3 />} disabled >{content}</Button>
-            <Button  colorful theme="light" type="tertiary" icon={<IconAIFilledLevel2 />}>{content}</Button>
-            <Button  colorful theme="light" type="tertiary" loading >{content}</Button>
-            <Button  colorful theme="light" type="tertiary" icon={<IconAIFilledLevel2 />} disabled >{content}</Button>
+            <Button colorful theme="light" type="primary" icon={<IconAIFilledLevel3 />}>{content}</Button>
+            <Button colorful theme="light" type="primary" loading >{content}</Button>
+            <Button colorful theme="light" type="primary" icon={<IconAIFilledLevel3 />} disabled >{content}</Button>
+            <Button colorful theme="light" type="tertiary" icon={<IconAIFilledLevel2 />}>{content}</Button>
+            <Button colorful theme="light" type="tertiary" loading >{content}</Button>
+            <Button colorful theme="light" type="tertiary" icon={<IconAIFilledLevel2 />} disabled >{content}</Button>
         </div>
         <div style={{ display: 'flex', columnGap: 16 }}>
-            <Button  colorful theme="outline" type="primary" icon={<IconAIFilledLevel1 />}>{content}</Button>
-            <Button  colorful theme="outline" type="primary" loading >{content}</Button>
-            <Button  colorful theme="outline" type="primary" icon={<IconAIFilledLevel1 />} disabled >{content}</Button>
-            <Button  colorful theme="outline" type="tertiary" icon={<IconAIFilledLevel2 />}>{content}</Button>
-            <Button  colorful theme="outline" type="tertiary" loading >{content}</Button>
-            <Button  colorful theme="outline" type="tertiary" icon={<IconAIFilledLevel2 />} disabled >{content}</Button>
+            <Button colorful theme="outline" type="primary" icon={<IconAIFilledLevel1 />}>{content}</Button>
+            <Button colorful theme="outline" type="primary" loading >{content}</Button>
+            <Button colorful theme="outline" type="primary" icon={<IconAIFilledLevel1 />} disabled >{content}</Button>
+            <Button colorful theme="outline" type="tertiary" icon={<IconAIFilledLevel2 />}>{content}</Button>
+            <Button colorful theme="outline" type="tertiary" loading >{content}</Button>
+            <Button colorful theme="outline" type="tertiary" icon={<IconAIFilledLevel2 />} disabled >{content}</Button>
         </div>
         <div style={{ display: 'flex', columnGap: 16 }}>
-            <Button  colorful theme="borderless" type="primary" icon={<IconAIFilledLevel3 />}>{content}</Button>
-            <Button  colorful theme="borderless" type="primary" loading >{content}</Button>
-            <Button  colorful theme="borderless" type="primary" icon={<IconAIFilledLevel3 />} disabled >{content}</Button>
-            <Button  colorful theme="borderless" type="tertiary" icon={<IconAIFilledLevel2 />}>{content}</Button>
-            <Button  colorful theme="borderless" type="tertiary" loading >{content}</Button>
-            <Button  colorful theme="borderless" type="tertiary" icon={<IconAIFilledLevel2 />} disabled >{content}</Button>
+            <Button colorful theme="borderless" type="primary" icon={<IconAIFilledLevel3 />}>{content}</Button>
+            <Button colorful theme="borderless" type="primary" loading >{content}</Button>
+            <Button colorful theme="borderless" type="primary" icon={<IconAIFilledLevel3 />} disabled >{content}</Button>
+            <Button colorful theme="borderless" type="tertiary" icon={<IconAIFilledLevel2 />}>{content}</Button>
+            <Button colorful theme="borderless" type="tertiary" loading >{content}</Button>
+            <Button colorful theme="borderless" type="tertiary" icon={<IconAIFilledLevel2 />} disabled >{content}</Button>
         </div>
     </div>)));
 }
@@ -545,6 +548,7 @@ function SplitButtonDemo(){
 | -------- | -------------| ------- | --------- |---- |
 | aria-label | 按钮组的标签 | string  | - | |
 | className  | 自定义类名   | string  | - | |
+| colorful | 多彩按钮，自 2.86.0 版本开始支持 |  boolean | false |
 | disabled   | 禁用状态     | boolean | false | |
 | size       | 按钮大小，可选值：`large`、`default`、`small` | string  | "default" | |
 | style      | 自定义样式   | CSSProperties   | - | 2.20.0 |
