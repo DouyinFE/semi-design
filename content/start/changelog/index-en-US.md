@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.85.0 (2025-08-11)
+- 【Fix】
+    - fix the issue that the style of the light theme badge does not meet expectations when used alone [#2929](https://github.com/DouyinFE/semi-design/issues/2929) [#2930](https://github.com/DouyinFE/semi-design/pull/2930)
+
 #### 🎉 2.85.0-beta.0 (2025-08-05)
 - 【Feat】
     - Input and TextArea adds callback function for onCompositionStart/onCompositionEnd/onCompositionUpdate [#2922](https://github.com/DouyinFE/semi-design/pull/2922)

@@ -13,6 +13,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.85.0 (2025-08-11)
+- 【Fix】
+    - 修复 light 主题 Badge 单独使用时样式不符合预期问题 [#2929](https://github.com/DouyinFE/semi-design/issues/2929) [#2930](https://github.com/DouyinFE/semi-design/pull/2930)
+
 #### 🎉 2.85.0-beta.0 (2025-08-05)
 - 【Feat】
     - Input/TextArea 增加 onCompositionStart/onCompositionEnd/onCompositionUpdate 的回调 [#2922](https://github.com/DouyinFE/semi-design/pull/2922)
@@ -97,7 +101,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
     - Upload 添加文件名超长时弹出文件名提示功能 [@yatbfm](https://github.com/yatbfm) [#2753](https://github.com/DouyinFE/semi-design/pull/2753)
 - 【Fix】
     - 修复 Switch 组件 loading 加 disabled 态 hover 后样式问题 [@LonelySnowman](https://github.com/LonelySnowman) [#2778](https://github.com/DouyinFE/semi-design/pull/2778)
-    - 修复 Table 组件在 onHeaderCell 中通过 style 设置表头背景色时候，fixed 表头中不生效问题 [BUG] Table 的 column 设置 fixed 后，通过 onHeaderCell 设置的 style 样式有问题 [#2814](https://github.com/DouyinFE/semi-design/issues/2814)
+    - 修复 Table 组件在 onHeaderCell 中通过 style 设置表头背景色时候，fixed 表头中不生效问题 [#2814](https://github.com/DouyinFE/semi-design/issues/2814)
 - 【Style】
     - Dropdown 增加 $radius-dropdown_item token 用于设置面板中的各选项圆角 [#2817](https://github.com/DouyinFE/semi-design/pull/2817)
     - ScrollList 最外层增加 overflow: hidden 的样式设置 [#2818](https://github.com/DouyinFE/semi-design/pull/2818)

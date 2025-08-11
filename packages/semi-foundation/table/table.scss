@@ -269,8 +269,8 @@ $module: #{$prefix}-table;
                     &.#{$module}-cell-fixed {
                         &-left,
                         &-right {
-                            background-image: linear-gradient(0deg, $color-table_body-bg-default, $color-table_body-bg-default);
-                            background-color: $color-table_body-bg-hover;
+                            background-image: linear-gradient(0deg, $color-table_body-bg-hover, $color-table_body-bg-hover);
+                            background-color: $color-table_body-bg-default;
 
                             // &::before {
                             //     background-color: $color-table_body-bg-hover;
