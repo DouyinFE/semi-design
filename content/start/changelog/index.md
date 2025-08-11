@@ -87,7 +87,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
     - Upload 添加文件名超长时弹出文件名提示功能 [@yatbfm](https://github.com/yatbfm) [#2753](https://github.com/DouyinFE/semi-design/pull/2753)
 - 【Fix】
     - 修复 Switch 组件 loading 加 disabled 态 hover 后样式问题 [@LonelySnowman](https://github.com/LonelySnowman) [#2778](https://github.com/DouyinFE/semi-design/pull/2778)
-    - 修复 Table 组件在 onHeaderCell 中通过 style 设置表头背景色时候，fixed 表头中不生效问题 [BUG] Table 的 column 设置 fixed 后，通过 onHeaderCell 设置的 style 样式有问题 [#2814](https://github.com/DouyinFE/semi-design/issues/2814)
+    - 修复 Table 组件在 onHeaderCell 中通过 style 设置表头背景色时候，fixed 表头中不生效问题 [#2814](https://github.com/DouyinFE/semi-design/issues/2814)
 - 【Style】
     - Dropdown 增加 $radius-dropdown_item token 用于设置面板中的各选项圆角 [#2817](https://github.com/DouyinFE/semi-design/pull/2817)
     - ScrollList 最外层增加 overflow: hidden 的样式设置 [#2818](https://github.com/DouyinFE/semi-design/pull/2818)
