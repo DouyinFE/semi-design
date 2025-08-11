@@ -72,31 +72,6 @@ $module: #{$prefix}-badge;
         display: inline-block;
     }
 
-    &-light::before {
-        content: "";
-        display: block;
-        width: 100%;
-        height: 100%;
-        border-radius: inherit;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: $color-badge_default_light-bg-default;
-        z-index: $z-badge_light-bg;
-    }
-
-    &-light::after {
-        content: "";
-        display: block;
-        width: 100%;
-        height: 100%;
-        border-radius: inherit;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: inherit;
-        z-index: $z-badge_light-bg;
-    }
 
     &-primary {
         &.#{$module}-solid {
