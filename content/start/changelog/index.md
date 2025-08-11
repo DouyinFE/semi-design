@@ -13,6 +13,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.85.0 (2025-08-11)
+- 【Fix】
+    - 修复 light 主题 Badge 单独使用时样式不符合预期问题 [#2929](https://github.com/DouyinFE/semi-design/issues/2929) [#2930](https://github.com/DouyinFE/semi-design/pull/2930)
+
 #### 🎉 2.85.0-beta.0 (2025-08-05)
 - 【Feat】
     - Input/TextArea 增加 onCompositionStart/onCompositionEnd/onCompositionUpdate 的回调 [#2922](https://github.com/DouyinFE/semi-design/pull/2922)
