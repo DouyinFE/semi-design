@@ -217,8 +217,8 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
 
 | Properties | Instructions | type | Default |
 |-----|-----|------|-------|
-| checkboxProps | Set parameters for multiple selections | TextAreaProps | - |
-| radioProps | Set radio parameters | TextAreaProps | - |
+| checkboxProps | Set parameters for multiple selections | [CheckBoxGroupProps](/en-US/input/checkbox#Checkbox%20Group) | - |
+| radioProps | Set radio parameters | [RadioGroupProps](/en-US/input/radio#RadioGroup) | - |
 | renderContent | Customized feedback content display | (content: ReactNode) => ReactNode | - |
 | ModalProps | When mode is modal, it is used to set modal parameters. | ModalProps | - |
 | mode | Display mode, supports popup and modal | boolean | popup |
@@ -226,6 +226,6 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
 | showThankText | Whether to display text thanking you for feedback | boolean | true |
 | SideSheetProps | When modal is popup, it is used to set the parameters of the internal SideSheet | SideSheetProps | - |
 | type | Type of feedback content, supports text, emoji, radio, checkbox, custom | boolean | emoji |
-| textareaProps | Set parameters of multi-line input box | TextAreaProps | - |
+| textAreaProps | Set parameters of multi-line input box | [TextAreaProps](/en-US/input/input#TextArea) | - |
 
 

@@ -24,7 +24,7 @@ export interface BasicFeedbackProps {
     mode?: ArrayElement<typeof strings.MODE>;
     type?: ArrayElement<typeof strings.TYPE>;
     onValueChange?: (value: FeedbackValue) => void; 
-    textareaProps?: TextAreaProps;
+    textAreaProps?: TextAreaProps;
     radioProps?: RadioGroupProps;
     checkboxProps?: CheckboxGroupProps;
     renderContent?: (content: React.ReactNode) => React.ReactNode
@@ -82,8 +82,8 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
     }
 
     handleEmojiReasonChange = (value: string, e?: React.MouseEvent<HTMLTextAreaElement>) => {
-        const { textareaProps = {} } = this.props;
-        const { onChange } = textareaProps ;
+        const { textAreaProps = {} } = this.props;
+        const { onChange } = textAreaProps ;
         onChange?.(value, e);
         const { value: oldValue } = this.state;
         const newValue = {
@@ -97,18 +97,18 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
     }
 
     handleTextChange = (value: string, e?: React.MouseEvent<HTMLTextAreaElement>) => {
-        const { textareaProps = {} } = this.props;
-        const { onChange } = textareaProps ;
+        const { textAreaProps = {} } = this.props;
+        const { onChange } = textAreaProps;
         onChange?.(value, e);
         this.handleValueChange(value);
     }
 
     textNode = () => {
-        const { textareaProps } = this.props;
+        const { textAreaProps } = this.props;
         return <TextArea
             onChange={this.handleTextChange}
             placeholder='Provider additional feedback'
-            {...textareaProps}
+            {...textAreaProps}
         />;
     }
 
@@ -121,7 +121,7 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
 
     emojiNode = () => {
         const { value } = this.state;
-        const { textareaProps } = this.props;
+        const { textAreaProps } = this.props;
         const { emoji } = (value ?? {}) as EmojiResult;
         return <>
             <div className={`${prefixCls}-emoji-container`}>
@@ -138,7 +138,7 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
             {emoji === Emoji.bad && <TextArea
                 onChange={this.handleEmojiReasonChange}
                 placeholder='Provider additional feedback(optional)'
-                {...textareaProps}
+                {...textAreaProps}
             />}
         </>;
     }
@@ -266,7 +266,7 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
             'mode', 
             'type', 
             'onValueChange', 
-            'textareaProps',
+            'textAreaProps',
             'radioProps',
             'checkboxProps',
             'renderContent',

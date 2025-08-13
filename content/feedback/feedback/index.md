@@ -217,8 +217,8 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
 
 | 属性 | 说明 | 类型 | 默认值 |
 |-----|-----|------|-------|
-| checkboxProps | 设置多选的参数 | TextAreaProps | - |
-| radioProps | 设置单选的参数 | TextAreaProps | - |
+| checkboxProps | 设置多选的参数 | [CheckBoxGroupProps](/zh-CN/input/checkbox#Checkbox%20Group) | - |
+| radioProps | 设置单选的参数 | [RadioGroupProps](/zh-CN/input/radio#RadioGroup) | - |
 | renderContent | 自定义反馈内容展示 | (content: ReactNode) => ReactNode | - |
 | ModalProps | 当 mode 为 modal 时候，用于设置 modal 的参数 | ModalProps | - |
 | mode | 展示模式，支持 popup、modal | boolean | popup |
@@ -226,6 +226,6 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
 | showThankText | 是否展示感谢反馈的文本 | boolean | true |
 | SideSheetProps | 当 modal 为 popup 时，用于设置内部的 SideSheet 的参数 | SideSheetProps | - |
 | type | 反馈内容的类型，支持 text、emoji、radio，checkbox，custom| boolean | emoji |
-| textareaProps | 设置多行输入框的参数 | TextAreaProps | - |
+| textAreaProps | 设置多行输入框的参数 | [TextAreaProps](/zh-CN/input/input#TextArea) | - |
 
 
