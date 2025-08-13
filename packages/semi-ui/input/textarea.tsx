@@ -44,6 +44,16 @@ export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
     autoFocus?: boolean;
     showCounter?: boolean;
     showClear?: boolean;
+    /** 是否显示行号 */
+    showLineNumbers?: boolean;
+    /** 行号起始值，默认 1 */
+    lineNumberStart?: number;
+    /** 行号列宽度（px），默认 40 */
+    lineNumberWidth?: number;
+    /** 预留的行号最大位数，设置后行号栏宽度将固定，不会随位数变化抖动 */
+    lineNumberMaxDigits?: number;
+    /** 自定义渲染行号 */
+    renderLineNumber?: (lineNumber: number) => React.ReactNode;
     onClear?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
     onChange?: (value: string, e: React.MouseEvent<HTMLTextAreaElement>) => void;
     onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
@@ -70,6 +80,8 @@ export interface TextAreaState {
     isHover: boolean;
     height: number;
     minLength: number;
+    /** 视口可见行数（用于保证行号填满可视区） */
+    displayLineCount?: number;
     cachedValue?: string
 }
 
@@ -87,6 +99,10 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         className: PropTypes.string,
         style: PropTypes.object,
         showClear: PropTypes.bool,
+        showLineNumbers: PropTypes.bool,
+        lineNumberStart: PropTypes.number,
+        lineNumberWidth: PropTypes.number,
+        renderLineNumber: PropTypes.func,
         onClear: PropTypes.func,
         onResize: PropTypes.func,
         getValueLength: PropTypes.func,
@@ -102,6 +118,10 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         cols: 20,
         showCounter: false,
         showClear: false,
+        showLineNumbers: false,
+        lineNumberStart: 1,
+        lineNumberWidth: 40,
+        lineNumberMaxDigits: undefined,
         onEnterPress: noop,
         onChange: noop,
         onBlur: noop,
@@ -116,6 +136,8 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
     libRef: React.RefObject<HTMLInputElement>;
     foundation: TextAreaFoundation;
     throttledResizeTextarea: DebouncedFunc<typeof this.foundation.resizeTextarea>;
+    lineNumberGutterRef: React.RefObject<HTMLDivElement>;
+    lineNumberContentRef: React.RefObject<HTMLDivElement>;
 
     constructor(props: TextAreaProps) {
         super(props);
@@ -126,6 +148,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             isHover: false,
             height: 0,
             minLength: props.minLength,
+            displayLineCount: props?.rows || 1,
             cachedValue: props.value,
         };
         this.focusing = false;
@@ -133,6 +156,8 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
 
         this.libRef = React.createRef<HTMLInputElement>();
         this.throttledResizeTextarea = throttle(this.foundation.resizeTextarea, 10);
+        this.lineNumberGutterRef = React.createRef<HTMLDivElement>();
+        this.lineNumberContentRef = React.createRef<HTMLDivElement>();
     }
 
     get adapter() {
@@ -185,12 +210,55 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         }
     }
 
+    componentDidMount(): void {
+        this.syncLineNumberLineHeight();
+        this.updateDisplayLineCount();
+    }
+
     componentDidUpdate(prevProps: TextAreaProps, prevState: TextAreaState) {
         if (
             (this.props.value !== prevProps.value || this.props.placeholder !== prevProps.placeholder) &&
             this.props.autosize
         ) {
             this.foundation.resizeTextarea();
+        }
+        // 同步滚动位置（通过内容容器 translateY，实现与 textarea 垂直滚动同步）
+        const textEl = this.libRef?.current as unknown as HTMLTextAreaElement;
+        const contentEl = this.lineNumberContentRef?.current as HTMLDivElement;
+        if (textEl && contentEl) {
+            contentEl.style.transform = `translateY(${-textEl.scrollTop}px)`;
+        }
+        this.syncLineNumberLineHeight();
+        this.updateDisplayLineCount();
+    }
+
+    private syncLineNumberLineHeight() {
+        const textEl = this.libRef?.current as unknown as HTMLTextAreaElement;
+        const gutter = this.lineNumberGutterRef?.current as HTMLDivElement;
+        if (!textEl || !gutter) return;
+        if (typeof window === 'undefined' || typeof window.getComputedStyle !== 'function') return;
+        const computed = window.getComputedStyle(textEl);
+        const lh = computed.lineHeight;
+        if (lh && gutter.style.getPropertyValue('--semi-input-textarea-lineheight') !== lh) {
+            gutter.style.setProperty('--semi-input-textarea-lineheight', lh);
+        }
+        const fs = computed.fontSize;
+        if (fs) {
+            gutter.style.setProperty('font-size', fs);
+        }
+    }
+
+    private updateDisplayLineCount() {
+        const textEl = this.libRef?.current as unknown as HTMLTextAreaElement;
+        if (!textEl) return;
+        if (typeof window === 'undefined' || typeof window.getComputedStyle !== 'function') return;
+        const computed = window.getComputedStyle(textEl);
+        const lhStr = computed.lineHeight;
+        const lineHeight = lhStr.endsWith('px') ? parseFloat(lhStr) : parseFloat(lhStr) || 16;
+        const clientH = textEl.clientHeight || 0;
+        const visible = lineHeight > 0 ? Math.ceil(clientH / lineHeight) : (this.props.rows || 1);
+        if (visible && visible !== this.state.displayLineCount) {
+            this.setState({ displayLineCount: visible });
         }
     }
 
@@ -271,6 +339,11 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             showClear,
             borderless,
             autoFocus,
+            showLineNumbers,
+            lineNumberStart,
+            lineNumberWidth,
+            lineNumberMaxDigits,
+            renderLineNumber,
             ...rest
         } = this.props;
         const { isFocus, value, minLength: stateMinLength } = this.state;
@@ -288,7 +361,19 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             [`${prefixCls}-textarea-readonly`]: readonly,
             [`${prefixCls}-textarea-autosize`]: isObject(autosize) ? isUndefined(autosize?.maxRows) : autosize,
             [`${prefixCls}-textarea-showClear`]: showClear,
+            [`${prefixCls}-textarea-withLineNumbers`]: showLineNumbers,
         });
+        const logicalLines = typeof value === 'string' && value.length > 0 ? value.split(/\r\n|\r|\n/).length : 0;
+        const minRows = this.props.rows || 1;
+        const lineCount = Math.max(logicalLines || minRows, this.state.displayLineCount || minRows);
+        const currentMaxDigits = String((lineNumberStart as number) + Math.max(lineCount - 1, 0)).length;
+        const reservedDigits = Math.max(lineNumberMaxDigits || 0, currentMaxDigits);
+        const gutterWidthVar = lineNumberMaxDigits
+            ? `calc(${reservedDigits}ch + 16px)`
+            : `${lineNumberWidth}px`;
+        const gutterStyle: React.CSSProperties = {
+            ['--semi-input-textarea-linenumber-width' as any]: gutterWidthVar,
+        };
         const itemProps = {
             ...omit(rest, 'insetLabel', 'insetLabelId', 'getValueLength', 'onClear', 'showClear', 'disabledEnterStartNewLine'),
             autoFocus: autoFocus || this.props['autofocus'],
@@ -300,9 +385,15 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             onFocus: (e: React.FocusEvent<HTMLTextAreaElement>) => this.foundation.handleFocus(e),
             onBlur: (e: React.FocusEvent<HTMLTextAreaElement>) => this.foundation.handleBlur(e.nativeEvent),
             onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => this.foundation.handleKeyDown(e),
+            onScroll: (e: React.UIEvent<HTMLTextAreaElement>) => {
+                const target = e.currentTarget;
+                const contentEl = this.lineNumberContentRef?.current as HTMLDivElement;
+                if (contentEl) contentEl.style.transform = `translateY(${-target.scrollTop}px)`;
+            },
             value: value === null || value === undefined ? '' : value,
             onCompositionStart: this.foundation.handleCompositionStart,
             onCompositionEnd: this.foundation.handleCompositionEnd,
+            style: showLineNumbers ? { paddingLeft: 'calc(40px + 16px)' } : undefined,
         };
         if (!isFunction(getValueLength)) {
             (itemProps as any).maxLength = maxLength;
@@ -318,6 +409,20 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
                 onMouseEnter={e => this.foundation.handleMouseEnter(e)}
                 onMouseLeave={e => this.foundation.handleMouseLeave(e)}
             >
+                {showLineNumbers ? (
+                    <div className={`${prefixCls}-textarea-linenumbers`} style={gutterStyle} ref={this.lineNumberGutterRef} aria-hidden={true}>
+                        <div className={`${prefixCls}-textarea-linenumbers-content`} ref={this.lineNumberContentRef}>
+                            {Array.from({ length: lineCount }, (_, idx) => {
+                                const num = (lineNumberStart as number) + idx;
+                                return (
+                                    <div key={idx} className={`${prefixCls}-textarea-linenumbers-item`}>
+                                        {typeof renderLineNumber === 'function' ? renderLineNumber(num) : num}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                ) : null}
                 {autosize ? (
                     <ResizeObserver onResize={this.throttledResizeTextarea}>
                         <textarea {...itemProps} ref={this.setRef} />

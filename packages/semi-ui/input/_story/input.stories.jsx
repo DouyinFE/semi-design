@@ -915,6 +915,37 @@ export const TextAreaAutosize = () => {
 };
 TextAreaAutosize.storyName = "textarea autosize";
 
+export const TextareaLineNumbers = () => {
+  const [value, setValue] = React.useState(`import React from 'react';
+function Example() {
+  return <div>Hello Semi</div>;
+}
+export default Example;`);
+  return (
+    <div className="input" style={{ width: 520 }}>
+      <TextArea
+        showLineNumbers
+        rows={8}
+        value={value}
+        onChange={(v) => setValue(v)}
+        placeholder="Type multi-line code here"
+        lineNumberMaxDigits={3}
+      />
+      <br />
+      <TextArea
+        showLineNumbers
+        autosize
+        lineNumberStart={100}
+        lineNumberWidth={56}
+        renderLineNumber={(n) => String(n).padStart(3, '0')}
+        defaultValue={`A\nB\nC\nD\nE\nF\nG\nH\nI\nJ`}
+        lineNumberMaxDigits={3}
+      />
+    </div>
+  );
+};
+TextareaLineNumbers.storyName = 'textarea with line numbers';
+
 export const InputA11y = () => {
   return (
     <div style={{ width: 300 }}>

@@ -193,6 +193,8 @@ $module: #{$prefix}-input;
             color: $color-input_counter_danger-text-default;
         }
     }
+
+    // &-withLineNumbers 由组件运行时注入左侧内边距，无需静态样式
 }
 
 .#{$module}-textarea-borderless{
@@ -227,6 +229,35 @@ $module: #{$prefix}-input;
         }
     }
 
+}
+
+/* 行号容器与样式 */
+.#{$module}-textarea-linenumbers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--semi-input-textarea-linenumber-width, 40px);
+    box-sizing: border-box;
+    padding: $spacing-textarea-paddingY 8px; // 左右各 8px，与 paddingLeft 16px 配合
+    background-color: transparent;
+    color: $color-input_placeholder-text-default;
+    text-align: right;
+    overflow: hidden; /* 自身不出现横向滚动 */
+    pointer-events: none; /* 避免遮挡交互 */
+    font-variant-numeric: tabular-nums; // 等宽数字，避免数字宽度不一致
+    z-index: 1; // 置于 textarea 之上，避免被内容覆盖
+}
+
+.#{$module}-textarea-linenumbers-content {
+    /* 由父容器负责裁剪，这里需要让内容自然撑高以容纳所有行号 */
+    position: relative;
+    will-change: transform;
+}
+
+.#{$module}-textarea-linenumbers-item {
+    line-height: var(--semi-input-textarea-lineheight, $height-input_default); /* 与文本行高一致（随变量） */
+    white-space: nowrap;
 }
 
 @import "./rtl.scss";
