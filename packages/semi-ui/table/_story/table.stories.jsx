@@ -121,7 +121,8 @@ export {
     FixedOnGroupedRowClassName,
     FixedVirtualizedRef,
     RowSelectionOnCell,
-    FixedIndent
+    FixedIndent,
+    FilterMultipleConfirmReset
 } from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
 
@@ -656,3 +657,5 @@ _RowSelectionRenderCell.story = {
 };
 
 export const RowBgDemo = () => <RowBg />;
+
+// export const FilterMultipleConfirmResetDemo = () => <FilterMultipleConfirmReset />;

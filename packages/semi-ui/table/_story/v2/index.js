@@ -39,3 +39,4 @@ export { default as FixedOnGroupedRowClassName } from './FixedOnGroupedRowClassN
 export { default as FixedVirtualizedRef } from './FixedVirtualizedRef';
 export { default as RowSelectionOnCell } from './RowSelectionOnCell';
 export { default as FixedIndent } from './FixedIndent';
+export { default as FilterMultipleConfirmReset } from './FilterMultipleConfirmReset';
