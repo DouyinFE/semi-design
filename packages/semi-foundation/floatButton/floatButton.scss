@@ -27,6 +27,7 @@ $moduleGroup: #{$prefix}-floatButtonGroup;
     &-disabled {
         background: $color-floatButton-disabled-bg;
         color: $color-floatButton-disabled-text;
+        cursor: not-allowed;
 
         &:hover {
             background-color: $color-floatButton-disabled-bg;

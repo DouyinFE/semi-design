@@ -378,6 +378,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | closable | Toggle whether the tag can be closed | boolean | false |  |
 | color | Color of tags, one of `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow`、 `white` | string | `grey` |  |
 | colorful | Colorful labels | boolean | false | 2.86.0|
+| gradient | Whether it is a gradient color, it needs to take effect when colorful is true | boolean | false | 2.86.0|
 | prefixIcon | prefix icon | ReactNode | | 2.44.0 |
 | suffixIcon | suffix icon | ReactNode | | 2.44.0 |
 | shape | Shape of tag, one of `square`、 `circle` | string | `square` | 2.20.0 |

@@ -328,7 +328,7 @@ function ButtonDemo() {
 }
 ```
 
-### AI 风格·多彩按钮
+### AI 风格 - 多彩按钮
 
 设置 `colorful` 即可获得多彩按钮，多彩按钮支持所有的 `theme` ， `type` 仅支持 `primary` 及 `tertiary`。
 

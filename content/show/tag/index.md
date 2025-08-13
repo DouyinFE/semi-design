@@ -120,9 +120,13 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 );
 ```
 
-### AI风格 - 多彩标签
+### AI 风格 - 多彩标签
 
-设置 `colorful` 为 `true` 即可获得多彩的标签。
+设置 `colorful` 为 `true` 即可获得多彩的标签。<strong>注意: </strong> 多彩标签的字重和非多彩标签字重不同。
+
+多彩标签可通过 `gradient` 区分是否为渐变色。
+
+
 
 ```jsx live=true direction
 import React from 'react';
@@ -398,8 +402,9 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | closable | 标签是否可以关闭 | boolean  |  false   | |
 | color  | 标签的颜色，可选 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow`、 `white` | string  | `grey`| |
 | colorful | 多彩标签 | boolean | false | 2.86.0|
+| gradient | 是否为渐变色，需在 colorful 为 true 时生效 | boolean | false | 2.86.0|
 | prefixIcon | 前缀图标 | ReactNode | | 2.44.0 |
-| suffixIcon | 后缀图标 | ReactNode | | 2.44.0 |
+| suffixIcon | 后缀图标 | ReactNod e | | 2.44.0 |
 | shape | 标签的形状，可选 `square`、 `circle` | string | `square` | 2.20.0 |
 | size | 标签的尺寸，可选 `small`、 `large` | string | `small` | |
 | style | 样式 | CSSProperties |     | |

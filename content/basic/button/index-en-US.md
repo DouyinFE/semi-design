@@ -380,7 +380,7 @@ function ButtonDemo() {
 }
 ```
 
-### AI style·Colorful buttons
+### AI style - Colorful buttons
 
 Set `colorful` to get colorful buttons. Colorful buttons support all `theme`, and `type` only supports `primary` and `tertiary`.
 

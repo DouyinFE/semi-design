@@ -39,7 +39,7 @@ import { IconAIEditLevel1 } from '@douyinfe/semi-icons';
 
 ### Size
 
-Two sizes are supported: large, small (default).
+Three sizes are supported: default, small, large.
 
 ```jsx live=true
 import React from 'react';
@@ -102,7 +102,7 @@ import { IconAIEditLevel1 } from '@douyinfe/semi-icons';
 };
 ```
 
-### AI style·Colorful floating buttons
+### AI style - Colorful floating buttons
 
 You can set `colorful` to true to display colorful floating buttons.
 
@@ -209,7 +209,7 @@ import { IconAIEditLevel1, IconAIStrokedLevel3, IconSearchStroked, IconHelpCircl
 
 | Properties | Instructions | Type | Default |
 |-----|-----|------|-------|
-| badge | Badge parameters | BadgeProps | - |
+| badge | Badge parameters | [BadgeProps](/en-US/show/badge#API%E5%8F%82%E8%80%83) | - |
 | colorful | Use colorful floating buttons | boolean | false |
 | className | Style class name |  string | - |
 | disabled | Disabled state | boolean | false|
