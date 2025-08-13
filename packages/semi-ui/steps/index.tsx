@@ -5,6 +5,7 @@ import Step from './step';
 import FillSteps, { FillStepsProps } from './fillSteps';
 import BasicSteps, { BasicStepsProps } from './basicSteps';
 import NavSteps, { NavStepsProps } from './navSteps';
+import DotSteps, { DotStepsProps } from './dotSteps';
 import Context from './context';
 
 export type { Status, Size, BasicStepProps } from './basicStep';
@@ -24,14 +25,17 @@ export interface BasicStepsAllProps extends BasicStepsProps {
 export interface NavStepsAllProps extends NavStepsProps {
     type?: 'nav'
 }
-export type StepsProps = FillStepsAllProps | BasicStepsAllProps | NavStepsAllProps;
+export interface DotStepsAllProps extends DotStepsProps {
+    type?: 'dot'
+}
+export type StepsProps = FillStepsAllProps | BasicStepsAllProps | NavStepsAllProps | DotStepsAllProps;
 
 class Steps extends Component<StepsProps> {
     static Step = Step;
 
     static propTypes = {
         onChange: PropTypes.func,
-        type: PropTypes.oneOf(['fill', 'basic', 'nav']),
+        type: PropTypes.oneOf(['fill', 'basic', 'nav', 'dot']),
         size: PropTypes.oneOf(['small', 'default'])
     };
 
@@ -49,6 +53,8 @@ class Steps extends Component<StepsProps> {
                 return <BasicSteps {...restProps} />;
             case 'nav':
                 return <NavSteps {...restProps} />;
+            case 'dot':
+                return <DotSteps {...restProps} />;
             default:
                 return null;
         }

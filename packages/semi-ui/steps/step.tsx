@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import BasicStep from './basicStep';
 import FillStep from './fillStep';
 import NavStep from './navStep';
+import DotStep from './dotStep';
 import Context from './context';
 
 export type Status = 'wait' | 'process' | 'finish' | 'error' | 'warning';
@@ -26,6 +27,8 @@ const Step = (props: StepProps) => {
                 return <BasicStep {...props} />;
             case 'nav':
                 return <NavStep {...props} />;
+            case 'dot':
+                return <DotStep {...props} />;
             default:
                 return null;
         }

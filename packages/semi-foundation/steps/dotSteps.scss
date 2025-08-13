@@ -1,0 +1,169 @@
+$module: #{$prefix}-steps;
+$item: #{$module}-item;
+$dotType: #{$module}-dot;
+
+.#{$dotType} {
+    &.#{$module}-horizontal {
+        display: flex;
+        flex-flow: row nowrap;
+        .#{$item} {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            &:last-child {
+                .#{$item}-dot::after { display: none; }
+            }
+            &:first-child {
+                .#{$item}-dot::before { display: none; }
+            }
+            &-done {
+                .#{$item}-dot::after { background: $color-steps_item_done_after-bg; }
+            }
+        }
+    }
+
+    &.#{$module}-vertical {
+        display: flex;
+        flex-flow: column nowrap;
+        .#{$item} {
+            &:last-child {
+                .#{$item}-dot::after { display: none; }
+            }
+            &:first-child {
+                .#{$item}-dot::before { display: none; }
+            }
+            &-done {
+                .#{$item}-dot::after { background: $color-steps_item_done_icon_after-bg; }
+            }
+        }
+    }
+
+    .#{$item} {
+        @include box-sizing;
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        overflow: hidden;
+        flex: 1;
+
+        .#{$item}-container { display: flex; align-items: flex-start; }
+
+        .#{$item}-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: var(--semi-border-radius-circle);
+            background: var(--semi-color-border);
+            margin-right: 8px;
+            margin-top: 8px;
+            flex: 0 0 auto;
+            position: relative;
+            &::after {
+                content: "";
+                position: absolute;
+                display: block;
+                background: $color-steps_title_after-bg;
+                // default as horizontal
+                top: 50%;
+                left: 100%;
+                width: $width-steps_title_after;
+                height: $height-steps_title_after;
+                transform: translateY(-50%);
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                display: block;
+                background: $color-steps_title_after-bg;
+                // default as horizontal left segment
+                top: 50%;
+                right: 100%;
+                width: $width-steps_title_after;
+                height: $height-steps_title_after;
+                transform: translateY(-50%);
+            }
+        }
+
+        .#{$item}-title {
+            position: relative;
+            display: inline-block;
+            @include font-size-header-6;
+            line-height: $font-steps_basic_item_title-lineHeight;
+            font-weight: $font-steps_basic_item_title-fontWeight;
+            color: $color-steps_main-text-default;
+            margin-bottom: $spacing-steps_basic_item_title-paddingBottom;
+        }
+
+        .#{$item}-description {
+            @include font-size-small;
+            color: $color-steps_minor-text-default;
+        }
+
+        &-finish {
+            .#{$item}-dot { background: var(--semi-color-primary); }
+            .#{$item}-dot::after { background: var(--semi-color-primary); }
+        }
+
+        &-process {
+            .#{$item}-dot { background: var(--semi-color-primary); }
+            .#{$item}-dot::before { background: var(--semi-color-primary); }
+        }
+
+        &-error {
+            .#{$item}-dot { background: var(--semi-color-danger); }
+        }
+
+        &-warning {
+            .#{$item}-dot { background: var(--semi-color-warning); }
+        }
+    }
+}
+
+// vertical connector override
+.#{$dotType}.#{$module}-vertical {
+    .#{$item} {
+        .#{$item}-dot {
+            margin-top: 4px;
+            &::after {
+                top: 100%;
+                left: 50%;
+                width: $width-steps_vertical_icon_after;
+                height: $height-steps_vertical_icon_after;
+                transform: translateX(-50%);
+            }
+            &::before {
+                top: auto;
+                bottom: 100%;
+                left: 50%;
+                right: auto;
+                width: $width-steps_vertical_icon_after;
+                height: $height-steps_vertical_icon_after;
+                transform: translateX(-50%);
+            }
+        }
+    }
+}
+
+// horizontal layout: place title/description under dot
+.#{$dotType}.#{$module}-horizontal {
+    .#{$item} {
+        .#{$item}-container {
+            flex-direction: column;
+            align-items: center;
+        }
+        .#{$item}-dot {
+            margin-right: 0;
+            margin-bottom: 8px;
+            margin-top: 0;
+        }
+        .#{$item}-content { margin-left: 0; text-align: center; }
+        .#{$item}-title {
+            text-align: center;
+            margin-bottom: 4px;
+        }
+        .#{$item}-description {
+            text-align: center;
+        }
+    }
+}
+
+

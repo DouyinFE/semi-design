@@ -35,6 +35,7 @@ const AllSteps = () => {
           <Radio value="fill">fill</Radio>
           <Radio value="basic">basic</Radio>
           <Radio value="nav">nav</Radio>
+          <Radio value="dot">dot</Radio>
         </Form.RadioGroup>
         <Form.RadioGroup field="size">
           <Radio value="small">small</Radio>
@@ -108,6 +109,22 @@ export const StepsBasic = () => <BasicStep />;
 
 StepsBasic.story = {
   name: 'steps basic',
+};
+
+const DotStep = () => {
+  return sizes.map(s => (
+    <Steps key={s} size={s} type="dot" current={1}>
+      <Step title="Step.1" description="This is a description." />
+      <Step title="Step.2" description="This is a description." />
+      <Step title="Step.3" description="This is a description." />
+    </Steps>
+  ));
+};
+
+export const StepsDot = () => <DotStep />;
+
+StepsDot.story = {
+  name: 'steps dot',
 };
 
 export const StepsWithIcon = () => {
@@ -287,6 +304,22 @@ export const StepsVertical = () => <VerticalStep />;
 
 StepsVertical.story = {
   name: 'steps vertical',
+};
+
+const DotVerticalStep = () => {
+  return sizes.map(s => (
+    <Steps key={s} size={s} type="dot" current={1} direction="vertical">
+      <Step title="Finished" description="This is a description" />
+      <Step title="In Process" description="This is a description" />
+      <Step title="Waiting" description="This is a description" />
+    </Steps>
+  ));
+};
+
+export const StepsDotVertical = () => <DotVerticalStep />;
+
+StepsDotVertical.story = {
+  name: 'steps dot vertical',
 };
 
 const LineStep = () => {
