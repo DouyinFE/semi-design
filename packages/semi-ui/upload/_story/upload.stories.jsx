@@ -1,7 +1,7 @@
 /* argus-disable unPkgSensitiveInfo */
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import FileCard from '../fileCard';
-import { Button, Upload, Toast, Tag, Switch, SideSheet } from '@douyinfe/semi-ui/index';
+import { Button, Upload, Toast, Tag, Switch, SideSheet, Modal, Cropper } from '@douyinfe/semi-ui/index';
 import { withField, Form } from '../../form/index';
 import { IconPlus, IconFile, IconUpload, IconEyeOpened, IconDownload, IconDelete } from '@douyinfe/semi-icons';
 
@@ -1402,3 +1402,108 @@ export const CustomPicCloseIcon = () => {
         </>
     );
 };
+
+export const UploadWithCropper = () => {
+    const cropperRef = useRef(null);
+    const resolverRef = useRef(null);
+  
+    const [visible, setVisible] = useState(false);
+    const [src, setSrc] = useState('');          // 供 Cropper 预览
+    const [origFile, setOrigFile] = useState(null);
+  
+    const openCropper = (file) => {
+      const url = URL.createObjectURL(file);
+      setSrc(url);
+      setOrigFile(file);
+      setVisible(true);
+    };
+  
+    const handleOk = () => {
+      const canvas = cropperRef.current?.getCropperCanvas?.();
+      if (!canvas) {
+        resolverRef.current?.({ shouldUpload: false, autoRemove: true });
+        cleanup();
+        return;
+      }
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          resolverRef.current?.({ shouldUpload: false, autoRemove: true });
+          cleanup();
+          return;
+        }
+        const newFile = new File([blob], origFile.name, { type: origFile.type || 'image/png' });
+        resolverRef.current?.({ shouldUpload: true, fileInstance: newFile });
+        cleanup();
+      }, origFile.type || 'image/png', 0.92);
+    };
+  
+    const handleCancel = () => {
+      resolverRef.current?.({ shouldUpload: false, autoRemove: true });
+      cleanup();
+    };
+  
+    const cleanup = () => {
+      setVisible(false);
+      if (src) URL.revokeObjectURL(src);
+      setSrc('');
+      setOrigFile(null);
+      resolverRef.current = null;
+    };
+  
+    const beforeUpload = ({ file }) => {
+      // 仅对图片启用裁切
+      if (!/^image\//.test(file.fileInstance?.type || '')) return true;
+      return new Promise((resolve) => {
+        resolverRef.current = resolve;
+        openCropper(file.fileInstance);
+      });
+    };
+  
+    return (
+      <>
+        <Upload
+          action="https://api.semi.design/upload"
+          listType="picture"
+          accept="image/*"
+          beforeUpload={beforeUpload}
+        >
+          <Button icon={<IconUpload />} theme="light">点击上传图片（支持裁切）</Button>
+        </Upload>
+  
+        <Modal
+          title="裁切图片"
+          visible={visible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          okText="完成裁切并上传"
+          cancelText="取消"
+          keepDOM
+        >
+          {src ? (
+            <Cropper
+              ref={cropperRef}
+              src={src}
+              style={{ width: '100%', height: 300 }}
+              // 常用裁切配置（可按需定制）
+              shape="rect"                // 'rect' | 'round' | 'roundRect'
+              defaultAspectRatio={1}      // 初始比例
+              // aspectRatio={1}          // 固定比例时启用
+              showResizeBox
+            />
+          ) : null}
+        </Modal>
+      </>
+    );
+  }
+
+export const BuiltInCropper = () => (
+  <Upload
+    action={action}
+    listType="picture"
+    accept="image/*"
+    enableCrop
+    cropperProps={{ defaultAspectRatio: 1 }}
+  >
+    <Button icon={<IconUpload />} theme="light">点击上传（内置裁切）</Button>
+  </Upload>
+)

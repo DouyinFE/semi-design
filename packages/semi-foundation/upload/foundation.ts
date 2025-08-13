@@ -89,8 +89,10 @@ export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>>
     registerPastingHandler: (cb?: (params?: any) => void) => void;
     unRegisterPastingHandler: () => void;
     isMac: () => boolean;
-    notifyPastingError: (error: Error | PermissionStatus) => void
+    notifyPastingError: (error: Error | PermissionStatus) => void;
     // notifyPasting: () => void; 
+    // Open an image cropper UI and resolve with the cropped File or null if canceled
+    openImageCropper?: (file: File) => Promise<File | null>
 }
 
 class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<UploadAdapter<P, S>, P, S> {
@@ -439,53 +441,108 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         });
     }
 
-    upload(file: BaseFileItem): void {
-        const { beforeUpload } = this.getProps();
+    async upload(file: BaseFileItem): Promise<void> {
+        const props: any = this.getProps();
+        const { beforeUpload, enableCrop } = props;
+
+        const isImg = this.isImage(file.fileInstance as CustomFile);
+        let baseResult: boolean | BeforeUploadObjectResult = true;
+
+        // Optional built-in cropping before user beforeUpload
+        if (enableCrop && isImg && typeof this._adapter.openImageCropper === 'function') {
+            try {
+                const cropped = await this._adapter.openImageCropper(file.fileInstance);
+                if (cropped) {
+                    baseResult = { shouldUpload: true, fileInstance: cropped };
+                } else {
+                    baseResult = { shouldUpload: false, status: strings.FILE_STATUS_VALID_FAIL, autoRemove: true };
+                }
+            } catch (e) {
+                baseResult = { shouldUpload: false, status: strings.FILE_STATUS_VALID_FAIL };
+            }
+        }
+
+        // if user did not pass beforeUpload
         if (typeof beforeUpload === 'undefined') {
-            this.post(file);
+            if (baseResult === true) {
+                this.post(file);
+            } else {
+                this.handleBeforeUploadResultInObject(baseResult as BeforeUploadObjectResult, file);
+            }
             return;
         }
+
         if (typeof beforeUpload === 'function') {
             const { fileList } = this.getStates();
             const buResult = this._adapter.notifyBeforeUpload({ file, fileList });
+
+            const mergeResult = (userRes: any): boolean | BeforeUploadObjectResult => {
+                if (userRes === false) return false;
+                if (userRes === true || typeof userRes === 'undefined') return baseResult;
+                // userRes is object
+                let merged: BeforeUploadObjectResult = { shouldUpload: true } as any;
+                if (typeof baseResult === 'object') merged = { ...merged, ...(baseResult as any) };
+                merged = { ...merged, ...(userRes as any) };
+                return merged;
+            };
+
             switch (true) {
-                // sync validate - boolean
                 case buResult === true: {
-                    this.post(file);
+                    const merged = mergeResult(true);
+                    if (merged === true) {
+                        this.post(file);
+                    } else if (merged === false) {
+                        this.handleBeforeUploadResultInObject({ shouldUpload: false, status: strings.FILE_STATUS_VALID_FAIL }, file);
+                    } else {
+                        this.handleBeforeUploadResultInObject(merged as BeforeUploadObjectResult, file);
+                    }
                     break;
                 }
                 case buResult === false: {
-                    const newResult = { shouldUpload: false, status: strings.FILE_STATUS_VALID_FAIL };
-                    this.handleBeforeUploadResultInObject(newResult, file);
+                    this.handleBeforeUploadResultInObject({ shouldUpload: false, status: strings.FILE_STATUS_VALID_FAIL }, file);
                     break;
                 }
-                // async validate
                 case buResult && isPromise(buResult): {
                     Promise.resolve(buResult as Promise<BeforeUploadObjectResult>).then(
                         resolveData => {
-                            let newResult = { shouldUpload: true };
                             const typeOfResolveData = Object.prototype.toString.call(resolveData).slice(8, -1);
-                            if (typeOfResolveData === 'Object') {
-                                newResult = { ...newResult, ...resolveData };
+                            const merged = typeOfResolveData === 'Object' ? mergeResult(resolveData) : mergeResult(true);
+                            if (merged === true) {
+                                this.post(file);
+                            } else if (merged === false) {
+                                this.handleBeforeUploadResultInObject({ shouldUpload: false, status: strings.FILE_STATUS_VALID_FAIL }, file);
+                            } else {
+                                this.handleBeforeUploadResultInObject(merged as BeforeUploadObjectResult, file);
                             }
-                            this.handleBeforeUploadResultInObject(newResult, file);
                         },
                         rejectVal => {
-                            let newResult = { shouldUpload: false, status: strings.FILE_STATUS_VALID_FAIL };
+                            let rejectObj: any = { shouldUpload: false, status: strings.FILE_STATUS_VALID_FAIL };
                             const typeOfRejectData = Object.prototype.toString.call(rejectVal).slice(8, -1);
                             if (typeOfRejectData === 'Object') {
-                                newResult = { ...newResult, ...rejectVal };
+                                rejectObj = { ...rejectObj, ...rejectVal };
                             }
-                            this.handleBeforeUploadResultInObject(newResult, file);
+                            const merged = mergeResult(rejectObj);
+                            if (merged === true) {
+                                this.post(file);
+                            } else if (merged === false) {
+                                this.handleBeforeUploadResultInObject({ shouldUpload: false, status: strings.FILE_STATUS_VALID_FAIL }, file);
+                            } else {
+                                this.handleBeforeUploadResultInObject(merged as BeforeUploadObjectResult, file);
+                            }
                         });
                     break;
                 }
-
-                // sync validate - object
-                case typeof buResult === 'object':
-                    // inject to fileList
-                    this.handleBeforeUploadResultInObject(buResult as BeforeUploadObjectResult, file);
+                case typeof buResult === 'object': {
+                    const merged = mergeResult(buResult as BeforeUploadObjectResult);
+                    if (merged === true) {
+                        this.post(file);
+                    } else if (merged === false) {
+                        this.handleBeforeUploadResultInObject({ shouldUpload: false, status: strings.FILE_STATUS_VALID_FAIL }, file);
+                    } else {
+                        this.handleBeforeUploadResultInObject(merged as BeforeUploadObjectResult, file);
+                    }
                     break;
+                }
                 default:
                     break;
             }
