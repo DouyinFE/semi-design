@@ -79,7 +79,7 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
 
 ### Single choice feedback
 
-Set `type` to `radio` to get feedback in the form of a single selection, and set the parameters of the multi-line input box through `radioProps`.
+Set `type` to `radio` to get feedback in the form of a single selection, and set the parameters of the radio selection through `radioGroupProps`.
 
 ```jsx live=true
 import React, { useState, useCallback } from 'react';
@@ -96,7 +96,7 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
         </Button>
         <Feedback
             type="radio"
-            radioProps={{
+            radioGroupProps={{
                 options: ['Guest', 'Developer', 'Maintainer'],
             }}
             title="What is your role?"
@@ -110,7 +110,7 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
 
 ### Multiple choice feedback
 
-Set `type` to `checkbox` to obtain feedback in the form of multiple selections, and set the parameters of the multi-line input box through `checkboxProps`.
+Set `type` to `checkbox` to obtain feedback in the form of multiple selections, and set the parameters of the multi selection through `checkboxGroupProps`.
 
 ```jsx live=true
 import React, { useState, useCallback } from 'react';
@@ -127,7 +127,7 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
         </Button>
         <Feedback
             type="checkbox"
-            checkboxProps={{
+            checkboxGroupProps={{
                 options: ['Douyin', ' Huoshan', 'doubao']
             }}
             title="Which products you choose?"
@@ -141,7 +141,7 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
 
 ### Customized feedback content
 
-Set `type` to `custom` to obtain feedback in the form of multiple selections, and set the parameters of the multi-line input box through `renderContent`.
+Set `type` to `custom` to obtain feedback in the form of multiple selections, and set the feedback content through `renderContent`. When using custom feedback, you need to control whether the submit button is disabled or not. Users can set it through `okButtonProps`.
 
 ```jsx live=true
 import React, { useState, useCallback } from 'react';
@@ -172,6 +172,7 @@ import { Feedback, Button, TextArea } from '@douyinfe/semi-ui';
         <Feedback
             type="custom"
             title="What is your suggestion?"
+            okButtonProps={{ disabled: !Boolean(value) }}
             visible={visible}
             onOk={handleOk}
             onCancel={handleCancel}
@@ -215,17 +216,22 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
 
 ## API reference
 
+In addition to the parameters listed below, when `mode` is `modal`, FeedbackProps also supports the parameters in [ModalProps](/zh-CN/show/modal#Modal).
+When `mode` is `popup`, FeedbackProps also supports the parameters in [SideSheetProps](/zh-CN/show/sidesheet#API%20%E5%8F%82%E8%80%83)
+
 | Properties | Instructions | type | Default |
 |-----|-----|------|-------|
-| checkboxProps | Set parameters for multiple selections | [CheckBoxGroupProps](/en-US/input/checkbox#Checkbox%20Group) | - |
-| radioProps | Set radio parameters | [RadioGroupProps](/en-US/input/radio#RadioGroup) | - |
+| cancelButtonProps | Set the parameters for the cancel button | [ButtonProps](/zh-CN/basic/button#Button) | - |
+| checkboxGroupProps | Set parameters for multiple selections | [CheckBoxGroupProps](/en-US/input/checkbox#Checkbox%20Group) | - |
+| radioGroupProps | Set radio parameters | [RadioGroupProps](/en-US/input/radio#RadioGroup) | - |
 | renderContent | Customized feedback content display | (content: ReactNode) => ReactNode | - |
 | ModalProps | When mode is modal, it is used to set modal parameters. | ModalProps | - |
 | mode | Display mode, supports popup and modal | boolean | popup |
+| okButtonProps | Set the parameters of the submit button. For example, when customizing content, set disabled in okButtonProps to disable submission | [ButtonProps](/zh-CN/input/input#Button) | - |
+| onCancel | Cancel callback, the parameter is the shutdown function, and it will automatically close after the promise is resolved. | (e: any) => void \| Promise<any\> | - |
+| onOk | Click OK callback, the parameter is the closing function, and it will automatically close after the promise is resolved. | (e: any) => void \| Promise<any\> | - |
 | onValueChange | Callback when feedback content changes |function  | (value: string \| string[] \| Object) |
-| showThankText | Whether to display text thanking you for feedback | boolean | true |
+| showThankInfo | Whether to display text thanking you for feedback | boolean | true |
 | SideSheetProps | When modal is popup, it is used to set the parameters of the internal SideSheet | SideSheetProps | - |
 | type | Type of feedback content, supports text, emoji, radio, checkbox, custom | boolean | emoji |
 | textAreaProps | Set parameters of multi-line input box | [TextAreaProps](/en-US/input/input#TextArea) | - |
-
-

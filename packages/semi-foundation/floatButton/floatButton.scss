@@ -48,7 +48,7 @@ $moduleGroup: #{$prefix}-floatButtonGroup;
             
         .#{$prefix}-badge-dot, .#{$prefix}-badge-count {
             /* Calculation logic:
-            The center of the badage is the intersection of two lines. 
+            The center of the badge is the intersection of two lines. 
             - The first line is the connecting line between the center of the floatButton and the upper right corner of the enclosing rectangle. 
             - The second line is the border of the floatButton.
             Can be calculated through radius， (√2 - 1）/√2 * R = 0.29 * R
@@ -66,7 +66,7 @@ $moduleGroup: #{$prefix}-floatButtonGroup;
             
             .#{$prefix}-badge-dot, .#{$prefix}-badge-count {
                 /* Calculation logic:
-                The center of the badage is the intersection of two lines. 
+                The center of the badge is the intersection of two lines. 
                 - The first line is the connecting line between the center of the floatButton and the upper right corner of the enclosing rectangle. 
                 - The second line is the border of the floatButton.
                 Can be calculated through radius (√2 - 1）/√2 * R = 0.29 * R，and R = 0.5 * width

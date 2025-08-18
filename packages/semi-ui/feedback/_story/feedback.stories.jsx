@@ -50,7 +50,7 @@ export const Default = () => {
             title="Why did you choose this rating?"
             type='radio'
             mode='modal'
-            radioProps={{
+            radioGroupProps={{
               options: ['Guest', 'Developer', 'Maintainer'],
             }}
           />
@@ -65,7 +65,7 @@ export const Default = () => {
             title="Why did you choose this rating?"
             type='checkbox'
             mode='modal'
-            checkboxProps={{
+            checkboxGroupProps={{
               options: ['抖音', '火山', '皮皮虾']
             }}
           />
@@ -105,7 +105,7 @@ export const Default = () => {
             title="Why did you choose this rating?"
             type='radio'
             mode='popup'
-            radioProps={{
+            radioGroupProps={{
               options: ['Guest', 'Developer', 'Maintainer'],
             }}
           />
@@ -120,13 +120,67 @@ export const Default = () => {
             title="Why did you choose this rating?"
             type='checkbox'
             mode='popup'
-            checkboxProps={{
+            motion={false}
+            checkboxGroupProps={{
               options: ['抖音', '火山', '皮皮虾']
             }}
           />
 
       </div>
   )
+}
+
+export const PromiseOK = () => {
+  const [visible1, setVisible1] = useState(false);
+  const [visible2, setVisible2] = useState(false);
+
+  const onOK = useCallback(() => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+        setVisible1(false)
+      }, 2000);
+    })
+  }, [setVisible1])
+
+  const onOK2 = useCallback(() => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+        setVisible2(false)
+      }, 2000);
+    })
+  }, [setVisible2])
+
+  return <div>
+    <Button onClick={() => setVisible1(!visible1)} >
+      Open Feedback: Modal, text
+    </Button>
+    <Feedback
+      width={400}
+      height={400}
+      visible={visible1}
+      onOk={onOK}
+      onCancel={() => setVisible1(false)}
+      title="Why did you choose this rating?"
+      type='text'
+      mode='modal'
+    />
+    <br /><br />
+    <Button onClick={() => setVisible2(!visible2)} >
+      Open Feedback: SideSheet, text
+    </Button>
+    <Feedback
+      width={400}
+      height={400}
+      visible={visible2}
+      onOk={onOK2}
+      onCancel={() => setVisible2(false)}
+      title="Why did you choose this rating?"
+      type='text'
+      mode='modal'
+    />
+  </div>
 }
 
 export const WidthHeight = () => {
@@ -178,7 +232,6 @@ export const customContent = () => {
         return <>
           <span>这是一段自定义的内容</span>
           <TextArea
-            value={value}
             onChange={onTextAreaChange}
           />
         </>

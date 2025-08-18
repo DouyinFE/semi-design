@@ -130,12 +130,12 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 
 ```jsx live=true direction
 import React from 'react';
-import { Tag, Space } from '@douyinfe/semi-ui';
+import { Tag } from '@douyinfe/semi-ui';
 import { IconAIFilledLevel1, IconAIFilledLevel3 } from '@douyin/semi-icons';
 
 () => (
     <div style={{ display: 'flex', flexDirection: 'column', rowGap: 30 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gridGap: '10px', width: 'fit-content'}}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gridGap: '10px', width: 'fit-content' }}>
             <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small"/>} type="solid" shape='circle' gradient>AI</Tag>
             <Tag colorful prefixIcon={<IconAIFilledLevel3 size="small" />} type="light" shape='circle' gradient>AI</Tag>
             <Tag colorful prefixIcon={<IconAIFilledLevel3 size="small"/>} type="ghost" shape='circle' gradient >AI</Tag>

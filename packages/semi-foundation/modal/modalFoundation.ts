@@ -58,7 +58,6 @@ export interface ModalProps {
     preventScroll?: boolean;
     footerFill?: boolean
 }
-
 export interface ModalState {
     displayNone: boolean;
     isFullScreen: boolean;
@@ -82,9 +81,9 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
         const result = this._adapter.notifyCancel(e);
         if (isPromise(result)) {
             this._adapter.setState({ onCancelReturnPromiseStatus: "pending" });
-            (result as Promise<any>)?.then(()=>{
+            (result as Promise<any>)?.then(() => {
                 this._adapter.setState({ onCancelReturnPromiseStatus: "fulfilled" });
-            })?.catch(e=>{
+            })?.catch(e => {
                 this._adapter.setState({ onCancelReturnPromiseStatus: "rejected" });
                 throw e;
             });
@@ -95,9 +94,9 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
         const result = this._adapter.notifyOk(e);
         if (isPromise(result)) {
             this._adapter.setState({ onOKReturnPromiseStatus: "pending" });
-            (result as Promise<any>)?.then(()=>{
+            (result as Promise<any>)?.then(() => {
                 this._adapter.setState({ onOKReturnPromiseStatus: "fulfilled" });
-            })?.catch(e=>{
+            })?.catch(e => {
                 this._adapter.setState({ onOKReturnPromiseStatus: "rejected" });
                 throw e;
             });

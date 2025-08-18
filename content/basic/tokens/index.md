@@ -27,6 +27,10 @@ Design Token 设计变量实际上是将设计中的基础元素与具体的样�
 
 <FullPalette/>
 
+<Notice title='注意'>
+    AI general 系列的颜色为使用 linear-gradient() 实现的渐变色，作为 background-color 的值无法生效，需要作为 background-image 或者 background 的值才能生效
+</Notice>
+
 ### 颜色转换
 <ColorConverter/>
 
