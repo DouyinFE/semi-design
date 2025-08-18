@@ -55,10 +55,10 @@ function getFillColor(fill: string | string[] | undefined, num: number) {
         ];
     }
     return [
-        'rgba(46,140,255)',
-        'rgba(107,97,255)',
-        'rgba(166,71,255)',
         'rgba(233,69,255)',
+        'rgba(166,71,255)',
+        'rgba(107,97,255)',
+        'rgba(46,140,255)',  
     ];
 }
 

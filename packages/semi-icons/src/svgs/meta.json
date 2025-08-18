@@ -1,103 +1,103 @@
 [
     {
         "name": "a_i_bell_level_1",
-        "category": "AI"
+        "category": "One Color"
     },
     {
         "name": "a_i_bell_level_2",
-        "category": "AI"
+        "category": "Two Color"
     },
     {
         "name": "a_i_bell_level_3",
-        "category": "AI"
+        "category": "Multiple Color"
     },
     {
         "name": "a_i_edit_level_1",
-        "category": "AI"
+        "category": "One Color"
     },
     {
         "name": "a_i_edit_level_2",
-        "category": "AI"
+        "category": "Two Color"
     },
     {
         "name": "a_i_edit_level_3",
-        "category": "AI"
+        "category": "Multiple Color"
     },
     {
         "name": "a_i_file_level_1",
-        "category": "AI"
+        "category": "One Color"
     },
     {
         "name": "a_i_file_level_2",
-        "category": "AI"
+        "category": "Two Color"
     },
     {
         "name": "a_i_file_level_3",
-        "category": "AI"
+        "category": "Multiple Color"
     },
     {
         "name": "a_i_filled_level_1",
-        "category": "AI"
+        "category": "One Color"
     },
     {
         "name": "a_i_filled_level_2",
-        "category": "AI"
+        "category": "Two Color"
     },
     {
         "name": "a_i_filled_level_3",
-        "category": "AI"
+        "category": "Multiple Color"
     },
     {
         "name": "a_i_image_level_1",
-        "category": "AI"
+        "category": "One Color"
     },
     {
         "name": "a_i_image_level_2",
-        "category": "AI"
+        "category": "Two Color"
     },
     {
         "name": "a_i_image_level_3",
-        "category": "AI"
+        "category": "Multiple Color"
     },
     {
         "name": "a_i_search_level_1",
-        "category": "AI"
+        "category": "One Color"
     },
     {
         "name": "a_i_search_level_2",
-        "category": "AI"
+        "category": "Two Color"
     },
     {
         "name": "a_i_search_level_3",
-        "category": "AI"
+        "category": "Multiple Color"
     },
     {
         "name": "a_i_stroked_level_1",
-        "category": "AI"
+        "category": "One Color"
     },
     {
         "name": "a_i_stroked_level_2",
-        "category": "AI"
+        "category": "Two Color"
     },
     {
         "name": "a_i_stroked_level_3",
-        "category": "AI"
+        "category": "Multiple Color"
     },
     {
         "name": "a_i_wand_level_1",
-        "category": "AI"
+        "category": "One Color"
     },
     {
         "name": "a_i_wand_level_2",
-        "category": "AI"
+        "category": "Two Color"
     },
     {
         "name": "a_i_wand_level_3",
-        "category": "AI"
+        "category": "Multiple Color"
     },
     {
         "name": "a_i_loading",
-        "category": "AI"
+        "category": "Multiple Color"
     },
     {
         "name": "user_circle",
