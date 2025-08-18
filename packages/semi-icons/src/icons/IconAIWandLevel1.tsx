@@ -31,5 +31,5 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
         </svg>
     );
 }
-const IconComponent = convertIcon(SvgComponent, 'a_i_wand_level_1');
+const IconComponent = convertIcon(SvgComponent, 'ai_wand_level_1');
 export default IconComponent;

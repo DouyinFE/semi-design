@@ -142,7 +142,8 @@ $module: #{$prefix}-button;
                 &:hover {
                     background: $color-button_tertiary_solid_colorful-bg-hover; 
                 }
-                .#{$module}-content-right {
+
+                .#{$module}-content-right, .#{$module}-content:not(:has(>.#{$module}-content-right)) {
                     background: $color-button_tertiary_solid_colorful-text-default;
                     background-clip: text;
                     color: transparent;
@@ -199,7 +200,7 @@ $module: #{$prefix}-button;
             }
 
             &.#{$module}-light {
-                .#{$module}-content-right {
+                .#{$module}-content-right, .#{$module}-content:not(:has(>.#{$module}-content-right)) {
                     background: $color-button_primary_light_colorful-text-default;
                     background-clip: text;
                     color: transparent;
@@ -212,7 +213,7 @@ $module: #{$prefix}-button;
             }
 
             &.#{$module}-borderless {
-                .#{$module}-content-right {
+                .#{$module}-content-right, .#{$module}-content:not(:has(>.#{$module}-content-right)) {
                     background: $color-button_primary_light_borderless-text-default;
                     background-clip: text;
                     color: transparent;

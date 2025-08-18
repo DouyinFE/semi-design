@@ -180,7 +180,7 @@ const AppLayout = ({ type, location, children }) => {
 
     useEffect(() => {
         setTimeout(()=>{
-            console.clear();
+            // console.clear();
         }, 1000);
     }, []);
 

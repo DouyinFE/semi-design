@@ -25,5 +25,5 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
         </svg>
     );
 }
-const IconComponent = convertIcon(SvgComponent, 'a_i_bell_level_1');
+const IconComponent = convertIcon(SvgComponent, 'ai_bell_level_1');
 export default IconComponent;

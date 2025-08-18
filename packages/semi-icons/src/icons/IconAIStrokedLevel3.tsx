@@ -40,5 +40,5 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
         </svg>
     );
 }
-const IconComponent = convertIcon(SvgComponent, 'a_i_stroked_level_3');
+const IconComponent = convertIcon(SvgComponent, 'ai_stroked_level_3');
 export default IconComponent;

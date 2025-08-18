@@ -39,7 +39,7 @@ import { IconAIEditLevel1 } from '@douyinfe/semi-icons';
 
 ### 尺寸
 
-支持两种尺寸：大， 小（默认）。
+支持三种尺寸：默认，小，大。
 
 ```jsx live=true
 import React from 'react';
@@ -102,7 +102,7 @@ import { IconAIEditLevel1 } from '@douyinfe/semi-icons';
 };
 ```
 
-### AI 风格·多彩悬浮按钮
+### AI 风格 - 多彩悬浮按钮
 
 可设置 `colorful` 为 true，展示多彩的悬浮按钮。
 
@@ -209,7 +209,7 @@ import { IconAIEditLevel1, IconAIStrokedLevel3, IconSearchStroked, IconHelpCircl
 
 | 属性 | 说明 | 类型 | 默认值 |
 |-----|-----|------|-------|
-| badge | 徽章参数 | BadgeProps | - |
+| badge | 徽章参数 | [BadgeProps](/zh-CN/show/badge#API%E5%8F%82%E8%80%83) | - |
 | colorful | 多彩悬浮按钮 | boolean | false |
 | className | 样式类名 |  string | - |
 | disabled | 禁用状态 | boolean | false|
@@ -217,7 +217,7 @@ import { IconAIEditLevel1, IconAIStrokedLevel3, IconSearchStroked, IconHelpCircl
 | icon | 显示图标 | ReactNode | - |
 | onClick | 点击回调函数 | string | - |
 | shape | 样式，支持 round、 square | string | round |
-| size | 尺寸，支持 default、small、large | string | default|
+| size | 尺寸，支持 default、small、large | string | default |
 | style | 样式 | CSSProperties  | - |
 | target | 指定在何处显示链接的 URL, 同 [target](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Reference/Elements/a#target) | string | - |
 

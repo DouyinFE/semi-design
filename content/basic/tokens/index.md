@@ -25,7 +25,13 @@ Design Token 设计变量实际上是将设计中的基础元素与具体的样�
 
 基于品牌色动态生成，包含 160 个颜色在内的，16 个不同色相的梯度色盘。通常情况下，我们用使用基础色中的颜色来进一步定义功能色。你可以在 Semi DSM 配置你的产品品牌色，动态生成新的基础色盘。
 
+
 <FullPalette/>
+
+
+<Notice title='注意'>
+    AI general 系列的颜色为使用 linear-gradient() 实现的渐变色，作为 background-color 的值无法生效，需要作为 background-image 或者 background 的值才能生效
+</Notice>
 
 ### 颜色转换
 <ColorConverter/>

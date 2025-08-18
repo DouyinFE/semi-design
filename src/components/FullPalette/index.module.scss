@@ -58,14 +58,22 @@
     .color-value {
         display: none;
         opacity: .5;
+        font-family: Inconsolata, monospace;
+    }
+
+    .color-value-gradient {
         height: 36px;
         overflow: hidden;
-        font-family: Inconsolata, monospace;
     }
 
     .color-cap.white {
         color: #fff;
     }
+
+    .color-cap.black {
+        color: #000;
+    }
+
 
     &:hover {
 

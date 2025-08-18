@@ -33,5 +33,5 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
         </svg>
     );
 }
-const IconComponent = convertIcon(SvgComponent, 'a_i_loading');
+const IconComponent = convertIcon(SvgComponent, 'ai_loading');
 export default IconComponent;

@@ -652,8 +652,8 @@ import { IconAIWandLevel2, IconAIFilledLevel2 } from '@douyinfe/semi-icons';
 
 () => (
     <div>
-        <IconAIWandLevel2 fill={['red', 'green']} style={{ marginRight: 10 }} size="extra-large"/>
-        <IconAIFilledLevel2 fill={'green'} size="extra-large"/>
+        <IconAIWandLevel2 fill={['var(--semi-color-danger)', 'var(--semi-color-success)']} style={{ marginRight: 10 }} size="extra-large"/>
+        <IconAIFilledLevel2 fill={'var(--semi-color-success)'} size="extra-large"/>
     </div>
 );
 ```
@@ -669,8 +669,8 @@ import { IconAIBellLevel3, IconAIWandLevel3, IconAIFilledLevel3 } from '@douyinf
 () => (
     <div>
         <IconAIBellLevel3 style={{ marginRight: 10 }} size="extra-large"/>
-        <IconAIWandLevel3 fill={['red', 'green', 'blue', 'purple']} style={{ marginRight: 10 }} size="extra-large"/>
-        <IconAIFilledLevel3 fill={['red', 'green']} size="extra-large"/>
+        <IconAIWandLevel3 fill={['var(--semi-color-danger)', 'var(--semi-color-success)', 'var(--semi-color-primary)', 'var(--semi-color-warning)']} style={{ marginRight: 10 }} size="extra-large"/>
+        <IconAIFilledLevel3 fill={['var(--semi-color-primary)', 'var(--semi-color-success)']} size="extra-large"/>
     </div>
 );
 ```
