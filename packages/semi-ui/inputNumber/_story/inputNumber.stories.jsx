@@ -980,3 +980,14 @@ export const Fix2936 = () => {
     </div>
   )
 }
+
+export const FormInputNumberDemo = () => {
+  return (
+    <Form render={({ formState, formApi, values }) => (
+      <>
+          <Form.InputNumber field='number' label='number' style={{ width: 80 }}/>
+      </>
+  )} layout='horizontal' onValueChange={values=>console.log(values)}>
+  </Form>
+  )
+}
