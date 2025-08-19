@@ -20,6 +20,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 #### 🎉 2.85.0 (2025-08-11)
 - 【Fix】
     - 修复 light 主题 Badge 单独使用时样式不符合预期问题 [#2929](https://github.com/DouyinFE/semi-design/issues/2929) [#2930](https://github.com/DouyinFE/semi-design/pull/2930)
+    - 修复 AutoComplete 在 data 更新后，在有搜索的情况下，没有高亮匹配项问题 [AutoComplete] data 更新后，在有搜索的情况下，没有高亮匹配项，按回车会出现 [#2952](https://github.com/DouyinFE/semi-design/pull/2952)
+    - 修复 Table 中 fixed 列在 hover 时候，无 hover 背景色问题，影响版本 2.79.0-2.84.0 [#2953](https://github.com/DouyinFE/semi-design/pull/2953)
+
 
 #### 🎉 2.85.0-beta.0 (2025-08-05)
 - 【Feat】
