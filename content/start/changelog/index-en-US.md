@@ -15,6 +15,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.86.0-beta.0 (2025-08-19)
+- 【Fix】
+    - Fixed InputNumber component filtering currency/internal parameters when passing props through to avoid defaultCurrency and other polluting native DOM properties.
 
 #### 🎉 2.85.0 (2025-08-11)
 - 【Fix】
