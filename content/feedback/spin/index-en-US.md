@@ -172,10 +172,10 @@ import { Spin, Button } from '@douyinfe/semi-ui';
 
 -   **How to modify the color of the spin icon? **
 
-    You can overwrite the original color by adding a color property to the .semi-spin-wrapper class.
+    You can override the original color by adding the color property to the .semi-spin-wrapper class (it is recommended to override with a higher weight).
 
     ```
-    .semi-spin-wrapper {
+    .custom .semi-spin-wrapper {
       color: red;
     }
     ```
