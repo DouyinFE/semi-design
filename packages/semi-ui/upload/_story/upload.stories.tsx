@@ -14,5 +14,3 @@ stories.add('Upload', () => {
         </>
     );
 });
-
-
