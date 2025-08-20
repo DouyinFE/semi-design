@@ -316,7 +316,7 @@ class Demo extends React.Component {
 | maskStyle | Mask style                                                                                                                 | CSSProperties | - | - |
 | motion | Toggle whether to turn on animation                                                                                        | boolean | true | - |
 | placement | Sliding position, one of `top`, `bottom`, `left`, `right`                                                                  | string | `right` | - |
-| size | Size, one of `small`(400px)， `medium`(684px), `large`(920px), only take effects when placement is set to `left` or `right` | string | `small` | 0.29.0 |
+| size | Size, one of `small`(448px)， `medium`(684px), `large`(920px), only take effects when placement is set to `left` or `right` | string | `small` | 0.29.0 |
 | style | Inline style                                                                                                               | CSSProperties | - | - |
 | title | Title                                                                                                                      | ReactNode | - | - |
 | visible | Toggle visibility of the SideSheet                                                                                         | boolean | false | - |
