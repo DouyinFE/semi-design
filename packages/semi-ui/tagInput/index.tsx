@@ -428,10 +428,16 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             !disabled && this.handleTagClose(index);
         };
         if (isFunction(renderTagItem)) {
-            return (<div className={itemWrapperCls} key={elementKey}>
-                {showIconHandler && sortableHandle ? <DragHandle /> : null}
-                {renderTagItem(value, index, onClose)}
-            </div>);
+            if (showIconHandler && sortableHandle) {
+                return (
+                    <div className={itemWrapperCls} key={elementKey}>
+                        <DragHandle />
+                        {renderTagItem(value, index, onClose)}
+                    </div>
+                );
+            } else {
+                return renderTagItem(value, index, onClose);
+            }
         } else {
             return (
                 <Tag

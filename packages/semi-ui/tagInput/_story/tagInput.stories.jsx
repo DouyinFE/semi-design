@@ -581,3 +581,14 @@ export const testMaxLength = () => (
   </>
 );
 
+export const longTextItemDraggable = () => {
+  return (
+    <TagInput 
+      draggable
+      aria-label='input tag' 
+      defaultValue={['抖音抖音抖音抖音抖音抖音抖音抖音抖音音抖音抖音音抖音抖音音抖音抖音', '火山', '西瓜视频']} 
+      placeholder="请输入..." 
+      style={{ width: 300 }} 
+    />
+  )
+}

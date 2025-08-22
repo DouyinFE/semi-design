@@ -44,6 +44,7 @@ $module: #{$prefix}-tagInput;
 
     &-sortable-item {
         position: relative;
+        max-width: 100%;
         &-over {
             overflow: visible;
             &::before {
@@ -139,6 +140,7 @@ $module: #{$prefix}-tagInput;
         &-tag {
             margin-right: $spacing-extra-tight;
             white-space: pre;
+            max-width: 100%;
 
             &-size {
                 &-small {
