@@ -225,5 +225,12 @@ describe('treeSelect', () => {
         cy.get('.semi-tree-option-expand-icon').eq(0).trigger('click');
         cy.get('.semi-tree-option-label-text').eq(0).contains('Asia');
     })
+
+    it.only('disabled treeSelect can have focus border', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--fixed-2968');
+        cy.get('.semi-tree-select').focus();
+        // semi-tree-select 层级的元素的 border 应该存在，并且 border color 应该是 transparent
+        cy.get('.semi-tree-select').should('have.css', 'border-color', 'rgba(0, 0, 0, 0)');  
+    })
 });
 

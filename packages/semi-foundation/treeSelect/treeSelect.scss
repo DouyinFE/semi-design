@@ -22,11 +22,11 @@ $module: #{$prefix}-tree-select;
         border: $width-treeSelect_hover-border solid $color-treeSelect_default-border-hover;
     }
 
-    &:focus {
-        border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
-        background-color: $color-treeSelect_default-bg-focus;
-        outline: 0;
-    }
+    // &:focus {
+    //     border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
+    //     background-color: $color-treeSelect_default-bg-focus;
+    //     outline: 0;
+    // }
 
     &:active{
         background-color: $color-treeSelect_default-bg-active;
