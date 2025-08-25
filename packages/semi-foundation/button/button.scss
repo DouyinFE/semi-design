@@ -143,6 +143,10 @@ $module: #{$prefix}-button;
                     background: $color-button_tertiary_solid_colorful-bg-hover; 
                 }
 
+                &:active {
+                    background: $color-button_tertiary_solid_colorful-bg-active;
+                }
+
                 .#{$module}-content-right, .#{$module}-content:not(:has(>.#{$module}-content-right)) {
                     background: $color-button_tertiary_solid_colorful-text-default;
                     background-clip: text;
@@ -196,6 +200,10 @@ $module: #{$prefix}-button;
 
                 &:not(.#{$module}-borderless):not(.#{$module}-light):not(.#{$module}-outline):hover {
                     background: $color-button_primary_solid_colorful-bg-hover;
+                }
+
+                &:not(.#{$module}-borderless):not(.#{$module}-light):not(.#{$module}-outline):active {
+                    background: $color-button_primary_solid_colorful-bg-active;
                 }
             }
 

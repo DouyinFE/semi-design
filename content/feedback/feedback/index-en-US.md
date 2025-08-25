@@ -3,7 +3,7 @@ localeCode: en-US
 order: 87
 category: Basic
 title:  Feedback
-icon: doc-divider
+icon: doc-feedback
 brief: Quick feedback component
 ---
 
@@ -231,7 +231,6 @@ When `mode` is `popup`, FeedbackProps also supports the parameters in [SideSheet
 | onCancel | Cancel callback, the parameter is the shutdown function, and it will automatically close after the promise is resolved. | (e: any) => void \| Promise<any\> | - |
 | onOk | Click OK callback, the parameter is the closing function, and it will automatically close after the promise is resolved. | (e: any) => void \| Promise<any\> | - |
 | onValueChange | Callback when feedback content changes |function  | (value: string \| string[] \| Object) |
-| showThankInfo | Whether to display text thanking you for feedback | boolean | true |
 | SideSheetProps | When modal is popup, it is used to set the parameters of the internal SideSheet | SideSheetProps | - |
 | type | Type of feedback content, supports text, emoji, radio, checkbox, custom | boolean | emoji |
 | textAreaProps | Set parameters of multi-line input box | [TextAreaProps](/en-US/input/input#TextArea) | - |

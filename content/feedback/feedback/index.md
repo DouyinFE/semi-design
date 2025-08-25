@@ -3,7 +3,7 @@ localeCode: zh-CN
 order: 87
 category: 基础 
 title: Feedback 反馈
-icon: doc-divider 
+icon: doc-feedback
 brief: 快速定义各类型反馈
 ---
 
@@ -232,6 +232,5 @@ import { Feedback, Button } from '@douyinfe/semi-ui';
 | onCancel | 取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | (e: any) => void \| Promise<any\> | 无 |
 | onOk | 点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | (e: any) => void \| Promise<any\> | 无 |
 | onValueChange | 在反馈内容变化时候的回调|function  | (value: string \| string[] \| Object) |
-| showThankInfo | 是否展示感谢反馈的文本 | boolean | true |
 | type | 反馈内容的类型，支持 text、emoji、radio，checkbox，custom| boolean | emoji |
 | textAreaProps | 设置多行输入框的参数 | [TextAreaProps](/zh-CN/input/input#TextArea) | - |

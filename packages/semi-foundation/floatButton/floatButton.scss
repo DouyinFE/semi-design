@@ -20,7 +20,11 @@ $moduleGroup: #{$prefix}-floatButtonGroup;
         justify-content: center;
 
         &:hover {
-            background-color: $color-floatButton-hover-bg;
+            background-color: $color-floatButton-bg-hover;
+        }
+
+        &:active {
+            background-color: $color-floatButton-bg-active;
         }
     }
 
@@ -40,6 +44,10 @@ $moduleGroup: #{$prefix}-floatButtonGroup;
 
         &:hover {
             background: $color-floatButton-colorful-bg-hover;
+        }
+
+         &:active {
+            background: $color-floatButton-colorful-bg-active;
         }
 
     }
@@ -139,7 +147,11 @@ $moduleGroup: #{$prefix}-floatButtonGroup;
         line-height: $font-floatButton_group_item-lineHeight;
 
         &:hover {
-            background: $color-floatButton_group_item-hover-bg;
+            background: $color-floatButton_group_item-bg-hover;
+        }
+
+        &:active {
+            background: $color-floatButton_group_item-bg-active;
         }
     }
 

@@ -3,7 +3,7 @@ localeCode: en-US
 order: 21
 category: Basic
 title:  FloatButton
-icon: doc-divider
+icon: doc-floatButton
 brief: A floating button is an actionable button that can float on the page
 ---
 

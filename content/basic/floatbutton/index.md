@@ -3,7 +3,7 @@ localeCode: zh-CN
 order: 21
 category: 基础 
 title: FloatButton 悬浮按钮
-icon: doc-divider 
+icon: doc-floatButton
 brief: 悬浮按钮是可以悬浮在页面上的可操作按钮
 ---
 

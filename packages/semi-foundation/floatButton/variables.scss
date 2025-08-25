@@ -15,16 +15,19 @@ $width-floatButton_large: 40px; // 悬浮按钮大尺寸宽度
 
 $color-floatButton-bg:  var(--semi-color-fill-0); // 悬浮按钮背景色
 $color-floatButton-text:  var(--semi-color-primary); // 悬浮按钮文字颜色
-$color-floatButton-hover-bg:  var(--semi-color-fill-1); // 悬浮按钮背景色-悬浮态
+$color-floatButton-bg-hover:  var(--semi-color-fill-1); // 悬浮按钮背景色-悬浮态
+$color-floatButton-bg-active:  var(--semi-color-fill-2); // 悬浮按钮背景色-按下
 $color-floatButton-disabled-bg:  var(--semi-color-disabled-bg); // 悬浮按钮背景色-禁用态
 $color-floatButton-disabled-text:  var(--semi-color-disabled-text); // 悬浮按钮文字颜色-禁用态
 $color-floatButton-colorful-bg:  var(--semi-color-ai-general); // 悬浮按钮colorful背景色
 $color-floatButton-colorful-text:  var(--semi-color-white); // 悬浮按钮colorful文字颜色
 $color-floatButton-colorful-bg-hover:  var(--semi-color-ai-general-hover); // 悬浮按钮colorful背景色-悬浮态
+$color-floatButton-colorful-bg-active:  var(--semi-color-ai-general-active); // 悬浮按钮colorful背景色-按下
 
 $color-floatButton_group-bg:  var(--semi-color-bg-0); // 悬浮按钮组背景色
 $color-floatButton_group_item-text:  var(--semi-color-text-0); // 悬浮按钮组文字颜色
-$color-floatButton_group_item-hover-bg:  var(--semi-color-fill-1); // 悬浮按钮组hover背景色-悬浮态
+$color-floatButton_group_item-bg-hover:  var(--semi-color-fill-1); // 悬浮按钮组hover背景色-悬浮态
+$color-floatButton_group_item-bg-active:  var(--semi-color-fill-2); // 悬浮按钮组hover背景色-按下
 $color-floatButton_group-disabled-bg:  var(--semi-color-disabled-bg); // 悬浮按钮组背景色-禁用态
 $color-floatButton_group-disabled-text:  var(--semi-color-disabled-text); // 悬浮按钮组文字颜色-禁用态
 

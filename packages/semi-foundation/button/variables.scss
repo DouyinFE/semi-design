@@ -17,6 +17,7 @@ $color-button_primary_borderless-text-default: var(--semi-color-primary); // 主
 
 $color-button_primary_solid_colorful-bg-default: var(--semi-color-ai-general); // colorful 主要按钮背景颜色 - 深色主题
 $color-button_primary_solid_colorful-bg-hover: var(--semi-color-ai-general-hover); // colorful 主要按钮背景颜色 - 深色主题 - 悬浮
+$color-button_primary_solid_colorful-bg-active: var(--semi-color-ai-general-active); // colorful 主要按钮背景颜色 - 深色主题 - 按下
 
 $color-button_primary_light_colorful-text-default: var(--semi-color-ai-general); // colorful 主要按钮文字颜色 - 浅色色主题
 
@@ -81,6 +82,7 @@ $color-button_tertiary-text-default: rgba(var(--semi-white), 1); // 第三按钮
 
 $color-button_tertiary_solid_colorful-bg-default: var(--semi-ai-general-0); // colorful 第三按钮背景颜色
 $color-button_tertiary_solid_colorful-bg-hover: var(--semi-ai-general-1); // colorful 第三按钮背景颜色 - 悬浮
+$color-button_tertiary_solid_colorful-bg-active: var(--semi-ai-general-2); // colorful 第三按钮背景颜色 - 按下
 $color-button_tertiary_solid_colorful-text-default: var(--semi-color-ai-general); // colorful 第三按钮文字颜色
 
 $color-button_tertiary-bg-hover: var(--semi-color-tertiary-hover); // 第三按钮背景颜色 - 悬浮

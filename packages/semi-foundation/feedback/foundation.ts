@@ -121,7 +121,7 @@ export default class FoundationFoundation extends BaseFoundation<FeedbackAdapter
 
     getRestProps = () => {
         const { className, children, type, mode, ...rest } = this._adapter.getProps();
-        let omitPropsName = [ 'showThankInfo', 'mode', 'type', 'onValueChange', 
+        let omitPropsName = [ 'mode', 'type', 'onValueChange', 
             'textAreaProps', 'radioGroupProps', 'checkboxGroupProps', 'renderContent', 'onCancel', 'onOk'];
         if (mode === 'popup') {
             omitPropsName = omitPropsName.concat(['okButtonProps', 'cancelButtonProps']);

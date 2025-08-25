@@ -23,7 +23,6 @@ const { Emoji } = strings;
 const prefixCls = cssClasses.PREFIX;
 
 export interface BasicFeedbackProps {
-    showThankInfo?: boolean;
     mode?: ArrayElement<typeof strings.MODE>;
     type?: ArrayElement<typeof strings.TYPE>;
     onValueChange?: (value: FeedbackValue) => void; 
@@ -65,7 +64,6 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
     static defaultProps = {
         mode: 'popup',
         type: 'emoji',
-        showThankInfo: true,
         onValueChange: noop,
         onCancel: noop,
         onOk: noop,
@@ -174,30 +172,6 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
             />
         </div>;
     }
-
-    getThankTextNode = () => {
-        const { type, showThankInfo } = this.props;
-        if (!showThankInfo) {
-            return null;
-        }
-        const { value } = this.state;
-        let show = false;
-        switch (type) {
-            case 'emoji':
-                show = Boolean((value as EmojiResult)?.emoji);
-                break;
-            case 'checkbox':
-                show = Boolean(value && Array.isArray(value) && value.length > 0);
-                break;
-            default:
-                show = Boolean(value);
-                break;
-        }
-        if (show) {
-            return <p className={`${prefixCls}-thank-text`}>🎉 Thank you for your feedback!</p>;
-        }
-        return null;
-    }
     
     getRealChildren = () => {
         const { type, renderContent, children } = this.props;
@@ -222,13 +196,6 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
                 break;
         }
         
-        const thankTextNode = this.getThankTextNode();
-        if (thankTextNode) {
-            result = <>
-                {result}
-                {thankTextNode}
-            </>;
-        }
         if (typeof renderContent === 'function') {
             result = renderContent(result);
         }
