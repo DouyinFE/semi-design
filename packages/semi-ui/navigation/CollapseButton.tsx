@@ -40,7 +40,7 @@ export default function CollapseButton({ prefixCls, locale, collapseText, isColl
                     <Button {...(btnProps as any)} />
                 </Tooltip>
             ) : (
-                <Button {...(btnProps as any)}>{finalCollapseText}</Button>
+                <Button className={`${prefixCls}-collapse-btn-inner`} {...(btnProps as any)}>{finalCollapseText}</Button>
             )}
         </div>
     );
