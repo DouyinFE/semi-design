@@ -123,6 +123,7 @@ export class FoldingModel {
     }
 
     public isFoldable(lineNumber: number): boolean {
+        if (!this._regions) return false;
         const index = this._regions.findRange(lineNumber);
         const region = this._regions.toRegion(index);
         return region && region.startLineNumber === lineNumber;
