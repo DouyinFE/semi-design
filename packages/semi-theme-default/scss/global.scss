@@ -25,6 +25,7 @@ body, body[theme-mode="dark"] .semi-always-light, :host, :host .semi-always-ligh
     --semi-color-tertiary: rgba(var(--semi-grey-5), 1); // 第三颜色，可以在页面上多次使用
     --semi-color-tertiary-hover: rgba(var(--semi-grey-6), 1); // 第三颜色悬浮态
     --semi-color-tertiary-active: rgba(var(--semi-grey-7), 1); // 第三颜色激活态
+    --semi-color-tertiary-disabled: rgba(var(--semi-grey-2), 1); // 第三颜色禁用态
     --semi-color-tertiary-light-default: rgba(var(--semi-grey-0), 1); // 浅版第三颜色（多用于背景），可以在页面上多次使用
     --semi-color-tertiary-light-hover: rgba(var(--semi-grey-1), 1); // 浅版第三颜色悬浮态
     --semi-color-tertiary-light-active: rgba(var(--semi-grey-2), 1); // 浅版第三颜色激活态
@@ -52,6 +53,7 @@ body, body[theme-mode="dark"] .semi-always-light, :host, :host .semi-always-ligh
     --semi-color-danger: rgba(var(--semi-red-5), 1); // 危险色，表示危险的操作、或需要特别注意的危险信息
     --semi-color-danger-hover: rgba(var(--semi-red-6), 1); // 危险色悬浮态
     --semi-color-danger-active: rgba(var(--semi-red-7), 1); // 危险色激活态
+    --semi-color-danger-disabled: rgba(var(--semi-red-2), 1); // 危险色禁用态
     --semi-color-danger-light-default: rgba(var(--semi-red-0), 1); // 浅版危险色（多用于背景），表示危险的操作、或需要特别注意的危险信息
     --semi-color-danger-light-hover: rgba(var(--semi-red-1), 1); // 浅版危险色悬浮态
     --semi-color-danger-light-active: rgba(var(--semi-red-2), 1); // 浅版危险色激活态
@@ -59,6 +61,7 @@ body, body[theme-mode="dark"] .semi-always-light, :host, :host .semi-always-ligh
     --semi-color-warning: rgba(var(--semi-orange-5), 1); // 警示色，表示警告、不安全的状态
     --semi-color-warning-hover: rgba(var(--semi-orange-6), 1); // 警示色悬浮态
     --semi-color-warning-active: rgba(var(--semi-orange-7), 1); // 警示色激活态
+    --semi-color-warning-disabled: rgba(var(--semi-orange-2), 1); // 警示色禁用态
     --semi-color-warning-light-default: rgba(var(--semi-orange-0), 1); // 浅版警示色（多用于背景），表示警告、不安全的状态
     --semi-color-warning-light-hover: rgba(var(--semi-orange-1), 1); // 浅版警示色悬浮态
     --semi-color-warning-light-active: rgba(var(--semi-orange-2), 1); // 浅版警示色激活态
