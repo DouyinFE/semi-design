@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 17
+order: 19
 category: Basic
 title: Resizable
 icon: doc-steps

@@ -155,6 +155,21 @@ $types: "ghost", "solid", "light";
             height: $width-tag_avatar_circle_large;
         }
     }
+
+    &-solid {
+        .#{$module}-close {
+            color: $color-tag_close-icon_deep-default;
+            opacity: .8;
+
+            &:hover {
+                opacity: 1.0;
+            }
+
+            &:active {
+                opacity: .9;
+            }
+        }
+    }
 }
 
 .#{$module}-group {
@@ -222,21 +237,6 @@ $types: "ghost", "solid", "light";
     background-color: $color-tag_avatar-bg-default;
     border: $width-tag_avatar-border solid $color-tag_avatar-border-default;
     color: $color-tag_avatar-text-default;
-}
-
-.#{$module}-solid {
-    .#{$module}-close {
-        color: $color-tag_close-icon_deep-default;
-        opacity: .8;
-
-        &:hover {
-            opacity: 1.0;
-        }
-
-        &:active {
-            opacity: .9;
-        }
-    }
 }
 
 @import './rtl.scss';

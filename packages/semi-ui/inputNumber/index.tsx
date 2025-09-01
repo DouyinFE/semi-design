@@ -475,6 +475,13 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
             onNumberChange,
             keepFocus,
             defaultValue,
+            defaultCurrency,
+            currency,
+            currencyDisplay,
+            minimumFractionDigits,
+            maximumFractionDigits,
+            showCurrencySymbol,
+            localeCode,
             ...rest
         } = this.props;
         const { value, number } = this.state;

@@ -4,7 +4,7 @@ title: Change Log
 subTitle: Change Log
 icon: doc-changelog
 localeCode: en-US
-order: 12
+order: 14
 brief: About Semi Design For React Optimization and Updat. We provide Changelog Diff between versions, you can call out the Diff control by hovering the version number. If you want to view the change history of a single component, you can view it through the Version Diff button of the corresponding component documentation
 ---
 
@@ -120,6 +120,81 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed the problem that the spacing between the last line and other lines was inconsistent when there were multiple lines of content in `TagInput` [#1263](https://github.com/DouyinFE/semi-design/pull/1263)
     - Fixed the problem that  Form Label lost padding right（effect version v2.23.1） [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
     - The Switch component Design Token is updated, adding `$spacing-switch_knob-left`; `$motion-switch_unchecked-translateX` is corrected to more semantically `$spacing-switch_unchecked-translateX` [#1267](https://github.com/DouyinFE/semi-design/pull/1267)
+
+#### 🎉 2.86.0 (2025-09-01)
+- 【Fix】
+    - Fixed folding model initialization issue [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2972](https://github.com/DouyinFE/semi-design/pull/2972)
+    - Fixed the problem of missing prefix JsonViewer style when custom theme is passed in [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2926](fix: resolve jsonviewer dsm style loss issue by anjiazhuyouxing · Pull Request #2926 · DouyinFE/semi-design)
+    - Fixed an issue where the content of a multi-select, searchable Cascader was not correctly ellipsised when the content was too long [#2967](https://github.com/DouyinFE/semi-design/issues/2967) [#2970](Fix/2967 by YyumeiZhang · Pull Request #2970 · DouyinFE/semi-design)
+    - Fixed an issue where the content of a draggable tag in a TagInput was not correctly ellipsised when the content was too long [#2970](Fix/2967 by YyumeiZhang · Pull Request #2970 · DouyinFE/semi-design)
+    - Fixed the issue where clicking on TreeSelect when it is disabled would cause unexpected focus style issues [#2968](https://github.com/DouyinFE/semi-design/issues/2968)
+- 【Style】
+    - Add a background color token for disabled TagInput, $color-tagInput_disabled-bg [#2973](https://github.com/DouyinFE/semi-design/pull/2973)
+
+#### 🎉 2.86.0-beta.0 (2025-08-19)
+- 【Fix】
+    - Fixed InputNumber component filtering currency/internal parameters when passing props through to avoid defaultCurrency and other polluting native DOM properties.
+
+#### 🎉 2.85.0 (2025-08-11)
+- 【Fix】
+    - fix the issue that the style of the light theme badge does not meet expectations when used alone [#2929](https://github.com/DouyinFE/semi-design/issues/2929) [#2930](https://github.com/DouyinFE/semi-design/pull/2930)
+    - Fixed the problem that AutoComplete did not highlight matching items when searching after data update [#2952](https://github.com/DouyinFE/semi-design/pull/2952)
+    - Fixed the problem of no hover background color when the fixed column in Table is hovered, affecting version 2.79.0-2.84.0 [#2953](https://github.com/DouyinFE/semi-design/pull/2953)
+
+#### 🎉 2.85.0-beta.0 (2025-08-05)
+- 【Feat】
+    - Input and TextArea adds callback function for onCompositionStart/onCompositionEnd/onCompositionUpdate [#2922](https://github.com/DouyinFE/semi-design/pull/2922)
+    - webpack and rspack plugins in semi add built-in silenceDeprecations options ('import', 'legacy-js-api', 'global-builtin') to sass-loader to silence sass-related deprecation warnings [#2944](https://github.com/DouyinFE/semi-design/pull/2944)
+    - Image component add renderCloseIcon/renderLeftIcon/renderRightIcon API [@rubbishmaker](https://github.com/rubbishmaker)[#2919](https://github.com/DouyinFE/semi-design/pull/2919)
+- 【Fix】
+    - Fixed the issue that tooltip has updateState warning in some scenarios [#2682](https://github.com/DouyinFE/semi-design/issues/2682)
+    - fixed the error message display issue [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)[#2943](https://github.com/DouyinFE/semi-design/pull/2943)
+
+
+#### 🎉 2.84.0 (2025-07-29)
+- 【Fix】
+    - fix the problem that InputNumber calculation is incorrect due to js precision
+    - fixed the problem that the handle position of Slider is incorrect when clicking or dragging under scrollable conditions
+- 【Style】
+    - Fixed the issue that the close icon of a tag with type solid and color white has incorrect color
+
+#### 🎉 2.84.0-beta.0 (2025-07-21)
+- 【Fix】
+    - fix collapsible Tabs causing abnormal scrolling behavior of pages not triggered within the viewport
+- 【Feat】
+    - Supports configuring global Spin indicators, Added $animation_duration-button_icon_loading, $animation_duration-button_icon_customIcon_loading design token used to configure the animation duration of different types of loading in the button  [#2695 ](https://github.com/DouyinFE/semi-design/issues/2695)
+
+#### 🎉 2.83.0 (2025-07-14)
+- 【Fix】
+    - Fixed the error problem of JsonViewer continuing to delete after selecting all [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fixed the error problem of JsonViewer initial cursor deletion behavior [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fixed the JsonViewer selection boundary problem [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fixed the JsonViewer code completion cannot be clicked [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fixed the JsonViewer code completion Boolean type prompt problem [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fixed the JsonViewer drag selection copy deletion incomplete problem [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fix the problem that the height setting in Modal does not take effect, affecting version 2.82.0-2.82.1  [#2899 ](https://github.com/DouyinFE/semi-design/issues/2899)
+
+#### 🎉 2.83.0-beta.0 (2025-07-09)
+- 【Style】
+    - Fix the style problem of BreadCrumb's item in noLink mode [#2883](https://github.com/DouyinFE/semi-design/issues/2883)
+
+#### 🎉 2.82.1 (2025-07-02)
+- 【Fix】
+    - Fix the problem that Modal does not cover the entire screen when fullScreen is true. Affected version: v2.82.0 [#2880](https://github.com/DouyinFE/semi-design/issues/2880)
+- 【Style】
+    - When the length of the placeholder of the Input exceeds the length, the content exceeding the length will be omitted [#2869](https://github.com/DouyinFE/semi-design/issues/2869)
+
+
+#### 🎉 2.82.0 (2025-06-27)
+- 【Style】
+    - Fixed the problem that when Select is in multiple/small size, if the token of border is not set to 1, the minimum height will be incorrect. Abandon the default size minimum width setting token $height-select_multiple_content_wrapper-minHeight  [#2877](https://github.com/DouyinFE/semi-design/issues/2877)[#2878](https://github.com/DouyinFE/semi-design/pull/2878)
+
+
+#### 🎉 2.82.0-beta.0 (2025-06-23)
+- 【Feat】
+    - Modal supports modalRender parameter to customize rendering [#2655](https://github.com/DouyinFE/semi-design/issues/2655)
+- 【Fix】
+  - fix the issue that DatePicker cannot automatically scroll to non-disabled items when clicking on the month in monthRange and multi-language  [#2870](https://github.com/DouyinFE/semi-design/issues/2870) [#2871](https://github.com/DouyinFE/semi-design/pull/2871)
 
 #### 🎉 2.81.0 (2025-06-16)
 - 【Fix】

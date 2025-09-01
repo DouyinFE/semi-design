@@ -44,6 +44,7 @@ $module: #{$prefix}-tagInput;
 
     &-sortable-item {
         position: relative;
+        max-width: 100%;
         &-over {
             overflow: visible;
             &::before {
@@ -104,6 +105,7 @@ $module: #{$prefix}-tagInput;
     }
 
     &-disabled {
+        background-color: $color-tagInput_disabled-bg;
         cursor: not-allowed;
 
         .#{$module}-clearBtn,
@@ -139,6 +141,7 @@ $module: #{$prefix}-tagInput;
         &-tag {
             margin-right: $spacing-extra-tight;
             white-space: pre;
+            max-width: 100%;
 
             &-size {
                 &-small {

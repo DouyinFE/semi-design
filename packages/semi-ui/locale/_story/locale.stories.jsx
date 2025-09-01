@@ -174,6 +174,9 @@ const I18nComponent = () => {
                 <p>More content...</p>
             </Modal>
             <div>
+                <DatePicker type="monthRange" onChange={(date, dateString) => console.log(dateString)} />
+            </div>
+            <div>
               <DatePicker style={{ ...style, width: 200 }} open defaultPickerValue={[new Date('2024-09-08 00:00'), new Date('2024-09-09 12:00')]} />
               <DatePicker style={{ ...style,marginLeft:120, width: 250 }} open type="dateTime" presets={presets} presetPosition="left" defaultPickerValue={[new Date('2024-09-08 00:00'), new Date('2024-09-09 12:00')]} />
               {/* <DatePicker style={{ ...style, width: 250 }} type="dateRange" /> */}

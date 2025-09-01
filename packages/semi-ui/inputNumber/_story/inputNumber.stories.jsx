@@ -969,3 +969,25 @@ export const TestInputNumber = () => {
   </div>
   )
 }
+
+
+export const Fix2936 = () => {
+  return (
+    <div style={{ width: 280 }}>
+        <label>点击增加按钮，值会变成 0.08 </label>
+        <InputNumber step={0.01} max={0.08} min={0.01} defaultValue={0.07} />
+        <br/><br/>
+    </div>
+  )
+}
+
+export const FormInputNumberDemo = () => {
+  return (
+    <Form render={({ formState, formApi, values }) => (
+      <>
+          <Form.InputNumber field='number' label='number' style={{ width: 80 }}/>
+      </>
+  )} layout='horizontal' onValueChange={values=>console.log(values)}>
+  </Form>
+  )
+}

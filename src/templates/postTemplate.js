@@ -18,6 +18,7 @@ import PageAnchor from 'components/PageAnchor';
 import PrevAndNext from 'components/PrevAndNext';
 import SEO from 'components/seo';
 import DesignToken from 'components/DesignToken';
+import MyImage from 'components/MyImage';
 import ChartContact from '../components/ChartContact';
 import { makeAnchorId } from '../utils';
 import ComponentOverview from 'components/ComponentOverview';
@@ -35,6 +36,7 @@ import FullPalette from 'components/FullPalette';
 import ColorConverter from 'components/ColorConverter';
 import JumpToToken from 'components/JumpToToken';
 import DesignToCodeFeature from 'components/DesignToCodeFeature';
+import InternationalizationTabs from 'components/InternationalizationTabs';
 import copy from 'copy-text-to-clipboard';
 import '@douyinfe/semi-site-doc-style';
 import SemiSiteChangeLogDiff from 'components/SemiSiteChangeLogDiff';
@@ -102,6 +104,7 @@ const SemiComponents = {
     Radio,
     DesignToken,
     ImageBox,
+    MyImage,
     // content guideline demo 
     CheckboxGroup: CheckboxGroup,
     Descriptions: Descriptions,
@@ -524,7 +527,8 @@ const components = {
     ApiType,
     StickyHeaderTable,
     FeatureCard,
-    ClickOpen
+    ClickOpen,
+    InternationalizationTabs,
 };
 
 const getPrevAndNext = pageContext => {
@@ -712,7 +716,7 @@ export default function Template(args) {
             <div className={'pageAnchor'}>
                 {(tabValue === 'rd' || (["Accessibility "].includes(enTitle))) && (
                     //  The external network does not display related materials
-                    <PageAnchor slug={pageContext.slug} data={MATERIAL_LIST_URL ? current.tableOfContents.items : current.tableOfContents.items.filter(item => !(item.title === '相关物料' || item.title === 'Related Material'))} />
+                    <PageAnchor slug={pageContext.slug} data={MATERIAL_LIST_URL ? current.tableOfContents.items : current.tableOfContents?.items?.filter(item => !(item.title === '相关物料' || item.title === 'Related Material'))} />
                 )}
                 {
                     iframeAnchorData && tabValue === 'ued' && <DesignPageAnchor data={iframeAnchorData} />

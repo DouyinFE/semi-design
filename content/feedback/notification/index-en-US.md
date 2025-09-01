@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 83
+order: 85
 category: Feedback
 title:  Notification
 subTitle: Notification
@@ -58,7 +58,7 @@ import { Notification, Button, ButtonGroup } from '@douyinfe/semi-ui';
     return (
         <>
             <ButtonGroup>
-                <Button onClick={() => Notification.info({ ...opts, Position: 'top' })}>top</Button>
+                <Button onClick={() => Notification.info({ ...opts, position: 'top' })}>top</Button>
                 <Button onClick={() => Notification.info({ ...opts, position: 'topLeft' })}>topLeft</Button>
                 <Button onClick={() => Notification.info(opts)}>topRight</Button>
             </ButtonGroup>

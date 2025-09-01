@@ -117,6 +117,9 @@ class Input extends BaseComponent<InputProps, InputState> {
         onKeyUp: PropTypes.func,
         onKeyPress: PropTypes.func,
         onEnterPress: PropTypes.func,
+        onCompositionStart: PropTypes.func,
+        onCompositionEnd: PropTypes.func,
+        onCompositionUpdate: PropTypes.func,
         insetLabel: PropTypes.node,
         insetLabelId: PropTypes.string,
         inputStyle: PropTypes.object,
@@ -146,6 +149,9 @@ class Input extends BaseComponent<InputProps, InputState> {
         onKeyUp: noop,
         onKeyPress: noop,
         onEnterPress: noop,
+        onCompositionStart: noop,
+        onCompositionEnd: noop,
+        onCompositionUpdate: noop,
         validateStatus: 'default',
         borderless: false,
     };
@@ -198,6 +204,9 @@ class Input extends BaseComponent<InputProps, InputState> {
             notifyKeyUp: (e: React.KeyboardEvent<HTMLInputElement>) => this.props.onKeyUp(e),
             notifyEnterPress: (e: React.KeyboardEvent<HTMLInputElement>) => this.props.onEnterPress(e),
             notifyClear: (e: React.MouseEvent<HTMLDivElement>) => this.props.onClear(e),
+            notifyCompositionStart: (e: React.CompositionEvent<HTMLInputElement>) => this.props.onCompositionStart(e),
+            notifyCompositionEnd: (e: React.CompositionEvent<HTMLInputElement>) => this.props.onCompositionEnd(e),
+            notifyCompositionUpdate: (e: React.CompositionEvent<HTMLInputElement>) => this.props.onCompositionUpdate(e),
             setMinLength: (minLength: number) => this.setState({ minLength }),
             isEventTarget: (e: React.MouseEvent) => e && e.target === e.currentTarget,
         };
@@ -505,6 +514,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             onKeyPress: e => this.foundation.handleKeyPress(e),
             onCompositionStart: this.foundation.handleCompositionStart,
             onCompositionEnd: this.foundation.handleCompositionEnd,
+            onCompositionUpdate: this.foundation.handleCompositionUpdate,
             value: inputValue,
         };
         if (!isFunction(getValueLength)) {

@@ -563,5 +563,13 @@ describe(`InputNumber`, () => {
         expect(inputNumber.find('input').instance().value).toBe('123,456.78人民币');
     });
 
+    it('fix 2936, test js precision related calculation', () => {
+        const inputNumber = mount(<InputNumber step={0.01} max={0.08} min={0.01} defaultValue={0.07} />);
+        const btns = inputNumber.find(`.${BASE_CLASS_PREFIX}-input-number-suffix-btns .${BASE_CLASS_PREFIX}-input-number-button`);
+        const addBtn = btns.first();
+        addBtn.simulate('mousedown', { button: numbers.MOUSE_BUTTON_LEFT });
+        expect(inputNumber.find('input').instance().value).toBe('0.08');
+    });
+
 });
  

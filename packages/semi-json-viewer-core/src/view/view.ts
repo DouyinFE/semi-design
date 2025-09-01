@@ -52,6 +52,7 @@ export class View {
     public startLineNumber: number = 1;
     public visibleLineCount: number = 0;
     private _domBuilder: ViewDOMBuilder;
+    public prefixCls: string;
 
     private _verticalOffsetAdjustment: number = 0;
 
@@ -78,6 +79,7 @@ export class View {
         this._lineHeight = options?.lineHeight || 20;
         this._options = options;
         this._customRenderRule = options?.customRenderRule || null;
+        this.prefixCls = options?.prefixCls || 'semi-json-viewer';
 
         this._domBuilder = new ViewDOMBuilder(this._lineHeight, model.getLineCount(), options);
 
@@ -175,11 +177,13 @@ export class View {
             e.stopPropagation();
             this._completeWidget.hide();
             this._selectionModel.isSelectedAll = false;
+            this._selectionModel.isSelecting = false;
             this._selectionModel.updateFromSelection();
         });
 
         this.emitter.on('contentChanged', () => {
             this.resetScalingManagerConfigAndCell(0);
+            this._measuredHeights = {};
             if (this._jsonModel.lastChangeBufferPos.lineNumber >= this.visibleLineCount + this.startLineNumber) {
                 this.scrollToLine(this._jsonModel.lastChangeBufferPos.lineNumber - this.visibleLineCount + 1);
                 return;
@@ -215,7 +219,7 @@ export class View {
     }
 
     private createLineNumberElement(actualLineNumber: number, visibleLineNumber: number): HTMLElement {
-        const lineNumberClass = 'semi-json-viewer-line-number';
+        const lineNumberClass = `${this.prefixCls}-line-number`;
         const lineNumberElement = elt('div', lineNumberClass);
         const rowDatum = this._scalingCellSizeAndPositionManager.getSizeAndPositionOfCell(visibleLineNumber);
         setStyles(lineNumberElement, {
@@ -240,7 +244,7 @@ export class View {
     }
 
     private createLineContentElement(actualLineNumber: number, visibleLineNumber: number): HTMLElement {
-        const lineElementClass = 'semi-json-viewer-view-line';
+        const lineElementClass = `${this.prefixCls}-view-line`;
         const lineElement = elt('div', lineElementClass);
         lineElement.setAttribute('data-line-element', 'true');
         
@@ -283,6 +287,7 @@ export class View {
         if (height !== this._measuredHeights[index]) {
             this._measuredHeights[index] = height;
             this._scalingCellSizeAndPositionManager.resetCell(index);
+            this._scalingCellSizeAndPositionManager.getSizeAndPositionOfCell(index);
             this._scrollDom.style.height = `${this._scalingCellSizeAndPositionManager.getTotalSize()}px`;
         }
     }
@@ -407,7 +412,7 @@ export class View {
                         continue;
                     } else if (customElement !== null) {
                         const span = document.createElement('span');
-                        span.className = token.scopes;
+                        span.className = `${this.prefixCls}-${token.scopes}`;
                         span.textContent = content;
                         container.appendChild(span);
                         this._customRenderMap.set(span, customElement);
@@ -416,7 +421,7 @@ export class View {
                 }
     
                 const span = document.createElement('span');
-                span.className = token.scopes;
+                span.className = `${this.prefixCls}-${token.scopes}`;
                 span.textContent = content;
                 if (!this._options?.autoWrap) {
                     span.style.whiteSpace = 'pre';
@@ -442,7 +447,7 @@ export class View {
     
             if (startIndex > lastIndex) {
                 const normalSpan = document.createElement('span');
-                normalSpan.className = tokenClass;
+                normalSpan.className = `${this.prefixCls}-${tokenClass}`;
                 normalSpan.textContent = content.substring(lastIndex, startIndex);
                 container.appendChild(normalSpan);
             }
@@ -457,8 +462,8 @@ export class View {
                 match.range.startColumn === currentMatch?.range.startColumn &&
                 match.range.endColumn === currentMatch?.range.endColumn;
     
-            highlightSpan.className = `${tokenClass} semi-json-viewer-search-result${
-                isCurrentMatch ? ' semi-json-viewer-current-search-result' : ''
+            highlightSpan.className = `${this.prefixCls}-${tokenClass} ${this.prefixCls}-search-result${
+                isCurrentMatch ? ` ${this.prefixCls}-current-search-result` : ''
             }`;
             highlightSpan.dataset.startColumn = match.range.startColumn.toString();
             highlightSpan.dataset.endColumn = match.range.endColumn.toString();
@@ -469,7 +474,7 @@ export class View {
     
         if (lastIndex < content.length) {
             const remainingSpan = document.createElement('span');
-            remainingSpan.className = tokenClass;
+            remainingSpan.className = `${this.prefixCls}-${tokenClass}`;
             remainingSpan.textContent = content.substring(lastIndex);
             container.appendChild(remainingSpan);
         }

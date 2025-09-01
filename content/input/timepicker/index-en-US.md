@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 45
+order: 47
 category: Input
 title: TimePicker
 subTitle: TimePicker

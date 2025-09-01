@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 32
+order: 34
 category: Input
 title:  Checkbox
 subTitle: Checkbox

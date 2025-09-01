@@ -53,6 +53,10 @@ export class CompleteWidget {
             return true;
         };
 
+        this._suggestionsContainer.addEventListener('click', (e) => {
+            this._handleSuggestionClick(e);
+        });
+
         this.emitter.on('contentChanged', e => {
             // 如果是批量操作，直接返回
             if (Array.isArray(e)) {
@@ -100,7 +104,7 @@ export class CompleteWidget {
     }
 
     private createCompleteContainer(): HTMLElement {
-        const className = 'semi-json-viewer-complete-container';
+        const className = `${this._view.prefixCls}-complete-container`;
         const container = elt('div', className);
         setStyles(container, {
             display: 'none',
@@ -109,7 +113,7 @@ export class CompleteWidget {
     }
 
     private createSuggestionsContainer(): HTMLElement {
-        const className = 'semi-json-viewer-complete-suggestions-container';
+        const className = `${this._view.prefixCls}-complete-suggestions-container`;
         const container = elt('div', className);
         setStyles(container, {
             maxHeight: '200px',
@@ -154,42 +158,56 @@ export class CompleteWidget {
             case 'Enter':
             case 'Tab':
                 e.preventDefault();
-                const selectedItem = this._suggestions[this._selectedIndex];
-                const { textEdit } = selectedItem;
-                if (!textEdit) {
-                    return;
-                }
-                const { range } = textEdit;
-                const startOffset = this._jsonModel.getOffsetAt(range.startLineNumber, range.startColumn);
-
-                const endOffset = this._jsonModel.getOffsetAt(range.endLineNumber, range.endColumn);
-
-                const op: IModelContentChangeEvent = {
-                    type: 'replace',
-                    range: {
-                        startLineNumber: range.startLineNumber,
-                        startColumn: range.startColumn,
-                        endLineNumber: range.endLineNumber,
-                        endColumn: range.endColumn,
-                    },
-                    rangeLength: endOffset - startOffset,
-                    rangeOffset: startOffset,
-                    oldText: this._jsonModel.getValueInRange(range),
-                    newText: textEdit?.newText || '',
-                };
-                this._jsonModel.applyOperation(op);
-                this.hide();
+                this.complete();
                 break;
         }
     };
 
+    private _handleSuggestionClick(e: MouseEvent) {
+        e.preventDefault();
+        if (e.target instanceof HTMLLIElement) {
+            const index = Number(e.target.getAttribute('data-index'));
+            if (!isNaN(index)) {
+                this._selectedIndex = index;
+                this.complete();
+            }
+        }
+    }
+
+    public complete() {
+        const selectedItem = this._suggestions[this._selectedIndex];
+        const { textEdit } = selectedItem;
+        if (!textEdit) {
+            return;
+        }
+        const { range } = textEdit;
+        const startOffset = this._jsonModel.getOffsetAt(range.startLineNumber, range.startColumn);
+
+        const endOffset = this._jsonModel.getOffsetAt(range.endLineNumber, range.endColumn);
+
+        const op: IModelContentChangeEvent = {
+            type: 'replace',
+            range: {
+                startLineNumber: range.startLineNumber,
+                startColumn: range.startColumn,
+                endLineNumber: range.endLineNumber,
+                endColumn: range.endColumn,
+            },
+            rangeLength: endOffset - startOffset,
+            rangeOffset: startOffset,
+            oldText: this._jsonModel.getValueInRange(range),
+            newText: textEdit?.newText || '',
+        };
+        this._jsonModel.applyOperation(op);
+        this.hide();
+    }
+
     private _renderCompletions() {
-        const className = 'semi-json-viewer-complete-suggestions-item';
+        const className = `${this._view.prefixCls}-complete-suggestions-item`;
         this._suggestionsContainer.innerHTML = this._suggestions
             .map(
                 (item, index) => `
-        <li class="${className}" style="background-color: ${
-    index === this._selectedIndex ? 'var(--semi-color-fill-0)' : 'transparent'
+        <li class="${className}" style="background-color: ${index === this._selectedIndex ? 'var(--semi-color-fill-0)' : 'transparent'
 }" data-index="${index}">
             ${item.label}
         </li>

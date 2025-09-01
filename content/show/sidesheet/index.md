@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 75
+order: 77
 category: 展示类
 title: SideSheet 滑动侧边栏
 icon: doc-sidesheet
@@ -79,7 +79,7 @@ import { SideSheet, RadioGroup, Radio, Button } from '@douyinfe/semi-ui';
 
 ### 自定义尺寸
 
-可以通过设置 `size` 属性设置侧边栏尺寸，支持 `small`(400px)， `medium`(684px), `large`(920px)，仅在 `placement` 为 `left` 或 `right` 时生效。 `0.29.0` 版本之后支持。若默认的尺寸不满足你的需求，你还可以通过设置 `width` 属性自行设置宽度，例如 `width={900}` / `width={'800px'}`
+可以通过设置 `size` 属性设置侧边栏尺寸，支持 `small`(448px)， `medium`(684px), `large`(920px)，仅在 `placement` 为 `left` 或 `right` 时生效。 `0.29.0` 版本之后支持。若默认的尺寸不满足你的需求，你还可以通过设置 `width` 属性自行设置宽度，例如 `width={900}` / `width={'800px'}`
 
 ```jsx live=true
 import React, { useState } from 'react';

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 50
+order: 52
 category: 导航类
 title: BackTop 回到顶部
 icon: doc-backtop

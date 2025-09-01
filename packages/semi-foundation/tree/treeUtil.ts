@@ -437,7 +437,7 @@ export function filter(sugInput: string, option: any, filterTreeNode: any, filte
         filterFn = (targetVal: string, val: any) => {
             const input = targetVal.toLowerCase();
             return val
-                .toString()
+                ?.toString()
                 .toLowerCase()
                 .includes(input);
         };

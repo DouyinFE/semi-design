@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 42
+order: 44
 category: 输入类
 title:  Slider 滑动选择器
 icon: doc-slider

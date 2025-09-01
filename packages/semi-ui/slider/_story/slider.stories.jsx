@@ -435,3 +435,51 @@ export const RangeMinSlider = () => (
 RangeMinSlider.story = {
   name: 'range min slider',
 };
+
+export const Fix2931 = () => (
+  <div>
+    <h3>horizontal</h3>
+    <div style={{ display: 'flex', width: '100%', height: '200px', marginLeft: '100px' }}>
+      <div 
+        id="horizontal-slider-container" 
+        style={{ 
+          flex: 1, 
+          overflow: "auto", 
+          backgroundColor: 'lightPink', 
+          position: 'relative' 
+        }}
+      >
+        <Slider 
+          style={{ width: 2000 }} 
+          showBoundary 
+          onChange={value => {
+            console.log('value改变了' + value);
+          }}
+        />
+      </div>
+      <div style={{ width: 300, backgroundColor: 'lightBlue' }}></div>
+    </div>
+    <h3>vertical</h3>
+    <div style={{ display: 'flex', width: '100%', height: '200px', marginTop: '100px' }}>
+      <div 
+        id="vertical-slider-container" 
+        style={{ 
+          flex: 1, 
+          overflow: "auto", 
+          backgroundColor: 'lightPink', 
+          position: 'relative' 
+        }}>
+        <Slider 
+          style={{ height: 2000 }} 
+          vertical 
+          showBoundary 
+          onChange={value => {
+            console.log('value改变了' + value);
+          }} 
+          />
+      </div>
+      <div style={{ width: 300, backgroundColor: 'lightBlue' }}></div>
+    </div>
+
+  </div>
+);

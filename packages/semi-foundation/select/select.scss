@@ -245,7 +245,7 @@ $overflowList: #{$prefix}-overflow-list;
 
         .#{$module}-content-wrapper {
             width: 100%;
-            min-height: $height-select_multiple_content_wrapper-minHeight;
+            min-height: $height-select_default - 2 * $width-select-border ;
             flex-wrap: wrap;
 
             &-empty {
@@ -276,13 +276,13 @@ $overflowList: #{$prefix}-overflow-list;
 
     &-multiple.#{$module}-large {
         .#{$module}-content-wrapper {
-            min-height: $height-select_large - 2;
+            min-height: $height-select_large - 2 * $width-select-border;
         }
     }
 
     &-multiple.#{$module}-small {
         .#{$module}-content-wrapper {
-            min-height: $height-select_small - 2;
+            min-height: $height-select_small - 2 * $width-select-border;
         }
     }
 

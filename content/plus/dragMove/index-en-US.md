@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 26
+order: 28
 category: Plus
 title:  DragMove
 icon: doc-dragmove

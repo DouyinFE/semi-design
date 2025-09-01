@@ -2995,3 +2995,17 @@ export const CustomExpandIcon = () => {
     </>
   );
 }
+
+export const Fixed2968 = () => {
+    return ( 
+        <>
+        <TreeSelect
+            disabled
+            style={{ width: 300 }}
+            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+            treeData={treeData1}
+            placeholder="请选择"
+        />
+        </>
+    );
+}
