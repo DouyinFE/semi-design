@@ -15,10 +15,15 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.86.0-beta.0 (2025-08-19)
+- 【Fix】
+    - Fixed InputNumber component filtering currency/internal parameters when passing props through to avoid defaultCurrency and other polluting native DOM properties.
 
 #### 🎉 2.85.0 (2025-08-11)
 - 【Fix】
     - fix the issue that the style of the light theme badge does not meet expectations when used alone [#2929](https://github.com/DouyinFE/semi-design/issues/2929) [#2930](https://github.com/DouyinFE/semi-design/pull/2930)
+    - Fixed the problem that AutoComplete did not highlight matching items when searching after data update [#2952](https://github.com/DouyinFE/semi-design/pull/2952)
+    - Fixed the problem of no hover background color when the fixed column in Table is hovered, affecting version 2.79.0-2.84.0 [#2953](https://github.com/DouyinFE/semi-design/pull/2953)
 
 #### 🎉 2.85.0-beta.0 (2025-08-05)
 - 【Feat】
