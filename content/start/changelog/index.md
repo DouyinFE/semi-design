@@ -13,6 +13,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.86.0 (2025-09-01)
+- 【Fix】
+    - 修复Folding Model 初始化问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2972](https://github.com/DouyinFE/semi-design/pull/2972)
+    - 修复自定义主题传入prefix JsonViewer样式丢失问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2926](https://github.com/DouyinFE/semi-design/pull/2926)
+    - 修复多选，可搜索的 Cascader 在内容太长时，内容未正确缩略问题 [#2967](https://github.com/DouyinFE/semi-design/issues/2967) [#2970](https://github.com/DouyinFE/semi-design/pull/2970)
+    - 修复 TagInput 中可拖拽的 tag 在内容太长时，内容未正确缩略问题 [#2970](https://github.com/DouyinFE/semi-design/pull/2970)
+    - 修复 TreeSelect 在 disabled 情况下，点击会有意外的聚焦样式问题 [#2968](https://github.com/DouyinFE/semi-design/issues/2968) [#2969](https://github.com/DouyinFE/semi-design/pull/2969)
+- 【Style】
+    - 增加禁用态的 TagInput 的背景色 token，$color-tagInput_disabled-bg [#2973](https://github.com/DouyinFE/semi-design/pull/2973)
+
 #### 🎉 2.86.0-beta.0 (2025-08-19)
 - 【Fix】
     - 修复 InputNumber 组件透传 props 时过滤 currency/内部参数，避免 defaultCurrency 等污染原生 DOM 属性 [#2961](https://github.com/DouyinFE/semi-design/pull/2961)

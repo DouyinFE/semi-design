@@ -15,6 +15,17 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.86.0 (2025-09-01)
+- 【Fix】
+    - Fixed folding model initialization issue [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2972](https://github.com/DouyinFE/semi-design/pull/2972)
+    - Fixed the problem of missing prefix JsonViewer style when custom theme is passed in [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2926](fix: resolve jsonviewer dsm style loss issue by anjiazhuyouxing · Pull Request #2926 · DouyinFE/semi-design)
+    - Fixed an issue where the content of a multi-select, searchable Cascader was not correctly ellipsised when the content was too long [#2967](https://github.com/DouyinFE/semi-design/issues/2967) [#2970](Fix/2967 by YyumeiZhang · Pull Request #2970 · DouyinFE/semi-design)
+    - Fixed an issue where the content of a draggable tag in a TagInput was not correctly ellipsised when the content was too long [#2970](Fix/2967 by YyumeiZhang · Pull Request #2970 · DouyinFE/semi-design)
+    - Fixed the issue where clicking on TreeSelect when it is disabled would cause unexpected focus style issues [#2968](https://github.com/DouyinFE/semi-design/issues/2968)
+- 【Style】
+    - Add a background color token for disabled TagInput, $color-tagInput_disabled-bg [#2973](https://github.com/DouyinFE/semi-design/pull/2973)
+
 #### 🎉 2.86.0-beta.0 (2025-08-19)
 - 【Fix】
     - Fixed InputNumber component filtering currency/internal parameters when passing props through to avoid defaultCurrency and other polluting native DOM properties.
