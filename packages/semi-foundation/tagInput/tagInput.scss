@@ -105,6 +105,7 @@ $module: #{$prefix}-tagInput;
     }
 
     &-disabled {
+        background-color: $color-tagInput_disabled-bg;
         cursor: not-allowed;
 
         .#{$module}-clearBtn,
