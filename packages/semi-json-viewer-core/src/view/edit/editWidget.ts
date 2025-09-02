@@ -332,7 +332,7 @@ export class EditWidget {
         const endOffset = this._jsonModel.getOffsetAt(endRow, endCol);
         const op = this.buildBaseOperation();
         const isCtrl = e.ctrlKey || e.metaKey;
-        switch (e.key) {
+        switch (e.code) {
             case 'Tab':
                 if (this._view.completeWidget.isVisible) {
                     e.preventDefault();
@@ -353,7 +353,7 @@ export class EditWidget {
                 op.newText = insertText;
                 this._jsonModel.applyOperation(op);
                 break;
-            case 'f':
+            case 'KeyF':
                 if (e.shiftKey && isCtrl) {
                     e.preventDefault();
                     this.format();
@@ -378,13 +378,13 @@ export class EditWidget {
                     this._view.completeWidget._handleKeyDown(e);
                 }
                 break;
-            case 'a':
+            case 'KeyA':
                 isCtrl && (this._selectionModel.isSelectedAll = true);
                 break;
-            case 'x':
+            case 'KeyX':
                 isCtrl && (e.preventDefault(), this._cutHandler());
                 break;
-            case 'z':
+            case 'KeyZ':
                 if (isCtrl && !e.shiftKey) {
                     e.preventDefault();
                     this._jsonModel.undo();
@@ -393,7 +393,7 @@ export class EditWidget {
                     this._jsonModel.redo();
                 }
                 break;
-            case 'c':
+            case 'KeyC':
                 if (isCtrl) {
                     e.preventDefault();
                     this._copyHandler();
