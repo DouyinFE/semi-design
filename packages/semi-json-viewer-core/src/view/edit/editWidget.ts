@@ -331,6 +331,7 @@ export class EditWidget {
         const startOffset = this._jsonModel.getOffsetAt(startRow, startCol);
         const endOffset = this._jsonModel.getOffsetAt(endRow, endCol);
         const op = this.buildBaseOperation();
+        const isCtrl = e.ctrlKey || e.metaKey;
         switch (e.key) {
             case 'Tab':
                 if (this._view.completeWidget.isVisible) {
@@ -353,7 +354,7 @@ export class EditWidget {
                 this._jsonModel.applyOperation(op);
                 break;
             case 'f':
-                if (e.shiftKey && e.metaKey) {
+                if (e.shiftKey && isCtrl) {
                     e.preventDefault();
                     this.format();
                 }
@@ -378,27 +379,22 @@ export class EditWidget {
                 }
                 break;
             case 'a':
-                if (e.metaKey) {
-                    this._selectionModel.isSelectedAll = true;
-                }
+                isCtrl && (this._selectionModel.isSelectedAll = true);
                 break;
             case 'x':
-                if (e.metaKey) {
-                    e.preventDefault();
-                    this._cutHandler();
-                }
+                isCtrl && (e.preventDefault(), this._cutHandler());
                 break;
             case 'z':
-                if (e.metaKey && !e.shiftKey) {
+                if (isCtrl && !e.shiftKey) {
                     e.preventDefault();
                     this._jsonModel.undo();
-                } else if (e.metaKey && e.shiftKey) {
+                } else if (isCtrl && e.shiftKey) {
                     e.preventDefault();
                     this._jsonModel.redo();
                 }
                 break;
             case 'c':
-                if (e.metaKey) {
+                if (isCtrl) {
                     e.preventDefault();
                     this._copyHandler();
                 }
