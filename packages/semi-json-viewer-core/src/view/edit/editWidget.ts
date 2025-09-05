@@ -331,7 +331,8 @@ export class EditWidget {
         const startOffset = this._jsonModel.getOffsetAt(startRow, startCol);
         const endOffset = this._jsonModel.getOffsetAt(endRow, endCol);
         const op = this.buildBaseOperation();
-        switch (e.key) {
+        const isCtrl = e.ctrlKey || e.metaKey;
+        switch (e.code) {
             case 'Tab':
                 if (this._view.completeWidget.isVisible) {
                     e.preventDefault();
@@ -352,8 +353,8 @@ export class EditWidget {
                 op.newText = insertText;
                 this._jsonModel.applyOperation(op);
                 break;
-            case 'f':
-                if (e.shiftKey && e.metaKey) {
+            case 'KeyF':
+                if (e.shiftKey && isCtrl) {
                     e.preventDefault();
                     this.format();
                 }
@@ -377,28 +378,23 @@ export class EditWidget {
                     this._view.completeWidget._handleKeyDown(e);
                 }
                 break;
-            case 'a':
-                if (e.metaKey) {
-                    this._selectionModel.isSelectedAll = true;
-                }
+            case 'KeyA':
+                isCtrl && (this._selectionModel.isSelectedAll = true);
                 break;
-            case 'x':
-                if (e.metaKey) {
-                    e.preventDefault();
-                    this._cutHandler();
-                }
+            case 'KeyX':
+                isCtrl && (e.preventDefault(), this._cutHandler());
                 break;
-            case 'z':
-                if (e.metaKey && !e.shiftKey) {
+            case 'KeyZ':
+                if (isCtrl && !e.shiftKey) {
                     e.preventDefault();
                     this._jsonModel.undo();
-                } else if (e.metaKey && e.shiftKey) {
+                } else if (isCtrl && e.shiftKey) {
                     e.preventDefault();
                     this._jsonModel.redo();
                 }
                 break;
-            case 'c':
-                if (e.metaKey) {
+            case 'KeyC':
+                if (isCtrl) {
                     e.preventDefault();
                     this._copyHandler();
                 }
