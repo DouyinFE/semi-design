@@ -13,6 +13,11 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.87.0-beta.0 (2025-09-08)
+- 【Fix】
+    - JsonViewer 键盘事件兼容window [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2979](https://github.com/DouyinFE/semi-design/pull/2979)
+
+
 #### 🎉 2.86.0 (2025-09-01)
 - 【Fix】
     - 修复Folding Model 初始化问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2972](https://github.com/DouyinFE/semi-design/pull/2972)
