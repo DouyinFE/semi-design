@@ -13,6 +13,7 @@ $module: #{$prefix}-dropdown;
         z-index: $z-dropdown;
         border-radius: $radius-dropdown;
         background: $color-dropdown-bg-default;
+        backdrop-filter: $filter-dropdown-bg;
         opacity: 0;
         // min-width: 150px;
         &-show {
