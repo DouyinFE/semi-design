@@ -66,6 +66,7 @@ export interface TagInputProps {
     separator?: string | string[] | null;
     showClear?: boolean;
     size?: Size;
+    split?: (originString: string, separators: string | string[] | null) => string[];
     style?: React.CSSProperties;
     suffix?: React.ReactNode;
     validateStatus?: ValidateStatus;
