@@ -15,6 +15,27 @@ function getValueLength(str) {
 }
 
 describe('TextArea', () => {
+    it('TextArea showLineNumber, start from 3, custom className and style', () => {
+        const customClass = 'custom-line-num';
+        const customStyle = { color: 'blue', background: 'gray' };
+        const wrapper = mount(
+            <TextArea
+                showLineNumber
+                lineNumberStart={3}
+                lineNumberClassName={customClass}
+                lineNumberStyle={customStyle}
+                value={"row1\nrow2\nrow3"} />
+        );
+        const lnBar = wrapper.find(`.${BASE_CLASS_PREFIX}-input-textarea-lineNumber`).first();
+        expect(lnBar.hasClass(customClass)).toEqual(true);
+        expect(lnBar.prop('style')).toMatchObject(customStyle);
+        const items = lnBar.find(`.${BASE_CLASS_PREFIX}-input-textarea-lineNumber-item`);
+        expect(items).toHaveLength(3);
+        items.forEach((el, idx) => {
+            expect(el.text()).toEqual(String(3 + idx));
+        });
+    });
+
     it('TextArea with custom className & style', () => {
         const wrapper = mount(<TextArea className="test" style={{ color: 'red' }} />);
         expect(wrapper.hasClass('test')).toEqual(true);
