@@ -234,6 +234,8 @@ render(CustomRenderJsonComponent);
 | showSearch        | 是否显示搜索Icon                           | boolean                                  | true   |
 | options           | 编辑器配置                                | JsonViewerOptions                       | -   |
 | onChange          | 内容变化回调                           | (value: string) => void                  | -   |
+| onBlur        | 输入框失去焦点时的回调         | (e:event) => void                                             | -         |
+| onFocus       | 输入框 focus 时的回调          | (e:event) => void                                             | -         |
 
 ### JsonViewerOptions
 
@@ -258,6 +260,7 @@ render(CustomRenderJsonComponent);
 | tabSize           | 缩进大小                                 | number                          | 4  |
 | insertSpaces      | 是否使用空格进行缩进                       | boolean                         | true  |
 | eol               | 换行符                                   | string                          | '\n'  |
+| autoFoucs| 是否自动对焦 | boolean | false | - | 
 
 ## Methods
 

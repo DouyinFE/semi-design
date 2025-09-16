@@ -8,6 +8,8 @@ export interface GlobalEvents {
     hoverNode: IHoverNodeEvent;
     renderHoverNode: IRenderHoverNodeEvent;
     forceRender: undefined;
+    focus: Event;
+    blur: Event;
     customRender: ICustomRenderEvent
 }
 

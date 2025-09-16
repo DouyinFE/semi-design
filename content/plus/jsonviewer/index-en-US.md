@@ -237,6 +237,8 @@ render(CustomRenderJsonComponent);
 | showSearch | Whether to show search icon | boolean | true |
 | options | Formatting configuration | JsonViewerOptions | - |
 | onChange | Callback for content change | (value: string) => void | - |
+| onBlur        | Callback when input box loses focus        | (e:event) => void                                             | -             |
+| onFocus       | The callback when the input box is focused | (e:event) => void                                             | -             |
 
 ### JsonViewerOptions
 
@@ -255,7 +257,7 @@ render(CustomRenderJsonComponent);
 | tabSize      | Indent size. Unit: px                 | number  | 4       |
 | insertSpaces | Whether to use spaces for indentation | boolean | true    |
 | eol          | Line break character                  | string  | '\n'    |
-
+| autoFoucs| Whether to auto focus | boolean | false | - | 
 ### CustomRenderRule
 
 | Attribute | Description | Type | Default |
