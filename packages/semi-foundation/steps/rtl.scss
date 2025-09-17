@@ -1,9 +1,10 @@
 @use '../../semi-theme-default/scss/index.scss' as *;
 @use "variables.scss" as *;
-@use "bacisSteps.scss" as *;
-@use "navSteps.scss" as *;
 
 $module: #{$prefix}-steps;
+$basicModule: #{$prefix}-steps-basic;
+$navModule: #{$prefix}-steps-nav;
+$item: #{$module}-item;
 
 .#{$prefix}-rtl,
 .#{$prefix}-portal-rtl {
