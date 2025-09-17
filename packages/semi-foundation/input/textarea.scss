@@ -1,5 +1,6 @@
-@import "./animation.scss";
-@import "./variables.scss";
+@use "sass:meta";
+@use "animation.scss";
+@use "variables.scss";
 
 $module: #{$prefix}-input;
 
@@ -9,37 +10,37 @@ $module: #{$prefix}-input;
     display: inline-block;
     position: relative;
     width: 100%;
-    border: $width-input_wrapper-border $color-input_default-border-default solid;
-    border-radius: $radius-input_wrapper;
+    border: variables.$width-input_wrapper-border variables.$color-input_default-border-default solid;
+    border-radius: variables.$radius-input_wrapper;
     vertical-align: bottom;
-    background-color: $color-input_default-bg-default;
-    transition: background-color $transition_duration-input-bg $transition_function-input-bg $transition_delay-input-bg,
-    border $transition_duration-input-border $transition_function-input-border $transition_delay-input-border;
+    background-color: variables.$color-input_default-bg-default;
+    transition: background-color animation.$transition_duration-input-bg animation.$transition_function-input-bg animation.$transition_delay-input-bg,
+    border animation.$transition_duration-input-border animation.$transition_function-input-border animation.$transition_delay-input-border;
 
     &:hover {
-        background-color: $color-input_default-bg-hover;
+        background-color: variables.$color-input_default-bg-hover;
     }
 
     &-focus {
-        background-color: $color-input_default-bg-focus;
-        border: $width-input_wrapper_focus-border $color-input_default-border-focus solid;
+        background-color: variables.$color-input_default-bg-focus;
+        border: variables.$width-input_wrapper_focus-border variables.$color-input_default-border-focus solid;
         &:hover,
         &:active {
-            background-color: $color-input_default-bg-focus;
+            background-color: variables.$color-input_default-bg-focus;
         }
     }
 
     &:active {
-        background-color: $color-input_default-bg-active;
+        background-color: variables.$color-input_default-bg-active;
     }
 
     .#{$module}-clearbtn {
         position: absolute;
         top: 0;
-        min-width: $width-textarea-icon;
-        color: $color-textarea-icon-default;
-        right: $spacing-textarea-icon-right;
-        height: $height-textarea-default;
+        min-width: variables.$width-textarea-icon;
+        color: variables.$color-textarea-icon-default;
+        right: variables.$spacing-textarea-icon-right;
+        height: variables.$height-textarea-default;
 
         & > svg {
             pointer-events: none;
@@ -49,7 +50,7 @@ $module: #{$prefix}-input;
             cursor: pointer;
 
             .#{$prefix}-icon {
-                color: $color-textarea-icon-hover;
+                color: variables.$color-textarea-icon-hover;
             }
         }
 
@@ -61,15 +62,15 @@ $module: #{$prefix}-input;
     &-disabled, &-readonly {
         cursor: not-allowed;
         // border: $border-thickness-control $color-input_disabled-border-default solid;
-        color: $color-input_disabled-text-default;
-        background-color: $color-input_disabled-bg-default;
+        color: variables.$color-input_disabled-text-default;
+        background-color: variables.$color-input_disabled-bg-default;
 
         &:hover {
-            background-color: $color-input_disabled-bg-default;
+            background-color: variables.$color-input_disabled-bg-default;
         }
 
         &::placeholder {
-            color: $color-input_disabled-text-default;
+            color: variables.$color-input_disabled-text-default;
         }
     }
 
@@ -78,42 +79,42 @@ $module: #{$prefix}-input;
     }
 
     &-error {
-        background-color: $color-input_danger-bg-default;
-        border-color: $color-input_danger-border-default;
+        background-color: variables.$color-input_danger-bg-default;
+        border-color: variables.$color-input_danger-border-default;
 
         &:hover {
-            background-color: $color-input_danger-bg-hover;
-            border-color: $color-input_danger-border-hover;
+            background-color: variables.$color-input_danger-bg-hover;
+            border-color: variables.$color-input_danger-border-hover;
         }
 
         &.#{$module}-textarea-wrapper-focus {
-            background-color: $color-input_danger-bg-focus;
-            border-color: $color-input_danger-border-focus;
+            background-color: variables.$color-input_danger-bg-focus;
+            border-color: variables.$color-input_danger-border-focus;
         }
 
         &:active {
-            background-color: $color-input_danger-bg-active;
-            border-color: $color-input_danger-border-focus;
+            background-color: variables.$color-input_danger-bg-active;
+            border-color: variables.$color-input_danger-border-focus;
         }
     }
 
     &-warning {
-        background-color: $color-input_warning-bg-default;
-        border-color: $color-input_warning-border-default;
+        background-color: variables.$color-input_warning-bg-default;
+        border-color: variables.$color-input_warning-border-default;
 
         &:hover {
-            background-color: $color-input_warning-bg-hover;
-            border-color: $color-input_warning-border-hover;
+            background-color: variables.$color-input_warning-bg-hover;
+            border-color: variables.$color-input_warning-border-hover;
         }
 
         &.#{$module}-textarea-wrapper-focus {
-            background-color: $color-input_warning-bg-focus;
-            border-color: $color-input_warning-border-focus;
+            background-color: variables.$color-input_warning-bg-focus;
+            border-color: variables.$color-input_warning-border-focus;
         }
 
         &:active {
-            background-color: $color-input_warning-bg-active;
-            border-color: $color-input_warning-border-focus;
+            background-color: variables.$color-input_warning-bg-active;
+            border-color: variables.$color-input_warning-border-focus;
         }
     }
 
@@ -132,34 +133,34 @@ $module: #{$prefix}-input;
     position: relative;
     resize: none;
     // min-height: $height-input_default;
-    padding: $spacing-textarea-paddingY $spacing-textarea-paddingX;
+    padding: variables.$spacing-textarea-paddingY variables.$spacing-textarea-paddingX;
 
     @include shadow-0;
     @include font-size-regular;
     background-color: transparent;
-    border: $width-textarea-border solid $color-textarea-border-default;
+    border: variables.$width-textarea-border solid variables.$color-textarea-border-default;
     vertical-align: bottom;
     width: 100%;
     outline: none;
     cursor: text;
     box-sizing: border-box;
-    color: $color-input_default-text-default;
+    color: variables.$color-input_default-text-default;
 
     &:hover {
-        border-color: $color-textarea-border-hover;
+        border-color: variables.$color-textarea-border-hover;
     }
 
     &::placeholder {
-        color: $color-input_placeholder-text-default;
+        color: variables.$color-input_placeholder-text-default;
     }
 
     &-showClear {
-        padding-right: $spacing-textarea_withShowClear-paddingRight;
+        padding-right: variables.$spacing-textarea_withShowClear-paddingRight;
     }
 
     &-disabled, &-readonly {
         cursor: not-allowed;
-        color: $color-input_disabled-text-default;
+        color: variables.$color-input_disabled-text-default;
         background-color: transparent;
 
         &:hover {
@@ -167,7 +168,7 @@ $module: #{$prefix}-input;
         }
 
         &::placeholder {
-            color: $color-input_disabled-text-default;
+            color: variables.$color-input_disabled-text-default;
         }
     }
 
@@ -184,13 +185,13 @@ $module: #{$prefix}-input;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: $spacing-textarea_counter-paddingTop $spacing-textarea_counter-paddingRight $spacing-textarea_counter-paddingBottom $spacing-textarea_counter-paddingLeft;
-        min-height: $height-textarea_counter;
+        padding: variables.$spacing-textarea_counter-paddingTop variables.$spacing-textarea_counter-paddingRight variables.$spacing-textarea_counter-paddingBottom variables.$spacing-textarea_counter-paddingLeft;
+        min-height: variables.$height-textarea_counter;
         text-align: right;
-        color: $color-input_counter-text-default;
+        color: variables.$color-input_counter-text-default;
 
         &-exceed {
-            color: $color-input_counter_danger-text-default;
+            color: variables.$color-input_counter_danger-text-default;
         }
     }
 }
@@ -206,27 +207,27 @@ $module: #{$prefix}-input;
     }
 
     &.#{$module}-textarea-wrapper-error:not(:focus-within){
-        border-color: $color-input_danger-border-focus;
+        border-color: variables.$color-input_danger-border-focus;
     }
 
 
 
     &.#{$module}-textarea-wrapper-warning:not(:focus-within){
-        border-color: $color-input_warning-border-focus;
+        border-color: variables.$color-input_warning-border-focus;
     }
 
     &.#{$module}-textarea-wrapper-error{
             .#{$module}-textarea-counter{
-                color: $color-input_danger-border-focus;
+                color: variables.$color-input_danger-border-focus;
             }
     }
 
     &.#{$module}-textarea-wrapper-warning{
         .#{$module}-textarea-counter{
-            color: $color-input_warning-border-focus;
+            color: variables.$color-input_warning-border-focus;
         }
     }
 
 }
 
-@import "./rtl.scss";
+@include meta.load-css("rtl.scss");

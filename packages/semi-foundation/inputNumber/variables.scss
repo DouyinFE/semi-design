@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $height-inputNumber_button_default: $height-control-default; // 数字输入框高度 - 默认
 $height-inputNumber_button_large: $height-control-large; // 数字输入框高度 - 大
 $height-inputNumber_button_small: $height-control-small; // 数字输入框高度 - 小

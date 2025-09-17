@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $color-banner_info-bg-default: var(--semi-color-info-light-default); // 背景色 - info
 $color-banner_info-text-default: var(--semi-color-info); // 文本颜色 - info
 $color-banner_info-border-default: var(--semi-color-info); // 描边颜色 - info

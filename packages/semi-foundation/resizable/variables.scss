@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $z-resizable_handler: 2000 !default; // 伸缩框组件中handler的z-index
 $z-resizable_background: 2010; // 伸缩框组件中背景的z-index
 

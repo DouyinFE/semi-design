@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 // Color
 $color-toast-bg-default: var(--semi-color-bg-3); // 提示背景颜色 - 默认
 $color-toast-text-default: var(--semi-color-text-0); // 提示文字颜色 - 默认

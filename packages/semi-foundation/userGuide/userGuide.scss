@@ -1,5 +1,5 @@
-@import './variables.scss';
-@import './animation.scss';
+@use 'variables.scss';
+@use 'animation.scss';
 
 $module: #{$prefix}-userGuide;
 
@@ -19,46 +19,46 @@ $module: #{$prefix}-userGuide;
         }
 
         &-rect {
-            transition: all $transition_duration-userGuide_spotLight $transition_function-userGuide_spotLight;
+            transition: all animation.$transition_duration-userGuide_spotLight animation.$transition_function-userGuide_spotLight;
         }
     }
 
     &-popover {
         max-width: fit-content;
-        width: $width-userGuide_popover-default;
+        width: variables.$width-userGuide_popover-default;
     }
 
     &-popup-content {
-        color: $color-userGuide_popup-text-default;
+        color: variables.$color-userGuide_popup-text-default;
 
         &-primary {
-            color: $color-userGuide_popup-text-primary;
+            color: variables.$color-userGuide_popup-text-primary;
         }
 
         &-cover {
             img {
                 display: block;
-                height: $height-userGuide_popup_content_cover-default;
+                height: variables.$height-userGuide_popup_content_cover-default;
                 width: 100%;
-                border-radius: $radius-userGuide_popup_content_cover;
+                border-radius: variables.$radius-userGuide_popup_content_cover;
             }
         }
 
         &-body {
-            padding: $spacing-userGuide_popup_content_body-padding;
+            padding: variables.$spacing-userGuide_popup_content_body-padding;
         }
     
         &-title {
-            font-size: $font-userGuide_popup_content_title-fontSize;
-            font-weight: $font-userGuide_popup_content_title-fontWeight;
-            line-height: $font-userGuide_popup_content_title-lineHeight;
-            margin-bottom: $spacing-userGuide_popup_content_title-marginBottom;
+            font-size: variables.$font-userGuide_popup_content_title-fontSize;
+            font-weight: variables.$font-userGuide_popup_content_title-fontWeight;
+            line-height: variables.$font-userGuide_popup_content_title-lineHeight;
+            margin-bottom: variables.$spacing-userGuide_popup_content_title-marginBottom;
         }
 
         &-description {
-            font-size: $font-userGuide_popup_content_description-fontSize;
-            line-height: $font-userGuide_popup_content_description-lineHeight;
-            margin-bottom: $spacing-userGuide_popup_content_description-marginBottom;
+            font-size: variables.$font-userGuide_popup_content_description-fontSize;
+            line-height: variables.$font-userGuide_popup_content_description-lineHeight;
+            margin-bottom: variables.$spacing-userGuide_popup_content_description-marginBottom;
         }
 
         &-footer {
@@ -69,13 +69,13 @@ $module: #{$prefix}-userGuide;
     
         &-buttons {
             display: flex;
-            gap: $spacing-userGuide_popup_content_button-gap;
-            margin-left: $spacing-userGuide_popup_content_button-marginLeft;
+            gap: variables.$spacing-userGuide_popup_content_button-gap;
+            margin-left: variables.$spacing-userGuide_popup_content_button-marginLeft;
         }
 
         &-indicator {
             font-size: $font-size-regular; 
-            line-height: $font-userGuide_popup_content_indicator-lineHeight;
+            line-height: variables.$font-userGuide_popup_content_indicator-lineHeight;
         }
     }
 
@@ -88,29 +88,29 @@ $module: #{$prefix}-userGuide;
         // Override the modal's original padding
         .#{$prefix}-modal-content {
             padding: 0;
-            width: $width-userGuide_modal_content_cover-default;
+            width: variables.$width-userGuide_modal_content_cover-default;
             max-width: fit-content;
         }
 
         &-cover {
-            height: $height-userGuide_modal_content_cover-default;
+            height: variables.$height-userGuide_modal_content_cover-default;
         }
 
         &-indicator {
-            height: $height-userGuide_modal_content_indicator-default;
+            height: variables.$height-userGuide_modal_content_indicator-default;
             display: flex;
             justify-content: center;
             align-items: center;
-            column-gap: $spacing-userGuide_popup_content_indicator-gap;
+            column-gap: variables.$spacing-userGuide_popup_content_indicator-gap;
 
             &-item {
-                width: $width-userGuide_modal_content_indicator_item-default;
-                height: $height-userGuide_modal_content_indicator_item-default;
-                border-radius: $radius-userGuide_modal_content_indicator;
-                background-color: $color-userGuide_modal_content_indicator-bg;
+                width: variables.$width-userGuide_modal_content_indicator_item-default;
+                height: variables.$height-userGuide_modal_content_indicator_item-default;
+                border-radius: variables.$radius-userGuide_modal_content_indicator;
+                background-color: variables.$color-userGuide_modal_content_indicator-bg;
 
                 &-active {
-                    background: $color-userGuide_modal_content_indicator-bg-active
+                    background: variables.$color-userGuide_modal_content_indicator-bg-active
                 }
             }
         }
@@ -120,18 +120,18 @@ $module: #{$prefix}-userGuide;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            padding: $spacing-userGuide_modal_content_body-padding;
+            padding: variables.$spacing-userGuide_modal_content_body-padding;
 
             &-title {
-                font-size: $font-userGuide_modal_content_title-fontSize;
-                font-weight: $font-userGuide_modal_content_title-fontWeight;
-                line-height:$font-userGuide_modal_content_title-lineHeight;
-                margin-bottom: $spacing-userGuide_modal_content_title-marginBottom;
+                font-size: variables.$font-userGuide_modal_content_title-fontSize;
+                font-weight: variables.$font-userGuide_modal_content_title-fontWeight;
+                line-height:variables.$font-userGuide_modal_content_title-lineHeight;
+                margin-bottom: variables.$spacing-userGuide_modal_content_title-marginBottom;
             }
 
             &-description {
-                font-size: $font-userGuide_modal_content_description-fontSize;
-                line-height: $font-userGuide_modal_content_description-lineHeight;
+                font-size: variables.$font-userGuide_modal_content_description-fontSize;
+                line-height: variables.$font-userGuide_modal_content_description-lineHeight;
             }
         }
 
@@ -139,8 +139,8 @@ $module: #{$prefix}-userGuide;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: $spacing-userGuide_modal_content_footer-padding;
-            column-gap: $spacing-userGuide_modal_content_button-gap
+            padding: variables.$spacing-userGuide_modal_content_footer-padding;
+            column-gap: variables.$spacing-userGuide_modal_content_button-gap
         }
     }
 } 

@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $color-skeleton_default-bg-default: var(--semi-color-fill-0); // 骨架屏背景色 - 默认
 $color-skeleton_loading-gradient-bg-active: var(--semi-color-fill-1); // 骨架屏背景色 - 动画开启后
 

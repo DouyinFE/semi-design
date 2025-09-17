@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $spacing-breadcrumb_item_wrap-marginY: $spacing-extra-tight; // 面包屑 Item 垂直内边距 
 $spacing-breadcrumb_item_wrap-marginRight: $spacing-extra-tight; // 面包屑 Item 右侧内边距 
 $spacing-breadcrumb_item-marginRight: $spacing-extra-tight; // 面包屑 Item 内容与分割线距离

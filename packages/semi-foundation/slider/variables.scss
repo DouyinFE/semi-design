@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 // Color
 $color-slider-text-default: var(--semi-color-text-0); // 滑动条文本颜色 - 默认
 $color-slider_disabled-text-default: var(--semi-color-disabled-text); // 滑动条禁用文本颜色 - 默认

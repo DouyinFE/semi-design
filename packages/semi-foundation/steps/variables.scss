@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 // Color
 $color-steps-bg-active: var(--semi-color-fill-1); // 步骤条背景 - 按下态
 $color-steps-bg-default: var(--semi-color-text-2); // 未到达步骤条图标背景

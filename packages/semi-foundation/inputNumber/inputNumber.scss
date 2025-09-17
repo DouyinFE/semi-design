@@ -1,5 +1,6 @@
-@import "./animation.scss";
-@import './variables.scss';
+@use "sass:meta";
+@use "animation.scss";
+@use 'variables.scss';
 
 $module: #{$prefix}-input-number;
 
@@ -7,22 +8,22 @@ $module: #{$prefix}-input-number;
     display: inline-flex;
     align-items: center;
     box-sizing: border-box;
-    transition: background-color $transition_duration-inputNumber-bg $transition_function-inputNumber-bg $transition_delay-inputNumber-bg,
-    border $transition_duration-inputNumber-border $transition_function-inputNumber-border $transition_delay-inputNumber-border;
-    transform: scale($transform_scale-inputNumber);
+    transition: background-color animation.$transition_duration-inputNumber-bg animation.$transition_function-inputNumber-bg animation.$transition_delay-inputNumber-bg,
+    border animation.$transition_duration-inputNumber-border animation.$transition_function-inputNumber-border animation.$transition_delay-inputNumber-border;
+    transform: scale(animation.$transform_scale-inputNumber);
 
     &-suffix-btns {
         display: inline-flex;
         flex-direction: column;
-        margin-left: $spacing-inputNumber_button-marginLeft;
-        border: $width-inputNumber_button-border solid $color-inputNumber_button-border-default;
-        border-radius: $radius-inputNumber;
-        background-color: $color-inputNumber_button-bg-default;
+        margin-left: variables.$spacing-inputNumber_button-marginLeft;
+        border: variables.$width-inputNumber_button-border solid variables.$color-inputNumber_button-border-default;
+        border-radius: variables.$radius-inputNumber;
+        background-color: variables.$color-inputNumber_button-bg-default;
         box-sizing: border-box;
 
         & > .#{$module}-button {
             height: 50%;
-            width: $width-inputNumber_button;
+            width: variables.$width-inputNumber_button;
             padding: 0;
             margin: 0;
             display: inline-flex;
@@ -30,7 +31,7 @@ $module: #{$prefix}-input-number;
             justify-content: center;
             user-select: none;
             border-radius: 0;
-            color: $color-inputNumber_button-text-default;
+            color: variables.$color-inputNumber_button-text-default;
         }
 
         & > .#{$module}-button-up:not(.#{$module}-button-up-not-allowed),
@@ -38,19 +39,19 @@ $module: #{$prefix}-input-number;
 
             &:hover {
                 cursor: pointer;
-                background-color: $color-inputNumber_button-bg-hover;
+                background-color: variables.$color-inputNumber_button-bg-hover;
             }
 
             &:active {
                 cursor: pointer;
-                background-color: $color-inputNumber_button-bg-active;
+                background-color: variables.$color-inputNumber_button-bg-active;
             }
         }
 
         & > .#{$module}-button-up.#{$module}-button-up-disabled,
         & > .#{$module}-button-down.#{$module}-button-down-disabled {
-            background-color: $color-inputNumber_button-bg-disabled;
-            color: $color-inputNumber_button-text-disabled;
+            background-color: variables.$color-inputNumber_button-bg-disabled;
+            color: variables.$color-inputNumber_button-text-disabled;
         }
 
         & > .#{$module}-button-up.#{$module}-button-up-not-allowed,
@@ -59,19 +60,19 @@ $module: #{$prefix}-input-number;
         }
 
         &-inner-hover {
-            border-color: $color-inputNumber_button-border-hover;
+            border-color: variables.$color-inputNumber_button-border-hover;
         }
     }
 
     &-suffix-btns-inner {
-        margin-left: $spacing-inputNumber_button_inner-marginLeft;
-        border-radius: $radius-inputNumber_inner;
+        margin-left: variables.$spacing-inputNumber_button_inner-marginLeft;
+        border-radius: variables.$radius-inputNumber_inner;
         overflow: hidden
     }
 
     .#{$prefix}-input-clearbtn {
         & + .#{$prefix}-input-suffix {
-            margin-left: $spacing-inputNumber_clearbtn_suffix-marginLeft;
+            margin-left: variables.$spacing-inputNumber_clearbtn_suffix-marginLeft;
 
             .#{$module}-suffix-btns-inner {
                 margin-left: 0;
@@ -83,28 +84,28 @@ $module: #{$prefix}-input-number;
 
         &-default {
             .#{$module}-suffix-btns {
-                height: $height-inputNumber_button_default;
+                height: variables.$height-inputNumber_button_default;
             }
             .#{$module}-suffix-btns-inner {
-                height: $height-inputNumber_button_inner_default;
+                height: variables.$height-inputNumber_button_inner_default;
             }
         }
 
         &-large {
             .#{$module}-suffix-btns {
-                height: $height-inputNumber_button_large;
+                height: variables.$height-inputNumber_button_large;
             }
             .#{$module}-suffix-btns-inner {
-                height: $height-inputNumber_button_inner_large;
+                height: variables.$height-inputNumber_button_inner_large;
             }
         }
 
         &-small {
             .#{$module}-suffix-btns {
-                height: $height-inputNumber_button_small;
+                height: variables.$height-inputNumber_button_small;
             }
             .#{$module}-suffix-btns-inner {
-                height: $height-inputNumber_button_inner_small;
+                height: variables.$height-inputNumber_button_inner_small;
             }
         }
     }
@@ -119,4 +120,4 @@ $module: #{$prefix}-input-number;
     }
 }
 
-@import "./rtl.scss";
+@include meta.load-css("rtl.scss");

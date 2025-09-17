@@ -1,16 +1,17 @@
-@import './variables.scss';
+@use "sass:meta";
+@use 'variables.scss';
 
 $module: #{$prefix}-tree-select;
 
 .#{$module} {
     box-sizing: border-box;
-    border-radius: $radius-treeSelect;
-    border: $width-treeSelect-border solid $color-treeSelect_default-border-default;
-    min-width: $width-treeSelect_default;
-    min-height: $height-treeSelect_default;
-    line-height: $font-treeSelect_default-lineHeight;
-    font-weight: $font-treeSelect_default-fontWeight;
-    background-color: $color-treeSelect_default-bg-default;
+    border-radius: variables.$radius-treeSelect;
+    border: variables.$width-treeSelect-border solid variables.$color-treeSelect_default-border-default;
+    min-width: variables.$width-treeSelect_default;
+    min-height: variables.$height-treeSelect_default;
+    line-height: variables.$font-treeSelect_default-lineHeight;
+    font-weight: variables.$font-treeSelect_default-fontWeight;
+    background-color: variables.$color-treeSelect_default-bg-default;
     display: inline-flex;
     align-items: center;
     position: relative;
@@ -18,8 +19,8 @@ $module: #{$prefix}-tree-select;
 
 
     &:hover {
-        background-color: $color-treeSelect_default-bg-hover;
-        border: $width-treeSelect_hover-border solid $color-treeSelect_default-border-hover;
+        background-color: variables.$color-treeSelect_default-bg-hover;
+        border: variables.$width-treeSelect_hover-border solid variables.$color-treeSelect_default-border-hover;
     }
 
     // &:focus {
@@ -29,65 +30,65 @@ $module: #{$prefix}-tree-select;
     // }
 
     &:active{
-        background-color: $color-treeSelect_default-bg-active;
+        background-color: variables.$color-treeSelect_default-bg-active;
     }
 
 
     &-focus {
-        background-color: $color-treeSelect_default-bg-focus;
-        border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
+        background-color: variables.$color-treeSelect_default-bg-focus;
+        border: variables.$width-treeSelect_focus-border solid variables.$color-treeSelect_default-border-focus;
         outline: 0;
 
         &:hover {
-            background-color: $color-treeSelect_default-bg-focus;
-            border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
+            background-color: variables.$color-treeSelect_default-bg-focus;
+            border: variables.$width-treeSelect_focus-border solid variables.$color-treeSelect_default-border-focus;
             outline: 0;
         }
 
 
         &:active{
-            background-color: $color-treeSelect_default-bg-active;
+            background-color: variables.$color-treeSelect_default-bg-active;
         }
     }
 
 
     &-warning {
-        background-color: $color-treeSelect_warning-bg-default;
-        border-color: $color-treeSelect_warning-border-default;
+        background-color: variables.$color-treeSelect_warning-bg-default;
+        border-color: variables.$color-treeSelect_warning-border-default;
 
         &:hover {
-            background-color: $color-treeSelect_warning-bg-hover;
-            border-color: $color-treeSelect_warning-border-hover;
+            background-color: variables.$color-treeSelect_warning-bg-hover;
+            border-color: variables.$color-treeSelect_warning-border-hover;
         }
 
         &.#{$module}-focus {
-            background-color: $color-treeSelect_warning-bg-focus;
-            border-color: $color-treeSelect_warning-border-focus;
+            background-color: variables.$color-treeSelect_warning-bg-focus;
+            border-color: variables.$color-treeSelect_warning-border-focus;
         }
 
         &:active {
-            background-color: $color-treeSelect_warning-bg-active;
-            border-color: $color-treeSelect_warning-border-active;
+            background-color: variables.$color-treeSelect_warning-bg-active;
+            border-color: variables.$color-treeSelect_warning-border-active;
         }
     }
 
     &-error {
-        background-color: $color-treeSelect_danger-bg-default;
-        border-color: $color-treeSelect_danger-border-default;
+        background-color: variables.$color-treeSelect_danger-bg-default;
+        border-color: variables.$color-treeSelect_danger-border-default;
 
         &:hover {
-            background-color: $color-treeSelect_danger-bg-hover;
-            border-color: $color-treeSelect_danger-border-hover;
+            background-color: variables.$color-treeSelect_danger-bg-hover;
+            border-color: variables.$color-treeSelect_danger-border-hover;
         }
 
         &.#{$module}-focus {
-            background-color: $color-treeSelect_danger-bg-focus;
-            border-color: $color-treeSelect_danger-border-focus;
+            background-color: variables.$color-treeSelect_danger-bg-focus;
+            border-color: variables.$color-treeSelect_danger-border-focus;
         }
 
         &:active {
-            background-color: $color-treeSelect_danger-bg-active;
-            border-color: $color-treeSelect_danger-border-active;
+            background-color: variables.$color-treeSelect_danger-bg-active;
+            border-color: variables.$color-treeSelect_danger-border-active;
         }
     }
 
@@ -95,28 +96,28 @@ $module: #{$prefix}-tree-select;
         cursor: not-allowed;
         user-select: none;
 
-        background-color: $color-treeSelect_input_disabled-bg-default;
+        background-color: variables.$color-treeSelect_input_disabled-bg-default;
         // border: 1px solid $color-treeSelect_input_disabled-border-default;
 
         &:hover {
-            background-color: $color-treeSelect_input_disabled-bg-hover;
+            background-color: variables.$color-treeSelect_input_disabled-bg-hover;
         }
 
         .#{$module}-selection,
         .#{$module}-selection-placeholder {
-            color: $color-treeSelect_input_disabled-text-default;
+            color: variables.$color-treeSelect_input_disabled-text-default;
             cursor: not-allowed;
         }
 
         .#{$module}-arrow,
         .#{$module}-prefix,
         .#{$module}-suffix {
-            color: $color-treeSelect_input_disabled-text-default;
+            color: variables.$color-treeSelect_input_disabled-text-default;
         }
 
         .#{$prefix}-tag {
-            color: $color-treeSelect_input_disabled-text-default;
-            background-color: $color-treeSelect_tag_disabled-bg-default;
+            color: variables.$color-treeSelect_input_disabled-text-default;
+            background-color: variables.$color-treeSelect_tag_disabled-bg-default;
         }
     }
 
@@ -129,10 +130,10 @@ $module: #{$prefix}-tree-select;
         flex-wrap: wrap;
         flex-grow: 1;
         overflow: hidden;
-        padding-left: $spacing-treeSelect_selection-paddingLeft;
+        padding-left: variables.$spacing-treeSelect_selection-paddingLeft;
         padding-right: 0;
         cursor: pointer;
-        color: $color-treeSelect_selection-text-default;
+        color: variables.$color-treeSelect_selection-text-default;
         position: relative;
 
         &-content {
@@ -142,7 +143,7 @@ $module: #{$prefix}-tree-select;
         }
         
         &-placeholder {
-            color: $color-treeSelect_input_placeholder-text-default;
+            color: variables.$color-treeSelect_input_placeholder-text-default;
         }
 
         .#{$prefix}-tag-group {
@@ -153,12 +154,12 @@ $module: #{$prefix}-tree-select;
         }
 
         .#{$prefix}-tag {
-            margin: $spacing-treeSelect_tag-marginY $spacing-treeSelect_tag-marginX;
+            margin: variables.$spacing-treeSelect_tag-marginY variables.$spacing-treeSelect_tag-marginX;
         }
 
         &-TriggerSearchItem {
             position: absolute;
-            max-width: calc(100% - $spacing-treeSelect_selection-paddingLeft);
+            max-width: calc(100% - variables.$spacing-treeSelect_selection-paddingLeft);
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
@@ -169,7 +170,7 @@ $module: #{$prefix}-tree-select;
 
             &-disabled {
                 cursor: not-allowed;
-                color: $color-treeSelect_selection_TriggerSearchItem_disabled-text-default;
+                color: variables.$color-treeSelect_selection_TriggerSearchItem_disabled-text-default;
             }
         }
 
@@ -191,12 +192,12 @@ $module: #{$prefix}-tree-select;
             .#{$prefix}-input-wrapper {
                 height: 100%;
                 width: 100%;
-                border: $color-treeSelect_inputTrigger-border-default;
-                background-color: $color-treeSelect_inputTrigger-bg-default;
+                border: variables.$color-treeSelect_inputTrigger-border-default;
+                background-color: variables.$color-treeSelect_inputTrigger-bg-default;
             }
 
             .#{$prefix}-input-wrapper-focus {
-                border: $color-treeSelect_inputTrigger-border-default;
+                border: variables.$color-treeSelect_inputTrigger-border-default;
             }
 
             .#{$prefix}-input {
@@ -208,19 +209,19 @@ $module: #{$prefix}-tree-select;
         .#{$prefix}-tagInput {
             border: hidden;
             background: transparent;
-            min-height: $height-treeSelect_selection_tagInput_wrapper_default;
+            min-height: variables.$height-treeSelect_selection_tagInput_wrapper_default;
 
             &-small {
-                min-height: $height-treeSelect_selection_tagInput_wrapper_small;
+                min-height: variables.$height-treeSelect_selection_tagInput_wrapper_small;
             }
 
             &-large {
-                min-height: $height-treeSelect_selection_tagInput_wrapper_large;
+                min-height: variables.$height-treeSelect_selection_tagInput_wrapper_large;
             }
 
             .#{$prefix}-tagInput-wrapper {
-                padding-left: $spacing-treeSelect_selection_tagInput_wrapper-paddingX;
-                padding-right: $spacing-treeSelect_selection_tagInput_wrapper-paddingX;
+                padding-left: variables.$spacing-treeSelect_selection_tagInput_wrapper-paddingX;
+                padding-right: variables.$spacing-treeSelect_selection_tagInput_wrapper-paddingX;
 
                 .#{$prefix}-input-wrapper {
                     // height: $height-treeSelect_selection_tagInput_input_default;
@@ -230,13 +231,13 @@ $module: #{$prefix}-tree-select;
                     }
 
                     &-default {
-                        margin-top: $spacing-treeSelect_tag-marginY;
-                        margin-bottom: $spacing-treeSelect_tag-marginY;
+                        margin-top: variables.$spacing-treeSelect_tag-marginY;
+                        margin-bottom: variables.$spacing-treeSelect_tag-marginY;
                     }
         
                     &-large {
-                        margin-top: $spacing-treeSelect_tag-marginY;
-                        margin-bottom: $spacing-treeSelect_tag-marginY;
+                        margin-top: variables.$spacing-treeSelect_tag-marginY;
+                        margin-bottom: variables.$spacing-treeSelect_tag-marginY;
                     }
                 }
             }
@@ -245,14 +246,14 @@ $module: #{$prefix}-tree-select;
     
     &-multiple-tagInput-notEmpty {
         .#{$prefix}-tagInput {
-            margin-left: $spacing-treeSelect_selection_tagInput_notEmpty-marginLeft;
+            margin-left: variables.$spacing-treeSelect_selection_tagInput_notEmpty-marginLeft;
         }
     }
 
 
     &-multiple-tagInput-empty {
         .#{$prefix}-tagInput {
-            margin-left: $spacing-treeSelect_selection_tagInput_empty-marginLeft;
+            margin-left: variables.$spacing-treeSelect_selection_tagInput_empty-marginLeft;
         }
     }
 
@@ -260,23 +261,23 @@ $module: #{$prefix}-tree-select;
         display: inline-flex;
 
         .#{$module}-selection {
-            padding-left: $spacing-treeSelect_selection_multiple-paddingLeft;
+            padding-left: variables.$spacing-treeSelect_selection_multiple-paddingLeft;
             padding-right: 0;
 
             &-placeholder {
-                padding-left: $spacing-treeSelect_placeholder_multiple-paddingLeft;
+                padding-left: variables.$spacing-treeSelect_placeholder_multiple-paddingLeft;
             }
         }
     }
 
     &-small {
-        min-height: $height-treeSelect_small;
-        line-height: $font-treeSelect_small-lineHeight;
+        min-height: variables.$height-treeSelect_small;
+        line-height: variables.$font-treeSelect_small-lineHeight;
     }
 
     &-large {
-        min-height: $height-treeSelect_large;
-        line-height: $font-treeSelect_large-lineHeight;
+        min-height: variables.$height-treeSelect_large;
+        line-height: variables.$font-treeSelect_large-lineHeight;
         .#{$module}-selection {
             @include font-size-header-6;
         }
@@ -291,16 +292,16 @@ $module: #{$prefix}-tree-select;
         flex-shrink: 0;
         height: 100%;
         justify-content: center;
-        width: $width-treeSelect_arrow;
-        color: $color-treeSelect_default-icon-default;
+        width: variables.$width-treeSelect_arrow;
+        color: variables.$color-treeSelect_default-icon-default;
     }
 
     &-inset-label {
         display: inline;
-        margin: $spacing-treeSelect_prefix_text-marginY $spacing-treeSelect_prefix_text-marginX;
-        font-weight: $font-treeSelect_prefix_suffix_fontWeight;
+        margin: variables.$spacing-treeSelect_prefix_text-marginY variables.$spacing-treeSelect_prefix_text-marginX;
+        font-weight: variables.$font-treeSelect_prefix_suffix_fontWeight;
         @include font-size-regular;
-        color: $color-treeSelect_prefix_suffix_text-default;
+        color: variables.$color-treeSelect_prefix_suffix_text-default;
         flex-shrink: 0;
         white-space: nowrap;
     }
@@ -317,17 +318,17 @@ $module: #{$prefix}-tree-select;
         height: 100%;
         flex-shrink: 0;
         justify-content: center;
-        width: $width-treeSelect_arrow;
-        color: $color-treeSelect_default-icon-default;
+        width: variables.$width-treeSelect_arrow;
+        color: variables.$color-treeSelect_default-icon-default;
     }
 
     &-clearbtn {
         &:hover {
-            color: $color-treeSelect_default-icon-hover;
+            color: variables.$color-treeSelect_default-icon-hover;
         }
 
         &:active {
-            color: $color-treeSelect_default-icon-active;
+            color: variables.$color-treeSelect_default-icon-active;
         }
     }
 
@@ -337,35 +338,35 @@ $module: #{$prefix}-tree-select;
         @include all-center;
 
         &-text {
-            color: $color-treeSelect_prefix_suffix_text-default;
-            font-weight: $font-treeSelect_prefix_suffix_fontWeight;
+            color: variables.$color-treeSelect_prefix_suffix_text-default;
+            font-weight: variables.$font-treeSelect_prefix_suffix_fontWeight;
             @include font-size-regular;
-            margin: $spacing-treeSelect_prefix_text-marginY $spacing-treeSelect_prefix_text-marginX;
+            margin: variables.$spacing-treeSelect_prefix_text-marginY variables.$spacing-treeSelect_prefix_text-marginX;
         }
 
         &-icon {
-            color: $color-treeSelect_default-icon-default;
-            margin: $spacing-treeSelect_prefix_icon-marginY $spacing-treeSelect_prefix_icon-marginX;
+            color: variables.$color-treeSelect_default-icon-default;
+            margin: variables.$spacing-treeSelect_prefix_icon-marginY variables.$spacing-treeSelect_prefix_icon-marginX;
         }
 
         &.#{$module}-with-suffix {
             .#{$module}-selection {
-                padding-right: $spacing-treeSelect_selection_withSuffix-paddingRight;
+                padding-right: variables.$spacing-treeSelect_selection_withSuffix-paddingRight;
             }
         }
 
         &-search-wrapper {
-            padding: $spacing-treeSelect_search_wrapper-paddingY $spacing-treeSelect_search_wrapper-paddingX;
-            border-bottom: $width-treeSelect_search_wrapper-border solid $color-treeSelect_search-border-default;
+            padding: variables.$spacing-treeSelect_search_wrapper-paddingY variables.$spacing-treeSelect_search_wrapper-paddingX;
+            border-bottom: variables.$width-treeSelect_search_wrapper-border solid variables.$color-treeSelect_search-border-default;
         }
 
         &-maxTagCount {
-            color: $color-treeSelect_input_placeholder-text-default;
-            font-size: $font-treeSelect_default-fontSize;
+            color: variables.$color-treeSelect_input_placeholder-text-default;
+            font-size: variables.$font-treeSelect_default-fontSize;
         }
 
         &-popover {
-            max-height: $height-treeSelect_popover;
+            max-height: variables.$height-treeSelect_popover;
             overflow: auto;
         }
     }
@@ -378,7 +379,7 @@ $module: #{$prefix}-tree-select;
 
         .#{$prefix}-tree-option-list {
             flex: 1;
-            min-width: $width-treeSelect_option;
+            min-width: variables.$width-treeSelect_option;
 
             &-hidden {
                 padding: 0;
@@ -386,7 +387,7 @@ $module: #{$prefix}-tree-select;
         }
 
         .#{$prefix}-tree-search-wrapper {
-            border-bottom: $width-treeSelect_search_wrapper-border $color-treeSelect_search-border-default solid;
+            border-bottom: variables.$width-treeSelect_search_wrapper-border variables.$color-treeSelect_search-border-default solid;
         }
     }
 }
@@ -407,21 +408,21 @@ $module: #{$prefix}-tree-select;
 
     // split style into not and normal to avoid style override
     &.#{$module}-error:not(:focus-within){
-        border-color: $color-treeSelect_danger-border-focus;
+        border-color: variables.$color-treeSelect_danger-border-focus;
     }
 
     &.#{$module}-warning:not(:focus-within){
-        border-color: $color-treeSelect_warning-border-focus;
+        border-color: variables.$color-treeSelect_warning-border-focus;
     }
 
     &.#{$module}-error:focus-within{
-        border-color: $color-treeSelect_danger-border-focus;
+        border-color: variables.$color-treeSelect_danger-border-focus;
     }
 
     &.#{$module}-warning:focus-within{
-        border-color: $color-treeSelect_warning-border-focus;
+        border-color: variables.$color-treeSelect_warning-border-focus;
     }
 
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

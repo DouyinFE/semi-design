@@ -1,3 +1,4 @@
+@use "sass:string";
 .block {
     box-sizing: border-box;
     position: relative;
@@ -26,14 +27,14 @@
         z-index: 1;
 
         &-btn {
-            background-color: unquote('rgba(var(--semi-color-action-btn), 0.6)') !important;
+            background-color: string.unquote('rgba(var(--semi-color-action-btn), 0.6)') !important;
 
             &:hover {
-                background-color: unquote('rgba(var(--semi-color-action-btn), 0.75)') !important;
+                background-color: string.unquote('rgba(var(--semi-color-action-btn), 0.75)') !important;
             }
 
             &:active {
-                background-color: unquote('rgba(var(--semi-color-action-btn), 0.9)') !important;
+                background-color: string.unquote('rgba(var(--semi-color-action-btn), 0.9)') !important;
             }
         }
     }
@@ -66,8 +67,8 @@
         padding: 2px 4px;
         background-color: var(--semi-color-nav-bg);
         color: var(--semi-color-text-2);
-        box-shadow: 0px 0px 1px unquote('rgba(var(--semi-color-black), 0.15)'),
-            0px 1px 6px unquote('rgba(var(--semi-color-black), 0.1)');
+        box-shadow: 0px 0px 1px string.unquote('rgba(var(--semi-color-black), 0.15)'),
+            0px 1px 6px string.unquote('rgba(var(--semi-color-black), 0.1)');
         border-radius: 3px;
         display: none;
         z-index: 1;

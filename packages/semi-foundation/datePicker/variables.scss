@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 // Size
 $width-datepicker_day: 36px; // 日期格子尺寸
 $width-datepicker_day_main: 32px; // 日期格子内容尺寸

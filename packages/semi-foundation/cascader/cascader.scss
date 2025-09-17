@@ -1,19 +1,20 @@
-@import "./animation.scss";
-@import './variables.scss';
+@use "sass:meta";
+@use "animation.scss";
+@use 'variables.scss';
 
 
 $module: #{$prefix}-cascader;
 
 .#{$module} {
     box-sizing: border-box;
-    border-radius: $radius-cascader;
-    border: $width-cascader-border solid $color-cascader_default-border-default;
-    min-width: $width-cascader;
-    min-height: $height-cascader_default;
+    border-radius: variables.$radius-cascader;
+    border: variables.$width-cascader-border solid variables.$color-cascader_default-border-default;
+    min-width: variables.$width-cascader;
+    min-height: variables.$height-cascader_default;
     height: auto;
-    line-height: $height-cascader_default;
-    font-weight: $font-cascader-fontWeight;
-    background-color: $color-cascader_default-bg-default;
+    line-height: variables.$height-cascader_default;
+    font-weight: variables.$font-cascader-fontWeight;
+    background-color: variables.$color-cascader_default-bg-default;
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
@@ -21,103 +22,103 @@ $module: #{$prefix}-cascader;
     cursor: pointer;
 
     &:hover {
-        background-color: $color-cascader_default-bg-hover;
-        border: $width-cascader_hover-border $color-cascader_default-border-hover solid;
+        background-color: variables.$color-cascader_default-bg-hover;
+        border: variables.$width-cascader_hover-border variables.$color-cascader_default-border-hover solid;
     }
 
     &:focus:not(&-disabled) {
-        border: $width-cascader_focus-border solid $color-cascader_default-border-focus;
-        background-color: $color-cascader_default-bg-default;
+        border: variables.$width-cascader_focus-border solid variables.$color-cascader_default-border-focus;
+        background-color: variables.$color-cascader_default-bg-default;
         outline: 0;
     }
 
 
     &:active {
-        background-color: $color-cascader_default-bg-active;
+        background-color: variables.$color-cascader_default-bg-active;
     }
 
     &-small {
-        min-height: $height-cascader_small;
-        line-height: $height-cascader_small;
+        min-height: variables.$height-cascader_small;
+        line-height: variables.$height-cascader_small;
 
         .#{$module}-selection {
-            padding-left: $spacing-cascader_small_selection-paddingLeft;
-            padding-right: $spacing-cascader_small_selection-paddingRight;
+            padding-left: variables.$spacing-cascader_small_selection-paddingLeft;
+            padding-right: variables.$spacing-cascader_small_selection-paddingRight;
 
             &-multiple {
-                padding-left: $spacing-cascader_small_selection_multiple-paddingLeft;
-                padding-right: $spacing-cascader_small_selection_multiple-paddingRight;
+                padding-left: variables.$spacing-cascader_small_selection_multiple-paddingLeft;
+                padding-right: variables.$spacing-cascader_small_selection_multiple-paddingRight;
             }
         }
     }
 
     &-large {
-        min-height: $height-cascader_large;
-        line-height: $height-cascader_large;
+        min-height: variables.$height-cascader_large;
+        line-height: variables.$height-cascader_large;
         .#{$module}-selection {
             @include font-size-header-6;
         }
 
         .#{$module}-selection {
-            padding-left: $spacing-cascader_large_selection-paddingLeft;
-            padding-right: $spacing-cascader_large_selection-paddingRight;
+            padding-left: variables.$spacing-cascader_large_selection-paddingLeft;
+            padding-right: variables.$spacing-cascader_large_selection-paddingRight;
 
             &-multiple {
-                padding-left: $spacing-cascader_large_selection_multiple-paddingLeft;
-                padding-right: $spacing-cascader_large_selection_multiple-paddingRight;
+                padding-left: variables.$spacing-cascader_large_selection_multiple-paddingLeft;
+                padding-right: variables.$spacing-cascader_large_selection_multiple-paddingRight;
             }
         }
     }
 
     &-focus {
-        border: $width-cascader_focus-border solid $color-cascader_default-border-focus;
+        border: variables.$width-cascader_focus-border solid variables.$color-cascader_default-border-focus;
         outline: 0;
         &:hover{
-            background-color: $color-cascader_default-bg-default;
-            border: $width-cascader_focus-border solid $color-cascader_default-border-focus;
+            background-color: variables.$color-cascader_default-bg-default;
+            border: variables.$width-cascader_focus-border solid variables.$color-cascader_default-border-focus;
         }
         &:active {
-            background-color: $color-cascader_default-bg-active;
+            background-color: variables.$color-cascader_default-bg-active;
         }
     }
 
     &-warning {
-        background-color: $color-cascader_warning-bg-default;
-        border-color: $color-cascader_warning-border-default;
+        background-color: variables.$color-cascader_warning-bg-default;
+        border-color: variables.$color-cascader_warning-border-default;
 
         &:hover {
-            background-color: $color-cascader_warning-bg-hover;
-            border-color: $color-cascader_warning-border-hover;
+            background-color: variables.$color-cascader_warning-bg-hover;
+            border-color: variables.$color-cascader_warning-border-hover;
         }
 
         &.#{$module}-focus {
-            background-color: $color-cascader_warning-bg-focus;
-            border-color: $color-cascader_warning-border-focus;
+            background-color: variables.$color-cascader_warning-bg-focus;
+            border-color: variables.$color-cascader_warning-border-focus;
         }
 
         &:active {
-            background-color: $color-cascader_warning-bg-active;
-            border-color: $color-cascader_warning-border-active;
+            background-color: variables.$color-cascader_warning-bg-active;
+            border-color: variables.$color-cascader_warning-border-active;
         }
     }
 
     &-error {
-        background-color: $color-cascader_danger-bg-default;
-        border-color: $color-cascader_danger-border-default;
+        background-color: variables.$color-cascader_danger-bg-default;
+        border-color: variables.$color-cascader_danger-border-default;
 
         &:hover {
-            background-color: $color-cascader_danger-bg-hover;
-            border-color: $color-cascader_danger-border-hover;
+            background-color: variables.$color-cascader_danger-bg-hover;
+            border-color: variables.$color-cascader_danger-border-hover;
         }
 
         &.#{$module}-focus {
-            background-color: $color-cascader_danger-bg-focus;
-            border-color: $color-cascader_danger-border-focus;
+            background-color: variables.$color-cascader_danger-bg-focus;
+            border-color: variables.$color-cascader_danger-border-focus;
         }
 
         &:active {
-            background-color: $color-cascader_danger-bg-active;
-            border-color: $color-cascader_danger-border-active;
+            background-color: variables.$color-cascader_danger-bg-active;
+            border-color: variables.$color-cascader_danger-border-active;
         }
     }
 
@@ -131,37 +132,37 @@ $module: #{$prefix}-cascader;
         flex-grow: 1;
         overflow: hidden;
 
-        padding-left: $spacing-cascader_selection-paddingLeft;
-        padding-right: $spacing-cascader_selection-paddingRight;
+        padding-left: variables.$spacing-cascader_selection-paddingLeft;
+        padding-right: variables.$spacing-cascader_selection-paddingRight;
         cursor: pointer;
-        color: $color-cascader_selection-text-default;
+        color: variables.$color-cascader_selection-text-default;
 
         &-multiple {
-            padding-left: $spacing-cascader_selection_multiple-paddingLeft;
-            padding-right: $spacing-cascader_selection_multiple-paddingRight;
+            padding-left: variables.$spacing-cascader_selection_multiple-paddingLeft;
+            padding-right: variables.$spacing-cascader_selection_multiple-paddingRight;
         }
 
         &-placeholder {
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            color: $color-cascader_placeholder-text-default;
+            color: variables.$color-cascader_placeholder-text-default;
         }
 
         &-tag {
-            margin: $spacing-cascader_selection_tag-marginY $spacing-cascader_selection_tag-marginRight $spacing-cascader_selection_tag-marginY $spacing-cascader_selection_tag-marginLeft;
+            margin: variables.$spacing-cascader_selection_tag-marginY variables.$spacing-cascader_selection_tag-marginRight variables.$spacing-cascader_selection_tag-marginY variables.$spacing-cascader_selection_tag-marginLeft;
 
             &:first-child {
                 margin-left: 0;
             }
 
             &-disabled.#{$prefix}-tag {
-                color: $color-cascader_input_disabled-text-default;
-                background-color: $color-cascader_tag_disabled-bg-default;
+                color: variables.$color-cascader_input_disabled-text-default;
+                background-color: variables.$color-cascader_tag_disabled-bg-default;
                 cursor: not-allowed;
 
                 .#{$prefix}-tag-close {
-                    color: $color-cascader_input_disabled-text-default;
+                    color: variables.$color-cascader_input_disabled-text-default;
                     cursor: not-allowed;
                     pointer-events: none;
                 }
@@ -170,15 +171,15 @@ $module: #{$prefix}-cascader;
 
         &-n {
             cursor: pointer;
-            font-size: $font-cascader_selection_n-fontSize;
-            margin-right: $spacing-cascader_selection_n-marginRight;
-            color: $color-cascader_selection_n-text-default;
-            padding-left: $spacing-cascader_selection_n-paddingX;
-            padding-right: $spacing-cascader_selection_n-paddingX;
+            font-size: variables.$font-cascader_selection_n-fontSize;
+            margin-right: variables.$spacing-cascader_selection_n-marginRight;
+            color: variables.$color-cascader_selection_n-text-default;
+            padding-left: variables.$spacing-cascader_selection_n-paddingX;
+            padding-right: variables.$spacing-cascader_selection_n-paddingX;
 
             &-disabled {
                 cursor: not-allowed;
-                color: $color-cascader_selection_n-text-disabled;
+                color: variables.$color-cascader_selection_n-text-disabled;
             }
         }
 
@@ -191,35 +192,35 @@ $module: #{$prefix}-cascader;
         .#{$module}-tagInput-wrapper {
             border: hidden;
             background: transparent;
-            margin-left: $spacing-cascader_selection_tagInput-marginLeft;
+            margin-left: variables.$spacing-cascader_selection_tagInput-marginLeft;
         }
         
         .#{$prefix}-tagInput {
-            min-height: $height-cascader_selection_tagInput_wrapper_default;
+            min-height: variables.$height-cascader_selection_tagInput_wrapper_default;
 
             &-small {
-                min-height: $height-cascader_selection_tagInput_wrapper_small;
+                min-height: variables.$height-cascader_selection_tagInput_wrapper_small;
             }
 
             &-large {
-                min-height: $height-cascader_selection_tagInput_wrapper_large;
+                min-height: variables.$height-cascader_selection_tagInput_wrapper_large;
             }
 
             .#{$prefix}-input-wrapper {
 
-                margin-left: $spacing-cascader_selection_input-marginLeft;
+                margin-left: variables.$spacing-cascader_selection_input-marginLeft;
                 .#{$prefix}-input {
                     padding-left: 0;
                 }
 
                 &-default {
-                    margin-top: $spacing-cascader_selection_tag-marginY;
-                    margin-bottom: $spacing-cascader_selection_tag-marginY;
+                    margin-top: variables.$spacing-cascader_selection_tag-marginY;
+                    margin-bottom: variables.$spacing-cascader_selection_tag-marginY;
                 }
     
                 &-large {
-                    margin-top: $spacing-cascader_selection_tag-marginY;
-                    margin-bottom: $spacing-cascader_selection_tag-marginY;
+                    margin-top: variables.$spacing-cascader_selection_tag-marginY;
+                    margin-bottom: variables.$spacing-cascader_selection_tag-marginY;
                 }
             }
         }
@@ -227,7 +228,7 @@ $module: #{$prefix}-cascader;
         &-text {
 
             &-inactive {
-                color: $color-cascader_selection_text_inactive;
+                color: variables.$color-cascader_selection_text_inactive;
             }
 
             &-hide {
@@ -245,17 +246,17 @@ $module: #{$prefix}-cascader;
         align-items: center;
         height: 100%;
         justify-content: center;
-        width: $width-cascader-icon;
-        color: $color-cascader-icon-default;
+        width: variables.$width-cascader-icon;
+        color: variables.$color-cascader-icon-default;
     }
 
     &-clearbtn {
         &:hover {
-            color: $color-cascader-icon-hover;
+            color: variables.$color-cascader-icon-hover;
         }
 
         &:active {
-            color: $color-cascader-icon-active;
+            color: variables.$color-cascader-icon-active;
         }
     }
 
@@ -265,24 +266,24 @@ $module: #{$prefix}-cascader;
         @include all-center;
 
         &-text {
-            margin: 0 $spacing-cascader_text-marginX;
-            font-weight: $font-cascader_prefix_suffix_fontWeight;
+            margin: 0 variables.$spacing-cascader_text-marginX;
+            font-weight: variables.$font-cascader_prefix_suffix_fontWeight;
             @include font-size-regular;
-            color: $color-cascader_prefix_suffix_text-default;
+            color: variables.$color-cascader_prefix_suffix_text-default;
         }
 
         &-icon {
-            color: $color-cascader-icon-default;
-            margin: 0 $spacing-cascader_icon-marginX;
+            color: variables.$color-cascader-icon-default;
+            margin: 0 variables.$spacing-cascader_icon-marginX;
         }
     }
 
     &-inset-label {
         display: inline;
-        margin: 0 $spacing-cascader_text-marginX;
-        font-weight: $font-cascader_prefix_suffix_fontWeight;
+        margin: 0 variables.$spacing-cascader_text-marginX;
+        font-weight: variables.$font-cascader_prefix_suffix_fontWeight;
         @include font-size-regular;
-        color: $color-cascader_prefix_suffix_text-default;
+        color: variables.$color-cascader_prefix_suffix_text-default;
         flex-shrink: 0;
         white-space: nowrap;
     }
@@ -305,43 +306,43 @@ $module: #{$prefix}-cascader;
     &-disabled {
         cursor: not-allowed;
         user-select: none;
-        background-color: $color-cascader_input_disabled-bg-default;
+        background-color: variables.$color-cascader_input_disabled-bg-default;
 
         .#{$module}-selection {
             cursor: not-allowed;
         }
 
         &:hover {
-            background-color: $color-cascader_input_disabled-bg-hover;
+            background-color: variables.$color-cascader_input_disabled-bg-hover;
         }
 
         .#{$module}-selection,
         .#{$module}-selection-placeholder,
         .#{$module}-prefix,
         .#{$module}-suffix {
-            color: $color-cascader_input_disabled-text-default;
+            color: variables.$color-cascader_input_disabled-text-default;
             cursor: not-allowed;
         }
 
         .#{$module}-arrow {
-            color: $color-cascader_input_disabled-icon-default;
+            color: variables.$color-cascader_input_disabled-icon-default;
         }
     }
 }
 
 .#{$module}-popover {
     .#{$module}-search-wrapper {
-        padding: $spacing-cascader_search-paddingY $spacing-cascader_search-paddingX;
-        border-bottom: $width-cascader_search-border solid $color-cascader_search-border-default;
+        padding: variables.$spacing-cascader_search-paddingY variables.$spacing-cascader_search-paddingX;
+        border-bottom: variables.$width-cascader_search-border solid variables.$color-cascader_search-border-default;
     }
 
     .#{$module}-option-lists .#{$module}-option-empty {
         @include font-size-regular;
-        border-radius: $radius-cascader_option_empty;
+        border-radius: variables.$radius-cascader_option_empty;
         // min-width: $width-cascader_option;
-        color: $color-cascader_option_empty-text-default;
+        color: variables.$color-cascader_option_empty-text-default;
         margin: 0;
-        padding: $spacing-cascader_option_empty-paddingY $spacing-cascader_option_empty-paddingX;
+        padding: variables.$spacing-cascader_option_empty-paddingY variables.$spacing-cascader_option_empty-paddingX;
         user-select: none;
         text-align: center;
         cursor: not-allowed;
@@ -359,17 +360,17 @@ $module: #{$prefix}-cascader;
     .#{$module}-selection {
         .#{$module}-search-wrapper {
             width: 100%;
-            height: $height-cascader_selection_wrapper;
+            height: variables.$height-cascader_selection_wrapper;
             display: flex;
             align-items: center;
             position: relative;
 
             &-small {
-                height: $height-cascader_selection_wrapper_small;
+                height: variables.$height-cascader_selection_wrapper_small;
             }
 
             &-large {
-                height: $height-cascader_selection_wrapper_large;
+                height: variables.$height-cascader_selection_wrapper_large;
             }
 
             .#{$prefix}-input-wrapper {
@@ -380,12 +381,12 @@ $module: #{$prefix}-cascader;
                 background-color: transparent;
                 height: 100%;
                 width: 100%;
-                border: $color-cascader_input-border-default;
-                background-color: $color-cascader_input-bg-default;
+                border: variables.$color-cascader_input-border-default;
+                background-color: variables.$color-cascader_input-bg-default;
             }
 
             .#{$prefix}-input-wrapper-focus {
-                border: $color-cascader_input-border-default;
+                border: variables.$color-cascader_input-border-default;
             }
 
             .#{$prefix}-input {
@@ -401,7 +402,7 @@ $module: #{$prefix}-cascader;
     overflow: hidden;
     padding: 0;
     margin: 0;
-    height: $height-cascader_option_list;
+    height: variables.$height-cascader_option_list;
 
     &-empty {
         height: auto;
@@ -417,23 +418,23 @@ $module: #{$prefix}-cascader;
     }
 
     ul > li {
-        padding-top: $spacing-cascader_option-paddingTop;
-        padding-bottom: $spacing-cascader_option-paddingBottom;
-        padding-left: $spacing-cascader_option-paddingLeft;
-        padding-right: $spacing-cascader_option-paddingRight;
+        padding-top: variables.$spacing-cascader_option-paddingTop;
+        padding-bottom: variables.$spacing-cascader_option-paddingBottom;
+        padding-left: variables.$spacing-cascader_option-paddingLeft;
+        padding-right: variables.$spacing-cascader_option-paddingRight;
     }
 
 
     .#{$module}-option-list {
         box-sizing: border-box;
         display: inline-block;
-        min-width: $width-cascader_option;
+        min-width: variables.$width-cascader_option;
         height: 100%;
         margin: 0;
-        padding: $spacing-cacader_option_list-paddingY $spacing-cacader_option_list-paddingX;
+        padding: variables.$spacing-cacader_option_list-paddingY variables.$spacing-cacader_option_list-paddingX;
         overflow: auto;
         list-style: none;
-        border-left: $width-cascader_option_list-border solid $color-cascader_option_list-border-default;
+        border-left: variables.$width-cascader_option_list-border solid variables.$color-cascader_option_list-border-default;
 
         &:first-child {
             border-left: none;
@@ -445,47 +446,47 @@ $module: #{$prefix}-cascader;
         align-items: center;
         justify-content: space-between;
         cursor: pointer;
-        transition: background-color $transition_duration-cascader_option-bg $transition_function-cascader_option-bg $transition_delay-cascader_option-bg;
+        transition: background-color animation.$transition_duration-cascader_option-bg animation.$transition_function-cascader_option-bg animation.$transition_delay-cascader_option-bg;
 
         @include font-size-regular;
         min-width: min-content;
         word-break: break-all;
-        color: $color-cascader_option_main-text-default;
+        color: variables.$color-cascader_option_main-text-default;
         position: relative;
 
 
         &:hover {
-            background-color: $color-cascader_option-bg-hover;
+            background-color: variables.$color-cascader_option-bg-hover;
         }
 
         &:active {
-            background-color: $color-cascader_option-bg-active;
+            background-color: variables.$color-cascader_option-bg-active;
         }
 
         &-icon {
             display: inline-flex;
             flex-shrink: 0;
-            width:$width-cascader-option-icon;
-            color: $color-cascader_option-icon-default;
+            width:variables.$width-cascader-option-icon;
+            color: variables.$color-cascader_option-icon-default;
 
             &-active,
             &-empty {
-                margin-right: $spacing-cascader_empty_icon-marginRight;
+                margin-right: variables.$spacing-cascader_empty_icon-marginRight;
             }
 
             &-left {
-                margin-left: $spacing-cascader_option-icon-marginLeft;
+                margin-left: variables.$spacing-cascader_option-icon-marginLeft;
             }
         }
 
         &-spin-icon {
-            width: $width-cascader-option-icon;
-            height: $width-cascader-option-icon;
+            width: variables.$width-cascader-option-icon;
+            height: variables.$width-cascader-option-icon;
             line-height: 0;
 
             & svg {
-                width: $width-cascader-option-icon;
-                height: $width-cascader-option-icon;
+                width: variables.$width-cascader-option-icon;
+                height: variables.$width-cascader-option-icon;
             }
         }
 
@@ -495,7 +496,7 @@ $module: #{$prefix}-cascader;
             white-space: pre;
 
             &-checkbox {
-                margin-right: $spacing-cascader_label_checkbox-marginRight;
+                margin-right: variables.$spacing-cascader_label_checkbox-marginRight;
             }
         }
 
@@ -504,37 +505,37 @@ $module: #{$prefix}-cascader;
         }
 
         &-active {
-            background-color: $color-cascader_option-bg-selected;
+            background-color: variables.$color-cascader_option-bg-selected;
 
             &:hover {
-                background-color: $color-cascader_option-bg-selected;
+                background-color: variables.$color-cascader_option-bg-selected;
             }
         }
 
         &-select,
         &-label-highlight {
-            font-weight: $font-cascader_select-fontWeight;
-            color: $color-cascader_select_highlight;
+            font-weight: variables.$font-cascader_select-fontWeight;
+            color: variables.$color-cascader_select_highlight;
         }
 
         &-disabled {
             cursor: not-allowed;
 
             &:hover {
-                background-color: $color-cascader_option_disabled-bg-hover;
+                background-color: variables.$color-cascader_option_disabled-bg-hover;
             }
 
             &:active {
-                background-color: $color-cascader_option_disabled-bg-active;
+                background-color: variables.$color-cascader_option_disabled-bg-active;
             }
 
             .#{$module}-option-label {
-                color: $color-cascader_option_disabled-text-default;
+                color: variables.$color-cascader_option_disabled-text-default;
             }
         }
 
         &-flatten {
-            padding-right: $spacing-cascader_flatten_list-paddingRight;
+            padding-right: variables.$spacing-cascader_flatten_list-paddingRight;
         }
     }
 }
@@ -553,22 +554,22 @@ $module: #{$prefix}-cascader;
     }
 
     &.#{$module}-error:not(:focus-within){
-        border-color: $color-cascader_danger-border-focus;
+        border-color: variables.$color-cascader_danger-border-focus;
     }
 
     &.#{$module}-warning:not(:focus-within){
-        border-color: $color-cascader_warning-border-focus;
+        border-color: variables.$color-cascader_warning-border-focus;
     }
 
     &.#{$module}-error:focus-within{
-        border-color: $color-cascader_danger-border-focus;
+        border-color: variables.$color-cascader_danger-border-focus;
     }
 
     &.#{$module}-warning:focus-within{
-        border-color: $color-cascader_warning-border-focus;
+        border-color: variables.$color-cascader_warning-border-focus;
     }
 
 
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

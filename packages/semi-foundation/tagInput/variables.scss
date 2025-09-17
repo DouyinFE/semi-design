@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $color-tagInput-icon-default: var(--semi-color-text-2); // 标签输入框图标颜色 - 默认
 $color-tagInput-maxTagCount-default: var(--semi-color-text-0); // 标签输入框限制标签展示数量文字颜色
 $color-tagInput-icon-hover: var(--semi-color-primary-hover); // 标签输入框图标颜色 - 悬浮

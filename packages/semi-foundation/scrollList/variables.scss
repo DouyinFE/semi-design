@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 // Color
 $color-scrollList-bg: var(--semi-color-bg-3); // 滚动列表背景色
 $color-scrollList-border: var(--semi-color-border); // 滚动列表描边颜色

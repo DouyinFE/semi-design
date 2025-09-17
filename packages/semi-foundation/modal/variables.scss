@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 // Color
 $color-modal-bg: var(--semi-color-bg-2); // 模态框背景颜色
 $color-modal_mask-bg: var(--semi-color-overlay-bg); // 模态框蒙层颜色

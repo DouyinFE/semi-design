@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 // Color
 $color-popconfirm_header-text: var(--semi-color-text-0); // 标题文字颜色
 $color-popconfirm_body-text: var(--semi-color-text-2); // 正文文字颜色

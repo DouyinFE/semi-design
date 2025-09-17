@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 $color-card-bg-default: var(--semi-color-bg-0); // 卡片背景颜色
 $color-card-border: var(--semi-color-border); // 卡片描边颜色
 $color-card_title-text: var(--semi-color-text-0); // 卡片标题文字颜色

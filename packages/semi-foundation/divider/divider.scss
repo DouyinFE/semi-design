@@ -1,11 +1,11 @@
-@import './variables.scss';
+@use 'variables.scss';
 
 $module: #{$prefix}-divider;
 
 .#{$module} {
-    margin: $spacing-divider_horizontal-marginTop $spacing-divider_horizontal-marginRight $spacing-divider_horizontal-marginBottom $spacing-divider_horizontal-marginLeft;
-    border-bottom: $width-divider-border solid  $color-divider_border-color;
-    color: $color-divider_text-default;
+    margin: variables.$spacing-divider_horizontal-marginTop variables.$spacing-divider_horizontal-marginRight variables.$spacing-divider_horizontal-marginBottom variables.$spacing-divider_horizontal-marginLeft;
+    border-bottom: variables.$width-divider-border solid  variables.$color-divider_border-color;
+    color: variables.$color-divider_text-default;
     box-sizing: border-box;
 
     &-dashed {
@@ -20,9 +20,9 @@ $module: #{$prefix}-divider;
     &-vertical {
         border-bottom: 0;
         display: inline-block;
-        margin: $spacing-divider_vertical-marginTop $spacing-divider_vertical-marginRight $spacing-divider_vertical-marginBottom $spacing-divider_vertical-marginLeft;
-        border-left: $width-divider-border solid  $color-divider_border-color;
-        height: $height-divider_vertical;
+        margin: variables.$spacing-divider_vertical-marginTop variables.$spacing-divider_vertical-marginRight variables.$spacing-divider_vertical-marginBottom variables.$spacing-divider_vertical-marginLeft;
+        border-left: variables.$width-divider-border solid  variables.$color-divider_border-color;
+        height: variables.$height-divider_vertical;
         vertical-align: middle;
     }
 
@@ -33,8 +33,8 @@ $module: #{$prefix}-divider;
         align-items: center;
 
         .#{$module}_inner-text {
-            font-weight: $font-divider_text-weight;
-            padding: $spacing-divider_inner-text-paddingTop $spacing-divider_inner-text-paddingRight $spacing-divider_inner-text-paddingBottom $spacing-divider_inner-text-paddingLeft;
+            font-weight: variables.$font-divider_text-weight;
+            padding: variables.$spacing-divider_inner-text-paddingTop variables.$spacing-divider_inner-text-paddingRight variables.$spacing-divider_inner-text-paddingBottom variables.$spacing-divider_inner-text-paddingLeft;
             display: inline-block;
         }
 
@@ -43,12 +43,12 @@ $module: #{$prefix}-divider;
         &::after {
             content: "";
             width: 50%;
-            border-bottom: $width-divider-border solid  $color-divider_border-color;
+            border-bottom: variables.$width-divider-border solid  variables.$color-divider_border-color;
         }
 
         &-left {
             &::before {
-                width: $width-divider_inner_text_left_line;
+                width: variables.$width-divider_inner_text_left_line;
             }
 
             &::after {
@@ -62,7 +62,7 @@ $module: #{$prefix}-divider;
             }
 
             &::after {
-                width: $width-divider_inner_text_right_line;
+                width: variables.$width-divider_inner_text_right_line;
             }
         }
     }
@@ -71,10 +71,10 @@ $module: #{$prefix}-divider;
 .#{$module}-dashed {
     &::before,
     &::after {
-        border-bottom: $width-divider-border dashed  $color-divider_border-color;
+        border-bottom: variables.$width-divider-border dashed  variables.$color-divider_border-color;
     }
 }
 
 .#{$module}-vertical.#{$module}-dashed {
-    border-left: $width-divider-border dashed  $color-divider_border-color;
+    border-left: variables.$width-divider-border dashed  variables.$color-divider_border-color;
 }

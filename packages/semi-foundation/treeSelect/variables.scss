@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $color-treeSelect_default-bg-default: var(--semi-color-fill-0); // 树选择器选择框背景颜色 - 默认
 $color-treeSelect_default-bg-hover: var(--semi-color-fill-1); // 树选择器选择框背景颜色 - 悬停
 $color-treeSelect_default-bg-active: var(--semi-color-fill-2); // 树选择器选择框背景颜色 - 按下

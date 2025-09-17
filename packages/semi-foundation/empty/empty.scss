@@ -1,4 +1,5 @@
-@import './variables.scss';
+@use "sass:meta";
+@use 'variables.scss';
 
 $module: #{$prefix}-empty;
 
@@ -18,7 +19,7 @@ $module: #{$prefix}-empty;
         flex-direction: column;
 
         .#{$module}-content {
-            margin-top: $spacing-empty_content_vertical-marginTop;
+            margin-top: variables.$spacing-empty_content_vertical-marginTop;
         }
 
         .#{$module}-title,
@@ -29,26 +30,26 @@ $module: #{$prefix}-empty;
 
     &-horizontal {
         .#{$module}-content {
-            margin-left: $spacing-empty_content_horizontal-marginLeft;
+            margin-left: variables.$spacing-empty_content_horizontal-marginLeft;
         }
     }
 
     &-title.#{$prefix}-typography {
         display: block;
-        font-weight: $font-empty_title-fontWeight;
+        font-weight: variables.$font-empty_title-fontWeight;
     }
 
     &-title+&-description {
-        margin-top: $spacing-empty_title-marginTop;
+        margin-top: variables.$spacing-empty_title-marginTop;
     }
 
     &-description {
-        color: $color-empty_description-text-default;
+        color: variables.$color-empty_description-text-default;
     }
 
     &-footer {
-        margin-top: $spacing-empty_footer-marginTop;
+        margin-top: variables.$spacing-empty_footer-marginTop;
     }
 }
 
-@import "./rtl.scss";
+@include meta.load-css("rtl.scss");

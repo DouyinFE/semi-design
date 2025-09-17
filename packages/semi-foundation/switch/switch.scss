@@ -1,5 +1,6 @@
-@import "./animation.scss";
-@import './variables.scss';
+@use "sass:meta";
+@use "animation.scss";
+@use 'variables.scss';
 
 
 $module: #{$prefix}-switch;
@@ -7,75 +8,75 @@ $module: #{$prefix}-switch;
 .#{$module} {
     box-sizing: border-box;
     display: inline-block;
-    border-radius: $radius-switch;
-    border: $border-thickness-control $color-switch_default-border-default solid;
+    border-radius: variables.$radius-switch;
+    border: $border-thickness-control variables.$color-switch_default-border-default solid;
     position: relative;
     cursor: pointer;
-    background-color: $color-switch_default-bg-default;
+    background-color: variables.$color-switch_default-bg-default;
     // box-shadow: inset 0 0 0 0 $color-switch_default-bg-success;
     //transition: background-color $motion-switch-transitionDuration ease-in-out;
-    transition: background-color $transition_duration-switch-bg $transition_function-switch-bg $transition_delay_switch-bg;
+    transition: background-color animation.$transition_duration-switch-bg animation.$transition_function-switch-bg animation.$transition_delay_switch-bg;
 
-    width: $width-switch;
-    height: $height-switch;
+    width: variables.$width-switch;
+    height: variables.$height-switch;
 
     &:hover {
-        background-color: $color-switch_default-bg-hover;
+        background-color: variables.$color-switch_default-bg-hover;
     }
 
     &:active {
-        border: $border-thickness-control $color-switch_default-bg-active solid;
+        border: $border-thickness-control variables.$color-switch_default-bg-active solid;
         .#{$module}-knob {
-            width: $width-switch_knob_active;
+            width: variables.$width-switch_knob_active;
         }
     }
 
     &-focus {
-        outline: $width-switch-outline solid $color-switch_primary-outline-focus;
+        outline: variables.$width-switch-outline solid variables.$color-switch_primary-outline-focus;
     }
 
     &-checked {
-        background-color: $color-switch_checked-bg-default;
+        background-color: variables.$color-switch_checked-bg-default;
 
         &:hover {
-            background-color: $color-switch_checked-bg-hover;
+            background-color: variables.$color-switch_checked-bg-hover;
         }
 
         .#{$module}-knob {
-            transform: translateX($spacing-switch_checked-translateX);
+            transform: translateX(variables.$spacing-switch_checked-translateX);
         }
 
         &:active {
             .#{$module}-knob {
-                transform: translateX($spacing-switch_checked-translateX - $width-switch_knob_expand);
+                transform: translateX(variables.$spacing-switch_checked-translateX - variables.$width-switch_knob_expand);
             }
         }
     }
 
     &-active {
-        background-color: $color-switch_checked-bg-active;
+        background-color: variables.$color-switch_checked-bg-active;
     }
 
     &-disabled {
         cursor: not-allowed;
-        background-color: $color-switch_disabled-bg-default;
-        border: $border-thickness-control $color-switch_disabled-border-default solid;
+        background-color: variables.$color-switch_disabled-bg-default;
+        border: $border-thickness-control variables.$color-switch_disabled-border-default solid;
 
         &:hover {
-            background-color: $color-switch_disabled-bg-hover;
+            background-color: variables.$color-switch_disabled-bg-hover;
         }
 
         &:active {
-            background-color: $color-switch_disabled-bg-active;
+            background-color: variables.$color-switch_disabled-bg-active;
             .#{$module}-knob {
-                width: $width-switch_knob_default;
+                width: variables.$width-switch_knob_default;
             }
         }
 
         .#{$module}-knob {
             cursor: not-allowed;
             @include shadow-0;
-            border: $width-switch_knob_disabled-border $color-switch_knob-border-default solid;
+            border: variables.$width-switch_knob_disabled-border variables.$color-switch_knob-border-default solid;
         }
         
         .#{$module}-native-control {
@@ -84,11 +85,11 @@ $module: #{$prefix}-switch;
         }
 
         &.#{$module}-checked {
-            border-color: $color-switch_checked_disabled-border-default;
-            background-color: $color-switch_checked_disabled-bg-default;
+            border-color: variables.$color-switch_checked_disabled-border-default;
+            background-color: variables.$color-switch_checked_disabled-bg-default;
             &:active {
                 .#{$module}-knob {
-                    transform: translateX($spacing-switch_checked-translateX);
+                    transform: translateX(variables.$spacing-switch_checked-translateX);
                 }
             }
             .#{$module}-knob {
@@ -100,25 +101,25 @@ $module: #{$prefix}-switch;
 
     &-disabled.#{$module}-loading:not(.#{$module}-checked) {
         &:hover {
-            background-color: $color-switch_spin_unchecked-bg-default;
+            background-color: variables.$color-switch_spin_unchecked-bg-default;
         }
     }
 
     &-knob {
         @include shadow-knob;
         cursor: pointer;
-        border-radius: $width-switch_knob_default * 0.5;
-        background-color: $color-switch_knob-bg-default;
+        border-radius: variables.$width-switch_knob_default * 0.5;
+        background-color: variables.$color-switch_knob-bg-default;
         box-sizing: border-box;
         position: absolute;
-        left: $spacing-switch_knob-left;
+        left: variables.$spacing-switch_knob-left;
         right: auto;
-        transition: transform $motion-switch-transitionDuration ease-in-out, width $motion-switch-transitionDuration ease-in-out;
+        transition: transform variables.$motion-switch-transitionDuration ease-in-out, width variables.$motion-switch-transitionDuration ease-in-out;
 
-        width: $width-switch_knob_default;
-        height: $width-switch_knob_default;
-        top: $spacing-switch_knob-padding;
-        transform: translateX($spacing-switch_unchecked-translateX);
+        width: variables.$width-switch_knob_default;
+        height: variables.$width-switch_knob_default;
+        top: variables.$spacing-switch_knob-padding;
+        transform: translateX(variables.$spacing-switch_unchecked-translateX);
     }
 
     &-native-control {
@@ -148,24 +149,24 @@ $module: #{$prefix}-switch;
     }
 
     &-checked-text {
-        color: $color-switch_checked-text-default;
+        color: variables.$color-switch_checked-text-default;
     }
 
     &-unchecked-text {
-        color: $color-switch_unchecked-text-default;
+        color: variables.$color-switch_unchecked-text-default;
         right: 0;
     }
 
     &-loading {
         display: inline-flex;
         align-items: center;
-        background-color: $color-switch_spin_unchecked-bg-default;
+        background-color: variables.$color-switch_spin_unchecked-bg-default;
 
         &-spin {
             .#{$prefix}-spin-wrapper{
                 display: inline-flex;
                 align-items: center;
-                color: $color-switch_loading_spin-default;
+                color: variables.$color-switch_loading_spin-default;
             }
         }
     }
@@ -174,19 +175,19 @@ $module: #{$prefix}-switch;
 .#{$module}-loading {
 
     .#{$module}-loading-spin {
-        transform: translateX($spacing-switch_spin_unchecked-translateX);
+        transform: translateX(variables.$spacing-switch_spin_unchecked-translateX);
 
         &>.#{$prefix}-spin-wrapper>svg{
-            width: $width-switch_spin-default;
-            height: $width-switch_spin-default;
+            width: variables.$width-switch_spin-default;
+            height: variables.$width-switch_spin-default;
         }
     }
 
     &.#{$module}-checked {
-        background-color: $color-switch_spin_checked-bg-default;
+        background-color: variables.$color-switch_spin_checked-bg-default;
 
         .#{$module}-loading-spin {
-            transform: translateX($spacing-switch_spin_checked-translateX);
+            transform: translateX(variables.$spacing-switch_spin_checked-translateX);
         }
     }
 }
@@ -194,17 +195,17 @@ $module: #{$prefix}-switch;
 .#{$module}-loading.#{$module}-small {
 
     .#{$module}-loading-spin {
-        transform: translateX($spacing-switch_spin_unchecked_small-translateX);
+        transform: translateX(variables.$spacing-switch_spin_unchecked_small-translateX);
 
         &>.#{$prefix}-spin-wrapper>svg{
-            width: $width-switch_spin-small;
-            height: $width-switch_spin-small;
+            width: variables.$width-switch_spin-small;
+            height: variables.$width-switch_spin-small;
         }
     }
     &.#{$module}-checked{
 
         .#{$module}-loading-spin {
-            transform: translateX($spacing-switch_spin_checked_small-translateX);
+            transform: translateX(variables.$spacing-switch_spin_checked_small-translateX);
         }
     }
 }
@@ -212,87 +213,87 @@ $module: #{$prefix}-switch;
 .#{$module}-loading.#{$module}-large {
 
     .#{$module}-loading-spin {
-        transform: translateX($spacing-switch_spin_unchecked_large-translateX);
+        transform: translateX(variables.$spacing-switch_spin_unchecked_large-translateX);
 
         &>.#{$prefix}-spin-wrapper>svg{
-            width: $width-switch_spin-large;
-            height: $width-switch_spin-large;
+            width: variables.$width-switch_spin-large;
+            height: variables.$width-switch_spin-large;
         }
     }
 
     &.#{$module}-checked {
 
         .#{$module}-loading-spin {
-            transform: translateX($spacing-switch_spin_checked_large-translateX);
+            transform: translateX(variables.$spacing-switch_spin_checked_large-translateX);
         }
     }
 }
 
 .#{$module}-disabled.#{$module}-checked {
-    background-color: $color-switch_checked_disabled-bg-default;
+    background-color: variables.$color-switch_checked_disabled-bg-default;
 }
 
 .#{$module}-large {
-    width: $width-switch_large;
-    height: $height-switch_large;
-    border-radius: $radius-switch_large;
+    width: variables.$width-switch_large;
+    height: variables.$height-switch_large;
+    border-radius: variables.$radius-switch_large;
     .#{$module}-knob {
-        width: $width-switch_knob_large;
-        height: $width-switch_knob_large;
-        top: $spacing-switch_knob_large-padding;
-        border-radius: $width-switch_knob_large * 0.5;
-        transform: translateX($spacing-switch_unchecked_large-translateX);
+        width: variables.$width-switch_knob_large;
+        height: variables.$width-switch_knob_large;
+        top: variables.$spacing-switch_knob_large-padding;
+        border-radius: variables.$width-switch_knob_large * 0.5;
+        transform: translateX(variables.$spacing-switch_unchecked_large-translateX);
     }
     &.#{$module}-checked {
         .#{$module}-knob {
-            transform: translateX($spacing-switch_checked_large-translateX);
+            transform: translateX(variables.$spacing-switch_checked_large-translateX);
         }
 
         &:active {
             .#{$module}-knob {
-                transform: translateX($spacing-switch_checked_large-translateX - $spacing-switch_expand_large-translateX);
+                transform: translateX(variables.$spacing-switch_checked_large-translateX - variables.$spacing-switch_expand_large-translateX);
             }
         }
     }
 
     &:active {
         .#{$module}-knob {
-            width: $width-switch_knob_large_active;
+            width: variables.$width-switch_knob_large_active;
         }
     }
     .#{$module}-checked-text,
     .#{$module}-unchecked-text {
-        width: $width-switch_checked_unchecked_text;
+        width: variables.$width-switch_checked_unchecked_text;
         font-size: $font-size-regular;
     }
 }
 
 .#{$module}-small {
-    width: $width-switch_small;
-    height: $height-switch_small;
-    border-radius: $radius-switch_small;
+    width: variables.$width-switch_small;
+    height: variables.$height-switch_small;
+    border-radius: variables.$radius-switch_small;
     .#{$module}-knob {
-        width: $width-switch_knob_large_small;
-        height: $width-switch_knob_large_small;
-        top: $spacing-switch_knob_small-padding;
-        border-radius: $width-switch_knob_large_small * 0.5;
-        transform: translateX($spacing-switch_unchecked_small-translateX);
+        width: variables.$width-switch_knob_large_small;
+        height: variables.$width-switch_knob_large_small;
+        top: variables.$spacing-switch_knob_small-padding;
+        border-radius: variables.$width-switch_knob_large_small * 0.5;
+        transform: translateX(variables.$spacing-switch_unchecked_small-translateX);
     }
     &.#{$module}-checked {
         .#{$module}-knob {
-            transform: translateX($spacing-switch_checked_small-translateX);
+            transform: translateX(variables.$spacing-switch_checked_small-translateX);
         }
 
         &:active {
             .#{$module}-knob {
-                transform: translateX($spacing-switch_checked_small-translateX - $spacing-switch_expand_small-translateX);
+                transform: translateX(variables.$spacing-switch_checked_small-translateX - variables.$spacing-switch_expand_small-translateX);
             }
         }
     }
 
     &:active {
         .#{$module}-knob {
-            width: $width-switch_knob_small_active;
+            width: variables.$width-switch_knob_small_active;
         }
     }
 }
@@ -304,4 +305,4 @@ $module: #{$prefix}-switch;
     }
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $color-tag_avatar-bg-default: var(--semi-color-bg-4); // 头像标签背景颜色 - 默认
 $color-tag_avatar-border-default: var(--semi-color-border); // 头像标签描边颜色 - 默认
 $color-tag_avatar-text-default: var(--semi-color-text-0); // 头像标签文字颜色 - 默认

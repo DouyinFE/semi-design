@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 
 $color-highlight-text-default: var(--semi-color-highlight); // 高亮文字颜色
 $color-highlight-text-bg-default:  var(--semi-color-highlight-bg); // 高亮文字背景颜色

@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+@use "sass:math";
 $horizontal-rate: 0.24; // 水平方向矫正因子 ignore-semi-css-trans
 $vertical-rate: 0; // 垂直方向矫正因子 ignore-semi-css-trans
 
@@ -29,4 +31,4 @@ $spacing-tooltip_arrow_offset-y: 1px; // 垂直方向渲染会有缝隙，所以
 
 $spacing-tooltip_arrow_adjusted_offset-y: 5px; // 垂直方向上的校正偏移量，主要修正三角形有棱角的问题
 
-$spacing-tooltip_arrow_adjusted_offset-x: round($horizontal-rate * $width-tooltip_arrow); // 水平方向上的校正偏移量，主要修正三角形有棱角的问题 ignore-semi-css-trans
+$spacing-tooltip_arrow_adjusted_offset-x: math.round($horizontal-rate * $width-tooltip_arrow); // 水平方向上的校正偏移量，主要修正三角形有棱角的问题 ignore-semi-css-trans

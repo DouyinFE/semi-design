@@ -1,4 +1,5 @@
-@import './variables.scss';
+@use "sass:meta";
+@use 'variables.scss';
 
 $module: #{$prefix}-collapse;
 
@@ -6,20 +7,20 @@ $module: #{$prefix}-collapse;
 
 .#{$module} {
     &-item {
-        border-bottom: $width-collapse_item-border solid $color-collapse_item-border-default;
+        border-bottom: variables.$width-collapse_item-border solid variables.$color-collapse_item-border-default;
     }
 
     &-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin: $spacing-collapse_header-marginY $spacing-collapse_header-marginX;
-        padding: $spacing-collapse_header-padding;
-        border-radius: $radius-collapse_header;
+        margin: variables.$spacing-collapse_header-marginY variables.$spacing-collapse_header-marginX;
+        padding: variables.$spacing-collapse_header-padding;
+        border-radius: variables.$radius-collapse_header;
         outline: none;
         cursor: pointer;
-        color: $color-collapse_header-text-default;
-        font-weight: $font-collapse_header-fontWeight;
+        color: variables.$color-collapse_header-text-default;
+        font-weight: variables.$font-collapse_header-fontWeight;
         @include font-size-regular;
 
         &-right {
@@ -28,7 +29,7 @@ $module: #{$prefix}-collapse;
 
             span {
                 display: flex;
-                padding-right: $spacing-collapse_right-paddingRight;
+                padding-right: variables.$spacing-collapse_right-paddingRight;
 
                 &:last-child {
                     padding-right: 0;
@@ -37,15 +38,15 @@ $module: #{$prefix}-collapse;
         }
 
         &-icon {
-            width: $size-collapse_icon-default;
-            height: $size-collapse_icon-default;
-            color: $color-collapse_header-icon-default;
+            width: variables.$size-collapse_icon-default;
+            height: variables.$size-collapse_icon-default;
+            color: variables.$color-collapse_header-icon-default;
         }
 
         &-iconLeft {
             justify-content: flex-start;
             .#{$module}-header-icon {
-                margin-right: $spacing-collapse_header_iconLeft-marginRight;
+                margin-right: variables.$spacing-collapse_header_iconLeft-marginRight;
             }
         }
 
@@ -54,15 +55,15 @@ $module: #{$prefix}-collapse;
         }
 
         &:hover {
-            background-color: $color-collapse_header-bg-hover;
+            background-color: variables.$color-collapse_header-bg-hover;
         }
 
         &:active {
-            background-color: $color-collapse_header-bg-active;
+            background-color: variables.$color-collapse_header-bg-active;
         }
 
         &-disabled {
-            color: $color-collapse_header-text-disabled;
+            color: variables.$color-collapse_header-text-disabled;
 
             &:hover {
                 background-color: transparent;
@@ -72,8 +73,8 @@ $module: #{$prefix}-collapse;
     }
 
     &-content {
-        padding: $spacing-collapse_content-paddingTop $spacing-collapse_content-paddingRight $spacing-collapse_content-paddingBottom $spacing-collapse_content-paddingLeft;
-        color: $color-collapse_content-text-default;
+        padding: variables.$spacing-collapse_content-paddingTop variables.$spacing-collapse_content-paddingRight variables.$spacing-collapse_content-paddingBottom variables.$spacing-collapse_content-paddingLeft;
+        color: variables.$color-collapse_content-text-default;
         @include font-size-regular;
 
         p {
@@ -82,4 +83,4 @@ $module: #{$prefix}-collapse;
     }
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');
