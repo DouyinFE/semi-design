@@ -1,6 +1,7 @@
-@import "./animation.scss";
-@import "./variables.scss";
-@import "./option.scss";
+@use "sass:meta";
+@use "animation.scss" as *;
+@use "variables.scss" as *;
+@use "option.scss" as *;
 
 $module: #{$prefix}-autocomplete;
 
@@ -38,4 +39,4 @@ $module: #{$prefix}-autocomplete;
 
 }
 
-@import './rtl.scss';
+@include meta.load-css("rtl.scss");

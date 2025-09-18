@@ -1,4 +1,6 @@
-@import "./variables.scss";
+@use "sass:meta";
+@use "../../semi-theme-default/scss/index.scss" as *;
+@use "variables.scss" as *;
 
 $module: #{$prefix}-backtop;
 
@@ -14,4 +16,4 @@ $module: #{$prefix}-backtop;
     overflow: hidden;
 }
 
-@import "./rtl.scss";
+@include meta.load-css("rtl.scss");

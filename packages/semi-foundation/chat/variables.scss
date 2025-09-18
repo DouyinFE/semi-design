@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 // radius
 $radius-chat_chatBox_content: var(--semi-border-radius-large);  // 聊天框内容圆角
 $radius-chat_inputBox_container: 16px; // 输入框容器圆角

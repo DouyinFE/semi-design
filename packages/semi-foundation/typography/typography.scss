@@ -1,74 +1,75 @@
-@import "./variables.scss";
+@use "sass:meta";
+@use "variables.scss";
 
 $module: #{$prefix}-typography;
 
 .#{$module} {
-    color: $color-typography_default-text-default;
+    color: variables.$color-typography_default-text-default;
     @include font-size-regular;
 
     &.#{$module}-secondary {
-        color: $color-typography_secondary-text-default;
+        color: variables.$color-typography_secondary-text-default;
     }
 
     &.#{$module}-tertiary {
-        color: $color-typography_tertiary-text-default;
+        color: variables.$color-typography_tertiary-text-default;
     }
 
     &.#{$module}-quaternary {
-        color: $color-typography_quaternary-text-default;
+        color: variables.$color-typography_quaternary-text-default;
     }
 
     &.#{$module}-warning {
-        color: $color-typography_warning-text-default;
+        color: variables.$color-typography_warning-text-default;
     }
 
     &.#{$module}-success {
-        color: $color-typography_success-text-default;
+        color: variables.$color-typography_success-text-default;
     }
 
     &.#{$module}-danger {
-        color: $color-typography_danger-text-default;
+        color: variables.$color-typography_danger-text-default;
     }
 
     &.#{$module}-link {
-        color: $color-typography_link-text-default;
-        font-weight: $font-typography_link-fontWeight;
+        color: variables.$color-typography_link-text-default;
+        font-weight: variables.$font-typography_link-fontWeight;
     }
 
     &.#{$module}-disabled {
-        color: $color-typography_disabled-text-default;
+        color: variables.$color-typography_disabled-text-default;
         cursor: not-allowed;
         user-select: none;
         &.#{$module}-link {
-            color: $color-typography_link-text-disabled;
+            color: variables.$color-typography_link-text-disabled;
         }
     }
 
     &-icon {
         // display: inline-flex;
-        margin-right: $spacing-typography_iconPrefix-marginRight;
+        margin-right: variables.$spacing-typography_iconPrefix-marginRight;
         vertical-align: middle;
         color: inherit;
     }
 
     &-small {
         @include font-size-small;
-        font-weight: $font-typography_smallText-regular-fontWeight;
+        font-weight: variables.$font-typography_smallText-regular-fontWeight;
         &.#{$module}-paragraph{
-            font-weight: $font-typography_smallParagraph-regular-fontWeight;
+            font-weight: variables.$font-typography_smallParagraph-regular-fontWeight;
         }
     }
 
     code {
-        border: $width-typography_code-border solid $color-typography_code-border-default;
-        border-radius: $radius-typography_code;
-        color: $color-typography_code-text-default;
-        background-color: $color-typography_code-bg-default;
+        border: variables.$width-typography_code-border solid variables.$color-typography_code-border-default;
+        border-radius: variables.$radius-typography_code;
+        color: variables.$color-typography_code-text-default;
+        background-color: variables.$color-typography_code-bg-default;
         padding: $spacing-super-tight $spacing-extra-tight;
     }
 
     mark {
-        background-color: $color-typography_mark-bg-default;
+        background-color: variables.$color-typography_mark-bg-default;
     }
 
     u {
@@ -81,35 +82,35 @@ $module: #{$prefix}-typography;
     }
 
     strong {
-        font-weight: $font-typography_strong-fontWeight;
+        font-weight: variables.$font-typography_strong-fontWeight;
     }
 
     a {
         display: inline;
-        color: $color-typography_link-text-default;
+        color: variables.$color-typography_link-text-default;
         cursor: pointer;
         text-decoration: none;
 
         &:visited {
-            color: $color-typography_link-text-visited;
+            color: variables.$color-typography_link-text-visited;
         }
 
         &:hover {
-            color: $color-typography_link-text-hover;
+            color: variables.$color-typography_link-text-hover;
         }
 
         &:active {
-            color: $color-typography_link-text-active;
+            color: variables.$color-typography_link-text-active;
         }
 
         .#{$module}-link-underline:hover {
-            border-bottom: $width-typography_link-border solid $color-typography_link-text-hover;
-            margin-bottom: -$width-typography_link-border;
+            border-bottom: variables.$width-typography_link-border solid variables.$color-typography_link-text-hover;
+            margin-bottom: -(variables.$width-typography_link-border);
         }
 
         .#{$module}-link-underline:active {
-            border-bottom: $width-typography_link-border solid $color-typography_link-text-active;
-            margin-bottom: -$width-typography_link-border;
+            border-bottom: variables.$width-typography_link-border solid variables.$color-typography_link-text-active;
+            margin-bottom: -(variables.$width-typography_link-border);
         }
     }
 
@@ -150,7 +151,7 @@ $module: #{$prefix}-typography;
 
     &-ellipsis-expand {
         display: inline;
-        margin-left: $spacing-typography_expandText-marginLeft;
+        margin-left: variables.$spacing-typography_expandText-marginLeft;
     }
 
     // ============ Copyable ============
@@ -158,8 +159,8 @@ $module: #{$prefix}-typography;
     &-action-copy {
         display: inline-flex;
         vertical-align: middle;
-        padding: $spacing-typography_copyIcon-padding;
-        margin-left: $spacing-typography_copyIcon-marginLeft;
+        padding: variables.$spacing-typography_copyIcon-padding;
+        margin-left: variables.$spacing-typography_copyIcon-marginLeft;
     }
 
     a.#{$module}-action-copy-icon {
@@ -168,18 +169,18 @@ $module: #{$prefix}-typography;
 
     &-action-copied {
         display: inline-flex;
-        padding: $spacing-typography_copyIcon-padding;
-        margin-left: $spacing-typography_copyIcon-marginLeft;
-        color: $color-typography_copied-text-success;
+        padding: variables.$spacing-typography_copyIcon-padding;
+        margin-left: variables.$spacing-typography_copyIcon-marginLeft;
+        color: variables.$color-typography_copied-text-success;
 
         .#{$prefix}-icon {
             vertical-align: middle;
-            color: $color-typography_copied-icon-success;
+            color: variables.$color-typography_copied-icon-success;
         }
     }
 
     &-paragraph {
-        margin: $spacing-typography_title_paragraph-margin;
+        margin: variables.$spacing-typography_title_paragraph-margin;
     }
 
 }
@@ -188,27 +189,27 @@ $module: #{$prefix}-typography;
 h1.#{$module},
 .#{$module}-h1.#{$module} {
     @include font-size-header-1;
-    font-weight: $font-typography_title1-fontWeight;
-    margin: $spacing-typography_title_h1-margin;
+    font-weight: variables.$font-typography_title1-fontWeight;
+    margin: variables.$spacing-typography_title_h1-margin;
 
     &.#{$module}-h1-weight-light {
-        font-weight: $font-typography_title1-light-fontWeight;
+        font-weight: variables.$font-typography_title1-light-fontWeight;
     }
 
     &.#{$module}-h1-weight-regular {
-        font-weight: $font-typography_title1-regular-fontWeight;
+        font-weight: variables.$font-typography_title1-regular-fontWeight;
     }
 
     &.#{$module}-h1-weight-medium {
-        font-weight: $font-typography_title1-medium-fontWeight;
+        font-weight: variables.$font-typography_title1-medium-fontWeight;
     }
 
     &.#{$module}-h1-weight-semibold {
-        font-weight: $font-typography_title1-semibold-fontWeight;
+        font-weight: variables.$font-typography_title1-semibold-fontWeight;
     }
 
     &.#{$module}-h1-weight-bold {
-        font-weight: $font-typography_title1-bold-fontWeight;
+        font-weight: variables.$font-typography_title1-bold-fontWeight;
     }
 
 }
@@ -216,27 +217,27 @@ h1.#{$module},
 h2.#{$module},
 .#{$module}-h2.#{$module} {
     @include font-size-header-2;
-    font-weight: $font-typography_title2-fontWeight;
-    margin: $spacing-typography_title_h2-margin;
+    font-weight: variables.$font-typography_title2-fontWeight;
+    margin: variables.$spacing-typography_title_h2-margin;
 
     &.#{$module}-h2-weight-light {
-        font-weight: $font-typography_title2-light-fontWeight;
+        font-weight: variables.$font-typography_title2-light-fontWeight;
     }
 
     &.#{$module}-h2-weight-regular {
-        font-weight: $font-typography_title2-regular-fontWeight;
+        font-weight: variables.$font-typography_title2-regular-fontWeight;
     }
 
     &.#{$module}-h2-weight-medium {
-        font-weight: $font-typography_title2-medium-fontWeight;
+        font-weight: variables.$font-typography_title2-medium-fontWeight;
     }
 
     &.#{$module}-h2-weight-semibold {
-        font-weight: $font-typography_title2-semibold-fontWeight;
+        font-weight: variables.$font-typography_title2-semibold-fontWeight;
     }
 
     &.#{$module}-h2-weight-bold {
-        font-weight: $font-typography_title2-bold-fontWeight;
+        font-weight: variables.$font-typography_title2-bold-fontWeight;
     }
 
 }
@@ -244,27 +245,27 @@ h2.#{$module},
 h3.#{$module},
 .#{$module}-h3.#{$module} {
     @include font-size-header-3;
-    font-weight: $font-typography_title3-fontWeight;
-    margin: $spacing-typography_title_h3-margin;
+    font-weight: variables.$font-typography_title3-fontWeight;
+    margin: variables.$spacing-typography_title_h3-margin;
 
     &.#{$module}-h3-weight-light {
-        font-weight: $font-typography_title3-light-fontWeight;
+        font-weight: variables.$font-typography_title3-light-fontWeight;
     }
 
     &.#{$module}-h3-weight-regular {
-        font-weight: $font-typography_title3-regular-fontWeight;
+        font-weight: variables.$font-typography_title3-regular-fontWeight;
     }
 
     &.#{$module}-h3-weight-medium {
-        font-weight: $font-typography_title3-medium-fontWeight;
+        font-weight: variables.$font-typography_title3-medium-fontWeight;
     }
 
     &.#{$module}-h3-weight-semibold {
-        font-weight: $font-typography_title3-semibold-fontWeight;
+        font-weight: variables.$font-typography_title3-semibold-fontWeight;
     }
 
     &.#{$module}-h3-weight-bold {
-        font-weight: $font-typography_title3-bold-fontWeight;
+        font-weight: variables.$font-typography_title3-bold-fontWeight;
     }
 
 }
@@ -272,81 +273,81 @@ h3.#{$module},
 h4.#{$module},
 .#{$module}-h4.#{$module} {
     @include font-size-header-4;
-    font-weight: $font-typography_title4-fontWeight;
-    margin: $spacing-typography_title_h4-margin;
+    font-weight: variables.$font-typography_title4-fontWeight;
+    margin: variables.$spacing-typography_title_h4-margin;
 
     &.#{$module}-h4-weight-light {
-        font-weight: $font-typography_title4-light-fontWeight;
+        font-weight: variables.$font-typography_title4-light-fontWeight;
     }
 
     &.#{$module}-h4-weight-regular {
-        font-weight: $font-typography_title4-regular-fontWeight;
+        font-weight: variables.$font-typography_title4-regular-fontWeight;
     }
 
     &.#{$module}-h4-weight-medium {
-        font-weight: $font-typography_title4-medium-fontWeight;
+        font-weight: variables.$font-typography_title4-medium-fontWeight;
     }
 
     &.#{$module}-h4-weight-semibold {
-        font-weight: $font-typography_title4-semibold-fontWeight;
+        font-weight: variables.$font-typography_title4-semibold-fontWeight;
     }
 
     &.#{$module}-h4-weight-bold {
-        font-weight: $font-typography_title4-bold-fontWeight;
+        font-weight: variables.$font-typography_title4-bold-fontWeight;
     }
 }
 
 h5.#{$module},
 .#{$module}-h5.#{$module} {
     @include font-size-header-5;
-    font-weight: $font-typography_title5-fontWeight;
-    margin: $spacing-typography_title_h5-margin;
+    font-weight: variables.$font-typography_title5-fontWeight;
+    margin: variables.$spacing-typography_title_h5-margin;
 
     &.#{$module}-h5-weight-light {
-        font-weight: $font-typography_title5-light-fontWeight;
+        font-weight: variables.$font-typography_title5-light-fontWeight;
     }
 
     &.#{$module}-h5-weight-regular {
-        font-weight: $font-typography_title5-regular-fontWeight;
+        font-weight: variables.$font-typography_title5-regular-fontWeight;
     }
 
     &.#{$module}-h5-weight-medium {
-        font-weight: $font-typography_title5-medium-fontWeight;
+        font-weight: variables.$font-typography_title5-medium-fontWeight;
     }
 
     &.#{$module}-h5-weight-semibold {
-        font-weight: $font-typography_title5-semibold-fontWeight;
+        font-weight: variables.$font-typography_title5-semibold-fontWeight;
     }
 
     &.#{$module}-h5-weight-bold {
-        font-weight: $font-typography_title5-bold-fontWeight;
+        font-weight: variables.$font-typography_title5-bold-fontWeight;
     }
 }
 
 h6.#{$module},
 .#{$module}-h6.#{$module} {
     @include font-size-header-6;
-    font-weight: $font-typography_title6-fontWeight;
-    margin: $spacing-typography_title_h6-margin;
+    font-weight: variables.$font-typography_title6-fontWeight;
+    margin: variables.$spacing-typography_title_h6-margin;
 
     &.#{$module}-h6-weight-light {
-        font-weight: $font-typography_title6-light-fontWeight;
+        font-weight: variables.$font-typography_title6-light-fontWeight;
     }
 
     &.#{$module}-h6-weight-regular {
-        font-weight: $font-typography_title6-regular-fontWeight;
+        font-weight: variables.$font-typography_title6-regular-fontWeight;
     }
 
     &.#{$module}-h6-weight-medium {
-        font-weight: $font-typography_title6-medium-fontWeight;
+        font-weight: variables.$font-typography_title6-medium-fontWeight;
     }
 
     &.#{$module}-h6-weight-semibold {
-        font-weight: $font-typography_title6-semibold-fontWeight;
+        font-weight: variables.$font-typography_title6-semibold-fontWeight;
     }
 
     &.#{$module}-h6-weight-bold {
-        font-weight: $font-typography_title6-bold-fontWeight;
+        font-weight: variables.$font-typography_title6-bold-fontWeight;
     }
 
 }
@@ -354,8 +355,8 @@ h6.#{$module},
 // ============ Paragraph ============
 p.#{$module}-extended,
 .#{$module}-paragraph.#{$module}-extended {
-    line-height: $font-typography_paragraph_extended-lineHeight;
-    font-weight: $font-typography_normalParagraph-regular-fontWeight;
+    line-height: variables.$font-typography_paragraph_extended-lineHeight;
+    font-weight: variables.$font-typography_normalParagraph-regular-fontWeight;
 }
 
-@import "./rtl.scss";
+@include meta.load-css("rtl.scss");

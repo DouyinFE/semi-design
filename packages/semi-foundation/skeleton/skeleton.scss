@@ -1,5 +1,6 @@
-@import "./animation.scss";
-@import './variables.scss';
+@use "sass:meta";
+@use "animation.scss";
+@use 'variables.scss';
 $module: #{$prefix}-skeleton;
 
 .#{$module} {
@@ -7,8 +8,8 @@ $module: #{$prefix}-skeleton;
     &-image,
     &-title,
     &-button {
-        background: $color-skeleton_default-bg-default;
-        border-radius: $radius-skeleton_item;
+        background: variables.$color-skeleton_default-bg-default;
+        border-radius: variables.$radius-skeleton_item;
     }
 
     &-avatar {
@@ -17,33 +18,33 @@ $module: #{$prefix}-skeleton;
         }
 
         &-extra-extra-small {
-            width: $width-skeleton_avatar_extra_extra_small;
-            height: $width-skeleton_avatar_extra_extra_small;
+            width: variables.$width-skeleton_avatar_extra_extra_small;
+            height: variables.$width-skeleton_avatar_extra_extra_small;
         }
 
         &-extra-small {
-            width: $width-skeleton_avatar_extra_small;
-            height: $width-skeleton_avatar_extra_small;
+            width: variables.$width-skeleton_avatar_extra_small;
+            height: variables.$width-skeleton_avatar_extra_small;
         }
 
         &-medium {
-            width: $width-skeleton_avatar_medium;
-            height: $width-skeleton_avatar_medium;
+            width: variables.$width-skeleton_avatar_medium;
+            height: variables.$width-skeleton_avatar_medium;
         }
 
         &-small {
-            width: $width-skeleton_avatar_small;
-            height: $width-skeleton_avatar_small;
+            width: variables.$width-skeleton_avatar_small;
+            height: variables.$width-skeleton_avatar_small;
         }
 
         &-large {
-            width: $width-skeleton_avatar_large;
-            height: $width-skeleton_avatar_large;
+            width: variables.$width-skeleton_avatar_large;
+            height: variables.$width-skeleton_avatar_large;
         }
 
         &-extra-large {
-            width: $width-skeleton_avatar_extra_large;
-            height: $width-skeleton_avatar_extra_large;
+            width: variables.$width-skeleton_avatar_extra_large;
+            height: variables.$width-skeleton_avatar_extra_large;
         }
     }
 
@@ -53,11 +54,11 @@ $module: #{$prefix}-skeleton;
         list-style-type: none;
 
         li {
-            background: $color-skeleton_default-bg-default;
-            border-radius: $radius-skeleton_li;
+            background: variables.$color-skeleton_default-bg-default;
+            border-radius: variables.$radius-skeleton_li;
             width: 100%;
-            height: $height-skeleton_li;
-            margin-bottom: $spacing-skeleton_li-marginBottom;
+            height: variables.$height-skeleton_li;
+            margin-bottom: variables.$spacing-skeleton_li-marginBottom;
 
             &:last-child {
                 width: 60%;
@@ -72,12 +73,12 @@ $module: #{$prefix}-skeleton;
 
     &-title {
         width: 100%;
-        height: $height-skeleton_title;
+        height: variables.$height-skeleton_title;
     }
 
     &-button {
-        width: $width-skeleton_button;
-        height: $height-skeleton_button;
+        width: variables.$width-skeleton_button;
+        height: variables.$height-skeleton_button;
     }
 
     &-image {
@@ -93,12 +94,12 @@ $module: #{$prefix}-skeleton;
         .#{$module}-paragraph li {
             background: linear-gradient(
                 90deg,
-                $color-skeleton_default-bg-default 25%,
-                $color-skeleton_loading-gradient-bg-active 44%,
-                $color-skeleton_default-bg-default 88%
+                variables.$color-skeleton_default-bg-default 25%,
+                variables.$color-skeleton_loading-gradient-bg-active 44%,
+                variables.$color-skeleton_default-bg-default 88%
             );
             background-size: 400% 100%;
-            animation: $animation_duration-skeleton-highlight skeleton-loading $animation_function-skeleton-highlight infinite;
+            animation: animation.$animation_duration-skeleton-highlight skeleton-loading animation.$animation_function-skeleton-highlight infinite;
             animation-fill-mode: forwards;
         }
     }
@@ -114,4 +115,4 @@ $module: #{$prefix}-skeleton;
     }
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

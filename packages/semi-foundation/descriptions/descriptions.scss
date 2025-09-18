@@ -1,9 +1,10 @@
-@import "./variables.scss";
+@use "sass:meta";
+@use "variables.scss";
 
 $module: #{$prefix}-descriptions;
 
 .#{$module} {
-    line-height: $font-descriptions-lineHeight;
+    line-height: variables.$font-descriptions-lineHeight;
     table,
     tr,
     th,
@@ -14,12 +15,12 @@ $module: #{$prefix}-descriptions;
     }
 
     th {
-        padding-right: $spacing-descriptions_th-paddingRight;
+        padding-right: variables.$spacing-descriptions_th-paddingRight;
     }
 
     & &-item {
         margin: 0;
-        padding-bottom: $spacing-descriptions_item-paddingBottom;
+        padding-bottom: variables.$spacing-descriptions_item-paddingBottom;
         text-align: left;
         vertical-align: top;
     }
@@ -29,13 +30,13 @@ $module: #{$prefix}-descriptions;
         @include font-size-regular;
         min-height: $font-size-regular;
         white-space: nowrap;
-        color: $color-descriptions_key-text-default;
+        color: variables.$color-descriptions_key-text-default;
     }
 
     &-value {
         font-weight: normal;
         @include font-size-regular;
-        color: $color-descriptions_value-text-default;
+        color: variables.$color-descriptions_value-text-default;
     }
 
     &-center {
@@ -73,7 +74,7 @@ $module: #{$prefix}-descriptions;
         }
 
         .#{$module}-value {
-            padding-left: $spacing-descriptions_value_plain-paddingLeft;
+            padding-left: variables.$spacing-descriptions_value_plain-paddingLeft;
 
             & .#{$prefix}-tag {
                 vertical-align: middle;
@@ -94,60 +95,60 @@ $module: #{$prefix}-descriptions;
         }
 
         & .#{$module}-item {
-            padding: $spacing-descriptions_item_double-padding;
+            padding: variables.$spacing-descriptions_item_double-padding;
             flex: 1;
         }
 
         .#{$module}-value {
-            font-weight: $font-descriptions_value-fontWeight;
+            font-weight: variables.$font-descriptions_value-fontWeight;
         }
 
         &-small {
             .#{$module}-item {
-                padding-right: $spacing-descriptions_item_small-paddingRight;
+                padding-right: variables.$spacing-descriptions_item_small-paddingRight;
             }
 
             .#{$module}-key {
                 @include font-size-small;
                 padding-bottom: 0;
-                font-size: $font-descriptions_key_small-fontSize;
+                font-size: variables.$font-descriptions_key_small-fontSize;
             }
 
             .#{$module}-value {
                 @include font-size-header-6;
-                font-size: $font-descriptions_value_small-fontSize;
+                font-size: variables.$font-descriptions_value_small-fontSize;
             }
         }
 
         &-medium {
             .#{$module}-item {
-                padding-right: $spacing-descriptions_item_medium-paddingRight;
+                padding-right: variables.$spacing-descriptions_item_medium-paddingRight;
             }
 
             & .#{$module}-key {
-                padding-bottom: $spacing-descriptions_key_medium-paddingBottom;
-                font-size: $font-descriptions_key_medium-fontSize;
+                padding-bottom: variables.$spacing-descriptions_key_medium-paddingBottom;
+                font-size: variables.$font-descriptions_key_medium-fontSize;
             }
 
             & .#{$module}-value {
                 @include font-size-header-4;
-                font-size: $font-descriptions_value_medium-fontSize;
+                font-size: variables.$font-descriptions_value_medium-fontSize;
             }
         }
 
         &-large {
             .#{$module}-item {
-                padding-right: $spacing-descriptions_item_large-paddingRight;
+                padding-right: variables.$spacing-descriptions_item_large-paddingRight;
             }
 
             & .#{$module}-key {
-                padding-bottom: $spacing-descriptions_key_large-paddingBottom;
-                font-size: $font-descriptions_key_large-fontSize;
+                padding-bottom: variables.$spacing-descriptions_key_large-paddingBottom;
+                font-size: variables.$font-descriptions_key_large-fontSize;
             }
 
             & .#{$module}-value {
                 @include font-size-header-2;
-                font-size: $font-descriptions_value_large-fontSize;
+                font-size: variables.$font-descriptions_value_large-fontSize;
             }
         }
     }
@@ -167,4 +168,4 @@ $module: #{$prefix}-descriptions;
 
 }
 
-@import "./rtl.scss";
+@include meta.load-css("rtl.scss");

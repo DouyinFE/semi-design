@@ -1,11 +1,12 @@
-@import './animation.scss';
-@import './variables.scss';
+@use "sass:meta";
+@use 'animation.scss';
+@use 'variables.scss';
 
 $module: #{$prefix}-tree;
 
 .#{$module} {
     &-search-wrapper {
-        padding: $spacing-tree_search_wrapper-paddingY $spacing-tree_search_wrapper-paddingX;
+        padding: variables.$spacing-tree_search_wrapper-paddingY variables.$spacing-tree_search_wrapper-paddingX;
     }
 }
 
@@ -19,7 +20,7 @@ $module: #{$prefix}-tree;
     overflow-y: auto;
     box-sizing: border-box;
     flex: 1;
-    padding: $spacing-tree_optionList-paddingY $spacing-tree_optionList-paddingX;
+    padding: variables.$spacing-tree_optionList-paddingY variables.$spacing-tree_optionList-paddingX;
 
     ul,
     li {
@@ -30,9 +31,9 @@ $module: #{$prefix}-tree;
 
     li.#{$module}-option {
         box-sizing: border-box;
-        padding-top: $spacing-tree_option-paddingTop;
-        padding-bottom: $spacing-tree_option-paddingBottom;
-        padding-left: $spacing-tree_option_level1-paddingLeft;
+        padding-top: variables.$spacing-tree_option-paddingTop;
+        padding-bottom: variables.$spacing-tree_option-paddingBottom;
+        padding-left: variables.$spacing-tree_option_level1-paddingLeft;
     }
 
     li > .#{$module}-option-label {
@@ -43,9 +44,9 @@ $module: #{$prefix}-tree;
     .#{$module}-option-expand-icon,
     .#{$module}-option-empty-icon {
         box-sizing: border-box;
-        width: $width-tree_emptyIcon;
-        color: $color-tree_option-icon-default;
-        margin-right: $spacing-tree_icon-marginRight;
+        width: variables.$width-tree_emptyIcon;
+        color: variables.$color-tree_option-icon-default;
+        margin-right: variables.$spacing-tree_icon-marginRight;
         display: flex;
         flex-shrink: 0;
     }
@@ -54,13 +55,13 @@ $module: #{$prefix}-tree;
         display: flex;
         align-items: center;
         cursor: pointer;
-        transition: background-color $transition_duration-tree_option-bg $transition_function-tree_option-bg
-            $transition_delay-tree_option-bg;
-        transform: scale($transform_scale-tree-option);
+        transition: background-color animation.$transition_duration-tree_option-bg animation.$transition_function-tree_option-bg
+            animation.$transition_delay-tree_option-bg;
+        transform: scale(animation.$transform_scale-tree-option);
 
         @include font-size-regular;
         word-break: break-word;
-        color: $color-tree_option-text-default;
+        color: variables.$color-tree_option-text-default;
         position: relative;
 
         &-label {
@@ -68,11 +69,11 @@ $module: #{$prefix}-tree;
             align-items: center;
 
             & > .#{$prefix}-icon {
-                margin-right: $spacing-tree_label_withIcon-marginRight;
+                margin-right: variables.$spacing-tree_label_withIcon-marginRight;
             }
 
             .#{$prefix}-checkbox {
-                margin-right: $spacing-tree_label_withIcon-marginRight;
+                margin-right: variables.$spacing-tree_label_withIcon-marginRight;
             }
         }
 
@@ -91,24 +92,24 @@ $module: #{$prefix}-tree;
 
         &-label-text,
         .#{$prefix}-checkbox-addon {
-            border-radius: $radius-tree_checkbox_addon;
+            border-radius: variables.$radius-tree_checkbox_addon;
 
             &:hover {
-                background-color: $color-tree_option-bg-hover;
+                background-color: variables.$color-tree_option-bg-hover;
             }
 
             &:active {
-                background-color: $color-tree_option_selected-bg-default;
+                background-color: variables.$color-tree_option_selected-bg-default;
             }
         }
 
         &-item-icon {
-            color: $color-tree_option-icon-default;
+            color: variables.$color-tree_option-icon-default;
         }
 
         &-active {
             .#{$module}-option-label-text {
-                background-color: $color-tree_option-bg-active;
+                background-color: variables.$color-tree_option-bg-active;
             }
 
             &:hover,
@@ -119,11 +120,11 @@ $module: #{$prefix}-tree;
 
         &-selected {
             .#{$module}-option-label {
-                background-color: $color-tree_option-bg-active;
+                background-color: variables.$color-tree_option-bg-active;
 
                 &:hover,
                 &:active {
-                    background-color: $color-tree_option-bg-active;
+                    background-color: variables.$color-tree_option-bg-active;
                 }
             }
         }
@@ -135,8 +136,8 @@ $module: #{$prefix}-tree;
         }
 
         &-highlight {
-            font-weight: $font-tree_option_hightlight-fontWeight;
-            color: $color-tree_option_hightlight-text;
+            font-weight: variables.$font-tree_option_hightlight-fontWeight;
+            color: variables.$color-tree_option_hightlight-text;
             // set inherit to override highlight component default bgc
             background-color: inherit;
         }
@@ -147,7 +148,7 @@ $module: #{$prefix}-tree;
 
         &-disabled {
             .#{$module}-option-label {
-                color: $color-tree_option_disabled-text-default;
+                color: variables.$color-tree_option_disabled-text-default;
             }
         }
 
@@ -164,20 +165,20 @@ $module: #{$prefix}-tree;
 
         &-draggable {
             box-sizing: border-box;
-            border-left: $width-tree_option_draggable-border solid transparent;
+            border-left: variables.$width-tree_option_draggable-border solid transparent;
             // margin-top: -$width-tree_option_draggable-border;
 
             .#{$module}-option-label {
-                border-top: $width-tree_option_draggable-border transparent solid;
-                border-bottom: $width-tree_option_draggable-border transparent solid;
+                border-top: variables.$width-tree_option_draggable-border transparent solid;
+                border-bottom: variables.$width-tree_option_draggable-border transparent solid;
             }
 
             .#{$module}-option-drag-over-gap-top {
-                border-top: $width-tree_option_draggable-border $color-tree_option_draggable_insert-border-default solid;
+                border-top: variables.$width-tree_option_draggable-border variables.$color-tree_option_draggable_insert-border-default solid;
             }
 
             .#{$module}-option-drag-over-gap-bottom {
-                border-bottom: $width-tree_option_draggable-border $color-tree_option_draggable_insert-border-default
+                border-bottom: variables.$width-tree_option_draggable-border variables.$color-tree_option_draggable_insert-border-default
                     solid;
             }
 
@@ -202,18 +203,18 @@ $module: #{$prefix}-tree;
 
         &-fullLabel-draggable {
             &.#{$module}-option-fullLabel-drag-over-gap-top {
-                border-top: $width-tree_option_draggable-border $color-tree_option_draggable_insert-border-default solid;
+                border-top: variables.$width-tree_option_draggable-border variables.$color-tree_option_draggable_insert-border-default solid;
             }
 
             &.#{$module}-option-fullLabel-drag-over-gap-bottom {
-                border-bottom: $width-tree_option_draggable-border $color-tree_option_draggable_insert-border-default
+                border-bottom: variables.$width-tree_option_draggable-border variables.$color-tree_option_draggable_insert-border-default
                     solid;
             }
         }
 
         &-drag-over.#{$module}-option-draggable,
         &-drag-over.#{$module}-option-fullLabel-draggable {
-            border: $width-tree_option_draggable-border solid $color-tree_option_draggable_insert-border-default;
+            border: variables.$width-tree_option_draggable-border solid variables.$color-tree_option_draggable_insert-border-default;
 
             .#{$module}-option-label {
                 border-top: 0;
@@ -227,11 +228,11 @@ $module: #{$prefix}-tree;
                     content: '';
                     position: absolute;
                     top: 0;
-                    left: -$width-tree_option_draggable-border;
+                    left: -(variables.$width-tree_option_draggable-border);
                     bottom: 0;
                     right: -1px;
-                    border-top: $width-tree_option_draggable-border solid
-                        $color-tree_option_draggable_insert-border-default;
+                    border-top: variables.$width-tree_option_draggable-border solid
+                        variables.$color-tree_option_draggable_insert-border-default;
                 }
             }
         }
@@ -241,7 +242,7 @@ $module: #{$prefix}-tree;
             user-select: none;
             &-unit {
                 display: inline-block;
-                width: $spacing-tree_option_level-paddingLeft;
+                width: variables.$spacing-tree_option_level-paddingLeft;
             }
         }
 
@@ -252,10 +253,10 @@ $module: #{$prefix}-tree;
 
                 &::before {
                     position: absolute;
-                    top: -$spacing-tree_option-paddingTop;
-                    inset-inline-start: calc($width-tree_emptyIcon / 2);
-                    bottom: -$spacing-tree_option-paddingBottom;
-                    border-inline-end: $width-tree_option_line solid var(--semi-color-text-3);
+                    top: -(variables.$spacing-tree_option-paddingTop);
+                    inset-inline-start: calc(variables.$width-tree_emptyIcon / 2);
+                    bottom: -(variables.$spacing-tree_option-paddingBottom);
+                    border-inline-end: variables.$width-tree_option_line solid var(--semi-color-text-3);
                     content: '';
                 }
 
@@ -271,12 +272,12 @@ $module: #{$prefix}-tree;
             position: relative;
             flex: none;
             align-self: stretch;
-            width: $width-tree_emptyIcon;
+            width: variables.$width-tree_emptyIcon;
             margin: 0;
             text-align: center;
             cursor: pointer;
             user-select: none;
-            margin-right: $spacing-tree_icon-marginRight;
+            margin-right: variables.$spacing-tree_icon-marginRight;
             &-leaf-line {
                 z-index: 1;
                 position: relative;
@@ -286,21 +287,21 @@ $module: #{$prefix}-tree;
 
                 &::before {
                     position: absolute;
-                    top: -$spacing-tree_option-paddingTop;
-                    inset-inline-start: calc($width-tree_emptyIcon / 2);
-                    bottom: -$spacing-tree_option-paddingBottom;
-                    border-inline-end: $width-tree_option_line solid var(--semi-color-text-3);
+                    top: -(variables.$spacing-tree_option-paddingTop);
+                    inset-inline-start: calc(variables.$width-tree_emptyIcon / 2);
+                    bottom: -(variables.$spacing-tree_option-paddingBottom);
+                    border-inline-end: variables.$width-tree_option_line solid var(--semi-color-text-3);
                     content: '';
                 }
 
                 &::after {
                     box-sizing: border-box;
                     position: absolute;
-                    width: calc(($spacing-tree_option_level-paddingLeft / 2) * 0.8);
+                    width: calc((variables.$spacing-tree_option_level-paddingLeft / 2) * 0.8);
                     height: 50%;
-                    border-bottom: $width-tree_option_line solid var(--semi-color-text-3);
+                    border-bottom: variables.$width-tree_option_line solid var(--semi-color-text-3);
                     content: '';
-                    margin-inline-start: $width-tree_option_line;
+                    margin-inline-start: variables.$width-tree_option_line;
                 }
             }
         }
@@ -308,7 +309,7 @@ $module: #{$prefix}-tree;
         &-tree-node-last-leaf {
             .#{$module}-option-switcher-leaf-line {
                 &::before {
-                    height: calc(50% + $spacing-tree_option-paddingTop);
+                    height: calc(50% + variables.$spacing-tree_option-paddingTop);
                 }
             }
         }
@@ -319,7 +320,7 @@ $module: #{$prefix}-tree;
         padding-top: 0px;
         padding-bottom: 0px;
         .#{$module}-option-label {
-            padding: $spacing-tree_option_draggable-paddingY $spacing-tree_option_draggable-paddingX;
+            padding: variables.$spacing-tree_option_draggable-paddingY variables.$spacing-tree_option_draggable-paddingX;
         }
 
         .#{$module}-option-selected {
@@ -334,7 +335,7 @@ $module: #{$prefix}-tree;
 
     @for $i from 1 through 20 {
         .#{$module}-option.#{$module}-option-fullLabel-level-#{$i} {
-            padding-left: $spacing-tree_option_level-paddingLeft * ($i - 1) + $spacing-tree_option_level1-paddingLeft;
+            padding-left: variables.$spacing-tree_option_level-paddingLeft * ($i - 1) + variables.$spacing-tree_option_level1-paddingLeft;
         }
     }
 
@@ -348,7 +349,7 @@ $module: #{$prefix}-tree;
     .#{$module}-option-label-empty {
         padding-left: 0;
         justify-content: center;
-        color: $color-tree_option_disabled-text-default;
+        color: variables.$color-tree_option_disabled-text-default;
         user-select: none;
         cursor: not-allowed;
     }
@@ -361,11 +362,11 @@ $module: #{$prefix}-tree;
 .#{$module}-option-list-block {
     .#{$module}-option {
         &:hover {
-            background-color: $color-tree_option-bg-hover;
+            background-color: variables.$color-tree_option-bg-hover;
         }
 
         &:active {
-            background-color: $color-tree_option_selected-bg-default;
+            background-color: variables.$color-tree_option_selected-bg-default;
         }
 
         &-label {
@@ -373,11 +374,11 @@ $module: #{$prefix}-tree;
         }
 
         &-active {
-            background-color: $color-tree_option-bg-active;
+            background-color: variables.$color-tree_option-bg-active;
 
             &:hover,
             &:active {
-                background-color: $color-tree_option-bg-active;
+                background-color: variables.$color-tree_option-bg-active;
             }
 
             .#{$module}-option-label-text {
@@ -389,27 +390,27 @@ $module: #{$prefix}-tree;
             flex-shrink: 0;
             box-sizing: content-box;
             &:hover {
-                color: $color-tree_option-icon-hover;
+                color: variables.$color-tree_option-icon-hover;
             }
 
             &:active {
-                color: $color-tree_option-icon-active;
+                color: variables.$color-tree_option-icon-active;
             }
         }
 
         &-spin-icon {
             display: flex;
             line-height: 0; // make the spin icon in the center
-            color: $color-tree_option_loading-icon-default;
+            color: variables.$color-tree_option_loading-icon-default;
 
             & svg {
-                width: $width-tree_spinIcon;
-                height: $width-tree_spinIcon;
+                width: variables.$width-tree_spinIcon;
+                height: variables.$width-tree_spinIcon;
             }
         }
 
         &-selected {
-            background-color: $color-tree_option-bg-active;
+            background-color: variables.$color-tree_option-bg-active;
 
             .#{$module}-option-label {
                 background-color: transparent;
@@ -425,14 +426,14 @@ $module: #{$prefix}-tree;
 
             &:hover,
             &:active {
-                background-color: $color-tree_option-bg-active;
+                background-color: variables.$color-tree_option-bg-active;
             }
         }
 
         &-label-text,
         .#{$prefix}-checkbox-addon {
             padding: 0;
-            border-radius: $radius-tree_checkbox_addon;
+            border-radius: variables.$radius-tree_checkbox_addon;
 
             &:hover {
                 background-color: transparent;
@@ -456,4 +457,4 @@ $module: #{$prefix}-tree;
     }
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

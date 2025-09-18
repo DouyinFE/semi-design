@@ -1,3 +1,7 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+@use "sass:math";
+$horizontal-rate: 0.24; // 水平方向矫正因子 ignore-semi-css-trans
+
 // Color
 $color-tooltip_arrow-icon-default: unset; // 箭头图标
 $color-popover-bg-default: var(--semi-color-bg-3); // 默认背景色
@@ -22,7 +26,7 @@ $spacing-popover_title-padding: 8px; // 气泡卡片标题内边距
 $spacing-popover_withArrow-padding: 12px; // 带箭头的气泡卡片标题内边距
 $spacing-popover_arrow_adjusted_offset-y: 6px; // 垂直方向上的校正偏移量，主要修正三角形有棱角的问题
 $spacing-tooltip_arrow_adjusted_offset-y: $spacing-popover_arrow_adjusted_offset-y; // 垂直方向上的校正偏移量，主要修正三角形有棱角的问题
-$spacing-tooltip_arrow_adjusted_offset-x: round($horizontal-rate * $width-tooltip_arrow); // 水平方向上的校正偏移量，主要修正三角形有棱角的问题 ignore-semi-css-trans
+$spacing-tooltip_arrow_adjusted_offset-x: math.round($horizontal-rate * $width-tooltip_arrow); // 水平方向上的校正偏移量，主要修正三角形有棱角的问题 ignore-semi-css-trans
 
 // Radius
 $radius-popover: var(--semi-border-radius-medium); // 气泡卡片的圆角大小

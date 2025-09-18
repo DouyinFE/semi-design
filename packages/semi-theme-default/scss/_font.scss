@@ -1,3 +1,4 @@
+@use 'variables.scss' as *;
 // font-size line-height绑定
 @mixin font-size-small {
     font-size: $font-size-small;

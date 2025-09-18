@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 // Color
 $color-upload-text: var(--semi-color-text-0); // 上传文件卡片等默认文本颜色
 $color-upload_assist-text: var(--semi-color-text-2); // 上传辅助文本颜色

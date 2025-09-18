@@ -1,149 +1,150 @@
 //@import '../theme/variables.scss';
-@import "./animation.scss";
-@import './variables.scss';
-@import './option.scss';
-@import './mixin.scss';
+@use "sass:meta";
+@use "animation.scss";
+@use 'variables.scss';
+@use 'option.scss';
+@use 'mixin.scss';
 
-$module: #{$prefix}-select;
-$single: #{$module}-single;
-$filterable: #{$module}-filterable;
-$multiple: #{$module}-multiple;
+option.$module: #{$prefix}-select;
+option.$single: #{option.$module}-single;
+option.$filterable: #{option.$module}-filterable;
+option.$multiple: #{option.$module}-multiple;
 $overflowList: #{$prefix}-overflow-list;
 
-.#{$module} {
+.#{option.$module} {
     box-sizing: border-box;
-    border-radius: $radius-select;
-    border: $width-select-border solid $color-select-border-default;
-    height: $height-select_default;
-    font-weight: $font-select-fontWeight;
-    background-color: $color-select-bg-default;
+    border-radius: variables.$radius-select;
+    border: variables.$width-select-border solid variables.$color-select-border-default;
+    height: variables.$height-select_default;
+    font-weight: variables.$font-select-fontWeight;
+    background-color: variables.$color-select-bg-default;
     // display: inline-block;
     display: inline-flex;
     vertical-align: middle;
     position: relative;
     outline: none;
     cursor: pointer;
-    transition: background-color $transition_duration-select-bg $transition_function-select-bg $transition_delay-select-bg, border $transition_duration-select-border $transition_function-select-border $transition_delay-select-border;
-    transform: scale($transform_scale-select);
+    transition: background-color animation.$transition_duration-select-bg animation.$transition_function-select-bg animation.$transition_delay-select-bg, border animation.$transition_duration-select-border animation.$transition_function-select-border animation.$transition_delay-select-border;
+    transform: scale(animation.$transform_scale-select);
 
     max-height: 300px;
     overflow-y: auto;
 
     &:hover {
-        background-color: $color-select-bg-hover;
-        border: $width-select-border-hover solid $color-select-border-hover;
+        background-color: variables.$color-select-bg-hover;
+        border: variables.$width-select-border-hover solid variables.$color-select-border-hover;
     }
 
     &:focus {
-        border: $width-select-border-focus solid $color-select-border-focus;
-        background-color: $color-select-bg-focus;
+        border: variables.$width-select-border-focus solid variables.$color-select-border-focus;
+        background-color: variables.$color-select-bg-focus;
         // background-color: plum;
         outline: 0;
     }
 
     &:active{
-        background-color: $color-select-bg-active;
+        background-color: variables.$color-select-bg-active;
     }
 
     &-small {
-        height: $height-select_small;
-        line-height: $height-select_small;
+        height: variables.$height-select_small;
+        line-height: variables.$height-select_small;
     }
 
     &-large {
-        min-height: $height-select_large;
-        line-height: $height-select_large;
-        .#{$module}-selection {
+        min-height: variables.$height-select_large;
+        line-height: variables.$height-select_large;
+        .#{option.$module}-selection {
             @include font-size-header-6;
         }
     }
 
     &-open,
     &-focus {
-        border: $width-select-border-focus solid $color-select_default-border-focus;
+        border: variables.$width-select-border-focus solid variables.$color-select_default-border-focus;
         outline: 0;
 
         &:hover {
-            background-color: $color-select-bg-default;
-            border: $width-select-border-hover solid $color-select_default-border-focus;
+            background-color: variables.$color-select-bg-default;
+            border: variables.$width-select-border-hover solid variables.$color-select_default-border-focus;
         }
 
         // when click the trigger, trigger get the focus state, active style should take effect
         &:active {
-            background-color: $color-select-bg-active;
-            border: $width-select-border-active solid $color-select-border-active;
+            background-color: variables.$color-select-bg-active;
+            border: variables.$width-select-border-active solid variables.$color-select-border-active;
         }
     }
 
     &-warning {
-        background-color: $color-select_warning-bg-default;
-        border-color: $color-select_warning-border-default;
+        background-color: variables.$color-select_warning-bg-default;
+        border-color: variables.$color-select_warning-border-default;
 
         &:hover {
-            background-color: $color-select_warning-bg-hover;
-            border-color: $color-select_warning-border-hover;
+            background-color: variables.$color-select_warning-bg-hover;
+            border-color: variables.$color-select_warning-border-hover;
         }
 
         &:focus {
-            background-color: $color-select_warning-bg-focus;
-            border-color: $color-select_warning-border-focus;
+            background-color: variables.$color-select_warning-bg-focus;
+            border-color: variables.$color-select_warning-border-focus;
         }
 
         &:active {
-            background-color: $color-select_warning-bg-active;
-            border-color: $color-select_warning-border-active;
+            background-color: variables.$color-select_warning-bg-active;
+            border-color: variables.$color-select_warning-border-active;
         }
     }
 
     &-error {
-        background-color: $color-select_danger-bg-default;
-        border-color: $color-select_danger-border-default;
+        background-color: variables.$color-select_danger-bg-default;
+        border-color: variables.$color-select_danger-border-default;
 
         &:hover {
-            background-color: $color-select_danger-bg-hover;
-            border-color: $color-select_danger-border-hover;
+            background-color: variables.$color-select_danger-bg-hover;
+            border-color: variables.$color-select_danger-border-hover;
         }
 
         &:focus {
-            background-color: $color-select_danger-bg-focus;
-            border-color: $color-select_danger-border-focus;
+            background-color: variables.$color-select_danger-bg-focus;
+            border-color: variables.$color-select_danger-border-focus;
         }
 
         &:active {
-            background-color: $color-select_danger-bg-active;
-            border-color: $color-select_danger-border-active;
+            background-color: variables.$color-select_danger-bg-active;
+            border-color: variables.$color-select_danger-border-active;
         }
     }
 
     &-disabled {
         cursor: not-allowed;
-        background-color: $color-select_input_disabled-bg;
+        background-color: variables.$color-select_input_disabled-bg;
         // border: 1px solid $color-select_input_disabled-border;
 
         &:hover {
-            background-color: $color-select_input_disabled-bg-hover;
+            background-color: variables.$color-select_input_disabled-bg-hover;
         }
 
         &:focus {
             // when select is disabled, the border should not have active color
-            border: $width-select-border-focus solid $color-select_input_disabled-border-focus;
-            background-color: $color-select_input_disabled-bg-focus;
+            border: variables.$width-select-border-focus solid variables.$color-select_input_disabled-border-focus;
+            background-color: variables.$color-select_input_disabled-bg-focus;
         }
 
-        .#{$module}-selection,
-        .#{$module}-selection-placeholder {
-            color: $color-select_input_disabled-text;
+        .#{option.$module}-selection,
+        .#{option.$module}-selection-placeholder {
+            color: variables.$color-select_input_disabled-text;
             cursor: not-allowed;
         }
 
-        .#{$module}-arrow,
-        .#{$module}-prefix,
-        .#{$module}-suffix {
-            color: $color-select_input_disabled-text;
+        .#{option.$module}-arrow,
+        .#{option.$module}-prefix,
+        .#{option.$module}-suffix {
+            color: variables.$color-select_input_disabled-text;
         }
 
         .#{$prefix}-tag {
-            color: $color-select_input_disabled-text;
+            color: variables.$color-select_input_disabled-text;
             background-color: transparent;
         }
     }
@@ -158,11 +159,11 @@ $overflowList: #{$prefix}-overflow-list;
         flex-grow: 1;
         overflow: hidden;
 
-        margin-left: $spacing-select_selection-marginLeft;
+        margin-left: variables.$spacing-select_selection-marginLeft;
         // margin-right: $width-select_icon_right;
 
         cursor: pointer;
-        color: $color-select_main-text-default;
+        color: variables.$color-select_main-text-default;
 
         &-text {
             // display: inline-flex;
@@ -174,7 +175,7 @@ $overflowList: #{$prefix}-overflow-list;
 
             &-inactive {
                 display: flex;
-                opacity: $opacity-select_selection_text_inactive;
+                opacity: variables.$opacity-select_selection_text_inactive;
             }
 
             &-hide {
@@ -183,11 +184,11 @@ $overflowList: #{$prefix}-overflow-list;
         }
 
         &-placeholder {
-            color: $color-select_input_placeholder-text;
+            color: variables.$color-select_input_placeholder-text;
         }
 
         .#{$prefix}-tag {
-            @include select-tag-margin;
+            @include mixin.select-tag-margin;
 
             &:nth-of-type(1) {
                 margin-left: 0;
@@ -197,7 +198,7 @@ $overflowList: #{$prefix}-overflow-list;
         .#{$prefix}-tag-group {
             height: inherit;
             .#{$prefix}-tag {
-                @include select-tag-margin;
+                @include mixin.select-tag-margin;
             }
         }
     }
@@ -236,20 +237,20 @@ $overflowList: #{$prefix}-overflow-list;
         // 这里要设置为 auto，可能存在换行
         height: auto;
 
-        .#{$module}-selection {
-            margin-left: $spacing-select_multiple_selection-marginLeft;
+        .#{option.$module}-selection {
+            margin-left: variables.$spacing-select_multiple_selection-marginLeft;
             // &-placeholder {
             //     padding-left: $spacing-base-tight - $spacing-extra-tight;
             // }
         }
 
-        .#{$module}-content-wrapper {
+        .#{option.$module}-content-wrapper {
             width: 100%;
-            min-height: $height-select_default - 2 * $width-select-border ;
+            min-height: variables.$height-select_default - 2 * variables.$width-select-border ;
             flex-wrap: wrap;
 
             &-empty {
-                margin-left: $spacing-select_multiple_content_wrapper_empty-marginLeft;
+                margin-left: variables.$spacing-select_multiple_content_wrapper_empty-marginLeft;
             }
 
             .#{$prefix}-tag-group {
@@ -269,20 +270,20 @@ $overflowList: #{$prefix}-overflow-list;
             }
         }
 
-        .#{$module}-inline-label-wrapper {
+        .#{option.$module}-inline-label-wrapper {
             flex-shrink: 0;
         }
     }
 
-    &-multiple.#{$module}-large {
-        .#{$module}-content-wrapper {
-            min-height: $height-select_large - 2 * $width-select-border;
+    &-multiple.#{option.$module}-large {
+        .#{option.$module}-content-wrapper {
+            min-height: variables.$height-select_large - 2 * variables.$width-select-border;
         }
     }
 
-    &-multiple.#{$module}-small {
-        .#{$module}-content-wrapper {
-            min-height: $height-select_small - 2 * $width-select-border;
+    &-multiple.#{option.$module}-small {
+        .#{option.$module}-content-wrapper {
+            min-height: variables.$height-select_small - 2 * variables.$width-select-border;
         }
     }
 
@@ -290,16 +291,16 @@ $overflowList: #{$prefix}-overflow-list;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: $width-select_arrow;
-        color: $color-select-icon-default;
+        width: variables.$width-select_arrow;
+        color: variables.$color-select-icon-default;
         flex-shrink: 0;
-        transform: rotate($transform_rotate-select-arrow);
+        transform: rotate(animation.$transform_rotate-select-arrow);
 
 
         &-empty {
             // 不显示arrow时，右侧留出12px空白
             display: flex;
-            width: $width-select_arrow_empty;
+            width: variables.$width-select_arrow_empty;
         }
     }
 
@@ -308,15 +309,15 @@ $overflowList: #{$prefix}-overflow-list;
         @include all-center;
 
         &-text {
-            margin: $spacing-select_prefix_suffix_text-marginY $spacing-select_prefix_suffix_text-marginX;
-            color: $color-select_prefix_suffix_text-default;
+            margin: variables.$spacing-select_prefix_suffix_text-marginY variables.$spacing-select_prefix_suffix_text-marginX;
+            color: variables.$color-select_prefix_suffix_text-default;
             @include font-size-regular;
-            font-weight: $font-select_prefix_suffix-fontWeight;
+            font-weight: variables.$font-select_prefix_suffix-fontWeight;
         }
 
         &-icon {
-            color: $color-select-icon-default;
-            margin: $spacing-select_prefix_suffix_icon-marginY $spacing-select_prefix_suffix_icon-marginX;
+            color: variables.$color-select-icon-default;
+            margin: variables.$spacing-select_prefix_suffix_icon-marginY variables.$spacing-select_prefix_suffix_icon-marginX;
         }
     }
 
@@ -326,11 +327,11 @@ $overflowList: #{$prefix}-overflow-list;
 
     &-clear {
         @include all-center;
-        width: $width-select_clear-icon;
-        color: $color-select_clearBtn-text-default;
+        width: variables.$width-select_clear-icon;
+        color: variables.$color-select_clearBtn-text-default;
         flex-shrink: 0;
         &:hover {
-            color: $color-select_clearBtn-text-hover;
+            color: variables.$color-select_clearBtn-text-hover;
         }
     }
 
@@ -339,29 +340,29 @@ $overflowList: #{$prefix}-overflow-list;
     }
 
     &-inset-label {
-        margin: $spacing-select_prefix_suffix_text-marginY $spacing-select_prefix_suffix_text-marginX;
-        font-weight: $font-select_prefix_suffix-fontWeight;
+        margin: variables.$spacing-select_prefix_suffix_text-marginY variables.$spacing-select_prefix_suffix_text-marginX;
+        font-weight: variables.$font-select_prefix_suffix-fontWeight;
         @include font-size-regular;
-        color: $color-select_prefix_suffix_text-default;
+        color: variables.$color-select_prefix_suffix_text-default;
         flex-shrink: 0;
         white-space: nowrap;
     }
 
     &-create-tips {
-        color: $color-select_create_tips-text;
-        margin-right: $spacing-select_create_tips-marginRight;
+        color: variables.$color-select_create_tips-text;
+        margin-right: variables.$spacing-select_create_tips-marginRight;
     }
 }
 
-.#{$module}-with-prefix {
-    .#{$module}-selection {
+.#{option.$module}-with-prefix {
+    .#{option.$module}-selection {
         margin-left: 0;
     }
 }
 
 // 单选且可输入
-.#{$single}.#{$filterable} {
-    .#{$module}-content-wrapper {
+.#{option.$single}.#{option.$filterable} {
+    .#{option.$module}-content-wrapper {
         flex-grow: 1;
         height: 100%;
         overflow: hidden;
@@ -390,19 +391,19 @@ $overflowList: #{$prefix}-overflow-list;
 }
 
 // 多选且可输入
-.#{$multiple}.#{$filterable} {
-    .#{$module}-content-wrapper {
+.#{option.$multiple}.#{option.$filterable} {
+    .#{option.$module}-content-wrapper {
         flex-grow: 1;
         height: 100%;
         overflow: hidden;
         position: relative;
 
-        &:not(.#{$module}-content-wrapper-empty) {
+        &:not(.#{option.$module}-content-wrapper-empty) {
             .#{$prefix}-input-wrapper {
-                height: $height-select_multiple_input_default;
-                line-height: $height-select_multiple_input_default;
+                height: variables.$height-select_multiple_input_default;
+                line-height: variables.$height-select_multiple_input_default;
                 .#{$prefix}-input-default {
-                    height: $height-select_multiple_input_default;
+                    height: variables.$height-select_multiple_input_default;
                 }
             }
         }
@@ -440,28 +441,28 @@ $overflowList: #{$prefix}-overflow-list;
     }
 }
 
-.#{$multiple}.#{$filterable}.#{$module}-large {
-    .#{$module}-content-wrapper {
-        &:not(.#{$module}-content-wrapper-empty) {
+.#{option.$multiple}.#{option.$filterable}.#{option.$module}-large {
+    .#{option.$module}-content-wrapper {
+        &:not(.#{option.$module}-content-wrapper-empty) {
             .#{$prefix}-input-wrapper-large {
-                height: $height-select_multiple_input_large;
-                line-height: $height-select_multiple_input_large;
+                height: variables.$height-select_multiple_input_large;
+                line-height: variables.$height-select_multiple_input_large;
                 .#{$prefix}-input-large {
-                    height: $height-select_multiple_input_large
+                    height: variables.$height-select_multiple_input_large
                 }
             }
         }
     }
 }
 
-.#{$multiple}.#{$filterable}.#{$module}-small {
-    .#{$module}-content-wrapper {
-        &:not(.#{$module}-content-wrapper-empty) {
+.#{option.$multiple}.#{option.$filterable}.#{option.$module}-small {
+    .#{option.$module}-content-wrapper {
+        &:not(.#{option.$module}-content-wrapper-empty) {
             .#{$prefix}-input-wrapper {
-                height: $height-select_multiple_input_small;
-                line-height: $height-select_multiple_input_small;
+                height: variables.$height-select_multiple_input_small;
+                line-height: variables.$height-select_multiple_input_small;
                 .#{$prefix}-input-small {
-                    height: $height-select_multiple_input_small;
+                    height: variables.$height-select_multiple_input_small;
                 }
             }
         }
@@ -469,30 +470,30 @@ $overflowList: #{$prefix}-overflow-list;
 }
 
 
-.#{$module}-option-list-wrapper {
-    padding-top: $spacing-select_option_list-paddingTop;
-    padding-bottom: $spacing-select_option_list-paddingBottom;
-    padding-left: $spacing-select_option_list-paddingLeft;
-    padding-right: $spacing-select_option_list-paddingRight;
+.#{option.$module}-option-list-wrapper {
+    padding-top: variables.$spacing-select_option_list-paddingTop;
+    padding-bottom: variables.$spacing-select_option_list-paddingBottom;
+    padding-left: variables.$spacing-select_option_list-paddingLeft;
+    padding-right: variables.$spacing-select_option_list-paddingRight;
 }
 
-.#{$module}-option-list {
+.#{option.$module}-option-list {
     overflow-x: hidden;
     overflow-y: auto;
     &-chosen {
-        .#{$module}-option-icon {
+        .#{option.$module}-option-icon {
             display: flex;
         }
     }
 }
 
-.#{$module}-group {
-    color: $color-select_group-text;
-    padding-top: $spacing-select_group-paddingTop;
-    margin-top: $spacing-select_group-marginTop;
-    padding-bottom: $spacing-select_group-paddingBottom;
-    padding-left: $spacing-select_group-paddingLeft;
-    padding-right: $spacing-select_group-paddingRight;
+.#{option.$module}-group {
+    color: variables.$color-select_group-text;
+    padding-top: variables.$spacing-select_group-paddingTop;
+    margin-top: variables.$spacing-select_group-marginTop;
+    padding-bottom: variables.$spacing-select_group-paddingBottom;
+    padding-left: variables.$spacing-select_group-paddingLeft;
+    padding-right: variables.$spacing-select_group-paddingRight;
     @include font-size-small;
     cursor: default;
 
@@ -501,16 +502,16 @@ $overflowList: #{$prefix}-overflow-list;
     // }
 
     &:not(:nth-of-type(1)) {
-        border-top: $width-select_group_top-border solid $color-select_option-border-default;
+        border-top: variables.$width-select_group_top-border solid variables.$color-select_option-border-default;
     }
 }
 
 
-.#{$module}-loading-wrapper {
-    padding-left: $spacing-select_loading_wrapper-paddingLeft;
-    padding-right: $spacing-select_loading_wrapper-paddingRight;
-    padding-top: $spacing-select_loading_wrapper-paddingTop;
-    padding-bottom: $spacing-select_loading_wrapper-paddingBottom;
+.#{option.$module}-loading-wrapper {
+    padding-left: variables.$spacing-select_loading_wrapper-paddingLeft;
+    padding-right: variables.$spacing-select_loading_wrapper-paddingRight;
+    padding-top: variables.$spacing-select_loading_wrapper-paddingTop;
+    padding-bottom: variables.$spacing-select_loading_wrapper-paddingBottom;
     cursor: not-allowed;
     // make sure that spin align vertical, no need to make 20px as a spacing token here
     height: 20px;
@@ -518,12 +519,12 @@ $overflowList: #{$prefix}-overflow-list;
 }
 
 
-.#{$module}-borderless {
+.#{option.$module}-borderless {
 
     &:not(:focus-within):not(:hover){
         background-color:transparent;
         border-color: transparent;
-        .#{$module}-arrow {
+        .#{option.$module}-arrow {
             opacity: 0;
         }
     }
@@ -533,32 +534,32 @@ $overflowList: #{$prefix}-overflow-list;
     }
 
     // split style into not and normal to avoid style override
-    &.#{$module}-error:not(:focus-within){
-        border-color: $color-select_danger-border-focus;
+    &.#{option.$module}-error:not(:focus-within){
+        border-color: variables.$color-select_danger-border-focus;
     }
 
-    &.#{$module}-warning:not(:focus-within){
-        border-color: $color-select_warning-border-focus;
+    &.#{option.$module}-warning:not(:focus-within){
+        border-color: variables.$color-select_warning-border-focus;
     }
 
-    &.#{$module}-error:focus-within{
-        border-color: $color-select_danger-border-focus;
+    &.#{option.$module}-error:focus-within{
+        border-color: variables.$color-select_danger-border-focus;
     }
 
-    &.#{$module}-warning:focus-within{
-        border-color: $color-select_warning-border-focus;
+    &.#{option.$module}-warning:focus-within{
+        border-color: variables.$color-select_warning-border-focus;
     }
 
 }
 
 
-.#{$module}-dropdown-search-wrapper {
-    padding-top: $spacing-select_dropdown_input_paddingTop;
-    padding-right: $spacing-select_dropdown_input_paddingRight;
-    padding-bottom: $spacing-select_dropdown_input_paddingBottom;
-    padding-top: $spacing-select_dropdown_input_paddingTop;
-    padding-left: $spacing-select_dropdown_input_paddingLeft;
-    border-bottom: 1px solid $color-select_dropdown_input-border;
+.#{option.$module}-dropdown-search-wrapper {
+    padding-top: variables.$spacing-select_dropdown_input_paddingTop;
+    padding-right: variables.$spacing-select_dropdown_input_paddingRight;
+    padding-bottom: variables.$spacing-select_dropdown_input_paddingBottom;
+    padding-top: variables.$spacing-select_dropdown_input_paddingTop;
+    padding-left: variables.$spacing-select_dropdown_input_paddingLeft;
+    border-bottom: 1px solid variables.$color-select_dropdown_input-border;
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 // form field
 $spacing-form_field_horizontal-paddingRight: $spacing-base; // 水平布局表单项右侧内边距
 $spacing-form_field_group_horizontal-paddingRight: $spacing-base; // 水平布局表单组标题右侧内边距

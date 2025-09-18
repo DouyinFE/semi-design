@@ -1,12 +1,13 @@
-@import './animation.scss';
-@import './variables.scss';
-@import './mixin.scss';
-@import './operationPanel.scss';
+@use "sass:meta";
+@use 'animation.scss';
+@use 'variables.scss';
+@use 'mixin.scss';
+@use 'operationPanel.scss';
 
 
-$module: #{$prefix}-table;
+operationPanel.$module: #{$prefix}-table;
 
-.#{$module} {
+.#{operationPanel.$module} {
     width: 100%;
     text-align: left;
     border-collapse: separate;
@@ -22,7 +23,7 @@ $module: #{$prefix}-table;
         margin: 0;
         padding: 0;
         @include font-size-regular;
-        color: $color-table-text-default;
+        color: variables.$color-table-text-default;
         width: 100%;
 
         &[data-column-fixed='true'] {
@@ -39,25 +40,25 @@ $module: #{$prefix}-table;
     }
 
     &-middle {
-        .#{$module}-tbody > .#{$module}-row > .#{$module}-row-cell {
-            padding-top: $spacing-table_middle-paddingY;
-            padding-bottom: $spacing-table_middle-paddingY;
+        .#{operationPanel.$module}-tbody > .#{operationPanel.$module}-row > .#{operationPanel.$module}-row-cell {
+            padding-top: variables.$spacing-table_middle-paddingY;
+            padding-bottom: variables.$spacing-table_middle-paddingY;
         }
     }
 
     &-small {
-        .#{$module}-tbody > .#{$module}-row > .#{$module}-row-cell {
-            padding-top: $spacing-table_small-paddingY;
-            padding-bottom: $spacing-table_small-paddingY;
+        .#{operationPanel.$module}-tbody > .#{operationPanel.$module}-row > .#{operationPanel.$module}-row-cell {
+            padding-top: variables.$spacing-table_small-paddingY;
+            padding-bottom: variables.$spacing-table_small-paddingY;
         }
     }
 
     &-title {
         position: relative;
-        padding-top: $spacing-table_title-paddingY;
-        padding-bottom: $spacing-table_title-paddingY;
-        padding-left: $spacing-table_title-paddingX;
-        padding-right: $spacing-table_title-paddingX;
+        padding-top: variables.$spacing-table_title-paddingY;
+        padding-bottom: variables.$spacing-table_title-paddingY;
+        padding-left: variables.$spacing-table_title-paddingX;
+        padding-right: variables.$spacing-table_title-paddingX;
     }
 
     &-container {
@@ -70,15 +71,15 @@ $module: #{$prefix}-table;
 
         &::-webkit-scrollbar {
             background-color: transparent;
-            border-bottom: $width-table_header_border $border-table_base-borderStyle $color-table_th-border-default;
+            border-bottom: variables.$width-table_header_border variables.$border-table_base-borderStyle variables.$color-table_th-border-default;
         }
 
         &-sticky {
             position: sticky;
-            z-index: $z-table_fixed_column + 1;
+            z-index: variables.$z-table_fixed_column + 1;
 
             .semi-table-thead > .semi-table-row > .semi-table-row-head {
-                background-color: $color-table-bg-default;
+                background-color: variables.$color-table-bg-default;
             }
         }
 
@@ -88,13 +89,13 @@ $module: #{$prefix}-table;
     }
 
     &-align-center {
-        .#{$module}-operate-wrapper {
+        .#{operationPanel.$module}-operate-wrapper {
             justify-content: center;
         }
     }
 
     &-align-right {
-        .#{$module}-operate-wrapper {
+        .#{operationPanel.$module}-operate-wrapper {
             justify-content: flex-end;
         }
     }
@@ -112,41 +113,41 @@ $module: #{$prefix}-table;
 
     &-colgroup {
         display: table-column-group;
-        .#{$module}-col {
+        .#{operationPanel.$module}-col {
             display: table-column;
         }
-        .#{$module}-column {
+        .#{operationPanel.$module}-column {
             &-expand,
             &-selection {
-                width: $width-table_column_selection;
+                width: variables.$width-table_column_selection;
             }
         }
     }
 
     &-thead {
-        & > .#{$module}-row {
-            & > .#{$module}-row-head {
-                background-color: $color-table_th-bg-default;
-                color: $color-table_th-text-default;
+        & > .#{operationPanel.$module}-row {
+            & > .#{operationPanel.$module}-row-head {
+                background-color: variables.$color-table_th-bg-default;
+                color: variables.$color-table_th-text-default;
                 font-weight: $font-weight-bold;
                 text-align: left;
-                border-bottom: $width-table_header_border $border-table_base-borderStyle $color-table_th-border-default;
-                padding-left: $spacing-table_row_head-paddingX;
-                padding-right: $spacing-table_row_head-paddingX;
-                padding-top: $spacing-table_row_head-paddingY;
-                padding-bottom: $spacing-table_row_head-paddingY;
+                border-bottom: variables.$width-table_header_border variables.$border-table_base-borderStyle variables.$color-table_th-border-default;
+                padding-left: variables.$spacing-table_row_head-paddingX;
+                padding-right: variables.$spacing-table_row_head-paddingX;
+                padding-top: variables.$spacing-table_row_head-paddingY;
+                padding-bottom: variables.$spacing-table_row_head-paddingY;
                 vertical-align: middle;
                 overflow-wrap: break-word;
                 // word-break: break-all;
                 // word-wrap: break-word;
                 position: relative;
-                transition: background-color $transition_duration-table_row-head-bg $transition_function-table_row-head-bg;
+                transition: background-color animation.$transition_duration-table_row-head-bg animation.$transition_function-table_row-head-bg;
 
-                &.#{$module}-row-head-clickSort {
+                &.#{operationPanel.$module}-row-head-clickSort {
                     cursor: pointer;
                     &:hover {
-                        background-image: linear-gradient(0deg, $color-table_th-clickSort-bg-hover, $color-table_th-clickSort-bg-hover);
-                        background-color: $color-table_cell-bg-hover;
+                        background-image: linear-gradient(0deg, variables.$color-table_th-clickSort-bg-hover, variables.$color-table_th-clickSort-bg-hover);
+                        background-color: variables.$color-table_cell-bg-hover;
                         
                         // &.#{$module}-cell-fixed {
                         //     &-left,
@@ -159,12 +160,12 @@ $module: #{$prefix}-table;
                     }
                 }
 
-                &.#{$module}-cell-fixed {
+                &.#{operationPanel.$module}-cell-fixed {
                     &-left,
                     &-right {
-                        z-index: $z-table_fixed_column;
+                        z-index: variables.$z-table_fixed_column;
                         position: sticky;
-                        background-color: $color-table_th-bg-default;
+                        background-color: variables.$color-table_th-bg-default;
 
                         // &::before {
                         //     background-color: $color-table_th-bg-default;
@@ -180,20 +181,20 @@ $module: #{$prefix}-table;
                     }
 
                     &-left-last {
-                        border-right: $width-table_cell_fixed_left_last solid $color-table_shadow-border-default;
-                        box-shadow: #{$shadow-table_right};
+                        border-right: variables.$width-table_cell_fixed_left_last solid variables.$color-table_shadow-border-default;
+                        box-shadow: #{variables.$shadow-table_right};
 
                         &.resizing {
-                            @include genResizing();
+                            @include mixin.genResizing();
                         }
                     }
 
                     &-right-first {
-                        border-left: $width-table_cell_fixed_right_first solid $color-table_shadow-border-default;
-                        box-shadow: #{$shadow-table_left};
+                        border-left: variables.$width-table_cell_fixed_right_first solid variables.$color-table_shadow-border-default;
+                        box-shadow: #{variables.$shadow-table_left};
 
                         &.resizing {
-                            @include genResizing();
+                            @include mixin.genResizing();
                         }
 
                         // scroll-bar 列无需有box-shadow
@@ -205,7 +206,7 @@ $module: #{$prefix}-table;
                     }
                 }
 
-                &.#{$module}-column-selection {
+                &.#{operationPanel.$module}-column-selection {
                     text-align: center;
                 }
 
@@ -213,7 +214,7 @@ $module: #{$prefix}-table;
                     text-align: center;
                 }
 
-                .#{$module}-header-column {
+                .#{operationPanel.$module}-header-column {
                     display: inline-flex;
                     align-items: center;
                 }
@@ -221,7 +222,7 @@ $module: #{$prefix}-table;
                 &-ellipsis {
                     @include text-overflow-hidden;
 
-                    .#{$module}-row-head-title {
+                    .#{operationPanel.$module}-row-head-title {
                         @include text-overflow-hidden;
                     }
                 }
@@ -233,21 +234,21 @@ $module: #{$prefix}-table;
             }
 
             .resizing {
-                @include genResizing();
+                @include mixin.genResizing();
             }
 
             .react-resizable-handle {
                 position: absolute;
-                width: $width-table_react_resizable_handle;
-                height: calc(100% - #{$spacing-table_resizable-offset-y} * 2);
-                background-color: $color-table-border-default;
-                bottom: $spacing-table_resizable-bottom;
-                right: $spacing-table_react_resizable_handle-right;
+                width: variables.$width-table_react_resizable_handle;
+                height: calc(100% - #{variables.$spacing-table_resizable-offset-y} * 2);
+                background-color: variables.$color-table-border-default;
+                bottom: variables.$spacing-table_resizable-bottom;
+                right: variables.$spacing-table_react_resizable_handle-right;
                 cursor: col-resize;
                 z-index: 0;
 
                 &:hover {
-                    background-color: $color-table_resizer-bg-default;
+                    background-color: variables.$color-table_resizer-bg-default;
                 }
             }
         }
@@ -255,22 +256,22 @@ $module: #{$prefix}-table;
 
     &-tbody {
         display: table-row-group;
-        & > .#{$module}-row {
+        & > .#{operationPanel.$module}-row {
             display: table-row;
-            background-color: $color-table_body-bg-default;
+            background-color: variables.$color-table_body-bg-default;
 
             &:hover {
-                & > .#{$module}-row-cell {
+                & > .#{operationPanel.$module}-row-cell {
                     // $color-table_body-bg-hover has transparency，will reveal the background color $color-table_body-bg-default\
                     // combine background-image and background-color to make the non-fixed column color does not show through the bottom color
-                    background-image: linear-gradient(0deg, $color-table_body-bg-hover, $color-table_body-bg-hover);
-                    background-color: $color-table_cell-bg-hover;
+                    background-image: linear-gradient(0deg, variables.$color-table_body-bg-hover, variables.$color-table_body-bg-hover);
+                    background-color: variables.$color-table_cell-bg-hover;
 
-                    &.#{$module}-cell-fixed {
+                    &.#{operationPanel.$module}-cell-fixed {
                         &-left,
                         &-right {
-                            background-image: linear-gradient(0deg, $color-table_body-bg-hover, $color-table_body-bg-hover);
-                            background-color: $color-table_body-bg-default;
+                            background-image: linear-gradient(0deg, variables.$color-table_body-bg-hover, variables.$color-table_body-bg-hover);
+                            background-color: variables.$color-table_body-bg-default;
 
                             // &::before {
                             //     background-color: $color-table_body-bg-hover;
@@ -288,31 +289,31 @@ $module: #{$prefix}-table;
                 }
             }
 
-            & > .#{$module}-row-cell {
+            & > .#{operationPanel.$module}-row-cell {
                 display: table-cell;
                 overflow-wrap: break-word;
                 // word-wrap: break-word;
                 // word-break: break-all;
                 border-left: none;
                 border-right: none;
-                border-bottom: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
-                padding: $spacing-table_tbody_rowCell-padding;
+                border-bottom: variables.$width-table_base_border variables.$border-table_base-borderStyle variables.$color-table-border-default;
+                padding: variables.$spacing-table_tbody_rowCell-padding;
                 box-sizing: border-box;
                 position: relative;
                 vertical-align: middle;
 
                 &.resizing {
-                    border-right: $width-table_resizer_border solid $color-table_resizer-bg-default;
+                    border-right: variables.$width-table_resizer_border solid variables.$color-table_resizer-bg-default;
                 }
 
                 &-ellipsis {
                     @include text-overflow-hidden;
                 }
             }
-            &.#{$module}-row {
+            &.#{operationPanel.$module}-row {
                 &-expand {
-                    & > .#{$module}-row-cell {
-                        background-color: $color-table_row_expanded-bg-default;
+                    & > .#{operationPanel.$module}-row-cell {
+                        background-color: variables.$color-table_row_expanded-bg-default;
                     }
                 }
                 &-hidden {
@@ -320,60 +321,60 @@ $module: #{$prefix}-table;
                 }
             }
 
-            & > .#{$module}-cell-fixed {
+            & > .#{operationPanel.$module}-cell-fixed {
                 &-left,
                 &-right {
-                    z-index: $z-table_fixed_column;
+                    z-index: variables.$z-table_fixed_column;
                     position: sticky;
-                    background-color: $color-table-bg-default;
+                    background-color: variables.$color-table-bg-default;
                 }
 
                 &-left-last {
-                    border-right: $width-table_cell_fixed_left_last solid $color-table_shadow-border-default;
-                    box-shadow: #{$shadow-table_right};
+                    border-right: variables.$width-table_cell_fixed_left_last solid variables.$color-table_shadow-border-default;
+                    box-shadow: #{variables.$shadow-table_right};
                 }
 
                 &-right-first {
-                    border-left: $width-table_cell_fixed_right_first solid $color-table_shadow-border-default;
-                    box-shadow: #{$shadow-table_left};
+                    border-left: variables.$width-table_cell_fixed_right_first solid variables.$color-table_shadow-border-default;
+                    box-shadow: #{variables.$shadow-table_left};
                 }
 
                 & > * {
-                    transition: background-color $transition_duration-table_body-bg $transition_function-table_body-bg
-                        $transition_delay-table_body-bg;
+                    transition: background-color animation.$transition_duration-table_body-bg animation.$transition_function-table_body-bg
+                        animation.$transition_delay-table_body-bg;
                 }
             }
 
             & > * {
-                transition: background-color $transition_duration-table_body-bg $transition_function-table_body-bg
-                    $transition_delay-table_body-bg;
+                transition: background-color animation.$transition_duration-table_body-bg animation.$transition_function-table_body-bg
+                    animation.$transition_delay-table_body-bg;
             }
         }
 
-        & > .#{$module}-row-section {
+        & > .#{operationPanel.$module}-row-section {
             display: table-row;
 
-            & > .#{$module}-row-cell {
-                background-color: $color-table_selection-bg-default;
-                border-bottom: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+            & > .#{operationPanel.$module}-row-cell {
+                background-color: variables.$color-table_selection-bg-default;
+                border-bottom: variables.$width-table_base_border variables.$border-table_base-borderStyle variables.$color-table-border-default;
             }
 
-            & > .#{$module}-row-cell:not(.#{$module}-column-selection) {
-                padding: $spacing-table_tbody_rowSelection_rowCell_notSelection-paddingY $spacing-table_tbody_rowSelection_rowCell_notSelection-paddingX;
+            & > .#{operationPanel.$module}-row-cell:not(.#{operationPanel.$module}-column-selection) {
+                padding: variables.$spacing-table_tbody_rowSelection_rowCell_notSelection-paddingY variables.$spacing-table_tbody_rowSelection_rowCell_notSelection-paddingX;
             }
 
-            .#{$module}-section-inner {
+            .#{operationPanel.$module}-section-inner {
                 display: inline-flex;
                 align-items: center;
             }
         }
     }
 
-    &-virtualized .#{$module}-tbody {
+    &-virtualized .#{operationPanel.$module}-tbody {
         display: block;
-        & > .#{$module}-row {
+        & > .#{operationPanel.$module}-row {
             display: flex;
-            & > .#{$module}-row-cell {
+            & > .#{operationPanel.$module}-row-cell {
                 word-wrap: unset;
                 word-break: unset;
                 white-space: nowrap;
@@ -383,15 +384,15 @@ $module: #{$prefix}-table;
             }
 
             &-section {
-                & > .#{$module}-row-cell {
-                    padding-top: $spacing-table-paddingY;
-                    padding-bottom: $spacing-table-paddingY;
+                & > .#{operationPanel.$module}-row-cell {
+                    padding-top: variables.$spacing-table-paddingY;
+                    padding-bottom: variables.$spacing-table-paddingY;
                     display: flex;
                 }
             }
 
             &-expand {
-                & > .#{$module}-row-cell {
+                & > .#{operationPanel.$module}-row-cell {
                     padding: 0;
                     overflow: unset;
                 }
@@ -400,13 +401,13 @@ $module: #{$prefix}-table;
     }
 
     &-footer {
-        background-color: $color-table_footer-bg-default;
-        padding: $spacing-table_footer-padding;
+        background-color: variables.$color-table_footer-bg-default;
+        padding: variables.$spacing-table_footer-padding;
         margin: 0;
         position: relative;
     }
 
-    .#{$module}-selection {
+    .#{operationPanel.$module}-selection {
         &-wrap {
             // inline-flex vertical-align baseline 会导致父元素高度异常
             display: inline-flex;
@@ -422,7 +423,7 @@ $module: #{$prefix}-table;
         }
     }
 
-    .#{$module}-column {
+    .#{operationPanel.$module}-column {
         &-hidden {
             display: none;
         }
@@ -440,7 +441,7 @@ $module: #{$prefix}-table;
         }
 
         &-expand {
-            .#{$module}-expand-icon {
+            .#{operationPanel.$module}-expand-icon {
                 transform: translateY(2px);
 
                 &:last-child {
@@ -451,14 +452,14 @@ $module: #{$prefix}-table;
 
         &-sorter {
             display: inline-block;
-            width: $width-table_column_sorter-icon;
-            height: $height-table_column_sorter-icon;
+            width: variables.$width-table_column_sorter-icon;
+            height: variables.$height-table_column_sorter-icon;
             vertical-align: middle;
             text-align: center;
 
             &-wrapper {
                 display: flex;
-                gap: $spacing-table_column_sorter-marginLeft;
+                gap: variables.$spacing-table_column_sorter-marginLeft;
                 align-items: center;
                 cursor: pointer;
                 overflow: hidden;
@@ -468,85 +469,85 @@ $module: #{$prefix}-table;
             &-down {
                 height: 0;
                 display: block;
-                color: $color-table_sorter-text-default;
+                color: variables.$color-table_sorter-text-default;
 
                 &:hover .anticon {
-                    color: $color-table_sorter-text-hover;
+                    color: variables.$color-table_sorter-text-hover;
                 }
 
                 svg {
-                    width: $width-table_column_sorter-icon;
-                    height: $height-table_column_sorter-icon;
+                    width: variables.$width-table_column_sorter-icon;
+                    height: variables.$height-table_column_sorter-icon;
                 }
 
                 &.on {
                     .#{$prefix}-icon-caretup,
                     .#{$prefix}-icon-caretdown {
-                        color: $color-table_sorter_on-text-default;
+                        color: variables.$color-table_sorter_on-text-default;
                     }
                 }
             }
         }
 
         &-filter {
-            margin-left: $spacing-table_column_filter-marginLeft;
+            margin-left: variables.$spacing-table_column_filter-marginLeft;
             display: inline-flex;
             cursor: pointer;
-            color: $color-table_filter-text-default;
+            color: variables.$color-table_filter-text-default;
             // vertical-align: middle;
             align-items: center;
 
             svg {
-                width: $width-table_column_filter-icon;
-                height: $height-table_column_filter-icon;
+                width: variables.$width-table_column_filter-icon;
+                height: variables.$height-table_column_filter-icon;
             }
 
             &.on {
-                color: $color-table_filter_on-text-default;
+                color: variables.$color-table_filter_on-text-default;
             }
         }
     }
 
     &-bordered {
-        .#{$module}-title {
-            padding-left: $spacing-table_bordered_titler-paddingLeft;
-            padding-right: $spacing-table_bordered_titler-paddingRight;
-            border-top: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
-            border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
-            border-left: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+        .#{operationPanel.$module}-title {
+            padding-left: variables.$spacing-table_bordered_titler-paddingLeft;
+            padding-right: variables.$spacing-table_bordered_titler-paddingRight;
+            border-top: variables.$width-table_base_border variables.$border-table_base-borderStyle variables.$color-table-border-default;
+            border-right: variables.$width-table_base_border variables.$border-table_base-borderStyle variables.$color-table-border-default;
+            border-left: variables.$width-table_base_border variables.$border-table_base-borderStyle variables.$color-table-border-default;
         }
 
-        .#{$module}-container {
-            border: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+        .#{operationPanel.$module}-container {
+            border: variables.$width-table_base_border variables.$border-table_base-borderStyle variables.$color-table-border-default;
             border-right: 0;
             border-bottom: 0;
         }
 
-        .#{$module}-header {
+        .#{operationPanel.$module}-header {
             &::-webkit-scrollbar {
-                border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+                border-right: variables.$width-table_base_border variables.$border-table_base-borderStyle variables.$color-table-border-default;
             }
         }
 
-        .#{$module}-footer {
-            border-left: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
-            border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
-            border-bottom: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+        .#{operationPanel.$module}-footer {
+            border-left: variables.$width-table_base_border variables.$border-table_base-borderStyle variables.$color-table-border-default;
+            border-right: variables.$width-table_base_border variables.$border-table_base-borderStyle variables.$color-table-border-default;
+            border-bottom: variables.$width-table_base_border variables.$border-table_base-borderStyle variables.$color-table-border-default;
         }
 
-        .#{$module}-thead > .#{$module}-row > .#{$module}-row-head {
+        .#{operationPanel.$module}-thead > .#{operationPanel.$module}-row > .#{operationPanel.$module}-row-head {
             .react-resizable-handle {
                 background-color: transparent;
             }
         }
 
-        .#{$module}-thead > .#{$module}-row > .#{$module}-row-head,
-        .#{$module}-tbody > .#{$module}-row > .#{$module}-row-cell {
-            border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+        .#{operationPanel.$module}-thead > .#{operationPanel.$module}-row > .#{operationPanel.$module}-row-head,
+        .#{operationPanel.$module}-tbody > .#{operationPanel.$module}-row > .#{operationPanel.$module}-row-cell {
+            border-right: variables.$width-table_base_border variables.$border-table_base-borderStyle variables.$color-table-border-default;
         }
 
-        .#{$module}-placeholder {
-            border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+        .#{operationPanel.$module}-placeholder {
+            border-right: variables.$width-table_base_border variables.$border-table_base-borderStyle variables.$color-table-border-default;
         }
     }
 
@@ -554,28 +555,28 @@ $module: #{$prefix}-table;
         position: sticky;
         left: 0px;
         z-index: 1;
-        padding: #{$spacing-table-paddingY} #{$spacing-table-paddingX};
-        color: $color-table_placeholder-text-default;
-        font-size: #{$font-table_base-fontSize};
+        padding: #{variables.$spacing-table-paddingY} #{variables.$spacing-table-paddingX};
+        color: variables.$color-table_placeholder-text-default;
+        font-size: #{variables.$font-table_base-fontSize};
         text-align: center;
-        background: $color-table_pl-bg-default;
-        border-bottom: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+        background: variables.$color-table_pl-bg-default;
+        border-bottom: variables.$width-table_base_border variables.$border-table_base-borderStyle variables.$color-table-border-default;
     }
 
     &-fixed {
         table-layout: fixed;
         min-width: 100%;
 
-        & > .#{$module}-tbody {
-            & > .#{$module}-row-expand > .#{$module}-row-cell > .#{$module}-expand-inner,
-            & > .#{$module}-row-section > .#{$module}-row-cell > .#{$module}-section-inner {
+        & > .#{operationPanel.$module}-tbody {
+            & > .#{operationPanel.$module}-row-expand > .#{operationPanel.$module}-row-cell > .#{operationPanel.$module}-expand-inner,
+            & > .#{operationPanel.$module}-row-section > .#{operationPanel.$module}-row-cell > .#{operationPanel.$module}-section-inner {
                 position: sticky;
                 overflow: auto;
                 left: 0;
-                margin-left: -$spacing-table_expand_row-paddingLeft;
-                margin-right: -$spacing-table_expand_row-paddingRight;
-                padding-left: $spacing-table_expand_row-paddingLeft;
-                padding-right: $spacing-table_expand_row-paddingRight;
+                margin-left: -(variables.$spacing-table_expand_row-paddingLeft);
+                margin-right: -(variables.$spacing-table_expand_row-paddingRight);
+                padding-left: variables.$spacing-table_expand_row-paddingLeft;
+                padding-right: variables.$spacing-table_expand_row-paddingRight;
                 height: 100%;
                 display: flex;
                 align-items: center;
@@ -593,18 +594,18 @@ $module: #{$prefix}-table;
     &-scroll {
         &-position {
             &-left {
-                .#{$module}-tbody,
-                .#{$module}-thead {
-                    & > .#{$module}-row > .#{$module}-cell-fixed-left-last {
+                .#{operationPanel.$module}-tbody,
+                .#{operationPanel.$module}-thead {
+                    & > .#{operationPanel.$module}-row > .#{operationPanel.$module}-cell-fixed-left-last {
                         box-shadow: none;
                     }
                 }
             }
 
             &-right {
-                .#{$module}-tbody,
-                .#{$module}-thead {
-                    & > .#{$module}-row > .#{$module}-cell-fixed-right-first {
+                .#{operationPanel.$module}-tbody,
+                .#{operationPanel.$module}-thead {
+                    & > .#{operationPanel.$module}-row > .#{operationPanel.$module}-cell-fixed-right-first {
                         box-shadow: none;
                     }
                 }
@@ -613,20 +614,20 @@ $module: #{$prefix}-table;
     }
 
     &-pagination-outer {
-        color: $color-table_page-text-default;
-        min-height: $height-table_pagination_outer_min;
+        color: variables.$color-table_page-text-default;
+        min-height: variables.$height-table_pagination_outer_min;
     }
 }
 
-.#{$module}-expand-icon {
-    color: $color-table_expanded_icon-default;
+.#{operationPanel.$module}-expand-icon {
+    color: variables.$color-table_expanded_icon-default;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     user-select: none;
-    background: $color-table_expanded-bg-default;
+    background: variables.$color-table_expanded-bg-default;
     position: relative;
-    margin-right: $spacing-table_expand_icon-marginRight;
+    margin-right: variables.$spacing-table_expand_icon-marginRight;
 
     &-cell {
         display: inline-flex;
@@ -634,22 +635,22 @@ $module: #{$prefix}-table;
         justify-content: center;
     }
 
-    .#{$module}-expandedIcon-show{
+    .#{operationPanel.$module}-expandedIcon-show{
         transition: transform 150ms cubic-bezier(0.62, 0.05, 0.36, 0.95);
         transform: rotate(90deg);
     }
 
-    .#{$module}-expandedIcon-hide{
+    .#{operationPanel.$module}-expandedIcon-hide{
         transition: transform 150ms cubic-bezier(0.62, 0.05, 0.36, 0.95);
         transform: rotate(0deg);
     }
 }
 
-.#{$module}-column-filter-dropdown {
+.#{operationPanel.$module}-column-filter-dropdown {
     .#{$prefix}-dropdown-menu {
-        max-height: $height-table_column_filter_dropdown;
+        max-height: variables.$height-table_column_filter_dropdown;
         overflow-y: auto;
     }
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

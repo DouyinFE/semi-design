@@ -1,6 +1,7 @@
-@import "./variables.scss";
-@import "../keyframes/rotate.scss";
-@import "./animation.scss";
+@use "sass:meta";
+@use "variables.scss";
+@use "../keyframes/rotate.scss";
+@use "animation.scss";
 
 $module: #{$prefix}-button;
 
@@ -31,46 +32,46 @@ $module: #{$prefix}-button;
         .#{$module}-content {
 
             .#{$module}-content-loading-icon {
-                animation: $animation_duration-button_icon_customIcon_loading linear infinite #{$prefix}-animation-rotate;
+                animation: animation.$animation_duration-button_icon_customIcon_loading linear infinite #{$prefix}-animation-rotate;
             }
 
             &>svg {
                 width: 16px;
                 height: 16px;
-                animation: $animation_duration-button_icon_loading linear infinite #{$prefix}-animation-rotate;
+                animation: animation.$animation_duration-button_icon_loading linear infinite #{$prefix}-animation-rotate;
                 animation-fill-mode: forwards;
             }
         }
     }
 
     &.#{$module}-with-icon-only {
-        padding-left: $spacing-button_iconOnly_default-paddingLeft;
-        padding-right: $spacing-button_iconOnly_default-paddingRight;
-        padding-top: $spacing-button_iconOnly_default-paddingTop;
-        padding-bottom: $spacing-button_iconOnly_default-paddingRight;
-        height: $height-button_iconOnly_default;
-        width: $width-button_iconOnly_default;
+        padding-left: variables.$spacing-button_iconOnly_default-paddingLeft;
+        padding-right: variables.$spacing-button_iconOnly_default-paddingRight;
+        padding-top: variables.$spacing-button_iconOnly_default-paddingTop;
+        padding-bottom: variables.$spacing-button_iconOnly_default-paddingRight;
+        height: variables.$height-button_iconOnly_default;
+        width: variables.$width-button_iconOnly_default;
         justify-content: center;
         align-items: center;
 
         &.#{$module}-size {
 
             &-small {
-                padding-left: $spacing-button_iconOnly_small-paddingLeft;
-                padding-right: $spacing-button_iconOnly_small-paddingRight;
-                padding-top: $spacing-button_iconOnly_small-paddingTop;
-                padding-bottom: $spacing-button_iconOnly_small-paddingBottom;
-                height: $height-button_iconOnly_small;
-                width: $width-button_iconOnly_small;
+                padding-left: variables.$spacing-button_iconOnly_small-paddingLeft;
+                padding-right: variables.$spacing-button_iconOnly_small-paddingRight;
+                padding-top: variables.$spacing-button_iconOnly_small-paddingTop;
+                padding-bottom: variables.$spacing-button_iconOnly_small-paddingBottom;
+                height: variables.$height-button_iconOnly_small;
+                width: variables.$width-button_iconOnly_small;
             }
 
             &-large {
-                padding-left: $spacing-button_iconOnly_large-paddingLeft;
-                padding-right: $spacing-button_iconOnly_large-paddingRight;
-                padding-top: $spacing-button_iconOnly_large-paddingTop;
-                padding-bottom: $spacing-button_iconOnly_large-paddingBottom;
-                height: $height-button_iconOnly_large;
-                width: $width-button_iconOnly_large;
+                padding-left: variables.$spacing-button_iconOnly_large-paddingLeft;
+                padding-right: variables.$spacing-button_iconOnly_large-paddingRight;
+                padding-top: variables.$spacing-button_iconOnly_large-paddingTop;
+                padding-bottom: variables.$spacing-button_iconOnly_large-paddingBottom;
+                height: variables.$height-button_iconOnly_large;
+                width: variables.$width-button_iconOnly_large;
             }
         }
     }
@@ -78,17 +79,17 @@ $module: #{$prefix}-button;
     &-content {
 
         &-left {
-            margin-right: $spacing-button_iconOnly_content-marginRight;
+            margin-right: variables.$spacing-button_iconOnly_content-marginRight;
             display: flex;
             align-items: center;
         }
 
         &-right {
-            margin-left: $spacing-button_iconOnly_content-marginLeft;
+            margin-left: variables.$spacing-button_iconOnly_content-marginLeft;
             display: flex;
             align-items: center;
         }
     }
 }
 
-@import "./rtl.scss";
+@include meta.load-css("rtl.scss");

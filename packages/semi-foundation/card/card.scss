@@ -1,4 +1,5 @@
-@import "./variables.scss";
+@use "sass:meta";
+@use "variables.scss";
 
 $module: #{$prefix}-card;
 
@@ -6,40 +7,40 @@ $module: #{$prefix}-card;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    border-radius: $radius-card;
+    border-radius: variables.$radius-card;
     overflow: hidden;
-    background-color: $color-card-bg-default;
-    font-size: $font-card_default-fontSize;
+    background-color: variables.$color-card-bg-default;
+    font-size: variables.$font-card_default-fontSize;
     font-style: normal;
-    font-weight: $font-card_default-fontWeight;
-    line-height: $font-card_default-lineHeight;
+    font-weight: variables.$font-card_default-fontWeight;
+    line-height: variables.$font-card_default-lineHeight;
     letter-spacing: 0em;
 
     &-shadows {
         cursor: pointer;
-        transition: box-shadow $motion-card-transition_duration;
+        transition: box-shadow variables.$motion-card-transition_duration;
         
         &-hover {
             &:hover {
-                box-shadow: $shadow-card;
-                z-index: $z-card_hover; // 避免网格型卡片组shadow覆盖
+                box-shadow: variables.$shadow-card;
+                z-index: variables.$z-card_hover; // 避免网格型卡片组shadow覆盖
             }
         }
         
         &-always {
-            box-shadow: $shadow-card;
+            box-shadow: variables.$shadow-card;
         }
     }
 
     &-bordered {
-        border: $width-card-border solid $color-card-border;
+        border: variables.$width-card-border solid variables.$color-card-border;
     }
 
     &-header {
-        padding: $spacing-card-padding;
+        padding: variables.$spacing-card-padding;
 
         &-bordered {
-            border-bottom: $width-card-border solid $color-card-border;
+            border-bottom: variables.$width-card-border solid variables.$color-card-border;
         }
 
         &-wrapper {
@@ -49,7 +50,7 @@ $module: #{$prefix}-card;
             justify-content: space-between;
 
             &-spacing {
-                margin-right: $spacing-card-margin;
+                margin-right: variables.$spacing-card-margin;
             }
 
             &-title {
@@ -59,11 +60,11 @@ $module: #{$prefix}-card;
 
             &-extra {
                 flex-shrink: 0;
-                font-size: $font-card_extra-fontSize;
+                font-size: variables.$font-card_extra-fontSize;
                 font-style: normal;
-                font-weight: $font-card_extra-fontWeight;
+                font-weight: variables.$font-card_extra-fontWeight;
                 letter-spacing: 0em;
-                color: $color-card_extra-text;
+                color: variables.$color-card_extra-text;
             }
         }
     }
@@ -76,26 +77,26 @@ $module: #{$prefix}-card;
     }
 
     &-body {
-        padding: $spacing-card-padding;
-        font-size: $font-card_default-fontSize;
+        padding: variables.$spacing-card-padding;
+        font-size: variables.$font-card_default-fontSize;
         font-style: normal;
-        font-weight: $font-card_default-fontWeight;
-        line-height: $font-card_default-lineHeight;
+        font-weight: variables.$font-card_default-fontWeight;
+        line-height: variables.$font-card_default-lineHeight;
         letter-spacing: 0em;
-        color: $color-card_body-text;
+        color: variables.$color-card_body-text;
 
         &-actions {
-            margin-top: $spacing-card-margin;
-            padding-top: $spacing-card-padding;
-            border-top: $width-card-border solid $color-card-border;
+            margin-top: variables.$spacing-card-margin;
+            padding-top: variables.$spacing-card-padding;
+            border-top: variables.$width-card-border solid variables.$color-card-border;
         }
     }
 
     &-footer {
-        padding: $spacing-card-padding;
+        padding: variables.$spacing-card-padding;
 
         &-bordered {
-            border-top: $width-card-border solid $color-card-border;
+            border-top: variables.$width-card-border solid variables.$color-card-border;
         }
     }
 
@@ -105,26 +106,26 @@ $module: #{$prefix}-card;
         justify-content: flex-start;
 
         &-avatar {
-            margin-right: $spacing-card_avatar-marginRight;
+            margin-right: variables.$spacing-card_avatar-marginRight;
         }
 
         &-wrapper {
             &-title {
-                font-size: $font-card_title-fontSize;
+                font-size: variables.$font-card_title-fontSize;
                 font-style: normal;
-                font-weight: $font-card_title-fontWeight;
-                line-height: $font-card_title-lineHeight;
+                font-weight: variables.$font-card_title-fontWeight;
+                line-height: variables.$font-card_title-lineHeight;
                 letter-spacing: 0em;
-                color: $color-card_title-text;
+                color: variables.$color-card_title-text;
             }
 
             &-description {
-                font-size: $font-card_default-fontSize;
+                font-size: variables.$font-card_default-fontSize;
                 font-style: normal;
-                font-weight: $font-card_default-fontWeight;
-                line-height: $font-card_default-lineHeight;
+                font-weight: variables.$font-card_default-fontWeight;
+                line-height: variables.$font-card_default-lineHeight;
                 letter-spacing: 0em;
-                color: $color-card_description-text;
+                color: variables.$color-card_description-text;
             }
         }
     }
@@ -137,10 +138,10 @@ $module: #{$prefix}-card;
         }
         
         & .#{$prefix}-card {
-            margin-left: $spacing-cardGroup_card-margin;
-            margin-top: $spacing-cardGroup_card-margin;
+            margin-left: variables.$spacing-cardGroup_card-margin;
+            margin-top: variables.$spacing-cardGroup_card-margin;
         }
     }
 }
 
-@import "./rtl.scss";
+@include meta.load-css("rtl.scss");

@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $spacing-image_mask_info_text-marginTop: 8px; // 图像预览遮罩文字上外边距
 $spacing-image_preview_icon-x: 24px; // 图像预览中部左右调节icon与页面距离
 $spacing-image_preview_header-paddingY: 0; // 图像预览header部分上下内边距

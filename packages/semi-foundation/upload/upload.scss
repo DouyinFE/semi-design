@@ -1,4 +1,5 @@
-@import './variables.scss';
+@use "sass:meta";
+@use 'variables.scss';
 
 $module: #{$prefix}-upload;
 
@@ -22,14 +23,14 @@ $module: #{$prefix}-upload;
             cursor: not-allowed;
 
             &:hover {
-                background-color: $color-upload_drag_area-bg;
+                background-color: variables.$color-upload_drag_area-bg;
             }
 
             &-main-text,
             &-sub-text,
             &-icon {
                 cursor: not-allowed;
-                color: $color-upload_drag_area_disabled-text;
+                color: variables.$color-upload_drag_area_disabled-text;
             }
         }
     }
@@ -98,8 +99,8 @@ $module: #{$prefix}-upload;
             display: flex;
             flex-wrap: wrap;
             flex-shrink: 0;
-            gap: $spacing-upload_picture_file_card-gap;
-            margin-bottom: $spacing-upload_picture_file_card-marginBottom;
+            gap: variables.$spacing-upload_picture_file_card-gap;
+            margin-bottom: variables.$spacing-upload_picture_file_card-marginBottom;
 
             p {
                 @include ver-center;
@@ -108,33 +109,33 @@ $module: #{$prefix}-upload;
 
         &-title {
             @include font-size-small;
-            color: $color-upload_assist-text;
-            margin-bottom: $spacing-upload_title-marginBottom;
+            color: variables.$color-upload_assist-text;
+            margin-bottom: variables.$spacing-upload_title-marginBottom;
 
             &-choosen {
-                margin-right: $spacing-upload_title_choosen-marginRight;
+                margin-right: variables.$spacing-upload_title_choosen-marginRight;
             }
 
             &-clear {
                 cursor: pointer;
-                color: $color-upload_clear-text;
+                color: variables.$color-upload_clear-text;
             }
         }
     }
 
     &-file-card {
         // border: 1px solid $color-upload-border;
-        border-radius: $radius-upload_file_card;
+        border-radius: variables.$radius-upload_file_card;
         display: inline-flex;
         align-items: center;
         justify-content: space-between;
-        height: $height-upload_file_card;
-        width: $width-upload_file_card;
-        background-color: $color-upload_card-bg;
+        height: variables.$height-upload_file_card;
+        width: variables.$width-upload_file_card;
+        background-color: variables.$color-upload_card-bg;
         cursor: pointer;
 
         &:hover {
-            background-color: $color-upload_card-bg-hover;
+            background-color: variables.$color-upload_card-bg-hover;
         }
 
         a {
@@ -143,24 +144,24 @@ $module: #{$prefix}-upload;
         }
 
         &-preview {
-            height: $height-upload_file_card_preview;
-            width: $width-upload_file_card_preview;
-            color: $color-upload_preview-icon;
-            margin: $spacing-upload_file_card_preview-margin;
+            height: variables.$height-upload_file_card_preview;
+            width: variables.$width-upload_file_card_preview;
+            color: variables.$color-upload_preview-icon;
+            margin: variables.$spacing-upload_file_card_preview-margin;
             @include all-center;
-            border-radius: $radius-upload_file_card_preview;
+            border-radius: variables.$radius-upload_file_card_preview;
             flex-shrink: 0;
 
             img {
-                width: $width-upload_file_card_preview_img;
-                height: $width-upload_file_card_preview_img;
+                width: variables.$width-upload_file_card_preview_img;
+                height: variables.$width-upload_file_card_preview_img;
                 object-fit: cover;
             }
         }
 
         &-preview-placeholder {
-            background-color: $color-upload_file_card_preview_placeholder-bg;
-            color: $color-upload_file_card_preview_placeholder-text;
+            background-color: variables.$color-upload_file_card_preview_placeholder-bg;
+            color: variables.$color-upload_file_card_preview_placeholder-text;
         }
 
         &-show-pointer {
@@ -195,15 +196,15 @@ $module: #{$prefix}-upload;
                 white-space: nowrap;
                 display: inline-block;
                 @include font-size-regular;
-                font-weight: $font-upload_file_card_info_name-fontWeight;
-                color: $color-upload-text;
+                font-weight: variables.$font-upload_file_card_info_name-fontWeight;
+                color: variables.$color-upload-text;
             }
 
             &-size {
                 @include font-size-small;
-                font-weight: $font-upload_file_card_info_size-fontWeight;
-                margin-left: $spacing-upload_file_card_info_size-marginLeft;
-                color: $color-upload_assist-text;
+                font-weight: variables.$font-upload_file_card_info_size-fontWeight;
+                margin-left: variables.$spacing-upload_file_card_info_size-marginLeft;
+                color: variables.$color-upload_assist-text;
                 margin-top: 1px;
             }
 
@@ -216,25 +217,25 @@ $module: #{$prefix}-upload;
             &-validate-message {
                 @include font-size-small;
                 @include ver-center;
-                color: $color-upload-text;
+                color: variables.$color-upload-text;
             }
 
             &-retry {
                 @include font-size-small;
-                color: $color-upload_retry-text;
+                color: variables.$color-upload_retry-text;
                 cursor: pointer;
-                margin-left: $spacing-upload_file_card_info_retry-marginLeft;
+                margin-left: variables.$spacing-upload_file_card_info_retry-marginLeft;
             }
 
             .#{$prefix}-progress {
                 flex-basis: 100%;
-                margin-top: $spacing-upload_file_card_info_progress-marginTop;
+                margin-top: variables.$spacing-upload_file_card_info_progress-marginTop;
             }
         }
 
         &-close {
-            margin-left: $spacing-upload_file_card_close-marginLeft;
-            margin-right: $spacing-upload_file_card_close-marginRight;
+            margin-left: variables.$spacing-upload_file_card_close-marginLeft;
+            margin-right: variables.$spacing-upload_file_card_close-marginRight;
             flex-shrink: 0;
         }
 
@@ -247,34 +248,34 @@ $module: #{$prefix}-upload;
         &-icon {
             &-loading,
             &-error.#{$prefix}-icon {
-                font-size: $width-upload_file_card-icon;
-                margin-right: $spacing-upload_file_card_icon-marginRight;
+                font-size: variables.$width-upload_file_card-icon;
+                margin-right: variables.$spacing-upload_file_card_icon-marginRight;
             }
 
             &-error {
                 position: relative;
-                top: $spacing-upload_picture_file_card_icon_error-top;
+                top: variables.$spacing-upload_picture_file_card_icon_error-top;
             }
 
             &-loading {
                 line-height: 0; // make the spin icon in the center
                 .#{$prefix}-spin-wrapper svg {
-                    height: $width-upload_file_card-icon;
-                    width: $width-upload_file_card-icon;
+                    height: variables.$width-upload_file_card-icon;
+                    width: variables.$width-upload_file_card-icon;
                 }
             }
         }
 
         &-fail {
-            background-color: $color-upload_card_fail-bg;
+            background-color: variables.$color-upload_card_fail-bg;
 
             &:hover {
-                background-color: $color-upload_card_fail-bg-hover;
+                background-color: variables.$color-upload_card_fail-bg-hover;
             }
 
             .#{$module}-file-card {
                 &-info-validate-message {
-                    color: $color-upload_file_card_fail_info-text;
+                    color: variables.$color-upload_file_card_fail_info-text;
                 }
             }
         }
@@ -300,24 +301,24 @@ $module: #{$prefix}-upload;
         }
 
         &-add {
-            background-color: $color-upload_pic_add-bg;
-            height: $height-upload_file_pic_card;
-            width: $width-upload_file_pic_card;
+            background-color: variables.$color-upload_pic_add-bg;
+            height: variables.$height-upload_file_pic_card;
+            width: variables.$width-upload_file_pic_card;
             box-sizing: border-box;
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            border: $width-upload_picture_add-border dashed $color-upload-border;
-            color: $color-upload-icon;
-            border-radius: $radius-upload_picture_add;
+            border: variables.$width-upload_picture_add-border dashed variables.$color-upload-border;
+            color: variables.$color-upload-icon;
+            border-radius: variables.$radius-upload_picture_add;
             cursor: pointer;
 
             &:hover {
-                background-color: $color-upload_pic_add-bg-hover;
+                background-color: variables.$color-upload_pic_add-bg-hover;
             }
 
             &:active {
-                background-color: $color-upload_pic_add-bg-active;
+                background-color: variables.$color-upload_pic_add-bg-active;
             }
         }
 
@@ -325,11 +326,11 @@ $module: #{$prefix}-upload;
             cursor: not-allowed;
 
             &:hover {
-                background-color: $color-upload_pic_add-bg;
+                background-color: variables.$color-upload_pic_add-bg;
             }
 
             &:active {
-                background-color: $color-upload_pic_add-bg;
+                background-color: variables.$color-upload_pic_add-bg;
             }
         }
 
@@ -344,18 +345,18 @@ $module: #{$prefix}-upload;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: $height-upload_file_pic_card;
-            width: $width-upload_file_pic_card;
-            border-radius: $radius-upload_picture_file_card_img;
+            height: variables.$height-upload_file_pic_card;
+            width: variables.$width-upload_file_pic_card;
+            border-radius: variables.$radius-upload_picture_file_card_img;
             box-sizing: border-box;
             position: relative;
             overflow: hidden;
 
             img {
-                height: $width-upload_picture_file_card_img;
-                width: $width-upload_picture_file_card_img;
+                height: variables.$width-upload_picture_file_card_img;
+                width: variables.$width-upload_picture_file_card_img;
                 object-fit: cover;
-                border-radius: $radius-upload_picture_file_card_img;
+                border-radius: variables.$radius-upload_picture_file_card_img;
             }
 
             &-custom-thumbnail {
@@ -371,20 +372,20 @@ $module: #{$prefix}-upload;
                 visibility: hidden;
                 display: inline-flex;
                 position: absolute;
-                top: $spacing-upload_picture_file_card_close-top;
-                right: $spacing-upload_picture_file_card_close-right;
-                border-radius: $radius-upload_picture_file_card_close;
+                top: variables.$spacing-upload_picture_file_card_close-top;
+                right: variables.$spacing-upload_picture_file_card_close-right;
+                border-radius: variables.$radius-upload_picture_file_card_close;
                 cursor: pointer;
                 transition: all 0s;
             }
             &-icon-close {
-                font-size: $width-upload_picture_file_card_close;
-                color: $color-upload_picture_file_card_close-icon;
+                font-size: variables.$width-upload_picture_file_card_close;
+                color: variables.$color-upload_picture_file_card_close-icon;
             }
 
             &::before {
                 visibility: hidden;
-                background-color: $color-upload_picture_file_card_hover-bg;
+                background-color: variables.$color-upload_picture_file_card_hover-bg;
                 content: '';
                 position: absolute;
                 left: 0;
@@ -394,15 +395,15 @@ $module: #{$prefix}-upload;
             }
             &-retry {
                 visibility: hidden;
-                background-color: $color-upload_file_card_retry-bg;
-                width: $width-upload_file_card_retry;
-                height: $width-upload_file_card_retry;
+                background-color: variables.$color-upload_file_card_retry-bg;
+                width: variables.$width-upload_file_card_retry;
+                height: variables.$width-upload_file_card_retry;
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                color: $color-upload_file_card_retry-text;
-                border-radius: $radius-upload_file_card_retry;
+                color: variables.$color-upload_file_card_retry-text;
+                border-radius: variables.$radius-upload_file_card_retry;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -410,7 +411,7 @@ $module: #{$prefix}-upload;
             }
             &-icon-retry {
                 transform: scale(-1, 1);
-                font-size: $width-upload_file_card_retry-icon;
+                font-size: variables.$width-upload_file_card_retry-icon;
             }
 
             &-replace {
@@ -420,7 +421,7 @@ $module: #{$prefix}-upload;
                 cursor: pointer;
                 top: 50%;
                 left: 50%;
-                color: $color-upload_replace-text;
+                color: variables.$color-upload_replace-text;
                 transform: translate3D(-50%, -50%, 0);
             }
 
@@ -435,10 +436,10 @@ $module: #{$prefix}-upload;
             }
 
             &-preview-fallback {
-                background-color: $color-upload_pic_add-bg;
-                border: $width-upload_picture_add-border $color-upload-border;
-                color: $color-upload-icon;
-                border-radius: $radius-upload_picture_add;
+                background-color: variables.$color-upload_pic_add-bg;
+                border: variables.$width-upload_picture_add-border variables.$color-upload-border;
+                color: variables.$color-upload-icon;
+                border-radius: variables.$radius-upload_picture_add;
             }
 
             &-pic-info {
@@ -452,22 +453,22 @@ $module: #{$prefix}-upload;
                 padding: 0 10px;
                 bottom: 0;
                 left: 0;
-                color: $color-upload_picture_file_card_pic_info-text;
-                font-size: $font-upload_picture_file_card_pic_info-fontSize;
-                font-weight: $font-upload_picture_file_card_pic_info-fontWeight;
+                color: variables.$color-upload_picture_file_card_pic_info-text;
+                font-size: variables.$font-upload_picture_file_card_pic_info-fontSize;
+                font-weight: variables.$font-upload_picture_file_card_pic_info-fontWeight;
                 background: linear-gradient(0deg, rgba(22, 22, 26, 0.3) 0%, rgba(22, 22, 26, 0) 77.08%);
             }
 
             &-icon-loading,
             &-icon-error {
                 position: absolute;
-                bottom: $spacing-upload_picture_file_card_loading_error-bottom;
-                right: $spacing-upload_picture_file_card_loading_error-right;
-                color: $color-upload_picture_file_card_loading_error-icon;
+                bottom: variables.$spacing-upload_picture_file_card_loading_error-bottom;
+                right: variables.$spacing-upload_picture_file_card_loading_error-right;
+                color: variables.$color-upload_picture_file_card_loading_error-icon;
             }
 
             &-icon-loading {
-                font-size: $width-upload_picture_file_card_loading-icon;
+                font-size: variables.$width-upload_picture_file_card_loading-icon;
             }
 
             &-show-pointer {
@@ -475,8 +476,8 @@ $module: #{$prefix}-upload;
             }
 
             &-error {
-                border: 1px solid $color-upload_picture_file_card_error-border;
-                outline: 1px solid $color-upload_picture_file_card_error-border;
+                border: 1px solid variables.$color-upload_picture_file_card_error-border;
+                outline: 1px solid variables.$color-upload_picture_file_card_error-border;
             }
 
             &:hover {
@@ -515,18 +516,18 @@ $module: #{$prefix}-upload;
     }
 
     &-drag-area {
-        border-radius: $radius-upload_drag_area;
-        border: $width-upload_drag_area-border dashed $color-upload-border;
+        border-radius: variables.$radius-upload_drag_area;
+        border: variables.$width-upload_drag_area-border dashed variables.$color-upload-border;
         width: 100%;
-        padding: $spacing-upload_drag_area-padding;
-        background-color: $color-upload_drag_area-bg;
+        padding: variables.$spacing-upload_drag_area-padding;
+        background-color: variables.$color-upload_drag_area-bg;
         @include all-center;
         flex-direction: column;
         cursor: pointer;
 
         &:hover {
-            background-color: $color-upload_drag_area-bg-hover;
-            border-color: $color-upload_drag_area-border-hover;
+            background-color: variables.$color-upload_drag_area-bg-hover;
+            border-color: variables.$color-upload_drag_area-border-hover;
         }
 
         &-custom {
@@ -540,8 +541,8 @@ $module: #{$prefix}-upload;
         }
 
         &-legal {
-            background-color: $color-upload_drag_area-bg-hover;
-            border-color: $color-upload_drag_area-border-hover;
+            background-color: variables.$color-upload_drag_area-bg-hover;
+            border-color: variables.$color-upload_drag_area-border-hover;
 
             .#{$module}-drag-area-sub-text {
                 display: none;
@@ -549,7 +550,7 @@ $module: #{$prefix}-upload;
         }
 
         &-icon {
-            color: $color-upload_drag_area_icon;
+            color: variables.$color-upload_drag_area_icon;
         }
 
         &-text {
@@ -559,34 +560,34 @@ $module: #{$prefix}-upload;
         &-main-text {
             cursor: pointer;
             @include font-size-regular;
-            margin-bottom: $spacing-upload_drag_area_main_text-marginBottom;
-            color: $color-upload_drag_area_main-text-default;
+            margin-bottom: variables.$spacing-upload_drag_area_main_text-marginBottom;
+            color: variables.$color-upload_drag_area_main-text-default;
             &:hover {
-                color: $color-upload_drag_area_main-text-hover;
+                color: variables.$color-upload_drag_area_main-text-hover;
             }
             &:active {
-                color: $color-upload_drag_area_main-text-active;
+                color: variables.$color-upload_drag_area_main-text-active;
             }
         }
 
         &-sub-text {
             cursor: pointer;
             @include font-size-small;
-            color: $color-upload_drag_area_sub-text-default;
+            color: variables.$color-upload_drag_area_sub-text-default;
             &:hover {
-                color: $color-upload_drag_area_sub-text-hover;
+                color: variables.$color-upload_drag_area_sub-text-hover;
             }
             &:active {
-                color: $color-upload_drag_area_sub-text-active;
+                color: variables.$color-upload_drag_area_sub-text-active;
             }
         }
 
         &-tips {
             @include font-size-small;
-            font-weight: $font-upload_drag_area_tips-fontWeight;
+            font-weight: variables.$font-upload_drag_area_tips-fontWeight;
 
             &-legal {
-                color: $color-upload_drag_area_tips-text;
+                color: variables.$color-upload_drag_area_tips-text;
             }
         }
     }
@@ -595,8 +596,8 @@ $module: #{$prefix}-upload;
         flex-basis: 100%;
         flex-shrink: 0;
         display: block;
-        color: $color-upload_file_card_fail_info-text;
+        color: variables.$color-upload_file_card_fail_info-text;
     }
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

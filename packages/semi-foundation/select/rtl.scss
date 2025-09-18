@@ -1,3 +1,7 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+@use "variables.scss" as *;
+@use "option.scss" as *;
+
 $module: #{$prefix}-select;
 
 .#{$prefix}-rtl,

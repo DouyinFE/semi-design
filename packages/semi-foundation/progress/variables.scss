@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $color-progress_default-bg: var(--semi-color-fill-0); // 默认背景色
 $color-progress_track_inner-bg: var(--semi-color-success); // 默认进度色
 $color-progress_line_text-text: var(--semi-color-text-0); // 百分比文本文字颜色

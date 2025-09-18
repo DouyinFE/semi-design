@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $font-descriptions-lineHeight: 20px; // 文字行高
 $font-descriptions_value-fontWeight: $font-weight-bold; // 双行显示 value 文字字重
 $spacing-descriptions_th-paddingRight: $spacing-loose; // 普通显示 key 右侧内边距

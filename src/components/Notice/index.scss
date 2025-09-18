@@ -1,10 +1,10 @@
-@import '../../styles/variable.scss';
+@use '../../styles/variable.scss';
 
 .notice {
     display: flex;
     align-items: top;
     padding: 24px 24px 24px 24px;
-    margin-bottom: 2 * $bf;
+    margin-bottom: 2 * variable.$bf;
     border-radius: 3px 6px 6px 3px;
 
     span[role=img] {
@@ -35,9 +35,9 @@
     }
 
     &-title {
-        font-size: $h4;
+        font-size: variable.$h4;
         font-weight: bold;
-        margin-bottom: $bf * 0.8;
+        margin-bottom: variable.$bf * 0.8;
     }
 
     &-body {

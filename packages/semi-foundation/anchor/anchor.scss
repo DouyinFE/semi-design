@@ -1,5 +1,6 @@
-@import "./animation.scss";
-@import './variables.scss';
+@use "sass:meta";
+@use "animation.scss";
+@use 'variables.scss';
 
 $module: #{$prefix}-anchor;
 
@@ -15,8 +16,8 @@ $module: #{$prefix}-anchor;
 
     &-slide {
         position: absolute;
-        left: $spacing-anchor_slide-left;
-        top: $spacing-anchor_slide-top;
+        left: variables.$spacing-anchor_slide-left;
+        top: variables.$spacing-anchor_slide-top;
         height: 100%;
 
         &-muted {
@@ -27,37 +28,37 @@ $module: #{$prefix}-anchor;
             display: none;
             position: absolute;
             top: 0;
-            width: $width-anchor_slide_default;
-            border-radius: $radius-anchor_slide;
+            width: variables.$width-anchor_slide_default;
+            border-radius: variables.$radius-anchor_slide;
 
             &-active {
                 display: inline-block;
             }
 
             &-default {
-                height: $height-anchor_slide_default + 2 * $spacing-anchor_slide_default-Y;
+                height: variables.$height-anchor_slide_default + 2 * variables.$spacing-anchor_slide_default-Y;
             }
 
             &-small {
-                height: $height-anchor_slide_small + 2 * $spacing-anchor_slide_small-Y;
+                height: variables.$height-anchor_slide_small + 2 * variables.$spacing-anchor_slide_small-Y;
             }
 
             &-primary {
-                background-color: $color-anchor_slide_primary-bg-active;
+                background-color: variables.$color-anchor_slide_primary-bg-active;
             }
 
             &-tertiary {
-                background-color: $color-anchor_slide_tertiary-bg-active;
+                background-color: variables.$color-anchor_slide_tertiary-bg-active;
             }
         }
 
         &::before {
             position: absolute;
             display: block;
-            width: $width-anchor_slide_default;
+            width: variables.$width-anchor_slide_default;
             height: 100%;
-            background-color: $color-anchor_slide_default-bg-default;
-            border-radius: $radius-anchor_slide;
+            background-color: variables.$color-anchor_slide_default-bg-default;
+            border-radius: variables.$radius-anchor_slide;
             content: ' ';
         }
     }
@@ -66,68 +67,68 @@ $module: #{$prefix}-anchor;
 
         &-title {
             cursor: pointer;
-            color: $color-anchor_title-text-default;
-            padding-top: $spacing-anchor_link_title-paddingTop;
-            padding-bottom: $spacing-anchor_link_title-paddingBottom;
+            color: variables.$color-anchor_title-text-default;
+            padding-top: variables.$spacing-anchor_link_title-paddingTop;
+            padding-bottom: variables.$spacing-anchor_link_title-paddingBottom;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            border-radius: $width-anchor-outline_border_radius;
-            transition: color $transition_duration-anchor_title-text $transition_function-anchor_title-text $transition_delay-anchor_title-text;//锚点选项文字的动效
-            transform: scale($transform_scale-anchor_title-text);
-            background: $color-anchor_title-bg-default;
+            border-radius: variables.$width-anchor-outline_border_radius;
+            transition: color animation.$transition_duration-anchor_title-text animation.$transition_function-anchor_title-text animation.$transition_delay-anchor_title-text;//锚点选项文字的动效
+            transform: scale(animation.$transform_scale-anchor_title-text);
+            background: variables.$color-anchor_title-bg-default;
             &:hover {
-                color: $color-anchor_title-text-hover;
+                color: variables.$color-anchor_title-text-hover;
             }
 
             &-active {
-                color: $color-anchor_title-text-active;
-                background: $color-anchor_title-bg-active;
+                color: variables.$color-anchor_title-text-active;
+                background: variables.$color-anchor_title-bg-active;
                 &:hover{
-                    color: $color-anchor_title_active-text-hover;
+                    color: variables.$color-anchor_title_active-text-hover;
                 }
 
             }
 
             &:focus-visible {
-                outline: $width-anchor-outline solid $color-anchor_title-outline-focus;
-                outline-offset: $width-anchor-outlineOffset;
+                outline: variables.$width-anchor-outline solid variables.$color-anchor_title-outline-focus;
+                outline-offset: variables.$width-anchor-outlineOffset;
             }
 
             &-disabled {
-                color: $color-anchor_title-text-disabled;
+                color: variables.$color-anchor_title-text-disabled;
                 cursor: not-allowed;
                 &:hover {
-                    color: $color-anchor_title-text-disabled;
+                    color: variables.$color-anchor_title-text-disabled;
                 }
             }
         }
 
         &-tooltip {
             cursor: pointer;
-            color: $color-anchor_title-text-default !important;
+            color: variables.$color-anchor_title-text-default !important;
 
             &-small {
                 @include font-size-small;
             }
 
             &:hover {
-                color: $color-anchor_title-text-hover !important;
+                color: variables.$color-anchor_title-text-hover !important;
             }
 
             &-active {
-                color: $color-anchor_title-text-active !important;
+                color: variables.$color-anchor_title-text-active !important;
             }
 
             &-disabled {
-                color: $color-anchor_title-text-disabled !important;
+                color: variables.$color-anchor_title-text-disabled !important;
                 cursor: not-allowed;
                 &:hover {
-                    color: $color-anchor_title-text-disabled !important;
+                    color: variables.$color-anchor_title-text-disabled !important;
                 }
             }
         }
     }
 }
 
-@import "./rtl.scss";
+@include meta.load-css('./rtl.scss');

@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 // Color
 $color-pagination-text-default: var(--semi-color-text-2); // 翻页器总页数文本颜色
 $color-pagination_item-text-default: var(--semi-color-text-0); // 翻页器 页码 文本颜色

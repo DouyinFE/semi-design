@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 $radius-dropdown: var(--semi-border-radius-medium); // 下拉菜单圆角大小
 $radius-dropdown_item: 0px; // 下拉菜单项圆角大小
 $color-dropdown-bg-default: var(--semi-color-bg-3); // 下拉菜单背景颜色

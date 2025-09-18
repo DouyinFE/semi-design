@@ -1,3 +1,6 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+@use "variables.scss" as *;
+
 $module: #{$prefix}-timeline;
 
 .#{$prefix}-rtl,

@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $radius-cascader: var(--semi-border-radius-small); // 级联选择菜单圆角
 $radius-cascader_option_empty: var(--semi-border-radius-medium); // 级联选择菜单空状态圆角
 

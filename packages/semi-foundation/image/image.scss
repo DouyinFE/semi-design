@@ -1,5 +1,8 @@
-@import "./animation.scss";
-@import "./variables.scss";
+@use "sass:meta";
+@use "sass:math";
+@use "../../semi-theme-default/scss/index.scss" as *;
+@use "animation.scss";
+@use "variables.scss" as *;
 
 $module: #{$prefix}-image;
 
@@ -52,7 +55,7 @@ $module: #{$prefix}-image;
     height: 100%;
     z-index: $z-image_preview;
     background-color: var(--semi-color-overlay-bg);
-    transition: opacity $transition_duration-image_preview;
+    transition: opacity animation.$transition_duration-image_preview;
     overflow: hidden;
 
     &-popup {
@@ -200,7 +203,7 @@ $module: #{$prefix}-image;
 
         &-img {
             position: absolute;
-            transform: scale3d($transform_scale3d-image_preview_image_img) $transform_rotate-image_preview_image_img;
+            transform: scale3d(animation.$transform_scale3d-image_preview_image_img) animation.$transform_rotate-image_preview_image_img;
             // transition: transform $transition_duration-image_preview_image_img  $transition_delay-image_preview_image_img;
             z-index: 0;
             user-select: none;
@@ -226,7 +229,7 @@ $module: #{$prefix}-image;
     
     @keyframes spinner {
         to {
-            transform: $transform_rotate-image_preview_spinner;
+            transform: animation.$transform_rotate-image_preview_spinner;
         }
     }
 }
@@ -236,4 +239,4 @@ img[src=""], img:not([src]) {
     opacity: 0;
 }
 
-@import "./rtl.scss";
+@include meta.load-css("rtl.scss");

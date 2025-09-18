@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 $spacing-checkbox_label-paddingLeft: $spacing-tight; // 文字与选框间距
 $color-checkbox_label-text-default: var(--semi-color-text-0); // 文字颜色
 $color-checkbox_default-bg-hover: var(--semi-color-fill-0); // 选框背景颜色 - 悬浮

@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 $color-radio_default-border-default: var(--semi-color-text-3); // 默认态描边颜色
 $color-radio_default-bg-default: transparent; // 默认态背景颜色
 $color-radio_default-bg-hover: var(--semi-color-fill-0); // 悬浮态背景颜色

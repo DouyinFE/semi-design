@@ -1,5 +1,7 @@
-@import "./animation.scss";
-@import "./variables.scss";
+@use "sass:meta";
+@use '../../semi-theme-default/scss/index.scss' as *;
+@use "animation.scss" as *;
+@use "variables.scss" as *;
 
 
 $module: #{$prefix}-tagInput;
@@ -54,7 +56,7 @@ $module: #{$prefix}-tagInput;
                 width: $width-tagInput_sortable_item_over;
                 background-color: $color-tagInput_sortable_item_over-bg;
                 position: absolute;
-                left: -$width-tagInput_sortable_item_over;
+                left: -($width-tagInput_sortable_item_over);
                 top: 0;
             }
         }
@@ -312,4 +314,4 @@ $module: #{$prefix}-tagInput;
     }
 }
 
-@import "./rtl.scss";
+@include meta.load-css("rtl.scss");

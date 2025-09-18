@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 // Color
 $color-videoPlayer_theme_dark-text: var(--semi-color-bg-0); // dark theme 字体色
 $color-videoPlayer_theme_dark-bg: rgba(var(--semi-grey-8), 1); // dark theme 背景色

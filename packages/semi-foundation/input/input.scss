@@ -1,33 +1,34 @@
 //@import '../theme/variables.scss';
-@import "./animation.scss";
-@import './variables.scss';
+@use "sass:meta";
+@use "animation.scss";
+@use 'variables.scss';
 
 $module: #{$prefix}-input;
 
 @keyframes #{$module}-active {
     from {
-        transform: scale($motion-scale_size-inactive);
+        transform: scale(variables.$motion-scale_size-inactive);
     }
 
     to {
-        transform: scale($motion-scale_size-active);
+        transform: scale(variables.$motion-scale_size-active);
     }
 }
 
 @keyframes #{$module}-inactive {
     from {
-        transform: scale($motion-scale_size-active);
+        transform: scale(variables.$motion-scale_size-active);
     }
 
     to {
-        transform: scale($motion-scale_size-inactive);
+        transform: scale(variables.$motion-scale_size-inactive);
     }
 }
 
 .#{$module}{
-    transition: background-color $transition_duration-input-bg $transition_function-input-bg $transition_delay-input-bg,
-    border $transition_duration-input-border $transition_function-input-border $transition_delay-input-border;
-    transform: scale($transform_scale-input);
+    transition: background-color animation.$transition_duration-input-bg animation.$transition_function-input-bg animation.$transition_delay-input-bg,
+    border animation.$transition_duration-input-border animation.$transition_function-input-border animation.$transition_delay-input-border;
+    transform: scale(animation.$transform_scale-input);
 }
 
 
@@ -38,42 +39,42 @@ $module: #{$prefix}-input;
 
     @include shadow-0;
     @include font-size-regular;
-    background-color: $color-input_default-bg-default;
-    border: $width-input_wrapper-border $color-input_default-border-default solid;
-    border-radius: $radius-input_wrapper;
+    background-color: variables.$color-input_default-bg-default;
+    border: variables.$width-input_wrapper-border variables.$color-input_default-border-default solid;
+    border-radius: variables.$radius-input_wrapper;
 
     width: 100%;
     outline: none;
     cursor: text;
     box-sizing: border-box;
-    color: $color-input_default-text-default;
+    color: variables.$color-input_default-text-default;
 
-    transition: background-color $transition_duration-input-bg $transition_function-input-bg $transition_delay-input-bg,
-     border $transition_duration-input-border $transition_function-input-border $transition_delay-input-border;
+    transition: background-color animation.$transition_duration-input-bg animation.$transition_function-input-bg animation.$transition_delay-input-bg,
+     border animation.$transition_duration-input-border animation.$transition_function-input-border animation.$transition_delay-input-border;
 
-    transform: scale($transform_scale-input);
+    transform: scale(animation.$transform_scale-input);
 
     &-default {
-        height: $height-input_wrapper_default;
+        height: variables.$height-input_wrapper_default;
         @include font-size-regular;
-        line-height: $height-input_default;
+        line-height: variables.$height-input_default;
     }
 
     &-small {
-        height: $height-input_wrapper_small;
+        height: variables.$height-input_wrapper_small;
         @include font-size-regular;
-        line-height: $height-input_small;
+        line-height: variables.$height-input_small;
     }
 
     &-large {
-        height: $height-input_wrapper_large;
+        height: variables.$height-input_wrapper_large;
         @include font-size-header-6;
-        line-height: $height-input_large;
+        line-height: variables.$height-input_large;
     }
 
     &:hover {
-        background-color: $color-input_default-bg-hover;
-        border-color: $color-input_default-border-hover;
+        background-color: variables.$color-input_default-bg-hover;
+        border-color: variables.$color-input_default-border-hover;
     }
 
     // &:active {
@@ -81,17 +82,17 @@ $module: #{$prefix}-input;
     // }
 
     &-focus {
-        background-color: $color-input_default-bg-focus;
-        border: $color-input_default-border-focus solid $width-input_wrapper_focus-border;
+        background-color: variables.$color-input_default-bg-focus;
+        border: variables.$color-input_default-border-focus solid variables.$width-input_wrapper_focus-border;
 
         &:hover {
-            background-color: $color-input_default-bg-focus-hover;
-            border-color: $color-input_default-border-focus;
+            background-color: variables.$color-input_default-bg-focus-hover;
+            border-color: variables.$color-input_default-border-focus;
         }
 
         &:active {
-            background-color: $color-input_default-bg-active;
-            border-color: $color-input_default-border-focus;
+            background-color: variables.$color-input_default-bg-active;
+            border-color: variables.$color-input_default-border-focus;
         }
     }
 
@@ -100,42 +101,42 @@ $module: #{$prefix}-input;
     }
 
     &-error {
-        background-color: $color-input_danger-bg-default;
-        border-color: $color-input_danger-border-default;
+        background-color: variables.$color-input_danger-bg-default;
+        border-color: variables.$color-input_danger-border-default;
 
         &:hover {
-            background-color: $color-input_danger-bg-hover;
-            border-color: $color-input_danger-border-hover;
+            background-color: variables.$color-input_danger-bg-hover;
+            border-color: variables.$color-input_danger-border-hover;
         }
 
         &.#{$module}-wrapper-focus {
-            background-color: $color-input_danger-bg-focus;
-            border-color: $color-input_danger-border-focus;
+            background-color: variables.$color-input_danger-bg-focus;
+            border-color: variables.$color-input_danger-border-focus;
         }
 
         &:active {
-            background-color: $color-input_danger-bg-active;
-            border-color: $color-input_danger-border-focus;
+            background-color: variables.$color-input_danger-bg-active;
+            border-color: variables.$color-input_danger-border-focus;
         }
     }
 
     &-warning {
-        background-color: $color-input_warning-bg-default;
-        border-color: $color-input_warning-border-default;
+        background-color: variables.$color-input_warning-bg-default;
+        border-color: variables.$color-input_warning-border-default;
 
         &:hover {
-            background-color: $color-input_warning-bg-hover;
-            border-color: $color-input_warning-border-hover;
+            background-color: variables.$color-input_warning-bg-hover;
+            border-color: variables.$color-input_warning-border-hover;
         }
 
         &.#{$module}-wrapper-focus {
-            background-color: $color-input_warning-bg-focus;
-            border-color: $color-input_warning-border-focus;
+            background-color: variables.$color-input_warning-bg-focus;
+            border-color: variables.$color-input_warning-border-focus;
         }
 
         &:active {
-            background-color: $color-input_warning-bg-active;
-            border-color: $color-input_warning-border-focus;
+            background-color: variables.$color-input_warning-bg-active;
+            border-color: variables.$color-input_warning-border-focus;
         }
     }
 
@@ -168,12 +169,12 @@ $module: #{$prefix}-input;
     }
 
     .#{$prefix}-icon {
-        color: $color-input-icon-default;
+        color: variables.$color-input-icon-default;
     }
 
     .#{$module}-clearbtn,
     .#{$module}-modebtn {
-        color: $color-input-icon-hover;
+        color: variables.$color-input-icon-hover;
 
         & > svg {
             pointer-events: none;
@@ -183,34 +184,34 @@ $module: #{$prefix}-input;
             cursor: pointer;
 
             .#{$prefix}-icon {
-                color: $color-input-icon-hover;
+                color: variables.$color-input-icon-hover;
             }
         }
 
         &:focus-visible {
-            border-radius: $radius-input_wrapper;
-            outline: $width-input_icon-outline solid $color-input_icon-outline;
-            outline-offset: $width-input_icon-outlineOffset;
+            border-radius: variables.$radius-input_wrapper;
+            outline: variables.$width-input_icon-outline solid variables.$color-input_icon-outline;
+            outline-offset: variables.$width-input_icon-outlineOffset;
         }
     }
 
     &__with-suffix-icon.#{$module}-wrapper-clearable:not(.#{$module}-wrapper__with-suffix-hidden) {
         .#{$module}-clearbtn {
-            min-width: $width-input-icon_clear_before_suffix;
+            min-width: variables.$width-input-icon_clear_before_suffix;
             justify-content: flex-end;
         }
     }
 
     &-modebtn.#{$module}-wrapper-clearable {
         .#{$module}-clearbtn {
-            min-width: $width-input-icon_clear_before_modebtn;
+            min-width: variables.$width-input-icon_clear_before_modebtn;
             justify-content: center;
         }
     }
 
     &.#{$module}-wrapper__with-append-only {
         .#{$module} {
-            border-radius: 0 $radius-input_wrapper $radius-input_wrapper 0;
+            border-radius: 0 variables.$radius-input_wrapper variables.$radius-input_wrapper 0;
 
             &:not(:last-child) {
                 border-right-style: none;
@@ -221,7 +222,7 @@ $module: #{$prefix}-input;
 
     &.#{$module}-wrapper__with-prepend-only {
         .#{$module} {
-            border-radius: $radius-input_wrapper 0 0 $radius-input_wrapper;
+            border-radius: variables.$radius-input_wrapper 0 0 variables.$radius-input_wrapper;
 
             &:not(:last-child) {
                 border-right-style: none;
@@ -240,26 +241,26 @@ $module: #{$prefix}-input;
         }
 
         &.#{$module}-wrapper-focus {
-            border: $width-input_wrapper_focus-border $color-input_default-border-default solid;
+            border: variables.$width-input_wrapper_focus-border variables.$color-input_default-border-default solid;
             background-color: transparent;
         }
 
         .#{$module} {
-            background-color: $color-input_default-bg-default;
-            border: $width-input_wrapper_focus-border transparent solid;
+            background-color: variables.$color-input_default-bg-default;
+            border: variables.$width-input_wrapper_focus-border transparent solid;
 
             &:hover {
-                background-color: $color-input_default-bg-hover;
+                background-color: variables.$color-input_default-bg-hover;
 
                 & + .#{$module}-clearbtn,
                 & ~ .#{$module}-modebtn {
-                    background-color: $color-input_default-bg-hover;
+                    background-color: variables.$color-input_default-bg-hover;
                 }
             }
 
             &:focus {
-                border: $width-input_wrapper_focus-border $color-input_default-border-focus solid;
-                background-color: $color-input_default-bg-focus;
+                border: variables.$width-input_wrapper_focus-border variables.$color-input_default-border-focus solid;
+                background-color: variables.$color-input_default-bg-focus;
 
                 &.#{$module}-sibling-clearbtn,
                 &.#{$module}-sibling-modebtn {
@@ -276,12 +277,12 @@ $module: #{$prefix}-input;
                 & + .#{$module}-clearbtn,
                 & ~ .#{$module}-modebtn {
                     box-sizing: border-box;
-                    background-color: $color-input_default-bg-focus;
+                    background-color: variables.$color-input_default-bg-focus;
                 }
 
                 & + .#{$module}-clearbtn {
-                    border: $width-input_wrapper_focus-border $color-input_default-border-focus solid;
-                    border-radius: 0 $radius-input_wrapper $radius-input_wrapper 0;
+                    border: variables.$width-input_wrapper_focus-border variables.$color-input_default-border-focus solid;
+                    border-radius: 0 variables.$radius-input_wrapper variables.$radius-input_wrapper 0;
                     border-left-style: none;
 
                     &:not(:last-child) {
@@ -290,8 +291,8 @@ $module: #{$prefix}-input;
                 }
 
                 & ~ .#{$module}-modebtn {
-                    border: $width-input_wrapper_focus-border $color-input_default-border-focus solid;
-                    border-radius: 0 $radius-input_wrapper $radius-input_wrapper 0;
+                    border: variables.$width-input_wrapper_focus-border variables.$color-input_default-border-focus solid;
+                    border-radius: 0 variables.$radius-input_wrapper variables.$radius-input_wrapper 0;
                     border-left-style: none;
 
                     &:not(:last-child) {
@@ -302,11 +303,11 @@ $module: #{$prefix}-input;
 
             // when have prepend and append, only make the input have active bg color
             &:active {
-                background-color: $color-input_default-bg-active;
+                background-color: variables.$color-input_default-bg-active;
 
                 & + .#{$module}-clearbtn,
                 & ~ .#{$module}-modebtn {
-                    background-color: $color-input_default-bg-active;
+                    background-color: variables.$color-input_default-bg-active;
                 }
             }
 
@@ -314,10 +315,10 @@ $module: #{$prefix}-input;
             &-modebtn,
             &-clearbtn:hover,
             &-modebtn:hover {
-                background-color: $color-input_default-bg-default;
+                background-color: variables.$color-input_default-bg-default;
 
                 &:last-child {
-                    border-radius: 0 $radius-input_wrapper $radius-input_wrapper 0;
+                    border-radius: 0 variables.$radius-input_wrapper variables.$radius-input_wrapper 0;
                 }
             }
         }
@@ -326,37 +327,37 @@ $module: #{$prefix}-input;
             border-color: transparent;
 
             .#{$module} {
-                background-color: $color-input_danger-bg-default;
-                border-color: $color-input_danger-border-default;
+                background-color: variables.$color-input_danger-bg-default;
+                border-color: variables.$color-input_danger-border-default;
 
                 &:hover {
-                    background-color: $color-input_danger-bg-hover;
-                    border-color: $color-input_danger-border-hover;
+                    background-color: variables.$color-input_danger-bg-hover;
+                    border-color: variables.$color-input_danger-border-hover;
 
                     & + .#{$module}-clearbtn,
                     & + .#{$module}-modebtn {
-                        background-color: $color-input_danger-bg-hover;
+                        background-color: variables.$color-input_danger-bg-hover;
                     }
                 }
 
                 &:focus {
-                    background-color: $color-input_danger-bg-focus;
-                    border-color: $color-input_danger-border-focus;
+                    background-color: variables.$color-input_danger-bg-focus;
+                    border-color: variables.$color-input_danger-border-focus;
 
                     & + .#{$module}-clearbtn,
                     & + .#{$module}-modebtn {
-                        background-color: $color-input_danger-bg-focus;
-                        border-color: $color-input_danger-border-focus;
+                        background-color: variables.$color-input_danger-bg-focus;
+                        border-color: variables.$color-input_danger-border-focus;
                     }
                 }
 
                 &:active {
-                    background-color:  $color-input_danger-bg-active;
+                    background-color:  variables.$color-input_danger-bg-active;
 
                     & + .#{$module}-clearbtn,
                     & + .#{$module}-modebtn {
-                        background-color: $color-input_danger-bg-active;
-                        border-color: $color-input_danger-border-focus;
+                        background-color: variables.$color-input_danger-bg-active;
+                        border-color: variables.$color-input_danger-border-focus;
                     }
                 }
 
@@ -364,10 +365,10 @@ $module: #{$prefix}-input;
                 &-modebtn,
                 &-clearbtn:hover,
                 &-modebtn:hover {
-                    background-color: $color-input_danger-bg-default;
+                    background-color: variables.$color-input_danger-bg-default;
 
                     &:last-child {
-                        border-radius: 0 $radius-input_wrapper $radius-input_wrapper 0;
+                        border-radius: 0 variables.$radius-input_wrapper variables.$radius-input_wrapper 0;
                     }
                 }
             }
@@ -377,37 +378,37 @@ $module: #{$prefix}-input;
             border-color: transparent;
 
             .#{$module} {
-                background-color: $color-input_warning-bg-default;
-                border-color: $color-input_warning-border-default;
+                background-color: variables.$color-input_warning-bg-default;
+                border-color: variables.$color-input_warning-border-default;
 
                 &:hover {
-                    background-color: $color-input_warning-bg-hover;
-                    border-color: $color-input_warning-border-hover;
+                    background-color: variables.$color-input_warning-bg-hover;
+                    border-color: variables.$color-input_warning-border-hover;
 
                     & + .#{$module}-clearbtn,
                     & + .#{$module}-modebtn {
-                        background-color: $color-input_warning-bg-hover;
+                        background-color: variables.$color-input_warning-bg-hover;
                     }
                 }
 
                 &:focus {
-                    background-color: $color-input_warning-bg-focus;
-                    border-color: $color-input_warning-border-focus;
+                    background-color: variables.$color-input_warning-bg-focus;
+                    border-color: variables.$color-input_warning-border-focus;
 
                     & + .#{$module}-clearbtn,
                     & + .#{$module}-modebtn {
-                        background-color: $color-input_warning-bg-focus;
-                        border-color: $color-input_warning-border-focus;
+                        background-color: variables.$color-input_warning-bg-focus;
+                        border-color: variables.$color-input_warning-border-focus;
                     }
                 }
 
                 &:active {
-                    background-color:  $color-input_warning-bg-active;
+                    background-color:  variables.$color-input_warning-bg-active;
 
                     & + .#{$module}-clearbtn,
                     & + .#{$module}-modebtn {
-                        background-color: $color-input_warning-bg-active;
-                        border-color: $color-input_warning-border-focus;
+                        background-color: variables.$color-input_warning-bg-active;
+                        border-color: variables.$color-input_warning-border-focus;
                     }
                 }
 
@@ -415,10 +416,10 @@ $module: #{$prefix}-input;
                 &-modebtn,
                 &-clearbtn:hover,
                 &-modebtn:hover {
-                    background-color: $color-input_warning-bg-default;
+                    background-color: variables.$color-input_warning-bg-default;
 
                     &:last-child {
-                        border-radius: 0 $radius-input_wrapper $radius-input_wrapper 0;
+                        border-radius: 0 variables.$radius-input_wrapper variables.$radius-input_wrapper 0;
                     }
                 }
             }
@@ -428,12 +429,12 @@ $module: #{$prefix}-input;
     &-disabled {
         cursor: not-allowed;
         // border: $border-thickness-control $color-input_disabled-border-default solid;
-        color: $color-input_disabled-text-default;
-        background-color: $color-input_disabled-bg-default;
+        color: variables.$color-input_disabled-text-default;
+        background-color: variables.$color-input_disabled-bg-default;
         // fix issue 670 in safari
-        -webkit-text-fill-color: $color-input_disabled-text-default;
+        -webkit-text-fill-color: variables.$color-input_disabled-text-default;
         &:hover {
-            background-color: $color-input_disabled-bg-default;
+            background-color: variables.$color-input_disabled-bg-default;
         }
 
         .#{$module}-append,
@@ -441,7 +442,7 @@ $module: #{$prefix}-input;
         .#{$module}-suffix,
         .#{$module}-prefix,
         .#{$prefix}-icon {
-            color: $color-input_disabled-text-default;
+            color: variables.$color-input_disabled-text-default;
         }
     }
 }
@@ -451,8 +452,8 @@ $module: #{$prefix}-input;
     outline: none;
     width: 100%;
     color: inherit;
-    padding-left: $spacing-input-paddingLeft;
-    padding-right: $spacing-input-paddingRight;
+    padding-left: variables.$spacing-input-paddingLeft;
+    padding-right: variables.$spacing-input-paddingRight;
 
     background-color: transparent;
     box-sizing: border-box;
@@ -470,25 +471,25 @@ $module: #{$prefix}-input;
     }
 
     &::placeholder {
-        color: $color-input_placeholder-text-default;
+        color: variables.$color-input_placeholder-text-default;
     }
 
     &-large {
-        height: $height-input_large;
+        height: variables.$height-input_large;
         @include font-size-header-6;
-        line-height: $height-input_large;
+        line-height: variables.$height-input_large;
     }
 
     &-small {
-        height: $height-input_small;
+        height: variables.$height-input_small;
         @include font-size-regular;
-        line-height: $height-input_small;
+        line-height: variables.$height-input_small;
     }
 
     &-default {
-        height: $height-input_default;
+        height: variables.$height-input_default;
         @include font-size-regular;
-        line-height: $height-input_default;
+        line-height: variables.$height-input_default;
     }
 
     &-disabled {
@@ -506,9 +507,9 @@ $module: #{$prefix}-input;
     // }
 
     &-inset-label {
-        margin: 0 $spacing-input_prefix_suffix-marginX;
-        font-weight: $font-input_prefix_suffix-fontWeight;
-        color: $color-input_prefix-text-default;
+        margin: 0 variables.$spacing-input_prefix_suffix-marginX;
+        font-weight: variables.$font-input_prefix_suffix-fontWeight;
+        color: variables.$color-input_prefix-text-default;
         flex-shrink: 0;
         white-space: nowrap;
     }
@@ -518,15 +519,15 @@ $module: #{$prefix}-input;
         @include all-center;
 
         &-text {
-            margin: 0 $spacing-input_prefix_suffix-marginX;
-            color: $color-input_prefix-text-default;
-            font-weight: $font-input_prefix_suffix-fontWeight;
+            margin: 0 variables.$spacing-input_prefix_suffix-marginX;
+            color: variables.$color-input_prefix-text-default;
+            font-weight: variables.$font-input_prefix_suffix-fontWeight;
             white-space: nowrap;
         }
 
         &-icon {
-            color: $color-input-icon-default;
-            margin: $spacing-input_prefix_icon-marginY $spacing-input_prefix_icon-marginX;
+            color: variables.$color-input-icon-default;
+            margin: variables.$spacing-input_prefix_icon-marginY variables.$spacing-input_prefix_icon-marginX;
         }
     }
 
@@ -540,7 +541,7 @@ $module: #{$prefix}-input;
         align-items: center;
         height: 100%;
         justify-content: center;
-        min-width: $width-input-icon;
+        min-width: variables.$width-input-icon;
     }
 
     &-clearbtn + &-suffix {
@@ -563,30 +564,30 @@ $module: #{$prefix}-input;
         display: flex;
         align-items: center;
 
-        background-color: $color-input_default-bg-default;
-        color: $color-input_prefix-text-default;
+        background-color: variables.$color-input_default-bg-default;
+        color: variables.$color-input_prefix-text-default;
         @include font-size-regular;
         flex-shrink: 0;
 
         &-icon,
         &-text {
-            padding: $spacing-input_prepend-paddingY $spacing-input_prepend-paddingX;
+            padding: variables.$spacing-input_prepend-paddingY variables.$spacing-input_prepend-paddingX;
         }
     }
 
     &-append {
-        border-radius: 0 $radius-input_wrapper $radius-input_wrapper 0;
-        border-left: $width-input_append-border $color-input_default-border-default solid;
+        border-radius: 0 variables.$radius-input_wrapper variables.$radius-input_wrapper 0;
+        border-left: variables.$width-input_append-border variables.$color-input_default-border-default solid;
     }
 
     &-prepend {
-        border-radius: $radius-input_wrapper 0 0 $radius-input_wrapper;
-        border-right: $width-input_prepend-border $color-input_default-border-default solid;
+        border-radius: variables.$radius-input_wrapper 0 0 variables.$radius-input_wrapper;
+        border-right: variables.$width-input_prepend-border variables.$color-input_default-border-default solid;
     }
 
     &-disabled {
         &::placeholder {
-            color: $color-input_disabled-text-default;
+            color: variables.$color-input_disabled-text-default;
         }
     }
 
@@ -604,11 +605,11 @@ $module: #{$prefix}-input;
             border-radius: 0;
 
             &:first-child {
-                border-radius: $radius-input_wrapper 0 0 $radius-input_wrapper;
+                border-radius: variables.$radius-input_wrapper 0 0 variables.$radius-input_wrapper;
             }
 
             &:last-child {
-                border-radius: 0 $radius-input_wrapper $radius-input_wrapper 0;
+                border-radius: 0 variables.$radius-input_wrapper variables.$radius-input_wrapper 0;
             }
 
             &:not(:last-child) {
@@ -616,8 +617,8 @@ $module: #{$prefix}-input;
 
                 &::after {
                     content: '';
-                    background-color: $color-input_group-border-default;
-                    width: $width-input_group_pseudo-border;
+                    background-color: variables.$color-input_group-border-default;
+                    width: variables.$width-input_group_pseudo-border;
                     // height: $inputGroup-border-height;
                     position: absolute;
                     right: -1px;
@@ -644,14 +645,14 @@ $module: #{$prefix}-input;
             &:first-child {
                 .#{$module}-wrapper,
                 .#{$prefix}-datepicker-range-input {
-                    border-radius: $radius-input_wrapper 0 0 $radius-input_wrapper;
+                    border-radius: variables.$radius-input_wrapper 0 0 variables.$radius-input_wrapper;
                 }
             }
 
             &:last-child {
                 .#{$module}-wrapper,
                 .#{$prefix}-datepicker-range-input {
-                    border-radius: 0 $radius-input_wrapper $radius-input_wrapper 0;
+                    border-radius: 0 variables.$radius-input_wrapper variables.$radius-input_wrapper 0;
                 }
             }
 
@@ -660,8 +661,8 @@ $module: #{$prefix}-input;
 
                 &::after {
                     content: '';
-                    background-color: $color-input_group-border-default;
-                    width: $width-input_group_pseudo-border;
+                    background-color: variables.$color-input_group-border-default;
+                    width: variables.$width-input_group_pseudo-border;
                     // height: $inputGroup-border-height;
                     position: absolute;
                     right: -1px;
@@ -674,8 +675,8 @@ $module: #{$prefix}-input;
 
     &-group-wrapper {
         &-with-top-label {
-            margin-top: $spacing-input_group_withTopLabel-marginTop;
-            margin-bottom: $spacing-input_group_withTopLabel-marginBottom;
+            margin-top: variables.$spacing-input_group_withTopLabel-marginTop;
+            margin-bottom: variables.$spacing-input_group_withTopLabel-marginBottom;
 
             .#{$prefix}-input-group {
                 display: flex;
@@ -693,11 +694,11 @@ $module: #{$prefix}-input;
 
 .#{$module}-only_border{
     background: transparent;
-    border-color: $color_input-default-border-only_border-default;
+    border-color: variables.$color_input-default-border-only_border-default;
     
     &:hover{
         background: transparent;
-        border-color: $color_input-default-border-only_border-hover;
+        border-color: variables.$color_input-default-border-only_border-hover;
     }
     &:focus-within{
         background: transparent;
@@ -718,14 +719,14 @@ $module: #{$prefix}-input;
 
 
     &.#{$module}-wrapper-error:not(:focus-within){
-        border-color: $color-input_danger-border-focus;
+        border-color: variables.$color-input_danger-border-focus;
     }
 
     &.#{$module}-wrapper-warning:not(:focus-within){
-        border-color: $color-input_warning-border-focus;
+        border-color: variables.$color-input_warning-border-focus;
     }
 
 
 }
 
-@import "./rtl.scss";
+@include meta.load-css("rtl.scss");

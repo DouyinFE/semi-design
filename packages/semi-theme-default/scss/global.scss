@@ -1,4 +1,4 @@
-@import "./_palette.scss";
+@forward "_palette.scss";
 
 body, body[theme-mode="dark"] .semi-always-light, :host, :host .semi-always-light {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;

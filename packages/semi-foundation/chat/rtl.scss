@@ -1,4 +1,6 @@
 
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 $module: #{$prefix}-chat;
 
 .#{$prefix}-rtl,

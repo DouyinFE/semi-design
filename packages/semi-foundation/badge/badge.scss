@@ -1,4 +1,6 @@
-@import "./variables.scss";
+@use "sass:meta";
+@use "../../semi-theme-default/scss/index.scss" as *;
+@use "variables.scss" as *;
 
 $module: #{$prefix}-badge;
 
@@ -153,4 +155,4 @@ $module: #{$prefix}-badge;
 
 }
 
-@import "./rtl.scss";
+@include meta.load-css("rtl.scss");

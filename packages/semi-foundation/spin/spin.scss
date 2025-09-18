@@ -1,13 +1,14 @@
-@import "./animation.scss";
-@import './variables.scss';
-@import './mixin.scss';
+@use "sass:meta";
+@use "animation.scss";
+@use 'variables.scss';
+@use 'mixin.scss';
 
 $module: #{$prefix}-spin;
 
 .#{$module} {
     position: relative;
     display: inline-block;
-    @include size($width-spin_middle);
+    @include mixin.size(variables.$width-spin_middle);
 
     @keyframes #{$prefix}-animation-rotate {
         from {
@@ -24,25 +25,25 @@ $module: #{$prefix}-spin;
         width: 100%;
         transform: translateY(-50%);
         top: 50%;
-        color: $color-spin-bg;
+        color: variables.$color-spin-bg;
 
         & > svg {
             display: inline;
-            animation: $animation_duration-spin_wrapper-spin linear infinite #{$prefix}-animation-rotate;
+            animation: animation.$animation_duration-spin_wrapper-spin linear infinite #{$prefix}-animation-rotate;
             animation-fill-mode: forwards;
             vertical-align: top;
-            @include size($width-spin_middle);
+            @include mixin.size(variables.$width-spin_middle);
         }
     }
 
     &-animate {
         display: inline-flex;
-        animation: $animation_duration-spin_customChildren-spin linear infinite #{$prefix}-animation-rotate;
+        animation: animation.$animation_duration-spin_customChildren-spin linear infinite #{$prefix}-animation-rotate;
         animation-fill-mode: forwards;
     }
 
     &-children {
-        opacity: $opacity-spin_children;
+        opacity: variables.$opacity-spin_children;
         user-select: none;
     }
 
@@ -85,26 +86,26 @@ $module: #{$prefix}-spin;
 }
 
 .#{$module}-small {
-    @include size($width-spin_small);
+    @include mixin.size(variables.$width-spin_small);
 
     & > .#{$module}-wrapper svg {
-        @include size($width-spin_small);
+        @include mixin.size(variables.$width-spin_small);
     }
 }
 
 .#{$module}-middle {
-    @include size($width-spin_middle);
+    @include mixin.size(variables.$width-spin_middle);
 
     & > .#{$module}-wrapper svg {
-        @include size($width-spin_middle);
+        @include mixin.size(variables.$width-spin_middle);
     }
 }
 
 .#{$module}-large {
-    @include size($width-spin_large);
+    @include mixin.size(variables.$width-spin_large);
 
     & > .#{$module}-wrapper svg {
-        @include size($width-spin_large);
+        @include mixin.size(variables.$width-spin_large);
     }
 }
 
@@ -112,4 +113,4 @@ $module: #{$prefix}-spin;
     overflow: hidden;
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

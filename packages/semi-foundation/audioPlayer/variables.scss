@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $color-audio-player-background: rgba(var(--semi-grey-9), .8);
 $color-audio-player-control-icon: var(--semi-color-bg-0);
 $color-audio-player-control-icon-play: var(--semi-color-text-0);

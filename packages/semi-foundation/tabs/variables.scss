@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $color-tabs_tab_line_default-border-default: var(--semi-color-border); // 线条式页签描边颜色默认
 
 $color-tabs_tab_line_default-bg-default: transparent; // 线条式页签背景颜色 - 默认

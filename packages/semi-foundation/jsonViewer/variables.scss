@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $color-json-viewer-background: var(--semi-color-default); // JSON背景颜色
 $color-json-viewer-key: rgba(var(--semi-red-5), 1); // JSON key 颜色
 $color-json-viewer-value: rgba(var(--semi-blue-5), 1); 

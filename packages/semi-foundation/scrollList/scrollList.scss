@@ -1,7 +1,8 @@
 //@import '../theme/variables.scss';
 // @import '../theme/_font.scss';
-@import './animation.scss';
-@import './variables.scss';
+@use "sass:meta";
+@use 'animation.scss';
+@use 'variables.scss';
 
 
 $module: #{$prefix}-scrolllist;
@@ -9,9 +10,9 @@ $module: #{$prefix}-scrolllist;
 .#{$module} {
     width: 100%;
     height: 100%;
-    background: $color-scrollList-bg;
-    box-shadow: $shadow-scrollList;
-    border-radius: $radius-scrollList;
+    background: variables.$color-scrollList-bg;
+    box-shadow: variables.$shadow-scrollList;
+    border-radius: variables.$radius-scrollList;
     overflow: hidden;
     @include font-size-regular;
     user-select: none;
@@ -21,13 +22,13 @@ $module: #{$prefix}-scrolllist;
 
     &-header {
         text-align: center;
-        padding: $spacing-scrollList_header-paddingY $spacing-scrollList_header-paddingX;
-        background: $color-scrollList_header-bg;
+        padding: variables.$spacing-scrollList_header-paddingY variables.$spacing-scrollList_header-paddingX;
+        background: variables.$color-scrollList_header-bg;
 
         &-title {
-            padding: $spacing-scrollList_header_title-paddingY $spacing-scrollList_header_title-paddingX;
-            font-weight: $font-scrollList_header_title-fontWeight;
-            color: $color-scrollList_header-title;
+            padding: variables.$spacing-scrollList_header_title-paddingY variables.$spacing-scrollList_header_title-paddingX;
+            font-weight: variables.$font-scrollList_header_title-fontWeight;
+            color: variables.$color-scrollList_header-title;
 
             @include font-size-regular;
         }
@@ -35,8 +36,8 @@ $module: #{$prefix}-scrolllist;
 
     &-body {
         display: flex;
-        height: $height-scrollList;
-        padding: $spacing-scrollList_body-paddingY $spacing-scrollList_body-paddingX;
+        height: variables.$height-scrollList;
+        padding: variables.$spacing-scrollList_body-paddingY variables.$spacing-scrollList_body-paddingX;
         overflow: hidden;
 
         .#{$module}-item-wheel .#{$module}-list-outer-nocycle,
@@ -46,7 +47,7 @@ $module: #{$prefix}-scrolllist;
                     content: '';
                     display: block;
                     width: 100%;
-                    height: ($height-scrollList - $height-scrollList_item) * 0.5;
+                    height: (variables.$height-scrollList - variables.$height-scrollList_item) * 0.5;
                 }
             }
         }
@@ -58,7 +59,7 @@ $module: #{$prefix}-scrolllist;
             overflow-y: auto;
 
             &:not(:last-child) {
-                border-right: $width-scrollList_item-border solid $color-scrollList-border;
+                border-right: variables.$width-scrollList_item-border solid variables.$color-scrollList-border;
             }
         }
 
@@ -67,33 +68,33 @@ $module: #{$prefix}-scrolllist;
             & > ul {
                 box-sizing: border-box;
                 width: 100%;
-                margin: $spacing-scrollList_item_ul-margin;
-                padding: $spacing-scrollList_item_ul-padding;
-                padding-bottom: $spacing-scrollList_item_ul-paddingBottom;
+                margin: variables.$spacing-scrollList_item_ul-margin;
+                padding: variables.$spacing-scrollList_item_ul-padding;
+                padding-bottom: variables.$spacing-scrollList_item_ul-paddingBottom;
                 list-style: none;
 
                 & > li {
                     list-style: none;
-                    height: $height-scrollList_item;
+                    height: variables.$height-scrollList_item;
                     box-sizing: border-box;
-                    color: $color-scrollList_item-text;
+                    color: variables.$color-scrollList_item-text;
                     text-align: center;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     // padding: 8px 18px;
                     cursor: pointer;
-                    background-color: $color-scrollList_item-bg;
-                    transition: background-color $transition_duration-scrollList_selected_item-bg $transition_function-scrollList_selected_item-bg $transition_delay-scrollList_selected_item-bg;
+                    background-color: variables.$color-scrollList_item-bg;
+                    transition: background-color animation.$transition_duration-scrollList_selected_item-bg animation.$transition_function-scrollList_selected_item-bg animation.$transition_delay-scrollList_selected_item-bg;
                     &.#{$module}-item-sel {
-                        background: $color-scrollList_selected_item-bg;
-                        color: $color-scrollList_selected_item-text;
+                        background: variables.$color-scrollList_selected_item-bg;
+                        color: variables.$color-scrollList_selected_item-text;
 
                         > svg {
-                            color: $color-scrollList_selected_item-icon;
-                            width: $width-scrollList_item_sel_svg;
-                            height: $width-scrollList_item_sel_svg;
-                            margin-right: $spacing-scrollList_item_sel_svg-marginRight;
+                            color: variables.$color-scrollList_selected_item-icon;
+                            width: variables.$width-scrollList_item_sel_svg;
+                            height: variables.$width-scrollList_item_sel_svg;
+                            margin-right: variables.$spacing-scrollList_item_sel_svg-marginRight;
                         }
                     }
 
@@ -101,15 +102,15 @@ $module: #{$prefix}-scrolllist;
                         cursor: pointer;
 
                         &:hover {
-                            background-color: $color-scrollList_item-text-hover;
+                            background-color: variables.$color-scrollList_item-text-hover;
                         }
 
                         &:active {
-                            background-color: $color-scrollList_item-bg-active;
+                            background-color: variables.$color-scrollList_item-bg-active;
                         }
                     }
                     &.#{$module}-item-disabled {
-                        color: $color-scrollList_disabled_item-text;
+                        color: variables.$color-scrollList_disabled_item-text;
                         cursor: not-allowed;
                     }
                 }
@@ -122,11 +123,11 @@ $module: #{$prefix}-scrolllist;
             overflow: hidden;
 
             &:not(:last-child) {
-                border-right: $border-thickness-control solid $color-scrollList-border;
+                border-right: $border-thickness-control solid variables.$color-scrollList-border;
             }
 
             .#{$module}-item-selected {
-                font-weight: $font-scrollList_item_wheel_item_selected-fontWeight;
+                font-weight: variables.$font-scrollList_item_wheel_item_selected-fontWeight;
                 color: var(--semi-color-primary) !important;
             }
 
@@ -135,7 +136,7 @@ $module: #{$prefix}-scrolllist;
                 overflow-y: auto;
                 height: 100%;
                 width: 100%;
-                padding-right: $spacing-scrollList_item_wheel_list_outer-paddingRight;
+                padding-right: variables.$spacing-scrollList_item_wheel_list_outer-paddingRight;
             }
 
             .#{$module}-shade {
@@ -146,15 +147,15 @@ $module: #{$prefix}-scrolllist;
 
                 &-pre {
                     top: 0;
-                    margin-top: $spacing-scrollList_item_wheel_list_shade_pre-marginTop;
-                    background: $color-scrollList-bg;
+                    margin-top: variables.$spacing-scrollList_item_wheel_list_shade_pre-marginTop;
+                    background: variables.$color-scrollList-bg;
                     opacity: 0.5;
                 }
 
                 &-post {
                     top: 50%;
-                    margin-top: $spacing-scrollList_item_wheel_list_shade_post-marginTop;
-                    background: $color-scrollList-bg;
+                    margin-top: variables.$spacing-scrollList_item_wheel_list_shade_post-marginTop;
+                    background: variables.$color-scrollList-bg;
                     opacity: 0.5;
                 }
             }
@@ -163,22 +164,22 @@ $module: #{$prefix}-scrolllist;
                 pointer-events: none;
                 position: absolute;
                 top: 50%;
-                border-top: $width-scrollList_item_wheel_selector-border solid $color-scrollList-border;
-                border-bottom: $width-scrollList_item_wheel_selector-border solid $color-scrollList-border;
-                height: $height-scrollList_item;
+                border-top: variables.$width-scrollList_item_wheel_selector-border solid variables.$color-scrollList-border;
+                border-bottom: variables.$width-scrollList_item_wheel_selector-border solid variables.$color-scrollList-border;
+                height: variables.$height-scrollList_item;
                 width: 100%;
                 transform: translateY(-50%);
             }
         }
     }
     .#{$module}-footer {
-        border-top: $width-scrollList_footer-border solid $color-scrollList_footer-border;
-        padding: $spacing-scrollList_footer-padding;
+        border-top: variables.$width-scrollList_footer-border solid variables.$color-scrollList_footer-border;
+        padding: variables.$spacing-scrollList_footer-padding;
     }
     .#{$module}-line {
-        background: $color-scrollList-border;
-        height: $height-scrollList_line;
+        background: variables.$color-scrollList-border;
+        height: variables.$height-scrollList_line;
     }
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

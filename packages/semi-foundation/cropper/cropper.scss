@@ -1,7 +1,7 @@
-@import "./variables.scss";
+@use "variables.scss";
 $module: #{$prefix}-cropper;
 
-$half_corner_width: calc($width-cropper_box_corner / 2);
+$half_corner_width: calc(variables.$width-cropper_box_corner / 2);
 
 .#{$module} {
     position: relative;
@@ -26,19 +26,19 @@ $half_corner_width: calc($width-cropper_box_corner / 2);
       left: 0;
       width: 100%;
       height: 100%;
-      background: $color-cropper_mask-bg;
+      background: variables.$color-cropper_mask-bg;
       cursor: move;;
     }
 
     &-box {
       position: absolute;
-      outline: $width-cropper_box-outline solid $color-cropper_box-outline;
+      outline: variables.$width-cropper_box-outline solid variables.$color-cropper_box-outline;
 
       &-corner {
         position: absolute;
-        background: $color-cropper_box_corner-bg;
-        width: $width-cropper_box_corner;
-        height: $width-cropper_box_corner;
+        background: variables.$color-cropper_box_corner-bg;
+        width: variables.$width-cropper_box_corner;
+        height: variables.$width-cropper_box_corner;
         z-index: 1;
 
         &-tl {

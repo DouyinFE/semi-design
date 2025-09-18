@@ -1,5 +1,6 @@
-@import './animation.scss';
-@import './variables.scss';
+@use "sass:meta";
+@use 'animation.scss';
+@use 'variables.scss';
 
 $module: #{$prefix}-carousel;
 
@@ -74,162 +75,162 @@ $module: #{$prefix}-carousel;
 
         &-left {
             position: absolute;
-            left: $spacing-carousel_indicator-padding;
-            bottom: $spacing-carousel_indicator-padding;
+            left: variables.$spacing-carousel_indicator-padding;
+            bottom: variables.$spacing-carousel_indicator-padding;
         }
 
         &-center {
             position: absolute;
             left: 50%;
-            bottom: $spacing-carousel_indicator-padding;
+            bottom: variables.$spacing-carousel_indicator-padding;
             transform: translate(-50%);
         }
 
         &-right {
             position: absolute;
-            right: $spacing-carousel_indicator-padding;
-            bottom: $spacing-carousel_indicator-padding;
+            right: variables.$spacing-carousel_indicator-padding;
+            bottom: variables.$spacing-carousel_indicator-padding;
         }
 
         &-dot {
             .#{$module}-indicator-item {
-                border-radius: $radius-carousel_indicator_dot;
+                border-radius: variables.$radius-carousel_indicator_dot;
                 cursor: pointer;
 
                 &:not(:last-child) {
-                    margin-right: $spacing-carousel_indicator_dot-marginX;
+                    margin-right: variables.$spacing-carousel_indicator_dot-marginX;
                 }
 
                 &-small {
-                    width: $width-carousel_indicator_dot_small;
-                    height: $width-carousel_indicator_dot_small;
+                    width: variables.$width-carousel_indicator_dot_small;
+                    height: variables.$width-carousel_indicator_dot_small;
                 }
 
                 &-medium {
-                    width: $width-carousel_indicator_dot_medium;
-                    height: $width-carousel_indicator_dot_medium;
+                    width: variables.$width-carousel_indicator_dot_medium;
+                    height: variables.$width-carousel_indicator_dot_medium;
                 }
 
                 &-primary {
-                    background-color: $color-carousel_indicator_theme_primary-bg-default;
-                    transition: background-color $transition_duration-carousel_indicator-bg
-                        $transition_function-carousel_indicator-bg $transition_delay-carousel_indicator-bg;
+                    background-color: variables.$color-carousel_indicator_theme_primary-bg-default;
+                    transition: background-color animation.$transition_duration-carousel_indicator-bg
+                        animation.$transition_function-carousel_indicator-bg animation.$transition_delay-carousel_indicator-bg;
 
                     &.#{$module}-indicator-item-active {
-                        background: $color-carousel_indicator_theme_primary-bg-active;
+                        background: variables.$color-carousel_indicator_theme_primary-bg-active;
                     }
 
                     &:hover {
-                        background-color: $color-carousel_indicator_theme_primary-bg-hover;
+                        background-color: variables.$color-carousel_indicator_theme_primary-bg-hover;
                     }
 
                     &:active {
-                        background: $color-carousel_indicator_theme_primary-bg-active;
+                        background: variables.$color-carousel_indicator_theme_primary-bg-active;
                     }
                 }
 
                 &-light {
-                    background-color: $color-carousel_indicator_theme_light-bg-default;
-                    transition: background-color $transition_duration-carousel_indicator-bg
-                        $transition_function-carousel_indicator-bg $transition_delay-carousel_indicator-bg;
+                    background-color: variables.$color-carousel_indicator_theme_light-bg-default;
+                    transition: background-color animation.$transition_duration-carousel_indicator-bg
+                        animation.$transition_function-carousel_indicator-bg animation.$transition_delay-carousel_indicator-bg;
 
                     &.#{$module}-indicator-item-active {
-                        background: $color-carousel_indicator_theme_light-bg-active;
+                        background: variables.$color-carousel_indicator_theme_light-bg-active;
                     }
 
                     &:hover {
-                        background-color: $color-carousel_indicator_theme_light-bg-hover;
+                        background-color: variables.$color-carousel_indicator_theme_light-bg-hover;
                     }
 
                     &:active {
-                        background: $color-carousel_indicator_theme_light-bg-active;
+                        background: variables.$color-carousel_indicator_theme_light-bg-active;
                     }
                 }
 
                 &-dark {
-                    background-color: $color-carousel_indicator_theme_dark-bg-default;
-                    transition: background-color $transition_duration-carousel_indicator-bg
-                        $transition_function-carousel_indicator-bg $transition_delay-carousel_indicator-bg;
+                    background-color: variables.$color-carousel_indicator_theme_dark-bg-default;
+                    transition: background-color animation.$transition_duration-carousel_indicator-bg
+                        animation.$transition_function-carousel_indicator-bg animation.$transition_delay-carousel_indicator-bg;
 
                     &.#{$module}-indicator-item-active {
-                        background-color: $color-carousel_indicator_theme_dark-bg-active;
+                        background-color: variables.$color-carousel_indicator_theme_dark-bg-active;
                     }
 
                     &:hover {
-                        background-color: $color-carousel_indicator_theme_dark-bg-hover;
+                        background-color: variables.$color-carousel_indicator_theme_dark-bg-hover;
                     }
 
                     &:active {
-                        background: $color-carousel_indicator_theme_dark-bg-active;
+                        background: variables.$color-carousel_indicator_theme_dark-bg-active;
                     }
                 }
             }
         }
 
         &-line {
-            width: $width-carousel_indicator_line;
+            width: variables.$width-carousel_indicator_line;
 
             .#{$module}-indicator-item {
                 flex: 1;
                 cursor: pointer;
 
                 &:not(:last-child) {
-                    margin-right: $spacing-carousel_indicator_line-marginX;
+                    margin-right: variables.$spacing-carousel_indicator_line-marginX;
                 }
 
                 &-small {
-                    height: $height-carousel_indicator_line_small;
+                    height: variables.$height-carousel_indicator_line_small;
                 }
 
                 &-medium {
-                    height: $height-carousel_indicator_line_medium;
+                    height: variables.$height-carousel_indicator_line_medium;
                 }
 
                 &-primary {
-                    background-color: $color-carousel_indicator_theme_primary-bg-default;
+                    background-color: variables.$color-carousel_indicator_theme_primary-bg-default;
 
                     &.#{$module}-indicator-item-active {
-                        background: $color-carousel_indicator_theme_primary-bg-active;
+                        background: variables.$color-carousel_indicator_theme_primary-bg-active;
                     }
 
                     &:hover {
-                        background-color: $color-carousel_indicator_theme_primary-bg-hover;
+                        background-color: variables.$color-carousel_indicator_theme_primary-bg-hover;
                     }
 
                     &:active {
-                        background: $color-carousel_indicator_theme_primary-bg-active;
+                        background: variables.$color-carousel_indicator_theme_primary-bg-active;
                     }
                 }
 
                 &-light {
-                    background-color: $color-carousel_indicator_theme_light-bg-default;
+                    background-color: variables.$color-carousel_indicator_theme_light-bg-default;
 
                     &.#{$module}-indicator-item-active {
-                        background: $color-carousel_indicator_theme_light-bg-active;
+                        background: variables.$color-carousel_indicator_theme_light-bg-active;
                     }
 
                     &:hover {
-                        background-color: $color-carousel_indicator_theme_light-bg-hover;
+                        background-color: variables.$color-carousel_indicator_theme_light-bg-hover;
                     }
 
                     &:active {
-                        background: $color-carousel_indicator_theme_light-bg-active;
+                        background: variables.$color-carousel_indicator_theme_light-bg-active;
                     }
                 }
 
                 &-dark {
-                    background-color: $color-carousel_indicator_theme_dark-bg-default;
+                    background-color: variables.$color-carousel_indicator_theme_dark-bg-default;
 
                     &.#{$module}-indicator-item-active {
-                        background: $color-carousel_indicator_theme_dark-bg-active;
+                        background: variables.$color-carousel_indicator_theme_dark-bg-active;
                     }
 
                     &:hover {
-                        background-color: $color-carousel_indicator_theme_dark-bg-hover;
+                        background-color: variables.$color-carousel_indicator_theme_dark-bg-hover;
                     }
 
                     &:active {
-                        background: $color-carousel_indicator_theme_dark-bg-active;
+                        background: variables.$color-carousel_indicator_theme_dark-bg-active;
                     }
                 }
             }
@@ -240,72 +241,72 @@ $module: #{$prefix}-carousel;
                 cursor: pointer;
 
                 &:not(:last-child) {
-                    margin-right: $spacing-carousel_indicator_columnar-marginX;
+                    margin-right: variables.$spacing-carousel_indicator_columnar-marginX;
                 }
 
                 &-small {
-                    width: $width-carousel_indicator_columnar_small;
-                    height: $height-carousel_indicator_columnar_small_default;
+                    width: variables.$width-carousel_indicator_columnar_small;
+                    height: variables.$height-carousel_indicator_columnar_small_default;
 
                     &.#{$module}-indicator-item-active {
-                        height: $height-carousel_indicator_columnar_small_active;
+                        height: variables.$height-carousel_indicator_columnar_small_active;
                     }
                 }
 
                 &-medium {
-                    width: $width-carousel_indicator_columnar_medium;
-                    height: $height-carousel_indicator_columnar_medium_default;
+                    width: variables.$width-carousel_indicator_columnar_medium;
+                    height: variables.$height-carousel_indicator_columnar_medium_default;
 
                     &.#{$module}-indicator-item-active {
-                        height: $height-carousel_indicator_columnar_medium_active;
+                        height: variables.$height-carousel_indicator_columnar_medium_active;
                     }
                 }
 
                 &-primary {
-                    background-color: $color-carousel_indicator_theme_primary-bg-default;
+                    background-color: variables.$color-carousel_indicator_theme_primary-bg-default;
 
                     &.#{$module}-indicator-item-active {
-                        background: $color-carousel_indicator_theme_primary-bg-active;
+                        background: variables.$color-carousel_indicator_theme_primary-bg-active;
                     }
 
                     &:hover {
-                        background-color: $color-carousel_indicator_theme_primary-bg-hover;
+                        background-color: variables.$color-carousel_indicator_theme_primary-bg-hover;
                     }
 
                     &:active {
-                        background: $color-carousel_indicator_theme_primary-bg-active;
+                        background: variables.$color-carousel_indicator_theme_primary-bg-active;
                     }
                 }
 
                 &-light {
-                    background-color: $color-carousel_indicator_theme_light-bg-default;
+                    background-color: variables.$color-carousel_indicator_theme_light-bg-default;
 
                     &.#{$module}-indicator-item-active {
-                        background: $color-carousel_indicator_theme_light-bg-active;
+                        background: variables.$color-carousel_indicator_theme_light-bg-active;
                     }
 
                     &:hover {
-                        background-color: $color-carousel_indicator_theme_light-bg-hover;
+                        background-color: variables.$color-carousel_indicator_theme_light-bg-hover;
                     }
 
                     &:active {
-                        background: $color-carousel_indicator_theme_light-bg-active;
+                        background: variables.$color-carousel_indicator_theme_light-bg-active;
                     }
                 }
 
                 &-dark {
-                    background-color: $color-carousel_indicator_theme_dark-bg-default;
+                    background-color: variables.$color-carousel_indicator_theme_dark-bg-default;
 
                     &.#{$module}-indicator-item-active {
-                        background: $color-carousel_indicator_theme_dark-bg-active;
+                        background: variables.$color-carousel_indicator_theme_dark-bg-active;
                     }
 
                     &:hover {
-                        background-color: $color-carousel_indicator_theme_dark-bg-hover;
+                        background-color: variables.$color-carousel_indicator_theme_dark-bg-hover;
                     }
 
                     &:active {
-                        background: $color-carousel_indicator_theme_dark-bg-active;
+                        background: variables.$color-carousel_indicator_theme_dark-bg-active;
                     }
                 }
             }
@@ -314,13 +315,13 @@ $module: #{$prefix}-carousel;
 
     &-arrow {
         display: flex;
-        font-size: $width-carousel_arrow;
+        font-size: variables.$width-carousel_arrow;
         cursor: pointer;
 
         &-prev {
             position: absolute;
             top: 50%;
-            left: $spacing-carousel_arrow-left;
+            left: variables.$spacing-carousel_arrow-left;
             transform: translateY(-50%);
             z-index: 2;
         }
@@ -328,38 +329,38 @@ $module: #{$prefix}-carousel;
         &-next {
             position: absolute;
             top: 50%;
-            right: $spacing-carousel_arrow-right;
+            right: variables.$spacing-carousel_arrow-right;
             transform: translateY(-50%);
             z-index: 2;
         }
 
         &-light {
-            color: $color-carousel_arrow_theme_light-bg-default;
-            transition: color $transition_duration-carousel_arrow-bg $transition_funciton_carousel_arrow-bg
-                $transition_delay-carousel_arrow-bg;
+            color: variables.$color-carousel_arrow_theme_light-bg-default;
+            transition: color animation.$transition_duration-carousel_arrow-bg animation.$transition_funciton_carousel_arrow-bg
+                animation.$transition_delay-carousel_arrow-bg;
 
             &:hover {
-                color: $color-carousel_arrow_theme_light-bg-hover;
+                color: variables.$color-carousel_arrow_theme_light-bg-hover;
             }
         }
 
         &-primary {
-            color: $color-carousel_arrow_theme_primary-bg-default;
-            transition: color $transition_duration-carousel_arrow-bg $transition_funciton_carousel_arrow-bg
-                $transition_delay-carousel_arrow-bg;
+            color: variables.$color-carousel_arrow_theme_primary-bg-default;
+            transition: color animation.$transition_duration-carousel_arrow-bg animation.$transition_funciton_carousel_arrow-bg
+                animation.$transition_delay-carousel_arrow-bg;
 
             &:hover {
-                color: $color-carousel_arrow_theme_primary-bg-hover;
+                color: variables.$color-carousel_arrow_theme_primary-bg-hover;
             }
         }
 
         &-dark {
-            color: $color-carousel_arrow_theme_dark-bg-default;
-            transition: color $transition_duration-carousel_arrow-bg $transition_funciton_carousel_arrow-bg
-                $transition_delay-carousel_arrow-bg;
+            color: variables.$color-carousel_arrow_theme_dark-bg-default;
+            transition: color animation.$transition_duration-carousel_arrow-bg animation.$transition_funciton_carousel_arrow-bg
+                animation.$transition_delay-carousel_arrow-bg;
 
             &:hover {
-                color: $color-carousel_arrow_theme_dark-bg-hover;
+                color: variables.$color-carousel_arrow_theme_dark-bg-hover;
             }
         }
     }
@@ -416,4 +417,4 @@ $module: #{$prefix}-carousel;
     }
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

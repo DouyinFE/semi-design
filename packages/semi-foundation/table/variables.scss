@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 // Spacing
 $spacing-table-paddingY: $spacing-base; // 表格单元格垂直内边距
 $spacing-table-paddingX: $spacing-base-tight; // 表格单元格水平内边距

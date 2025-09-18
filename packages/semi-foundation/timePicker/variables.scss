@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 // Color
 $color-timePicker_range_picker_panel_split-border: var(--semi-color-border); // 时间选择器菜单分割线颜色
 $color-timePicker_range_panel-border: rgba(0, 0, 0, .1); // 时间选择器描边颜色

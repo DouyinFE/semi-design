@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 // Color
 $color-anchor_slide_default-bg-default: var(--semi-color-border); // 滑轨背景颜色
 $color-anchor_slide_primary-bg-active: var(--semi-color-primary); // 选中颜色 - Primary

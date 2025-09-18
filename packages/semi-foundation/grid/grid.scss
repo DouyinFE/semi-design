@@ -1,12 +1,14 @@
 //@import '../theme/variables.scss';
-@import './variables.scss';
-@import './mixin.scss';
+@use "sass:meta";
+@use '../../semi-theme-default/scss/index.scss' as *;
+@use 'variables.scss';
 $module: #{$prefix};
+@use 'mixin.scss';
 
 .#{$module}-row {
     display: block;
     box-sizing: border-box;
-    @include make-row();
+    @include mixin.make-row();
 }
 
 .#{$module}-row-flex {
@@ -67,55 +69,55 @@ $module: #{$prefix};
     position: relative;
 }
 
-@include make-grid-columns();
-@include make-grid();
+@include mixin.make-grid-columns();
+@include mixin.make-grid();
 
 // Extra small grid
 //
 // Columns, offsets, pushes, and pulls for extra small devices like
 // smartphones.
 
-@include make-grid(-xs);
+@include mixin.make-grid(-xs);
 
 // // Small grid
 // //
 // // Columns, offsets, pushes, and pulls for the small device range, from phones
 // // to tablets.
 
-@media (min-width: $width-grid_screen-sm-min) {
-    @include make-grid(-sm);
+@media (min-width: variables.$width-grid_screen-sm-min) {
+    @include mixin.make-grid(-sm);
 }
 
 // // Medium grid
 // //
 // // Columns, offsets, pushes, and pulls for the desktop device range.
 
-@media (min-width: $width-grid_screen-md-min) {
-    @include make-grid(-md);
+@media (min-width: variables.$width-grid_screen-md-min) {
+    @include mixin.make-grid(-md);
 }
 
 // // Large grid
 // //
 // // Columns, offsets, pushes, and pulls for the large desktop device range.
 
-@media (min-width: $width-grid_screen-lg-min) {
-    @include make-grid(-lg);
+@media (min-width: variables.$width-grid_screen-lg-min) {
+    @include mixin.make-grid(-lg);
 }
 
 // // Extra Large grid
 // //
 // // Columns, offsets, pushes, and pulls for the full hd device range.
 
-@media (min-width: $width-grid_screen-xl-min) {
-    @include make-grid(-xl);
+@media (min-width: variables.$width-grid_screen-xl-min) {
+    @include mixin.make-grid(-xl);
 }
 
 // // Extra Extra Large grid
 // //
 // // Columns, offsets, pushes, and pulls for the full hd device range.
 
-@media (min-width: $width-grid_screen-xxl-min) {
-    @include make-grid(-xxl);
+@media (min-width: variables.$width-grid_screen-xxl-min) {
+    @include mixin.make-grid(-xxl);
 }
 
-@import "./rtl.scss";
+@include meta.load-css("rtl.scss");

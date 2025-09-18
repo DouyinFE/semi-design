@@ -1,4 +1,5 @@
-@import './variables.scss';
+@use './variables.scss' as *;
+@use '../../../semi-theme-default/scss/index.scss' as *;
 
 .#{$prefix}-icon {
     display: inline-block;

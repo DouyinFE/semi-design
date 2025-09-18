@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 // primary
 $color-button_primary-bg-default: var(--semi-color-primary); // 主要按钮背景颜色
 $color-button_primary-border-default: transparent; // 主要按钮描边颜色

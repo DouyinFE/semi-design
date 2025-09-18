@@ -1,8 +1,9 @@
 //@import '../theme/variables.scss';
 // @import '../theme/mixin.scss';
 // @import '../theme/_font.scss';
-@import "./animation.scss";
-@import './variables.scss';
+@use "sass:meta";
+@use "animation.scss";
+@use 'variables.scss';
 
 $module: #{$prefix}-breadcrumb;
 
@@ -15,30 +16,30 @@ $module: #{$prefix}-breadcrumb;
 
         &-loose {
             @include font-size-regular;
-            font-size: $font-breadcrumb_loose-fontSize;
+            font-size: variables.$font-breadcrumb_loose-fontSize;
         }
 
         &-compact {
             @include font-size-small;
-            font-size: $font-breadcrumb_compact-fontSize;
+            font-size: variables.$font-breadcrumb_compact-fontSize;
         }
     }
 
     &-item-wrap {
         display: inline-flex;
         align-items: center;
-        margin: $spacing-breadcrumb_item_wrap-marginY 0px;
-        margin-right: $spacing-breadcrumb_item_wrap-marginRight;
+        margin: variables.$spacing-breadcrumb_item_wrap-marginY 0px;
+        margin-right: variables.$spacing-breadcrumb_item_wrap-marginRight;
     }
 
     &-item {
         display: inline-flex;
         align-items: center;
-        column-gap: $spacing-breadcrumb_item_text-marginLeft;
+        column-gap: variables.$spacing-breadcrumb_item_text-marginLeft;
         // flex-shrink: 0;
-        margin-right: $spacing-breadcrumb_item-marginRight;
-        color: $color-breadcrumb_default-text-default;
-        font-weight: $font-breadcrumb_default-fontWeight;
+        margin-right: variables.$spacing-breadcrumb_item-marginRight;
+        color: variables.$color-breadcrumb_default-text-default;
+        font-weight: variables.$font-breadcrumb_default-fontWeight;
 
         .#{$prefix}-typography {
             color: inherit;
@@ -61,19 +62,19 @@ $module: #{$prefix}-breadcrumb;
     }
 
     &-item-active {
-        color: $color-breadcrumb_active-text-default;
-        font-weight: $font-breadcrumb_active-fontWeight;
+        color: variables.$color-breadcrumb_active-text-default;
+        font-weight: variables.$font-breadcrumb_active-fontWeight;
 
         &:hover,
         &:active {
             border: none;
             margin-bottom: 0px;
-            color: $color-breadcrumb_active-text-active;
+            color: variables.$color-breadcrumb_active-text-active;
             cursor: default;
         }
 
         .#{$prefix}-typography {
-            font-weight: $font-breadcrumb_active-fontWeight;
+            font-weight: variables.$font-breadcrumb_active-fontWeight;
         }
     }
 
@@ -94,16 +95,16 @@ $module: #{$prefix}-breadcrumb;
 
     &-item-link {
         text-decoration: inherit;
-        transition: color $transition_duration-breadcrumb_link-text $transition-function_breadcrumb_link-text $transition_delay-breadcrumb_link-text;
-        transform: scale($transform_scale-breadcrumb_link-text);
+        transition: color animation.$transition_duration-breadcrumb_link-text animation.$transition-function_breadcrumb_link-text animation.$transition_delay-breadcrumb_link-text;
+        transform: scale(animation.$transform_scale-breadcrumb_link-text);
 
         &:hover {
-            color: $color-breadcrumb_default-text-hover;
+            color: variables.$color-breadcrumb_default-text-hover;
             cursor: pointer;
         }
 
         &:active {
-            color: $color-breadcrumb_default-text-active;
+            color: variables.$color-breadcrumb_default-text-active;
             cursor: pointer;
         }
     }
@@ -115,14 +116,14 @@ $module: #{$prefix}-breadcrumb;
 
     &-separator {
         display: flex;
-        color: $color-breadcrumb_sepearator_default-icon-default;
+        color: variables.$color-breadcrumb_sepearator_default-icon-default;
     }
 
     &-restItem {
-        color: $color-breadcrumb_restItem-text-default;
-        margin-right: $spacing-breadcrumb_restItem-marginRight;
+        color: variables.$color-breadcrumb_restItem-text-default;
+        margin-right: variables.$spacing-breadcrumb_restItem-marginRight;
     }
 
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

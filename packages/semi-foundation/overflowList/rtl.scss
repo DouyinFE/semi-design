@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 $module: #{$prefix}-overflow-list;
 
 .#{$prefix}-rtl,
