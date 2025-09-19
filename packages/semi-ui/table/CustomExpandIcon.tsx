@@ -58,9 +58,9 @@ export default function CustomExpandIcon(props: CustomExpandIconProps) {
 
     if (motion) {
         const originIcon = icon;
-        icon = <CSSAnimation animationState={expanded?"enter":"leave"} startClassName={`${cssClasses.PREFIX}-expandedIcon-${expanded?'show':"hide"}`}>
-            {({ animationClassName })=>{
-                return React.cloneElement(originIcon, { className: (originIcon.props.className||"")+" "+animationClassName });
+        icon = <CSSAnimation animationState={expanded ? "enter" : "leave"} startClassName={`${cssClasses.PREFIX}-expandedIcon-${expanded ? 'show' : "hide"}`}>
+            {({ animationClassName }) => {
+                return React.cloneElement(originIcon, { className: (originIcon.props.className || "") + " " + animationClassName });
             }}
         </CSSAnimation>;
     }
@@ -81,21 +81,3 @@ export default function CustomExpandIcon(props: CustomExpandIconProps) {
     );
 }
 
-CustomExpandIcon.propTypes = {
-    expanded: PropTypes.bool,
-    componentType: PropTypes.oneOf(['tree', 'expand']),
-    onClick: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    expandIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-    prefixCls: PropTypes.string,
-    motion: PropTypes.bool,
-};
-
-CustomExpandIcon.defaultProps = {
-    componentType: 'expand',
-    onClick: noop,
-    onMouseEnter: noop,
-    onMouseLeave: noop,
-    prefixCls: cssClasses.PREFIX,
-};

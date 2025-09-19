@@ -743,7 +743,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         );
     };
 
-    wrapSpan = (elem: React.ReactNode | React.ReactElement) => {
+    wrapSpan = (elem: React.ReactNode | React.ReactElement<any>) => {
         const { wrapperClassName } = this.props;
         const display = get(elem, 'props.style.display');
         const block = get(elem, 'props.block');
@@ -800,7 +800,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     extraStyle.cursor = 'not-allowed';
                 }
 
-                children = cloneElement(children as React.ReactElement, { style: childrenStyle });
+                children = cloneElement(children as React.ReactElement<any>, { style: childrenStyle });
                 if (trigger !== 'custom') {
                     // no need to wrap span when trigger is custom, cause it don't need bind event
                     children = this.wrapSpan(children);
@@ -824,10 +824,10 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         }
 
         // The incoming children is a single valid element, otherwise wrap a layer with span
-        const newChild = React.cloneElement(children as React.ReactElement, {
+        const newChild = React.cloneElement(children as React.ReactElement<any>, {
             ...ariaAttribute,
-            ...(children as React.ReactElement).props,
-            ...this.mergeEvents((children as React.ReactElement).props, triggerEventSet),
+            ...(children as React.ReactElement<any>).props,
+            ...this.mergeEvents((children as React.ReactElement<any>).props, triggerEventSet),
             style: {
                 ...get(children, 'props.style') as React.CSSProperties,
                 ...extraStyle,
@@ -840,7 +840,12 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 // Keep your own reference
                 (this.triggerEl as any).current = node;
                 // Call the original ref, if any
+                /* REACT_18_START */
                 const { ref } = children as any;
+                /* REACT_18_END */
+                /* REACT_19_START */
+                // const { ref } = (children as any).props;
+                /* REACT_19_END */
                 // this.log('tooltip render() - get ref', ref);
                 if (typeof ref === 'function') {
                     ref(node);
@@ -848,7 +853,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     ref.current = node;
                 }
             },
-            tabIndex: (children as React.ReactElement).props.tabIndex || 0, // a11y keyboard, in some condition select's tabindex need to -1 or 0
+            tabIndex: (children as React.ReactElement<any>).props.tabIndex || 0, // a11y keyboard, in some condition select's tabindex need to -1 or 0
             'data-popupid': id
         });
 

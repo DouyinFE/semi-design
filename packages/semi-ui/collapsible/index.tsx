@@ -213,19 +213,5 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
     }
 }
 
-Collapsible.propTypes = {
-    motion: PropTypes.bool,
-    children: PropTypes.node,
-    isOpen: PropTypes.bool,
-    duration: PropTypes.number,
-    keepDOM: PropTypes.bool,
-    collapseHeight: PropTypes.number,
-    style: PropTypes.object,
-    className: PropTypes.string,
-    reCalcKey: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
-};
 
 export default Collapsible;

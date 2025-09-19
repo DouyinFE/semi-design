@@ -488,8 +488,13 @@ class Input extends BaseComponent<InputProps, InputState> {
             [`${prefixCls}-sibling-modebtn`]: mode === 'password',
         });
         const inputValue = value === null || value === undefined ? '' : value;
+        const validInputProps = Object.fromEntries(
+            Object.entries(rest).filter(([key]) =>
+                key in ({} as React.InputHTMLAttributes<HTMLInputElement>)
+            )
+        ) as React.InputHTMLAttributes<HTMLInputElement>;
         const inputProps: React.InputHTMLAttributes<HTMLInputElement> = {
-            ...rest,
+            ...validInputProps,
             style: inputStyle,
             className: inputCls,
             disabled,
