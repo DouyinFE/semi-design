@@ -708,7 +708,7 @@ class DraggableItem extends React.Component {
 
     return connectDragSource(
       connectDropTarget(
-        <div ref={node => (this.node = node)} style={{ ...style, opacity }}>
+        <div ref={node => {this.node = node}} style={{ ...style, opacity }}>
           {component}
         </div>
       )

@@ -61,10 +61,4 @@ const Arrow: React.FC<ArrowProps> = (props = {}) => {
     );
 };
 
-Arrow.propTypes = {
-    position: PropTypes.string,
-    className: PropTypes.string,
-    arrowStyle: PropTypes.object,
-    popStyle: PropTypes.object,
-};
 export default Arrow;

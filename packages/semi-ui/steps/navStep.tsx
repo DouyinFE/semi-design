@@ -53,18 +53,5 @@ const NavStep = (props: NavStepProps) => {
     );
 };
 
-NavStep.propTypes = {
-    prefixCls: PropTypes.string,
-    title: PropTypes.node,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    onClick: PropTypes.func,
-    active: PropTypes.bool,
-};
-NavStep.defaultProps = {
-    prefixCls: css.ITEM,
-    active: false,
-    className: '',
-};
 
 export default NavStep;

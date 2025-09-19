@@ -72,7 +72,7 @@ export interface NavProps extends BaseProps {
     onDeselect?: (data?: any) => void;
     onOpenChange?: (data: { itemKey?: ItemKey; openKeys?: ItemKey[]; domEvent?: MouseEvent; isOpen?: boolean }) => void;
     onSelect?: (data: OnSelectedData) => void;
-    renderWrapper?: ({ itemElement, isSubNav, isInSubNav, props }: { itemElement: ReactElement; isInSubNav: boolean; isSubNav: boolean; props: NavItemProps | SubNavProps }) => ReactNode
+    renderWrapper?: ({ itemElement, isSubNav, isInSubNav, props }: { itemElement: ReactElement<any>; isInSubNav: boolean; isSubNav: boolean; props: NavItemProps | SubNavProps }) => ReactNode
 }
 
 export interface NavState {

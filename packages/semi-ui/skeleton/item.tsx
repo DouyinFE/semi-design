@@ -29,7 +29,7 @@ const shapeSet = strings.SHAPE;
 
 const generator = <T extends BasicProps>(type: string) => (BasicComponent: ComponentType<T>): FC<T> => (
     props
-): ReactElement => <BasicComponent type={type} {...props} />;
+): ReactElement<any> => <BasicComponent type={type} {...props} />;
 
 class Generic extends PureComponent<GenericProps> {
     static propTypes = {

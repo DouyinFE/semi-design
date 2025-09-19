@@ -63,7 +63,12 @@ export default class DragMove extends BaseComponent<DragMoveProps, null> {
             getDragElement: () => {
                 let elementDom = this.elementRef.current;
                 if (!isHTMLElement(elementDom)) {
+                    /* REACT_18_START */
                     elementDom = ReactDOM.findDOMNode(elementDom as React.ReactInstance);
+                    /* REACT_18_END */
+                    /* REACT_19_START */
+                    // elementDom = elementDom as HTMLElement;
+                    /* REACT_19_END */
                 }
                 return elementDom as HTMLElement;
             },
@@ -123,7 +128,12 @@ export default class DragMove extends BaseComponent<DragMoveProps, null> {
             ref: (node: React.ReactNode) => {
                 (this.elementRef as any).current = node;
                 // Call the original ref, if any
+                /* REACT_18_START */
                 const { ref } = children as any;
+                /* REACT_18_END */
+                /* REACT_19_START */
+                // const { ref } = (children as any).props;
+                /* REACT_19_END */
                 if (typeof ref === 'function') {
                     ref(node);
                 } else if (ref && typeof ref === 'object') {

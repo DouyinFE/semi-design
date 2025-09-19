@@ -86,14 +86,14 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
     };
 
 
-    handleResizeEventTriggered = (entries: ResizeEntry[])=>{
+    handleResizeEventTriggered = (entries: ResizeEntry[]) => {
         if (this.props.observerProperty === ObserverProperty.All) {
             this.props.onResize?.(entries);
         } else {
             const finalEntries: ResizeEntry[] = [];
             for (const entry of entries) {
                 if (this.formerPropertyValue.has(entry.target)) {
-                    if (entry.contentRect[this.props.observerProperty]!==this.formerPropertyValue.get(entry.target)) {
+                    if (entry.contentRect[this.props.observerProperty] !== this.formerPropertyValue.get(entry.target)) {
                         this.formerPropertyValue.set(entry.target, entry.contentRect[this.props.observerProperty]);
                         finalEntries.push(entry);
                     }
@@ -102,13 +102,13 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
                     finalEntries.push(entry);
                 }
             }
-            if (finalEntries.length>0) {
+            if (finalEntries.length > 0) {
                 this.props.onResize?.(finalEntries);
             }
         }
     }
 
-    observeElement = (force = false)=>{
+    observeElement = (force = false) => {
         const element = this.getElement();
         if (!this.observer) {
             this.observer = new ResizeObserver(this.handleResizeEventTriggered);
@@ -156,7 +156,7 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
     render() {
         const child = React.Children.only(this.props.children);
         const { ref } = child as any;
-        return React.cloneElement(child as React.ReactElement, {
+        return React.cloneElement(child as React.ReactElement<any>, {
             ref: (node: HTMLDivElement) => this.mergeRef(ref, node),
         });
     }

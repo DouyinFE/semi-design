@@ -123,7 +123,7 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
 
 
     render() {
-        const inputElements: ReactElement[] = [];
+        const inputElements: ReactElement<any>[] = [];
         for (let i = 0; i < this.props.count; i++) {
             inputElements.push(this.renderSingleInput(i));
         }
