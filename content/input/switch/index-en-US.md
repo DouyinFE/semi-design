@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 43
+order: 45
 category: Input
 title: Switch
 subTitle: Switch

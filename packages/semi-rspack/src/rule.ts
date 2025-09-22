@@ -12,6 +12,8 @@ export function createSourceSuffixLoaderRule(_opts?: SemiWebpackPluginOptions) {
 
 export function createThemeLoaderRule(opts?: SemiWebpackPluginOptions) {
     const themeOptions: SemiThemeOptions = {};
+    const scssLoader = require.resolve('sass-loader');
+
     if (typeof opts.theme === 'object') {
         Object.assign(themeOptions, opts.theme);
     } else {
@@ -28,21 +30,31 @@ export function createThemeLoaderRule(opts?: SemiWebpackPluginOptions) {
         test: /@douyinfe(\/|\\)+semi-(ui|icons|foundation)(\/|\\)+lib(\/|\\)+.+\.scss$/,
         use: [{ loader: THEME_LOADER, options }],
     };
+    let commonLoader: any[] = [
+        { 
+            loader: scssLoader,
+            options: {
+                sassOptions: {
+                    silenceDeprecations: ['import', 'legacy-js-api', 'global-builtin'],
+                },
+            }
+        }
+    ];
     if (opts.webComponentPath) {
-        const commonLoader = [
+        commonLoader = [
             { loader: "raw-loader" },
             { loader: EXTRACT_CSS_LOADER },
             {
                 loader: 'css-loader',
                 options: { sourceMap: false }
             },
-            { loader: 'sass-loader' }
-        ];
-        loaderInfo.use = [
             ...commonLoader,
-            ...loaderInfo.use
-        ] as any;
-    }
+        ];
+    } 
+    loaderInfo.use = [
+        ...commonLoader,
+        ...loaderInfo.use
+    ] as any;
     return loaderInfo;
 }
 

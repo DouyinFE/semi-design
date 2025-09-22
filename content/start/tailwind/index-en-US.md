@@ -3,7 +3,7 @@ category: 开始
 title: With TailwindCSS 
 icon: doc-tailwind
 localeCode: en-US
-order: 9
+order: 11
 brief: Use TailwindCSS and Semi more elegantly
 ---
 

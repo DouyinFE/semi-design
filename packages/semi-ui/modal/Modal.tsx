@@ -35,7 +35,8 @@ export interface ModalReactProps extends ModalProps {
     footer?: ReactNode;
     header?: ReactNode;
     onCancel?: (e: React.MouseEvent) => void | Promise<any>;
-    onOk?: (e: React.MouseEvent) => void | Promise<any>
+    onOk?: (e: React.MouseEvent) => void | Promise<any>;
+    modalRender?: (node: ReactNode) => ReactNode
 }
 
 
@@ -57,6 +58,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         maskClosable: PropTypes.bool,
         onCancel: PropTypes.func,
         onOk: PropTypes.func,
+        modalRender: PropTypes.func,
         afterClose: PropTypes.func,
         okButtonProps: PropTypes.object,
         cancelButtonProps: PropTypes.object,
@@ -286,7 +288,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                         autoFocus={true}
                         {...this.props.cancelButtonProps}
                         style={{
-                            ...footerFill ? { marginLeft: "unset" }:{},
+                            ...footerFill ? { marginLeft: "unset" } : {},
                             ...this.props.cancelButtonProps?.style
                         }}
                         x-semi-children-alias="cancelText"

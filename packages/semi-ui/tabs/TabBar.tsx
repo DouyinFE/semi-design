@@ -44,6 +44,8 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         more: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
     };
 
+    private isFirstShowInViewport: boolean;
+
     constructor(props: TabBarProps) {
         super(props);
         this.state = {
@@ -51,21 +53,14 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             rePosKey: 0,
             startInd: 0,
             uuid: '',
-            currentVisibleItems: []
+            currentVisibleItems: [],
         };
+        this.isFirstShowInViewport = true;
     }
 
     componentDidMount() {
         this.setState({
             uuid: getUuidv4(),
-        }, () => {
-            // Perform the scroll in the setState callback to ensure the uuid is updated to the DOM
-            if (this.props.collapsible) {
-                // Add a small delay to ensure the DOM is fully rendered
-                requestAnimationFrame(() => {
-                    this.scrollActiveTabItemIntoView();
-                });
-            }
         });
     }
 
@@ -131,14 +126,14 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         );
     };
 
-    scrollTabItemIntoViewByKey = (key: string, logicalPosition: ScrollLogicalPosition = 'nearest') => {
+    scrollTabItemIntoViewByKey = (key: string, logicalPosition: ScrollLogicalPosition = 'nearest', behavior?: ScrollBehavior) => {
         const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
-        tabItem?.scrollIntoView({ behavior: 'smooth', block: logicalPosition, inline: logicalPosition });
+        tabItem?.scrollIntoView({ behavior: behavior || 'smooth', block: logicalPosition, inline: logicalPosition });
     }
 
-    scrollActiveTabItemIntoView = (logicalPosition?: ScrollLogicalPosition) => {
+    scrollActiveTabItemIntoView = (logicalPosition?: ScrollLogicalPosition, behavior?: ScrollBehavior) => {
         const key = this._getBarItemKeyByItemKey(this.props.activeKey);
-        this.scrollTabItemIntoViewByKey(key, logicalPosition);
+        this.scrollTabItemIntoViewByKey(key, logicalPosition, behavior);
     }
 
     renderTabComponents = (list: Array<PlainTab>): Array<ReactNode> => list.map(panel => this.renderTabItem(panel));
@@ -261,6 +256,15 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                     visibleMap.forEach((v, k ) => {
                         visibleMapWithItemKey.set(this._getItemKeyByBarItemKey(k), v);
                     });
+                    // only when the tabs component appears in the viewport for the first time triggered scrollActiveTabItemIntoView
+                    // refer to issue 2917 https://github.com/DouyinFE/semi-design/issues/2917
+                    if (this.isFirstShowInViewport) {
+                        const isShowInViewport = Array.from(visibleMapWithItemKey.values()).some(item => item);
+                        if (isShowInViewport) {
+                            this.scrollActiveTabItemIntoView('nearest', 'auto');
+                            this.isFirstShowInViewport = false;
+                        }
+                    }
                     this.props.onVisibleTabsChange?.(visibleMapWithItemKey);
                 }}
             />

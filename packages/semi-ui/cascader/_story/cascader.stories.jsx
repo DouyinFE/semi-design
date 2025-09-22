@@ -2614,3 +2614,19 @@ export const Fixed2831 = () => {
             />
     );
 }
+
+export const Fixed2967 = () => {
+  const data = [
+    { label: '这是一个超长的用于测试的选项', value: '1' },
+  ]
+  return (
+    <Cascader
+      multiple
+      filterTreeNode
+      defaultValue={['1']}
+      style={{ width: 200 }}
+      treeData={data}
+      placeholder="请选择所在地区"
+    />
+  )
+}

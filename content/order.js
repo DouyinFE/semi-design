@@ -5,6 +5,8 @@ const order = [
     'design-to-code',
     'dark-mode',
     'accessibility',
+    'internationalization',
+    'design-source',
     'overview',
     'faq',
     "tailwind",

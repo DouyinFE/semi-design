@@ -321,4 +321,19 @@ describe('modal', () => {
         expect(modal.state().displayNone).toEqual(true);
         expect(modal.exists(`div.${BASE_CLASS_PREFIX}-modal`)).toEqual(true);
     });
+
+    it('modal render', () => {
+        const testClass = 'modal-render-test'
+        let com = getModal({
+            visible: true,
+            modalRender: (modal) => (
+                <div className={testClass}>
+                    {modal}
+                </div>
+            )
+        });
+        let modal = mount(com, { attachTo: document.getElementById('container') });
+        expect(modal.exists(`div.${testClass}`)).toEqual(true);
+        modal.unmount();
+    });
 })

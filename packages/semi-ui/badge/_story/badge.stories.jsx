@@ -124,3 +124,12 @@ export const AvatarBadge = () => {
   );  
 };
 AvatarBadge.storyName = '头像 badge';
+
+export const SingleUsage = () => {
+  return (
+    <div>
+      <Badge count={5} theme='light' type='primary' countStyle={{ backgroundColor: 'lightPink' }}/>
+    </div>
+  );
+};
+SingleUsage.storyName = '单个使用';

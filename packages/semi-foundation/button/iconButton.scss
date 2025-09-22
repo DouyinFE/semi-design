@@ -1,5 +1,6 @@
 @import "./variables.scss";
 @import "../keyframes/rotate.scss";
+@import "./animation.scss";
 
 $module: #{$prefix}-button;
 
@@ -29,10 +30,14 @@ $module: #{$prefix}-button;
 
         .#{$module}-content {
 
+            .#{$module}-content-loading-icon {
+                animation: $animation_duration-button_icon_customIcon_loading linear infinite #{$prefix}-animation-rotate;
+            }
+
             &>svg {
                 width: 16px;
                 height: 16px;
-                animation: .6s linear infinite #{$prefix}-animation-rotate;
+                animation: $animation_duration-button_icon_loading linear infinite #{$prefix}-animation-rotate;
                 animation-fill-mode: forwards;
             }
         }

@@ -77,9 +77,14 @@ $module: #{$prefix}-modal;
         display: flex;
     }
 
+    &-content-height-set {
+        height: 100%;
+    }
+
     &-content-fullScreen {
         border-radius: $radius-modal_content_fullscreen;
         border: none;
+        height: 100%;
         top: $spacing-modal_content_fullscreen-top;
     }
 

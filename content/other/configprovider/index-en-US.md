@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 89
+order: 91
 category: Other
 title: ConfigProvider
 icon: doc-configprovider
@@ -480,9 +480,6 @@ For example, the configuration below sets all Buttons to warning by default, and
 import { semiGlobal } from "@douiyinfe/semi-ui"
 
 semiGlobal.config.overrideDefaultProps = {
-   Button: {
-     type: 'warning',
-   },
    Select: {
      zIndex: 2000,
    },

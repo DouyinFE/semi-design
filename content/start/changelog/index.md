@@ -3,7 +3,7 @@ category: 开始
 title: Change Log 更新日志
 icon: doc-changelog
 localeCode: zh-CN
-order: 12
+order: 14
 brief: 关于 Semi Design For React 优化与更新。我们提供了版本间的 Changelog Diff，你可以通过 hover 版本号唤出 Diff 控件。如果你想查看单个组件的变更历史，可以通过对应组件文档的 版本对比 按钮查看
 ---
 
@@ -12,6 +12,82 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   次版本号（minor）：Semi 固定每两周发布一个 minor 版本，包括以下类型变更：添加了新组件/新 feature，或者设计规范样式更新，或者不合理交互的变更，但不会对组件 API 做删减或功能变更。
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
+
+#### 🎉 2.86.0 (2025-09-01)
+- 【Fix】
+    - 修复Folding Model 初始化问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2972](https://github.com/DouyinFE/semi-design/pull/2972)
+    - 修复自定义主题传入prefix JsonViewer样式丢失问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2926](https://github.com/DouyinFE/semi-design/pull/2926)
+    - 修复多选，可搜索的 Cascader 在内容太长时，内容未正确缩略问题 [#2967](https://github.com/DouyinFE/semi-design/issues/2967) [#2970](https://github.com/DouyinFE/semi-design/pull/2970)
+    - 修复 TagInput 中可拖拽的 tag 在内容太长时，内容未正确缩略问题 [#2970](https://github.com/DouyinFE/semi-design/pull/2970)
+    - 修复 TreeSelect 在 disabled 情况下，点击会有意外的聚焦样式问题 [#2968](https://github.com/DouyinFE/semi-design/issues/2968) [#2969](https://github.com/DouyinFE/semi-design/pull/2969)
+- 【Style】
+    - 增加禁用态的 TagInput 的背景色 token，$color-tagInput_disabled-bg [#2973](https://github.com/DouyinFE/semi-design/pull/2973)
+
+#### 🎉 2.86.0-beta.0 (2025-08-19)
+- 【Fix】
+    - 修复 InputNumber 组件透传 props 时过滤 currency/内部参数，避免 defaultCurrency 等污染原生 DOM 属性 [#2961](https://github.com/DouyinFE/semi-design/pull/2961)
+
+#### 🎉 2.85.0 (2025-08-11)
+- 【Fix】
+    - 修复 light 主题 Badge 单独使用时样式不符合预期问题 [#2929](https://github.com/DouyinFE/semi-design/issues/2929) [#2930](https://github.com/DouyinFE/semi-design/pull/2930)
+    - 修复 AutoComplete 在 data 更新后，在有搜索的情况下，没有高亮匹配项问题 [AutoComplete] data 更新后，在有搜索的情况下，没有高亮匹配项，按回车会出现 [#2952](https://github.com/DouyinFE/semi-design/pull/2952)
+    - 修复 Table 中 fixed 列在 hover 时候，无 hover 背景色问题，影响版本 2.79.0-2.84.0 [#2953](https://github.com/DouyinFE/semi-design/pull/2953)
+
+
+#### 🎉 2.85.0-beta.0 (2025-08-05)
+- 【Feat】
+    - Input/TextArea 增加 onCompositionStart/onCompositionEnd/onCompositionUpdate 的回调 [#2922](https://github.com/DouyinFE/semi-design/pull/2922)
+    - semi webpack 和 rspack 插件在 sass-loader 中添加内置 silenceDeprecations 选项（'import', 'legacy-js-api', 'global-builtin'）静默 sass 相关的弃用警告 [#2944](https://github.com/DouyinFE/semi-design/pull/2944)
+    - Image 组件增加 renderCloseIcon/renderLeftIcon/renderRightIcon API [@rubbishmaker](https://github.com/rubbishmaker) [#2919](https://github.com/DouyinFE/semi-design/pull/2919)
+- 【Fix】
+    - 修复 tooltip 在某些场景有 updateState warning 的问题 [#2682](https://github.com/DouyinFE/semi-design/issues/2682) [#2928](https://github.com/DouyinFE/semi-design/pull/2928)
+    - 修复JsonViewer错误信息不展示问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2943](https://github.com/DouyinFE/semi-design/pull/2943)
+
+
+#### 🎉 2.84.0 (2025-07-29)
+- 【Fix】
+    - 修复 InputNumber 因为 js 精度计算有误问题 [#2937](https://github.com/DouyinFE/semi-design/pull/2937)
+    - 修复 Slider 在可滚动条件下点击或者拖动方式更新 handle 位置不正确问题 [#2932](https://github.com/DouyinFE/semi-design/pull/2932)
+- 【Style】
+    - 修复 type 为 solid，color 为 white 的 Tag 的关闭图标颜色错误问题 [#2935](https://github.com/DouyinFE/semi-design/pull/2935)
+
+#### 🎉 2.84.0-beta.0 (2025-07-21)
+- 【Fix】
+    - 修复 collapsible Tabs 导致未在视口内触发的页面异常滚动行为 [#2918](https://github.com/DouyinFE/semi-design/pull/2918)
+- 【Feat】
+    - 支持配置全局的 Spin 的指示器，新增 $animation_duration-button_icon_loading，$animation_duration-button_icon_customIcon_loading 设计 token 用于配置 button 中不同类型的 loading 的动画时长   [#2695 ](https://github.com/DouyinFE/semi-design/issues/2695) [#2897](https://github.com/DouyinFE/semi-design/pull/2897)
+    
+#### 🎉 2.83.0 (2025-07-14)
+- 【Fix】
+    - 修复JsonViewer 全选删除后继续删除报错问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复JsonViewer 始光标删除行为报错问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复JsonViewer 选区边界问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复JsonViewer 代码补全无法点击问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复JsonViewer 代码补全布尔类型提示问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复JsonViewer 拖动选择复制删除不完全问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复 Modal 中的 height 设置未生效问题，影响版本 2.82.0-2.82.1  [#2899 ](https://github.com/DouyinFE/semi-design/issues/2899) [#2901](https://github.com/DouyinFE/semi-design/pull/2901)
+
+
+#### 🎉 2.83.0-beta.0 (2025-07-09)
+- 【Style】
+    - 修复 BreadCrumb 的 item 在 noLink 模式下的样式问题 [#2883](https://github.com/DouyinFE/semi-design/issues/2883) [#2884](https://github.com/DouyinFE/semi-design/pull/2884)
+
+#### 🎉 2.82.1 (2025-07-02)
+- 【Fix】
+    - 修复 Modal 在 fullScreen 为 true 时候，并没有铺满整个屏幕问题。影响版本：v2.82.0  [#2880](https://github.com/DouyinFE/semi-design/issues/2880) [#2881](https://github.com/DouyinFE/semi-design/pull/2881)
+- 【Style】
+    - Input 的 placeholder 长度超出时候，省略超出长度的内容  [#2869](https://github.com/DouyinFE/semi-design/issues/2869) [#2872](https://github.com/DouyinFE/semi-design/pull/2872)
+
+
+#### 🎉 2.82.0 (2025-06-27)
+- 【Style】
+    - 修复 Select 在 multiple/small 尺寸时候，如果 border 的 token 设置不为 1， 则最小高度会不正确问题。 废弃默认尺寸最小宽度设置 token $height-select_multiple_content_wrapper-minHeight   [#2877](https://github.com/DouyinFE/semi-design/issues/2877) [#2878](https://github.com/DouyinFE/semi-design/pull/2878)
+
+#### 🎉 2.82.0-beta.0 (2025-06-23)
+- 【Feat】
+    - Modal 支持 modalRender 参数自定义渲染弹窗 [#2655](https://github.com/DouyinFE/semi-design/issues/2655)
+- 【Fix】
+  - 修复 DatePicker 在 monthRange 且多语言情况下，点击月份无法自动滚动到非禁用项问题  [#2870](https://github.com/DouyinFE/semi-design/issues/2870) [#2871](https://github.com/DouyinFE/semi-design/pull/2871)
 
 #### 🎉 2.81.0 (2025-06-16)
 - 【Fix】
@@ -42,7 +118,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
     - Upload 添加文件名超长时弹出文件名提示功能 [@yatbfm](https://github.com/yatbfm) [#2753](https://github.com/DouyinFE/semi-design/pull/2753)
 - 【Fix】
     - 修复 Switch 组件 loading 加 disabled 态 hover 后样式问题 [@LonelySnowman](https://github.com/LonelySnowman) [#2778](https://github.com/DouyinFE/semi-design/pull/2778)
-    - 修复 Table 组件在 onHeaderCell 中通过 style 设置表头背景色时候，fixed 表头中不生效问题 [BUG] Table 的 column 设置 fixed 后，通过 onHeaderCell 设置的 style 样式有问题 [#2814](https://github.com/DouyinFE/semi-design/issues/2814)
+    - 修复 Table 组件在 onHeaderCell 中通过 style 设置表头背景色时候，fixed 表头中不生效问题 [#2814](https://github.com/DouyinFE/semi-design/issues/2814)
 - 【Style】
     - Dropdown 增加 $radius-dropdown_item token 用于设置面板中的各选项圆角 [#2817](https://github.com/DouyinFE/semi-design/pull/2817)
     - ScrollList 最外层增加 overflow: hidden 的样式设置 [#2818](https://github.com/DouyinFE/semi-design/pull/2818)

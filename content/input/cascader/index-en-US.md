@@ -1,12 +1,19 @@
 ---
 localeCode: en-US
-order: 31
+order: 33
 category: Input
 title:  Cascader
 subTitle: Cascade
 icon: doc-cascader
 brief: Used to select an option under a multi-level classification.
 ---
+
+## Usage scenarios
+
+Differences from TreeSelect component:
+
+- TreeSelect: The core value lies in **target node**. The structure is to facilitate users to quickly filter out target options. The final node is what the user wants. It is commonly used in file/folder selection, organizational structure, permission allocation and other scenarios.
+- Cascader: The core selection value lies in the **path**. What the user selects is not an isolated point, but a complete path from root to leaf, which is often used in scenarios such as geographical location and product classification.
 
 
 ## Demos

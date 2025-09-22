@@ -59,13 +59,47 @@ export class EditWidget {
         this._view.contentDom.addEventListener('keydown', (e: KeyboardEvent) => {
             this._handleKeyDown(e);
         });
+
+        this._view.contentDom.addEventListener('mousedown', e => {
+            if (e.button !== 0) return; // 只处理左键
+            this._selectionModel.isSelecting = true;
+            this._selectionModel.updateFromSelectingStart();
+        });
+
+        this._view.contentDom.addEventListener('mousemove', e => {
+            if (!this._selectionModel.isSelecting) return;
+            if (e.button !== 0) return; // 只处理左键
+        });
+
+        this._view.contentDom.addEventListener('mouseup', e => {
+            if (e.button !== 0) return; // 只处理左键
+            this._selectionModel.updateFromSelectingEnd();
+        });
     }
 
     private buildBaseOperation(type: IModelContentChangeEvent['type'] = 'insert') {
-        const startRow = this._selectionModel.startRow;
-        const startCol = this._selectionModel.startCol;
-        const endRow = this._selectionModel.endRow;
-        const endCol = this._selectionModel.endCol;
+        let startRow = this._selectionModel.startRow;
+        let startCol = this._selectionModel.startCol;
+        let endRow = this._selectionModel.endRow;
+        let endCol = this._selectionModel.endCol;
+
+        // 验证并修正位置信息，确保在有效范围内
+        const lineCount = this._jsonModel.getLineCount();
+        if (startRow > lineCount) {
+            startRow = lineCount;
+            startCol = this._jsonModel.getLineLength(lineCount) + 1;
+        }
+        if (endRow > lineCount) {
+            endRow = lineCount;
+            endCol = this._jsonModel.getLineLength(lineCount) + 1;
+        }
+        
+        // 确保最小值为1
+        startRow = Math.max(1, startRow);
+        startCol = Math.max(1, startCol);
+        endRow = Math.max(1, endRow);
+        endCol = Math.max(1, endCol);
+
         const startOffset = this._jsonModel.getOffsetAt(startRow, startCol);
         const endOffset = this._jsonModel.getOffsetAt(endRow, endCol);
         const op: IModelContentChangeEvent = {
@@ -119,7 +153,10 @@ export class EditWidget {
     private _handleBeforeInput(e: InputEvent) {
         if (this._isComposition) return;
         e.preventDefault();
-        this._selectionModel.updateFromSelection();
+        if (!this._selectionModel.isSelecting) {
+            this._selectionModel.updateFromSelection();
+        }
+        // this._selectionModel.updateFromSelection();
         const op = this.buildBaseOperation();
         const { startLineNumber, startColumn, endLineNumber, endColumn } = op.range;
 
@@ -178,6 +215,9 @@ export class EditWidget {
                 }
                 break;
             case 'deleteContentBackward':
+                if (this._jsonModel.isStartPosition() && this._selectionModel.isCollapsed) {
+                    return;
+                }
                 if (this._selectionModel.isCollapsed) {
                     op.rangeOffset -= 1;
                     op.oldText = this._jsonModel.getValueInRange({
@@ -187,6 +227,12 @@ export class EditWidget {
                         endColumn: endColumn,
                     } as Range);
                 }
+                // if(this._selectionModel.isSelectedAll) {
+                //     op.keepPosition = {
+                //         lineNumber: startLineNumber + 1,
+                //         column: 1,
+                //     };
+                // }
                 op.type = 'delete';
                 op.rangeLength = op.oldText.length;
                 break;
@@ -197,6 +243,7 @@ export class EditWidget {
                 break;
         }
         this._selectionModel.isSelectedAll = false;
+        this._selectionModel.isSelecting = false;
 
         this._jsonModel.applyOperation(op);
     }
@@ -272,7 +319,11 @@ export class EditWidget {
     }
 
     private _handleKeyDown(e: KeyboardEvent) {
-        this._selectionModel.updateFromSelection();
+        // this._selectionModel.updateFromSelection();
+        
+        if (!this._selectionModel.isSelecting) {
+            this._selectionModel.updateFromSelection();
+        }
         const startRow = this._selectionModel.startRow;
         const startCol = this._selectionModel.startCol;
         const endRow = this._selectionModel.endRow;
@@ -280,7 +331,8 @@ export class EditWidget {
         const startOffset = this._jsonModel.getOffsetAt(startRow, startCol);
         const endOffset = this._jsonModel.getOffsetAt(endRow, endCol);
         const op = this.buildBaseOperation();
-        switch (e.key) {
+        const isCtrl = e.ctrlKey || e.metaKey;
+        switch (e.code) {
             case 'Tab':
                 if (this._view.completeWidget.isVisible) {
                     e.preventDefault();
@@ -301,8 +353,8 @@ export class EditWidget {
                 op.newText = insertText;
                 this._jsonModel.applyOperation(op);
                 break;
-            case 'f':
-                if (e.shiftKey && e.metaKey) {
+            case 'KeyF':
+                if (e.shiftKey && isCtrl) {
                     e.preventDefault();
                     this.format();
                 }
@@ -326,28 +378,23 @@ export class EditWidget {
                     this._view.completeWidget._handleKeyDown(e);
                 }
                 break;
-            case 'a':
-                if (e.metaKey) {
-                    this._selectionModel.isSelectedAll = true;
-                }
+            case 'KeyA':
+                isCtrl && (this._selectionModel.isSelectedAll = true);
                 break;
-            case 'x':
-                if (e.metaKey) {
-                    e.preventDefault();
-                    this._cutHandler();
-                }
+            case 'KeyX':
+                isCtrl && (e.preventDefault(), this._cutHandler());
                 break;
-            case 'z':
-                if (e.metaKey && !e.shiftKey) {
+            case 'KeyZ':
+                if (isCtrl && !e.shiftKey) {
                     e.preventDefault();
                     this._jsonModel.undo();
-                } else if (e.metaKey && e.shiftKey) {
+                } else if (isCtrl && e.shiftKey) {
                     e.preventDefault();
                     this._jsonModel.redo();
                 }
                 break;
-            case 'c':
-                if (e.metaKey) {
+            case 'KeyC':
+                if (isCtrl) {
                     e.preventDefault();
                     this._copyHandler();
                 }

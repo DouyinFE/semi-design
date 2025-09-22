@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import en_GB from '../../locale/source/en_GB';
 
-import { Select, Modal, Button, Tooltip, Popover, ConfigProvider, Tag, Space } from '../../index';
+import { Select, Modal, Button, Tooltip, Popover, ConfigProvider, Tag, Space, DragMove } from '../../index';
 import CollapsibleInModal from './CollapsibleInModal';
 import DynamicContextDemo from './DynamicContext';
 
@@ -341,3 +341,87 @@ export const UseModalAfterClose = () => {
   );
 };
 UseModalAfterClose.storyName = "useModal afterClose";
+
+export const DraggableModal = () => {
+    const [visible, setVisible] = useState(false);
+    return (
+        <div>
+            <Button onClick={() => setVisible(true)}>Open Modal</Button>
+            <Modal
+                title="可拖拽Modal"
+                visible={visible}
+                onCancel={() => setVisible(false)}
+                modalRender={(modal) => (
+                    <DragMove>{modal}</DragMove>
+                )}
+            >
+                <p>This is the content of a basic sidesheet.</p>
+                <p>Here is more content...</p>
+            </Modal>
+        </div>
+    );
+};
+
+DraggableModal.story = {
+    name: 'draggable modal',
+};
+
+export const FullScreen = () => {
+   const [visible, setVisible] = useState(false);
+    return (
+        <div>
+            <Button onClick={() => setVisible(true)}>Open Modal</Button>
+            <Modal
+                title="可拖拽Modal"
+                visible={visible}
+                fullScreen
+                // motion 为 false 是为了保证 e2e 取高度值的时候，拿到的不是动画中的值
+                motion={false}
+                onCancel={() => setVisible(false)}
+            >
+                <p>This is the content of a basic sidesheet.</p>
+                <p>Here is more content...</p>
+            </Modal>
+        </div>
+    );
+}
+
+export const SetHeight = () => {
+  const [visible, setVisible] = useState(false);
+  return (
+      <div>
+          <Button onClick={() => setVisible(true)}>Open Modal</Button>
+          <Modal
+              title="高度设置的Modal"
+              visible={visible}
+              height={300}
+              // motion 为 false 是为了保证 e2e 取高度值的时候，拿到的不是动画中的值
+              motion={false}
+              onCancel={() => setVisible(false)}
+          >
+              <p>This is the content of a basic sidesheet.</p>
+              <p>Here is more content...</p>
+          </Modal>
+      </div>
+  );
+}
+
+export const SetHeightInStyle = () => {
+  const [visible, setVisible] = useState(false);
+  return (
+      <div>
+          <Button onClick={() => setVisible(true)}>Open Modal</Button>
+          <Modal
+              title="style中设置高度的Modal"
+              visible={visible}
+              style={{ height: 300 }}
+              // motion 为 false 是为了保证 e2e 取高度值的时候，拿到的不是动画中的值
+              motion={false}
+              onCancel={() => setVisible(false)}
+          >
+              <p>This is the content of a basic sidesheet.</p>
+              <p>Here is more content...</p>
+          </Modal>
+      </div>
+  );
+}

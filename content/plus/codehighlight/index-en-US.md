@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 24
+order: 26
 category: Plus
 title:  CodeHighlight
 icon: doc-codehighlight

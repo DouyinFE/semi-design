@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 38
+order: 40
 category: Input
 title: PinCode
 icon: doc-pincode

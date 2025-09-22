@@ -384,3 +384,21 @@ export const maxWidth = () => {
     </Tag>
   </>
 )}
+
+export const Type = () => (
+    <Space wrap>
+      {['solid', 'light', 'ghost'].map(type => {
+        return <div>
+          <p>type = {type}</p>
+          {[false, true].map(close => {
+            return <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 10 }} >
+              {['amber', 'blue', 'cyan', 'green', 'grey', 'indigo',  
+                  'light-blue', 'light-green', 'lime', 'orange', 'pink',  
+                  'purple', 'red', 'teal', 'violet', 'yellow', 'white'
+              ].map(item => (<Tag type={type} color={item} key={item} closable={close}> {item} </Tag>))}
+            </div>
+          })}
+        </div>;
+      })}
+    </Space>
+)

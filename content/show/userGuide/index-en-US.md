@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 80
+order: 82
 category: Show
 title: UserGuide
 icon: doc-userGuide
