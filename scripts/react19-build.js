@@ -55,14 +55,19 @@ function generateReact19PackageJson(sourcePackageJsonPath, outputPackageJsonPath
     packageJson.peerDependencies.react = '^19.0.0';
     packageJson.peerDependencies['react-dom'] = '^19.0.0';
     
-    // 添加 React 19 相关的 devDependencies（如果需要）
+    // 添加 React 19 相关的 devDependencies
     if (!packageJson.devDependencies) {
         packageJson.devDependencies = {};
     }
     packageJson.devDependencies['@types/react'] = '^19.0.0';
     packageJson.devDependencies['@types/react-dom'] = '^19.0.0';
+    packageJson.devDependencies['react'] = '^19.0.0';
+    packageJson.devDependencies['react-dom'] = '^19.0.0';
     
-    // 添加 React 19 相关的 engines（如果需要）
+    // 更新 null-loader 版本以兼容 webpack 5
+    packageJson.devDependencies['null-loader'] = '4.0.1';
+    
+    // 添加 React 19 相关的 engines
     if (!packageJson.engines) {
         packageJson.engines = {};
     }
