@@ -246,6 +246,7 @@ render(CustomRenderJsonComponent);
 | readOnly        | 是否只读                             | boolean                            | false  | - |
 | customRenderRule | 自定义渲染规则                             | CustomRenderRule[]               |  -  | 2.74.0 |
 | formatOptions     | 格式化配置                               | FormattingOptions                |  -  | - |
+| autoFocus| 是否自动对焦 | boolean | false | - | 
 
 ### CustomRenderRule
 | 属性                | 说明                                          | 类型                              | 默认值    |
@@ -260,7 +261,6 @@ render(CustomRenderJsonComponent);
 | tabSize           | 缩进大小                                 | number                          | 4  |
 | insertSpaces      | 是否使用空格进行缩进                       | boolean                         | true  |
 | eol               | 换行符                                   | string                          | '\n'  |
-| autoFoucs| 是否自动对焦 | boolean | false | - | 
 
 ## Methods
 

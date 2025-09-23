@@ -249,6 +249,7 @@ render(CustomRenderJsonComponent);
 | readOnly      | Whether to be read-only.    | boolean           | false    | -       |
 | customRenderRule | Custom render rules | CustomRenderRule[] | -       | 2.74.0  |
 | formatOptions | Content format setting                  | FormattingOptions | -       | -       |
+| autoFocus| Whether to auto focus | boolean | false | - | 
 
 ### FormattingOptions
 
@@ -257,7 +258,6 @@ render(CustomRenderJsonComponent);
 | tabSize      | Indent size. Unit: px                 | number  | 4       |
 | insertSpaces | Whether to use spaces for indentation | boolean | true    |
 | eol          | Line break character                  | string  | '\n'    |
-| autoFoucs| Whether to auto focus | boolean | false | - | 
 ### CustomRenderRule
 
 | Attribute | Description | Type | Default |
