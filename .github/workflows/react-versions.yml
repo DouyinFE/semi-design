@@ -1,10 +1,17 @@
 name: React Multi-Version Build and Publish
 
 on:
-  push:
-    branches: [main, release/*]
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'release type: minor | patch | beta'
+        required: true
+        default: 'patch'
+      publish_react19:
+        description: 'publish React 19 version'
+        type: boolean
+        required: false
+        default: true
 
 jobs:
   test-react-18:
@@ -12,12 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'yarn'
           
       - name: Install dependencies
@@ -33,12 +40,12 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'yarn'
           
       - name: Install dependencies with React 19
@@ -63,12 +70,12 @@ jobs:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/'))
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'yarn'
           registry-url: 'https://registry.npmjs.org'
           
@@ -80,10 +87,12 @@ jobs:
           yarn build
           
       - name: Build React 19 version
+        if: ${{ github.event.inputs.publish_react19 == 'true' }}
         run: |
           node scripts/react19-build.js 19
           
       - name: Create React 19 package.json
+        if: ${{ github.event.inputs.publish_react19 == 'true' }}
         run: |
           # 复制并修改 package.json 为 React 19 版本
           cp packages/semi-ui/package.json packages/semi-ui-19/package.json
@@ -102,6 +111,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           
       - name: Publish React 19 version
+        if: ${{ github.event.inputs.publish_react19 == 'true' }}
         run: |
           cd packages/semi-ui-19
           npm publish
