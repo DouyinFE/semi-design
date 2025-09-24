@@ -145,6 +145,10 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
         return scroll;
     }, 100)
 
+    handleScrollContainerResize = () => {
+        this.getScroll(this._adapter.getContainerRef());
+    }
+
     clearContext = (e: any) => {
         const { chats } = this.getStates();
         if (chats[chats.length - 1].role === ROLE.DIVIDER) {
