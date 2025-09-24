@@ -360,15 +360,13 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         return false;
                     }
                     let el = this.triggerEl && this.triggerEl.current;
-                    let popupEl = this.containerEl && this.containerEl.current;
-                    
+                    let popupEl = (this.containerEl && this.containerEl.current) as HTMLDivElement;
+
                     /* REACT_18_START */
                     el = ReactDOM.findDOMNode(el as React.ReactInstance);
-                    popupEl = ReactDOM.findDOMNode(popupEl as React.ReactInstance) as HTMLDivElement;
                     /* REACT_18_END */
                     /* REACT_19_START */
                     // el = el as HTMLElement;
-                    // popupEl = popupEl as HTMLDivElement;
                     /* REACT_19_END */
                     const target = e.target as Element;
                     const path = (e as any).composedPath && (e as any).composedPath() || [target];
@@ -462,7 +460,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     triggerDOM = ReactDOM.findDOMNode(this.triggerEl.current as React.ReactInstance);
                     /* REACT_18_END */
                     /* REACT_19_START */
-                    // triggerDOM = this.triggerEl.current as HTMLElement;
+                    // console.warn(`[Semi Tooltip] triggerDOM should be a valid DOM element. The trigger element's ref is not returning a DOM node. This may cause tooltip positioning issues. Please ensure the trigger element has a proper ref that returns a DOM node.`);
+                    // triggerDOM = this.triggerEl.current;
                     /* REACT_19_END */
                 }
                 return triggerDOM as Element;
@@ -514,6 +513,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     triggerEle = findDOMNode(triggerEle as ReactInstance);
                     /* REACT_18_END */
                     /* REACT_19_START */
+                    // console.warn(`[Semi Tooltip] triggerEle should be a valid DOM element. The trigger element's ref is not returning a DOM node. This may cause tooltip positioning issues. Please ensure the trigger element has a proper ref that returns a DOM node.`);
                     // triggerEle = triggerEle as HTMLElement;
                     /* REACT_19_END */
                 }

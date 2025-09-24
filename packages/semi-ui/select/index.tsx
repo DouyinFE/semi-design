@@ -462,15 +462,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             getMaxLimit: () => this.props.max,
             registerClickOutsideHandler: (cb: (e: MouseEvent) => void) => {
                 const clickOutsideHandler: (e: MouseEvent) => void = e => {
-                    const optionInstance = this.optionsRef && this.optionsRef.current;
                     const triggerDom = (this.triggerRef && this.triggerRef.current) as Element;
+                    const optionsDom = (this.optionContainerEl && this.optionContainerEl.current) as Element;
 
-                    /* REACT_18_START */
-                    const optionsDom = ReactDOM.findDOMNode(optionInstance as ReactInstance);
-                    /* REACT_18_END */
-                    /* REACT_19_START */
-                    // const optionsDom = optionInstance as Element;
-                    /* REACT_19_END */
                     const target = e.target as Element;
                     const path = (e as any).composedPath && (e as any).composedPath() || [target];
 

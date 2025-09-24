@@ -199,6 +199,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
 
     triggerRef: React.RefObject<HTMLDivElement> | null;
     optionsRef: React.RefObject<HTMLDivElement> | null;
+    optionContainerEl: React.RefObject<HTMLDivElement> | null;
     optionListId: string;
 
     private clickOutsideHandler: (e: Event) => void | null;
@@ -222,6 +223,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         };
         this.triggerRef = React.createRef();
         this.optionsRef = React.createRef();
+        this.optionContainerEl = React.createRef();
         this.clickOutsideHandler = null;
         this.optionListId = '';
 
@@ -327,14 +329,8 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             },
             registerClickOutsideHandler: cb => {
                 const clickOutsideHandler = (e: Event) => {
-                    const optionInstance = this.optionsRef && this.optionsRef.current;
                     const triggerDom = this.triggerRef && this.triggerRef.current;
-                    /* REACT_18_START */
-                    const optionsDom = ReactDOM.findDOMNode(optionInstance);
-                    /* REACT_18_END */
-                    /* REACT_19_START */
-                    // const optionsDom = optionInstance as Element;
-                    /* REACT_19_END */
+                    const optionsDom = this.optionContainerEl && this.optionContainerEl.current;
                     const target = e.target as Element;
                     const path = e.composedPath && e.composedPath() || [target];
                     if (
@@ -530,6 +526,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         };
         return (
             <div
+                ref={this.optionContainerEl}
                 className={listCls}
                 role="listbox"
                 style={style}
