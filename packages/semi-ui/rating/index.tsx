@@ -140,12 +140,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
             },
             getStarDOM: (index: number) => {
                 const instance = this.stars && this.stars[index];
-                /* REACT_18_START */
-                return ReactDOM.findDOMNode(instance) as Element;
-                /* REACT_18_END */
-                /* REACT_19_START */
-                // return instance as unknown as Element;
-                /* REACT_19_END */
+                return instance.getDomNode() as Element;
             },
             notifyHoverChange: (hoverValue: number, clearedValue: number) => {
                 const { onHoverChange } = this.props;

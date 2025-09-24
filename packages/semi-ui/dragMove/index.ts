@@ -67,7 +67,7 @@ export default class DragMove extends BaseComponent<DragMoveProps, null> {
                     elementDom = ReactDOM.findDOMNode(elementDom as React.ReactInstance);
                     /* REACT_18_END */
                     /* REACT_19_START */
-                    // elementDom = elementDom as HTMLElement;
+                    // console.warn(`[Semi DragMove] elementDom should be a valid DOM element. The element's ref is not returning a DOM node. This may cause dragMove positioning issues. Please ensure the element has a proper ref that returns a DOM node.`);
                     /* REACT_19_END */
                 }
                 return elementDom as HTMLElement;

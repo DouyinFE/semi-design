@@ -77,7 +77,7 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
             return findDOMNode(this.childNode || this);
             /* REACT_18_END */
             /* REACT_19_START */
-            // return this.childNode || this;
+            // return this.childNode || null;
             /* REACT_19_END */
         } catch (error) {
             // swallow error if findDOMNode is run on unmounted component.
