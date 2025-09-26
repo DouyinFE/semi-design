@@ -108,20 +108,5 @@ const FillStep = (props: FillStepProps) => {
     );
 };
 
-FillStep.propTypes = {
-    prefixCls: PropTypes.string,
-    description: PropTypes.node,
-    icon: PropTypes.node,
-    status: PropTypes.oneOf(['wait', 'process', 'finish', 'error', 'warning']),
-    title: PropTypes.node,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    onClick: PropTypes.func,
-};
-FillStep.defaultProps = {
-    prefixCls: css.ITEM,
-    status: 'wait',
-    className: '',
-};
 
 export default FillStep;

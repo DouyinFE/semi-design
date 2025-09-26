@@ -54,7 +54,7 @@ export default class AvatarGroup extends PureComponent<AvatarGroupProps> {
         const { renderMore } = this.props;
         const moreCls = cls(`${prefixCls}-item-more`);
         const restAvatarAlt = restAvatars?.reduce((pre, cur) => {
-            const { children, alt } = (cur as ReactElement).props;
+            const { children, alt } = (cur as ReactElement<any>).props;
             const avatarInfo = alt ?? ((typeof children === 'string') ? children : '');
             if (avatarInfo.length === 0) {
                 return pre;

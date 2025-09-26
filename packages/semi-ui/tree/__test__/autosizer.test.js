@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactDOM, { findDOMNode } from 'react-dom';
+import ReactDOM from 'react-dom';
 import AutoSizer from '../autoSizer';
 
 function render(markup) {
@@ -72,7 +72,6 @@ describe('AutoSizer', () => {
   }
 
   it('should set the correct initial width and height of ChildComponent or React child', () => {
-    const rendered = findDOMNode(render(getAutoSizer()));
     // TODO
     // expect(rendered.textContent).toContain('height:100');
     // expect(rendered.textContent).toContain('width:100%');
@@ -86,13 +85,13 @@ describe('AutoSizer', () => {
   }
 
   it('should update :height after a resize event', async done => {
-    const rendered = findDOMNode(
-      render(
-        getAutoSizer({
-          height: 100,
-        }),
-      ),
+    render(
+      getAutoSizer({
+        height: 100,
+      }),
     );
+    // 直接使用 mountNode 替代
+    const rendered = render._mountNode;
     // expect(rendered.textContent).toContain('height:100');
     await simulateResize({ element: rendered, height: 400, });
     // TODO

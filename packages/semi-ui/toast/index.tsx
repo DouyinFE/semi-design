@@ -1,5 +1,10 @@
 import React, { CSSProperties } from 'react';
+/* REACT_18_START */
 import ReactDOM from 'react-dom';
+/* REACT_18_END */
+/* REACT_19_START */
+// import { createRoot } from 'react-dom/client';
+/* REACT_19_END */
 import PropTypes from 'prop-types';
 import ToastListFoundation, {
     ToastListAdapter,
@@ -50,6 +55,9 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
 
     static defaultProps = {};
     static wrapperId: null | string;
+    /* REACT_19_START */
+    // static root: any = null;
+    /* REACT_19_END */
     stack: boolean = false;
 
     innerWrapperRef: React.RefObject<HTMLDivElement> = React.createRef();
@@ -120,6 +128,7 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             } else {
                 document.body.appendChild(div);
             }
+            /* REACT_18_START */
             ReactDOM.render(React.createElement( 
                 ToastList,
                 { ref: instance => (ToastList.ref = instance) }
@@ -129,6 +138,20 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
                 ToastList.ref.add({ ...opts, id });
                 ToastList.ref.stack = Boolean(opts.stack);
             });
+            /* REACT_18_END */
+            
+            /* REACT_19_START */
+            // if (!this.root) {
+            //     this.root = createRoot(div);
+            // }
+            // this.root.render(React.createElement( 
+            //     ToastList,
+            //     { ref: instance => (ToastList.ref = instance) }
+            // ));
+            // // 在 React 19 中，render 是同步的，所以可以立即执行 callback
+            // ToastList.ref.add({ ...opts, id });
+            // ToastList.ref.stack = Boolean(opts.stack);
+            /* REACT_19_END */
         } else {
             const node = document.querySelector(`#${this.wrapperId}`) as HTMLElement;
             ['top', 'left', 'bottom', 'right'].map(pos => {
@@ -158,8 +181,20 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         if (ToastList.ref) {
             ToastList.ref.destroyAll();
             const wrapper = document.querySelector(`#${this.wrapperId}`);
+            
+            /* REACT_18_START */
             ReactDOM.unmountComponentAtNode(wrapper);
             wrapper && wrapper.parentNode.removeChild(wrapper);
+            /* REACT_18_END */
+            
+            /* REACT_19_START */
+            // if (this.root) {
+            //     this.root.unmount();
+            //     this.root = null;
+            // }
+            // wrapper && wrapper.parentNode.removeChild(wrapper);
+            /* REACT_19_END */
+            
             ToastList.ref = null;
             this.wrapperId = null;
         }
