@@ -44,16 +44,6 @@ gulp.task('compileTSXForCJS', function compileTSXForCJS() {
 
 gulp.task('compileScss', function compileScss() {
     return gulp.src(['src/**/*.scss'])
-        .pipe(through2.obj(
-            function (chunk, enc, cb) {
-                const rootPath = path.join(__dirname, '../../');
-                const scssVarStr = `@import "${rootPath}/packages/semi-theme-default/scss/index.scss";\n`;
-                const scssBuffer = Buffer.from(scssVarStr);
-                const buffers = [scssBuffer];
-                chunk.contents = Buffer.concat([...buffers, chunk.contents]);
-                cb(null, chunk);
-            }
-        ))
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('lib/cjs'))
         .pipe(gulp.dest('lib/es'));

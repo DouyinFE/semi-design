@@ -1,8 +1,9 @@
 //@import '../theme/variables.scss';
 // @import '../theme/mixin.scss';
-@import "./animation.scss";
-@import "./variables.scss";
-@import "./mixin.scss";
+@use "sass:meta";
+@use "animation.scss";
+@use "variables.scss";
+@use "mixin.scss";
 
 $module: #{$prefix}-checkbox;
 
@@ -14,10 +15,10 @@ $module: #{$prefix}-checkbox;
     align-items: flex-start;
     @include font-size-regular;
     cursor: pointer;
-    transition: background-color $transition_duration-checkbox-bg $transition_function-checkbox-bg $transition_delay-checkbox-bg,
-    border $transition_duration-checkbox-border $transition_function-checkbox-border $transition_delay-checkbox-border;
-    transform: scale($transform_scale-checkbox);
-    column-gap: $spacing-checkbox_label-paddingLeft;
+    transition: background-color animation.$transition_duration-checkbox-bg animation.$transition_function-checkbox-bg animation.$transition_delay-checkbox-bg,
+    border animation.$transition_duration-checkbox-border animation.$transition_function-checkbox-border animation.$transition_delay-checkbox-border;
+    transform: scale(animation.$transform_scale-checkbox);
+    column-gap: variables.$spacing-checkbox_label-paddingLeft;
 
     input[type="checkbox"] {
         position: absolute;
@@ -33,27 +34,27 @@ $module: #{$prefix}-checkbox;
         flex: 1;
         display: flex;
         flex-direction: column;
-        row-gap: $spacing-checkbox_extra-marginTop;
+        row-gap: variables.$spacing-checkbox_extra-marginTop;
     }
 
     &-addon {
         display: flex;
         flex: 1;
         align-items: center;
-        color: $color-checkbox_label-text-default;
-        line-height: $font-checkbox_label-lineHeight;
+        color: variables.$color-checkbox_label-text-default;
+        line-height: variables.$font-checkbox_label-lineHeight;
         user-select: none;
     }
 
     &:hover {
         .#{$module}-inner-display {
-            background: $color-checkbox_default-bg-hover;
-            box-shadow: inset 0 0 0 $size-checkbox_inner-shadow $color-checkbox_default-border-hover;
+            background: variables.$color-checkbox_default-bg-hover;
+            box-shadow: inset 0 0 0 variables.$size-checkbox_inner-shadow variables.$color-checkbox_default-border-hover;
         }
 
         .#{$module}-inner-checked {
             .#{$module}-inner-display {
-                background: $color-checkbox_checked-bg-hover;
+                background: variables.$color-checkbox_checked-bg-hover;
                 box-shadow: none;
             }
         }
@@ -61,12 +62,12 @@ $module: #{$prefix}-checkbox;
 
     &:active {
         .#{$module}-inner-display {
-            background: $color-checkbox_default-bg-active;
+            background: variables.$color-checkbox_default-bg-active;
         }
 
         .#{$module}-inner-checked {
             .#{$module}-inner-display {
-                background: $color-checkbox_checked-bg-active;
+                background: variables.$color-checkbox_checked-bg-active;
                 box-shadow: none;
             }
         }
@@ -75,14 +76,14 @@ $module: #{$prefix}-checkbox;
     &.#{$module}-disabled:hover,
     &.#{$module}-disabled:active {
         .#{$module}-inner-display {
-            background: $color-checkbox_disabled-bg-default;
-            box-shadow: inset 0 0 0 $size-checkbox_inner-shadow $color-checkbox_disabled-border-default;
+            background: variables.$color-checkbox_disabled-bg-default;
+            box-shadow: inset 0 0 0 variables.$size-checkbox_inner-shadow variables.$color-checkbox_disabled-border-default;
         }
 
         .#{$module}-inner-checked {
             .#{$module}-inner-display {
-                color: $color-checkbox_checked-icon-disabled;
-                background: $color-checkbox_checked-bg-disabled;
+                color: variables.$color-checkbox_checked-icon-disabled;
+                background: variables.$color-checkbox_checked-bg-disabled;
                 box-shadow: none;
             }
         }
@@ -92,23 +93,23 @@ $module: #{$prefix}-checkbox;
         position: relative;
         display: flex;
         align-items: center;
-        width: $width-checkbox_inner;
-        height: $height-checkbox_inner;
+        width: variables.$width-checkbox_inner;
+        height: variables.$height-checkbox_inner;
         user-select: none; // prevent text under it will be selected when double click
         cursor: pointer;
 
         &-display {
             @include box-sizing;
             position: relative;
-            width: $width-checkbox_inner;
-            height: $width-checkbox_inner;
+            width: variables.$width-checkbox_inner;
+            height: variables.$width-checkbox_inner;
             margin: 0;
-            background: $color-checkbox_default-bg-default;
-            transition: background-color $transition_duration-checkbox-bg $transition_function-checkbox-bg $transition_delay-checkbox-bg,
-                border $transition_duration-checkbox-border $transition_function-checkbox-border $transition_delay-checkbox-border;
+            background: variables.$color-checkbox_default-bg-default;
+            transition: background-color animation.$transition_duration-checkbox-bg animation.$transition_function-checkbox-bg animation.$transition_delay-checkbox-bg,
+                border animation.$transition_duration-checkbox-border animation.$transition_function-checkbox-border animation.$transition_delay-checkbox-border;
 
-            box-shadow: inset 0 0 0 $size-checkbox_inner-shadow $color-checkbox_default-border-default;
-            border-radius: $radius-checkbox_inner;
+            box-shadow: inset 0 0 0 variables.$size-checkbox_inner-shadow variables.$color-checkbox_default-border-default;
+            border-radius: variables.$radius-checkbox_inner;
 
             .#{$prefix}-icon {
                 font-size: 16px;
@@ -118,67 +119,67 @@ $module: #{$prefix}-checkbox;
 
     &-inner-checked {
         .#{$module}-inner-display {
-            background: $color-checkbox_checked-bg-default;
-            color: $color-checkbox_checked-icon-default;
+            background: variables.$color-checkbox_checked-bg-default;
+            color: variables.$color-checkbox_checked-icon-default;
 
-            box-shadow: inset 0 0 0 $size-checkbox_inner-shadow $color-checkbox_checked-border-default;
-            border-radius: $radius-checkbox_inner;
+            box-shadow: inset 0 0 0 variables.$size-checkbox_inner-shadow variables.$color-checkbox_checked-border-default;
+            border-radius: variables.$radius-checkbox_inner;
         }
 
         &>.#{$module}-addon {
-            color: $color-checkbox_label-text-default;
+            color: variables.$color-checkbox_label-text-default;
         }
     }
 
     &:hover {
         .#{$module}-inner-display {
-            background: $color-checkbox_default-bg-hover;
+            background: variables.$color-checkbox_default-bg-hover;
         }
 
         &.#{$module}-indeterminate .#{$module}-inner-display {
-            background: $color-checkbox_checked-bg-hover;
+            background: variables.$color-checkbox_checked-bg-hover;
             box-shadow: none;
-            color: $color-checkbox_checked-icon-hover;
+            color: variables.$color-checkbox_checked-icon-hover;
         }
 
         .#{$module}-inner-checked {
             .#{$module}-inner-display {
-                background: $color-checkbox_checked-bg-hover;
-                border-color: $color-checkbox_checked-border-hover;
-                color: $color-checkbox_checked-icon-hover;
+                background: variables.$color-checkbox_checked-bg-hover;
+                border-color: variables.$color-checkbox_checked-border-hover;
+                color: variables.$color-checkbox_checked-icon-hover;
             }
         }
 
         &.#{$module}-cardType.#{$module}-unChecked.#{$module}-cardType_enable {
             .#{$module}-inner-display {
-                background: $color-checkbox_cardType_inner-bg-hover;
+                background: variables.$color-checkbox_cardType_inner-bg-hover;
             }
         }
     }
 
     &:active {
         .#{$module}-inner-display {
-            background: $color-checkbox_default-bg-active;
+            background: variables.$color-checkbox_default-bg-active;
         }
 
         &.#{$module}-indeterminate .#{$module}-inner-display {
-            background: $color-checkbox_checked-bg-active;
-            border-color: $color-checkbox_checked-border-active;
-            color: $color-checkbox_checked-icon-active;
+            background: variables.$color-checkbox_checked-bg-active;
+            border-color: variables.$color-checkbox_checked-border-active;
+            color: variables.$color-checkbox_checked-icon-active;
             box-shadow: none;
         }
 
         .#{$module}-inner-checked {
             .#{$module}-inner-display {
-                background: $color-checkbox_checked-bg-active;
-                border-color: $color-checkbox_checked-border-active;
-                color: $color-checkbox_checked-icon-active;
+                background: variables.$color-checkbox_checked-bg-active;
+                border-color: variables.$color-checkbox_checked-border-active;
+                color: variables.$color-checkbox_checked-icon-active;
             }
         }
 
         &.#{$module}-cardType.#{$module}-unChecked.#{$module}-cardType_enable {
             .#{$module}-inner-display {
-                background: $color-checkbox_cardType_inner-bg-active;
+                background: variables.$color-checkbox_cardType_inner-bg-active;
             }
         }
     }
@@ -186,10 +187,10 @@ $module: #{$prefix}-checkbox;
     &-cardType {
         flex-wrap: nowrap;
         align-items: flex-start;
-        border-radius: $radius-checkbox_cardType;
-        padding: $spacing-checkbox_cardType-paddingY $spacing-checkbox_cardType-paddingX;
+        border-radius: variables.$radius-checkbox_cardType;
+        padding: variables.$spacing-checkbox_cardType-paddingY variables.$spacing-checkbox_cardType-paddingX;
         background: transparent;
-        border: $width-checkbox_cardType_checked-border solid $color-checkbox_cardType-border-default;
+        border: variables.$width-checkbox_cardType_checked-border solid variables.$color-checkbox_cardType-border-default;
 
 
         .#{$module}-inner {
@@ -197,7 +198,7 @@ $module: #{$prefix}-checkbox;
             flex-shrink: 0;
 
             &-display {
-                background: $color-checkbox_cardType_inner-bg-default;
+                background: variables.$color-checkbox_cardType_inner-bg-default;
             }
         }
 
@@ -210,17 +211,17 @@ $module: #{$prefix}-checkbox;
         }
 
         .#{$module}-addon {
-            font-weight: $font-checkbox_cardType_addon-fontWeight;
-            font-size: $font-checkbox_cardType_addon-size;
-            line-height: $font-checkbox_cardType_addon-lineHeight;
-            color: $color-checkbox_cardType_addon-text-default;
+            font-weight: variables.$font-checkbox_cardType_addon-fontWeight;
+            font-size: variables.$font-checkbox_cardType_addon-size;
+            line-height: variables.$font-checkbox_cardType_addon-lineHeight;
+            color: variables.$color-checkbox_cardType_addon-text-default;
         }
 
         .#{$module}-extra {
-            font-weight: $font-checkbox_cardType_extra-fontWeight;
-            font-size: $font-checkbox_cardType_extra-size;
-            line-height: $font-checkbox_cardType_extra-lineHeight;
-            color: $color-checkbox_cardType_extra-text-default;
+            font-weight: variables.$font-checkbox_cardType_extra-fontWeight;
+            font-size: variables.$font-checkbox_cardType_extra-size;
+            line-height: variables.$font-checkbox_cardType_extra-lineHeight;
+            color: variables.$color-checkbox_cardType_extra-text-default;
 
             &.#{$module}-cardType_extra_noChildren {
                 margin-top: 0;
@@ -228,20 +229,20 @@ $module: #{$prefix}-checkbox;
         }
 
         &:hover {
-            background: $color-checkbox_cardType-bg-hover;
+            background: variables.$color-checkbox_cardType-bg-hover;
         }
 
         &:active {
-            background: $color-checkbox_cardType-bg-active;
+            background: variables.$color-checkbox_cardType-bg-active;
         }
 
         &_checked {
-            background: $color-checkbox_cardType_checked-bg;
-            border: $width-checkbox_cardType_checked-border solid $color-checkbox_cardType_checked_border-default;
+            background: variables.$color-checkbox_cardType_checked-bg;
+            border: variables.$width-checkbox_cardType_checked-border solid variables.$color-checkbox_cardType_checked_border-default;
 
             &:hover {
-                background: $color-checkbox_cardType_checked-bg;
-                border-color: $color-checkbox_cardType_checked_border-hover;
+                background: variables.$color-checkbox_cardType_checked-bg;
+                border-color: variables.$color-checkbox_cardType_checked_border-hover;
 
                 .#{$module}-inner-checked .#{$module}-inner-display {
                     box-shadow: none;
@@ -249,8 +250,8 @@ $module: #{$prefix}-checkbox;
             }
 
             &:active {
-                background: $color-checkbox_cardType_checked-bg;
-                border-color: $color-checkbox_cardType_checked_border-active;
+                background: variables.$color-checkbox_cardType_checked-bg;
+                border-color: variables.$color-checkbox_cardType_checked_border-active;
             }
         }
 
@@ -265,8 +266,8 @@ $module: #{$prefix}-checkbox;
         }
 
         &_checked_disabled.#{$module}-cardType {
-            background: $color-checkbox_cardType_checked_disabled-bg;
-            border: $width-checkbox_cardType_checked_disabled-border solid $color-checkbox_cardType_checked_disabled_border-default;
+            background: variables.$color-checkbox_cardType_checked_disabled-bg;
+            border: variables.$width-checkbox_cardType_checked_disabled-border solid variables.$color-checkbox_cardType_checked_disabled_border-default;
 
             &:hover {
                 .#{$module}-inner-checked .#{$module}-inner-display {
@@ -281,27 +282,27 @@ $module: #{$prefix}-checkbox;
         .#{$module}-inner {
 
             &-display {
-                background: $color-checkbox_checked-bg-default;
-                color: $color-checkbox_checked-icon-default;
+                background: variables.$color-checkbox_checked-bg-default;
+                color: variables.$color-checkbox_checked-icon-default;
 
-                box-shadow: inset 0 0 0 $size-checkbox_inner-shadow $color-checkbox_checked-border-default;
-                border-radius: $radius-checkbox_inner;
+                box-shadow: inset 0 0 0 variables.$size-checkbox_inner-shadow variables.$color-checkbox_checked-border-default;
+                border-radius: variables.$radius-checkbox_inner;
 
                 &:hover {
-                    background: $color-checkbox_checked-bg-hover;
-                    border-color: $color-checkbox_checked-border-hover;
-                    color: $color-checkbox_checked-icon-hover;
+                    background: variables.$color-checkbox_checked-bg-hover;
+                    border-color: variables.$color-checkbox_checked-border-hover;
+                    color: variables.$color-checkbox_checked-icon-hover;
                 }
 
                 &:active {
-                    background: $color-checkbox_checked-bg-active;
-                    border-color: $color-checkbox_checked-border-active;
-                    color: $color-checkbox_checked-icon-active;
+                    background: variables.$color-checkbox_checked-bg-active;
+                    border-color: variables.$color-checkbox_checked-border-active;
+                    color: variables.$color-checkbox_checked-icon-active;
                 }
             }
 
             &-addon {
-                color: $color-checkbox_label-text-default;
+                color: variables.$color-checkbox_label-text-default;
             }
         }
     }
@@ -313,46 +314,46 @@ $module: #{$prefix}-checkbox;
             cursor: not-allowed;
 
             &-display {
-                color: $color-checkbox_checked-icon-disabled;
-                background: $color-checkbox_disabled-bg-default;
-                box-shadow: inset 0 0 0 $size-checkbox_inner-shadow $color-checkbox_disabled-border-default;
+                color: variables.$color-checkbox_checked-icon-disabled;
+                background: variables.$color-checkbox_disabled-bg-default;
+                box-shadow: inset 0 0 0 variables.$size-checkbox_inner-shadow variables.$color-checkbox_disabled-border-default;
 
                 &:hover {
-                    color: $color-checkbox_checked-icon-disabled;
+                    color: variables.$color-checkbox_checked-icon-disabled;
                     background: transparent;
                 }
             }
 
             &-checked {
-                color: $color-checkbox_checked-icon-disabled;
+                color: variables.$color-checkbox_checked-icon-disabled;
 
                 .#{$module}-inner-display {
                     opacity: 0.75;
-                    background: $color-checkbox_checked-bg-disabled;
-                    box-shadow: inset 0 0 0 $size-checkbox_inner-shadow $color-checkbox_checked-bg-disabled;
+                    background: variables.$color-checkbox_checked-bg-disabled;
+                    box-shadow: inset 0 0 0 variables.$size-checkbox_inner-shadow variables.$color-checkbox_checked-bg-disabled;
 
                     &:hover {
-                        color: $color-checkbox_checked-icon-disabled;
-                        background: $color-checkbox_checked-bg-disabled;
+                        color: variables.$color-checkbox_checked-icon-disabled;
+                        background: variables.$color-checkbox_checked-bg-disabled;
                     }
                 }
             }
         }
 
         .#{$module}-addon {
-            color: $color-checkbox_label-text-disabled;
+            color: variables.$color-checkbox_label-text-disabled;
         }
 
         .#{$module}-extra {
-            color: $color-checkbox_label-text-disabled;
+            color: variables.$color-checkbox_label-text-disabled;
         }
     }
 
     &.#{$module}-disabled.#{$module}-indeterminate .#{$module}-inner-display {
         opacity: 0.75;
-        background: $color-checkbox_checked-bg-disabled;
-        box-shadow: inset 0 0 0 $size-checkbox_inner-shadow $color-checkbox_checked-bg-disabled;
-        color: $color-checkbox_checked-icon-disabled;
+        background: variables.$color-checkbox_checked-bg-disabled;
+        box-shadow: inset 0 0 0 variables.$size-checkbox_inner-shadow variables.$color-checkbox_checked-bg-disabled;
+        color: variables.$color-checkbox_checked-icon-disabled;
     }
 
     &-extra {
@@ -360,14 +361,14 @@ $module: #{$prefix}-checkbox;
         flex-grow: 1;
         flex-basis: 100%;
         box-sizing: border-box;
-        color: $color-checkbox_extra-text-default;
+        color: variables.$color-checkbox_extra-text-default;
     }
 
     &-focus {
-        outline: $width-checkbox-outline solid $color-checkbox_primary-outline-focus;
+        outline: variables.$width-checkbox-outline solid variables.$color-checkbox_primary-outline-focus;
 
         &-border {
-            box-shadow: inset 0 0 0 $size-checkbox_inner-shadow $color-checkbox_default-border-hover;
+            box-shadow: inset 0 0 0 variables.$size-checkbox_inner-shadow variables.$color-checkbox_default-border-hover;
         }
     }
 }
@@ -379,14 +380,14 @@ $module: #{$prefix}-checkbox;
 
     .#{$module} {
         &.#{$module}-vertical {
-            margin-bottom: $spacing-checkbox_group_vertical-marginBottom;
+            margin-bottom: variables.$spacing-checkbox_group_vertical-marginBottom;
         }
     }
 
     &-horizontal {
         display: flex;
         flex-wrap: wrap;
-        gap: $spacing-checkbox_group_horizontal-marginRight;
+        gap: variables.$spacing-checkbox_group_horizontal-marginRight;
 
         .#{$module} {
             display: inline-flex;
@@ -396,10 +397,10 @@ $module: #{$prefix}-checkbox;
     &-vertical {
         display: flex;
         flex-direction: column;
-        row-gap: $spacing-checkbox_group_vertical_item-marginBottom;
+        row-gap: variables.$spacing-checkbox_group_vertical_item-marginBottom;
 
         &-cardType {
-            row-gap: $spacing-checkbox_card_group_vertical-marginBottom;
+            row-gap: variables.$spacing-checkbox_card_group_vertical-marginBottom;
         }
 
 
@@ -411,4 +412,4 @@ $module: #{$prefix}-checkbox;
     }
 }
 
-@import "./rtl.scss";
+@include meta.load-css("rtl.scss");

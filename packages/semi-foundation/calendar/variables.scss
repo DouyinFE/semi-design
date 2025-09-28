@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 // Color
 $color-calendar-bg-active: var(--semi-color-primary); // 今日标识颜色
 $color-calendar-bg: var(--semi-color-bg-2); // 日历背景颜色

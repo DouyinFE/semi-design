@@ -1,6 +1,7 @@
 //@import '../theme/variables.scss';
-@import './animation.scss';
-@import './variables.scss';
+@use "sass:meta";
+@use 'animation.scss';
+@use 'variables.scss';
 
 $module: #{$prefix}-dropdown;
 
@@ -11,8 +12,8 @@ $module: #{$prefix}-dropdown;
         @include shadow-elevated;
         position: relative;
         z-index: $z-dropdown;
-        border-radius: $radius-dropdown;
-        background: $color-dropdown-bg-default;
+        border-radius: variables.$radius-dropdown;
+        background: variables.$color-dropdown-bg-default;
         opacity: 0;
         // min-width: 150px;
         &-show {
@@ -24,45 +25,45 @@ $module: #{$prefix}-dropdown;
     }
     &-menu {
         list-style: none;
-        padding: $spacing-dropdown_menu-paddingY $spacing-dropdown_menu-paddingX;
+        padding: variables.$spacing-dropdown_menu-paddingY variables.$spacing-dropdown_menu-paddingX;
         margin: 0;
     }
     &-title {
-        color: $color-dropdown_title-text-default;
-        padding-top: $spacing-dropdown_title-paddingTop;
-        padding-bottom: $spacing-dropdown_title-paddingBottom;
-        padding-left: $spacing-dropdown_title-paddingLeft;
-        padding-right: $spacing-dropdown_title-paddingRight;
+        color: variables.$color-dropdown_title-text-default;
+        padding-top: variables.$spacing-dropdown_title-paddingTop;
+        padding-bottom: variables.$spacing-dropdown_title-paddingBottom;
+        padding-left: variables.$spacing-dropdown_title-paddingLeft;
+        padding-right: variables.$spacing-dropdown_title-paddingRight;
         @include font-size-small;
         cursor: default;
         
         &-withTick {
-            padding-left: $spacing-dropdown_title_withTick-paddingLeft;
+            padding-left: variables.$spacing-dropdown_title_withTick-paddingLeft;
         }
     }
     &-item {
-        padding: $spacing-dropdown_item-paddingY $spacing-dropdown_item-paddingX;
-        color: $color-dropdown_item-text-default;
-        max-width: $width-dropdown;
+        padding: variables.$spacing-dropdown_item-paddingY variables.$spacing-dropdown_item-paddingX;
+        color: variables.$color-dropdown_item-text-default;
+        max-width: variables.$width-dropdown;
         display: flex;
         align-items: center;
-        transition: background-color $transition_duration-dropdown_item-bg $transition_function-dropdown_item-bg
-            $transition_delay-dropdown_item-bg;
-        border-radius: $radius-dropdown_item;
+        transition: background-color animation.$transition_duration-dropdown_item-bg animation.$transition_function-dropdown_item-bg
+            animation.$transition_delay-dropdown_item-bg;
+        border-radius: variables.$radius-dropdown_item;
 
         &-hover {
-            background-color: $color-dropdown_item-bg-hover;
+            background-color: variables.$color-dropdown_item-bg-hover;
         }
 
         &:not(.#{$module}-item-active):hover {
-            background-color: $color-dropdown_item-bg-hover;
+            background-color: variables.$color-dropdown_item-bg-hover;
             cursor: pointer;
         }
         &:not(.#{$module}-item-active):active {
-            background-color: $color-dropdown_item-bg-active;
+            background-color: variables.$color-dropdown_item-bg-active;
         }
         &:focus-visible {
-            background-color: $color-dropdown_item-bg-hover;
+            background-color: variables.$color-dropdown_item-bg-hover;
             outline: 0;
         }
         &-icon {
@@ -72,50 +73,50 @@ $module: #{$prefix}-dropdown;
             margin-right: $spacing-tight;
         }
         &-danger {
-            color: $color-dropdown_item_danger-text-default;
+            color: variables.$color-dropdown_item_danger-text-default;
         }
         &-secondary {
-            color: $color-dropdown_item_secondary-text-default;
+            color: variables.$color-dropdown_item_secondary-text-default;
         }
         &-warning {
-            color: $color-dropdown_item_warning-text-default;
+            color: variables.$color-dropdown_item_warning-text-default;
         }
         &-tertiary {
-            color: $color-dropdown_item_tertiary-text-default;
+            color: variables.$color-dropdown_item_tertiary-text-default;
         }
         &-primary {
-            color: $color-dropdown_item_primary-text-default;
+            color: variables.$color-dropdown_item_primary-text-default;
         }
         &-withTick {
-            padding-left: $spacing-dropdown_item_withTick-paddingLeft;
+            padding-left: variables.$spacing-dropdown_item_withTick-paddingLeft;
         }
         & > .#{$prefix}-icon {
             flex-shrink: 0;
-            margin-right: $spacing-dropdown_icon-marginRight;
-            font-size: $size-dropdown-icon-width;
+            margin-right: variables.$spacing-dropdown_icon-marginRight;
+            font-size: variables.$size-dropdown-icon-width;
         }
         &-active {
-            font-weight: $font-dropdown_item_active-fontWeight;
+            font-weight: variables.$font-dropdown_item_active-fontWeight;
         }
     }
     &-item.#{$module}-item-disabled {
-        color: $color-dropdown_item_disabled-text-default;
+        color: variables.$color-dropdown_item_disabled-text-default;
         cursor: not-allowed;
         &:hover,
         &:active {
             cursor: not-allowed;
-            background-color: $color-dropdown_item_disabled-bg-default;
+            background-color: variables.$color-dropdown_item_disabled-bg-default;
         }
     }
     &-divider {
         display: block;
-        height: $height-dropdown_seperator;
+        height: variables.$height-dropdown_seperator;
         width: 100%;
         min-width: 100%;
         clear: both;
-        background: $color-dropdown_seperator-bg-default;
-        margin: $spacing-dropdown_seperator-marginY $spacing-dropdown_seperator-marginX;
+        background: variables.$color-dropdown_seperator-bg-default;
+        margin: variables.$spacing-dropdown_seperator-marginY variables.$spacing-dropdown_seperator-marginX;
     }
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

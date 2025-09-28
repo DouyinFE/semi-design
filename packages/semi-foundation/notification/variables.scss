@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 // Color
 $color-notification-bg-default: var(--semi-color-bg-3); // 通知背景色
 $color-notification_info-icon: var(--semi-color-info); // 通知 信息 图标颜色

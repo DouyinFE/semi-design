@@ -1,3 +1,4 @@
+@use "sass:meta";
 $module: #{$prefix}-layout;
 
 .#{$module} {
@@ -46,4 +47,4 @@ $module: #{$prefix}-layout;
     }
 }
 
-@import "./rtl.scss";
+@include meta.load-css("rtl.scss");

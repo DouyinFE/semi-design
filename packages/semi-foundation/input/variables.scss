@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 $color-input_default-border-default: transparent; // 输入框描边颜色 - 默认
 
 $color-input_default-bg-default: var(--semi-color-fill-0); // 输入框背景颜色 - 默认

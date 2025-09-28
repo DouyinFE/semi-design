@@ -61,16 +61,24 @@ gulp.task('compileScss', function compileScss() {
         .pipe(through2.obj(
             function (chunk, enc, cb) {
                 const rootPath = path.join(__dirname, '../../');
+                const prefixStr = `$prefix: 'semi';\n`;
                 const scssVarStr = `@import "${rootPath}/packages/semi-theme-default/scss/index.scss";\n`;
                 const cssVarStr = `@import "${rootPath}/packages/semi-theme-default/scss/global.scss";\n`;
                 const animationStr = `@import "${rootPath}/packages/semi-theme-default/scss/animation.scss";\n`;
-                const animationBuffer = Buffer.from(animationStr);
-                const scssBuffer = Buffer.from(scssVarStr);
-                const buffers = [scssBuffer, animationBuffer];
+
+                const content = chunk.contents.toString('utf8');
+                // 提取文件开头的 注释/空行/@use/@forward 作为 header，其余为 body
+                const m = content.match(/^(\s*(?:\/\/.*\n|\/\*[\s\S]*?\*\/\s*|@(?:use|forward)\s+[^\n;]+;\s*)+)/);
+                const header = m ? m[1] : '';
+                const body = content.slice(header.length);
+
+                // 注入放在 header 之后，保证 @use/@forward 在最前
+                const injects = [prefixStr, scssVarStr, animationStr];
                 if (/_base\/base\.scss/.test(chunk.path)) {
-                    buffers.push(Buffer.from(cssVarStr));
+                    injects.push(cssVarStr);
                 }
-                chunk.contents = Buffer.concat([...buffers, chunk.contents]);
+                const newContent = header + injects.join('') + body;
+                chunk.contents = Buffer.from(newContent, 'utf8');
                 cb(null, chunk);
             }
         ))

@@ -1,3 +1,9 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+@use 'variables.scss' as *;
+
+$module: #{$prefix}-tooltip;
+$module-icon: #{$module}-icon-arrow;
+
 @mixin minWidth() {
     &.#{$module}-with-arrow,
     .#{$module}-with-arrow {

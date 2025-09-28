@@ -1,52 +1,53 @@
-@import './variables.scss';
+@use "sass:meta";
+@use 'variables.scss';
 
 $module: #{$prefix}-timeline;
 
 .#{$module} {
-    margin: $spacing-timeline-margin;
-    padding: $spacing-timeline-padding;
-    width: $width-timeline;
+    margin: variables.$spacing-timeline-margin;
+    padding: variables.$spacing-timeline-padding;
+    width: variables.$width-timeline;
     list-style: none;
 
     &-item {
         position: relative;
-        margin: $spacing-timeline_item-margin;
-        padding: $spacing-none $spacing-none $spacing-timeline_item-paddingBottom $spacing-none;
+        margin: variables.$spacing-timeline_item-margin;
+        padding: $spacing-none $spacing-none variables.$spacing-timeline_item-paddingBottom $spacing-none;
         list-style: none;
 
         &-tail {
             position: absolute;
-            top: $spacing-timeline_tail-top;
-            left: $spacing-timeline_tail-left;
-            height: $height-timline_tail;
-            border-left: $width-timeline_tail-border solid $color-timeline_tail-border;
+            top: variables.$spacing-timeline_tail-top;
+            left: variables.$spacing-timeline_tail-left;
+            height: variables.$height-timline_tail;
+            border-left: variables.$width-timeline_tail-border solid variables.$color-timeline_tail-border;
         }
 
         &-head {
             position: absolute;
-            top: $spacing-timeline_head-top;
-            width: $width-timeline_dot;
-            height: $width-timeline_dot;
-            border-radius: $radius-timeline_head;
+            top: variables.$spacing-timeline_head-top;
+            width: variables.$width-timeline_dot;
+            height: variables.$width-timeline_dot;
+            border-radius: variables.$radius-timeline_head;
 
             &-ongoing {
-                background-color: $color-timeline_dot_default-bg-default;
+                background-color: variables.$color-timeline_dot_default-bg-default;
             }
 
             &-default {
-                background-color: $color-timeline_dot_info-bg-default;
+                background-color: variables.$color-timeline_dot_info-bg-default;
             }
 
             &-success {
-                background-color: $color-timeline_dot_success-bg-default;
+                background-color: variables.$color-timeline_dot_success-bg-default;
             }
 
             &-warning {
-                background-color: $color-timeline_dot_warning-bg-default;
+                background-color: variables.$color-timeline_dot_warning-bg-default;
             }
 
             &-error {
-                background-color: $color-timeline_dot_error-bg-default;
+                background-color: variables.$color-timeline_dot_error-bg-default;
             }
         }
 
@@ -54,53 +55,53 @@ $module: #{$prefix}-timeline;
             position: absolute;
             display: flex;
             align-self: center;
-            top: $spacing-timeline_head_custom-top;
-            left: $spacing-timeline_head_custom-left;
-            width: $width-timeline_head_custom;
-            height: $height-timeline_head_custom;
+            top: variables.$spacing-timeline_head_custom-top;
+            left: variables.$spacing-timeline_head_custom-left;
+            width: variables.$width-timeline_head_custom;
+            height: variables.$height-timeline_head_custom;
             // text-align: center;
-            border: $width-timeline_head_custom-border;
-            border-radius: $radius-timeline_head_custom;
-            transform: $motion-timeline_head_custom-transform;
+            border: variables.$width-timeline_head_custom-border;
+            border-radius: variables.$radius-timeline_head_custom;
+            transform: variables.$motion-timeline_head_custom-transform;
         }
 
         .#{$module}-item-head-custom.#{$module}-item-head-ongoing {
-            background-color: $color-timeline_item_head-bg;
-            color: $color-timeline_dot_default-bg-default;
+            background-color: variables.$color-timeline_item_head-bg;
+            color: variables.$color-timeline_dot_default-bg-default;
         }
 
         .#{$module}-item-head-custom.#{$module}-item-head-success {
-            background-color: $color-timeline_item_head-bg;
-            color: $color-timeline_dot_success-bg-default;
+            background-color: variables.$color-timeline_item_head-bg;
+            color: variables.$color-timeline_dot_success-bg-default;
         }
 
         .#{$module}-item-head-custom.#{$module}-item-head-warning {
-            background-color: $color-timeline_item_head-bg;
-            color: $color-timeline_dot_warning-bg-default;
+            background-color: variables.$color-timeline_item_head-bg;
+            color: variables.$color-timeline_dot_warning-bg-default;
         }
 
         .#{$module}-item-head-custom.#{$module}-item-head-error {
-            background-color: $color-timeline_item_head-bg;
-            color: $color-timeline_dot_error-bg-default;
+            background-color: variables.$color-timeline_item_head-bg;
+            color: variables.$color-timeline_dot_error-bg-default;
         }
 
         .#{$module}-item-head-custom.#{$module}-item-head-default {
-            background-color: $color-timeline_item_head-bg;
-            color: $color-timeline_dot_info-bg-default;
+            background-color: variables.$color-timeline_item_head-bg;
+            color: variables.$color-timeline_dot_info-bg-default;
         }
 
         &-content {
             @include font-size-regular;
             position: relative;
-            margin: $spacing-none $spacing-none $spacing-none $spacing-timeline_content-marginLeft;
+            margin: $spacing-none $spacing-none $spacing-none variables.$spacing-timeline_content-marginLeft;
             word-break: break-word;
-            color: $color-timeline_item_content-text-default;
+            color: variables.$color-timeline_item_content-text-default;
 
             &-extra,
             &-time {
                 @include font-size-small;
-                color: $color-timeline_time_default-text-default;
-                margin-top: $spacing-timeline_time-marginTop;
+                color: variables.$color-timeline_time_default-text-default;
+                margin-top: variables.$spacing-timeline_time-marginTop;
             }
         }
 
@@ -118,7 +119,7 @@ $module: #{$prefix}-timeline;
             &-tail,
             &-head,
             &-head-custom {
-                left: $spacing-timeline_item_head_custom-left;
+                left: variables.$spacing-timeline_item_head_custom-left;
             }
             &-head{
                 &.#{$module}-item-head-custom{
@@ -126,21 +127,21 @@ $module: #{$prefix}-timeline;
                 }
             }
             &-head {
-                margin-left: $spacing-timeline_item_head-marginLeft;
+                margin-left: variables.$spacing-timeline_item_head-marginLeft;
             }
 
             &-left {
                 .#{$module}-item-content {
-                    left: $spacing-timeline_item_left_item_content-left;
-                    width: $width-timeline_item_left_item_content;
+                    left: variables.$spacing-timeline_item_left_item_content-left;
+                    width: variables.$width-timeline_item_left_item_content;
                     text-align: left;
                 }
             }
 
             &-right {
                 .#{$module}-item-content {
-                    width: $width-timeline_item_right_item_content;
-                    margin: $spacing-timeline_item_right_item_content;
+                    width: variables.$width-timeline_item_right_item_content;
+                    margin: variables.$spacing-timeline_item_right_item_content;
                     text-align: right;
                 }
             }
@@ -151,9 +152,9 @@ $module: #{$prefix}-timeline;
         .#{$module}-item {
             &-content-time {
                 position: absolute;
-                top: $spacing-timeline_time-top;
-                margin-left: $spacing-timeline_item_content_time-marginLeft;
-                width: $width-timeline_item_content_time;
+                top: variables.$spacing-timeline_time-top;
+                margin-left: variables.$spacing-timeline_item_content_time-marginLeft;
+                width: variables.$width-timeline_item_content_time;
                 text-align: right;
             }
         }
@@ -165,15 +166,15 @@ $module: #{$prefix}-timeline;
                 &-tail,
                 &-head,
                 &-head-custom {
-                    left: $spacing-timeline_item_right_item-left;
+                    left: variables.$spacing-timeline_item_right_item-left;
                 }
 
                 &-content {
-                    width: $width-timeline_item_right_content;
+                    width: variables.$width-timeline_item_right_content;
                 }
             }
         }
     }
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

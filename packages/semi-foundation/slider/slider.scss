@@ -1,19 +1,19 @@
 //@import '../theme/variables.scss';
-@import "./animation.scss";
-@import "./variables.scss";
+@use "animation.scss";
+@use "variables.scss";
 
 
 $module: #{$prefix}-slider;
 
 .#{$module} {
-    padding: $spacing-slider-paddingY $spacing-slider-paddingX;
-    margin: $spacing-slider-margin;
+    padding: variables.$spacing-slider-paddingY variables.$spacing-slider-paddingX;
+    margin: variables.$spacing-slider-margin;
 
     &-wrapper {
         box-sizing: border-box;
         position: relative;
         // margin: 15px 0px 15px 0px;
-        height: $height-slider_wrapper;
+        height: variables.$height-slider_wrapper;
         width: 100%;
         //padding-top: 12px;
         // min-width: 500px;
@@ -24,22 +24,22 @@ $module: #{$prefix}-slider;
 
     &-rail {
         box-sizing: border-box;
-        margin: $spacing-slider_rail-margin;
-        padding: $spacing-slider_rail-padding;
-        color: $color-slider_rail;
-        font-size: $font-slider_rail-fontSize;
+        margin: variables.$spacing-slider_rail-margin;
+        padding: variables.$spacing-slider_rail-padding;
+        color: variables.$color-slider_rail;
+        font-size: variables.$font-slider_rail-fontSize;
         font-variant: tabular-nums;
-        line-height: $font-slider_rail-lineHeight;
+        line-height: variables.$font-slider_rail-lineHeight;
         list-style: none;
         font-feature-settings: 'tnum';
         position: absolute;
-        height: $height-slider_rail;
+        height: variables.$height-slider_rail;
         cursor: pointer;
         touch-action: none;
-        background-color: $color-slider_rail-bg-default;
+        background-color: variables.$color-slider_rail-bg-default;
         width: 100%;
-        border-radius: $radius-slider_rail;
-        top: $spacing-slider_rail-top;
+        border-radius: variables.$radius-slider_rail;
+        top: variables.$spacing-slider_rail-top;
     }
 
     &-handle {
@@ -48,52 +48,52 @@ $module: #{$prefix}-slider;
         box-sizing: border-box;
         touch-action: none;
         position: absolute;
-        width: $width-slider_handle;
-        height: $width-slider_handle;
-        margin-top: $spacing-slider_handle-marginTop;
+        width: variables.$width-slider_handle;
+        height: variables.$width-slider_handle;
+        margin-top: variables.$spacing-slider_handle-marginTop;
         // margin-left: -11px;
-        background-color: $color-slider_handle-bg-default; //$color-white;
+        background-color: variables.$color-slider_handle-bg-default; //$color-white;
         border: none;
         border-radius: 50%;
         cursor: pointer;
-        transition: background-color $transition_duration_slider_handle-bg $transition_function-slider-handle-bg $transition_delay-slider_handle-bg;
-        transform: $transform_scale-slider_handle translateX(-50%) translateY($spacing-slider_handle-translateY);
+        transition: background-color animation.$transition_duration_slider_handle-bg animation.$transition_function-slider-handle-bg animation.$transition_delay-slider_handle-bg;
+        transform: animation.$transform_scale-slider_handle translateX(-50%) translateY(variables.$spacing-slider_handle-translateY);
         display: inline-flex;
         justify-content: center;
         align-items: center;
         &:focus-visible {
-            outline: $width-slider_handle-focus solid $color-slider_handle-focus;
+            outline: variables.$width-slider_handle-focus solid variables.$color-slider_handle-focus;
         }
 
         &-dot{
-            background:$color-slider_handle_dot;
-            width:$width-slider_handle_dot;
-            height: $width-slider_handle_dot;
+            background:variables.$color-slider_handle_dot;
+            width:variables.$width-slider_handle_dot;
+            height: variables.$width-slider_handle_dot;
             border-radius: var(--semi-border-radius-circle);
         }
     }
 
     &-handle:hover {
-        background-color: $color-slider_handle-bg-hover;
+        background-color: variables.$color-slider_handle-bg-hover;
     }
 
     &-handle-clicked {
-        border: solid $width-slider_handle_clicked $color-slider_handle-border-focus;
+        border: solid variables.$width-slider_handle_clicked variables.$color-slider_handle-border-focus;
         cursor: grabbing;
     }
 
     &-track {
-        height: $height-slider_track;
-        background: $color-slider_track-bg-default;
-        border-radius: $radius-slider_track;
+        height: variables.$height-slider_track;
+        background: variables.$color-slider_track-bg-default;
+        border-radius: variables.$radius-slider_track;
         position: absolute;
         cursor: pointer;
-        top: $spacing-slider_track-top;
+        top: variables.$spacing-slider_track-top;
     }
 
     &-tooltip {
         position: absolute;
-        top: $spacing-slider_tooltip-top;
+        top: variables.$spacing-slider_tooltip-top;
         // margin-left: -15px;
     }
 
@@ -104,32 +104,32 @@ $module: #{$prefix}-slider;
 
     &-dot {
         position: absolute;
-        top: $spacing-slider_dot-top;
-        width: $width-slider_dot;
-        height: $width-slider_dot;
-        background-color: $color-slider_dot-bg-default;
+        top: variables.$spacing-slider_dot-top;
+        width: variables.$width-slider_dot;
+        height: variables.$width-slider_dot;
+        background-color: variables.$color-slider_dot-bg-default;
         //border: 1px solid $color-control-bg-default;
         border-radius: 50%;
         cursor: pointer;
-        transform: translateX($spacing-slider_dot-translateX);
+        transform: translateX(variables.$spacing-slider_dot-translateX);
     }
 
     &-dot-active {
-        background-color: $color-slider_dot-border-active;
+        background-color: variables.$color-slider_dot-border-active;
     }
 
     &-marks {
         position: absolute;
-        top: $spacing-slider_marks-top;
-        left: $spacing-slider_marks-left;
+        top: variables.$spacing-slider_marks-top;
+        left: variables.$spacing-slider_marks-left;
         width: 100%;
-        font-size: $font-slider_marks-fontSize;
+        font-size: variables.$font-slider_marks-fontSize;
     }
 
     &-mark {
         position: absolute;
         display: inline-block;
-        color: $color-slider_mark-text-default;
+        color: variables.$color-slider_mark-text-default;
         text-align: center;
         cursor: pointer;
         transform: translate(-50%, 0);
@@ -137,16 +137,16 @@ $module: #{$prefix}-slider;
 
     &-marks-reverse {
         position: absolute;
-        top: $spacing-slider_marks-top;
-        left: $spacing-slider_marks-left;
+        top: variables.$spacing-slider_marks-top;
+        left: variables.$spacing-slider_marks-left;
         width: 100%;
-        font-size: $font-slider_marks-fontSize;
+        font-size: variables.$font-slider_marks-fontSize;
     }
 
     &-mark-reverse {
         position: absolute;
         display: inline-block;
-        color: $color-slider_mark-text-default;
+        color: variables.$color-slider_mark-text-default;
         text-align: center;
         cursor: pointer;
         transform: translate(-50%, 0) rotate(-180deg);
@@ -155,9 +155,9 @@ $module: #{$prefix}-slider;
     &-boundary {
         position: relative;
         font-size: $font-size-small;
-        color: $color-slider-text-default;
+        color: variables.$color-slider-text-default;
         visibility: hidden;
-        top: $spacing-slider_boundary-top;
+        top: variables.$spacing-slider_boundary-top;
 
         span {
             position: absolute;
@@ -166,11 +166,11 @@ $module: #{$prefix}-slider;
     }
 
     &-boundary-min {
-        left: $spacing-slider_boundary_min-left;
+        left: variables.$spacing-slider_boundary_min-left;
     }
 
     &-boundary-max {
-        right: $spacing-slider_boundary_max-right;
+        right: variables.$spacing-slider_boundary_max-right;
     }
 
     &-boundary-show {
@@ -179,52 +179,52 @@ $module: #{$prefix}-slider;
 }
 
 .#{$module}-vertical-wrapper {
-    width: $height-slider_vertical_wrapper;
+    width: variables.$height-slider_vertical_wrapper;
     height: 100%;
 
     .#{$module}-track {
-        width: $height-slider_track;
+        width: variables.$height-slider_track;
     }
 
     .#{$module}-marks {
         height: 100%;
-        margin-top: $spacing-slider_vertical_marks-marginTop;
-        margin-left: $spacing-slider_vertical_marks-marginLeft;
+        margin-top: variables.$spacing-slider_vertical_marks-marginTop;
+        margin-left: variables.$spacing-slider_vertical_marks-marginLeft;
     }
 
     .#{$module}-marks-reverse {
         height: 100%;
-        margin-top: $spacing-slider_vertical_marks-marginTop;
-        margin-left: $spacing-slider_vertical_marks-reverse-marginLeft;
+        margin-top: variables.$spacing-slider_vertical_marks-marginTop;
+        margin-left: variables.$spacing-slider_vertical_marks-reverse-marginLeft;
     }
 
     .#{$module}-rail {
-        width: $height-slider_rail;
+        width: variables.$height-slider_rail;
         height: 100%;
-        top: $spacing-slider_vertical_rail-top;
+        top: variables.$spacing-slider_vertical_rail-top;
     }
 
     .#{$module}-handle {
-        margin-top: $spacing-slider_vertical_handle-marginTop;
-        margin-left: $spacing-slider_vertical_handle-marginLeft;
-        transform: $transform_scale-slider_handle translateY(-50%) translateX($spacing-slider_vertical_handle-translateX);
+        margin-top: variables.$spacing-slider_vertical_handle-marginTop;
+        margin-left: variables.$spacing-slider_vertical_handle-marginLeft;
+        transform: animation.$transform_scale-slider_handle translateY(-50%) translateX(variables.$spacing-slider_vertical_handle-translateX);
     }
     .#{$module}-dot{
-        transform: translateY($spacing-slider_vertical_dot-translateY);
+        transform: translateY(variables.$spacing-slider_vertical_dot-translateY);
     }
 }
 
 .#{$module}-disabled {
     cursor: not-allowed;
-    $color: $color-slider_disabled-text-default !important;
+    $color: variables.$color-slider_disabled-text-default !important;
 
     .#{$module}-handle {
         cursor: not-allowed;
         @include shadow-0;
-        border: $width-slider_handle_border_disabled $color-slider_handle_disabled-border solid;
+        border: variables.$width-slider_handle_border_disabled variables.$color-slider_handle_disabled-border solid;
 
         &:hover {
-            background-color: $color-slider_handle_disabled-border-hover;
+            background-color: variables.$color-slider_handle_disabled-border-hover;
         }
     }
 
@@ -234,13 +234,13 @@ $module: #{$prefix}-slider;
 
     .#{$module}-track {
         cursor: not-allowed;
-        background-color: $color-slider_track_disabled-bg;
+        background-color: variables.$color-slider_track_disabled-bg;
     }
 
     .#{$module}-dot {
         cursor: not-allowed;
-        background-color: $color-slider_dot-bg-default;
-        border-color: $color-slider_dot-border;
+        background-color: variables.$color-slider_dot-bg-default;
+        border-color: variables.$color-slider_dot-border;
         box-shadow: none;
     }
 }

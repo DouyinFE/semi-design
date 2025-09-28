@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 $z-avatar-default: 100; // 头像 z-index
 // color
 $color-avatar_default-border-default: var(--semi-color-bg-1); // 头像描边颜色

@@ -43,12 +43,40 @@ const excludeScss = [
     '!**/autoComplete/option.scss',
     '!**/select/option.scss',
 ];
-gulp.task('compileScss', function compileScss() {
-    return gulp.src(['**/*.scss', '!node_modules/**/*.*', '!**/rtl.scss', '!**/variables.scss', "!**/animation.scss", ...excludeScss])
+
+gulp.task('compileVariablesScss', function compileVariablesScss() {
+    return gulp.src(['**/variables.scss', '!node_modules/**/*.*'])
         .pipe(through2.obj(
             function (chunk, enc, cb) {
                 const rootPath = path.join(__dirname, '../../');
-                const scssVarStr = `@import "${rootPath}/packages/semi-theme-default/scss/index.scss";\n`;
+                const scssVarStr = `@use "${path.join(rootPath, 'packages/semi-theme-default/scss/index.scss')}" as *;\n`;
+                let scssRaw = chunk.contents.toString('utf-8');
+                if (scssRaw.startsWith("@use")) {
+                    const scssRawSplit = scssRaw.split("\n");
+                    const codeStartIndex = scssRawSplit.findIndex(item => !item.startsWith("@use"));
+                    scssRawSplit.splice(codeStartIndex, 0, scssVarStr);
+                    scssRaw = scssRawSplit.join("\n");
+                } else {
+                    scssRaw = `${scssVarStr}\n${scssRaw}`;
+                }
+                chunk.contents = Buffer.from(scssRaw, 'utf-8');
+                cb(null, chunk);
+            }
+        ))
+        .pipe(sass({
+            charset: false
+        }).on('error', sass.logError))
+        .pipe(gulp.dest('lib/es'))
+        .pipe(gulp.dest('lib/cjs'));
+});
+
+
+gulp.task('compileScss', function compileScss() {
+    return gulp.src(['**/*.scss', '!**/variables.scss', '!node_modules/**/*.*', "!**/animation.scss", ...excludeScss])
+        .pipe(through2.obj(
+            function (chunk, enc, cb) {
+                const rootPath = path.join(__dirname, '../../');
+                const scssVarStr = `@use "${path.join(rootPath, 'packages/semi-theme-default/scss/index.scss')}" as *;\n`;
                 let scssRaw = chunk.contents.toString('utf-8');
                 if (scssRaw.startsWith("@use")) {
                     const scssRawSplit = scssRaw.split("\n");

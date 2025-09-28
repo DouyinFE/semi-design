@@ -1,5 +1,6 @@
-@import "./variables.scss";
-@import "./animation.scss";
+@use '../../semi-theme-default/scss/index.scss' as *;
+@use "variables.scss" as *;
+@use "animation.scss" as *;
 
 $module: #{$prefix}-image;
 

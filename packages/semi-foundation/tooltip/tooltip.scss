@@ -1,6 +1,8 @@
 //@import '../theme/variables.scss';
-@import "./animation.scss";
-@import './variables.scss';
+@use "sass:meta";
+@use '../../semi-theme-default/scss/index.scss' as *;
+@use "animation.scss";
+@use 'variables.scss' as *;
 
 $module: #{$prefix}-tooltip;
 $module-icon: #{$module}-icon-arrow;
@@ -97,16 +99,16 @@ $module-icon: #{$module}-icon-arrow;
     }
 
     &-animation-show{
-        animation: #{$module}-zoomIn $animation_duration-tooltip_in $animation_function-tooltip_in;
+        animation: #{$module}-zoomIn animation.$animation_duration-tooltip_in animation.$animation_function-tooltip_in;
         animation-fill-mode: forwards;
     }
 
     &-animation-hide{
-        animation: #{$module}-zoomOut $animation_duration-tooltip_out $animation_function-tooltip_out;
+        animation: #{$module}-zoomOut animation.$animation_duration-tooltip_out animation.$animation_function-tooltip_out;
         animation-fill-mode: forwards;
     }
 
 }
 
-@import './arrow.scss';
-@import './rtl.scss';
+@include meta.load-css('arrow.scss');
+@include meta.load-css('rtl.scss');

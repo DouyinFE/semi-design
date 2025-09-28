@@ -1,22 +1,23 @@
-@import './variables.scss';
+@use "sass:meta";
+@use 'variables.scss';
 
 $module: #{$prefix}-chat;
 
 
 @mixin loading-circle-common() {
     border-radius: 50%;
-    height: $width-chat_chatBox_loading;
-    width: $width-chat_chatBox_loading;
-    background-color: $color-chat_chatBox_loading-bg;
+    height: variables.$width-chat_chatBox_loading;
+    width: variables.$width-chat_chatBox_loading;
+    background-color: variables.$color-chat_chatBox_loading-bg;
 }
 
 .#{$module} {
-    padding-top: $spacing-chat_paddingY;
-    padding-bottom: $spacing-chat_paddingY;
+    padding-top: variables.$spacing-chat_paddingY;
+    padding-bottom: variables.$spacing-chat_paddingY;
     display: flex;
     flex-direction: column;
     height: 100%;
-    max-width: $width-chat_max;
+    max-width: variables.$width-chat_max;
     position: relative;
     overflow: hidden;
 
@@ -32,16 +33,16 @@ $module: #{$prefix}-chat;
         left: 0;
         right: 0;
         bottom: 0;
-        background: $color-chat_dropArea-bg;
-        z-index: $z-chat_dropArea;
-        border: $width-chat_dropArea-border dotted $color-chat_dropArea-border;
+        background: variables.$color-chat_dropArea-bg;
+        z-index: variables.$z-chat_dropArea;
+        border: variables.$width-chat_dropArea-border dotted variables.$color-chat_dropArea-border;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: $radius-chat_dropArea;
+        border-radius: variables.$radius-chat_dropArea;
 
         &-text {
-            font-size: $font-chat_dropArea_text;
+            font-size: variables.$font-chat_dropArea_text;
         }
     }
 
@@ -59,8 +60,8 @@ $module: #{$prefix}-chat;
     }
 
     &-container {
-        padding-left: $spacing-chat_container-paddingX;
-        padding-right: $spacing-chat_container-paddingX;
+        padding-left: variables.$spacing-chat_container-paddingX;
+        padding-right: variables.$spacing-chat_container-paddingX;
         height: 100%;
         overflow: scroll;
 
@@ -74,53 +75,53 @@ $module: #{$prefix}-chat;
 
     &-action {
         position: relative;
-        z-index: $z-chat_action;
+        z-index: variables.$z-chat_action;
 
         &-content.#{$prefix}-button {
             position: absolute;
-            bottom: $spacing-chat_action_content-bottom;
+            bottom: variables.$spacing-chat_action_content-bottom;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             justify-content: center;
             align-items: center;
-            background: $color-chat_action_content-bg;
-            border: $width-chat_action_content-border solid $color-chat_action_content-border;
+            background: variables.$color-chat_action_content-bg;
+            border: variables.$width-chat_action_content-border solid variables.$color-chat_action_content-border;
         }
 
         &-content.#{$prefix}-button-light:not(.#{$prefix}-button-disabled):hover {
-            background: $color-chat_action_content-bg-hover;
-            border: $width-chat_action_content-border solid $color-chat_action_content-border;
+            background: variables.$color-chat_action_content-bg-hover;
+            border: variables.$width-chat_action_content-border solid variables.$color-chat_action_content-border;
         }
 
         &-backBottom.#{$prefix}-button {
-            width: $width-chat_backBottom_wrapper;
-            height: $width-chat_backBottom_wrapper;
+            width: variables.$width-chat_backBottom_wrapper;
+            height: variables.$width-chat_backBottom_wrapper;
             border-radius: 50%;
         }
 
         &-stop.#{$prefix}-button {
             user-select: none;
-            height: $height-chat_action_stop;
-            border-radius: calc($height-chat_action_stop / 2);
+            height: variables.$height-chat_action_stop;
+            border-radius: calc(variables.$height-chat_action_stop / 2);
         }
        
     }
 
     &-divider {
-        color: $color-chat_divider;
-        font-size: $font-chat_divider-fontSize;
-        margin-top: $spacing-chat_divider-marginY;
-        margin-bottom: $spacing-chat_divider-marginY;
-        font-weight: $font-chat_divider-fontWeight;  
+        color: variables.$color-chat_divider;
+        font-size: variables.$font-chat_divider-fontSize;
+        margin-top: variables.$spacing-chat_divider-marginY;
+        margin-bottom: variables.$spacing-chat_divider-marginY;
+        font-weight: variables.$font-chat_divider-fontWeight;  
     }
 
     &-chatBox {
         display: flex;
         flex-direction: row;
-        margin-top: $spacing-chat_chatBox-marginY;
-        margin-bottom: $spacing-chat_chatBox-marginY;
-        column-gap: $spacing-chat_chatBox-columnGap;
+        margin-top: variables.$spacing-chat_chatBox-marginY;
+        margin-bottom: variables.$spacing-chat_chatBox-marginY;
+        column-gap: variables.$spacing-chat_chatBox-columnGap;
 
         &:hover {
             .#{$module}-chatBox-action:not(.#{$module}-chatBox-action-hidden) {
@@ -138,8 +139,8 @@ $module: #{$prefix}-chat;
 
         &-avatar {
             flex-shrink: 0;
-            width: $width-chat_chatBox_avatar;
-            height: $width-chat_chatBox_avatar;
+            width: variables.$width-chat_chatBox_avatar;
+            height: variables.$width-chat_chatBox_avatar;
 
             &-hidden {
                 visibility: hidden;
@@ -147,10 +148,10 @@ $module: #{$prefix}-chat;
         }
 
         &-title {
-            line-height: $font-chat_chatBox_title-lineHeight;
-            font-size: $font-chat_chatBox_title-fontSize;
-            color: $color-chat_chatBox_title;
-            font-weight: $font-chat_chatBox_title-fontWeight;
+            line-height: variables.$font-chat_chatBox_title-lineHeight;
+            font-size: variables.$font-chat_chatBox_title-fontSize;
+            color: variables.$color-chat_chatBox_title;
+            font-weight: variables.$font-chat_chatBox_title-fontWeight;
             text-overflow: ellipsis;
         }
 
@@ -159,9 +160,9 @@ $module: #{$prefix}-chat;
             display: flex;
             align-items: center;
             position: relative;
-            column-gap: $spacing-chat_chatBox_action-columnGap;
-            margin-left: $spacing-chat_chatBox_action-marginX;
-            margin-right: $spacing-chat_chatBox_action-marginX;
+            column-gap: variables.$spacing-chat_chatBox_action-columnGap;
+            margin-left: variables.$spacing-chat_chatBox_action-marginX;
+            margin-right: variables.$spacing-chat_chatBox_action-marginX;
 
             &-btn {
                 &.#{$prefix}-button {
@@ -170,7 +171,7 @@ $module: #{$prefix}-chat;
                 }
                 
                 &.#{$prefix}-button.#{$prefix}-button-with-icon-only {
-                    padding: $spacing-chat_chatBox_action_btn-padding;
+                    padding: variables.$spacing-chat_chatBox_action_btn-padding;
                 }
             }
 
@@ -191,14 +192,14 @@ $module: #{$prefix}-chat;
             }
 
             .#{$prefix}-button-borderless:not(.#{$prefix}-button-disabled):hover {
-                background-color: $color-chat_chatBox_action-bg-hover;
+                background-color: variables.$color-chat_chatBox_action-bg-hover;
             }
 
             .#{$prefix}-button-tertiary.#{$prefix}-button-borderless {
-                color: $color-chat_chatBox_action_icon;
+                color: variables.$color-chat_chatBox_action_icon;
 
                 &:hover {
-                    color: $color-chat_chatBox_action-icon-hover;
+                    color: variables.$color-chat_chatBox_action-icon-hover;
                 }
             }
         }
@@ -209,17 +210,17 @@ $module: #{$prefix}-chat;
             flex-direction: column;
             align-items: flex-start;
             position: relative;
-            row-gap: $spacing-chat_chatBox_wrap;
-            max-width: calc(100% - $spacing-chat_chatBox-columnGap - $width-chat_chatBox_avatar);
+            row-gap: variables.$spacing-chat_chatBox_wrap;
+            max-width: calc(100% - variables.$spacing-chat_chatBox-columnGap - variables.$width-chat_chatBox_avatar);
         }
 
 
         &-content {
 
             &-bubble, &-userBubble {
-                padding: $spacing-chat_chatBox_content-paddingY $spacing-chat_chatBox_content-paddingX;
-                border-radius: $radius-chat_chatBox_content;
-                background-color: $color-chat_chatBox_content_bg;
+                padding: variables.$spacing-chat_chatBox_content-paddingY variables.$spacing-chat_chatBox_content-paddingX;
+                border-radius: variables.$radius-chat_chatBox_content;
+                background-color: variables.$color-chat_chatBox_content_bg;
                 max-width: 100%;
                 box-sizing: border-box;
             }
@@ -229,47 +230,47 @@ $module: #{$prefix}-chat;
             }
 
             .#{$prefix}-typography { 
-                color: $color-chat_chatBox_content_text;
+                color: variables.$color-chat_chatBox_content_text;
             }
 
             .#{$module}-attachment-file {
-                background: $color-chat_chatBox_other_attachment_file-bg;
+                background: variables.$color-chat_chatBox_other_attachment_file-bg;
             }
 
             .#{$module}-attachment-file, .#{$module}-attachment-img  {
-                margin-top: $spacing-chat_chatBox_content_attachment-marginY;
-                margin-bottom: $spacing-chat_chatBox_content_attachment-marginY;
-                margin-right: $spacing-chat_chatBox_content_attachment-marginRight;
+                margin-top: variables.$spacing-chat_chatBox_content_attachment-marginY;
+                margin-bottom: variables.$spacing-chat_chatBox_content_attachment-marginY;
+                margin-right: variables.$spacing-chat_chatBox_content_attachment-marginRight;
             }
         
             &-user {
-                background: $color-chat_chatBox_content_user-bg;
-                color: $color-chat_chatBox_content_user-text;
+                background: variables.$color-chat_chatBox_content_user-bg;
+                color: variables.$color-chat_chatBox_content_user-text;
 
                 .#{$module}-attachment-file {
-                    background: $color-chat_chatBox_user_attachment_file-bg;
+                    background: variables.$color-chat_chatBox_user_attachment_file-bg;
                 }
 
                 .#{$prefix}-typography,  .#{$prefix}-typography code { 
-                    color: $color-chat_chatBox_content_user-text;
+                    color: variables.$color-chat_chatBox_content_user-text;
                 }
 
                 .#{$prefix}-markdownRender ul, .#{$prefix}-markdownRender li {
-                    color: $color-chat_chatBox_content_user-text;
+                    color: variables.$color-chat_chatBox_content_user-text;
                 }
 
                 .#{$prefix}-typography a {
                     &, &:visited, &:hover {
-                        color: $color-chat_chatBox_content_user-text;
+                        color: variables.$color-chat_chatBox_content_user-text;
                     }  
                 }
 
             }
 
             &-error {
-                background: $color-chat_chatBox_content_error-bg;
+                background: variables.$color-chat_chatBox_content_error-bg;
                 .#{$prefix}-typography { 
-                    color: $color-chat_chatBox_content_error-text;
+                    color: variables.$color-chat_chatBox_content_error-text;
                 }
             }
 
@@ -279,7 +280,7 @@ $module: #{$prefix}-chat;
 
                 &-item {
                     @include loading-circle-common();
-                    margin: $spacing-chat_chatBox_loading-item-marginY $spacing-chat_chatBox_loading-item-marginX;
+                    margin: variables.$spacing-chat_chatBox_loading-item-marginY variables.$spacing-chat_chatBox_loading-item-marginX;
 
                     overflow: visible;
                     position: relative;
@@ -295,7 +296,7 @@ $module: #{$prefix}-chat;
 
                         position: absolute;
                         top: 0;
-                        left: -$spacing-chat_chatBox_loading_item-gap;
+                        left: -(variables.$spacing-chat_chatBox_loading_item-gap);
 
                         animation: #{$module}-loading-flashing .8s infinite alternate;
                         animation-timing-function: ease;
@@ -307,7 +308,7 @@ $module: #{$prefix}-chat;
                         @include loading-circle-common();
                         position: absolute;
                         top: 0;
-                        left: $spacing-chat_chatBox_loading_item-gap;
+                        left: variables.$spacing-chat_chatBox_loading_item-gap;
                         
                         animation: #{$module}-loading-flashing .8s infinite alternate;
                         animation-delay: 0s;
@@ -321,7 +322,7 @@ $module: #{$prefix}-chat;
             }
 
             &-code {
-                border-radius: $radius-chat_chatBox_content_code;
+                border-radius: variables.$radius-chat_chatBox_content_code;
                 overflow: hidden;
 
                 & .#{$prefix}-codeHighlight pre {
@@ -332,35 +333,35 @@ $module: #{$prefix}-chat;
                 &-topSlot {
                     display: flex;
                     justify-content: space-between;
-                    background-color: $color-chat_chatBox_code_topSlot-bg;
+                    background-color: variables.$color-chat_chatBox_code_topSlot-bg;
                     align-items: center;
-                    padding: $spacing-chat_chatBox_content_code_topSlot-paddingX $spacing-chat_chatBox_content_code_topSlot-paddingY;
-                    color: $color-chat_chatBox_code_topSlot;
-                    font-size: $font-chat_chatBox_code_topSlot;
+                    padding: variables.$spacing-chat_chatBox_content_code_topSlot-paddingX variables.$spacing-chat_chatBox_content_code_topSlot-paddingY;
+                    color: variables.$color-chat_chatBox_code_topSlot;
+                    font-size: variables.$font-chat_chatBox_code_topSlot;
                     
                     &-copy {
-                        min-width: $width-chat_chatBox_content_code_topSlot_copy;
+                        min-width: variables.$width-chat_chatBox_content_code_topSlot_copy;
                         display: flex;
                         justify-content: flex-end;
 
                         &-wrapper {
                             display: flex;
                             align-items: center;
-                            column-gap: $spacing-chat_chatBox_content_code_topSlot_copy-columnGap;
+                            column-gap: variables.$spacing-chat_chatBox_content_code_topSlot_copy-columnGap;
                             cursor: pointer;
                             background: transparent;
                             border: none;
-                            color: $color-chat_chatBox_code_topSlot;
-                            line-height: $font-chat_chatBox_code_topSlot-lineHeight;
-                            padding: $spacing-chat_chatBox_content_code_topSlot_copy-padding;
-                            border-radius: $radius-chat_chatBox_content_code_topSlot_copy; 
+                            color: variables.$color-chat_chatBox_code_topSlot;
+                            line-height: variables.$font-chat_chatBox_code_topSlot-lineHeight;
+                            padding: variables.$spacing-chat_chatBox_content_code_topSlot_copy-padding;
+                            border-radius: variables.$radius-chat_chatBox_content_code_topSlot_copy; 
                         }
                           
                     }
         
                     &-toCopy {
                         &:hover {
-                            background: $color-chat_chatBox_code_topSlot_toCopy-bg-hover;
+                            background: variables.$color-chat_chatBox_code_topSlot_toCopy-bg-hover;
                         }
                     }
                 
@@ -368,31 +369,31 @@ $module: #{$prefix}-chat;
                 
                 .semi-codeHighlight-defaultTheme pre[class*=language-] {
                     margin: 0px;
-                    background: $color-chat_chatBox_code_content;
+                    background: variables.$color-chat_chatBox_code_content;
                 } 
             }
         }
     }
 
     &-inputBox {
-        padding-left: $spacing-chat_inputBox-paddingX;
-        padding-right: $spacing-chat_inputBox-paddingX;
-        padding-top: $spacing-chat_inputBox-paddingTop;
-        padding-bottom: $spacing-chat_inputBox-paddingBottom;
+        padding-left: variables.$spacing-chat_inputBox-paddingX;
+        padding-right: variables.$spacing-chat_inputBox-paddingX;
+        padding-top: variables.$spacing-chat_inputBox-paddingTop;
+        padding-bottom: variables.$spacing-chat_inputBox-paddingBottom;
 
         &-clearButton.#{$prefix}-button {
             border-radius: 50%;
-            width: $width-chat_inputBottom_clearButton;
-            height: $width-chat_inputBottom_clearButton;
-            margin-top: $spacing-chat_inputBox-marginY;
-            margin-bottom: $spacing-chat_inputBox-marginY;
+            width: variables.$width-chat_inputBottom_clearButton;
+            height: variables.$width-chat_inputBottom_clearButton;
+            margin-top: variables.$spacing-chat_inputBox-marginY;
+            margin-bottom: variables.$spacing-chat_inputBox-marginY;
 
             .#{$prefix}-icon {
-                font-size: $font-chat_inputBottom_clearButton_icon-fontSize;
+                font-size: variables.$font-chat_inputBottom_clearButton_icon-fontSize;
             }
 
             &.#{$prefix}-button-primary.#{$prefix}-button-borderless {
-                color: $color-chat_inputBottom_clearButton_icon;
+                color: variables.$color-chat_inputBottom_clearButton_icon;
             } 
 
         }
@@ -404,22 +405,22 @@ $module: #{$prefix}-chat;
         }
 
         &-uploadButton.#{$prefix}-button {
-            width: $width-chat_inputBottom_uploadButton;
-            height: $width-chat_inputBottom_uploadButton;
+            width: variables.$width-chat_inputBottom_uploadButton;
+            height: variables.$width-chat_inputBottom_uploadButton;
             &.#{$prefix}-button-primary.#{$prefix}-button-borderless {
-                color: $color-chat_inputBottom_uploadButton_icon;
+                color: variables.$color-chat_inputBottom_uploadButton_icon;
             }  
         }
 
         &-sendButton.#{$prefix}-button{
-            width: $width-chat_inputBottom_sendButton;
-            height: $width-chat_inputBottom_sendButton;
+            width: variables.$width-chat_inputBottom_sendButton;
+            height: variables.$width-chat_inputBottom_sendButton;
             &-icon {
                 transform: rotate(45deg);
             }
             
             &.#{$prefix}-button-disabled.#{$prefix}-button-borderless {
-                color: $color-chat_inputBottom_sendButton_icon-disable;
+                color: variables.$color-chat_inputBottom_sendButton_icon-disable;
             }
         }
 
@@ -427,16 +428,16 @@ $module: #{$prefix}-chat;
             display: flex;
             flex-direction: row; 
             align-items: flex-end;
-            column-gap: $spacing-chat_inputBox_inner-columnGap;
+            column-gap: variables.$spacing-chat_inputBox_inner-columnGap;
         }
 
         &-container {
             display: flex;
             flex-direction: row; 
             flex-grow: 1;
-            border-radius: $radius-chat_inputBox_container;
-            padding: $spacing-chat_inputBox_container-padding;
-            border: $width-chat_inputBox_container-border solid $color-chat_inputBox_container-border;
+            border-radius: variables.$radius-chat_inputBox_container;
+            padding: variables.$spacing-chat_inputBox_container-padding;
+            border: variables.$width-chat_inputBox_container-border solid variables.$color-chat_inputBox_container-border;
             align-items: flex-end;
         }
             
@@ -462,10 +463,10 @@ $module: #{$prefix}-chat;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        column-gap: $spacing-chat_attachment-columnGap;
-        row-gap: $spacing-chat_attachment-RowGap;
-        margin-left: $spacing-chat_attachment-marginX;
-        margin-right: $spacing-chat_attachment-marginX;
+        column-gap: variables.$spacing-chat_attachment-columnGap;
+        row-gap: variables.$spacing-chat_attachment-RowGap;
+        margin-left: variables.$spacing-chat_attachment-marginX;
+        margin-right: variables.$spacing-chat_attachment-marginX;
 
         &-item {
             position: relative;
@@ -478,7 +479,7 @@ $module: #{$prefix}-chat;
         }
 
         &-img {
-            border-radius: $radius-chat_attachment_img;
+            border-radius: variables.$radius-chat_attachment_img;
             vertical-align: top;
 
             img {
@@ -493,9 +494,9 @@ $module: #{$prefix}-chat;
 
         &-clear {
             position: absolute;
-            top: -1 * $spacing-chat_attachment_clear-top;
-            right: -1 * $spacing-chat_attachment_clear-right;
-            color: $color-chat_attachment_clear_icon;
+            top: -1 * variables.$spacing-chat_attachment_clear-top;
+            right: -1 * variables.$spacing-chat_attachment_clear-right;
+            color: variables.$color-chat_attachment_clear_icon;
         }
 
         &-process.#{$prefix}-progress-circle {
@@ -509,15 +510,15 @@ $module: #{$prefix}-chat;
             display: inline-flex;
             flex-direction: row;
             align-items: center;
-            height: $width-chat_attachment_file;
-            column-gap: $spacing-chat_attachment_file-columnGap;
-            padding: $spacing-chat_attachment_file-padding;
-            border-radius: $radius-chat_attachment_file;
-            background: $color-chat_attachment_file-bg;
+            height: variables.$width-chat_attachment_file;
+            column-gap: variables.$spacing-chat_attachment_file-columnGap;
+            padding: variables.$spacing-chat_attachment_file-padding;
+            border-radius: variables.$radius-chat_attachment_file;
+            background: variables.$color-chat_attachment_file-bg;
             text-decoration: none;
     
             &-icon {
-                color: $color-chat_attachment_file_icon;
+                color: variables.$color-chat_attachment_file_icon;
             }
 
             &-info {
@@ -526,16 +527,16 @@ $module: #{$prefix}-chat;
             }
 
             &-title {
-                font-size: $font-chat_attachment_file_title-fontSize;
-                color: $color-chat_attachment_file_title;
-                max-width: $width-chat_attachment_file_title;
+                font-size: variables.$font-chat_attachment_file_title-fontSize;
+                color: variables.$color-chat_attachment_file_title;
+                max-width: variables.$width-chat_attachment_file_title;
                 text-overflow: ellipsis;
                 overflow: hidden;
             }
 
             &-metadata {
-                font-size: $font-chat_attachment_file_metadata-fontSize;
-                color: $color-chat_attachment_file_metadata_text;
+                font-size: variables.$font-chat_attachment_file_metadata-fontSize;
+                color: variables.$color-chat_attachment_file_metadata_text;
             }
 
             &-type {
@@ -549,7 +550,7 @@ $module: #{$prefix}-chat;
         display: flex;
 
         .#{$module}-attachment-file-title {
-            color: $color-chat_attachment_file_title;
+            color: variables.$color-chat_attachment_file_title;
         }
         
     }
@@ -557,10 +558,10 @@ $module: #{$prefix}-chat;
     &-hints {
         display: flex;
         flex-direction: column;
-        row-gap: $spacing-chat_hint-rowGap;
-        margin-top: $spacing-chat_hint-marginY; 
-        margin-bottom: $spacing-chat_hint-marginY;
-        margin-left: $spacing-chat_hint-marginLeft;
+        row-gap: variables.$spacing-chat_hint-rowGap;
+        margin-top: variables.$spacing-chat_hint-marginY; 
+        margin-bottom: variables.$spacing-chat_hint-marginY;
+        margin-left: variables.$spacing-chat_hint-marginLeft;
     }
 
     &-hint {
@@ -568,28 +569,28 @@ $module: #{$prefix}-chat;
             cursor: pointer;
             display: flex;
             flex-direction: row;
-            column-gap: $spacing-chat_hint_item-columnGap;
+            column-gap: variables.$spacing-chat_hint_item-columnGap;
             width: fit-content;
             // justify-content: space-between;
-            background: $color-chat_hint_item-bg;
+            background: variables.$color-chat_hint_item-bg;
             align-items: center;
-            border: $width-chat_hint_item-border solid $color-chat_hint_item-border;
-            padding: $spacing-chat_hint_item-marginY $spacing-chat_hint_item-marginX;
-            border-radius: $radius-chat_hint_item;
+            border: variables.$width-chat_hint_item-border solid variables.$color-chat_hint_item-border;
+            padding: variables.$spacing-chat_hint_item-marginY variables.$spacing-chat_hint_item-marginX;
+            border-radius: variables.$radius-chat_hint_item;
 
             &:hover {
-                background-color: $color-chat_hint_item-bg-hover;
+                background-color: variables.$color-chat_hint_item-bg-hover;
             }
         }
 
         &-content {
-            font-size: $font-chat_hint_content-fontSize;
-            color: $color-chat_hint_content_text;
+            font-size: variables.$font-chat_hint_content-fontSize;
+            color: variables.$color-chat_hint_content_text;
         }
 
         &-icon {
             // font-size: $font-chat_hint_icon;
-            color: $color-chat_hint_icon;
+            color: variables.$color-chat_hint_icon;
         }
        
     }
@@ -608,4 +609,4 @@ $module: #{$prefix}-chat;
 }
 
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

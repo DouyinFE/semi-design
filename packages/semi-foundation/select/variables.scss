@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 // Color
 $color-select-bg-default: var(--semi-color-fill-0); // 选择器输入框背景色 - 默认态
 $color-select-bg-hover: var(--semi-color-fill-1); // 选择器输入框背景色 - 悬停态

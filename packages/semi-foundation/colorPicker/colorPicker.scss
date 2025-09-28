@@ -1,4 +1,4 @@
-@import "./variables.scss";
+@use "variables.scss";
 
 
 $module: #{$prefix}-colorPicker;
@@ -15,14 +15,14 @@ $module: #{$prefix}-colorPicker;
         position: relative;
         flex-grow: 1;
         border-color: transparent;
-        border-radius: $radius-colorPicker-topLeft $radius-colorPicker-topRight $radius-colorPicker-bottomLeft $radius-colorPicker-bottomRight;
+        border-radius: variables.$radius-colorPicker-topLeft variables.$radius-colorPicker-topRight variables.$radius-colorPicker-bottomLeft variables.$radius-colorPicker-bottomRight;
         background-image: linear-gradient(to top, #000, rgba(0, 0, 0, 0)), linear-gradient(to right, #fff, rgba(255, 255, 255, 0));
     }
 
 
     &-handle{
-        border-radius: $radius-colorPicker-handle;
-        border: $width-colorPicker_handle-border solid $color-colorPicker_handle-border;
+        border-radius: variables.$radius-colorPicker-handle;
+        border: variables.$width-colorPicker_handle-border solid variables.$color-colorPicker_handle-border;
         position: absolute;
         box-sizing: border-box;
         cursor: grab;
@@ -34,21 +34,21 @@ $module: #{$prefix}-colorPicker;
     &-alphaSlider{
         position: relative;
         cursor: pointer;
-        margin-top: $spacing-colorPicker_slider-marginTop;
-        border-radius: $radius-colorPicker-handle;
+        margin-top: variables.$spacing-colorPicker_slider-marginTop;
+        border-radius: variables.$radius-colorPicker-handle;
         background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><rect x="8" width="8" height="8"/><rect y="8" width="8" height="8"/></svg>');
 
 
         .#{$module}-alphaSliderInner{
             width: 100%;
             height: 100%;
-            border-radius: $radius-colorPicker-alphaSliderInner;
+            border-radius: variables.$radius-colorPicker-alphaSliderInner;
         }
 
         .#{$module}-alphaHandle{
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><rect x="8" width="8" height="8"/><rect y="8" width="8" height="8"/></svg>');
-            border-radius: $radius-colorPicker-handle;
-            border: $width-colorPicker_handle-border solid $color-colorPicker_handle-border;
+            border-radius: variables.$radius-colorPicker-handle;
+            border: variables.$width-colorPicker_handle-border solid variables.$color-colorPicker_handle-border;
             position: absolute;
             box-sizing: border-box;
             cursor: grab;
@@ -60,22 +60,22 @@ $module: #{$prefix}-colorPicker;
     &-colorSlider{
         position: relative;
         cursor: pointer;
-        margin-top: $spacing-colorPicker_slider-marginTop;
-        border-radius: $radius-colorPicker-handle;
+        margin-top: variables.$spacing-colorPicker_slider-marginTop;
+        border-radius: variables.$radius-colorPicker-handle;
         background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
     }
 
 
 
     &-dataPart{
-        margin-top: $spacing-colorPicker_dataPart-marginTop;
+        margin-top: variables.$spacing-colorPicker_dataPart-marginTop;
         display: flex;
         align-items: center;
         .#{$module}-colorDemoBlock{
-            border-radius: $radius-colorPicker-demoBlock;
+            border-radius: variables.$radius-colorPicker-demoBlock;
         }
         .#{$module}-inputGroup{
-            margin-left: $spacing-colorPicker_inputGroup-marginLeft;
+            margin-left: variables.$spacing-colorPicker_inputGroup-marginLeft;
             width: 100%;
             flex:1;
             flex-wrap: nowrap;
@@ -83,26 +83,26 @@ $module: #{$prefix}-colorPicker;
                 flex: 1;
             }
             .#{$module}-colorPickerInputNumber{
-                width: $width-colorPicker-colorPickerInputNumber;
+                width: variables.$width-colorPicker-colorPickerInputNumber;
                 .#{$module}-inputNumberSuffix{
-                    font-size: $font-colorPicker_inputNumberSuffix-fontSize;
-                    padding: $spacing-colorPicker_inputNumberSuffix-vertical $spacing-colorPicker_inputNumberSuffix-horizontal;
+                    font-size: variables.$font-colorPicker_inputNumberSuffix-fontSize;
+                    padding: variables.$spacing-colorPicker_inputNumberSuffix-vertical variables.$spacing-colorPicker_inputNumberSuffix-horizontal;
                 }
             }
         }
         .#{$module}-formatSelect{
-            width: $width-colorPicker-formatSelect;
+            width: variables.$width-colorPicker-formatSelect;
         }
     }
 
 
     &-popover{
-        padding: $spacing-colorPicker_popover-padding;
+        padding: variables.$spacing-colorPicker_popover-padding;
 
         &-defaultChildren{
-            width:$width-colorPicker-defaultTrigger;
-            height: $width-colorPicker-defaultTrigger;
-            border-radius: $radius-colorPicker-defaultTrigger;
+            width:variables.$width-colorPicker-defaultTrigger;
+            height: variables.$width-colorPicker-defaultTrigger;
+            border-radius: variables.$radius-colorPicker-defaultTrigger;
             cursor: pointer;
         }
 

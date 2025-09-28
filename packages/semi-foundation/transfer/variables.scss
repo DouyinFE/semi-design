@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 // Color
 $color-transfer-bg: var(--semi-color-bg-1); // 穿梭框背景颜色 - 默认
 $color-transfer_disabled-bg: var(--semi-color-disabled-fill); // 穿梭框背景颜色 - 禁用

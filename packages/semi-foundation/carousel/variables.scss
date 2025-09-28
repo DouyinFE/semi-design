@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $color-carousel_indicator_theme_dark-bg-default: rgba(var(--semi-black), .5); // 深色主题指示器背景颜色 - 默认
 $color-carousel_indicator_theme_dark-bg-hover: rgba(var(--semi-black), .7); // 深色主题指示器背景颜色 - 悬浮
 $color-carousel_indicator_theme_dark-bg-active: rgba(var(--semi-black), 1); // 深色主题指示器背景颜色 - 选中

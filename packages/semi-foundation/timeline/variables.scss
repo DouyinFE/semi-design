@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $color-timeline_dot_default-bg-default: var(--semi-color-primary); // 时间轴节点圆点背景色 - 进行中
 $color-timeline_dot_success-bg-default: var(--semi-color-success); // 时间轴节点圆点背景色 - 成功
 $color-timeline_dot_warning-bg-default: var(--semi-color-warning); // 时间轴节点圆点背景色 - 警告

@@ -1,5 +1,6 @@
-@import "./animation.scss";
-@import './variables.scss';
+@use "sass:meta";
+@use "animation.scss";
+@use 'variables.scss';
 
 $module: #{$prefix}-notification;
 
@@ -10,8 +11,8 @@ $module: #{$prefix}-notification;
 .#{$module}-list {
     position: fixed;
     box-sizing: border-box;
-    margin: $spacing-notification_list-margin;
-    padding: $spacing-notification_list-padding;
+    margin: variables.$spacing-notification_list-margin;
+    padding: variables.$spacing-notification_list-padding;
     z-index: $z-notification;
     pointer-events: none;
 
@@ -52,77 +53,77 @@ $module: #{$prefix}-notification;
 .#{$module} {
     &-notice {
         @include shadow-elevated;
-        border-radius: $radius-notification_notice;
-        padding-top: $spacing-notification_notice-paddingTop;
-        padding-right: $spacing-notification_notice-paddingRight;
-        padding-bottom: $spacing-notification_notice-paddingBottom;
-        padding-left: $spacing-notification_notice-paddingLeft;
-        margin: $spacing-notification_notice-margin;
-        width: $width-notification_notice;
-        min-width: $width-notification_notice_minWidth;
-        background-color: $color-notification-bg-default;
+        border-radius: variables.$radius-notification_notice;
+        padding-top: variables.$spacing-notification_notice-paddingTop;
+        padding-right: variables.$spacing-notification_notice-paddingRight;
+        padding-bottom: variables.$spacing-notification_notice-paddingBottom;
+        padding-left: variables.$spacing-notification_notice-paddingLeft;
+        margin: variables.$spacing-notification_notice-margin;
+        width: variables.$width-notification_notice;
+        min-width: variables.$width-notification_notice_minWidth;
+        background-color: variables.$color-notification-bg-default;
         position: relative;
         display: flex;
         pointer-events: auto;
 
         &-icon {
-            width: $width-notification_notice-icon;
+            width: variables.$width-notification_notice-icon;
             @include font-size-header-6;
             display: flex;
             align-items: flex-start;
             justify-content: flex-start;
             height: 100%;
-            margin-right: $spacing-notification_notice_icon-marginRight;
+            margin-right: variables.$spacing-notification_notice_icon-marginRight;
         }
 
         &-info {
-            color: $color-notification_info-icon;
+            color: variables.$color-notification_info-icon;
         }
 
         &-warning {
-            color: $color-notification_warning-icon;
+            color: variables.$color-notification_warning-icon;
         }
 
         &-error {
-            color: $color-notification_danger-icon;
+            color: variables.$color-notification_danger-icon;
         }
 
         &-success {
-            color: $color-notification_success-icon;
+            color: variables.$color-notification_success-icon;
         }
 
         &-light {
             &.#{$module}-notice-warning {
-                background-image: linear-gradient(0deg, $color-notification_warning_light-bg, $color-notification_warning_light-bg);
-                background-color: $color-notification_ambient-bg;
-                border: $width-notification_notice-border solid $color-notification_warning_light-border;
+                background-image: linear-gradient(0deg, variables.$color-notification_warning_light-bg, variables.$color-notification_warning_light-bg);
+                background-color: variables.$color-notification_ambient-bg;
+                border: variables.$width-notification_notice-border solid variables.$color-notification_warning_light-border;
             }
 
             &.#{$module}-notice-success {
-                background-image: linear-gradient(0deg, $color-notification_success_light-bg, $color-notification_success_light-bg);
-                background-color: $color-notification_ambient-bg;
-                border: $width-notification_notice-border solid $color-notification_success_light-border;
+                background-image: linear-gradient(0deg, variables.$color-notification_success_light-bg, variables.$color-notification_success_light-bg);
+                background-color: variables.$color-notification_ambient-bg;
+                border: variables.$width-notification_notice-border solid variables.$color-notification_success_light-border;
             }
 
             &.#{$module}-notice-info,
             &.#{$module}-notice-default {
-                background-image: linear-gradient(0deg, $color-notification_info_light-bg, $color-notification_info_light-bg);
-                background-color: $color-notification_ambient-bg;
-                border: $width-notification_notice-border solid $color-notification_info_light-border;
+                background-image: linear-gradient(0deg, variables.$color-notification_info_light-bg, variables.$color-notification_info_light-bg);
+                background-color: variables.$color-notification_ambient-bg;
+                border: variables.$width-notification_notice-border solid variables.$color-notification_info_light-border;
             }
 
             &.#{$module}-notice-error {
-                background-image: linear-gradient(0deg, $color-notification_danger_light-bg, $color-notification_danger_light-bg);
-                background-color: $color-notification_ambient-bg;
-                border: $width-notification_notice-border solid $color-notification_danger_light-border;
+                background-image: linear-gradient(0deg, variables.$color-notification_danger_light-bg, variables.$color-notification_danger_light-bg);
+                background-color: variables.$color-notification_ambient-bg;
+                border: variables.$width-notification_notice-border solid variables.$color-notification_danger_light-border;
             }
         }
 
         &-title {
             @include font-size-header-6;
-            font-weight: $font-notification_notice_title-fontWeight;
-            color: $color-notification_title-text;
-            margin-bottom: $spacing-notification_notice_title-marginBottom;
+            font-weight: variables.$font-notification_notice_title-fontWeight;
+            color: variables.$color-notification_title-text;
+            margin-bottom: variables.$spacing-notification_notice_title-marginBottom;
             // word-wrap is an alias of overflow-wrap, word-wrap can take effect on more browsers, in order to prevent future changes, use both  
             word-wrap: break-word;
             overflow-wrap: break-word;
@@ -136,14 +137,14 @@ $module: #{$prefix}-notification;
 
         &-content-wrapper {
             flex: 1 1 auto;
-            margin-right: $spacing-notification_notice_content_wrapper-marginRight;
+            margin-right: variables.$spacing-notification_notice_content_wrapper-marginRight;
             min-width: 0;
         }
 
         &-content {
             @include font-size-regular;
-            font-weight: $font-notification_notice_content-fontWeight;
-            color: $color-notification_content-text;
+            font-weight: variables.$font-notification_notice_content-fontWeight;
+            color: variables.$color-notification_content-text;
             // padding-top: $spacing-extra-tight;
             // word-wrap is an alias of overflow-wrap, word-wrap can take effect on more browsers, in order to prevent future changes, use both  
             word-wrap: break-word;
@@ -154,7 +155,7 @@ $module: #{$prefix}-notification;
             height: $width-icon-extra-large;
 
             .#{$prefix}-icon-close {
-                color: $color-notification_closeBtn-icon;
+                color: variables.$color-notification_closeBtn-icon;
             }
         }
 
@@ -177,7 +178,7 @@ $module: #{$prefix}-notification;
 
         @keyframes #{$module}-slideShow_top {
             from {
-                opacity: $animation_opacity-notification-show;
+                opacity: animation.$animation_opacity-notification-show;
                 transform: translateY(-100%);
             }
             to {
@@ -192,14 +193,14 @@ $module: #{$prefix}-notification;
                 transform: translateY(0);
             }
             to {
-                opacity: $animation_opacity-notification-hide;
+                opacity: animation.$animation_opacity-notification-hide;
                 transform: translateY(-100%);
             }
         }
 
         @keyframes #{$module}-slideShow_topLeft {
             from {
-                opacity: $animation_opacity-notification-show;
+                opacity: animation.$animation_opacity-notification-show;
                 transform: translateX(-100%);
             }
             to {
@@ -214,14 +215,14 @@ $module: #{$prefix}-notification;
                 transform: translateX(0);
             }
             to {
-                opacity: $animation_opacity-notification-hide;
+                opacity: animation.$animation_opacity-notification-hide;
                 transform: translateX(-100%);
             }
         }
 
         @keyframes #{$module}-slideShow_topRight {
             from {
-                opacity: $animation_opacity-notification-show;
+                opacity: animation.$animation_opacity-notification-show;
                 transform: translateX(100%);
             }
             to {
@@ -236,14 +237,14 @@ $module: #{$prefix}-notification;
                 transform: translateX(0);
             }
             to {
-                opacity: $animation_opacity-notification-hide;
+                opacity: animation.$animation_opacity-notification-hide;
                 transform: translateX(100%);
             }
         }
 
         @keyframes #{$module}-slideShow_bottom {
             from {
-                opacity: $animation_opacity-notification-show;
+                opacity: animation.$animation_opacity-notification-show;
                 transform: translateY(100%);
             }
             to {
@@ -258,14 +259,14 @@ $module: #{$prefix}-notification;
                 transform: translateY(0);
             }
             to {
-                opacity: $animation_opacity-notification-hide;
+                opacity: animation.$animation_opacity-notification-hide;
                 transform: translateY(100%);
             }
         }
 
         @keyframes #{$module}-slideShow_bottomLeft {
             from {
-                opacity: $animation_opacity-notification-show;
+                opacity: animation.$animation_opacity-notification-show;
                 transform: translateX(-100%);
             }
             to {
@@ -280,14 +281,14 @@ $module: #{$prefix}-notification;
                 transform: translateX(0);
             }
             to {
-                opacity: $animation_opacity-notification-hide;
+                opacity: animation.$animation_opacity-notification-hide;
                 transform: translateX(-100%);
             }
         }
 
         @keyframes #{$module}-slideShow_bottomRight {
             from {
-                opacity: $animation_opacity-notification-show;
+                opacity: animation.$animation_opacity-notification-show;
                 transform: translateX(100%);
             }
             to {
@@ -302,7 +303,7 @@ $module: #{$prefix}-notification;
                 transform: translateX(0);
             }
             to {
-                opacity: $animation_opacity-notification-hide;
+                opacity: animation.$animation_opacity-notification-hide;
                 transform: translateX(100%);
             }
         }
@@ -310,64 +311,64 @@ $module: #{$prefix}-notification;
 
 
         &-animation-show_top{
-            animation: #{$module}-slideShow_top $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+            animation: #{$module}-slideShow_top animation.$animation_duration-notification-show animation.$animation_function-notification-show animation.$animation_delay-notification-show;
             animation-fill-mode: forwards;
         }
 
         &-animation-hide_top{
-            animation: #{$module}-slideHide_top $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+            animation: #{$module}-slideHide_top animation.$animation_duration-notification-hide animation.$animation_function-notification-hide animation.$animation_delay-notification-hide;
             animation-fill-mode: forwards;
         }
 
         &-animation-show_topLeft{
-            animation: #{$module}-slideShow_topLeft $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+            animation: #{$module}-slideShow_topLeft animation.$animation_duration-notification-show animation.$animation_function-notification-show animation.$animation_delay-notification-show;
             animation-fill-mode: forwards;
         }
 
         &-animation-hide_topLeft{
-            animation: #{$module}-slideHide_topLeft $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+            animation: #{$module}-slideHide_topLeft animation.$animation_duration-notification-hide animation.$animation_function-notification-hide animation.$animation_delay-notification-hide;
             animation-fill-mode: forwards;
         }
 
         &-animation-show_topRight{
-            animation: #{$module}-slideShow_topRight $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+            animation: #{$module}-slideShow_topRight animation.$animation_duration-notification-show animation.$animation_function-notification-show animation.$animation_delay-notification-show;
             animation-fill-mode: forwards;
         }
 
         &-animation-hide_topRight{
-            animation: #{$module}-slideHide_topRight $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+            animation: #{$module}-slideHide_topRight animation.$animation_duration-notification-hide animation.$animation_function-notification-hide animation.$animation_delay-notification-hide;
             animation-fill-mode: forwards;
         }
 
         &-animation-show_bottom{
-            animation: #{$module}-slideShow_bottom $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+            animation: #{$module}-slideShow_bottom animation.$animation_duration-notification-show animation.$animation_function-notification-show animation.$animation_delay-notification-show;
             animation-fill-mode: forwards;
         }
 
         &-animation-hide_bottom{
-            animation: #{$module}-slideHide_bottom $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+            animation: #{$module}-slideHide_bottom animation.$animation_duration-notification-hide animation.$animation_function-notification-hide animation.$animation_delay-notification-hide;
             animation-fill-mode: forwards;
         }
 
         &-animation-show_bottomLeft{
-            animation: #{$module}-slideShow_bottomLeft $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+            animation: #{$module}-slideShow_bottomLeft animation.$animation_duration-notification-show animation.$animation_function-notification-show animation.$animation_delay-notification-show;
             animation-fill-mode: forwards;
         }
 
         &-animation-hide_bottomLeft{
-            animation: #{$module}-slideHide_bottomLeft $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+            animation: #{$module}-slideHide_bottomLeft animation.$animation_duration-notification-hide animation.$animation_function-notification-hide animation.$animation_delay-notification-hide;
             animation-fill-mode: forwards;
         }
         &-animation-show_bottomRight{
-            animation: #{$module}-slideShow_bottomRight $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+            animation: #{$module}-slideShow_bottomRight animation.$animation_duration-notification-show animation.$animation_function-notification-show animation.$animation_delay-notification-show;
             animation-fill-mode: forwards;
         }
 
         &-animation-hide_bottomRight{
-            animation: #{$module}-slideHide_bottomRight $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+            animation: #{$module}-slideHide_bottomRight animation.$animation_duration-notification-hide animation.$animation_function-notification-hide animation.$animation_delay-notification-hide;
             animation-fill-mode: forwards;
         }
     }
 }
 
-@import './rtl.scss';
+@include meta.load-css('rtl.scss');

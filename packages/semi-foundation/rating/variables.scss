@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $color-rating-icon-default: rgba(var(--semi-yellow-5), 1); // 评分图标按钮颜色 - 已填
 $color-rating-bg-default: var(--semi-color-fill-0); // 评分图标按钮颜色 - 未填
 

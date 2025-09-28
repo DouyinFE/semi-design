@@ -1,3 +1,6 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+@use "variables.scss" as *;
+
 $module: #{$prefix}-sidesheet;
 
 // sideSheet 挂载在 body 下，无法直接使用 .semi-rtl

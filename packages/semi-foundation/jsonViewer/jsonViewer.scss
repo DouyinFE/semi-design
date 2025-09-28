@@ -1,30 +1,30 @@
-@import './variables.scss';
+@use 'variables.scss';
 
 $module: #{$prefix}-json-viewer;
 
 .#{$module} {
     &-background {
-        background-color: $color-json-viewer-background;
+        background-color: variables.$color-json-viewer-background;
     }
 
     &-string-key {
-        color: $color-json-viewer-key;
+        color: variables.$color-json-viewer-key;
     }
 
     &-string-value {
-        color: $color-json-viewer-value;
+        color: variables.$color-json-viewer-value;
     }
 
     &-keyword {
-        color: $color-json-viewer-keyword;
+        color: variables.$color-json-viewer-keyword;
     }
 
     &-number {
-        color: $color-json-viewer-number;
+        color: variables.$color-json-viewer-number;
     }
 
     &-delimiter-comma {
-        color: $color-json-viewer-delimiter-comma;
+        color: variables.$color-json-viewer-delimiter-comma;
     }
 
     &-delimiter-bracket-0 {
@@ -47,17 +47,17 @@ $module: #{$prefix}-json-viewer;
     }
 
     &-search-result {
-        background-color: $color-json-viewer-search-result-background;
+        background-color: variables.$color-json-viewer-search-result-background;
     }
 
     &-current-search-result {
-        background-color: $color-json-viewer-current-search-result-background !important;
+        background-color: variables.$color-json-viewer-current-search-result-background !important;
     }
 
     &-folding-icon {
         opacity: 0.7;
         transition: opacity 0.8s;
-        color: $color-json-viewer-folding-icon;
+        color: variables.$color-json-viewer-folding-icon;
     }
 
     &-view-line {
@@ -79,7 +79,7 @@ $module: #{$prefix}-json-viewer;
         font-feature-settings: 'liga' 0, 'calt' 0;
         font-variation-settings: normal;
         letter-spacing: 0px;
-        color: $color-json-viewer-line-number;
+        color: variables.$color-json-viewer-line-number;
         text-align: center;
         width: 50px;
         user-select: none;

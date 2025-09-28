@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 // Color
 $color-userGuide_popup-text-default: var(--semi-color-text-0); // 气泡卡片文字颜色 - 默认
 $color-userGuide_popup-text-primary: var(--semi-color-tertiary-light-default); // 气泡卡片文字颜色 - primary

@@ -1,3 +1,4 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
 $color-hotKeys-bg: var(--semi-color-fill-0); // 快捷键背景颜色
 $color-hotKeys-text: var(--semi-color-text-2); // 快捷键文字颜色
 $color-hotKeys-split: var(--semi-color-text-0); // 快捷键文字颜色

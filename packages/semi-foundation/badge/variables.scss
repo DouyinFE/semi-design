@@ -1,3 +1,5 @@
+@use '../../semi-theme-default/scss/index.scss' as *;
+
 $color-badge_default-border-default: var(--semi-color-bg-1); // 描边颜色 - 默认
 $color-badge_default-bg-default: var(--semi-color-bg-1); // 背景颜色 - 默认
 $color-badge_default_light-bg-default: var(--semi-color-bg-2); // 背景颜色 - 浅版
