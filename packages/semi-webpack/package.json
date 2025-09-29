@@ -2,6 +2,7 @@
     "name": "@douyinfe/semi-webpack-plugin",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "version": "2.88.0",
 =======
     "version": "2.87.0-alpha.5",
@@ -9,6 +10,9 @@
 =======
     "version": "2.87.0-alpha.6",
 >>>>>>> 48e9ae991 (v2.87.0-alpha.6)
+=======
+    "version": "2.87.0-alpha.7",
+>>>>>>> 511ac0b5a (v2.87.0-alpha.7)
     "description": "",
     "author": "伍浩威 <wuhaowei.whw@bytedance.com>",
     "homepage": "",
