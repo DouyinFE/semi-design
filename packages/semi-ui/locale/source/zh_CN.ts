@@ -206,7 +206,12 @@ const local: Locale = {
         stall: '加载失败',
         noResource: '暂无资源',
         videoError: '视频加载错误'
-    }
+    },
+    AIChatDialogue: {
+        delete: '删除',
+        deleteConfirm: '确认要删除吗？',
+        deleteContent: '删除后将无法恢复！',
+    },
 };
 
 // 中文

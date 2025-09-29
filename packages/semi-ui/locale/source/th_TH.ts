@@ -209,7 +209,12 @@ const local: Locale = {
         stall: 'กำลังโหลดล้มเหลว',
         noResource: 'ไม่มีทรัพยากร',
         videoError: 'เกิดข้อผิดพลาดในการโหลดวิดีโอ'
-    }
+    },
+    AIChatDialogue: {
+        delete: 'ลบ',
+        deleteConfirm: 'คุณต้องการลบการสนทนานี้ใช่หรอไม่?',
+        deleteContent: 'การสนทนานี้จะลบออกอย่างถาวรและไม่สามารถกู้คืนได้',
+    },
 };
 
 // [i18n-Thai]

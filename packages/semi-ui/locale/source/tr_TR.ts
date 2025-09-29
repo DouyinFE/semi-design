@@ -206,7 +206,12 @@ const local: Locale = {
         stall: 'Yükleme başarısız',
         noResource: 'Kaynak yok',
         videoError: 'Video yükleme hatası'
-    }
+    },
+    AIChatDialogue: {
+        delete: 'Sil',
+        deleteConfirm: 'Bu sohbeti silmek istediğinize emin misiniz?',
+        deleteContent: 'Bu sohbet silinmiştir.',
+    },
 };
 
 // [i18n-Turkish] 

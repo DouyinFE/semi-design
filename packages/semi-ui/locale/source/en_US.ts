@@ -205,7 +205,12 @@ const local: Locale = {
         stall: 'Loading failed',
         noResource: 'No resource',
         videoError: 'Video load error',
-    }
+    },
+    AIChatDialogue: {
+        delete: 'Delete',
+        deleteConfirm: 'Are you sure you want to delete this message?',
+        deleteContent: 'This message will be permanently deleted and cannot be recovered.',
+    },
 };
 
 // [i18n-English(US)]
