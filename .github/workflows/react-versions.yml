@@ -106,6 +106,13 @@ jobs:
             RELEASE_TYPE: alpha
 
     # publish 的时候不提交 semi-ui-19 相关的修改 
+    # 合入到主分支前请将 DIST_TAG=alpha 位置的代码修改为下面的代码
+    # DIST_TAG=latest
+    # if [[ ${{ github.event.inputs.release_type }} == 'beta' ]]; then
+    #   DIST_TAG=beta
+    # elif [[ ${{ github.event.inputs.release_type }} == 'alpha' ]]; then
+    #   DIST_TAG=alpha
+    # fi
       - name: publish
         run: |
             git config --global user.name 'semi-team'
@@ -123,15 +130,9 @@ jobs:
             npm config set registry=https://registry.npmjs.org/
             npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
             npm whoami
-            DIST_TAG=latest
-            if [[ ${{ github.event.inputs.release_type }} == 'beta' ]]; then
-              DIST_TAG=beta
-            elif [[ ${{ github.event.inputs.release_type }} == 'alpha' ]]; then
-              DIST_TAG=alpha
-            fi
+            DIST_TAG=alpha
             echo "$RELEASE_VERSION"
             echo "$DIST_TAG"
-            DIST_TAG=alpha
             lerna version $RELEASE_VERSION --exact --force-publish --yes --no-push
             lerna publish from-package --dist-tag $DIST_TAG --yes
             git reset HEAD~2
