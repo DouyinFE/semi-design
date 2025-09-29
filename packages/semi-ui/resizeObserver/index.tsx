@@ -155,7 +155,12 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
 
     render() {
         const child = React.Children.only(this.props.children);
+        /* REACT_18_START */
         const { ref } = child as any;
+        /* REACT_18_END */
+        /* REACT_19_START */
+        // const { ref } = (child as any).props;
+        /* REACT_19_END */
         return React.cloneElement(child as React.ReactElement<any>, {
             ref: (node: HTMLDivElement) => this.mergeRef(ref, node),
         });
