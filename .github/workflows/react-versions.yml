@@ -79,6 +79,10 @@ jobs:
           node-version: '20'
           cache: 'yarn'
           registry-url: 'https://registry.npmjs.org'
+
+      # 安装
+      - name: npm install
+        run: npm i -g lerna@^4.0.0 && npm run bootstrap
           
       # 生成 semi-ui-19 的包
       # if: ${{ github.event.inputs.publish_react19 == 'true' }}
@@ -86,9 +90,9 @@ jobs:
         run: |
           node scripts/react19-build.js 19
 
-      # 应该在 semi-ui-19 包生成之后再安装，保证两个 semi-ui/semi-ui-19 中的 react 依赖都在
-      - name: npm install
-        run: npm i -g lerna@^4.0.0 && npm run bootstrap
+      # 再运行一次，保证 semi-ui-19 中的包正确
+      - name: npm install again
+        run: npm run bootstrap
          
     #  测试时候，暂时使用 RELEASE_TYPE: alpha，实际使用请修改为 ${{ github.event.inputs.release_type }}
       - name: get version list
