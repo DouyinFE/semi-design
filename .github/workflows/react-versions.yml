@@ -81,8 +81,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           
       # 生成 semi-ui-19 的包
+      # if: ${{ github.event.inputs.publish_react19 == 'true' }}
       - name: Build React 19 version
-        if: ${{ github.event.inputs.publish_react19 == 'true' }}
         run: |
           node scripts/react19-build.js 19
 
