@@ -25,6 +25,7 @@ const order = [
     'icon',
     'space',
     'chat',
+    'aiChatInput',
     'codehighlight',
     "markdownrender",
     "dragMove",
