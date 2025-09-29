@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 31
+order: 32
 category: Plus
 title: Lottie Animation
 icon: doc-lottie
