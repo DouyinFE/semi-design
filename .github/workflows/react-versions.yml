@@ -144,4 +144,6 @@ jobs:
             rm -rf packages/semi-ui-19
             git add .
             git commit --no-verify -m "v${{env.RELEASE_VERSION}}"
+            git tag -d "v${{env.RELEASE_VERSION}}"
+            git tag "v${{env.RELEASE_VERSION}}"
             git push -o ci.skip --follow-tags --no-verify --atomic
