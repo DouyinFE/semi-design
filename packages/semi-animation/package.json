@@ -1,10 +1,14 @@
 {
     "name": "@douyinfe/semi-animation",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "version": "2.88.0",
 =======
     "version": "2.87.0-alpha.5",
 >>>>>>> e68e29a36 (v2.87.0-alpha.5)
+=======
+    "version": "2.87.0-alpha.6",
+>>>>>>> 48e9ae991 (v2.87.0-alpha.6)
     "description": "animation base library for semi-ui",
     "keywords": [
         "animation",

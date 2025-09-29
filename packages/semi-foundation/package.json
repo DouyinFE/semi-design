@@ -1,10 +1,14 @@
 {
     "name": "@douyinfe/semi-foundation",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "version": "2.88.0",
 =======
     "version": "2.87.0-alpha.5",
 >>>>>>> e68e29a36 (v2.87.0-alpha.5)
+=======
+    "version": "2.87.0-alpha.6",
+>>>>>>> 48e9ae991 (v2.87.0-alpha.6)
     "description": "",
     "scripts": {
         "build:lib": "node ./scripts/compileLib.js",
@@ -12,12 +16,17 @@
     },
     "dependencies": {
 <<<<<<< HEAD
+<<<<<<< HEAD
         "@douyinfe/semi-animation": "2.88.0",
         "@douyinfe/semi-json-viewer-core": "2.88.0",
         "@mdx-js/mdx": "^3.0.1",
 =======
         "@douyinfe/semi-animation": "2.87.0-alpha.5",
         "@douyinfe/semi-json-viewer-core": "2.87.0-alpha.5",
+=======
+        "@douyinfe/semi-animation": "2.87.0-alpha.6",
+        "@douyinfe/semi-json-viewer-core": "2.87.0-alpha.6",
+>>>>>>> 48e9ae991 (v2.87.0-alpha.6)
         "@mdx-js/mdx": "3.0.1",
 >>>>>>> e68e29a36 (v2.87.0-alpha.5)
         "async-validator": "^3.5.0",
