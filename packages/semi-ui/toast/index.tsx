@@ -148,9 +148,18 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             //     ToastList,
             //     { ref: instance => (ToastList.ref = instance) }
             // ));
-            // // 在 React 19 中，render 是同步的，所以可以立即执行 callback
-            // ToastList.ref.add({ ...opts, id });
-            // ToastList.ref.stack = Boolean(opts.stack);
+            // // 在 React 19 中，render 是同步的，确保 ref 已赋值后再执行add方法
+            // if (typeof queueMicrotask === 'function') {
+            //     queueMicrotask(() => {
+            //         ToastList.ref.add({ ...opts, id });
+            //         ToastList.ref.stack = Boolean(opts.stack);
+            //     });
+            // } else {
+            //     Promise.resolve().then(() => {
+            //         ToastList.ref.add({ ...opts, id });
+            //         ToastList.ref.stack = Boolean(opts.stack);
+            //     });
+            // }
             /* REACT_19_END */
         } else {
             const node = document.querySelector(`#${this.wrapperId}`) as HTMLElement;
