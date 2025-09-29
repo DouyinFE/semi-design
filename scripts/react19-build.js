@@ -138,8 +138,9 @@ function buildForReact19() {
                 // 复制文件
                 const relativePath = path.relative(sourceDir, srcPath);
                 const isTsFile = /\.(ts|tsx)$/.test(item);
-                
-                if (isTsFile) {
+                const isScssScript = item.includes('compileScss.js');
+
+                if (isTsFile || isScssScript) {
                     // 对 .ts/.tsx 文件进行 React 19 转换
                     const content = fs.readFileSync(srcPath, 'utf8');
                     const processedContent = processReact19Code(content);
