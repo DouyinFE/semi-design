@@ -1,6 +1,10 @@
 {
     "name": "@douyinfe/semi-theme-default",
+<<<<<<< HEAD
     "version": "2.88.0",
+=======
+    "version": "2.87.0-alpha.5",
+>>>>>>> e68e29a36 (v2.87.0-alpha.5)
     "description": "semi-theme-default",
     "keywords": [
         "semi-theme",
