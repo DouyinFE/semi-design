@@ -134,8 +134,16 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
             //     this.root = createRoot(div);
             // }
             // this.root.render(React.createElement(NotificationList, { ref: instance => (ref = instance) }));
-            // // 在 React 19 中，render 是同步的，所以可以立即执行 callback
-            // ref.add({ ...notice, id });
+            // // 在 React 19 中，render 是同步的，确保 ref 已赋值后再执行add方法
+            // if (typeof queueMicrotask === 'function') {
+            //     queueMicrotask(() => {
+            //         ref.add({ ...notice, id });
+            //     });
+            // } else {
+            //     Promise.resolve().then(() => {
+            //         ref.add({ ...notice, id });
+            //     });
+            // }
             /* REACT_19_END */
         } else {
             if (ref.has(`${id}`)) {
