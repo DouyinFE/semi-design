@@ -74,9 +74,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref || github.ref_name }}
-        run: echo "branch=${{ github.head_ref || github.ref_name }}" 
+
+      - name: Print branch
+        run: echo "branch=${{ github.head_ref || github.ref_name }}"
        
-      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
