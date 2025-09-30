@@ -1,41 +1,40 @@
 // Color
-$color-aiChatDialogue_loading_circle_bg: var(--semi-color-text-0); // 加载圆点背景色
-$color-aiChatDialogue_bubble_bg: var(--semi-color-fill-0); // 对话气泡背景色
-$color-aiChatDialogue_file_bg: var(--semi-color-fill-0); // 文件组件背景色
-$color-aiChatDialogue_file_title_text: var(--semi-color-text-0); // 文件标题文本颜色
-$color-aiChatDialogue_file_metadata_text: var(--semi-color-text-2); // 文件元数据文本颜色
-$color-aiChatDialogue_tool_call_bg: var(--semi-color-fill-0); // 工具调用组件背景色
-$color-aiChatDialogue_tool_call_text: var(--semi-color-text-2); // 工具调用组件文本颜色
-$color-aiChatDialogue_action_dropdown_text: var(--semi-color-danger); // 操作区下拉菜单文本颜色
-$color-aiChatDialogue_reasoning_border: var(--semi-color-border); // 推理组件边框色
-$color-aiChatDialogue_step_border: var(--semi-color-border); // 步骤组件边框色
-$color-aiChatDialogue_step_action_bg: var(--semi-color-fill-0); // 步骤组件 action 背景色
-$color-aiChatDialogue_step_completed_text: var(--semi-color-success); // 步骤组件完成文本颜色
-$color-aiChatDialogue_step_suffix_text: var(--semi-color-text-1); // 步骤组件后缀文本颜色
-$color-aiChatDialogue_step_action_text: var(--semi-color-text-2); // 步骤组件 action 文本颜色
-$color-aiChatDialogue_annotation_border: var(--semi-color-border); // 参考来源组件边框色
-$color-aiChatDialogue_annotation_hover: var(--semi-color-fill-0); // 参考来源组件悬停背景色
-$color-aiChatDialogue_annotation_text: var(--semi-color-text-2); // 参考来源组件文本颜色
-$color-aiChatDialogue_reference_bg: var(--semi-color-fill-0); // 引用组件背景色
-$color-aiChatDialogue_reference_text: var(--semi-color-text-2); // 引用组件文本颜色
-$color-aiChatDialogue_code_border: var(--semi-color-border); // 代码块边框色
-$color-aiChatDialogue_code_topSlot: var(--semi-color-fill-0); // 代码块顶部槽背景色
-$color-aiChatDialogue_code_topSlot_text: var(--semi-color-text-0); // 代码块顶部槽文本颜色
-$color-aiChatDialogue_code_border: var(--semi-color-border); // 代码块边框色
-$color-aiChatDialogue_hint_bg: var(--semi-color-bg-0); // 提示项背景色
-$color-aiChatDialogue_hint_border: var(--semi-color-border); // 提示项边框色
-$color-aiChatDialogue_hint_hover: var(--semi-color-fill-0); // 提示项悬停背景色
-$color-aiChatDialogue_hint_text: var(--semi-color-text-0); // 提示项文本颜色
-$color-aiChatDialogue_code_icon_bg: rgba(var(--semi-teal-4), 1); // code icon 背景色
-$color-aiChatDialogue_word_icon_bg: rgba(var(--semi-blue-4), 1); // word icon 背景色
-$color-aiChatDialogue_excel_icon_bg: rgba(var(--semi-green-4), 1); // excel icon 背景色
-$color-aiChatDialogue_image_icon_bg: rgba(var(--semi-purple-4), 1); // image icon 背景色
-$color-aiChatDialogue_pdf_icon_bg: rgba(var(--semi-red-4), 1); // pdf icon 背景色
-$color-aiChatDialogue_video_icon_bg: rgba(var(--semi-green-4), 1); // video icon 背景色
-$color-aiChatDialogue_default_icon_bg: rgba(var(--semi-grey-4), 1); // default icon 背景色
-$color-aiChatDialogue_icon_text: var(--semi-color-white); // icon 文本颜色
+$color-aiChatDialogue_loading_circle-bg: var(--semi-color-text-0); // 加载圆点背景色
+$color-aiChatDialogue_bubble-bg: var(--semi-color-fill-0); // 对话气泡背景色
+$color-aiChatDialogue_file-bg: var(--semi-color-fill-0); // 文件组件背景色
+$color-aiChatDialogue_file_title-text: var(--semi-color-text-0); // 文件标题文本颜色
+$color-aiChatDialogue_file_metadata-text: var(--semi-color-text-2); // 文件元数据文本颜色
+$color-aiChatDialogue_tool_call-bg: var(--semi-color-fill-0); // 工具调用组件背景色
+$color-aiChatDialogue_tool_call-text: var(--semi-color-text-2); // 工具调用组件文本颜色
+$color-aiChatDialogue_action_dropdown-text: var(--semi-color-danger); // 操作区下拉菜单文本颜色
+$color-aiChatDialogue_reasoning-border: var(--semi-color-border); // 推理组件边框色
+$color-aiChatDialogue_step-border: var(--semi-color-border); // 步骤组件边框色
+$color-aiChatDialogue_step_action-bg: var(--semi-color-fill-0); // 步骤组件 action 背景色
+$color-aiChatDialogue_step_completed-text: var(--semi-color-success); // 步骤组件完成文本颜色
+$color-aiChatDialogue_step_suffix-text: var(--semi-color-text-1); // 步骤组件后缀文本颜色
+$color-aiChatDialogue_step_action-text: var(--semi-color-text-2); // 步骤组件 action 文本颜色
+$color-aiChatDialogue_annotation-border: var(--semi-color-border); // 参考来源组件边框色
+$color-aiChatDialogue_annotation-bg-hover: var(--semi-color-fill-0); // 参考来源组件悬停背景色
+$color-aiChatDialogue_annotation-text: var(--semi-color-text-2); // 参考来源组件文本颜色
+$color-aiChatDialogue_reference-bg: var(--semi-color-fill-0); // 引用组件背景色
+$color-aiChatDialogue_reference-text: var(--semi-color-text-2); // 引用组件文本颜色
+$color-aiChatDialogue_code-border: var(--semi-color-border); // 代码块边框色
+$color-aiChatDialogue_code_topSlot-bg: var(--semi-color-fill-0); // 代码块顶部槽背景色
+$color-aiChatDialogue_code_topSlot-text: var(--semi-color-text-0); // 代码块顶部槽文本颜色
+$color-aiChatDialogue_hint-bg: var(--semi-color-bg-0); // 提示项背景色
+$color-aiChatDialogue_hint-border: var(--semi-color-border); // 提示项边框色
+$color-aiChatDialogue_hint-bg-hover: var(--semi-color-fill-0); // 提示项悬停背景色
+$color-aiChatDialogue_hint-text: var(--semi-color-text-0); // 提示项文本颜色
+$color-aiChatDialogue_code_icon-bg: rgba(var(--semi-teal-4), 1); // code icon 背景色
+$color-aiChatDialogue_word_icon-bg: rgba(var(--semi-blue-4), 1); // word icon 背景色
+$color-aiChatDialogue_excel_icon-bg: rgba(var(--semi-green-4), 1); // excel icon 背景色
+$color-aiChatDialogue_image_icon-bg: rgba(var(--semi-purple-4), 1); // image icon 背景色
+$color-aiChatDialogue_pdf_icon-bg: rgba(var(--semi-red-4), 1); // pdf icon 背景色
+$color-aiChatDialogue_video_icon-bg: rgba(var(--semi-green-4), 1); // video icon 背景色
+$color-aiChatDialogue_default_icon-bg: rgba(var(--semi-grey-4), 1); // default icon 背景色
+$color-aiChatDialogue_icon-text: var(--semi-color-white); // icon 文本颜色
 $color-aiChatDialogue_failed: var(--semi-color-danger); // 失败提示颜色
-$color-aiChatDialogue_code_content_bg: var(--semi-color-bg-0); // code content 背景色
+$color-aiChatDialogue_code_content-bg: rgba(var(--semi-teal-4), 1); // code content 背景色
 
 // Width/Height
 $width-aiChatDialogue_wrapper: 100%; // 外层宽度
@@ -58,7 +57,7 @@ $width-aiChatDialogue_file: 224px; // 文件组件宽度
 $height-aiChatDialogue_file: 36px; // 文件组件高度
 $width-aiChatDialogue_file_icon_wrapper: 36px; // 文件图标外层宽度
 $height-aiChatDialogue_file_icon_wrapper: 36px; // 文件图标外层高度
-$width-aiChatDialogue_tool_call: fit-content; // 工具调用组件高度
+$width-aiChatDialogue_tool_call: fit-content; // 工具调用组件宽度
 $width-aiChatDialogue_custom_renderer: fit-content; // 自定义渲染器组件宽度
 $width-aiChatDialogue_action_btn: 24px; // 操作按钮宽度
 $height-aiChatDialogue_action_btn: 24px; // 操作按钮高度
@@ -71,7 +70,7 @@ $width-aiChatDialogue_step-border: 1px; // 步骤组件 border 宽度
 $width-aiChatDialogue_step_prefix: 20px; // 步骤前缀图标宽度
 $height-aiChatDialogue_step_prefix: 20px; // 步骤前缀图标高度
 $width-aiChatDialogue_step_summary: fit-content; // 步骤摘要宽度
-$width-aiChatDialogue_step_suffix: 20px; // 步骤后缀图标高度
+$width-aiChatDialogue_step_suffix: 20px; // 步骤后缀图标宽度
 $height-aiChatDialogue_step_suffix: 20px; // 步骤后缀图标高度
 $width-aiChatDialogue_step_line: 1px; // 步骤左侧线宽度
 $width-aiChatDialogue_step_action_desc: fit-content; // 步骤操作描述宽度
@@ -175,20 +174,20 @@ $radius-aiChatDialogue_hint_item: var(--semi-border-radius-medium); // 提示项
 $font-aiChatDialogue_title-fontSize: $font-size-header-6; // 标题字体大小
 $font-aiChatDialogue_title-fontWeight: $font-weight-regular; // 标题字体粗细
 $font-aiChatDialogue_title-lineHeight: 20px; // 标题行高
-$font-aiChatDialogue_content-fontSize: 14px; // 内容字体大小
-$font-aiChatDialogue_loading_text-fontSize: 14px; // 加载文本字体大小
+$font-aiChatDialogue_content-fontSize: $font-size-regular; // 内容字体大小
+$font-aiChatDialogue_loading_text-fontSize: $font-size-regular; // 加载文本字体大小
 $font-aiChatDialogue_file_title-fontSize: $font-size-header-6; // 文件标题字体大小
 $font-aiChatDialogue_file_metadata-fontSize: $font-size-regular; // 文件元数据字体大小
-$font-aiChatDialogue_reasoning_header_title-fontWeight: 600; // 推理头部标题字体粗细
+$font-aiChatDialogue_reasoning_header_title-fontWeight: $font-weight-bold; // 推理头部标题字体粗细
 $font-aiChatDialogue_reasoning_header_title-lineHeight: 22px; // 推理头部标题行高
-$font-aiChatDialogue_dropdown_icon-fontSize: 16px; // 下拉菜单图标字体大小
-$font-aiChatDialogue_step-fontSize: 14px; // 步骤字体大小
+$font-aiChatDialogue_dropdown_icon-fontSize: $font-size-header-6; // 下拉菜单图标字体大小
+$font-aiChatDialogue_step-fontSize: $font-size-regular; // 步骤字体大小
 $font-aiChatDialogue_step-lineHeight: 20px; // 步骤行高
-$font-aiChatDialogue_step_action-fontSize: 14px; // 步骤 action 字体大小
+$font-aiChatDialogue_step_action-fontSize: $font-size-regular; // 步骤 action 字体大小
 $font-aiChatDialogue_step_action-lineHeight: 20px; // 步骤 action 行高
-$font-aiChatDialogue_annotation_content-fontSize: 14px; // 参考来源内容字体大小
+$font-aiChatDialogue_annotation_content-fontSize: $font-size-regular; // 参考来源内容字体大小
 $font-aiChatDialogue_references-fontSize: 12px; // 引用字体大小
-$font-aiChatDialogue_references-lineHeight: 16px; // 引用行高
-$font-aiChatDialogue_code_topSlot-fontSize: 14px; // 代码块顶部槽字体大小
+$font-aiChatDialogue_references-lineHeight: $font-size-header-6; // 引用行高
+$font-aiChatDialogue_code_topSlot-fontSize: $font-size-regular; // 代码块顶部槽字体大小
 $font-aiChatDialogue_code-lineHeight: 32px; // 代码块行高
-$font-aiChatDialogue_hint_content-fontSize: 14px; // 提示内容字体大小
+$font-aiChatDialogue_hint_content-fontSize: $font-size-regular; // 提示内容字体大小
