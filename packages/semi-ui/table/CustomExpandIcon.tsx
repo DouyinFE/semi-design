@@ -26,7 +26,7 @@ export interface CustomExpandIconProps {
 export default function CustomExpandIcon(props: CustomExpandIconProps) {
     const {
         expanded,
-        componentType,
+        componentType = 'expand',
         onClick = noop,
         onMouseEnter = noop,
         onMouseLeave = noop,

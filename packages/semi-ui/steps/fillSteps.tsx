@@ -22,7 +22,7 @@ export interface FillStepsProps {
 }
 
 const Steps = (props: FillStepsProps) => {
-    const { current, status, children, prefixCls, initial, direction, className, style, onChange, ...rest } = props;
+    const { current = 0, status = 'process', children, prefixCls = css.PREFIX, initial = 0, direction = 'horizontal', className, style, onChange, ...rest } = props;
     const inner = useMemo(() => {
         const filteredChildren = Children.toArray(children).filter(c => isValidElement(c)) as Array<ReactElement<any>>;
         const colStyle = direction === 'vertical' ? null : { width: `${100 / filteredChildren.length}%` };

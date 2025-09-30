@@ -24,7 +24,7 @@ export interface FillStepProps {
 }
 
 const FillStep = (props: FillStepProps) => {
-    const { prefixCls, className, title, description, status, style, onClick, icon, onChange, stepNumber, onKeyDown } = props;
+    const { prefixCls = css.ITEM, className = '', title, description, status = 'wait', style, onClick, icon, onChange, stepNumber, onKeyDown } = props;
     const renderIcon = () => {
         let inner, progress;
 

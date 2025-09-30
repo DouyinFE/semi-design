@@ -18,7 +18,7 @@ export interface NavStepsProps {
 }
 
 const Steps = (props: NavStepsProps) => {
-    const { size, current, initial, children, prefixCls, className, style, onChange, ...rest } = props;
+    const { size = 'default', current = 0, initial = 0, children, prefixCls = css.PREFIX, className, style, onChange, ...rest } = props;
     const inner = useMemo(() => {
         const filteredChildren = Children.toArray(children).filter(c => isValidElement(c)) as Array<ReactElement<any>>;
         const total = filteredChildren.length;

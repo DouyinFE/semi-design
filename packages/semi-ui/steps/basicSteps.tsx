@@ -24,16 +24,16 @@ export interface BasicStepsProps {
 
 const Steps = (props: BasicStepsProps) => {
     const {
-        size,
-        current,
-        status,
+        size = '',
+        current = 0,
+        status = 'process',
         children,
-        prefixCls,
-        initial,
-        direction,
+        prefixCls = css.PREFIX,
+        initial = 0,
+        direction = 'horizontal',
         className,
         style,
-        hasLine,
+        hasLine = true,
         onChange,
         ...rest
     } = props;
