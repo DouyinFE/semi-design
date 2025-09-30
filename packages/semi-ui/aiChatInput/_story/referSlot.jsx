@@ -1,6 +1,7 @@
 import React from 'react';
 import { Node, mergeAttributes } from '@tiptap/core';
 import { ReactNodeViewRenderer, NodeViewWrapper } from '@tiptap/react';
+import { getCustomSlotAttribute } from '@douyinfe/semi-foundation/aiChatInput/utils';
 
 function ReferSlotComponent(props) {
     const { node } = props;
@@ -57,6 +58,7 @@ const ReferSlot = Node.create({
                     'data-unique-key': attributes.uniqueKey,
                 }),
             },
+            isCustomSlot: getCustomSlotAttribute(),
         };
     },
 

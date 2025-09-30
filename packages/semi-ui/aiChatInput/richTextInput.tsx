@@ -124,11 +124,15 @@ export default (props: {
             /* 在初始化时候检查 input-slot 节点是否为空，如果为空，则插入零宽字符，否则无法显示 placeholder
             During initialization, check whether the input-slot node is empty. If it is empty, 
             insert zero-width characters. Otherwise the placeholder cannot be displayed.*/
+            let insertPositions = [];
             editor.state.doc.descendants((node, pos) => {
                 if (node.type.name === 'inputSlot' && node.content.size === 0) {
                     // Insert zero-width characters
-                    editor.commands.insertContentAt(pos + 1, strings.ZERO_WIDTH_CHAR);
+                    insertPositions.push(pos + 1);
                 }
+            });
+            insertPositions.reverse().forEach(insertPos => {
+                editor.commands.insertContentAt(insertPos, strings.ZERO_WIDTH_CHAR);
             });
         },
         onUpdate({ editor }) {

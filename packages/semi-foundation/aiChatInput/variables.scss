@@ -18,10 +18,12 @@ $color-ai-chat-input_footer_upload-bg-hover: var(--semi-color-fill-0); // AI Cha
 $color-ai-chat-input_footer_upload-bg-active: var(--semi-color-fill-1); // AI Chat 输入框底部上传按钮的背景颜色-悬停态
 $color-ai-chat-input_footer_configure_button-border: var(--semi-color-primary); // AI Chat 输入框底部配置区域按钮的按钮边框颜色
 $color-ai-chat-input_footer_configure_button-border-active: var(--semi-color-primary); // AI Chat 输入框底部配置区域按钮的按钮边框颜色 - 激活态
-$color-ai-chat-input_footer_configure_button-text: var(--semi-color-primary); // AI Chat 输入框底部配置区域按钮的按钮内容颜色 - 激活态
+$color-ai-chat-input_footer_configure_button-text: var(--semi-color-primary); // AI Chat 输入框底部配置区域按钮的按钮文字颜色 - 激活态
+$color-ai-chat-input_footer_configure_button-bg: var(--semi-color-primary-light-default);; // AI Chat 输入框底部配置区域按钮的按钮背景颜色 - 激活态
 $color-ai-chat-input_footer_configure_select-border: var(--semi-color-border); // AI Chat 输入框底部配置区域下拉选择的按钮边框颜色
 $color-ai-chat-input_footer_configure_select-bg: var(--semi-color-bg-0); // AI Chat 输入框底部配置区域下拉选择的按钮背景颜色
-$color-ai-chat-input_footer_configure_radio_button-checked: var(--semi-color-text-1); // AI Chat 输入框底部配置区域下拉选择的单选按钮内容的选中颜色
+$color-ai-chat-input_footer_configure_radio_button_checked: var(--semi-color-text-1); // AI Chat 输入框底部配置区域下拉选择的单选按钮选中时的背景颜色
+$color-ai-chat-input_footer_configure_radio_button_checked-bg: var(--semi-color-bg-2); // AI Chat 输入框底部配置区域下拉选择的单选按钮选中时的背景颜色
 $color-ai-chat-input_footer-configure_mcp_header_title-text: var(--semi-color-text-2); // AI Chat 输入框底部配置区域mcp配置下拉的顶部内容的标题颜色
 $color-ai-chat-input_footer-configure_mcp_header_config-text: var(--semi-color-primary); // AI Chat 输入框底部配置区域mcp配置下拉的顶部内容的配置按钮文本颜色
 $color-ai-chat-input_footer-configure_mcp_header_config-bg: var(--semi-color-bg-0); // AI Chat 输入框底部配置区域mcp配置下拉的顶部内容的配置按钮背景颜色
@@ -43,6 +45,16 @@ $color-ai-chat-input_rich_text-skill_slot-text: var(--semi-color-primary); // AI
 $color-ai-chat-input_rich_text-skill_slot-bg-hover: var(--semi-color-primary-light-default); // AI Chat 输入框富文本编辑器技能插槽的背景色 - 悬停态
 $color-ai-chat-input_rich_text-skill_slot_delete-bg: rgba(var(--semi-grey-7), 1); // AI Chat 输入框富文本编辑器技能插槽的删除按钮的背景颜色
 $color-ai-chat-input_rich_text-skill_slot_delete-text: var(--semi-color-white); // AI Chat 输入框富文本编辑器技能插槽的删除按钮的背景颜色
+$color-ai-chat-input_ref_icon_word-bg: rgba(var(--semi-blue-4), 1); // AI Chat 引用/上传内容为文本文件时的图标背景色
+$color-ai-chat-input_ref_icon_word-pdf: rgba(var(--semi-red-4), 1); // AI Chat 引用/上传内容为 pdf 时的图标背景色
+$color-ai-chat-input_ref_icon_word-code: rgba(var(--semi-teal-5), 1); // AI Chat 引用/上传内容为代码的图标背景色
+$color-ai-chat-input_ref_icon_word-excel: rgba(var(--semi-green-5), 1); // AI Chat 引用/上传内容为表格类型的图标背景色
+$color-ai-chat-input_ref_icon_word-video: rgba(var(--semi-purple-4), 1); // AI Chat 引用/上传内容为视频类型的图标背景色
+$color-ai-chat-input_ref_icon_word-audio: rgba(var(--semi-purple-4), 1); // AI Chat 引用/上传内容为音频类型的图标背景色
+$color-ai-chat-input_ref_icon_word-unknown: rgba(var(--semi-grey-5), 1); // AI Chat 引用/上传内容为未知类型的图标背景色
+$color-ai-chat-input_reference_delete-bg: var(--semi-color-fill-1); // AI Chat 输入框引用项删除图标的背景色 - 悬停态
+$color-ai-chat-input_footer_configure_select-text: var(--semi-color-text-1); // AI Chat 输入框底部配置区域下拉选择的按钮文字颜色
+$color-ai-chat-input_footer_configure_select-text: var(--semi-color-text-1); // AI Chat 输入框底部配置区域下拉选择的按钮文字颜色
 
 
 //Spacing
@@ -73,11 +85,10 @@ $spacing-ai-chat-input_attachment_content_size-columnGap: 4px; // AI Chat 输入
 $spacing-ai-chat-input_attachment_scroll_wrapper-marginBottom: 8px; // AI Chat 输入框附件项滚动区域的底部外边距
 $spacing-ai-chat-input_attachment_scroll_container: 8px; // AI Chat 输入框附件项滚动区域的内间距
 $spacing-ai-chat-input_attachment_scroll_button-x: 10px; // AI Chat 输入框附件项滚动按钮的和滚动区域的水平距离
-$spacing-ai-chat-input_rich_text-input_slot-padding: 2px; // AI Chat 输入框富文本编辑器输入插槽的内边距
+$spacing-ai-chat-input_rich_text-input_slot-paddingY: 2px; // AI Chat 输入框富文本编辑器输入插槽的垂直内边距
+$spacing-ai-chat-input_rich_text-input_slot-paddingX: 4px; // AI Chat 输入框富文本编辑器输入插槽的水平内边距
 $spacing-ai-chat-input_rich_text-input_slot-marginY: 2px; // AI Chat 输入框富文本编辑器输入插槽的垂直内边距
 $spacing-ai-chat-input_rich_text-input_slot-marginX: 2px; // AI Chat 输入框富文本编辑器输入插槽的水平内边距
-$spacing-ai-chat-input_rich_text-input_slot-placeholder-top: 2px; // AI Chat 输入框富文本编辑器输入插槽占位符的顶部内边距
-$spacing-ai-chat-input_rich_text-input_slot-placeholder-left: 2px; // AI Chat 输入框富文本编辑器输入插槽占位符的左侧内边距
 $spacing-ai-chat-input_rich_text-select_slot-paddingX: 4px; // AI Chat 输入框富文本编辑器选择器插槽的水平内边距
 $spacing-ai-chat-input_rich_text-select_slot-paddingY: 2px; // AI Chat 输入框富文本编辑器选择器插槽的垂直内边距
 $spacing-ai-chat-input_rich_text-select_slot-marginX: 4px; // AI Chat 输入框富文本编辑器选择器插槽的垂直外边距
@@ -89,7 +100,8 @@ $spacing-ai-chat-input_rich_text-skill_slot-marginX: 2px; // AI Chat 输入框�
 $spacing-ai-chat-input_rich_text-skill_slot-marginY: 2px; // AI Chat 输入框富文本编辑器技能插槽的垂直外边距
 $spacing-ai-chat-input_rich_text-skill_slot-top: 0px; // AI Chat 输入框富文本编辑器技能插槽删除按钮距离顶部距离
 $spacing-ai-chat-input_rich_text-skill_slot-right: 0px; // AI Chat 输入框富文本编辑器技能插槽删除按钮距离右侧距离
-
+$spacing-ai-chat-input_reference_icon-marginRight: 4px; // AI Chat 引用项的图标距离右侧距离
+$spacing-ai-chat-input_references_delete-padding: 2px; // AI Chat 输入框引用项删除图标的内间距
 
 // Width/Height
 $width-ai-chat-input-border: 1px; // AI Chat 输入框的边框宽度
@@ -113,6 +125,7 @@ $width-ai-chat-input_rich_text-select_slot_arrow: 16px; // AI Chat 输入框富�
 $width-ai-chat-input_rich_text-select_slot_delete: 12px; // AI Chat 输入框富文本编辑器选择器插槽的删除按钮的宽高
 $width-ai-chat-input_rich_text-select_slot_delete_icon: 8px; // AI Chat 输入框富文本编辑器选择器插槽的删除按钮icon的宽高
 $width-ai-chat-input_rich_text-input_slot: 2px; // AI Chat 输入框富文本编辑器输入插槽的最小宽度
+$width-ai-chat-input_reference_icon: 16px; // AI Chat 引用项的图标宽度
 
 // Radius
 $radius-ai-chat-input: 12px; // AI Chat 输入框输入框的圆角
@@ -124,6 +137,7 @@ $radius-ai-chat-input_attachment: 6px; // AI Chat 输入框附件项的圆角
 $radius-ai-chat-input_rich_text-input_slot: 4px; // AI Chat 输入框富文本编辑器输入插槽的圆角
 $radius-ai-chat-input_rich_text-select_slot: 4px; // AI Chat 输入框富文本编辑器选择器插槽的圆角
 $radius-ai-chat-input_rich_text-skill_slot: 4px; // AI Chat 输入框富文本编辑器技能插槽的圆角
+$radius-ai-chat-input_reference_icon: 2px; // AI Chat 引用项的图标圆角
 
 // Font
 $font-ai-chat-input_footer_configure_select-fontWeight: 600; // AI Chat 输入框底部配置区域下拉选择的字体粗细
@@ -137,6 +151,7 @@ $font-ai-chat-input_rich_text-input_slot-lineHeight: 20px; // AI Chat 输入框�
 $font-ai-chat-input_rich_text-input_slot-fontWeight: 600; // AI Chat 输入框富文本编辑器输入插槽文本字重
 $font-ai-chat-input_rich_text-skill_slot-fontWeight: 600; // AI Chat 输入框富文本编辑器技能插槽文本字重
 $font-ai-chat-input_rich_text-skill_slot-fontWeight: 600; // AI Chat 输入框富文本编辑器技能插槽文本字重
+$font-ai-chat-input_footer_configure_radio_button-fontSize: 14px; // AI Chat 输入框底部配置区域下拉选择的单选按钮的文字大小
 
 //Z-index
 $z-ai-chat-input_attachment_scroll_button: 10; // AI Chat 输入框附件项滚动按钮的z-index

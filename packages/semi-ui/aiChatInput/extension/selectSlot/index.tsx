@@ -4,6 +4,7 @@ import { ReactNodeViewRenderer, NodeViewWrapper } from '@tiptap/react';
 import type { NodeViewProps } from '@tiptap/react';
 import { useCallback } from 'react';
 import { Select } from '../../../index';
+import { getCustomSlotAttribute } from '@douyinfe/semi-foundation/aiChatInput/utils';
 
 function SelectSlotComponent(props: NodeViewProps) {
     const { node, updateAttributes } = props;
@@ -37,6 +38,7 @@ const SelectSlot = Node.create({
     inline: true,
     group: 'inline',
     atom: true,
+    selectable: false,
 
     addAttributes() {
         return {
@@ -52,6 +54,7 @@ const SelectSlot = Node.create({
                     element.getAttribute('options') || '',
                 renderHTML: (attrs: Record<string, any>) => attrs.options ? { options: attrs.options } : {},
             },
+            isCustomSlot: getCustomSlotAttribute(),
         };
     },
 

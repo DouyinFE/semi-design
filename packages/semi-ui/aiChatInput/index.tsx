@@ -13,7 +13,7 @@ import { IconSendMsgStroked, IconFile, IconCode, IconCrossStroked,
 import '@douyinfe/semi-foundation/aiChatInput/aiChatInput.scss';
 import HorizontalScroller from './horizontalScroller';
 import cls from 'classnames';
-import { getAttachmentType, isImageType, getContentType } from '@douyinfe/semi-foundation/aiChatInput/utils';
+import { getAttachmentType, isImageType, getContentType, getCustomSlotAttribute } from '@douyinfe/semi-foundation/aiChatInput/utils';
 import Configure from './configure';
 import RichTextInput from './richTextInput';
 import { Editor, FocusPosition } from '@tiptap/core';
@@ -35,6 +35,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
     static __SemiComponentName__ = "AIChatInput";
     static Configure = Configure;
     static contextType = ConfigContext;
+    static getCustomSlotAttribute = getCustomSlotAttribute;
 
     private clickOutsideHandler: (e: Event) => void | null;
 
@@ -609,7 +610,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
                         setEditor={this.setEditor}
                         onChange={this.foundation.handleContentChange}
                         extensions={extensions}
-                        handleKeyDown={this.foundation.handRichTextArealKeyDown}
+                        handleKeyDown={this.foundation.handRichTextARealKeyDown}
                         onPaste={this.foundation.handlePaste}
                         onFocus={this.foundation.handleFocus}
                         onBlur={this.foundation.handleBlur}

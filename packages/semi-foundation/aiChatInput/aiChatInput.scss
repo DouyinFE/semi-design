@@ -57,10 +57,10 @@ $module: #{$prefix}-ai-chat-input;
     }
 
     &-reference-icon {
-        width: 16px;
-        height: 16px;
-        border-radius: 2px;
-        margin-right: 4px;
+        width: $width-ai-chat-input_reference_icon;
+        height: $width-ai-chat-input_reference_icon;
+        border-radius:$radius-ai-chat-input_reference_icon;
+        margin-right: $spacing-ai-chat-input_reference_icon-marginRight;
 
     }
 
@@ -72,31 +72,31 @@ $module: #{$prefix}-ai-chat-input;
         flex-shrink: 0;
 
         &-word {
-            background-color: rgba(var(--semi-blue-4), 1);
+            background-color: $color-ai-chat-input_ref_icon_word-bg;
         }
 
         &-pdf {
-            background-color: rgba(var(--semi-red-4), 1);
+            background-color: $color-ai-chat-input_ref_icon_word-pdf;
         }
 
         &-code {
-            background-color: rgba(var(--semi-teal-5), 1);
+            background-color: $color-ai-chat-input_ref_icon_word-code;
         }
 
         &-excel {
-            background-color: rgba(var(--semi-green-5), 1);
+            background-color: $color-ai-chat-input_ref_icon_word-excel;
         }
 
         &-video {
-            background-color: rgba(var(--semi-purple-4), 1);
+            background-color: $color-ai-chat-input_ref_icon_word-video;
         }
 
         &-audio {
-            background-color: rgba(var(--semi-purple-4), 1);
+            background-color: $color-ai-chat-input_ref_icon_word-audio;
         }
 
         &-unknown {
-            background-color: rgba(var(--semi-grey-5), 1);
+            background-color: $color-ai-chat-input_ref_icon_word-unknown;
         }
     }
 
@@ -116,8 +116,8 @@ $module: #{$prefix}-ai-chat-input;
         }
 
         > .#{$module}-reference:nth-last-child(2):first-child, > .#{$module}-reference:nth-child(2):nth-last-child(1) {
-            flex-basis: calc(50% - 5px);
-            max-width: calc(50% - 5px);
+            flex-basis: calc(50% - $spacing-ai-chat-input_references-columnGap);
+            max-width: calc(50% - $spacing-ai-chat-input_references-columnGap);
         }
 
 
@@ -125,7 +125,7 @@ $module: #{$prefix}-ai-chat-input;
         // `nth-last-child(n+3)` 选中倒数第三个及以上的子元素
         > .#{$module}-reference:nth-last-child(n+3):nth-child(1),
         > .#{$module}-reference:nth-last-child(n+3):nth-child(1) ~ .#{$module}-reference {
-            width: calc(33.333% - 6.666px); // 减去间距
+            width: calc(33.333% - $spacing-ai-chat-input_references-columnGap); // 减去间距
         }
     }
 
@@ -135,9 +135,6 @@ $module: #{$prefix}-ai-chat-input;
         border-radius: $radius-ai-chat-input_reference;
         background: $color-ai-chat-input_reference-bg;
         flex-shrink: 1;
-        // flex-grow: 1;
-        // width: $width-ai-chat-input_reference;
-        // flex-basis: $width-ai-chat-input_reference;
         display: flex;
         align-items: center;
         column-gap: $spacing-ai-chat-input_reference-columnGap;
@@ -152,9 +149,9 @@ $module: #{$prefix}-ai-chat-input;
         }
 
         &-img {
-            width: 16px;
-            height: 16px;
-            margin-right: 4px;
+            width: $width-ai-chat-input_reference_icon;
+            height: $width-ai-chat-input_reference_icon;
+            margin-right: $spacing-ai-chat-input_reference_icon-marginRight;
         }
 
         &-name {
@@ -166,11 +163,11 @@ $module: #{$prefix}-ai-chat-input;
 
         &-delete {
             cursor: pointer;
-            padding: 2px;
+            padding: $spacing-ai-chat-input_references_delete-padding;
             border-radius: 50%;
 
             &:hover {
-                background: var(--semi-color-fill-1);
+                background: $color-ai-chat-input_reference_delete-bg;
             }
         }
 
@@ -290,11 +287,11 @@ $module: #{$prefix}-ai-chat-input;
 
                 &.#{$prefix}-select-focus, .#{$prefix}-select-selection-text {
                     font-weight: $font-ai-chat-input_footer_configure_select-fontWeight;
-                    color: var(--semi-color-text-1);
+                    color: $color-ai-chat-input_footer_configure_select-text;
                 }
 
                 &.#{$prefix}-select:hover {
-                    border-color: var(--semi-color-border);
+                    border-color: $color-ai-chat-input_footer_configure_select-border;
                 }
 
                 &.#{$prefix}-select:focus {
@@ -308,11 +305,11 @@ $module: #{$prefix}-ai-chat-input;
                 .#{$prefix}-radio-addon-buttonRadio {
                     height: $height-ai-chat-input_footer_configure_radio_button;
                     padding: $spacing-ai-chat-input_footer_configure_radio_button-padding;
-                    font-size: 14px;
+                    font-size: $font-ai-chat-input_footer_configure_radio_button-fontSize;
 
                     &-checked {
                         color: $color-ai-chat-input_footer_configure_radio_button-checked;
-                        background: var(--semi-color-bg-2);
+                        background: $color-ai-chat-input_footer_configure_radio_button_checked-bg;
                     }
                 }
             }
@@ -499,6 +496,8 @@ $module: #{$prefix}-ai-chat-input;
     &-editor-content {
         flex: 1 1 0%; 
         min-height: 0; 
+        margin-top: -($width-ai-chat-input_rich_text-select_slot_delete/2 - $spacing-ai-chat-input_rich_text-skill_slot-marginY);
+        padding-top: $width-ai-chat-input_rich_text-select_slot_delete/2 - $spacing-ai-chat-input_rich_text-skill_slot-marginY;
         overflow: auto;
         
         .tiptap {
@@ -532,7 +531,7 @@ $module: #{$prefix}-ai-chat-input;
                 display: inline-block;
                 background-color: $color-ai-chat-input_rich_text-input_slot-bg;
                 border-radius: $radius-ai-chat-input_rich_text-input_slot;
-                padding: $spacing-ai-chat-input_rich_text-input_slot-padding;
+                padding: $spacing-ai-chat-input_rich_text-input_slot-paddingY $spacing-ai-chat-input_rich_text-input_slot-paddingX;
                 position: relative;
                 margin: $spacing-ai-chat-input_rich_text-input_slot-marginY $spacing-ai-chat-input_rich_text-input_slot-marginX;
                 font-weight: $font-ai-chat-input_rich_text-input_slot-fontWeight;
@@ -545,8 +544,8 @@ $module: #{$prefix}-ai-chat-input;
                 .input-slot-placeholder {
                     user-select: none;
                     position: absolute;
-                    top: $spacing-ai-chat-input_rich_text-input_slot-placeholder-top;
-                    left: $spacing-ai-chat-input_rich_text-input_slot-placeholder-left;
+                    top: $spacing-ai-chat-input_rich_text-input_slot-paddingY;
+                    left: $spacing-ai-chat-input_rich_text-input_slot-paddingX;
                     pointer-events: none;
                     white-space: pre;
                     z-index: $z-ai-chat-input_rich_text-input_slot_placeholder;
@@ -572,7 +571,6 @@ $module: #{$prefix}-ai-chat-input;
     
                 &-wrapper {
                     display: inline-flex;
-                    // todo
                     margin: $spacing-ai-chat-input_rich_text-select_slot-marginY $spacing-ai-chat-input_rich_text-select_slot-marginX;
                 }
                 

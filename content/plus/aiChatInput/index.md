@@ -1089,6 +1089,9 @@ const ReferSlot = Node.create({
                     'data-unique-key': attributes.uniqueKey,
                 }),
             },
+            // !!! Very important, affects the cursor size before and after custom nodes
+            // Please be sure to add this logic to custom nodes
+            isCustomSlot: AIChatInput.getCustomSlotAttribute(),
         };
     },
     parseHTML() {
