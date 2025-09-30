@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "version": "2.88.0",
 =======
     "version": "2.87.0-alpha.5",
@@ -13,6 +14,9 @@
 =======
     "version": "2.87.0-alpha.7",
 >>>>>>> 511ac0b5a (v2.87.0-alpha.7)
+=======
+    "version": "2.87.0-alpha.8",
+>>>>>>> e5aa43c73 (v2.87.0-alpha.8)
     "description": "",
     "author": "伍浩威 <wuhaowei.whw@bytedance.com>",
     "homepage": "",

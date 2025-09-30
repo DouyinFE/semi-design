@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "version": "2.88.0",
 =======
     "version": "2.87.0-alpha.5",
@@ -13,12 +14,16 @@
 =======
     "version": "2.87.0-alpha.7",
 >>>>>>> 511ac0b5a (v2.87.0-alpha.7)
+=======
+    "version": "2.87.0-alpha.8",
+>>>>>>> e5aa43c73 (v2.87.0-alpha.8)
     "description": "",
     "scripts": {
         "build:lib": "node ./scripts/compileLib.js",
         "prepublishOnly": "npm run build:lib"
     },
     "dependencies": {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -36,6 +41,10 @@
         "@douyinfe/semi-animation": "2.87.0-alpha.7",
         "@douyinfe/semi-json-viewer-core": "2.87.0-alpha.7",
 >>>>>>> 511ac0b5a (v2.87.0-alpha.7)
+=======
+        "@douyinfe/semi-animation": "2.87.0-alpha.8",
+        "@douyinfe/semi-json-viewer-core": "2.87.0-alpha.8",
+>>>>>>> e5aa43c73 (v2.87.0-alpha.8)
         "@mdx-js/mdx": "3.0.1",
 >>>>>>> e68e29a36 (v2.87.0-alpha.5)
         "async-validator": "^3.5.0",
