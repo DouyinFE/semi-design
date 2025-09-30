@@ -3,6 +3,7 @@ import { ReactNodeViewRenderer, NodeViewWrapper } from '@tiptap/react';
 import type { NodeViewProps } from '@tiptap/react';
 import { IconClose } from '@douyinfe/semi-icons';
 import React from 'react';
+import { getCustomSlotAttribute } from '@douyinfe/semi-foundation/aiChatInput/utils';
 
 function SkillSlotComponent(props: NodeViewProps) {
     const { node, deleteNode } = props;
@@ -43,6 +44,7 @@ const SkillSlot = Node.create({
                 parseHTML: (element: HTMLElement) => (element as HTMLElement).getAttribute('data-value'),
                 renderHTML: (attributes: Record<string, any>) => ({ 'data-value': attributes.value }),
             },
+            isCustomSlot: getCustomSlotAttribute(),
         };
     },
 

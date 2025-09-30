@@ -316,7 +316,7 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
         this._adapter.focusEditor();
     }
 
-    handRichTextArealKeyDown = (view: any, event: KeyboardEvent) => {
+    handRichTextARealKeyDown = (view: any, event: KeyboardEvent) => {
         const { suggestionVisible } = this.getStates();
         if (suggestionVisible && ['ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
             return true;
@@ -337,7 +337,7 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
                 // then pressing the delete button should delete the zero-width character and the preceding inputSlot node.
                 const $before = state.doc.resolve(beforePos);
                 const nodeBeforeZeroWidth = $before.nodeBefore;
-                if (nodeBeforeZeroWidth && nodeBeforeZeroWidth.type.name === 'inputSlot') {
+                if (nodeBeforeZeroWidth && nodeBeforeZeroWidth.attrs.isCustomSlot) {
                     // inputSlot 节点的起始位置 The starting position of the inputSlot node
                     const inputSlotEnd = beforePos;
                     const inputSlotStart = inputSlotEnd - nodeBeforeZeroWidth.nodeSize;
@@ -353,7 +353,7 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
             // 光标在 inputSlot 后，按删除键，如果 inputSlot 后面是零宽字符，也一并删除
             // When the cursor is behind inputSlot, press the delete key. 
             // If there are zero-width characters behind inputSlot, they will also be deleted.
-            if (before && before.type && before.type.name === 'inputSlot') {
+            if (before && before.type && before.attrs.isCustomSlot) {
                 // 计算 inputSlot 的起始和结束
                 // Calculate the start and end of inputSlot
                 const inputSlotStart = $pos.pos - before.nodeSize;

@@ -128,3 +128,13 @@ export function transformJSONResult(input: any, customTransformObj: Map<string, 
     traverse(input);
     return output;
 }
+
+export function getCustomSlotAttribute() {
+    return {
+        default: true,
+        parseHTML: element => true,
+        renderHTML: attributes => ({
+            'data-custom-slot': attributes.isCustomSlot ? 'true' : undefined,
+        }),
+    };
+}

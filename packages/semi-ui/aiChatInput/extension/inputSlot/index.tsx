@@ -3,6 +3,7 @@ import { ReactNodeViewRenderer } from '@tiptap/react';
 import Component from './component';
 import { Plugin, PluginKey, TextSelection } from 'prosemirror-state';
 import { strings } from '@douyinfe/semi-foundation/aiChatInput/constants';
+import { getCustomSlotAttribute } from '@douyinfe/semi-foundation/aiChatInput/utils';
 
 export const REACT_COMPONENT_NODE_NAME = 'inputSlot';
 
@@ -20,13 +21,23 @@ function ensureTrailingText(schema: any) {
             }
             let { tr } = newState;
             let modified = false;
+            let insertPositions = [];
             newState.doc.descendants((node, pos) => {
+                // 插入零宽字符的作用：
+                // 1. 保证自定义节点前后的光标高度正常，光标高度和内容相关，解决自定义节点是最后一个节点，
+                //    光标高度会和自定义节点占据高度一致，和文本中光标高度不一致的问题
+                // 2. 保证对于可编辑的 inline 节点（比如 input-slot），为最后一个节点时候，光标可以聚焦到该节点后
+                // The effect of inserting zero-width characters:
+                // 1. Ensure that the cursor height before and after the custom node is normal.
+                // The cursor height is related to the content. Solve the problem that when the custom node is the last node，
+                // the cursor height will be consistent with the height occupied by the custom node, and inconsistent with the cursor height in the text.
+                // 2. Ensure that for an editable inline node (such as input-slot), when it is the last node, the cursor can focus after the node.
                 if (node.type.name === 'paragraph' && node.childCount > 0) {
                     const { lastChild } = node;
-                    if (lastChild && lastChild.type.name === 'inputSlot') {
-                        // 在段落末尾插入一个零宽字符, 避免当 inputSlot 是段落最后一个节点时候，光标无法移出
+                    if (lastChild && lastChild.attrs.isCustomSlot) {
+                        // 在段落末尾插入一个零宽字符, 避免当自定义节点是段落最后一个节点时候，光标无法移出
                         // Insert a zero-width character at the end of the paragraph to prevent 
-                        // the cursor from being unable to move out when inputSlot is the last node of the paragraph.
+                        // the cursor from being unable to move out when custom node is the last node of the paragraph.
                         const paragraphEndPos = pos + node.nodeSize - 1;
                         const prevChar = tr.doc.textBetween(paragraphEndPos - 1, paragraphEndPos, '', '');
                         if (prevChar !== strings.ZERO_WIDTH_CHAR) {
@@ -34,15 +45,33 @@ function ensureTrailingText(schema: any) {
                             modified = true;
                         }
                     }
+                    // 如果第一个 child 是自定义节点，应该在自定义节点前添加零宽字符
+                    // If the first child is a custom node, a zero-width character should be added before the custom node.
+                    if (node.firstChild && node.attrs.isCustomSlot) {
+                        const firstChildPos = pos + 1;
+                        const prevChar = tr.doc.textBetween(firstChildPos - 1, firstChildPos, '', '');
+                        if (prevChar !== strings.ZERO_WIDTH_CHAR) {
+                            tr = tr.insert(firstChildPos, schema.text(strings.ZERO_WIDTH_CHAR));
+                            modified = true;
+                        }
+                    }
                 }
-                // 保证在 undo 时候，没有内容的 inputSlot 节点内部有零宽字符
-                // Ensure that there are zero-width characters inside the inputSlot node without content when undoing
+                // 保证在 undo/通过 set 修改 content 时候，没有内容的 inputSlot 节点内部有零宽字符
+                // Ensure that there are zero-width characters inside the inputSlot node without content when undoing/setting content
+                // 保证 input-slot 节点可以正常显示
+                // Ensure that the input-slot node can be displayed normally
                 if (node.type.name === 'inputSlot' && node.content.size === 0) {
-                    modified = true;
-                    tr = tr.insertText(strings.ZERO_WIDTH_CHAR, pos + 1, pos + 1);
-                }
-                
+                    insertPositions.push(pos + 1);
+                }   
             });
+            if (insertPositions.length > 0) {
+                modified = true;
+                // 倒序插入，避免位置偏移
+                // Insert in reverse order to avoid position offset
+                insertPositions.reverse().forEach(insertPos => {
+                    tr = tr.insertText(strings.ZERO_WIDTH_CHAR, insertPos, insertPos);
+                });
+            }
             return modified ? tr : null;
         },
     });
@@ -83,6 +112,7 @@ export default Node.create({
                     'placeholder': attributes.placeholder,
                 }),
             },
+            isCustomSlot: getCustomSlotAttribute(),
         };
     },
 

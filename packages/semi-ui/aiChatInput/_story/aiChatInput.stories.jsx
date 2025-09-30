@@ -50,9 +50,9 @@ export const Basic = () => {
 }
 
 const temp = {
-    'input-slot': `我是一名<select-slot value="打工人" options='["打工人", "学生"]'></select-slot> ，帮我写一段面向<input-slot placeholder="[输入对象]">陌生同事</input-slot>的话术内容`,
-    'select-slot': '我的职业是<input-slot placeholder="[输入职业]"></input-slot>，帮我写一份关于<input-slot placeholder="[输入主题]"></input-slot>的思想汇报。',
-    'skill-slot': '我的职业是<input-slot placeholder="[输入职业]">研究员</input-slot> ，帮我写一篇关于<input-slot placeholder="[输入主题]"></input-slot>的研究报告。',
+    'input-slot': `我是一名<input-slot placeholder="[职业]">学生</input-slot>，帮我写一段面向<input-slot placeholder="[输入对象]"></input-slot>的话术内容`,
+    'select-slot': `我的职业是<select-slot value="打工人" options='["打工人", "学生"]'></select-slot>，帮我写一份...`,
+    'skill-slot': '<skill-slot data-value="帮我写作"></skill-slot>',
 };
 
 export const RichTextExample = () => {
