@@ -109,7 +109,7 @@ export default class LinkedScroll extends React.Component {
             <div style={{ position: 'relative', display: 'flex', padding: 20 }}>
                 <div
                     style={{ width: 200, height: 200, overflow: 'scroll' }}
-                    ref={node => (this.leftRef = node)}
+                    ref={node => {this.leftRef = node;}}
                     onScroll={this.handleBodyScrollTop}
                 >
                     <p>{content}</p>
@@ -117,7 +117,7 @@ export default class LinkedScroll extends React.Component {
                 </div>
                 <div
                     style={{ width: 200, height: 200, overflow: 'scroll' }}
-                    ref={node => (this.ref = node)}
+                    ref={node => {this.ref = node;}}
                     onScroll={this.handleBodyScrollTop}
                 >
                     <p>{content}</p>
@@ -125,7 +125,7 @@ export default class LinkedScroll extends React.Component {
                 </div>
                 <div
                     style={{ width: 200, height: 200, overflow: 'scroll' }}
-                    ref={node => (this.rightRef = node)}
+                    ref={node => {this.rightRef = node;}}
                     onScroll={this.handleBodyScrollTop}
                 >
                     <p>{content}</p>

@@ -227,6 +227,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     inputRef: React.RefObject<typeof Input>;
     triggerRef: React.RefObject<HTMLDivElement>;
     optionsRef: React.RefObject<any>;
+    optionContainerEl: React.RefObject<HTMLDivElement>;
     clickOutsideHandler: any;
     mergeType: string;
     context: ContextValue;
@@ -279,6 +280,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         this.inputRef = React.createRef();
         this.triggerRef = React.createRef();
         this.optionsRef = React.createRef();
+        this.optionContainerEl = React.createRef();
         this.clickOutsideHandler = null;
         this.foundation = new CascaderFoundation(this.adapter);
         this.loadingKeysRef = React.createRef();
@@ -312,9 +314,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         > = {
             registerClickOutsideHandler: cb => {
                 const clickOutsideHandler = (e: Event) => {
-                    const optionInstance = this.optionsRef && this.optionsRef.current;
                     const triggerDom = this.triggerRef && this.triggerRef.current;
-                    const optionsDom = ReactDOM.findDOMNode(optionInstance);
+                    const optionsDom = this.optionContainerEl && this.optionContainerEl.current;
                     const target = e.target as Element;
                     const path = e.composedPath && e.composedPath() || [target];
                     if (
@@ -732,7 +733,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const isEmpty = !renderData || !renderData.length;
         const realDropDownStyle = isEmpty ? {...dropdownStyle, minWidth: this.state.emptyContentMinWidth } : dropdownStyle;
         const content = (
-            <div className={popoverCls} role="listbox" style={realDropDownStyle} onKeyDown={this.foundation.handleKeyDown}>
+            <div className={popoverCls} role="listbox" style={realDropDownStyle} onKeyDown={this.foundation.handleKeyDown} ref={this.optionContainerEl}>
                 {topSlot}
                 <Item
                     activeKeys={activeKeys}

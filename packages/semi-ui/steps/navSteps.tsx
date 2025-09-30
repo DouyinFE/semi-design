@@ -18,11 +18,11 @@ export interface NavStepsProps {
 }
 
 const Steps = (props: NavStepsProps) => {
-    const { size, current, initial, children, prefixCls, className, style, onChange, ...rest } = props;
+    const { size = 'default', current = 0, initial = 0, children, prefixCls = css.PREFIX, className, style, onChange, ...rest } = props;
     const inner = useMemo(() => {
-        const filteredChildren = Children.toArray(children).filter(c => isValidElement(c)) as Array<ReactElement>;
+        const filteredChildren = Children.toArray(children).filter(c => isValidElement(c)) as Array<ReactElement<any>>;
         const total = filteredChildren.length;
-        const content = Children.map(filteredChildren, (child: React.ReactElement, index) => {
+        const content = Children.map(filteredChildren, (child: React.ReactElement<any>, index) => {
             if (!child) {
                 return null;
             }
@@ -54,22 +54,5 @@ const Steps = (props: NavStepsProps) => {
     );
 };
 
-Steps.propTypes = {
-    prefixCls: PropTypes.string,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    current: PropTypes.number,
-    initial: PropTypes.number,
-    size: PropTypes.oneOf(['small', 'default']),
-};
-
-Steps.defaultProps = {
-    prefixCls: css.PREFIX,
-    current: 0,
-    direction: 'horizontal',
-    size: 'default',
-    initial: 0,
-    status: 'process',
-};
 
 export default Steps;

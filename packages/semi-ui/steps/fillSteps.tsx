@@ -22,11 +22,11 @@ export interface FillStepsProps {
 }
 
 const Steps = (props: FillStepsProps) => {
-    const { current, status, children, prefixCls, initial, direction, className, style, onChange, ...rest } = props;
+    const { current = 0, status = 'process', children, prefixCls = css.PREFIX, initial = 0, direction = 'horizontal', className, style, onChange, ...rest } = props;
     const inner = useMemo(() => {
-        const filteredChildren = Children.toArray(children).filter(c => isValidElement(c)) as Array<ReactElement>;
+        const filteredChildren = Children.toArray(children).filter(c => isValidElement(c)) as Array<ReactElement<any>>;
         const colStyle = direction === 'vertical' ? null : { width: `${100 / filteredChildren.length}%` };
-        const content = Children.map(filteredChildren, (child: ReactElement, index) => {
+        const content = Children.map(filteredChildren, (child: ReactElement<any>, index) => {
             if (!child) {
                 return null;
             }
@@ -80,22 +80,5 @@ const Steps = (props: FillStepsProps) => {
     );
 };
 
-Steps.propTypes = {
-    prefixCls: PropTypes.string,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    current: PropTypes.number,
-    initial: PropTypes.number,
-    direction: PropTypes.oneOf(['horizontal', 'vertical']),
-    status: PropTypes.oneOf(['wait', 'process', 'finish', 'error', 'warning'])
-};
-
-Steps.defaultProps = {
-    prefixCls: css.PREFIX,
-    current: 0,
-    direction: 'horizontal',
-    initial: 0,
-    status: 'process',
-};
 
 export default Steps;

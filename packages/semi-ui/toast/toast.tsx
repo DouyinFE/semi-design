@@ -115,7 +115,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         const iconSize = 'large';
         const iconCls = cls(`${prefixCls}-icon`, `${prefixCls}-icon-${type}`);
         if (icon) {
-            return isSemiIcon(icon) ? React.cloneElement((icon as React.ReactElement), { size: iconSize, className: `${prefixCls}-icon` }) : icon;
+            return isSemiIcon(icon) ? React.cloneElement((icon as React.ReactElement<any>), { size: iconSize, className: `${prefixCls}-icon` }) : icon;
         }
         if (type && iconType) {
             return React.cloneElement(iconType, { size: iconSize, className: iconCls });
@@ -144,7 +144,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
             className={toastCls}
             style={{
                 ...style,
-                transform: `translate3d(0,0,${reservedIndex*-10}px)`,
+                transform: `translate3d(0,0,${reservedIndex * -10}px)`,
             }}
             onMouseEnter={this.clearCloseTimer}
             onMouseLeave={this.startCloseTimer}
