@@ -101,7 +101,7 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
         const index = chats.findIndex(item => item.id === message.id);
         const newChat = {
             ...chats[index],
-            isEditing: !chats[index].isEditing,
+            editing: !chats[index].editing,
         };
         const newChats = [...chats];
         newChats.splice(index, 1, newChat);

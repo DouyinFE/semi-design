@@ -39,7 +39,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         hints: PropTypes.array,
         hintCls: PropTypes.string,
         hintStyle: PropTypes.object,
-        isSelecting: PropTypes.bool,
+        selecting: PropTypes.bool,
         markdownRenderProps: PropTypes.object,
         messageEditRender: PropTypes.func,
         mode: PropTypes.string,
@@ -67,7 +67,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
     static defaultProps = getDefaultPropsFromGlobalConfig(AIChatDialogue.__SemiComponentName__, {
         align: DIALOGUE_ALIGN.LEFT_RIGHT,
         mode: MODE.BUBBLE,
-        isSelecting: false,
+        selecting: false,
         disabledFileItemClick: false,
         showReset: true,
     })

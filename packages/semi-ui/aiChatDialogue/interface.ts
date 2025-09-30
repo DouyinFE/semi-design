@@ -16,7 +16,7 @@ export interface AIChatDialogueProps {
     hintCls?: string;
     hints?: string[];
     hintStyle?: React.CSSProperties;
-    isSelecting?: boolean;
+    selecting?: boolean;
     markdownRenderProps?: MarkdownRenderProps;
     messageEditRender?: (message?: Message) => ReactNode;
     mode?: 'bubble' | 'noBubble' | 'userBubble';
@@ -57,7 +57,7 @@ export interface DialogueContentProps {
     message?: Message;
     customRenderFunc?: (props: RenderContentProps) => ReactNode;
     markdownRenderProps?: MarkdownRenderProps;
-    isEditing?: boolean;
+    editing?: boolean;
     messageEditRender?: (message?: Message) => ReactNode;
     onFileClick?: (file?: InputFile) => void;
     onImageClick?: (image?: InputImage) => void;

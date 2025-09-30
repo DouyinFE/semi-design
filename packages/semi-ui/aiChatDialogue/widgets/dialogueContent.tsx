@@ -16,7 +16,7 @@ const { PREFIX_CONTENT } = cssClasses;
 const { STATUS, MODE, ROLE, MESSAGE_ITEM_TYPE } = strings;
 
 const DialogueContent = (props: DialogueContentProps) => {
-    const { message, customRenderFunc, role: roleInfo, customMarkDownComponents, mode, markdownRenderProps, isEditing, messageEditRender, 
+    const { message, customRenderFunc, role: roleInfo, customMarkDownComponents, mode, markdownRenderProps, editing, messageEditRender, 
         onFileClick, onImageClick, disabledFileItemClick, renderDialogueContentItem, onAnnotationClick } = props;
     const { content, role, status, references } = message;
 
@@ -235,7 +235,7 @@ const DialogueContent = (props: DialogueContentProps) => {
                 <span className={`${PREFIX_CONTENT}-loading-item`} /> 
                 <span className={`${PREFIX_CONTENT}-loading-text`}>请稍候...</span>
             </span>;
-        } else if (isEditing) {
+        } else if (editing) {
             // todo: 两种行为，内置 + 自定义传入
             // 内置只编辑纯消息，自定义支持编辑多模态消息
             return messageEditRender?.(message);
@@ -281,7 +281,7 @@ const DialogueContent = (props: DialogueContentProps) => {
                 </div>
             );
         }
-    }, [status, content, isEditing, message, messageEditRender, markdownRenderProps, wrapCls, markdownComponents, builtinRenderers, customRenderer, customRenderMap]);
+    }, [status, content, editing, message, messageEditRender, markdownRenderProps, wrapCls, markdownComponents, builtinRenderers, customRenderer, customRenderMap]);
         
     if (customRenderFunc) {
         return customRenderFunc({ 
@@ -292,7 +292,7 @@ const DialogueContent = (props: DialogueContentProps) => {
         }) as ReactElement;
     } else {
         return <div className={cls(`${PREFIX_CONTENT}`, {
-            [`${PREFIX_CONTENT}-editing`]: isEditing,
+            [`${PREFIX_CONTENT}-editing`]: editing,
         })}>
             {references && references.length > 0 && <ReferenceWidget references={references} />}
             {node}

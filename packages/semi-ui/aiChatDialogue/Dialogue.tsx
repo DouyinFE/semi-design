@@ -42,10 +42,10 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialog
         const { message, mode, renderConfig, customMarkDownComponents, markdownRenderProps, messageEditRender, onFileClick, onImageClick, disabledFileItemClick, renderDialogueContentItem, onAnnotationClick } = this.props;
 
         return <DialogueContent 
-            key={message.isEditing}
+            key={message.editing}
             message={message} 
             mode={mode}
-            isEditing={message.isEditing && message.role === ROLE.USER}
+            editing={message.editing && message.role === ROLE.USER}
             messageEditRender={messageEditRender}
             onFileClick={onFileClick}
             onImageClick={onImageClick}
@@ -98,7 +98,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialog
 
 
     render() {
-        const { message, isSelecting, align, isSelected, onSelectChange } = this.props;
+        const { message, selecting, align, isSelected, onSelectChange } = this.props;
         const id = message.id;
 
         const isRightAlign = message.role === ROLE.USER && align === DIALOGUE_ALIGN.LEFT_RIGHT;
@@ -110,7 +110,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialog
         return (
             <div className={`${prefixCls}-wrapper`}>   
                 {
-                    isSelecting && (
+                    selecting && (
                         <div className={`${prefixCls}-checkbox`}>
                             <Checkbox 
                                 checked={isSelected}
