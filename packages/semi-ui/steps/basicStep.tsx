@@ -34,15 +34,15 @@ export enum stepSizeMapIconSize {
 
 const BasicStep = (props: BasicStepProps) => {
     const {
-        prefixCls,
-        className,
+        prefixCls = css.ITEM,
+        className = '',
         size,
         title,
         description,
-        status,
+        status = 'wait',
         style,
-        active,
-        done,
+        active = false,
+        done = false,
         icon,
         stepNumber,
         onClick,
