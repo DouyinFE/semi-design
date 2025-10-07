@@ -66,6 +66,27 @@ import { Switch } from '@douyinfe/semi-ui';
 );
 ```
 
+### 类型
+
+你可以通过 type 指定主题色
+
+```jsx live=true
+import React from 'react';
+import { Switch } from '@douyinfe/semi-ui';
+
+() => (
+    <div>
+        <Space>
+          <Switch defaultChecked={true}></Switch>
+          <Switch defaultChecked={true} type="primary"></Switch>
+          <Switch defaultChecked={true} type="danger"></Switch>
+          <Switch defaultChecked={true} type="tertiary"></Switch>
+          <Switch defaultChecked={true} type="warning"></Switch>
+        </Space>
+    </div>
+);
+```
+
 ### 不可用
 
 ```jsx live=true
@@ -185,6 +206,7 @@ import { Switch } from '@douyinfe/semi-ui';
 | onMouseLeave | 鼠标移出时回调 | function() |  |  |
 | size | 尺寸,可选值`large`,`default`,`small` | string | 'default' |  |
 | style | 内联样式 | object |  |  |
+| type | 类型,可选值`primary`,`tertiary`,`success`,`warning`,`danger` | string | `success` |  |
 | uncheckedText | 关闭时展示的内容, size 为 small 时无效 | ReactNode |  |  |
 
 ## Accessibility

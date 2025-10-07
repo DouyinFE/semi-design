@@ -35,12 +35,6 @@ $module: #{$prefix}-switch;
     }
 
     &-checked {
-        background-color: $color-switch_checked-bg-default;
-
-        &:hover {
-            background-color: $color-switch_checked-bg-hover;
-        }
-
         .#{$module}-knob {
             transform: translateX($spacing-switch_checked-translateX);
         }
@@ -52,8 +46,54 @@ $module: #{$prefix}-switch;
         }
     }
 
-    &-active {
+    &-checked.#{$module}-primary {
+        background-color: $color-switch_checked-bg-primary-default;
+        &:hover {
+            background-color: $color-switch_checked-bg-primary-hover;
+        }
+    }
+    &-active.#{$module}-primary {
+        background-color: $color-switch_checked-bg-primary-active;
+    }
+
+    &-checked.#{$module}-tertiary {
+        background-color: $color-switch_checked-bg-tertiary-default;
+        &:hover {
+            background-color: $color-switch_checked-bg-tertiary-hover;
+        }
+    }
+    &-active.#{$module}-tertiary {
+        background-color: $color-switch_checked-bg-tertiary-active;
+    }
+
+    &-checked.#{$module}-success {
+        background-color: $color-switch_checked-bg-default;
+        &:hover {
+            background-color: $color-switch_checked-bg-hover;
+        }
+    }
+    &-active.#{$module}-success {
         background-color: $color-switch_checked-bg-active;
+    }
+
+    &-checked.#{$module}-warning {
+        background-color: $color-switch_checked-bg-warning-default;
+        &:hover {
+            background-color: $color-switch_checked-bg-warning-hover;
+        }
+    }
+    &-active.#{$module}-warning {
+        background-color: $color-switch_checked-bg-warning-active;
+    }
+
+    &-checked.#{$module}-danger {
+        background-color: $color-switch_checked-bg-danger-default;
+        &:hover {
+            background-color: $color-switch_checked-bg-danger-hover;
+        }
+    }
+    &-active.#{$module}-danger {
+        background-color: $color-switch_checked-bg-danger-active;
     }
 
     &-disabled {
@@ -77,7 +117,7 @@ $module: #{$prefix}-switch;
             @include shadow-0;
             border: $width-switch_knob_disabled-border $color-switch_knob-border-default solid;
         }
-        
+
         .#{$module}-native-control {
             pointer-events: none;
             cursor: not-allowed;
@@ -191,6 +231,36 @@ $module: #{$prefix}-switch;
     }
 }
 
+.#{$module}-loading.#{$module}-primary {
+    &.#{$module}-checked {
+        background-color: $color-switch_spin_checked-bg-primary;
+    }
+}
+
+.#{$module}-loading.#{$module}-tertiary {
+    &.#{$module}-checked {
+        background-color: $color-switch_spin_checked-bg-tertiary;
+    }
+}
+
+.#{$module}-loading.#{$module}-success {
+    &.#{$module}-checked {
+        background-color: $color-switch_spin_checked-bg-default;
+    }
+}
+
+.#{$module}-loading.#{$module}-warning {
+    &.#{$module}-checked {
+        background-color: $color-switch_spin_checked-bg-warning;
+    }
+}
+
+.#{$module}-loading.#{$module}-danger {
+    &.#{$module}-checked {
+        background-color: $color-switch_spin_checked-bg-danger;
+    }
+}
+
 .#{$module}-loading.#{$module}-small {
 
     .#{$module}-loading-spin {
@@ -228,8 +298,24 @@ $module: #{$prefix}-switch;
     }
 }
 
-.#{$module}-disabled.#{$module}-checked {
+.#{$module}-disabled.#{$module}-checked.#{$module}-primary {
+    background-color: $color-switch_checked_disabled-bg-primary;
+}
+
+.#{$module}-disabled.#{$module}-checked.#{$module}-tertiary {
+    background-color: $color-switch_checked_disabled-bg-tertiary;
+}
+
+.#{$module}-disabled.#{$module}-checked.#{$module}-success {
     background-color: $color-switch_checked_disabled-bg-default;
+}
+
+.#{$module}-disabled.#{$module}-checked.#{$module}-warning {
+    background-color: $color-switch_checked_disabled-bg-warning;
+}
+
+.#{$module}-disabled.#{$module}-checked.#{$module}-danger {
+    background-color: $color-switch_checked_disabled-bg-danger;
 }
 
 .#{$module}-large {
