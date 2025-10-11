@@ -211,10 +211,10 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
     };
 
     /* istanbul ignore next */
-    rePosChildren = (children: ReactElement[], activeKey: string): ReactElement[] => {
-        const newChildren: ReactElement[] = [];
+    rePosChildren = (children: ReactElement<any>[], activeKey: string): ReactElement<any>[] => {
+        const newChildren: ReactElement<any>[] = [];
 
-        const falttenChildren = React.Children.toArray(children) as ReactElement[];
+        const falttenChildren = React.Children.toArray(children) as ReactElement<any>[];
 
         if (children.length) {
             newChildren.push(...falttenChildren.filter(child => child.props && child.props.itemKey === activeKey));

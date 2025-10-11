@@ -199,7 +199,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
     componentDidMount() {
         if (this.props.ellipsis) {
             // runAfterTicks: make sure start observer on the next tick
-            this.onResize().then(()=>runAfterTicks(()=>this.observerTakingEffect = true, 1));
+            this.onResize().then(() => runAfterTicks(() => this.observerTakingEffect = true, 1));
         }
     }
 
@@ -239,7 +239,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             window.cancelAnimationFrame(this.rafId);
         }
         return new Promise<void>(resolve => {
-            this.rafId = window.requestAnimationFrame(async ()=>{
+            this.rafId = window.requestAnimationFrame(async () => {
                 await this.getEllipsisState();
                 resolve();
             });
@@ -334,7 +334,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         return defaultOpts;
     };
 
-    onHover = ()=>{
+    onHover = () => {
         const canUseCSSEllipsis = this.canUseCSSEllipsis();
         if (canUseCSSEllipsis) {
             const { rows, suffix, pos } = this.getEllipsisOpt();
@@ -349,7 +349,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         }
     }
 
-    getEllipsisState = async ()=> {
+    getEllipsisState = async () => {
         const { rows, suffix, pos } = this.getEllipsisOpt();
         const { children, strong } = this.props;
         // wait until element mounted
@@ -372,7 +372,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
         // If children is null, css/js truncated flag isTruncate is false
         if (isNull(children)) {
-            return new Promise<void>(resolve=>{
+            return new Promise<void>(resolve => {
                 this.setState({
                     isTruncated: false,
                     isOverflowed: false
@@ -409,7 +409,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             pos,
             strong
         );
-        return new Promise<void>(resolve=>{
+        return new Promise<void>(resolve => {
             this.setState({
                 isOverflowed: false,
                 ellipsisContent: content,
@@ -627,7 +627,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const iconSize: Size = realSize === 'small' ? 'small' : 'default';
         return (
             <span className={`${prefixCls}-icon`} x-semi-prop="icon">
-                {isSemiIcon(icon) ? React.cloneElement((icon as React.ReactElement), { size: iconSize }) : icon}
+                {isSemiIcon(icon) ? React.cloneElement((icon as React.ReactElement<any>), { size: iconSize }) : icon}
             </span>
         );
     }
@@ -750,7 +750,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         );
         if (this.props.ellipsis) {
             return (
-                <ResizeObserver onResize={(...args)=>{
+                <ResizeObserver onResize={(...args) => {
                     if (this.observerTakingEffect) {
                         this.onResize(...args);
                     }

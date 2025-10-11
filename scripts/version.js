@@ -6,17 +6,20 @@ const findLatestVersion = (versionSet) => {
 };
 
 const getAlphaVersion = (versionSet) => {
-    let latestVersion = findLatestVersion(versionSet);
-    const nextBetaVersion = semver.inc(latestVersion, 'preminor', 'beta');
-    // 如果已经有beta版本了，那么就得发下个版本的alpla版
-    if (versionSet.has(nextBetaVersion)) {
-        latestVersion = semver.inc(latestVersion, 'minor');
+    // 1. 找到最新的正式版（不带 pre-release 的）
+    const arr = Array.isArray(versionSet) ? versionSet : [...versionSet];
+    const validVersions = arr.filter(v => semver.valid(v));
+    validVersions.sort(semver.rcompare);
+    const latestStable = validVersions.find(v => !semver.prerelease(v));
+    // 2. 计算下一个 minor 的 alpha.0
+    const nextMinor = semver.inc(latestStable, 'minor');
+    let nextAlpha = `${nextMinor}-alpha.0`;
+    // 3. 如果已存在，则递增 alpha 号
+    while (versionSet.has(nextAlpha)) {
+        // 取当前 alpha 号，递增
+        nextAlpha = semver.inc(nextAlpha, 'prerelease', 'alpha');
     }
-    let nextVersion = semver.inc(latestVersion, 'preminor', 'alpha');
-    while (versionSet.has(nextVersion)) {
-        nextVersion = semver.inc(nextVersion, 'prerelease', 'alpha');
-    }
-    return nextVersion;
+    return nextAlpha;
 };
 
 const getBetaVersion = (versionSet) => {

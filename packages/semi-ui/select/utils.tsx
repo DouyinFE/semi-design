@@ -3,7 +3,7 @@ import warning from '@douyinfe/semi-foundation/utils/warning';
 import { OptionProps } from './option';
 import { OptionGroupProps } from './optionGroup';
 
-const generateOption = (child: React.ReactElement, parent: any, index: number, newKey?: string | number): OptionProps => {
+const generateOption = (child: React.ReactElement<any>, parent: any, index: number, newKey?: string | number): OptionProps => {
     const childProps = child.props;
     if (!child || !childProps) {
         return null;
@@ -38,7 +38,7 @@ const getOptionsFromGroup = (selectChildren: React.ReactNode) => {
     } = { label: '', children: [], _show: false };
 
     // avoid null
-    let childNodes = React.Children.toArray(selectChildren) as React.ReactElement[];
+    let childNodes = React.Children.toArray(selectChildren) as React.ReactElement<any>[];
     childNodes = childNodes.filter((childNode) => childNode && childNode.props);    
 
     let type = '';
@@ -64,7 +64,7 @@ const getOptionsFromGroup = (selectChildren: React.ReactNode) => {
                 originKeys.push(children.key);
             }
             children = React.Children.toArray(children);
-            const childrenOption = children.map((option: React.ReactElement, index: number) => {
+            const childrenOption = children.map((option: React.ReactElement<any>, index: number) => {
                 let newKey = option.key;
                 if (originKeys[index] === null) {
                     newKey = child.key + '' + option.key; // if option in group and didn't set key, concat parent key to avoid conflict (default generate key just like .0, .1)

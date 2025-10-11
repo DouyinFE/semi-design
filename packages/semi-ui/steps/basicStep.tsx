@@ -120,24 +120,5 @@ const BasicStep = (props: BasicStepProps) => {
     );
 };
 
-BasicStep.propTypes = {
-    prefixCls: PropTypes.string,
-    description: PropTypes.node,
-    icon: PropTypes.node,
-    status: PropTypes.oneOf(['wait', 'process', 'finish', 'error', 'warning']),
-    title: PropTypes.node,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    onClick: PropTypes.func,
-    active: PropTypes.bool,
-    done: PropTypes.bool,
-};
-BasicStep.defaultProps = {
-    prefixCls: css.ITEM,
-    active: false,
-    done: false,
-    status: 'wait',
-    className: '',
-};
 
 export default BasicStep;
