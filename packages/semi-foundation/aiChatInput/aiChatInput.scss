@@ -322,6 +322,7 @@ $module: #{$prefix}-ai-chat-input;
                     align-items: center;
                     display: flex;
                     justify-content: space-between;
+                    column-gap: $spacing-ai-chat-input_footer_configure_mcp_columnGap;
 
                     &-title {
                         color: $color-ai-chat-input_footer-configure_mcp_header_title-text;
@@ -496,8 +497,8 @@ $module: #{$prefix}-ai-chat-input;
     &-editor-content {
         flex: 1 1 0%; 
         min-height: 0; 
-        margin-top: -($width-ai-chat-input_rich_text-select_slot_delete/2 - $spacing-ai-chat-input_rich_text-skill_slot-marginY);
-        padding-top: $width-ai-chat-input_rich_text-select_slot_delete/2 - $spacing-ai-chat-input_rich_text-skill_slot-marginY;
+        margin-top: -(calc($width-ai-chat-input_rich_text-select_slot_delete / 2) - $spacing-ai-chat-input_rich_text-skill_slot-marginY);
+        padding-top: calc($width-ai-chat-input_rich_text-select_slot_delete / 2) - $spacing-ai-chat-input_rich_text-skill_slot-marginY;
         overflow: auto;
         
         .tiptap {

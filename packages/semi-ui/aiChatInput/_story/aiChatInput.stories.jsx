@@ -348,7 +348,7 @@ export const Template = () => {
 
   return (
     <AIChatInput 
-      placeholder='输入 / 唤起技能选择面板，选择技能后，点击模版可查看技能，可通过鼠标上下按键切换侯选项'
+      placeholder='输入 / 唤起技能选择面板，选择技能后，点击模板按钮可查看技能，可通过鼠标上下按键切换侯选项'
       // renderConfigureArea={renderLeftMenu} 
       ref={ref}
       uploadProps={uploadProps}

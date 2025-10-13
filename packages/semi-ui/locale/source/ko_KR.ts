@@ -217,6 +217,11 @@ const local: Locale = {
     Feedback: {
         submit: '제출',
         cancel: '취소'
+    },
+    AIChatInput: {
+        template: '템플릿',
+        configure: '설정',
+        selected: '선택된 ${count} 개',
     }
 };
 

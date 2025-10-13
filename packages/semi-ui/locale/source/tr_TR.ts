@@ -217,6 +217,11 @@ const local: Locale = {
     Feedback: {
         submit: 'Göndermek',
         cancel: 'İptal'
+    },
+    AIChatInput: {
+        template: 'Şablon',
+        configure: 'Yapılandırma',
+        selected: '${count} öğe seçildi',
     }
 };
 

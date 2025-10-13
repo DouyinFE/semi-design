@@ -220,6 +220,11 @@ const local: Locale = {
     Feedback: {
         submit: 'ส่ง',
         cancel: 'ยกเลิก'
+    },
+    AIChatInput: {
+        template: 'ลายฉลุ',
+        configure: 'การกำหนดค่า',
+        selected: '${count} รายการที่เลือก',
     }
 };
 

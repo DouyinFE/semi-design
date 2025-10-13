@@ -219,6 +219,11 @@ const local: Locale = {
     Feedback: {
         submit: 'Отправить',
         cancel: 'Отмена'
+    },
+    AIChatInput: {
+        template: 'Tрафарет',
+        configure: 'Конфигурация',
+        selected: 'Выбрано ${count} элементов',
     }
 };
 

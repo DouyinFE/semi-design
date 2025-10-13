@@ -216,6 +216,11 @@ const local: Locale = {
     Feedback: {
         submit: 'Trimite',
         cancel: 'Anulează'
+    },
+    AIChatInput: {
+        template: 'Sablon',
+        configure: 'Configurare',
+        selected: '${count} articole selectate',
     }
 };
 

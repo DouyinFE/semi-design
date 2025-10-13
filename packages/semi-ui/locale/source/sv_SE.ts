@@ -221,6 +221,11 @@ const local: Locale = {
     Feedback: {
         submit: 'Skicka',
         cancel: 'Avbryt'
+    },
+    AIChatInput: {
+        template: 'Stencil',
+        configure: 'Konfiguration',
+        selected: '${count} objekt valda',
     }
 };
 

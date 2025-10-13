@@ -211,11 +211,11 @@ render(<RichTextExample />);
 
 ### 引用
 
-用户可以 `references` API 传入引用内容，引用内容会展示在输入框的顶部。
+用户可以 `references` 传入引用内容，引用内容会展示在输入框的顶部。
 
-- `renderReference` API 自定义单个引用内容的渲染。
-- `onReferenceDelete` API 处理引用内容的删除。
-- `onReferenceClick` API 处理引用内容的点击。
+- `renderReference` 自定义单个引用内容的渲染。
+- `onReferenceDelete` 处理引用内容的删除。
+- `onReferenceClick` 处理引用内容的点击。
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -448,7 +448,7 @@ interface ActionAreaProps {
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
-import { AIChatInput, Divider } from '@douyinfe/semi-ui';
+import { AIChatInput, Divider, Button } from '@douyinfe/semi-ui';
 import { IconDeleteStroked } from '@douyinfe/semi-icons';
 
 const uploadProps = { action: "https://api.semi.design/upload" };
@@ -459,13 +459,7 @@ function ActionArea() {
         return (
             <div className={props.className}>
                 <div style={{ display: 'flex', alignItems: 'center' }} key="delete">
-                    <button 
-                        key="delete" 
-                        className={`semi-ai-chat-input-footer-action-button`}
-                        style={{ color: 'var(--semi-color-text-1)', background: 'var(--semi-color-fill-1)' }}
-                    >
-                        <IconDeleteStroked />
-                    </button>
+                    <Button type="tertiary" style={{ borderRadius: '50%' }} icon={<IconDeleteStroked />}/>
                     <Divider layout="vertical" style={{ marginLeft: 8 }}/>
                 </div>
                 {props.menuItem}
@@ -1219,7 +1213,6 @@ const customReferences = [
     }
 ];
 
-// 建议的渲染面板
 class MentionList extends React.Component {
     constructor(props) {
         super(props);
@@ -1283,7 +1276,6 @@ class MentionList extends React.Component {
                     if (typeof item === 'string') {
                         name = item;
                     } else {
-                        // 移除无用的 @ts-expect-error
                         name = item.name;
                     }
                     return name.toLowerCase().includes(this.props.query.toLowerCase());

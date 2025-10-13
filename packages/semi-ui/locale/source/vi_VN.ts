@@ -219,6 +219,11 @@ const local: Locale = {
     Feedback: {
         submit: 'Nộp',
         cancel: 'Hủy'
+    },
+    AIChatInput: {
+        template: 'Bản mẫu',
+        configure: 'Cấu hình',
+        selected: 'Đã chọn ${count} mục',
     }
 };
 

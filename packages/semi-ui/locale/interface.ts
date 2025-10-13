@@ -216,5 +216,10 @@ export interface Locale {
     Feedback: {
         submit: string;
         cancel: string
+    };
+    AIChatInput: {
+        template: string;
+        configure: string;
+        selected: string
     }
 }

@@ -224,6 +224,11 @@ const local: Locale = {
     Feedback: {
         submit: 'Enviar',
         cancel: 'Cancelar'
+    },
+    AIChatInput: {
+        template: 'Estêncil',
+        configure: 'Configuração',
+        selected: '${count} itens selecionados',
     }
 };
 
