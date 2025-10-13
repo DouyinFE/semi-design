@@ -206,6 +206,11 @@ const local: Locale = {
         stall: 'Yükleme başarısız',
         noResource: 'Kaynak yok',
         videoError: 'Video yükleme hatası'
+    },
+    AIChatInput: {
+        template: 'Şablon',
+        configure: 'Yapılandırma',
+        selected: '${count} öğe seçildi',
     }
 };
 

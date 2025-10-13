@@ -210,6 +210,11 @@ const local: Locale = {
         stall: 'Läsning misslyckades',
         noResource: 'Ingen resurs',
         videoError: 'Fel vid inläsning av video'
+    },
+    AIChatInput: {
+        template: 'Stencil',
+        configure: 'Konfiguration',
+        selected: '${count} objekt valda',
     }
 };
 

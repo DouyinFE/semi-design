@@ -208,6 +208,11 @@ const local: Locale = {
         stall: 'Загрузка не удалась',
         noResource: 'Нет ресурса',
         videoError: 'Ошибка загрузки видео'
+    },
+    AIChatInput: {
+        template: 'Tрафарет',
+        configure: 'Конфигурация',
+        selected: 'Выбрано ${count} элементов',
     }
 };
 

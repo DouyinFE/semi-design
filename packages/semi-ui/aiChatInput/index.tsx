@@ -26,6 +26,8 @@ import ConfigContext, { ContextValue } from '../configProvider/context';
 import getConfigureItem from './configure/getConfigureItem';
 import { MessageContent } from '@douyinfe/semi-foundation/aiChatInput/interface';
 import { Content as TiptapContent } from "@tiptap/core";
+import { Locale } from '../locale/interface';
+import LocaleConsumer from '../locale/localeConsumer';
 export { getConfigureItem };
 
 const prefixCls = cssClasses.PREFIX;
@@ -490,21 +492,23 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
         const { renderConfigureArea, round, showTemplateButton } = this.props;
         const { skill = {} } = this.state;
         const { hasTemplate } = skill as Skill;
-        return <div className={`${prefixCls}-footer-configure`}>
-            <Configure 
-                round={round}
-                onChange={this.foundation.onConfigureChange} 
-            >
-                {renderConfigureArea?.()}
-                {(showTemplateButton || hasTemplate) && <Configure.Button
-                    key={"template"}
-                    field="template"
-                    onClick={this.changeTemplateVisible}
-                    icon={<IconTemplateStroked />} 
-                // todo, locale
-                >模板</Configure.Button>}
-            </Configure>
-        </div>;
+        return <LocaleConsumer componentName="AIChatInput">
+            {(locale: Locale['AIChatInput']) => (
+                <div className={`${prefixCls}-footer-configure`}>
+                    <Configure 
+                        round={round}
+                        onChange={this.foundation.onConfigureChange} 
+                    >
+                        {renderConfigureArea?.()}
+                        {(showTemplateButton || hasTemplate) && <Configure.Button
+                            key={"template"}
+                            field="template"
+                            onClick={this.changeTemplateVisible}
+                            icon={<IconTemplateStroked />} 
+                        >{locale.template}</Configure.Button>}
+                    </Configure>
+                </div>)}
+        </LocaleConsumer>;
     }
 
     renderUploadButton = () => {

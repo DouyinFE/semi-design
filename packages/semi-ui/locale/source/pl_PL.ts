@@ -213,6 +213,11 @@ const local: Locale = {
         stall: 'Ładowanie nie powiodło się',
         noResource: 'Brak zasobu',
         videoError: 'Błąd ładowania wideo'
+    },
+    AIChatInput: {
+        template: 'Szablon',
+        configure: 'Konfiguracja',
+        selected: 'Wybrano ${count} elementów',
     }
 };
 

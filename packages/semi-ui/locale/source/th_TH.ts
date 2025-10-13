@@ -209,6 +209,11 @@ const local: Locale = {
         stall: 'กำลังโหลดล้มเหลว',
         noResource: 'ไม่มีทรัพยากร',
         videoError: 'เกิดข้อผิดพลาดในการโหลดวิดีโอ'
+    },
+    AIChatInput: {
+        template: 'ลายฉลุ',
+        configure: 'การกำหนดค่า',
+        selected: '${count} รายการที่เลือก',
     }
 };
 

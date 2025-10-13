@@ -568,13 +568,12 @@ body>.component-list-demo-drag-item {
         box-sizing: border-box;
         width: 23%;
         // flex-grow: 1;
-        height: 120px;
         border-radius: 16px;
         background: var(--semi-color-white);
         border: 1px solid var(--semi-color-border);
         display: flex;
         flex-direction: column;
-        padding: 16px 16px 0px 16px;
+        padding: 16px;
         row-gap: 8px;
         cursor: pointer;
 
@@ -584,6 +583,7 @@ body>.component-list-demo-drag-item {
     }
 
     .template-content-item-icon {
+        flex-shrink: 0;
         width: 24px;
         height: 24px; 
         color: var(--semi-color-white);
@@ -788,6 +788,7 @@ body>.component-list-demo-drag-item {
         border: 1px solid var(--semi-color-border);
         cursor: pointer;
         border-radius: 4px;
+        text-transform: capitalize;
 
         &:hover {
             background: var(--semi-color-fill-0);

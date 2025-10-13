@@ -63,6 +63,7 @@
     }
 
     .template-content-item-icon {
+        flex-shrink: 0;
         width: 24px;
         height: 24px; 
         color: var(--semi-color-white);
@@ -170,6 +171,7 @@
         border: 1px solid var(--semi-color-border);
         cursor: pointer;
         border-radius: 4px;
+        text-transform: capitalize;
 
         &:hover {
             background: var(--semi-color-fill-0);
