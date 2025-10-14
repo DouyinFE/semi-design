@@ -106,7 +106,6 @@ $spacing-ai-chat-input_references_delete-padding: 2px; // AI Chat 输入框引�
 
 // Width/Height
 $width-ai-chat-input-border: 1px; // AI Chat 输入框的边框宽度
-$width-ai-chat-input_reference: 32%; // AI Chat 输入框引用项的边框宽度
 $width-ai-chat-input_footer_action_button: 32px; // AI Chat 输入框底部右侧操作按钮的宽度
 $height-ai-chat-input_footer_action_button: 32px; // AI Chat 输入框底部右侧操作按钮的高度
 $width-ai-chat-input_footer_configure_button-border: 1px; // AI Chat 输入框底部配置区域按钮的边框宽度
@@ -145,12 +144,11 @@ $font-ai-chat-input_footer_configure_select-fontWeight: 600; // AI Chat 输入�
 $font-ai-chat-input_footer_configure_mcp_header-fontWeight: 600; // AI Chat 输入框底部配置区域mcp配置下拉的顶部配置按钮的字体粗细
 $font-ai-chat-input_attachment_content_name-fontWeight: 600; // AI Chat 输入框附件项内容的名称字体粗细
 $font-ai-chat-input_attachment_content_delete-fontSize: 12px; // AI Chat 输入框附件项内容的删除按钮的图标大小
-$font-ai-chat-input_rich_text-fontSize: $font-size-regular; // AI Chat 输入框富文本编辑器文本字重
+$font-ai-chat-input_rich_text-fontSize: $font-size-regular; // AI Chat 输入框富文本编辑器文字大小
 $font-ai-chat-input_rich_text-lineHeight: 24px; // AI Chat 输入框富文本编辑器文本行高
-$font-ai-chat-input_rich_text-input_slot-fontSize: $font-size-regular; // AI Chat 输入框富文本编辑器输入插槽文本字重
+$font-ai-chat-input_rich_text-input_slot-fontSize: $font-size-regular; // AI Chat 输入框富文本编辑器输入插槽文字大小
 $font-ai-chat-input_rich_text-input_slot-lineHeight: 20px; // AI Chat 输入框富文本编辑器输入框插槽文本行高
 $font-ai-chat-input_rich_text-input_slot-fontWeight: 600; // AI Chat 输入框富文本编辑器输入插槽文本字重
-$font-ai-chat-input_rich_text-skill_slot-fontWeight: 600; // AI Chat 输入框富文本编辑器技能插槽文本字重
 $font-ai-chat-input_rich_text-skill_slot-fontWeight: 600; // AI Chat 输入框富文本编辑器技能插槽文本字重
 $font-ai-chat-input_footer_configure_radio_button-fontSize: 14px; // AI Chat 输入框底部配置区域下拉选择的单选按钮的文字大小
 
