@@ -1,8 +1,13 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { AIChatDialogue, RadioGroup, Radio, Button, Input, Toast } from '../../index';
+import { AIChatDialogue, RadioGroup, Radio, Button, Input, Toast, ChatCompletionToMessage, StreamingChatCompletionToMessage, StreamingResponseToMessage } from '../../index';
 import { IconSearch, IconFile, IconCode, IconTerminal } from '@douyinfe/semi-icons';
 import CustomRenderContentItem from './CustomRenderContentItem';
 import RenderConfigContentItem from './RenderConfig';
+import ResponseToMessageDemo from './DataAdapter/responseToMessage';
+import StreamingChatCompletionToMessageDemo from './DataAdapter/streamingChatCompletionToMessage';
+import StreamingResponseToMessageDemo from './DataAdapter/streamingResponseToMessage';
+import ChatCompletionToMessageDemo from './DataAdapter/chatCompletionToMessage';
+// import { RESPONSE_CHUNKS, REFUSAL_CHUNKS, REASONING_CHUNKS, FUNCTION_CALL_CHUNKS, CUSTOM_TOOL_CALL_CHUNKS, MCP_CHUNKS } from './Data/StreamingResponseData'
 
 export default {
   title: 'AIChatDialogue',
@@ -147,9 +152,12 @@ const toolCallMessage = [{
   content: [{
     type: 'function_call',
     name: 'create_travel_guide',
-    arguments: {
-      city: '北京'
-    },
+    arguments: "{\"city\":\"北京\"}",
+    status: 'completed',
+  },{
+    type: 'function_call',
+    name: 'create_travel_guide1',
+    arguments: "{\"city\":\"北京\"}",
     status: 'completed',
   }], 
   status: 'completed',
@@ -712,6 +720,26 @@ export const Hints = () => {
     )
 }
 
+// export const Response2Message = ResponseToMessageDemo;
+// export const ChatCompletion2Message = ChatCompletionToMessageDemo;
+// export const StreamingResponse2Message = StreamingResponseToMessageDemo;
+
+// ResponseToMessageDemo.story = {
+//   name: 'response to message',
+// };
+
+export const ResponseToMessageStory = () => <ResponseToMessageDemo />;
+ResponseToMessageStory.storyName =  'adapter: response';
+
+export const ChatCompletionToMessageStory = () => <ChatCompletionToMessageDemo />;
+ChatCompletionToMessageStory.storyName =  'adapter: chatCompletion';
+
+export const StreamingResponseToMessageStory = () => <StreamingResponseToMessageDemo />;
+StreamingResponseToMessageStory.storyName =  'adapter: streaming response';
+
+export const StreamingChatCompletionToMessageStory = () => <StreamingChatCompletionToMessageDemo />;
+StreamingChatCompletionToMessageStory.storyName =  'adapter: streaming chatCompletion';
+
 // export const Streaming = () => {
 //     const [messages, setMessage] = useState(defaultMessages);
 
@@ -730,20 +758,4 @@ export const Hints = () => {
 //     )
 // }
 
-// export const DataAdapter = () => {
-//     const [messages, setMessage] = useState(defaultMessages);
 
-//     const onChatsChange = useCallback((chats) => {
-//         setMessage(chats);
-//     }, []);
-  
-//     return (
-//       <AIChatDialogue 
-//           align="leftRight"
-//           mode="bubble"
-//           chats={messages}
-//           roleConfig={roleConfig}
-//           onChatsChange={onChatsChange}
-//       />
-//     )
-// }

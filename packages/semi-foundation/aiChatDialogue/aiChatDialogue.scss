@@ -261,7 +261,7 @@ $module: #{$prefix}-ai-chat-dialogue;
         }
 
         &-tool-call {
-            display: inline-flex;
+            display: flex;
             color: $color-aiChatDialogue_tool_call-text;
             padding: $spacing-aiChatDialogue_tool_call-paddingY $spacing-aiChatDialogue_tool_call-paddingX;
             background-color: $color-aiChatDialogue_tool_call-bg;
@@ -464,6 +464,11 @@ $module: #{$prefix}-ai-chat-dialogue;
                 width: $width-aiChatDialogue_annotation_logo;
                 height: $height-aiChatDialogue_annotation_logo;
                 display: flex;
+            }
+
+            &-logo-renderMore {
+                width: $width-aiChatDialogue_annotation_logo;
+                height: $height-aiChatDialogue_annotation_logo;
             }
 
             &-icon {

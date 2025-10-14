@@ -4,7 +4,7 @@ import { DialogueContentProps } from '../interface';
 import MarkdownRender from '../../markdownRender';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
 import { Image } from '../../index';
-import { FunctionToolCall, InputFile, ContentItem, InputMessage, InputText, InputImage, OutputText, Reasoning, CustomToolCall, OutputMessage } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
+import { FunctionToolCall, InputFile, ContentItem, InputMessage, InputText, InputImage, OutputText, Reasoning, CustomToolCall, OutputMessage, Refusal } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
 import { DialogueContentItemRenderer } from '../interface';
 import { IconAlertCircle, IconCode, IconExcel, IconFile, IconImage, IconPdf, IconSpin, IconWord, IconWrench } from '@douyinfe/semi-icons';
 import { ReasoningWidget } from './contentItem/reasoning';
@@ -20,7 +20,7 @@ const DialogueContent = (props: DialogueContentProps) => {
         onFileClick, onImageClick, disabledFileItemClick, renderDialogueContentItem, onAnnotationClick } = props;
     const { content, role, status, references } = message;
 
-    const TEXT_TYPES = useMemo(() => [MESSAGE_ITEM_TYPE.INPUT_TEXT, MESSAGE_ITEM_TYPE.OUTPUT_TEXT], []);
+    const TEXT_TYPES = useMemo(() => [MESSAGE_ITEM_TYPE.INPUT_TEXT, MESSAGE_ITEM_TYPE.OUTPUT_TEXT, MESSAGE_ITEM_TYPE.REFUSAL], []);
     const TOOL_CALL_TYPES = useMemo(() => [MESSAGE_ITEM_TYPE.FUNCTION_CALL, MESSAGE_ITEM_TYPE.CUSTOM_TOOL_CALL, MESSAGE_ITEM_TYPE.MCP_CALL], []);
 
     const markdownComponents = useMemo(() => ({
@@ -121,7 +121,7 @@ const DialogueContent = (props: DialogueContentProps) => {
         const { name, status } = props;
         return <div className={`${PREFIX_CONTENT}-tool-call`}>
             {status !== STATUS.COMPLETED ? <IconSpin /> : <IconWrench />}
-            {name} {JSON.stringify(props.arguments)}
+            {name}  {props.arguments}
         </div>;
     });
 
@@ -158,16 +158,19 @@ const DialogueContent = (props: DialogueContentProps) => {
         return null;
     }, [customRenderMap, TOOL_CALL_TYPES]);
 
-    const renderMarkdown = useCallback((text: string, key: React.Key) => (
-        <div className={wrapCls} key={key}>
-            <MarkdownRender
-                format='md'
-                raw={text}
-                components={markdownComponents as any}
-                {...markdownRenderProps}
-            />
-        </div>
-    ), [wrapCls, markdownComponents, markdownRenderProps]);
+    const renderMarkdown = useCallback((text: string, key: React.Key) => {
+        if (text !== '') {
+            return <div className={wrapCls} key={key}>
+                <MarkdownRender
+                    format='md'
+                    raw={text}
+                    components={markdownComponents as any}
+                    {...markdownRenderProps}
+                />
+            </div>;
+        }
+        return null;
+    }, [wrapCls, markdownComponents, markdownRenderProps]);
 
     const renderMessage = useCallback((msg: InputMessage | OutputMessage, index: number) => {
         if (typeof msg.content === 'string') {
@@ -188,11 +191,13 @@ const DialogueContent = (props: DialogueContentProps) => {
                         {annotation && annotation.length > 0 &&
                             <AnnotationWidget 
                                 annotation={annotation} 
-                                maxCount={3}
+                                // todo: 需要支持动态配置
+                                maxCount={15}
                                 onClick={onAnnotationClick}
                             />
                         }
                         {renderMarkdown((i as InputText | OutputText).text || '', `msg-${index}-${innerIdx}`)}
+                        {renderMarkdown((i as Refusal).refusal || '', `msg-${index}-${innerIdx}-refusal`)}
                     </React.Fragment>
                 );
             }
@@ -227,15 +232,21 @@ const DialogueContent = (props: DialogueContentProps) => {
         [MESSAGE_ITEM_TYPE.CUSTOM_TOOL_CALL]: renderToolCall,
     } as Record<string, (item: ContentItem, index: number) => React.ReactNode>), [renderMessage, markdownRenderProps, customMarkDownComponents, renderToolCall]);
 
-    const node = useMemo(() => {
-        const isLoading = [STATUS.QUEUE, STATUS.IN_PROGRESS, STATUS.INCOMPLETE].includes(status);
+    const loadingNode = useMemo(() => {
+        // todo: 支持彩色 loading
+        const isLoading = [STATUS.QUEUED, STATUS.IN_PROGRESS, STATUS.INCOMPLETE].includes(status);
         if (isLoading) {
-            // todo: 支持彩色 loading
             return <span className={`${PREFIX_CONTENT}-loading`} >
                 <span className={`${PREFIX_CONTENT}-loading-item`} /> 
                 <span className={`${PREFIX_CONTENT}-loading-text`}>请稍候...</span>
             </span>;
-        } else if (editing) {
+        } else {
+            return null;
+        }
+    }, [status]);
+
+    const node = useMemo(() => {
+        if (editing) {
             // todo: 两种行为，内置 + 自定义传入
             // 内置只编辑纯消息，自定义支持编辑多模态消息
             return messageEditRender?.(message);
@@ -296,6 +307,7 @@ const DialogueContent = (props: DialogueContentProps) => {
         })}>
             {references && references.length > 0 && <ReferenceWidget references={references} />}
             {node}
+            {loadingNode}
         </div>; 
     } 
 };

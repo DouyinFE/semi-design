@@ -13,7 +13,7 @@ const cssClasses = {
     PREFIX_HINT: `${BASE_CLASS_PREFIX}-ai-chat-dialogue-hint`,
 };
 
-export const ROLE = {
+const ROLE = {
     USER: 'user',
     ASSISTANT: 'assistant',
     SYSTEM: 'system',
@@ -25,7 +25,7 @@ const DIALOGUE_ALIGN = {
 };
 
 const STATUS = {
-    QUEUE: 'queue',
+    QUEUED: 'queued',
     IN_PROGRESS: 'in_progress',
     INCOMPLETE: 'incomplete',
     COMPLETED: 'completed',
@@ -65,13 +65,23 @@ const MESSAGE_ITEM_TYPE = {
     ITEM_REFERENCE: 'item_reference',
 };
 
+const FINISH_REASON = {
+    STOP: 'stop',
+    LENGTH: 'length',
+    CONTENT_FILTER: 'content_filter',
+    TOOL_CALLS: 'tool_calls',
+    FUNCTION_CALL: 'function_call'
+};
+
+
 const strings = {
     STATUS,
     ROLE,
     DIALOGUE_ALIGN,
     MODE,
     SEND_HOT_KEY,
-    MESSAGE_ITEM_TYPE
+    MESSAGE_ITEM_TYPE,
+    FINISH_REASON
 };
 
 export { cssClasses, strings };

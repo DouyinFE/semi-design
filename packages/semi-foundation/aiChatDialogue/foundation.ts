@@ -1,6 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 import { getUuidv4 } from "../utils/uuid";
-import { ROLE } from "./constants";
+import { strings } from "./constants";
 
 export interface DialogueAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     updateSelected: (selectedIds: string[]) => void;
@@ -120,7 +120,7 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
     onHintClick = (hint: string) => {
         const { chats } = this.getStates();
         const newMessage = {
-            role: ROLE.USER,
+            role: strings.ROLE.USER,
             id: getUuidv4(),
             createAt: Date.now(),
             content: hint,
@@ -133,13 +133,14 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
 
 }
 
+
 export interface Message {
     id: string;
     content?: string | ContentItem[];
     output_text?: string;
     role: string;
-    createdAt?: string;
-    updatedAt?: string;
+    createdAt?: number;
+    updatedAt?: number;
     model?: string;
     status?: string;
     type?: string;
