@@ -34,8 +34,9 @@ const DialogueContent = (props: DialogueContentProps) => {
         const bubble = mode === MODE.BUBBLE;
         const userBubble = mode === MODE.USER_BUBBLE && isUser;
         return cls({
-            [`${PREFIX_CONTENT}-no-bubble`]: true,
+            [`${PREFIX_CONTENT}`]: true,
             [`${PREFIX_CONTENT}-${mode}`]: bubble || userBubble,
+            [`${PREFIX_CONTENT}-no-bubble`]: !(bubble || userBubble),
             [`${PREFIX_CONTENT}-user`]: (bubble && isUser) || userBubble,
             [`${PREFIX_CONTENT}-error`]: status === STATUS.FAILED && (bubble || userBubble)
         });
@@ -285,10 +286,10 @@ const DialogueContent = (props: DialogueContentProps) => {
             }
             return (
                 <div className={`${PREFIX_CONTENT}-wrapper`}>
-                    {status === STATUS.FAILED && <div className={`${PREFIX_CONTENT}-failed`}>
+                    {(status === STATUS.FAILED || status === STATUS.CANCELLED) && <div className={`${PREFIX_CONTENT}-failed`}>
                         <IconAlertCircle />
                     </div>}
-                    <div>{realContent}</div>
+                    <div className={`${PREFIX_CONTENT}-inner`}>{realContent}</div>
                 </div>
             );
         }

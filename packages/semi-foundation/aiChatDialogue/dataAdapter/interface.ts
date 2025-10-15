@@ -144,7 +144,8 @@ export interface Response {
     max_tool_calls?: number;
     model?: string;
     object?: string;
-    output?: ContentItem;
+    output?: ContentItem | ContentItem[];
+    output_text?: string;
     parallel_tool_calls?: boolean;
     previous_response_id?: string;
     reasoning?: ResponseReasoning;

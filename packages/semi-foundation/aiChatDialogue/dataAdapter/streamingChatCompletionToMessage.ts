@@ -39,13 +39,17 @@ export default function streamingChatCompletionToMessage(chatCompletionChunks: C
                 refusal += delta.refusal;
             }
             if (delta?.function_call) {
-                functionCall.name += delta.function_call.name;
+                if (delta.function_call.name) {
+                    functionCall.name += delta.function_call.name;
+                }
                 functionCall.arguments += delta.function_call.arguments;
             }
             if (delta?.tool_calls) {
                 delta?.tool_calls.forEach((toolCall: FunctionToolCall) => {
                     if (toolCalls[toolCall.id]) {
-                        toolCalls[toolCall.id].name += toolCall.function.name;
+                        if (toolCall.function.name) {
+                            toolCalls[toolCall.id].name += toolCall.function.name;
+                        }
                         toolCalls[toolCall.id].arguments += toolCall.function.arguments;
                     } else {
                         toolCalls[toolCall.id] = {

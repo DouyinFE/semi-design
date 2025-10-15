@@ -79,6 +79,10 @@ $module: #{$prefix}-ai-chat-dialogue;
         max-width: $width-aiChatDialogue_content_max;
         font-size: $font-aiChatDialogue_content-fontSize;
 
+        pre {
+            background-color: transparent;
+        } 
+
         &-editing {
             width: $width-aiChatDialogue_content_editing;
         }
@@ -86,6 +90,10 @@ $module: #{$prefix}-ai-chat-dialogue;
         &-wrapper {
             display: flex;
             align-items: end;
+        }
+
+        &-inner {
+            margin-left: auto;
         }
 
         &-failed {
@@ -595,6 +603,7 @@ $module: #{$prefix}-ai-chat-dialogue;
             margin: 0px;
             background: $color-aiChatDialogue_code_content-bg;
         } 
+
     }
 
     &-hints {

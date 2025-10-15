@@ -86,11 +86,8 @@ export default function StreamingResponseToMessageDemo() {
             if (result) {
                 const { message: responseMessage, nextState } = result;
 
-                console.log('currentChunks', REASONING_CHUNKS[2], nextState);
-
                 // 更新消息列表 / Update message list
                 if (responseMessage) {
-                    console.log('responseMessage', responseMessage);
                     setMessage([...defaultMessages, responseMessage]);
                 }
                 

@@ -23,23 +23,23 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialog
     }
 
     avatarNode = () => {
-        const { role, renderConfig } = this.props;
+        const { role, dialogueRenderConfig } = this.props;
         return <DialogueAvatar
             role={role}
-            customRenderFunc={renderConfig?.renderDialogueAvatar}
+            customRenderFunc={dialogueRenderConfig?.renderDialogueAvatar}
         />;
     };
 
     titleNode = () => {
-        const { role, renderConfig } = this.props;
+        const { role, dialogueRenderConfig } = this.props;
         return <DialogueTitle 
             role={role}
-            customRenderFunc={renderConfig?.renderDialogueTitle}
+            customRenderFunc={dialogueRenderConfig?.renderDialogueTitle}
         />;
     };
 
     contentNode = () => {
-        const { message, mode, renderConfig, customMarkDownComponents, markdownRenderProps, messageEditRender, onFileClick, onImageClick, disabledFileItemClick, renderDialogueContentItem, onAnnotationClick } = this.props;
+        const { message, mode, dialogueRenderConfig, customMarkDownComponents, markdownRenderProps, messageEditRender, onFileClick, onImageClick, disabledFileItemClick, renderDialogueContentItem, onAnnotationClick } = this.props;
 
         return <DialogueContent 
             key={message.editing}
@@ -53,13 +53,13 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialog
             renderDialogueContentItem={renderDialogueContentItem}
             onAnnotationClick={onAnnotationClick}
             customMarkDownComponents={customMarkDownComponents}
-            customRenderFunc={renderConfig?.renderDialogueContent}
+            customRenderFunc={dialogueRenderConfig?.renderDialogueContent}
             markdownRenderProps={markdownRenderProps} 
         />;
     };
 
     actionNode = () => {
-        const { role, message, showReset, isLastChat, renderConfig,
+        const { role, message, showReset, isLastChat, dialogueRenderConfig,
             onMessageReset, onMessageGoodFeedback, onMessageBadFeedback, onMessageCopy, 
             onMessageShare, messageEditRender, onMessageEdit, onMessageDelete
         } = this.props;
@@ -77,7 +77,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialog
             onMessageEdit={onMessageEdit}
             onMessageDelete={onMessageDelete}
             messageEditRender={messageEditRender}
-            customRenderFunc={renderConfig?.renderDialogueAction}
+            customRenderFunc={dialogueRenderConfig?.renderDialogueAction}
         />;
     };
 

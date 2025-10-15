@@ -143,7 +143,7 @@ export interface Message {
     updatedAt?: number;
     model?: string;
     status?: string;
-    type?: string;
+    // type?: string;
     [x: string]: any
 }
 
@@ -153,7 +153,6 @@ export type InputContentItem = InputMessage | ItemReference;
 export type OutputContentItem = OutputMessage | ToolCallContentItem | MCPContentItem | Reasoning ;
 
 export type ToolCallContentItem = FileSearchToolCall | WebSearchToolCall | FunctionToolCall | CustomToolCall | ImageGenerationCall| CustomObject;
-// todo: 补全 MCP 的所有类型
 export type MCPContentItem = MCPToolCall;
 
 export interface CommonContentItem {

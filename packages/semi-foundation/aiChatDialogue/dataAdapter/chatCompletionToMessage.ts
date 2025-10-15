@@ -1,3 +1,4 @@
+import { Message } from 'aiChatDialogue/foundation';
 import { ChatCompletion, Choice, ToolCalls, FunctionToolCall, CustomToolCall } from './interface';
 /* 
 Chat Completion VS. Response
@@ -5,7 +6,7 @@ Chat Completion VS. Response
 - The former annotations belongs to content;
 - The former function_call and tool_calls do not have call_id and status;
 */
-export default function chatCompletionToMessage(chatCompletion: ChatCompletion) {
+export default function chatCompletionToMessage(chatCompletion: ChatCompletion): Message[] {
     return chatCompletion.choices.map((choice: Choice) => {
         const message = choice.message;
         const role = message.role;

@@ -33,7 +33,7 @@ export interface AIChatDialogueProps {
     onMessageReset?: (message?: Message) => void;
     onMessageShare?: (message?: Message) => void;
     onSelect?: (selectedIds: string[]) => void;
-    renderConfig?: DialogueRenderConfig; 
+    dialogueRenderConfig?: DialogueRenderConfig;
     renderDialogueContentItem?: (message?: Message) => DialogueContentItemRendererMap;
     renderHintBox?: (props: {content: string; index: number;onHintClick: () => void}) => React.ReactNode;
     roleConfig: RoleConfig;

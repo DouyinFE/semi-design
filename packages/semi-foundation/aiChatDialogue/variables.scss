@@ -34,7 +34,7 @@ $color-aiChatDialogue_video_icon-bg: rgba(var(--semi-green-4), 1); // video icon
 $color-aiChatDialogue_default_icon-bg: rgba(var(--semi-grey-4), 1); // default icon 背景色
 $color-aiChatDialogue_icon-text: var(--semi-color-white); // icon 文本颜色
 $color-aiChatDialogue_failed: var(--semi-color-danger); // 失败提示颜色
-$color-aiChatDialogue_code_content-bg: rgba(var(--semi-teal-4), 1); // code content 背景色
+$color-aiChatDialogue_code_content-bg: var(--semi-color-bg-0); // code content 背景色
 
 // Width/Height
 $width-aiChatDialogue_wrapper: 100%; // 外层宽度

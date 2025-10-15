@@ -387,7 +387,7 @@ export const Action = () => {
       mode="bubble"
       chats={messages}
       roleConfig={roleConfig}
-      isSelecting={selected}
+      selecting={selected}
       onMessageCopy={(message) => {
         console.log('onMessageCopy', message);
       }}
@@ -485,7 +485,7 @@ export const Selecting = () => {
             align={align}
             mode="bubble"
             chats={defaultMessages}
-            isSelecting={select}
+            selecting={select}
             onSelect={onSelect}
             roleConfig={roleConfig}
             hints={hints}
@@ -720,13 +720,6 @@ export const Hints = () => {
     )
 }
 
-// export const Response2Message = ResponseToMessageDemo;
-// export const ChatCompletion2Message = ChatCompletionToMessageDemo;
-// export const StreamingResponse2Message = StreamingResponseToMessageDemo;
-
-// ResponseToMessageDemo.story = {
-//   name: 'response to message',
-// };
 
 export const ResponseToMessageStory = () => <ResponseToMessageDemo />;
 ResponseToMessageStory.storyName =  'adapter: response';
@@ -740,22 +733,5 @@ StreamingResponseToMessageStory.storyName =  'adapter: streaming response';
 export const StreamingChatCompletionToMessageStory = () => <StreamingChatCompletionToMessageDemo />;
 StreamingChatCompletionToMessageStory.storyName =  'adapter: streaming chatCompletion';
 
-// export const Streaming = () => {
-//     const [messages, setMessage] = useState(defaultMessages);
-
-//     const onChatsChange = useCallback((chats) => {
-//         setMessage(chats);
-//     }, []);
-  
-//     return (
-//       <AIChatDialogue 
-//           align="leftRight"
-//           mode="bubble"
-//           chats={messages}
-//           roleConfig={roleConfig}
-//           onChatsChange={onChatsChange}
-//       />
-//     )
-// }
 
 

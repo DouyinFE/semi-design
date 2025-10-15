@@ -33,9 +33,8 @@ export default function StreamingChatCompletionToMessageDemo() {
     }, []);
 
     useEffect(() => {
-        // 以 100ms 为间隔，从 1 块逐步增加到全部块，模拟流逝输出
+        // 以 100ms 为间隔，从 1 块逐步增加到全部块，模拟流式输出
         const total = STREAMING_CHAT_COMPLETION_DATA.length;
-        const accByIndex = new Map();
         let i = 1;
 
         const timer = setInterval(() => {
@@ -47,9 +46,6 @@ export default function StreamingChatCompletionToMessageDemo() {
             const slice = STREAMING_CHAT_COMPLETION_DATA.slice(0, i);
             const { messages: partial, state: nextState } = streamingChatCompletionToMessage(slice, state);
             setState(nextState);
-
-            // 基于当前新增的最后一块，确定其 choice index 并合并
-            const lastChunk = slice[slice.length - 1];
 
             // 将合并后的消息映射转换为数组，并加上默认的用户消息
             const merged = [defaultMessages[0], ...partial];
