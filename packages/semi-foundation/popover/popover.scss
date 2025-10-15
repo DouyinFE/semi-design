@@ -39,6 +39,7 @@ $module-icon: #{$module}-icon-arrow;
         position: relative;
         // position: absolute;
         background-color: $color-popover-bg-default;
+        backdrop-filter: $filter-popover-bg;
         // background-color: transparent;
 
         @include shadow-elevated;

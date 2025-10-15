@@ -55,6 +55,7 @@ $module-icon: #{$module}-icon-arrow;
     &-wrapper {
         position: relative;
         background-color: $color-tooltip-bg-default;
+        backdrop-filter: $filter-tooltip-bg;
         color: $color-tooltip-text-default;
         // z-index: $z-tooltip; // TODO z-index定义需要收敛
         border-radius: $radius-tooltip;

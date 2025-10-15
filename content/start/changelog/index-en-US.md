@@ -121,6 +121,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed the problem that  Form Label lost padding right（effect version v2.23.1） [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
     - The Switch component Design Token is updated, adding `$spacing-switch_knob-left`; `$motion-switch_unchecked-translateX` is corrected to more semantically `$spacing-switch_unchecked-translateX` [#1267](https://github.com/DouyinFE/semi-design/pull/1267)
 
+#### 🎉 2.87.0 (2025-10-15)
+- 【Style】
+    - Dropdown, Modal, SideSheet, Popover, Tooltip add backdrop-filter to set related tokens [#2981](https://github.com/DouyinFE/semi-design/issues/2981)
+
+#### 🎉 2.87.0-beta.0 (2025-09-08)
+- 【Fix】
+    - JsonViewer keyboard events are compatible with window [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+
 #### 🎉 2.86.0 (2025-09-01)
 - 【Fix】
     - Fixed folding model initialization issue [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2972](https://github.com/DouyinFE/semi-design/pull/2972)
