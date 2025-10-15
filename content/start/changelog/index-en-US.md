@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.87.0 (2025-10-15)
+- 【Style】
+    - Dropdown, Modal, SideSheet, Popover, Tooltip add backdrop-filter to set related tokens [#2981](https://github.com/DouyinFE/semi-design/issues/2981)
+
 #### 🎉 2.87.0-beta.0 (2025-09-08)
 - 【Fix】
     - JsonViewer keyboard events are compatible with window [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
