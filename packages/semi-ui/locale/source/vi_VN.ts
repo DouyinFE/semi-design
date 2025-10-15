@@ -208,7 +208,12 @@ const local: Locale = {
         stall: 'Tải không thành công',
         noResource: 'Không có tài nguyên',
         videoError: 'Lỗi tải video'
-    }
+    },
+    AIChatDialogue: {
+        delete: 'Xóa',
+        deleteConfirm: 'Bạn có chắc muốn xóa phiên này không?',
+        deleteContent: 'Phiên này đã được xóa.',
+    },
 };
 
 // [i18n-Vietnam] 越南语

@@ -206,7 +206,12 @@ const local: Locale = {
         stall: '読み込みに失敗しました',
         noResource: 'リソースなし',
         videoError: '動画の読み込みエラー'
-    }
+    },
+    AIChatDialogue: {
+        delete: '削除',
+        deleteConfirm: 'このメッセージを削除してもよろしいですか？',
+        deleteContent: 'このメッセージは削除されました。',
+    },
 };
 
 // [i18n-Japan]

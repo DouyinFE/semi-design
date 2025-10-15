@@ -205,7 +205,12 @@ const local: Locale = {
         stall: 'Caricamento fallito',
         noResource: 'Nessuna risorsa',
         videoError: 'Errore di caricamento video'
-    }
+    },
+    AIChatDialogue: {
+        delete: 'Elimina',
+        deleteConfirm: 'Sei sicuro di voler eliminare questo messaggio?',
+        deleteContent: 'Questo messaggio verrà eliminato permanentemente e non potrà essere recuperato.',
+    },
 };
 
 // [i18n-Italian]

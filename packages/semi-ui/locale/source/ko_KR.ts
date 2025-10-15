@@ -206,7 +206,12 @@ const local: Locale = {
         stall: '로딩 실패',
         noResource: '리소스 없음',
         videoError: '비디오 로드 오류'
-    }
+    },
+    AIChatDialogue: {
+        delete: '삭제',
+        deleteConfirm: '이 메시지를 삭제하시겠습니까?',
+        deleteContent: '이 메시지는 삭제되었습니다.',
+    },
 };
 
 // [i18n-Korea]

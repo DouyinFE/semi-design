@@ -22,7 +22,7 @@ const local: Locale = {
         placeholder: {
             time: 'Por favor escolha a hora',
             timeRange: 'Selecione um intervalo de tempo',
-        },
+        },  
         begin: 'Hora de início',
         end: 'Fim do tempo',
         hour: '',
@@ -213,7 +213,12 @@ const local: Locale = {
         stall: 'Carregamento falhou',
         noResource: 'Sem recurso',
         videoError: 'Erro ao carregar vídeo'
-    }
+    },
+    AIChatDialogue: {
+        delete: 'Excluir',
+        deleteConfirm: 'Tem certeza que deseja excluir esta sessão?',
+        deleteContent: 'Esta sessão será excluída permanentemente e não poderá ser recuperada.',
+    },
 };
 
 // 葡萄牙语

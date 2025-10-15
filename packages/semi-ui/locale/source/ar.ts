@@ -205,7 +205,12 @@ const local: Locale = {
         stall: 'فشل التحميل',
         noResource: 'لا يوجد مورد',
         videoError: 'خطأ في تحميل الفيديو'
-    }
+    },
+    AIChatDialogue: {
+        delete: 'حذف',
+        deleteConfirm: 'هل أنت متأكد من حذف هذه الرسالة؟',
+        deleteContent: 'سيتم حذف الرسالة بشكل دائم ولا يمكن التراجع عنها.',
+    },
 };
 
 // [i18n-Arabic]

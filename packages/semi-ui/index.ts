@@ -129,3 +129,5 @@ export { default as Cropper } from './cropper';
 export { default as AudioPlayer } from './audioPlayer';
 export { default as UserGuide } from './userGuide';
 export { default as VideoPlayer } from './videoPlayer';
+export { default as AIChatDialogue } from './aiChatDialogue';
+export { chatCompletionToMessage, streamingChatCompletionToMessage, streamingResponseToMessage, responseToMessage } from '@douyinfe/semi-foundation/aiChatDialogue/dataAdapter';
