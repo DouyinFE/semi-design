@@ -32,7 +32,8 @@ interface CollapsibleState extends CollapsibleFoundationState {
     domInRenderTree: boolean;
     domHeight: number;
     visible: boolean;
-    isTransitioning: boolean
+    isTransitioning: boolean;
+    cacheIsOpen: boolean
 }
 
 class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
@@ -58,7 +59,8 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
             domInRenderTree: false,
             domHeight: 0,
             visible: this.props.isOpen,
-            isTransitioning: false
+            isTransitioning: false,
+            cacheIsOpen: this.props.isOpen,
         };
         this.foundation = new CollapsibleFoundation(this.adapter);
     }
@@ -122,23 +124,29 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
         }
     }
 
+    static getDerivedStateFromProps(props: CollapsibleProps, prevState: CollapsibleState) {
+        const newState: Partial<CollapsibleState> = {};
+        const isOpenChanged = props.isOpen !== prevState.cacheIsOpen;
+        if (isOpenChanged) {
+            if (props.isOpen || !props.motion) {
+                newState.visible = props.isOpen;
+            }
+        }
+        if (props.motion && isOpenChanged) {
+            newState.isTransitioning = true;
+        }
+        newState.cacheIsOpen = props.isOpen;
+        return newState;
+    }
+
     componentDidUpdate(prevProps: Readonly<CollapsibleProps>, prevState: Readonly<CollapsibleState>, snapshot?: any) {
-        const changedPropKeys = Object.keys(pick(this.props, ['reCalcKey', "isOpen"])).filter(key => !isEqual(this.props[key], prevProps[key]));
+        const changedPropKeys = Object.keys(pick(this.props, ['reCalcKey'])).filter(key => !isEqual(this.props[key], prevProps[key]));
         const changedStateKeys = Object.keys(pick(this.state, ['domInRenderTree'])).filter(key => !isEqual(this.state[key], prevState[key]));
         if (changedPropKeys.includes("reCalcKey")) {
             this.foundation.updateDOMHeight(this.domRef.current.scrollHeight);
         }
         if (changedStateKeys.includes("domInRenderTree") && this.state.domInRenderTree) {
             this.foundation.updateDOMHeight(this.domRef.current.scrollHeight);
-        }
-        if (changedPropKeys.includes("isOpen")) {
-            if (this.props.isOpen || !this.props.motion) {
-                this.foundation.updateVisible(this.props.isOpen);
-            }
-        }
-
-        if (this.props.motion && (prevProps.isOpen !== this.props.isOpen)) {
-            this.foundation.updateIsTransitioning(true);
         }
 
     }
