@@ -148,12 +148,17 @@ export const ConfigureDemo = () => {
   const onConfigureChange = useCallback((value, changedValue) => {
     console.log('onConfigureChange', value, changedValue);
   }, []);
+
+  const onMessageSend = useCallback((message) => {
+    console.log('message', message);
+  }, [])
   
   return (
     <AIChatInput
       placeholder={'用于查看右下方配置项的用例'} 
       renderConfigureArea={renderLeftMenu} 
       onConfigureChange={onConfigureChange}
+      onMessageSend={onMessageSend}
       uploadProps={uploadProps}
       style={outerStyle}
     />

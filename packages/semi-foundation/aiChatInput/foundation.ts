@@ -26,7 +26,8 @@ export interface AIChatInputAdapter<P = Record<string, any>, S = Record<string, 
     isSelectionText: (selection: any) => boolean;
     createSelection: (node: any, pos: number) => any;
     notifyFocus: (event: any) => void;
-    notifyBlur: (event: any) => void
+    notifyBlur: (event: any) => void;
+    getConfigureValue: () => any
 }
 
 const prefixCls = cssClasses.PREFIX;
@@ -286,7 +287,7 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
                 references,
                 attachments,
                 inputContents: richTextResult,
-                setup: {}
+                setup: this._adapter.getConfigureValue() ?? {}
             });
         }
     }
