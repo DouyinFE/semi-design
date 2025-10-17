@@ -206,6 +206,11 @@ const local: Locale = {
         stall: '로딩 실패',
         noResource: '리소스 없음',
         videoError: '비디오 로드 오류'
+    },
+    AIChatInput: {
+        template: '템플릿',
+        configure: '설정',
+        selected: '선택된 ${count} 개',
     }
 };
 

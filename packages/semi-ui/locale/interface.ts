@@ -205,5 +205,10 @@ export interface Locale {
         stall: string;
         noResource: string;
         videoError: string
+    };
+    AIChatInput: {
+        template: string;
+        configure: string;
+        selected: string
     }
 }

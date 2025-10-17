@@ -205,6 +205,11 @@ const local: Locale = {
         stall: 'Laden fehlgeschlagen',
         noResource: 'Keine Ressource',
         videoError: 'Video-Ladefehler'
+    },
+    AIChatInput: {
+        template: 'Vorlage',
+        configure: 'Konfigurieren',
+        selected: 'Ausgewählt ${count} Elemente',
     }
 };
 

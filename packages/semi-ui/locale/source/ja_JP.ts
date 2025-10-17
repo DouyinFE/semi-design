@@ -206,6 +206,11 @@ const local: Locale = {
         stall: '読み込みに失敗しました',
         noResource: 'リソースなし',
         videoError: '動画の読み込みエラー'
+    },
+    AIChatInput: {
+        template: 'テンプレート',
+        configure: '設定',
+        selected: '選択された ${count} 個',
     }
 };
 

@@ -208,6 +208,11 @@ const local: Locale = {
         stall: 'Tải không thành công',
         noResource: 'Không có tài nguyên',
         videoError: 'Lỗi tải video'
+    },
+    AIChatInput: {
+        template: 'Bản mẫu',
+        configure: 'Cấu hình',
+        selected: 'Đã chọn ${count} mục',
     }
 };
 

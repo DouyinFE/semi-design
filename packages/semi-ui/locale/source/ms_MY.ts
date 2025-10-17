@@ -205,6 +205,11 @@ const local: Locale = {
         stall: 'Memuat gagal',
         noResource: 'Tiada sumber',
         videoError: 'Ralat memuatkan video'
+    },
+    AIChatInput: {
+        template: 'Stensil',
+        configure: 'Konfigurasi',
+        selected: '${count} item dipilih',
     }
 };
 

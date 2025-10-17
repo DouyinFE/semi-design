@@ -210,6 +210,11 @@ const locale: Locale = {
         stall: 'Carga fallida',
         noResource: 'Sin recursos',
         videoError: 'Error al cargar el video'
+    },
+    AIChatInput: {
+        template: 'Plantilla',
+        configure: 'Configurar',
+        selected: 'Seleccionado ${count} elementos',
     }
 };
 

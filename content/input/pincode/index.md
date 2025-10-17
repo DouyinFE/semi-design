@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 40
+order: 41
 category: 输入类
 title: PinCode 验证码输入
 icon: doc-pincode

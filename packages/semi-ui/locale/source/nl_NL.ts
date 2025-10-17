@@ -212,6 +212,11 @@ const local: Locale = {
         stall: 'Laden mislukt',
         noResource: 'Geen bron',
         videoError: 'Fout bij laden video'
+    },
+    AIChatInput: {
+        template: 'Stencil',
+        configure: 'Configuratie',
+        selected: '${count} items geselecteerd',
     }
 };
 

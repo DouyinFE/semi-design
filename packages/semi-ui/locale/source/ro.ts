@@ -206,6 +206,11 @@ const local: Locale = {
         noResource: 'Nicio resursă',
         videoError: 'Eroare la încărcarea videoclipului'
     },
+    AIChatInput: {
+        template: 'Sablon',
+        configure: 'Configurare',
+        selected: '${count} articole selectate',
+    }
 };
 
 // [i18n-Romanian] 罗马尼亚语

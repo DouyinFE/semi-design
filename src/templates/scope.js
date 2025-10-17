@@ -43,6 +43,18 @@ export * from '@douyinfe/semi-icons';
 // export * from '@douyinfe/semi-icons-lab';
 export * from '@douyinfe/semi-illustrations';
 
+import { Node, mergeAttributes } from '@tiptap/core';
+import { ReactNodeViewRenderer, NodeViewWrapper, posToDOMRect, ReactRenderer } from '@tiptap/react';
+import { computePosition, flip, shift } from '@floating-ui/dom';
+import Mention from '@tiptap/extension-mention';
+
+export {
+    Node, mergeAttributes,
+    ReactNodeViewRenderer, NodeViewWrapper, posToDOMRect, ReactRenderer,
+    computePosition, flip, shift, Mention
+};
+
+
 export {
     dateFns,
     DndProvider,

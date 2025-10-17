@@ -205,6 +205,11 @@ const local: Locale = {
         stall: 'Chargement échoué',
         noResource: 'Aucune ressource',
         videoError: 'Erreur de chargement de la vidéo'
+    },
+    AIChatInput: {
+        template: 'Modèle',
+        configure: 'Configurer',
+        selected: '${count} éléments sélectionnés',
     }
 };
 
