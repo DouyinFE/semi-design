@@ -18,8 +18,6 @@ class Configure extends React.Component<any, any> {
         this.state = {
             value: props.value || props.defaultValue,
         };
-        this.onChange = this.onChange.bind(this);
-        this.onRemove = this.onRemove.bind(this);
         this._contextValue = {
             value: this.state.value,
             onChange: this.onChange,
@@ -29,7 +27,7 @@ class Configure extends React.Component<any, any> {
 
     _contextValue: any;
 
-    onChange(obj: any, init = false) {
+    onChange = (obj: any, init = false) => {
         this.setState((s: any) => {
             const { value } = s;
             const newValue = { ...value, ...obj };
@@ -39,7 +37,7 @@ class Configure extends React.Component<any, any> {
         });
     }
 
-    onRemove(field: string) {
+    onRemove = (field: string) => {
         this.setState((s: any) => {
             const { value = {} } = s;
             const newValue = {};
@@ -54,7 +52,11 @@ class Configure extends React.Component<any, any> {
         });
     }
 
-    getContextValue() {
+    getConfigureValue = () => {
+        return this.state.value;
+    }
+
+    getContextValue = () => {
         if (!this._contextValue || 
             this._contextValue.value !== this.state.value || 
             this._contextValue.onChange !== this.onChange ||

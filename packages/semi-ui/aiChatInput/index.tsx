@@ -73,6 +73,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
         this.foundation = new AIChatInputFoundation(this.adapter);
         this.transformedContent = [];
         this.uploadRef = React.createRef();
+        this.configureRef = React.createRef();
         this.richTextDIVRef = React.createRef<HTMLDivElement>();
         this.suggestionPanelRef = React.createRef<HTMLDivElement>(); 
         this.clickOutsideHandler = null;
@@ -80,6 +81,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
 
     editor: Editor;
     triggerRef: React.RefObject<HTMLDivElement>;
+    configureRef: React.RefObject<Configure>;
     popUpOptionListID: string;
     foundation: AIChatInputFoundation;
     transformedContent: Content[]; 
@@ -180,6 +182,9 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
             },
             notifyBlur: (event: any) => {
                 this.props.onBlur?.(event);
+            },
+            getConfigureValue: () => {
+                return this.configureRef?.current?.getConfigureValue();
             }
         };
     }
@@ -496,6 +501,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
             {(locale: Locale['AIChatInput']) => (
                 <div className={`${prefixCls}-footer-configure`}>
                     <Configure 
+                        ref={this.configureRef}
                         round={round}
                         onChange={this.foundation.onConfigureChange} 
                     >
