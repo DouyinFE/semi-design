@@ -15,6 +15,7 @@ import type { FileItem } from '../upload';
 import LocaleConsumer from "../locale/localeConsumer";
 import { Locale } from "../locale/interface";
 import { Button, Upload } from '../index';
+import ResizeObserver from '../resizeObserver';
 
 const prefixCls = cssClasses.PREFIX;
 const { CHAT_ALIGN, MODE, SEND_HOT_KEY, MESSAGE_STATUS } = strings;
@@ -331,38 +332,40 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     {topSlot}
                     {/* chat area */}
                     <div className={`${prefixCls}-content`}>
-                        <div
-                            className={cls(`${prefixCls}-container`, {
-                                'semi-chat-container-scroll-hidden': !wheelScroll
-                            })}
-                            onScroll={this.containerScroll}
-                            ref={this.containerRef}
-                        >
-                            <ChatContent
-                                align={align}
-                                mode={mode}
-                                chats={chats}
-                                roleConfig={roleConfig}
-                                customMarkDownComponents={customMarkDownComponents}
-                                onMessageDelete={this.foundation.deleteMessage}
-                                onChatsChange={onChatsChange}
-                                onMessageBadFeedback={this.foundation.dislikeMessage}
-                                onMessageGoodFeedback={this.foundation.likeMessage}
-                                onMessageReset={this.foundation.resetMessage}
-                                onMessageCopy={onMessageCopy}
-                                chatBoxRenderConfig={chatBoxRenderConfig}
-                                renderDivider={renderDivider}
-                                markdownRenderProps={markdownRenderProps}
-                            />
-                            {/* hint area */}
-                            {!!hints?.length && <Hint
-                                className={hintCls}
-                                style={hintStyle}
-                                value={hints}
-                                onHintClick={this.foundation.onHintClick}
-                                renderHintBox={renderHintBox}
-                            />}
-                        </div>
+                        <ResizeObserver onResize={this.foundation.handleScrollContainerResize}>
+                            <div
+                                className={cls(`${prefixCls}-container`, {
+                                    'semi-chat-container-scroll-hidden': !wheelScroll
+                                })}
+                                onScroll={this.containerScroll}
+                                ref={this.containerRef}
+                            >
+                                <ChatContent
+                                    align={align}
+                                    mode={mode}
+                                    chats={chats}
+                                    roleConfig={roleConfig}
+                                    customMarkDownComponents={customMarkDownComponents}
+                                    onMessageDelete={this.foundation.deleteMessage}
+                                    onChatsChange={onChatsChange}
+                                    onMessageBadFeedback={this.foundation.dislikeMessage}
+                                    onMessageGoodFeedback={this.foundation.likeMessage}
+                                    onMessageReset={this.foundation.resetMessage}
+                                    onMessageCopy={onMessageCopy}
+                                    chatBoxRenderConfig={chatBoxRenderConfig}
+                                    renderDivider={renderDivider}
+                                    markdownRenderProps={markdownRenderProps}
+                                />
+                                {/* hint area */}
+                                {!!hints?.length && <Hint
+                                    className={hintCls}
+                                    style={hintStyle}
+                                    value={hints}
+                                    onHintClick={this.foundation.onHintClick}
+                                    renderHintBox={renderHintBox}
+                                />}
+                            </div>
+                        </ResizeObserver>
                     </div>
                     {backBottomVisible && !showStopGenerateFlag && (<span className={`${prefixCls}-action`}>
                         <Button
