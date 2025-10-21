@@ -59,6 +59,12 @@ const defaultMessages = [{
   status: 'completed',
 }];
 
+const loadingMessages = [{
+  id: '1',
+  role: 'assistant',
+  status: 'in_progress',
+}];
+
 const multiModalityMessage = [{
   id: '1',
   role: 'user',
@@ -305,6 +311,17 @@ export const AlignAndMode = () => {
           />
       </>
   );
+}
+
+export const Loading = () => {
+  return (
+    <AIChatDialogue 
+      align="leftRight"
+      mode="bubble"
+      chats={loadingMessages}
+      roleConfig={roleConfig}
+    />
+  )
 }
 
 export const Action = () => {

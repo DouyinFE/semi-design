@@ -14,7 +14,7 @@ import { strings } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
 
 export interface AIChatDialogueStates {
     chats?: Message[];
-    selectedIds?: string[];
+    selectedIds: Set<string>;
     cacheHints?: string[]
 }
 
@@ -80,7 +80,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
 
         this.state = {
             cacheHints: [],
-            selectedIds: [],
+            selectedIds: new Set<string>(),
             chats: [],
         };
         
@@ -90,11 +90,12 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
     get adapter(): DialogueAdapter<AIChatDialogueProps, AIChatDialogueStates> {
         return {
             ...super.adapter,
-            updateSelected: (selectedIds: string[]) => {
+            updateSelected: (selectedIds: Set<string>) => {
                 this.setState({ selectedIds });
             },
             notifySelect: (selectedIds: string[]) => {
-                this.props.onSelect(selectedIds);
+                const { onSelect } = this.props;
+                onSelect && onSelect(selectedIds);
             },
             notifyChatsChange: (chats: Message[]) => {
                 const { onChatsChange } = this.props;
@@ -193,23 +194,22 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
                 {chats.map((chat, index) => {
                     const isLastChat = index === chats.length - 1;
                     return (
-                        <React.Fragment key={index}>
-                            <DialogueItem 
-                                message={chat}
-                                role={roleConfig[chat.role]}
-                                onSelectChange={this.onSelectOrRemove}
-                                isSelected={selectedIds.includes(chat.id)}
-                                roleConfig={roleConfig}
-                                onMessageBadFeedback={this.foundation.dislikeMessage}
-                                onMessageGoodFeedback={this.foundation.likeMessage}
-                                onMessageReset={this.foundation.resetMessage}
-                                onMessageEdit={this.foundation.editMessage}
-                                onMessageDelete={this.foundation.deleteMessage}
-                                onHintClick={this.foundation.onHintClick}
-                                isLastChat={isLastChat}
-                                {...restProps}
-                            />
-                        </React.Fragment>
+                        <DialogueItem 
+                            key={chat.id}
+                            message={chat}
+                            role={roleConfig[chat.role]}
+                            onSelectChange={this.onSelectOrRemove}
+                            isSelected={selectedIds.has(chat.id)}
+                            roleConfig={roleConfig}
+                            onMessageBadFeedback={this.foundation.dislikeMessage}
+                            onMessageGoodFeedback={this.foundation.likeMessage}
+                            onMessageReset={this.foundation.resetMessage}
+                            onMessageEdit={this.foundation.editMessage}
+                            onMessageDelete={this.foundation.deleteMessage}
+                            onHintClick={this.foundation.onHintClick}
+                            isLastChat={isLastChat}
+                            {...restProps}
+                        />
                     );
                 })}
             </React.Fragment>

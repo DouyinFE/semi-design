@@ -3,7 +3,7 @@ import { getUuidv4 } from "../utils/uuid";
 import { strings } from "./constants";
 
 export interface DialogueAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    updateSelected: (selectedIds: string[]) => void;
+    updateSelected: (selectedIds: Set<string>) => void;
     notifySelect: (selectedIds: string[]) => void;
     notifyChatsChange: (chats: Message[]) => void;
     notifyCopyMessage: (message: Message) => void;
@@ -28,26 +28,26 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
 
     handleSelectAll = () => {
         const { chats } = this.getProps();
-        const selectedIds = chats.map((chat: Message) => chat.id);
-        this._adapter.updateSelected(selectedIds);
-        this._adapter.notifySelect(selectedIds);
+        const selectedSet = new Set<string>(chats.map((chat: Message) => chat.id));
+        this._adapter.updateSelected(selectedSet);
+        this._adapter.notifySelect(Array.from(selectedSet));
     }
 
     handleDeselectAll = () => {
-        this._adapter.updateSelected([]);
+        this._adapter.updateSelected(new Set());
         this._adapter.notifySelect([]);
     }
 
     handleSelectOrRemove = (isChecked: boolean, id: string) => {
-        const { selectedIds } = this.getStates();
-        let newSelectedIds = [];
+        const { selectedIds } = this.getStates() as any;
+        const newSelectedSet: Set<string> = selectedIds instanceof Set ? new Set<string>(selectedIds) : new Set<string>(selectedIds || []);
         if (isChecked) {
-            newSelectedIds = [...selectedIds, id];
+            newSelectedSet.add(id);
         } else {
-            newSelectedIds = selectedIds.filter((curId: string) => curId !== id);
+            newSelectedSet.delete(id);
         }
-        this._adapter.updateSelected(newSelectedIds);
-        this._adapter.notifySelect(newSelectedIds);
+        this._adapter.updateSelected(newSelectedSet);
+        this._adapter.notifySelect(Array.from(newSelectedSet));
     }
 
     likeMessage = (message: Message) => {

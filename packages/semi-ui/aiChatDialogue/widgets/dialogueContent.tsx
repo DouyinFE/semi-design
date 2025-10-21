@@ -84,7 +84,7 @@ const DialogueContent = (props: DialogueContentProps) => {
             })}
             src={src}
             onClick={() => {
-                onImageClick(msg);
+                onImageClick && onImageClick(msg);
             }}
         />;
     });
@@ -213,7 +213,6 @@ const DialogueContent = (props: DialogueContentProps) => {
     }, [renderMarkdown, ImageAttachment, FileAttachment, TEXT_TYPES, customRenderer, onAnnotationClick]);
 
     const renderToolCall = useCallback((item: ContentItem, index: number) => (
-        // todo: 确认默认渲染
         <ToolCallWidget key={`tool-${index}`} {...(item as FunctionToolCall | CustomToolCall)} />
     ), [ToolCallWidget]);
 
@@ -238,6 +237,8 @@ const DialogueContent = (props: DialogueContentProps) => {
         const isLoading = [STATUS.QUEUED, STATUS.IN_PROGRESS, STATUS.INCOMPLETE].includes(status);
         if (isLoading) {
             return <span className={`${PREFIX_CONTENT}-loading`} >
+                <span className={`${PREFIX_CONTENT}-loading-item`} /> 
+                <span className={`${PREFIX_CONTENT}-loading-item`} /> 
                 <span className={`${PREFIX_CONTENT}-loading-item`} /> 
                 <span className={`${PREFIX_CONTENT}-loading-text`}>请稍候...</span>
             </span>;

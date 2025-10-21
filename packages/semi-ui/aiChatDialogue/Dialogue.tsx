@@ -16,7 +16,7 @@ const { ROLE, DIALOGUE_ALIGN } = strings;
 
 interface AIChatDialogueState {}
 
-class AIChatDialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueState> {
+class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueState> {
 
     constructor(props: AIChatDialogueItemProps) {
         super(props);
@@ -133,4 +133,4 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialog
     }
 }
 
-export default AIChatDialogue;
+export default Dialogue;

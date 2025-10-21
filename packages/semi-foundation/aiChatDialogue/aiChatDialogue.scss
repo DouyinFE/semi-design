@@ -117,8 +117,20 @@ $module: #{$prefix}-ai-chat-dialogue;
 
         &-loading {
             display: flex;
-            align-items: baseline;
+            align-items: center;
             margin-top: $spacing-aiChatDialogue_content_loading-marginTop;
+
+            > span:nth-child(1) {
+                animation-delay: -200ms;
+            }
+
+            > span:nth-child(2) {
+                animation-delay: -100ms;
+            }
+
+            > span:nth-child(3) {
+                animation-delay: 0ms;
+            }
 
             &-item {
                 @include loading-circle-common();
@@ -127,35 +139,7 @@ $module: #{$prefix}-ai-chat-dialogue;
                 overflow: visible;
                 position: relative;
 
-                animation: #{$module}-loading-flashing .8s infinite alternate;
-                animation-delay: -0.2s;
-                animation-timing-function: ease;
-
-
-                &::before {
-                    content: '';
-                    @include loading-circle-common();
-
-                    position: absolute;
-                    top: 0;
-                    left: $spacing-aiChatDialogue_loading_item_before-left;
-
-                    animation: #{$module}-loading-flashing .8s infinite alternate;
-                    animation-timing-function: ease;
-                    animation-delay: -0.4s;  
-                }
-
-                &::after {
-                    content: '';
-                    @include loading-circle-common();
-                    position: absolute;
-                    top: 0;
-                    left: $spacing-aiChatDialogue_loading_item_after-left;
-                    
-                    animation: #{$module}-loading-flashing .8s infinite alternate;
-                    animation-delay: 0s;
-                    animation-timing-function: ease;
-                }
+                animation: #{$module}-loading-bounce 1s infinite cubic-bezier(.22,.61,.36,1)
             }
 
             &-text {
@@ -650,6 +634,28 @@ $module: #{$prefix}-ai-chat-dialogue;
     to {
         opacity: 1;
     }
+}
+
+
+@keyframes #{$module}-loading-bounce {
+
+    /* 起点（站在地面） */
+    0%   { transform: translateY(0) scale(1); opacity: .7; }
+
+    /* 上升到最高点（略变瘦） */
+    18%  { transform: translateY(-8px) scale(.96); opacity: 1; }
+
+    /* 落地瞬间（略压扁，模拟缓冲） */
+    36%  { transform: translateY(0) scale(1.06); }
+
+    /* 轻微回弹（小幅再向上） */
+    44%  { transform: translateY(-1.5px) scale(.98); }
+
+    /* 回到静止（消除抖动） */
+    52%  { transform: translateY(0) scale(1); }
+
+    /* 余下时间保持静止，等待下一轮 */
+    100% { transform: translateY(0) scale(1); opacity: .7; }
 }
 
 @import './rtl.scss';
