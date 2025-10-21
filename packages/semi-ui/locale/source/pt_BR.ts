@@ -219,6 +219,10 @@ const local: Locale = {
         deleteConfirm: 'Tem certeza que deseja excluir esta sessão?',
         deleteContent: 'Esta sessão será excluída permanentemente e não poderá ser recuperada.',
     },
+    Feedback: {
+        submit: 'Enviar',
+        cancel: 'Cancelar'
+    }
 };
 
 // 葡萄牙语

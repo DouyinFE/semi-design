@@ -211,6 +211,10 @@ const local: Locale = {
         deleteConfirm: 'Sunteți sigur că doriți să ștergeți această conversație?',
         deleteContent: 'Conversația a fost ștearsă.',
     },
+    Feedback: {
+        submit: 'Trimite',
+        cancel: 'Anulează'
+    }
 };
 
 // [i18n-Romanian] 罗马尼亚语

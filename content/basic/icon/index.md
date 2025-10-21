@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 23
+order: 24
 category: 基础
 title:  Icon 图标
 icon: doc-icons
@@ -9,7 +9,10 @@ brief: 语义化的矢量图形。
 
 ## 图标列表
 
-默认的图标集 `@douyinfe/semi-icons` 包含面性、线性两套图标，默认不带颜色，可通过 css color属性更改颜色。
+默认的图标集 `@douyinfe/semi-icons` 包含面性、线性、AI 三套图标。面性图标、线性图标，以及 AI 图标中的单色图标默认不带颜色，可通过 css color 属性更改颜色。
+AI 图标中的双色，多色图标有默认颜色，可以通过 fill 更改颜色。
+
+AI 图标自 v2.86.0 提供。
 
 `@douyinfe/semi-icons-lab` 为彩色图标集，需单独安装，不可改色, lab 图标集于 v2.48 后提供
 
@@ -461,7 +464,31 @@ IconWindowAdaptionStroked
 IconWrench
 IconXiguaLogo
 IconYoutube
-
+IconAIBellLevel1
+IconAIBellLevel2
+IconAIBellLevel3
+IconAIEditLevel1
+IconAIEditLevel2
+IconAIEditLevel3
+IconAIFileLevel1
+IconAIFileLevel2
+IconAIFileLevel3
+IconAIFiledLevel1
+IconAIFiledLevel2
+IconAIFiledLevel3
+IconAIImageLevel1
+IconAIImageLevel2
+IconAIImageLevel3
+IconAISearchLevel1
+IconAISearchLevel2
+IconAISearchLevel3
+IconAIStrokeLevel1
+IconAIStrokeLevel2
+IconAIStrokeLevel3
+IconAIWandLevel1
+IconAIWandLevel2
+IconAIWandLevel3
+IconAILoading
 
 
 @douyinfe/semi-icons-lab icon list:
@@ -620,7 +647,7 @@ import { IconSearch, IconHelpCircle, IconAlertCircle, IconMinusCircle, IconPlusC
 ```
 
 ### 颜色
-图标会自动继承外部容器 CSS 的 `color` 属性
+单色图标会自动继承外部容器 CSS 的 `color` 属性
 你还可以通过给 Icon 设置 style props 来修改图标的颜色。
 
 ```jsx live=true
@@ -642,9 +669,43 @@ import { IconLikeHeart, IconFlag, IconLock, IconUnlock } from '@douyinfe/semi-ic
 );
 ```
 
+### 双色图标
+
+双色图标可以通过 `fill` 属性设置颜色，支持 string 以及 string[]。
+
+```jsx live=true
+import React from 'react';
+import { IconAIWandLevel2, IconAIFilledLevel2 } from '@douyinfe/semi-icons';
+
+() => (
+    <div>
+        <IconAIWandLevel2 fill={['var(--semi-color-danger)', 'var(--semi-color-success)']} style={{ marginRight: 10 }} size="extra-large"/>
+        <IconAIFilledLevel2 fill={'var(--semi-color-success)'} size="extra-large"/>
+    </div>
+);
+```
+
+### 多色按钮
+
+多色图标，当前的多色按钮可传入四个颜色。可以通过 `fill` 属性设置颜色，支持 string 以及 string[]。
+
+```jsx live=true
+import React from 'react';
+import { IconAIBellLevel3, IconAIWandLevel3, IconAIFilledLevel3 } from '@douyinfe/semi-icons';
+
+() => (
+    <div>
+        <IconAIBellLevel3 style={{ marginRight: 10 }} size="extra-large"/>
+        <IconAIWandLevel3 fill={['var(--semi-color-danger)', 'var(--semi-color-success)', 'var(--semi-color-primary)', 'var(--semi-color-warning)']} style={{ marginRight: 10 }} size="extra-large"/>
+        <IconAIFilledLevel3 fill={['var(--semi-color-primary)', 'var(--semi-color-success)']} size="extra-large"/>
+    </div>
+);
+```
+
+
 ### 自定义图标
-可以使用自定义图标传入Icon组件
-Icon组件支持size、rotate、spin等属性
+
+可以使用自定义图标传入Icon组件。Icon组件支持 size、rotate、spin 等属性。
 
 ```jsx live=true
 import React from 'react';
@@ -696,6 +757,7 @@ import StarIcon from './star.svg';
 | 属性  | 说明        | 类型            | 默认值 |
 |-------|-------------|-----------------|--------|
 | className | 类名 | string | 无    |
+| fill | 双色，多色图标的填充颜色 | string \| string[] | 无 |
 | onClick | 单击图标的回调事件 | (e: Event) => void | 无    |
 | onMouseDown | 鼠标按钮按下的回调事件 >=v1.21 | (e: Event) => void | 无    |
 | onMouseEnter | 进入图标的回调事件 | (e: Event) => void | 无    |

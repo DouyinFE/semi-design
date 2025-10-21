@@ -211,6 +211,10 @@ const local: Locale = {
         deleteConfirm: 'Adakah anda pasti ingin memadam sesi ini?',
         deleteContent: 'Sesi ini akan dihapus secara permanen dan tidak dapat dipulihkan.',
     },
+    Feedback: {
+        submit: 'Hantar',
+        cancel: 'Batal'
+    }
 };
 
 // [i18n-Malaysia(MY)]

@@ -218,6 +218,10 @@ const local: Locale = {
         deleteConfirm: 'Weet u zeker dat u deze conversatie wilt verwijderen?',
         deleteContent: 'Deze conversatie wordt permanent verwijderd en kan niet worden hersteld.',
     },
+    Feedback: {
+        submit: 'Versturen',
+        cancel: 'Annuleren'
+    }
 };
 
 export default local;

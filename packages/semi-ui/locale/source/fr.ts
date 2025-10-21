@@ -211,6 +211,10 @@ const local: Locale = {
         deleteConfirm: 'Êtes-vous sûr de vouloir supprimer ce message ?',
         deleteContent: 'Ce message sera supprimé définitivement et ne pourra pas être récupéré.',
     },
+    Feedback: {
+        submit: 'Soumettre',
+        cancel: 'Annuler'
+    }
 };
 
 // [i18n-French]

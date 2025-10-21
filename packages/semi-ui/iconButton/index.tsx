@@ -5,7 +5,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/button/constants'
 import { strings as iconStrings } from '@douyinfe/semi-foundation/icons/constants';
 import Button, { Theme, ButtonProps } from '../button/Button';
 import SpinIcon from '../spin/icon';
-import { IconSize } from '@douyinfe/semi-icons';
+import { IconAILoading, IconSize } from '@douyinfe/semi-icons';
 import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/button/iconButton.scss';
 
@@ -25,7 +25,7 @@ export interface IconButtonProps extends ButtonProps {
     disabled?: boolean;
     noHorizontalPadding?: boolean | HorizontalPaddingType | HorizontalPaddingType[];
     prefixCls?: string;
-    contentClassName?: string;
+    contentClassName?: string
 }
 
 // TODO: add a buttonGroup component
@@ -75,6 +75,7 @@ class IconButton extends PureComponent<IconButtonProps> {
         } = this.props;
 
         const style = { ...originStyle };
+        const { colorful, type, disabled } = otherProps;
         // TODO: review check
         if (Array.isArray(noHorizontalPadding)) {
             noHorizontalPadding.includes('left') && (style.paddingLeft = 0);
@@ -92,9 +93,46 @@ class IconButton extends PureComponent<IconButtonProps> {
         let IconElem = null;
 
         if (loading && !otherProps.disabled) {
-            IconElem = <SpinIcon customIconCls={`${prefixCls}-content-loading-icon`}/>;
+            if (colorful && ['light', 'outline', 'borderless'].includes(theme) || (theme === 'solid' && type === 'tertiary')) {
+                IconElem = <IconAILoading className={`${prefixCls}-content-loading-icon`} />;
+            } else {
+                IconElem = <SpinIcon />;
+            }   
         } else if (React.isValidElement(icon)) {
-            IconElem = icon;
+            if (colorful) {
+                const multipleColor = (theme === 'solid' && type === 'tertiary') || (type === 'primary' && ['light', 'borderless'].includes(theme));
+                const twoColor = type === 'tertiary' && ['light', 'borderless', 'outline'].includes(theme);
+                if (multipleColor) {
+                    let fill: string[];
+                    if (disabled) {
+                        fill = new Array(4).fill('var(--semi-color-disabled-text)');
+                    } else {
+                        fill = [
+                            'var(--semi-button-colorful-multiple-fill-0)',
+                            'var(--semi-button-colorful-multiple-fill-1)', 
+                            'var(--semi-button-colorful-multiple-fill-2)',
+                            'var(--semi-button-colorful-multiple-fill-3)',
+                        ];
+                    }
+                    IconElem = React.cloneElement(icon, { fill } as any);
+                } else if (twoColor) {
+                    let fill: string[];
+                    if (disabled) {
+                        fill = new Array(2).fill('var(--semi-color-disabled-text)');
+                    } else {
+                        fill = [
+                            'var(--semi-button-colorful-fill-primary)',
+                            'var(--semi-button-colorful-fill-secondary)',
+                        ];
+                    }
+                    IconElem = React.cloneElement(icon, { fill } as any);
+                } else {
+                    IconElem = icon;
+                }
+            } else {
+                IconElem = icon;
+            }
+            
         }
 
         const btnTextCls = classNames({

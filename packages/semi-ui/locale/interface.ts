@@ -210,5 +210,9 @@ export interface Locale {
         delete: string;
         deleteConfirm: string;
         deleteContent: string
+    };
+    Feedback: {
+        submit: string;
+        cancel: string
     }
 }

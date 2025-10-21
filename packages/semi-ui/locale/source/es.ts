@@ -216,6 +216,10 @@ const locale: Locale = {
         deleteConfirm: '¿Estás seguro de que quieres eliminar esta mensaje?',
         deleteContent: 'Este mensaje se eliminará permanentemente y no se podrá recuperar.',
     },
+    Feedback: {
+        submit: 'Enviar',
+        cancel: 'Cancelar'
+    }
 };
 
 export default locale;

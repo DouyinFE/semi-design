@@ -211,6 +211,10 @@ const local: Locale = {
         deleteConfirm: 'Apakah Anda yakin ingin menghapus pesan ini?',
         deleteContent: 'Pesan ini akan dihapus secara permanen dan tidak dapat dipulihkan.',
     },
+    Feedback: {
+        submit: 'Kirim',
+        cancel: 'Batal'
+    }
 };
 
 // [i18n-Indonesia(ID)]

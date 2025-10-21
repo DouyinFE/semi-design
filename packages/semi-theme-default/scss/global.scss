@@ -122,6 +122,25 @@ body, body[theme-mode="dark"] .semi-always-light, :host, :host .semi-always-ligh
     --semi-color-data-17: rgba(182, 215, 129, 1); //vchart 数据色板颜色 - 17
     --semi-color-data-18: rgba(212, 88, 212, 1); //vchart 数据色板颜色 - 18
     --semi-color-data-19: rgba(188, 198, 255, 1); //vchart 数据色板颜色 - 19
+
+    // ai-related
+    --semi-color-ai-general: var(--semi-ai-general-5); // AI 场景颜色
+    --semi-color-ai-general-hover: var(--semi-ai-general-6); // AI 场景颜色 - 悬浮态
+    --semi-color-ai-general-active: var(--semi-ai-general-7); // AI 场景颜色 - 激活态
+    --semi-color-ai-general-disabled: var(--semi-ai-general-2); // AI 场景颜色 - 禁用态
+
+    --semi-color-ai-purple: rgba(var(--semi-ai-purple-5)); // AI 次要场景颜色
+    --semi-color-ai-purple-hover: rgba(var(--semi-ai-purple-6)); // AI 次要场景颜色 - 悬浮态
+    --semi-color-ai-purple-active: rgba(var(--semi-ai-purple-7)); // AI 次要场景颜色 - 激活态
+    --semi-color-ai-purple-disabled: rgba(var(--semi-ai-purple-2)); // AI 次要场景颜色 - 禁用态
+    
+    --semi-color-ai-background-bottom: linear-gradient(201.15deg, rgba(255, 255, 255, 0.04) 6.58%, rgba(255, 226, 138, 0.04) 32.88%, rgba(231, 45, 255, 0.04) 67.93%, rgba(0, 115, 255, 0.04) 94.23%); // AI 场景背景色底部
+    --semi-color-ai-background-bottom-hover: linear-gradient(201.15deg, rgba(255, 255, 255, 0.08) 6.58%, rgba(255, 226, 138, 0.08) 32.88%, rgba(231, 45, 255, 0.08) 67.93%, rgba(0, 115, 255, 0.08) 94.23%); // AI 场景背景色底部 - 悬浮态
+    --semi-color-ai-background-bottom-active: linear-gradient(201.15deg, rgba(255, 255, 255, 0.12) 6.58%, rgba(255, 226, 138, 0.12) 32.88%, rgba(231, 45, 255, 0.12) 67.93%, rgba(0, 115, 255, 0.12) 94.23%); // AI 场景背景色底部 - 激活态
+
+    --semi-color-ai-background-top: linear-gradient(201.15deg, rgba(83, 56, 255, 0.16) 6.58%, rgba(176, 48, 240, 0.096) 32.88%, rgba(231, 45, 255, 0.048) 59.17%, rgba(255, 255, 255, 0) 94.23%); // AI 场景背景色顶部
+    --semi-color-ai-background-top-hover: linear-gradient(201.15deg, rgba(83, 56, 255, 0.24) 6.58%, rgba(176, 48, 240, 0.144) 32.88%, rgba(231, 45, 255, 0.072) 59.17%, rgba(255, 255, 255, 0) 94.23%); // AI 场景背景色顶部 - 悬浮态
+    --semi-color-ai-background-top-hover: linear-gradient(201.15deg, rgba(83, 56, 255, 0.32) 6.58%, rgba(176, 48, 240, 0.192) 32.88%, rgba(231, 45, 255, 0.096) 59.17%, rgba(255, 255, 255, 0) 94.23%);// AI 场景背景色顶部 - 激活态
 }
 
 body[theme-mode="dark"], body .semi-always-dark, :host([theme-mode="dark"]), :host .semi-always-dark {
@@ -232,4 +251,24 @@ body[theme-mode="dark"], body .semi-always-dark, :host([theme-mode="dark"]), :ho
     --semi-color-data-17: rgba(98, 138, 6, 1); //vchart 数据色板颜色 - 17
     --semi-color-data-18: rgba(162, 48, 179, 1); //vchart 数据色板颜色 - 18
     --semi-color-data-19: rgba(40, 51, 138, 1); //vchart 数据色板颜色 - 19
+   
+    // ai-related
+    --semi-color-ai-general: var(--semi-ai-general-5); // AI 场景颜色
+    --semi-color-ai-general-hover: var(--semi-ai-general-6); // AI 场景颜色 - 悬浮态
+    --semi-color-ai-general-active: var(--semi-ai-general-7); // AI 场景颜色 - 激活态
+    --semi-color-ai-general-disabled: var(--semi-ai-general-2); // AI 场景颜色 - 禁用态
+
+    --semi-color-ai-purple: rgba(var(--semi-ai-purple-5)); // AI 次要场景颜色
+    --semi-color-ai-purple-hover: rgba(var(--semi-ai-purple-6)); // AI 次要场景颜色 - 悬浮态
+    --semi-color-ai-purple-active: rgba(var(--semi-ai-purple-7)); // AI 次要场景颜色 - 激活态
+    --semi-color-ai-purple-disabled: rgba(var(--semi-ai-purple-2)); // AI 次要场景颜色 - 禁用态
+
+    --semi-color-ai-background-bottom: linear-gradient(201.15deg, rgba(255, 226, 138, 0.2) 6.58%, rgba(231, 45, 255, 0.2) 50.4%, rgba(0, 115, 255, 0.2) 94.23%); // AI 场景背景色底部
+    --semi-color-ai-background-bottom-hover: linear-gradient(201.15deg, rgba(255, 226, 138, 0.3) 6.58%, rgba(231, 45, 255, 0.3) 50.4%, rgba(0, 115, 255, 0.3) 94.23%); // AI 场景背景色底部 - 悬浮态
+    --semi-color-ai-background-bottom-active: linear-gradient(201.15deg, rgba(255, 226, 138, 0.4) 6.58%, rgba(231, 45, 255, 0.4) 50.4%, rgba(0, 115, 255, 0.4) 94.23%); // AI 场景背景色底部 - 激活态
+
+    --semi-color-ai-background-top: linear-gradient(201.15deg, rgba(83, 56, 255, 0.36) 6.58%, rgba(176, 48, 240, 0.216) 32.88%, rgba(154, 0, 174, 0.108) 59.17%, rgba(0, 0, 0, 0) 94.23%); // AI 场景背景色顶部
+    --semi-color-ai-background-top-hover: linear-gradient(201.15deg, rgba(83, 56, 255, 0.54) 6.58%, rgba(176, 48, 240, 0.324) 32.88%, rgba(154, 0, 174, 0.162) 59.17%, rgba(0, 0, 0, 0) 94.23%); // AI 场景背景色顶部 - 悬浮态
+    --semi-color-ai-background-top-hover: linear-gradient(201.15deg, rgba(83, 56, 255, 0.72) 6.58%, rgba(176, 48, 240, 0.432) 32.88%, rgba(154, 0, 174, 0.216) 59.17%, rgba(0, 0, 0, 0) 94.23%); // AI 场景背景色顶部 - 激活态
+
 }

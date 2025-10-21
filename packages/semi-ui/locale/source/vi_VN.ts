@@ -214,6 +214,10 @@ const local: Locale = {
         deleteConfirm: 'Bạn có chắc muốn xóa phiên này không?',
         deleteContent: 'Phiên này đã được xóa.',
     },
+    Feedback: {
+        submit: 'Nộp',
+        cancel: 'Hủy'
+    }
 };
 
 // [i18n-Vietnam] 越南语

@@ -52,7 +52,7 @@ function ButtonDemo() {
 
 -   `var(--semi-color-primary)`: main
 -   `var(--semi-color-secondary)`: secondary
--   `var(--semi-color-colored)`: third
+-   `var(--semi-color-tertiary)`: third
 -   `var(--semi-color-warning)`: warning
 -   `var(--semi-color-danger)`: danger
 
@@ -380,6 +380,56 @@ function ButtonDemo() {
 }
 ```
 
+### AI style - Colorful buttons
+
+Set `colorful` to get colorful buttons. Colorful buttons support all `theme`, and `type` only supports `primary` and `tertiary`.
+
+```jsx live=true dir="column"
+import React, { useState } from 'react';
+import { Button } from '../../index';
+import { IconAIFilledLevel1, IconAIFilledLevel2, IconAIFilledLevel3 } from '@douyinfe/semi-icons';
+
+function ButtonDemo() {
+    return (['Colorful', undefined].map(content => (<div 
+        key={content}
+        style={{ display: 'flex', rowGap: 16, marginTop: 20, marginLeft: 10, flexDirection: 'column' }}
+    >
+        <div style={{ display: 'flex', columnGap: 16 }}>
+            <Button colorful theme="solid" type="primary" icon={<IconAIFilledLevel1 />}>{content}</Button>
+            <Button colorful theme="solid" type="primary" loading >{content}</Button>
+            <Button colorful theme="solid" type="primary" icon={<IconAIFilledLevel1 />} disabled >{content}</Button>
+            <Button colorful theme="solid" type="tertiary" icon={<IconAIFilledLevel3 />}>{content}</Button>
+            <Button colorful theme="solid" type="tertiary" loading >{content}</Button>
+            <Button colorful theme="solid" type="tertiary" icon={<IconAIFilledLevel3 />} disabled >{content}</Button>
+        </div>
+        <div style={{ display: 'flex', columnGap: 16 }}>
+            <Button colorful theme="light" type="primary" icon={<IconAIFilledLevel3 />}>{content}</Button>
+            <Button colorful theme="light" type="primary" loading >{content}</Button>
+            <Button colorful theme="light" type="primary" icon={<IconAIFilledLevel3 />} disabled >{content}</Button>
+            <Button colorful theme="light" type="tertiary" icon={<IconAIFilledLevel2 />}>{content}</Button>
+            <Button colorful theme="light" type="tertiary" loading >{content}</Button>
+            <Button colorful theme="light" type="tertiary" icon={<IconAIFilledLevel2 />} disabled >{content}</Button>
+        </div>
+        <div style={{ display: 'flex', columnGap: 16 }}>
+            <Button colorful theme="outline" type="primary" icon={<IconAIFilledLevel1 />}>{content}</Button>
+            <Button colorful theme="outline" type="primary" loading >{content}</Button>
+            <Button colorful theme="outline" type="primary" icon={<IconAIFilledLevel1 />} disabled >{content}</Button>
+            <Button colorful theme="outline" type="tertiary" icon={<IconAIFilledLevel2 />}>{content}</Button>
+            <Button colorful theme="outline" type="tertiary" loading >{content}</Button>
+            <Button colorful theme="outline" type="tertiary" icon={<IconAIFilledLevel2 />} disabled >{content}</Button>
+        </div>
+        <div style={{ display: 'flex', columnGap: 16 }}>
+            <Button colorful theme="borderless" type="primary" icon={<IconAIFilledLevel3 />}>{content}</Button>
+            <Button colorful theme="borderless" type="primary" loading >{content}</Button>
+            <Button colorful theme="borderless" type="primary" icon={<IconAIFilledLevel3 />} disabled >{content}</Button>
+            <Button colorful theme="borderless" type="tertiary" icon={<IconAIFilledLevel2 />}>{content}</Button>
+            <Button colorful theme="borderless" type="tertiary" loading >{content}</Button>
+            <Button colorful theme="borderless" type="tertiary" icon={<IconAIFilledLevel2 />} disabled >{content}</Button>
+        </div>
+    </div>)));
+}
+```
+
 ### Button Combination
 
 You can put multiple buttons in `ButtonGroup` In the container, by setting `size`, `disabled`, `type` You can uniformly set the button size in the button combination, whether disabled and type.
@@ -528,6 +578,7 @@ function SplitButtonDemo(){
 | block               | Set the button to the block level button                                                                                                                                                  | boolean                          | false     |
 | className           | Class name                                                                                                                                                                                | string                           |           |
 | contentClassName | content className                                                                                                                                                                         |  string | -         |
+| colorful | Colorful buttons, supported since version 2.86.0 |  boolean | false |
 | disabled            | Prohibited status                                                                                                                                                                         | boolean                          | false     |
 | htmlType           | Set the `button` native `type` value, optional values: `"button"`, `"reset"`, `"submit"`                                                                                                  | string                           | "button"  |
 | icon                | Icon                                                                                                                                                                                      | ReactNode              |           |
@@ -549,6 +600,7 @@ function SplitButtonDemo(){
 | ---------- |--------------------------------------------------------------------------------------------------------------------------------------------------| ------- | --------- |---------|
 | aria-label | Label of the button group                                                                                                                        | string  | - | |
 | className  | Custom class name                                                                                                                                | string   | - | |
+| colorful | Colorful buttons |  boolean | false | 2.86.0 |
 | disabled   | Disabled status                                                                                                                                  | boolean | false | |
 | size       | Button size, optional value: `"large"`,`"default"`,`"small"`                                                                                     | string  | "default" |
 | style      | Custom style                                                                                                                                     | CSSProperties   | - | 2.20.0 |

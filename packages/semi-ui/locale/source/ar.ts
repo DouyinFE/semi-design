@@ -211,6 +211,10 @@ const local: Locale = {
         deleteConfirm: 'هل أنت متأكد من حذف هذه الرسالة؟',
         deleteContent: 'سيتم حذف الرسالة بشكل دائم ولا يمكن التراجع عنها.',
     },
+    Feedback: {
+        submit: 'إرسال',
+        cancel: 'إلغاء'
+    }
 };
 
 // [i18n-Arabic]

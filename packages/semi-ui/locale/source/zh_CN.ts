@@ -212,6 +212,10 @@ const local: Locale = {
         deleteConfirm: '确认要删除吗？',
         deleteContent: '删除后将无法恢复！',
     },
+    Feedback: {
+        submit: '提交',
+        cancel: '取消'
+    }
 };
 
 // 中文

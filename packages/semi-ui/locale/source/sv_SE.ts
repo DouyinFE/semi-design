@@ -216,6 +216,10 @@ const local: Locale = {
         deleteConfirm: 'Är du säker på att du vill ta bort denna konversation?',
         deleteContent: 'Konversationen har tagits bort.',
     },
+    Feedback: {
+        submit: 'Skicka',
+        cancel: 'Avbryt'
+    }
 };
 
 export default local;

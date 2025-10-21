@@ -215,6 +215,10 @@ const local: Locale = {
         deleteConfirm: 'คุณต้องการลบการสนทนานี้ใช่หรอไม่?',
         deleteContent: 'การสนทนานี้จะลบออกอย่างถาวรและไม่สามารถกู้คืนได้',
     },
+    Feedback: {
+        submit: 'ส่ง',
+        cancel: 'ยกเลิก'
+    }
 };
 
 // [i18n-Thai]

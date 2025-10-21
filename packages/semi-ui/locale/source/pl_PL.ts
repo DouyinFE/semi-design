@@ -219,6 +219,10 @@ const local: Locale = {
         deleteConfirm: 'Czy na pewno chcesz usunąć tę rozmowę?',
         deleteContent: 'Rozmowa została usunięta.',
     },
+    Feedback: {
+        submit: 'Wyślij',
+        cancel: 'Anuluj'
+    }
 };
 
 export default local;

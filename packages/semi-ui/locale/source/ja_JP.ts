@@ -212,6 +212,10 @@ const local: Locale = {
         deleteConfirm: 'このメッセージを削除してもよろしいですか？',
         deleteContent: 'このメッセージは削除されました。',
     },
+    Feedback: {
+        submit: '送信',
+        cancel: 'キャンセル'
+    }
 };
 
 // [i18n-Japan]

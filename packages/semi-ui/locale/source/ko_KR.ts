@@ -212,6 +212,10 @@ const local: Locale = {
         deleteConfirm: '이 메시지를 삭제하시겠습니까?',
         deleteContent: '이 메시지는 삭제되었습니다.',
     },
+    Feedback: {
+        submit: '제출',
+        cancel: '취소'
+    }
 };
 
 // [i18n-Korea]

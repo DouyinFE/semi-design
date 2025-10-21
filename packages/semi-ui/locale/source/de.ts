@@ -211,6 +211,10 @@ const local: Locale = {
         deleteConfirm: 'Möchten Sie diese Nachricht wirklich löschen?',
         deleteContent: 'Diese Nachricht wird unwiederruflich gelöscht.',
     },
+    Feedback: {
+        submit: 'Absenden',
+        cancel: 'Abbrechen'
+    }
 };
 
 // [i18n-German]

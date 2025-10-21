@@ -212,6 +212,10 @@ const local: Locale = {
         deleteConfirm: 'Bu sohbeti silmek istediğinize emin misiniz?',
         deleteContent: 'Bu sohbet silinmiştir.',
     },
+    Feedback: {
+        submit: 'Göndermek',
+        cancel: 'İptal'
+    }
 };
 
 // [i18n-Turkish] 

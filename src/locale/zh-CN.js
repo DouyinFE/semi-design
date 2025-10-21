@@ -83,6 +83,7 @@ const appLocale = {
         // Icon list
         'icon.list.tab.fill': '面性图标',
         'icon.list.tab.stroked': '线性图标',
+        'icon.list.tab.ai': 'AI 图标',
         'icon.list.tab.lab': '彩色图标',
 
         // new  Home
