@@ -2,7 +2,7 @@ import { PLACEHOLDERS } from '@babel/types';
 import { BASE_CLASS_PREFIX } from '../base/constants';
 
 const cssClasses = {
-    PREFIX: `${BASE_CLASS_PREFIX}-ai-chat-input`,
+    PREFIX: `${BASE_CLASS_PREFIX}-aiChatInput`,
 };
 
 const strings = {

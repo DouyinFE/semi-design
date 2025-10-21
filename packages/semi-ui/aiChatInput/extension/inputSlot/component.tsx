@@ -13,13 +13,14 @@ export default (props: any) => {
 
     useLayoutEffect(() => {
         if (isEmpty && placeholderRef.current) {
-            // 动态测量 placeholder 的宽度, 不加 setTimeout 可能获取不到宽度
-            // Dynamically measure the width of the placeholder. Without setTimeout, the width may not be obtained.
-            // a little bit hacky, but it works
-            setTimeout(() => {
+            const timer = setTimeout(() => {
                 setPlaceholderWidth(placeholderRef.current?.offsetWidth);
             });
+            return () => {
+                clearTimeout(timer);
+            };
         }
+        return null;
     }, [isEmpty, placeholder]);
 
     return (

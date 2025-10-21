@@ -72,17 +72,16 @@ class MentionList extends Component<any, any> {
     }
 
     upHandler = () => {
-        const { selectedIndex } = this.state;
-        const { items } = this.props;
+        const { selectedIndex, filterOptions } = this.state;
         this.setState({
-            selectedIndex: (selectedIndex + items.length - 1) % items.length,
+            selectedIndex: (selectedIndex + filterOptions.length - 1) % filterOptions.length,
         });
     };
 
     downHandler = () => {
-        const { selectedIndex, options } = this.state;
+        const { selectedIndex, filterOptions } = this.state;
         this.setState({
-            selectedIndex: (selectedIndex + 1) % options.length,
+            selectedIndex: (selectedIndex + 1) % filterOptions.length,
         });
     };
 
@@ -130,7 +129,7 @@ class MentionList extends Component<any, any> {
             } else {
                 filter = this.state.options ?? [];
             }
-            this.setState({ filterOptions: filter });
+            this.setState({ filterOptions: filter, selectedIndex: 0 });
         }
     }
 
@@ -172,13 +171,15 @@ class MentionList extends Component<any, any> {
         icon?: React.ReactNode;
         name: string;
         path?: string
-    }) => (
-        <div className="level2Item">
-            {item.icon}
-            <span className="name">{item.name}</span>
-            <span className="path">{item.path}</span>
-        </div>
-    );
+    }) => {
+        return (
+            <div className="level2Item">
+                {item.icon}
+                <span className="name">{item.name}</span>
+                <span className="path">{item.path}</span>
+            </div>
+        );
+    }
 
     render() {
         const { level, filterOptions, selectedIndex } = this.state;

@@ -15,6 +15,10 @@ function SkillSlotComponent(props: NodeViewProps) {
         deleteNode?.();
     };
 
+    if (value === '') {
+        return null;
+    }
+
     return (
         <NodeViewWrapper className="skill-slot-wrapper">
             <span className='skill-slot'>

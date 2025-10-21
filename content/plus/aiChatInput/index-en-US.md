@@ -65,9 +65,9 @@ render(<Basic />);
 
 When there is content in the input box (including text entry, uploaded content, [reference content](/en-US/plus/aiChatInput#Reference)), sending messages is allowed. Clicking the send message button triggers the `onMessageSend` callback; the argument is the input content, including text, reference content, uploaded files, and configuration area content.
 
-You can manage generating status with `isGenerating`. If `isGenerating` is `true`, AIChatInput will show a stop-generating button instead of the send button and clear the input area as well as uploaded files. References require manual handling.
+You can manage generating status with `generating`. If `generating` is `true`, AIChatInput will show a stop-generating button instead of the send button and clear the input area as well as uploaded files. References require manual handling.
 
-Clicking the stop button triggers `onStopGenerate`, where you can handle logic such as setting `isGenerating` to `false`.
+Clicking the stop button triggers `onStopGenerate`, where you can handle logic such as setting `generating` to `false`.
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -104,7 +104,7 @@ const reference = [
 
 function SendMessageAndStopGenerate() {
     const [references, setReferences] = useState(reference);
-    const [isGenerating, setIsGenerating] = useState(false);
+    const [generating, setGenerating] = useState(false);
     const onContentChange = useCallback((content) => {
         console.log('onContentChange', content);
     }, []);
@@ -114,7 +114,7 @@ function SendMessageAndStopGenerate() {
     }, []);
 
     const toggleGenerate = useCallback((props) => {
-        setIsGenerating(value => !value);
+        setGenerating(value => !value);
     }, []);
 
     const onMessageSend = useCallback((content) => {
@@ -132,7 +132,7 @@ function SendMessageAndStopGenerate() {
     return (
         <AIChatInput
             defaultContent={"Click Send to see changes in content, uploads, and references."}
-            isGenerating={isGenerating}
+            generating={generating}
             uploadProps={uploadProps}
             onContentChange={onContentChange}
             onUploadChange={onUploadChange}
@@ -197,7 +197,7 @@ function RichTextExample() {
         </div>
         <AIChatInput
             ref={ref}
-            defaultContent={'I am an <input-slot placeholder="[Occupation]">engineer</input-slot>, please help me complete...'}
+            defaultContent={temp['input-slot']}
             placeholder={'Enter content or upload'} 
             uploadProps={uploadProps}
             style={outerStyle} 
@@ -300,7 +300,7 @@ function ConfigureButton() {
     }, []);
 
     const renderLeftMenu = useCallback(() => (<>
-        <Configure.Select optionList={modelOptions} field="model" initValue="GPT 4o" />
+        <Configure.Select optionList={modelOptions} field="model" initValue="GPT-4o" />
         <Configure.Button icon={<IconBookOpenStroked />} field="onlineSearch">Web search</Configure.Button>
         <Configure.Mcp options={mcpOptions} onConfigureButtonClick={onConfigureButtonClick}/>
         <Configure.RadioButton options={radioButtonProps} field="thinkType" initValue="fast"/>
@@ -452,7 +452,7 @@ const radioButtonProps = [
 function Shape() {
     const [round, setRound] = useState(false);
     const renderLeftMenu = useCallback(() => <>
-        <Configure.Select optionList={modelOptions} field="model" initValue="GPT 4o" />
+        <Configure.Select optionList={modelOptions} field="model" initValue="GPT-4o" />
         <Configure.Button icon={<IconBookOpenStroked />} field="onlineSearch">Web search</Configure.Button>
         <Configure.Mcp options={mcpOptions} />
         <Configure.RadioButton options={radioButtonProps} initValue="fast"/>
@@ -1049,7 +1049,7 @@ const suggestion = {
     items: () => FirstLevel,
     command: ({ editor, range, props }) => {
         const { item } = props;
-        editor .chain().focus().insertContentAt(range, {
+        editor.chain().focus().insertContentAt(range, {
             type: 'referSlot',
             attrs: {
                 type: item.type,
@@ -1152,16 +1152,15 @@ class MentionList extends React.Component {
         this.renderItem = this.renderItem.bind(this);
     }
     upHandler() {
-        const { selectedIndex } = this.state;
-        const { items } = this.props;
+        const { selectedIndex, filterOptions } = this.state;
         this.setState({
-            selectedIndex: (selectedIndex + items.length - 1) % items.length,
+            selectedIndex: (selectedIndex + filterOptions.length - 1) % filterOptions.length,
         });
     };
     downHandler() {
-        const { selectedIndex, options } = this.state;
+        const { selectedIndex, filterOptions } = this.state;
         this.setState({
-            selectedIndex: (selectedIndex + 1) % options.length,
+            selectedIndex: (selectedIndex + 1) % filterOptions.length,
         });
     };
     enterHandler () {
@@ -1205,7 +1204,10 @@ class MentionList extends React.Component {
             } else {
                 filter = this.state.options ? this.state.options : [];
             }
-            this.setState({ filterOptions: filter });
+            this.setState({ 
+                filterOptions: filter,
+                selectedIndex: 0
+            });
         }
     }
     componentDidMount() {
@@ -1457,9 +1459,9 @@ render(<CustomRichTextExtension />);
 | defaultContent | Default input content, supports html string or Tiptap content | TiptapContent | - |
 | dropdownMatchTriggerWidth | Should dropdown width match input? | boolean | true |
 | extensions | Custom editor extensions | Extension[] | - |
-| isGenerating | Is it generating? | boolean | false |
-| onContentChange | Callback when input content changes | (content: { type: string; [key: string]: any }) => void | - |
-| onMessageSend | Callback for sending message | (content: { references?: Reference[]; attachments?: Attachment[]; inputContents?: Content[]; setup?: SetUp }) => void | - |
+| generating | Is it generating? | boolean | false |
+| onContentChange | Callback when input content changes | (content: <ApiType detail='{ type: string; [key: string]: any }'>OnContentChangeProps</ApiType>) => void | - |
+| onMessageSend | Callback for sending message | (content: <ApiType detail='{references?: Reference[]; attachments?: Attachment[]; inputContents?: Content[]; setup?: Setup}'>OnMessageSendProps</ApiType>) => void | - |
 | onReferenceClick | Callback for clicking a reference | (reference: Reference) => void | - |
 | onReferenceDelete | Callback for deleting a reference | (reference: Reference) => void | - |
 | onSkillChange | Callback for switching skills | (skill: Skill) => void | - |
@@ -1472,13 +1474,15 @@ render(<CustomRichTextExtension />);
 | references | Reference list | Reference[] | - |
 | renderActionArea | Custom bottom-right operation area | () => React.ReactNode | - |
 | renderConfigureArea | Custom configuration area | () => React.ReactNode | - |
-| renderSkillItem | Custom skill list item renderer | (props: { skill: Skill; onClick: () => void; className: string }) => React.ReactNode | - |
-| renderSuggestionItem | Custom suggestion item renderer | (props: { suggestion: Suggestion; onClick: () => void; className: string }) => React.ReactNode | - |
+| renderReference | Custom render reference | (reference: Reference) => ReactNode | - |
+| renderSkillItem | Custom skill list item renderer | (props: <ApiType detail='{skill: Skill; onClick: () => void; className: string, onMouseEnter: () => void}'>RenderSkillItemProps</ApiType>) => React.ReactNode | - |
+| renderSuggestionItem | Custom suggestion item renderer | (props: <ApiType detail='{ suggestion: Suggestion; onClick: () => void; className: string, onMouseEnter: () => void}'>RenderSkillItemProps</ApiType>) => React.ReactNode | - |
 | renderTemplate | Custom template renderer | (skill: Skill, onTemplateClick: (content: string) => void) => React.ReactNode | - |
 | renderTopSlot | Custom top slot renderer | () => React.ReactNode | - |
 | round | Whether config/action areas have rounded style | boolean | true |
-| onBlur | Callback when input blurs | boolean | - |
-| onFocus | Callback when input focused | boolean | - |
+| onBlur | Callback when input blurs | (event: React.FocusEvent) => void | - |
+| onConfigureChange | Callback for configuration area changes | (value: LeftMenuChangeProps, changedValue: LeftMenuChangeProps) => void | - |
+| onFocus | Callback when input focused | (event: React.FocusEvent) => void | - |
 | showReference | Show reference area | boolean | true |
 | showTemplateButton | Show template button | boolean | false |
 | showUploadFile | Show upload file area | boolean | true |
@@ -1486,7 +1490,10 @@ render(<CustomRichTextExtension />);
 | skills | Skill list | Skill[] | - |
 | style | Custom style | React.CSSProperties | - |
 | suggestions | Suggestions list | Suggestion[] | - |
+| templatesCls| The template's style class name| string | - |
+| templatesStyle| Template style| React.CSSProperties | - |
 | topSlotPosition | Top slot position: relative to reference and uploads | 'top' \| 'bottom' \| 'middle' | - |
+| transformer | Customizing the conversion rules for extensions | Map<string, (obj: any) => any> | |
 | uploadProps | Upload configuration | UploadProps | - |
 | uploadTipProps | Upload tip configuration | UploadTipProps | - |
 
@@ -1494,11 +1501,13 @@ render(<CustomRichTextExtension />);
 
 | Method | Description | Type | Default |
 |--------|-------------|------|---------|
-| setContent | Set the editor content | (content: TiptapContent) => void | - |
-| focusEditor | Focus the editor (default to end) | (pos?: string) => void | - |
-| getEditor | Get tiptap editor instance | () => Editor | - |
-| changeTemplateVisible | Change template visibility | (visible: boolean) => void | - |
-| deleteContent | Delete an item from rich text by uniqueKey | (content: Content) => void | - |
+| changeTemplateVisible | Toggle visibility of the template popup | (visible: boolean) => void | - |
+| deleteContent | Delete an item in the rich text. The deletion logic depends on the uniqueKey in the content. | (content: Content) => void | - |
+| deleteUploadFile | Delete an item in the uploaded file | (item: Attachment) => void | - |
+| focusEditor | Focus the input box. By default, the focus is on the end of the input box. | (pos?: string) => void | - |
+| getEditor | Get the current tiptap editor instance | () => Editor | - |
+| setContent | Set input box content | (content: TiptapContent) => void | - |
+| setContentWhileSaveTool | Set the input box content while retaining the skill item | (content: TiptapContent) => void | - |
 
 ## Design Tokens
 

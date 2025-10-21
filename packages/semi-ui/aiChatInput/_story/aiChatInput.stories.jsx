@@ -20,7 +20,7 @@ export default {
 const outerStyle = { margin: 12, maxHeight: 300 };
 
 export const Basic = () => {
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [generating, setGenerating] = useState(false);
   const onContentChange = useCallback((content) => {
     console.log('onContentChange', content);
   }, []);
@@ -30,13 +30,13 @@ export const Basic = () => {
   }, []);
 
   const toggleGenerate = useCallback((props) => {
-    setIsGenerating(value => !value);
+    setGenerating(value => !value);
   }, []);
   
   return (
     <div>
     <AIChatInput
-      isGenerating={isGenerating}
+      generating={generating}
       placeholder={'输入内容或者上传内容'} 
       uploadProps={uploadProps}
       onContentChange={onContentChange}
@@ -91,7 +91,7 @@ export const RichTextExample = () => {
 }
 
 export const SendMessage = () => {
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [generating, setGenerating] = useState(false);
   const onContentChange = useCallback((content) => {
     console.log('onContentChange', content);
   }, []);
@@ -101,12 +101,12 @@ export const SendMessage = () => {
   }, []);
 
   const toggleGenerate = useCallback((props) => {
-    setIsGenerating(value => !value);
+    setGenerating(value => !value);
   }, []);
   
   return (
     <AIChatInput
-      isGenerating={isGenerating}
+      generating={generating}
       placeholder={'输入内容或者上传内容'} 
       uploadProps={uploadProps}
       onContentChange={onContentChange}
@@ -138,7 +138,7 @@ export const ReferenceExample = () => {
 
 export const ConfigureDemo = () => {
   const renderLeftMenu = useCallback(() => (<>
-    <Configure.Select optionList={modelOptions} field="model" initValue="GPT 4o" />
+    <Configure.Select optionList={modelOptions} field="model" initValue="GPT-4o" />
     <Configure.Button icon={<IconFixedStroked />} field="deepThink">深度思考</Configure.Button>
     <Configure.Button icon={<IconBookOpenStroked />} field="onlineSearch">联网搜索</Configure.Button>
     <Configure.Mcp options={mcpOptions} />
@@ -217,7 +217,7 @@ export const CustomConfigure = () => {
 export const Square = () => {
   const [round, setRound] = useState(false);
   const renderLeftMenu = useCallback(() => <>
-      <Configure.Select optionList={modelOptions} field="model" initValue="GPT 4o" />
+      <Configure.Select optionList={modelOptions} field="model" initValue="GPT-4o" />
       <Configure.Button icon={<IconFixedStroked />} field="deepThink">深度思考</Configure.Button>
       <Configure.Button icon={<IconBookOpenStroked />} field="onlineSearch">联网搜索</Configure.Button>
       <Configure.Mcp options={mcpOptions} />
@@ -247,7 +247,7 @@ export const Suggestion = () => {
   const [suggestion, setSuggestion] = useState([]);
   const onChange = useCallback((content) => {
     const value = content?.[0]?.text;
-    if (value === undefined || value === '/') {
+    if (value === undefined || value.includes('/n')) {
      if (suggestion === undefined || suggestion.length === 0) {
       return;
      } else {
@@ -267,7 +267,7 @@ export const Suggestion = () => {
   }, [suggestion]);
 
   const renderLeftMenu = useCallback(() => <>
-    <Configure.Select optionList={modelOptions} field="model" initValue="GPT 4o" />
+    <Configure.Select optionList={modelOptions} field="model" initValue="GPT-4o" />
     <Configure.RadioButton options={radioButtonProps2} initValue="fast"/>
   </>);
   

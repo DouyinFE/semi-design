@@ -1,6 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { Attachment, BaseSkill, Suggestion, Reference, Content, LeftMenuChangeProps, MessageContent } from './interface';
-import { isNumber, isString, includes } from 'lodash';
+import { isNumber, isString } from 'lodash';
 import { cssClasses } from './constants';
 import { transformJSONResult } from './utils';
 
@@ -13,7 +13,7 @@ export interface AIChatInputAdapter<P = Record<string, any>, S = Record<string, 
     getPopupID: () => string;
     notifyContentChange: (result: Content[]) => void;
     notifyConfigureChange: (value: LeftMenuChangeProps, changedValue: LeftMenuChangeProps) => void;
-    maulUpload: (files: File[]) => void;
+    manualUpload: (files: File[]) => void;
     notifyMessageSend: (props: MessageContent) => void;
     notifyStopGenerate: () => void;
     clearContent: () => void;
@@ -47,7 +47,7 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
     }
 
     handleSkillSelect = (skill: BaseSkill) => {
-        this._adapter.setState({
+        this.setState({
             skill: skill,
             skillVisible: false
         });
@@ -68,14 +68,19 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
             }  
         }
         if (width) {
-            this._adapter.setState({
+            this.setState({
                 popupWidth: width
             });
         }
     }
 
+    changeTemplateVisible = (value: boolean) => {
+        value && this.setDropdownWidth();
+        this.setState({ templateVisible: value });
+    }
+
     handlePaste = (files: File[]) => {
-        this._adapter.maulUpload(files);
+        this._adapter.manualUpload(files);
     }
     
     handleSuggestionSelect = (suggestion: Suggestion) => {
@@ -86,7 +91,7 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
     handleUploadFileDelete = (attachment: Attachment) => {
         const { attachments } = this.getStates();
         const newAttachments = attachments.filter(item => item.uid !== attachment.uid);
-        this._adapter.setState({
+        this.setState({
             attachments: newAttachments
         });
     }
@@ -99,6 +104,14 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
         this._adapter.handleReferenceClick(reference);
     }
 
+    setActiveSuggestionIndex = (index: number) => {
+        this.setState({ activeSuggestionIndex: index });
+    }
+
+    setActiveSkillIndex = (index: number) => {
+        this.setState({ activeSkillIndex: index });
+    }
+
     handleKeyDown = (e: KeyboardEvent) => {
         const { skills, suggestions, skillHotKey } = this.getProps();
         const { skillVisible, suggestionVisible } = this.getStates();
@@ -108,9 +121,9 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
         const popUpOptionListID = this._adapter.getPopupID();
         // 输入框为空，且按下 / 键, 触发 skill 面板打开
         // The input box is empty and the skill hot key is pressed to trigger the skill panel to open.
-        if (oldValue == '' && e.key === skillHotKey && skills && skills.length) {
+        if (oldValue === '' && e.key === skillHotKey && skills && skills.length) {
             // Open skill panel
-            this._adapter.setState({ skillVisible: true });
+            this.setState({ skillVisible: true });
             this.setDropdownWidth();
         }
     
@@ -121,14 +134,14 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
 
         // If the input box is a skill's hotkey, pressing the up and down keys can switch panel options.
         if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-            if (oldValue === skillHotKey) {
+            if (oldValue === skillHotKey && skills && skills.length) {
                 const newIndex = (activeSkillIndex + (e.key === 'ArrowUp' ? -1 : 1) + skills.length) % skills.length;
-                this.setState({ activeSkillIndex: newIndex });
+                this.setActiveSkillIndex(activeSkillIndex);
                 this.updateScrollTop(newIndex, `#${prefixCls}-skill-${popUpOptionListID} .${prefixCls}-skill-item:nth-child(${newIndex + 1})`);
             }
             if (suggestionVisible) {
                 const newIndex = (activeSuggestionIndex + (e.key === 'ArrowUp' ? -1 : 1) + suggestions.length) % suggestions.length;
-                this.setState({ activeSuggestionIndex: newIndex });
+                this.setActiveSuggestionIndex(newIndex);
                 this.updateScrollTop(newIndex, `#${prefixCls}-suggestion-${popUpOptionListID} .${prefixCls}-suggestion-item:nth-child(${newIndex + 1})`);
             }  
         }
@@ -138,7 +151,7 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
                 skillVisible: false,
             });
             const newSkill = skills[activeSkillIndex];
-            this.handleSkillSelect(newSkill);
+            newSkill && this.handleSkillSelect(newSkill);
         }
         if (suggestionVisible && e.key === 'Enter') {
             const newSuggestion = suggestions[activeSuggestionIndex];
@@ -165,9 +178,6 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
             return;
         }
         let destNode = document.querySelector(selector) as HTMLDivElement;
-        if (Array.isArray(destNode)) {
-            destNode = destNode[0];
-        }
         if (destNode) {
             /**
              * Scroll the first selected item into view.
@@ -193,11 +203,8 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
     }
 
     handleContentChange = (content: string) => {
-        const { suggestions, transformer } = this.getProps();
+        const { transformer } = this.getProps();
         const { skill } = this.getStates();
-        if (suggestions && suggestions.length > 0) {
-            this.showSuggestionPanel();
-        }
         const editor = this._adapter.getEditor();
         const jsonResult = editor.getJSON();
         const finalResult = transformJSONResult(jsonResult, transformer);
@@ -258,17 +265,15 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
         if (canSend !== undefined) {
             return canSend;
         }
-        const references = this.getProp('references');
         const { attachments } = this.getStates();
         const validRichText = !this._isRichTextEmpty();
         const validAttachment = Array.isArray(attachments) && (attachments.length > 0);
-        const validReference = Array.isArray(references) && (references.length > 0);
-        return validRichText || validAttachment || validReference;
+        return validRichText || validAttachment;
     }
 
     handleSend = () => {
-        const { isGenerating } = this.getProps();
-        if (isGenerating) {
+        const { generating } = this.getProps();
+        if (generating) {
             this._adapter.notifyStopGenerate();
             return;
         } else {
@@ -283,6 +288,12 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
                 const json = editor.getJSON?.();
                 richTextResult = transformJSONResult(json);
             }
+            // close popup layer for template/skill/suggestion
+            this.setState({
+                templateVisible: false,
+                skillVisible: false,
+                suggestionVisible: false,
+            });
             this._adapter.notifyMessageSend({
                 references,
                 attachments,
@@ -317,7 +328,7 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
         this._adapter.focusEditor();
     }
 
-    handRichTextARealKeyDown = (view: any, event: KeyboardEvent) => {
+    handRichTextArealKeyDown = (view: any, event: KeyboardEvent) => {
         const { suggestionVisible } = this.getStates();
         if (suggestionVisible && ['ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
             return true;

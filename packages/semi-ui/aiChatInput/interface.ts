@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { OnChangeProps, UploadProps } from "../upload";
 import { TooltipProps } from "../tooltip";
-import { BaseSkill, Reference, Suggestion, Attachment, Content, SetUp, LeftMenuChangeProps, RichTextJSON, MessageContent } from "@douyinfe/semi-foundation/aiChatInput/interface";
+import { BaseSkill, Reference, Suggestion, Attachment, Content, Setup, LeftMenuChangeProps, RichTextJSON, MessageContent } from "@douyinfe/semi-foundation/aiChatInput/interface";
 import { Extension } from "@tiptap/core";
 import { Content as TiptapContent } from "@tiptap/core";
 import { PopoverProps } from "../popover";
@@ -28,8 +28,8 @@ export interface AIChatInputProps {
     extensions?: Extension[];
     onContentChange?: (contents: Content[]) => void;
     defaultContent?: TiptapContent[];
-    onFocus?: (event: any) => void;
-    onBlur?: (event: any) => void;
+    onFocus?: (event: React.FocusEvent) => void;
+    onBlur?: (event: React.FocusEvent) => void;
     // Reference related
     references?: Reference[];
     renderReference?: (reference: Reference) => ReactNode;
@@ -49,7 +49,7 @@ export interface AIChatInputProps {
     onMessageSend?: (props: MessageContent) => void;
     onStopGenerate?: () => void;
     uploadTipProps?: TooltipProps;
-    isGenerating: boolean;
+    generating: boolean;
     // Configure area related
     renderConfigureArea?: (className?: string) => ReactNode;
     onConfigureChange?: (value: LeftMenuChangeProps, changedValue: LeftMenuChangeProps) => void;
@@ -57,7 +57,7 @@ export interface AIChatInputProps {
     renderActionArea?: (props: ActionAreaProps) => ReactNode;
     // Suggestion related
     suggestions?: Suggestion[];
-    renderSuggestionItem?: (props: { suggestion: Suggestion; onClick: () => void; className: string }) => ReactNode;
+    renderSuggestionItem?: (props: RenderSuggestionItemProps) => ReactNode;
     onSuggestClick?: (suggestion: Suggestion) => void;
     // Skill related
     skills: Skill[];
@@ -65,7 +65,7 @@ export interface AIChatInputProps {
     templatesStyle?: React.CSSProperties;
     templatesCls?: string;
     onSkillChange?: (skill: Skill) => void;
-    renderSkillItem?: (props: { skill: Skill; onClick: () => void; className: string }) => ReactNode;
+    renderSkillItem?: (props: RenderSkillItemProps) => ReactNode;
     // Template related
     renderTemplate?: (skill: Skill, onTemplateClick: (content: string) => void) => ReactNode;
     onTemplateVisibleChange?: (visible: boolean) => void;
@@ -74,6 +74,20 @@ export interface AIChatInputProps {
     transformer?: Map<string, (obj: any) => any>;
     // Popover related
     popoverProps?: PopoverProps
+}
+
+export interface RenderSuggestionItemProps {
+    suggestion: Suggestion;
+    className: string;
+    onClick: () => void;
+    onMouseEnter: () => void
+}
+
+export interface RenderSkillItemProps {
+    skill: Skill;
+    className: string;
+    onClick: () => void;
+    onMouseEnter: () => void
 }
 
 export interface Skill extends BaseSkill {
@@ -99,7 +113,7 @@ export {
     Reference, 
     Suggestion, 
     Content, 
-    SetUp, 
+    Setup, 
     Attachment,
     LeftMenuChangeProps 
 };
