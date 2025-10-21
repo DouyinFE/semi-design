@@ -30,7 +30,7 @@ const suggestion = {
 
     command: ({ editor, range, props }: any) => {
         const { item } = props;
-        editor .chain().focus().insertContentAt(range, {
+        editor.chain().focus().insertContentAt(range, {
             type: 'referSlot',
             attrs: {
                 type: item.type,

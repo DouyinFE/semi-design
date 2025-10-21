@@ -65,9 +65,9 @@ render(<Basic />);
 
 当输入框中有内容（包括输入文本，上传内容，[引用内容](/zh-CN/plus/aiChatInput#%E5%BC%95%E7%94%A8)），将允许发送消息。点击消息发送按钮，会触发 `onMessageSend` 回调函数，参数为当前输入框的内容，包括输入区域的文本，引用内容，上传文件，配置区域内容。
 
-用户可在 `onMessageSend` 中根据判断是否设置 `isGenerating` 表示消息正在处理中，如果 `isGenerating` 为 `true`，则 AIChatInput 会在发送按钮位置显示停止生成按钮，并清空输入区的消息，以及上传文件，另外，引用内容需要用户自行处理。
+用户可在 `onMessageSend` 中根据判断是否设置 `generating` 表示消息正在处理中，如果 `generating` 为 `true`，则 AIChatInput 会在发送按钮位置显示停止生成按钮，并清空输入区的消息，以及上传文件，另外，引用内容需要用户自行清除。
 
-点击停止生成按钮，会触发 `onStopGenerate` 回调函数，用户可在该回调函数中处理停止生成的逻辑， 如将 `isGenerating` 设为 `false`。
+点击停止生成按钮，会触发 `onStopGenerate` 回调函数，用户可在该回调函数中处理停止生成的逻辑， 如将 `generating` 设为 `false`。
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -104,7 +104,7 @@ const reference = [
 
 function SendMessageAndStopGenerate() {
     const [references, setReferences] = useState(reference);
-    const [isGenerating, setIsGenerating] = useState(false);
+    const [generating, setGenerating] = useState(false);
     const onContentChange = useCallback((content) => {
         console.log('onContentChange', content);
     }, []);
@@ -114,7 +114,7 @@ function SendMessageAndStopGenerate() {
     }, []);
 
     const toggleGenerate = useCallback((props) => {
-        setIsGenerating(value => !value);
+        setGenerating(value => !value);
     }, []);
 
     const onMessageSend = useCallback((content) => {
@@ -133,7 +133,7 @@ function SendMessageAndStopGenerate() {
     return (
         <AIChatInput
             defaultContent={"点击发送按钮，观察上传内容、引用内容、输入框内容变化"}
-            isGenerating={isGenerating}
+            generating={generating}
             uploadProps={uploadProps}
             onContentChange={onContentChange}
             onUploadChange={onUploadChange}
@@ -153,8 +153,8 @@ render(<SendMessageAndStopGenerate />);
 
 AIChatInput 使用 [tiptap](https://tiptap.dev/docs/editor/getting-started/overview) 作为富文本输入框的编辑器，用户可以在输入框中输入文本，使用 AIChatInput 内置的 extensions（包括 `input-slot`，`select-slot`，`skill-slot`）。用户也可以自定义 extensions 来扩展编辑器的功能。
 
-- `input-slot` 支持用户其中输入文本，并支持 placeholder 占位符。
-- `select-slot` 支持用户在输入框中进行简单的选择，选项仅支持 string 类型。
+- `input-slot` 支持用户输入文本，并支持 placeholder 占位符。
+- `select-slot` 支持用户进行简单的选择，选项仅支持 string 类型。
 - `skill-slot` 是用于技能展示的块，方便用户理解当前输入框中的技能。
 
 可以通过 ref 方法 `setContent` 来设置输入框的内容，使用 `focusEditor` 方法可以将输入框的焦点设置到编辑器中。
@@ -198,7 +198,7 @@ function RichTextExample() {
         </div>
         <AIChatInput
             ref={ref}
-            defaultContent={`我是一个<input-slot placeholder="[职业]">程序员</input-slot>，帮我完成...`}
+            defaultContent={temp['input-slot']}
             placeholder={'输入内容或者上传内容'} 
             uploadProps={uploadProps}
             style={outerStyle} 
@@ -324,7 +324,7 @@ function ConfigureButton() {
     }, []);
 
     const renderLeftMenu = useCallback(() => (<>
-        <Configure.Select optionList={modelOptions} field="model" initValue="GPT 4o" />
+        <Configure.Select optionList={modelOptions} field="model" initValue="GPT-4o" />
         <Configure.Button icon={<IconBookOpenStroked />} field="onlineSearch">联网搜索</Configure.Button>
         <Configure.Mcp options={mcpOptions} onConfigureButtonClick={onConfigureButtonClick}/>
         <Configure.RadioButton options={radioButtonProps} field="thinkType" initValue="fast"/>
@@ -513,7 +513,7 @@ const radioButtonProps = [
 function Shape() {
     const [round, setRound] = useState(false);
     const renderLeftMenu = useCallback(() => <>
-        <Configure.Select optionList={modelOptions} field="model" initValue="GPT 4o" />
+        <Configure.Select optionList={modelOptions} field="model" initValue="GPT-4o" />
         <Configure.Button icon={<IconBookOpenStroked />} field="onlineSearch">联网搜索</Configure.Button>
         <Configure.Mcp options={mcpOptions} />
         <Configure.RadioButton options={radioButtonProps} initValue="fast"/>
@@ -543,7 +543,7 @@ render(<Shape />);
 
 ### 建议
 
-用户可通过 `suggestion` API 配置建议列表。功能类似于 AutoComplete 组件。用户可以根据输入的内容实现根据输入的内容动态展示建议列表。
+用户可通过 `suggestion` API 配置建议列表，功能类似于 AutoComplete 组件，用户可以根据输入的内容实现根据输入的内容动态展示建议列表。
 
 使用鼠标上下按键切换建议列表的选项。按下 `ESC` 或者点击非建议列表，输入框区域，建议列表将关闭。
 
@@ -565,7 +565,7 @@ function Suggestion() {
         if (content.length && content[0].text) {
             value = content[0].text;
         }
-        if (value === undefined) {
+        if (value === undefined || value.includes('/n')) {
             if (suggestion === undefined || suggestion.length === 0) {
                 return;
             } else {
@@ -1128,7 +1128,7 @@ const suggestion = {
     items: () => FirstLevel,
     command: ({ editor, range, props }) => {
         const { item } = props;
-        editor .chain().focus().insertContentAt(range, {
+        editor.chain().focus().insertContentAt(range, {
             type: 'referSlot',
             attrs: {
                 type: item.type,
@@ -1230,16 +1230,15 @@ class MentionList extends React.Component {
         this.renderItem = this.renderItem.bind(this);
     }
     upHandler() {
-        const { selectedIndex } = this.state;
-        const { items } = this.props;
+        const { selectedIndex, filterOptions } = this.state;
         this.setState({
-            selectedIndex: (selectedIndex + items.length - 1) % items.length,
+            selectedIndex: (selectedIndex + filterOptions.length - 1) % filterOptions.length,
         });
     };
     downHandler() {
-        const { selectedIndex, options } = this.state;
+        const { selectedIndex, filterOptions } = this.state;
         this.setState({
-            selectedIndex: (selectedIndex + 1) % options.length,
+            selectedIndex: (selectedIndex + 1) % filterOptions.length,
         });
     };
     enterHandler () {
@@ -1283,7 +1282,10 @@ class MentionList extends React.Component {
             } else {
                 filter = this.state.options ? this.state.options : [];
             }
-            this.setState({ filterOptions: filter });
+            this.setState({ 
+                filterOptions: filter, 
+                selectedIndex: 0
+            });
         }
     }
     componentDidMount() {
@@ -1536,9 +1538,9 @@ render(<CustomRichTextExtension />);
 | defaultContent | 输入框默认内容，支持 html string 以及 json 格式，同 Tiptap 的 Content | TiptapContent | - |
 | dropdownMatchTriggerWidth | 下拉弹出层是否是否与输入框宽度一致 | boolean | true |
 | extensions | 自定义扩展，类型同 tiptap 的 Extension 类型相同 | Extension[] | - |
-| isGenerating | 是否正在生成中 | boolean | false |
-| onContentChange | 输入框内容变化时候的回调 | (content: { type: string; [key: string]: any }) => void | - |
-| onMessageSend | 发送消息回调 | (content: { references?: Reference[]; attachments?: Attachment[]; inputContents?: Content[]; setup?: SetUp }) => void | - |
+| generating | 是否正在生成中 | boolean | false |
+| onContentChange | 输入框内容变化时候的回调 | (content: <ApiType detail='{ type: string; [key: string]: any }'>OnContentChangeProps</ApiType>) => void | - |
+| onMessageSend | 发送消息回调 | (content: <ApiType detail='{references?: Reference[]; attachments?: Attachment[]; inputContents?: Content[]; setup?: Setup}'>OnMessageSendProps</ApiType>) => void | - |
 | onReferenceClick | 引用点击回调 | (reference: Reference) => void | - |
 | onReferenceDelete | 引用删除回调 | (reference: Reference) => void | - |
 | onSkillChange | 技能切换回调 | (skill: Skill) => void | - |
@@ -1551,13 +1553,15 @@ render(<CustomRichTextExtension />);
 | references | 输入框引用列表 | Reference[] | - |
 | renderActionArea | 自定义底部的操作区域 | () => React.ReactNode | - |
 | renderConfigureArea | 自定义底部的配置区域 | () => React.ReactNode | - |
-| renderSkillItem | 自定义技能列表的 item 渲染 | (props: { skill: Skill; onClick: () => void; className: string }) => React.ReactNode | - |
-| renderSuggestionItem | 自定义建议列表的 item 渲染 | (props: { suggestion: Suggestion; onClick: () => void; className: string }) => React.ReactNode | - |
+| renderReference | 自定义渲染引用 | (reference: Reference) => ReactNode | - |
+| renderSkillItem | 自定义技能列表的 item 渲染 | (props: <ApiType detail='{skill: Skill; onClick: () => void; className: string, onMouseEnter: () => void}'>RenderSkillItemProps</ApiType>) => React.ReactNode | - |
+| renderSuggestionItem | 自定义建议列表的 item 渲染 | (props: <ApiType detail='{ suggestion: Suggestion; onClick: () => void; className: string, onMouseEnter: () => void}'>RenderSkillItemProps</ApiType>) => React.ReactNode | - |
 | renderTemplate | 自定义模板渲染 | (skill: Skill, onTemplateClick: (content: string) => void) => React.ReactNode | - |
 | renderTopSlot | 自定义顶部 slot | () => React.ReactNode | - |
 | round | 底部的配置区域和操作区域是否形状是否为全圆角 | boolean | true |
-| onBlur | 输入框失焦的回调 | boolean | - | 
-| onFocus | 输入框聚焦的回调 | boolean | - | 
+| onBlur | 富文本输入框失焦的回调 | (event: React.FocusEvent) => void | - |
+| onConfigureChange | 配置区域发生变化的回调 | (value: LeftMenuChangeProps, changedValue: LeftMenuChangeProps) => void | - |
+| onFocus | 富文本输入框聚焦的回调 | (event: React.FocusEvent) => void | - |
 | showReference | 是否展示引用区域，用于配合 renderTopSlot 使用 | boolean | true |
 | showTemplateButton | 是否展示模板按钮，未设置时，将根据当前选中技能中的 hasTemplate 决定是否展示模版按钮 | boolean | false |
 | showUploadFile | 是否展示上传文件区域，用于配合 renderTopSlot 使用 | boolean | true |
@@ -1565,7 +1569,10 @@ render(<CustomRichTextExtension />);
 | skills | 技能列表 | Skill[] | - |
 | style | 自定义样式 | React.CSSProperties | - |
 | suggestions | 建议列表 | Suggestion[] | - |
-| topSlotPosition | 顶部 slot 位置，相对于引用内容，上传内容 | 'top' \| 'bottom' \| 'middle' |
+| templatesCls| 模版的样式类名称| string | - |
+| templatesStyle| 模版的样式| React.CSSProperties | - |
+| topSlotPosition | 顶部 slot 位置，相对于引用内容，上传内容 | 'top' \| 'bottom' \| 'middle' | - |
+| transformer | 自定义扩展的转换规则 | Map<string, (obj: any) => any> | |
 | uploadProps | 上传文件相关配置 | UploadProps | - |
 | uploadTipProps | 上传文件相关提示配置 | UploadTipProps | - |
 
@@ -1573,11 +1580,14 @@ render(<CustomRichTextExtension />);
 
 | 属性 | 说明 | 类型 | 默认值 |
 |------|----|------|-------|
-| setContent | 设置输入框内容 | (content: TiptapContent) => void | - |
-| focusEditor | 聚焦输入框，默认聚焦到输入框的末尾 | (pos?: string) => void | - |
-| getEditor | 获取当前的 tiptap 的 editor 实例 | () => Editor | - |
 | changeTemplateVisible | 切换模板弹出层的可见性 | (visible: boolean) => void | - |
 | deleteContent | 删除富文本中的某一项, 删除逻辑依赖的是 content 中的 uniqueKey | (content: Content) => void | - |
+| deleteUploadFile | 删除上传文件中的某一项 | (item: Attachment) => void | - |
+| focusEditor | 聚焦输入框，默认聚焦到输入框的末尾 | (pos?: string) => void | - |
+| getEditor | 获取当前的 tiptap 的 editor 实例 | () => Editor | - |
+| setContent | 设置输入框内容 | (content: TiptapContent) => void | - |
+| setContentWhileSaveTool | 保留技能项的同时设置输入框内容 | (content: TiptapContent) => void | - |
+
 
 
 ## 设计变量

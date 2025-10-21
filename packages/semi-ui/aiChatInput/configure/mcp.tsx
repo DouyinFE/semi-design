@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { MouseEvent, useCallback } from 'react';
 import { Dropdown, Button } from '../../index';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/aiChatInput/constants';
 import { Locale } from '../../locale/interface';
 import LocaleConsumer from '../../locale/localeConsumer';
+import { DropdownProps } from '../../dropdown';
 
-// Todo: Mcp list 部分的显示，未来可能需要考虑是否支持自定义，因为可能存在分组，或者嵌套 dropdown 的形式
-// Todo: The display of the Mcp list part may need to be considered in the future to support customization, 
+interface McpOption {
+    value: string;
+    label: string;
+    icon?: React.ReactNode;
+    [key: string]: any
+}
+
+interface McpProps extends DropdownProps {
+    options: McpOption[];
+    num?: number;
+    onConfigureButtonClick: () => void
+}
+
 // because there may be grouping or nested dropdown forms.
-const Mcp = (props: any) => {
+const Mcp = React.memo((props: McpProps) => {
     const { className, style, options = [], num = 0, children, onConfigureButtonClick, ...rest } = props;
+
+    const onClick = useCallback((e: MouseEvent) => {
+        // Prevent accidental closing of dropdown when clicking Button
+        e.stopPropagation();
+    }, []);
 
     return (<Dropdown
         style={style}
@@ -24,12 +41,12 @@ const Mcp = (props: any) => {
                     <span className={`${cssClasses.PREFIX}-footer-configure-mcp-header-title`} >
                         {locale.selected.replace('${count}', String(options.length ?? num))}
                     </span>
-                    <button 
+                    <Button 
                         className={`${cssClasses.PREFIX}-footer-configure-mcp-header-config`}
                         onClick={onConfigureButtonClick}
                     >
                         {locale.configure}
-                    </button>
+                    </Button>
                 </div>
                 {children ? children : <>
                     <Dropdown.Menu>
@@ -45,10 +62,11 @@ const Mcp = (props: any) => {
             theme='outline'
             type='tertiary'
             className={`${cssClasses.PREFIX}-footer-configure-mcp-trigger`}
+            onClick={onClick}
         >
             MCP · {options.length ?? num}
         </Button>
     </Dropdown>);
-};
+});
 
 export default Mcp;

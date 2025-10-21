@@ -39,7 +39,7 @@ export interface LeftMenuChangeProps {
     [key: string]: any
 }
 
-export interface SetUp {
+export interface Setup {
     [key: string]: any
 }
 
@@ -47,7 +47,7 @@ export interface MessageContent {
     references?: Reference[];
     attachments?: Attachment[];
     inputContents?: Content[];
-    setup?: SetUp
+    setup?: Setup
 }
 
 

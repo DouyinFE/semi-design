@@ -1,33 +1,29 @@
 @import './variables.scss';
 
-$module: #{$prefix}-ai-chat-input;
+$module: #{$prefix}-aiChatInput;
 
 .#{$module} {
     display: flex;
     flex-direction: column;
-    padding: $spacing-ai-chat-input-padding;
-    border-radius: $radius-ai-chat-input;
-    border: $width-ai-chat-input-border solid $color-ai-chat-input-border;  
+    padding: $spacing-aiChatInput-padding;
+    border-radius: $radius-aiChatInput;
+    border: $width-aiChatInput-border solid $color-aiChatInput-border;  
     box-sizing: border-box;  
 
     &-skill {
-        padding: $spacing-ai-chat-input_skill-paddingY $spacing-ai-chat-input_skill-paddingX;
-        border-radius: $radius-ai-chat-input_skill;
+        padding: $spacing-aiChatInput_skill-paddingY $spacing-aiChatInput_skill-paddingX;
+        border-radius: $radius-aiChatInput_skill;
         overflow: scroll;
 
         &-item {
             display: flex;
             align-items: center;
-            column-gap: $spacing-ai-chat-input_skill_item-columnGap;
-            padding: $spacing-ai-chat-input_skill_item-paddingY $spacing-ai-chat-input_skill_item-paddingX;
+            column-gap: $spacing-aiChatInput_skill_item-columnGap;
+            padding: $spacing-aiChatInput_skill_item-paddingY $spacing-aiChatInput_skill_item-paddingX;
             cursor: pointer;
 
-            &:hover {
-                background-color: $color-ai-chat-input_skill_item-bg-hover;
-            }
-
             &-active {
-                background-color: $color-ai-chat-input_skill_item-bg-active;
+                background-color: $color-aiChatInput_skill_item-bg-active;
             }
         }
     }
@@ -42,25 +38,21 @@ $module: #{$prefix}-ai-chat-input;
         overflow: scroll;
 
         &-item {
-            padding: $spacing-ai-chat-input_suggestion_item-paddingY $spacing-ai-chat-input_suggestion_item-paddingX;
-            color: $color-ai-chat-input_suggestion_item-text;
+            padding: $spacing-aiChatInput_suggestion_item-paddingY $spacing-aiChatInput_suggestion_item-paddingX;
+            color: $color-aiChatInput_suggestion_item-text;
             @include font-size-regular;
 
-            &:hover {
-                background-color: $color-ai-chat-input_suggestion_item-bg-hover;
-            }
-
             &-active {
-                background-color: $color-ai-chat-input_suggestion_item-bg-active;
+                background-color: $color-aiChatInput_suggestion_item-bg-active;
             }
         }
     }
 
     &-reference-icon {
-        width: $width-ai-chat-input_reference_icon;
-        height: $width-ai-chat-input_reference_icon;
-        border-radius:$radius-ai-chat-input_reference_icon;
-        margin-right: $spacing-ai-chat-input_reference_icon-marginRight;
+        width: $width-aiChatInput_reference_icon;
+        height: $width-aiChatInput_reference_icon;
+        border-radius:$radius-aiChatInput_reference_icon;
+        margin-right: $spacing-aiChatInput_reference_icon-marginRight;
 
     }
 
@@ -72,42 +64,42 @@ $module: #{$prefix}-ai-chat-input;
         flex-shrink: 0;
 
         &-word {
-            background-color: $color-ai-chat-input_ref_icon_word-bg;
+            background-color: $color-aiChatInput_ref_icon_word-bg;
         }
 
         &-pdf {
-            background-color: $color-ai-chat-input_ref_icon_word-pdf;
+            background-color: $color-aiChatInput_ref_icon_word-pdf;
         }
 
         &-code {
-            background-color: $color-ai-chat-input_ref_icon_word-code;
+            background-color: $color-aiChatInput_ref_icon_word-code;
         }
 
         &-excel {
-            background-color: $color-ai-chat-input_ref_icon_word-excel;
+            background-color: $color-aiChatInput_ref_icon_word-excel;
         }
 
         &-video {
-            background-color: $color-ai-chat-input_ref_icon_word-video;
+            background-color: $color-aiChatInput_ref_icon_word-video;
         }
 
         &-audio {
-            background-color: $color-ai-chat-input_ref_icon_word-audio;
+            background-color: $color-aiChatInput_ref_icon_word-audio;
         }
 
         &-unknown {
-            background-color: $color-ai-chat-input_ref_icon_word-unknown;
+            background-color: $color-aiChatInput_ref_icon_word-unknown;
         }
     }
 
     &-references {
         display: flex;
         flex-wrap: wrap;
-        margin-bottom: $spacing-ai-chat-input_references-marginBottom;
+        margin-bottom: $spacing-aiChatInput_references-marginBottom;
         @include font-size-small;
-        color: $color-ai-chat-input_references-text;
-        column-gap: $spacing-ai-chat-input_references-columnGap;
-        row-gap: $spacing-ai-chat-input_references-rowGap;
+        color: $color-aiChatInput_references-text;
+        column-gap: $spacing-aiChatInput_references-columnGap;
+        row-gap: $spacing-aiChatInput_references-rowGap;
 
         // 1. 如果只有一个子节点
         // `:only-child` 伪类会选中所有只有一个子节点的元素
@@ -116,8 +108,8 @@ $module: #{$prefix}-ai-chat-input;
         }
 
         > .#{$module}-reference:nth-last-child(2):first-child, > .#{$module}-reference:nth-child(2):nth-last-child(1) {
-            flex-basis: calc(50% - $spacing-ai-chat-input_references-columnGap);
-            max-width: calc(50% - $spacing-ai-chat-input_references-columnGap);
+            flex-basis: calc(50% - $spacing-aiChatInput_references-columnGap);
+            max-width: calc(50% - $spacing-aiChatInput_references-columnGap);
         }
 
 
@@ -125,19 +117,19 @@ $module: #{$prefix}-ai-chat-input;
         // `nth-last-child(n+3)` 选中倒数第三个及以上的子元素
         > .#{$module}-reference:nth-last-child(n+3):nth-child(1),
         > .#{$module}-reference:nth-last-child(n+3):nth-child(1) ~ .#{$module}-reference {
-            width: calc(33.333% - $spacing-ai-chat-input_references-columnGap); // 减去间距
+            width: calc(33.333% - $spacing-aiChatInput_references-columnGap); // 减去间距
         }
     }
 
     &-reference {
-        padding: $spacing-ai-chat-input_reference-paddingY $spacing-ai-chat-input_reference-paddingX;
+        padding: $spacing-aiChatInput_reference-paddingY $spacing-aiChatInput_reference-paddingX;
         box-sizing: border-box;
-        border-radius: $radius-ai-chat-input_reference;
-        background: $color-ai-chat-input_reference-bg;
+        border-radius: $radius-aiChatInput_reference;
+        background: $color-aiChatInput_reference-bg;
         flex-shrink: 1;
         display: flex;
         align-items: center;
-        column-gap: $spacing-ai-chat-input_reference-columnGap;
+        column-gap: $spacing-aiChatInput_reference-columnGap;
         
         &-content {
             display: flex;
@@ -149,9 +141,9 @@ $module: #{$prefix}-ai-chat-input;
         }
 
         &-img {
-            width: $width-ai-chat-input_reference_icon;
-            height: $width-ai-chat-input_reference_icon;
-            margin-right: $spacing-ai-chat-input_reference_icon-marginRight;
+            width: $width-aiChatInput_reference_icon;
+            height: $width-aiChatInput_reference_icon;
+            margin-right: $spacing-aiChatInput_reference_icon-marginRight;
         }
 
         &-name {
@@ -163,11 +155,11 @@ $module: #{$prefix}-ai-chat-input;
 
         &-delete {
             cursor: pointer;
-            padding: $spacing-ai-chat-input_references_delete-padding;
+            padding: $spacing-aiChatInput_references_delete-padding;
             border-radius: 50%;
 
             &:hover {
-                background: $color-ai-chat-input_reference_delete-bg;
+                background: $color-aiChatInput_reference_delete-bg;
             }
         }
 
@@ -176,7 +168,7 @@ $module: #{$prefix}-ai-chat-input;
     &-footer {
         display: flex;
         justify-content: space-between;
-        margin-top: $spacing-ai-chat-input_footer-marginTop;
+        margin-top: $spacing-aiChatInput_footer-marginTop;
         align-items: center;
 
         user-select: none;
@@ -187,14 +179,14 @@ $module: #{$prefix}-ai-chat-input;
             .#{$module}-footer-configure-radio-button, .#{$module}-footer-configure-mcp-trigger,
             .#{$module}-footer-action-button, .#{$module}-footer-action-upload,
             .#{$prefix}-radio-addon-buttonRadio {
-                border-radius: $radius-ai-chat-input_footer_round;
+                border-radius: $radius-aiChatInput_footer_round;
             }
         }
 
         &-action {
             display: flex;
             align-items: center;
-            column-gap: $spacing-ai-chat-input_footer_action-columnGap;
+            column-gap: $spacing-aiChatInput_footer_action-columnGap;
 
             button {
                 // remove button element default style
@@ -206,58 +198,58 @@ $module: #{$prefix}-ai-chat-input;
             }
 
             &-button {
-                width: $width-ai-chat-input_footer_action_button;
-                height: $height-ai-chat-input_footer_action_button;
+                width: $width-aiChatInput_footer_action_button;
+                height: $height-aiChatInput_footer_action_button;
                 cursor: pointer;
-                border-radius: $radius-ai-chat-input_footer_action_button;
+                border-radius: $radius-aiChatInput_footer_action_button;
             }
 
             &-send {
-                background-color: $color-ai-chat-input_footer_send-bg;
-                color: $color-ai-chat-input_footer_send-text;
+                background-color: $color-aiChatInput_footer_send-bg-default;
+                color: $color-aiChatInput_footer_send-text;
 
 
                 &:hover:not(.#{$module}-footer-action-send-disabled) {
-                    background-color: $color-ai-chat-input_footer_send-bg-hover;
+                    background-color: $color-aiChatInput_footer_send-bg-hover;
                 }
 
                 &:active:not(.#{$module}-footer-action-send-disabled) {
-                    background-color: $color-ai-chat-input_footer_send-bg-active;
+                    background-color: $color-aiChatInput_footer_send-bg-active;
                 }
 
                 &-disabled {
-                    background-color: $color-ai-chat-input_footer_send-bg-disabled;
+                    background-color: $color-aiChatInput_footer_send-bg-disabled;
                 }
             }
 
             &-stop {
-                background-color: $color-ai-chat-input_footer_send-bg;
-                color: $color-ai-chat-input_footer_send-text;
+                background-color: $color-aiChatInput_footer_send-bg-default;
+                color: $color-aiChatInput_footer_send-text;
 
 
                 &:hover:not(.#{$module}-footer-action-send-disabled) {
-                    background-color: $color-ai-chat-input_footer_send-bg-hover;
+                    background-color: $color-aiChatInput_footer_send-bg-hover;
                 }
 
                 &:active:not(.#{$module}-footer-action-send-disabled) {
-                    background-color: $color-ai-chat-input_footer_send-bg-active;
+                    background-color: $color-aiChatInput_footer_send-bg-active;
                 }
 
                 &-disabled {
-                    background-color: $color-ai-chat-input_footer_send-bg-disabled;
+                    background-color: $color-aiChatInput_footer_send-bg-disabled;
                 }
             }
 
             &-upload {
-                background: $color-ai-chat-input_footer_upload-bg;
-                color: $color-ai-chat-input_footer_upload-text;
+                background: $color-aiChatInput_footer_upload-bg-default;
+                color: $color-aiChatInput_footer_upload-text;
 
                 &:hover {
-                    background-color: $color-ai-chat-input_footer_upload-bg-hover;
+                    background-color: $color-aiChatInput_footer_upload-bg-hover;
                 }
 
                 &:active {
-                    background-color: $color-ai-chat-input_footer_upload-bg-active;
+                    background-color: $color-aiChatInput_footer_upload-bg-active;
                 }
 
 
@@ -269,33 +261,33 @@ $module: #{$prefix}-ai-chat-input;
         &-configure {
             display: flex;
             flex-direction: row;
-            column-gap: $spacing-ai-chat-input_footer_configure-columnGap;
+            column-gap: $spacing-aiChatInput_footer_configure-columnGap;
 
             &-button {
-                border: $width-ai-chat-input_footer_configure_button-border solid $color-ai-chat-input_footer_configure_button-border-active;
+                border: $width-aiChatInput_footer_configure_button-border solid $color-aiChatInput_footer_configure_button-border-active;
 
                 &-active.#{$prefix}-button-tertiary.#{$prefix}-button-outline {
-                    border: $width-ai-chat-input_footer_configure_button-border solid $color-ai-chat-input_footer_configure_button-border-active;
-                    color: $color-ai-chat-input_footer_configure_button-text;
+                    border: $width-aiChatInput_footer_configure_button-border solid $color-aiChatInput_footer_configure_button-border-active;
+                    color: $color-aiChatInput_footer_configure_button-text;
                     background-color: var(--semi-color-primary-light-default);
                 }
             }
 
             &-select {
-                border: $width-ai-chat-input_footer_configure_select-border solid $color-ai-chat-input_footer_configure_select-border;
+                border: $width-aiChatInput_footer_configure_select-border solid $color-aiChatInput_footer_configure_select-border;
                 background: transparent;
 
                 &.#{$prefix}-select-focus, .#{$prefix}-select-selection-text {
-                    font-weight: $font-ai-chat-input_footer_configure_select-fontWeight;
-                    color: $color-ai-chat-input_footer_configure_select-text;
+                    font-weight: $font-aiChatInput_footer_configure_select-fontWeight;
+                    color: $color-aiChatInput_footer_configure_select-text;
                 }
 
                 &.#{$prefix}-select:hover {
-                    border-color: $color-ai-chat-input_footer_configure_select-border;
+                    border-color: $color-aiChatInput_footer_configure_select-border;
                 }
 
                 &.#{$prefix}-select:focus {
-                   border: $width-ai-chat-input_footer_configure_select-border solid $color-ai-chat-input_footer_configure_select-border;
+                   border: $width-aiChatInput_footer_configure_select-border solid $color-aiChatInput_footer_configure_select-border;
                    background: transparent;
                 }  
             }
@@ -303,38 +295,38 @@ $module: #{$prefix}-ai-chat-input;
             &-radio-button {
 
                 .#{$prefix}-radio-addon-buttonRadio {
-                    height: $height-ai-chat-input_footer_configure_radio_button;
-                    padding: $spacing-ai-chat-input_footer_configure_radio_button-padding;
-                    font-size: $font-ai-chat-input_footer_configure_radio_button-fontSize;
+                    height: $height-aiChatInput_footer_configure_radio_button;
+                    padding: $spacing-aiChatInput_footer_configure_radio_button-padding;
+                    font-size: $font-aiChatInput_footer_configure_radio_button-fontSize;
 
                     &-checked {
-                        color: $color-ai-chat-input_footer_configure_radio_button-checked;
-                        background: $color-ai-chat-input_footer_configure_radio_button_checked-bg;
+                        color: $color-aiChatInput_footer_configure_radio_button-checked;
+                        background: $color-aiChatInput_footer_configure_radio_button_checked-bg;
                     }
                 }
             }
 
             &-mcp {
                 &-header {
-                    padding: $spacing-ai-chat-input_footer_configure_mcp_header-paddingTop $spacing-ai-chat-input_footer_configure_mcp_header-paddingX $spacing-ai-chat-input_footer_configure_mcp_header-paddingBottom;
+                    padding: $spacing-aiChatInput_footer_configure_mcp_header-paddingTop $spacing-aiChatInput_footer_configure_mcp_header-paddingX $spacing-aiChatInput_footer_configure_mcp_header-paddingBottom;
                     @include font-size-small;
-                    height: $height-ai-chat-input_footer_configure_mcp_header;
+                    height: $height-aiChatInput_footer_configure_mcp_header;
                     align-items: center;
                     display: flex;
                     justify-content: space-between;
-                    column-gap: $spacing-ai-chat-input_footer_configure_mcp_columnGap;
+                    column-gap: $spacing-aiChatInput_footer_configure_mcp_columnGap;
 
                     &-title {
-                        color: $color-ai-chat-input_footer-configure_mcp_header_title-text;
+                        color: $color-aiChatInput_footer-configure_mcp_header_title-text;
                     }
 
                     &-config {
-                        font-weight: $font-ai-chat-input_footer_configure_mcp_header-fontWeight;
-                        padding: 0px;
-                        border: 0px;
-                        background: $color-ai-chat-input_footer-configure_mcp_header_config-bg;
-                        color: $color-ai-chat-input_footer-configure_mcp_header_config-text;
-                        cursor: pointer;
+                        &.#{$prefix}-button {
+                            padding: 0px;
+                            border: 0px;
+                            height: fit-content;
+                            @include font-size-small;
+                        }
                     }
                 }
 
@@ -346,12 +338,12 @@ $module: #{$prefix}-ai-chat-input;
         position: relative;
         display: flex;
         align-items: center;
-        column-gap: $spacing-ai-chat-input_attachment-columnGap;
-        border-radius: $radius-ai-chat-input_attachment;
-        background: $color-ai-chat-input_attachment-bg;
-        padding: $spacing-ai-chat-input_attachment-padding;
-        width: $width-ai-chat-input_attachment;
-        height: $height-ai-chat-input_attachment;
+        column-gap: $spacing-aiChatInput_attachment-columnGap;
+        border-radius: $radius-aiChatInput_attachment;
+        background: $color-aiChatInput_attachment-bg;
+        padding: $spacing-aiChatInput_attachment-padding;
+        width: $width-aiChatInput_attachment;
+        height: $height-aiChatInput_attachment;
         overflow: hidden;
         letter-spacing: 0;
         flex-shrink: 0;
@@ -362,8 +354,8 @@ $module: #{$prefix}-ai-chat-input;
             align-items: center;
             justify-content: center;
             border-radius: 3px;
-            width: $height-ai-chat-input_attachment_left;
-            height: $height-ai-chat-input_attachment_left;
+            width: $height-aiChatInput_attachment_left;
+            height: $height-aiChatInput_attachment_left;
         }
 
         &-img {
@@ -375,25 +367,25 @@ $module: #{$prefix}-ai-chat-input;
             flex-direction: column;
             flex-shrink: 0;
             align-items: flex-start;
-            width: $width-ai-chat-input_attachment-content;
+            width: $width-aiChatInput_attachment-content;
 
             &-name {
                 flex-shrink: 0;
-                width: $width-ai-chat-input_attachment-content;
-                height: $height-ai-chat-input_attachment-content;
+                width: $width-aiChatInput_attachment-content;
+                height: $height-aiChatInput_attachment-content;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
-                color: $color-ai-chat-input_attachment_name-text;
+                color: $color-aiChatInput_attachment_name-text;
                 @include font-size-small;
-                font-weight: $font-ai-chat-input_attachment_content_name-fontWeight;
+                font-weight: $font-aiChatInput_attachment_content_name-fontWeight;
             }
 
             &-size {
                 display: flex;
                 flex-shrink: 0;
                 align-items: flex-start;
-                column-gap: $spacing-ai-chat-input_attachment_content_size-columnGap;
+                column-gap: $spacing-aiChatInput_attachment_content_size-columnGap;
                 color: var(--semi-color-text-2);
                 @include font-size-small;
                 text-transform: uppercase;
@@ -409,12 +401,12 @@ $module: #{$prefix}-ai-chat-input;
             position: absolute;
             top: 0px;
             right: 0px;
-            background: $color-ai-chat-input_attachment_delete-bg;
-            color: $color-ai-chat-input_attachment_delete-icon;
+            background: $color-aiChatInput_attachment_delete-bg;
+            color: $color-aiChatInput_attachment_delete-icon;
             border-radius: 50%;
-            width: $width-ai-chat-input_attachment_delete;
-            height: $width-ai-chat-input_attachment_delete;
-            font-size: $font-ai-chat-input_attachment_content_delete-fontSize;
+            width: $width-aiChatInput_attachment_delete;
+            height: $width-aiChatInput_attachment_delete;
+            font-size: $font-aiChatInput_attachment_content_delete-fontSize;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -433,7 +425,7 @@ $module: #{$prefix}-ai-chat-input;
         width: 100%;
         display: flex;
         align-items: center;
-        margin-bottom: $spacing-ai-chat-input_attachment_scroll_wrapper-marginBottom;
+        margin-bottom: $spacing-aiChatInput_attachment_scroll_wrapper-marginBottom;
     }
 
     &-scroll-container {
@@ -443,7 +435,7 @@ $module: #{$prefix}-ai-chat-input;
         /* Hide scrollbar */
         scrollbar-width: none; /* Firefox */
         -ms-overflow-style: none; /* IE and Edge */
-        column-gap: $spacing-ai-chat-input_attachment_scroll_container;
+        column-gap: $spacing-aiChatInput_attachment_scroll_container;
 
         /* hidden Webkit (Chrome, Safari) scrollbar */
         &::-webkit-scrollbar {
@@ -457,12 +449,12 @@ $module: #{$prefix}-ai-chat-input;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        z-index: $z-ai-chat-input_attachment_scroll_button;
-        width: $width-ai-chat-input_attachment_scroll_button;
-        height: $width-ai-chat-input_attachment_scroll_button;
+        z-index: $z-aiChatInput_attachment_scroll_button;
+        width: $width-aiChatInput_attachment_scroll_button;
+        height: $width-aiChatInput_attachment_scroll_button;
         border-radius: 50%;
-        background: $color-ai-chat-input_attachment_scroll_button-bg;
-        box-shadow: $shadow-ai-chat-input_attachment_scroll_button;
+        background: $color-aiChatInput_attachment_scroll_button-bg;
+        box-shadow: $shadow-aiChatInput_attachment_scroll_button;
 
         cursor: pointer;
         display: flex;
@@ -471,8 +463,8 @@ $module: #{$prefix}-ai-chat-input;
         transition: background-color 0.2s, box-shadow 0.2s;
 
         .#{$prefix}-icon {
-            font-size: $width-ai-chat-input_attachment_scroll_button_icon;
-            color: $color-ai-chat-input_attachment_scroll_button;
+            font-size: $width-aiChatInput_attachment_scroll_button_icon;
+            color: $color-aiChatInput_attachment_scroll_button;
         }
     }
 
@@ -485,11 +477,11 @@ $module: #{$prefix}-ai-chat-input;
     }
 
     &-scroll-button.#{$module}-scroll-button-left {
-        left: $spacing-ai-chat-input_attachment_scroll_button-x;
+        left: $spacing-aiChatInput_attachment_scroll_button_offsetX;
     }
 
     &-scroll-button.#{$module}-scroll-button-right {
-        right: $spacing-ai-chat-input_attachment_scroll_button-x;
+        right: $spacing-aiChatInput_attachment_scroll_button_offsetX;
     }
 
     // Rich Text editor style
@@ -497,13 +489,13 @@ $module: #{$prefix}-ai-chat-input;
     &-editor-content {
         flex: 1 1 0%; 
         min-height: 0; 
-        margin-top: -(calc($width-ai-chat-input_rich_text-select_slot_delete / 2) - $spacing-ai-chat-input_rich_text-skill_slot-marginY);
-        padding-top: calc($width-ai-chat-input_rich_text-select_slot_delete / 2) - $spacing-ai-chat-input_rich_text-skill_slot-marginY;
+        margin-top: -(calc($width-aiChatInput_rich_text-select_slot_delete / 2) - $spacing-aiChatInput_rich_text-skill_slot-marginY);
+        padding-top: calc($width-aiChatInput_rich_text-select_slot_delete / 2) - $spacing-aiChatInput_rich_text-skill_slot-marginY;
         overflow: auto;
         
         .tiptap {
-            font-size: $font-ai-chat-input_rich_text-fontSize;
-            line-height: $font-ai-chat-input_rich_text-lineHeight;
+            font-size: $font-aiChatInput_rich_text-fontSize;
+            line-height: $font-aiChatInput_rich_text-lineHeight;
     
             p.is-editor-empty:first-child::before {
                 color: var(--semi-color-text-2);
@@ -524,33 +516,33 @@ $module: #{$prefix}-ai-chat-input;
     
             .node-inputSlot {
                 display: inline-block;
-                font-size: $font-ai-chat-input_rich_text-input_slot-fontSize;
-                line-height: $font-ai-chat-input_rich_text-input_slot-lineHeight;
+                font-size: $font-aiChatInput_rich_text-input_slot-fontSize;
+                line-height: $font-aiChatInput_rich_text-input_slot-lineHeight;
             }
     
             .input-slot {
                 display: inline-block;
-                background-color: $color-ai-chat-input_rich_text-input_slot-bg;
-                border-radius: $radius-ai-chat-input_rich_text-input_slot;
-                padding: $spacing-ai-chat-input_rich_text-input_slot-paddingY $spacing-ai-chat-input_rich_text-input_slot-paddingX;
+                background-color: $color-aiChatInput_rich_text-input_slot-bg;
+                border-radius: $radius-aiChatInput_rich_text-input_slot;
+                padding: $spacing-aiChatInput_rich_text-input_slot-paddingY $spacing-aiChatInput_rich_text-input_slot-paddingX;
                 position: relative;
-                margin: $spacing-ai-chat-input_rich_text-input_slot-marginY $spacing-ai-chat-input_rich_text-input_slot-marginX;
-                font-weight: $font-ai-chat-input_rich_text-input_slot-fontWeight;
-                min-width: $width-ai-chat-input_rich_text-input_slot;
+                margin: $spacing-aiChatInput_rich_text-input_slot-marginY $spacing-aiChatInput_rich_text-input_slot-marginX;
+                font-weight: $font-aiChatInput_rich_text-input_slot-fontWeight;
+                min-width: $width-aiChatInput_rich_text-input_slot;
                
                 .content {
-                    color: $color-ai-chat-input_rich_text-input_slot-text;  
+                    color: $color-aiChatInput_rich_text-input_slot-text;  
                 }
     
                 .input-slot-placeholder {
                     user-select: none;
                     position: absolute;
-                    top: $spacing-ai-chat-input_rich_text-input_slot-paddingY;
-                    left: $spacing-ai-chat-input_rich_text-input_slot-paddingX;
+                    top: $spacing-aiChatInput_rich_text-input_slot-paddingY;
+                    left: $spacing-aiChatInput_rich_text-input_slot-paddingX;
                     pointer-events: none;
                     white-space: pre;
-                    z-index: $z-ai-chat-input_rich_text-input_slot_placeholder;
-                    color: $color-ai-chat-input_rich_text-input_slot_placeholder;
+                    z-index: $z-aiChatInput_rich_text-input_slot_placeholder;
+                    color: $color-aiChatInput_rich_text-input_slot_placeholder;
                     // font-weight: 600;
                 }
             }
@@ -561,10 +553,10 @@ $module: #{$prefix}-ai-chat-input;
     
             .select-slot {
                @include font-size-regular;
-                height: $height-ai-chat-input_rich_text-select-slot;
-                padding: $spacing-ai-chat-input_rich_text-select_slot-paddingY $spacing-ai-chat-input_rich_text-select_slot-paddingX;
-                border-radius: $radius-ai-chat-input_rich_text-select_slot;
-                background-color: $color-ai-chat-input_rich_text-select_slot-bg;
+                height: $height-aiChatInput_rich_text-select-slot;
+                padding: $spacing-aiChatInput_rich_text-select_slot-paddingY $spacing-aiChatInput_rich_text-select_slot-paddingX;
+                border-radius: $radius-aiChatInput_rich_text-select_slot;
+                background-color: $color-aiChatInput_rich_text-select_slot-bg;
     
                 &:first-child {
                     margin-left: 0px;
@@ -572,19 +564,19 @@ $module: #{$prefix}-ai-chat-input;
     
                 &-wrapper {
                     display: inline-flex;
-                    margin: $spacing-ai-chat-input_rich_text-select_slot-marginY $spacing-ai-chat-input_rich_text-select_slot-marginX;
+                    margin: $spacing-aiChatInput_rich_text-select_slot-marginY $spacing-aiChatInput_rich_text-select_slot-marginX;
                 }
                 
                 .#{$prefix}-select-selection {
-                    color: $color-ai-chat-input_rich_text-select_selection-text;
+                    color: $color-aiChatInput_rich_text-select_selection-text;
                     font-weight: bold;
-                    margin-left: $spacing-ai-chat-input_rich_text-select_selection-marginLeft;
+                    margin-left: $spacing-aiChatInput_rich_text-select_selection-marginLeft;
     
                 }
     
                 .#{$prefix}-select-arrow {
-                    color: $color-ai-chat-input_rich_text-select_slot_arrow;
-                    width: $width-ai-chat-input_rich_text-select_slot_arrow;
+                    color: $color-aiChatInput_rich_text-select_slot_arrow;
+                    width: $width-aiChatInput_rich_text-select_slot_arrow;
                 }
     
                 &.#{$prefix}-select-open, &.#{$prefix}-select-focus {
@@ -602,32 +594,32 @@ $module: #{$prefix}-ai-chat-input;
             }
     
             .skill-slot {
-                color: $color-ai-chat-input_rich_text-skill_slot-text;
-                font-weight: $font-ai-chat-input_rich_text-skill_slot-fontWeight;
+                color: $color-aiChatInput_rich_text-skill_slot-text;
+                font-weight: $font-aiChatInput_rich_text-skill_slot-fontWeight;
                 outline: none;
     
                 &-wrapper {
                     display: inline-flex;
                     position: relative;
-                    padding: $spacing-ai-chat-input_rich_text-skill_slot-paddingY $spacing-ai-chat-input_rich_text-skill_slot-paddingX;
-                    margin: $spacing-ai-chat-input_rich_text-skill_slot-marginY $spacing-ai-chat-input_rich_text-skill_slot-marginX;
-                    border-radius: $radius-ai-chat-input_rich_text-skill_slot;
+                    padding: $spacing-aiChatInput_rich_text-skill_slot-paddingY $spacing-aiChatInput_rich_text-skill_slot-paddingX;
+                    margin: $spacing-aiChatInput_rich_text-skill_slot-marginY $spacing-aiChatInput_rich_text-skill_slot-marginX;
+                    border-radius: $radius-aiChatInput_rich_text-skill_slot;
     
                     &:hover {
-                        background-color: $color-ai-chat-input_rich_text-skill_slot-bg-hover;
+                        background-color: $color-aiChatInput_rich_text-skill_slot-bg-hover;
     
                         .skill-slot-delete {
                             cursor: pointer;
                             position: absolute;
-                            top: $spacing-ai-chat-input_rich_text-skill_slot-top;
-                            right: $spacing-ai-chat-input_rich_text-skill_slot-right;
-                            background: $color-ai-chat-input_rich_text-skill_slot_delete-bg;
-                            color: $color-ai-chat-input_rich_text-skill_slot_delete-text;
+                            top: $spacing-aiChatInput_rich_text-skill_slot-top;
+                            right: $spacing-aiChatInput_rich_text-skill_slot-right;
+                            background: $color-aiChatInput_rich_text-skill_slot_delete-bg;
+                            color: $color-aiChatInput_rich_text-skill_slot_delete-text;
                             transform: translate(50%, -50%);
                             border-radius: 50%;
-                            width: $width-ai-chat-input_rich_text-select_slot_delete;
-                            height: $width-ai-chat-input_rich_text-select_slot_delete;
-                            font-size: $width-ai-chat-input_rich_text-select_slot_delete_icon;
+                            width: $width-aiChatInput_rich_text-select_slot_delete;
+                            height: $width-aiChatInput_rich_text-select_slot_delete;
+                            font-size: $width-aiChatInput_rich_text-select_slot_delete_icon;
                             display: flex;
                             align-items: center;
                             justify-content: center;

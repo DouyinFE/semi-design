@@ -28,6 +28,8 @@ import { MessageContent } from '@douyinfe/semi-foundation/aiChatInput/interface'
 import { Content as TiptapContent } from "@tiptap/core";
 import { Locale } from '../locale/interface';
 import LocaleConsumer from '../locale/localeConsumer';
+import SkillItem from './skillItem';
+import SuggestionItem from './suggestionItem';
 export { getConfigureItem };
 
 const prefixCls = cssClasses.PREFIX;
@@ -46,7 +48,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
         onStopGenerate: noop,
         showReference: true,
         showUploadFile: true,
-        isGenerating: false,
+        generating: false,
         dropdownMatchTriggerWidth: true,
         round: true,
         topSlotPosition: 'top',
@@ -128,7 +130,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
             notifyConfigureChange: (value: LeftMenuChangeProps, changedValue: LeftMenuChangeProps) => {
                 this.props.onConfigureChange?.(value, changedValue);
             },
-            maulUpload: (files: File[]) => {
+            manualUpload: (files: File[]) => {
                 const uploadComponent = this.uploadRef.current;
                 if (uploadComponent) {
                     uploadComponent.insert(files);
@@ -196,10 +198,14 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
             newVisible ? this.foundation.showSuggestionPanel() :
                 this.foundation.hideSuggestionPanel();
         }
-        if (!isEqual(this.props.isGenerating, prevProps.isGenerating)) {
+        if (this.props.generating && (this.props.generating !== prevProps.generating)) {
             this.adapter.clearContent();
             this.adapter.clearAttachments();
         }
+    }
+
+    componentWillUnmount(): void {
+        this.foundation.destroy();
     }
 
     // ref method
@@ -214,7 +220,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
 
     // ref method & inner method
     changeTemplateVisible = (value: boolean) => {
-        this.setState({ templateVisible: value });
+        this.foundation.changeTemplateVisible(value);
     }
 
     // ref method & inner method
@@ -234,8 +240,9 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
         let realContent = '';
         if (!skill) {
             realContent = `<p>${content}</p>`;
+        } else {
+            realContent = `<p><skill-slot data-value=${skill.label ?? 'test'}></skill-slot>${content}</p>`;
         }
-        realContent = `<p><skill-slot data-value=${skill.label ?? 'test'}></skill-slot>${content}</p>`;
         this.setContent(realContent);
     }
 
@@ -262,32 +269,15 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
             style={{ width: popupWidth, maxHeight: numbers.SKILL_MAX_HEIGHT }}
         >
             {
-                skills?.map((item, index) => {
-                    const className = cls(`${prefixCls}-skill-item`, {
-                        [`${prefixCls}-skill-item-active`]: this.state.activeSkillIndex === index
-                    });
-                    const onClick = () => { this.foundation.handleSkillSelect(item);};
-                    if (renderSkillItem) {
-                        return renderSkillItem({
-                            skill: item,
-                            className,
-                            onClick
-                        });
-                    }
-                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-                    return (<div 
-                        key={item.key} 
-                        className={cls(`${prefixCls}-skill-item`, {
-                            [`${prefixCls}-skill-item-active`]: this.state.activeSkillIndex === index
-                        })}
-                        onClick={() => { this.foundation.handleSkillSelect(item);}}
-                    >
-                        {item.icon}
-                        <div className={`${prefixCls}-skill-item-content`}>
-                            {item.label}
-                        </div>
-                    </div>);
-                })
+                skills?.map((item, index) => (<SkillItem
+                    index={index}
+                    isActive={this.state.activeSkillIndex === index}
+                    key={item.key} 
+                    skill={item}
+                    renderSkillItem={renderSkillItem}
+                    onClick={this.foundation.handleSkillSelect}
+                    onMouseEnter={this.foundation.setActiveSkillIndex}
+                />))
             }
         </div>;
     }
@@ -295,37 +285,27 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
     renderSuggestions() {
         const { suggestions, renderSuggestionItem } = this.props;
         const { popupWidth, activeSuggestionIndex } = this.state;
-        return <div 
+        return (<div 
             id={`${prefixCls}-suggestion-${this.popUpOptionListID}`}
             className={`${prefixCls}-suggestion`}
             style={{ width: popupWidth, maxHeight: numbers.SUGGESTION_MAX_HEIGHT }}
             ref={this.suggestionPanelRef}
         >
             {
-                suggestions.map((item, index) => {
-                    const content = typeof item === 'string' ? item : (item as { content: string }).content;
-                    const className = cls(`${prefixCls}-suggestion-item`,
-                        { [`${prefixCls}-suggestion-item-active`]: activeSuggestionIndex === index }
-                    );
-                    const onClick = () => { this.foundation.handleSuggestionSelect(item);};
-                    if (renderSuggestionItem) {
-                        return renderSuggestionItem({
-                            suggestion: item,
-                            className,
-                            onClick,
-                        });
-                    }
-                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-                    return (<div 
-                        key={content} 
-                        className={className}
-                        onClick={onClick}
-                    >
-                        {content}
-                    </div>);
-                })
+                suggestions.map((item, index) => (
+                    <SuggestionItem
+                        index={index}
+                        key={typeof item === 'string' ? item : (item && 'content' in item ? item.content : index)}
+                        suggestion={item}
+                        isActive={activeSuggestionIndex === index}
+                        renderSuggestionItem={renderSuggestionItem}
+                        onClick={this.foundation.handleSuggestionSelect}
+                        onMouseEnter={this.foundation.setActiveSuggestionIndex}
+                    />
+                ))
             }
-        </div>;
+        </div>
+        );
     }
 
     renderPopoverContent() {
@@ -430,6 +410,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
         </div>;
     }
 
+    // ref method
     deleteUploadFile = (item: Attachment) => {
         this.foundation.handleUploadFileDelete(item);
     }
@@ -541,18 +522,18 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
     }
 
     renderSendButton = () => {
-        const { isGenerating } = this.props;
+        const { generating } = this.props;
         const canSend = this.foundation.canSend();
         return <button
             key="send" 
             className={cls(`${prefixCls}-footer-action-button`, {
-                [`${prefixCls}-footer-action-send`]: !isGenerating,
-                [`${prefixCls}-footer-action-stop`]: isGenerating,
-                [`${prefixCls}-footer-action-send-disabled`]: !isGenerating && !canSend,
+                [`${prefixCls}-footer-action-send`]: !generating,
+                [`${prefixCls}-footer-action-stop`]: generating,
+                [`${prefixCls}-footer-action-send-disabled`]: !generating && !canSend,
             })}
             onClick={this.foundation.handleSend}
         >
-            {isGenerating ? <IconStop /> : <IconArrowUp />}
+            {generating ? <IconStop /> : <IconArrowUp />}
         </button>;
     }
 
@@ -620,7 +601,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
                         setEditor={this.setEditor}
                         onChange={this.foundation.handleContentChange}
                         extensions={extensions}
-                        handleKeyDown={this.foundation.handRichTextARealKeyDown}
+                        handleKeyDown={this.foundation.handRichTextArealKeyDown}
                         onPaste={this.foundation.handlePaste}
                         onFocus={this.foundation.handleFocus}
                         onBlur={this.foundation.handleBlur}
