@@ -35,7 +35,6 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         align: PropTypes.oneOf(['leftRight', 'leftAlign']),
         chats: PropTypes.array,
         className: PropTypes.string,
-        customMarkDownComponents: PropTypes.object,
         disabledFileItemClick: PropTypes.bool,
         hints: PropTypes.array,
         hintCls: PropTypes.string,

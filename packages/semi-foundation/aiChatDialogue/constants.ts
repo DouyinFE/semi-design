@@ -73,6 +73,25 @@ const FINISH_REASON = {
     FUNCTION_CALL: 'function_call'
 };
 
+const TEXT_TYPES = [
+    MESSAGE_ITEM_TYPE.INPUT_TEXT, 
+    MESSAGE_ITEM_TYPE.OUTPUT_TEXT, 
+    MESSAGE_ITEM_TYPE.REFUSAL
+];
+
+const TOOL_CALL_TYPES = [
+    MESSAGE_ITEM_TYPE.FUNCTION_CALL, 
+    MESSAGE_ITEM_TYPE.CUSTOM_TOOL_CALL, 
+    MESSAGE_ITEM_TYPE.MCP_CALL
+];
+
+const DOCUMENT_TYPES = [ 'doc', 'docx', 'txt', 'word'];
+const IMAGE_TYPES = [ 'jpeg', 'jpg', 'png', 'gif'];
+const PDF_TYPES = [ 'pdf'];
+const EXCEL_TYPES = [ 'excel', 'xlsx', 'xls'];
+const CODE_TYPES = [ 'json', 'js', 'ts', 'jsx', 'tsx'];
+const VIDEO_TYPES = [ 'mp4', 'avi', 'mov', 'wmv', 'flv', 'mkv'];
+
 
 const strings = {
     STATUS,
@@ -81,7 +100,15 @@ const strings = {
     MODE,
     SEND_HOT_KEY,
     MESSAGE_ITEM_TYPE,
-    FINISH_REASON
+    FINISH_REASON,
+    TEXT_TYPES,
+    TOOL_CALL_TYPES,
+    DOCUMENT_TYPES,
+    IMAGE_TYPES,
+    PDF_TYPES,
+    EXCEL_TYPES,
+    CODE_TYPES,
+    VIDEO_TYPES
 };
 
 export { cssClasses, strings };

@@ -42,6 +42,13 @@ export const AnnotationWidget = (props: AnnotationWidgetProps) => {
         </Avatar>;
     }, []);
 
+    const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleClick();
+        }
+    }, [handleClick]);
+
     if (filteredAnnotation.length === 0) { return null; }
 
     return (
@@ -50,12 +57,7 @@ export const AnnotationWidget = (props: AnnotationWidgetProps) => {
             tabIndex={0}
             className={`${prefixCls}-wrapper`} 
             onClick={handleClick}
-            onKeyDown={e => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleClick();
-                }
-            }}
+            onKeyDown={handleKeyDown}
         >
             <div className={`${prefixCls}-content`}>
                 <AvatarGroup maxCount={maxCount} size="extra-extra-small" overlapFrom={'end'} renderMore={renderMore}>

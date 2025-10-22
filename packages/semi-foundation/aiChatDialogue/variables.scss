@@ -43,7 +43,6 @@ $color-aiChatDialogue_code_content-bg: var(--semi-color-bg-0); // code content �
 // Width/Height
 $width-aiChatDialogue_wrapper: 100%; // 外层宽度
 $width-aiChatDialogue_inner: 100%; // 气泡右侧展示内层宽度
-$width-aiChatDialogue_checkbox: 32px; // 复选框宽度
 $width-aiChatDialogue_avatar: 24px; // 头像宽度
 $height-aiChatDialogue_avatar: 24px; // 头像高度
 $width-aiChatDialogue_content_editing: 100%; // 内容宽度 - 编辑状态
@@ -88,6 +87,7 @@ $width-aiChatDialogue_action_copy: 24px; // 复制按钮宽度
 $spacing-aiChatDialogue_wrapper-paddingY: 8px; // 最外层垂直内边距
 $spacing-aiChatDialogue_wrapper-paddingX: 16px; // 最外层水平内边距
 $spacing-aiChatDialogue_wrapper-marginTop: 2px; // 最外层顶部外边距
+$spacing-aiChatDialogue_wrapper-columnGap: 16px; // 最外层列间距
 $spacing-aiChatDialogue_container-columnGap: 12px; // container 容器列间距
 $spacing-aiChatDialogue_content-marginTop: 8px; // 内容顶部外边距
 $spacing-aiChatDialogue_content_failed-marginRight: 8px; // 内容失败提示右外边距
@@ -151,6 +151,7 @@ $spacing-aiChatDialogue_hints-marginBottom: 12px; // 提示底部外边距
 $spacing-aiChatDialogue_hints-marginLeft: 52px; // 提示左外边距
 $spacing-aiChatDialogue_hint_item-paddingY: 8px; // 提示项垂直内边距
 $spacing-aiChatDialogue_hint_item-paddingX: 16px; // 提示项水平内边距
+$spacing-aiChatDialogue_hints_selecting-marginLeft: 68px; // 提示项选择状态下左外边距
 
 // Radius
 $radius-aiChatDialogue_wrapper_selected: 16px; // 外层选中圆角

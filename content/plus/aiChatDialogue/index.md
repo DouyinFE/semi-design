@@ -185,7 +185,7 @@ render(StatusDemo);
 ```
 
 ### 消息展示
-消息内容展示的类型为 ContentItem[]，支持文本（`text`）、文件（`file`）、图片（`image`）、代码（`code`）、思考块（`reasoning`）、参考来源（`annotation`）工具调用（`tool call`）等消息块的展示，同时提供 `AIChatDialogue.Step` 组件用于步骤等信息的分步展示。
+消息内容展示的类型为 (ContentItem[])[https://platform.openai.com/docs/api-reference/responses/list#responses/list-data]，支持文本（`text`）、文件（`file`）、图片（`image`）、代码（`code`）、思考块（`reasoning`）、参考来源（`annotation`）工具调用（`tool call`）等消息块的展示，同时提供 `AIChatDialogue.Step` 组件用于步骤等信息的分步展示。
 
 ```jsx live=true dir="column" noInline=true
 import React, { useState, useCallback } from 'react';
@@ -1085,7 +1085,6 @@ function CustomRender () {
                 <MarkdownRender
                     format='md'
                     raw={props.summary[0].text}
-                    components={props.customMarkDownComponents}
                     {...props.markdownRenderProps}
                 />
             </div>
@@ -1550,7 +1549,6 @@ render(StreamingResponseToMessageDemo);
 | align | 对话布局方式 | 'leftRight' \| 'leftAlign' | 'leftRight' |
 | chats | 受控对话消息列表 | Message[] | - |
 | className | 自定义类名 | string | - |
-| customMarkDownComponents | 自定义 markdown render， 透传给对话内容渲染的 MarkdownRender | MDXProps['components'] | - |
 | disabledFileItemClick | 是否禁用文件点击 | boolean | false |
 | hintCls | 提示区最外层样式类名 | string | - |
 | hints | 提示信息 | string[] | - |

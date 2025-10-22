@@ -18,15 +18,11 @@ $module: #{$prefix}-ai-chat-dialogue;
         flex-wrap: nowrap;
         padding: $spacing-aiChatDialogue_wrapper-paddingY $spacing-aiChatDialogue_wrapper-paddingX;
         margin-top: $spacing-aiChatDialogue_wrapper-marginTop;
+        column-gap: $spacing-aiChatDialogue_wrapper-columnGap;
 
         &-selected {
             background-color: $color-aiChatDialogue_wrapper-selected-bg;
             border-radius: $radius-aiChatDialogue_wrapper_selected;
-
-        }
-    
-       .#{$module}-checkbox {
-            width: $width-aiChatDialogue_checkbox;
         }
 
         .#{$module}-container {
@@ -69,7 +65,6 @@ $module: #{$prefix}-ai-chat-dialogue;
         line-height: $font-aiChatDialogue_title-lineHeight;
         font-size: $font-aiChatDialogue_title-fontSize;
         font-weight: $font-aiChatDialogue_title-fontWeight;
-        text-overflow: ellipsis;
     }
 
     &-avatar {
@@ -619,7 +614,7 @@ $module: #{$prefix}-ai-chat-dialogue;
         margin-left: $spacing-aiChatDialogue_hints-marginLeft;
 
         &-selecting {
-            margin-left: $spacing-aiChatDialogue_hints-marginLeft + $width-aiChatDialogue_checkbox;
+            margin-left: $spacing-aiChatDialogue_hints_selecting-marginLeft;
         }
     }
 

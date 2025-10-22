@@ -11,14 +11,13 @@ export interface ReasoningWidgetProps {
     summary?: { text?: string; type?: string }[];
     content?: { text?: string; type?: string }[];
     markdownRenderProps?: MarkdownRenderProps;
-    customMarkDownComponents?: MDXProps['components'];
     customRenderer?: (props: ReasoningWidgetProps) => React.ReactNode
 }
 
 const prefixCls = cssClasses.PREFIX_REASONING;
 
 export const ReasoningWidget = (props: ReasoningWidgetProps) => {
-    const { status, summary, content, markdownRenderProps, customMarkDownComponents, customRenderer } = props;
+    const { status, summary, content, markdownRenderProps, customRenderer } = props;
     const defaultOpen = status !== 'completed';
     const [isOpen, setIsOpen] = useState(defaultOpen);
 
@@ -32,7 +31,15 @@ export const ReasoningWidget = (props: ReasoningWidgetProps) => {
         } else if (content && content.length > 0) {
             return content.map((item: { text?: string; type?: string }) => item.text).join('\n');
         }
+        return '';
     }, [summary, content]);
+
+    const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleClick();
+        }
+    }, [handleClick]);
 
     return (
         <div 
@@ -40,12 +47,7 @@ export const ReasoningWidget = (props: ReasoningWidgetProps) => {
             tabIndex={0}
             className={`${prefixCls}-wrapper`} 
             onClick={handleClick}
-            onKeyDown={e => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleClick();
-                }
-            }}
+            onKeyDown={handleKeyDown}
         >
             <div className={`${prefixCls}-header`}>
                 <div className={`${prefixCls}-header-prefix`}>
@@ -66,7 +68,6 @@ export const ReasoningWidget = (props: ReasoningWidgetProps) => {
                         <MarkdownRender
                             format='md'
                             raw={getText()}
-                            components={customMarkDownComponents as any}
                             {...markdownRenderProps}
                         />
                     )}

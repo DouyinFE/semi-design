@@ -1,5 +1,5 @@
 import React from 'react';
-import { cssClasses } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
+import { cssClasses, strings } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
 import { IconCode, IconWord, IconExcel, IconPdf, IconSendMsgStroked, IconVideo } from '@douyinfe/semi-icons';
 import { Reference } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
 import { Image } from '../../../index';
@@ -13,6 +13,7 @@ export interface ReferenceWidgetProps {
 
 const prefixCls = cssClasses.PREFIX_REFERENCES;
 const referencePrefixCls = cssClasses.PREFIX_REFERENCE;
+const { DOCUMENT_TYPES, IMAGE_TYPES, PDF_TYPES, EXCEL_TYPES, CODE_TYPES, VIDEO_TYPES } = strings;
 
 export const ReferenceWidget = (props: ReferenceWidgetProps) => {
 
@@ -23,19 +24,19 @@ export const ReferenceWidget = (props: ReferenceWidgetProps) => {
             const extension = name.split('.').pop();
             let icon = null;
             let type = '';
-            if (['doc', 'docx'].includes(extension)) {
+            if (DOCUMENT_TYPES.includes(extension)) {
                 icon = <IconWord size="small"/>;
                 type = 'word';
-            } else if (extension === 'pdf') {
+            } else if (PDF_TYPES.includes(extension)) {
                 icon = <IconPdf size="small"/>;
                 type = 'pdf';
-            } else if (['excel', 'xlsx', 'xls'].includes(extension)) {
+            } else if (EXCEL_TYPES.includes(extension)) {
                 icon = <IconExcel size="small"/>;
                 type = 'excel';
-            } else if (['json', 'js', 'ts', 'jsx', 'tsx'].includes(extension)) {
+            } else if (CODE_TYPES.includes(extension)) {
                 icon = <IconCode size="small"/>;
                 type = 'code';
-            } else if (['mp4', 'avi', 'mov', 'wmv', 'flv', 'mkv'].includes(extension)) {
+            } else if (VIDEO_TYPES.includes(extension)) {
                 icon = <IconVideo size="small"/>;
                 type = 'video';
             }
@@ -50,7 +51,7 @@ export const ReferenceWidget = (props: ReferenceWidgetProps) => {
     const isImage = (name: string) => {
         if (name) {
             const extension = name.split('.').pop();
-            return ['jpeg', 'jpg', 'png', 'gif'].includes(extension);
+            return IMAGE_TYPES.includes(extension);
         }
         return false;
     };

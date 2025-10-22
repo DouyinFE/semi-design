@@ -165,7 +165,6 @@ export default function CustomRender() {
                 <MarkdownRender
                     format='md'
                     raw={props.summary[0].text}
-                    components={props.customMarkDownComponents}
                     {...props.markdownRenderProps}
                 />
             </div>

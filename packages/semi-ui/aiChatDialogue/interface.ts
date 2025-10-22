@@ -11,7 +11,6 @@ export interface AIChatDialogueProps {
     align?: 'leftRight' | 'leftAlign';
     chats?: Message[];
     className?: string;
-    customMarkDownComponents?: MDXProps['components'];
     disabledFileItemClick?: boolean;
     hintCls?: string;
     hints?: string[];
@@ -52,7 +51,6 @@ export interface AIChatDialogueItemProps extends AIChatDialogueProps {
 
 export interface DialogueContentProps {
     mode?: 'bubble' | 'noBubble' | 'userBubble';
-    customMarkDownComponents?: MDXProps['components'];
     children?: string;
     role?: Metadata;
     message?: Message;

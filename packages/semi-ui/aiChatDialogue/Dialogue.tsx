@@ -42,7 +42,7 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
     };
 
     contentNode = () => {
-        const { message, mode, dialogueRenderConfig, customMarkDownComponents, markdownRenderProps, messageEditRender, onFileClick, onImageClick, disabledFileItemClick, renderDialogueContentItem, onAnnotationClick } = this.props;
+        const { message, mode, dialogueRenderConfig, markdownRenderProps, messageEditRender, onFileClick, onImageClick, disabledFileItemClick, renderDialogueContentItem, onAnnotationClick } = this.props;
 
         return <DialogueContent 
             key={message.editing}
@@ -55,7 +55,6 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
             disabledFileItemClick={disabledFileItemClick}
             renderDialogueContentItem={renderDialogueContentItem}
             onAnnotationClick={onAnnotationClick}
-            customMarkDownComponents={customMarkDownComponents}
             customRenderFunc={dialogueRenderConfig?.renderDialogueContent}
             markdownRenderProps={markdownRenderProps} 
         />;
@@ -101,7 +100,7 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
 
 
     render() {
-        const { message, selecting, align, isSelected, onSelectChange } = this.props;
+        const { message, selecting, align, isSelected, onSelectChange, continueSend } = this.props;
         const id = message.id;
 
         const isRightAlign = message.role === ROLE.USER && align === DIALOGUE_ALIGN.LEFT_RIGHT;
@@ -113,6 +112,7 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
         return (
             <div className={cls(`${prefixCls}-wrapper`, {
                 [`${prefixCls}-wrapper-selected`]: selecting && isSelected,
+                [`${prefixCls}-wrapper-continue-send`]: continueSend,
             })}>   
                 {
                     selecting && (
@@ -127,7 +127,7 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
                 <div className={containerCls}>
                     {this.avatarNode()}
                     <div className={`${prefixCls}-inner`}>
-                        {this.titleNode()}
+                        {!continueSend && this.titleNode()}
                         {this.contentNode()}
                         {this.actionNode()}
                     </div>
