@@ -208,6 +208,17 @@ const local: Locale = {
         stall: 'Tải không thành công',
         noResource: 'Không có tài nguyên',
         videoError: 'Lỗi tải video'
+    },
+    AIChatDialogue: {
+        delete: 'Xóa',
+        deleteConfirm: 'Bạn có chắc muốn xóa phiên này không?',
+        deleteContent: 'Phiên này đã được xóa.',
+        copySuccess: 'Sao chép thành công',
+        loading: 'Đang tải...',
+    },
+    Feedback: {
+        submit: 'Nộp',
+        cancel: 'Hủy'
     }
 };
 

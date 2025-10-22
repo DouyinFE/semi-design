@@ -205,6 +205,17 @@ const local: Locale = {
         stall: 'Memuat gagal',
         noResource: 'Tidak ada sumber',
         videoError: 'Kesalahan memuat video'
+    },
+    AIChatDialogue: {
+        delete: 'Hapus',
+        deleteConfirm: 'Apakah Anda yakin ingin menghapus pesan ini?',
+        deleteContent: 'Pesan ini akan dihapus secara permanen dan tidak dapat dipulihkan.',
+        copySuccess: 'Berhasil disalin',
+        loading: 'Memuat...',
+    },
+    Feedback: {
+        submit: 'Kirim',
+        cancel: 'Batal'
     }
 };
 

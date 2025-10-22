@@ -425,3 +425,29 @@ export const SetHeightInStyle = () => {
       </div>
   );
 }
+
+export const PromiseOK = () => {
+  const [visible, setVisible] = useState(false);
+  return (
+      <div>
+          <Button onClick={() => setVisible(true)}>Open Modal</Button>
+          <Modal
+              title="Modal: onOk 为 promise"
+              visible={visible}
+              style={{ height: 300 }}
+              motion={false}
+              onOk = {() => {
+                return new Promise((resolve, reject) => {
+                  setTimeout(() => {
+                    resolve();
+                  }, 3000)
+                });
+              }}
+              onCancel={() => setVisible(false)}
+          >
+              <p>This is the content of a basic sidesheet.</p>
+              <p>Here is more content...</p>
+          </Modal>
+      </div>
+  );
+}

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { IconHome, IconLock, IconClear, IconTickCircle, IconTick, IconClose, IconCaretUp } from '@douyinfe/semi-icons';
+import { IconHome, IconLock, IconClear, IconTickCircle, IconTick, IconClose, IconCaretup, IconAIBellLevel2 } from '@douyinfe/semi-icons';
 const stories = storiesOf('Icon', module);
 stories.add('Icon', () => (
     <div>
@@ -12,7 +12,7 @@ stories.add('Icon', () => (
             <IconTickCircle />
             <IconTick />
             <IconClose />
-            <IconCaretUp />
+            <IconCaretup />
         </div>
         <div
             style={{
@@ -26,7 +26,7 @@ stories.add('Icon', () => (
             <IconTickCircle />
             <IconTick />
             <IconClose />
-            <IconCaretUp />
+            <IconCaretup />
         </div>
         <div
             style={{
@@ -40,7 +40,7 @@ stories.add('Icon', () => (
             <IconTickCircle />
             <IconTick />
             <IconClose />
-            <IconCaretUp />
+            <IconCaretup />
         </div>
     </div>
 ));

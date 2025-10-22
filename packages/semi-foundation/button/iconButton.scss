@@ -30,11 +30,7 @@ $module: #{$prefix}-button;
 
         .#{$module}-content {
 
-            .#{$module}-content-loading-icon {
-                animation: $animation_duration-button_icon_customIcon_loading linear infinite #{$prefix}-animation-rotate;
-            }
-
-            &>svg {
+            &>svg, &-loading-icon {
                 width: 16px;
                 height: 16px;
                 animation: $animation_duration-button_icon_loading linear infinite #{$prefix}-animation-rotate;

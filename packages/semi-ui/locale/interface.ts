@@ -205,5 +205,16 @@ export interface Locale {
         stall: string;
         noResource: string;
         videoError: string
+    };
+    AIChatDialogue: {
+        delete: string;
+        deleteConfirm: string;
+        deleteContent: string;
+        copySuccess: string;
+        loading: string
+    };
+    Feedback: {
+        submit: string;
+        cancel: string
     }
 }

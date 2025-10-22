@@ -206,6 +206,17 @@ const local: Locale = {
         noResource: 'Nicio resursă',
         videoError: 'Eroare la încărcarea videoclipului'
     },
+    AIChatDialogue: {
+        delete: 'Șterge',
+        deleteConfirm: 'Sunteți sigur că doriți să ștergeți această conversație?',
+        deleteContent: 'Conversația a fost ștearsă.',
+        copySuccess: 'Copiere reușită',
+        loading: 'Se încarcă...',
+    },
+    Feedback: {
+        submit: 'Trimite',
+        cancel: 'Anulează'
+    }
 };
 
 // [i18n-Romanian] 罗马尼亚语

@@ -27,7 +27,12 @@ async function build(entryDir, outDir, prefix, suffix, svgoPlugins = [], svgrOpt
     const batches = files.filter(f => extname(f) === '.svg').map(async file => {
         try {
             const svgFileName = basename(file, '.svg');
-            const componentName = `${prefix}${camelCase(svgFileName, { pascalCase: true })}${suffix}`;
+            // 此处为对 ai icon 的特殊处理
+            let tempName = svgFileName;
+            if (svgFileName.startsWith('ai_')) {
+                tempName = tempName.replace('ai_', 'a_i_');
+            }
+            const componentName = `${prefix}${camelCase(tempName, { pascalCase: true })}${suffix}`;
             const reactFileName = `${componentName}.tsx`;
             const svgContent = fs.readFileSync(resolve(entryDir, file), 'utf-8');
             const svgProps = {

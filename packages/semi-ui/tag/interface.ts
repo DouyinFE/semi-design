@@ -39,6 +39,8 @@ export interface TagProps {
     style?: React.CSSProperties;
     className?: string;
     avatarSrc?: string;
+    colorful?: boolean;
+    gradient?: boolean;
     avatarShape?: AvatarShape;
     shape?: TagShape;
     onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;

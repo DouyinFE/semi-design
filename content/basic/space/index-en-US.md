@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 24
+order: 25
 category: basic
 title:  Space
 icon: doc-space

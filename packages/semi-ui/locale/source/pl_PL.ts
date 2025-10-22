@@ -213,6 +213,17 @@ const local: Locale = {
         stall: 'Ładowanie nie powiodło się',
         noResource: 'Brak zasobu',
         videoError: 'Błąd ładowania wideo'
+    },
+    AIChatDialogue: {
+        delete: 'Usuń',
+        deleteConfirm: 'Czy na pewno chcesz usunąć tę rozmowę?',
+        deleteContent: 'Rozmowa została usunięta.',
+        copySuccess: 'Skopiowano pomyślnie',
+        loading: 'Ładowanie...',
+    },
+    Feedback: {
+        submit: 'Wyślij',
+        cancel: 'Anuluj'
     }
 };
 

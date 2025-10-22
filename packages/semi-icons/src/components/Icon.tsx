@@ -11,11 +11,12 @@ export interface IconProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLSp
     spin?: boolean;
     rotate?: number;
     prefixCls?: string;
-    type?: string
+    type?: string;
+    fill?: string[] 
 }
 
 const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
-    const { svg, spin = false, rotate, style, className, prefixCls = BASE_CLASS_PREFIX, type, size = 'default', ...restProps } = props;
+    const { svg, spin = false, rotate, style, className, prefixCls = BASE_CLASS_PREFIX, type, size = 'default', fill, ...restProps } = props;
     const classes = cls(`${prefixCls}-icon`, {
         [`${prefixCls}-icon-extra-small`]: size === 'extra-small', // 8x8
         [`${prefixCls}-icon-small`]: size === 'small', // 12x12
@@ -31,7 +32,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
         outerStyle.transform = `rotate(${rotate}deg)`;
     }
     Object.assign(outerStyle, style);
-    return <span role="img" ref={ref} aria-label={type} className={classes} style={outerStyle} {...restProps}>{svg}</span>;
+    return <span role="img" ref={ref} aria-label={type} className={classes} style={outerStyle} {...restProps}>{fill ? React.cloneElement(svg as React.ReactElement, { fill } as any) : svg}</span>;
 });
 
 // @ts-ignore used to judge whether it is a semi-icon in semi-ui

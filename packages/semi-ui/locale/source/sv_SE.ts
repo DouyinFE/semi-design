@@ -210,6 +210,17 @@ const local: Locale = {
         stall: 'Läsning misslyckades',
         noResource: 'Ingen resurs',
         videoError: 'Fel vid inläsning av video'
+    },
+    AIChatDialogue: {
+        delete: 'Ta bort',
+        deleteConfirm: 'Är du säker på att du vill ta bort denna konversation?',
+        deleteContent: 'Konversationen har tagits bort.',
+        copySuccess: 'Kopiering lyckades',
+        loading: 'Läser in...',
+    },
+    Feedback: {
+        submit: 'Skicka',
+        cancel: 'Avbryt'
     }
 };
 

@@ -205,6 +205,17 @@ const local: Locale = {
         stall: 'Laden fehlgeschlagen',
         noResource: 'Keine Ressource',
         videoError: 'Video-Ladefehler'
+    },
+    AIChatDialogue: {
+        delete: 'Löschen',
+        deleteConfirm: 'Möchten Sie diese Nachricht wirklich löschen?',
+        deleteContent: 'Diese Nachricht wird unwiederruflich gelöscht.',
+        copySuccess: 'Erfolgreich kopiert',
+        loading: 'Wird geladen...',
+    },
+    Feedback: {
+        submit: 'Absenden',
+        cancel: 'Abbrechen'
     }
 };
 

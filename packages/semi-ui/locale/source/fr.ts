@@ -205,6 +205,17 @@ const local: Locale = {
         stall: 'Chargement échoué',
         noResource: 'Aucune ressource',
         videoError: 'Erreur de chargement de la vidéo'
+    },
+    AIChatDialogue: {
+        delete: 'Supprimer',
+        deleteConfirm: 'Êtes-vous sûr de vouloir supprimer ce message ?',
+        deleteContent: 'Ce message sera supprimé définitivement et ne pourra pas être récupéré.',
+        copySuccess: 'Copie réussie',
+        loading: 'Chargement...',
+    },
+    Feedback: {
+        submit: 'Soumettre',
+        cancel: 'Annuler'
     }
 };
 
