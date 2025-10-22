@@ -10,6 +10,7 @@ import DialogueFoundation, { DialogueAdapter, Message } from '@douyinfe/semi-fou
 import { AIChatDialogueProps } from './interface';
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import { strings } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
+import Hint from './widgets/dialogueHint';
 
 
 export interface AIChatDialogueStates {
@@ -186,13 +187,15 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
     }
     
     render() {
-        const { roleConfig, onMessageBadFeedback, onMessageGoodFeedback, onMessageReset, onMessageEdit, onMessageDelete, onHintClick, ...restProps } = this.props;
+        const { roleConfig, onMessageBadFeedback, onMessageGoodFeedback, onMessageReset, onMessageEdit, onMessageDelete, onHintClick,
+            selecting, hintCls, hintStyle, hints, renderHintBox, ...restProps } = this.props;
         const { selectedIds, chats } = this.state;
 
         return (
             <React.Fragment>
                 {chats.map((chat, index) => {
                     const isLastChat = index === chats.length - 1;
+                    const continueSend = index > 0 && chat?.role === chats[index - 1]?.role;
                     return (
                         <DialogueItem 
                             key={chat.id}
@@ -208,10 +211,22 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
                             onMessageDelete={this.foundation.deleteMessage}
                             onHintClick={this.foundation.onHintClick}
                             isLastChat={isLastChat}
+                            continueSend={continueSend}
+                            selecting={selecting}
                             {...restProps}
                         />
                     );
                 })}
+                {
+                    !!hints?.length && <Hint
+                        className={hintCls}
+                        style={hintStyle}
+                        hints={hints}
+                        onHintClick={onHintClick}
+                        renderHintBox={renderHintBox}
+                        selecting={selecting}
+                    />
+                }
             </React.Fragment>
         );
     }

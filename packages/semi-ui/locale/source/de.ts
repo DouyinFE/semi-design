@@ -210,6 +210,8 @@ const local: Locale = {
         delete: 'Löschen',
         deleteConfirm: 'Möchten Sie diese Nachricht wirklich löschen?',
         deleteContent: 'Diese Nachricht wird unwiederruflich gelöscht.',
+        copySuccess: 'Erfolgreich kopiert',
+        loading: 'Wird geladen...',
     },
     Feedback: {
         submit: 'Absenden',

@@ -215,6 +215,8 @@ const local: Locale = {
         delete: 'Ta bort',
         deleteConfirm: 'Är du säker på att du vill ta bort denna konversation?',
         deleteContent: 'Konversationen har tagits bort.',
+        copySuccess: 'Kopiering lyckades',
+        loading: 'Läser in...',
     },
     Feedback: {
         submit: 'Skicka',

@@ -41,7 +41,7 @@ export interface Delta {
     content?: string;
     refusal?: string;
     function_call?: FunctionCall;
-    tool_calls?: FunctionToolCall[]
+    tool_calls?: ChatCompletionFunctionToolCall[]
 }
 
 
@@ -52,10 +52,10 @@ interface ChatCompletionMessage {
     annotations?: ChatCompletionAnnotation[];
     audio?: Audio;
     function_call?: FunctionCall;
-    tool_calls?: ToolCalls[]
+    tool_calls?: ChatCompletionToolCalls[]
 }
 
-export type ToolCalls = FunctionToolCall | CustomToolCall 
+export type ChatCompletionToolCalls = ChatCompletionFunctionToolCall | ChatCompletionCustomToolCall 
 
 interface ChatCompletionAnnotation {
     type?: string;
@@ -86,14 +86,14 @@ interface ToolCall {
     result?: string
 }
 
-export interface FunctionToolCall {
+export interface ChatCompletionFunctionToolCall {
     id?: string;
     index?: number;
     type?: string;
     function?: FunctionCall
 }
 
-export interface CustomToolCall {
+export interface ChatCompletionCustomToolCall {
     id?: string;
     type?: string;
     custom?: ToolCall

@@ -21,12 +21,15 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
     constructor(props: AIChatDialogueItemProps) {
         super(props);
     }
+    
 
     avatarNode = () => {
-        const { role, dialogueRenderConfig } = this.props;
+        const { role, dialogueRenderConfig, continueSend } = this.props;
+        
         return <DialogueAvatar
             role={role}
             customRenderFunc={dialogueRenderConfig?.renderDialogueAvatar}
+            continueSend={continueSend}
         />;
     };
 
@@ -108,7 +111,9 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
         });
 
         return (
-            <div className={`${prefixCls}-wrapper`}>   
+            <div className={cls(`${prefixCls}-wrapper`, {
+                [`${prefixCls}-wrapper-selected`]: selecting && isSelected,
+            })}>   
                 {
                     selecting && (
                         <div className={`${prefixCls}-checkbox`}>
@@ -125,7 +130,6 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
                         {this.titleNode()}
                         {this.contentNode()}
                         {this.actionNode()}
-                        {this.hintNode()}
                     </div>
                 </div>
             </div>

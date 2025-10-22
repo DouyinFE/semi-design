@@ -210,6 +210,8 @@ const local: Locale = {
         delete: 'Delete',
         deleteConfirm: 'Are you sure you want to delete this message?',
         deleteContent: 'This message will be permanently deleted and cannot be recovered.',
+        copySuccess: 'Copy successful.',
+        loading: 'Loading...',
     },
     Feedback: {
         submit: 'Submit',

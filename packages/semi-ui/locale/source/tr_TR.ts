@@ -211,6 +211,8 @@ const local: Locale = {
         delete: 'Sil',
         deleteConfirm: 'Bu sohbeti silmek istediğinize emin misiniz?',
         deleteContent: 'Bu sohbet silinmiştir.',
+        copySuccess: 'Başarıyla kopyalandı',
+        loading: 'Yükleniyor...',
     },
     Feedback: {
         submit: 'Göndermek',

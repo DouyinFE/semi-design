@@ -48,8 +48,8 @@ class DialogueAction extends BaseComponent<AIChatDialogueActionProps, AIChatDial
     }
 
     componentDidMount(): void {
-        this.copySuccessNode = <LocaleConsumer<Locale["Chat"]> componentName="Chat" >
-            {(locale: Locale["Chat"]) => locale['copySuccess']}
+        this.copySuccessNode = <LocaleConsumer<Locale["AIChatDialogue"]> componentName="AIChatDialogue" >
+            {(locale: Locale["AIChatDialogue"]) => locale['copySuccess']}
         </LocaleConsumer>;
     }
 

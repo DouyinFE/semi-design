@@ -123,6 +123,7 @@ export default function RenderConfig() {
         renderDialogueAvatar: (props) => {
             return <Avatar
                 src={props.role.avatar}
+                className="semi-ai-chat-dialogue-avatar"
                 size="extra-small"
                 shape="square"
             >

@@ -218,6 +218,8 @@ const local: Locale = {
         delete: 'Excluir',
         deleteConfirm: 'Tem certeza que deseja excluir esta sessão?',
         deleteContent: 'Esta sessão será excluída permanentemente e não poderá ser recuperada.',
+        copySuccess: 'Copiado com sucesso',
+        loading: 'Carregando...',
     },
     Feedback: {
         submit: 'Enviar',

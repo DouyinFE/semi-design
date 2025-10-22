@@ -7,16 +7,18 @@ interface HintProps {
     className?: string;
     style?: React.CSSProperties;
     hints?: string[];
+    selecting?: boolean;
     onHintClick?: (item: string) => void;
     renderHintBox?: (props: {content: string; index: number; onHintClick: () => void}) => React.ReactNode
 }
 
 const Hint = React.memo((props: HintProps) => {
-    const { hints, onHintClick, renderHintBox, className, style } = props;
+    const { hints, onHintClick, renderHintBox, className, style, selecting } = props;
     return (
         <section 
             className={cls(`${PREFIX_HINT}s`, {
                 [className]: !!className,
+                [`${PREFIX_HINT}s-selecting`]: selecting,
             })}
             style={style}
         >

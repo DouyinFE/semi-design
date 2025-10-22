@@ -210,6 +210,8 @@ const local: Locale = {
         delete: 'Șterge',
         deleteConfirm: 'Sunteți sigur că doriți să ștergeți această conversație?',
         deleteContent: 'Conversația a fost ștearsă.',
+        copySuccess: 'Copiere reușită',
+        loading: 'Se încarcă...',
     },
     Feedback: {
         submit: 'Trimite',

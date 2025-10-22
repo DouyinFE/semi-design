@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 96
+order: 98
 category: Plus
 title: AIChatDialogue AI 聊天对话
 icon: doc-audioplayer
@@ -1137,7 +1137,7 @@ render(CustomRender);
 
 
 ### 消息数据转换
-当前组件的对话消息已 OPENAI 的 `Response Object` 为原型，为了支持用户更好地无缝集成 `Chat Completion API` 和 `Response API`，我们提供了四种 `adapter` 转换函数，用户可直接使用该函数转换 API 的返回结果，得到可直接用于消息展示的数据。
+当前组件的对话消息以 OpenAI 的 `Response Object` 为原型，为了支持用户更好地无缝集成 `Chat Completion API` 和 `Response API`，我们提供了四种 `adapter` 转换函数，用户可直接使用该函数转换 API 的返回结果，得到可直接用于消息展示的数据。
 
 ```ts
 function chatCompletionToMessage(chatCompletion: ChatCompletion): Message[]
@@ -1643,6 +1643,10 @@ interface InputFile extends CommonContentItem {
     size?: string;
     file_type?: string;
     fileInstance?: any
+}
+
+interface ItemReference extends CommonContentItem {
+    file_id?: string
 }
 
 

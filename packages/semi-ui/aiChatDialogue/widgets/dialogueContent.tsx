@@ -11,6 +11,9 @@ import { ReasoningWidget } from './contentItem/reasoning';
 import { AnnotationWidget } from './contentItem/annotation';
 import { ReferenceWidget } from './contentItem/reference';
 import Code from './contentItem/code';
+import { Locale } from '../../locale/interface';
+import LocaleConsumer from "../../locale/localeConsumer";
+
 
 const { PREFIX_CONTENT } = cssClasses;
 const { STATUS, MODE, ROLE, MESSAGE_ITEM_TYPE } = strings;
@@ -42,7 +45,7 @@ const DialogueContent = (props: DialogueContentProps) => {
         });
     }, [role, status, mode]);
 
-    const renderFileIcon = (type: string) => {
+    const renderFileIcon = (type: string, props: InputFile) => {
         let icon = null;
         let typeCls = '';
 
@@ -51,7 +54,8 @@ const DialogueContent = (props: DialogueContentProps) => {
             icon = <IconWord size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
         } else if (['jpeg', 'jpg', 'png', 'gif'].includes(type)) {
             typeCls = 'image';
-            icon = <IconImage size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
+            // icon = <IconImage size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
+            icon = <div className={`${PREFIX_CONTENT}-file-icon`} style={{ backgroundImage: `url(${props.file_url})` }}/>;
         } else if (type === 'pdf') {
             typeCls = 'pdf';
             icon = <IconPdf size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
@@ -107,7 +111,7 @@ const DialogueContent = (props: DialogueContentProps) => {
             className={`${PREFIX_CONTENT}-file`} 
             rel="noreferrer"
         >
-            {renderFileIcon(realType)}
+            {renderFileIcon(realType, props)}
             <div className={`${PREFIX_CONTENT}-file-info`}>
                 <span className={`${PREFIX_CONTENT}-file-title`}>{filename}</span>
                 <span className={`${PREFIX_CONTENT}-file-metadata`}>
@@ -233,19 +237,25 @@ const DialogueContent = (props: DialogueContentProps) => {
     } as Record<string, (item: ContentItem, index: number) => React.ReactNode>), [renderMessage, markdownRenderProps, customMarkDownComponents, renderToolCall]);
 
     const loadingNode = useMemo(() => {
-        // todo: 支持彩色 loading
         const isLoading = [STATUS.QUEUED, STATUS.IN_PROGRESS, STATUS.INCOMPLETE].includes(status);
-        if (isLoading) {
+        const isEmptyOutput = content?.length === 0 && !message.output_text;
+        // 如果内容为空，且没有 output_text，则显示 loading
+        // If the content is empty and there is no output_text, it will display loading
+        if (isLoading && isEmptyOutput) {
             return <span className={`${PREFIX_CONTENT}-loading`} >
                 <span className={`${PREFIX_CONTENT}-loading-item`} /> 
                 <span className={`${PREFIX_CONTENT}-loading-item`} /> 
                 <span className={`${PREFIX_CONTENT}-loading-item`} /> 
-                <span className={`${PREFIX_CONTENT}-loading-text`}>请稍候...</span>
+                <span className={`${PREFIX_CONTENT}-loading-text`}>
+                    <LocaleConsumer<Locale["AIChatDialogue"]> componentName="AIChatDialogue" >
+                        {(locale: Locale["AIChatDialogue"]) => locale['loading']}
+                    </LocaleConsumer>
+                </span>
             </span>;
         } else {
             return null;
         }
-    }, [status]);
+    }, [status, content, message.output_text]);
 
     const node = useMemo(() => {
         if (editing) {

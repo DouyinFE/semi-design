@@ -29,7 +29,7 @@ const defaultMessages = [{
       type: 'message',
       content: [{
           type: 'input_text',
-          text: '帮我生成类似的图片',
+          text: '帮我生成类似的图片帮我生成类似的图片帮我生成类似的图片帮我生成类似的图片',
       }],
   }, {
       type: 'message',
@@ -82,12 +82,14 @@ const multiModalityMessage = [{
     content: [{
       type: "input_text",
       text: "帮我根据下面文件的内容，生成一个简单的 semi design 代码使用示例",
-    },{
+    },
+    {
       type: 'input_file',
       file_url: 'https://www.berkshirehathaway.com/letters/2024ltr.pdf',
       filename: '2024ltr.pdf',
       size: '100KB',
-    },{
+    },
+    {
       type: 'input_file',
       file_url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
       filename: 'edit-bag.jpeg',
@@ -319,6 +321,26 @@ export const Loading = () => {
       align="leftRight"
       mode="bubble"
       chats={loadingMessages}
+      roleConfig={roleConfig}
+    />
+  )
+}
+
+export const continueSend = () => {
+  const continueSendMessages = [{
+    id: '1',
+    role: 'assistant',
+    content: '你好',
+  }, {
+    id: '2',
+    role: 'assistant',
+    content: '你好呀呀呀',
+  }];
+  return (
+    <AIChatDialogue 
+      align="leftRight"
+      mode="bubble"
+      chats={continueSendMessages}
       roleConfig={roleConfig}
     />
   )

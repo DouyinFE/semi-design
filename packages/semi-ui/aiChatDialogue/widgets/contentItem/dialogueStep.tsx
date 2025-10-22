@@ -5,6 +5,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
 import { IconStoryStroked, IconChevronDown, IconChevronUp, IconMore, IconSearch } from '@douyinfe/semi-icons';
 
 const prefixCls = cssClasses.PREFIX_STEP;
+const { PREFIX_CONTENT } = cssClasses;
 
 export interface DialogueStepWidgetProps {
     steps: Step[]
@@ -33,6 +34,14 @@ export const DialogueStepWidget = (props: DialogueStepWidgetProps) => {
         return <IconStoryStroked className={`${prefixCls}-completed`}/>;
     };
 
+    const loadingIcon = () => {
+        return <span className={`${PREFIX_CONTENT}-loading`}>
+            <span className={`${PREFIX_CONTENT}-loading-item`} /> 
+            <span className={`${PREFIX_CONTENT}-loading-item`} /> 
+            <span className={`${PREFIX_CONTENT}-loading-item`} /> 
+        </span>;
+    };
+
 
     return (
         <div className={`${prefixCls}-wrapper`}>
@@ -57,7 +66,7 @@ export const DialogueStepWidget = (props: DialogueStepWidgetProps) => {
                             <div className={`${prefixCls}-prefix`}>
                                 {/* todo: 加载中替换成会动的 loading icon */}
                                 {
-                                    status === 'completed' ? completedIcon() : <IconMore />
+                                    status === 'completed' ? completedIcon() : loadingIcon()
                                 }
                             </div>
                             <div className={`${prefixCls}-summary`}>{summary}</div>

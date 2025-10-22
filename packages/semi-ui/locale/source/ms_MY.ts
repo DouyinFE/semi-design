@@ -210,6 +210,8 @@ const local: Locale = {
         delete: 'Padam',
         deleteConfirm: 'Adakah anda pasti ingin memadam sesi ini?',
         deleteContent: 'Sesi ini akan dihapus secara permanen dan tidak dapat dipulihkan.',
+        copySuccess: 'Berjaya disalin',
+        loading: 'Memuat...',
     },
     Feedback: {
         submit: 'Hantar',

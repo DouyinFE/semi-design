@@ -42,6 +42,7 @@ export interface AIChatDialogueProps {
 }
 
 export interface AIChatDialogueItemProps extends AIChatDialogueProps {
+    continueSend?: boolean;
     isLastChat?: boolean;
     isSelected?: boolean;
     message: Message;

@@ -1,5 +1,9 @@
 // Color
-$color-aiChatDialogue_loading_circle-bg: var(--semi-color-text-0); // 加载圆点背景色
+$color-aiChatDialogue_wrapper-selected-bg: var(--semi-color-fill-0); // 外层选中背景色
+$color-aiChatDialogue_loading_circle_first-bg:  rgba(83, 56, 255, 1); // 第一个加载圆点背景色
+$color-aiChatDialogue_loading_circle_second-bg: rgba(176, 48, 240, 1); // 第二个加载圆点背景色
+$color-aiChatDialogue_loading_circle_third-bg: rgba(231, 45, 255, 1); // 第三个加载圆点背景色
+$color-aiChatDialogue_loading_text: var(--semi-color-text-3); // 加载中文本颜色
 $color-aiChatDialogue_bubble-bg: var(--semi-color-fill-0); // 对话气泡背景色
 $color-aiChatDialogue_file-bg: var(--semi-color-fill-0); // 文件组件背景色
 $color-aiChatDialogue_file_title-text: var(--semi-color-text-0); // 文件标题文本颜色
@@ -42,13 +46,11 @@ $width-aiChatDialogue_inner: 100%; // 气泡右侧展示内层宽度
 $width-aiChatDialogue_checkbox: 32px; // 复选框宽度
 $width-aiChatDialogue_avatar: 24px; // 头像宽度
 $height-aiChatDialogue_avatar: 24px; // 头像高度
-$width-aiChatDialogue_content: fit-content; // 内容宽度
 $width-aiChatDialogue_content_editing: 100%; // 内容宽度 - 编辑状态
 $width-aiChatDialogue_content_max: 100%; // 内容最大宽度
 $width-aiChatDialogue_bubble_max: 100%; // 气泡最大宽度
-$width-aiChatDialogue_bubble: fit-content; // 气泡内容宽度
-$width-aiChatDialogue_loading_circle: 8px; // 加载圆点宽度
-$height-aiChatDialogue_loading_circle: 8px; // 加载圆点高度
+$width-aiChatDialogue_loading_circle: 3px; // 加载圆点宽度
+$height-aiChatDialogue_loading_circle: 3px; // 加载圆点高度
 $width-aiChatDialogue_img: 256px; // 图片宽度
 $height-aiChatDialogue_img: 256px; // 图片高度
 $width-aiChatDialogue_img_list: 128px; // 图片列表项宽度
@@ -57,8 +59,6 @@ $width-aiChatDialogue_file: 224px; // 文件组件宽度
 $height-aiChatDialogue_file: 36px; // 文件组件高度
 $width-aiChatDialogue_file_icon_wrapper: 36px; // 文件图标外层宽度
 $height-aiChatDialogue_file_icon_wrapper: 36px; // 文件图标外层高度
-$width-aiChatDialogue_tool_call: fit-content; // 工具调用组件宽度
-$width-aiChatDialogue_custom_renderer: fit-content; // 自定义渲染器组件宽度
 $width-aiChatDialogue_action_btn: 24px; // 操作按钮宽度
 $height-aiChatDialogue_action_btn: 24px; // 操作按钮高度
 $width-aiChatDialogue_reasoning: 100%; // 推理组件宽度
@@ -69,17 +69,13 @@ $height-aiChatDialogue_reasoning_prefix: 20px; // 推理前缀图标高度
 $width-aiChatDialogue_step-border: 1px; // 步骤组件 border 宽度
 $width-aiChatDialogue_step_prefix: 20px; // 步骤前缀图标宽度
 $height-aiChatDialogue_step_prefix: 20px; // 步骤前缀图标高度
-$width-aiChatDialogue_step_summary: fit-content; // 步骤摘要宽度
 $width-aiChatDialogue_step_suffix: 20px; // 步骤后缀图标宽度
 $height-aiChatDialogue_step_suffix: 20px; // 步骤后缀图标高度
 $width-aiChatDialogue_step_line: 1px; // 步骤左侧线宽度
-$width-aiChatDialogue_step_action_desc: fit-content; // 步骤操作描述宽度
 $width-aiChatDialogue_annotation: 100%; // 参考来源宽度
 $width-aiChatDialogue_annotation-border: 1px; // 参考来源组件 border 宽度
-$width-aiChatDialogue_annotation_wrapper: fit-content; // 参考来源外层宽度
 $width-aiChatDialogue_annotation_logo: 16px; // 参考来源logo宽度
 $height-aiChatDialogue_annotation_logo: 16px; // 参考来源logo高度
-$width-aiChatDialogue_reference: fit-content; // 引用组件宽度
 $width-aiChatDialogue_reference_icon: 16px; // 引用图标宽度
 $height-aiChatDialogue_reference_icon: 16px; // 引用图标高度
 $width-aiChatDialogue_reference_max: 200px; // 引用组件最大宽度
@@ -91,6 +87,7 @@ $width-aiChatDialogue_action_copy: 24px; // 复制按钮宽度
 // Spacing
 $spacing-aiChatDialogue_wrapper-paddingY: 8px; // 最外层垂直内边距
 $spacing-aiChatDialogue_wrapper-paddingX: 16px; // 最外层水平内边距
+$spacing-aiChatDialogue_wrapper-marginTop: 2px; // 最外层顶部外边距
 $spacing-aiChatDialogue_container-columnGap: 12px; // container 容器列间距
 $spacing-aiChatDialogue_content-marginTop: 8px; // 内容顶部外边距
 $spacing-aiChatDialogue_content_failed-marginRight: 8px; // 内容失败提示右外边距
@@ -100,7 +97,7 @@ $spacing-aiChatDialogue_bubble-paddingY: 12px; // 气泡垂直内边距
 $spacing-aiChatDialogue_bubble-paddingX: 16px; // 气泡水平内边距
 $spacing-aiChatDialogue_content_loading-marginTop: 8px; // 内容加载顶部外边距
 $spacing-aiChatDialogue_loading_item-marginY: 1px; // 加载项垂直外边距
-$spacing-aiChatDialogue_loading_item-marginX: 3px; // 加载项水平外边距
+$spacing-aiChatDialogue_loading_item-marginX: 1px; // 加载项水平外边距
 $spacing-aiChatDialogue_loading_text-marginLeft: 8px; // 加载文本左外边距
 $spacing-aiChatDialogue_loading_item_before-left: -15px; // 加载项 before 左外边距
 $spacing-aiChatDialogue_loading_item_after-left: 15px; // 加载项 after 左外边距
@@ -151,10 +148,12 @@ $spacing-aiChatDialogue_code_topSlot-paddingX: 16px; // 代码块顶部槽水平
 $spacing-aiChatDialogue_hints-rowGap: 8px; // 提示行间距
 $spacing-aiChatDialogue_hints-marginTop: 4px; // 提示顶部外边距
 $spacing-aiChatDialogue_hints-marginBottom: 12px; // 提示底部外边距
+$spacing-aiChatDialogue_hints-marginLeft: 52px; // 提示左外边距
 $spacing-aiChatDialogue_hint_item-paddingY: 8px; // 提示项垂直内边距
 $spacing-aiChatDialogue_hint_item-paddingX: 16px; // 提示项水平内边距
 
 // Radius
+$radius-aiChatDialogue_wrapper_selected: 16px; // 外层选中圆角
 $radius-aiChatDialogue_loading_circle: var(--semi-border-radius-circle); // 加载圆点圆角
 $radius-aiChatDialogue_bubble: var(--semi-border-radius-large); // 对话气泡圆角
 $radius-aiChatDialogue_img: var(--semi-border-radius-medium); // 图片圆角

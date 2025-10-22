@@ -211,6 +211,8 @@ const local: Locale = {
         delete: '削除',
         deleteConfirm: 'このメッセージを削除してもよろしいですか？',
         deleteContent: 'このメッセージは削除されました。',
+        copySuccess: '正常にコピーされました',
+        loading: '読み込み中...',
     },
     Feedback: {
         submit: '送信',

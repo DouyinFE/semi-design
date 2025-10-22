@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Collapsible from '../../../collapsible';
 import { cssClasses } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
-import { IconChevronDown, IconChevronUp, IconSearch } from '@douyinfe/semi-icons';
+import { IconChevronDown, IconChevronUp, IconAISearchLevel2 } from '@douyinfe/semi-icons';
 import MarkdownRender from '../../../markdownRender';
 import { MarkdownRenderProps } from '../../../aiChatDialogue/interface';
 import { MDXProps } from 'mdx/types';
@@ -49,7 +49,7 @@ export const ReasoningWidget = (props: ReasoningWidgetProps) => {
         >
             <div className={`${prefixCls}-header`}>
                 <div className={`${prefixCls}-header-prefix`}>
-                    <IconSearch />
+                    <IconAISearchLevel2 />
                 </div>
                 <div className={`${prefixCls}-header-title`}>
                     {status === 'completed' ? '已思考完成' : '正在思考中...'}

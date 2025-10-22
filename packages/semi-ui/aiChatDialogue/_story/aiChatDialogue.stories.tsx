@@ -1,5 +1,4 @@
 import React from 'react';
-import { AiChatMessageBlock } from '../../index';
 import { storiesOf } from '@storybook/react';
 
 

@@ -211,6 +211,8 @@ const local: Locale = {
         delete: '删除',
         deleteConfirm: '确认要删除吗？',
         deleteContent: '删除后将无法恢复！',
+        copySuccess: '复制成功',
+        loading: '请稍候...',
     },
     Feedback: {
         submit: '提交',

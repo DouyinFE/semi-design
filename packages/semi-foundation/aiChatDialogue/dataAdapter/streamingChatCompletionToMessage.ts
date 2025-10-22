@@ -1,5 +1,5 @@
 import { Message } from 'aiChatDialogue/foundation';
-import { ChatCompletionChunk, FunctionToolCall } from './interface';
+import { ChatCompletionChunk, ChatCompletionFunctionToolCall } from './interface';
  
 
 // 状态对象：记录每个请求 id + choice index 已处理的 chunk 数量
@@ -45,7 +45,7 @@ export default function streamingChatCompletionToMessage(chatCompletionChunks: C
                 functionCall.arguments += delta.function_call.arguments;
             }
             if (delta?.tool_calls) {
-                delta?.tool_calls.forEach((toolCall: FunctionToolCall) => {
+                delta?.tool_calls.forEach((toolCall: ChatCompletionFunctionToolCall) => {
                     if (toolCalls[toolCall.id]) {
                         if (toolCall.function.name) {
                             toolCalls[toolCall.id].name += toolCall.function.name;
@@ -53,7 +53,7 @@ export default function streamingChatCompletionToMessage(chatCompletionChunks: C
                         toolCalls[toolCall.id].arguments += toolCall.function.arguments;
                     } else {
                         toolCalls[toolCall.id] = {
-                            ...(toolCall as FunctionToolCall).function,
+                            ...(toolCall as ChatCompletionFunctionToolCall).function,
                             type: 'function_call',
                             status: status,
                             id: toolCall.id,
@@ -63,7 +63,7 @@ export default function streamingChatCompletionToMessage(chatCompletionChunks: C
             }
         });
 
-        const toolCallsArray = Object.values(toolCalls) as FunctionToolCall[];
+        const toolCallsArray = Object.values(toolCalls) as ChatCompletionFunctionToolCall[];
 
         const outputMessage = [
             textContent !== '' && {

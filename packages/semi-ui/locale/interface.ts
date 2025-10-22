@@ -209,7 +209,9 @@ export interface Locale {
     AIChatDialogue: {
         delete: string;
         deleteConfirm: string;
-        deleteContent: string
+        deleteContent: string;
+        copySuccess: string;
+        loading: string
     };
     Feedback: {
         submit: string;

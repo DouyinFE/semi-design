@@ -211,6 +211,8 @@ const local: Locale = {
         delete: '刪除',
         deleteConfirm: '確認刪除該對話嗎？',
         deleteContent: '刪除後將無法恢復！',
+        copySuccess: '複製成功',
+        loading: '請稍候...',
     },
     Feedback: {
         submit: '提交',

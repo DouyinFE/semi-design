@@ -217,6 +217,8 @@ const local: Locale = {
         delete: 'Verwijderen',
         deleteConfirm: 'Weet u zeker dat u deze conversatie wilt verwijderen?',
         deleteContent: 'Deze conversatie wordt permanent verwijderd en kan niet worden hersteld.',
+        copySuccess: 'Succesvol gekopieerd',
+        loading: 'Laden...',
     },
     Feedback: {
         submit: 'Versturen',

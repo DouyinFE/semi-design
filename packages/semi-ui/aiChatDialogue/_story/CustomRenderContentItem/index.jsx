@@ -190,7 +190,7 @@ export default function CustomRender() {
             // },
             "function_call": {
                 "create_travel_guide": (item) => {
-                    return <div>Function Tool Call: {item.name} {JSON.stringify(item.arguments)}</div>;
+                    return <div className="user-text">Function Tool Call: {item.name} {JSON.stringify(item.arguments)}</div>;
                 }
             },
             "input_text": (item) => {

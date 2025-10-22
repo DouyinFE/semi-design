@@ -214,6 +214,8 @@ const local: Locale = {
         delete: 'ลบ',
         deleteConfirm: 'คุณต้องการลบการสนทนานี้ใช่หรอไม่?',
         deleteContent: 'การสนทนานี้จะลบออกอย่างถาวรและไม่สามารถกู้คืนได้',
+        copySuccess: 'คัดลอกสำเร็จ',
+        loading: 'กำลังโหลด...',
     },
     Feedback: {
         submit: 'ส่ง',

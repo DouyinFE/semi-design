@@ -210,6 +210,8 @@ const local: Locale = {
         delete: 'Hapus',
         deleteConfirm: 'Apakah Anda yakin ingin menghapus pesan ini?',
         deleteContent: 'Pesan ini akan dihapus secara permanen dan tidak dapat dipulihkan.',
+        copySuccess: 'Berhasil disalin',
+        loading: 'Memuat...',
     },
     Feedback: {
         submit: 'Kirim',

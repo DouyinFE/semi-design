@@ -1,5 +1,5 @@
 import { Message } from 'aiChatDialogue/foundation';
-import { ChatCompletion, Choice, ToolCalls, FunctionToolCall, CustomToolCall } from './interface';
+import { ChatCompletion, Choice, ChatCompletionToolCalls, ChatCompletionFunctionToolCall, ChatCompletionCustomToolCall } from './interface';
 /* 
 Chat Completion VS. Response
 - The former only have content、refusal、function_call、tool_calls; 
@@ -56,17 +56,17 @@ export default function chatCompletionToMessage(chatCompletion: ChatCompletion):
 
         // processing tool calls
         if (message?.tool_calls?.length) {
-            const toolCalls = message.tool_calls.map((toolCall: ToolCalls) => {
+            const toolCalls = message.tool_calls.map((toolCall: ChatCompletionToolCalls) => {
                 if (toolCall.type === 'function') {
                     return {
                         status: 'completed',
-                        ...(toolCall as FunctionToolCall).function,
+                        ...(toolCall as ChatCompletionFunctionToolCall).function,
                         type: 'function_call',
                         // todo: call_id?
                     };
                 }
                 return {
-                    ...(toolCall as CustomToolCall).custom,
+                    ...(toolCall as ChatCompletionCustomToolCall).custom,
                     type: 'custom_call',
                 };
             });

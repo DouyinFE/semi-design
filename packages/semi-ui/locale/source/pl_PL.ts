@@ -218,6 +218,8 @@ const local: Locale = {
         delete: 'Usuń',
         deleteConfirm: 'Czy na pewno chcesz usunąć tę rozmowę?',
         deleteContent: 'Rozmowa została usunięta.',
+        copySuccess: 'Skopiowano pomyślnie',
+        loading: 'Ładowanie...',
     },
     Feedback: {
         submit: 'Wyślij',
