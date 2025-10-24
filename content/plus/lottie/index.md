@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 31
+order: 32
 category: Plus
 title: Lottie 动画
 icon: doc-lottie

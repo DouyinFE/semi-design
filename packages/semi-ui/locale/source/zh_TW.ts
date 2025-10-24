@@ -206,6 +206,11 @@ const local: Locale = {
         stall: '加載失敗',
         noResource: '暫無資源',
         videoError: '視頻加載錯誤'
+    },
+    AIChatInput: {
+        template: '模板',
+        configure: '配置',
+        selected: '已選 ${count} 個',
     }
 };
 

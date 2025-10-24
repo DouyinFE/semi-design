@@ -205,6 +205,11 @@ const local: Locale = {
         stall: 'فشل التحميل',
         noResource: 'لا يوجد مورد',
         videoError: 'خطأ في تحميل الفيديو'
+    },
+    AIChatInput: {
+        template: 'القالب',
+        configure: 'التكوين',
+        selected: 'تم اختيار ${count} عناصر',
     }
 };
 

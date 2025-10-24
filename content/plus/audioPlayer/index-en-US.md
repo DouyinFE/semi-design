@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 94
+order: 95
 category: Plus
 title: AudioPlayer
 icon: doc-audioplayer
