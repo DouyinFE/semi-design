@@ -12,6 +12,8 @@ const cssClasses = {
     PREFIX_CODE: `${BASE_CLASS_PREFIX}-ai-chat-dialogue-code`,
     PREFIX_HINT: `${BASE_CLASS_PREFIX}-ai-chat-dialogue-hint`,
 };
+const SCROLL_ANIMATION_TIME = 300;
+const SHOW_SCROLL_GAP = 100;
 
 const ROLE = {
     USER: 'user',
@@ -94,6 +96,8 @@ const VIDEO_TYPES = [ 'mp4', 'avi', 'mov', 'wmv', 'flv', 'mkv'];
 
 
 const strings = {
+    SCROLL_ANIMATION_TIME,
+    SHOW_SCROLL_GAP,
     STATUS,
     ROLE,
     DIALOGUE_ALIGN,

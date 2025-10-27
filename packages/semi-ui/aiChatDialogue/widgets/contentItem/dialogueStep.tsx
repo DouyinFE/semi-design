@@ -64,7 +64,6 @@ export const DialogueStepWidget = (props: DialogueStepWidgetProps) => {
                             }}
                         >
                             <div className={`${prefixCls}-prefix`}>
-                                {/* todo: 加载中替换成会动的 loading icon */}
                                 {
                                     status === 'completed' ? completedIcon() : loadingIcon()
                                 }

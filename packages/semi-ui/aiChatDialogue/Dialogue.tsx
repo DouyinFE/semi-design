@@ -42,7 +42,8 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
     };
 
     contentNode = () => {
-        const { message, mode, dialogueRenderConfig, markdownRenderProps, messageEditRender, onFileClick, onImageClick, disabledFileItemClick, renderDialogueContentItem, onAnnotationClick } = this.props;
+        const { message, mode, dialogueRenderConfig, markdownRenderProps, messageEditRender, disabledFileItemClick, renderDialogueContentItem,
+            onFileClick, onImageClick, onAnnotationClick, onReferenceClick, showReference } = this.props;
 
         return <DialogueContent 
             key={message.editing}
@@ -55,8 +56,10 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
             disabledFileItemClick={disabledFileItemClick}
             renderDialogueContentItem={renderDialogueContentItem}
             onAnnotationClick={onAnnotationClick}
+            onReferenceClick={onReferenceClick}
             customRenderFunc={dialogueRenderConfig?.renderDialogueContent}
             markdownRenderProps={markdownRenderProps} 
+            showReference={showReference}
         />;
     };
 

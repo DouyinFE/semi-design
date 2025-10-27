@@ -1,6 +1,7 @@
 import * as React from 'react';
 import BaseComponent from '../_base/baseComponent';
 import PropTypes from 'prop-types';
+import cls from "classnames";
 import "@douyinfe/semi-foundation/aiChatDialogue/aiChatDialogue.scss";
 import { ReasoningWidget } from './widgets/contentItem/reasoning';
 import { DialogueStepWidget } from './widgets/contentItem/dialogueStep';
@@ -9,17 +10,22 @@ import DialogueItem from './Dialogue';
 import DialogueFoundation, { DialogueAdapter, Message } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
 import { AIChatDialogueProps } from './interface';
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
-import { strings } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
+import { cssClasses, strings } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
 import Hint from './widgets/dialogueHint';
+import { Button } from "../index";
+import { IconChevronDown } from '@douyinfe/semi-icons';
 
 
 export interface AIChatDialogueStates {
     chats?: Message[];
     selectedIds: Set<string>;
-    cacheHints?: string[]
+    cacheHints?: string[];
+    backBottomVisible: boolean;
+    wheelScroll: boolean
 }
 
 const { DIALOGUE_ALIGN, MODE } = strings;
+const { PREFIX } = cssClasses;
 
 class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueStates> {
 
@@ -30,6 +36,9 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
 
     foundation: DialogueFoundation;
     containerRef: React.RefObject<HTMLDivElement>;
+    scrollTargetRef: React.RefObject<HTMLElement>;
+    wheelEventHandler: any;
+
 
     static propTypes = {
         align: PropTypes.oneOf(['leftRight', 'leftAlign']),
@@ -62,6 +71,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         onMessageShare: PropTypes.func,
         onSelect: PropTypes.func,
         showReset: PropTypes.bool,
+        showReference: PropTypes.bool,
     };
 
     static defaultProps = getDefaultPropsFromGlobalConfig(AIChatDialogue.__SemiComponentName__, {
@@ -70,6 +80,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         selecting: false,
         disabledFileItemClick: false,
         showReset: true,
+        showReference: false,
     })
 
     constructor(props: AIChatDialogueProps) {
@@ -77,11 +88,16 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
 
         this.foundation = new DialogueFoundation(this.adapter);
         this.containerRef = React.createRef();
+        this.scrollTargetRef = React.createRef();
+        this.wheelEventHandler = null;
+
 
         this.state = {
             cacheHints: [],
             selectedIds: new Set<string>(),
             chats: [],
+            backBottomVisible: false,
+            wheelScroll: false,
         };
         
         this.onSelectOrRemove = this.onSelectOrRemove.bind(this);
@@ -90,6 +106,12 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
     get adapter(): DialogueAdapter<AIChatDialogueProps, AIChatDialogueStates> {
         return {
             ...super.adapter,
+            getContainerRef: () => this.containerRef?.current,
+            setWheelScroll: (flag: boolean) => {
+                this.setState({
+                    wheelScroll: flag,
+                });
+            },
             updateSelected: (selectedIds: Set<string>) => {
                 this.setState({ selectedIds });
             },
@@ -121,6 +143,50 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
                 const { onHintClick } = this.props;
                 onHintClick && onHintClick(hint);
             },
+            setBackBottomVisible: (visible: boolean) => {
+                this.setState((state) => {
+                    if (state.backBottomVisible !== visible) {
+                        return {
+                            backBottomVisible: visible,
+                        };
+                    }
+                    return null;
+                });
+            },
+            registerWheelEvent: () => {
+                this.adapter.unRegisterWheelEvent();
+                const containerElement = this.containerRef.current;
+                if (!containerElement) {
+                    return ;
+                }
+                this.wheelEventHandler = (e: any) => {
+                    /**
+                     * Why use this.scrollTargetRef.current and wheel's currentTarget target comparison?
+                     * Both scroll and wheel events are on the container
+                     * his.scrollTargetRef.current is the object where scrolling actually occurs
+                     * wheel's currentTarget is the container,
+                     * Only when the wheel event occurs and there is scroll, the following logic(show scroll bar) needs to be executed
+                     */
+                    if (this.scrollTargetRef?.current !== e.currentTarget) {
+                        return;
+                    }
+                    this.adapter.setWheelScroll(true);
+                    this.adapter.unRegisterWheelEvent();
+                };
+
+                containerElement.addEventListener('wheel', this.wheelEventHandler);
+            },
+            unRegisterWheelEvent: () => {
+                if (this.wheelEventHandler) {
+                    const containerElement = this.containerRef.current;
+                    if (!containerElement) {
+                        return ;
+                    } else {
+                        containerElement.removeEventListener('wheel', this.wheelEventHandler);
+                    }
+                    this.wheelEventHandler = null;
+                }
+            },
         };
     }
 
@@ -146,6 +212,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
     componentDidUpdate(prevProps: Readonly<AIChatDialogueProps>, prevState: Readonly<AIChatDialogueStates>, snapshot?: any): void {
         const { chats: newChats, hints: newHints } = this.props;
         const { chats: oldChats, cacheHints } = prevState;
+        const { wheelScroll } = this.state;
         let shouldScroll = false;
         if (newChats !== oldChats) {
             if (Array.isArray(newChats) && Array.isArray(oldChats)) {
@@ -167,6 +234,9 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
                 shouldScroll = true;
             }
         }
+        if (!wheelScroll && shouldScroll) {
+            this.foundation.scrollToBottomImmediately();
+        }
     }
 
     componentWillUnmount(): void {
@@ -184,49 +254,84 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
     onSelectOrRemove(isChecked: boolean, item: string) {
         this.foundation.handleSelectOrRemove(isChecked, item);
     }
+
+    scrollToBottom = (animation: boolean) => {
+        if (animation) {
+            this.foundation.scrollToBottomWithAnimation();
+        } else {
+            this.foundation.scrollToBottomImmediately();
+        }
+    }
+
+    containerScroll = (e: React.UIEvent<HTMLDivElement>) => {
+        (this.scrollTargetRef as any).current = e.target as HTMLElement;
+        if (e.target !== e.currentTarget) {
+            return;
+        }
+        this.foundation.containerScroll(e);
+    }
     
     render() {
         const { roleConfig, onMessageBadFeedback, onMessageGoodFeedback, onMessageReset, onMessageEdit, onMessageDelete, onHintClick,
-            selecting, hintCls, hintStyle, hints, renderHintBox, ...restProps } = this.props;
-        const { selectedIds, chats } = this.state;
+            selecting, hintCls, hintStyle, hints, renderHintBox, style, className, ...restProps } = this.props;
+        const { selectedIds, chats, backBottomVisible } = this.state;
 
         return (
-            <React.Fragment>
-                {chats.map((chat, index) => {
-                    const isLastChat = index === chats.length - 1;
-                    const continueSend = index > 0 && chat?.role === chats[index - 1]?.role;
-                    return (
-                        <DialogueItem 
-                            key={chat.id}
-                            message={chat}
-                            role={roleConfig[chat.role]}
-                            onSelectChange={this.onSelectOrRemove}
-                            isSelected={selectedIds.has(chat.id)}
-                            roleConfig={roleConfig}
-                            onMessageBadFeedback={this.foundation.dislikeMessage}
-                            onMessageGoodFeedback={this.foundation.likeMessage}
-                            onMessageReset={this.foundation.resetMessage}
-                            onMessageEdit={this.foundation.editMessage}
-                            onMessageDelete={this.foundation.deleteMessage}
-                            onHintClick={this.foundation.onHintClick}
-                            isLastChat={isLastChat}
-                            continueSend={continueSend}
+            <div 
+                className={cls(`${PREFIX}`, className)} 
+                style={style}
+            >
+                <div 
+                    className={`${PREFIX}-list`}
+                    onScroll={this.containerScroll}
+                    ref={this.containerRef}
+                >
+                    {chats.map((chat, index) => {
+                        const isLastChat = index === chats.length - 1;
+                        const continueSend = index > 0 && chat?.role === chats[index - 1]?.role;
+                        return (
+                            <DialogueItem 
+                                key={chat.id}
+                                message={chat}
+                                role={roleConfig[chat.role]}
+                                onSelectChange={this.onSelectOrRemove}
+                                isSelected={selectedIds.has(chat.id)}
+                                roleConfig={roleConfig}
+                                onMessageBadFeedback={this.foundation.dislikeMessage}
+                                onMessageGoodFeedback={this.foundation.likeMessage}
+                                onMessageReset={this.foundation.resetMessage}
+                                onMessageEdit={this.foundation.editMessage}
+                                onMessageDelete={this.foundation.deleteMessage}
+                                onHintClick={this.foundation.onHintClick}
+                                isLastChat={isLastChat}
+                                continueSend={continueSend}
+                                selecting={selecting}
+                                {...restProps}
+                            />
+                        );
+                    })}
+                    {
+                        !!hints?.length && <Hint
+                            className={hintCls}
+                            style={hintStyle}
+                            hints={hints}
+                            onHintClick={onHintClick}
+                            renderHintBox={renderHintBox}
                             selecting={selecting}
-                            {...restProps}
                         />
-                    );
-                })}
+                    }
+                </div>
                 {
-                    !!hints?.length && <Hint
-                        className={hintCls}
-                        style={hintStyle}
-                        hints={hints}
-                        onHintClick={onHintClick}
-                        renderHintBox={renderHintBox}
-                        selecting={selecting}
-                    />
+                    backBottomVisible && (<span className={`${PREFIX}-backBottom`}>
+                        <Button
+                            className={`${PREFIX}-backBottom-button`}
+                            icon={<IconChevronDown size="extra-large"/>}
+                            type="tertiary"
+                            onClick={this.foundation.scrollToBottomWithAnimation}
+                        />
+                    </span>)
                 }
-            </React.Fragment>
+            </div>
         );
     }
 }

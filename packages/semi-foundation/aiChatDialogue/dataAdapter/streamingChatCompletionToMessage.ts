@@ -1,10 +1,12 @@
-import { Message } from 'aiChatDialogue/foundation';
-import { ChatCompletionChunk, ChatCompletionFunctionToolCall } from './interface';
+import { FunctionToolCall, Message, OutputMessage, OutputText, Refusal } from 'aiChatDialogue/foundation';
+import { ChatCompletionChunk, ChatCompletionToolCall } from './interface';
+import { cloneDeep } from 'lodash';
  
 
 // 状态对象：记录每个请求 id + choice index 已处理的 chunk 数量
 export interface StreamingChatState {
-    processedCountByIndex?: Record<string, number>
+    processedCountByIndex?: Record<string, number>;
+    previousResult?: Message[]
 }
 
 export default function streamingChatCompletionToMessage(chatCompletionChunks: ChatCompletionChunk[], state?: StreamingChatState): { messages: Message[]; state?: StreamingChatState } { // There may be N answers, so the return value is a Message array
@@ -14,10 +16,6 @@ export default function streamingChatCompletionToMessage(chatCompletionChunks: C
     const results = groupedChunks.map((chatCompletionChunks: ChatCompletionChunk[], groupIndex: number) => {
         const id = chatCompletionChunks[0].id;
         const status = getStatus(chatCompletionChunks);
-        let textContent = '';
-        let refusal = '';
-        let functionCall = { name: '', arguments: '' };
-        let toolCalls = {};
 
         // 基于 state 增量处理：仅处理新到达的 chunk 片段
         const stateKey = `${id}:${chatCompletionChunks[0]?.choices?.[0]?.index ?? groupIndex}`;
@@ -27,8 +25,33 @@ export default function streamingChatCompletionToMessage(chatCompletionChunks: C
 
         // 若提供了 state 且本次没有新增内容，则跳过该 index
         if (state && chunksToProcess.length === 0) {
-            return null;
+            return state.previousResult?.[groupIndex];
         }
+
+        const previousResult = state?.previousResult?.[groupIndex];
+        let textContent = '';
+        let refusal = '';
+        let functionCall = { name: '', arguments: '' };
+        let toolCalls = [];
+
+        (previousResult?.content as OutputMessage[])?.forEach((item: OutputMessage) => {
+            item.content?.forEach((content: OutputText | Refusal | FunctionToolCall) => {
+                if (content.type === 'output_text') {
+                    textContent += (content as OutputText).text;
+                }
+                if (content.type === 'refusal') {
+                    refusal += (content as Refusal).refusal;
+                }
+            });
+            if (item.type === 'function_call' && !item.id) {
+                // Chat Completion function call does not have id
+                functionCall.name = (item as FunctionToolCall).name;
+                functionCall.arguments = (item as FunctionToolCall).arguments;
+            }
+            if (item.type === 'tool_call' || (item.type === 'function_call' && item.id)) {
+                toolCalls.push(item);
+            }
+        });
 
         chunksToProcess.map((chunk: ChatCompletionChunk) => {
             const delta = chunk.choices[0].delta;
@@ -45,25 +68,29 @@ export default function streamingChatCompletionToMessage(chatCompletionChunks: C
                 functionCall.arguments += delta.function_call.arguments;
             }
             if (delta?.tool_calls) {
-                delta?.tool_calls.forEach((toolCall: ChatCompletionFunctionToolCall) => {
-                    if (toolCalls[toolCall.id]) {
-                        if (toolCall.function.name) {
-                            toolCalls[toolCall.id].name += toolCall.function.name;
+                delta?.tool_calls.forEach((toolCall: ChatCompletionToolCall) => {
+                    // Chat Completion tool call may be function call or custom call
+                    const curToolCall = toolCalls.find((item: ChatCompletionToolCall) => item.id === toolCall.id);
+                    if (curToolCall) {
+                        if (toolCall?.function?.name) {
+                            curToolCall.name += toolCall.function.name;
+                            curToolCall.arguments += toolCall.function.arguments;
+                        } else if (toolCall?.custom?.name) {
+                            curToolCall.name += toolCall.custom.name;
+                            curToolCall.input += toolCall.custom.input;
                         }
-                        toolCalls[toolCall.id].arguments += toolCall.function.arguments;
+                        curToolCall.status = status;
                     } else {
-                        toolCalls[toolCall.id] = {
-                            ...(toolCall as ChatCompletionFunctionToolCall).function,
-                            type: 'function_call',
-                            status: status,
+                        toolCalls.push({
+                            ...(toolCall as ChatCompletionToolCall)?.function,
+                            ...(toolCall as ChatCompletionToolCall)?.custom,
+                            type: (toolCall as ChatCompletionToolCall)?.function ? 'function_call' : 'custom_call',
                             id: toolCall.id,
-                        };
+                        });
                     }
                 });
             }
         });
-
-        const toolCallsArray = Object.values(toolCalls) as ChatCompletionFunctionToolCall[];
 
         const outputMessage = [
             textContent !== '' && {
@@ -87,18 +114,20 @@ export default function streamingChatCompletionToMessage(chatCompletionChunks: C
             },
             functionCall.name !== '' && {
                 type: 'function_call',
-                status: status,
                 ...functionCall
             },
-            ...toolCallsArray,
+            ...toolCalls,
         ].filter(Boolean);
 
         // 更新 state：记录该 index 已处理到的 chunk 数量
-        if (state) {
-            if (!state.processedCountByIndex) {
-                state.processedCountByIndex = {};
-            }
+        if (state && state.processedCountByIndex) {
             state.processedCountByIndex[stateKey] = chatCompletionChunks.length;
+        } else {
+            state = {
+                processedCountByIndex: {
+                    [stateKey]: chatCompletionChunks.length,
+                },
+            };
         }
 
         return {
@@ -108,21 +137,30 @@ export default function streamingChatCompletionToMessage(chatCompletionChunks: C
             status: status,
         };
     }).filter(Boolean) as Message[];
+
+    state.previousResult = cloneDeep(results);
     
     return {
         messages: results,
-        state: state
-    };
+        state: state 
+    }; 
 }
 
 const groupByIndex = (chatCompletionChunks: ChatCompletionChunk[]) => {
     const groupedChunks = [];
     chatCompletionChunks.forEach((chunk) => {
-        const curIndex = chunk.choices[0].index;
-        if (!groupedChunks[curIndex]) {
-            groupedChunks[curIndex] = [];
-        }
-        groupedChunks[curIndex].push(chunk);
+        // 确保每个 chunk 的 choices 都存在且为长度为 1 的数组
+        // Make sure that each chunk's choices exists and is an array of length 1.
+        chunk.choices.forEach((choice) => {
+            const curIndex = choice.index;
+            if (!groupedChunks[curIndex]) {
+                groupedChunks[curIndex] = [];
+            }
+            groupedChunks[curIndex].push({
+                ...chunk,
+                choices: [choice],
+            });
+        });
     });
     return groupedChunks;
 };

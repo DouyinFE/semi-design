@@ -1,5 +1,5 @@
 import { ContentItem, OutputMessage, OutputText, Reasoning, Refusal, FunctionToolCall, CustomToolCall, MCPToolCall, Message } from "aiChatDialogue/foundation";
-import { CodeInterpreterCall, ImageGenerationCall, ResponseChunk } from "./interface";
+import { CodeInterpreterCall, ImageGenerationCall, ResponseChunk, StreamingResponseState } from "./interface";
 
 
 
@@ -73,8 +73,8 @@ import { CodeInterpreterCall, ImageGenerationCall, ResponseChunk } from "./inter
  * @returns Object containing the accumulated message and next state, or null if no chunks / 包含累积消息和下一个状态的对象，如果没有块则返回 null
  */
 export default function streamingResponseToMessage(
-    chunks?: any,
-    prevState?: any
+    chunks?: ResponseChunk[],
+    prevState?: StreamingResponseState
 ) {
     if (!chunks?.length) return null;
 
@@ -112,8 +112,8 @@ export default function streamingResponseToMessage(
             // Initialize fresh state / 初始化全新状态
             processedSeq: new Set<number>(),
             outputs: new Map<number, ContentItem | null>(),
-            meta: {} as any,
-            error: null as any,
+            meta: {},
+            error: null,
             buffer: new Map<number, ResponseChunk>(),
             lastProcessedSeq: -1,  // Start with -1, so first expected sequence is 0 / 从 -1 开始，因此第一个预期序列是 0
         };
@@ -370,7 +370,7 @@ export default function streamingResponseToMessage(
                     code: chunk.code,
                     message: chunk.message,
                 };
-                break;
+                break; 
             }
             case 'response.completed': {
                 if ((chunk as any).response) {
@@ -416,6 +416,8 @@ export default function streamingResponseToMessage(
             if (noSeqChunk) {
                 processChunk(noSeqChunk);
                 state.buffer.delete(decimalKey);
+                state.lastProcessedSeq = nextExpected; // Update last processed sequence / 更新最后处理的序列号
+                nextExpected++;                        // Move to next expected sequence / 移动到下一个预期序列
                 processed = true;  // Continue to check for next integer sequence / 继续检查下一个整数序列
             }
         }
@@ -437,23 +439,24 @@ export default function streamingResponseToMessage(
         .filter((k): k is number => typeof k === 'number' && k === Math.floor(k))  // Only integer keys / 只要整数键
         .sort((a, b) => a - b);  // Sort in ascending order / 升序排序
     
-    if (bufferedSeqs.length > 0) {
-        const minBuffered = bufferedSeqs[0] as number;  // Smallest buffered sequence number / 最小的缓冲序列号
-        const gap = (minBuffered as number) - (state.lastProcessedSeq as number);  // Calculate the gap / 计算间隙
-        
-        if (gap > MAX_GAP) {
-            // Gap is too large, assume intermediate chunks are lost
-            // Process all remaining buffered chunks in order
-            // 间隙太大，假设中间的块已丢失
-            // 按顺序处理所有剩余的缓冲块
-            for (const seq of bufferedSeqs) {
+    if (bufferedSeqs.length > MAX_GAP) {
+        // Gap is too large, assume intermediate chunks are lost
+        // Process all remaining buffered chunks in order
+        // 间隙太大，假设中间的块已丢失
+        // 按顺序处理所有剩余连续块
+        let lastSeq = state.lastProcessedSeq;
+        for (const seq of bufferedSeqs) {
+            if (seq === lastSeq + 1) {
                 const chunk = state.buffer.get(seq);
                 if (chunk) {
                     processChunk(chunk);
                     state.processedSeq.add(seq);
                     state.buffer.delete(seq);
                     state.lastProcessedSeq = seq;
+                    lastSeq = seq;
                 }
+            } else {
+                break;
             }
         }
     }

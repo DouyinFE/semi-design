@@ -121,8 +121,8 @@ render(AlignAndMode);
 ```
 
 ### 消息状态
-chats 类型为 `Message[]`， `Message` 包含对话的各种信息，如角色（role）、内容（content）、状态（status）
-、唯一标识（id）、创建时间（createdAt）等，具体见 [Message](#Message)。其中 status 和 [Response API Status](https://platform.openai.com/docs/api-reference/responses/object#responses/object-status) 相同，存在 6 z种状态，对应 3 种官方样式。
+chats 类型为 `Message[]`， `Message` 包含对话的各种信息，如角色 `role`、内容 `content`、状态 `status`
+、唯一标识 `id`、创建时间 `createdAt` 等，具体见 [Message](#Message)。其中 status 和 [Response API Status](https://platform.openai.com/docs/api-reference/responses/object#responses/object-status) 相同，存在 6 种状态，对应 3 种官方样式（成功 / 请求中 / 失败）。
 
 ```jsx live=true dir="column" noInline=true
 import React, { useState, useCallback } from 'react';
@@ -185,7 +185,7 @@ render(StatusDemo);
 ```
 
 ### 消息展示
-消息内容展示的类型为 (ContentItem[])[https://platform.openai.com/docs/api-reference/responses/list#responses/list-data]，支持文本（`text`）、文件（`file`）、图片（`image`）、代码（`code`）、思考块（`reasoning`）、参考来源（`annotation`）工具调用（`tool call`）等消息块的展示，同时提供 `AIChatDialogue.Step` 组件用于步骤等信息的分步展示。
+消息内容展示的类型为 [ContentItem[]](https://platform.openai.com/docs/api-reference/responses/list#responses/list-data)，支持文本 `text`、文件 `file`、图片 `image`、代码 `code`、思考块 `reasoning`、参考来源 `annotation`、工具调用 `tool call` 等消息块的展示，同时提供 `AIChatDialogue.Step` 组件用于步骤等信息的分步展示。
 
 ```jsx live=true dir="column" noInline=true
 import React, { useState, useCallback } from 'react';
@@ -215,19 +215,7 @@ const defaultMessages = [
                         type: 'input_image',
                         image_url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
                         file_id: 'demo-file-id'
-                    }
-                ],
-            },
-        ],
-        status: 'completed',
-    },
-    {
-        id: '3',
-        role: 'user',
-        content: [
-            {
-                type: 'message',
-                content: [
+                    },
                     {
                         type: 'input_text',
                         text: '以下是文件展示',
@@ -256,7 +244,7 @@ const defaultMessages = [
         status: 'completed',
     },
     {
-        id: '4',
+        id: '3',
         role: 'assistant',
         content: [
             {
@@ -265,7 +253,7 @@ const defaultMessages = [
                 summary: [
                     {
                         'type': 'summary_text',
-                        'text': '\n我需要思考并回到用户关于什么是 Semi 组件库的问题...'
+                        'text': '\n我需要思考并回答用户关于什么是 Semi 组件库的问题...'
                     }
                 ],
             },
@@ -274,18 +262,11 @@ const defaultMessages = [
                 content: [
                     {
                         type: 'output_text',
-                        text: 'Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统'
+                        text: 'Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统。'
                     }
                 ],
                 status: 'completed',
-            }
-        ],
-        status: 'completed',
-    },
-    {
-        id: '5',
-        role: 'assistant',
-        content: [
+            },
             {
                 id: 'fc_12345xyz',
                 call_id: 'call_12345xyz',
@@ -294,13 +275,6 @@ const defaultMessages = [
                 status: 'completed',
                 arguments: '{\'location\':\'Paris, France\'}'
             },
-        ],
-        status: 'completed',
-    },
-    {
-        id: '6',
-        role: 'assistant',
-        content: [
             {
                 type: 'message',
                 content: [
@@ -323,14 +297,7 @@ const defaultMessages = [
                         ]
                     }
                 ]
-            }
-        ], 
-        status: 'completed',
-    },
-    {
-        id: '7',
-        role: 'assistant',
-        content: [
+            },
             {
                 type: 'plan',
                 content: [
@@ -362,6 +329,7 @@ const defaultMessages = [
                 ],
             }
         ],
+        status: 'completed',
     },
 ];
 
@@ -1091,34 +1059,29 @@ function CustomRender () {
         </React.Fragment>;
     }, []);
 
-    const customRender = useCallback((message) => {
-        if (message.role === 'user') {
-            return {
-                "default": (item) => {
-                    return <div style={userTextStyle}>{item}</div>;
-                },
-                "input_text": (item) => {
-                    return <div style={userTextStyle}>{item.text}</div>;
-                },
-            };
-        }
-        return {
-            "function_call": {
-                "create_travel_guide": (item) => {
-                    return <div style={functionCallStyle}>Function Tool Call: {item.name} {item.arguments}</div>;
-                }
-            },
-            "input_text": (item) => {
-                return <div style={userTextStyle}>{item.text}</div>;
-            },
-            "reasoning": (item) => {
-                return <AIChatDialogue.Reasoning {...item} customRenderer={customRenderReasoningContent} />;
-            },
-            "default": (item) => {
+    const customRender = {
+        "function_call": {
+            "create_travel_guide": (item) => {
+                return <div style={functionCallStyle}>Function Tool Call: {item.name} {item.arguments}</div>;
+            }
+        },
+        "input_text": (item, message) => {
+            if (message.role === 'user') {
+                return <div style={userTextStyle} className={'userTextStyle'}>{item.text}</div>;
+            }
+            return <div style={assistantStyle}>{item.text}</div>;
+        },
+        "reasoning": (item) => {
+            return <AIChatDialogue.Reasoning {...item} customRenderer={customRenderReasoningContent} />;
+        },
+        "default": (item, message) => {
+            if (message.role === 'user') {
+                return <div style={userTextStyle} className={'userTextStyle'}>{item}</div>;
+            } else {
                 return <div style={assistantStyle}>{item}</div>;
             }
-        };
-    }, []);
+        }
+    };
 
     return (
         <AIChatDialogue 
@@ -1139,13 +1102,26 @@ render(CustomRender);
 当前组件的对话消息以 OpenAI 的 `Response Object` 为原型，为了支持用户更好地无缝集成 `Chat Completion API` 和 `Response API`，我们提供了四种 `adapter` 转换函数，用户可直接使用该函数转换 API 的返回结果，得到可直接用于消息展示的数据。
 
 ```ts
+// 将 Chat Completion API 返回的数据转换为 Chat Dialogue 中的 Message 格式
 function chatCompletionToMessage(chatCompletion: ChatCompletion): Message[]
+
+// 将 Chat Completion API 流式返回的数据转换为 Chat Dialogue 中的 Message 格式
 function streamingChatCompletionToMessage(chatCompletionChunks: ChatCompletionChunk[], state?: StreamingChatState): { messages: Message[]; state?: StreamingChatState }
+
+// 将 Response API 返回的数据转换为 Chat Dialogue 中的 Message 格式
 function responseToMessage(response: Response): Message
-function streamingResponseToMessage()
+
+// 将 Response API 返回的流式数据转换为 Chat Dialogue 中的 Message 格式
+function streamingResponseToMessage(chunks: ResponseChunk[], prevState: StreamingResponseState): { messages: Message[]; state?: StreamingResponseState }
+
+// 将 Chat Input 数据转换为 Chat Dialogue 中的 Message 格式
+function chatInputToMessage(inputContent: MessageContent): Message
+
+// 将 Chat Input 数据转换为 Chat Completion API 中的 Input Message 格式
+function chatInputToChatCompletion(inputContent: MessageContent): ChatCompletionInput
 ```
 
-通过 `chatCompletionToMessage` 函数将 Chat Completion Object 转换为 Dialogue Message 消息块格式。注意，因为 `Chat Completion API` 可以通过 `n` 来控制每条输入消息生成多少个结果所以该函数的返回值为数组。
+通过 `chatCompletionToMessage` 函数将 Chat Completion Object 转换为 Dialogue Message 消息块格式。注意，因为 `Chat Completion API` 可以通过 `n` 来控制每条输入消息生成多少个结果所以该函数的返回值为数组。(注意：如果 n > 1，用户需要自行决定将哪条数据添加到 message 中展示)
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useCallback } from 'react';
@@ -1267,7 +1243,7 @@ function StreamingChatCompletionToMessageDemo() {
             const { messages: partialMessages, state: nextState } = streamingChatCompletionToMessage(slice, state);
             setState(nextState);
 
-            const merged = [...partialMessages];
+            const merged = [...messages, partialMessages[0]];
             setMessage(merged);
 
             i += 1;
@@ -1570,11 +1546,12 @@ render(StreamingResponseToMessageDemo);
 | onMessageShare | 分享消息回调 | (message?: Message) => void | - |
 | onSelect | 选择项变更回调 | (selectedIds: string[]) => void | - |
 | renderConfig | 自定义各区块渲染 | DialogueRenderConfig | - |
-| renderDialogueContentItem | 按消息类型返回内容渲染映射 | (message?: Message) => DialogueContentItemRendererMap | - |
+| renderDialogueContentItem | 按消息类型返回内容渲染映射 | DialogueContentItemRendererMap | - |
 | renderHintBox | 自定义提示项渲染 | (props: { content: string; index: number; onHintClick: () => void }) => React.ReactNode | - |
 | roleConfig | 角色配置（user/assistant/system 等元数据） | RoleConfig | 必填 |
 | selecting | 是否开启选择模式 | boolean | false |
 | showReset | 是否展示重置操作 | boolean | true |
+| showReference | 是否在文字或者文件消息中展示可被引用图标，仅对用户消息生效 | boolean | false |
 | style | 样式 | CSSProperties | - |
 
 
@@ -1596,6 +1573,12 @@ render(StreamingResponseToMessageDemo);
 | model | 模型名称 | string | -|
 | status | 消息状态，可选值为 `queued` \| `in_progress` \| `incomplete` \| `completed` \| `failed`  \| `cancelled` |string | completed |
 
+### Methods
+| 方法  | 说明   |
+|------|--------|
+| selectAll | 全选所有消息 |
+| deselectAll | 取消全选所有消息 |
+| scrollToBottom(animation: boolean) | 滚动到最底部, animation 为 true，则有动画，反之无动画 |
 
 ### ContentItem
 `ContentItem` 支持所有 OpenAI Response [InputItem](https://platform.openai.com/docs/api-reference/responses/create#responses-create-input) 和 [OutputItem](https://platform.openai.com/docs/api-reference/responses/object#responses/object-output) 类型，具体类型定义如下

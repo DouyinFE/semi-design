@@ -1,5 +1,5 @@
 import { Message } from 'aiChatDialogue/foundation';
-import { ChatCompletion, Choice, ChatCompletionToolCalls, ChatCompletionFunctionToolCall, ChatCompletionCustomToolCall } from './interface';
+import { ChatCompletion, Choice, ChatCompletionToolCalls, ChatCompletionToolCall, ChatCompletionCustomToolCall } from './interface';
 /* 
 Chat Completion VS. Response
 - The former only have content、refusal、function_call、tool_calls; 
@@ -60,7 +60,7 @@ export default function chatCompletionToMessage(chatCompletion: ChatCompletion):
                 if (toolCall.type === 'function') {
                     return {
                         status: 'completed',
-                        ...(toolCall as ChatCompletionFunctionToolCall).function,
+                        ...(toolCall as ChatCompletionToolCall).function,
                         type: 'function_call',
                         // todo: call_id?
                     };
@@ -71,6 +71,14 @@ export default function chatCompletionToMessage(chatCompletion: ChatCompletion):
                 };
             });
             outputResult.push(...toolCalls);
+        }
+
+        // Currently, the Response API does not support voice output, but chat completion does.
+        if (message.audio) {
+            outputResult.push({
+                type: 'audio',
+                ...message.audio,
+            });
         }
 
         return {

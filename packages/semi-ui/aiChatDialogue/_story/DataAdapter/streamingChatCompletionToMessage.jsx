@@ -8,7 +8,7 @@ const defaultMessages = [{
     content: '此处是用户的输入',
     status: 'completed',
 }];
-
+ 
 const roleConfig = {
     user: {
         name: 'User',
@@ -32,16 +32,18 @@ export default function StreamingChatCompletionToMessageDemo() {
         setMessage(chats);
     }, []);
 
+    let i = 1;
+
     useEffect(() => {
         // 以 100ms 为间隔，从 1 块逐步增加到全部块，模拟流式输出
         const total = STREAMING_CHAT_COMPLETION_DATA.length;
-        let i = 1;
 
         const timer = setInterval(() => {
             if (i > total) {
-                clearInterval(timer);
-                return;
-            }
+                clearInterval(timer); 
+                setState(null);
+                return; 
+            } 
 
             const slice = STREAMING_CHAT_COMPLETION_DATA.slice(0, i);
             const { messages: partial, state: nextState } = streamingChatCompletionToMessage(slice, state);
@@ -54,8 +56,21 @@ export default function StreamingChatCompletionToMessageDemo() {
             i += 1;
         }, 100);
 
+
         return () => clearInterval(timer);
     }, []);
+
+    // const customRender = {
+    //     "function_call": (item) => {
+    //         return <div>custom render {item.name} {JSON.stringify(item.arguments)}</div>;
+    //     },
+    //     "input_text": (item, message) => {
+    //         return <div className="user-text">{item.text}</div>;
+    //     },
+    //     "default": (item, message) => {
+    //         return <div className="assistant-text">{item}</div>;
+    //     }
+    // };  
   
     return (
         <AIChatDialogue 
@@ -64,6 +79,7 @@ export default function StreamingChatCompletionToMessageDemo() {
             chats={messages}
             roleConfig={roleConfig}
             onChatsChange={onChatsChange}
+            // renderDialogueContentItem={customRender}
         />
     );
 };

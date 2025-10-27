@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { MarkdownRenderProps as OriginMarkdownRenderProps } from '../markdownRender';
 import { MDXProps } from 'mdx/types';
-import { Annotation, InputFile, InputImage, Message } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
+import { Annotation, ContentItem, InputFile, InputImage, Message } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
 
 export type MarkdownRenderProps = Partial<OriginMarkdownRenderProps>;
 
@@ -31,12 +31,14 @@ export interface AIChatDialogueProps {
     onMessageGoodFeedback?: (message?: Message) => void;
     onMessageReset?: (message?: Message) => void;
     onMessageShare?: (message?: Message) => void;
+    onReferenceClick?: (item: ContentItem) => void;
     onSelect?: (selectedIds: string[]) => void;
     dialogueRenderConfig?: DialogueRenderConfig;
-    renderDialogueContentItem?: (message?: Message) => DialogueContentItemRendererMap;
+    renderDialogueContentItem?: DialogueContentItemRendererMap;
     renderHintBox?: (props: {content: string; index: number;onHintClick: () => void}) => React.ReactNode;
     roleConfig: RoleConfig;
     showReset?: boolean;
+    showReference?: boolean;
     style?: React.CSSProperties
 }
 
@@ -62,7 +64,9 @@ export interface DialogueContentProps {
     onImageClick?: (image?: InputImage) => void;
     disabledFileItemClick?: boolean;
     onAnnotationClick?: (annotation?: Annotation) => void;
-    renderDialogueContentItem?: (message?: Message) => DialogueContentItemRendererMap
+    onReferenceClick?: (item: ContentItem) => void;
+    renderDialogueContentItem?: DialogueContentItemRendererMap;
+    showReference?: boolean
 }
 
 export interface AIChatDialogueActionProps {
@@ -153,7 +157,7 @@ export interface Metadata {
 }
 
 
-export type DialogueContentItemRenderer = (item: any) => ReactNode;
+export type DialogueContentItemRenderer = (item: any, message?: Message) => ReactNode;
 export type DialogueContentItemRendererMap = Record<string, DialogueContentItemRenderer | Record<string, DialogueContentItemRenderer>>;
 
 

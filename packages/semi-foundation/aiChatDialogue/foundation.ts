@@ -1,8 +1,12 @@
+import { debounce } from "lodash";
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 import { getUuidv4 } from "../utils/uuid";
 import { strings } from "./constants";
+import { Animation } from '@douyinfe/semi-animation';
 
 export interface DialogueAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
+    getContainerRef: () => HTMLDivElement;
+    setWheelScroll: (flag: boolean) => void;
     updateSelected: (selectedIds: Set<string>) => void;
     notifySelect: (selectedIds: string[]) => void;
     notifyChatsChange: (chats: Message[]) => void;
@@ -10,7 +14,10 @@ export interface DialogueAdapter<P = Record<string, any>, S = Record<string, any
     notifyLikeMessage: (message: Message) => void;
     notifyDislikeMessage: (message: Message) => void;
     notifyEditMessage: (message: Message) => void;
-    notifyHintClick: (hint: string) => void
+    notifyHintClick: (hint: string) => void;
+    setBackBottomVisible: (visible: boolean) => void;
+    registerWheelEvent: () => void;
+    unRegisterWheelEvent: () => void
 }
 
 export default class DialogueFoundation <P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<DialogueAdapter<P, S>, P, S> {
@@ -18,12 +25,16 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
         super({ ...adapter });
     }
 
+    animation: any;
+
     init = () => {
-        // init
+        this.scrollToBottomImmediately();
+        this._adapter.registerWheelEvent();
     }
 
     destroy = () => {
-        // destroy
+        this.animation && this.animation.destroy();
+
     }
 
     handleSelectAll = () => {
@@ -96,7 +107,6 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
 
     editMessage = (message: Message) => {
         const { chats } = this.getStates();
-        console.log('editMessage11', message);
         this._adapter.notifyEditMessage(message);
         const index = chats.findIndex(item => item.id === message.id);
         const newChat = {
@@ -105,7 +115,6 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
         };
         const newChats = [...chats];
         newChats.splice(index, 1, newChat);
-        console.log('newChats', newChats);
         this._adapter.notifyChatsChange(newChats);
     }
 
@@ -129,6 +138,64 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
         this._adapter.notifyChatsChange(newChats);
         this._adapter.notifyHintClick(hint);
     }
+
+    scrollToBottomImmediately = () => {
+        const element = this._adapter.getContainerRef();
+        if (element) {
+            element.scrollTop = element.scrollHeight;
+        }
+    }
+
+    scrollToBottomWithAnimation = () => {
+        const duration = strings.SCROLL_ANIMATION_TIME;
+        const element = this._adapter.getContainerRef();
+        if (!element) {
+            return;
+        }
+        const from = element.scrollTop;
+        const to = element.scrollHeight;
+        this.animation = new Animation(
+            {
+                from: { scrollTop: from },
+                to: { scrollTop: to },
+            },
+            {
+                duration,
+                easing: 'easeInOutCubic'
+            }
+        );
+
+        this.animation.on('frame', ({ scrollTop }: { scrollTop: number }) => {
+            element.scrollTop = scrollTop;
+        });
+
+        this.animation.start();
+    }
+
+    containerScroll = (e: any) => {
+        this._persistEvent(e);
+        const update = () => {
+            this.getScroll(e.target);
+        };
+        requestAnimationFrame(update);
+    }
+
+    getScroll = debounce((target: any) => {
+        const scrollHeight = target.scrollHeight;
+        const clientHeight = target.clientHeight;
+        const scrollTop = target.scrollTop;
+        const { backBottomVisible } = this.getStates();
+        if (scrollHeight - scrollTop - clientHeight <= strings.SHOW_SCROLL_GAP) {
+            if (backBottomVisible) {
+                this._adapter.setBackBottomVisible(false);
+            }
+        } else {
+            if (!backBottomVisible) {
+                this._adapter.setBackBottomVisible(true);
+            }
+        }
+        return scroll;
+    }, 100)
 
 
 }
@@ -163,7 +230,7 @@ export interface CommonContentItem {
 }
 
 export interface InputMessage extends CommonContentItem {
-    content?: string | (InputText | InputImage | InputFile)[]
+    content?: string | (InputText | InputImage | InputFile | InputAudio)[]
 }
 
 export interface ItemReference extends CommonContentItem {
@@ -288,6 +355,13 @@ export interface InputFile extends CommonContentItem {
     size?: string;
     file_type?: string;
     fileInstance?: any
+}
+
+export interface InputAudio extends CommonContentItem {
+    input_audio?: {
+        data: string;
+        format: string
+    }
 }
 
 

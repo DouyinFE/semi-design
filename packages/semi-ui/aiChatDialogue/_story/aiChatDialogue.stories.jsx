@@ -48,6 +48,10 @@ export const AlignAndMode = () => {
       setMessage(chats);
   }, []);
 
+  const onReferenceClick = useCallback((item, message) => {
+    console.log('onReferenceClick', item, message);
+  }, []);
+
   return (
       <>
           <span style={{ display: 'flex', flexDirection: 'column', rowGap: '8px'}}>
@@ -74,6 +78,7 @@ export const AlignAndMode = () => {
               chats={messages}
               roleConfig={roleConfig}
               onChatsChange={onChatsChange}
+              onReferenceClick={onReferenceClick}
               // onMessageReset={onMessageReset}
           />
       </>
@@ -88,6 +93,20 @@ export const Loading = () => {
       chats={loadingMessages}
       roleConfig={roleConfig}
     />
+  )
+}
+
+export const Scroll = () => {
+
+  return (
+    <div style={{ height: '300px', border: '1px solid lightgray', padding: '10px', borderRadius: '10px' }}>
+      <AIChatDialogue 
+        align="leftRight"
+        mode="bubble"
+        chats={defaultMessages}
+        roleConfig={roleConfig}
+      />
+    </div>
   )
 }
 
@@ -452,6 +471,23 @@ export const Annotation = () => {
           onAnnotationClick={onAnnotationClick}
       />
     )
+}
+
+export const ShowReference = () => {
+  const onReferenceClick = useCallback((item) => {
+    console.log('onReferenceClick', item);
+  }, []);
+  return (
+    <AIChatDialogue 
+      align="leftRight"
+      // mode="bubble"
+      mode="noBubble"
+      chats={multiModalityMessage}
+      roleConfig={roleConfig}
+      showReference={true}
+      onReferenceClick={onReferenceClick}
+    />
+  )
 }
 
 export const Reference = () => {

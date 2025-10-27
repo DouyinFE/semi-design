@@ -9,6 +9,17 @@ $module: #{$prefix}-ai-chat-dialogue;
 }
 
 .#{$module} {
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &-list {
+        flex: 1 1;
+        position: relative;
+        overflow: scroll;
+    }
+
     &-wrapper {
         box-sizing: border-box;
         display: flex;
@@ -36,9 +47,7 @@ $module: #{$prefix}-ai-chat-dialogue;
                 flex-direction: row-reverse;
 
                 .#{$module}-inner {
-                    width: $width-aiChatDialogue_inner;
-                    display: flex;
-                    flex-direction: column;
+
                     align-items: flex-end;
                 }
 
@@ -61,10 +70,38 @@ $module: #{$prefix}-ai-chat-dialogue;
         }
     }
 
+    &-backBottom {
+        position: relative;
+        z-index: $z-aiChatDialogue_backBottom;
+
+        &-button {
+            width: $width-aiChatDialogue_backBottom_button;
+            height: $height-aiChatDialogue_backBottom_button;
+            border-radius: $radius-aiChatDialogue_backBottom_button;
+        }
+
+        .#{$prefix}-button {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    }
+
     &-title {
         line-height: $font-aiChatDialogue_title-lineHeight;
         font-size: $font-aiChatDialogue_title-fontSize;
         font-weight: $font-aiChatDialogue_title-fontWeight;
+    }
+
+    &-inner {
+        width: $width-aiChatDialogue_inner;
+        display: flex;
+        flex-direction: column;
     }
 
     &-avatar {
@@ -78,7 +115,6 @@ $module: #{$prefix}-ai-chat-dialogue;
     }
 
     &-content {
-        width: fit-content;
         max-width: $width-aiChatDialogue_content_max;
         font-size: $font-aiChatDialogue_content-fontSize;
 
@@ -97,11 +133,25 @@ $module: #{$prefix}-ai-chat-dialogue;
 
         &-inner {
             margin-left: auto;
+            width: $width-aiChatDialogue_content_inner
         }
 
         &-failed {
             color: $color-aiChatDialogue_failed;
             margin-right: $spacing-aiChatDialogue_content_failed-marginRight;
+        }
+
+        &-user { 
+            display: flex;
+
+            &:hover {
+                .#{$module}-content-icon-reference {
+                    display: flex;
+                    padding: $spacing-aiChatDialogue_icon_reference-paddingY $spacing-aiChatDialogue_icon_reference-paddingX;
+                    cursor: pointer;
+                    @include all-center;
+                }
+            }
         }
 
         &-bubble, &-userBubble {
@@ -153,6 +203,10 @@ $module: #{$prefix}-ai-chat-dialogue;
             }
         }
 
+        &-icon-reference {
+            display: none;
+        }
+
         &-img {
             margin-top: $spacing-aiChatDialogue_img-marginTop;
             border-radius: $radius-aiChatDialogue_img;
@@ -195,6 +249,22 @@ $module: #{$prefix}-ai-chat-dialogue;
             text-decoration: none;
             vertical-align: top; 
 
+            &:hover {
+                .#{$module}-content-icon-reference {
+                    display: flex;
+                    flex-shrink: 0;
+                    padding: $spacing-aiChatDialogue_icon_reference-paddingY $spacing-aiChatDialogue_icon_reference-paddingX;
+                    cursor: pointer;
+                    @include all-center;
+                    margin-left: auto;
+                    color: $color-aiChatDialogue_icon_reference-text;
+                }
+
+                .#{$module}-content-file-title {
+                    max-width: $width-aiChatDialogue_file_title_max-hover;
+                }
+            }
+
             &:last-child {
                 margin-right: 0;
             }
@@ -206,6 +276,7 @@ $module: #{$prefix}-ai-chat-dialogue;
                     width: $width-aiChatDialogue_file_icon_wrapper;
                     height: $height-aiChatDialogue_file_icon_wrapper;
                     border-radius: $radius-aiChatDialogue_icon_wrapper;
+                    flex-shrink: 0;
                     @include all-center;
                 }
 
@@ -243,12 +314,14 @@ $module: #{$prefix}-ai-chat-dialogue;
                 display: flex;
                 flex-direction: column;
                 text-align: left;
+                flex-shrink: 1;
             }
 
             &-title {
                 font-size: $font-aiChatDialogue_file_title-fontSize;
                 color: $color-aiChatDialogue_file_title-text;
                 max-width: $width-aiChatDialogue_file_title_max;
+                white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
             }
@@ -322,8 +395,6 @@ $module: #{$prefix}-ai-chat-dialogue;
         &-wrapper {
             width: $width-aiChatDialogue_reasoning_wrapper;
             margin-top: $spacing-aiChatDialogue_reasoning_wrapper-marginTop;
-            flex: 1 1 auto;
-            // min-width: 0; 
             cursor: pointer;
             border: $width-aiChatDialogue_reasoning-border solid $color-aiChatDialogue_reasoning-border;
             border-radius: $radius-aiChatDialogue_reasoning_wrapper;
@@ -385,6 +456,7 @@ $module: #{$prefix}-ai-chat-dialogue;
         &-prefix {
             width: $width-aiChatDialogue_step_prefix;
             height: $height-aiChatDialogue_step_prefix;
+            color: $color-aiChatDialogue_step_suffix-text;
             @include all-center;
             margin-right: $spacing-aiChatDialogue_step_prefix-marginRight;
         }

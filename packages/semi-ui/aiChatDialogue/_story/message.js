@@ -93,7 +93,7 @@ export const multiModalityMessage = [{
         {
             type: 'input_file',
             file_url: 'https://www.berkshirehathaway.com/letters/2024ltr.docx',
-            filename: 'i-am-word.docx',
+            filename: 'i-am-word-i-am-word.docx',
             size: '1000KB',
         }
         ],

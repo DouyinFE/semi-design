@@ -2,7 +2,8 @@ import responseToMessage from './responseToMessage';
 import chatCompletionToMessage from './chatCompletionToMessage';
 import streamingChatCompletionToMessage from './streamingChatCompletionToMessage';
 import streamingResponseToMessage from './streamingResponseToMessage';
-import aiChatInputContentToMessage from './aiChatInputContentToMessage';
+import chatInputToMessage from './chatInputToMessage';
+import chatInputToChatCompletion from './chatInputToChatCompletion';
 
 
 export { 
@@ -10,5 +11,6 @@ export {
     streamingChatCompletionToMessage, 
     responseToMessage, 
     streamingResponseToMessage,
-    aiChatInputContentToMessage,
+    chatInputToMessage,
+    chatInputToChatCompletion,
 };

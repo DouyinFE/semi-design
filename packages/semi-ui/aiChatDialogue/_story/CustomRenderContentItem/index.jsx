@@ -91,7 +91,8 @@ const defaultMessages = [{
                         "description": "正在完成生成图片，并返回给用户",
                         "type": "terminal",
                     }
-                ]
+                ],
+                "status": "completed"
             },
             {
                 "summary": "总结生成图片的成果并呈现给用户",
@@ -145,6 +146,7 @@ export default function CustomRender() {
             return {
                 summary: item.summary,
                 description: item.description,
+                status: item.status,
                 icon: icon,
             };
         });
@@ -171,48 +173,41 @@ export default function CustomRender() {
         </React.Fragment>;
     }, []);
 
-    const customRender = useCallback((message) => {
-        console.log('props', message);
-        if (message.role === 'user') {
-            return {
-                "default": (item) => {
-                    return <div className="user-text">{item}</div>;
-                },
-                "input_text": (item) => {
-                    return <div className="user-text">{item.text}</div>;
-                },
-            };
-        }
-        return {
-            // "function_call": (item) => {
-            //     return <div>custom render {item.name} {JSON.stringify(item.arguments)}</div>;
-            // },
-            "function_call": {
-                "create_travel_guide": (item) => {
-                    return <div className="user-text">Function Tool Call: {item.name} {JSON.stringify(item.arguments)}</div>;
-                }
-            },
-            "input_text": (item) => {
-                return <div className="user-text">{item.text}</div>;
-            },
-            "reasoning": (item) => {
-                console.log('reasoning', item);
-                return <AIChatDialogue.Reasoning {...item} customRenderer={customRenderReasoningContent} />;
-            },
-            "plan": (item) => { // plan 为用户自定义类型
-                let steps = item.content.map((item) => {
-                    return {
-                        summary: item.summary,
-                        actions: mapStep(item.steps),
-                    };
-                });
-                return <AIChatDialogue.Step steps={steps} />;
-            },
-            "default": (item) => {
-                return <div className="assistant-text">{item}</div>;
+    const customRender = {
+        // "function_call": (item) => {
+        //     return <div>custom render {item.name} {JSON.stringify(item.arguments)}</div>;
+        // },
+        "function_call": {
+            "create_travel_guide": (item, message) => {
+                return <div className="user-text">Function Tool Call: {item.name} {JSON.stringify(item.arguments)}</div>;
             }
-        };
-    }, []);
+        },
+        "input_text": (item, message) => {
+            if (message?.role === 'user') {
+                return <div className="user-text">{item.text}</div>;
+            }
+            return <div className="assistant-text">{item.text}</div>;
+        },
+        "reasoning": (item, message) => {
+            return <AIChatDialogue.Reasoning {...item} customRenderer={customRenderReasoningContent} />;
+        },
+        "plan": (item, message) => { // plan 为用户自定义类型
+            let steps = item.content.map((item) => {
+                return {
+                    summary: item.summary,
+                    actions: mapStep(item.steps),
+                    status: item.status,
+                };
+            });
+            return <AIChatDialogue.Step steps={steps} />;
+        },
+        "default": (item, message) => {
+            if (message?.role === 'user') {
+                return <div className="user-text">{item}</div>;
+            }
+            return <div className="assistant-text">{item}</div>;
+        }
+    };
 
     return (
         <div>

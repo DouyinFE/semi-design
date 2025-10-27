@@ -1,6 +1,6 @@
 
 
-export default function AiChatInputContentToMessage(inputContent: any) { // todo: 合入 aiChatInput 后补充类型定义
+export default function chatInputToMessage(inputContent: any) { // todo: 合入 aiChatInput 后补充类型定义
     const { references, attachments, inputContents, setup } = inputContent;
 
     let inputs: any[] = [];

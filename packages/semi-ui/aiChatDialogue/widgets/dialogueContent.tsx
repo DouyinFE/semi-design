@@ -4,9 +4,9 @@ import { DialogueContentProps } from '../interface';
 import MarkdownRender from '../../markdownRender';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
 import { Image } from '../../index';
-import { FunctionToolCall, InputFile, ContentItem, InputMessage, InputText, InputImage, OutputText, Reasoning, CustomToolCall, OutputMessage, Refusal } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
+import { FunctionToolCall, InputFile, ContentItem, InputMessage, InputText, InputImage, OutputText, Reasoning, CustomToolCall, OutputMessage, Refusal, Message } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
 import { DialogueContentItemRenderer } from '../interface';
-import { IconAlertCircle, IconCode, IconExcel, IconFile, IconImage, IconPdf, IconSpin, IconWord, IconWrench } from '@douyinfe/semi-icons';
+import { IconAlertCircle, IconCode, IconExcel, IconFile, IconImage, IconPdf, IconSendMsgStroked, IconSpin, IconWord, IconWrench } from '@douyinfe/semi-icons';
 import { ReasoningWidget } from './contentItem/reasoning';
 import { AnnotationWidget } from './contentItem/annotation';
 import { ReferenceWidget } from './contentItem/reference';
@@ -14,22 +14,132 @@ import Code from './contentItem/code';
 import { Locale } from '../../locale/interface';
 import LocaleConsumer from "../../locale/localeConsumer";
 
+interface FileAttachmentProps extends InputFile {
+    onFileClick?: (file: InputFile) => void;
+    disabledFileItemClick?: boolean;
+    role?: string;
+    showReference?: boolean;
+    onReferenceClick?: (item: ContentItem) => void
+}
+
 
 const { PREFIX_CONTENT } = cssClasses;
-const { STATUS, MODE, ROLE, MESSAGE_ITEM_TYPE } = strings;
+const { STATUS, MODE, ROLE, MESSAGE_ITEM_TYPE, TEXT_TYPES, TOOL_CALL_TYPES,
+    DOCUMENT_TYPES, IMAGE_TYPES, PDF_TYPES, EXCEL_TYPES, CODE_TYPES
+} = strings;
 
-const DialogueContent = (props: DialogueContentProps) => {
-    const { message, customRenderFunc, role: roleInfo, customMarkDownComponents, mode, markdownRenderProps, editing, messageEditRender, 
-        onFileClick, onImageClick, disabledFileItemClick, renderDialogueContentItem, onAnnotationClick } = props;
+
+const ImageAttachment = React.memo((props: {src: string; isList: boolean; msg: InputImage; onImageClick?: (msg: InputImage) => void}) => {
+    const { src, isList, msg, onImageClick } = props;
+    return <Image
+        className={cls(`${PREFIX_CONTENT}-img`, {
+            [`${PREFIX_CONTENT}-img-list`]: isList,
+        })}
+        src={src}
+        onClick={() => {
+            onImageClick && onImageClick(msg);
+        }}
+    />;
+});
+
+const FileAttachment = React.memo((props: FileAttachmentProps) => {
+    const { onFileClick, disabledFileItemClick, role, onReferenceClick, showReference, ...restProps } = props;
+    const suffix = restProps?.filename?.split('.').pop();
+    const realType = suffix ?? restProps?.fileInstance?.type?.split('/').pop();
+
+    const renderFileIcon = useCallback((type: string, props: InputFile) => {
+        let icon = null;
+        let typeCls = '';
+    
+        if (DOCUMENT_TYPES.includes(type)) {
+            typeCls = 'word';
+            icon = <IconWord size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
+        } else if (IMAGE_TYPES.includes(type)) {
+            typeCls = 'image';
+            icon = <div className={`${PREFIX_CONTENT}-file-icon`} style={{ backgroundImage: `url(${props.file_url})` }}/>;
+        } else if (PDF_TYPES.includes(type)) {
+            typeCls = 'pdf';
+            icon = <IconPdf size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
+        } else if (EXCEL_TYPES.includes(type)) {
+            typeCls = 'excel';
+            icon = <IconExcel size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
+        } else if (CODE_TYPES.includes(type)) { 
+            typeCls = 'code';
+            icon = <IconCode size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
+        } else {
+            typeCls = 'default';
+            icon = <IconFile size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
+        }
+    
+        return (
+            <div 
+                className={cls(`${PREFIX_CONTENT}-file-icon-wrapper`,
+                    { [`${PREFIX_CONTENT}-file-icon-${typeCls}`]: typeCls })}
+            >
+                {icon}
+            </div>
+        );
+    }, []);
+
+    const handleFileClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+        onFileClick?.(restProps);
+        if (disabledFileItemClick) {
+            e.preventDefault();
+            return;
+        }
+    }, [onFileClick, disabledFileItemClick, restProps]);
+
+    const handleReferenceClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+        onReferenceClick?.(restProps as ContentItem);
+        e.preventDefault();
+    }, [onReferenceClick, restProps]);
+
+    return <a
+        href={restProps?.file_url}
+        target="_blank"
+        onClick={handleFileClick}
+        className={`${PREFIX_CONTENT}-file`} 
+        rel="noreferrer"
+    >
+        {renderFileIcon(realType as string, restProps)}
+        <div className={`${PREFIX_CONTENT}-file-info`}>
+            <span className={`${PREFIX_CONTENT}-file-title`}>{restProps?.filename}</span>
+            <span className={`${PREFIX_CONTENT}-file-metadata`}>
+                <span className={`${PREFIX_CONTENT}-file-type`}>{realType}</span>
+                {' '}{restProps?.size}
+            </span>
+        </div>
+        {role === ROLE.USER && showReference && (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+            <div 
+                className={`${PREFIX_CONTENT}-icon-reference`} 
+                role="button" 
+                tabIndex={0}
+                onClick={handleReferenceClick}
+            >
+                <IconSendMsgStroked />
+            </div>
+        )}
+    </a>;
+});
+
+const ToolCallWidget = React.memo((props: FunctionToolCall) => {
+    const { name } = props;
+    return <div className={`${PREFIX_CONTENT}-tool-call`}>
+        <IconWrench />
+        {name}  {props.arguments}
+    </div>;
+});
+
+const DialogueContent = React.memo((props: DialogueContentProps) => {
+    const { message, customRenderFunc, role: roleInfo, mode, markdownRenderProps, editing, messageEditRender, showReference,
+        onFileClick, onImageClick, disabledFileItemClick, renderDialogueContentItem, onAnnotationClick, onReferenceClick } = props;
     const { content, role, status, references } = message;
-
-    const TEXT_TYPES = useMemo(() => [MESSAGE_ITEM_TYPE.INPUT_TEXT, MESSAGE_ITEM_TYPE.OUTPUT_TEXT, MESSAGE_ITEM_TYPE.REFUSAL], []);
-    const TOOL_CALL_TYPES = useMemo(() => [MESSAGE_ITEM_TYPE.FUNCTION_CALL, MESSAGE_ITEM_TYPE.CUSTOM_TOOL_CALL, MESSAGE_ITEM_TYPE.MCP_CALL], []);
 
     const markdownComponents = useMemo(() => ({
         'code': Code,
-        ...customMarkDownComponents
-    }), [customMarkDownComponents]);
+        ...markdownRenderProps?.components
+    }), [markdownRenderProps]);
 
 
     const wrapCls = useMemo(() => {
@@ -45,123 +155,35 @@ const DialogueContent = (props: DialogueContentProps) => {
         });
     }, [role, status, mode]);
 
-    const renderFileIcon = (type: string, props: InputFile) => {
-        let icon = null;
-        let typeCls = '';
-
-        if (['doc', 'docx', 'txt', 'word'].includes(type)) {
-            typeCls = 'word';
-            icon = <IconWord size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
-        } else if (['jpeg', 'jpg', 'png', 'gif'].includes(type)) {
-            typeCls = 'image';
-            // icon = <IconImage size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
-            icon = <div className={`${PREFIX_CONTENT}-file-icon`} style={{ backgroundImage: `url(${props.file_url})` }}/>;
-        } else if (type === 'pdf') {
-            typeCls = 'pdf';
-            icon = <IconPdf size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
-        } else if (['excel', 'xlsx', 'xls'].includes(type)) {
-            typeCls = 'excel';
-            icon = <IconExcel size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
-        } else if (['json', 'js', 'ts', 'jsx', 'tsx'].includes(type)) { 
-            typeCls = 'code';
-            icon = <IconCode size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
-        } else {
-            typeCls = 'default';
-            icon = <IconFile size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
-        }
-
-        return (
-            <div 
-                className={cls(`${PREFIX_CONTENT}-file-icon-wrapper`,
-                    { [`${PREFIX_CONTENT}-file-icon-${typeCls}`]: typeCls })}
-            >
-                {icon}
-            </div>
-        );
-    };
-
-    const ImageAttachment = React.memo((props: {src: string; isList: boolean; msg: InputImage}) => {
-        const { src, isList, msg } = props;
-        return <Image
-            className={cls(`${PREFIX_CONTENT}-img`, {
-                [`${PREFIX_CONTENT}-img-list`]: isList,
-            })}
-            src={src}
-            onClick={() => {
-                onImageClick && onImageClick(msg);
-            }}
-        />;
-    });
-
-    const FileAttachment = React.memo((props: InputFile) => {
-        const { file_url, filename, size, fileInstance } = props;
-        const suffix = filename?.split('.').pop();
-        const realType = suffix ?? fileInstance?.type?.split('/').pop();
-
-        return <a
-            href={file_url}
-            target="_blank"
-            onClick={(e) => {
-                onFileClick?.(props);
-                if (disabledFileItemClick) {
-                    e.preventDefault();
-                    return;
-                }
-            }}
-            className={`${PREFIX_CONTENT}-file`} 
-            rel="noreferrer"
-        >
-            {renderFileIcon(realType, props)}
-            <div className={`${PREFIX_CONTENT}-file-info`}>
-                <span className={`${PREFIX_CONTENT}-file-title`}>{filename}</span>
-                <span className={`${PREFIX_CONTENT}-file-metadata`}>
-                    <span className={`${PREFIX_CONTENT}-file-type`}>{realType}</span>
-                    {' '}{size}
-                </span>
-            </div>
-        </a>;
-    });
-
-    const ToolCallWidget = React.memo((props: FunctionToolCall) => {
-        const { name, status } = props;
-        return <div className={`${PREFIX_CONTENT}-tool-call`}>
-            {status !== STATUS.COMPLETED ? <IconSpin /> : <IconWrench />}
-            {name}  {props.arguments}
-        </div>;
-    });
-
-    const customRenderMap = useMemo(() => renderDialogueContentItem?.(message), [renderDialogueContentItem, message]);
-
     const customRenderer = useCallback((type: string, index: number, item: ContentItem) => {
-        const customRendererFunc = customRenderMap?.[type];
+        const customRendererFunc = renderDialogueContentItem?.[type];
         
         if (customRendererFunc) {
-            // 如果是工具调用类型，支持嵌套的渲染器映射
+            let renderer: DialogueContentItemRenderer | undefined;
+
+            // 工具调用类型可从嵌套映射按函数名优先匹配
             if (TOOL_CALL_TYPES.includes(type as any)) {
                 const toolCallItem = item as FunctionToolCall | CustomToolCall;
-                const functionName = toolCallItem.name;
-                
-                // 如果 customRendererFunc 是一个对象（嵌套映射），尝试通过函数名查找
+                const functionName = toolCallItem?.name;
                 if (typeof customRendererFunc === 'object' && functionName) {
-                    const nestedRenderer = (customRendererFunc as Record<string, DialogueContentItemRenderer>)[functionName];
+                    const nestedRenderer = (customRendererFunc as Record<string, DialogueContentItemRenderer>)?.[functionName];
                     if (nestedRenderer) {
-                        return <div className={`${PREFIX_CONTENT}-custom-renderer`} key={`index-${index}`}>{nestedRenderer(item)}</div>;
+                        renderer = nestedRenderer;
                     }
                 }
-                
-                // 如果是函数或者没有找到嵌套渲染器，使用默认渲染
-                if (typeof customRendererFunc === 'function') {
-                    return <div className={`${PREFIX_CONTENT}-custom-renderer`} key={`index-${index}`}>{customRendererFunc(item)}</div>;
-                }
-            } else {
-                // 非工具调用类型，直接使用渲染器函数
-                if (typeof customRendererFunc === 'function') {
-                    return <div className={`${PREFIX_CONTENT}-custom-renderer`} key={`index-${index}`}>{customRendererFunc(item)}</div>;
-                }
+            }
+
+            // 兜底：如果没有匹配到嵌套渲染器且本身是函数，则使用之
+            if (!renderer && typeof customRendererFunc === 'function') {
+                renderer = customRendererFunc as DialogueContentItemRenderer;
+            }
+
+            if (renderer) {
+                return <div className={`${PREFIX_CONTENT}-custom-renderer`} key={`index-${index}`}>{renderer(item, message)}</div>;
             }
         }
         return null;
-    }, [customRenderMap, TOOL_CALL_TYPES]);
+    }, [renderDialogueContentItem, message]);
 
     const renderMarkdown = useCallback((text: string, key: React.Key) => {
         if (text !== '') {
@@ -172,10 +194,22 @@ const DialogueContent = (props: DialogueContentProps) => {
                     components={markdownComponents as any}
                     {...markdownRenderProps}
                 />
+                {
+                    role === ROLE.USER && showReference && (
+                        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+                        <div 
+                            className={`${PREFIX_CONTENT}-icon-reference`} 
+                            role="button" 
+                            tabIndex={0}
+                            onClick={() => onReferenceClick?.({ type: MESSAGE_ITEM_TYPE.INPUT_TEXT, text })}
+                        >
+                            <IconSendMsgStroked />
+                        </div>)
+                }
             </div>;
         }
         return null;
-    }, [wrapCls, markdownComponents, markdownRenderProps]);
+    }, [wrapCls, markdownComponents, markdownRenderProps, role, onReferenceClick, showReference]);
 
     const renderMessage = useCallback((msg: InputMessage | OutputMessage, index: number) => {
         if (typeof msg.content === 'string') {
@@ -207,18 +241,27 @@ const DialogueContent = (props: DialogueContentProps) => {
                 );
             }
             if (i?.type === MESSAGE_ITEM_TYPE.INPUT_IMAGE) {
-                return <ImageAttachment key={`msg-${index}-${innerIdx}`} src={(i as InputImage).image_url} isList={isImageList} msg={i as InputImage}/>;
+                return <ImageAttachment key={`msg-${index}-${innerIdx}`} src={(i as InputImage).image_url} isList={isImageList} msg={i as InputImage} onImageClick={onImageClick}/>;
             }
             if (i?.type === MESSAGE_ITEM_TYPE.INPUT_FILE) {
-                return <FileAttachment key={`msg-${index}-${innerIdx}`} {...i as InputFile} />;
+                return (
+                    <FileAttachment 
+                        key={`msg-${index}-${innerIdx}`} {...i as InputFile} 
+                        onFileClick={onFileClick} 
+                        disabledFileItemClick={!!disabledFileItemClick} 
+                        role={role} 
+                        onReferenceClick={onReferenceClick} 
+                        showReference={showReference} 
+                    />
+                );
             }
             return null;
         });
-    }, [renderMarkdown, ImageAttachment, FileAttachment, TEXT_TYPES, customRenderer, onAnnotationClick]);
+    }, [renderMarkdown, customRenderer, onAnnotationClick, onImageClick, onFileClick, disabledFileItemClick, role, onReferenceClick, showReference]);
 
     const renderToolCall = useCallback((item: ContentItem, index: number) => (
         <ToolCallWidget key={`tool-${index}`} {...(item as FunctionToolCall | CustomToolCall)} />
-    ), [ToolCallWidget]);
+    ), []);
 
     const builtinRenderers = useMemo(() => ({
         [MESSAGE_ITEM_TYPE.MESSAGE]: (item: ContentItem, index: number) => renderMessage(item as InputMessage | OutputMessage, index),
@@ -229,19 +272,18 @@ const DialogueContent = (props: DialogueContentProps) => {
                 content={(item as Reasoning).content}
                 status={(item as Reasoning).status}
                 markdownRenderProps={markdownRenderProps}
-                customMarkDownComponents={customMarkDownComponents}
             />
         ),
         [MESSAGE_ITEM_TYPE.FUNCTION_CALL ]: renderToolCall,
         [MESSAGE_ITEM_TYPE.CUSTOM_TOOL_CALL]: renderToolCall,
-    } as Record<string, (item: ContentItem, index: number) => React.ReactNode>), [renderMessage, markdownRenderProps, customMarkDownComponents, renderToolCall]);
+    } as Record<string, (item: ContentItem, index: number) => React.ReactNode>), [renderMessage, markdownRenderProps, renderToolCall]);
 
     const loadingNode = useMemo(() => {
         const isLoading = [STATUS.QUEUED, STATUS.IN_PROGRESS, STATUS.INCOMPLETE].includes(status);
-        const isEmptyOutput = content?.length === 0 && !message.output_text;
+        const isOutputExist = (content && content?.length > 0) || message.output_text;
         // 如果内容为空，且没有 output_text，则显示 loading
         // If the content is empty and there is no output_text, it will display loading
-        if (isLoading && isEmptyOutput) {
+        if (isLoading && !isOutputExist) {
             return <span className={`${PREFIX_CONTENT}-loading`} >
                 <span className={`${PREFIX_CONTENT}-loading-item`} /> 
                 <span className={`${PREFIX_CONTENT}-loading-item`} /> 
@@ -267,9 +309,9 @@ const DialogueContent = (props: DialogueContentProps) => {
             const textContent = typeof content === 'string' ? content : message.output_text;
             
             if (textContent) {
-                const defaultRenderer = customRenderMap?.['default'];
+                const defaultRenderer = renderDialogueContentItem?.['default'];
                 if (typeof defaultRenderer === 'function') {
-                    realContent = <div className={`${PREFIX_CONTENT}-custom-renderer`}>{defaultRenderer(textContent)}</div>;
+                    realContent = <div className={`${PREFIX_CONTENT}-custom-renderer`}>{defaultRenderer(textContent, message)}</div>;
                 } else {
                     realContent = <div className={wrapCls}>
                         <MarkdownRender
@@ -278,6 +320,17 @@ const DialogueContent = (props: DialogueContentProps) => {
                             components={markdownComponents as any}
                             {...markdownRenderProps}
                         />
+                        {role === ROLE.USER && showReference && (
+                            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+                            <div 
+                                className={`${PREFIX_CONTENT}-icon-reference`} 
+                                role="button" 
+                                tabIndex={0}
+                                onClick={() => onReferenceClick?.({ type: MESSAGE_ITEM_TYPE.INPUT_TEXT, text: textContent })}
+                            >
+                                <IconSendMsgStroked />
+                            </div>
+                        )}
                     </div>;
                 }
             } else if (Array.isArray(content)) {
@@ -304,7 +357,8 @@ const DialogueContent = (props: DialogueContentProps) => {
                 </div>
             );
         }
-    }, [status, content, editing, message, messageEditRender, markdownRenderProps, wrapCls, markdownComponents, builtinRenderers, customRenderer, customRenderMap]);
+    }, [status, content, editing, message, role, messageEditRender, markdownRenderProps, wrapCls, 
+        markdownComponents, builtinRenderers, customRenderer, renderDialogueContentItem, showReference, onReferenceClick]);
         
     if (customRenderFunc) {
         return customRenderFunc({ 
@@ -322,6 +376,6 @@ const DialogueContent = (props: DialogueContentProps) => {
             {loadingNode}
         </div>; 
     } 
-};
+});
 
 export default DialogueContent;

@@ -41,7 +41,7 @@ export interface Delta {
     content?: string;
     refusal?: string;
     function_call?: FunctionCall;
-    tool_calls?: ChatCompletionFunctionToolCall[]
+    tool_calls?: ChatCompletionToolCall[]
 }
 
 
@@ -55,7 +55,7 @@ interface ChatCompletionMessage {
     tool_calls?: ChatCompletionToolCalls[]
 }
 
-export type ChatCompletionToolCalls = ChatCompletionFunctionToolCall | ChatCompletionCustomToolCall 
+export type ChatCompletionToolCalls = ChatCompletionToolCall | ChatCompletionCustomToolCall 
 
 interface ChatCompletionAnnotation {
     type?: string;
@@ -83,14 +83,15 @@ interface FunctionCall {
 
 interface ToolCall {
     input?: string;
-    result?: string
+    name?: string
 }
 
-export interface ChatCompletionFunctionToolCall {
+export interface ChatCompletionToolCall {
     id?: string;
     index?: number;
     type?: string;
-    function?: FunctionCall
+    function?: FunctionCall;
+    custom?: ToolCall
 }
 
 export interface ChatCompletionCustomToolCall {
@@ -213,4 +214,100 @@ export interface ImageGenerationCall {
     result?: string;
     status?: string;
     type?: string
+}
+
+
+// chat completion input
+export interface ChatCompletionInput {
+    messages?: ChatCompletionInputMessage[];
+    model?: string;
+    audio?: {
+        format: string;
+        voice: string
+    };
+    function_call?: string | { name: string };
+    functions?: { name: string; description: string }[];
+    n?: number;
+    modalities?: string[];
+    [x: string]: any
+}
+
+export type ChatCompletionInputMessage = DeveloperMessage | SystemMessage | UserMessage | AssistantMessage | ToolMessage | FunctionMessage;
+
+interface CommonInputItem {
+    role?: string;
+    name?: string
+}
+
+interface DeveloperMessage extends CommonInputItem {
+    content?: string | { type: string; text: string }[]
+}
+
+interface SystemMessage extends CommonInputItem {
+    content?: string | any[]
+}
+
+export interface UserMessage extends CommonInputItem {
+    content?: string | (ImageContentPart | AudioContentPart | FileContentPart | TextInput)[]
+}
+
+export interface TextInput {
+    text?: string;
+    type?: string
+}
+
+export interface ImageContentPart {
+    image_url?: {
+        url?: string;
+        detail?: string
+    };
+    type?: string
+}
+
+export interface AudioContentPart {
+    input_audio?: {
+        data?: string;
+        format?: string
+    };
+    type?: string
+}
+
+export interface FileContentPart {
+    file?: {
+        file_data?: string;
+        file_id?: string;
+        filename?: string
+    };
+    type?: string
+}
+
+interface AssistantMessage extends CommonInputItem {
+    audio?: { id: string };
+    content?: string | (OutputText | Refusal)[];
+    function_call?: { name: string; arguments: string };
+    name?: string;
+    refusal?: string;
+    tool_calls?: (ChatCompletionToolCall | ChatCompletionCustomToolCall)[]
+}
+
+interface ToolMessage extends CommonInputItem {
+    content?: string | any[]
+}
+
+interface FunctionMessage extends CommonInputItem {
+    content?: string 
+}
+
+export interface StreamingResponseState {
+    processedSeq: Set<number>;
+    outputs: Map<number, ContentItem | null>;
+    meta: {
+        id?: string;
+        model?: string;
+        status?: string;
+        created_at?: number
+    };
+    error?: ResponseError;
+    buffer: Map<number, ResponseChunk>;
+    lastProcessedSeq: number
 }
