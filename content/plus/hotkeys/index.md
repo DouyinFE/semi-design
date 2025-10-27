@@ -6,7 +6,6 @@ title: HotKeys 快捷键
 icon: doc-configprovider
 width: 60%
 brief: 用于方便用户自定义快捷键及相关操作
-showNew: true
 ---
 
 ## 使用场景

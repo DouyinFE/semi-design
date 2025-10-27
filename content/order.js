@@ -96,8 +96,9 @@ const order = [
     'jsonviewer',
     'audioPlayer',
     'videoPlayer',
-    'aiChatDialogue',
+    'aiComponent',
     'aiChatInput',
+    'aiChatDialogue',
 ];
 let { exec } = require('child_process');
 let fs = require('fs');

@@ -7,7 +7,6 @@ icon: doc-jsonviewer
 dir: column
 noInline: true
 brief: Used for displaying and editing JSON data
-showNew: true
 ---
 
 ## When to use

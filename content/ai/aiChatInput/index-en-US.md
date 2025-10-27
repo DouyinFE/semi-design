@@ -1,35 +1,35 @@
 ---
-localeCode: zh-CN
+localeCode: en-US
 order: 99
-category: Plus
-title: AIChatInput 聊天输入框
+category: Ai
+title: AIChatInput
 icon: doc-input
 width: 60%
-brief: 用于 AI 聊天场景下的输入框
+brief: Input box used in AI chat scenarios
 showNew: true
 ---
 
-## 使用场景
+## Usage Scenarios
 
-在 AI 聊天场景下，用户需要通过输入框输入文本，上传文件，展示引用内容，发送消息等。
+In AI chat scenarios, users need to input text, upload files, display reference content, send messages, etc., through the input box.
 
-## 代码演示
+## Demos
 
-### 如何引入
+### How to import
 
 ```jsx import
 import { AIChatInput } from '@douyinfe/semi-ui';
 ```
 
-### 基本用法
+### Basic Usage
 
-支持文本输入以及文件上传，使用时可按需配置以下参数：
+Supports text input and file upload. You can configure the following parameters as needed:
 
-- `uploadProps` 配置文件上传相关的参数，详见 [UploadProps](/zh-CN/plus/upload#API)
-- `onUploadChange` 获取文件上传变化
-- `placeholder` 输入框的占位符
-- `defaultContent` 输入框的默认内容
-- `onContentChange` 输入框内容变化时的回调函数，参数为当前输入框的内容
+- `uploadProps`: Configure parameters related to file upload. See [UploadProps](/en-US/plus/upload#API)
+- `onUploadChange`: Callback when file upload changes
+- `placeholder`: Placeholder for the input box
+- `defaultContent`: Default content for the input box
+- `onContentChange`: Callback when the content of the input box changes; the parameter is the current content
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -49,7 +49,7 @@ function Basic() {
   
     return (
         <AIChatInput
-            placeholder={'输入内容或者上传内容...'} 
+            placeholder={'Enter content or upload...'} 
             uploadProps={uploadProps}
             onContentChange={onContentChange}
             onUploadChange={onUploadChange}
@@ -61,13 +61,13 @@ function Basic() {
 render(<Basic />);
 ```
 
-### 消息发送
+### Message Sending
 
-当输入框中有内容（包括输入文本，上传内容，[引用内容](/zh-CN/plus/aiChatInput#%E5%BC%95%E7%94%A8)），将允许发送消息。点击消息发送按钮，会触发 `onMessageSend` 回调函数，参数为当前输入框的内容，包括输入区域的文本，引用内容，上传文件，配置区域内容。
+When there is content in the input box (including text entry, uploaded content, [reference content](/en-US/plus/aiChatInput#Reference)), sending messages is allowed. Clicking the send message button triggers the `onMessageSend` callback; the argument is the input content, including text, reference content, uploaded files, and configuration area content.
 
-用户可在 `onMessageSend` 中根据判断是否设置 `generating` 表示消息正在处理中，如果 `generating` 为 `true`，则 AIChatInput 会在发送按钮位置显示停止生成按钮，并清空输入区的消息，以及上传文件，另外，引用内容需要用户自行清除。
+You can manage generating status with `generating`. If `generating` is `true`, AIChatInput will show a stop-generating button instead of the send button and clear the input area as well as uploaded files. References require manual handling.
 
-点击停止生成按钮，会触发 `onStopGenerate` 回调函数，用户可在该回调函数中处理停止生成的逻辑， 如将 `generating` 设为 `false`。
+Clicking the stop button triggers `onStopGenerate`, where you can handle logic such as setting `generating` to `false`.
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -75,22 +75,22 @@ import { AIChatInput } from '@douyinfe/semi-ui';
 
 const uploadProps = { 
     action: "https://api.semi.design/upload",
-    defaultFileList: [{
-        uid: '1',
-        name: 'dy.jpeg',
-        status: 'success',
-        size: '130kb',
-        url:
-            'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
-    },
-    {
-        uid: '5',
-        name: 'resso.jpeg',
-        percent: 50,
-        size: '222kb',
-        url:
-            'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png',
-    }],
+    defaultFileList: [
+        {
+            uid: '1',
+            name: 'dy.jpeg',
+            status: 'success',
+            size: '130kb',
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
+        },
+        {
+            uid: '5',
+            name: 'resso.jpeg',
+            percent: 50,
+            size: '222kb',
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png',
+        }
+    ],
 };
 const outerStyle = { margin: 12 };
 
@@ -98,7 +98,7 @@ const reference = [
     {
         id: '1',
         type: 'text',
-        content: '测试文本，这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字,这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字',
+        content: 'Test text: This is a long text repeated many times for demonstration purposes...'
     }
 ];
 
@@ -122,7 +122,6 @@ function SendMessageAndStopGenerate() {
         setReferences([]);
     }, []);
 
-     
     const handleReferenceDelete = useCallback((item) => {
         setReferences((references) => {
             const newReference = references.filter((ref) => ref.id !== item.id);
@@ -132,7 +131,7 @@ function SendMessageAndStopGenerate() {
     
     return (
         <AIChatInput
-            defaultContent={"点击发送按钮，观察上传内容、引用内容、输入框内容变化"}
+            defaultContent={"Click Send to see changes in content, uploads, and references."}
             generating={generating}
             uploadProps={uploadProps}
             onContentChange={onContentChange}
@@ -149,15 +148,15 @@ function SendMessageAndStopGenerate() {
 render(<SendMessageAndStopGenerate />);
 ```
 
-### 富文本输入区
+### Rich Text Input
 
-AIChatInput 使用 [tiptap](https://tiptap.dev/docs/editor/getting-started/overview) 作为富文本输入框的编辑器，用户可以在输入框中输入文本，使用 AIChatInput 内置的 extensions（包括 `input-slot`，`select-slot`，`skill-slot`）。用户也可以自定义 extensions 来扩展编辑器的功能。
+AIChatInput uses [tiptap](https://tiptap.dev/docs/editor/getting-started/overview) for its rich text editor. You can enter text, use built-in extensions (including `input-slot`, `select-slot`, `skill-slot`), or extend with your own.
 
-- `input-slot` 支持用户输入文本，并支持 placeholder 占位符。
-- `select-slot` 支持用户进行简单的选择，选项仅支持 string 类型。
-- `skill-slot` 是用于技能展示的块，方便用户理解当前输入框中的技能。
+- `input-slot`: Supports text input and placeholder display.
+- `select-slot`: Supports in-box option selection with string options.
+- `skill-slot`: For skill display blocks.
 
-可以通过 ref 方法 `setContent` 来设置输入框的内容，使用 `focusEditor` 方法可以将输入框的焦点设置到编辑器中。
+You can set input content with the `setContent` ref method and focus the editor with `focusEditor`.
 
 ```jsx live=true dir="column" noInline=true
 import React, { useRef, useCallback } from 'react';
@@ -166,9 +165,9 @@ import { AIChatInput } from '@douyinfe/semi-ui';
 const uploadProps = { action: "https://api.semi.design/upload" };
 const outerStyle = { margin: 12 };
 const temp = {
-    'input-slot': '我是一个<input-slot placeholder="[职业]">程序员</input-slot>',
-    'select-slot': `我是<select-slot value="前端开发" options='["设计","前端开发","后端开发"]'></select-slot>，帮我完成...`,
-    'skill-slot': `<skill-slot data-value="AI Coding"></skill-slot> 帮我完成...`,
+    'input-slot': 'I am an <input-slot placeholder="[Occupation]">engineer</input-slot>',
+    'select-slot': 'I am a <select-slot value="Front-end Developer" options=\'["Designer","Front-end Developer","Back-end Developer"]\'></select-slot>, please help me complete...',
+    'skill-slot': '<skill-slot data-value="AI Coding"></skill-slot> Please help me complete...'
 };
 
 function RichTextExample() {
@@ -187,19 +186,19 @@ function RichTextExample() {
 
     return (<>
         <div className="aiChatInput-radio">
-            {Object.keys(temp).map((item, index) => {
-                return <div 
-                    className={`aiChatInput-radio-item ${index === activeIndex ? 'aiChatInput-radio-item-selected' : ''}` }
+            {Object.keys(temp).map((item, index) => (
+                <div 
+                    className={`aiChatInput-radio-item ${index === activeIndex ? 'aiChatInput-radio-item-selected' : ''}`}
                     key={index} 
                     data-index={index} 
                     onClick={setTemplate}
-                >{item}</div>;
-            })}
+                >{item}</div>
+            ))}
         </div>
         <AIChatInput
             ref={ref}
             defaultContent={temp['input-slot']}
-            placeholder={'输入内容或者上传内容'} 
+            placeholder={'Enter content or upload'} 
             uploadProps={uploadProps}
             style={outerStyle} 
         />
@@ -209,13 +208,13 @@ function RichTextExample() {
 render(<RichTextExample />);
 ```
 
-### 引用
+### Reference
 
-用户可以 `references` 传入引用内容，引用内容会展示在输入框的顶部。
+You can pass in references via the `references`, which will display at the top of the input box.
 
-- `renderReference` 自定义单个引用内容的渲染。
-- `onReferenceDelete` 处理引用内容的删除。
-- `onReferenceClick` 处理引用内容的点击。
+- `renderReference`: Custom renderer for an individual reference.
+- `onReferenceDelete`: Callback for deleting a reference.
+- `onReferenceClick`: Callback for clicking a reference.
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -224,32 +223,12 @@ import { AIChatInput } from '@douyinfe/semi-ui';
 const uploadProps = { action: "https://api.semi.design/upload" };
 const outerStyle = { margin: 12 };
 const referenceTemp = [
-    {
-        id: '1',
-        type: 'text',
-        content: '测试文本，这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字,这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字',
-    },
-    {
-        id: '2',
-        name: '飞书文档.docx',
-    },
-    {
-        id: '3',
-        name: '飞书文档.pdf',
-    },
-    {
-        id: '4',
-        name: 'Music.mp4',
-    },
-    {
-        id: '5',
-        name: 'Image.jpeg',
-        url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png'
-    },
-    {
-        id: '6',
-        name: 'code.json',
-    }
+    { id: '1', type: 'text', content: 'Sample text, repeated to demonstrate a long text.' },
+    { id: '2', name: 'FeishuDoc.docx' },
+    { id: '3', name: 'FeishuDoc.pdf' },
+    { id: '4', name: 'Music.mp4' },
+    { id: '5', name: 'Image.jpeg', url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png' },
+    { id: '6', name: 'code.json' }
 ];
 
 function Reference() {
@@ -260,12 +239,12 @@ function Reference() {
     }, [references]);
 
     const handleReferenceClick = useCallback((item) => {
-        console.log('点击了引用', item);
+        console.log('Clicked reference', item);
     }, []);
     
     return (
         <AIChatInput
-            placeholder={'用于查看引用内容的用例'} 
+            placeholder={'Demo for viewing reference content'} 
             onReferenceDelete={handleReferenceDelete}
             onReferenceClick={handleReferenceClick}
             references={references} 
@@ -278,17 +257,16 @@ function Reference() {
 render(<Reference />);
 ```
 
-### 配置区域
+### Configuration Area
 
-用户可以通过配置区域设置使用模型参数、联网搜索、深度思考等配置项，展示或者查看 MCP 工具。
+You can configure options such as model parameters, web search, and critical thinking through the configuration area, or display/view MCP tools.
 
-可通过 `renderConfigureArea` API 自定义输入框的操作按钮。
+- `renderConfigureArea`: Custom renderer for config area buttons.
+- Use `Configure` components such as `Select`, `Button`, `Mcp`, `RadioButton`, etc.
 
-使用 `Configure` 中的 `Select`、`Button`、`Mcp`、`RadioButton` 等组件可以自定义配置项。
+The `Configure` component manages the state and provides a callback via `onConfigureChange` (make sure to set the unique `field`). For initial values, use `initValue`.
 
-`Configure` 将管理配置项的状态，用户可以通过 `onConfigureChange` API 监听配置项的变化。一定要配置 `field` 属性，用于标识配置项的唯一标识。如需设置初始值，可通过 `initValue` 属性设置。
-
-如果用户有其他形式的配置需求，可以通过 `getConfigureItem` 将自定义组件扩展成 `Configure` 类型组件。
+You can also use `getConfigureItem` to adapt your custom components.
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -298,7 +276,6 @@ import { IconFixedStroked, IconBookOpenStroked, IconFeishuLogo, IconGit, IconFig
 const { Configure } = AIChatInput;
 const uploadProps = { action: "https://api.semi.design/upload" };
 const outerStyle = { margin: 12 };
-
 const modelOptions = [
     { value: 'GPT-5', label: 'GPT-5' },
     { value: 'GPT-4o', label: 'GPT-4o' },
@@ -306,17 +283,16 @@ const modelOptions = [
 ];
 
 const mcpOptions = [
-    { icon: <IconFeishuLogo />, label: "飞书文档", value: "feishu" },
+    { icon: <IconFeishuLogo />, label: "FeishuDoc", value: "feishu" },
     { icon: <IconGit />, label: "Github Mcp", value: "github" },
     { icon: <IconFigma />, label: "IconFigma Mcp", value: "IconFigma" }
 ];
 
 const radioButtonProps = [
-    { label: '极速', value: 'fast' },
-    { label: '思考', value: 'think' },
-    { label: '超能', value: 'super' }
+    { label: 'Fast', value: 'fast' },
+    { label: 'Think', value: 'think' },
+    { label: 'Super', value: 'super' }
 ];
-
 
 function ConfigureButton() {
     const onConfigureButtonClick = useCallback(() => {
@@ -325,7 +301,7 @@ function ConfigureButton() {
 
     const renderLeftMenu = useCallback(() => (<>
         <Configure.Select optionList={modelOptions} field="model" initValue="GPT-4o" />
-        <Configure.Button icon={<IconBookOpenStroked />} field="onlineSearch">联网搜索</Configure.Button>
+        <Configure.Button icon={<IconBookOpenStroked />} field="onlineSearch">Web search</Configure.Button>
         <Configure.Mcp options={mcpOptions} onConfigureButtonClick={onConfigureButtonClick}/>
         <Configure.RadioButton options={radioButtonProps} field="thinkType" initValue="fast"/>
     </>), []);
@@ -336,7 +312,7 @@ function ConfigureButton() {
     
     return (
         <AIChatInput
-            placeholder={'用于查看左下方配置项的用例'} 
+            placeholder={'Demo for configuration area on the lower left'} 
             renderConfigureArea={renderLeftMenu} 
             onConfigureChange={onConfigureChange}
             uploadProps={uploadProps}
@@ -346,20 +322,16 @@ function ConfigureButton() {
 };
 
 render(<ConfigureButton />);
-
 ```
 
-使用 `getConfigureItem` 扩展自定义组件为 `Configure` 类型组件。
+You can extend any custom component for configuration using `getConfigureItem`.
 
 ```ts
 function getConfigureItem(
     component: React.ReactElement,
     opts: {
-        // 指定需要接管的组件的 value 对应的 key，默认是 value
         valueKey?: string; 
-        // 指定需要接管的组件的值变化对应的函数名，默认是 onChange
         onKeyChangeFnName?: string;
-        // 指定需要接管的组件的值变化函数参数中 value 对应的路径，默认是 ''
         valuePath?: string;
         className?: string;
         defaultProps?: Record<string, any>
@@ -367,7 +339,7 @@ function getConfigureItem(
 )
 ```
 
-使用示例如下：
+Demo:
 
 ```jsx live=true dir="column" noInline=true
 import React, { useCallback } from 'react';
@@ -376,52 +348,30 @@ import { Cascader, AIChatInput, getConfigureItem } from '@douyinfe/semi-ui';
 const uploadProps = { action: "https://api.semi.design/upload" };
 const outerStyle = { margin: 12 };
 const cascaderModalOptions = [
-    {
-        label: 'GPT',
-        value: 'GPT',
-        children: [
-            { label: 'GPT-4o', value: 'GPT-4o' },
-            { value: 'GPT-5', label: 'GPT-5' }
-        ],
-    },
-    {
-        label: 'Claude',
-        value: 'Claude',
-        children: [
-            { label: 'Claude 3.5 Sonnet', value: 'Claude 3.5 Sonnet' }
-        ],
-    }
+    { label: 'GPT', value: 'GPT', children: [{ label: 'GPT-4o', value: 'GPT-4o' }, { value: 'GPT-5', label: 'GPT-5' }] },
+    { label: 'Claude', value: 'Claude', children: [{ label: 'Claude 3.5 Sonnet', value: 'Claude 3.5 Sonnet' }] }
 ];
 
-const myCascader = (props) => {
-    return <Cascader {...props} />;
-};
-
+const myCascader = (props) => <Cascader {...props} />;
 const CustomCascader = getConfigureItem(myCascader, { 
     className: 'aiChatInput-cascader-configure'
 });
 
 class CustomConfigure extends React.Component {
-
     constructor(props) {
         super(props);
-        // Bind methods to the class instance
         this.renderLeftMenu = this.renderLeftMenu.bind(this);
         this.onConfigureChange = this.onConfigureChange.bind(this);
     }
-
-    // Define methods without using arrow function syntax
     renderLeftMenu() {
         return <CustomCascader field="model" treeData={cascaderModalOptions} initValue={['GPT', 'GPT-4o']} />;
     }
-
     onConfigureChange(value, changedValue) {
         console.log('onConfigureChange', value, changedValue);
     }
-
     render() {
         return (<AIChatInput
-            placeholder={'用于查看左下方配置项的用例'} 
+            placeholder={'Demo for configuration on the lower left'} 
             renderConfigureArea={this.renderLeftMenu} 
             onConfigureChange={this.onConfigureChange}
             uploadProps={uploadProps}
@@ -433,18 +383,9 @@ class CustomConfigure extends React.Component {
 render(<CustomConfigure />);
 ```
 
-### 操作区域
+### Action Area
 
-输入框右下角为操作区域，用户可以通过 `renderActionArea` API 自定义操作区域，展示自定义的操作按钮。
-
-```ts
-interface ActionAreaProps {
-    menuItem: ReactNode[];
-    className: string
-}
-```
-
-使用示例如下：
+The lower right corner is the action area. Use `renderActionArea` to customize buttons (e.g. for deleting or other operations).
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -455,22 +396,20 @@ const uploadProps = { action: "https://api.semi.design/upload" };
 const outerStyle = { margin: 12 };
 
 function ActionArea() {
-    const renderActionArea = useCallback((props) => {
-        return (
-            <div className={props.className}>
-                <div style={{ display: 'flex', alignItems: 'center' }} key="delete">
-                    <Button type="tertiary" style={{ borderRadius: '50%' }} icon={<IconDeleteStroked />}/>
-                    <Divider layout="vertical" style={{ marginLeft: 8 }}/>
-                </div>
-                {props.menuItem}
+    const renderActionArea = useCallback((props) => (
+        <div className={props.className}>
+            <div style={{ display: 'flex', alignItems: 'center' }} key="delete">
+                <Button type="tertiary" style={{ borderRadius: '50%' }} icon={<IconDeleteStroked />}/>
+                <Divider layout="vertical" style={{ marginLeft: 8 }}/>
             </div>
-        );
-    }, []);
+            {props.menuItem}
+        </div>
+    ), []);
   
     return (
         <AIChatInput
             renderActionArea={renderActionArea}
-            placeholder={'输入内容或者上传内容...'} 
+            placeholder={'Enter content or upload...'} 
             uploadProps={uploadProps}
             style={outerStyle} 
         />
@@ -480,9 +419,9 @@ function ActionArea() {
 render(<ActionArea />);
 ```
 
-### 底部按钮形状
+### Button Shape
 
-用户可以通过 `round` API 配置底部按钮的形状，默认是 `true`，是圆角按钮， 可以设置为 `false` 来配置为方形按钮。
+You can use the `round` API to configure the button shape at the bottom. The default is `true` (rounded). Set it to `false` for square buttons.
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -499,37 +438,36 @@ const modelOptions = [
 ];
 
 const mcpOptions = [
-    { icon: <IconFeishuLogo />, label: "飞书文档", value: "feishu" },
+    { icon: <IconFeishuLogo />, label: "FeishuDoc", value: "feishu" },
     { icon: <IconGit />, label: "Github Mcp", value: "github" },
     { icon: <IconFigma />, label: "IconFigma Mcp", value: "IconFigma" }
 ];
 
 const radioButtonProps = [
-    { label: '极速', value: 'fast' },
-    { label: '思考', value: 'think' },
-    { label: '超能', value: 'super' }
+    { label: 'Fast', value: 'fast' },
+    { label: 'Think', value: 'think' },
+    { label: 'Super', value: 'super' }
 ];
 
 function Shape() {
     const [round, setRound] = useState(false);
     const renderLeftMenu = useCallback(() => <>
         <Configure.Select optionList={modelOptions} field="model" initValue="GPT-4o" />
-        <Configure.Button icon={<IconBookOpenStroked />} field="onlineSearch">联网搜索</Configure.Button>
+        <Configure.Button icon={<IconBookOpenStroked />} field="onlineSearch">Web search</Configure.Button>
         <Configure.Mcp options={mcpOptions} />
         <Configure.RadioButton options={radioButtonProps} initValue="fast"/>
     </>);
-
     const onChange = useCallback((e) => {
         setRound(e.target.value);
     }, []);
     
     return (<>
-        <RadioGroup onChange={onChange} value={round} aria-label="单选组合示例" name="demo-radio-group">
-            <Radio value={true}>圆形</Radio>
-            <Radio value={false}>方形</Radio>
+        <RadioGroup onChange={onChange} value={round} aria-label="Radio group demo" name="demo-radio-group">
+            <Radio value={true}>Rounded</Radio>
+            <Radio value={false}>Square</Radio>
         </RadioGroup>
         <AIChatInput
-            placeholder={'下方按钮为方形的用例'} 
+            placeholder={'Square button demo'} 
             round={round}
             renderConfigureArea={renderLeftMenu} 
             uploadProps={uploadProps}
@@ -541,13 +479,11 @@ function Shape() {
 render(<Shape />);
 ```
 
-### 建议
+### Suggestions
 
-用户可通过 `suggestion` API 配置建议列表，功能类似于 AutoComplete 组件，用户可以根据输入的内容实现根据输入的内容动态展示建议列表。
+Configure suggestions with the `suggestion` API. This works similarly to the AutoComplete component. Users can dynamically show suggestions based on input.
 
-使用鼠标上下按键切换建议列表的选项。按下 `ESC` 或者点击非建议列表，输入框区域，建议列表将关闭。
-
-还可通过 `renderSuggestionItem` API 自定义建议列表的展示。
+Use up/down keys to navigate suggestions. Pressing `ESC` or clicking outside the suggestion/input area will close the suggestions. You can customize rendering using `renderSuggestionItem`.
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -555,8 +491,7 @@ import { AIChatInput } from '@douyinfe/semi-ui';
 
 const uploadProps = { action: "https://api.semi.design/upload" };
 const outerStyle = { margin: 12 };
-const suggestionTemplate = [ '天气如何', '空气质量', '工作进程', '日程安排'];
-
+const suggestionTemplate = [ 'Weather', 'Air Quality', 'Work Progress', 'Schedule' ];
 
 function Suggestion() {
     const [suggestion, setSuggestion] = useState([]);
@@ -565,7 +500,7 @@ function Suggestion() {
         if (content.length && content[0].text) {
             value = content[0].text;
         }
-        if (value === undefined || value.includes('/n')) {
+        if (value === undefined) {
             if (suggestion === undefined || suggestion.length === 0) {
                 return;
             } else {
@@ -575,9 +510,9 @@ function Suggestion() {
         if (value.length === 0) {
             setSuggestion([]);
         } else if (value.length > 0 && value.length < 4) {
-            const su = new Array(suggestionTemplate.length).fill(0).map((item, index) => {
-                return `${value}，${suggestionTemplate[index]}`;
-            });
+            const su = new Array(suggestionTemplate.length).fill(0).map((item, index) =>
+                `${value}, ${suggestionTemplate[index]}`
+            );
             setSuggestion(su);
         } else if (value.length >= 4) {
             setSuggestion([]);
@@ -590,7 +525,7 @@ function Suggestion() {
             onContentChange={onChange}
             uploadProps={uploadProps}
             style={outerStyle}
-            placeholder={'输入内容，当内容长度小于 4个字符可以看到建议，使用上下按键可切换侯选项'} 
+            placeholder={'When the length is less than 4, see suggestions. Use up/down to select.'} 
         />
     );
 }
@@ -598,33 +533,22 @@ function Suggestion() {
 render(<Suggestion />);
 ```
 
-### 技能及模版
+### Skills & Templates
 
-用户可以通过 `skills` API 配置技能列表，使用 `skillHotKey` 配置技能的触发键。
+Configure a skill list with `skills`, and use `skillHotKey` to set the shortcut for skill panel.
 
-`skills` 的格式如下
-
+- `skills` sample format:
 ```ts
 interface Skill {
     label?: string;
     value?: string;
     icon?: React.ReactNode;
-    // 技能是否有模版，有模版的技能被选中后，将在输入框的底部展示模版按钮
+    // If this skill has a template, set hasTemplate to true, affects the display of template display buttons
     hasTemplate?: boolean;
 }
 ```
 
-由于模版的展示形式丰富，因此我们不提供默认的展示形式，用户可以通过 `renderTemplate`API 自定义模版的展示。模版面板的展示和关闭可通过点击模版按钮实现。
-
-```ts
-renderTemplate?: (
-    skill: Skill, 
-    // 模版点击回调，点击模版后，将模版的内容插入到输入框中
-    onTemplateClick: (content: string) => void
-) => ReactNode;
-```
-
-使用示例如下：
+Because templates can be displayed in a variety of ways, we don't provide a default display method. Users can customize the template display through the `renderTemplate` API. The template panel can be displayed and closed by clicking the template button.
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -643,12 +567,12 @@ const skills = [
     {
         icon: <IconTemplateStroked />,
         value: 'writing',
-        label: '帮我写作',
+        label: 'Writing',
         hasTemplate: true,
     },
     {
         icon: <IconSearch />,
-        value: 'AI 编程',
+        value: 'AI coding',
         label: 'AI coding'
     },
 ];
@@ -656,41 +580,41 @@ const skills = [
 const template = [
     {
         groupKey: 'value',
-        group: '工作',
+        group: 'Work',
         children: [
             {
                 bg: 'var(--semi-color-primary)',
                 icon: <IconTemplateStroked />,
-                title: '总结汇报',
-                desc: '凝练你的工作成效',
-                content: `我的职业是<input-slot placeholder="[请输入职业]"></input-slot>，帮我写一份关于<input-slot placeholder="[输入目的：项目进展总结、团队工作成果或其他]</input-slot>的总结汇报`
+                title: 'Summary report',
+                desc: 'Condensate your work results',
+                content: `My occupation is <input-slot placeholder="[Please enter your occupation]"></input-slot>. Please help me write a summary report on <input-slot placeholder="[Purpose: Project Progress Summary, Team Work Results, or Other]</input-slot>`
             },
             {
                 bg: 'var(--semi-color-warning)',
                 icon: <IconTemplateStroked />,
-                title: '话术',
-                desc: '满足不同场景表达需求',
-                content: `我是一名<select-slot value="打工人" options='["打工人","学生"]'></select-slot> ，帮我写一段面向<input-slot placeholder="[输入对象]">陌生同事</input-slot>的话术内容`
+                title: 'Speech skills',
+                desc: 'Meet the expression needs of different scenarios',
+                content: `I am a <select-slot value="Worker" options='["Worker","Student"]'></select-slot>, please help me write a paragraph for <input-slot placeholder="[input object]">unfamiliar colleagues</input-slot>`
             }
         ]
     },
     {
         groupKey: 'marketing',
-        group: '商业营销',
+        group: 'Marketing',
         children: [
             {
                 bg: 'var(--semi-color-primary)',
                 icon: <IconTemplateStroked />,
-                title: '宣传文案',
-                desc: '撰写各平台的推广文案',
-                content: '帮我写一篇面向<input-slot placeholder="[输入目标人群]"></input-slot>职场人士，关于<input-slot placeholder="[输入产品]"></input-slot>的宣传文案，需要直击痛点，吸引用户点击。'
+                title: 'Promotional copy',
+                desc: 'Write promotional copy for each platform',
+                content: 'Please help me write a promotional copy for <input-slot placeholder="[Enter target group]"></input-slot> professionals about <input-slot placeholder="[Enter product]"></input-slot>. It needs to directly hit the pain points and attract users to click.'
             },
             {
                 bg: 'var(--semi-color-warning)',
                 icon: <IconTemplateStroked />,
-                title: '方案策划',
-                desc: '量身定制各种方案',
-                content: '我是一名<input-slot placeholder="[输入职业]"></input-slot>职业策划人 ，帮我写一个<input-slot placeholder="[方案类型：如线下读书会活动方案等]"></input-slot>线下读书会活动 的方案，需要包含但不限于策划目标、详细计划、所需资源和预算、效果评估、风险应对等。'
+                title: 'Program planning',
+                desc: 'Tailor-made solutions',
+                content: 'I am a <input-slot placeholder="[Enter occupation]"></input-slot> professional planner. Please help me write a <input-slot placeholder="[Plan type: such as offline book club activity plan, etc.]"></input-slot> offline book club activity plan, which should include but not be limited to planning goals, detailed plans, required resources and budget, effect evaluation, risk response, etc.'
             }
         ]
     }
@@ -763,7 +687,7 @@ function Template() {
 
     return (
         <AIChatInput 
-            placeholder='输入 / 唤起技能，选择技能后，点击模版按钮可查看模版，可通过鼠标上下按键切换侯选项'
+            placeholder='Input / invoke skills'
             renderConfigureArea={renderLeftMenu} 
             ref={ref}
             uploadProps={uploadProps}
@@ -778,24 +702,22 @@ function Template() {
 render(<Template />);
 ```
 
-### 自定义渲染顶部区域
+### Custom Top Slot
 
-用户可以通过 `renderTopSlot` API 自定义渲染顶部区域，可自行渲染引用，上传内容以及配置项。可结合 `showReference` 和 `showUploadFile` API 控制是否展示引用和上传文件。另外，可通过 `topSlotPosition` API 配置自定义渲染内容相对于引用区域，上传展示区域的相对位置。
+Users can customize the top rendering area using the `renderTopSlot` API, rendering references, uploaded content, and configuration items. This can be combined with the `showReference` and `showUploadFile` APIs to control whether references and uploaded files are displayed. Additionally, the `topSlotPosition` API allows you to configure the relative position of customized rendered content relative to the reference and upload display areas.
 
 ```ts
 interface TopSlotProps {
-    // 引用
     references: Reference[];
-    // 上传内容
     attachments: Attachment[];
-    // 输入框消息
+    // User input into the input box
     content: Content[];
     handleUploadFileDelete: (attachment: Attachment) => void;
     handleReferenceDelete: (reference: Reference) => void
 }
 ```
 
-使用用例如下：
+Usage examples are as follows:
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -949,7 +871,7 @@ function RenderTopSlot() {
             ref={ref}
             uploadProps={uploadProps}
             style={outerStyle}
-            placeholder="自定义渲染顶部内容，可用于渲染上传内容、引用内容"
+            placeholder="Customize the rendering of top content"
         />
     );
 }
@@ -957,9 +879,9 @@ function RenderTopSlot() {
 render(<RenderTopSlot />);
 ```
 
-### 自定义扩展
+### Custom Extensions
 
-富文本区域可以自定义扩展，自定义扩展的实现可参考 [Tiptap 自定义扩展](https://tiptap.dev/docs/editor/extensions/custom-extensions/create-new)。通过 `extensions` API 可将自定义扩展添加到 `AIChatInput` 组件中。如果添加了自定义扩展，需要在 `transformer` 中添加对应的转换规则， 以保证在 `onContentChange` 中得到的该节点数据符合用户预期。
+Rich text areas support custom extensions. For implementation details, see [Tiptap Custom Extensions](https://tiptap.dev/docs/editor/extensions/custom-extensions/create-new). Custom extensions can be added to the AIChatInput component using the `extensions` API. If you add a custom extension, you must configure the corresponding transformation rules in `transformer` to ensure that the data returned in `onContentChange` matches your expectations.
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -973,7 +895,7 @@ import Mention from '@tiptap/extension-mention';
 const uploadProps = { action: "https://api.semi.design/upload" };
 const outerStyle = { margin: 12 };
 
-// 面板选项
+// Panel options
 const TestAction = {
     'Files & Folders': [
         {
@@ -1021,10 +943,10 @@ const TestAction = {
     ],
 };
 
-// 第一级内容
+// First level content
 const FirstLevel = Object.keys(TestAction);
 
-// referSlot 的渲染组件
+// referSlot rendering component
 function ReferSlotComponent(props) {
     const { node, deleteNode } = props;
     const value = node.attrs.value ? node.attrs.value : '';
@@ -1042,7 +964,7 @@ function ReferSlotComponent(props) {
     );
 }
 
-// 创建 ReferSlot 扩展
+// Creating a ReferSlot Extension
 const ReferSlot = Node.create({
     name: 'referSlot',
     inline: true,
@@ -1052,7 +974,7 @@ const ReferSlot = Node.create({
     addAttributes() {
         return {
             value: {
-                default: '输入内容',
+                default: 'Enter content',
                 parseHTML: (element) =>
                     element.getAttribute('data-value'),
                 renderHTML: (attributes) => ({
@@ -1094,7 +1016,7 @@ const ReferSlot = Node.create({
         }];
     },
     renderHTML({ HTMLAttributes }) {
-        // 序列化时输出自定义标签，保留值到 data-value
+        // Output custom tags when serializing and keep the value in data-value
         return ['refer-slot', mergeAttributes(HTMLAttributes)];
     },
     addNodeView() {
@@ -1102,7 +1024,7 @@ const ReferSlot = Node.create({
     },
 });
 
-// 更新位置用函数
+// Update position function
 const updatePosition = (editor, element) => {
     const virtualElement = {
         getBoundingClientRect: () => posToDOMRect(
@@ -1123,7 +1045,6 @@ const updatePosition = (editor, element) => {
     });
 };
 
-// 建议
 const suggestion = {
     items: () => FirstLevel,
     command: ({ editor, range, props }) => {
@@ -1213,6 +1134,7 @@ const customReferences = [
     }
 ];
 
+// Rendering Panel for mention list
 class MentionList extends React.Component {
     constructor(props) {
         super(props);
@@ -1267,7 +1189,7 @@ class MentionList extends React.Component {
         if ( prevState.options !== this.state.options ||
         prevProps.query !== this.props.query
         ) {
-            // 手动 filter
+            // Manual filter
             let filter = [];
             if (this.props.query && this.props.query.length) {
                 filter = (this.state.options ? this.state.options : []).filter((item) => {
@@ -1283,7 +1205,7 @@ class MentionList extends React.Component {
                 filter = this.state.options ? this.state.options : [];
             }
             this.setState({ 
-                filterOptions: filter, 
+                filterOptions: filter,
                 selectedIndex: 0
             });
         }
@@ -1320,7 +1242,6 @@ class MentionList extends React.Component {
         return false;
     };
 
-    // 明确参数类型
     renderItem(item) {
         return (
             <div className="level2Item">
@@ -1413,7 +1334,7 @@ function CustomRichTextExtension() {
     const ref = useRef();
     const [reference, setReference] = useState(customReferences);
     const extensions = useMemo(() => {
-        // 使用 @ 触发
+        // Use @ to trigger
         return [
             ReferSlot,
             Mention.configure({
@@ -1428,7 +1349,7 @@ function CustomRichTextExtension() {
         const { attachments = [], references = [], content = [] } = props;
         const showContent = content.filter((item) => item.type !== 'text');
         return <div className="ai-chat-input-topSlot">
-            {/* order: reference, rich text area content, attachments */}
+            {/* Order: reference, rich text area content, attachments */}
             {showContent.map((item, index) => {
                 const { type, value, name, key, detail, ...rest } = item;
                 return (
@@ -1518,7 +1439,7 @@ function CustomRichTextExtension() {
                 transformer={transformer}
                 uploadProps={uploadProps}
                 style={outerStyle}
-                placeholder="使用 @ 触发"
+                placeholder="Use @ to trigger"
             />
         </>
     );
@@ -1527,70 +1448,67 @@ function CustomRichTextExtension() {
 render(<CustomRichTextExtension />);
 ```
 
-## API 参考
+## API Reference
 
 ### AIChatInput
 
-| 属性 | 说明 | 类型 | 默认值 |
-|------|----|------|-------|
-| canSend | 是否可以发送，未设置时，根据输入框内容，上传内容，引用内容决定是否可发送 | boolean | true |
-| className | 自定义类名 | string | - |
-| defaultContent | 输入框默认内容，支持 html string 以及 json 格式，同 Tiptap 的 Content | TiptapContent | - |
-| dropdownMatchTriggerWidth | 下拉弹出层是否是否与输入框宽度一致 | boolean | true |
-| extensions | 自定义扩展，类型同 tiptap 的 Extension 类型相同 | Extension[] | - |
-| generating | 是否正在生成中 | boolean | false |
-| onContentChange | 输入框内容变化时候的回调 | (content: <ApiType detail='{ type: string; [key: string]: any }'>OnContentChangeProps</ApiType>) => void | - |
-| onMessageSend | 发送消息回调 | (content: <ApiType detail='{references?: Reference[]; attachments?: Attachment[]; inputContents?: Content[]; setup?: Setup}'>OnMessageSendProps</ApiType>) => void | - |
-| onReferenceClick | 引用点击回调 | (reference: Reference) => void | - |
-| onReferenceDelete | 引用删除回调 | (reference: Reference) => void | - |
-| onSkillChange | 技能切换回调 | (skill: Skill) => void | - |
-| onStopGenerate | 停止生成回调 | () => void | - |
-| onSuggestClick | 建议点击回调 | (suggestion: Suggestion) => void | - |
-| onTemplateVisibleChange | 模板弹出层可见性变化回调 | (visible: boolean) => void | - |
-| onUploadChange | 上传文件相关回调 | (props: OnChangeProps) => void | - |
-| popoverProps | 下拉弹出层的配置参数 | PopoverProps | - |
-| placeholder | 输入框占位符 | string | - |
-| references | 输入框引用列表 | Reference[] | - |
-| renderActionArea | 自定义底部的操作区域 | () => React.ReactNode | - |
-| renderConfigureArea | 自定义底部的配置区域 | () => React.ReactNode | - |
-| renderReference | 自定义渲染引用 | (reference: Reference) => ReactNode | - |
-| renderSkillItem | 自定义技能列表的 item 渲染 | (props: <ApiType detail='{skill: Skill; onClick: () => void; className: string, onMouseEnter: () => void}'>RenderSkillItemProps</ApiType>) => React.ReactNode | - |
-| renderSuggestionItem | 自定义建议列表的 item 渲染 | (props: <ApiType detail='{ suggestion: Suggestion; onClick: () => void; className: string, onMouseEnter: () => void}'>RenderSkillItemProps</ApiType>) => React.ReactNode | - |
-| renderTemplate | 自定义模板渲染 | (skill: Skill, onTemplateClick: (content: string) => void) => React.ReactNode | - |
-| renderTopSlot | 自定义顶部 slot | () => React.ReactNode | - |
-| round | 底部的配置区域和操作区域是否形状是否为全圆角 | boolean | true |
-| onBlur | 富文本输入框失焦的回调 | (event: React.FocusEvent) => void | - |
-| onConfigureChange | 配置区域发生变化的回调 | (value: LeftMenuChangeProps, changedValue: LeftMenuChangeProps) => void | - |
-| onFocus | 富文本输入框聚焦的回调 | (event: React.FocusEvent) => void | - |
-| showReference | 是否展示引用区域，用于配合 renderTopSlot 使用 | boolean | true |
-| showTemplateButton | 是否展示模板按钮，未设置时，将根据当前选中技能中的 hasTemplate 决定是否展示模版按钮 | boolean | false |
-| showUploadFile | 是否展示上传文件区域，用于配合 renderTopSlot 使用 | boolean | true |
-| skillHotKey | 输入框中触发技能的热键 | string | - |
-| skills | 技能列表 | Skill[] | - |
-| style | 自定义样式 | React.CSSProperties | - |
-| suggestions | 建议列表 | Suggestion[] | - |
-| templatesCls| 模版的样式类名称| string | - |
-| templatesStyle| 模版的样式| React.CSSProperties | - |
-| topSlotPosition | 顶部 slot 位置，相对于引用内容，上传内容 | 'top' \| 'bottom' \| 'middle' | - |
-| transformer | 自定义扩展的转换规则 | Map<string, (obj: any) => any> | |
-| uploadProps | 上传文件相关配置 | UploadProps | - |
-| uploadTipProps | 上传文件相关提示配置 | UploadTipProps | - |
+| Prop | Description | Type | Default |
+|------|-------------|------|---------|
+| canSend | Whether sending is allowed. If not set, sending depends on input, uploads, and references | boolean | true |
+| className | Custom class name | string | - |
+| defaultContent | Default input content, supports html string or Tiptap content | TiptapContent | - |
+| dropdownMatchTriggerWidth | Should dropdown width match input? | boolean | true |
+| extensions | Custom editor extensions | Extension[] | - |
+| generating | Is it generating? | boolean | false |
+| onContentChange | Callback when input content changes | (content: <ApiType detail='{ type: string; [key: string]: any }'>OnContentChangeProps</ApiType>) => void | - |
+| onMessageSend | Callback for sending message | (content: <ApiType detail='{references?: Reference[]; attachments?: Attachment[]; inputContents?: Content[]; setup?: Setup}'>OnMessageSendProps</ApiType>) => void | - |
+| onReferenceClick | Callback for clicking a reference | (reference: Reference) => void | - |
+| onReferenceDelete | Callback for deleting a reference | (reference: Reference) => void | - |
+| onSkillChange | Callback for switching skills | (skill: Skill) => void | - |
+| onStopGenerate | Callback for stop generate | () => void | - |
+| onSuggestClick | Callback for clicking a suggestion | (suggestion: Suggestion) => void | - |
+| onTemplateVisibleChange | Callback for template's visibility change | (visible: boolean) => void | - |
+| onUploadChange | Callback for file upload | (props: OnChangeProps) => void | - |
+| popoverProps | Popup configuration | PopoverProps | - |
+| placeholder | Input placeholder | string | - |
+| references | Reference list | Reference[] | - |
+| renderActionArea | Custom bottom-right operation area | () => React.ReactNode | - |
+| renderConfigureArea | Custom configuration area | () => React.ReactNode | - |
+| renderReference | Custom render reference | (reference: Reference) => ReactNode | - |
+| renderSkillItem | Custom skill list item renderer | (props: <ApiType detail='{skill: Skill; onClick: () => void; className: string, onMouseEnter: () => void}'>RenderSkillItemProps</ApiType>) => React.ReactNode | - |
+| renderSuggestionItem | Custom suggestion item renderer | (props: <ApiType detail='{ suggestion: Suggestion; onClick: () => void; className: string, onMouseEnter: () => void}'>RenderSkillItemProps</ApiType>) => React.ReactNode | - |
+| renderTemplate | Custom template renderer | (skill: Skill, onTemplateClick: (content: string) => void) => React.ReactNode | - |
+| renderTopSlot | Custom top slot renderer | () => React.ReactNode | - |
+| round | Whether config/action areas have rounded style | boolean | true |
+| onBlur | Callback when input blurs | (event: React.FocusEvent) => void | - |
+| onConfigureChange | Callback for configuration area changes | (value: LeftMenuChangeProps, changedValue: LeftMenuChangeProps) => void | - |
+| onFocus | Callback when input focused | (event: React.FocusEvent) => void | - |
+| showReference | Show reference area | boolean | true |
+| showTemplateButton | Show template button | boolean | false |
+| showUploadFile | Show upload file area | boolean | true |
+| skillHotKey | Skill panel trigger shortcut | string | - |
+| skills | Skill list | Skill[] | - |
+| style | Custom style | React.CSSProperties | - |
+| suggestions | Suggestions list | Suggestion[] | - |
+| templatesCls| The template's style class name| string | - |
+| templatesStyle| Template style| React.CSSProperties | - |
+| topSlotPosition | Top slot position: relative to reference and uploads | 'top' \| 'bottom' \| 'middle' | - |
+| transformer | Customizing the conversion rules for extensions | Map<string, (obj: any) => any> | |
+| uploadProps | Upload configuration | UploadProps | - |
+| uploadTipProps | Upload tip configuration | UploadTipProps | - |
 
 ## Methods
 
-| 属性 | 说明 | 类型 | 默认值 |
-|------|----|------|-------|
-| changeTemplateVisible | 切换模板弹出层的可见性 | (visible: boolean) => void | - |
-| deleteContent | 删除富文本中的某一项, 删除逻辑依赖的是 content 中的 uniqueKey | (content: Content) => void | - |
-| deleteUploadFile | 删除上传文件中的某一项 | (item: Attachment) => void | - |
-| focusEditor | 聚焦输入框，默认聚焦到输入框的末尾 | (pos?: string) => void | - |
-| getEditor | 获取当前的 tiptap 的 editor 实例 | () => Editor | - |
-| setContent | 设置输入框内容 | (content: TiptapContent) => void | - |
-| setContentWhileSaveTool | 保留技能项的同时设置输入框内容 | (content: TiptapContent) => void | - |
+| Method | Description | Type | Default |
+|--------|-------------|------|---------|
+| changeTemplateVisible | Toggle visibility of the template popup | (visible: boolean) => void | - |
+| deleteContent | Delete an item in the rich text. The deletion logic depends on the uniqueKey in the content. | (content: Content) => void | - |
+| deleteUploadFile | Delete an item in the uploaded file | (item: Attachment) => void | - |
+| focusEditor | Focus the input box. By default, the focus is on the end of the input box. | (pos?: string) => void | - |
+| getEditor | Get the current tiptap editor instance | () => Editor | - |
+| setContent | Set input box content | (content: TiptapContent) => void | - |
+| setContentWhileSaveTool | Set the input box content while retaining the skill item | (content: TiptapContent) => void | - |
 
+## Design Tokens
 
-
-## 设计变量
 <DesignToken/>
-
-

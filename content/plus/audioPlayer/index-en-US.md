@@ -6,7 +6,6 @@ title: AudioPlayer
 icon: doc-audioplayer
 width: 60%
 brief: Used to play audio
-showNew: true
 ---
 
 ## Demos

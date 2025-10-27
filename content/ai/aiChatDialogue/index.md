@@ -1,8 +1,8 @@
 ---
 localeCode: zh-CN
 order: 98
-category: Plus
-title: AIChatDialogue AI 聊天对话
+category: Ai
+title: AIChatDialogue 聊天对话
 icon: doc-audioplayer
 width: 60%
 brief: 用户展示 AI 聊天中的对话信息
@@ -10,6 +10,7 @@ showNew: true
 ---
 
 ## 使用场景
+
 AIChatDialogue 组件可搭配 AIChatInput 使用，实现更丰富的、功能覆盖更全面、定制更加便捷的 AI 会话场景。
 
 

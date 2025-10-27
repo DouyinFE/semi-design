@@ -6,7 +6,6 @@ title:  CodeHighlight
 icon: doc-codehighlight
 dir: column
 brief: Highlight code blocks in the page according to syntax
-showNew: true
 ---
 
 ## When to use

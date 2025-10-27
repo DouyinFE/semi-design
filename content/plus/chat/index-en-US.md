@@ -6,7 +6,6 @@ title:  Chat
 icon: doc-chat
 dir: column
 brief: Used to quickly build conversation content
-showNew: true
 ---
 
 ## When to use

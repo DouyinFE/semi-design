@@ -6,7 +6,6 @@ title:  Markdown Render
 icon: doc-markdown
 dir: column
 brief: Instantly render Markdown and MDX in web pages
-showNew: true
 ---
 
 ## When to use

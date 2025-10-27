@@ -5,7 +5,6 @@ category: 展示类
 title:  UserGuide 用户引导
 icon: doc-userGuide
 brief: 用于页面对新用户进行功能引导
-showNew: true
 ---
 
 

@@ -386,7 +386,7 @@ Set `colorful` to get colorful buttons. Colorful buttons support all `theme`, an
 
 ```jsx live=true dir="column"
 import React, { useState } from 'react';
-import { Button } from '../../index';
+import { Button } from '@douyinfe/semi-ui';
 import { IconAIFilledLevel1, IconAIFilledLevel2, IconAIFilledLevel3 } from '@douyinfe/semi-icons';
 
 function ButtonDemo() {

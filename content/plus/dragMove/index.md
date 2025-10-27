@@ -6,7 +6,6 @@ title:  DragMove 拖拽移动
 icon: doc-dragmove
 dir: column
 brief: 可通过拖拽改变位置
-showNew: true
 ---
 
 ## 使用场景

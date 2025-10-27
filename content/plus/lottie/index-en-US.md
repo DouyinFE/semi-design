@@ -6,7 +6,6 @@ title: Lottie Animation
 icon: doc-lottie
 dir: column
 brief: Display Lottie animation on the web page
-showNew: true
 ---
 
 ## When to use

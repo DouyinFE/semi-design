@@ -5,6 +5,7 @@ category: 基础
 title: Feedback 反馈
 icon: doc-feedback
 brief: 快速定义各类型反馈
+showNew: true
 ---
 
 ## 代码演示

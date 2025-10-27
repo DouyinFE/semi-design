@@ -5,6 +5,7 @@ category: Basic
 title:  FloatButton
 icon: doc-floatButton
 brief: A floating button is an actionable button that can float on the page
+showNew: true
 ---
 
 ## Demos

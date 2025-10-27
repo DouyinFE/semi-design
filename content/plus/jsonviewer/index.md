@@ -7,7 +7,6 @@ icon: doc-jsonviewer
 dir: column
 noInline: true
 brief: 用于展示和编辑 JSON 数据
-showNew: true
 ---
 
 ## 使用场景

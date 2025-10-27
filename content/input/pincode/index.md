@@ -6,7 +6,6 @@ title: PinCode 验证码输入
 icon: doc-pincode
 width: 60%
 brief: 用于便捷直观地输入验证码
-showNew: true
 ---
 
 ## 代码演示

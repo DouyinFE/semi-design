@@ -6,7 +6,6 @@ title:  HotKeys
 icon: doc-configprovider
 width: 60%
 brief: used to facilitate the customization of keyboard shortcut
-showNew: true
 ---
 
 

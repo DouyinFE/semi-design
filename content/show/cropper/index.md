@@ -6,7 +6,6 @@ title:  Cropper 图片裁切
 icon: doc-cropper
 dir: column
 brief: 通过设定裁切框的宽高比例，自由裁切图片
-showNew: true
 ---
 
 ## 使用场景

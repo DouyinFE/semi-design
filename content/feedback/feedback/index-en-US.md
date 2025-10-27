@@ -5,6 +5,7 @@ category: Basic
 title:  Feedback
 icon: doc-feedback
 brief: Quick feedback component
+showNew: true
 ---
 
 ## Demos

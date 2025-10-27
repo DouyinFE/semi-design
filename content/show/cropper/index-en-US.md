@@ -6,7 +6,6 @@ title:  Cropper
 icon: doc-cropper
 dir: column
 brief: Freely crop pictures
-showNew: true
 ---
 
 ## When to use
