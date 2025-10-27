@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 26
+order: 99
 category: Plus
 title: AIChatInput 聊天输入框
 icon: doc-input

@@ -25,7 +25,6 @@ const order = [
     'icon',
     'space',
     'chat',
-    'aiChatInput',
     'codehighlight',
     "markdownrender",
     "dragMove",
@@ -98,6 +97,7 @@ const order = [
     'audioPlayer',
     'videoPlayer',
     'aiChatDialogue',
+    'aiChatInput',
 ];
 let { exec } = require('child_process');
 let fs = require('fs');
