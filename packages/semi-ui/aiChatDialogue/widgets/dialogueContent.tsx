@@ -4,36 +4,39 @@ import { DialogueContentProps } from '../interface';
 import MarkdownRender from '../../markdownRender';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
 import { Image } from '../../index';
-import { FunctionToolCall, InputFile, ContentItem, InputMessage, InputText, InputImage, OutputText, Reasoning, CustomToolCall, OutputMessage, Refusal, Message } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
+import { FunctionToolCall, InputFile, ContentItem, InputMessage, InputText, InputImage, OutputText, Reasoning, CustomToolCall, OutputMessage, Refusal, Message, Reference } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
 import { DialogueContentItemRenderer } from '../interface';
-import { IconAlertCircle, IconCode, IconExcel, IconFile, IconImage, IconPdf, IconSendMsgStroked, IconSpin, IconWord, IconWrench } from '@douyinfe/semi-icons';
+import { IconAlertCircle, IconCode, IconExcel, IconFile, IconImage, IconPdf, IconSendMsgStroked, IconSpin, IconVideo, IconWord, IconWrench } from '@douyinfe/semi-icons';
 import { ReasoningWidget } from './contentItem/reasoning';
 import { AnnotationWidget } from './contentItem/annotation';
 import { ReferenceWidget } from './contentItem/reference';
 import Code from './contentItem/code';
 import { Locale } from '../../locale/interface';
 import LocaleConsumer from "../../locale/localeConsumer";
+import { messageToChatInput } from '@douyinfe/semi-foundation/aiChatDialogue/dataAdapter';
 
 interface FileAttachmentProps extends InputFile {
     onFileClick?: (file: InputFile) => void;
     disabledFileItemClick?: boolean;
     role?: string;
     showReference?: boolean;
-    onReferenceClick?: (item: ContentItem) => void
+    onReferenceClick?: (item: Reference ) => void;
+    isLastFile?: boolean
 }
 
 
 const { PREFIX_CONTENT } = cssClasses;
 const { STATUS, MODE, ROLE, MESSAGE_ITEM_TYPE, TEXT_TYPES, TOOL_CALL_TYPES,
-    DOCUMENT_TYPES, IMAGE_TYPES, PDF_TYPES, EXCEL_TYPES, CODE_TYPES
+    DOCUMENT_TYPES, IMAGE_TYPES, PDF_TYPES, EXCEL_TYPES, CODE_TYPES, VIDEO_TYPES
 } = strings;
 
 
-const ImageAttachment = React.memo((props: {src: string; isList: boolean; msg: InputImage; onImageClick?: (msg: InputImage) => void}) => {
-    const { src, isList, msg, onImageClick } = props;
+const ImageAttachment = React.memo((props: {src: string; isList: boolean; msg: InputImage; onImageClick?: (msg: InputImage) => void; isLastImage?: boolean}) => {
+    const { src, isList, msg, onImageClick, isLastImage } = props;
     return <Image
         className={cls(`${PREFIX_CONTENT}-img`, {
             [`${PREFIX_CONTENT}-img-list`]: isList,
+            [`${PREFIX_CONTENT}-img-last`]: isLastImage,
         })}
         src={src}
         onClick={() => {
@@ -43,7 +46,7 @@ const ImageAttachment = React.memo((props: {src: string; isList: boolean; msg: I
 });
 
 const FileAttachment = React.memo((props: FileAttachmentProps) => {
-    const { onFileClick, disabledFileItemClick, role, onReferenceClick, showReference, ...restProps } = props;
+    const { onFileClick, disabledFileItemClick, role, onReferenceClick, showReference, isLastFile, ...restProps } = props;
     const suffix = restProps?.filename?.split('.').pop();
     const realType = suffix ?? restProps?.fileInstance?.type?.split('/').pop();
 
@@ -66,6 +69,9 @@ const FileAttachment = React.memo((props: FileAttachmentProps) => {
         } else if (CODE_TYPES.includes(type)) { 
             typeCls = 'code';
             icon = <IconCode size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
+        } else if (VIDEO_TYPES.includes(type)) {
+            typeCls = 'video';
+            icon = <IconVideo size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
         } else {
             typeCls = 'default';
             icon = <IconFile size="extra-large" className={`${PREFIX_CONTENT}-file-icon`}/>;
@@ -90,7 +96,7 @@ const FileAttachment = React.memo((props: FileAttachmentProps) => {
     }, [onFileClick, disabledFileItemClick, restProps]);
 
     const handleReferenceClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-        onReferenceClick?.(restProps as ContentItem);
+        onReferenceClick?.({ name: restProps?.filename, url: restProps?.file_url });
         e.preventDefault();
     }, [onReferenceClick, restProps]);
 
@@ -98,12 +104,16 @@ const FileAttachment = React.memo((props: FileAttachmentProps) => {
         href={restProps?.file_url}
         target="_blank"
         onClick={handleFileClick}
-        className={`${PREFIX_CONTENT}-file`} 
+        className={cls(`${PREFIX_CONTENT}-file`, {
+            [`${PREFIX_CONTENT}-file-last`]: isLastFile,
+        })} 
         rel="noreferrer"
     >
         {renderFileIcon(realType as string, restProps)}
         <div className={`${PREFIX_CONTENT}-file-info`}>
-            <span className={`${PREFIX_CONTENT}-file-title`}>{restProps?.filename}</span>
+            <span className={cls(`${PREFIX_CONTENT}-file-title`, {
+                [`${PREFIX_CONTENT}-file-title-ellipsis`]: role === ROLE.USER && showReference,
+            })}>{restProps?.filename}</span>
             <span className={`${PREFIX_CONTENT}-file-metadata`}>
                 <span className={`${PREFIX_CONTENT}-file-type`}>{realType}</span>
                 {' '}{restProps?.size}
@@ -150,7 +160,7 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
             [`${PREFIX_CONTENT}`]: true,
             [`${PREFIX_CONTENT}-${mode}`]: bubble || userBubble,
             [`${PREFIX_CONTENT}-no-bubble`]: !(bubble || userBubble),
-            [`${PREFIX_CONTENT}-user`]: (bubble && isUser) || userBubble,
+            [`${PREFIX_CONTENT}-user`]: isUser,
             [`${PREFIX_CONTENT}-error`]: status === STATUS.FAILED && (bubble || userBubble)
         });
     }, [role, status, mode]);
@@ -201,7 +211,7 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
                             className={`${PREFIX_CONTENT}-icon-reference`} 
                             role="button" 
                             tabIndex={0}
-                            onClick={() => onReferenceClick?.({ type: MESSAGE_ITEM_TYPE.INPUT_TEXT, text })}
+                            onClick={() => onReferenceClick?.({ type: 'text', content: text })}
                         >
                             <IconSendMsgStroked />
                         </div>)
@@ -241,18 +251,41 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
                 );
             }
             if (i?.type === MESSAGE_ITEM_TYPE.INPUT_IMAGE) {
-                return <ImageAttachment key={`msg-${index}-${innerIdx}`} src={(i as InputImage).image_url} isList={isImageList} msg={i as InputImage} onImageClick={onImageClick}/>;
+                const nextItemType = inner[innerIdx + 1]?.type;
+                const isLastImage = innerIdx === inner.length - 1 || nextItemType === MESSAGE_ITEM_TYPE.INPUT_FILE;
+                return (
+                    <>
+                        <ImageAttachment 
+                            key={`msg-${index}-${innerIdx}`} 
+                            src={(i as InputImage).image_url} 
+                            isList={isImageList} msg={i as InputImage} 
+                            onImageClick={onImageClick}
+                            isLastImage={isLastImage}
+                        />   
+                        {
+                            nextItemType === MESSAGE_ITEM_TYPE.INPUT_FILE && <br />
+                        }
+                    </>
+                );
             }
             if (i?.type === MESSAGE_ITEM_TYPE.INPUT_FILE) {
+                const nextItemType = inner[innerIdx + 1]?.type;
+                const isLastFile = innerIdx === inner.length - 1 || nextItemType === MESSAGE_ITEM_TYPE.INPUT_IMAGE;
                 return (
-                    <FileAttachment 
-                        key={`msg-${index}-${innerIdx}`} {...i as InputFile} 
-                        onFileClick={onFileClick} 
-                        disabledFileItemClick={!!disabledFileItemClick} 
-                        role={role} 
-                        onReferenceClick={onReferenceClick} 
-                        showReference={showReference} 
-                    />
+                    <>
+                        <FileAttachment 
+                            key={`msg-${index}-${innerIdx}`} {...i as InputFile} 
+                            onFileClick={onFileClick} 
+                            disabledFileItemClick={!!disabledFileItemClick} 
+                            role={role} 
+                            onReferenceClick={onReferenceClick} 
+                            showReference={showReference}
+                            isLastFile={isLastFile}
+                        />
+                        {
+                            nextItemType === MESSAGE_ITEM_TYPE.INPUT_IMAGE && <br />
+                        }
+                    </>
                 );
             }
             return null;
@@ -301,9 +334,7 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
 
     const node = useMemo(() => {
         if (editing) {
-            // todo: 两种行为，内置 + 自定义传入
-            // 内置只编辑纯消息，自定义支持编辑多模态消息
-            return messageEditRender?.(message);
+            return messageEditRender?.(messageToChatInput(message));
         } else {
             let realContent: ReactNode | ReactNode[];
             const textContent = typeof content === 'string' ? content : message.output_text;
@@ -326,7 +357,7 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
                                 className={`${PREFIX_CONTENT}-icon-reference`} 
                                 role="button" 
                                 tabIndex={0}
-                                onClick={() => onReferenceClick?.({ type: MESSAGE_ITEM_TYPE.INPUT_TEXT, text: textContent })}
+                                onClick={() => onReferenceClick?.({ type: 'text', content: textContent })}
                             >
                                 <IconSendMsgStroked />
                             </div>
@@ -371,7 +402,7 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
         return <div className={cls(`${PREFIX_CONTENT}`, {
             [`${PREFIX_CONTENT}-editing`]: editing,
         })}>
-            {references && references.length > 0 && <ReferenceWidget references={references} />}
+            {references && references.length > 0 && !editing && <ReferenceWidget references={references} />}
             {node}
             {loadingNode}
         </div>; 

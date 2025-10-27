@@ -212,6 +212,11 @@ const local: Locale = {
         deleteContent: 'Diese Nachricht wird unwiederruflich gelöscht.',
         copySuccess: 'Erfolgreich kopiert',
         loading: 'Wird geladen...',
+        reasoning: {
+            completed: 'Verarbeitung abgeschlossen',
+            thinking: 'Wird verarbeitet...'
+        },
+        annotationText: 'Informationselemente'
     },
     Feedback: {
         submit: 'Absenden',

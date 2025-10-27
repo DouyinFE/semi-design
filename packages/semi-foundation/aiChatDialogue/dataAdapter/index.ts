@@ -4,6 +4,7 @@ import streamingChatCompletionToMessage from './streamingChatCompletionToMessage
 import streamingResponseToMessage from './streamingResponseToMessage';
 import chatInputToMessage from './chatInputToMessage';
 import chatInputToChatCompletion from './chatInputToChatCompletion';
+import messageToChatInput from './messageToChatInput';
 
 
 export { 
@@ -13,4 +14,5 @@ export {
     streamingResponseToMessage,
     chatInputToMessage,
     chatInputToChatCompletion,
+    messageToChatInput,
 };

@@ -220,6 +220,11 @@ const local: Locale = {
         deleteContent: 'Esta sessão será excluída permanentemente e não poderá ser recuperada.',
         copySuccess: 'Copiado com sucesso',
         loading: 'Carregando...',
+        reasoning: {
+            completed: 'Processo completado',
+            thinking: 'Processo em andamento...'
+        },
+        annotationText: 'elementos de informação'
     },
     Feedback: {
         submit: 'Enviar',

@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { AIChatDialogue, RadioGroup, Radio, Button, Input, Toast, ChatCompletionToMessage, StreamingChatCompletionToMessage, StreamingResponseToMessage } from '../../index';
-import { IconSearch, IconFile, IconCode, IconTerminal } from '@douyinfe/semi-icons';
+import { AIChatDialogue, RadioGroup, Radio, Button, Input, Toast } from '../../index';
 import CustomRenderContentItem from './CustomRenderContentItem';
 import RenderConfigContentItem from './RenderConfig';
+import AIChatInputWithDialogueDemo from './AIChatInputWithDialogue';
 import ResponseToMessageDemo from './DataAdapter/responseToMessage';
 import StreamingChatCompletionToMessageDemo from './DataAdapter/streamingChatCompletionToMessage';
 import StreamingResponseToMessageDemo from './DataAdapter/streamingResponseToMessage';
@@ -480,8 +480,8 @@ export const ShowReference = () => {
   return (
     <AIChatDialogue 
       align="leftRight"
-      // mode="bubble"
-      mode="noBubble"
+      mode="bubble"
+      // mode="noBubble"
       chats={multiModalityMessage}
       roleConfig={roleConfig}
       showReference={true}
@@ -562,6 +562,8 @@ export const Hints = () => {
     )
 }
 
+export const AIChatInputWithDialogue = () => <AIChatInputWithDialogueDemo />;
+AIChatInputWithDialogue.storyName =  'AIChatInput With Dialogue';
 
 export const ResponseToMessageStory = () => <ResponseToMessageDemo />;
 ResponseToMessageStory.storyName =  'adapter: response';

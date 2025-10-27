@@ -216,6 +216,11 @@ const local: Locale = {
         deleteContent: 'การสนทนานี้จะลบออกอย่างถาวรและไม่สามารถกู้คืนได้',
         copySuccess: 'คัดลอกสำเร็จ',
         loading: 'กำลังโหลด...',
+        reasoning: {
+            completed: 'การคิดค้นสำเร็จ',
+            thinking: 'กำลังคิดค้น...'
+        },
+        annotationText: 'องค์ประกอบของข้อมูล'
     },
     Feedback: {
         submit: 'ส่ง',

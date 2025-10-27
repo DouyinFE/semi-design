@@ -80,12 +80,6 @@ export const multiModalityMessage = [{
         },
         {
             type: 'input_file',
-            file_url: 'https://www.berkshirehathaway.com/letters/2024ltr.pdf',
-            filename: '2024ltr.pdf',
-            size: '100KB',
-        },
-        {
-            type: 'input_file',
             file_url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
             filename: 'edit-bag.jpeg',
             size: '100KB',
@@ -95,7 +89,22 @@ export const multiModalityMessage = [{
             file_url: 'https://www.berkshirehathaway.com/letters/2024ltr.docx',
             filename: 'i-am-word-i-am-word.docx',
             size: '1000KB',
-        }
+        },
+        {
+            type: 'input_file',
+            file_url: 'https://www.berkshirehathaway.com/letters/2024ltr.pdf',
+            filename: '2024ltr.pdf',
+            size: '100KB',
+        },
+        {
+            type: 'input_image',
+            image_url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
+            file_id: 'demo-file-id'
+        }, {
+            type: 'input_image',
+            image_url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
+            file_id: 'demo-file-id'
+        },
         ],
     }],
     status: 'completed',

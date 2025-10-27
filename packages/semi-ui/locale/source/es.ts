@@ -217,6 +217,11 @@ const locale: Locale = {
         deleteContent: 'Este mensaje se eliminará permanentemente y no se podrá recuperar.',
         copySuccess: 'Copiado exitosamente',
         loading: 'Cargando...',
+        reasoning: {
+            completed: 'Procesamiento completado',
+            thinking: 'Procesando...'
+        },
+        annotationText: 'elementos de información'
     },
     Feedback: {
         submit: 'Enviar',

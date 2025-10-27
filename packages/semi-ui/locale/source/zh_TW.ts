@@ -213,6 +213,11 @@ const local: Locale = {
         deleteContent: '刪除後將無法恢復！',
         copySuccess: '複製成功',
         loading: '請稍候...',
+        reasoning: {
+            completed: '已思考完成',
+            thinking: '正在思考中...'
+        },
+        annotationText: '篇資料'
     },
     Feedback: {
         submit: '提交',

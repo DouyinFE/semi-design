@@ -213,6 +213,11 @@ const local: Locale = {
         deleteContent: 'このメッセージは削除されました。',
         copySuccess: '正常にコピーされました',
         loading: '読み込み中...',
+        reasoning: {
+            completed: '思考完了',
+            thinking: '考え...'
+        },
+        annotationText: '情報要素'
     },
     Feedback: {
         submit: '送信',

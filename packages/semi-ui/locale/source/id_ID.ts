@@ -212,6 +212,11 @@ const local: Locale = {
         deleteContent: 'Pesan ini akan dihapus secara permanen dan tidak dapat dipulihkan.',
         copySuccess: 'Berhasil disalin',
         loading: 'Memuat...',
+        reasoning: {
+            completed: 'Pemrosesan selesai',
+            thinking: 'Memroses...'
+        },
+        annotationText: 'elemen informasi'
     },
     Feedback: {
         submit: 'Kirim',

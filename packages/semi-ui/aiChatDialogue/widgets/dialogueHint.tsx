@@ -14,6 +14,7 @@ interface HintProps {
 
 const Hint = React.memo((props: HintProps) => {
     const { hints, onHintClick, renderHintBox, className, style, selecting } = props;
+
     return (
         <section 
             className={cls(`${PREFIX_HINT}s`, {

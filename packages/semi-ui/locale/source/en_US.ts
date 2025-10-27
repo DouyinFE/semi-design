@@ -212,6 +212,11 @@ const local: Locale = {
         deleteContent: 'This message will be permanently deleted and cannot be recovered.',
         copySuccess: 'Copy successful.',
         loading: 'Loading...',
+        reasoning: {
+            completed: 'Reasoning completed',
+            thinking: 'Thinking...'
+        },
+        annotationText: 'pieces of information'
     },
     Feedback: {
         submit: 'Submit',

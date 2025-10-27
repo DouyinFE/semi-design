@@ -211,7 +211,12 @@ export interface Locale {
         deleteConfirm: string;
         deleteContent: string;
         copySuccess: string;
-        loading: string
+        loading: string;
+        reasoning: {
+            completed: string;
+            thinking: string
+        };
+        annotationText: string
     };
     Feedback: {
         submit: string;

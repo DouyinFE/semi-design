@@ -215,6 +215,11 @@ const local: Locale = {
         deleteContent: 'Эта сессия будет удалена постоянно и не сможет быть восстановлена.',
         copySuccess: 'Скопировано успешно',
         loading: 'Загрузка...',
+        reasoning: {
+            completed: 'Процесс завершен',
+            thinking: 'Процесс в процессе...'
+        },
+        annotationText: 'элементы информации'
     },
     Feedback: {
         submit: 'Отправить',

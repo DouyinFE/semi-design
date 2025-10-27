@@ -212,6 +212,11 @@ const local: Locale = {
         deleteContent: 'Conversația a fost ștearsă.',
         copySuccess: 'Copiere reușită',
         loading: 'Se încarcă...',
+        reasoning: {
+            completed: 'Procesare completată',
+            thinking: 'Procesare în curs...'
+        },
+        annotationText: 'elemente de informație'
     },
     Feedback: {
         submit: 'Trimite',

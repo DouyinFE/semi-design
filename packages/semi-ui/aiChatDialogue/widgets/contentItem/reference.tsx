@@ -8,7 +8,6 @@ import cls from 'classnames';
 
 export interface ReferenceWidgetProps {
     references: Reference[]
-    // onItemClick?: (item: Reference) => void;
 }
 
 const prefixCls = cssClasses.PREFIX_REFERENCES;

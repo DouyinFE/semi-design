@@ -4,7 +4,9 @@ import { cssClasses } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
 import { IconChevronDown, IconChevronUp, IconAISearchLevel2 } from '@douyinfe/semi-icons';
 import MarkdownRender from '../../../markdownRender';
 import { MarkdownRenderProps } from '../../../aiChatDialogue/interface';
-import { MDXProps } from 'mdx/types';
+import LocaleConsumer from '../../../locale/localeConsumer';
+import { Locale } from "../../../locale/interface";
+
 
 export interface ReasoningWidgetProps {
     status?: string;
@@ -54,7 +56,9 @@ export const ReasoningWidget = (props: ReasoningWidgetProps) => {
                     <IconAISearchLevel2 />
                 </div>
                 <div className={`${prefixCls}-header-title`}>
-                    {status === 'completed' ? '已思考完成' : '正在思考中...'}
+                    <LocaleConsumer<Locale["AIChatDialogue"]> componentName="AIChatDialogue" >
+                        {(locale: Locale["AIChatDialogue"]) => (status === 'completed' ? locale['reasoning']['completed'] : locale['reasoning']['thinking'])}
+                    </LocaleConsumer>
                 </div>
                 <div className={`${prefixCls}-header-suffix`}>
                     {isOpen ? <IconChevronUp onClick={handleClick}/> : <IconChevronDown onClick={handleClick}/>}

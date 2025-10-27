@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { MarkdownRenderProps as OriginMarkdownRenderProps } from '../markdownRender';
 import { MDXProps } from 'mdx/types';
 import { Annotation, ContentItem, InputFile, InputImage, Message } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
+import { MessageContent } from '@douyinfe/semi-foundation/aiChatInput/interface';
 
 export type MarkdownRenderProps = Partial<OriginMarkdownRenderProps>;
 
@@ -17,7 +18,7 @@ export interface AIChatDialogueProps {
     hintStyle?: React.CSSProperties;
     selecting?: boolean;
     markdownRenderProps?: MarkdownRenderProps;
-    messageEditRender?: (message?: Message) => ReactNode;
+    messageEditRender?: (props: MessageContent) => ReactNode;
     mode?: 'bubble' | 'noBubble' | 'userBubble';
     onAnnotationClick?: (annotation?: Annotation) => void;
     onChatsChange?: (chats?: Message[]) => void;
@@ -59,7 +60,7 @@ export interface DialogueContentProps {
     customRenderFunc?: (props: RenderContentProps) => ReactNode;
     markdownRenderProps?: MarkdownRenderProps;
     editing?: boolean;
-    messageEditRender?: (message?: Message) => ReactNode;
+    messageEditRender?: (props: MessageContent) => ReactNode;
     onFileClick?: (file?: InputFile) => void;
     onImageClick?: (image?: InputImage) => void;
     disabledFileItemClick?: boolean;
@@ -73,7 +74,7 @@ export interface AIChatDialogueActionProps {
     customRenderFunc?: (props: RenderActionProps) => ReactNode;
     isLastChat?: boolean;
     message?: Message;
-    messageEditRender?: (message?: Message) => ReactNode;
+    messageEditRender?: (props: MessageContent) => ReactNode;
     onMessageBadFeedback?: (message?: Message) => void;
     onMessageCopy?: (message?: Message) => void;
     onMessageDelete?: (message?: Message) => void;

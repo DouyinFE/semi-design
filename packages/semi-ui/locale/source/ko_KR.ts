@@ -213,6 +213,11 @@ const local: Locale = {
         deleteContent: '이 메시지는 삭제되었습니다.',
         copySuccess: '복사 성공',
         loading: '로딩 중...',
+        reasoning: {
+            completed: '처리 완료',
+            thinking: '처리 중...'
+        },
+        annotationText: '정보 요소'
     },
     Feedback: {
         submit: '제출',

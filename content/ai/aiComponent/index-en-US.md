@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 100
+order: 98
 category: Ai
 title: AIComponent
 icon: doc-input

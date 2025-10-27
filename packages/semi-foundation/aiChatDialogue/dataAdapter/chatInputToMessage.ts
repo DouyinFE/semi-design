@@ -1,25 +1,27 @@
+import { MessageContent } from "aiChatInput/interface";
 
 
-export default function chatInputToMessage(inputContent: any) { // todo: 合入 aiChatInput 后补充类型定义
+export default function chatInputToMessage(inputContent: MessageContent) { 
     const { references, attachments, inputContents, setup } = inputContent;
 
     let inputs: any[] = [];
 
-    if (attachments?.length) { // todo: attachment 允许传递目录？
+    if (attachments?.length) { 
         attachments.forEach((item: any) => {
             const { name, url } = item;
-            // todo: 如何区分文件是 image 还是 file?
             if (name.includes('.png') || name.includes('.jpg') || name.includes('.jpeg')) {
                 inputs.push({
+                    ...item,
                     type: 'input_image',
                     image_url: url,
-                    detail: 'auto'
+                    detail: 'auto',
                 });
             } else {
                 inputs.push({
+                    ...item,
                     type: 'input_file',
-                    file_url: url, // todo: blob URL？
-                    name: name,
+                    file_url: url, 
+                    filename: name,
                 });
             }
         });
@@ -34,13 +36,15 @@ export default function chatInputToMessage(inputContent: any) { // todo: 合入 
         });
     }
 
-    // todo: mcp 
-
     return {
         role: "user",
-        content: inputs,
-        // createdAt: created_at, // todo: 产生消息时给 createdat 还是发送时？
-        // model: model, // todo: inputContent 中未包含 model 信息
-        references
+        content: [{
+            type: 'message',
+            role: 'user',
+            content: inputs,
+        }],
+        model: setup?.model,
+        references,
+        setup: setup ?? {}
     };
 }

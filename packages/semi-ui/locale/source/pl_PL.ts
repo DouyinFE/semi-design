@@ -220,6 +220,11 @@ const local: Locale = {
         deleteContent: 'Rozmowa została usunięta.',
         copySuccess: 'Skopiowano pomyślnie',
         loading: 'Ładowanie...',
+        reasoning: {
+            completed: 'Procesowanie zakończone',
+            thinking: 'Procesowanie...'
+        },
+        annotationText: 'elementy informacji'
     },
     Feedback: {
         submit: 'Wyślij',

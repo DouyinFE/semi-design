@@ -215,6 +215,11 @@ const local: Locale = {
         deleteContent: 'Phiên này đã được xóa.',
         copySuccess: 'Sao chép thành công',
         loading: 'Đang tải...',
+        reasoning: {
+            completed: 'Quá trình đã hoàn thành',
+            thinking: 'Quá trình đang diễn ra...'
+        },
+        annotationText: 'thành phần thông tin'
     },
     Feedback: {
         submit: 'Nộp',

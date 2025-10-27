@@ -217,6 +217,11 @@ const local: Locale = {
         deleteContent: 'Konversationen har tagits bort.',
         copySuccess: 'Kopiering lyckades',
         loading: 'Läser in...',
+        reasoning: {
+            completed: 'Procesering slutförd',
+            thinking: 'Procesering pågår...'
+        },
+        annotationText: 'informationselement'
     },
     Feedback: {
         submit: 'Skicka',

@@ -215,6 +215,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         const { wheelScroll } = this.state;
         let shouldScroll = false;
         if (newChats !== oldChats) {
+            this.foundation.handleChatsChange(newChats);
             if (Array.isArray(newChats) && Array.isArray(oldChats)) {
                 const newLastChat = newChats[newChats.length - 1];
                 const oldLastChat = oldChats[oldChats.length - 1];
@@ -302,7 +303,6 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
                                 onMessageReset={this.foundation.resetMessage}
                                 onMessageEdit={this.foundation.editMessage}
                                 onMessageDelete={this.foundation.deleteMessage}
-                                onHintClick={this.foundation.onHintClick}
                                 isLastChat={isLastChat}
                                 continueSend={continueSend}
                                 selecting={selecting}
@@ -315,7 +315,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
                             className={hintCls}
                             style={hintStyle}
                             hints={hints}
-                            onHintClick={onHintClick}
+                            onHintClick={this.foundation.onHintClick}
                             renderHintBox={renderHintBox}
                             selecting={selecting}
                         />

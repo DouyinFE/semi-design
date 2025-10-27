@@ -213,6 +213,11 @@ const local: Locale = {
         deleteContent: 'Bu sohbet silinmiştir.',
         copySuccess: 'Başarıyla kopyalandı',
         loading: 'Yükleniyor...',
+        reasoning: {
+            completed: 'İşlem tamamlandı',
+            thinking: 'İşlem devam ediyor...'
+        },
+        annotationText: 'bilgi elemanı'
     },
     Feedback: {
         submit: 'Göndermek',

@@ -49,6 +49,10 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
         this._adapter.notifySelect([]);
     }
 
+    handleChatsChange = (chats: Message[]) => {
+        this._adapter.notifyChatsChange(chats);
+    }
+
     handleSelectOrRemove = (isChecked: boolean, id: string) => {
         const { selectedIds } = this.getStates() as any;
         const newSelectedSet: Set<string> = selectedIds instanceof Set ? new Set<string>(selectedIds) : new Set<string>(selectedIds || []);
@@ -113,6 +117,12 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
             ...chats[index],
             editing: !chats[index].editing,
         };
+        // Make sure there is only one message in edit mode
+        chats.map(item => {
+            if (item.editing) {
+                item.editing = !item.editing;
+            }
+        });
         const newChats = [...chats];
         newChats.splice(index, 1, newChat);
         this._adapter.notifyChatsChange(newChats);

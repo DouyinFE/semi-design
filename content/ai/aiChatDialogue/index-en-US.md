@@ -1,31 +1,30 @@
 ---
-localeCode: zh-CN
+localeCode: en-US
 order: 100
-category: Ai
-title: AIChatDialogue AI 对话
+category: Plus
+title: AIChatDialogue - AI Dialogue
 icon: doc-audioplayer
 width: 60%
-brief: 用户展示 AI 聊天中的对话信息
+brief: Display AI chat conversation messages to users
 showNew: true
 ---
 
-## 使用场景
+## When to use
+AIChatDialogue can be used together with AIChatInput to build richer, more comprehensive and easier-to-customize AI conversation experiences.
 
-AIChatDialogue 组件可搭配 AIChatInput 使用，实现更丰富的、功能覆盖更全面、定制更加便捷的 AI 会话场景。
 
+## Demos
 
-## 代码演示
-
-### 如何引入
+### How to import
 
 ```jsx import
 import { AIChatDialogue } from '@douyinfe/semi-ui';
 ```
 
-### 基本用法
-通过设置 `chats` 和 `onChatsChange` 实现基础对话显示和交互。
+### Basic Usage
+Set `chats` and `onChatsChange` to enable basic conversation display and interactions.
 
-使用 `align` 属性可以设置对话的布局，支持左右分布（`leftRight`， 默认）和左对齐（`leftAlign`）。
+Use `align` to control layout: `leftRight` (default) and `leftAlign`.
 
 ```jsx live=true dir="column" noInline=true
 import React, { useState, useCallback } from 'react';
@@ -42,13 +41,13 @@ const defaultMessages = [
         role: 'user',
         id: '2',
         createAt: 1715676751919,
-        content: "给一个 Semi Design 的 Button 组件的使用示例",
+        content: "Give an example of using the Semi Design Button component",
     },
     {
         role: 'assistant',
         id: '3',
         createAt: 1715676751919,
-        content: "以下是一个 Semi 代码的使用示例：\n\`\`\`jsx \nimport React from 'react';\nimport { Button } from '@douyinfe/semi-ui';\n\nconst MyComponent = () => {\n  return (\n    <Button>Click me</Button>\n );\n};\nexport default MyComponent;\n\`\`\`\n",
+        content: "Here is a sample usage of a Semi component:\n```jsx \nimport React from 'react';\nimport { Button } from '@douyinfe/semi-ui';\n\nconst MyComponent = () => {\n  return (\n    <Button>Click me</Button>\n );\n};\nexport default MyComponent;\n```\n",
     }
 ];
 
@@ -88,18 +87,18 @@ function AlignAndMode () {
         <>
             <span style={{ display: 'flex', flexDirection: 'column', rowGap: '8px' }}>
                 <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px' }}>
-                    模式
+                    Mode
                     <RadioGroup onChange={onModeChange} value={mode} type={"button"}>
-                        <Radio value={'bubble'}>气泡</Radio>
-                        <Radio value={'noBubble'}>非气泡</Radio>
-                        <Radio value={'userBubble'}>用户会话气泡</Radio>
+                        <Radio value={'bubble'}>Bubble</Radio>
+                        <Radio value={'noBubble'}>No bubble</Radio>
+                        <Radio value={'userBubble'}>User bubble</Radio>
                     </RadioGroup>
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px' }}>
-                    会话布局方式
+                    Conversation layout
                     <RadioGroup onChange={onAlignChange} value={align} type={"button"}>
-                        <Radio value={'leftRight'}>左右分布</Radio>
-                        <Radio value={'leftAlign'}>左对齐</Radio>
+                        <Radio value={'leftRight'}>LeftRight</Radio>
+                        <Radio value={'leftAlign'}>LeftAlign</Radio>
                     </RadioGroup>
                 </span>
             </span>
@@ -121,9 +120,8 @@ render(AlignAndMode);
 
 ```
 
-### 消息状态
-chats 类型为 `Message[]`， `Message` 包含对话的各种信息，如角色 `role`、内容 `content`、状态 `status`
-、唯一标识 `id`、创建时间 `createdAt` 等，具体见 [Message](#Message)。其中 status 和 [Response API Status](https://platform.openai.com/docs/api-reference/responses/object#responses/object-status) 相同，存在 6 种状态，对应 3 种官方样式（成功 / 请求中 / 失败）。
+### Message Status
+`chats` is of type `Message[]`. Each `Message` contains various fields such as role `role`, content `content`, status `status`, unique identifier `id`, and creation time `createdAt`. See [Message](#Message) for details. The `status` follows the same values as the [Response API Status](https://platform.openai.com/docs/api-reference/responses/object#responses/object-status): 6 status values mapping to 3 official styles (success / in progress / failed).
 
 ```jsx live=true dir="column" noInline=true
 import React, { useState, useCallback } from 'react';
@@ -134,19 +132,19 @@ const defaultMessages = [
         role: 'assistant',
         id: '1',
         createAt: 1715676751919,
-        content: "请求成功", 
-        // 默认的 status 为 completed 
+        content: "Success", 
+        // default status is completed
     },
     {
         id: 'loading',
         role: 'assistant',
-        status: 'in_progress' // 状态展示同 queued、incomplete
+        status: 'in_progress' // Same visual as queued, incomplete
     },
     {
         role: 'assistant',
         id: 'error',
-        content: '请求错误',
-        status: 'failed' // 状态展示同 cancelled
+        content: 'Error',
+        status: 'failed' // Same visual as cancelled
     }
 ];
 
@@ -185,8 +183,8 @@ render(StatusDemo);
 
 ```
 
-### 消息展示
-消息内容展示的类型为 [ContentItem[]](https://platform.openai.com/docs/api-reference/responses/list#responses/list-data)，支持文本 `text`、文件 `file`、图片 `image`、代码 `code`、思考块 `reasoning`、参考来源 `annotation`、工具调用 `tool call` 等消息块的展示，同时提供 `AIChatDialogue.Step` 组件用于步骤等信息的分步展示。
+### Message Display
+The message content uses [ContentItem[]](https://platform.openai.com/docs/api-reference/responses/list#responses/list-data). It supports blocks such as text, file, image, code, reasoning, annotation, and tool call. `AIChatDialogue.Step` is provided for step-by-step displays (e.g., workflows or plans).
 
 ```jsx live=true dir="column" noInline=true
 import React, { useState, useCallback } from 'react';
@@ -199,7 +197,7 @@ const defaultMessages = [
         role: 'assistant',
         id: '1',
         createAt: 1715676751919,
-        content: '普通文本', 
+        content: 'Plain text', 
     },
     {
         id: '2',
@@ -210,7 +208,7 @@ const defaultMessages = [
                 content: [
                     {
                         type: 'input_text',
-                        text: '帮我生成类似的图片',
+                        text: 'Help me generate a similar image',
                     },
                     {
                         type: 'input_image',
@@ -219,7 +217,7 @@ const defaultMessages = [
                     },
                     {
                         type: 'input_text',
-                        text: '以下是文件展示',
+                        text: 'Files preview below',
                     },
                     {
                         type: 'input_file',
@@ -254,7 +252,7 @@ const defaultMessages = [
                 summary: [
                     {
                         'type': 'summary_text',
-                        'text': '\n我需要思考并回答用户关于什么是 Semi 组件库的问题...'
+                        'text': '\nI need to reason and answer the user about what the Semi component library is...'
                     }
                 ],
             },
@@ -263,7 +261,7 @@ const defaultMessages = [
                 content: [
                     {
                         type: 'output_text',
-                        text: 'Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统。'
+                        text: 'Semi Design is a design system built and maintained by ByteDance Frontend Team and the MED Product Design Team.'
                     }
                 ],
                 status: 'completed',
@@ -281,7 +279,7 @@ const defaultMessages = [
                 content: [
                     {
                         type: 'output_text',
-                        text: '恭喜你，你已经掌握了 semi design 的所有知识！',
+                        text: 'Congrats! You now know everything about Semi Design!',
                         annotations: [
                             {
                                 title: 'semi.design',
@@ -303,28 +301,28 @@ const defaultMessages = [
                 type: 'plan',
                 content: [
                     {
-                        summary: '创建一份全面的北京旅游攻略，包含景点、住宿、交通、美食和实用旅行建议',
+                        summary: 'Create a comprehensive Beijing travel guide covering attractions, lodging, transport, food, and tips',
                         steps: [
                             {
-                                summary: '搜索北京旅游景点介绍及门票信息',
-                                description: '正在搜索: 北京旅游景点介绍及门票信息',
+                                summary: 'Search introductions and ticket info for Beijing attractions',
+                                description: 'Searching: Beijing attraction introductions and ticket info',
                                 type: 'search',
                             }, 
                             {
-                                summary: '读取指定文件的指定行内容',
-                                description: '正在创建文档:  北京旅游攻略',
+                                summary: 'Read specific lines of a given file',
+                                description: 'Creating document: Beijing Travel Guide',
                                 type: 'docs',
                             }, 
                             {
-                                summary: '创建包含北京旅游攻略的文件',
-                                description: '正在创建代码文件: beijing_travel_guide.html',
+                                summary: 'Create a file containing the Beijing travel guide',
+                                description: 'Creating code file: beijing_travel_guide.html',
                                 type: 'code',
                             }, 
                         ],
                         statues: 'completed'
                     },
                     {
-                        summary: '总结北京旅游攻略的创建成果并呈现给用户',
+                        summary: 'Summarize the created Beijing travel guide and present to the user',
                         steps: []
                     }
                 ],
@@ -383,7 +381,7 @@ function AllTypeMessageDemo () {
 
     const customRender = useCallback((message) => {
         return {
-            'plan': (item) => { // plan 为用户自定义类型
+            'plan': (item) => { // 'plan' is a custom user-defined type
                 let steps = item.content.map((item) => {
                     return {
                         summary: item.summary,
@@ -411,8 +409,8 @@ render(AllTypeMessageDemo);
 ```
 
 
-### 引用
-通过 `references` 字段定义当前消息引用的文件或者文本， `showReference` 配置当前消息是否显示可被引用样式, `onReferenceClick` 配置引用按钮点击回调。具体和 AIChatInput 的搭配使用见 [AI 组件构建对话](/zh-CN/ai/aiComponent#AI%20%E7%BB%84%E4%BB%B6%E6%9E%84%E5%BB%BA%E5%AF%B9%E8%AF%9D)
+### References
+Use `references` to define files or text cited by the current message. `showReference` controls whether a quotable style is shown for the current message. `onReferenceClick` configures the click handler for the reference button.
 
 ```jsx live=true dir="column" noInline=true
 import React, { useState, useCallback } from 'react';
@@ -422,16 +420,16 @@ const defaultMessages = [
     {
         id: '1',
         role: 'user',
-        content: '当前消息为引用 demo 的示例',
+        content: 'This message is an example for the References demo',
         references: [
             {
                 id: '1',
                 type: 'text',
-                content: '测试文本，这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字,这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字，这里是一段很长的文字',
+                content: 'Sample text. This is a long paragraph of text repeated for demonstration purposes to show truncation and layout behavior in the reference area.',
             },
             {
                 id: '2',
-                name: '飞书文档.docx',
+                name: 'Feishu Doc.docx',
             },
             {
                 id: '3',
@@ -491,7 +489,7 @@ render(ReferencesDemo);
 ```
 
 
-### 选择
+### Selection
 ```jsx live=true dir="column" noInline=true
 import React, { useState, useCallback } from 'react';
 import { AIChatDialogue, RadioGroup, Radio } from '@douyinfe/semi-ui';
@@ -507,13 +505,13 @@ const defaultMessages = [
         role: 'user',
         id: '2',
         createAt: 1715676751919,
-        content: "给一个 Semi Design 的 Button 组件的使用示例",
+        content: "Give an example of using the Semi Design Button component",
     },
     {
         role: 'assistant',
         id: '3',
         createAt: 1715676751919,
-        content: "以下是一个 Semi 代码的使用示例：\n\`\`\`jsx \nimport React from 'react';\nimport { Button } from '@douyinfe/semi-ui';\n\nconst MyComponent = () => {\n  return (\n    <Button>Click me</Button>\n );\n};\nexport default MyComponent;\n\`\`\`\n",
+        content: "Here is a sample usage of a Semi component:\n```jsx \nimport React from 'react';\nimport { Button } from '@douyinfe/semi-ui';\n\nconst MyComponent = () => {\n  return (\n    <Button>Click me</Button>\n );\n};\nexport default MyComponent;\n```\n",
     }
 ];
 
@@ -572,24 +570,24 @@ function SelectingDemo () {
         <div>
             <span style={{ display: 'flex', flexDirection: 'column', rowGap: '8px' }}>
                 <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px' }}>
-                    会话布局方式
+                    Session Layout
                     <RadioGroup onChange={onAlignChange} value={align} type={"button"}>
-                        <Radio value={'leftRight'}>左右分布</Radio>
-                        <Radio value={'leftAlign'}>左对齐</Radio>
+                        <Radio value={'leftRight'}>Left Right</Radio>
+                        <Radio value={'leftAlign'}>Left Align</Radio>
                     </RadioGroup>
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px' }}>
-                    是否开启选择
+                    Whether to Enable Selection
                     <RadioGroup onChange={onSelectChange} value={select} type={"button"}>
-                        <Radio value={true}>开启</Radio>
-                        <Radio value={false}>关闭</Radio>
+                        <Radio value={true}>ON</Radio>
+                        <Radio value={false}>OFF</Radio>
                     </RadioGroup>
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px' }}>
-                    选择方式
+                    Selection Method
                     <RadioGroup onChange={onSelectionChange} value={selection} type={"button"}>
-                        <Radio value={'allSelect'}>全选</Radio>
-                        <Radio value={'cancelSelect'}>取消全选</Radio>
+                        <Radio value={'allSelect'}>AllSelect</Radio>
+                        <Radio value={'cancelSelect'}>CancelAllSelect</Radio>
                     </RadioGroup>
                 </span>
             </span>
@@ -620,8 +618,8 @@ render(SelectingDemo);
 ``` -->
 
 
-### 提示
-通过 `hints` 可设置提示区域内容, 点击提示内容后，提示内容将成为新的用户输入内容，并触发 `onHintClick` 回调。
+### Hints
+Use `hints` to set the hint area content. Clicking a hint populates it as the new user input and triggers `onHintClick`.
 
 ```jsx live=true dir="column"
 import React, { useState, useCallback } from 'react';
@@ -633,14 +631,14 @@ import { AIChatDialogue } from '@douyinfe/semi-ui';
             role: 'assistant',
             id: '1',
             createAt: 1715676751919,
-            content: 'Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统，你可以向我提问任何关于 Semi 的问题。',
+            content: 'Semi Design is a design system designed, developed, and maintained by the TikTok front-end team and the MED product design team. You can ask me any questions about Semi.',
         }
     ];
 
     const hintsExample = [
-        "Semi 组件库有哪些常用组件？",
-        "能否展示一个使用 Semi 组件库构建的页面示例？",
-        "Semi 组件库有官方文档吗？",
+        "What are the commonly used components in the Semi component library?",
+        "Can you show an example of a page built using the Semi component library?",
+        "Is there any official documentation for the Semi component library?",
     ];
 
     const roleConfig = {
@@ -686,8 +684,8 @@ import { AIChatDialogue } from '@douyinfe/semi-ui';
 
 
 
-### 自定义渲染提示
-通过 `renderHintBox` 可自定义提示区域内容， 参数如下
+### Custom Hint Rendering
+Customize the hint area with `renderHintBox`. Parameters:
 
 ```ts
 type renderHintBox = (props: {content: string; index: number,onHintClick: () => void}) => React.ReactNode;
@@ -705,14 +703,14 @@ import { IconArrowRight } from '@douyinfe/semi-icons';
             role: 'assistant',
             id: '1',
             createAt: 1715676751919,
-            content: 'Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统，你可以向我提问任何关于 Semi 的问题。',
+            content: 'Semi Design is a design system created and maintained by ByteDance Frontend Team and the MED Product Design Team. You can ask me anything about Semi.',
         }
     ];
 
     const hintsExample = [
-        "Semi 组件库有哪些常用组件？",
-        "能否展示一个使用 Semi 组件库构建的页面示例？",
-        "Semi 组件库有官方文档吗？",
+        "What are the commonly used components in the Semi component library?",
+        "Can you show an example of a page built using the Semi component library?",
+        "Is there any official documentation for the Semi component library?",
     ];
 
     const roleConfig = {
@@ -779,8 +777,8 @@ import { IconArrowRight } from '@douyinfe/semi-icons';
 };
 ```
 
-### 自定义渲染会话框
-通过 `chatBoxRenderConfig` 传入自定义渲染配置, chatBoxRenderConfig 类型如下
+### Custom Chat Box Rendering
+Pass custom rendering configuration via `chatBoxRenderConfig`. Types:
 
 ```ts
 export interface RenderTitleProps {
@@ -833,20 +831,20 @@ export interface RenderFullDialogueProps {
 
 
 export interface DialogueRenderConfig {
-    /* 自定义渲染标题 */
+    /* Customize message title rendering */
     renderDialogueAction?: (props: RenderActionProps) => ReactNode;
-    /* 自定义渲染头像 */
+    /* Customize avatar rendering */
     renderDialogueAvatar?: (props: RenderAvatarProps) => ReactNode;
-    /* 自定义渲染内容区域 */
+    /* Customize content rendering */
     renderDialogueContent?: (props: RenderContentProps) => ReactNode;
-    /* 自定义渲染消息操作栏 */
+    /* Customize action bar rendering */
     renderDialogueTitle?: (props: RenderTitleProps) => ReactNode;
-    /* 完全自定义渲染整个聊天框 */
+    /* Fully customize the entire chat box */
     renderFullDialogue?: (props: RenderFullDialogueProps) => ReactNode
 }
 ```
 
-自定义渲染头像和标题，可通过 `renderChatBoxAvatar` 和 `renderChatBoxTitle` 实现。
+You can customize the avatar and title via `renderChatBoxAvatar` and `renderChatBoxTitle`.
 ```jsx live=true dir="column" 
 import React, { useState, useCallback } from 'react';
 import { AIChatDialogue, Avatar } from '@douyinfe/semi-ui';
@@ -863,13 +861,13 @@ import { AIChatDialogue, Avatar } from '@douyinfe/semi-ui';
             role: 'user',
             id: '2',
             createAt: 1715676751919,
-            content: "给一个 Semi Design 的 Button 组件的使用示例",
+            content: "Give an example of using the Semi Design Button component",
         },
         {
             role: 'assistant',
             id: '3',
             createAt: 1715676751919,
-            content: "以下是一个 Semi 代码的使用示例：\n\`\`\`jsx \nimport React from 'react';\nimport { Button } from '@douyinfe/semi-ui';\n\nconst MyComponent = () => {\n  return (\n    <Button>Click me</Button>\n );\n};\nexport default MyComponent;\n\`\`\`\n",
+            content: "Here is a sample usage of a Semi component:\n```jsx \nimport React from 'react';\nimport { Button } from '@douyinfe/semi-ui';\n\nconst MyComponent = () => {\n  return (\n    <Button>Click me</Button>\n );\n};\nexport default MyComponent;\n```\n",
         }
     ];
 
@@ -924,9 +922,9 @@ import { AIChatDialogue, Avatar } from '@douyinfe/semi-ui';
 
 ```
 
-### 自定义渲染消息内容
+### Custom Message Content Rendering
 
-通过 `renderDialogueContentItem` 按照消息类型返回内容渲染，用法如下
+Use `renderDialogueContentItem` to provide renderers by message type. Example:
 
 ```jsx live=true dir="column" noInline=true
 import React, { useState, useCallback } from 'react';
@@ -936,12 +934,12 @@ const defaultMessages = [
     {
         id: '1',
         role: 'user',
-        content: '你好',
+        content: 'Hello',
     }, 
     {
         id: '2',
         role: 'assistant',
-        content: '你好呀，请问有什么可以帮助你的吗~',
+        content: 'Hello! How can I help you today?',
         status: 'completed',
     }, 
     {
@@ -954,7 +952,7 @@ const defaultMessages = [
                 content: [
                     {
                         type: 'input_text',
-                        text: '帮我生成类似的图片',
+                        text: 'Help me generate a similar image',
                     }, 
                     {
                         type: 'input_image',
@@ -977,7 +975,7 @@ const defaultMessages = [
             summary: [
                 {
                     "type": "summary_text",
-                    "text": "\n用户问需要我帮助他生成类似图片，我需要先分析图片内容，然后生成类似的图片..."
+                    "text": "\nThe user asked me to generate a similar image. I need to analyze the image first, then generate a similar one..."
                 }
             ],
             annotations: [
@@ -999,7 +997,7 @@ const defaultMessages = [
         {
             type: 'function_call',
             name: 'create_travel_guide',
-            arguments: "{\n\"city\": \"北京\"\n}",
+            arguments: "{\n\"city\": \"Beijing\"\n}",
             status: 'completed',
         }
         ],
@@ -1049,7 +1047,7 @@ function CustomRender () {
         return <React.Fragment>
             <AIChatDialogue.Annotation 
                 annotation={props.annotations} 
-                description={'参考资料'} 
+                description={'References'} 
                 maxCount={3}
                 onClick={(e) => {
                     e && e.stopPropagation();
@@ -1105,30 +1103,30 @@ render(CustomRender);
 
 
 
-### 消息数据转换
-当前组件的对话消息以 OpenAI 的 `Response Object` 为原型，为了支持用户更好地无缝集成 `Chat Completion API` 和 `Response API`，我们提供了四种 `adapter` 转换函数，用户可直接使用该函数转换 API 的返回结果，得到可直接用于消息展示的数据。
+### Message Data Adapters
+This component models conversation messages after OpenAI's `Response` object. To help you integrate the Chat Completions API and the Responses API seamlessly, we provide several adapter functions to convert API results into the message format used by this component.
 
 ```ts
-// 将 Chat Completion API 返回的数据转换为 Chat Dialogue 中的 Message 格式
+// Convert the data returned by the Chat Completion API into the Message format in Chat Dialogue
 function chatCompletionToMessage(chatCompletion: ChatCompletion): Message[]
 
-// 将 Chat Completion API 流式返回的数据转换为 Chat Dialogue 中的 Message 格式
+// Convert the data returned by the Chat Completion API stream into the Message format in Chat Dialogue
 function streamingChatCompletionToMessage(chatCompletionChunks: ChatCompletionChunk[], state?: StreamingChatState): { messages: Message[]; state?: StreamingChatState }
 
-// 将 Response API 返回的数据转换为 Chat Dialogue 中的 Message 格式
+// Convert the data returned by the Response API into the Message format in Chat Dialogue
 function responseToMessage(response: Response): Message
 
-// 将 Response API 返回的流式数据转换为 Chat Dialogue 中的 Message 格式
+// Convert the streaming data returned by the Response API into the Message format in Chat Dialogue
 function streamingResponseToMessage(chunks: ResponseChunk[], prevState: StreamingResponseState): { messages: Message[]; state?: StreamingResponseState }
 
-// 将 Chat Input 数据转换为 Chat Dialogue 中的 Message 格式
+// Convert Chat Input data to Message format in Chat Dialogue
 function chatInputToMessage(inputContent: MessageContent): Message
 
-// 将 Chat Input 数据转换为 Chat Completion API 中的 Input Message 格式
+// Convert Chat Input data to Input Message format in Chat Completion API
 function chatInputToChatCompletion(inputContent: MessageContent): ChatCompletionInput
 ```
 
-通过 `chatCompletionToMessage` 函数将 Chat Completion Object 转换为 Dialogue Message 消息块格式。注意，因为 `Chat Completion API` 可以通过 `n` 来控制每条输入消息生成多少个结果所以该函数的返回值为数组。(注意：如果 n > 1，用户需要自行决定将哪条数据添加到 message 中展示)
+Use `chatCompletionToMessage` to convert a Chat Completion object to Dialogue Message blocks. Note: because the Chat Completion API can generate multiple results per input via `n`, the return value is an array. If `n > 1`, you should choose which result to add to your `messages`.
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useCallback } from 'react';
@@ -1207,7 +1205,7 @@ render(ChatCompletionToMessageDemo);
 ```
 
 
-通过 `streamingChatCompletionToMessage` 函数将 Chat Completion Chunk Object List 转换为 Dialogue Message 消息块格式。
+Use `streamingChatCompletionToMessage` to convert a list of Chat Completion chunks to Dialogue Message blocks.
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useCallback } from 'react';
@@ -1274,14 +1272,14 @@ const STREAMING_CHAT_COMPLETION_DATA = [
     { "id": "chatcmpl-COjljxurV5GKrRUsg1wd7mIyQCiiT", "object": "chat.completion.chunk", "created": 1760011843, "model": "o3-mini-2025-01-31", "service_tier": "default", "system_fingerprint": "fp_6c43dcef8c", "choices": [{ "index": 0, "delta": { "role": "assistant", "content": "", "refusal": null }, "finish_reason": null }], "obfuscation": "ahPqlzj6DD" },
     { "id": "chatcmpl-COjljxurV5GKrRUsg1wd7mIyQCiiT", "object": "chat.completion.chunk", "created": 1760011843, "model": "o3-mini-2025-01-31", "service_tier": "default", "system_fingerprint": "fp_6c43dcef8c", "choices": [{ "index": 0, "delta": { "content": "" }, "finish_reason": null }], "obfuscation": "i2PXRIwvc3D" },
     // index 0: 输出文本增量
-    { "id": "chatcmpl-COjljxurV5GKrRUsg1wd7mIyQCiiT", "object": "chat.completion.chunk", "created": 1760011843, "model": "o3-mini-2025-01-31", "service_tier": "default", "system_fingerprint": "fp_6c43dcef8c", "choices": [{ "index": 0, "delta": { "content": "我正在使用 " }, "finish_reason": null }], "obfuscation": "3sslO5QylW" },
+    { "id": "chatcmpl-COjljxurV5GKrRUsg1wd7mIyQCiiT", "object": "chat.completion.chunk", "created": 1760011843, "model": "o3-mini-2025-01-31", "service_tier": "default", "system_fingerprint": "fp_6c43dcef8c", "choices": [{ "index": 0, "delta": { "content": " I'm using " }, "finish_reason": null }], "obfuscation": "3sslO5QylW" },
     { "id": "chatcmpl-COjljxurV5GKrRUsg1wd7mIyQCiiT", "object": "chat.completion.chunk", "created": 1760011843, "model": "o3-mini-2025-01-31", "service_tier": "default", "system_fingerprint": "fp_6c43dcef8c", "choices": [{ "index": 0, "delta": { "content": "streamingChatCompletionToMessage" }, "finish_reason": null }], "obfuscation": "3sslO5QylW" },
 
     // index 1: 工具调用增量（function_call / tool_calls）
-    { "id": "chatcmpl-COjljxurV5GKrRUsg1wd7mIyQCiiT", "object": "chat.completion.chunk", "created": 1760011845, "model": "o3-mini-2025-01-31", "service_tier": "default", "system_fingerprint": "fp_6c43dcef8c", "choices": [{ "index": 1, "delta": { "tool_calls": [{ "id": "call_1", "function": { "name": "searchWeather", "arguments": "{\"city\":\"北京\"" } }] }, "finish_reason": null }], "obfuscation": "T1" },
+    { "id": "chatcmpl-COjljxurV5GKrRUsg1wd7mIyQCiiT", "object": "chat.completion.chunk", "created": 1760011845, "model": "o3-mini-2025-01-31", "service_tier": "default", "system_fingerprint": "fp_6c43dcef8c", "choices": [{ "index": 1, "delta": { "tool_calls": [{ "id": "call_1", "function": { "name": "searchWeather", "arguments": "{\"city\":\"Beijing\"}" } }] }, "finish_reason": null }], "obfuscation": "T1" },
     { "id": "chatcmpl-COjljxurV5GKrRUsg1wd7mIyQCiiT", "object": "chat.completion.chunk", "created": 1760011846, "model": "o3-mini-2025-01-31", "service_tier": "default", "system_fingerprint": "fp_6c43dcef8c", "choices": [{ "index": 1, "delta": { "tool_calls": [{ "id": "call_1", "function": { "name": null, "arguments": ",\"day\":\"today\"}" } }] }, "finish_reason": null }], "obfuscation": "T2" },
 
-    { "id": "chatcmpl-COjljxurV5GKrRUsg1wd7mIyQCiiT", "object": "chat.completion.chunk", "created": 1760011844, "model": "o3-mini-2025-01-31", "service_tier": "default", "system_fingerprint": "fp_6c43dcef8c", "choices": [{ "index": 0, "delta": { "content": " 转换 Chat Completion Chunks" }, "finish_reason": null }], "obfuscation": "X1" },
+    { "id": "chatcmpl-COjljxurV5GKrRUsg1wd7mIyQCiiT", "object": "chat.completion.chunk", "created": 1760011844, "model": "o3-mini-2025-01-31", "service_tier": "default", "system_fingerprint": "fp_6c43dcef8c", "choices": [{ "index": 0, "delta": { "content": " transform to Chat Completion Chunks" }, "finish_reason": null }], "obfuscation": "X1" },
     { "id": "chatcmpl-COjljxurV5GKrRUsg1wd7mIyQCiiT", "object": "chat.completion.chunk", "created": 1760011844, "model": "o3-mini-2025-01-31", "service_tier": "default", "system_fingerprint": "fp_6c43dcef8c", "choices": [{ "index": 0, "delta": { "content": " 🥳" }, "finish_reason": null }], "obfuscation": "X2" },
 
     // 终止信号
@@ -1293,7 +1291,7 @@ render(StreamingChatCompletionToMessageDemo);
 
 ```
 
-通过 `responseToMessage` 函数将 Response Object 转换为 Dialogue Message 消息块格式。
+Use `responseToMessage` to convert a Response object to a Dialogue Message block.
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useCallback } from 'react';
 import { AIChatDialogue } from '@douyinfe/semi-ui';
@@ -1355,7 +1353,7 @@ const RESPONSE_DATA = {
             "summary": [
                 {
                     "type": "summary_text",
-                    "text": "**用户询问什么是 Semi Design** 用户问 “Semi Design”需整合多源信息。首先发现抖音的 Semi Design 是设计系统，支持多平台且含 Design Token 和代码转换工具。印度 Semi Design 专注半导体培训，但用户可能更关注抖音案例。其他结果涉及半定制设计，但关联性较低。需确认是否有其他解释，但当前信息已覆盖主要维度。虽然继续推理可能提高完备性，但现阶段已足够支撑答案，可以开始输出给用户。"
+                    "text": "**What is Semi Design?** The user asks for \"Semi Design\" which requires aggregating multiple sources. First, ByteDance's Semi Design is a design system supporting multiple platforms with Design Tokens and code conversion tools. Another result from India focuses on semiconductor training, but the user likely refers to the ByteDance one. Other results mention semi-custom design but are less relevant. We should confirm if there are other interpretations, but current info covers the main dimensions. Continuing to reason may improve completeness, but it's sufficient to answer now."
                 }
             ]
         },
@@ -1367,24 +1365,24 @@ const RESPONSE_DATA = {
             "content": [
                 {
                     "type": "output_text",
-                    "text": "Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统",
+                    "text": "Semi Design is a design system created and maintained by ByteDance's Frontend Team and the MED Product Design Team. You can ask me anything about Semi.",
                     "annotations": [
                         {
                             "title": 'Semi Design',
                             "url": 'https://semi.design/zh-CN/start/getting-started',
-                            "detail": 'Semi Design 快速开始',
+                            "detail": 'Semi Design Getting Started',
                             "logo": 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png'
                         },
                         {
                             "title": 'Semi Design',
                             "url": 'https://semi.design/zh-CN/start/getting-started',
-                            "detail": 'Semi Design 快速开始',
+                            "detail": 'Semi Design Getting Started',
                             "logo": 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png'
                         },
                         {
                             "title": 'Semi Design',
                             "url": 'https://semi.design/zh-CN/start/getting-started',
-                            "detail": 'Semi Design 快速开始',
+                            "detail": 'Semi Design Getting Started',
                             "logo": 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png'
                         },
                     ]
@@ -1406,7 +1404,7 @@ const RESPONSE_DATA = {
 render(ResponseToMessageDemo);
 ```
 
-通过 `streamingResponseToMessage` 函数将 Response Chunk Object List 转换为 Dialogue Message 消息块格式。
+Use `streamingResponseToMessage` to convert a list of Response chunks to a Dialogue Message block.
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useCallback } from 'react';
 import { AIChatDialogue } from '@douyinfe/semi-ui';
@@ -1504,20 +1502,19 @@ const REASONING_CHUNKS = [
     // reasoning item（输出索引 0）
     { "type": "response.output_item.added", "sequence_number": 2, "output_index": 0, "item": { "id": "rs_reason_001", "type": "reasoning", "summary": [] } },
     { "type": "response.reasoning_summary_part.added", "sequence_number": 3, "output_index": 0, "summary_index": 0, "part": { "type": "reasoning", "text": "" } },
-    { "type": "response.reasoning_summary_text.delta", "sequence_number": 4, "output_index": 0, "summary_index": 0, "delta": "思" },
-    { "type": "response.reasoning_summary_text.delta", "sequence_number": 5, "output_index": 0, "summary_index": 0, "delta": "考" },
-    { "type": "response.reasoning_summary_text.delta", "sequence_number": 6, "output_index": 0, "summary_index": 0, "delta": "完" },
-    { "type": "response.reasoning_summary_text.delta", "sequence_number": 7, "output_index": 0, "summary_index": 0, "delta": "成" },
-    { "type": "response.reasoning_summary_text.delta", "sequence_number": 8, "output_index": 0, "summary_index": 0, "delta": "！" },
-    { "type": "response.reasoning_summary_text.done", "sequence_number": 9, "output_index": 0, "summary_index": 0, "text": "思考完成！" },
+    { "type": "response.reasoning_summary_text.delta", "sequence_number": 4, "output_index": 0, "summary_index": 0, "delta": "T" },
+    { "type": "response.reasoning_summary_text.delta", "sequence_number": 5, "output_index": 0, "summary_index": 0, "delta": "h" },
+    { "type": "response.reasoning_summary_text.delta", "sequence_number": 6, "output_index": 0, "summary_index": 0, "delta": "i" },
+    { "type": "response.reasoning_summary_text.delta", "sequence_number": 7, "output_index": 0, "summary_index": 0, "delta": "n" },
+    { "type": "response.reasoning_summary_text.done", "sequence_number": 9, "output_index": 0, "summary_index": 0, "text": "Done thinking!" },
     { "type": "response.output_item.done", "sequence_number": 10, "output_index": 0, "item": { "id": "rs_reason_001", "type": "reasoning", "summary": [ { "type": "reasoning", "text": "思考完成！" } ] } },
 
     // assistant message（输出索引 1）
     { "type": "response.output_item.added", "sequence_number": 11, "output_index": 1, "item": { "id": "msg_reason_001", "type": "message", "status": "in_progress", "content": [], "role": "assistant" } },
     { "type": "response.content_part.added", "sequence_number": 12, "item_id": "msg_reason_001", "output_index": 1, "content_index": 0, "part": { "type": "output_text", "annotations": [], "text": "" } },
-    { "type": "response.output_text.delta", "sequence_number": 13, "item_id": "msg_reason_001", "output_index": 1, "content_index": 0, "delta": "基于上述思考，" },
-    { "type": "response.output_text.delta", "sequence_number": 14, "item_id": "msg_reason_001", "output_index": 1, "content_index": 0, "delta": "结论如下：" },
-    { "type": "response.output_text.done", "sequence_number": 15, "item_id": "msg_reason_001", "output_index": 1, "content_index": 0, "text": "基于上述思考，结论如下：..." },
+    { "type": "response.output_text.delta", "sequence_number": 13, "item_id": "msg_reason_001", "output_index": 1, "content_index": 0, "delta": "Based on the reasoning above, " },
+    { "type": "response.output_text.delta", "sequence_number": 14, "item_id": "msg_reason_001", "output_index": 1, "content_index": 0, "delta": "the conclusions are:" },
+    { "type": "response.output_text.done", "sequence_number": 15, "item_id": "msg_reason_001", "output_index": 1, "content_index": 0, "text": "Based on the reasoning above, the conclusions are: ..." },
 
     { "type": "response.completed", "sequence_number": 16, "response": { "id": "resp_reason_001", "object": "response", "created_at": 1760091777, "status": "completed", "background": false, "error": null, "incomplete_details": null, "instructions": null, "max_output_tokens": null, "max_tool_calls": null, "model": "o3-mini-2025-01-31", "output": [ { "id": "rs_reason_001", "type": "reasoning", "summary": [ { "type": "reasoning", "text": "思考完成！" } ] }, { "id": "msg_reason_001", "type": "message", "status": "completed", "content": [ { "type": "output_text", "annotations": [], "text": "基于上述思考，结论如下：..." } ], "role": "assistant" } ], "parallel_tool_calls": true, "previous_response_id": null, "prompt_cache_key": null, "reasoning": { "effort": "medium", "summary": null }, "safety_identifier": null, "service_tier": "default", "store": true, "temperature": 1.0, "text": { "format": { "type": "text" }, "verbosity": "medium" }, "tool_choice": "auto", "tools": [], "top_logprobs": 0, "top_p": 1.0, "truncation": "disabled", "usage": { "input_tokens": 12, "input_tokens_details": { "cached_tokens": 0 }, "output_tokens": 120, "output_tokens_details": { "reasoning_tokens": 16 }, "total_tokens": 132 }, "user": null, "metadata": {} } }
 ];
@@ -1526,80 +1523,79 @@ render(StreamingResponseToMessageDemo);
 
 ```
 
-## API 参考
-| 属性 | 说明 | 类型 | 默认值 |
+## API Reference
+| Prop | Description | Type | Default |
 |---|---|---|---|
-| align | 对话布局方式 | 'leftRight' \| 'leftAlign' | 'leftRight' |
-| chats | 受控对话消息列表 | Message[] | - |
-| className | 自定义类名 | string | - |
-| disabledFileItemClick | 是否禁用文件点击 | boolean | false |
-| hintCls | 提示区最外层样式类名 | string | - |
-| hints | 提示信息 | string[] | - |
-| hintStyle | 提示区最外层样式 | CSSProperties | - |
-| markdownRenderProps | 该参数将透传给对话框渲染所用的 MarkdownRender 组件，详见 [MarkdownRenderProps](/zh-CN/plus/markdownrender#API) | MarkdownRenderProps | - |
-| messageEditRender | 自定义消息编辑渲染 | (props: MessageContent) => React.ReactNode | - |
-| mode | 对话模式 | 'bubble' \| 'noBubble' \| 'userBubble' | 'bubble' |
-| onAnnotationClick | annotation 点击回调 | (annotation?: Annotation) => void | - |
-| onChatsChange | 对话消息列表变更回调 | (chats?: Message[]) => void | - |
-| onFileClick | 附件文件点击回调 | (file?: InputFile) => void | - |
-| onHintClick | 点击提示词回调 | (hint: string) => void | - |
-| onImageClick | 图片点击回调 | (image?: InputImage) => void | - |
-| onMessageBadFeedback | 消息负向反馈回调 | (message?: Message) => void | - |
-| onMessageCopy | 复制消息回调 | (message?: Message) => void | - |
-| onMessageDelete | 删除消息回调 | (message?: Message) => void | - |
-| onMessageEdit | 编辑消息回调 | (message?: Message) => void | - |
-| onMessageGoodFeedback | 消息正向反馈回调 | (message?: Message) => void | - |
-| onMessageReset | 重置消息回调 | (message?: Message) => void | - |
-| onMessageShare | 分享消息回调 | (message?: Message) => void | - |
-| onReferenceClick | 引用按钮点击回调 | (item?: Reference) => void | - |
-| onSelect | 选择项变更回调 | (selectedIds: string[]) => void | - |
-| renderConfig | 自定义各区块渲染 | DialogueRenderConfig | - |
-| renderDialogueContentItem | 按消息类型返回内容渲染映射 | DialogueContentItemRendererMap | - |
-| renderHintBox | 自定义提示项渲染 | (props: { content: string; index: number; onHintClick: () => void }) => React.ReactNode | - |
-| roleConfig | 角色配置（user/assistant/system 等元数据） | RoleConfig | 必填 |
-| selecting | 是否开启选择模式 | boolean | false |
-| showReset | 是否展示重置操作 | boolean | true |
-| showReference | 是否在文字或者文件消息中展示可被引用图标，仅对用户消息生效 | boolean | false |
-| style | 样式 | CSSProperties | - |
+| align | Conversation layout | 'leftRight' \| 'leftAlign' | 'leftRight' |
+| chats | Controlled conversation messages | Message[] | - |
+| className | Custom class name | string | - |
+| disabledFileItemClick | Disable file click | boolean | false |
+| hintCls | Hint area outer wrapper class name | string | - |
+| hints | Hint texts | string[] | - |
+| hintStyle | Hint area outer wrapper style | CSSProperties | - |
+| markdownRenderProps | Props passed to the MarkdownRender used by the dialogue. See [MarkdownRenderProps](/zh-CN/plus/markdownrender#API) | MarkdownRenderProps | - |
+| messageEditRender | Custom message edit renderer | (props: MessageContent) => React.ReactNode | - |
+| mode | Conversation mode | 'bubble' \| 'noBubble' \| 'userBubble' | 'bubble' |
+| onAnnotationClick | Annotation click callback | (annotation?: Annotation) => void | - |
+| onChatsChange | Messages change callback | (chats?: Message[]) => void | - |
+| onFileClick | Attachment file click callback | (file?: InputFile) => void | - |
+| onHintClick | Hint click callback | (hint: string) => void | - |
+| onImageClick | Image click callback | (image?: InputImage) => void | - |
+| onMessageBadFeedback | Negative feedback callback | (message?: Message) => void | - |
+| onMessageCopy | Copy message callback | (message?: Message) => void | - |
+| onMessageDelete | Delete message callback | (message?: Message) => void | - |
+| onMessageEdit | Edit message callback | (message?: Message) => void | - |
+| onMessageGoodFeedback | Positive feedback callback | (message?: Message) => void | - |
+| onMessageReset | Reset message callback | (message?: Message) => void | - |
+| onMessageShare | Share message callback | (message?: Message) => void | - |
+| onReferenceClick | Reference button click callback | (message?: Message) => void | - |
+| onSelect | Selection change callback | (selectedIds: string[]) => void | - |
+| renderConfig | Custom render config for sections | DialogueRenderConfig | - |
+| renderDialogueContentItem | Renderer map by message content type | DialogueContentItemRendererMap | - |
+| renderHintBox | Custom hint item renderer | (props: { content: string; index: number; onHintClick: () => void }) => React.ReactNode | - |
+| roleConfig | Role metadata config (user/assistant/system, etc.) | RoleConfig | - |
+| selecting | Enable selection mode | boolean | false |
+| showReset | Show reset action | boolean | true |
+| showReference | Show quotable icon in text or file messages (user messages only) | boolean | false |
+| style | Style | CSSProperties | - |
 
 
 ### MetaData
-| 属性  | 说明   | 类型   | 默认值 |
+| Prop  | Description   | Type   | Default |
 |------|--------|-------|-------|
-| name | 名称 | string | - |
-| avatar | 头像 | string | - |
-| color | 头像背景色，同 Avatar 组件的 color 参数, 支持 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow` | string | `grey` |
+| name | Name | string | - |
+| avatar | Avatar | string | - |
+| color | Avatar background color, same as Avatar `color` prop. Supports `amber`, `blue`, `cyan`, `green`, `grey`, `indigo`, `light-blue`, `light-green`, `lime`, `orange`, `pink`, `purple`, `red`, `teal`, `violet`, `yellow` | string | `grey` |
 
 ### Message
-| 属性  | 说明   | 类型   | 默认值 |
+| Prop  | Description   | Type   | Default |
 |------|--------|-------|-------|
-| role | 角色  | string | - |
-| name | 名称  | string | - |
-| id | 唯一标识  | string\| number | - |
-| content | 消息内容 | string\| ContentItem[] | - |
-| createdAt | 创建时间 | number | -|
-| model | 模型名称 | string | -|
-| status | 消息状态，可选值为 `queued` \| `in_progress` \| `incomplete` \| `completed` \| `failed`  \| `cancelled` |string | completed |
+| role | Role | string | - |
+| name | Name | string | - |
+| id | Unique ID | string\| number | - |
+| content | Message content | string\| ContentItem[] | - |
+| createdAt | Created at (timestamp) | number | -|
+| model | Model name | string | -|
+| status | Message status: `queued` \| `in_progress` \| `incomplete` \| `completed` \| `failed` \| `cancelled` | string | `completed` |
 
 ### Reference
-| 属性  | 说明   | 类型   | 默认值 |
+| Prop  | Description   | Type   | Default |
 |------|--------|-------|-------|
-| id | 唯一标识  | string\| number | - |
-| type | 类型  | string | - |
-| name | 名称  | string | - |
-| url | 地址  | string | - |
-| content | 文本内容  | string | - |
-
+| id | Unique identifier  | string\| number | - |
+| type | type  | string | - |
+| name | name  | string | - |
+| url | url  | string | - |
+| content | text content  | string | - |
 
 ### Methods
-| 方法  | 说明   |
+| Method  | Description   |
 |------|--------|
-| selectAll | 全选所有消息 |
-| deselectAll | 取消全选所有消息 |
-| scrollToBottom(animation: boolean) | 滚动到最底部, animation 为 true，则有动画，反之无动画 |
+| selectAll | Select all messages |
+| deselectAll | Deselect all messages |
+| scrollToBottom(animation: boolean) | Scroll to bottom; if `true`, animate; otherwise no animation |
 
 ### ContentItem
-`ContentItem` 支持所有 OpenAI Response [InputItem](https://platform.openai.com/docs/api-reference/responses/create#responses-create-input) 和 [OutputItem](https://platform.openai.com/docs/api-reference/responses/object#responses/object-output) 类型，具体类型定义如下
+`ContentItem` supports all OpenAI Response [InputItem](https://platform.openai.com/docs/api-reference/responses/create#responses-create-input) and [OutputItem](https://platform.openai.com/docs/api-reference/responses/object#responses/object-output) types. Definitions:
 
 ```ts
 type ContentItem = InputContentItem | OutputContentItem;
@@ -1750,5 +1746,5 @@ interface FileUploadToolCall extends CommonContentItem {
 
 ```
 
-## 设计变量
+## Design Tokens
 <DesignToken/>

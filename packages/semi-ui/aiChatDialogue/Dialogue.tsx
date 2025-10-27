@@ -86,21 +86,6 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
         />;
     };
 
-    hintNode = () => {
-        const { hints, hintCls, hintStyle, onHintClick, renderHintBox, isLastChat } = this.props;
-        if (isLastChat && hints?.length) {
-            return <Hint
-                className={hintCls}
-                style={hintStyle}
-                hints={hints}
-                onHintClick={onHintClick}
-                renderHintBox={renderHintBox}
-            />;
-        }
-        return null;
-    };
-
-
 
     render() {
         const { message, selecting, align, isSelected, onSelectChange, continueSend } = this.props;

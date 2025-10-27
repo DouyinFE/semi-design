@@ -212,6 +212,11 @@ const local: Locale = {
         deleteContent: 'سيتم حذف الرسالة بشكل دائم ولا يمكن التراجع عنها.',
         copySuccess: 'تم النسخ بنجاح',
         loading: 'جار التحميل...',
+        reasoning: {
+            completed: 'تم التفكير',
+            thinking: 'جار التفكير...'
+        },
+        annotationText: 'عناصر من المعلومات'
     },
     Feedback: {
         submit: 'إرسال',

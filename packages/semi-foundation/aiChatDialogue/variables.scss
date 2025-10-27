@@ -35,7 +35,7 @@ $color-aiChatDialogue_word_icon-bg: rgba(var(--semi-blue-4), 1); // word icon �
 $color-aiChatDialogue_excel_icon-bg: rgba(var(--semi-green-4), 1); // excel icon 背景色
 $color-aiChatDialogue_image_icon-bg: rgba(var(--semi-purple-4), 1); // image icon 背景色
 $color-aiChatDialogue_pdf_icon-bg: rgba(var(--semi-red-4), 1); // pdf icon 背景色
-$color-aiChatDialogue_video_icon-bg: rgba(var(--semi-green-4), 1); // video icon 背景色
+$color-aiChatDialogue_video_icon-bg: rgba(var(--semi-purple-4), 1); // video icon 背景色
 $color-aiChatDialogue_default_icon-bg: rgba(var(--semi-grey-4), 1); // default icon 背景色
 $color-aiChatDialogue_icon-text: var(--semi-color-white); // icon 文本颜色
 $color-aiChatDialogue_failed: var(--semi-color-danger); // 失败提示颜色
@@ -82,6 +82,7 @@ $height-aiChatDialogue_annotation_logo: 16px; // 参考来源logo高度
 $width-aiChatDialogue_reference_icon: 16px; // 引用图标宽度
 $height-aiChatDialogue_reference_icon: 16px; // 引用图标高度
 $width-aiChatDialogue_reference_max: 200px; // 引用组件最大宽度
+$width-aiChatDialogue_reference_name_max: 130px; // 引用名称最大宽度
 $width-aiChatDialogue_code-border: 1px; // 代码块组件 border 宽度
 $width-aiChatDialogue_hint-border: 1px; // 提示项组件 border 宽度
 $width-aiChatDialogue_file_title_max: 180px; // 文件标题最大宽度

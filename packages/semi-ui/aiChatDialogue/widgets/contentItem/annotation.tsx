@@ -4,6 +4,8 @@ import { IconChevronRight } from '@douyinfe/semi-icons';
 import { Annotation } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
 import AvatarGroup from '../../../avatar/avatarGroup';
 import Avatar from '../../../avatar';
+import LocaleConsumer from "../../../locale/localeConsumer";
+import { Locale } from '../../../locale/interface';
 
 export interface AnnotationItemProps {
     title?: string;
@@ -65,7 +67,15 @@ export const AnnotationWidget = (props: AnnotationWidgetProps) => {
                         return item.logo && <Avatar className={`${prefixCls}-content-logo`} key={index} src={item.logo} alt={item.title}/>;
                     })}
                 </AvatarGroup>
-                <div className={`${prefixCls}-content-description`}>{description || `${filteredAnnotation.length} 篇资料`}</div>
+                <div className={`${prefixCls}-content-description`}>
+                    {
+                        description || (
+                            <LocaleConsumer<Locale["AIChatDialogue"]> componentName="AIChatDialogue" >
+                                {(locale: Locale["AIChatDialogue"]) => `${filteredAnnotation.length} ${locale.annotationText}`}
+                            </LocaleConsumer>
+                        )
+                    }
+                </div>
                 <div className={`${prefixCls}-content-icon`}><IconChevronRight /></div>
             </div>
         </div>

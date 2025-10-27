@@ -212,6 +212,11 @@ const local: Locale = {
         deleteContent: 'Ce message sera supprimé définitivement et ne pourra pas être récupéré.',
         copySuccess: 'Copie réussie',
         loading: 'Chargement...',
+        reasoning: {
+            completed: 'Traitement terminé',
+            thinking: 'Traitement en cours...'
+        },
+        annotationText: 'éléments d\'information'
     },
     Feedback: {
         submit: 'Soumettre',

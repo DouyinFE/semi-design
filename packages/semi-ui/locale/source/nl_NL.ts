@@ -219,6 +219,11 @@ const local: Locale = {
         deleteContent: 'Deze conversatie wordt permanent verwijderd en kan niet worden hersteld.',
         copySuccess: 'Succesvol gekopieerd',
         loading: 'Laden...',
+        reasoning: {
+            completed: 'Verwerking voltooid',
+            thinking: 'Verwerking in uitvoering...'
+        },
+        annotationText: 'informatie-elementen'
     },
     Feedback: {
         submit: 'Versturen',
