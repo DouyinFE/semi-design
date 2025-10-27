@@ -217,6 +217,11 @@ const local: Locale = {
     Feedback: {
         submit: '提交',
         cancel: '取消'
+    },
+    AIChatInput: {
+        template: '模板',
+        configure: '配置',
+        selected: '已选 ${count} 个',
     }
 };
 

@@ -217,6 +217,11 @@ const local: Locale = {
     Feedback: {
         submit: '送信',
         cancel: 'キャンセル'
+    },
+    AIChatInput: {
+        template: 'テンプレート',
+        configure: '設定',
+        selected: '選択された ${count} 個',
     }
 };
 

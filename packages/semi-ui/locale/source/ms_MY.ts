@@ -216,6 +216,11 @@ const local: Locale = {
     Feedback: {
         submit: 'Hantar',
         cancel: 'Batal'
+    },
+    AIChatInput: {
+        template: 'Stensil',
+        configure: 'Konfigurasi',
+        selected: '${count} item dipilih',
     }
 };
 
