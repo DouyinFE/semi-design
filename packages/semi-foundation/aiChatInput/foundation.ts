@@ -119,51 +119,40 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
         const oldValue = editor?.getText();
         const { activeSkillIndex, activeSuggestionIndex } = this.getStates();
         const popUpOptionListID = this._adapter.getPopupID();
-        // 输入框为空，且按下 / 键, 触发 skill 面板打开
+        // 输入框为空，且按下 skillHotKey 键, 触发 skill 面板打开
         // The input box is empty and the skill hot key is pressed to trigger the skill panel to open.
         if (oldValue === '' && e.key === skillHotKey && skills && skills.length) {
             // Open skill panel
             this.setState({ skillVisible: true });
             this.setDropdownWidth();
-        }
-    
-        if ((oldValue === skillHotKey || oldValue?.length === 0) && e.key === 'Backspace') {
+        } else if ((oldValue === skillHotKey || oldValue?.length === 0) && e.key === 'Backspace') {
             // Close function panel
             this.setState({ skillVisible: false });
-        }
-
-        // If the input box is a skill's hotkey, pressing the up and down keys can switch panel options.
-        if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+        } else if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
+            // If the input box is a skill's hotkey/when suggestion visible, pressing the up and down keys can switch panel options.
             if (oldValue === skillHotKey && skills && skills.length) {
                 const newIndex = (activeSkillIndex + (e.key === 'ArrowUp' ? -1 : 1) + skills.length) % skills.length;
-                this.setActiveSkillIndex(activeSkillIndex);
+                this.setActiveSkillIndex(newIndex);
                 this.updateScrollTop(newIndex, `#${prefixCls}-skill-${popUpOptionListID} .${prefixCls}-skill-item:nth-child(${newIndex + 1})`);
-            }
-            if (suggestionVisible) {
+            } else if (suggestionVisible && suggestions?.length) {
                 const newIndex = (activeSuggestionIndex + (e.key === 'ArrowUp' ? -1 : 1) + suggestions.length) % suggestions.length;
                 this.setActiveSuggestionIndex(newIndex);
                 this.updateScrollTop(newIndex, `#${prefixCls}-suggestion-${popUpOptionListID} .${prefixCls}-suggestion-item:nth-child(${newIndex + 1})`);
-            }  
-        }
-        // The input box is a skill's hotkey. Press the enter key to trigger the skill panel to close and trigger the backfill of the selected function.
-        if (skillVisible && e.key === 'Enter') {
-            this.setState({
-                skillVisible: false,
-            });
-            const newSkill = skills[activeSkillIndex];
-            newSkill && this.handleSkillSelect(newSkill);
-        }
-        if (suggestionVisible && e.key === 'Enter') {
-            const newSuggestion = suggestions[activeSuggestionIndex];
-            this.handleSuggestionSelect(newSuggestion);
-            this.hideSuggestionPanel();
-        }
-        // 如果按下 Escape，检查各个层级的可见性
-        // If Escape is pressed, check the visibility of each level
-        if (e.key === 'Escape') {
-            skillVisible && this.setState({
-                skillVisible: false,
-            });
+            }
+        } else if (e.key === 'Enter') {
+            if (skillVisible) {
+                this.setState({ skillVisible: false });
+                const newSkill = skills[activeSkillIndex];
+                newSkill && this.handleSkillSelect(newSkill);
+            } else if (suggestionVisible) {
+                const newSuggestion = suggestions[activeSuggestionIndex];
+                this.handleSuggestionSelect(newSuggestion);
+                this.hideSuggestionPanel();
+            }
+        } else if (e.key === 'Escape') {
+            // 如果按下 Escape，检查各个层级的可见性
+            // If Escape is pressed, check the visibility of each level
+            skillVisible && this.setState({ skillVisible: false });
             suggestionVisible && this.hideSuggestionPanel();
         }
     }
@@ -329,57 +318,19 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
     }
 
     handRichTextArealKeyDown = (view: any, event: KeyboardEvent) => {
-        const { suggestionVisible } = this.getStates();
-        if (suggestionVisible && ['ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
+        // console.log('outer key down handle');
+        const { suggestionVisible, skillVisible } = this.getStates();
+        /**
+         * 当建议/技能面板可见时候，上下按键，enter 按键被用于操作面板选项的 active 项，或做选中操作的，
+         * 因此需要 return true 阻止富文本输入区域默认的按键操作
+         * When the suggestion/skill panel is visible, the up and down keys and the enter key are 
+         * used to activate or select the active item in the panel.
+         * Therefore, we need to return true to prevent the default key operation of the rich text input area
+         */
+        if ((suggestionVisible || skillVisible) && ['ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
             return true;
         }
-        if (event.key !== 'Delete' && event.key !== 'Backspace') return false;
-        const { state, dispatch } = view;
-        const { selection } = state;
-
-        if (this._adapter.isSelectionText(selection) && selection.empty) {
-            const $pos = selection.$head;
-            const before = $pos.nodeBefore;
-            const after = $pos.nodeAfter;
-            const beforePos = $pos.pos - 1;
-
-            if (before && before.isText && before.text === '\uFEFF') {
-                // 当光标前面是零宽字符时，零宽字符前面是 inputSlot，则按下删除按键，应该删除零宽字符和前面的 inputSlot 节点
-                // When the cursor is preceded by a zero-width character, and the zero-width character is preceded by an inputSlot, 
-                // then pressing the delete button should delete the zero-width character and the preceding inputSlot node.
-                const $before = state.doc.resolve(beforePos);
-                const nodeBeforeZeroWidth = $before.nodeBefore;
-                if (nodeBeforeZeroWidth && nodeBeforeZeroWidth.attrs.isCustomSlot) {
-                    // inputSlot 节点的起始位置 The starting position of the inputSlot node
-                    const inputSlotEnd = beforePos;
-                    const inputSlotStart = inputSlotEnd - nodeBeforeZeroWidth.nodeSize;
-                    // 删除范围是 [inputSlotStart, inputSlotEnd]
-                    // The deletion range is [inputSlotStart, inputSlotEnd]
-                    const tr = state.tr.delete(inputSlotStart, $pos.pos);
-                    tr.setMeta('inputSlotDeleted', true);
-                    dispatch(tr);
-                    event.preventDefault();
-                    return true;
-                }
-            }
-            // 光标在 inputSlot 后，按删除键，如果 inputSlot 后面是零宽字符，也一并删除
-            // When the cursor is behind inputSlot, press the delete key. 
-            // If there are zero-width characters behind inputSlot, they will also be deleted.
-            if (before && before.type && before.attrs.isCustomSlot) {
-                // 计算 inputSlot 的起始和结束
-                // Calculate the start and end of inputSlot
-                const inputSlotStart = $pos.pos - before.nodeSize;
-                let inputSlotEnd = $pos.pos;
-                if (after && after.isText && after.text === '\uFEFF') {
-                    inputSlotEnd += after.nodeSize;
-                }
-                const tr = state.tr.delete(inputSlotStart, inputSlotEnd);
-                tr.setMeta('inputSlotDeleted', true);
-                dispatch(tr);
-                event.preventDefault();
-                return true;
-            }
-        }
+        if (event.key !== 'Backspace') return false;
         return false;
     }
 

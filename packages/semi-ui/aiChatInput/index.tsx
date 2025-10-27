@@ -272,7 +272,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
                 skills?.map((item, index) => (<SkillItem
                     index={index}
                     isActive={this.state.activeSkillIndex === index}
-                    key={item.key} 
+                    key={item.key || item.value} 
                     skill={item}
                     renderSkillItem={renderSkillItem}
                     onClick={this.foundation.handleSkillSelect}

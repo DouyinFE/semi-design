@@ -20,7 +20,6 @@ export default (props: any) => {
                 clearTimeout(timer);
             };
         }
-        return null;
     }, [isEmpty, placeholder]);
 
     return (

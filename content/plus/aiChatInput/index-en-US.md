@@ -970,7 +970,7 @@ const ReferSlot = Node.create({
     inline: true,
     group: 'inline',
     atom: true,
-    selectable: true,
+    selectable: false,
     addAttributes() {
         return {
             value: {

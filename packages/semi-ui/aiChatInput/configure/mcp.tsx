@@ -41,7 +41,8 @@ const Mcp = React.memo((props: McpProps) => {
                     <span className={`${cssClasses.PREFIX}-footer-configure-mcp-header-title`} >
                         {locale.selected.replace('${count}', String(options.length ?? num))}
                     </span>
-                    <Button 
+                    <Button
+                        theme='outline'
                         className={`${cssClasses.PREFIX}-footer-configure-mcp-header-config`}
                         onClick={onConfigureButtonClick}
                     >

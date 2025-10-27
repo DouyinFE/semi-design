@@ -5,6 +5,7 @@ import type { NodeViewProps } from '@tiptap/react';
 import { useCallback } from 'react';
 import { Select } from '../../../index';
 import { getCustomSlotAttribute } from '@douyinfe/semi-foundation/aiChatInput/utils';
+import { strings } from '@douyinfe/semi-foundation/aiChatInput/constants';
 
 function SelectSlotComponent(props: NodeViewProps) {
     const { node, updateAttributes } = props;
@@ -43,9 +44,9 @@ const SelectSlot = Node.create({
     addAttributes() {
         return {
             value: {
-                default: '',
+                default: strings.ZERO_WIDTH_CHAR,
                 parseHTML: (element: HTMLElement) =>
-                    element.getAttribute('value') || '',
+                    element.getAttribute('value'),
                 renderHTML: (attrs: Record<string, any>) => ({ value: attrs.value }),
             },
             options: {
