@@ -281,7 +281,6 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         const { roleConfig, onMessageBadFeedback, onMessageGoodFeedback, onMessageReset, onMessageEdit, onMessageDelete, onHintClick,
             selecting, hintCls, hintStyle, hints, renderHintBox, style, className, ...restProps } = this.props;
         const { selectedIds, chats, backBottomVisible, wheelScroll } = this.state;
-        console.log('wheelScroll', wheelScroll);
 
         return (
             <div 

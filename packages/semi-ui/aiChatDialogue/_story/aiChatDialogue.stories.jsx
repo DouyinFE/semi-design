@@ -566,6 +566,9 @@ export const Hints = () => {
 export const MultiAssistantStory = () => <MultiAssistant />;
 MultiAssistantStory.storyName =  'Multi Assistant';
 
+export const MultiAgentStory = () => <MultiAgentDemo />;
+MultiAgentStory.storyName =  'Multi Agent';
+
 export const AIChatInputWithDialogue = () => <AIChatInputWithDialogueDemo />;
 AIChatInputWithDialogue.storyName =  'AIChatInput With Dialogue';
 
@@ -580,6 +583,3 @@ StreamingResponseToMessageStory.storyName =  'adapter: streaming response';
 
 export const StreamingChatCompletionToMessageStory = () => <StreamingChatCompletionToMessageDemo />;
 StreamingChatCompletionToMessageStory.storyName =  'adapter: streaming chatCompletion';
-
-export const MultiAgentStory = () => <MultiAgentDemo />;
-MultiAgentStory.storyName =  'multiAgent';

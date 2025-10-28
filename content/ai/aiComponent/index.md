@@ -134,27 +134,27 @@ import { IconAIBellLevel1, IconAIEditLevel2, IconAIFileLevel3, IconAIFilledLevel
 
 ```jsx live=true dir="column" noInline=true
 import React, { useState, useCallback } from 'react';
-import { AIChatDialogue, AIChatInput, chatInputToMessage } from '@douyinfe/semi-ui';
-import { IconFixedStroked, IconFeishuLogo, IconBookOpenStroked, IconGit, IconFigma } from '@douyinfe/semi-icons';
+import { AIChatDialogue, AIChatInput, chatInputToMessage, Typography, Button } from '@douyinfe/semi-ui';
+import { IconFixedStroked, IconFeishuLogo, IconBookOpenStroked, IconGit, IconFigma, IconWord } from '@douyinfe/semi-icons';
 
 const { Configure } = AIChatInput;
 
 
 function AIChatInputWithDialogue() {
-    const inputOuterStyle = { margin: '12px', maxHeight: 300, flexShrink: 0 };
+    const inputOuterStyle = { margin: '12px', minHeight: 150, maxHeight: 300, flexShrink: 0 };
     const editingInputOuterStyle = { margin: '12px 0px', maxHeight: 300, flexShrink: 0 };
     const dialogueOuterStyle = { flex: 1, overflow: 'auto' };
-
-    const [messages, setMessages] = useState(defaultMessages);
+    const [sideBarVisible, setSideBarVisible] = useState(false);
+    const [messages, setMessages] = useState(defaultMessages); 
     const [generating, setGenerating] = useState(false);
-    const [references, setReferences] = useState([]);
+    const [references, setReferences] = useState([]); 
+    const [sideBarContent, setSideBarContent] = useState({});
 
     const renderLeftMenu = useCallback(() => (<>
         <Configure.Select optionList={modelOptions} field="model" initValue="GPT-4o" />
-        <Configure.Button icon={<IconFixedStroked />} field="deepThink">深度思考</Configure.Button>
         <Configure.Button icon={<IconBookOpenStroked />} field="onlineSearch">联网搜索</Configure.Button>
         <Configure.Mcp options={mcpOptions} />
-        <Configure.RadioButton options={radioButtonProps} field="thinkType" initValue="fast"/>
+        <Configure.RadioButton options={radioButtonProps} field="thinkType" initValue="template"/>
     </>), []);
 
     const onChatsChange = useCallback((chats) => {
@@ -193,6 +193,7 @@ function AIChatInputWithDialogue() {
                 return [...messages, {
                     id: `message-${Date.now()}`,
                     role: 'assistant',
+                    name: 'FE',
                     content: "这是一条 mock 回复信息",
                 }];
             });
@@ -227,38 +228,123 @@ function AIChatInputWithDialogue() {
                 uploadProps={{ ...uploadProps, defaultFileList: props.attachments }}
                 defaultContent={props.inputContents[0].text}
                 renderConfigureArea={renderLeftMenu} 
+                // onContentChange={onContentChange}
                 onMessageSend={onEditMessageSend}
                 onReferenceDelete={handleEditingReferenceDelete}
             />
         );
     }, [messages, handleEditingReferenceDelete]);
 
+    const onAnnotationClick = useCallback((annotations) => {
+        console.log('annotations', annotations);
+        toggleSideBar();
+        setSideBarContent({
+            type: 'annotation',
+            value: annotations
+        });
+    }, [toggleSideBar]);
+
+    const toggleSideBar = useCallback(() => {
+        setSideBarVisible(v => !v);
+    }, []);
+
+    const renderSideBarTitle = useCallback((content) => {
+        const { type, value } = content;
+        return <div style={{ display: 'flex', alignItems: 'center ', justifyContent: 'space-between', padding: 12, color: 'var(--semi-color-text)' }}>
+            {type === 'annotation' && <div style={{ fontSize: '16px', lineHeight: '22px', fontWeight: 600 }}>参考资料</div>}
+            {type === 'resource' && <div style={{ fontSize: '16px', lineHeight: '22px', fontWeight: 600 }}>产物列表</div>}
+            <Button onClick={toggleSideBar} theme="borderless" type="tertiary" icon={<IconClose />} style={{ padding: '0px', width: 24, height: 24 }} />
+        </div>;
+    }, [toggleSideBar]);
+
+    const renderSideBarBody = useCallback((content) => {
+        const { type, value = {} } = content;
+        console.log('value')
+        if (type === 'annotation') {
+            return <div style={{ display: 'flex', flexDirection: 'column', rowGap: '12px', padding: '12px' }} >
+                {value.map((item, index) => (<div key={index} style={{ display: 'flex', flexDirection: 'column', rowGap: '8px' }} >
+                    <span style={{ display: 'flex', alignItems: 'center ', columnGap: 4 }}>
+                        <img style={{ width: 20, height: 20, borderRadius: '50%' }} src={item.logo}/>
+                        <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: 600, color: 'var(--semi-color-text-0)' }}>{item.title}</span>
+                    </span>
+                    <Typography.Paragraph ellipsis={{ rows: 3 }} style={{ fontSize: '12px', lineHeight: '16px', color: 'var(--semi-color-text-1)' }} >{item.detail}</Typography.Paragraph>
+                </div>))}
+            </div>;
+        } else if (type === 'resource') {
+            return <div style={{ display: 'flex', flexDirection: 'column', rowGap: '12px', padding: '12px' }} >
+                <div style={{ display: 'flex', gap: 12, alignItems: 'center', }}>
+                    <IconWord style={{ color: 'var(--semi-color-primary)' }} size='extra-large' /> {value.name}
+                </div>
+            </div>;
+        }
+        return <div>
+
+        </div>;
+    }, []);
+
+    const customRender = {
+        "resource": (item, message) => {
+            return <div 
+                style={{ 
+                    display: 'flex', 
+                    gap: 8, 
+                    backgroundColor: 'var(--semi-color-fill-0)', 
+                    padding: '12px 16px',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: '12px',
+                    cursor: 'pointer'
+                }}
+                onClick={() => {
+                    toggleSideBar();
+                    setSideBarContent({
+                        type: 'resource',
+                        value: item
+                    });
+                }}
+            >
+                <IconWord style={{ color: 'var(--semi-color-primary)' }} />
+                {item.name}
+            </div>;
+        },
+    };
+
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, height: '1000px', overflow: 'hidden' }}>
-            <AIChatDialogue 
-                style={dialogueOuterStyle}
-                roleConfig={roleConfig}
-                showReference={true}
-                align="leftRight"
-                mode="bubble"
-                chats={messages}
-                onChatsChange={onChatsChange}
-                onReferenceClick={onReferenceClick}
-                messageEditRender={messageEditRender}
-            />
-            <AIChatInput 
-                style={inputOuterStyle}
-                placeholder={'输入内容或者上传内容'} 
-                defaultContent={'我是一名<input-slot placeholder="[职业]">程序员</input-slot>，帮我写一段面向<input-slot placeholder="[输入对象]">产品经理</input-slot>的话术内容'}
-                generating={generating}
-                references={references}
-                uploadProps={uploadProps}
-                renderConfigureArea={renderLeftMenu} 
-                onContentChange={onContentChange}
-                onMessageSend={onMessageSend}
-                onStopGenerate={() => setGenerating(false)}
-                onReferenceDelete={handleReferenceDelete}
-            />
+        <div style={{ display: 'flex', columnGap: 10 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 32px)', overflow: 'hidden', flexGrow: 1 }}>
+                <AIChatDialogue 
+                    style={dialogueOuterStyle}
+                    roleConfig={roleConfig}
+                    showReference={true}
+                    align="leftRight"
+                    mode="bubble"
+                    chats={messages}
+                    onChatsChange={onChatsChange}
+                    onReferenceClick={onReferenceClick}
+                    messageEditRender={messageEditRender}
+                    onAnnotationClick={onAnnotationClick}
+                    renderDialogueContentItem={customRender}
+                />
+                <AIChatInput 
+                    style={inputOuterStyle}
+                    placeholder={'输入内容或者上传内容'} 
+                    defaultContent={'我是一名<input-slot placeholder="[职业]">程序员</input-slot>，帮我实现<input-slot placeholder="[需求描述]">multi agent 场景下的聊天应用</input-slot>需求'}
+                    generating={generating}
+                    references={references}
+                    uploadProps={uploadProps}
+                    renderConfigureArea={renderLeftMenu} 
+                    onContentChange={onContentChange}
+                    onMessageSend={onMessageSend}
+                    onStopGenerate={() => setGenerating(false)}
+                    onReferenceDelete={handleReferenceDelete}
+                />
+            </div>
+            {sideBarVisible && <div 
+                style={{ flexShrink: 0, width: 300, height: 'calc(100vh - 32px)', borderRadius: '12px', border: '1px solid var(--semi-color-border)', flexShrink: 0 }}
+            >
+                {renderSideBarTitle(sideBarContent)}
+                {renderSideBarBody(sideBarContent)}
+            </div>}
         </div>
     );
 }
@@ -266,108 +352,109 @@ function AIChatInputWithDialogue() {
 
 const defaultMessages = [{
     id: '1',
-    role: 'assistant',
-    content: '你好呀，请问有什么可以帮助您的吗~',
+    role: 'user',
+    content: '我想开发一个 multi Agent 场景下的聊天应用，你能帮我设计一下吗？',
     status: 'completed',
 }, {
     id: '2',
-    role: 'user',
+    role: 'assistant',
+    name: 'PM',
     content: [{
         type: 'message',
-        role: 'user',
         content: [{
-            type: 'input_image',
-            name: 'edit-bag.jpeg',
-            image_url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
-            file_id: 'demo-file-id',
-            size: '100KB',
-        }, {
             type: 'input_text',
-            text: '帮我生成类似的图片',
+            text: '收到。为保证方案可落地，我先明确目标与范围：\n\n- 目标：支持多 Agent 协同回复，用户可选择 Agent 或由系统自动分配\n- MVP 功能：\n  1) 基础对话（文本/图片/文件）\n  2) Agent 身份标识与头像\n  3) 正在输入与流式输出\n  4) 引用来源与工具结果展示\n- 约束：先做单会话，不做云端持久化；优先移动端适配\n\n接下来我会整理 PRD 要点并同步给设计与前端。',
+            annotations: [
+                {
+                    title: 'Semi Design',
+                    url: 'https://semi.design/zh-CN/start/getting-started',
+                    detail: 'Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统。作为一个全面、易用、优质的现代应用UI解决方案，Semi Design从字节跳动各业务线的复杂场景中提炼而来，目前已经支撑了近千个平台产品，服务了内外部超过10万用户',
+                    logo: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
+                },
+                {
+                    title: 'Semi DSM',
+                    url: 'https://semi.design/zh-CN/start/getting-started',
+                    detail: 'Semi DSM 支持全局、组件级别的样式定制，并在 Figma 和线上代码之间保持同步。使用 DSM，将 Semi Design 适配为 Any Design',
+                    logo: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
+                },
+                {
+                    title: 'Semi D2C',
+                    url: 'https://semi.design/zh-CN/start/getting-started',
+                    detail: 'Semi D2C 提供开箱即用的设计稿转代码：支持一键识别 Figma 页面中图层布局 + 设计系统组件，像素级还原设计稿，转译为 React JSX 和 CSS 代码。此外还提供了丰富的扩展能力，基于自定义插件系统快速打造团队专属的设计研发协作工具。',
+                    logo: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
+                }
+            ],
         }],
     }],
 }, {
     id: '3',
     role: 'assistant',
+    name: 'PM',
     content: [{
-        "id": "rs_02175871288540800000000000000000000ffffac1598778c9aa5",
-        "type": "reasoning",
-        "summary": [
+        type: 'message',
+        content: [{
+            type: 'input_text',
+            text: '生成的PRD如下，设计师会先根据此摘要出信息架构与关键页面',
+        }, {
+            type: 'resource',
+            name: 'PRD.doc',
+            size: '100KB',
+        }]
+    }],
+}, {
+    id: '4',
+    role: 'assistant',
+    name: 'UI',
+    content: [{
+        id: "rs_02175871288540800000000000000000000ffffac1598778c9aa5",
+        type: "reasoning",
+        summary: [
             {
                 "type": "summary_text",
-                "text": "\n用户问需要我帮助他生成类似图片，我需要先分析图片内容分析图片内容分析图片内容分析图片内容分析图片内容分析图片内容，然后生成类似的图片..."
+                "text": "\n根据产品经理给的 PRD 绘制关键页面，我需要...."
             }
         ],
-        "annotations": [
-            {
-                title: '快乐星球',
-                url: 'https://semi.design/zh-CN/start/getting-started',
-                detail: '快乐星球是一个快乐的地方',
-                logo: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png'
-            },
-            {
-                title: '快乐星球',
-                url: 'https://semi.design/zh-CN/start/getting-started',
-                detail: '快乐星球是一个快乐的地方',
-                logo: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png'
-            },
-            {
-                title: '快乐星球',
-                url: 'https://semi.design/zh-CN/start/getting-started',
-                detail: '快乐星球是一个快乐的地方',
-                logo: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png'
-            }
-        ],
-        "status": "completed"
-    }, {
-        "type": 'message',
-        "content": [{
-            "type": "output_text",
-            "text": "现在需要生成了一张黄色背包的图片...",
-            "annotations": [
-                {
-                    title: '黄色背包',
-                    url: 'https://semi.design/zh-CN/start/getting-started',
-                    detail: '黄色背包',
-                    logo: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png'
-                },
-                {
-                    title: '黄色背包',
-                    url: 'https://semi.design/zh-CN/start/getting-started',
-                    detail: '黄色背包',
-                    logo: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png'
-                },
-                {
-                    title: '黄色背包',
-                    url: 'https://semi.design/zh-CN/start/getting-started',
-                    detail: '黄色背包',
-                    logo: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png'
-                }
-            ],
-        }],
-        "status": "completed"
+        status: "completed"
     }, {
         type: 'function_call',
-        name: 'create_image',
-        arguments: "{\"description\":\"生成一个黄色背包的图片\"}",
+        name: 'paint_key_pages',
+        arguments: "{\"file\":\"PRD\"}",
         status: 'completed',
+    }, {
+        type: 'message',
+        content: [{
+            "type": "output_text",
+            "text": `设计初稿如下：\n\n- 信息架构：对话页（历史列表 | 消息流 | 工具卡片区）\n- 视觉：左侧展示 Agent 头像与名称标签，色块区分角色\n- 交互：\n  - 输入区支持 @Agent 快速切换与建议提示\n  - 流式输出时展示打字气泡与进度占位\n  - 工具结果以卡片/步骤条形式插入，可展开详情与复制\n\n我先出低保真线框，稍后补高保真与动效说明。`,
+        }],
+        status: "completed"
     }],
     status: 'completed',
+}, {
+    id: '5',
+    role: 'assistant',
+    name: 'FE',
+    content: `技术方案建议：\n\n- 技术栈：React + Semi UI，后端采用 WebSocket 或 SSE 支持流式响应\n- 数据模型：消息包含 id、role、name、content、status、references 等字段\n- 组件拆分：AIChatInput + AIChatDialogue；内容采用 Markdown 渲染，支持图片与文件点击\n- 性能：虚拟列表与滚动置底；长文本分块渲染；图片懒加载\n- 可观测性：埋点消息延迟、出错率、工具调用耗时\n\n若确认，我可先搭建页面骨架并接入 mock 数据进行联调。`,
 }];
 
 const roleConfig = {
     user: {
         name: 'User',
-        avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png'
+        avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/22606991eh7uhfups/img/user.png'
     },
-    assistant: {
-        name: 'Assistant',
-        avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png'
-    },
-    system: {
-        name: 'System',
-        avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png'
-    }
+    assistant: new Map([
+        ['PM', {
+            name: '产品经理',
+            avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/22606991eh7uhfups/PM.png'
+        }],
+        ['UI', {
+            name: '设计师',
+            avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/22606991eh7uhfups/UI.png'
+        }],
+        ['FE', {
+            name: '前端开发',
+            avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/22606991eh7uhfups/FE.png'
+        }],
+    ]),
 };
 
 const uploadProps = {
