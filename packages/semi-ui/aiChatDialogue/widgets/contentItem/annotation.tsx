@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import { cssClasses } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
 import { IconChevronRight } from '@douyinfe/semi-icons';
 import { Annotation } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
@@ -27,13 +27,6 @@ export const AnnotationWidget = (props: AnnotationWidgetProps) => {
 
     const { annotation, description, maxCount, onClick } = props;
 
-    const [filteredAnnotation, setFilteredAnnotation] = useState<AnnotationItemProps[]>([]);
-
-    useEffect(() => {
-        const filteredAnnotation = annotation.filter((item: Annotation) => (item.type !== 'file_citation' && item.type !== 'container_file_citation'));
-        setFilteredAnnotation(filteredAnnotation);
-    }, [annotation]);
-
     const handleClick = useCallback((e?: React.MouseEvent<HTMLDivElement>) => {
         onClick?.(e, annotation as AnnotationItemProps[]);
     }, [annotation, onClick]);
@@ -51,7 +44,6 @@ export const AnnotationWidget = (props: AnnotationWidgetProps) => {
         }
     }, [handleClick]);
 
-    if (filteredAnnotation.length === 0) { return null; }
 
     return (
         <div 
@@ -63,7 +55,7 @@ export const AnnotationWidget = (props: AnnotationWidgetProps) => {
         >
             <div className={`${prefixCls}-content`}>
                 <AvatarGroup maxCount={maxCount} size="extra-extra-small" overlapFrom={'end'} renderMore={renderMore}>
-                    {filteredAnnotation.map((item: AnnotationItemProps, index: number) => {
+                    {annotation.map((item: AnnotationItemProps, index: number) => {
                         return item.logo && <Avatar className={`${prefixCls}-content-logo`} key={index} src={item.logo} alt={item.title}/>;
                     })}
                 </AvatarGroup>
@@ -71,7 +63,7 @@ export const AnnotationWidget = (props: AnnotationWidgetProps) => {
                     {
                         description || (
                             <LocaleConsumer<Locale["AIChatDialogue"]> componentName="AIChatDialogue" >
-                                {(locale: Locale["AIChatDialogue"]) => `${filteredAnnotation.length} ${locale.annotationText}`}
+                                {(locale: Locale["AIChatDialogue"]) => `${annotation.length} ${locale.annotationText}`}
                             </LocaleConsumer>
                         )
                     }

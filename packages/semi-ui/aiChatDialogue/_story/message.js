@@ -42,6 +42,15 @@ export const defaultMessages = [{
         }],
     }],
     status: 'completed',
+}, {
+    id: '5',
+    role: 'user',
+    content: `Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统。作为一个全面、易用、优质的现代应用UI解决方案，Semi Design从字节跳动各业务线的复杂场景中提炼而来，目前已经支撑了近千个平台产品，服务了内外部超过10万用户[1]。
+
+Semi Design的特点包括：
+
+设计简洁、现代化。 提供主题方案，可深度样式定制。 提供明暗色两套模式，切换方便。 国际化，覆盖了简/繁体中文、英语、日语、韩语、葡萄牙语等20+种语言，日期时间组件提供全球时区支持，全部组件可自动适配阿拉伯文RTL布局。 采用 Foundation 和 Adapter 跨框架技术方案，方便扩展`,
+    status: 'completed',
 }];
   
 export const loadingMessages = [{

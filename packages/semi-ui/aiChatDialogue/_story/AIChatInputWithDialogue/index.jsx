@@ -167,13 +167,13 @@ const radioButtonProps = [
 ];
 
 export default function AIChatInputWithDialogue() {
-    const inputOuterStyle = { margin: '12px 28px', maxHeight: 300, flexShrink: 0 };
+    const inputOuterStyle = { margin: '12px 0px', minHeight: 150, maxHeight: 300, flexShrink: 0 };
     const editingInputOuterStyle = { margin: '12px 0px', maxHeight: 300, flexShrink: 0 };
     const dialogueOuterStyle = { flex: 1, overflow: 'auto' };
 
-    const [messages, setMessages] = useState(defaultMessages);
+    const [messages, setMessages] = useState(defaultMessages); 
     const [generating, setGenerating] = useState(false);
-    const [references, setReferences] = useState([]);
+    const [references, setReferences] = useState([]); 
 
     const renderLeftMenu = useCallback(() => (<>
         <Configure.Select optionList={modelOptions} field="model" initValue="GPT-4o" />
@@ -261,7 +261,7 @@ export default function AIChatInputWithDialogue() {
     }, [messages, handleEditingReferenceDelete]);
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, height: 'calc(100vh - 32px)', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 32px)', overflow: 'hidden' }}>
             <AIChatDialogue 
                 style={dialogueOuterStyle}
                 roleConfig={roleConfig}

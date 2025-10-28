@@ -4,7 +4,7 @@ import { DialogueContentProps } from '../interface';
 import MarkdownRender from '../../markdownRender';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
 import { Image } from '../../index';
-import { FunctionToolCall, InputFile, ContentItem, InputMessage, InputText, InputImage, OutputText, Reasoning, CustomToolCall, OutputMessage, Refusal, Message, Reference } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
+import { FunctionToolCall, InputFile, ContentItem, InputMessage, InputText, InputImage, OutputText, Reasoning, CustomToolCall, OutputMessage, Refusal, Annotation, Reference } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
 import { DialogueContentItemRenderer } from '../interface';
 import { IconAlertCircle, IconCode, IconExcel, IconFile, IconImage, IconPdf, IconSendMsgStroked, IconSpin, IconVideo, IconWord, IconWrench } from '@douyinfe/semi-icons';
 import { ReasoningWidget } from './contentItem/reasoning';
@@ -235,11 +235,13 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
 
             if (TEXT_TYPES.includes(i?.type as string)) {
                 const annotation = (i as OutputText).annotations;
+                // 过滤掉 file_citation 和 container_file_citation 类型的 annotation
+                const filteredAnnotation = annotation && annotation.length > 0 && annotation.filter((item: Annotation) => (item.type !== 'file_citation' && item.type !== 'container_file_citation'));
                 return (
                     <React.Fragment key={`msg-${index}-${innerIdx}`}>
-                        {annotation && annotation.length > 0 &&
+                        {filteredAnnotation && filteredAnnotation.length > 0 &&
                             <AnnotationWidget 
-                                annotation={annotation} 
+                                annotation={filteredAnnotation} 
                                 // todo: 需要支持动态配置
                                 maxCount={15}
                                 onClick={onAnnotationClick}

@@ -17,7 +17,7 @@ $module: #{$prefix}-ai-chat-dialogue;
     &-list {
         flex: 1 1;
         position: relative;
-        overflow: scroll;
+        overflow-y: scroll;
     }
 
     &-wrapper {
@@ -56,7 +56,13 @@ $module: #{$prefix}-ai-chat-dialogue;
                         margin-left: auto;
                     }
                     &-inner {
+                        // Ensures that all elements displayed on the right are right-aligned
                         text-align: right;
+
+                        // Ensure that the text in the markdownRender is left-aligned
+                        .#{$prefix}-markdownRender {
+                            text-align: left;
+                        }
                     }
                 }
 

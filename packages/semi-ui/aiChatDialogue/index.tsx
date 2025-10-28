@@ -214,6 +214,9 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         const { chats: oldChats, cacheHints } = prevState;
         const { wheelScroll } = this.state;
         let shouldScroll = false;
+        if (newChats.length > oldChats.length) {
+            this.foundation.scrollToBottomImmediately();
+        }
         if (newChats !== oldChats) {
             this.foundation.handleChatsChange(newChats);
             if (Array.isArray(newChats) && Array.isArray(oldChats)) {
