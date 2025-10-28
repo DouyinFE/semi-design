@@ -39,7 +39,9 @@ export default class Tag extends Component<TagProps, TagState> {
         shape: 'square',
         avatarShape: 'square',
         prefixIcon: null,
-        suffixIcon: null
+        suffixIcon: null,
+        colorful: false,
+        gradient: false,
     };
 
     static propTypes = {
@@ -57,8 +59,8 @@ export default class Tag extends Component<TagProps, TagState> {
         style: PropTypes.object,
         className: PropTypes.string,
         avatarSrc: PropTypes.string,
-        colorful: false,
-        gradient: false,
+        colorful: PropTypes.bool,
+        gradient: PropTypes.bool,
         avatarShape: PropTypes.oneOf(avatarShapeSet),
         'aria-label': PropTypes.string,
     };

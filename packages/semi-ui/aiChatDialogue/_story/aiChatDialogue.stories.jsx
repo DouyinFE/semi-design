@@ -9,7 +9,7 @@ import StreamingResponseToMessageDemo from './DataAdapter/streamingResponseToMes
 import ChatCompletionToMessageDemo from './DataAdapter/chatCompletionToMessage';
 import MultiAssistant from './multiAssistant';
 import { defaultMessages, loadingMessages, continueSendMessages, multiModalityMessage, reasoningMessage, toolCallMessage, annotationMessage, referenceMessage, failedMessage } from './message';
-
+import MultiAgentDemo from './MultiAgent';
 export default {
   title: 'AIChatDialogue',
 }
@@ -581,5 +581,5 @@ StreamingResponseToMessageStory.storyName =  'adapter: streaming response';
 export const StreamingChatCompletionToMessageStory = () => <StreamingChatCompletionToMessageDemo />;
 StreamingChatCompletionToMessageStory.storyName =  'adapter: streaming chatCompletion';
 
-
-
+export const MultiAgentStory = () => <MultiAgentDemo />;
+MultiAgentStory.storyName =  'multiAgent';

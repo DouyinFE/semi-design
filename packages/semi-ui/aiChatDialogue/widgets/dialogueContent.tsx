@@ -244,7 +244,7 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
                                 annotation={filteredAnnotation} 
                                 // todo: 需要支持动态配置
                                 maxCount={15}
-                                onClick={onAnnotationClick}
+                                onClick={() => onAnnotationClick(filteredAnnotation)}
                             />
                         }
                         {renderMarkdown((i as InputText | OutputText).text || '', `msg-${index}-${innerIdx}`)}
