@@ -69,6 +69,12 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
             skill: {} as Skill,
             activeSkillIndex: 0,
             activeSuggestionIndex: 0,
+            /**
+             * richTextInit 用于标识富文本编辑区是否初始化完成，会影响初始化时发送按钮是否可以点击
+             * richTextInit is used to identify whether the rich text editing area has been initialized,
+             * which will affect whether the send button can be clicked during initialization.
+             */
+            richTextInit: false,
         };
         this.triggerRef = React.createRef();
         this.popUpOptionListID = getUuidShort();
@@ -605,6 +611,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
                         onPaste={this.foundation.handlePaste}
                         onFocus={this.foundation.handleFocus}
                         onBlur={this.foundation.handleBlur}
+                        handleCreate={this.foundation.handleCreate}
                     />
                     {this.renderFooter()}
                 </div>

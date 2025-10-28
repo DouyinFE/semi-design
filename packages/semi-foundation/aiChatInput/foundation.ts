@@ -57,7 +57,7 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
 
     setDropdownWidth() {
         const { style, dropdownMatchTriggerWidth } = this.getProps();
-        let width;
+        let width: number;
         if (dropdownMatchTriggerWidth) {
             if (style && isNumber(style.width)) {
                 width = style.width;
@@ -189,6 +189,10 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
     hideSuggestionPanel = () => {
         this.setState({ suggestionVisible: false });
         this._adapter.unregisterClickOutsideHandler();
+    }
+
+    handleCreate = () => {
+        this.setState({ richTextInit: true });
     }
 
     handleContentChange = (content: string) => {
@@ -328,6 +332,10 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
          * Therefore, we need to return true to prevent the default key operation of the rich text input area
          */
         if ((suggestionVisible || skillVisible) && ['ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
+            return true;
+        }
+        if (event.key === 'Enter' && !event.shiftKey) {
+            this.handleSend();
             return true;
         }
         if (event.key !== 'Backspace') return false;

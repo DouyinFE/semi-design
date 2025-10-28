@@ -16,7 +16,8 @@ export interface AIChatInputState {
     activeSkillIndex?: number;
     activeSuggestionIndex?: number;
     popupKey?: number;
-    content?: RichTextJSON
+    content?: RichTextJSON;
+    richTextInit?: boolean
 }
 
 export interface AIChatInputProps {

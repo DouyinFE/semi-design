@@ -28,10 +28,11 @@ export default (props: {
     handleKeyDown?: (view: any, event: KeyboardEvent) => boolean;
     onPaste?: (files: File[]) => void;
     onFocus?: (event: FocusEvent) => void;
-    onBlur?: (event: FocusEvent) => void
+    onBlur?: (event: FocusEvent) => void;
+    handleCreate?: () => void
 }) => {
     const { setEditor, onKeyDown, onChange, placeholder, extensions = [], 
-        defaultContent, onPaste, innerRef, handleKeyDown, onFocus, onBlur } = props;
+        defaultContent, onPaste, innerRef, handleKeyDown, onFocus, onBlur, handleCreate } = props;
     const isComposing = useRef(false);
     
     const handleCompositionStart = useCallback((view: EditorView) => {
@@ -88,7 +89,8 @@ export default (props: {
             // 一次性触发，避免多次触发导致 appendTransaction 被多次调用
             view.dispatch(tr);
         }
-    }, []);
+        handleCreate();
+    }, [handleCreate]);
 
     const onUpdate = useCallback(({ editor }) => {
         // The content has changed.
