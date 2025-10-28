@@ -18,6 +18,12 @@ $module: #{$prefix}-ai-chat-dialogue;
         flex: 1 1;
         position: relative;
         overflow-y: scroll;
+
+        &-scroll-hidden {
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
     }
 
     &-wrapper {

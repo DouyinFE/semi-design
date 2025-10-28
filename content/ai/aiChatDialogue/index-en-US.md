@@ -795,7 +795,7 @@ export interface RenderAvatarProps {
 
 export interface RenderContentProps {
     message?: Message;
-    role?: Metadata;
+    role?: Metadata | Map<string, Metadata>;
     defaultContent?: ReactNode | ReactNode[]; 
     className?: string;
 }
@@ -1553,12 +1553,18 @@ render(StreamingResponseToMessageDemo);
 | renderConfig | Custom render config for sections | DialogueRenderConfig | - |
 | renderDialogueContentItem | Renderer map by message content type | DialogueContentItemRendererMap | - |
 | renderHintBox | Custom hint item renderer | (props: { content: string; index: number; onHintClick: () => void }) => React.ReactNode | - |
-| roleConfig | Role metadata config (user/assistant/system, etc.) | RoleConfig | - |
+| roleConfig | Role metadata config (user/assistant/system, etc.) | [RoleConfig](/en-US/ai/aiChatDialogue#RoleConfig) | - |
 | selecting | Enable selection mode | boolean | false |
 | showReset | Show reset action | boolean | true |
 | showReference | Show quotable icon in text or file messages (user messages only) | boolean | false |
 | style | Style | CSSProperties | - |
 
+### RoleConfig
+| Prop  | Description   | Type   | Default |
+|------|--------|-------|-------|
+| user | user info | Metadata \| Map<string, Metadata> | - |
+| assistant | assistant info | Metadata \| Map<string, Metadata> | - |
+| system | system info | Metadata \| Map<string, Metadata> | - |
 
 ### MetaData
 | Prop  | Description   | Type   | Default |

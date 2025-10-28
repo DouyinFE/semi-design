@@ -144,10 +144,10 @@ export interface FullDialogueNodes {
 }
 
 export interface RoleConfig {
-    user?: Metadata;
-    assistant?: Metadata;
-    system?: Metadata;
-    [x: string]: Metadata
+    user?: Metadata | Map<string, Metadata>;
+    assistant?: Metadata | Map<string, Metadata>;
+    system?: Metadata | Map<string, Metadata>;
+    [x: string]: Metadata | Map<string, Metadata>
 }
 
 export interface Metadata {

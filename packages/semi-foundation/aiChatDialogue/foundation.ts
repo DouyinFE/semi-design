@@ -216,6 +216,7 @@ export interface Message {
     content?: string | ContentItem[];
     output_text?: string;
     role: string;
+    name?: string;
     createdAt?: number;
     updatedAt?: number;
     model?: string;

@@ -25,7 +25,7 @@ const DialogueAvatar = React.memo((props: DialogueAvatarProps) => {
             size="extra-small"
         >
         </Avatar>);
-    }, [role, continueSend]);
+    }, [continueSend, role]);
 
     if (customRenderFunc && typeof customRenderFunc === 'function') {
         return customRenderFunc({

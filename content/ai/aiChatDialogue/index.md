@@ -797,7 +797,7 @@ export interface RenderAvatarProps {
 
 export interface RenderContentProps {
     message?: Message;
-    role?: Metadata;
+    role?: Metadata | Map<string, Metadata>;
     defaultContent?: ReactNode | ReactNode[]; 
     className?: string;
 }
@@ -1556,12 +1556,18 @@ render(StreamingResponseToMessageDemo);
 | renderConfig | 自定义各区块渲染 | DialogueRenderConfig | - |
 | renderDialogueContentItem | 按消息类型返回内容渲染映射 | DialogueContentItemRendererMap | - |
 | renderHintBox | 自定义提示项渲染 | (props: { content: string; index: number; onHintClick: () => void }) => React.ReactNode | - |
-| roleConfig | 角色配置（user/assistant/system 等元数据） | RoleConfig | 必填 |
+| roleConfig | 角色配置（user/assistant/system 等元数据） | [RoleConfig](/zh-CN/ai/aiChatDialogue#RoleConfig) | 必填 |
 | selecting | 是否开启选择模式 | boolean | false |
 | showReset | 是否展示重置操作 | boolean | true |
 | showReference | 是否在文字或者文件消息中展示可被引用图标，仅对用户消息生效 | boolean | false |
 | style | 样式 | CSSProperties | - |
 
+### RoleConfig
+| 属性  | 说明   | 类型   | 默认值 |
+|------|--------|-------|-------|
+| user | 用户信息 | Metadata \| Map<string, Metadata> | - |
+| assistant | 助手信息 | Metadata \| Map<string, Metadata> | - |
+| system | 系统信息 | Metadata \| Map<string, Metadata> | - |
 
 ### MetaData
 | 属性  | 说明   | 类型   | 默认值 |
@@ -1584,7 +1590,7 @@ render(StreamingResponseToMessageDemo);
 ### Reference
 | 属性  | 说明   | 类型   | 默认值 |
 |------|--------|-------|-------|
-| id | 唯一标识  | string\| number | - |
+| id | 唯一标识  | string \| number | - |
 | type | 类型  | string | - |
 | name | 名称  | string | - |
 | url | 地址  | string | - |

@@ -215,6 +215,8 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         const { wheelScroll } = this.state;
         let shouldScroll = false;
         if (newChats.length > oldChats.length) {
+            this.adapter.setWheelScroll(false);
+            this.adapter.registerWheelEvent();
             this.foundation.scrollToBottomImmediately();
         }
         if (newChats !== oldChats) {
@@ -278,7 +280,8 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
     render() {
         const { roleConfig, onMessageBadFeedback, onMessageGoodFeedback, onMessageReset, onMessageEdit, onMessageDelete, onHintClick,
             selecting, hintCls, hintStyle, hints, renderHintBox, style, className, ...restProps } = this.props;
-        const { selectedIds, chats, backBottomVisible } = this.state;
+        const { selectedIds, chats, backBottomVisible, wheelScroll } = this.state;
+        console.log('wheelScroll', wheelScroll);
 
         return (
             <div 
@@ -286,7 +289,9 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
                 style={style}
             >
                 <div 
-                    className={`${PREFIX}-list`}
+                    className={cls(`${PREFIX}-list`, {
+                        [`${PREFIX}-list-scroll-hidden`]: !wheelScroll
+                    })}
                     onScroll={this.containerScroll}
                     ref={this.containerRef}
                 >
@@ -307,7 +312,10 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
                                 onMessageEdit={this.foundation.editMessage}
                                 onMessageDelete={this.foundation.deleteMessage}
                                 isLastChat={isLastChat}
-                                continueSend={continueSend}
+                                // todo: 不太确定用户的需求场景，暂时设置成 false，如果用户有相关需求，转为一个对外提供的 api
+                                // todo: Not sure about the user's demand scenario, temporarily set it to false. 
+                                // If the user has relevant needs, turn it into an external API
+                                continueSend={false}
                                 selecting={selecting}
                                 {...restProps}
                             />

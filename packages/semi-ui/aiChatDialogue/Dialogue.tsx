@@ -21,22 +21,30 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
     constructor(props: AIChatDialogueItemProps) {
         super(props);
     }
-    
 
+    getRoleInfo = () => {
+        const { role, message } = this.props;
+        if (role instanceof Map) {
+            return role.get(message?.name);
+        }
+        return role;
+    }
+    
     avatarNode = () => {
-        const { role, dialogueRenderConfig, continueSend } = this.props;
+        const { role, dialogueRenderConfig, continueSend, message } = this.props;
         
         return <DialogueAvatar
-            role={role}
+            role={this.getRoleInfo()}
+            message={message}
             customRenderFunc={dialogueRenderConfig?.renderDialogueAvatar}
-            continueSend={continueSend}
+            // continueSend={continueSend}
         />;
     };
 
     titleNode = () => {
         const { role, dialogueRenderConfig } = this.props;
         return <DialogueTitle 
-            role={role}
+            role={this.getRoleInfo()}
             customRenderFunc={dialogueRenderConfig?.renderDialogueTitle}
         />;
     };

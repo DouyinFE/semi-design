@@ -7,6 +7,7 @@ import ResponseToMessageDemo from './DataAdapter/responseToMessage';
 import StreamingChatCompletionToMessageDemo from './DataAdapter/streamingChatCompletionToMessage';
 import StreamingResponseToMessageDemo from './DataAdapter/streamingResponseToMessage';
 import ChatCompletionToMessageDemo from './DataAdapter/chatCompletionToMessage';
+import MultiAssistant from './multiAssistant';
 import { defaultMessages, loadingMessages, continueSendMessages, multiModalityMessage, reasoningMessage, toolCallMessage, annotationMessage, referenceMessage, failedMessage } from './message';
 
 export default {
@@ -561,6 +562,9 @@ export const Hints = () => {
       />
     )
 }
+
+export const MultiAssistantStory = () => <MultiAssistant />;
+MultiAssistantStory.storyName =  'Multi Assistant';
 
 export const AIChatInputWithDialogue = () => <AIChatInputWithDialogueDemo />;
 AIChatInputWithDialogue.storyName =  'AIChatInput With Dialogue';
