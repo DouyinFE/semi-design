@@ -2,8 +2,8 @@
 localeCode: en-US
 order: 100
 category: Plus
-title: AIChatDialogue - AI Dialogue
-icon: doc-audioplayer
+title: AIChatDialogue
+icon: doc-aiDialogue
 width: 60%
 brief: Display AI chat conversation messages to users
 showNew: true

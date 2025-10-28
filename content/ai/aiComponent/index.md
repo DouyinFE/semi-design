@@ -3,7 +3,7 @@ localeCode: zh-CN
 order: 98
 category: Ai
 title: AIComponent 能力介绍
-icon: doc-input
+icon: doc-aiComponent
 width: 60%
 brief: 整体介绍 AI 应用场景下的组件能力
 showNew: true

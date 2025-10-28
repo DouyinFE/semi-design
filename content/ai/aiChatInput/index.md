@@ -3,7 +3,7 @@ localeCode: zh-CN
 order: 99
 category: Ai
 title: AIChatInput 聊天输入框
-icon: doc-input
+icon: doc-aiInput
 width: 60%
 brief: 用于 AI 聊天场景下的输入框
 showNew: true

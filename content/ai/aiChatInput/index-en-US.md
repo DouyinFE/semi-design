@@ -3,7 +3,7 @@ localeCode: en-US
 order: 99
 category: Ai
 title: AIChatInput
-icon: doc-input
+icon: doc-aiInput
 width: 60%
 brief: Input box used in AI chat scenarios
 showNew: true

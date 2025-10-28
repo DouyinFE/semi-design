@@ -3,7 +3,7 @@ localeCode: zh-CN
 order: 100
 category: Ai
 title: AIChatDialogue AI 对话
-icon: doc-audioplayer
+icon: doc-aiDialogue
 width: 60%
 brief: 用户展示 AI 聊天中的对话信息
 showNew: true
