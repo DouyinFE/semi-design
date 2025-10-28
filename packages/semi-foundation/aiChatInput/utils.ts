@@ -97,9 +97,9 @@ export function transformJSONResult(input: any, customTransformObj: Map<string, 
                 if (output.length > 0) {
                     const lastItem = output[output.length - 1];
                     if (lastItem && lastItem.type === 'text') {
-                        lastItem.text += '/n';
+                        lastItem.text += '\n';
                     } else {
-                        output.push({ type: 'text', text: '/n' });
+                        output.push({ type: 'text', text: '\n' });
                     }
                 }
                 content.forEach((item: any) => {

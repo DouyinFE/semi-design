@@ -190,7 +190,7 @@ export function keyDownHandlePlugin(schema: any) {
                                 event.preventDefault();
                                 return true;
                             }
-                        } else if ($from.nodeBefore.text.startsWith(strings.ZERO_WIDTH_CHAR)) {
+                        } else if ($from.nodeBefore.isText && $from.nodeBefore.text.startsWith(strings.ZERO_WIDTH_CHAR)) {
                             // Backup，当零宽字符出现在 text 节点中
                             const nextCursorPos = $from.pos + 2;
                             dispatch(state.tr.setSelection(TextSelection.create(state.doc, nextCursorPos)));
@@ -408,7 +408,7 @@ export function keyDownHandlePlugin(schema: any) {
     });
 }
 
-export function handlePaste(view: EditorView, event: ClipboardEvent) {
+export function handlePasteLogic(view: EditorView, event: ClipboardEvent) {
     // If there is rich text content, let tiptap handle it by default
     const types = event.clipboardData?.types || [];
     const html = event.clipboardData?.getData('text/html');
@@ -427,9 +427,11 @@ export function handlePaste(view: EditorView, event: ClipboardEvent) {
         /* Use tr to continue the subsequent pasting logic and solve the problem of unsuccessful line wrapping of content 
             pasted from certain web pages, such as the code of Feishu Documents */
         const lines = text.split('\n');
+        let finalCursorPos = null;
         if (lines.length === 1) {
             // Insert the first line directly
             tr = tr.insertText(lines[0], tr.selection.from, tr.selection.to);
+            finalCursorPos = tr.selection.$to.pos;
         } else {
             // other lines, insert one by one
             tr = tr.insertText(lines[0], tr.selection.from, tr.selection.to);
@@ -442,10 +444,11 @@ export function handlePaste(view: EditorView, event: ClipboardEvent) {
                 tr = tr.insert(pos, paragraph);
                 pos += paragraph.nodeSize;
             }
+            finalCursorPos = pos; // 粘贴多行时，光标应在最后插入内容末尾
         }
-        // focus the last position
-        tr = tr.setSelection(TextSelection.create(tr.doc, tr.doc.content.size));
-        // scroll to the last position
+        // 设置 selection 到粘贴内容末尾
+        tr = tr.setSelection(TextSelection.create(tr.doc, finalCursorPos));
+        // scroll to the pasted position
         tr = tr.scrollIntoView();
         dispatch(tr);
         event.preventDefault();

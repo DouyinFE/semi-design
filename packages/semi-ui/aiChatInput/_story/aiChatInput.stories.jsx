@@ -247,7 +247,7 @@ export const Suggestion = () => {
   const [suggestion, setSuggestion] = useState([]);
   const onChange = useCallback((content) => {
     const value = content?.[0]?.text;
-    if (value === undefined || value.includes('/n')) {
+    if (value === undefined || value.includes('\n')) {
      if (suggestion === undefined || suggestion.length === 0) {
       return;
      } else {

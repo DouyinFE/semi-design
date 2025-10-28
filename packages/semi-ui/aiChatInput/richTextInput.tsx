@@ -13,7 +13,7 @@ import { strings } from '@douyinfe/semi-foundation/aiChatInput/constants';
 import { Content as TiptapContent } from "@tiptap/core";
 import { cssClasses } from '@douyinfe/semi-foundation/aiChatInput/constants';
 import { EditorView } from '@tiptap/pm/view';
-import { handleCompositionEndLogic, handlePaste, handleTextInputLogic, handleZeroWidthCharLogic } from './extension/plugins';
+import { handleCompositionEndLogic, handlePasteLogic, handleTextInputLogic, handleZeroWidthCharLogic } from './extension/plugins';
 
 const PREFIX = cssClasses.PREFIX;
 
@@ -65,7 +65,7 @@ export default (props: {
     const editorProps = useMemo(() => {
         return {
             handleKeyDown: handleKeyDown,
-            handlePaste,
+            handlePaste: handlePasteLogic,
             handleTextInput,
             handleDOMEvents: {
                 compositionstart: handleCompositionStart,
@@ -76,9 +76,9 @@ export default (props: {
 
     // const onSelectionUpdate = useCallback(({ editor }) => {
     //     // For debug
-    //     const pos = editor.state.selection.from;
-    //     const { $from } = editor.state.selection
-    //     console.log('光标/选区位置', pos, editor.state.selection, editor.state.doc);
+    //     const fromPos = editor.state.selection.from;
+    //     const { $from } = editor.state.selection;
+    //     console.log('光标/选区位置', fromPos, editor.state.selection, editor.state.doc);
     //     // console.log('before', $from.nodeBefore, $from.nodeAfter);
     // }, []);
 
@@ -96,9 +96,9 @@ export default (props: {
         // The content has changed.
         const content = editor.getText();
         onChange(content);
-    }, []);
+    }, [onChange]);
 
-    const hanldePaste = useCallback((e) => {
+    const handlePaste = useCallback((e) => {
         // To support file paste
         const items = e.clipboardData?.items as any;
         let files = [];
@@ -111,8 +111,7 @@ export default (props: {
         if (files.length) {
             onPaste?.(files);
         }
-    }
-    , [onPaste]);
+    }, [onPaste]);
 
     const editor = useEditor({
         extensions: allExtensions as Extension[],
@@ -121,7 +120,7 @@ export default (props: {
         // onSelectionUpdate,
         onCreate,
         onUpdate,
-        onPaste: hanldePaste,
+        onPaste: handlePaste,
     });
 
     useEffect(() => {

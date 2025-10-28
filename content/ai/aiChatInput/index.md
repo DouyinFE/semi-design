@@ -565,7 +565,7 @@ function Suggestion() {
         if (content.length && content[0].text) {
             value = content[0].text;
         }
-        if (value === undefined || value.includes('/n')) {
+        if (value === undefined || value.includes('\n')) {
             if (suggestion === undefined || suggestion.length === 0) {
                 return;
             } else {
