@@ -135,9 +135,40 @@ import { IconAIBellLevel1, IconAIEditLevel2, IconAIFileLevel3, IconAIFilledLevel
 ```jsx live=true dir="column" noInline=true
 import React, { useState, useCallback } from 'react';
 import { AIChatDialogue, AIChatInput, chatInputToMessage, Typography, Button } from '@douyinfe/semi-ui';
-import { IconFixedStroked, IconFeishuLogo, IconBookOpenStroked, IconGit, IconFigma, IconWord } from '@douyinfe/semi-icons';
+import { IconFixedStroked, IconFeishuLogo, IconBookOpenStroked, IconGit, IconFigma, IconWord, IconClose, IconTemplateStroked, IconSearch } from '@douyinfe/semi-icons';
 
 const { Configure } = AIChatInput;
+
+const simpleIsEqual = (a, b) => {
+    if (a === b) {
+        return true;
+    }
+    if (Number.isNaN(a) && Number.isNaN(b)) {
+        return true;
+    }
+    if (typeof a !== 'object' || a === null || typeof b !== 'object' || b === null) {
+        return false;
+    }
+    const isArrayA = Array.isArray(a);
+    const isArrayB = Array.isArray(b);
+    if (isArrayA !== isArrayB) {
+        return false; 
+    }
+    const keysA = Object.keys(a);
+    const keysB = Object.keys(b);
+    if (keysA.length !== keysB.length) {
+        return false;
+    }
+    for (const key of keysA) {
+        if (!Object.prototype.hasOwnProperty.call(b, key)) {
+            return false;
+        }
+        if (!simpleIsEqual(a[key], b[key])) {
+            return false;
+        }
+    }
+    return true;
+};
 
 
 function AIChatInputWithDialogue() {
@@ -154,7 +185,7 @@ function AIChatInputWithDialogue() {
         <Configure.Select optionList={modelOptions} field="model" initValue="GPT-4o" />
         <Configure.Button icon={<IconBookOpenStroked />} field="onlineSearch">联网搜索</Configure.Button>
         <Configure.Mcp options={mcpOptions} />
-        <Configure.RadioButton options={radioButtonProps} field="thinkType" initValue="template"/>
+        <Configure.RadioButton options={radioButtonProps} field="thinkType" initValue="think"/>
     </>), []);
 
     const onChatsChange = useCallback((chats) => {
@@ -235,14 +266,23 @@ function AIChatInputWithDialogue() {
         );
     }, [messages, handleEditingReferenceDelete]);
 
+    const changeSideBarContent = useCallback((content) => {
+        setSideBarContent((oldContent) => {
+            if (!simpleIsEqual(content, oldContent)) {
+                setSideBarVisible(true);
+            } else {
+                setSideBarVisible(v => !v);
+            }
+            return content;
+        });
+    });
+
     const onAnnotationClick = useCallback((annotations) => {
-        console.log('annotations', annotations);
-        toggleSideBar();
-        setSideBarContent({
+        changeSideBarContent({
             type: 'annotation',
             value: annotations
         });
-    }, [toggleSideBar]);
+    }, [changeSideBarContent]);
 
     const toggleSideBar = useCallback(() => {
         setSideBarVisible(v => !v);
@@ -259,7 +299,6 @@ function AIChatInputWithDialogue() {
 
     const renderSideBarBody = useCallback((content) => {
         const { type, value = {} } = content;
-        console.log('value')
         if (type === 'annotation') {
             return <div style={{ display: 'flex', flexDirection: 'column', rowGap: '12px', padding: '12px' }} >
                 {value.map((item, index) => (<div key={index} style={{ display: 'flex', flexDirection: 'column', rowGap: '8px' }} >
@@ -296,8 +335,7 @@ function AIChatInputWithDialogue() {
                     cursor: 'pointer'
                 }}
                 onClick={() => {
-                    toggleSideBar();
-                    setSideBarContent({
+                    changeSideBarContent({
                         type: 'resource',
                         value: item
                     });
@@ -498,18 +536,8 @@ const mcpOptions = [
 ];
 
 const radioButtonProps = [
-    {
-        label: '极速',
-        value: 'fast',
-    },
-    { 
-        label: '思考',
-        value: 'think',
-    },
-    {
-        label: '超能',
-        value: 'super',
-    }
+    { label: <IconTemplateStroked />, value: 'fast' },
+    { label: <IconSearch />, value: 'think' }
 ];
 
 render(AIChatInputWithDialogue);
