@@ -17,6 +17,18 @@ Icon,
 Layout,
 Typography
 ```
+
+## AI 组件
+
+```overview
+AIIcon,
+AIButton,
+AITag,
+AIFloatButton,
+AIChatInput,
+AIChatDialogue
+```
+
 ## Plus Component
 
 ```overview

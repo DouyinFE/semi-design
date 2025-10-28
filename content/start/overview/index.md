@@ -18,6 +18,17 @@ Space 间距,
 Typography 版式
 ```
 
+## AI 组件
+
+```overview
+AIIcon 图标,
+AIButton 按钮,
+AITag 标签,
+AIFloatButton 悬浮按钮,
+AIChatInput 聊天输入框,
+AIChatDialogue AI 对话
+```
+
 ## Plus 组件
 
 ```overview
