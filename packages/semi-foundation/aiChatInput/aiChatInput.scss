@@ -38,6 +38,7 @@ $module: #{$prefix}-aiChatInput;
         overflow: scroll;
 
         &-item {
+            border-radius: $radius-aiChatInput_suggestion_item;
             padding: $spacing-aiChatInput_suggestion_item-paddingY $spacing-aiChatInput_suggestion_item-paddingX;
             color: $color-aiChatInput_suggestion_item-text;
             @include font-size-regular;
