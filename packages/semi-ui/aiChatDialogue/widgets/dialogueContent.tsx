@@ -33,7 +33,7 @@ const { STATUS, MODE, ROLE, MESSAGE_ITEM_TYPE, TEXT_TYPES, TOOL_CALL_TYPES,
 
 const ImageAttachment = React.memo((props: {src: string; isList: boolean; msg: InputImage; onImageClick?: (msg: InputImage) => void; isLastImage?: boolean}) => {
     const { src, isList, msg, onImageClick, isLastImage } = props;
-    return <Image
+    return <Image 
         className={cls(`${PREFIX_CONTENT}-img`, {
             [`${PREFIX_CONTENT}-img-list`]: isList,
             [`${PREFIX_CONTENT}-img-last`]: isLastImage,
@@ -256,9 +256,8 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
                 const nextItemType = inner[innerIdx + 1]?.type;
                 const isLastImage = innerIdx === inner.length - 1 || nextItemType === MESSAGE_ITEM_TYPE.INPUT_FILE;
                 return (
-                    <>
+                    <React.Fragment key={`msg-${index}-${innerIdx}`}>
                         <ImageAttachment 
-                            key={`msg-${index}-${innerIdx}`} 
                             src={(i as InputImage).image_url} 
                             isList={isImageList} msg={i as InputImage} 
                             onImageClick={onImageClick}
@@ -267,16 +266,16 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
                         {
                             nextItemType === MESSAGE_ITEM_TYPE.INPUT_FILE && <br />
                         }
-                    </>
+                    </React.Fragment>
                 );
             }
             if (i?.type === MESSAGE_ITEM_TYPE.INPUT_FILE) {
                 const nextItemType = inner[innerIdx + 1]?.type;
                 const isLastFile = innerIdx === inner.length - 1 || nextItemType === MESSAGE_ITEM_TYPE.INPUT_IMAGE;
                 return (
-                    <>
+                    <React.Fragment key={`msg-${index}-${innerIdx}`}>
                         <FileAttachment 
-                            key={`msg-${index}-${innerIdx}`} {...i as InputFile} 
+                            {...i as InputFile} 
                             onFileClick={onFileClick} 
                             disabledFileItemClick={!!disabledFileItemClick} 
                             role={role} 
@@ -287,7 +286,7 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
                         {
                             nextItemType === MESSAGE_ITEM_TYPE.INPUT_IMAGE && <br />
                         }
-                    </>
+                    </React.Fragment>
                 );
             }
             return null;

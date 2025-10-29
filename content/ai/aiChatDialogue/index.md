@@ -12,6 +12,7 @@ showNew: true
 ## 使用场景
 
 AIChatDialogue 组件可搭配 AIChatInput 使用，实现更丰富的、功能覆盖更全面、定制更加便捷的 AI 会话场景。
+组件消息格式以 OpenAI 的 [Response Object](https://platform.openai.com/docs/api-reference/responses/object) 为原型，默认支持 OpenAI 社区 [Response](https://platform.openai.com/docs/api-reference/responses/create) / [Chat Completion](https://platform.openai.com/docs/api-reference/chat/create) 格式标准，对 GPT-5、GPT-4o 系列模型的响应均支持开箱即用，详见[消息数据转换](/zh-CN/ai/aiChatDialogue#%E6%B6%88%E6%81%AF%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2)。
 
 
 ## 代码演示
@@ -1106,29 +1107,29 @@ render(CustomRender);
 
 
 ### 消息数据转换
-当前组件的对话消息以 OpenAI 的 `Response Object` 为原型，为了支持用户更好地无缝集成 `Chat Completion API` 和 `Response API`，我们提供了四种 `adapter` 转换函数，用户可直接使用该函数转换 API 的返回结果，得到可直接用于消息展示的数据。
+当前组件的对话消息以 OpenAI 的 [Response Object](https://platform.openai.com/docs/api-reference/responses/object) 为原型，为了支持用户更好地无缝集成 [Chat Completion API](https://platform.openai.com/docs/api-reference/chat/create) 和 [Response API](https://platform.openai.com/docs/api-reference/responses/create)，我们提供了四种 `Adapter` 转换函数，用户可直接使用该函数转换 API 的返回结果，得到可直接用于消息展示的数据，提供两种 `Adapter` 用于将 `ChatInput` 组件的数据处理成适配于 `Response API` 的 `input Message` 或者 `Chat Completion API` 中的 `Input Message` 格式。 
 
 ```ts
 // 将 Chat Completion API 返回的数据转换为 Chat Dialogue 中的 Message 格式
 function chatCompletionToMessage(chatCompletion: ChatCompletion): Message[]
 
-// 将 Chat Completion API 流式返回的数据转换为 Chat Dialogue 中的 Message 格式
+// 将 Chat Completion API 流式返回数据转换为 Chat Dialogue 中的 Message 格式
 function streamingChatCompletionToMessage(chatCompletionChunks: ChatCompletionChunk[], state?: StreamingChatState): { messages: Message[]; state?: StreamingChatState }
 
 // 将 Response API 返回的数据转换为 Chat Dialogue 中的 Message 格式
 function responseToMessage(response: Response): Message
 
-// 将 Response API 返回的流式数据转换为 Chat Dialogue 中的 Message 格式
+// 将 Response API 返回流式数据转换为 Chat Dialogue 中的 Message 格式
 function streamingResponseToMessage(chunks: ResponseChunk[], prevState: StreamingResponseState): { messages: Message[]; state?: StreamingResponseState }
 
-// 将 Chat Input 数据转换为 Chat Dialogue 中的 Message 格式
+// 将 Chat Input 数据转换为 Chat Dialogue 中的 Message 格式，（同 Response API Input Message 格式）
 function chatInputToMessage(inputContent: MessageContent): Message
 
 // 将 Chat Input 数据转换为 Chat Completion API 中的 Input Message 格式
 function chatInputToChatCompletion(inputContent: MessageContent): ChatCompletionInput
 ```
 
-通过 `chatCompletionToMessage` 函数将 Chat Completion Object 转换为 Dialogue Message 消息块格式。注意，因为 `Chat Completion API` 可以通过 `n` 来控制每条输入消息生成多少个结果所以该函数的返回值为数组。(注意：如果 n > 1，用户需要自行决定将哪条数据添加到 message 中展示)
+比如，当用户使用 [Chat Completion API](https://platform.openai.com/docs/api-reference/chat/create) 接口返回非流式数据时，可以通过 `chatCompletionToMessage` 函数将 Chat Completion Object 转换为 Dialogue Message 消息块格式。注意，因为 `Chat Completion API` 可以通过 `n` 来控制每条输入消息生成多少个结果所以该函数的返回值为数组。(注意：如果 n > 1，用户需要自行决定将哪条数据添加到 message 中展示)
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useCallback } from 'react';
@@ -1207,7 +1208,7 @@ render(ChatCompletionToMessageDemo);
 ```
 
 
-通过 `streamingChatCompletionToMessage` 函数将 Chat Completion Chunk Object List 转换为 Dialogue Message 消息块格式。
+比如，当用户使用 [Chat Completion API](https://platform.openai.com/docs/api-reference/chat/create) 接口返回流式数据时，可以通过 `streamingChatCompletionToMessage` 函数将 Chat Completion Chunk Object List 转换为 Dialogue Message 消息块格式。
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useCallback } from 'react';
@@ -1293,7 +1294,7 @@ render(StreamingChatCompletionToMessageDemo);
 
 ```
 
-通过 `responseToMessage` 函数将 Response Object 转换为 Dialogue Message 消息块格式。
+当用户使用 [Response API](https://platform.openai.com/docs/api-reference/responses/create) 接口返回非流式数据时，可以通过 `responseToMessage` 函数将 Response Object 转换为 Dialogue Message 消息块格式。
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useCallback } from 'react';
 import { AIChatDialogue } from '@douyinfe/semi-ui';
@@ -1406,7 +1407,7 @@ const RESPONSE_DATA = {
 render(ResponseToMessageDemo);
 ```
 
-通过 `streamingResponseToMessage` 函数将 Response Chunk Object List 转换为 Dialogue Message 消息块格式。
+当用户使用 [Response API](https://platform.openai.com/docs/api-reference/responses/create) 接口返回流式数据时，可以通过 `streamingResponseToMessage` 函数将 Response Chunk Object List 转换为 Dialogue Message 消息块格式。
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useCallback } from 'react';
 import { AIChatDialogue } from '@douyinfe/semi-ui';

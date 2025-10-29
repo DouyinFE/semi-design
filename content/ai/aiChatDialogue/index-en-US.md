@@ -11,7 +11,7 @@ showNew: true
 
 ## When to use
 AIChatDialogue can be used together with AIChatInput to build richer, more comprehensive and easier-to-customize AI conversation experiences.
-
+The component message format is based on OpenAI's [Response Object](https://platform.openai.com/docs/api-reference/responses/object), and supports the OpenAI community's [Response](https://platform.openai.com/docs/api-reference/responses/create) / [Chat Completion](https://platform.openai.com/docs/api-reference/chat/create) format standards by default. Responses to GPT-5 and GPT-4o series models are supported out of the box. For details, see [Message Data Conversion](/zh-CN/ai/aiChatDialogue#%E6%B6%88%E6%81%AF%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2).
 
 ## Demos
 
@@ -1104,13 +1104,13 @@ render(CustomRender);
 
 
 ### Message Data Adapters
-This component models conversation messages after OpenAI's `Response` object. To help you integrate the Chat Completions API and the Responses API seamlessly, we provide several adapter functions to convert API results into the message format used by this component.
+The current component's dialogue messages are modeled after OpenAI's [Response Object](https://platform.openai.com/docs/api-reference/responses/object). To better support users in seamlessly integrating the [Chat Completion API](https://platform.openai.com/docs/api-reference/chat/create) and [Response API](https://platform.openai.com/docs/api-reference/responses/create), we provide four `Adapter` transformation functions. Users can directly use these functions to transform the API's return results to obtain data that can be directly used for message display. Two `Adapter` functions are provided to process the data of the `ChatInput` component into an `input Message` format adapted to the `Response API` or the `Input Message` format in the `Chat Completion API`.
 
 ```ts
 // Convert the data returned by the Chat Completion API into the Message format in Chat Dialogue
 function chatCompletionToMessage(chatCompletion: ChatCompletion): Message[]
 
-// Convert the data returned by the Chat Completion API stream into the Message format in Chat Dialogue
+// Convert the Chat Completion API streaming data into Message format for Chat Dialogue.
 function streamingChatCompletionToMessage(chatCompletionChunks: ChatCompletionChunk[], state?: StreamingChatState): { messages: Message[]; state?: StreamingChatState }
 
 // Convert the data returned by the Response API into the Message format in Chat Dialogue
@@ -1119,14 +1119,14 @@ function responseToMessage(response: Response): Message
 // Convert the streaming data returned by the Response API into the Message format in Chat Dialogue
 function streamingResponseToMessage(chunks: ResponseChunk[], prevState: StreamingResponseState): { messages: Message[]; state?: StreamingResponseState }
 
-// Convert Chat Input data to Message format in Chat Dialogue
+// Convert the streaming data returned by the Response API into Message format for the Chat Dialogue.
 function chatInputToMessage(inputContent: MessageContent): Message
 
 // Convert Chat Input data to Input Message format in Chat Completion API
 function chatInputToChatCompletion(inputContent: MessageContent): ChatCompletionInput
 ```
 
-Use `chatCompletionToMessage` to convert a Chat Completion object to Dialogue Message blocks. Note: because the Chat Completion API can generate multiple results per input via `n`, the return value is an array. If `n > 1`, you should choose which result to add to your `messages`.
+For example, when a user returns non-streaming data using the [Chat Completion API](https://platform.openai.com/docs/api-reference/chat/create) interface, the `chatCompletionToMessage` function can be used to convert the Chat Completion Object into a Dialogue Message block format. Note that because the `Chat Completion API` allows control over the number of results generated for each input message via `n`, this function returns an array. (Note: If n > 1, the user needs to decide which data to add to the message for display.)
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useCallback } from 'react';
@@ -1205,7 +1205,7 @@ render(ChatCompletionToMessageDemo);
 ```
 
 
-Use `streamingChatCompletionToMessage` to convert a list of Chat Completion chunks to Dialogue Message blocks.
+For example, when a user returns streaming data using the [Chat Completion API](https://platform.openai.com/docs/api-reference/chat/create) interface, the `streamingChatCompletionToMessage` function can be used to convert the Chat Completion Chunk Object List into a Dialogue Message format.
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useCallback } from 'react';
@@ -1291,7 +1291,7 @@ render(StreamingChatCompletionToMessageDemo);
 
 ```
 
-Use `responseToMessage` to convert a Response object to a Dialogue Message block.
+When a user returns non-streaming data using the [Response API](https://platform.openai.com/docs/api-reference/responses/create) interface, the `responseToMessage` function can be used to convert the Response Object into a Dialogue Message block format.
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useCallback } from 'react';
 import { AIChatDialogue } from '@douyinfe/semi-ui';
@@ -1404,7 +1404,7 @@ const RESPONSE_DATA = {
 render(ResponseToMessageDemo);
 ```
 
-Use `streamingResponseToMessage` to convert a list of Response chunks to a Dialogue Message block.
+When a user returns streaming data using the [Response API](https://platform.openai.com/docs/api-reference/responses/create) interface, the `streamingResponseToMessage` function can be used to convert the Response Chunk Object List into a Dialogue Message format.
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useCallback } from 'react';
 import { AIChatDialogue } from '@douyinfe/semi-ui';

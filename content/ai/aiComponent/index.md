@@ -9,16 +9,14 @@ brief: 整体介绍 AI 应用场景下的组件能力
 showNew: true
 ---
 
-<!-- 1. 整体介绍：什么是semi AI 组件（理念），主要服务的场景？目前主要包括哪些组件？待上线的组件？ -->
-Semi AI 组件是一套专为 AI 应用场景设计的创新组件库。面对 AI 正在成为产品主角的时代，传统的设计体系已难以支撑日益复杂的智能交互, Semi AI 组件以「人机智能协同」为核心理念，致力于让用户与 AI 系统协作更高效、可控、可感知、可信赖。Semi AI 组件库包含以下内容：AI Token、AI 基础组件以及 AI Chat 组件，用于服务智能问答与助手、多模态输入与多轮对话等场景。
+Semi AI 组件是一套专为 AI 应用场景设计的创新组件库。面对 AI 正在成为产品主角的时代，传统的设计体系已难以支撑日益复杂的智能交互，Semi AI 组件以「人机智能协同」为核心理念，致力于让用户与 AI 系统协作更高效、可控、可感知、可信赖。Semi AI 组件库包含以下内容：AI Token、AI 基础组件以及 AI Chat 组件，用于服务智能问答与助手、多模态输入与多轮对话等场景。
 
 - `AI Token`， 新增加 AI 场景下的基础 20 个颜色的基础 token
 - `AI 基础组件`， 新增加 AI 场景下的 25 个 icon，以及对 `Button/Tag/FloatButton` 新增 AI 风格
-- `AI Chat 组件`，新增加支持富文本输入、引用，上传、功能配置、及丰富自定义展示的 `AIChatInput`，以及会话展示、选择、编辑、提示、丰富自定义渲染、消息转换的 `AIChatDialogue`
+- `AI Chat 组件`，新增加支持富文本输入、引用，上传、功能配置、及丰富自定义展示的 `AIChatInput`；以及会话展示、选择、编辑、提示、丰富自定义渲染、消息转换的 `AIChatDialogue`，对话组件默认支持 OpenAI 社区 [Response](https://platform.openai.com/docs/api-reference/responses/create) / [Chat Completion](https://platform.openai.com/docs/api-reference/chat/create) 格式标准，对 GPT-5、GPT-4o 系列模型的响应均支持开箱即用，详见[消息数据转换](/zh-CN/ai/aiChatDialogue#%E6%B6%88%E6%81%AF%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2)（关于 `Chat` 组件和 `AI Chat` 组件如何选型见 [FAQ](/zh-CN/ai/aiComponent#FAQ)）
 
 在未来，我们将支持更多 AI Chat 组件，比如结合 `AIChatInput` 和 `AIChatDialogue` 的一体化组件 `AIChatBox`，以及具备产物编辑、产物查看、引用资料展示等能力的多功能侧边栏组件 `SideBar`，用于满足复杂 AI 应用场景下的信息与结果管理需求。
 
-<!-- 2. Token & icon & button & tag & FloatButton 的简单展示 -->
 
 ### AI 基础组件
 
@@ -31,7 +29,7 @@ AI 基础组件包括 `AI Icon`、AI 风格的 `Button` / `Tag` / `FloatButton`�
 对于 AI 风格的 `Button / Tag / FloatButton`，可通过组件的 `Colorful` 属性开启。
 
 以下是 AI 基础组件的一些示例，更多示例及使用场景详见 [AI Token](/zh-CN/basic/tokens)、[AI Icon](zh-CN/basic/icon)、[AI Button](/zh-CN/basic/button#AI%20%E9%A3%8E%E6%A0%BC%20-%20%E5%A4%9A%E5%BD%A9%E6%8C%89%E9%92%AE)、[AI Tag](/zh-CN/show/tag#AI%20%E9%A3%8E%E6%A0%BC%20-%20%E5%A4%9A%E5%BD%A9%E6%A0%87%E7%AD%BE)、[AI FloatButton](/zh-CN/basic/floatbutton#AI%20%E9%A3%8E%E6%A0%BC%20-%20%E5%A4%9A%E5%BD%A9%E6%82%AC%E6%B5%AE%E6%8C%89%E9%92%AE)。
-
+ 
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -362,7 +360,7 @@ function AIChatInputWithDialogue() {
                 <AIChatInput 
                     style={inputOuterStyle}
                     placeholder={'输入内容或者上传内容'} 
-                    defaultContent={'我是一名<input-slot placeholder="[职业]">程序员</input-slot>，帮我实现<input-slot placeholder="[需求描述]">multi agent 场景下的聊天应用</input-slot>需求'}
+                    defaultContent={'我是一名<input-slot placeholder="[职业]">程序员</input-slot>，帮我实现<input-slot placeholder="[需求描述]">Multi Agent 场景下的聊天应用</input-slot>需求'}
                     generating={generating}
                     references={references}
                     uploadProps={uploadProps}
@@ -387,7 +385,7 @@ function AIChatInputWithDialogue() {
 const defaultMessages = [{
     id: '1',
     role: 'user',
-    content: '我想开发一个 multi Agent 场景下的聊天应用，你能帮我设计一下吗？',
+    content: '我想开发一个 Multi Agent 场景下的聊天应用，你能帮我设计一下吗？',
     status: 'completed',
 }, {
     id: '2',
@@ -539,4 +537,19 @@ const radioButtonProps = [
 render(AIChatInputWithDialogue);
 ```
 
+### FAQ 
+- **Chat 组件和 AI Chat 系列组件应该如何选型？**
+   - 如果场景比较简单，仅需要普通文字对话和简单文件图片展示，推荐 Chat 组件。
+        - [Chat](/zh-CN/plus/chat) 组件默认集成 input 输入和消息展示部分，优势是理解简单，能够快速上手；缺点是复杂的输入框或者消息展示需求定制相对困难，工作量大。
+   - 如果场景相对复杂，推荐将 AIChatInput 和 AIChatDialogue 组件搭配使用，优势如下：
+        - [AIChatInput](/zh-CN/ai/aiChatInput) 支持更复杂的样式定制。
+            1. 用户可以非常方便地定制左下角的[配置区域](/zh-CN/ai/aiChatInput#%E9%85%8D%E7%BD%AE%E5%8C%BA%E5%9F%9F)和右下角的[操作区域](/zh-CN/ai/aiChatInput#%E6%93%8D%E4%BD%9C%E5%8C%BA%E5%9F%9F)；
+            2. 提供[富文本输入区](/zh-CN/ai/aiChatInput#%E5%AF%8C%E6%96%87%E6%9C%AC%E8%BE%93%E5%85%A5%E5%8C%BA)展示输入模版；
+            3. 默认支持[引用](/zh-CN/ai/aiChatInput#%E5%BC%95%E7%94%A8)展示；
+            4. 支持热键唤起的[技能模版](/zh-CN/ai/aiChatInput#%E6%8A%80%E8%83%BD%E5%8F%8A%E6%A8%A1%E7%89%88)；
+            5. 支持自定义[ Input 扩展](/zh-CN/ai/aiChatInput#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%89%A9%E5%B1%95)和[ TopSlot](/zh-CN/ai/aiChatInput#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93%E9%A1%B6%E9%83%A8%E5%8C%BA%E5%9F%9F)，复杂展示也能轻松实现。
+        - [AIChatDialogue](/zh-CN/ai/aiChatDialogue) 消息展示的灵活性更高。
+            1. 组件默认支持 OpenAI 的 [Response](https://platform.openai.com/docs/api-reference/responses/create) / [Chat Completion](https://platform.openai.com/docs/api-reference/chat/create) Object 格式标准，调用[内部消息转换函数](/zh-CN/ai/aiChatDialogue#%E6%B6%88%E6%81%AF%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2)可轻松进行将 OpenAI 返回的结果转换为组件需要的数据结构。
+            2. 提供[根据消息类型的定制展示](/zh-CN/ai/aiChatDialogue#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9)的 API，方便快速实现消息展示。
+            3. 默认支持消息[引用](/zh-CN/ai/aiChatDialogue#%E5%BC%95%E7%94%A8)和[选择](/zh-CN/ai/aiChatDialogue#%E9%80%89%E6%8B%A9)操作。
 
