@@ -15,7 +15,8 @@ Divider,
 Grid,
 Icon,
 Layout,
-Typography
+Typography,
+FloatButton
 ```
 
 ## AI 组件
@@ -111,6 +112,7 @@ Highlight
 ```overview
 Banner,
 Notification,
+Feedback,
 Popconfirm,
 Progress,
 Skeleton,
