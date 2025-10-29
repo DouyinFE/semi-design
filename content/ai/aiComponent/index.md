@@ -10,32 +10,27 @@ showNew: true
 ---
 
 <!-- 1. 整体介绍：什么是semi AI 组件（理念），主要服务的场景？目前主要包括哪些组件？待上线的组件？ -->
-Semi AI 组件是一套专为 AI 应用场景设计的创新组件库。面对 AI 正在成为产品主角的时代，传统的设计体系已难以支撑日益复杂的智能交互, Semi AI 组件以「人机智能协同」为核心理念，致力于让用户与 AI 系统协作更高效、可控、可感知、可信赖。Semi AI 组件库包含以下内容：AI 基础能力以及 AI 组件，用于服务智能问答与助手、多模态输入与多轮对话等场景。
+Semi AI 组件是一套专为 AI 应用场景设计的创新组件库。面对 AI 正在成为产品主角的时代，传统的设计体系已难以支撑日益复杂的智能交互, Semi AI 组件以「人机智能协同」为核心理念，致力于让用户与 AI 系统协作更高效、可控、可感知、可信赖。Semi AI 组件库包含以下内容：AI Token、AI 基础组件以及 AI Chat 组件，用于服务智能问答与助手、多模态输入与多轮对话等场景。
 
-AI 基础能力包括：
+- `AI Token`， 新增加 AI 场景下的基础 20 个颜色的基础 token
+- `AI 基础组件`， 新增加 AI 场景下的 25 个 icon，以及对 `Button/Tag/FloatButton` 新增 AI 风格
+- `AI Chat 组件`，新增加支持富文本输入、引用，上传、功能配置、及丰富自定义展示的 `AIChatInput`，以及会话展示、选择、编辑、提示、丰富自定义渲染、消息转换的 `AIChatDialogue`
 
-- `AI Token`：新增加 AI 场景下的基础 token
-- `AI Icon`: 新增加 AI 场景下的 25 个 icon
-- `Button/Tag/FloatButton`：对基础组件新增 AI 风格，支持 AI 场景下的使用
-
-AI 组件包括 `AIChatInput`、 `AIChatDialogue`，用于支持 AI 应用的输入、结果展示。
-
-在未来，我们将支持聊天应用场景下的 `ChatBox`， 支持更多信息展示以及负责内容编辑功能的 `SideBar` 等组件。
-
+在未来，我们将支持更多 AI Chat 组件，比如结合 `AIChatInput` 和 `AIChatDialogue` 的一体化组件 `AIChatBox`，以及具备产物编辑、产物查看、引用资料展示等能力的多功能侧边栏组件 `SideBar`，用于满足复杂 AI 应用场景下的信息与结果管理需求。
 
 <!-- 2. Token & icon & button & tag & FloatButton 的简单展示 -->
 
-### AI 基础能力
+### AI 基础组件
 
-AI 基础能力包括 `AI Token`、`AI Icon`、AI 风格 的`Button / Tag / FloatButton`。
+AI 基础组件包括 `AI Icon`、AI 风格的 `Button` / `Tag` / `FloatButton`， AI 基础组件的 AI 风格是在 `AI Token` 的基础上实现。
 
 对于 `AI Token`，我们构建了一套以紫蓝渐变系为核心的品牌色板，在基础色中，新增加了 AI purple 和 AI general 两个色相，20 个颜色的色盘。
 
 对于 `AI Icon`，支持 Icon 场景下的单色、双色、及多色 Icon，共 25 个图标。
 
-对于 AI 风格的 `Button / Tag / FloatButton`，可通过组件的 Colorful 属性开启。
+对于 AI 风格的 `Button / Tag / FloatButton`，可通过组件的 `Colorful` 属性开启。
 
-以下是 AI 基础能力的一些示例，更多示例及使用场景详见 [AI Token](/zh-CN/basic/tokens)、[AI Icon](zh-CN/basic/icon)、[AI Button](/zh-CN/basic/button#AI%20%E9%A3%8E%E6%A0%BC%20-%20%E5%A4%9A%E5%BD%A9%E6%8C%89%E9%92%AE)、[AI Tag](/zh-CN/show/tag#AI%20%E9%A3%8E%E6%A0%BC%20-%20%E5%A4%9A%E5%BD%A9%E6%A0%87%E7%AD%BE)、[AI FloatButton](/zh-CN/basic/floatbutton#AI%20%E9%A3%8E%E6%A0%BC%20-%20%E5%A4%9A%E5%BD%A9%E6%82%AC%E6%B5%AE%E6%8C%89%E9%92%AE)。
+以下是 AI 基础组件的一些示例，更多示例及使用场景详见 [AI Token](/zh-CN/basic/tokens)、[AI Icon](zh-CN/basic/icon)、[AI Button](/zh-CN/basic/button#AI%20%E9%A3%8E%E6%A0%BC%20-%20%E5%A4%9A%E5%BD%A9%E6%8C%89%E9%92%AE)、[AI Tag](/zh-CN/show/tag#AI%20%E9%A3%8E%E6%A0%BC%20-%20%E5%A4%9A%E5%BD%A9%E6%A0%87%E7%AD%BE)、[AI FloatButton](/zh-CN/basic/floatbutton#AI%20%E9%A3%8E%E6%A0%BC%20-%20%E5%A4%9A%E5%BD%A9%E6%82%AC%E6%B5%AE%E6%8C%89%E9%92%AE)。
 
 
 ```jsx live=true dir="column"
@@ -128,7 +123,8 @@ import { IconAIBellLevel1, IconAIEditLevel2, IconAIFileLevel3, IconAIFilledLevel
 };
 ```
 
-### AI 组件构建对话
+### AI Chat 组件构建对话
+
 本例中我们将联合使用 `AIChatInput` 和 `AIChatDialogue` 组件，构建一个适用于 `Multiple Agent` 场景的对话用例。
 更多示例及使用场景详见 [AIChatInput](/zh-CN/ai/aiChatInput)、[AIChatDialogue](/zh-CN/ai/aiChatDialogue)
 
