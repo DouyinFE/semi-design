@@ -11,7 +11,9 @@ showNew: true
 
 ## Usage Scenarios
 
-In AI chat scenarios, users need to input text, upload files, display reference content, send messages, etc., through the input box.
+In AI chat scenarios, users can use `AIChatInput` to achieve rich text input, uploading, quoting, suggestions, templates, feature configuration, and rich custom display.
+
+`AIChatInput`'s rich text input is based on `tiptap` (https://tiptap.dev/docs/editor/getting-started/overview), a modern rich text editor development framework that supports mainstream front-end frameworks such as React and Vue, and boasts strong customizability and extensibility. Its componentization capabilities are excellent, performance is high, it has many built-in commonly used extensions, and it supports user-defined nodes, commands, plugins, and menus, enabling flexible adaptation and expansion of rich text input capabilities in complex AI scenarios. Semi's `AIChatInput` component encapsulates tiptap, allowing developers to use it out of the box or extend it as needed according to business requirements.
 
 ## Demos
 

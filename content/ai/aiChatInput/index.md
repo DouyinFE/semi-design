@@ -11,7 +11,9 @@ showNew: true
 
 ## 使用场景
 
-在 AI 聊天场景下，用户需要通过输入框输入文本，上传文件，展示引用内容，发送消息等。
+在 AI 聊天场景下，用户可通过 `AIChatInput`实现富文本输入、上传、引用、建议、模版、功能配置、及丰富自定义展示等需求。
+
+`AIChatInput` 的富文本输入是基于 [tiptap](https://tiptap.dev/docs/editor/getting-started/overview) 实现，`tiptap` 是一款现代的富文本编辑器开发框架，支持 React、Vue 前端框架，具备极强的可定制性和扩展性。其组件化能力优秀，性能优良，内置多种常用拓展，并支持用户自定义节点、命令、插件与菜单，使复杂 AI 场景下的富文本输入能力能够灵活适配和扩展。Semi 的 `AIChatInput` 组件对 tiptap 进行了封装，开发者可开箱即用或按需按业务扩展。
 
 ## 代码演示
 
@@ -1581,7 +1583,7 @@ render(<CustomRichTextExtension />);
 | 属性 | 说明 | 类型 | 默认值 |
 |------|----|------|-------|
 | changeTemplateVisible | 切换模板弹出层的可见性 | (visible: boolean) => void | - |
-| deleteContent | 删除富文本中的某一项, 删除逻辑依赖的是 content 中的 uniqueKey | (content: Content) => void | - |
+| deleteContent | 删除富文本中的某一项，删除逻辑依赖的是 content 中的 uniqueKey | (content: Content) => void | - |
 | deleteUploadFile | 删除上传文件中的某一项 | (item: Attachment) => void | - |
 | focusEditor | 聚焦输入框，默认聚焦到输入框的末尾 | (pos?: string) => void | - |
 | getEditor | 获取当前的 tiptap 的 editor 实例 | () => Editor | - |
