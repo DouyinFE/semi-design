@@ -1,7 +1,7 @@
 import { Message, ContentItem, InputMessage, } from "../foundation";
-import { Attachment } from "../../aiChatInput/interface";
+import { Attachment, Content, MessageContent } from "../../aiChatInput/interface";
 
-export default function messageToChatInput(message: Message) {
+export default function messageToChatInput(message: Message): MessageContent {
    
 
     const attachments: Attachment[] = [];
@@ -56,7 +56,7 @@ export default function messageToChatInput(message: Message) {
     return {
         references: message?.references, 
         attachments, 
-        inputContents, 
+        inputContents: inputContents as Content[], 
         // setup
     };
 }
