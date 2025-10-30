@@ -78,7 +78,7 @@ const TokenTable = ({ tokenList, designToken, currentTab, mode = 'light', sameWi
                 if (color) {
                     return (
                         <div data-token={lodash.trim(text, '$')} style={{ fontWeight: 600 }}> <div style={{
-                            width: 16, height: 16, display: 'inline-block', borderRadius: 3, backgroundColor: color,
+                            width: 16, height: 16, display: 'inline-block', borderRadius: 3, background: color,
                             transform: 'translateY(0.3rem)', marginRight: 8
                         }} className={mode === 'dark' ? 'semi-always-dark' : 'semi-always-light'}
                         /> {text}
@@ -89,18 +89,18 @@ const TokenTable = ({ tokenList, designToken, currentTab, mode = 'light', sameWi
                 }
 
             },
-            width: sameWidth ? '33%': 'undefined'
+            width: sameWidth ? '33%' : 'undefined'
         },
         {
             title: intl.formatMessage({ id: 'designToken.defaultValue' }),
             dataIndex: 'value',
             render: (text: string): React.ReactElement => <JumpLink availableKeySet={globalTokenJumpAvailableSet} value={text} />,
-            width: sameWidth ? '33%': 'undefined'
+            width: sameWidth ? '33%' : 'undefined'
         },
         {
             title: intl.formatMessage({ id: 'designToken.usage' }),
             dataIndex: 'comment',
-            width: sameWidth ? '33%': 'undefined',
+            width: sameWidth ? '33%' : 'undefined',
             render: (text: string): React.ReactElement =>
                 <div>{text || intl.formatMessage({ id: 'designToken.WIP' })}</div>
         },
@@ -157,7 +157,7 @@ const GlobalTokenTab = ({ designToken, isColorPalette = false, reg, hasTab: hasT
 
     return (
         <>
-            {hasTab && hasTabInProps? (
+            {hasTab && hasTabInProps ? (
                 <Tabs defaultActiveKey={'light'} tabList={[{ tab: 'Light', itemKey: 'light' }, { tab: 'Dark', itemKey: 'dark' }]} onChange={(key: typeof currentTab): void => setCurrentTab(key)}>
                     <TokenTable designToken={designToken} tokenList={tokenList} mode={currentTab} sameWidth={sameWidth}/>
                 </Tabs>

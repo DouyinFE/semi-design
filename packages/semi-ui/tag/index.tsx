@@ -39,7 +39,9 @@ export default class Tag extends Component<TagProps, TagState> {
         shape: 'square',
         avatarShape: 'square',
         prefixIcon: null,
-        suffixIcon: null
+        suffixIcon: null,
+        colorful: false,
+        gradient: false,
     };
 
     static propTypes = {
@@ -57,6 +59,8 @@ export default class Tag extends Component<TagProps, TagState> {
         style: PropTypes.object,
         className: PropTypes.string,
         avatarSrc: PropTypes.string,
+        colorful: PropTypes.bool,
+        gradient: PropTypes.bool,
         avatarShape: PropTypes.oneOf(avatarShapeSet),
         'aria-label': PropTypes.string,
     };
@@ -126,7 +130,7 @@ export default class Tag extends Component<TagProps, TagState> {
     }
 
     render() {
-        const { tagKey, children, size, color, closable, visible, onClose, onClick, className, type, shape, avatarSrc, avatarShape, tabIndex, prefixIcon, suffixIcon, ...attr } = this.props;
+        const { tagKey, children, size, color, closable, visible, onClose, onClick, className, type, shape, avatarSrc, avatarShape, tabIndex, prefixIcon, suffixIcon, colorful, gradient, ...attr } = this.props;
         const { visible: isVisible } = this.state;
         const clickable = onClick !== Tag.defaultProps.onClick || closable;
         // only when the Tag is clickable or closable, the value of tabIndex is allowed to be passed in. 
@@ -148,6 +152,8 @@ export default class Tag extends Component<TagProps, TagState> {
                     [`${prefixCls}-closable`]: closable,
                     [`${prefixCls}-invisible`]: !isVisible,
                     [`${prefixCls}-avatar-${avatarShape}`]: avatarSrc,
+                    [`${prefixCls}-colorful`]: colorful,
+                    [`${prefixCls}-gradient`]: gradient
                 },
                 className
             ),

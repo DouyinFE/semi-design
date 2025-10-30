@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 23
+order: 24
 category: Basic
 title: Icon
 subTitle: Icon
@@ -9,7 +9,12 @@ brief: Semantic vector graphics.
 ---
 
 ## Icon List
+The default icon set `@douyinfe/semi-icons` includes three sets of icons: surface, linear, and AI. Surface icons, linear icons, and monochrome icons in AI icons have no color by default, and the color can be changed through the css color attribute.
+Dual-color and multi-color icons in AI icons have default colors, which can be changed via fill.
 
+AI icons are available since v2.86.0.
+
+`@douyinfe/semi-icons-lab` is a color icon set, which needs to be installed separately and cannot be changed. The lab icon set is provided after v2.48
 
 <div style={{display: "none"}}>
 @douyinfe/semi-icons icon list:
@@ -637,7 +642,41 @@ import { IconLikeHeart, IconFlag, IconLock, IconUnlock } from '@douyinfe/semi-ic
 );
 ```
 
+### Bicolor icon
+
+The color of the two-color icon can be set through the `fill` attribute, which supports string and string[].
+
+```jsx live=true
+import React from 'react';
+import { IconAIWandLevel2, IconAIFilledLevel2 } from '@douyinfe/semi-icons';
+
+() => (
+    <div>
+        <IconAIWandLevel2 fill={['var(--semi-color-danger)', 'var(--semi-color-success)']} style={{ marginRight: 10 }} size="extra-large"/>
+        <IconAIFilledLevel2 fill={'var(--semi-color-success)'} size="extra-large"/>
+    </div>
+);
+```
+
+### Multicolor buttons
+
+Multi-color icon, the current multi-color button can pass in four colors. The color can be set through the `fill` attribute, which supports string and string[].
+
+```jsx live=true
+import React from 'react';
+import { IconAIBellLevel3, IconAIWandLevel3, IconAIFilledLevel3 } from '@douyinfe/semi-icons';
+
+() => (
+    <div>
+        <IconAIBellLevel3 style={{ marginRight: 10 }} size="extra-large"/>
+        <IconAIWandLevel3 fill={['var(--semi-color-danger)', 'var(--semi-color-success)', 'var(--semi-color-primary)', 'var(--semi-color-warning)']} style={{ marginRight: 10 }} size="extra-large"/>
+        <IconAIFilledLevel3 fill={['var(--semi-color-primary)', 'var(--semi-color-success)']} size="extra-large"/>
+    </div>
+);
+```
+
 ### Custom icon
+
 You can use custom icons to pass in Icon components
 Icon component supports size, rotate, spin and other attributes
 
@@ -691,6 +730,7 @@ import StarIcon from './star.svg';
 | Properties  | Illustrate        | Type            | Default |
 |-------|-------------|-----------------|--------|
 | className | class name | string | none |
+| fill | Fill color for bicolor, multicolor icons | string \| string[] | None |
 | onClick | Callback event of clicking the icon | (e: Event) => void | None |
 | onMouseDown | The callback event of mouse button press >=v1.21 | (e: Event) => void | None |
 | onMouseEnter | Callback event of entering icon | (e: Event) => void | None |

@@ -5,7 +5,6 @@ category: 基础
 title: Resizable 伸缩框
 icon: doc-steps
 brief: 根据用户的鼠标拖拽，改变组件的大小，支持单个组件伸缩与组合伸缩
-showNew: true
 ---
 
 ## 代码演示

@@ -1,19 +1,18 @@
 ---
 localeCode: en-US
-order: 25
+order: 26
 category: Plus
 title:  Chat
 icon: doc-chat
 dir: column
 brief: Used to quickly build conversation content
-showNew: true
 ---
 
 ## When to use
 
 The `Chat` component can be used in scenarios such as regular conversations or AI conversations.
 
-The rendering of the conversation content is based on the MarkdownRender component, which supports Markdown and MDX. It allows for common rich text features such as images, tables, links, bold text, code blocks, and more. More complex and customized document writing and display requirements can be achieved using JSX.
+The rendering of the conversation content is based on the [MarkdownRender](/en-US/plus/markdownrender) component, which supports Markdown and MDX (Note: The default format mode of MarkdownRender in Chat is md. If you need to use MDX format, you can set it through the markdownRenderProps API). It allows for common rich text features such as images, tables, links, bold text, code blocks, and more. More complex and customized document writing and display requirements can be achieved using JSX.
 
 ## Demos
 
@@ -1618,7 +1617,7 @@ render(DefaultChat);
 | inputBoxStyle | Input box style | CSSProperties | - |
 | inputBoxCls | Input box className | string | - |
 | sendHotKey | Keyboard shortcut for sending content, supports `enter` \| `shift+enter`. The former will send the message in the input box when you press enter alone. When the shift and enter keys are pressed at the same time, it will only wrap the line and not send it. The latter is the opposite | string | `enter` |
-| markdownRenderProps | This parameter will be passed to the MarkdownRender component used for dialog rendering. For details, see [MarkdownRenderProps](/en-US/plus/markdownrender#API)| MarkdownRenderProps |-|
+| markdownRenderProps | This parameter will be passed to the MarkdownRender component used for dialog rendering. For details, see [MarkdownRenderProps](/en-US/plus/markdownrender#API). The default format of markdownRender in Chat is md. If you need to use mdx format, you can set it through this parameter| MarkdownRenderProps |-|
 | mode | Conversation mode, support `bubble` \| `noBubble` \| `userBubble`  | string | `bubble` |
 | roleConfig | Role information configuration, see [RoleConfig](#RoleConfig) | RoleConfig | - |
 | renderDivider | Custom render divider, supported since v2.67.0 | (message?: Message) => ReactNode | - |

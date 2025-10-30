@@ -206,6 +206,27 @@ const local: Locale = {
         stall: 'Yükleme başarısız',
         noResource: 'Kaynak yok',
         videoError: 'Video yükleme hatası'
+    },
+    AIChatDialogue: {
+        delete: 'Sil',
+        deleteConfirm: 'Bu sohbeti silmek istediğinize emin misiniz?',
+        deleteContent: 'Bu sohbet silinmiştir.',
+        copySuccess: 'Başarıyla kopyalandı',
+        loading: 'Yükleniyor...',
+        reasoning: {
+            completed: 'İşlem tamamlandı',
+            thinking: 'İşlem devam ediyor...'
+        },
+        annotationText: 'bilgi elemanı'
+    },
+    Feedback: {
+        submit: 'Göndermek',
+        cancel: 'İptal'
+    },
+    AIChatInput: {
+        template: 'Şablon',
+        configure: 'Yapılandırma',
+        selected: '${count} öğe seçildi',
     }
 };
 

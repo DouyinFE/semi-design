@@ -209,6 +209,27 @@ const local: Locale = {
         stall: 'กำลังโหลดล้มเหลว',
         noResource: 'ไม่มีทรัพยากร',
         videoError: 'เกิดข้อผิดพลาดในการโหลดวิดีโอ'
+    },
+    AIChatDialogue: {
+        delete: 'ลบ',
+        deleteConfirm: 'คุณต้องการลบการสนทนานี้ใช่หรอไม่?',
+        deleteContent: 'การสนทนานี้จะลบออกอย่างถาวรและไม่สามารถกู้คืนได้',
+        copySuccess: 'คัดลอกสำเร็จ',
+        loading: 'กำลังโหลด...',
+        reasoning: {
+            completed: 'การคิดค้นสำเร็จ',
+            thinking: 'กำลังคิดค้น...'
+        },
+        annotationText: 'องค์ประกอบของข้อมูล'
+    },
+    Feedback: {
+        submit: 'ส่ง',
+        cancel: 'ยกเลิก'
+    },
+    AIChatInput: {
+        template: 'ลายฉลุ',
+        configure: 'การกำหนดค่า',
+        selected: '${count} รายการที่เลือก',
     }
 };
 

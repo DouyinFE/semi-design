@@ -21,6 +21,10 @@ In particular, for platforms with dark mode requirements, Semi Design's color va
 Based on the dynamic generation of brand color, including 160 colors, 16 different hue gradient color disk. In general, we use the color in the base color to further define the function color. You can use your brand color in the theme store to dynamically generate a new basic color disk.
 <FullPalette/>
 
+<Notice title='Attention'>
+The colors of the AI general series are gradient colors implemented using linear-gradient(). They cannot be used as background-color values and need to be used as background-image or background values to be effective.
+</Notice>
+
 ### Color conversion
 
 <ColorConverter/>

@@ -206,6 +206,27 @@ const local: Locale = {
         stall: '読み込みに失敗しました',
         noResource: 'リソースなし',
         videoError: '動画の読み込みエラー'
+    },
+    AIChatDialogue: {
+        delete: '削除',
+        deleteConfirm: 'このメッセージを削除してもよろしいですか？',
+        deleteContent: 'このメッセージは削除されました。',
+        copySuccess: '正常にコピーされました',
+        loading: '読み込み中...',
+        reasoning: {
+            completed: '思考完了',
+            thinking: '考え...'
+        },
+        annotationText: '情報要素'
+    },
+    Feedback: {
+        submit: '送信',
+        cancel: 'キャンセル'
+    },
+    AIChatInput: {
+        template: 'テンプレート',
+        configure: '設定',
+        selected: '選択された ${count} 個',
     }
 };
 

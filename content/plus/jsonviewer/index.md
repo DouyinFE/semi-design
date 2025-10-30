@@ -1,13 +1,12 @@
 ---
 localeCode: zh-CN
-order: 29
+order: 30
 category: Plus
 title: JsonViewer Json编辑器
 icon: doc-jsonviewer
 dir: column
 noInline: true
 brief: 用于展示和编辑 JSON 数据
-showNew: true
 ---
 
 ## 使用场景

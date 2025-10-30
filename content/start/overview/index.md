@@ -15,7 +15,19 @@ Grid 栅格,
 Icon 图标,
 Layout 布局,
 Space 间距,
-Typography 版式
+Typography 版式,
+FloatButton 悬浮按钮
+```
+
+## AI 组件
+
+```overview
+AIIcon 图标,
+AIButton 按钮,
+AITag 标签,
+AIFloatButton 悬浮按钮,
+AIChatInput 聊天输入框,
+AIChatDialogue AI 对话
 ```
 
 ## Plus 组件
@@ -104,6 +116,7 @@ VChart 图表
 ```overview
 Banner 通知横幅,
 Notification 通知,
+Feedback 反馈,
 Popconfirm 气泡确认框,
 Progress 进度条,
 Skeleton 骨架屏,

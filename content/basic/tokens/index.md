@@ -27,6 +27,10 @@ Design Token 设计变量实际上是将设计中的基础元素与具体的样�
 
 <FullPalette/>
 
+<Notice title='注意'>
+    AI general 系列的颜色为使用 linear-gradient() 实现的渐变色，作为 background-color 的值无法生效，需要作为 background-image 或者 background 的值才能生效
+</Notice>
+
 ### 颜色转换
 <ColorConverter/>
 
@@ -76,6 +80,24 @@ Design Token 设计变量实际上是将设计中的基础元素与具体的样�
 
 <DesignToken componentName='global' reg={/color-danger/}/>
 
+### AI - general
+
+用于 AI 场景的背景色，字体颜色
+
+<DesignToken componentName='global' reg={/color-ai-general/}/>
+
+### AI - purple
+
+用于 AI 相关的次要场景的背景色，字体颜色
+
+<DesignToken componentName='global' reg={/color-ai-purple/}/>
+
+### AI - background
+
+用于 AI 场景的背景色
+
+<DesignToken componentName='global' reg={/color-ai-background/}/>
+
 ### 文本与图标颜色 - text
 
 四个不同层级的文本/图标颜色，依次代表产品界面中最主要、次主要、稍次要和最次要的内容
@@ -105,6 +127,9 @@ Design Token 设计变量实际上是将设计中的基础元素与具体的样�
 界面中带有描边属性的颜色
 
 <DesignToken componentName='global' reg={/color-border/}/>
+
+### AI 状态色
+
 
 ### 禁用态 - disabled
 

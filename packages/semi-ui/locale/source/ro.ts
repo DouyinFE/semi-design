@@ -206,6 +206,27 @@ const local: Locale = {
         noResource: 'Nicio resursă',
         videoError: 'Eroare la încărcarea videoclipului'
     },
+    AIChatDialogue: {
+        delete: 'Șterge',
+        deleteConfirm: 'Sunteți sigur că doriți să ștergeți această conversație?',
+        deleteContent: 'Conversația a fost ștearsă.',
+        copySuccess: 'Copiere reușită',
+        loading: 'Se încarcă...',
+        reasoning: {
+            completed: 'Procesare completată',
+            thinking: 'Procesare în curs...'
+        },
+        annotationText: 'elemente de informație'
+    },
+    Feedback: {
+        submit: 'Trimite',
+        cancel: 'Anulează'
+    },
+    AIChatInput: {
+        template: 'Sablon',
+        configure: 'Configurare',
+        selected: '${count} articole selectate',
+    }
 };
 
 // [i18n-Romanian] 罗马尼亚语

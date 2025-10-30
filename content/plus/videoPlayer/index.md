@@ -1,12 +1,11 @@
 ---
-order: 95
+order: 97
 localeCode: zh-CN
 category: Plus
 title: VideoPlayer 视频播放器
 width: 60%
 icon: doc-videoplayer
 brief: 用于播放视频
-showNew: true
 ---
 
 ## 代码演示

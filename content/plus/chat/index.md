@@ -1,19 +1,18 @@
 ---
 localeCode: zh-CN
-order: 25
+order: 26
 category: Plus
 title:  Chat 对话
 icon: doc-chat
 dir: column
 brief: 用于快速搭建对话内容
-showNew: true
 ---
 
 ## 使用场景
 
 Chat 组件可用于普通会话，AI 会话等场景。
 
-对话内容渲染基于 MarkdownRender 组件，支持 Markdown 和 MDX，可实现图片，表格，链接，加粗，代码区等常用富文本功能。也可通过 JSX 实现更加复杂定制化的文档撰写与展示需求。
+对话内容渲染基于 [MarkdownRender](/zh-CN/plus/markdownrender) 组件，支持 Markdown 和 MDX (注：Chat 中的 MarkdownRender 的默认 format 模式是 md，如果需要使用 MDX 格式，可通过 markdownRenderProps API 设置)，可实现图片，表格，链接，加粗，代码区等常用富文本功能。也可通过 JSX 实现更加复杂定制化的文档撰写与展示需求。
 
 
 ## 代码演示
@@ -1621,7 +1620,7 @@ render(DefaultChat);
 | inputBoxStyle | 输入框样式 | CSSProperties | - |
 | inputBoxCls | 输入框类名 | string | - |
 | sendHotKey | 发送输入内容的键盘快捷键，支持 `enter` \| `shift+enter`。前者在单独按下 enter 将发送输入框中的消息， shift 和 enter 按键同时按下时，仅换行，不发送。后者相反 | string | `enter` |
-| markdownRenderProps | 该参数将透传给对话框渲染所用的 MarkdownRender 组件，详见 [MarkdownRenderProps](/zh-CN/plus/markdownrender#API)| MarkdownRenderProps |-|
+| markdownRenderProps | 该参数将透传给对话框渲染所用的 MarkdownRender 组件，详见 [MarkdownRenderProps](/zh-CN/plus/markdownrender#API)，Chat 中的 markdownRender 默认 format 为 md ，如果需要使用 mdx 格式，可通过此参数设置 | MarkdownRenderProps |-|
 | mode | 对话模式，支持 `bubble` \| `noBubble` \| `userBubble`  | string | `bubble` |
 | roleConfig | 角色信息配置，具体见 [RoleConfig](#RoleConfig) | RoleConfig | - |
 | renderDivider | 自定义渲染分割线, 自 v2.67.0 支持 | (message?: Message) => ReactNode | - |

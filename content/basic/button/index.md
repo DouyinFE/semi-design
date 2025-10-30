@@ -328,6 +328,56 @@ function ButtonDemo() {
 }
 ```
 
+### AI 风格 - 多彩按钮
+
+设置 `colorful` 即可获得多彩按钮，多彩按钮支持所有的 `theme` ， `type` 仅支持 `primary` 及 `tertiary`。
+
+```jsx live=true dir="column"
+import React, { useState } from 'react';
+import { Button } from '@douyinfe/semi-ui';
+import { IconAIFilledLevel1, IconAIFilledLevel2, IconAIFilledLevel3 } from '@douyinfe/semi-icons';
+
+function ButtonDemo() {
+    return (['Colorful', undefined].map(content => (<div 
+        key={content}
+        style={{ display: 'flex', rowGap: 16, marginTop: 20, marginLeft: 10, flexDirection: 'column' }}
+    >
+        <div style={{ display: 'flex', columnGap: 16 }}>
+            <Button colorful theme="solid" type="primary" icon={<IconAIFilledLevel1 />}>{content}</Button>
+            <Button colorful theme="solid" type="primary" loading >{content}</Button>
+            <Button colorful theme="solid" type="primary" icon={<IconAIFilledLevel1 />} disabled >{content}</Button>
+            <Button colorful theme="solid" type="tertiary" icon={<IconAIFilledLevel3 />}>{content}</Button>
+            <Button colorful theme="solid" type="tertiary" loading >{content}</Button>
+            <Button colorful theme="solid" type="tertiary" icon={<IconAIFilledLevel3 />} disabled >{content}</Button>
+        </div>
+        <div style={{ display: 'flex', columnGap: 16 }}>
+            <Button colorful theme="light" type="primary" icon={<IconAIFilledLevel3 />}>{content}</Button>
+            <Button colorful theme="light" type="primary" loading >{content}</Button>
+            <Button colorful theme="light" type="primary" icon={<IconAIFilledLevel3 />} disabled >{content}</Button>
+            <Button colorful theme="light" type="tertiary" icon={<IconAIFilledLevel2 />}>{content}</Button>
+            <Button colorful theme="light" type="tertiary" loading >{content}</Button>
+            <Button colorful theme="light" type="tertiary" icon={<IconAIFilledLevel2 />} disabled >{content}</Button>
+        </div>
+        <div style={{ display: 'flex', columnGap: 16 }}>
+            <Button colorful theme="outline" type="primary" icon={<IconAIFilledLevel1 />}>{content}</Button>
+            <Button colorful theme="outline" type="primary" loading >{content}</Button>
+            <Button colorful theme="outline" type="primary" icon={<IconAIFilledLevel1 />} disabled >{content}</Button>
+            <Button colorful theme="outline" type="tertiary" icon={<IconAIFilledLevel2 />}>{content}</Button>
+            <Button colorful theme="outline" type="tertiary" loading >{content}</Button>
+            <Button colorful theme="outline" type="tertiary" icon={<IconAIFilledLevel2 />} disabled >{content}</Button>
+        </div>
+        <div style={{ display: 'flex', columnGap: 16 }}>
+            <Button colorful theme="borderless" type="primary" icon={<IconAIFilledLevel3 />}>{content}</Button>
+            <Button colorful theme="borderless" type="primary" loading >{content}</Button>
+            <Button colorful theme="borderless" type="primary" icon={<IconAIFilledLevel3 />} disabled >{content}</Button>
+            <Button colorful theme="borderless" type="tertiary" icon={<IconAIFilledLevel2 />}>{content}</Button>
+            <Button colorful theme="borderless" type="tertiary" loading >{content}</Button>
+            <Button colorful theme="borderless" type="tertiary" icon={<IconAIFilledLevel2 />} disabled >{content}</Button>
+        </div>
+    </div>)));
+}
+```
+
 ### 按钮组合
 
 可以将多个按钮放入`ButtonGroup`的容器中，通过设置`size`，`disabled`，`type`可统一设置按钮组合中的按钮尺寸，是否禁用和类型。
@@ -476,6 +526,7 @@ function SplitButtonDemo(){
 | block               | 将按钮设置为块级按钮                                                                                                  | bool                            | false     |
 | className           | 类名                                                                                                          | string                          |           |
 | contentClassName | 内容区域 className |  string | 无 |
+| colorful | 多彩按钮，自 2.86.0 版本开始支持 |  boolean | false |
 | disabled            | 禁用状态                                                                                                        | boolean                         | false     |
 | htmlType           | 设置 `button` 原生的 `type` 值，可选值：`button`、`reset`、`submit`                                                      | string                          | "button"  |
 | icon                | 图标                                                                                                          | ReactNode               |           |
@@ -497,6 +548,7 @@ function SplitButtonDemo(){
 | -------- | -------------| ------- | --------- |---- |
 | aria-label | 按钮组的标签 | string  | - | |
 | className  | 自定义类名   | string  | - | |
+| colorful | 多彩按钮，自 2.86.0 版本开始支持 |  boolean | false |
 | disabled   | 禁用状态     | boolean | false | |
 | size       | 按钮大小，可选值：`large`、`default`、`small` | string  | "default" | |
 | style      | 自定义样式   | CSSProperties   | - | 2.20.0 |

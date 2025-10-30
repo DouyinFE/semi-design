@@ -1,11 +1,10 @@
 ---
 localeCode: en-US
-order: 82
+order: 83
 category: Show
 title: UserGuide
 icon: doc-userGuide
 brief: Used to guide new users through pages
-showNew: true
 ---
 
 

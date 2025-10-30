@@ -1,6 +1,7 @@
 @import './animation.scss';
 @import './variables.scss';
 @import './splitButtonGroup.scss';
+@import './cssVariables.scss';
 
 $module: #{$prefix}-button;
 
@@ -134,6 +135,27 @@ $module: #{$prefix}-button;
         border $transition_duration-button_tertiary-border $transition_function-button_tertiary-border $transition_delay-button_tertiary-border;
         transform: scale($transform_scale_button_tertiary);
 
+        &.#{$module}-colorful {
+            &.#{$module}-solid {
+                background: $color-button_tertiary_solid_colorful-bg-default;
+                
+                &:hover {
+                    background: $color-button_tertiary_solid_colorful-bg-hover; 
+                }
+
+                &:active {
+                    background: $color-button_tertiary_solid_colorful-bg-active;
+                }
+
+                .#{$module}-content-right, .#{$module}-content:not(:has(>.#{$module}-content-right)) {
+                    background: $color-button_tertiary_solid_colorful-text-default;
+                    background-clip: text;
+                    color: transparent;
+                }
+            }
+           
+        }
+
         &-disabled {
             background-color: $color-button_disabled_tertiary-bg-default;
             &.#{$module}-outline {
@@ -171,6 +193,41 @@ $module: #{$prefix}-button;
         transition: background-color $transition_duration-button_primary-bg $transition_function-button_primary-bg $transition_delay-button_primary-bg,
         border $transition_duration-button_primary-border $transition_function-button_primary-border $transition_delay-button_primary-border;;
         transform: scale($transform_scale-button_primary);
+
+        &.#{$module}-colorful {
+            &.#{$module}-solid {
+                background: $color-button_primary_solid_colorful-bg-default;
+
+                &:not(.#{$module}-borderless):not(.#{$module}-light):not(.#{$module}-outline):hover {
+                    background: $color-button_primary_solid_colorful-bg-hover;
+                }
+
+                &:not(.#{$module}-borderless):not(.#{$module}-light):not(.#{$module}-outline):active {
+                    background: $color-button_primary_solid_colorful-bg-active;
+                }
+            }
+
+            &.#{$module}-light {
+                .#{$module}-content-right, .#{$module}-content:not(:has(>.#{$module}-content-right)) {
+                    background: $color-button_primary_light_colorful-text-default;
+                    background-clip: text;
+                    color: transparent;
+                }
+            }
+
+            &.#{$module}-outline {
+                color: $color-button_primary_light_outline-text-default;
+                border-color: $color-button_primary_light_outline-border;
+            }
+
+            &.#{$module}-borderless {
+                .#{$module}-content-right, .#{$module}-content:not(:has(>.#{$module}-content-right)) {
+                    background: $color-button_primary_light_borderless-text-default;
+                    background-clip: text;
+                    color: transparent;
+                }  
+            }
+        }
 
         &-disabled {
             background-color: $color-button_disabled_primary-bg-default;

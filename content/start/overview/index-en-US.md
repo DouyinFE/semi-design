@@ -15,8 +15,21 @@ Divider,
 Grid,
 Icon,
 Layout,
-Typography
+Typography,
+FloatButton
 ```
+
+## AI 组件
+
+```overview
+AIIcon,
+AIButton,
+AITag,
+AIFloatButton,
+AIChatInput,
+AIChatDialogue
+```
+
 ## Plus Component
 
 ```overview
@@ -99,6 +112,7 @@ Highlight
 ```overview
 Banner,
 Notification,
+Feedback,
 Popconfirm,
 Progress,
 Skeleton,

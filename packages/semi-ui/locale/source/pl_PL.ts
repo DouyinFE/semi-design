@@ -213,6 +213,27 @@ const local: Locale = {
         stall: 'Ładowanie nie powiodło się',
         noResource: 'Brak zasobu',
         videoError: 'Błąd ładowania wideo'
+    },
+    AIChatDialogue: {
+        delete: 'Usuń',
+        deleteConfirm: 'Czy na pewno chcesz usunąć tę rozmowę?',
+        deleteContent: 'Rozmowa została usunięta.',
+        copySuccess: 'Skopiowano pomyślnie',
+        loading: 'Ładowanie...',
+        reasoning: {
+            completed: 'Procesowanie zakończone',
+            thinking: 'Procesowanie...'
+        },
+        annotationText: 'elementy informacji'
+    },
+    Feedback: {
+        submit: 'Wyślij',
+        cancel: 'Anuluj'
+    },
+    AIChatInput: {
+        template: 'Szablon',
+        configure: 'Konfiguracja',
+        selected: 'Wybrano ${count} elementów',
     }
 };
 
