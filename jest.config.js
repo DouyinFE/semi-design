@@ -4,7 +4,11 @@ let ModuleNeedCompile2Cjs = [
     'react-dnd',
     'dnd-core',
     'react-dnd-html5-backend',
-    'lottie'
+    'lottie',
+    '@tiptap',
+    'prosemirror-',
+    '@babel',
+    'regexp-util'
     // 'remark-gfm',
     // 'mdast-util-gfm',
     // 'mdast-util-find-and-replace',
