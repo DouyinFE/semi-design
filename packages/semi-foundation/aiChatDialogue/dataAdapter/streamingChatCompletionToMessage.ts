@@ -1,4 +1,4 @@
-import { FunctionToolCall, Message, OutputMessage, OutputText, Refusal } from 'aiChatDialogue/foundation';
+import { FunctionToolCall, Message, OutputMessage, OutputText, Refusal } from '../foundation';
 import { ChatCompletionChunk, ChatCompletionToolCall } from './interface';
 import { cloneDeep } from 'lodash';
  

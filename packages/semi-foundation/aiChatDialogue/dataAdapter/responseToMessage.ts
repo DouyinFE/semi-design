@@ -1,4 +1,4 @@
-import { Message, ContentItem } from 'aiChatDialogue/foundation';
+import { Message, ContentItem } from '../foundation';
 import { Response } from './interface';
 
 export default function responseToMessage(response: Response): Message {

@@ -1,5 +1,5 @@
-import { Message, ContentItem, InputMessage, } from "aiChatDialogue/foundation";
-import { Attachment } from "aiChatInput/interface";
+import { Message, ContentItem, InputMessage, } from "../foundation";
+import { Attachment } from "../../aiChatInput/interface";
 
 export default function messageToChatInput(message: Message) {
    

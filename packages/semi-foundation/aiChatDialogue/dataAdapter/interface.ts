@@ -1,4 +1,4 @@
-import { ContentItem, OutputText, Refusal } from "aiChatDialogue/foundation";
+import { ContentItem, OutputText, Refusal } from "../foundation";
 
 export interface ChatCompletion {
     id?: string;

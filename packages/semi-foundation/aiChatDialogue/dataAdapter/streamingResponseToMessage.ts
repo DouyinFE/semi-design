@@ -1,4 +1,4 @@
-import { ContentItem, OutputMessage, OutputText, Reasoning, Refusal, FunctionToolCall, CustomToolCall, MCPToolCall, Message } from "aiChatDialogue/foundation";
+import { ContentItem, OutputMessage, OutputText, Reasoning, Refusal, FunctionToolCall, CustomToolCall, MCPToolCall, Message } from "../foundation";
 import { CodeInterpreterCall, ImageGenerationCall, ResponseChunk, StreamingResponseState } from "./interface";
 
 

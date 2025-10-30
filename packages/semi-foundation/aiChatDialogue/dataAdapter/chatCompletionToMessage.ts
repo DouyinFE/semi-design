@@ -1,4 +1,4 @@
-import { Message } from 'aiChatDialogue/foundation';
+import { Message } from '../foundation';
 import { ChatCompletion, Choice, ChatCompletionToolCalls, ChatCompletionToolCall, ChatCompletionCustomToolCall } from './interface';
 /* 
 Chat Completion VS. Response

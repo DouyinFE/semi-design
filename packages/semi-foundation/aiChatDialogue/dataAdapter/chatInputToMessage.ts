@@ -1,4 +1,4 @@
-import { MessageContent } from "aiChatInput/interface";
+import { MessageContent } from "../../aiChatInput/interface";
 
 
 export default function chatInputToMessage(inputContent: MessageContent) { 
