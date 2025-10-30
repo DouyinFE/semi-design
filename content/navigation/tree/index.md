@@ -1982,7 +1982,7 @@ import { Tree } from '@douyinfe/semi-ui';
                 role="treeitem"
                 onClick={isLeaf ? onClick : onExpand}
             >
-                {isLeaf ? null : expandIcon}
+                {expandIcon}
                 <span>{label}</span>
             </li>
         );

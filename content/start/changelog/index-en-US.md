@@ -34,6 +34,15 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 - 【Style】
     - Dropdown, Modal, SideSheet, Popover, Tooltip add backdrop-filter to set related tokens [#2981](https://github.com/DouyinFE/semi-design/issues/2981)
 
+#### 🎉 2.87.1 (2025-10-16)
+- 【Fix】
+    - Fixed an issue in Chrome V140 and 141 where an error would occur when expanding Tree/TreeSelect after collapsing it [#3005](https://github.com/DouyinFE/semi-design/issues/3005)
+    - Fixed the issue where the Collapsible animation did not work in some Chrome versions 140 and 141. [#3006](https://github.com/DouyinFE/semi-design/pull/3006)
+
+#### 🎉 2.87.0 (2025-10-15)
+- 【Style】
+    - Dropdown, Modal, SideSheet, Popover, Tooltip add backdrop-filter to set related tokens [#2981](https://github.com/DouyinFE/semi-design/issues/2981)
+
 #### 🎉 2.87.0-beta.0 (2025-09-08)
 - 【Fix】
     - JsonViewer keyboard events are compatible with window [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)

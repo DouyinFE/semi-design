@@ -23,6 +23,8 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
     - 新增 AI Token，AI ICON [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
     - Tag/Button 新增加 colorful API [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
 
+=======
+
 #### 🎉 2.87.1 (2025-10-16)
 - 【Fix】
     - 修复部分 chrome V140，141版本中，Tree/TreeSelect 在收起后，再次展开出现错误问题 [#3005](https://github.com/DouyinFE/semi-design/issues/3005)

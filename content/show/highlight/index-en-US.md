@@ -24,6 +24,9 @@ import { Highlight } from '@douyinfe/semi-ui';
 
 You can specify keywords to be highlighted with `searchWords` and source text with `sourceString`
 
+<Notice title='Attension'>
+The Highlight component will split the text into multiple independent inline elements. Any CSS layout that splits the text flow (such as flex layout) may break the highlighted text. To prevent the highlighted content from being split into different rows or columns by the browser, please wrap the Highlight component with a wrapper element as needed.
+</Notice>
 
 ```jsx live=true dir="column"
 import React from 'react';

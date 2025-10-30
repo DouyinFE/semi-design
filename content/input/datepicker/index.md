@@ -859,9 +859,6 @@ function Demo() {
 | presets | 日期时间快捷方式, start 和 end 在 v2.52 版本支持函数类型                                                                                            |  <ApiType detail='type PresetType = { start?: BaseValueType \| (() => BaseValueType); end?: BaseValueType \| (() => BaseValueType); text?: string }; type PresetsType = Array<PresetType \| (() => PresetType)>;'>Array</ApiType> | [] |  |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                               | boolean |  |  |
 | presetPosition | 日期时间快捷方式面板位置, 可选值'left', 'right', 'top', 'bottom'                                                    | string |  'bottom' | **2.18.0** |
-| rangeSeparator | 自定义范围类型输入框的日期分隔符                                                                                     | string | '~' |  |
-| renderDate | 自定义日期显示内容                                                                                            | (dayNumber, fullDate) => ReactNode | - |  |
-| renderFullDate | 自定义显示日期格子内容                                                                                          | (dayNumber, fullDate, dayStatus) => ReactNode | - |  |
 | rangeSeparator | 自定义范围类型输入框的日期分隔符                                                                                     | string | '~' | |
 | renderDate | 自定义日期显示内容                                                                                            | (dayNumber, fullDate) => ReactNode | - |  |
 | renderFullDate | 自定义显示日期格子内容                                                                                          | (dayNumber, fullDate, dayStatus) => ReactNode | - |  |

@@ -23,6 +23,11 @@ import { Highlight } from '@douyinfe/semi-ui';
 
 你可以通过 `searchWords` 指定需要高亮的关键字，通过 `sourceString` 指定源文本
 
+<Notice title='注意事项'>
+Highlight 组件会将文本被拆分成多个独立的行内元素，任何分割文本流的 CSS 布局（如 flex 布局）可能会将高亮文本断开，为避免高亮内容被浏览器拆分到不同行或列，请按需使用元素包裹 Highlight 组件。
+</Notice>
+
+
 
 ```jsx live=true dir="column"
 import React from 'react';
