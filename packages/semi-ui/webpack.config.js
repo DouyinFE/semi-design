@@ -52,7 +52,7 @@ module.exports = function ({ minimize }) {
                     test: /semi-icons\/.+\.css$/,
                     use: 'null-loader'
                 },
-                { test: /\.scss$/, use: 'null-loader' },
+                { test: /\.s?css$/, use: 'null-loader' },
             ]
         },
         optimization: {
