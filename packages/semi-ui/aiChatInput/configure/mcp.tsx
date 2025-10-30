@@ -6,14 +6,14 @@ import { Locale } from '../../locale/interface';
 import LocaleConsumer from '../../locale/localeConsumer';
 import { DropdownProps } from '../../dropdown';
 
-interface McpOption {
+export interface McpOption {
     value: string;
     label: string;
     icon?: React.ReactNode;
     [key: string]: any
 }
 
-interface McpProps extends DropdownProps {
+export interface McpProps extends DropdownProps {
     options: McpOption[];
     num?: number;
     onConfigureButtonClick: () => void

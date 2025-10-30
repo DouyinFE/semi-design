@@ -30,12 +30,12 @@ const SuggestionItem = React.memo((props: SuggestionItemProps) => {
     }, [index, onMouseEnter]);
 
     if (renderSuggestionItem) {
-        return renderSuggestionItem({
+        return <>{renderSuggestionItem({
             suggestion, 
             className, 
             onClick: handleClick,
             onMouseEnter: handleMouseEnter
-        });
+        })}</>;
     }
 
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions

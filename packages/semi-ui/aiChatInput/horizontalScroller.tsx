@@ -18,7 +18,7 @@ const HorizontalScroller = ({ children, prefix }) => {
 
     useEffect(() => {
         const container = scrollContainerRef.current;
-        if (!container) return;
+        if (!container) return undefined;
         checkScrollAbility();
         const resizeObserver = new ResizeObserver(checkScrollAbility);
         resizeObserver.observe(container);

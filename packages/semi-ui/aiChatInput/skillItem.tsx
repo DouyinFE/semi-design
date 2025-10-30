@@ -28,12 +28,12 @@ const SkillItem = React.memo((props: SkillItemProps) => {
     }, [index, onMouseEnter]);
 
     if (renderSkillItem) {
-        return renderSkillItem({
+        return <>{renderSkillItem({
             skill: skill,
             className,
             onClick: handleClick,
             onMouseEnter: handleMouseEnter
-        });
+        })}</>;
     }
     
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
