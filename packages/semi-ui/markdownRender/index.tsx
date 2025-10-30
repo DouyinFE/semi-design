@@ -39,8 +39,8 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
         format: PropTypes.string,
         components: PropTypes.any,
         raw: PropTypes.string,
-        remarkPlugins: PropTypes.arrayOf(PropTypes.object),
-        rehypePlugins: PropTypes.arrayOf(PropTypes.object),
+        remarkPlugins: PropTypes.arrayOf(PropTypes.any),
+        rehypePlugins: PropTypes.arrayOf(PropTypes.any),
         remarkGfm: PropTypes.bool,
     }
 
