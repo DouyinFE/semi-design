@@ -6,6 +6,11 @@ $half_corner_width: calc($width-cropper_box_corner / 2);
 .#{$module} {
     position: relative;
 
+    & img {
+      // To avoid the `max-Width` setting of `img` to 100% in `tailwindCSS` affecting the style of img in Cropper.
+      max-width: none;
+    }
+
     &-img {
       position: absolute;
       user-select: none;
