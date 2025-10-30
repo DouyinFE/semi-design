@@ -13,6 +13,25 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.88.0-beta.0 (2025-10-30)
+- 【New Component】
+    - 新增 AI 聊天输入框组件 AIChatInput [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+    - 新增 AI 聊天对话组件 AIChatDialogue [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+    - 新增悬浮按钮组件 FloatButton [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+    - 新增反馈组件 Feedback [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+- 【Feat】
+    - 新增 AI Token，AI ICON [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+    - Tag/Button 新增加 colorful API [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+
+#### 🎉 2.87.1 (2025-10-16)
+- 【Fix】
+    - 修复部分 chrome V140，141版本中，Tree/TreeSelect 在收起后，再次展开出现错误问题 [#3005](https://github.com/DouyinFE/semi-design/issues/3005)
+    - 修复部分 chrome V140，141版本中，Collapsible 收起动画不生效问题 [#3006](https://github.com/DouyinFE/semi-design/pull/3006)
+
+#### 🎉 2.87.0 (2025-10-15)
+- 【Style】
+    - Dropdown, Modal, SideSheet, Popover, Tooltip 增加 backdrop-filter 设置相关 token [#2981](https://github.com/DouyinFE/semi-design/issues/2981) [#2985](https://github.com/DouyinFE/semi-design/pull/2985)
+
 #### 🎉 2.87.0-beta.0 (2025-09-08)
 - 【Fix】
     - JsonViewer 键盘事件兼容window [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2979](https://github.com/DouyinFE/semi-design/pull/2979)
