@@ -52,7 +52,7 @@ module.exports = function ({ minimize }) {
                     test: /semi-icons\/.+\.css$/,
                     use: 'null-loader'
                 },
-                { test: /\.scss$/, use: 'null-loader' },
+                { test: /\.s?css$/, use: 'null-loader' },
             ]
         },
         optimization: {
@@ -75,7 +75,8 @@ module.exports = function ({ minimize }) {
                 "@douyinfe/semi-icons": path.resolve(__dirname, "../semi-icons"),
                 "@douyinfe/semi-illustrations": path.resolve(__dirname, "../semi-illustrations"),
                 "@douyinfe/semi-animation": path.resolve(__dirname, "../semi-animation"),
-                "@douyinfe/semi-animation-react": path.resolve(__dirname, "../semi-animation-react")
+                "@douyinfe/semi-animation-react": path.resolve(__dirname, "../semi-animation-react"),
+                "react/jsx-runtime": path.join(require.resolve("react"), "..", "jsx-runtime.js")
             },
         },
         externals: {

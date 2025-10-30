@@ -56,7 +56,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         style: PropTypes.object,
         renderConfig: PropTypes.object,
         renderHintBox: PropTypes.func,
-        renderDialogueContentItem: PropTypes.func,
+        renderDialogueContentItem: PropTypes.object,
         onAnnotationClick: PropTypes.func,
         onChatsChange: PropTypes.func,
         onFileClick: PropTypes.func,
