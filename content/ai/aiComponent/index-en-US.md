@@ -544,7 +544,7 @@ render(AIChatInputWithDialogue);
    - If the scenario is relatively complex, it is recommended to use the AIChatInput and AIChatDialogue components together, with the following advantages:
         - [AIChatInput](/en-US/ai/aiChatInput) supports more complex style customization
             1. Users can easily customize the [configuration area](/en-US/ai/aiChatInput#%E9%85%8D%E7%BD%AE%E5%8C%BA%E5%9F%9F) in the lower left corner and the [operation area](/en-US/ai/aiChatInput#%E6%93%8D%E4%BD%9C%E5%8C%BA%E5%9F%9F) in the lower right corner.
-            2. Provides a [rich text input area] (/en-US/ai/aiChatInput#%E5%AF%8C%E6%96%87%E6%9C%AC%E8%BE%93%E5%85%A5%E5%8C%BA) to display input templates;
+            2. Provides a [rich text input area](/en-US/ai/aiChatInput#%E5%AF%8C%E6%96%87%E6%9C%AC%E8%BE%93%E5%85%A5%E5%8C%BA)to display input templates;
             3. By default, it supports displaying [reference](/en-US/ai/aiChatInput#%E5%BC%95%E7%94%A8).
             4. Supports hotkey-activated [skill templates](/en-US/ai/aiChatInput#%E6%8A%80%E8%83%BD%E5%8F%8A%E6%A8%A1%E7%89%88);
             5. It supports custom [Input Extension](/en-US/ai/aiChatInput#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%89%A9%E5%B1%95) and [TopSlot](/en-US/ai/aiChatInput#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93%E9%A1%B6%E9%83%A8%E5%8C%BA%E5%9F%9F), making complex displays easy to achieve.
