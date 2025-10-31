@@ -73,6 +73,14 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
         this._adapter.setEntering(true);
     }
 
+    _splitArray = (originString: string, separators: string | string[] | null) => {
+        const { split } = this.getProps();
+        if (isFunction(split)) {
+            return split(originString, separators);
+        }
+        return getSplitedArray(originString, separators);
+    }
+
     handleInputCompositionEnd = (e: any) => {
         const { value } = e.target;
         const {
@@ -85,7 +93,7 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
         }
         this._adapter.setEntering(false);
         let allowChange = true;
-        const inputArr = getSplitedArray(value, separator);
+        const inputArr = this._splitArray(value, separator);
         let index = 0;
         for (; index < inputArr.length; index++) {
             if (inputArr[index].length > maxLength) {
@@ -121,8 +129,8 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
         const { inputValue } = this._adapter.getStates();
         let allowChange = true;
         if (isNumber(maxLength)) {
-            const valueArr = getSplitedArray(value, separator);
-            const inputArr = getSplitedArray(inputValue, separator);
+            const valueArr = this._splitArray(value, separator);
+            const inputArr = this._splitArray(inputValue, separator);
             const maxLen = Math.max(valueArr.length, inputArr.length);
             for (let i = 0; i < maxLen; i++) {
                 // When the input length is increasing
@@ -174,7 +182,7 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
             inputValue,
             tagsArray
         } = this._adapter.getStates();
-        let addTags = getSplitedArray(inputValue, separator);
+        let addTags = this._splitArray(inputValue, separator);
 
         addTags = addTags.filter((item, idx) => {
             // If allowDuplicates is false, then filter duplicates
