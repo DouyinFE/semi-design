@@ -13,11 +13,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             {...props}
         >
             <path
-                d="M20 1a1 1 0 1 1 0 2h-1v5a1 1 0 0 1-.3.7L15.42 12l3.3 3.3a1 1 0 0 1 .29.7v5h1a1 1 0 1 1 0 2H4a1 1 0 1 1 0-2h1v-5a1 1 0 0 1 .3-.7L8.58 12l-3.3-3.3A1 1 0 0 1 5 8V3H4a1 1 0 0 1 0-2h16ZM9 18a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Zm1-12a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2h-4Z"
+                d="M8.27 8.36c0-2.04.84-3.9 2.19-5.23a9 9 0 1 0 10.4 10.41 7.36 7.36 0 0 1-12.6-5.18Zm2 0a5.36 5.36 0 0 0 9.86 2.93l.08-.11c.4-.51 1.02-.67 1.52-.6.55.08 1.27.52 1.27 1.42A11 11 0 1 1 12 1c.9 0 1.34.72 1.42 1.27.08.53-.1 1.2-.7 1.6a5.36 5.36 0 0 0-2.45 4.5Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-const IconComponent = convertIcon(SvgComponent, 'hourglass');
+const IconComponent = convertIcon(SvgComponent, 'moon_stroked');
 export default IconComponent;

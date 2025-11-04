@@ -100,6 +100,54 @@
         "category": "Multiple Color"
     },
     {
+        "name": "book",
+        "category": "Basic"
+    },
+    {
+        "name": "coin_money",
+        "category": "Basic"
+    },
+    {
+        "name": "down_circle",
+        "category": "Basic"
+    },
+    {
+        "name": "edit_2",
+        "category": "Magic Customized"
+    },
+    {
+        "name": "left_circle",
+        "category": "Basic"
+    },
+    {
+        "name": "note_money",
+        "category": "Basic"
+    },
+    {
+        "name": "prize",
+        "category": "Magic Customized"
+    },
+    {
+        "name": "real_size",
+        "category": "Basic"
+    },
+    {
+        "name": "share",
+        "category": "Basic"
+    },
+    {
+        "name": "test_score",
+        "category": "Basic"
+    },
+    {
+        "name": "ticket_code",
+        "category": "Magic Customized"
+    },
+    {
+        "name": "user_list",
+        "category": "Basic"
+    },
+    {
         "name": "user_circle",
         "category": "User"
     },
@@ -1870,5 +1918,137 @@
     {
         "name": "shield_stroked",
         "category": "Magic Customized"
+    },
+    {
+        "name": "alarm_stroked",
+        "category": "Time"
+    },
+    {
+        "name": "briefcase_stroked",
+        "category": "Business"
+    },
+    {
+        "name": "calendar_clock_stroked",
+        "category": "Time"
+    },
+    {
+        "name": "camera_stroked",
+        "category": "Photo&Video"
+    },
+    {
+        "name": "cart_stroked",
+        "category": "Business"
+    },
+    {
+        "name": "clock_stroked",
+        "category": "Time"
+    },
+    {
+        "name": "credit_card_stroked",
+        "category": "Business"
+    },
+    {
+        "name": "crown_stroked",
+        "category": "Objects"
+    },
+    {
+        "name": "eye_closed_solid_stroked",
+        "category": "Objects"
+    },
+    {
+        "name": "eye_closed_stroked",
+        "category": "Objects"
+    },
+    {
+        "name": "eye_opened_stroked",
+        "category": "Objects"
+    },
+    {
+        "name": "filter_stroked",
+        "category": "Interface"
+    },
+    {
+        "name": "flag_stroked",
+        "category": "Objects"
+    },
+    {
+        "name": "folder_open_stroked",
+        "category": "Files&Folder"
+    },
+    {
+        "name": "horn_stroked",
+        "category": "Objects"
+    },
+    {
+        "name": "id_card_stroked",
+        "category": "Business"
+    },
+    {
+        "name": "microphone_off_stroked",
+        "category": "Communication"
+    },
+    {
+        "name": "microphone_stroked",
+        "category": "Communication"
+    },
+    {
+        "name": "moon_stroked",
+        "category": "Objects"
+    },
+    {
+        "name": "mute_stroked",
+        "category": "Music"
+    },
+    {
+        "name": "paperclip_stroked",
+        "category": "Files&Folder"
+    },
+    {
+        "name": "phone_stroked",
+        "category": "Device"
+    },
+    {
+        "name": "safe_stroked",
+        "category": "Objects"
+    },
+    {
+        "name": "scissors_stroked",
+        "category": "Objects"
+    },
+    {
+        "name": "shopping_bag_stroked",
+        "category": "Business"
+    },
+    {
+        "name": "sun_stroked",
+        "category": "Objects"
+    },
+    {
+        "name": "user_card_video_stroked",
+        "category": "Communication"
+    },
+    {
+        "name": "volume_1_stroked",
+        "category": "Music"
+    },
+    {
+        "name": "volume_2_stroked",
+        "category": "Music"
+    },
+    {
+        "name": "volumn_silent_stroked",
+        "category": "Music"
+    },
+    {
+        "name": "wrench_stroked",
+        "category": "Objects"
+    },
+    {
+        "name": "globe_stroked",
+        "category": "Objects"
+    },
+    {
+        "name": "globe_stroke_stroked",
+        "category": "Objects"
     }
 ]

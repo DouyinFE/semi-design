@@ -12,22 +12,21 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             aria-hidden={true}
             {...props}
         >
+            <path d="M8 11H5V8h3v3Z" fill="currentColor" />
             <path
-                d="M15.5 22a1.5 1.5 0 0 1-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-5Z"
-                fill="currentColor"
-            />
-            <path
-                d="M5.5 22A3.5 3.5 0 0 1 2 18.5v-13A3.5 3.5 0 0 1 5.5 2h13A3.5 3.5 0 0 1 22 5.5v4.25a1.5 1.5 0 0 1-3 0V5.5a.5.5 0 0 0-.5-.5h-13a.5.5 0 0 0-.5.5v13c0 .28.22.5.5.5h4.25a1.5 1.5 0 0 1 0 3H5.5Z"
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M14 4a2 2 0 0 1 2 2v12a2 2 0 0 1-1.8 1.99L14 20H3l-.2-.01A2 2 0 0 1 1 18V6c0-1.1.9-2 2-2h11ZM3 18h11V6H3v12Z"
                 fill="currentColor"
             />
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M7.52 7.19a1 1 0 0 0 0 1.41l2.95 2.95h-.83a1 1 0 1 0 0 2h3.24a1 1 0 0 0 1-1V9.31a1 1 0 1 0-2 0v.83L8.93 7.19a1 1 0 0 0-1.41 0Z"
+                d="M21.55 6.72a1 1 0 0 1 1.45.9v8.76a1 1 0 0 1-1.45.9l-4-2a1 1 0 0 1-.55-.9V9.62a1 1 0 0 1 .55-.9l4-2ZM19 10.24v3.52l2 1V9.24l-2 1Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-const IconComponent = convertIcon(SvgComponent, 'mini_player');
+const IconComponent = convertIcon(SvgComponent, 'user_card_video_stroked');
 export default IconComponent;

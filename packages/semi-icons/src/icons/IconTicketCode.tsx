@@ -13,11 +13,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             {...props}
         >
             <path
-                d="M20 1a1 1 0 1 1 0 2h-1v5a1 1 0 0 1-.3.7L15.42 12l3.3 3.3a1 1 0 0 1 .29.7v5h1a1 1 0 1 1 0 2H4a1 1 0 1 1 0-2h1v-5a1 1 0 0 1 .3-.7L8.58 12l-3.3-3.3A1 1 0 0 1 5 8V3H4a1 1 0 0 1 0-2h16ZM9 18a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Zm1-12a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2h-4Z"
+                d="M21 4a2 2 0 0 1 2 2v3.8a1 1 0 0 1-.71.96c-.74.22-1.1.76-1.1 1.24s.36 1.02 1.1 1.24a1 1 0 0 1 .71.96V18a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3.8a1 1 0 0 1 .71-.96c.74-.22 1.1-.76 1.1-1.24 0-.47-.36-1.01-1.08-1.24A1 1 0 0 1 1 9.8V6c0-1.1.9-2 2-2h18ZM8 9a1 1 0 0 0-1 1v4a1 1 0 1 0 2 0v-4a1 1 0 0 0-1-1Zm4 0a1 1 0 0 0-1 1v4a1 1 0 1 0 2 0v-4a1 1 0 0 0-1-1Zm4 0a1 1 0 0 0-1 1v4a1 1 0 1 0 2 0v-4a1 1 0 0 0-1-1Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-const IconComponent = convertIcon(SvgComponent, 'hourglass');
+const IconComponent = convertIcon(SvgComponent, 'ticket_code');
 export default IconComponent;

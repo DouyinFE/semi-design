@@ -13,11 +13,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             {...props}
         >
             <path
-                d="M20 1a1 1 0 1 1 0 2h-1v5a1 1 0 0 1-.3.7L15.42 12l3.3 3.3a1 1 0 0 1 .29.7v5h1a1 1 0 1 1 0 2H4a1 1 0 1 1 0-2h1v-5a1 1 0 0 1 .3-.7L8.58 12l-3.3-3.3A1 1 0 0 1 5 8V3H4a1 1 0 0 1 0-2h16ZM9 18a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Zm1-12a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2h-4Z"
+                d="M19 1a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2h14ZM7 17.5a1 1 0 1 0 0 2h10a1 1 0 1 0 0-2H7Zm0-4a1 1 0 1 0 0 2h10a1 1 0 1 0 0-2H7ZM9.25 5a.75.75 0 0 0-.67.42l-2.5 5a.75.75 0 0 0 1.34.67l.42-.84h2.82l.42.84a.75.75 0 0 0 1.34-.68l-2.5-5A.75.75 0 0 0 9.25 5Zm.66 3.75H8.6l.66-1.32.66 1.32Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-const IconComponent = convertIcon(SvgComponent, 'hourglass');
+const IconComponent = convertIcon(SvgComponent, 'test_score');
 export default IconComponent;

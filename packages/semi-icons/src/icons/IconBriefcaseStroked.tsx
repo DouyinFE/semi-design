@@ -13,11 +13,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             {...props}
         >
             <path
-                d="M20 1a1 1 0 1 1 0 2h-1v5a1 1 0 0 1-.3.7L15.42 12l3.3 3.3a1 1 0 0 1 .29.7v5h1a1 1 0 1 1 0 2H4a1 1 0 1 1 0-2h1v-5a1 1 0 0 1 .3-.7L8.58 12l-3.3-3.3A1 1 0 0 1 5 8V3H4a1 1 0 0 1 0-2h16ZM9 18a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Zm1-12a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2h-4Z"
+                d="M15 1a2 2 0 0 1 2 2v3h4a2 2 0 0 1 2 2v12a2 2 0 0 1-1.8 1.99L21 22H3l-.2-.01A2 2 0 0 1 1 20V8c0-1.1.9-2 2-2h4V3c0-1.1.9-2 2-2h6ZM3 20h18v-7h-6v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2H3v7Zm0-9h18V8H3v3Zm6.5-8a.5.5 0 0 0-.5.5V6h6V3.5a.5.5 0 0 0-.5-.5h-5Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-const IconComponent = convertIcon(SvgComponent, 'hourglass');
+const IconComponent = convertIcon(SvgComponent, 'briefcase_stroked');
 export default IconComponent;
