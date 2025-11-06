@@ -25,7 +25,7 @@ export type RadioProps = {
     checked?: boolean;
     children?: React.ReactNode;
     defaultChecked?: boolean;
-    value?: string | number;
+    value?: string | number | boolean;
     disabled?: boolean;
     prefixCls?: string;
     displayMode?: RadioDisplayMode;

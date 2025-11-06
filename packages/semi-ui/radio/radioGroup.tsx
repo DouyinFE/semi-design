@@ -27,11 +27,11 @@ export interface OptionItem {
 export type Options = string[] | Array<OptionItem>;
 
 export type RadioGroupProps = {
-    defaultValue?: string | number;
+    defaultValue?: string | number | boolean;
     disabled?: boolean;
     name?: string;
     options?: Options;
-    value?: string | number;
+    value?: string | number | boolean;
     onChange?: (event: RadioChangeEvent) => void;
     className?: string;
     children?: React.ReactNode;
