@@ -13,21 +13,19 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             {...props}
         >
             <path
-                d="M15.5 22a1.5 1.5 0 0 1-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-5Z"
-                fill="currentColor"
-            />
-            <path
-                d="M5.5 22A3.5 3.5 0 0 1 2 18.5v-13A3.5 3.5 0 0 1 5.5 2h13A3.5 3.5 0 0 1 22 5.5v4.25a1.5 1.5 0 0 1-3 0V5.5a.5.5 0 0 0-.5-.5h-13a.5.5 0 0 0-.5.5v13c0 .28.22.5.5.5h4.25a1.5 1.5 0 0 1 0 3H5.5Z"
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"
                 fill="currentColor"
             />
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M7.52 7.19a1 1 0 0 0 0 1.41l2.95 2.95h-.83a1 1 0 1 0 0 2h3.24a1 1 0 0 0 1-1V9.31a1 1 0 1 0-2 0v.83L8.93 7.19a1 1 0 0 0-1.41 0Z"
+                d="M12 4c6.5 0 11 5.5 11 8s-4.5 8-11 8-11-5.5-11-8 4.5-8 11-8Zm0 2C9.33 6 7.03 7.13 5.38 8.57a9.39 9.39 0 0 0-1.86 2.16A3.1 3.1 0 0 0 3 12c0 .1.08.55.52 1.27.4.68 1.03 1.44 1.86 2.16A10.14 10.14 0 0 0 12 18c2.67 0 4.97-1.13 6.62-2.57a9.39 9.39 0 0 0 1.86-2.16A3.1 3.1 0 0 0 21 12c0-.1-.08-.55-.52-1.27a9.39 9.39 0 0 0-1.86-2.16A10.14 10.14 0 0 0 12 6Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-const IconComponent = convertIcon(SvgComponent, 'mini_player');
+const IconComponent = convertIcon(SvgComponent, 'eye_opened_stroked');
 export default IconComponent;
