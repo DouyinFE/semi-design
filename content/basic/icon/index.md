@@ -499,7 +499,7 @@ IconVolume1Stroked
 IconVolume2
 IconVolume2Stroked
 IconVolumnSilent
-IconVolumnSilentStroked
+IconVolumeSilentStroked
 IconVoteStroked
 IconVoteVideoStroked
 IconWeibo
