@@ -112,6 +112,7 @@ $color-textarea-border-hover: $color-textarea-border-default; // 多行文本描
 
 $color-textarea-icon-default: var(--semi-color-text-2); // 多行文本 clear 图标颜色
 $color-textarea-icon-hover: var(--semi-color-primary-hover); // 多行文本 clear 图标颜色 - 悬浮
+$width-input_textarea_lineNumber: 36px; // 行号栏宽度
 $width-textarea-icon: $width-icon-medium + $spacing-tight; // clear 图标最小宽度
 $height-textarea-default: 32px; // 多行文本 clear 图标的高度
 $spacing-textarea_withShowClear-paddingRight: 36px; // 多行文本设置 showClear 后的右内边距
