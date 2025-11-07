@@ -88,7 +88,7 @@ const local: Locale = {
             Sun: 'ned',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'dd. mm. gggg.',
+            FORMAT_SWITCH_DATE: 'dd.MM.yyyy',
         },
     },
     Popconfirm: {

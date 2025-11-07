@@ -7,8 +7,8 @@ const local: Locale = {
     dateFnsLocale: id,
     currency: 'PHP',
     Pagination: {
-        pageSize: 'Mga aytem kada page: ₱{pageSize}',
-        total: 'Kinatibuk-ang page: ₱{total}',
+        pageSize: 'Mga aytem kada page: ${pageSize}',
+        total: 'Kinatibuk-ang page: ${total}',
         jumpTo: 'Adto sa',
         page: ' page',
     },

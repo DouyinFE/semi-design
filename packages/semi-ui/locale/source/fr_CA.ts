@@ -88,7 +88,7 @@ const local: Locale = {
             Sun: 'Dim.',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'jj/MM/aaaa',
+            FORMAT_SWITCH_DATE: 'dd/MM/yyyy',
         },
     },
     Popconfirm: {

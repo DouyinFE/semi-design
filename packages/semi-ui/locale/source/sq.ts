@@ -88,7 +88,7 @@ const local: Locale = {
             Sun: 'Die',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'dd.mm.vvvv',
+            FORMAT_SWITCH_DATE: 'dd.mm.yyyy',
         },
     },
     Popconfirm: {
