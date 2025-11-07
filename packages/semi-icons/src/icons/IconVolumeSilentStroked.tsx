@@ -19,5 +19,5 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
         </svg>
     );
 }
-const IconComponent = convertIcon(SvgComponent, 'volumn_silent_stroked');
+const IconComponent = convertIcon(SvgComponent, 'volume_silent_stroked');
 export default IconComponent;
