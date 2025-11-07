@@ -7,6 +7,9 @@ import styles from './index.module.scss';
 const getClosestColors = (color, palette, isRGB) => {
     const scores = [];
     for (let name in palette.light) {
+        if (palette.light[name].includes('linear-gradient')) {
+            continue;
+        }
         const targetColor = isRGB ? palette.light[name]
             : `rgb(${palette.light[name]})`;
         const distance = chroma.distance(color, targetColor);
