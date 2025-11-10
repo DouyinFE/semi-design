@@ -24,6 +24,7 @@ brief: Internationalized components to provide multilingual support for Semi com
 | v2.15.0     | Italian: it、French：fr、German：de   |
 | v2.21.0     | Romanian: ro   |
 | v2.29.0     | Swedish: sv_SE、 Polish: pl_PL、Dutch: nl_NL |
+| v2.88.0 | Azerbaijani: az, Bulgarian: bg, Catalan: ca, Czech: cs_CZ, Cebu: ceb_PH, Danish: da, Greek: el_GR, Spanish (Latin America): es_419, Estonian: et, Persian: fa_IR, Filipino: fil_PH, Finnish: fi_FI, French (Canada): fr_CA, Irish: ga, Hebrew: he_IL, Hindi: hi_IN, Croatian: hr, Hungarian: hu_HU, Icelandic: is, Javanese: jv_ID, Kazakh: kk, Khmer: km_KH, Lithuanian: lt, Latvian: lv, Burmese: my_MM, Norwegian: nb, Portuguese: pt, Slovak: sk, Slovenian: sl, Albanian: sq, Swahili: sw, Ukrainian: uk_UA, Urdu: ur, Uzbek: uz |
 
 
 ## Components supported
@@ -200,6 +201,41 @@ import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
 import de from '@douyinfe/semi-ui/lib/es/locale/source/de';
 import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
 import ro from '@douyinfe/semi-ui/lib/es/locale/source/ro';
+import az from '@douyinfe/semi-ui/locale/source/az';
+import bg from '@douyinfe/semi-ui/locale/source/bg';
+import bn_IN from '@douyinfe/semi-ui/locale/source/bn_IN';  
+import ca from '@douyinfe/semi-ui/locale/source/ca';
+import cs_CZ from '@douyinfe/semi-ui/locale/source/cs_CZ';
+import ceb_PH from '@douyinfe/semi-ui/locale/source/ceb_PH';
+import da from '@douyinfe/semi-ui/locale/source/da';
+import el_GR from '@douyinfe/semi-ui/locale/source/el_GR';
+import es_419 from '@douyinfe/semi-ui/locale/source/es_419';
+import et from '@douyinfe/semi-ui/locale/source/et';
+import fa_IR from '@douyinfe/semi-ui/locale/source/fa_IR';
+import fil_PH from '@douyinfe/semi-ui/locale/source/fil_PH';
+import fi_FI from '@douyinfe/semi-ui/locale/source/fi_FI';
+import fr_CA from '@douyinfe/semi-ui/locale/source/fr_CA';
+import ga from '@douyinfe/semi-ui/locale/source/ga';
+import he_IL from '@douyinfe/semi-ui/locale/source/he_IL';
+import hi_IN from '@douyinfe/semi-ui/locale/source/hi_IN';
+import hr from '@douyinfe/semi-ui/locale/source/hr';
+import hu_HU from '@douyinfe/semi-ui/locale/source/hu_HU';
+import is from '@douyinfe/semi-ui/locale/source/is';
+import jv_ID from '@douyinfe/semi-ui/locale/source/jv_ID';
+import kk from '@douyinfe/semi-ui/locale/source/kk';
+import km_KH from '@douyinfe/semi-ui/locale/source/km_KH';
+import lt from '@douyinfe/semi-ui/locale/source/lt';
+import lv from '@douyinfe/semi-ui/locale/source/lv';
+import my_MM from '@douyinfe/semi-ui/locale/source/my_MM';
+import nb from '@douyinfe/semi-ui/locale/source/nb';
+import pt from '@douyinfe/semi-ui/locale/source/pt';
+import sk from '@douyinfe/semi-ui/locale/source/sk';
+import sl from '@douyinfe/semi-ui/locale/source/sl';
+import sq from '@douyinfe/semi-ui/locale/source/sq';
+import sw from '@douyinfe/semi-ui/locale/source/sw';
+import uk_UA from '@douyinfe/semi-ui/locale/source/uk_UA';
+import ur from '@douyinfe/semi-ui/locale/source/ur';
+import uz from '@douyinfe/semi-ui/locale/source/uz';
 import { LocaleProvider, ConfigProvider, Pagination, Modal, Button, Select, Cascader, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography, Transfer, ImagePreview, Image, Form, Nav } from '@douyinfe/semi-ui';
 import { IconUser, IconSemiLogo, IconStar } from '@douyinfe/semi-icons';
 
@@ -233,7 +269,42 @@ class I18nDemo extends React.Component {
             de,
             it,
             fr,
-            ro
+            ro,
+            'bn_IN': bn_IN,
+            az,
+            bg,
+            ca,
+            'cs_CZ': cs_CZ,
+            'ceb_PH': ceb_PH,
+            da,
+            'el_GR': el_GR,
+            'es_419': es_419,
+            et,
+            'fa_IR': fa_IR,
+            'fil_PH': fil_PH,
+            'fi_FI': fi_FI,
+            'fr_CA': fr_CA,
+            ga,
+            'he_IL': he_IL,
+            'hi_IN': hi_IN,
+            hr,
+            'hu_HU': hu_HU,
+            is,
+            'jv_ID': jv_ID,
+            kk,
+            'km_KH': km_KH,
+            lt,
+            lv,
+            'my_MM': my_MM,
+            nb,
+            pt,
+            sk,
+            sl,
+            sq,
+            sw,
+            'uk_UA': uk_UA,
+            ur,
+            uz,
         };
         this.setState({ locale: language[code], localeCode: code });
     }
@@ -438,6 +509,41 @@ class I18nDemo extends React.Component {
                         <Select.Option value='sv_SE'>Swedish</Select.Option>
                         <Select.Option value='pl_PL'>Polish</Select.Option>
                         <Select.Option value='nl_NL'>Dutch</Select.Option>
+                        <Select.Option value="az">Azerbaijani</Select.Option>
+                        <Select.Option value="bn_IN">Bengali</Select.Option>
+                        <Select.Option value="bg">Bulgarian</Select.Option>
+                        <Select.Option value="ca">Catalan</Select.Option>
+                        <Select.Option value="cs_CZ">Czech</Select.Option>
+                        <Select.Option value="ceb_PH">Cebuano</Select.Option>
+                        <Select.Option value="da">Danish</Select.Option>
+                        <Select.Option value="el_GR">Greek</Select.Option>
+                        <Select.Option value="es_419">Spanish (Latin America)</Select.Option>
+                        <Select.Option value="et">Estonian</Select.Option>
+                        <Select.Option value="fa_IR">Persian</Select.Option>
+                        <Select.Option value="fil_PH">Filipino</Select.Option>
+                        <Select.Option value="fi_FI">Finnish</Select.Option>
+                        <Select.Option value="fr_CA">French (Canada)</Select.Option>
+                        <Select.Option value="ga">Irish</Select.Option>
+                        <Select.Option value="he_IL">Hebrew</Select.Option>
+                        <Select.Option value="hi_IN">Hindi</Select.Option>
+                        <Select.Option value="hr">Croatian</Select.Option>
+                        <Select.Option value="hu_HU">Hungarian</Select.Option>
+                        <Select.Option value="is">Icelandic</Select.Option>
+                        <Select.Option value="jv_ID">Javanese</Select.Option>
+                        <Select.Option value="kk">Kazakh</Select.Option>
+                        <Select.Option value="km_KH">Khmer</Select.Option>
+                        <Select.Option value="lt">Lithuanian</Select.Option>
+                        <Select.Option value="lv">Latvian</Select.Option>
+                        <Select.Option value="my_MM">Burmese</Select.Option>
+                        <Select.Option value="nb">Norwegian</Select.Option>
+                        <Select.Option value="pt">Portuguese</Select.Option>
+                        <Select.Option value="sk">Slovak</Select.Option>
+                        <Select.Option value="sl">Slovenian</Select.Option>
+                        <Select.Option value="sq">Albanian</Select.Option>
+                        <Select.Option value="sw">Swahili</Select.Option>
+                        <Select.Option value="uk_UA">Ukrainian</Select.Option>
+                        <Select.Option value="ur">Urdu</Select.Option>
+                        <Select.Option value="uz">Uzbek</Select.Option>
                     </Select>
                 </div>
                 <LocaleProvider locale={locale}>
