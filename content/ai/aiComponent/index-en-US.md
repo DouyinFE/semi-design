@@ -124,7 +124,7 @@ import { IconAIBellLevel1, IconAIEditLevel2, IconAIFileLevel3, IconAIFilledLevel
 ### Building a Conversation with the AI ​​Chat Component
 
 In this example, we'll combine the AIChatInput and AIChatDialogue components to build a conversational use case suitable for a Multiple Agent scenario.
-For more examples and usage scenarios, see [AIChatInput](/en-US/ai/aiChatInput) and [AIChatDialogue](/en-US/ai/aiChatDialogue).
+For more examples and usage scenarios, see [AIChatInput](/en-US/ai/aiChatInput) and [AIChatDialogue](/en-US/ai/aiChatDialogue). For examples of front-end and back-end combined use cases, please refer to [semi-ai-chat-demo](https://github.com/YannLynn/semi-ai-chat-demo).
 
 ```jsx live=true dir="column" noInline=true
 import React, { useState, useCallback } from 'react';

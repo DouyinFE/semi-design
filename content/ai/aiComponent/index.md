@@ -124,7 +124,7 @@ import { IconAIBellLevel1, IconAIEditLevel2, IconAIFileLevel3, IconAIFilledLevel
 ### AI Chat 组件构建对话
 
 本例中我们将联合使用 `AIChatInput` 和 `AIChatDialogue` 组件，构建一个适用于 `Multiple Agent` 场景的对话用例。
-更多示例及使用场景详见 [AIChatInput](/zh-CN/ai/aiChatInput)、[AIChatDialogue](/zh-CN/ai/aiChatDialogue)
+更多示例及使用场景详见 [AIChatInput](/zh-CN/ai/aiChatInput)、[AIChatDialogue](/zh-CN/ai/aiChatDialogue)。前后端组合使用用例可参考[semi-ai-chat-demo](https://github.com/YannLynn/semi-ai-chat-demo)
 
 ```jsx live=true dir="column" noInline=true
 import React, { useState, useCallback } from 'react';
