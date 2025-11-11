@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import BaseComponent from '../_base/baseComponent';
-import { AIChatInputProps, AIChatInputState, Skill, Attachment, Reference, Content, LeftMenuChangeProps } from './interface';
+import { AIChatInputProps, AIChatInputState, Skill, Attachment, Reference, Content, LeftMenuChangeProps, Setup, BaseSkill, Suggestion } from './interface';
 import { noop, isEqual } from 'lodash';
 import { cssClasses, numbers } from '@douyinfe/semi-foundation/aiChatInput/constants';
 import { Popover, Tooltip, Upload, Progress } from '../index';
@@ -30,7 +30,9 @@ import { Locale } from '../locale/interface';
 import LocaleConsumer from '../locale/localeConsumer';
 import SkillItem from './skillItem';
 import SuggestionItem from './suggestionItem';
+
 export { getConfigureItem };
+export * from './interface';
 
 const prefixCls = cssClasses.PREFIX;
 
