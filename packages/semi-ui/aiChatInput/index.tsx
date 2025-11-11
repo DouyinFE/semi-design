@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import BaseComponent from '../_base/baseComponent';
-import { AIChatInputProps, AIChatInputState, Skill, Attachment, Reference, Content, LeftMenuChangeProps, Setup, BaseSkill, Suggestion } from './interface';
+import { AIChatInputProps, AIChatInputState, Skill, Attachment, Reference, Content, LeftMenuChangeProps } from './interface';
 import { noop, isEqual } from 'lodash';
 import { cssClasses, numbers } from '@douyinfe/semi-foundation/aiChatInput/constants';
 import { Popover, Tooltip, Upload, Progress } from '../index';
