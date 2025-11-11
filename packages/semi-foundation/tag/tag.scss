@@ -139,7 +139,7 @@ $types: "ghost", "solid", "light";
     &-avatar-circle.#{$module}-small,
     &-avatar-circle.#{$module}-default {
         // when avatarShape=circle change tag border radius
-        border-radius: $height-tag_small * 0.5 + 1;
+        border-radius: $height-tag_small * 0.5 + 1px;
 
         .#{$prefix}-avatar {
             width: $width-tag_avatar_circle_small;
@@ -148,7 +148,7 @@ $types: "ghost", "solid", "light";
     }
 
     &-avatar-circle.#{$module}-large {
-        border-radius: $height-tag_large * 0.5 + 1;
+        border-radius: $height-tag_large * 0.5 + 1px;
 
         .#{$prefix}-avatar {
             width: $width-tag_avatar_circle_large;
@@ -182,10 +182,10 @@ $types: "ghost", "solid", "light";
     }
 
     &-max.#{$module}-group-small {
-        height: ($height-tag_small + 2);
+        height: ($height-tag_small + 2px);
     }
     &-max.#{$module}-group-large {
-        height: ($height-tag_large + 2);
+        height: ($height-tag_large + 2px);
     }
     // &-small {
     //     height: ($height-tag_small + 2);
