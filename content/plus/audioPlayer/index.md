@@ -1,12 +1,11 @@
 ---
 localeCode: zh-CN
-order: 94
+order: 96
 category: Plus
 title: AudioPlayer 音频播放器
 icon: doc-audioplayer
 width: 60%
 brief: 用于播放音频
-showNew: true
 ---
 
 ## 代码演示

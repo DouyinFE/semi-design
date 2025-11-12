@@ -15,6 +15,31 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.88.0-beta.1 (2025-11-10)
+- 【Feat】
+    - Added 10 filled icons and 33 linear icons [#3016](https://github.com/DouyinFE/semi-design/pull/3016)
+    - Add supports to 34 new languages, including Azerbaijan (az), Bulgaria (bg), Catalonia (ca), Czech Republic (cs_CZ), Cebu (ceb_PH), Denmark (da), Greece (el_GR), Spain (Latin America) (es_419), Estonia (et), Persia (fa_IR), Philippines (fil_PH), Finland (fi_FI), French (Canada) (fr_CA), Ireland (ga), Hebrew (he_IL), Hindi (hi_IN), Croatia (hr), Hungary (hu_HU), Iceland (is), Javanese (jv_ID), Kazakhstan (kk), Khmer (km_KH), Lithuania (lt), Latvia (lv), Myanmar (my_MM), Norway (nb), Portugal (pt), Slovakia (sk), Slovenia (sl), Albania (sq), Swahili (sw), Ukraine (uk_UA), Urdu (ur), and Uzbekistan (uz).[#3018](https://github.com/DouyinFE/semi-design/pull/3018)
+- 【Style】
+    - Modify IconHourglass icon，UI style has changed [#3016](https://github.com/DouyinFE/semi-design/pull/3016)
+
+#### 🎉 2.88.0-beta.0 (2025-10-30)
+- 【New Component】
+    - Added AI Chat Input component AIChatInput [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+    - Added AI Chat Dialogue component AIChatDialogue [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+    - Added FloatButton component FloatButton [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+    - Added Feedback component Feedback [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+- 【Feat】
+    - Added AI Token and AI ICON [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+    - Added colorful API to Tag/Button [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+
+#### 🎉 2.87.1 (2025-10-16)
+- 【Fix】
+    - Fixed an issue in Chrome V140 and 141 where an error would occur when expanding Tree/TreeSelect after collapsing it [#3005](https://github.com/DouyinFE/semi-design/issues/3005)
+    - Fixed the issue where the Collapsible animation did not work in some Chrome versions 140 and 141. [#3006](https://github.com/DouyinFE/semi-design/pull/3006)
+
+#### 🎉 2.87.0 (2025-10-15)
+- 【Style】
+    - Dropdown, Modal, SideSheet, Popover, Tooltip add backdrop-filter to set related tokens [#2981](https://github.com/DouyinFE/semi-design/issues/2981)
 
 #### 🎉 2.87.1 (2025-10-16)
 - 【Fix】

@@ -1,12 +1,11 @@
 ---
 localeCode: en-US
-order: 28
+order: 29
 category: Plus
 title:  DragMove
 icon: doc-dragmove
 dir: column
 brief: Set elements to change their position by dragging
-showNew: true
 ---
 
 ## When to use

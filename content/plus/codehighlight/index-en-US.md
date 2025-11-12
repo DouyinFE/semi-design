@@ -1,12 +1,11 @@
 ---
 localeCode: en-US
-order: 26
+order: 27
 category: Plus
 title:  CodeHighlight
 icon: doc-codehighlight
 dir: column
 brief: Highlight code blocks in the page according to syntax
-showNew: true
 ---
 
 ## When to use

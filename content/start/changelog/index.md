@@ -13,6 +13,25 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.88.0-beta.1 (2025-11-10)
+- 【Feat】
+    - 新增加 IconRealSize 等 10 个线性图标，IconScissorsStroked 等 33 个面性图标。 [#3016](https://github.com/DouyinFE/semi-design/pull/3016)
+    - 新增阿塞拜疆(az)、保加利亚(bg)、加泰罗尼亚(ca)、捷克(cs_CZ)、宿务(ceb_PH)、丹麦(da)、希腊(el_GR)、西班牙（拉美）(es_419)、爱沙尼亚(et)、波斯(fa_IR)、菲律宾(fil_PH)、芬兰(fi_FI)、法语（加）(fr_CA)、爱尔兰(ga)、希伯来(he_IL)、印地(hi_IN)、克罗地亚(hr)、匈牙利(hu_HU)、冰岛(is)、爪哇(jv_ID)、哈萨克(kk)、高棉(km_KH)、立陶宛(lt)、拉脱维亚(lv)、缅甸(my_MM)、挪威(nb)、葡萄牙(pt)、斯洛伐克(sk)、斯洛文尼亚(sl)、阿尔巴尼亚(sq)、斯瓦希里(sw)、乌克兰(uk_UA)、乌尔都(ur)、乌兹别克(uz) 等 34 种语言翻译 [#3018](https://github.com/DouyinFE/semi-design/pull/3018)
+- 【Style】
+    - 修改 IconHourglass 图标，UI 样式有变化 [#3016](https://github.com/DouyinFE/semi-design/pull/3016)
+
+#### 🎉 2.88.0-beta.0 (2025-10-30)
+- 【New Component】
+    - 新增 AI 聊天输入框组件 AIChatInput [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+    - 新增 AI 聊天对话组件 AIChatDialogue [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+    - 新增悬浮按钮组件 FloatButton [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+    - 新增反馈组件 Feedback [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+- 【Feat】
+    - 新增 AI Token，AI ICON [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+    - Tag/Button 新增加 colorful API [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
+
+=======
+
 #### 🎉 2.87.1 (2025-10-16)
 - 【Fix】
     - 修复部分 chrome V140，141版本中，Tree/TreeSelect 在收起后，再次展开出现错误问题 [#3005](https://github.com/DouyinFE/semi-design/issues/3005)

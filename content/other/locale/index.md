@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 92
+order: 94
 category: 其他
 title:  LocaleProvider 多语言
 icon: doc-i18n
@@ -22,7 +22,8 @@ brief: 国际化组件，为 Semi 组件提供多语言支持
 | v2.2.0     | 西班牙语: es       |
 | v2.15.0     | 意大利语: it、法语：fr、德语：de   |
 | v2.21.0     | 罗马尼亚语: ro   |
-| v2.29.0     | 瑞典语: sv_SE、波兰语: pl_PL 、荷兰语: nl_NL |
+| v2.29.0     | 瑞典语： sv_SE、波兰语： pl_PL、荷兰语： nl_NL |
+| v2.88.0     | 阿塞拜疆语：az、保加利亚语：bg、加泰罗尼亚语：ca、捷克语：cs_CZ、宿务语：ceb_PH、丹麦语： da、希腊语：el_GR、西班牙语（拉美）：es_419、爱沙尼亚语：et、波斯语：fa_IR、菲律宾语：fil_PH、芬兰语： fi_FI、法语（加）：fr_CA、爱尔兰语：ga、希伯来语：he_IL、印地语：hi_IN、克罗地亚语：hr、匈牙利语：hu_HU、冰岛语：is、爪哇语：jv_ID、哈萨克语：kk、高棉语：km_KH、立陶宛语：lt、拉脱维亚语：lv、缅甸语：my_MM、挪威语： nb、葡萄牙语：pt、斯洛伐克语：sk、斯洛文尼亚语：sl、阿尔巴尼亚语：sq、斯瓦希里语：sw、乌克兰语：uk_UA、乌尔都语：ur、乌兹别克语：uz |
 
 ## 已支持组件  
 目前有以下组件存在内置默认文本，均已实现国际化多语言适配  
@@ -203,6 +204,41 @@ import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
 import de from '@douyinfe/semi-ui/lib/es/locale/source/de';
 import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
 import ro from '@douyinfe/semi-ui/lib/es/locale/source/ro';
+import az from '@douyinfe/semi-ui/lib/es/locale/source/az';
+import bg from '@douyinfe/semi-ui/lib/es/locale/source/bg';
+import bn_IN from '@douyinfe/semi-ui/lib/es/locale/source/bn_IN';  
+import ca from '@douyinfe/semi-ui/lib/es/locale/source/ca';
+import cs_CZ from '@douyinfe/semi-ui/lib/es/locale/source/cs_CZ';
+import ceb_PH from '@douyinfe/semi-ui/lib/es/locale/source/ceb_PH';
+import da from '@douyinfe/semi-ui/lib/es/locale/source/da';
+import el_GR from '@douyinfe/semi-ui/lib/es/locale/source/el_GR';
+import es_419 from '@douyinfe/semi-ui/lib/es/locale/source/es_419';
+import et from '@douyinfe/semi-ui/lib/es/locale/source/et';
+import fa_IR from '@douyinfe/semi-ui/lib/es/locale/source/fa_IR';
+import fil_PH from '@douyinfe/semi-ui/lib/es/locale/source/fil_PH';
+import fi_FI from '@douyinfe/semi-ui/lib/es/locale/source/fi_FI';
+import fr_CA from '@douyinfe/semi-ui/lib/es/locale/source/fr_CA';
+import ga from '@douyinfe/semi-ui/lib/es/locale/source/ga';
+import he_IL from '@douyinfe/semi-ui/lib/es/locale/source/he_IL';
+import hi_IN from '@douyinfe/semi-ui/lib/es/locale/source/hi_IN';
+import hr from '@douyinfe/semi-ui/lib/es/locale/source/hr';
+import hu_HU from '@douyinfe/semi-ui/lib/es/locale/source/hu_HU';
+import is from '@douyinfe/semi-ui/lib/es/locale/source/is';
+import jv_ID from '@douyinfe/semi-ui/lib/es/locale/source/jv_ID';
+import kk from '@douyinfe/semi-ui/lib/es/locale/source/kk';
+import km_KH from '@douyinfe/semi-ui/lib/es/locale/source/km_KH';
+import lt from '@douyinfe/semi-ui/lib/es/locale/source/lt';
+import lv from '@douyinfe/semi-ui/lib/es/locale/source/lv';
+import my_MM from '@douyinfe/semi-ui/lib/es/locale/source/my_MM';
+import nb from '@douyinfe/semi-ui/lib/es/locale/source/nb';
+import pt from '@douyinfe/semi-ui/lib/es/locale/source/pt';
+import sk from '@douyinfe/semi-ui/lib/es/locale/source/sk';
+import sl from '@douyinfe/semi-ui/lib/es/locale/source/sl';
+import sq from '@douyinfe/semi-ui/lib/es/locale/source/sq';
+import sw from '@douyinfe/semi-ui/lib/es/locale/source/sw';
+import uk_UA from '@douyinfe/semi-ui/lib/es/locale/source/uk_UA';
+import ur from '@douyinfe/semi-ui/lib/es/locale/source/ur';
+import uz from '@douyinfe/semi-ui/lib/es/locale/source/uz';
 import { LocaleProvider, ConfigProvider, Pagination, Modal, Button, Select, Cascader, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography, Transfer, ImagePreview, Image, Form, Nav } from '@douyinfe/semi-ui';
 import { IconUser, IconSemiLogo, IconStar } from '@douyinfe/semi-icons';
 
@@ -239,7 +275,42 @@ class I18nDemo extends React.Component {
             de,
             it,
             fr,
-            ro
+            ro,
+            'bn_IN': bn_IN,
+            az,
+            bg,
+            ca,
+            'cs_CZ': cs_CZ,
+            'ceb_PH': ceb_PH,
+            da,
+            'el_GR': el_GR,
+            'es_419': es_419,
+            et,
+            'fa_IR': fa_IR,
+            'fil_PH': fil_PH,
+            'fi_FI': fi_FI,
+            'fr_CA': fr_CA,
+            ga,
+            'he_IL': he_IL,
+            'hi_IN': hi_IN,
+            hr,
+            'hu_HU': hu_HU,
+            is,
+            'jv_ID': jv_ID,
+            kk,
+            'km_KH': km_KH,
+            lt,
+            lv,
+            'my_MM': my_MM,
+            nb,
+            pt,
+            sk,
+            sl,
+            sq,
+            sw,
+            'uk_UA': uk_UA,
+            ur,
+            uz,
         };
         this.setState({ locale: language[code], localeCode: code });
     }
@@ -447,6 +518,41 @@ class I18nDemo extends React.Component {
                         <Select.Option value='sv_SE'>瑞典语</Select.Option>
                         <Select.Option value='pl_PL'>波兰语</Select.Option>
                         <Select.Option value='nl_NL'>荷兰语</Select.Option>
+                        <Select.Option value="az">阿塞拜疆语</Select.Option>
+                        <Select.Option value="bn_IN">孟加拉语</Select.Option>
+                        <Select.Option value="bg">保加利亚语</Select.Option>
+                        <Select.Option value="ca">加泰罗尼亚语</Select.Option>
+                        <Select.Option value="cs_CZ">捷克语</Select.Option>
+                        <Select.Option value="ceb_PH">宿务语</Select.Option>
+                        <Select.Option value="da">丹麦语</Select.Option>
+                        <Select.Option value="el_GR">希腊语</Select.Option>
+                        <Select.Option value="es_419">西班牙语（拉美）</Select.Option>
+                        <Select.Option value="et">爱沙尼亚语</Select.Option>
+                        <Select.Option value="fa_IR">波斯语</Select.Option>
+                        <Select.Option value="fil_PH">菲律宾语</Select.Option>
+                        <Select.Option value="fi_FI">芬兰语</Select.Option>
+                        <Select.Option value="fr_CA">法语（加）</Select.Option>
+                        <Select.Option value="ga">爱尔兰语</Select.Option>
+                        <Select.Option value="he_IL">希伯来语</Select.Option>
+                        <Select.Option value="hi_IN">印地语</Select.Option>
+                        <Select.Option value="hr">克罗地亚语</Select.Option>
+                        <Select.Option value="hu_HU">匈牙利语</Select.Option>
+                        <Select.Option value="is">冰岛语</Select.Option>
+                        <Select.Option value="jv_ID">爪哇语</Select.Option>
+                        <Select.Option value="kk">哈萨克语</Select.Option>
+                        <Select.Option value="km_KH">高棉语</Select.Option>
+                        <Select.Option value="lt">立陶宛语</Select.Option>
+                        <Select.Option value="lv">拉脱维亚语</Select.Option>
+                        <Select.Option value="my_MM">缅甸语</Select.Option>
+                        <Select.Option value="nb">挪威语</Select.Option>
+                        <Select.Option value="pt">葡萄牙语</Select.Option>
+                        <Select.Option value="sk">斯洛伐克语</Select.Option>
+                        <Select.Option value="sl">斯洛文尼亚语</Select.Option>
+                        <Select.Option value="sq">阿尔巴尼亚语</Select.Option>
+                        <Select.Option value="sw">斯瓦希里语</Select.Option>
+                        <Select.Option value="uk_UA">乌克兰语</Select.Option>
+                        <Select.Option value="ur">乌尔都语</Select.Option>
+                        <Select.Option value="uz">乌兹别克语</Select.Option>
                     </Select>
                 </div>
                 <LocaleProvider locale={locale}>

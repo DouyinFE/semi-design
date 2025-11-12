@@ -1,12 +1,11 @@
 ---
 localeCode: zh-CN
-order: 27
+order: 28
 category: Plus
 title:  Markdown 渲染器
 icon: doc-markdown
 dir: column
 brief: 在网页中即时渲染 Markdown 和 MDX
-showNew: true
 ---
 
 ## 使用场景

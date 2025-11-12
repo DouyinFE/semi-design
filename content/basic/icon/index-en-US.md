@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 23
+order: 24
 category: Basic
 title: Icon
 subTitle: Icon
@@ -9,7 +9,12 @@ brief: Semantic vector graphics.
 ---
 
 ## Icon List
+The default icon set `@douyinfe/semi-icons` includes three sets of icons: surface, linear, and AI. Surface icons, linear icons, and monochrome icons in AI icons have no color by default, and the color can be changed through the css color attribute.
+Dual-color and multi-color icons in AI icons have default colors, which can be changed via fill.
 
+AI icons are available since v2.86.0.
+
+`@douyinfe/semi-icons-lab` is a color icon set, which needs to be installed separately and cannot be changed. The lab icon set is provided after v2.48
 
 <div style={{display: "none"}}>
 @douyinfe/semi-icons icon list:
@@ -17,6 +22,7 @@ brief: Semantic vector graphics.
 IconAbsoluteStroked
 IconActivity
 IconAlarm
+IconAlarmStroked
 IconAlertCircle
 IconAlertTriangle
 IconAlignBottom
@@ -57,6 +63,7 @@ IconBell
 IconBellStroked
 IconBold
 IconBolt
+IconBook
 IconBookH5Stroked
 IconBookOpenStroked
 IconBookStroked
@@ -71,18 +78,22 @@ IconBrackets
 IconBranch
 IconBriefStroked
 IconBriefcase
+IconBriefcaseStroked
 IconBulb
 IconButtonStroked
 IconBytedanceLogo
 IconCalendar
 IconCalendarClock
+IconCalendarClockStroked
 IconCalendarStroked
 IconCamera
+IconCameraStroked
 IconCandlestickChartStroked
 IconCaretdown
 IconCaretup
 IconCarouselStroked
 IconCart
+IconCartStroked
 IconCaseSensitive
 IconCenterLeftStroked
 IconCenterRightStroked
@@ -102,12 +113,14 @@ IconChevronUp
 IconChevronUpDown
 IconClear
 IconClock
+IconClockStroked
 IconClose
 IconCloud
 IconCloudStroked
 IconCloudUploadStroked
 IconCode
 IconCodeStroked
+IconCoinMoney
 IconCoinMoneyStroked
 IconColorPalette
 IconColumnsStroked
@@ -126,10 +139,12 @@ IconCopyAdd
 IconCopyStroked
 IconCornerRadiusStroked
 IconCreditCard
+IconCreditCardStroked
 IconCrop
 IconCrossCircleStroked
 IconCrossStroked
 IconCrown
+IconCrownStroked
 IconCustomerSupport
 IconCustomerSupportStroked
 IconCustomize
@@ -144,11 +159,13 @@ IconDivide
 IconDongchediLogo
 IconDoubleChevronLeft
 IconDoubleChevronRight
+IconDownCircle
 IconDownCircleStroked
 IconDownload
 IconDownloadStroked
 IconDuration
 IconEdit
+IconEdit2
 IconEdit2Stroked
 IconEditStroked
 IconElementStroked
@@ -160,7 +177,10 @@ IconExternalOpen
 IconExternalOpenStroked
 IconEyeClosed
 IconEyeClosedSolid
+IconEyeClosedSolidStroked
+IconEyeClosedStroked
 IconEyeOpened
+IconEyeOpenedStroked
 IconEyedropper
 IconFacebook
 IconFaceuLogo
@@ -176,13 +196,16 @@ IconFilledArrowDown
 IconFilledArrowUp
 IconFilpVertical
 IconFilter
+IconFilterStroked
 IconFingerLeftStroked
 IconFixedStroked
 IconFlag
+IconFlagStroked
 IconFlipHorizontal
 IconFlowChartStroked
 IconFolder
 IconFolderOpen
+IconFolderOpenStroked
 IconFolderStroked
 IconFollowStroked
 IconFont
@@ -198,6 +221,8 @@ IconGithubLogo
 IconGitlabLogo
 IconGlobe
 IconGlobeStroke
+IconGlobeStrokeStroked
+IconGlobeStroked
 IconGridRectangle
 IconGridSquare
 IconGridStroked
@@ -224,9 +249,11 @@ IconHn
 IconHome
 IconHomeStroked
 IconHorn
+IconHornStroked
 IconHourglass
 IconHourglassStroked
 IconIdCard
+IconIdCardStroked
 IconIdentity
 IconImage
 IconImageStroked
@@ -251,6 +278,7 @@ IconKey
 IconKeyStroked
 IconLanguage
 IconLayers
+IconLeftCircle
 IconLeftCircleStroked
 IconLightningStroked
 IconLikeHeart
@@ -279,6 +307,9 @@ IconMember
 IconMenu
 IconMicrophone
 IconMicrophoneOff
+IconMicrophoneOffStroked
+IconMicrophoneStroked
+IconMiniPlayer
 IconMinimize
 IconMinus
 IconMinusCircle
@@ -288,21 +319,26 @@ IconModalStroked
 IconMoneyExchangeStroked
 IconMonitorStroked
 IconMoon
+IconMoonStroked
 IconMore
 IconMoreStroked
 IconMusic
 IconMusicNoteStroked
 IconMute
+IconMuteStroked
 IconNineGridStroked
+IconNoteMoney
 IconNoteMoneyStroked
 IconOption
 IconOrderedList
 IconOrderedListStroked
 IconPaperclip
+IconPaperclipStroked
 IconPause
 IconPercentage
 IconPhone
 IconPhoneStroke
+IconPhoneStroked
 IconPieChart2Stroked
 IconPieChartStroked
 IconPiechartH5Stroked
@@ -315,6 +351,7 @@ IconPlusCircleStroked
 IconPlusStroked
 IconPriceTag
 IconPrint
+IconPrize
 IconPrizeStroked
 IconPulse
 IconPuzzle
@@ -324,6 +361,7 @@ IconQuit
 IconQuote
 IconRadio
 IconRankingCardStroked
+IconRealSize
 IconRealSizeStroked
 IconRedo
 IconRedoStroked
@@ -340,10 +378,12 @@ IconRotationStroked
 IconRoute
 IconRowsStroked
 IconSafe
+IconSafeStroked
 IconSave
 IconSaveStroked
 IconScan
 IconScissors
+IconScissorsStroked
 IconSearch
 IconSearchStroked
 IconSectionStroked
@@ -355,12 +395,14 @@ IconServer
 IconServerStroked
 IconSetting
 IconSettingStroked
+IconShare
 IconShareMoneyStroked
 IconShareStroked
 IconShield
 IconShieldStroked
 IconShift
 IconShoppingBag
+IconShoppingBagStroked
 IconShrink
 IconShrinkScreenStroked
 IconSidebar
@@ -386,6 +428,7 @@ IconStopwatchStroked
 IconStoryStroked
 IconStrikeThrough
 IconSun
+IconSunStroked
 IconSync
 IconTabArrowStroked
 IconTabsStroked
@@ -393,6 +436,7 @@ IconTaskMoneyStroked
 IconTemplate
 IconTemplateStroked
 IconTerminal
+IconTestScore
 IconTestScoreStroked
 IconText
 IconTextRectangle
@@ -400,6 +444,7 @@ IconTextStroked
 IconThumbUpStroked
 IconTick
 IconTickCircle
+IconTicketCode
 IconTicketCodeExchangeStroked
 IconTicketCodeStroked
 IconTiktokLogo
@@ -432,9 +477,11 @@ IconUser
 IconUserAdd
 IconUserCardPhone
 IconUserCardVideo
+IconUserCardVideoStroked
 IconUserCircle
 IconUserCircleStroked
 IconUserGroup
+IconUserList
 IconUserListStroked
 IconUserSetting
 IconUserStroked
@@ -448,8 +495,11 @@ IconVideoStroked
 IconVideoUrlStroked
 IconVigoLogo
 IconVolume1
+IconVolume1Stroked
 IconVolume2
+IconVolume2Stroked
 IconVolumnSilent
+IconVolumeSilentStroked
 IconVoteStroked
 IconVoteVideoStroked
 IconWeibo
@@ -457,6 +507,7 @@ IconWholeWord
 IconWifi
 IconWindowAdaptionStroked
 IconWrench
+IconWrenchStroked
 IconXiguaLogo
 IconYoutube
 
@@ -637,7 +688,41 @@ import { IconLikeHeart, IconFlag, IconLock, IconUnlock } from '@douyinfe/semi-ic
 );
 ```
 
+### Bicolor icon
+
+The color of the two-color icon can be set through the `fill` attribute, which supports string and string[].
+
+```jsx live=true
+import React from 'react';
+import { IconAIWandLevel2, IconAIFilledLevel2 } from '@douyinfe/semi-icons';
+
+() => (
+    <div>
+        <IconAIWandLevel2 fill={['var(--semi-color-danger)', 'var(--semi-color-success)']} style={{ marginRight: 10 }} size="extra-large"/>
+        <IconAIFilledLevel2 fill={'var(--semi-color-success)'} size="extra-large"/>
+    </div>
+);
+```
+
+### Multicolor buttons
+
+Multi-color icon, the current multi-color button can pass in four colors. The color can be set through the `fill` attribute, which supports string and string[].
+
+```jsx live=true
+import React from 'react';
+import { IconAIBellLevel3, IconAIWandLevel3, IconAIFilledLevel3 } from '@douyinfe/semi-icons';
+
+() => (
+    <div>
+        <IconAIBellLevel3 style={{ marginRight: 10 }} size="extra-large"/>
+        <IconAIWandLevel3 fill={['var(--semi-color-danger)', 'var(--semi-color-success)', 'var(--semi-color-primary)', 'var(--semi-color-warning)']} style={{ marginRight: 10 }} size="extra-large"/>
+        <IconAIFilledLevel3 fill={['var(--semi-color-primary)', 'var(--semi-color-success)']} size="extra-large"/>
+    </div>
+);
+```
+
 ### Custom icon
+
 You can use custom icons to pass in Icon components
 Icon component supports size, rotate, spin and other attributes
 
@@ -691,6 +776,7 @@ import StarIcon from './star.svg';
 | Properties  | Illustrate        | Type            | Default |
 |-------|-------------|-----------------|--------|
 | className | class name | string | none |
+| fill | Fill color for bicolor, multicolor icons | string \| string[] | None |
 | onClick | Callback event of clicking the icon | (e: Event) => void | None |
 | onMouseDown | The callback event of mouse button press >=v1.21 | (e: Event) => void | None |
 | onMouseEnter | Callback event of entering icon | (e: Event) => void | None |

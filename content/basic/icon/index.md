@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 23
+order: 24
 category: 基础
 title:  Icon 图标
 icon: doc-icons
@@ -9,7 +9,10 @@ brief: 语义化的矢量图形。
 
 ## 图标列表
 
-默认的图标集 `@douyinfe/semi-icons` 包含面性、线性两套图标，默认不带颜色，可通过 css color属性更改颜色。
+默认的图标集 `@douyinfe/semi-icons` 包含面性、线性、AI 三套图标。面性图标、线性图标，以及 AI 图标中的单色图标默认不带颜色，可通过 css color 属性更改颜色。
+AI 图标中的双色，多色图标有默认颜色，可以通过 fill 更改颜色。
+
+AI 图标自 v2.86.0 提供。
 
 `@douyinfe/semi-icons-lab` 为彩色图标集，需单独安装，不可改色, lab 图标集于 v2.48 后提供
 
@@ -19,6 +22,7 @@ brief: 语义化的矢量图形。
 IconAbsoluteStroked
 IconActivity
 IconAlarm
+IconAlarmStroked
 IconAlertCircle
 IconAlertTriangle
 IconAlignBottom
@@ -59,6 +63,7 @@ IconBell
 IconBellStroked
 IconBold
 IconBolt
+IconBook
 IconBookH5Stroked
 IconBookOpenStroked
 IconBookStroked
@@ -73,18 +78,22 @@ IconBrackets
 IconBranch
 IconBriefStroked
 IconBriefcase
+IconBriefcaseStroked
 IconBulb
 IconButtonStroked
 IconBytedanceLogo
 IconCalendar
 IconCalendarClock
+IconCalendarClockStroked
 IconCalendarStroked
 IconCamera
+IconCameraStroked
 IconCandlestickChartStroked
 IconCaretdown
 IconCaretup
 IconCarouselStroked
 IconCart
+IconCartStroked
 IconCaseSensitive
 IconCenterLeftStroked
 IconCenterRightStroked
@@ -104,12 +113,14 @@ IconChevronUp
 IconChevronUpDown
 IconClear
 IconClock
+IconClockStroked
 IconClose
 IconCloud
 IconCloudStroked
 IconCloudUploadStroked
 IconCode
 IconCodeStroked
+IconCoinMoney
 IconCoinMoneyStroked
 IconColorPalette
 IconColumnsStroked
@@ -128,10 +139,12 @@ IconCopyAdd
 IconCopyStroked
 IconCornerRadiusStroked
 IconCreditCard
+IconCreditCardStroked
 IconCrop
 IconCrossCircleStroked
 IconCrossStroked
 IconCrown
+IconCrownStroked
 IconCustomerSupport
 IconCustomerSupportStroked
 IconCustomize
@@ -146,11 +159,13 @@ IconDivide
 IconDongchediLogo
 IconDoubleChevronLeft
 IconDoubleChevronRight
+IconDownCircle
 IconDownCircleStroked
 IconDownload
 IconDownloadStroked
 IconDuration
 IconEdit
+IconEdit2
 IconEdit2Stroked
 IconEditStroked
 IconElementStroked
@@ -162,7 +177,10 @@ IconExternalOpen
 IconExternalOpenStroked
 IconEyeClosed
 IconEyeClosedSolid
+IconEyeClosedSolidStroked
+IconEyeClosedStroked
 IconEyeOpened
+IconEyeOpenedStroked
 IconEyedropper
 IconFacebook
 IconFaceuLogo
@@ -178,13 +196,16 @@ IconFilledArrowDown
 IconFilledArrowUp
 IconFilpVertical
 IconFilter
+IconFilterStroked
 IconFingerLeftStroked
 IconFixedStroked
 IconFlag
+IconFlagStroked
 IconFlipHorizontal
 IconFlowChartStroked
 IconFolder
 IconFolderOpen
+IconFolderOpenStroked
 IconFolderStroked
 IconFollowStroked
 IconFont
@@ -200,6 +221,8 @@ IconGithubLogo
 IconGitlabLogo
 IconGlobe
 IconGlobeStroke
+IconGlobeStrokeStroked
+IconGlobeStroked
 IconGridRectangle
 IconGridSquare
 IconGridStroked
@@ -226,9 +249,11 @@ IconHn
 IconHome
 IconHomeStroked
 IconHorn
+IconHornStroked
 IconHourglass
 IconHourglassStroked
 IconIdCard
+IconIdCardStroked
 IconIdentity
 IconImage
 IconImageStroked
@@ -253,6 +278,7 @@ IconKey
 IconKeyStroked
 IconLanguage
 IconLayers
+IconLeftCircle
 IconLeftCircleStroked
 IconLightningStroked
 IconLikeHeart
@@ -281,6 +307,9 @@ IconMember
 IconMenu
 IconMicrophone
 IconMicrophoneOff
+IconMicrophoneOffStroked
+IconMicrophoneStroked
+IconMiniPlayer
 IconMinimize
 IconMinus
 IconMinusCircle
@@ -290,21 +319,26 @@ IconModalStroked
 IconMoneyExchangeStroked
 IconMonitorStroked
 IconMoon
+IconMoonStroked
 IconMore
 IconMoreStroked
 IconMusic
 IconMusicNoteStroked
 IconMute
+IconMuteStroked
 IconNineGridStroked
+IconNoteMoney
 IconNoteMoneyStroked
 IconOption
 IconOrderedList
 IconOrderedListStroked
 IconPaperclip
+IconPaperclipStroked
 IconPause
 IconPercentage
 IconPhone
 IconPhoneStroke
+IconPhoneStroked
 IconPieChart2Stroked
 IconPieChartStroked
 IconPiechartH5Stroked
@@ -317,6 +351,7 @@ IconPlusCircleStroked
 IconPlusStroked
 IconPriceTag
 IconPrint
+IconPrize
 IconPrizeStroked
 IconPulse
 IconPuzzle
@@ -326,6 +361,7 @@ IconQuit
 IconQuote
 IconRadio
 IconRankingCardStroked
+IconRealSize
 IconRealSizeStroked
 IconRedo
 IconRedoStroked
@@ -342,10 +378,12 @@ IconRotationStroked
 IconRoute
 IconRowsStroked
 IconSafe
+IconSafeStroked
 IconSave
 IconSaveStroked
 IconScan
 IconScissors
+IconScissorsStroked
 IconSearch
 IconSearchStroked
 IconSectionStroked
@@ -357,12 +395,14 @@ IconServer
 IconServerStroked
 IconSetting
 IconSettingStroked
+IconShare
 IconShareMoneyStroked
 IconShareStroked
 IconShield
 IconShieldStroked
 IconShift
 IconShoppingBag
+IconShoppingBagStroked
 IconShrink
 IconShrinkScreenStroked
 IconSidebar
@@ -388,6 +428,7 @@ IconStopwatchStroked
 IconStoryStroked
 IconStrikeThrough
 IconSun
+IconSunStroked
 IconSync
 IconTabArrowStroked
 IconTabsStroked
@@ -395,6 +436,7 @@ IconTaskMoneyStroked
 IconTemplate
 IconTemplateStroked
 IconTerminal
+IconTestScore
 IconTestScoreStroked
 IconText
 IconTextRectangle
@@ -402,6 +444,7 @@ IconTextStroked
 IconThumbUpStroked
 IconTick
 IconTickCircle
+IconTicketCode
 IconTicketCodeExchangeStroked
 IconTicketCodeStroked
 IconTiktokLogo
@@ -434,9 +477,11 @@ IconUser
 IconUserAdd
 IconUserCardPhone
 IconUserCardVideo
+IconUserCardVideoStroked
 IconUserCircle
 IconUserCircleStroked
 IconUserGroup
+IconUserList
 IconUserListStroked
 IconUserSetting
 IconUserStroked
@@ -450,8 +495,11 @@ IconVideoStroked
 IconVideoUrlStroked
 IconVigoLogo
 IconVolume1
+IconVolume1Stroked
 IconVolume2
+IconVolume2Stroked
 IconVolumnSilent
+IconVolumeSilentStroked
 IconVoteStroked
 IconVoteVideoStroked
 IconWeibo
@@ -459,9 +507,34 @@ IconWholeWord
 IconWifi
 IconWindowAdaptionStroked
 IconWrench
+IconWrenchStroked
 IconXiguaLogo
 IconYoutube
-
+IconAIBellLevel1
+IconAIBellLevel2
+IconAIBellLevel3
+IconAIEditLevel1
+IconAIEditLevel2
+IconAIEditLevel3
+IconAIFileLevel1
+IconAIFileLevel2
+IconAIFileLevel3
+IconAIFiledLevel1
+IconAIFiledLevel2
+IconAIFiledLevel3
+IconAIImageLevel1
+IconAIImageLevel2
+IconAIImageLevel3
+IconAISearchLevel1
+IconAISearchLevel2
+IconAISearchLevel3
+IconAIStrokeLevel1
+IconAIStrokeLevel2
+IconAIStrokeLevel3
+IconAIWandLevel1
+IconAIWandLevel2
+IconAIWandLevel3
+IconAILoading
 
 
 @douyinfe/semi-icons-lab icon list:
@@ -620,7 +693,7 @@ import { IconSearch, IconHelpCircle, IconAlertCircle, IconMinusCircle, IconPlusC
 ```
 
 ### 颜色
-图标会自动继承外部容器 CSS 的 `color` 属性
+单色图标会自动继承外部容器 CSS 的 `color` 属性
 你还可以通过给 Icon 设置 style props 来修改图标的颜色。
 
 ```jsx live=true
@@ -642,9 +715,43 @@ import { IconLikeHeart, IconFlag, IconLock, IconUnlock } from '@douyinfe/semi-ic
 );
 ```
 
+### 双色图标
+
+双色图标可以通过 `fill` 属性设置颜色，支持 string 以及 string[]。
+
+```jsx live=true
+import React from 'react';
+import { IconAIWandLevel2, IconAIFilledLevel2 } from '@douyinfe/semi-icons';
+
+() => (
+    <div>
+        <IconAIWandLevel2 fill={['var(--semi-color-danger)', 'var(--semi-color-success)']} style={{ marginRight: 10 }} size="extra-large"/>
+        <IconAIFilledLevel2 fill={'var(--semi-color-success)'} size="extra-large"/>
+    </div>
+);
+```
+
+### 多色按钮
+
+多色图标，当前的多色按钮可传入四个颜色。可以通过 `fill` 属性设置颜色，支持 string 以及 string[]。
+
+```jsx live=true
+import React from 'react';
+import { IconAIBellLevel3, IconAIWandLevel3, IconAIFilledLevel3 } from '@douyinfe/semi-icons';
+
+() => (
+    <div>
+        <IconAIBellLevel3 style={{ marginRight: 10 }} size="extra-large"/>
+        <IconAIWandLevel3 fill={['var(--semi-color-danger)', 'var(--semi-color-success)', 'var(--semi-color-primary)', 'var(--semi-color-warning)']} style={{ marginRight: 10 }} size="extra-large"/>
+        <IconAIFilledLevel3 fill={['var(--semi-color-primary)', 'var(--semi-color-success)']} size="extra-large"/>
+    </div>
+);
+```
+
+
 ### 自定义图标
-可以使用自定义图标传入Icon组件
-Icon组件支持size、rotate、spin等属性
+
+可以使用自定义图标传入Icon组件。Icon组件支持 size、rotate、spin 等属性。
 
 ```jsx live=true
 import React from 'react';
@@ -696,6 +803,7 @@ import StarIcon from './star.svg';
 | 属性  | 说明        | 类型            | 默认值 |
 |-------|-------------|-----------------|--------|
 | className | 类名 | string | 无    |
+| fill | 双色，多色图标的填充颜色 | string \| string[] | 无 |
 | onClick | 单击图标的回调事件 | (e: Event) => void | 无    |
 | onMouseDown | 鼠标按钮按下的回调事件 >=v1.21 | (e: Event) => void | 无    |
 | onMouseEnter | 进入图标的回调事件 | (e: Event) => void | 无    |

@@ -17,6 +17,7 @@ import {
   IconPlay,
 } from '@douyinfe/semi-icons';
 import Collapse from '../../collapse';
+import { ColorfulDemo, ColorfulGroupDemo } from './colorful';
 
 export default {
   title: 'Button',
@@ -298,3 +299,11 @@ export const StopPropagationWhenDisabled = () => (
     </div>
   </>
 );
+
+export const Colorful = () => {
+  return <ColorfulDemo />
+}
+
+export const ColorfulGroup = () => {
+  return <ColorfulGroupDemo />
+}

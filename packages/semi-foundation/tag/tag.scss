@@ -156,19 +156,109 @@ $types: "ghost", "solid", "light";
         }
     }
 
-    &-solid {
-        .#{$module}-close {
-            color: $color-tag_close-icon_deep-default;
-            opacity: .8;
+    &-colorful {
+        font-weight: $font-tag_colorful-fontWeight;
 
-            &:hover {
-                opacity: 1.0;
-            }
+        &.#{$module}-solid {
+            background: $color-tag_colorful_solid-bg;
+            color: $color-tag_colorful_solid-text;
 
-            &:active {
-                opacity: .9;
+            &.#{$module}-gradient { 
+                background: $color-tag_colorful_solid_gradient-bg;
             }
         }
+
+        &.#{$module}-light {
+            background: $color-tag_colorful_light-bg;
+            color: $color-tag_colorful_light-text;
+
+            &.#{$module}-gradient { 
+                background: $color-tag_colorful_light_gradient-bg;
+
+                .#{$module}-prefix-icon {
+                    svg {
+                        stop:nth-child(1) {
+                            stop-color: $color-tag_colorful_light_gradient-1;
+                        }
+
+                        stop:nth-child(2) {
+                            stop-color: $color-tag_colorful_light_gradient-2;
+                        }
+
+                        stop:nth-child(3) {
+                            stop-color: $color-tag_colorful_light_gradient-3;
+                        }
+
+                        stop:nth-child(4) {
+                            stop-color: $color-tag_colorful_light_gradient-4;
+                        }
+                    }
+                }
+
+                .#{$module}-content {
+                    background: $color-tag_colorful_light_gradient-text;
+                    background-clip: text;
+                    color: transparent;
+                }
+            }
+        }
+
+        &.#{$module}-ghost {
+            background: $color-tag_colorful_ghost-bg;
+            color: $color-tag_colorful_ghost-text;
+            border-color: $color-tag_colorful_ghost-border;
+            
+           &.#{$module}-gradient { 
+                border: none;
+
+                .#{$module}-prefix-icon {
+                    svg {
+                        stop:nth-child(1) {
+                            stop-color: $color-tag_colorful_ghost_gradient-1;
+                        }
+
+                        stop:nth-child(2) {
+                            stop-color: $color-tag_colorful_ghost_gradient-2;
+                        }
+
+                        stop:nth-child(3) {
+                            stop-color: $color-tag_colorful_ghost_gradient-3;
+                        }
+
+                        stop:nth-child(4) {
+                            stop-color: $color-tag_colorful_ghost_gradient-4;
+                        }
+                    }
+                }
+
+                &.#{$module}-circle {
+                    &::before {
+                        border-radius: $radius-tag_circle;
+                    }
+                }
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    border-radius: $radius-tag;
+                    padding: $width-tag-border;
+                    background: $color-tag_colorful_ghost-border;
+                    -webkit-mask: linear-gradient($color-tag_colorful_ghost-bg 0 0) content-box, linear-gradient($color-tag_colorful_ghost-bg 0 0);
+                    mask: linear-gradient($color-tag_colorful_ghost-bg 0 0) content-box, linear-gradient($color-tag_colorful_ghost-bg 0 0);
+                    -webkit-mask-composite: xor;
+                    mask-composite: exclude;
+                    pointer-events: none;
+                }
+
+                .#{$module}-content {
+                    background: $color-tag_colorful_ghost_gradient-text;
+                    background-clip: text;
+                    color: transparent;
+                }
+            }
+        }
+        
     }
 }
 

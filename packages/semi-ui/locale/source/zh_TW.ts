@@ -206,6 +206,27 @@ const local: Locale = {
         stall: '加載失敗',
         noResource: '暫無資源',
         videoError: '視頻加載錯誤'
+    },
+    AIChatDialogue: {
+        delete: '刪除',
+        deleteConfirm: '確認刪除該對話嗎？',
+        deleteContent: '刪除後將無法恢復！',
+        copySuccess: '複製成功',
+        loading: '請稍候...',
+        reasoning: {
+            completed: '已思考完成',
+            thinking: '正在思考中...'
+        },
+        annotationText: '篇資料'
+    },
+    Feedback: {
+        submit: '提交',
+        cancel: '取消'
+    },
+    AIChatInput: {
+        template: '模板',
+        configure: '配置',
+        selected: '已選 ${count} 個',
     }
 };
 

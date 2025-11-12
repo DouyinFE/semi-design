@@ -36,7 +36,8 @@ export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
     onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
     'aria-label'?: React.AriaAttributes['aria-label'];
-    contentClassName?: string
+    contentClassName?: string;
+    colorful?: boolean
 }
 
 // TODO: icon configuration
@@ -52,6 +53,7 @@ export default class Button extends PureComponent<ButtonProps> {
         onClick: noop,
         onMouseEnter: noop,
         onMouseLeave: noop,
+        colorful: false,
         prefixCls: cssClasses.PREFIX,
     };
 
@@ -89,6 +91,7 @@ export default class Button extends PureComponent<ButtonProps> {
             size,
             theme,
             type,
+            colorful,
             prefixCls,
             iconPosition,
             ...attr
@@ -105,12 +108,11 @@ export default class Button extends PureComponent<ButtonProps> {
                     [`${prefixCls}-size-large`]: size === 'large',
                     [`${prefixCls}-size-small`]: size === 'small',
                     // [`${prefixCls}-loading`]: loading,
-                    [`${prefixCls}-light`]: theme === 'light',
                     [`${prefixCls}-block`]: block,
                     [`${prefixCls}-circle`]: circle,
-                    [`${prefixCls}-borderless`]: theme === 'borderless',
-                    [`${prefixCls}-outline`]: theme === "outline",
+                    [`${prefixCls}-${theme}`]: theme,
                     [`${prefixCls}-${type}-disabled`]: disabled && type,
+                    [`${prefixCls}-colorful`]: colorful,
                 },
                 className
             ),

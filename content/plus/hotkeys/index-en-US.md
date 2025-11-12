@@ -1,12 +1,11 @@
 ---
 localeCode: en-US
-order: 30
+order: 31
 category: Plus
 title:  HotKeys
 icon: doc-configprovider
 width: 60%
 brief: used to facilitate the customization of keyboard shortcut
-showNew: true
 ---
 
 

@@ -212,6 +212,27 @@ const local: Locale = {
         stall: 'Laden mislukt',
         noResource: 'Geen bron',
         videoError: 'Fout bij laden video'
+    },
+    AIChatDialogue: {
+        delete: 'Verwijderen',
+        deleteConfirm: 'Weet u zeker dat u deze conversatie wilt verwijderen?',
+        deleteContent: 'Deze conversatie wordt permanent verwijderd en kan niet worden hersteld.',
+        copySuccess: 'Succesvol gekopieerd',
+        loading: 'Laden...',
+        reasoning: {
+            completed: 'Verwerking voltooid',
+            thinking: 'Verwerking in uitvoering...'
+        },
+        annotationText: 'informatie-elementen'
+    },
+    Feedback: {
+        submit: 'Versturen',
+        cancel: 'Annuleren'
+    },
+    AIChatInput: {
+        template: 'Stencil',
+        configure: 'Configuratie',
+        selected: '${count} items geselecteerd',
     }
 };
 

@@ -19,6 +19,7 @@ const order = [
     'grid',
     'resizable',
     'button',
+    'floatbutton',
     'typography',
     'divider',
     'icon',
@@ -84,6 +85,7 @@ const order = [
     'chart',
     'banner',
     'notification',
+    'feedback',
     'popconfirm',
     'progress',
     'skeleton',
@@ -94,6 +96,9 @@ const order = [
     'jsonviewer',
     'audioPlayer',
     'videoPlayer',
+    'aiComponent',
+    'aiChatInput',
+    'aiChatDialogue',
 ];
 let { exec } = require('child_process');
 let fs = require('fs');

@@ -1,13 +1,12 @@
 ---
 localeCode: en-US
-order: 29
+order: 30
 category: Plus
 title: JsonViewer
 icon: doc-jsonviewer
 dir: column
 noInline: true
 brief: Used for displaying and editing JSON data
-showNew: true
 ---
 
 ## When to use

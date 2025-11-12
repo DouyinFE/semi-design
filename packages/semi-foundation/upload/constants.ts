@@ -3,6 +3,7 @@ const PREFIX = `${BASE_CLASS_PREFIX}-upload`;
 
 const FILE_LIST_PIC = 'picture' as const;
 const FILE_LIST_DEFAULT = 'list' as const;
+const FILE_LIST_NONE = 'none' as const;
 const PROGRESS_COEFFICIENT = 0.95;
 
 const cssClasses = {
@@ -24,7 +25,7 @@ const strings = {
 
     FILE_LIST_PIC,
     FILE_LIST_DEFAULT,
-    LIST_TYPE: [FILE_LIST_PIC, FILE_LIST_DEFAULT],
+    LIST_TYPE: [FILE_LIST_PIC, FILE_LIST_DEFAULT, FILE_LIST_NONE],
     imageTypes: ['image', 'webp', 'png', 'svg', 'gif', 'jpg', 'jpeg', 'bmp', 'dpg'],
     DRAG_AREA_DEFAULT: 'default',
     DRAG_AREA_LEGAL: 'legal',

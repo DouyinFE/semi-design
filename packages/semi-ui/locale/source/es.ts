@@ -210,6 +210,27 @@ const locale: Locale = {
         stall: 'Carga fallida',
         noResource: 'Sin recursos',
         videoError: 'Error al cargar el video'
+    },
+    AIChatDialogue: {
+        delete: 'Eliminar',
+        deleteConfirm: '¿Estás seguro de que quieres eliminar esta mensaje?',
+        deleteContent: 'Este mensaje se eliminará permanentemente y no se podrá recuperar.',
+        copySuccess: 'Copiado exitosamente',
+        loading: 'Cargando...',
+        reasoning: {
+            completed: 'Procesamiento completado',
+            thinking: 'Procesando...'
+        },
+        annotationText: 'elementos de información'
+    },
+    Feedback: {
+        submit: 'Enviar',
+        cancel: 'Cancelar'
+    },
+    AIChatInput: {
+        template: 'Plantilla',
+        configure: 'Configurar',
+        selected: 'Seleccionado ${count} elementos',
     }
 };
 

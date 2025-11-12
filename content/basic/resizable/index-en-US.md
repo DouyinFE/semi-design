@@ -5,7 +5,6 @@ category: Basic
 title: Resizable
 icon: doc-steps
 dir: column
-showNew: true
 brief: The component size is adjusted based on the user's mouse drag, supporting both resizing of a single component and combined resizing.
 ---
 

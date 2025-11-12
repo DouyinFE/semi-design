@@ -1,12 +1,11 @@
 ---
 localeCode: zh-CN
-order: 31
+order: 32
 category: Plus
 title: Lottie 动画
 icon: doc-lottie
 dir: column
 brief: 在网页中展示 Lottie 动画
-showNew: true
 ---
 
 ## 使用场景

@@ -1,12 +1,11 @@
 ---
 localeCode: zh-CN
-order: 26
+order: 27
 category: Plus
 title:  CodeHighlight 代码高亮
 icon: doc-codehighlight
 dir: column
 brief: 根据语法高亮页面中的代码块
-showNew: true
 ---
 
 ## 使用场景

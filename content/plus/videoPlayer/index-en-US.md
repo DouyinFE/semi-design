@@ -1,12 +1,11 @@
 ---
-order: 95
+order: 97
 localeCode: en-US
 category: Plus
 title: VideoPlayer
 width: 60%
 icon: doc-videoplayer
 brief: Used to play video
-showNew: true
 ---
 
 ## Demos

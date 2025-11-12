@@ -205,6 +205,27 @@ const local: Locale = {
         stall: 'Memuat gagal',
         noResource: 'Tiada sumber',
         videoError: 'Ralat memuatkan video'
+    },
+    AIChatDialogue: {
+        delete: 'Padam',
+        deleteConfirm: 'Adakah anda pasti ingin memadam sesi ini?',
+        deleteContent: 'Sesi ini akan dihapus secara permanen dan tidak dapat dipulihkan.',
+        copySuccess: 'Berjaya disalin',
+        loading: 'Memuat...',
+        reasoning: {
+            completed: 'Pemrosesan selesai',
+            thinking: 'Memroses...'
+        },
+        annotationText: 'elemen informasi'
+    },
+    Feedback: {
+        submit: 'Hantar',
+        cancel: 'Batal'
+    },
+    AIChatInput: {
+        template: 'Stensil',
+        configure: 'Konfigurasi',
+        selected: '${count} item dipilih',
     }
 };
 

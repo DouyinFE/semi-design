@@ -47,6 +47,41 @@ import it from '@douyinfe/semi-ui/locale/source/it';
 import de from '@douyinfe/semi-ui/locale/source/de';
 import fr from '@douyinfe/semi-ui/locale/source/fr';
 import ro from '@douyinfe/semi-ui/locale/source/ro';
+import az from '@douyinfe/semi-ui/locale/source/az';
+import bg from '@douyinfe/semi-ui/locale/source/bg';
+import bn_IN from '@douyinfe/semi-ui/locale/source/bn_IN';  
+import ca from '@douyinfe/semi-ui/locale/source/ca';
+import cs_CZ from '@douyinfe/semi-ui/locale/source/cs_CZ';
+import ceb_PH from '@douyinfe/semi-ui/locale/source/ceb_PH';
+import da from '@douyinfe/semi-ui/locale/source/da';
+import el_GR from '@douyinfe/semi-ui/locale/source/el_GR';
+import es_419 from '@douyinfe/semi-ui/locale/source/es_419';
+import et from '@douyinfe/semi-ui/locale/source/et';
+import fa_IR from '@douyinfe/semi-ui/locale/source/fa_IR';
+import fil_PH from '@douyinfe/semi-ui/locale/source/fil_PH';
+import fi_FI from '@douyinfe/semi-ui/locale/source/fi_FI';
+import fr_CA from '@douyinfe/semi-ui/locale/source/fr_CA';
+import ga from '@douyinfe/semi-ui/locale/source/ga';
+import he_IL from '@douyinfe/semi-ui/locale/source/he_IL';
+import hi_IN from '@douyinfe/semi-ui/locale/source/hi_IN';
+import hr from '@douyinfe/semi-ui/locale/source/hr';
+import hu_HU from '@douyinfe/semi-ui/locale/source/hu_HU';
+import is from '@douyinfe/semi-ui/locale/source/is';
+import jv_ID from '@douyinfe/semi-ui/locale/source/jv_ID';
+import kk from '@douyinfe/semi-ui/locale/source/kk';
+import km_KH from '@douyinfe/semi-ui/locale/source/km_KH';
+import lt from '@douyinfe/semi-ui/locale/source/lt';
+import lv from '@douyinfe/semi-ui/locale/source/lv';
+import my_MM from '@douyinfe/semi-ui/locale/source/my_MM';
+import nb from '@douyinfe/semi-ui/locale/source/nb';
+import pt from '@douyinfe/semi-ui/locale/source/pt';
+import sk from '@douyinfe/semi-ui/locale/source/sk';
+import sl from '@douyinfe/semi-ui/locale/source/sl';
+import sq from '@douyinfe/semi-ui/locale/source/sq';
+import sw from '@douyinfe/semi-ui/locale/source/sw';
+import uk_UA from '@douyinfe/semi-ui/locale/source/uk_UA';
+import ur from '@douyinfe/semi-ui/locale/source/ur';
+import uz from '@douyinfe/semi-ui/locale/source/uz';
 import { IconUser, IconSemiLogo, IconStar } from '@douyinfe/semi-icons';
 
 const { Option } = Select;
@@ -531,6 +566,41 @@ class I18nDemo extends React.Component {
             it,
             fr,
             ro,
+            bn_IN: bn_IN,
+            az,
+            bg,
+            ca,
+            cs_CZ,
+            ceb_PH,
+            da,
+            el_GR,
+            es_419,
+            et,
+            fa_IR,
+            fil_PH,
+            fi_FI,
+            fr_CA,
+            ga,
+            he_IL,
+            hi_IN,
+            hr,
+            hu_HU,
+            is,
+            jv_ID,
+            kk,
+            km_KH,
+            lt,
+            lv,
+            my_MM,
+            nb,
+            pt,
+            sk,
+            sl,
+            sq,
+            sw,
+            uk_UA,
+            ur,
+            uz,
         };
         this.setState({ locale: language[code], localeCode: code });
     }
@@ -564,6 +634,41 @@ class I18nDemo extends React.Component {
                         <Select.Option value="it">意大利语</Select.Option>
                         <Select.Option value="fr">法语</Select.Option>
                         <Select.Option value="ro">罗马尼亚语</Select.Option>
+                        <Select.Option value="bn_IN">孟加拉语</Select.Option>
+                        <Select.Option value="az">阿塞拜疆语 az</Select.Option>
+                        <Select.Option value="bg">保加利亚语 bg</Select.Option>
+                        <Select.Option value="ca">加泰罗尼亚语 ca</Select.Option>
+                        <Select.Option value="cs_CZ">捷克语 cs_CZ</Select.Option>
+                        <Select.Option value="ceb_PH">宿务语 ceb_PH</Select.Option>
+                        <Select.Option value="da">丹麦语 da</Select.Option>
+                        <Select.Option value="el_GR">希腊语 el_GR</Select.Option>
+                        <Select.Option value="es_419">西班牙语（拉美）es_419</Select.Option>
+                        <Select.Option value="et">爱沙尼亚语 et</Select.Option>
+                        <Select.Option value="fa_IR">波斯语 fa_IR</Select.Option>
+                        <Select.Option value="fil_PH">菲律宾语 fil_PH</Select.Option>
+                        <Select.Option value="fi_FI">芬兰语 fi_FI</Select.Option>
+                        <Select.Option value="fr_CA">法语（加）fr_CA</Select.Option>
+                        <Select.Option value="ga">爱尔兰语 ga</Select.Option>
+                        <Select.Option value="he_IL">希伯来语 he_IL</Select.Option>
+                        <Select.Option value="hi_IN">印地语 hi_IN</Select.Option>
+                        <Select.Option value="hr">克罗地亚语 hr</Select.Option>
+                        <Select.Option value="hu_HU">匈牙利语 hu_HU</Select.Option>
+                        <Select.Option value="is">冰岛语 is</Select.Option>
+                        <Select.Option value="jv_ID">爪哇语 jv_ID</Select.Option>
+                        <Select.Option value="kk">哈萨克语 kk</Select.Option>
+                        <Select.Option value="km_KH">高棉语 km_KH</Select.Option>
+                        <Select.Option value="lt">立陶宛语 lt</Select.Option>
+                        <Select.Option value="lv">拉脱维亚语 lv</Select.Option>
+                        <Select.Option value="my_MM">缅甸语 my_MM</Select.Option>
+                        <Select.Option value="nb">挪威语 nb</Select.Option>
+                        <Select.Option value="pt">葡萄牙语 pt</Select.Option>
+                        <Select.Option value="sk">斯洛伐克语 sk</Select.Option>
+                        <Select.Option value="sl">斯洛文尼亚语 sl</Select.Option>
+                        <Select.Option value="sq">阿尔巴尼亚语 sq</Select.Option>
+                        <Select.Option value="sw">斯瓦希里语 sw</Select.Option>
+                        <Select.Option value="uk_UA">乌克兰语 uk_UA</Select.Option>
+                        <Select.Option value="ur">乌尔都语 ur</Select.Option>
+                        <Select.Option value="uz">乌兹别克语 uz</Select.Option>
                     </Select>
                 </div>
                 <LocaleProvider locale={locale}>

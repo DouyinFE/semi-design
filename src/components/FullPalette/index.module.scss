@@ -61,8 +61,17 @@
         font-family: Inconsolata, monospace;
     }
 
+    .color-value-gradient {
+        height: 36px;
+        overflow: hidden;
+    }
+
     .color-cap.white {
         color: #fff;
+    }
+
+    .color-cap.black {
+        color: #000;
     }
 
     &:hover {

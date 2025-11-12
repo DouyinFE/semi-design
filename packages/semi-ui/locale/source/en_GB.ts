@@ -205,6 +205,27 @@ const local: Locale = {
         stall: 'Loading failed',
         noResource: 'No resource',
         videoError: 'Video load error'
+    },
+    AIChatDialogue: {
+        delete: 'Delete',
+        deleteConfirm: 'Are you sure you want to delete this message?',
+        deleteContent: 'This message will be permanently deleted and cannot be recovered.',
+        copySuccess: 'Copy successful.',
+        loading: 'Loading...',
+        reasoning: {
+            completed: 'Reasoning completed',
+            thinking: 'Thinking...'
+        },
+        annotationText: 'pieces of information'
+    },
+    Feedback: {
+        submit: 'Submit',
+        cancel: 'Cancel'
+    },
+    AIChatInput: {
+        template: 'Template',
+        configure: 'Configure',
+        selected: 'Selected ${count} items',
     }
 };
 

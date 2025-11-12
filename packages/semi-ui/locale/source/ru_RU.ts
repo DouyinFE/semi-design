@@ -208,6 +208,27 @@ const local: Locale = {
         stall: 'Загрузка не удалась',
         noResource: 'Нет ресурса',
         videoError: 'Ошибка загрузки видео'
+    },
+    AIChatDialogue: {
+        delete: 'Удалить',
+        deleteConfirm: 'Вы уверены, что хотите удалить эту сессию?',
+        deleteContent: 'Эта сессия будет удалена постоянно и не сможет быть восстановлена.',
+        copySuccess: 'Скопировано успешно',
+        loading: 'Загрузка...',
+        reasoning: {
+            completed: 'Процесс завершен',
+            thinking: 'Процесс в процессе...'
+        },
+        annotationText: 'элементы информации'
+    },
+    Feedback: {
+        submit: 'Отправить',
+        cancel: 'Отмена'
+    },
+    AIChatInput: {
+        template: 'Tрафарет',
+        configure: 'Конфигурация',
+        selected: 'Выбрано ${count} элементов',
     }
 };
 

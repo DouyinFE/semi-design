@@ -1,12 +1,11 @@
 ---
 localeCode: en-US
-order: 27
+order: 28
 category: Plus
 title:  Markdown Render
 icon: doc-markdown
 dir: column
 brief: Instantly render Markdown and MDX in web pages
-showNew: true
 ---
 
 ## When to use
