@@ -28,7 +28,7 @@ export interface AIChatInputProps {
     placeholder?: string;
     extensions?: Extension[];
     onContentChange?: (contents: Content[]) => void;
-    defaultContent?: TiptapContent[];
+    defaultContent?: TiptapContent;
     onFocus?: (event: React.FocusEvent) => void;
     onBlur?: (event: React.FocusEvent) => void;
     // Reference related
@@ -92,7 +92,7 @@ export interface RenderSkillItemProps {
 }
 
 export interface Skill extends BaseSkill {
-    icon: ReactNode
+    icon?: ReactNode
 }
 
 interface ActionAreaProps {

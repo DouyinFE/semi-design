@@ -144,7 +144,7 @@ export function keyDownHandlePlugin(schema: any) {
                                  * 结果: [前一个 Paragraph、光标、换行、零宽字符、 ····]
                                  */
                                 const nextCursorPos = $from.before() - 1;
-                                dispatch(state.tr.setSelection(TextSelection.create(state.doc, nextCursorPos)));
+                                nextCursorPos > 0 && dispatch(state.tr.setSelection(TextSelection.create(state.doc, nextCursorPos)));
                                 event.preventDefault();
                                 return true;
                             }
@@ -190,7 +190,7 @@ export function keyDownHandlePlugin(schema: any) {
                                 event.preventDefault();
                                 return true;
                             }
-                        } else if ($from.nodeBefore.isText && $from.nodeBefore.text.startsWith(strings.ZERO_WIDTH_CHAR)) {
+                        } else if ($from.nodeBefore && $from.nodeBefore.isText && $from.nodeBefore.text.startsWith(strings.ZERO_WIDTH_CHAR)) {
                             // Backup，当零宽字符出现在 text 节点中
                             const nextCursorPos = $from.pos + 2;
                             dispatch(state.tr.setSelection(TextSelection.create(state.doc, nextCursorPos)));

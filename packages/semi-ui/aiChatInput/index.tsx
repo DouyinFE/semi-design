@@ -66,7 +66,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
             attachments: defaultAttachment,
             content: null,
             popupWidth: null,
-            skill: {} as Skill,
+            skill: undefined,
             activeSkillIndex: 0,
             activeSuggestionIndex: 0,
             /**
@@ -129,6 +129,9 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
             },
             getEditor: () => this.editor,
             getPopupID: () => this.popUpOptionListID,
+            notifySkillChange: (skill: Skill) => {
+                this.props.onSkillChange?.(skill);
+            },
             notifyContentChange: (result: Content[]) => {
                 this.transformedContent = result;
                 this.props.onContentChange?.(result);
@@ -507,7 +510,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
     renderUploadButton = () => {
         const { uploadTipProps, uploadProps } = this.props;
         const { attachments } = this.state;
-        const { className, onChange, renderFileItem, children, ...rest } = uploadProps;
+        const { className, onChange, renderFileItem, children, ...rest } = uploadProps ?? {};
         const realUploadProps = {
             ...rest,
             onChange: this.foundation.onUploadChange,

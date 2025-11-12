@@ -6,13 +6,14 @@ import React from 'react';
 import { getCustomSlotAttribute } from '@douyinfe/semi-foundation/aiChatInput/utils';
 
 function SkillSlotComponent(props: NodeViewProps) {
-    const { node, deleteNode } = props;
-    const value: string = node.attrs.value ?? '';
+    const { node, editor } = props;
+    
+    const value: string = node.attrs.label ?? node.attrs.value ?? '';
 
     const onRemove = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        deleteNode?.();
+        editor?.commands.clearContent();
     };
 
     if (value === '') {
@@ -24,7 +25,6 @@ function SkillSlotComponent(props: NodeViewProps) {
             <span className='skill-slot'>
                 {value}
                 <IconClose
-                    onMouseDown={onRemove}
                     onClick={onRemove}
                     className='skill-slot-delete'
                 />
@@ -47,6 +47,14 @@ const SkillSlot = Node.create({
                 default: '',
                 parseHTML: (element: HTMLElement) => (element as HTMLElement).getAttribute('data-value'),
                 renderHTML: (attributes: Record<string, any>) => ({ 'data-value': attributes.value }),
+            },
+            label: {
+                parseHTML: (element: HTMLElement) => (element as HTMLElement).getAttribute('data-label'),
+                renderHTML: (attributes: Record<string, any>) => ({ 'data-label': attributes.label }),
+            },
+            hasTemplate: {
+                parseHTML: (element: HTMLElement) => (element as HTMLElement).getAttribute('data-template'),
+                renderHTML: (attributes: Record<string, any>) => ({ 'data-template': attributes.hasTemplate }),
             },
             isCustomSlot: getCustomSlotAttribute(),
         };
