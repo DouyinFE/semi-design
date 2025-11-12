@@ -15,6 +15,9 @@ import Hint from './widgets/dialogueHint';
 import { Button } from "../index";
 import { IconChevronDown } from '@douyinfe/semi-icons';
 
+export * from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
+export * from './interface';
+
 
 export interface AIChatDialogueStates {
     chats?: Message[];
@@ -347,3 +350,5 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
 }
 
 export default AIChatDialogue;
+
+

@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { AIChatDialogue, RadioGroup, Radio, Button, Input, Toast } from '../../index';
+import { AIChatDialogue, RadioGroup, Radio, Button, Input, Toast, chatInputToChatCompletion, chatInputToMessage, AIChatInput } from '../../index';
 import CustomRenderContentItem from './CustomRenderContentItem';
 import RenderConfigContentItem from './RenderConfig';
 import AIChatInputWithDialogueDemo from './AIChatInputWithDialogue';
@@ -583,3 +583,38 @@ StreamingResponseToMessageStory.storyName =  'adapter: streaming response';
 
 export const StreamingChatCompletionToMessageStory = () => <StreamingChatCompletionToMessageDemo />;
 StreamingChatCompletionToMessageStory.storyName =  'adapter: streaming chatCompletion';
+
+export const ChatInputToChatCompletionStory = () => {
+  const [generating, setGenerating] = useState(false);
+  const [messages, setMessages] = useState([]);
+
+  const onContentChange = useCallback((content) => {
+    // console.log('onContentChange', content);
+  }, []);
+
+  const onMessageSend = useCallback((props) => {
+    // console.log('onMessageSend', props);
+    const userMessage = chatInputToMessage(props);
+    const chatCompletion = chatInputToChatCompletion(props);
+    setGenerating(true);
+    setMessages((messages) => [...messages, {
+        id: `message-${Date.now()}`,
+        ...userMessage
+    }]);
+    console.log('chatCompletion', chatCompletion);
+    
+  }, []);
+
+  return (
+    <AIChatInput 
+      placeholder={'发送后查看控制台输出的结果'} 
+      defaultContent={'帮我写一个关于<input-slot placeholder="[主题]">独角兽</input-slot>的故事'}
+      skills={[]}
+      generating={generating}
+      uploadProps={{ action: "https://api.semi.design/upload" }}
+      onContentChange={onContentChange}
+      onMessageSend={onMessageSend}
+      onStopGenerate={() => setGenerating(false)}
+    />
+  )
+};

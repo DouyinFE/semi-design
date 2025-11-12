@@ -30,7 +30,9 @@ import { Locale } from '../locale/interface';
 import LocaleConsumer from '../locale/localeConsumer';
 import SkillItem from './skillItem';
 import SuggestionItem from './suggestionItem';
+
 export { getConfigureItem };
+export * from './interface';
 
 const prefixCls = cssClasses.PREFIX;
 

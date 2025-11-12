@@ -39,10 +39,13 @@ export default function chatInputToChatCompletion(inputContent: any): ChatComple
 
     return {
         role: "user",
-        content: inputs,
-        // createdAt: created_at, // todo: 产生消息时给 createdat 还是发送时？
-        // model: model, // todo: inputContent 中未包含 model 信息
-        references
+        messages: [{
+            role: "user",
+            content: inputs,
+        }],
+        model: setup?.model,
+        references,
+        setup: setup ?? {}
     };
 
 }
