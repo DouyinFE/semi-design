@@ -15,6 +15,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.88.0 (2025-11-12)
+- 【Fix】
+    - Fixed an issue with the incorrect definition of the defaultContent type in AIChatInput.
+    - Fixed an issue where onSkillChange was not working properly when skills changed in AIChatInput.
+    - Fixed an issue where skillSlot data was missing in the onContentChange conversion result in AIChatInput.
+    - update chatInputToChatCompletion return value to fit user use
+    - add chat dialogue & input all interface export
+    
 #### 🎉 2.88.0-beta.1 (2025-11-10)
 - 【Feat】
     - Added 10 filled icons and 33 linear icons [#3016](https://github.com/DouyinFE/semi-design/pull/3016)

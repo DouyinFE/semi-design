@@ -13,6 +13,14 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.88.0 (2025-11-12)
+- 【Fix】
+    - 修复  AIChatInput 中 defaultContent 类型定义错误问题 [#3027](https://github.com/DouyinFE/semi-design/pull/3027)
+    - 修复 AIChatInput 中技能变化时候，onSkillChange 未生效问题 [#3027](https://github.com/DouyinFE/semi-design/pull/3027)
+    - 修复 AIChatInput 中 onContentChange 转换结果中，无 skillSlot 数据问题 [#3027](https://github.com/DouyinFE/semi-design/pull/3027)
+    - 更新 chatInputToChatCompletion 返回值以适应用户使用情况 [#3024](https://github.com/DouyinFE/semi-design/pull/3024)
+    - 将 AIChatDialogue 和 AIChatInput 所有接口定义在组件 index 文件中导出 [#3024](https://github.com/DouyinFE/semi-design/pull/3024)
+
 #### 🎉 2.88.0-beta.1 (2025-11-10)
 - 【Feat】
     - 新增加 IconRealSize 等 10 个线性图标，IconScissorsStroked 等 33 个面性图标。 [#3016](https://github.com/DouyinFE/semi-design/pull/3016)
