@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 90
+order: 91
 category: 反馈类
 title: Skeleton 骨架屏
 icon: doc-skeleton

@@ -3,7 +3,7 @@ category: Getting Started
 title: Web Components
 icon: doc-webcomponents
 localeCode: en-US
-order: 12
+order: 13
 brief: Semi UI 在 web components 中使用的最佳实践
 ---
 

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 100
+order: 101
 category: Plus
 title: AIChatDialogue
 icon: doc-aiDialogue
