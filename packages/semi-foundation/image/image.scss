@@ -10,6 +10,15 @@ $module: #{$prefix}-image;
     display: inline-block;
     overflow: hidden;
 
+    img {
+        /**
+            * In tailwind, the max-width of img/video is set to 100%, 
+            * which will affect the amplification effect of the picture.
+            * So we need to set max-width to none.
+        */ 
+        max-width: none;
+    }
+
     &-img {
         vertical-align: top;
         border-radius: inherit;
@@ -204,12 +213,6 @@ $module: #{$prefix}-image;
             // transition: transform $transition_duration-image_preview_image_img  $transition_delay-image_preview_image_img;
             z-index: 0;
             user-select: none;
-            /**
-             * In tailwind, the max-width of img/video is set to 100%, 
-             * which will affect the amplification effect of the picture.
-             * So we need to set max-width to none.
-            */
-            max-width: none;
         }
 
         &-spin {
