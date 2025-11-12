@@ -52,7 +52,11 @@ export const Basic = () => {
 const temp = {
     'input-slot': `我是一名<input-slot placeholder="[职业]">学生</input-slot>，帮我写一段面向<input-slot placeholder="[输入对象]"></input-slot>的话术内容`,
     'select-slot': `我的职业是<select-slot value="打工人" options='["打工人", "学生"]'></select-slot>，帮我写一份...`,
-    'skill-slot': '<skill-slot data-value="帮我写作"></skill-slot>',
+    // 'skill-slot': '<skill-slot data-label="帮我写作" data-value="writing" data-template=true></skill-slot>帮我完成...',
+    'skill-slot': {
+        type: "skillSlot",
+        attrs: { label: "帮我写作", value: 'writing',  hasTemplate: false }
+      },
 };
 
 export const RichTextExample = () => {
@@ -68,6 +72,14 @@ export const RichTextExample = () => {
       ref.current.focusEditor();
     }
   }, [ref]);
+
+  const onContentChange = useCallback((content) => {
+    console.log('onContentChange', content);
+  }, []);
+
+  const onSkillChange = useCallback((skill) => {
+    console.log("skill", skill);
+  })
 
   return (<>
       <div className="aiChatInput-radio">
@@ -85,8 +97,16 @@ export const RichTextExample = () => {
           defaultContent={temp['input-slot']}
           placeholder={'输入内容或者上传内容'} 
           uploadProps={uploadProps}
+          onSkillChange={onSkillChange}
+          onContentChange={onContentChange}
           style={outerStyle} 
       />
+      <Button onClick={() => {
+        const html = ref.current.editor.getHTML();
+        const json = ref.current.editor.getJSON();
+        console.log('html', html);
+        console.log('json', json);
+      }}>点击获取</Button>
   </>);
 }
 
@@ -376,7 +396,6 @@ export const CustomRenderTop = () => {
 
   const renderTopSlot = useCallback((props) => {
     const { attachments = [], references } = props;
-    console.log('attachments', attachments);
     return <div className="topSlot">
       {references?.map((item, index) => {
         const { type, name, detail, key, ...rest } = item;

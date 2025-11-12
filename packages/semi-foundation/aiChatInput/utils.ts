@@ -1,4 +1,4 @@
-import { Attachment, Reference } from "./interface";
+import { Attachment, BaseSkill, Reference } from "./interface";
 import { strings } from './constants';
 
 export function getAttachmentType(item: Attachment | Reference) {
@@ -53,12 +53,8 @@ export function transformSelectSlot(obj: any) {
 
 export function transformSkillSlot(obj: any) {
     const { type, attrs } = obj;
-    const { value, info } = attrs;
-    return {
-        type,
-        value,
-        ...(JSON.parse(info) ?? {}),
-    };
+    const { value, label, hasTemplate } = attrs;
+    return omitUndefinedFromObj({ type, value, label, hasTemplate });
 }
 
 export function transformInputSlot(obj: any) {
@@ -71,14 +67,18 @@ export function transformInputSlot(obj: any) {
 }
 
 export function transformText(obj: any) {
-    return { ...obj };
+    const { text } = obj;
+    return { 
+        type: 'text',
+        text: text !== strings.ZERO_WIDTH_CHAR ? text : ''
+    };
 }
 
-export const transformMap = new Map([
+export const transformMap = new Map<string, any>([
     ['text', transformText],
     ['selectSlot', transformSelectSlot],
     ['inputSlot', transformInputSlot],
-    ['toolSlot', transformSkillSlot],
+    ['skillSlot', transformSkillSlot],
 ]);
 
 export function transformJSONResult(input: any, customTransformObj: Map<string, (obj: any) => any> = new Map()) {
@@ -116,6 +116,10 @@ export function transformJSONResult(input: any, customTransformObj: Map<string, 
                 const lastItem = output[output.length - 1];
                 if (lastItem && lastItem.type === 'text') {
                     lastItem.text += result.text;
+                } else if (typeof result.text === 'string') {
+                    // 如果 result.text 为空字符串（比如text 节点中只有单个的零宽字符），则无需作为 output 结果
+                    // if result.text is an empty string，then it does not need to be included in output result.
+                    result.text.length && output.push(result);
                 } else {
                     output.push(result);
                 }
@@ -134,7 +138,45 @@ export function getCustomSlotAttribute() {
         default: true,
         parseHTML: element => true,
         renderHTML: attributes => ({
-            'data-custom-slot': attributes.isCustomSlot ? 'true' : undefined,
+            'data-custom-slot': attributes.isCustomSlot ? true : undefined,
         }),
     };
+}
+
+export function findSkillSlotInString(content: string) {
+    const reg = /<skill-slot\s+([^>]*)><\/skill-slot>/i;
+    const attrReg = /([\w-]+)=["']?([^"'\s>]+)["']?/g;
+    const match = reg.exec(content);
+    if (match) {
+        const attrsStr = match[1];
+        let attrMatch;
+        let attrs = {};
+        while ((attrMatch = attrReg.exec(attrsStr)) !== null) {
+            attrs[attrMatch[1]] = attrMatch[2];
+        }
+        if (attrs['data-value']) {
+            const obj = {
+                label: attrs['data-label'],
+                value: attrs['data-value'],
+                hasTemplate: attrs['data-template'] ? attrs['data-template'] === 'true' : undefined
+            };
+            return omitUndefinedFromObj(obj);
+        }
+    }
+    return undefined;
+}
+
+
+function omitUndefinedFromObj(obj: { [key: string]: any }) {
+    return Object.fromEntries(
+        Object.entries(obj).filter(([key, value]) => value !== undefined)
+    );
+}
+
+export function getSkillSlotString(skill: BaseSkill) {
+    let skillParams = '';
+    skill.label && (skillParams += ` data-label=${skill.label}`);
+    skill.value && (skillParams += ` data-value=${skill.value}`);
+    (typeof skill.hasTemplate === 'boolean') && (skillParams += ` data-template=${skill.hasTemplate}`);
+    return `<skill-slot ${skillParams}"></skill-slot>`;
 }

@@ -19,7 +19,7 @@ const PREFIX = cssClasses.PREFIX;
 
 export default (props: {
     innerRef?: React.Ref<HTMLDivElement>;
-    defaultContent?: TiptapContent[];
+    defaultContent?: TiptapContent;
     placeholder?: string;
     setEditor?: (editor: Editor) => void;
     onKeyDown?: (e: KeyboardEvent) => void;

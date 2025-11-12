@@ -5,6 +5,7 @@ import { BaseSkill, Reference, Suggestion, Attachment, Content, Setup, LeftMenuC
 import { Extension } from "@tiptap/core";
 import { Content as TiptapContent } from "@tiptap/core";
 import { PopoverProps } from "../popover";
+export * from "@douyinfe/semi-foundation/aiChatInput/interface";
 
 export interface AIChatInputState {
     templateVisible: boolean;
@@ -28,7 +29,7 @@ export interface AIChatInputProps {
     placeholder?: string;
     extensions?: Extension[];
     onContentChange?: (contents: Content[]) => void;
-    defaultContent?: TiptapContent[];
+    defaultContent?: TiptapContent;
     onFocus?: (event: React.FocusEvent) => void;
     onBlur?: (event: React.FocusEvent) => void;
     // Reference related
@@ -50,7 +51,7 @@ export interface AIChatInputProps {
     onMessageSend?: (props: MessageContent) => void;
     onStopGenerate?: () => void;
     uploadTipProps?: TooltipProps;
-    generating: boolean;
+    generating?: boolean;
     // Configure area related
     renderConfigureArea?: (className?: string) => ReactNode;
     onConfigureChange?: (value: LeftMenuChangeProps, changedValue: LeftMenuChangeProps) => void;
@@ -61,7 +62,7 @@ export interface AIChatInputProps {
     renderSuggestionItem?: (props: RenderSuggestionItemProps) => ReactNode;
     onSuggestClick?: (suggestion: Suggestion) => void;
     // Skill related
-    skills: Skill[];
+    skills?: Skill[];
     skillHotKey?: string;
     templatesStyle?: React.CSSProperties;
     templatesCls?: string;
@@ -92,7 +93,7 @@ export interface RenderSkillItemProps {
 }
 
 export interface Skill extends BaseSkill {
-    icon: ReactNode
+    icon?: ReactNode
 }
 
 interface ActionAreaProps {
@@ -108,13 +109,3 @@ interface RenderTopSlotProps {
     handleUploadFileDelete: (attachment: Attachment) => void;
     handleReferenceDelete: (reference: Reference) => void
 }
-
-export {
-    BaseSkill, 
-    Reference, 
-    Suggestion, 
-    Content, 
-    Setup, 
-    Attachment,
-    LeftMenuChangeProps 
-};

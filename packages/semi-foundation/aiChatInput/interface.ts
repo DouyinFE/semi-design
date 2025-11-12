@@ -6,10 +6,10 @@ export interface RichTextJSON {
 }
 
 export interface BaseSkill {
-    icon: any;
-    value: string;
-    label: string;
-    hasTemplate: boolean;
+    icon?: any;
+    value?: string;
+    label?: string;
+    hasTemplate?: boolean;
     [key: string]: any
 }
 

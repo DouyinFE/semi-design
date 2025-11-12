@@ -2,7 +2,7 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { Attachment, BaseSkill, Suggestion, Reference, Content, LeftMenuChangeProps, MessageContent } from './interface';
 import { isNumber, isString } from 'lodash';
 import { cssClasses } from './constants';
-import { transformJSONResult } from './utils';
+import { findSkillSlotInString, getSkillSlotString, transformJSONResult } from './utils';
 
 export interface AIChatInputAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     reposPopover: () => void;
@@ -16,6 +16,7 @@ export interface AIChatInputAdapter<P = Record<string, any>, S = Record<string, 
     manualUpload: (files: File[]) => void;
     notifyMessageSend: (props: MessageContent) => void;
     notifyStopGenerate: () => void;
+    notifySkillChange: (skill: BaseSkill) => void;
     clearContent: () => void;
     clearAttachments: () => void;
     getRichTextDiv: () => HTMLDivElement | null;
@@ -51,7 +52,8 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
             skill: skill,
             skillVisible: false
         });
-        this._adapter.setContent(`<skill-slot data-value="${skill.label}"></skill-slot>`);
+        this._adapter.notifySkillChange(skill);
+        this._adapter.setContent(getSkillSlotString(skill));
         this._adapter.focusEditor();
     }
 
@@ -199,16 +201,25 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
         const { transformer } = this.getProps();
         const { skill } = this.getStates();
         const editor = this._adapter.getEditor();
+        const html = editor.getHTML();
+        if (skill && !html.includes('</skill-slot>')) {
+            this.setState({ 
+                skill: undefined,
+                templateVisible: false
+            });
+            this._adapter.notifySkillChange(undefined);
+            this._adapter.notifyContentChange([]);
+            return;
+        } else if (html.includes('</skill-slot>')) {
+            const newSkill = findSkillSlotInString(html);
+            if (newSkill?.value !== skill?.value) {
+                this.setState({ skill: newSkill });
+                this._adapter.notifySkillChange(newSkill);
+            }
+        }
         const jsonResult = editor.getJSON();
         const finalResult = transformJSONResult(jsonResult, transformer);
         this._adapter.notifyContentChange(finalResult);
-        const html = editor.getHTML();
-        if (content === '' && Object.keys(skill).length && !html.includes('</skill-slot>')) {
-            this.setState({ 
-                skill: {} as BaseSkill,
-                templateVisible: false
-            });
-        }
         this.setState({
             content: jsonResult,
         });
@@ -265,7 +276,7 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
     }
 
     handleSend = () => {
-        const { generating } = this.getProps();
+        const { generating, transformer } = this.getProps();
         if (generating) {
             this._adapter.notifyStopGenerate();
             return;
@@ -279,7 +290,7 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
             let richTextResult = [];
             if (editor) {
                 const json = editor.getJSON?.();
-                richTextResult = transformJSONResult(json);
+                richTextResult = transformJSONResult(json, transformer);
             }
             // close popup layer for template/skill/suggestion
             this.setState({
@@ -336,6 +347,26 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
         }
         if (event.key === 'Enter' && !event.shiftKey) {
             this.handleSend();
+            return true;
+        }
+        if (event.key === 'Enter' && event.shiftKey) {
+            /**
+             * Tiptap 默认情况下 Enter + Shift 时候是使用 <br /> 实现换行
+             * 为保证自定义的一些逻辑生效（比如零宽字符的插入），Enter + Shift 希望实现通过新建 p 标签的方式完成换行
+             * 此处拦截默认操作，使用新建 p 标签方式实现换行
+             * Tiptap, by default, uses <br /> to create a newline character when you press Enter + Shift.
+             * To ensure that some custom logic works (such as the insertion of zero-width characters), 
+             * we want Enter + Shift to create a new p tag to initiate a line break.
+             * This section intercepts the default operation and uses a newly created `<p>` tag to achieve line breaks.
+             */
+            event.preventDefault();
+            const editor = this._adapter.getEditor();
+            if (editor && editor.chain && editor.chain().splitBlock) {
+                editor.chain().focus().splitBlock().run();
+            } else if (editor && editor.view) {
+                const { state, view } = editor;
+                view.dispatch(state.tr.split(state.selection.from));
+            }
             return true;
         }
         if (event.key !== 'Backspace') return false;
