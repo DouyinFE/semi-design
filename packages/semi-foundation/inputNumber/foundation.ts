@@ -440,11 +440,11 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         if (step < 0) {
             // Js accuracy problem
             if (Math.abs(numberMinus(min, curNum)) >= stepAbs) {
-                curNum = (curNum * scale + step * scale) / scale;
+                curNum = (Math.round(curNum * scale + step * scale)) / scale;
             }
         } else if (step > 0) {
             if (Math.abs(numberMinus(max, curNum)) >= stepAbs) {
-                curNum = (curNum * scale + step * scale) / scale;
+                curNum = (Math.round(curNum * scale + step * scale)) / scale;
             }
         }
         if (typeof min === 'number' && min > curNum) {

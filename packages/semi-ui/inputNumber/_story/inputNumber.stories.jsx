@@ -991,3 +991,15 @@ export const FormInputNumberDemo = () => {
   </Form>
   )
 }
+
+export const Fix3025 = () => {
+  return (
+    <div style={{ width: 280 }}>
+       <label>设置了步长 step=0.01 </label>
+       <InputNumber step={0.01} defaultValue={0.14}/> 
+       <br/><br/>
+       <label>设置了步长 step=0.02 </label>
+       <InputNumber step={0.02} defaultValue={0.01}/> 
+  </div>
+  )
+}
