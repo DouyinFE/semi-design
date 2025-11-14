@@ -28,6 +28,7 @@ $color-chat_inputBottom_sendButton_icon-disable: var(--semi-color-primary-disabl
 $color-chat_inputBox_container-border: var(--semi-color-border);  // 输入框容器边框颜色
 $color-chat_attachment_clear_icon: var(--semi-color-text-2);  // 附件清除图标颜色
 $color-chat_attachment_file-bg: var(--semi-color-fill-0); // 附件文件背景颜色
+$color-chat_attachment_fail: var(--semi-color-danger); // 附件上传失败的提示图标颜色
 $color-chat_chatBox_user_attachment_file-bg: var(--semi-color-bg-0); // 用户聊天框附件文件背景颜色
 $color-chat_chatBox_other_attachment_file-bg: var(--semi-color-fill-2); // 聊天框附件文件背景颜色
 $color-chat_attachment_file_icon: var(--semi-color-text-2); // 附件文件图标颜色

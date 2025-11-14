@@ -61,7 +61,15 @@ export default class InputBoxFoundation <P = Record<string, any>, S = Record<str
     getDisableSend = () => {
         const { content, attachment } = this.getStates();
         const { disableSend: disableSendInProps } = this.getProps();
-        const disabledSend = disableSendInProps || (content.length === 0 && attachment.length === 0);
+        /** 不能发送的条件：（满足任1）
+         *  1. props 中禁止发送；2. 没有文本输入，且没有上传文件； 3.上传文件中有状态不为 success 的
+         *  Conditions under which content cannot be sent: (any one of the following conditions must be met)
+         *  1. Sending is disabled in props; 2. No text input and no file upload; 3. There are files uploaded that do not have a success status.
+         */
+        const disabledSend = disableSendInProps || 
+            (content.length === 0 && attachment.length === 0) || 
+            attachment.find(item => item.status !== strings.FILE_STATUS.SUCCESS)
+        ;
         return disabledSend;
     }
 

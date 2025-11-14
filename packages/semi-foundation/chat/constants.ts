@@ -49,6 +49,15 @@ const SEND_HOT_KEY = {
     SHIFT_PLUS_ENTER: 'shift+enter'
 };
 
+const FILE_STATUS = {
+    UPLOADING: 'uploading',
+    SUCCESS: 'success',
+    UPLOAD_FAIL: 'uploadFail',
+    VALIDATING: 'validating',
+    VALID_FAIL: 'validateFail',
+    WAIT_UPLOAD: 'wait',
+};
+
 const strings = {
     ROLE,
     CHAT_ALIGN,
@@ -59,6 +68,7 @@ const strings = {
     SHOW_SCROLL_GAP,
     MODE,
     SEND_HOT_KEY,
+    FILE_STATUS
 };
 
 

@@ -498,11 +498,15 @@ $module: #{$prefix}-chat;
             color: $color-chat_attachment_clear_icon;
         }
 
-        &-process.#{$prefix}-progress-circle {
+        &-process.#{$prefix}-progress-circle, &-fail {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+        }
+
+        &-fail {
+            color: $color-chat_attachment_fail;
         }
 
         &-file {
