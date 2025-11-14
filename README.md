@@ -192,3 +192,4 @@ See [CONTRIBUTING](CONTRIBUTING-en-US.md) documentation.
 # 🎈 License
 
 Semi UI is [MIT Licensed](LICENSE)
+
