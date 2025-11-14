@@ -885,6 +885,13 @@ render(<RenderTopSlot />);
 
 Rich text areas support custom extensions. For implementation details, see [Tiptap Custom Extensions](https://tiptap.dev/docs/editor/extensions/custom-extensions/create-new). Custom extensions can be added to the AIChatInput component using the `extensions` API. If you add a custom extension, you must configure the corresponding transformation rules in `transformer` to ensure that the data returned in `onContentChange` matches your expectations.
 
+When adding a custom extension, please note the following:
+
+- Please add the `isCustomSlot` property to your custom extension. This property is related to the cursor height before and after the custom extension.
+- Since `AIChatInput` uses `Enter` as the send hotkey, if your custom extension uses `Enter` as a shortcut, you need to manually configure `AIChatInput.allowHotKeySend` in `editor.storage` to indicate whether the hotkey should be used by AIChatInput for sending, in order to avoid hotkey conflicts.
+
+An example of a custom extension definition and related notes is as follows:
+
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
 import { Node, mergeAttributes } from '@tiptap/core';
@@ -1050,8 +1057,11 @@ const updatePosition = (editor, element) => {
 const suggestion = {
     items: () => FirstLevel,
     command: ({ editor, range, props }) => {
-        const { item } = props;
-        editor.chain().focus().insertContentAt(range, {
+        const { item, allowHotKeySend } = props;
+        if (typeof allowHotKeySend === 'boolean') {
+            editor.storage.SemiAIChatInput.allowHotKeySend = allowHotKeySend;
+        }
+        item && editor.chain().focus().insertContentAt(range, {
             type: 'referSlot',
             attrs: {
                 type: item.type,
@@ -1152,6 +1162,12 @@ class MentionList extends React.Component {
         this.selectItem = this.selectItem.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);
         this.renderItem = this.renderItem.bind(this);
+        // When the options panel is rendered, the Enter shortcut should be used in the options panel, not for sending with AIChatInput.
+        props.command({ allowHotKeySend: false });
+    }
+    componentWillUnmount() {
+        // If the options panel is unmounted, the Enter shortcut should be used to send AIChatInput.
+        this.props.command({ allowHotKeySend: true });
     }
     upHandler() {
         const { selectedIndex, filterOptions } = this.state;

@@ -69,6 +69,11 @@ class MentionList extends Component<any, any> {
             options: FirstLevel,
             filterOptions: FirstLevel,
         };
+        props.command({ allowHotKeySend: false });
+    }
+
+    componentWillUnmount(): void {
+        this.props.command({ allowHotKeySend: true });
     }
 
     upHandler = () => {

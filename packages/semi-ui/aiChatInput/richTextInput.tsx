@@ -14,6 +14,7 @@ import { Content as TiptapContent } from "@tiptap/core";
 import { cssClasses } from '@douyinfe/semi-foundation/aiChatInput/constants';
 import { EditorView } from '@tiptap/pm/view';
 import { handleCompositionEndLogic, handlePasteLogic, handleTextInputLogic, handleZeroWidthCharLogic } from './extension/plugins';
+import SemiStatusExtension from './extension/statusExtension';
 
 const PREFIX = cssClasses.PREFIX;
 
@@ -58,6 +59,7 @@ export default (props: {
             Placeholder.configure({
                 placeholder: placeholder,
             }),
+            SemiStatusExtension,
             ...extensions,
         ];
     }, [extensions, placeholder]);
