@@ -1,20 +1,17 @@
 name: React Multi-Version Build and Publish
 
 on:
-  pull_request:
-    branches: [main]
-  # 如果不是在主分支，下方的 workflow_dispatch 不能被触发，因此测试时，先通过 pr 触发，正式使用再使用 workflow_dispatch
-  # workflow_dispatch:
-  #   inputs:
-  #     release_type:
-  #       description: 'release type: minor | patch | beta'
-  #       required: true
-  #       default: 'patch'
-  #     publish_react19:
-  #       description: 'publish React 19 version'
-  #       type: boolean
-  #       required: false
-  #       default: true
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'release type: minor | patch | beta'
+        required: true
+        default: 'patch'
+      publish_react19:
+        description: 'publish React 19 version'
+        type: boolean
+        required: false
+        default: true
 
 jobs:
   # 暂时不加测试
@@ -71,6 +68,15 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: gen token
+        run: |
+            git config --global user.name 'semi-team'
+            git config --global user.email 'semi-team@bytedance.com'
+            mkdir ~/.ssh
+            echo $SEMI_TEAM_PRIVATE_KEY > ~/.ssh/ssh-ed25519
+            echo $SEMI_TEAM_PRIVATE_KEY_PUB > ~/.ssh/ssh-ed25519.pub
+            echo "Host\n  github.com\n  AddKeysToAgent yes\n  UseKeychain yes\n  IdentityFile ~/.ssh/id_ed25519" > ~/.ssh/config
+
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref || github.ref_name }}
@@ -90,16 +96,16 @@ jobs:
         run: npm i -g lerna@^4.0.0 && npm run bootstrap
           
       # 生成 semi-ui-19 的包
-      # if: ${{ github.event.inputs.publish_react19 == 'true' }}
       - name: Build React 19 version
         run: |
-          node scripts/react19-build.js 19
+          if: ${{ github.event.inputs.publish_react19 }}
+            node scripts/react19-build.js 19
+            echo "Build semi-ui-19";
 
-      # 再运行一次，保证 semi-ui-19 中的包正确
+      # 再运行一次，保证 semi-ui-19 中的依赖包安装正确
       - name: npm install again
         run: npm run bootstrap
-         
-    #  测试时候，暂时使用 RELEASE_TYPE: alpha，实际使用请修改为 ${{ github.event.inputs.release_type }}
+      
       - name: get version list
         run: |
             PKG_NAME=@douyinfe/semi-ui
@@ -108,16 +114,9 @@ jobs:
       - name: get version
         run: echo "RELEASE_VERSION="$(node scripts/version.js)"" >> $GITHUB_ENV
         env:
-            RELEASE_TYPE: alpha
+            RELEASE_TYPE: ${{ github.event.inputs.release_type }}
 
-    # publish 的时候不提交 semi-ui-19 相关的修改 
-    # 合入到主分支前请将 DIST_TAG=alpha 位置的代码修改为下面的代码
-    # DIST_TAG=latest
-    # if [[ ${{ github.event.inputs.release_type }} == 'beta' ]]; then
-    #   DIST_TAG=beta
-    # elif [[ ${{ github.event.inputs.release_type }} == 'alpha' ]]; then
-    #   DIST_TAG=alpha
-    # fi
+     # publish 的时候不提交 semi-ui-19 相关的修改
       - name: publish
         run: |
             git config --global user.name 'semi-team'
@@ -135,7 +134,12 @@ jobs:
             npm config set registry=https://registry.npmjs.org/
             npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
             npm whoami
-            DIST_TAG=alpha
+            DIST_TAG=latest
+            if [[ ${{ github.event.inputs.release_type }} == 'beta' ]]; then
+              DIST_TAG=beta
+            elif [[ ${{ github.event.inputs.release_type }} == 'alpha' ]]; then
+              DIST_TAG=alpha
+            fi
             echo "$RELEASE_VERSION"
             echo "$DIST_TAG"
             lerna version $RELEASE_VERSION --exact --force-publish --yes --no-push
