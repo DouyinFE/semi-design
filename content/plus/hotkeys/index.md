@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 31
+order: 32
 category: Plus
 title: HotKeys 快捷键
 icon: doc-configprovider

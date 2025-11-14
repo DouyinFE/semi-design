@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 98
+order: 99
 category: Ai
 title: AIComponent 能力介绍
 icon: doc-aiComponent

@@ -1,6 +1,7 @@
 const order = [
     'introduction',
     'getting-started',
+    'react19',
     'customize-theme',
     'design-to-code',
     'dark-mode',

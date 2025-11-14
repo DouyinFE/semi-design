@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 22
+order: 23
 category: 基础
 title:  Typography 版式
 icon: doc-typography

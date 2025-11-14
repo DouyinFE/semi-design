@@ -4,7 +4,7 @@ title:  Dark Mode
 subTitle: Dark Mode
 icon: doc-darkmode
 localeCode: en-US
-order: 5
+order: 6
 ---
 
 ## Dark mode

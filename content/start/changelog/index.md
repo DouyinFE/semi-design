@@ -3,7 +3,7 @@ category: 开始
 title: Change Log 更新日志
 icon: doc-changelog
 localeCode: zh-CN
-order: 14
+order: 15
 brief: 关于 Semi Design For React 优化与更新。我们提供了版本间的 Changelog Diff，你可以通过 hover 版本号唤出 Diff 控件。如果你想查看单个组件的变更历史，可以通过对应组件文档的 版本对比 按钮查看
 ---
 
@@ -37,7 +37,6 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 - 【Feat】
     - 新增 AI Token，AI ICON [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
     - Tag/Button 新增加 colorful API [#2997](https://github.com/DouyinFE/semi-design/pull/2997)
-
 
 #### 🎉 2.87.1 (2025-10-16)
 - 【Fix】

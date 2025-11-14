@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 21
+order: 22
 category: Basic
 title:  FloatButton
 icon: doc-floatButton

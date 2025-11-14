@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 26
+order: 27
 category: Plus
 title:  Chat
 icon: doc-chat

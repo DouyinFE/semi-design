@@ -3,7 +3,7 @@ category: start
 title: Customized Themes
 icon: doc-theme
 localeCode: en-US
-order: 3
+order: 4
 ---
 
 ## Build your own design system

@@ -7,6 +7,13 @@ localeCode: en-US
 order: 2
 ---
 
+Semi Design is maintained by the Douyin front-end team and provides 70+ ready-to-use React components and the Figam Variant UI Kit. You can import and use it in any React project (new projects are recommended to be created via Rsbuild, CreateReactApp, or Vite). Currently, it supports React v16, v17, v18, and v19 ([React v19 adaptation](/en-US/start/react19)).
+
+If you need to use compile-time customization capabilities such as prefixCls, themes, and CSS Layers, we recommend using Webpack or Rspack/Rsbuild as your engineering build solution. (For ByteDance users, if you are using your company's internal engineering solution, please refer to the Lark documentation for configuration: <a href="https://bytedance.larkoffice.com/wiki/FaRwweDLmigrD0k8wLgcDaQtnbb" target="_blank">Semi Engineering FAQ</a>)
+
+<Notice title='Important Notes'> The component package @douyinfe/semi-ui is suitable for React versions lower than v19. If using React v19, please use @douyinfe/semi-ui-19. In all examples below, @douyinfe/semi-ui can be replaced with @douyinfe/semi-ui-19.
+</Notice>
+
 ## 1. Install Library
 
 ```bash

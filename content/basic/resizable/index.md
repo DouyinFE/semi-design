@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 19
+order: 20
 category: 基础
 title: Resizable 伸缩框
 icon: doc-steps

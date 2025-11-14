@@ -3,7 +3,7 @@ category: 开始
 title:  Customized Themes 定制主题
 icon: doc-theme
 localeCode: zh-CN
-order: 3
+order: 4
 ---
 
 ## 定制方式

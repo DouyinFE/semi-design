@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 93
+order: 94
 category: 其他
 title:  ConfigProvider 全局配置
 icon: doc-configprovider
