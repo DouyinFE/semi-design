@@ -1,22 +1,6 @@
 {
     "name": "eslint-plugin-semi-design",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     "version": "2.88.0",
-=======
-    "version": "2.87.0-alpha.5",
->>>>>>> e68e29a36 (v2.87.0-alpha.5)
-=======
-    "version": "2.87.0-alpha.6",
->>>>>>> 48e9ae991 (v2.87.0-alpha.6)
-=======
-    "version": "2.87.0-alpha.7",
->>>>>>> 511ac0b5a (v2.87.0-alpha.7)
-=======
-    "version": "2.87.0-alpha.8",
->>>>>>> e5aa43c73 (v2.87.0-alpha.8)
     "description": "semi ui eslint plugin",
     "keywords": [
         "semi",

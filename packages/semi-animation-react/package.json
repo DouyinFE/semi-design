@@ -1,22 +1,6 @@
 {
     "name": "@douyinfe/semi-animation-react",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     "version": "2.88.0",
-=======
-    "version": "2.87.0-alpha.5",
->>>>>>> e68e29a36 (v2.87.0-alpha.5)
-=======
-    "version": "2.87.0-alpha.6",
->>>>>>> 48e9ae991 (v2.87.0-alpha.6)
-=======
-    "version": "2.87.0-alpha.7",
->>>>>>> 511ac0b5a (v2.87.0-alpha.7)
-=======
-    "version": "2.87.0-alpha.8",
->>>>>>> e5aa43c73 (v2.87.0-alpha.8)
     "description": "motion library for semi-ui-react",
     "keywords": [
         "motion",
@@ -41,28 +25,8 @@
         "prepublishOnly": "npm run build:lib"
     },
     "dependencies": {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         "@douyinfe/semi-animation": "2.88.0",
         "@douyinfe/semi-animation-styled": "2.88.0",
-=======
-        "@douyinfe/semi-animation": "2.87.0-alpha.5",
-        "@douyinfe/semi-animation-styled": "2.87.0-alpha.5",
->>>>>>> e68e29a36 (v2.87.0-alpha.5)
-=======
-        "@douyinfe/semi-animation": "2.87.0-alpha.6",
-        "@douyinfe/semi-animation-styled": "2.87.0-alpha.6",
->>>>>>> 48e9ae991 (v2.87.0-alpha.6)
-=======
-        "@douyinfe/semi-animation": "2.87.0-alpha.7",
-        "@douyinfe/semi-animation-styled": "2.87.0-alpha.7",
->>>>>>> 511ac0b5a (v2.87.0-alpha.7)
-=======
-        "@douyinfe/semi-animation": "2.87.0-alpha.8",
-        "@douyinfe/semi-animation-styled": "2.87.0-alpha.8",
->>>>>>> e5aa43c73 (v2.87.0-alpha.8)
         "classnames": "^2.2.6"
     },
     "devDependencies": {
