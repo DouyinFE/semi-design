@@ -360,9 +360,14 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         return false;
                     }
                     let el = this.triggerEl && this.triggerEl.current;
-                    let popupEl = this.containerEl && this.containerEl.current;
+                    let popupEl = (this.containerEl && this.containerEl.current) as HTMLDivElement;
+
+                    /* REACT_18_START */
                     el = ReactDOM.findDOMNode(el as React.ReactInstance);
-                    popupEl = ReactDOM.findDOMNode(popupEl as React.ReactInstance) as HTMLDivElement;
+                    /* REACT_18_END */
+                    /* REACT_19_START */
+                    // el = el as HTMLElement;
+                    /* REACT_19_END */
                     const target = e.target as Element;
                     const path = (e as any).composedPath && (e as any).composedPath() || [target];
                     const isClickTriggerToHide = this.props.clickTriggerToHide ? el && (el as any).contains(target) || path.includes(el) : false;
@@ -451,7 +456,13 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             getTriggerNode: () => {
                 let triggerDOM = this.triggerEl.current;
                 if (!isHTMLElement(this.triggerEl.current)) {
+                    /* REACT_18_START */
                     triggerDOM = ReactDOM.findDOMNode(this.triggerEl.current as React.ReactInstance);
+                    /* REACT_18_END */
+                    /* REACT_19_START */
+                    // console.warn(`[Semi Tooltip] triggerDOM should be a valid DOM element. The trigger element's ref is not returning a DOM node. This may cause tooltip positioning issues. Please ensure the trigger element has a proper ref that returns a DOM node.`);
+                    // triggerDOM = this.triggerEl.current;
+                    /* REACT_19_END */
                 }
                 return triggerDOM as Element;
             },
@@ -476,7 +487,12 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             },
             getTriggerDOM: () => {
                 if (this.triggerEl.current) {
+                    /* REACT_18_START */
                     return ReactDOM.findDOMNode(this.triggerEl.current as ReactInstance) as HTMLElement;
+                    /* REACT_18_END */
+                    /* REACT_19_START */
+                    // return this.triggerEl.current as HTMLElement;
+                    /* REACT_19_END */
                 } else {
                     return null;
                 }
@@ -493,7 +509,13 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             let triggerEle = this.triggerEl.current;
             if (triggerEle) {
                 if (!(triggerEle instanceof HTMLElement)) {
+                    /* REACT_18_START */
                     triggerEle = findDOMNode(triggerEle as ReactInstance);
+                    /* REACT_18_END */
+                    /* REACT_19_START */
+                    // console.warn(`[Semi Tooltip] triggerEle should be a valid DOM element. The trigger element's ref is not returning a DOM node. This may cause tooltip positioning issues. Please ensure the trigger element has a proper ref that returns a DOM node.`);
+                    // triggerEle = triggerEle as HTMLElement;
+                    /* REACT_19_END */
                 }
             }
             this.foundation.updateStateIfCursorOnTrigger(triggerEle as HTMLElement);
@@ -722,7 +744,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         );
     };
 
-    wrapSpan = (elem: React.ReactNode | React.ReactElement) => {
+    wrapSpan = (elem: React.ReactNode | React.ReactElement<any>) => {
         const { wrapperClassName } = this.props;
         const display = get(elem, 'props.style.display');
         const block = get(elem, 'props.block');
@@ -779,7 +801,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     extraStyle.cursor = 'not-allowed';
                 }
 
-                children = cloneElement(children as React.ReactElement, { style: childrenStyle });
+                children = cloneElement(children as React.ReactElement<any>, { style: childrenStyle });
                 if (trigger !== 'custom') {
                     // no need to wrap span when trigger is custom, cause it don't need bind event
                     children = this.wrapSpan(children);
@@ -803,10 +825,10 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         }
 
         // The incoming children is a single valid element, otherwise wrap a layer with span
-        const newChild = React.cloneElement(children as React.ReactElement, {
+        const newChild = React.cloneElement(children as React.ReactElement<any>, {
             ...ariaAttribute,
-            ...(children as React.ReactElement).props,
-            ...this.mergeEvents((children as React.ReactElement).props, triggerEventSet),
+            ...(children as React.ReactElement<any>).props,
+            ...this.mergeEvents((children as React.ReactElement<any>).props, triggerEventSet),
             style: {
                 ...get(children, 'props.style') as React.CSSProperties,
                 ...extraStyle,
@@ -819,7 +841,12 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 // Keep your own reference
                 (this.triggerEl as any).current = node;
                 // Call the original ref, if any
+                /* REACT_18_START */
                 const { ref } = children as any;
+                /* REACT_18_END */
+                /* REACT_19_START */
+                // const { ref } = (children as any).props;
+                /* REACT_19_END */
                 // this.log('tooltip render() - get ref', ref);
                 if (typeof ref === 'function') {
                     ref(node);
@@ -827,7 +854,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     ref.current = node;
                 }
             },
-            tabIndex: (children as React.ReactElement).props.tabIndex || 0, // a11y keyboard, in some condition select's tabindex need to -1 or 0
+            tabIndex: (children as React.ReactElement<any>).props.tabIndex || 0, // a11y keyboard, in some condition select's tabindex need to -1 or 0
             'data-popupid': id
         });
 

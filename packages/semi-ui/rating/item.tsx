@@ -62,12 +62,19 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
 
     constructor(props: RatingItemProps) {
         super(props);
+        this.liRef = React.createRef();
         this.state = {
             firstStarFocus: false,
             secondStarFocus: false,
         };
         this.foundation = new RatingItemFoundation(this.adapter);
     }
+
+    public getDomNode = () => {
+        return this.liRef && this.liRef.current;
+    }
+    
+    liRef: React.RefObject<HTMLLIElement>;
 
     get adapter(): RatingItemAdapter<RatingItemProps, RatingItemState> {
         return {
@@ -222,7 +229,7 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
         };
        
         return (
-            <li className={starCls} style={{ ...sizeStyle }} key={index} >
+            <li className={starCls} style={{ ...sizeStyle }} key={index} ref={this.liRef}>
                 <div {...(starWrapProps as any)}>
                     {allowHalf && !isEmpty && <div {...firstStarProps} style={{ width: `${firstWidth * 100}%` }}>{content}</div>}
                     <div {...secondStarProps} x-semi-prop="character">{content}</div>

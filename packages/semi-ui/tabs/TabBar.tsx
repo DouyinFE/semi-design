@@ -84,7 +84,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         const { tabBarExtraContent, type, size } = this.props;
         const tabBarExtraContentDefaultStyle = { float: 'right' };
         const tabBarExtraContentStyle =
-            tabBarExtraContent && (tabBarExtraContent as ReactElement).props ? (tabBarExtraContent as ReactElement).props.style : {};
+            tabBarExtraContent && (tabBarExtraContent as ReactElement<any>).props ? (tabBarExtraContent as ReactElement<any>).props.style : {};
         const extraCls = cls(cssClasses.TABS_BAR_EXTRA, {
             [`${cssClasses.TABS_BAR}-${type}-extra`]: type,
             [`${cssClasses.TABS_BAR}-${type}-extra-${size}`]: size,

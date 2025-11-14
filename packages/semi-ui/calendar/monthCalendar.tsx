@@ -61,6 +61,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
     cellDom: React.RefObject<HTMLDivElement>;
     foundation: CalendarFoundation;
     cardRef: Map<string, ReactInstance>;
+    optionContainerEl: Map<string, HTMLDivElement>;
     contentCellHeight: number;
     monthlyData: MonthData;
 
@@ -78,6 +79,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
         this.foundation = new CalendarFoundation(this.adapter);
         this.handleClick = this.handleClick.bind(this);
         this.cardRef = new Map();
+        this.optionContainerEl = new Map();
     }
 
     get adapter(): CalendarAdapter<MonthCalendarProps, MonthCalendarState> {
@@ -85,8 +87,9 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
             ...super.adapter,
             registerClickOutsideHandler: (key: string, cb: () => void) => {
                 const clickOutsideHandler = (e: MouseEvent) => {
-                    const cardInstance = this.cardRef && this.cardRef.get(key);
-                    const cardDom = ReactDOM.findDOMNode(cardInstance);
+                    
+                    const cardDom = this.optionContainerEl && this.optionContainerEl.get(key);
+                    
                     const target = e.target as Element;
                     const path = e.composedPath && e.composedPath() || [target];
                     if (cardDom && !cardDom.contains(target) && !path.includes(cardDom)) {
@@ -253,7 +256,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
             </div>
         );
         const content = (
-            <div className={cardCls}>
+            <div className={cardCls} ref={ref => this.optionContainerEl.set(key, ref)}>
                 <div className={`${cardCls}-content`}>
                     <div className={`${cardCls}-header`}>
                         {header}

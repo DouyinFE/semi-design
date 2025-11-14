@@ -15,9 +15,5 @@ const DropdownDivider: React.FC<DropdownDividerProps> = (props = {}) => {
     return <div className={classnames(`${prefixCls}-divider`, className)} style={style} />;
 };
 
-DropdownDivider.propTypes = {
-    style: PropTypes.object,
-    className: PropTypes.string,
-};
 
 export default DropdownDivider;

@@ -21,7 +21,7 @@ export interface NavStepProps {
 }
 
 const NavStep = (props: NavStepProps) => {
-    const { prefixCls, className, title, style, active, index, total, onClick, onKeyDown, onChange } = props;
+    const { prefixCls = css.ITEM, className = '', title, style, active = false, index, total, onClick, onKeyDown, onChange } = props;
     const classString = classnames(prefixCls, {
         [`${prefixCls}-active`]: active
     }, className);
@@ -53,18 +53,5 @@ const NavStep = (props: NavStepProps) => {
     );
 };
 
-NavStep.propTypes = {
-    prefixCls: PropTypes.string,
-    title: PropTypes.node,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    onClick: PropTypes.func,
-    active: PropTypes.bool,
-};
-NavStep.defaultProps = {
-    prefixCls: css.ITEM,
-    active: false,
-    className: '',
-};
 
 export default NavStep;
