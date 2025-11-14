@@ -963,6 +963,12 @@ render(<RenderTopSlot />);
 
 富文本区域可以自定义扩展，自定义扩展的实现可参考 [Tiptap 自定义扩展](https://tiptap.dev/docs/editor/extensions/custom-extensions/create-new)。通过 `extensions` API 可将自定义扩展添加到 `AIChatInput` 组件中。如果添加了自定义扩展，需要在 `transformer` 中添加对应的转换规则， 以保证在 `onContentChange` 中得到的该节点数据符合用户预期。
 
+添加自定义扩展时有以下注意事项：
+- 请在自定义扩展中添加 `isCustomSlot` 的属性，该属性和自定义扩展前后的光标高度有关
+- 由于 `AIChatInput` 使用 `Enter` 作为发送热键，如果自定义扩展有使用 `Enter` 作为快捷操作，需要自行设置 `editor.storage` 中的 `AIChatInput.allowHotKeySend` 用于表示热键是否应该被 AIChatInput 用于发送，避免热键冲突
+
+自定义扩展定义及注意事项的示例如下：
+
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
 import { Node, mergeAttributes } from '@tiptap/core';
@@ -1129,8 +1135,11 @@ const updatePosition = (editor, element) => {
 const suggestion = {
     items: () => FirstLevel,
     command: ({ editor, range, props }) => {
-        const { item } = props;
-        editor.chain().focus().insertContentAt(range, {
+        const { item, allowHotKeySend } = props;
+        if (typeof allowHotKeySend === 'boolean') {
+            editor.storage.SemiAIChatInput.allowHotKeySend = allowHotKeySend;
+        }
+        item && editor.chain().focus().insertContentAt(range, {
             type: 'referSlot',
             attrs: {
                 type: item.type,
@@ -1230,6 +1239,12 @@ class MentionList extends React.Component {
         this.selectItem = this.selectItem.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);
         this.renderItem = this.renderItem.bind(this);
+        // 选项面板渲染，则 Enter 快捷键应该用于选项面板中，不能用于 AIChatInput 的发送，
+        props.command({ allowHotKeySend: false });
+    }
+    componentWillUnmount() {
+        // 选项面板卸载，则 Enter 快捷键应该用于 AIChatInput 的发送
+        this.props.command({ allowHotKeySend: true });
     }
     upHandler() {
         const { selectedIndex, filterOptions } = this.state;

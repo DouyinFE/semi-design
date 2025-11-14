@@ -1,6 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { Attachment, BaseSkill, Suggestion, Reference, Content, LeftMenuChangeProps, MessageContent } from './interface';
-import { isNumber, isString } from 'lodash';
+import { get, isNumber, isString } from 'lodash';
 import { cssClasses } from './constants';
 import { findSkillSlotInString, getSkillSlotString, transformJSONResult } from './utils';
 
@@ -345,7 +345,9 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
         if ((suggestionVisible || skillVisible) && ['ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
             return true;
         }
-        if (event.key === 'Enter' && !event.shiftKey) {
+        const editor = this._adapter.getEditor() ?? {};
+        const allowHotKeySend = get(editor, 'storage.SemiAIChatInput.allowHotKeySend');
+        if (event.key === 'Enter' && !event.shiftKey && allowHotKeySend) {
             this.handleSend();
             return true;
         }

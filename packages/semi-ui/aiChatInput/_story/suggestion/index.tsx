@@ -28,9 +28,13 @@ const suggestion = {
     // items: ({ query }: any) => FirstLevel,
     items: () => FirstLevel,
 
-    command: ({ editor, range, props }: any) => {
-        const { item } = props;
-        editor.chain().focus().insertContentAt(range, {
+    command: (obj: any) => {
+        const { editor, range, props } = obj;
+        const { item, allowHotKeySend } = props;
+        if (typeof allowHotKeySend === 'boolean') {
+            editor.storage.SemiAIChatInput.allowHotKeySend = allowHotKeySend;
+        }
+        item && editor.chain().focus().insertContentAt(range, {
             type: 'referSlot',
             attrs: {
                 type: item.type,
