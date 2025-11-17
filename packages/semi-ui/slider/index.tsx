@@ -175,8 +175,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                     if (!handle) {
                         return;
                     }
-                    const handleInstance = handle && handle.current;
-                    const handleDom = ReactDOM.findDOMNode(handleInstance);
+                    const handleDom = handle && handle.current;
                     if (handleDom && handleDom.contains(e.target as Node)) {
                         flag = true;
                     }

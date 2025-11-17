@@ -143,7 +143,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
 
         return (
             <i className={className} key={key}>
-                {isSemiIcon(icon) ? React.cloneElement((icon as React.ReactElement), { size: (icon as React.ReactElement).props.size || iconSize }) : icon}
+                {isSemiIcon(icon) ? React.cloneElement((icon as React.ReactElement<any>), { size: (icon as React.ReactElement<any>).props.size || iconSize }) : icon}
             </i>
         );
     }

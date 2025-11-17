@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
 import InfiniteScroll from 'react-infinite-scroller';
 import { DndProvider, DragSource, DropTarget, useDrag, useDrop } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -664,7 +662,7 @@ const cardTarget = {
     if (dragIndex === hoverIndex) {
       return;
     }
-    const hoverBoundingRect = ReactDOM.findDOMNode(component).getBoundingClientRect();
+    const hoverBoundingRect = component.node.getBoundingClientRect();
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
     const clientOffset = monitor.getClientOffset();
     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
@@ -708,7 +706,7 @@ class DraggableItem extends React.Component {
 
     return connectDragSource(
       connectDropTarget(
-        <div ref={node => (this.node = node)} style={{ ...style, opacity }}>
+        <div ref={node => {this.node = node}} style={{ ...style, opacity }}>
           {component}
         </div>
       )

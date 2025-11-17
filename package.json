@@ -236,7 +236,8 @@
         "@types/react": "^18.0.5",
         "@types/react-dom": "^18.0.1",
         "babel-plugin-lodash/@babel/types": "~7.20.0",
-        "cheerio": "1.0.0-rc.12"
+        "cheerio": "1.0.0-rc.12",
+        "@types/minimatch": "5.1.2"
     },
     "lint-staged": {
         "src/**/*.{js,jsx,ts,tsx}": [

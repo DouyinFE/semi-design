@@ -462,9 +462,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             getMaxLimit: () => this.props.max,
             registerClickOutsideHandler: (cb: (e: MouseEvent) => void) => {
                 const clickOutsideHandler: (e: MouseEvent) => void = e => {
-                    const optionInstance = this.optionsRef && this.optionsRef.current;
                     const triggerDom = (this.triggerRef && this.triggerRef.current) as Element;
-                    const optionsDom = ReactDOM.findDOMNode(optionInstance as ReactInstance);
+                    const optionsDom = (this.optionContainerEl && this.optionContainerEl.current) as Element;
+
                     const target = e.target as Element;
                     const path = (e as any).composedPath && (e as any).composedPath() || [target];
 
@@ -1174,7 +1174,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     }
 
 
-    renderCollapsedTags(selections: [React.ReactNode, any][], length: number | undefined): React.ReactElement {
+    renderCollapsedTags(selections: [React.ReactNode, any][], length: number | undefined): React.ReactElement<any> {
         const { overflowItemCount } = this.state;
         const normalTags = typeof length === 'number' ? selections.slice(0, length) : selections;
         return (
@@ -1191,7 +1191,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         );
     }
 
-    renderOneLineTags(selectedItems: [React.ReactNode, any][], n: number | undefined): React.ReactElement {
+    renderOneLineTags(selectedItems: [React.ReactNode, any][], n: number | undefined): React.ReactElement<any> {
         let { renderSelectedItem } = this.props;
         const { showRestTagsPopover, restTagsPopoverProps, maxTagCount } = this.props;
         const { isFullTags } = this.state;
@@ -1475,7 +1475,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 aria-describedby={this.props['aria-describedby']}
                 aria-required={this.props['aria-required']}
                 className={selectionCls}
-                ref={ref => ((this.triggerRef as any).current = ref)}
+                ref={ref => {((this.triggerRef as any).current = ref);}}
                 onClick={e => this.foundation.handleClick(e)}
                 style={style}
                 id={this.selectID}

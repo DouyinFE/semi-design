@@ -34,15 +34,15 @@ export enum stepSizeMapIconSize {
 
 const BasicStep = (props: BasicStepProps) => {
     const {
-        prefixCls,
-        className,
+        prefixCls = css.ITEM,
+        className = '',
         size,
         title,
         description,
-        status,
+        status = 'wait',
         style,
-        active,
-        done,
+        active = false,
+        done = false,
         icon,
         stepNumber,
         onClick,
@@ -120,24 +120,5 @@ const BasicStep = (props: BasicStepProps) => {
     );
 };
 
-BasicStep.propTypes = {
-    prefixCls: PropTypes.string,
-    description: PropTypes.node,
-    icon: PropTypes.node,
-    status: PropTypes.oneOf(['wait', 'process', 'finish', 'error', 'warning']),
-    title: PropTypes.node,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    onClick: PropTypes.func,
-    active: PropTypes.bool,
-    done: PropTypes.bool,
-};
-BasicStep.defaultProps = {
-    prefixCls: css.ITEM,
-    active: false,
-    done: false,
-    status: 'wait',
-    className: '',
-};
 
 export default BasicStep;

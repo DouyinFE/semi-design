@@ -24,7 +24,7 @@ export interface FillStepProps {
 }
 
 const FillStep = (props: FillStepProps) => {
-    const { prefixCls, className, title, description, status, style, onClick, icon, onChange, stepNumber, onKeyDown } = props;
+    const { prefixCls = css.ITEM, className = '', title, description, status = 'wait', style, onClick, icon, onChange, stepNumber, onKeyDown } = props;
     const renderIcon = () => {
         let inner, progress;
 
@@ -108,20 +108,5 @@ const FillStep = (props: FillStepProps) => {
     );
 };
 
-FillStep.propTypes = {
-    prefixCls: PropTypes.string,
-    description: PropTypes.node,
-    icon: PropTypes.node,
-    status: PropTypes.oneOf(['wait', 'process', 'finish', 'error', 'warning']),
-    title: PropTypes.node,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    onClick: PropTypes.func,
-};
-FillStep.defaultProps = {
-    prefixCls: css.ITEM,
-    status: 'wait',
-    className: '',
-};
 
 export default FillStep;

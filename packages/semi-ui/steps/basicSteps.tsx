@@ -24,22 +24,22 @@ export interface BasicStepsProps {
 
 const Steps = (props: BasicStepsProps) => {
     const {
-        size,
-        current,
-        status,
+        size = '',
+        current = 0,
+        status = 'process',
         children,
-        prefixCls,
-        initial,
-        direction,
+        prefixCls = css.PREFIX,
+        initial = 0,
+        direction = 'horizontal',
         className,
         style,
-        hasLine,
+        hasLine = true,
         onChange,
         ...rest
     } = props;
     const inner = useMemo(() => {
-        const filteredChildren = Children.toArray(children).filter(c => isValidElement(c)) as Array<ReactElement>;
-        const content = Children.map(filteredChildren, (child: React.ReactElement, index) => {
+        const filteredChildren = Children.toArray(children).filter(c => isValidElement(c)) as Array<ReactElement<any>>;
+        const content = Children.map(filteredChildren, (child: React.ReactElement<any>, index) => {
             if (!child) {
                 return null;
             }
@@ -89,25 +89,5 @@ const Steps = (props: BasicStepsProps) => {
     );
 };
 
-Steps.propTypes = {
-    prefixCls: PropTypes.string,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    current: PropTypes.number,
-    initial: PropTypes.number,
-    direction: PropTypes.oneOf(['horizontal', 'vertical']),
-    status: PropTypes.oneOf(['wait', 'process', 'finish', 'error', 'warning']),
-    hasLine: PropTypes.bool,
-};
-
-Steps.defaultProps = {
-    prefixCls: css.PREFIX,
-    current: 0,
-    direction: 'horizontal',
-    size: '',
-    initial: 0,
-    hasLine: true,
-    status: 'process',
-};
 
 export default Steps;

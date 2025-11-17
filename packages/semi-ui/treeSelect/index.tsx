@@ -317,6 +317,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     tagInputRef: React.RefObject<TagInput>;
     triggerRef: React.RefObject<HTMLDivElement>;
     optionsRef: React.RefObject<any>;
+    optionContainerEl: React.RefObject<HTMLDivElement>;
     clickOutsideHandler: any;
     // _flattenNodes: TreeState['flattenNodes'];
     onNodeClick: any;
@@ -360,6 +361,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.tagInputRef = React.createRef();
         this.triggerRef = React.createRef();
         this.optionsRef = React.createRef();
+        this.optionContainerEl = React.createRef();
         this.clickOutsideHandler = null;
         this.foundation = new TreeSelectFoundation(this.adapter);
         this.treeSelectID = Math.random().toString(36).slice(2);
@@ -628,9 +630,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             registerClickOutsideHandler: cb => {
                 this.adapter.unregisterClickOutsideHandler();
                 const clickOutsideHandler = (e: Event) => {
-                    const optionInstance = this.optionsRef && this.optionsRef.current as React.ReactInstance;
                     const triggerDom = this.triggerRef && this.triggerRef.current;
-                    const optionsDom = ReactDOM.findDOMNode(optionInstance);
+                    const optionsDom = (this.optionContainerEl && this.optionContainerEl.current) as HTMLDivElement;
                     const target = e.target as Element;
                     const path = e.composedPath && e.composedPath() || [target];
 
@@ -812,7 +813,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const style = { minWidth: dropdownMinWidth, ...dropdownStyle };
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
         return (
-            <div className={popoverCls} style={style} onKeyDown={this.foundation.handleKeyDown}>
+            <div className={popoverCls} style={style} onKeyDown={this.foundation.handleKeyDown} ref={this.optionContainerEl}>
                 {this.renderTree()}
             </div>
         );
