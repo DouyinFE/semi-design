@@ -15,6 +15,17 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.88.1 (2025-11-17)
+- 【Docs】
+    - Add React v19 compatibility documentation [#3028](https://github.com/DouyinFE/semi-design/pull/3028)
+- 【Feat】
+    - A new package for adapting to React v19 logic has been added: @douyinfe/semi-ui-19 [#2996](https://github.com/DouyinFE/semi-design/pull/2996)
+- 【Fix】
+    - Fixed the issue where there was no upload failure message in the Chat input box. [#3035](https://github.com/DouyinFE/semi-design/pull/3035)
+    - Fixed the issue where sending was allowed before the file upload was completed in the Chat input box. [#3035](https://github.com/DouyinFE/semi-design/pull/3035)
+    - Fixed a hotkey conflict issue between the send hotkey and sub-definition extensions in AIChatInput [#3033](https://github.com/DouyinFE/semi-design/issues/3033)
+
 #### 🎉 2.88.0 (2025-11-12)
 - 【Fix】
     - Fixed an issue with the incorrect definition of the defaultContent type in AIChatInput.

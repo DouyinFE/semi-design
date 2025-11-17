@@ -13,6 +13,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.88.1 (2025-11-17)
+- 【Docs】
+    - 增加 React v19 适配文档 [#3028](https://github.com/DouyinFE/semi-design/pull/3028)
+- 【Feat】
+    - 新增适配 React v19 逻辑的包 @douyinfe/semi-ui-19 [#2996](https://github.com/DouyinFE/semi-design/pull/2996)
+- 【Fix】
+    - 修复 Chat 的输入框中无上传失败提示 [#3035](https://github.com/DouyinFE/semi-design/pull/3035)
+    - 修复 Chat 的输入框中上传文件还未完成就允许发送 [#3035](https://github.com/DouyinFE/semi-design/pull/3035)
+    - 修复 AIChatInput 的发送热键和子定义扩展的热键冲突问题 [#3033](https://github.com/DouyinFE/semi-design/issues/3033) [#3034](https://github.com/DouyinFE/semi-design/pull/3034)
+
 #### 🎉 2.88.0 (2025-11-12)
 - 【Fix】
     - 修复  AIChatInput 中 defaultContent 类型定义错误问题 [#3027](https://github.com/DouyinFE/semi-design/pull/3027)
