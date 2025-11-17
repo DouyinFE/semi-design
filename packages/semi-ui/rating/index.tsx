@@ -269,7 +269,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
     }
 
     getItemList = (ariaLabelPrefix: string) => {
-        const { count, allowHalf, prefixCls, disabled, character, size, tooltips } =this.props;
+        const { count, allowHalf, prefixCls, disabled, character, size, tooltips } = this.props;
         const { value, hoverValue, focused } = this.state;
         // index == count is for Empty rating
         const itemList = [...Array(count + 1).keys()].map(ind => {
@@ -298,7 +298,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
                 const showTips = hoverValue - 1 === ind;
                 return (
                     <Tooltip visible={showTips} trigger="custom" content={text} key={`${ind}-${showTips}`}>
-                        {content}
+                        <span className={`${prefixCls}-star-outer`}>{content}</span>
                     </Tooltip>
                 );
             }

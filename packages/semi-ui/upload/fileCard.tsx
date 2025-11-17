@@ -139,7 +139,7 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
         let icon = null;
         switch (true) {
             case validateMessage && status === strings.FILE_STATUS_VALIDATING:
-                icon = (<Spin size="small" wrapperClassName={`${prefixCls}-picture-file-card-icon-loading`} />);
+                icon = (<span className={`${prefixCls}-tooltip-children-wrapper ${prefixCls}-picture-file-card-icon-loading`}><Spin size="small" /></span>);
                 break;
             case validateMessage && (status === strings.FILE_STATUS_VALID_FAIL || status === strings.FILE_STATUS_UPLOAD_FAIL):
                 icon = (<div className={`${prefixCls}-picture-file-card-icon-error`}><ErrorSvg /></div>);
@@ -269,14 +269,15 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
                             <span className={`${infoCls}-size`}>{fileSize}</span>
                             {showReplace && (
                                 <Tooltip trigger="hover" position="top" showArrow={false} content={locale.replace}>
-                                    <Button
-                                        onClick={e => this.onReplace(e)}
-                                        type="tertiary"
-                                        theme="borderless"
-                                        size="small"
-                                        icon={<DirectorySvg />}
-                                        className={replaceCls}
-                                    />
+                                    <span className={`${prefixCls}-tooltip-children-wrapper ${replaceCls}`}>
+                                        <Button
+                                            onClick={e => this.onReplace(e)}
+                                            type="tertiary"
+                                            theme="borderless"
+                                            size="small"
+                                            icon={<DirectorySvg />}
+                                        />
+                                    </span>
                                 </Tooltip>
                             )}
 
