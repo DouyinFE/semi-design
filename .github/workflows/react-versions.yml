@@ -97,8 +97,8 @@ jobs:
           
       # 生成 semi-ui-19 的包
       - name: Build React 19 version
+        if: ${{ github.event.inputs.publish_react19 }}
         run: |
-          if: ${{ github.event.inputs.publish_react19 }}
             node scripts/react19-build.js 19
             echo "Build semi-ui-19";
 
