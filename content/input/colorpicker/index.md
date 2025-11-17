@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 36
+order: 37
 category: 输入类
 title: ColorPicker 颜色选择器
 icon: doc-colorPlatteNew

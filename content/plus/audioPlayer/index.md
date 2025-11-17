@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 96
+order: 97
 category: Plus
 title: AudioPlayer 音频播放器
 icon: doc-audioplayer

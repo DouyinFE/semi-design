@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 72
+order: 73
 category: Plus
 title:  Cropper 图片裁切
 icon: doc-cropper

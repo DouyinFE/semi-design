@@ -8,12 +8,18 @@ order: 2
 ---
 
 Semi Design 由抖音前端团队负责维护，提供 React 版本开箱即用的70+ 组件、 Figam Variant UI Kit  
-你可在任意 React 项目中引入使用 （新项目更推荐通过 Rsbuild、CreateReactApp、Vite 新建），当前支持搭配 React v16、v17、v18 版本使用  
+你可在任意 React 项目中引入使用 （新项目更推荐通过 Rsbuild、CreateReactApp、Vite 新建），当前支持搭配 React v16、v17、v18 、v19（[React v19 适配](/zh-CN/start/react19)）版本使用  
 
 若你需要使用 prefixCls、主题、CSS Layer等编译时定制能力的场景，我们更推荐使用 Webpack 或 Rspack/Rsbuild 作为工程化构建方案  
 （字节跳动用户，若使用的是公司内部相关工程化方案，配置请查阅飞书文档：<a href="https://bytedance.larkoffice.com/wiki/FaRwweDLmigrD0k8wLgcDaQtnbb" target="_blank">Semi工程化 FAQ</a>）
 
+<Notice title='注意事项'>
+组件包 @douyinfe/semi-ui 适用于 React 版本低于 v19 的情况，如果使用 React v19，请使用 @douyinfe/semi-ui-19，下文中所有示例中的 @douyinfe/semi-ui 均可替换为 @douyinfe/semi-ui-19。
+</Notice>
+
 ## 1、安装 Semi
+
+以下展示了 `@douyinfe/semi-ui` 的安装和使用
 
 ```bash
 # 使用 npm
@@ -32,6 +38,7 @@ pnpm add @douyinfe/semi-ui
 
 ```jsx
 import React, { Component } from 'react';
+// 如果为 React v19，需要从 @douyinfe/semi-ui-19 中导出组件
 import { Button, Toast } from '@douyinfe/semi-ui';
 
 const SemiApp = () => {

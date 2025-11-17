@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 82
+order: 83
 category: Show
 title: Tooltip
 subTitle: Tooltip
@@ -23,9 +23,9 @@ Tooltip needs to apply DOM event listeners to children. If the child element is 
 
 At the same time, in order to calculate the positioning of the popup layer, it is necessary to obtain the real DOM elements of the children, so Tooltip supports the following types of children 
 
-1. Class Component, it is not mandatory to bind ref, but you need to ensure that props can be transparently transmitted to the real DOM node 
-2. Use the functional component wrapped by forwardRef to transparently transmit props and ref to the real DOM node in children 
-3. Real DOM nodes, such as span, div, p...  
+1. Functional components wrapped with `forwardRef` pass props and refs to the actual DOM nodes within their children.
+2. Actual DOM nodes, such as span, div, p, etc.
+3. Class components do not require mandatory ref binding, but must ensure that props can be passed to the actual DOM nodes. (**Note**: This rule only applies to React versions lower than v19; `@douyinfe/semi-ui` is not applicable in React v19. See [React v19 Adaptation Notes](/en-US/start/react19#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9))
 
 ```jsx live=true noInline=true dir="column"
 import React, { forwardRef } from 'react';
