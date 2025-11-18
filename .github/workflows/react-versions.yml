@@ -150,4 +150,6 @@ jobs:
             git add .
             git commit --no-verify -m "v${{env.RELEASE_VERSION}}"
             git tag "v${{env.RELEASE_VERSION}}"
+            git tag --list "v${{env.RELEASE_VERSION}}"
+            git rev-parse "v${{env.RELEASE_VERSION}}"
             git push -o ci.skip --follow-tags --no-verify --atomic
