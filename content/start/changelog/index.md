@@ -13,6 +13,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.88.2 (2025-11-18)
+- 【Fix】
+    - 修复在 React v19 下 Semi 组件内 Tooltip 的使用问题 [#2743](https://github.com/DouyinFE/semi-design/issues/2743) [#3039](https://github.com/DouyinFE/semi-design/pull/3039)
+
 #### 🎉 2.88.1 (2025-11-17)
 - 【Docs】
     - 增加 React v19 适配文档 [#3028](https://github.com/DouyinFE/semi-design/pull/3028)

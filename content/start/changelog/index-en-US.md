@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.88.2 (2025-11-18)
+- 【Fix】
+    - fixed The problems in the use of Tooltip in components in React v19  [#2743 ](https://github.com/DouyinFE/semi-design/issues/2743)
+
 #### 🎉 2.88.1 (2025-11-17)
 - 【Docs】
     - Add React v19 compatibility documentation [#3028](https://github.com/DouyinFE/semi-design/pull/3028)
