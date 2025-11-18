@@ -65,6 +65,12 @@ $module: #{$prefix}-navigation;
             transition: $motion-navigation_collapsed_opacity;
             opacity: 0;
         }
+
+        &-wrapper {
+            display: flex;
+            width: fit-content;
+            height: fit-content;
+        }
     }
 
     // 对于普通item和二级sub-title，都是font-weight normal

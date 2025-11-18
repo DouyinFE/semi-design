@@ -37,7 +37,9 @@ export default function CollapseButton({ prefixCls, locale, collapseText, isColl
         <div className={`${prefixCls}-collapse-btn`}>
             {isCollapsed ? (
                 <Tooltip content={finalCollapseText} position="right">
-                    <Button {...(btnProps as any)} />
+                    <span className={`${prefixCls}-collapse-wrapper`}>
+                        <Button {...(btnProps as any)} />
+                    </span>
                 </Tooltip>
             ) : (
                 <Button {...(btnProps as any)}>{finalCollapseText}</Button>

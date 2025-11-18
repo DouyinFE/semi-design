@@ -838,8 +838,14 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             ),
             // to maintain refs with callback
             ref: (node: React.ReactNode) => {
-                // Keep your own reference
-                (this.triggerEl as any).current = node;
+                const { tooltipRef } = (children as any).props;
+                if (tooltipRef) {
+                    // Special for Typography
+                    (this.triggerEl as any).current = tooltipRef.current;
+                } else {
+                    // Keep your own reference
+                    (this.triggerEl as any).current = node;
+                }
                 // Call the original ref, if any
                 /* REACT_18_START */
                 const { ref } = children as any;

@@ -146,9 +146,11 @@ export default class RatingFoundation<P = Record<string, any>, S = Record<string
     }
 
     changeFocusStar(value: number, event: any) {
-        const { count, allowHalf, preventScroll } = this.getProps();
+        const { count, allowHalf, preventScroll, tooltips } = this.getProps();
         const index = Math.ceil(value) - 1;
-        const starElement = [...event.currentTarget.childNodes].map(item => item.childNodes[0].childNodes);
+        const starElement = [...event.currentTarget.childNodes].map(item => 
+            tooltips ? item.childNodes[0].childNodes[0].childNodes : item.childNodes[0].childNodes
+        );
         if (index < 0) {
             starElement[count][0].focus({ preventScroll });
         } else {

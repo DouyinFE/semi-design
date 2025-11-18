@@ -68,6 +68,12 @@ $module: #{$prefix}-rating;
             font-size: $font-rating_item_default-fontSize;
         }
 
+        &-outer {
+            display: inline-flex;
+            width: fit-content;
+            height: fit-content;
+        }
+
         &-wrapper {
             position: relative;
             overflow: hidden;

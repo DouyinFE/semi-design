@@ -115,11 +115,13 @@ export default class Footer extends BaseComponent<FooterProps> {
 
     // According to showTooltip in props, decide whether to use Tooltip to pack a layer
     // 根据 props 中的 showTooltip 决定是否使用 Tooltip 包一层
-    getFinalIconElement = (element: ReactNode, content: ReactNode, key: string) => {
+    getFinalIconElement = (element: ReactNode, content: ReactNode, key: string, gap: boolean = false) => {
         const { showTooltip, zIndex } = this.props;
         return showTooltip ? (
             <Tooltip content={content} key={`tooltip-${key}`} zIndex={zIndex + 1}>
-                {element}
+                <span className={cls(`${prefixCls}-tooltip-children-wrapper`, { [`${footerPrefixCls}-gap`]: gap })}>
+                    {element}
+                </span>
             </Tooltip>
         ) : element;
     }
@@ -181,11 +183,11 @@ export default class Footer extends BaseComponent<FooterProps> {
     }
 
     getIconRatio = () => {
-        const { ratio, originTip, adaptiveTip } = this.props;
+        const { ratio, originTip, adaptiveTip, showTooltip } = this.props;
         const props = {
             key: "ratio",
             size: "large" as IconSize,
-            className: cls(`${footerPrefixCls}-gap`),
+            className: showTooltip ? undefined : `${footerPrefixCls}-gap`,
             onClick: this.handleRatioClick,
         };
         const icon = ratio === "adaptation" ? <IconRealSizeStroked {...props} /> : <IconWindowAdaptionStroked {...props} />;
@@ -195,7 +197,7 @@ export default class Footer extends BaseComponent<FooterProps> {
         } else {
             content = adaptiveTip ?? this.getLocalTextByKey("adaptiveTip");
         }
-        return this.getFinalIconElement(icon, content, 'ratio');
+        return this.getFinalIconElement(icon, content, 'ratio', true);
     }
 
     getIconRotate = () => {
@@ -210,19 +212,20 @@ export default class Footer extends BaseComponent<FooterProps> {
     }
 
     getIconDownload = () => {
-        const { downloadTip, onDownload, disableDownload } = this.props;
+        const { downloadTip, onDownload, disableDownload, showTooltip } = this.props;
         const icon = <IconDownload
             key='download'
             size="large"
             onClick={!disableDownload ? onDownload : undefined}
-            className={cls(`${footerPrefixCls}-gap`,
+            className={cls(
                 {
+                    [`${footerPrefixCls}-gap`]: !showTooltip,
                     [`${footerPrefixCls}-disabled`]: disableDownload,
                 },
             )}
         />;
         const content = downloadTip ?? this.getLocalTextByKey("downloadTip");
-        return this.getFinalIconElement(icon, content, 'download');
+        return this.getFinalIconElement(icon, content, 'download', true);
     }
 
     getNumberInfo = () => {

@@ -6,6 +6,13 @@ $module: #{$prefix}-upload;
     display: flex;
     flex-wrap: wrap;
 
+    &-tooltip-children-wrapper {
+        display: inline-flex;
+        width: fit-content;
+        height: fit-content;
+        vertical-align: middle;
+    }
+
     &-disabled {
         cursor: not-allowed;
 

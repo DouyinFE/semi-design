@@ -697,6 +697,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
         return (
             <Typography
+                tooltipRef={this.wrapperRef}
                 className={wrapperCls}
                 style={{ ...textStyle, ...ellipsisStyle }}
                 component={component}

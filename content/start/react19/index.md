@@ -60,7 +60,9 @@ React v19 引入了一些重大更改、新的弃用、breaking change、以及 
 
 React v19 中 `ReactDOM.findDOMNode` 的移除，会导致无法实现查找并返回给定 React 类组件实例所对应的浏览器 DOM 节点。
 
-对于 `Tooltip`，以及其他基于 `Tooltip` 的弹出层组件（`Popover`， `PopConfirm`），如果 `children` 使用的是类组件，并将 props 透传给了至真实的 DOM 节点上，在 `@douyinfe/semi-ui` 可以正常运行，但是在 `@douyinfe/semi-ui-19` 无法正常运行，可以通过在类组件外包一层真实的 DOM 节点（如 span，div，p...) 解决。
+对于 `Tooltip`，以及其他基于 `Tooltip` 的弹出层组件（`Popover`， `PopConfirm`， `Dropdown`），如果 `children` 使用的是类组件，并将 props 透传给了至真实的 DOM 节点上，在 `@douyinfe/semi-ui` 可以正常运行，但是在 `@douyinfe/semi-ui-19` 无法正常运行，可以通过在类组件外包一层真实的 DOM 节点（如 span，div，p...) 解决。
+
+此外，组件的某些节点允许用户自定义，如果该节点使用了 Tooltip 进行提示，比如 Typography 的自定义复制节点，如果用户自定义的节点如果是类组件，同样有上述的限制。
 
 例如：
 

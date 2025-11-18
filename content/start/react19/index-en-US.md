@@ -61,7 +61,9 @@ Therefore, to ensure functional consistency, we use different code implementatio
 
 The removal of `ReactDOM.findDOMNode` in React v19 makes it impossible to find and return the real DOM node for a given class component instance.
 
-For `Tooltip` and other popover components based on `Tooltip` (such as `Popover`, `PopConfirm`), if the `children` are class components and the props are forwarded to the real DOM node, it works fine with `@douyinfe/semi-ui`. However, in `@douyinfe/semi-ui-19`, it may not work, and you should wrap the class component in a real DOM node (such as `<span>`, `<div>`, `<p>`, etc.) for a workaround.
+For `Tooltip` and other popover components based on `Tooltip` (such as `Popover`, `PopConfirm`， `Dropdown`), if the `children` are class components and the props are forwarded to the real DOM node, it works fine with `@douyinfe/semi-ui`. However, in `@douyinfe/semi-ui-19`, it may not work, and you should wrap the class component in a real DOM node (such as `<span>`, `<div>`, `<p>`, etc.) for a workaround.
+
+In addition, some nodes of a component can be customized by the user. If the node uses a tooltip for suggestions, such as the custom copy node in Typography, the same restrictions apply if the user-defined node is a class component node.
 
 For example:
 

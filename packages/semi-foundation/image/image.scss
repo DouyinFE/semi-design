@@ -19,6 +19,13 @@ $module: #{$prefix}-image;
         max-width: none;
     }
 
+    &-tooltip-children-wrapper {
+        display: inline-flex;
+        width: fit-content;
+        height: fit-content;
+        vertical-align: middle;
+    }
+
     &-img {
         vertical-align: top;
         border-radius: inherit;
