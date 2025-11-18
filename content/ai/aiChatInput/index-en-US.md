@@ -1525,7 +1525,7 @@ render(<CustomRichTextExtension />);
 | focusEditor | Focus the input box. By default, the focus is on the end of the input box. | (pos?: string) => void | - |
 | getEditor | Get the current tiptap editor instance | () => Editor | - |
 | setContent | Set input box content | (content: TiptapContent) => void | - |
-| setContentWhileSaveTool | Set the input box content while retaining the skill item | (content: TiptapContent) => void | - |
+| setContentWhileSaveTool | Set the input box content while retaining the skill item | (content: string) => void | - |
 
 ## Design Tokens
 

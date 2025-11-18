@@ -1603,7 +1603,7 @@ render(<CustomRichTextExtension />);
 | focusEditor | 聚焦输入框，默认聚焦到输入框的末尾 | (pos?: string) => void | - |
 | getEditor | 获取当前的 tiptap 的 editor 实例 | () => Editor | - |
 | setContent | 设置输入框内容 | (content: TiptapContent) => void | - |
-| setContentWhileSaveTool | 保留技能项的同时设置输入框内容 | (content: TiptapContent) => void | - |
+| setContentWhileSaveTool | 保留技能项的同时设置输入框内容 | (content: string) => void | - |
 
 
 

@@ -53,7 +53,7 @@ const SkillSlot = Node.create({
                 renderHTML: (attributes: Record<string, any>) => ({ 'data-label': attributes.label }),
             },
             hasTemplate: {
-                parseHTML: (element: HTMLElement) => (element as HTMLElement).getAttribute('data-template'),
+                parseHTML: (element: HTMLElement) => (element as HTMLElement).getAttribute('data-template') === 'true',
                 renderHTML: (attributes: Record<string, any>) => ({ 'data-template': attributes.hasTemplate }),
             },
             isCustomSlot: getCustomSlotAttribute(),
