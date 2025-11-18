@@ -153,3 +153,4 @@ jobs:
             git tag --list "v${{env.RELEASE_VERSION}}"
             git rev-parse "v${{env.RELEASE_VERSION}}"
             git push -o ci.skip --follow-tags --no-verify --atomic
+            git push origin "v${{env.RELEASE_VERSION}}" --no-verify   
