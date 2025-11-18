@@ -362,39 +362,39 @@ describe('image', () => {
         cy.get('.semi-image-img-preview').eq(1).click();
         cy.get('.semi-image-preview').should('exist');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-chevron_left').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-chevron_left').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('上一张');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-chevron_left').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-chevron_left').trigger('mouseout');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-chevron_right').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-chevron_right').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('下一张');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-chevron_right').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-chevron_right').trigger('mouseout');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-minus').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-minus').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('缩小');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-minus').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-minus').trigger('mouseout');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-plus').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-plus').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('放大');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-plus').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-plus').trigger('mouseout');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-real_size_stroked').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-real_size_stroked').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('原始尺寸');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-real_size_stroked').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-real_size_stroked').trigger('mouseout');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-real_size_stroked').click();
+        cy.get('.semi-image-preview-footer').find('.semi-icon-real_size_stroked').click();
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-window_adaption_stroked').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-window_adaption_stroked').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('适应页面');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-window_adaption_stroked').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-window_adaption_stroked').trigger('mouseout');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-rotate').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-rotate').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('旋转');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-rotate').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-rotate').trigger('mouseout');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-download').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-download').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('下载');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-download').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-download').trigger('mouseout');
     });
 
     // 测试 xxxTooltip API
@@ -408,39 +408,39 @@ describe('image', () => {
         cy.get('.semi-image-img-preview').eq(1).click();
         cy.get('.semi-image-preview').should('exist');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-chevron_left').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-chevron_left').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('Prev');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-chevron_left').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-chevron_left').trigger('mouseout');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-chevron_right').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-chevron_right').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('Next');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-chevron_right').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-chevron_right').trigger('mouseout');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-minus').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-minus').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('ZoomOut');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-minus').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-minus').trigger('mouseout');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-plus').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-plus').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('ZoomIn');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-plus').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-plus').trigger('mouseout');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-real_size_stroked').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-real_size_stroked').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('Original size');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-real_size_stroked').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-real_size_stroked').trigger('mouseout');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-real_size_stroked').click();
+        cy.get('.semi-image-preview-footer').find('.semi-icon-real_size_stroked').click();
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-window_adaption_stroked').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-window_adaption_stroked').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('Adaption');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-window_adaption_stroked').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-window_adaption_stroked').trigger('mouseout');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-rotate').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-rotate').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('Rotate');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-rotate').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-rotate').trigger('mouseout');
 
-        cy.get('.semi-image-preview-footer').children('.semi-icon-download').trigger('mouseover');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-download').trigger('mouseover');
         cy.get('.semi-tooltip-wrapper').contains('Download');
-        cy.get('.semi-image-preview-footer').children('.semi-icon-download').trigger('mouseout');
+        cy.get('.semi-image-preview-footer').find('.semi-icon-download').trigger('mouseout');
     });
 
     // 测试在预览状态下，图片改变 ratio 状态后，切换图片，ratio 状态是否正确
