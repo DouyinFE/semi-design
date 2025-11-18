@@ -93,15 +93,15 @@ export function handleZeroWidthCharLogic(newState: EditorState) {
 export function ensureTrailingText(schema: any) {
     return new Plugin({
         appendTransaction(transactions, oldState, newState) {
+            if (transactions.some(tr => tr.getMeta(strings.DELETABLE))) {
+                // 此次 transaction 是主动删除 inputSlot，不补零宽字符
+                // This is an active deletion of inputSlot, do not add zero-width characters
+                return null;
+            }
             // 只在内容发生变化时修正，防止选区丢失
             // Only correct when content changes to prevent loss of selections
             const docChanged = transactions.some(tr => tr.docChanged);
             if (!docChanged) return null;
-            // if (transactions.some(tr => tr.getMeta(strings.DeleteAble))) {
-            //     // 此次 transaction 是主动删除 inputSlot，不补零宽字符
-            //     // This is an active deletion of inputSlot, do not add zero-width characters
-            //     return null;
-            // }
             return handleZeroWidthCharLogic(newState);
         },
     });
@@ -409,51 +409,12 @@ export function keyDownHandlePlugin(schema: any) {
 }
 
 export function handlePasteLogic(view: EditorView, event: ClipboardEvent) {
-    // If there is rich text content, let tiptap handle it by default
-    const types = event.clipboardData?.types || [];
-    const html = event.clipboardData?.getData('text/html');
-    // 如果包含 html 内容，并且 html 内容中包含 input-slot, select-slot, skill-slot 节点，则不阻断
-    // todo：增加用户扩展 slot 的判断
-    if ((types.includes('text/html') && (['<input-slot', '<select-slot', '<skill-slot'].some(slot => html?.includes(slot))))
-        || types.includes('application/x-prosemirror-slice')) {
-        return false;
-    }
-    const text = event.clipboardData?.getData('text/plain');
-    if (text) {
-        const { state, dispatch } = view;
-        const $from = state.selection.$from;
-        let tr = state.tr;
-        removeZeroWidthChar($from, tr);
-        /* Use tr to continue the subsequent pasting logic and solve the problem of unsuccessful line wrapping of content 
-            pasted from certain web pages, such as the code of Feishu Documents */
-        const lines = text.split('\n');
-        let finalCursorPos = null;
-        if (lines.length === 1) {
-            // Insert the first line directly
-            tr = tr.insertText(lines[0], tr.selection.from, tr.selection.to);
-            finalCursorPos = tr.selection.$to.pos;
-        } else {
-            // other lines, insert one by one
-            tr = tr.insertText(lines[0], tr.selection.from, tr.selection.to);
-            let pos = tr.selection.$to.pos;
-            for (let i = 1; i < lines.length; i++) {
-                const paragraph = state.schema.nodes.paragraph.create(
-                    {},
-                    lines[i] ? state.schema.text(lines[i]) : null
-                );
-                tr = tr.insert(pos, paragraph);
-                pos += paragraph.nodeSize;
-            }
-            finalCursorPos = pos; // 粘贴多行时，光标应在最后插入内容末尾
-        }
-        // 设置 selection 到粘贴内容末尾
-        tr = tr.setSelection(TextSelection.create(tr.doc, finalCursorPos));
-        // scroll to the pasted position
-        tr = tr.scrollIntoView();
-        dispatch(tr);
-        event.preventDefault();
-        return true;
-    }
+    const { state, dispatch } = view;
+    const $from = state.selection.$from;
+    let tr = state.tr;
+    removeZeroWidthChar($from, tr);
+    tr.setMeta(strings.DELETABLE, true);
+    dispatch(tr);
     return false;
 }
 

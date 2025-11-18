@@ -188,6 +188,28 @@
 }
 
 
+.docSlotContainer {
+    display: inline-flex;
+    border: 1px solid var(--semi-color-border);
+    background: var(--semi-color-fill-0);
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 20px;
+
+    .textContainer {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        .text {
+            max-width: 150px;
+            font-size: 16px;
+            line-height: 20px;
+            color: var(--semi-color-text-0);
+        }
+    }
+}
+
 
 
 

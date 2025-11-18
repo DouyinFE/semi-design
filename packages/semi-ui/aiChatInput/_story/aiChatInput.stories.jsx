@@ -10,8 +10,10 @@ import { getAttachmentType, isImageType } from '@douyinfe/semi-foundation/aiChat
 import suggestion from './suggestion';
 import Mention from '@tiptap/extension-mention';
 import ReferSlot from './referSlot';
-import { RadioGroup, Radio, Cascader } from '../../index';
+import { RadioGroup, Radio, Cascader, Toast } from '../../index';
 import getConfigureItem from '../configure/getConfigureItem';
+import DocSlot from './docSlot';
+import copy from 'copy-text-to-clipboard';
 
 export default {
   title: 'AIChatInput',
@@ -52,11 +54,19 @@ export const Basic = () => {
 const temp = {
     'input-slot': `我是一名<input-slot placeholder="[职业]">学生</input-slot>，帮我写一段面向<input-slot placeholder="[输入对象]"></input-slot>的话术内容`,
     'select-slot': `我的职业是<select-slot value="打工人" options='["打工人", "学生"]'></select-slot>，帮我写一份...`,
-    // 'skill-slot': '<skill-slot data-label="帮我写作" data-value="writing" data-template=true></skill-slot>帮我完成...',
-    'skill-slot': {
-        type: "skillSlot",
-        attrs: { label: "帮我写作", value: 'writing',  hasTemplate: false }
-      },
+    // 'skill-slot': '<skill-slot data-label="帮我写作" data-value="writing" data-template=true></skill-slot>',
+    "skill-slot": {
+        type: "doc",
+        content: [
+          {
+              type: "paragraph",
+              content: [{
+                  type: "skillSlot",
+                  attrs: { value: "writing", label: "帮我写作", hasTemplate: "true", isCustomSlot: true }
+              }]
+          }
+        ]
+    }
 };
 
 export const RichTextExample = () => {
@@ -569,6 +579,61 @@ export const CustomRichTextExtension = () => {
         // skills={skills}
         style={outerStyle}
         placeholder="使用 @ 触发"
+      />
+      <Button onClick={onButtonClick}>点我获取结果</Button>
+      {/* <Button onClick={onButtonClick2}>点我设置结果</Button> */}
+    </>
+  );
+}
+
+export const AddPasteRule = () => {
+  const ref = useRef();
+  const extensions = useMemo(() => {
+    return [ DocSlot ]
+  }, []);
+
+  const onContentChange = useCallback((content) => {
+    console.log('onContentChange', content);
+  }, []);
+
+  const onButtonClick = useCallback(() => {
+    console.log('html', ref.current?.editor.getHTML());
+    console.log('json', ref.current?.editor.getJSON());
+  }, [ref]);
+
+  const transformer = useMemo(() => {
+    return new Map([
+      ['docSlot', (obj) => {
+        const { attrs = {} } = obj;
+        const { value, type = 'text', uniqueKey, urlValue } = attrs;
+        return {
+          type: type, 
+          value: value,
+          urlValue: urlValue,
+          uniqueKey: uniqueKey,
+        };
+      }],
+    ]);
+  }, []);
+
+  const onClickCopy = useCallback(() => {
+    const url = 'https://bytedance.larkoffice.com/docx/UihWdOxOmoya5CxbzKEcWTfTnnf';
+    copy(url);
+    Toast.success('复制成功，粘贴到富文本输入框中查看效果')
+  }, []);
+
+  return (
+    <>
+      <Button onClick={onClickCopy}>点我复制文档链接</Button>
+      <AIChatInput
+        className='customTopSlot'
+        extensions={extensions}
+        onContentChange={onContentChange}
+        ref={ref}
+        transformer={transformer}
+        uploadProps={uploadProps}
+        style={outerStyle}
+        placeholder="点击复制文档链接按钮，然后粘贴到这里"
       />
       <Button onClick={onButtonClick}>点我获取结果</Button>
       {/* <Button onClick={onButtonClick2}>点我设置结果</Button> */}
