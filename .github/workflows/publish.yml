@@ -1,4 +1,4 @@
-name: 'publish'
+name: 'Publish(v18及以下)'
 
 on:
     workflow_dispatch:

@@ -1,4 +1,4 @@
-name: React Multi-Version Build and Publish
+name: Publish(both v19 && <v19)
 
 on:
   workflow_dispatch:
