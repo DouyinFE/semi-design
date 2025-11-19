@@ -11,6 +11,13 @@ export interface ExtractCssOptions {
     loader: string;
     loaderOptions?: any
 }
+
+export interface CustomSelector {
+    dark?: string;
+    light?: string;
+    animation?: string
+}
+
 export interface SemiWebpackPluginOptions {
     theme?: string | SemiThemeOptions;
     cssLayer?: boolean;
@@ -22,7 +29,8 @@ export interface SemiWebpackPluginOptions {
     webpackContext?: WebpackContext;
     extractCssOptions?: ExtractCssOptions;
     overrideStylesheetLoaders?: (loaders: any[]) => any[];
-    webComponentPath?: boolean | RegExp
+    webComponentPath?: boolean | RegExp;
+    selector?: CustomSelector
 }
 
 export interface SemiThemeOptions {
@@ -153,7 +161,8 @@ export default class SemiWebpackPlugin {
                             ...semiSemiLoaderOptions,
                             prefixCls: this.options.prefixCls,
                             variables: this.convertMapToString(this.options.variables || {}),
-                            include: this.options.include
+                            include: this.options.include,
+                            selector: this.options.selector,
                         }
                     }
                 ];

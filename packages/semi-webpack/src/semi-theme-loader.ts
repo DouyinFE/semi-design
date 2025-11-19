@@ -1,6 +1,8 @@
 import loaderUtils from 'loader-utils';
 import resolve from 'enhanced-resolve';
 import componentVariablePathList from './componentName';
+import fs from 'fs';
+import { CustomSelector } from './semi-webpack-plugin';
 
 export default function SemiThemeLoader(source: string) {
     const query = loaderUtils.getOptions ? loaderUtils.getOptions(this) : loaderUtils.parseQuery(this.query);
@@ -9,7 +11,7 @@ export default function SemiThemeLoader(source: string) {
     // always inject
     const scssVarStr = `@import "~${theme}/scss/index.scss";\n`;
     // inject once
-    const cssVarStr = `@import "~${theme}/scss/global.scss";\n`;
+    let cssVarStr = `@import "~${theme}/scss/global.scss";\n`;
     let animationStr = `@import "~${theme}/scss/animation.scss";\n`;
 
     try {
@@ -20,6 +22,12 @@ export default function SemiThemeLoader(source: string) {
 
 
     const shouldInject = source.includes('semi-base');
+
+    if (shouldInject && query.selector) {
+        const scssStr = getScssStr(query.selector as CustomSelector, theme as string);
+        scssStr.animationStr && (animationStr = scssStr.animationStr);
+        scssStr.cssVarStr && (cssVarStr = scssStr.cssVarStr);
+    }
 
     let fileStr = source;
 
@@ -93,5 +101,53 @@ export default function SemiThemeLoader(source: string) {
         finalCSS = `@layer semi{${finalCSS}}`;
     }
     return finalCSS;
+}
+
+function replaceSelector(blockStr: string, newSelector: string): string {
+    const braceIdx = blockStr.indexOf('{');
+    if (braceIdx === -1) return blockStr;
+    return newSelector + blockStr.slice(braceIdx);
+}
+
+function splitScssBlocks(content: string): [string, string] {
+    // 拆分成第一个选择器（light），第二个选择器（dark）
+    const firstClose = content.indexOf('}') + 1;
+    const light = content.slice(0, firstClose);
+    const dark = content.slice(firstClose);
+    return [light, dark];
+}
+
+function getScssStr(selector: CustomSelector, theme: string) {
+    let animationStr, cssVarStr;
+
+    if (selector.animation) {
+        const animationScssPath = require.resolve(`${theme}/scss/animation.scss`);
+        let animationContent = fs.readFileSync(animationScssPath, 'utf8');
+        animationStr = replaceSelector(animationContent, selector.animation);
+    }
+
+    if (selector.dark || selector.light) {
+        const globalScssPath = require.resolve(`${theme}/scss/global.scss`);
+        const paletteScssPath = require.resolve(`${theme}/scss/_palette.scss`);
+        let globalScssContent = fs.readFileSync(globalScssPath, 'utf8');
+        let paletteScssContent = fs.readFileSync(paletteScssPath, 'utf8');
+
+        // 跳过头部import行
+        if (globalScssContent.startsWith('@import')) {
+            globalScssContent = globalScssContent.replace(/^@import.*?;/, '').trim();
+        }
+
+        const [globalLight, globalDark] = splitScssBlocks(globalScssContent);
+        const [paletteLight, paletteDark] = splitScssBlocks(paletteScssContent);
+
+        const realGlobalLight = selector.light ? replaceSelector(globalLight, selector.light) : globalLight;
+        const realGlobalDark = selector.dark ? replaceSelector(globalDark, selector.dark) : globalDark;
+        const realPaletteLight = selector.light ? replaceSelector(paletteLight, selector.light) : paletteLight;
+        const realPaletteDark = selector.dark ? replaceSelector(paletteDark, selector.dark) : paletteDark;
+
+        cssVarStr = [realPaletteLight, realPaletteDark, realGlobalLight, realGlobalDark].join('\n');
+    }
+
+    return { animationStr, cssVarStr };
 }
 

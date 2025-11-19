@@ -24,7 +24,8 @@ export function createThemeLoaderRule(opts?: SemiWebpackPluginOptions) {
         prefixCls: opts.prefixCls,
         variables: stringifyVariableRecord(opts.variables),
         include: opts.include,
-        cssLayer: opts.cssLayer
+        cssLayer: opts.cssLayer,
+        selector: opts.selector
     };
     const loaderInfo = {
         test: /@douyinfe(\/|\\)+semi-(ui|icons|foundation)(\/|\\)+lib(\/|\\)+.+\.scss$/,
