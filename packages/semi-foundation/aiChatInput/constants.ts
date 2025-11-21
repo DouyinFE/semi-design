@@ -9,7 +9,8 @@ const strings = {
     TOPS_SLOT_POSITION_DEFAULT: "top",
     ZERO_WIDTH_CHAR: '\uFEFF',
     PIC_PREFIX: 'image/',
-    PIC_SUFFIX_ARRAY: ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp']
+    PIC_SUFFIX_ARRAY: ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp'],
+    DELETABLE: 'skipCustomTransactionPlugin'
 };
 
 const numbers = {
