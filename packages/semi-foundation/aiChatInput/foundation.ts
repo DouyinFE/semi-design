@@ -93,9 +93,6 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
     handleUploadFileDelete = (attachment: Attachment) => {
         const { attachments } = this.getStates();
         const newAttachments = attachments.filter(item => item.uid !== attachment.uid);
-        this.setState({
-            attachments: newAttachments
-        });
         this.onUploadChange({
             currentFile: attachment,
             fileList: newAttachments
