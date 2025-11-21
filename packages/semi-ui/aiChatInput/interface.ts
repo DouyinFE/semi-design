@@ -23,6 +23,7 @@ export interface AIChatInputState {
 
 export interface AIChatInputProps {
     dropdownMatchTriggerWidth?: boolean;
+    keepSkillAfterSend: boolean;
     className?: string;
     style?: React.CSSProperties;
     // Rich text editor related

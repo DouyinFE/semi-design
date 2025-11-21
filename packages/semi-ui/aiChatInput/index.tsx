@@ -54,6 +54,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
         dropdownMatchTriggerWidth: true,
         round: true,
         topSlotPosition: 'top',
+        keepSkillAfterSend: false,
     }
 
     constructor(props: AIChatInputProps) {
@@ -203,14 +204,14 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
     }
 
     componentDidUpdate(prevProps: Readonly<AIChatInputProps>): void {
-        const { suggestions } = this.props;
+        const { suggestions, keepSkillAfterSend } = this.props;
         if (!isEqual(suggestions, prevProps.suggestions)) {
             const newVisible = (suggestions && suggestions.length > 0) ? true : false;
             newVisible ? this.foundation.showSuggestionPanel() :
                 this.foundation.hideSuggestionPanel();
         }
         if (this.props.generating && (this.props.generating !== prevProps.generating)) {
-            this.adapter.clearContent();
+            keepSkillAfterSend ? this.setContentWhileSaveTool('') : this.adapter.clearContent();
             this.adapter.clearAttachments();
         }
     }
