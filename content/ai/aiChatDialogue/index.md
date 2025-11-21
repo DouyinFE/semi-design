@@ -382,20 +382,18 @@ function AllTypeMessageDemo () {
         });
     }, []);
 
-    const customRender = useCallback((message) => {
-        return {
-            'plan': (item) => { // plan 为用户自定义类型
-                let steps = item.content.map((item) => {
-                    return {
-                        summary: item.summary,
-                        actions: mapStep(item.steps),
-                        status: 'completed'
-                    };
-                });
-                return <AIChatDialogue.Step steps={steps} />;
-            },
-        };
-    }, []);
+    const customRender = useMemo(() => ({
+        'plan': (item) => { // plan 为用户自定义类型
+            let steps = item.content.map((item) => {
+                return {
+                    summary: item.summary,
+                    actions: mapStep(item.steps),
+                    status: 'completed'
+                };
+            });
+            return <AIChatDialogue.Step steps={steps} />;
+        },
+    }), [mapStep]);
 
     return (
         <AIChatDialogue 

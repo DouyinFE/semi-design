@@ -379,20 +379,18 @@ function AllTypeMessageDemo () {
         });
     }, []);
 
-    const customRender = useCallback((message) => {
-        return {
-            'plan': (item) => { // 'plan' is a custom user-defined type
-                let steps = item.content.map((item) => {
-                    return {
-                        summary: item.summary,
-                        actions: mapStep(item.steps),
-                        status: 'completed'
-                    };
-                });
-                return <AIChatDialogue.Step steps={steps} />;
-            },
-        };
-    }, []);
+    const customRender = useMemo(() => ({
+        'plan': (item) => { // 'plan' is a custom user-defined type
+            let steps = item.content.map((item) => {
+                return {
+                    summary: item.summary,
+                    actions: mapStep(item.steps),
+                    status: 'completed'
+                };
+            });
+            return <AIChatDialogue.Step steps={steps} />;
+        },
+    }), [mapStep]);
 
     return (
         <AIChatDialogue 
@@ -1506,6 +1504,7 @@ const REASONING_CHUNKS = [
     { "type": "response.reasoning_summary_text.delta", "sequence_number": 5, "output_index": 0, "summary_index": 0, "delta": "h" },
     { "type": "response.reasoning_summary_text.delta", "sequence_number": 6, "output_index": 0, "summary_index": 0, "delta": "i" },
     { "type": "response.reasoning_summary_text.delta", "sequence_number": 7, "output_index": 0, "summary_index": 0, "delta": "n" },
+    { "type": "response.reasoning_summary_text.delta", "sequence_number": 8, "output_index": 0, "summary_index": 0, "delta": "k" },
     { "type": "response.reasoning_summary_text.done", "sequence_number": 9, "output_index": 0, "summary_index": 0, "text": "Done thinking!" },
     { "type": "response.output_item.done", "sequence_number": 10, "output_index": 0, "item": { "id": "rs_reason_001", "type": "reasoning", "summary": [ { "type": "reasoning", "text": "思考完成！" } ] } },
 
@@ -1515,7 +1514,7 @@ const REASONING_CHUNKS = [
     { "type": "response.output_text.delta", "sequence_number": 13, "item_id": "msg_reason_001", "output_index": 1, "content_index": 0, "delta": "Based on the reasoning above, " },
     { "type": "response.output_text.delta", "sequence_number": 14, "item_id": "msg_reason_001", "output_index": 1, "content_index": 0, "delta": "the conclusions are:" },
     { "type": "response.output_text.done", "sequence_number": 15, "item_id": "msg_reason_001", "output_index": 1, "content_index": 0, "text": "Based on the reasoning above, the conclusions are: ..." },
-
+    
     { "type": "response.completed", "sequence_number": 16, "response": { "id": "resp_reason_001", "object": "response", "created_at": 1760091777, "status": "completed", "background": false, "error": null, "incomplete_details": null, "instructions": null, "max_output_tokens": null, "max_tool_calls": null, "model": "o3-mini-2025-01-31", "output": [ { "id": "rs_reason_001", "type": "reasoning", "summary": [ { "type": "reasoning", "text": "思考完成！" } ] }, { "id": "msg_reason_001", "type": "message", "status": "completed", "content": [ { "type": "output_text", "annotations": [], "text": "基于上述思考，结论如下：..." } ], "role": "assistant" } ], "parallel_tool_calls": true, "previous_response_id": null, "prompt_cache_key": null, "reasoning": { "effort": "medium", "summary": null }, "safety_identifier": null, "service_tier": "default", "store": true, "temperature": 1.0, "text": { "format": { "type": "text" }, "verbosity": "medium" }, "tool_choice": "auto", "tools": [], "top_logprobs": 0, "top_p": 1.0, "truncation": "disabled", "usage": { "input_tokens": 12, "input_tokens_details": { "cached_tokens": 0 }, "output_tokens": 120, "output_tokens_details": { "reasoning_tokens": 16 }, "total_tokens": 132 }, "user": null, "metadata": {} } }
 ];
 
