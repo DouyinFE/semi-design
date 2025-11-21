@@ -398,4 +398,119 @@ class ArrayFieldSetValues extends React.Component {
     }
 }
 
-export { ArrayFieldCollapseDemo, ArrayFieldDemo, ArrayFieldWithFormInitValues, ArrayFieldWithInitValue, ArrayFieldSetValues };
+/* index insert usage */
+class ArrayFieldIndexedInsertDemo extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            data: {
+                tasks: [{ name: '第一个任务' }, { name: '第二个任务' }, { name: '第三个任务' }],
+            },
+            lastAddedKey: null,
+        };
+        this.getFormApi = this.getFormApi.bind(this);
+    }
+
+    getFormApi(formApi) {
+        this.formApi = formApi;
+    }
+
+    render() {
+        return (
+            <Form
+                onValueChange={(...v) => console.log('Indexed Insert Demo Value Change:', v)}
+                getFormApi={this.getFormApi}
+                initValues={this.state.data}
+            >
+                <ArrayField field="tasks">
+                    {({ add, arrayFields }) => (
+                        <React.Fragment>
+                            <Space>
+                                <Button
+                                    onClick={() => {
+                                        const newKey = add();
+                                        this.setState({ lastAddedKey: newKey });
+                                    }}
+                                    type="primary"
+                                >
+                                    默认添加到末尾
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        const newKey = add(1);
+                                        this.setState({ lastAddedKey: newKey });
+                                    }}
+                                    type="primary"
+                                >
+                                    添加到第一个位置后
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        const newKey = add(2);
+                                        this.setState({ lastAddedKey: newKey });
+                                    }}
+                                    type="primary"
+                                >
+                                    添加到第二个位置后
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        const newKey = add(arrayFields.length - 1);
+                                        this.setState({ lastAddedKey: newKey });
+                                    }}
+                                    type="primary"
+                                >
+                                    添加到倒数第二个位置
+                                </Button>
+                            </Space>
+                            {arrayFields.map(({ field, key, remove }, index) => (
+                                <div
+                                    key={key}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        marginBottom: '8px',
+                                        padding: '8px',
+                                        backgroundColor: index % 2 === 0 ? '#f0f0f0' : 'white',
+                                        border: key === this.state.lastAddedKey ? '2px solid #4CAF50' : 'none',
+                                        transition: 'all 0.3s ease',
+                                        transform: key === this.state.lastAddedKey ? 'scale(1.02)' : 'scale(1)',
+                                        boxShadow:
+                                            key === this.state.lastAddedKey ? '0 4px 6px rgba(0,0,0,0.1)' : 'none',
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            marginRight: '16px',
+                                            fontWeight: key === this.state.lastAddedKey ? 'bold' : 'normal',
+                                            color: key === this.state.lastAddedKey ? '#4CAF50' : 'inherit',
+                                        }}
+                                    >
+                                        索引: {index}
+                                    </div>
+                                    <Input
+                                        field={`${field}[name]`}
+                                        label="任务名称"
+                                        initValue=""
+                                        placeholder="请输入任务名称"
+                                        style={{
+                                            width: 200,
+                                            marginRight: 16,
+                                            borderColor: key === this.state.lastAddedKey ? '#4CAF50' : undefined,
+                                        }}
+                                    />
+                                    <Button type="danger" onClick={remove}>
+                                        删除
+                                    </Button>
+                                </div>
+                            ))}
+                        </React.Fragment>
+                    )}
+                </ArrayField>
+                <ComponentUsingFormState />
+            </Form>
+        );
+    }
+}
+
+export { ArrayFieldCollapseDemo, ArrayFieldDemo, ArrayFieldWithFormInitValues, ArrayFieldWithInitValue, ArrayFieldSetValues,ArrayFieldIndexedInsertDemo };
