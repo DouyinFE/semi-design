@@ -185,18 +185,24 @@ import { IconAIEditLevel1, IconAIStrokedLevel3, IconSearchStroked, IconHelpCircl
                 insetInlineEnd: 24,
                 bottom: 50,
             }}
+            onClick={(value, e) => {
+                console.log('点击了 ', value);
+            }}
             items={[
                 {
                     icon: <IconAIStrokedLevel3 />,
-                    content: "编辑"
+                    content: "编辑",
+                    value: 'editor',
                 },
                 {
                     icon: <IconSearchStroked />,
-                    content: "搜索"
+                    content: "搜索",
+                    value: 'search',
                 },
                 {
                     icon: <IconHelpCircleStroked />,
-                    content: "帮助"
+                    content: "帮助",
+                    value: 'help'
                 }
             ]}
         />
@@ -216,7 +222,7 @@ import { IconAIEditLevel1, IconAIStrokedLevel3, IconSearchStroked, IconHelpCircl
 | disabled | 禁用状态 | boolean | false|
 | href | 点击跳转的链接, 同 [href](https://developer.mozilla.org/zh-CN/docs/Web/API/Location/href) | string | - |
 | icon | 显示图标 | ReactNode | - |
-| onClick | 点击回调函数 | string | - |
+| onClick | 点击回调函数 | (e: React.MouseEvent) | - |
 | shape | 样式，支持 round、 square | string | round |
 | size | 尺寸，支持 default、small、large | string | default |
 | style | 样式 | CSSProperties  | - |
@@ -229,6 +235,7 @@ import { IconAIEditLevel1, IconAIStrokedLevel3, IconSearchStroked, IconHelpCircl
 | 属性 | 说明 | 类型 | 默认值 |
 |-----|-----|------|-------|
 | content | 文本内容 | String | - |
+| value | item 的标识 | String | - |
 
 ### FloatButtonGroup
 
@@ -237,4 +244,5 @@ import { IconAIEditLevel1, IconAIStrokedLevel3, IconSearchStroked, IconHelpCircl
 | className | 样式类名 |  string | - |
 | disabled | 禁用状态 | boolean | false|
 | items | 单个子项的信息 | FloatButtonGroupItem | - |
+| onClick | 点击回调函数 | (value: string, e: React.MouseEvent) | - |
 | style | 样式 | CSSProperties  | - |

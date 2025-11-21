@@ -185,18 +185,24 @@ import { IconAIEditLevel1, IconAIStrokedLevel3, IconSearchStroked, IconHelpCircl
                 insetInlineEnd: 24,
                 bottom: 50,
             }}
+            onClick={(value, e) => {
+                console.log('Clicked ', value);
+            }}
             items={[
                 {
                     icon: <IconAIStrokedLevel3 />,
-                    content: "Edit"
+                    content: "Edit",
+                    value: 'editor',
                 },
                 {
                     icon: <IconSearchStroked />,
-                    content: "Search"
+                    content: "Search",
+                    value: 'search',
                 },
                 {
                     icon: <IconHelpCircleStroked />,
-                    content: "Help"
+                    content: "Help",
+                    value: 'help'
                 }
             ]}
         />
@@ -216,7 +222,7 @@ import { IconAIEditLevel1, IconAIStrokedLevel3, IconSearchStroked, IconHelpCircl
 | disabled | Disabled state | boolean | false|
 | href | Click the jump link, the same as [href](https://developer.mozilla.org/zh-CN/docs/Web/API/Location/href) | string | - |
 | icon | Icon | ReactNode | - |
-| onClick | Click callback function | string | - |
+| onClick | Click callback function | (e: React.MouseEvent) | - |
 | shape | Shape, supports round, square | string | round |
 | size | Size, supports default, small, large | string | default|
 | style | Style | CSSProperties  | - |
@@ -229,6 +235,7 @@ Add the following parameters based on FloatButtonProps
 | Properties | Instructions | Type | Default |
 |-----|-----|------|-------|
 | content | Text content | String | - |
+| value | Value of item | String | - |
 
 ### FloatButtonGroup
 
@@ -237,4 +244,5 @@ Add the following parameters based on FloatButtonProps
 | className | Style class name |  string | - |
 | disabled | Disabled state | boolean | false|
 | items | Information about a single child | FloatButtonGroupItem | - |
+| onClick | Click callback function | (value: string, e: React.MouseEvent) | - |
 | style | style | CSSProperties  | - |
