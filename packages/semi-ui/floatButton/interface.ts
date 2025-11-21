@@ -9,7 +9,7 @@ export interface FloatButtonProps {
     style?: React.CSSProperties;
     className?: string;
     icon?: React.ReactNode;
-    onClick?: () => void;
+    onClick?: (e: React.MouseEvent) => void;
     href?: string;
     target?: string;
     disabled?: boolean;

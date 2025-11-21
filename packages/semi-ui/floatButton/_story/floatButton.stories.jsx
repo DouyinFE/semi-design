@@ -162,3 +162,34 @@ export const GroupNormal = () => {
   )
 }
 
+export const GroupItemClick = () => {
+    return (<>
+        <span>The last row at the bottom right of the page</span>
+        <FloatButtonGroup 
+            style={{
+                insetInlineEnd: 24,
+                bottom: 50,
+            }}
+            onClick={(value, e) => {
+              console.log('item clicked', value, e);
+            }}
+            items={[
+                {
+                    icon: <IconAIStrokedLevel3 />,
+                    content: "编辑",
+                    value: 'editor',
+                },
+                {
+                    icon: <IconSearchStroked />,
+                    content: "搜索",
+                    value: 'search'
+                },
+                {
+                    icon: <IconHelpCircleStroked />,
+                    content: "帮助",
+                    value: 'help'
+                }
+            ]}
+        />
+    </>);
+}

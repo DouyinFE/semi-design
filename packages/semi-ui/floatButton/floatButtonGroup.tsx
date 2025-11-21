@@ -10,6 +10,7 @@ import { FloatButtonProps } from './interface';
 const prefixCls = cssClassesGroup.PREFIX;
 
 export interface FloatButtonGroupItem extends FloatButtonProps {
+    value?: string;
     content?: string | React.ReactNode
 }
 
@@ -18,7 +19,8 @@ export interface FloatButtonGroupProps {
     items: FloatButtonGroupItem[];
     className?: string;
     style?: React.CSSProperties;
-    children?: React.ReactNode
+    children?: React.ReactNode;
+    onClick?: (value: string, e: React.MouseEvent) => void
 }
 
 interface FloatButtonGroupState {
@@ -36,6 +38,10 @@ export default class FloatButtonGroup extends BaseComponent<FloatButtonGroupProp
         super(props);
     }
 
+    handleClick = (e) => {
+        const value = e.target.dataset.value;
+        this.props.onClick(value, e);
+    }
 
     render(): JSX.Element {
         const { className, style, disabled, items } = this.props;
@@ -45,12 +51,13 @@ export default class FloatButtonGroup extends BaseComponent<FloatButtonGroupProp
                     [`${prefixCls}-disabled`]: disabled,
                 })}
                 style={style}
+                onClick={this.handleClick}
             >
                 {items.map((item, index) => {
                     if (item.badge) {
                         return (
                             <Badge key={index} {...item.badge}>
-                                <div className={cls(`${prefixCls}-item`)}>
+                                <div className={cls(`${prefixCls}-item`)} data-value={item.value}>
                                     {item.icon}
                                     {item.content}
                                 </div>
@@ -61,6 +68,7 @@ export default class FloatButtonGroup extends BaseComponent<FloatButtonGroupProp
                         <div
                             key={index} 
                             className={cls(`${prefixCls}-item`)}
+                            data-value={item.value}
                         >
                             {item.icon}
                             {item.content}

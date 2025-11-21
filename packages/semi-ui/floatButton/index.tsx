@@ -42,7 +42,7 @@ export default class FloatButton extends BaseComponent<FloatButtonProps, FloatBu
 
         // 如果有 onClick 回调，执行它
         if (onClick) {
-            onClick();
+            onClick(e);
         }
     };
 
