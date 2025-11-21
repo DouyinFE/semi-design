@@ -26,7 +26,7 @@ export interface DragMoveProps {
     customMove?: (e: HTMLElement, top: number, left: number) => void
 }
 
-export default class DragMove extends BaseComponent<DragMoveProps, null> {
+export default class DragMove extends BaseComponent<DragMoveProps> {
     
     static propTypes = {
         children: PropTypes.node,
@@ -57,7 +57,7 @@ export default class DragMove extends BaseComponent<DragMoveProps, null> {
     elementRef: React.RefObject<unknown>;
     foundation: DragMoveFoundation;
 
-    get adapter(): DragMoveAdapter<DragMoveProps, null> {
+    get adapter(): DragMoveAdapter<DragMoveProps> {
         return {
             ...super.adapter,
             getDragElement: () => {
