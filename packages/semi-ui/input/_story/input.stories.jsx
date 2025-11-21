@@ -1074,3 +1074,55 @@ export const LongPlaceholder = () => {
     style={{width: 200}}
   />)
 };
+
+export const TextareaWithLineNumber = () => {
+  return (
+    <div className="input" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div>
+        <h4>基础行号演示</h4>
+        <TextArea
+          showLineNumber
+          value={"abc\ndef\nghi"}
+          style={{ width: 280 }}
+          placeholder="行号默认从1开始"
+        />
+      </div>
+      
+      <div>
+        <h4>自定义行号演示</h4>
+        <TextArea
+          showLineNumber
+          lineNumberStart={5}
+          lineNumberClassName="custom-demo-class"
+          lineNumberStyle={{ color: 'red', fontSize: '16px' }}
+          style={{ width: 400 }}
+          placeholder="演示：带自定义起始与样式的行号栏"
+        />
+      </div>
+      
+      <div>
+        <h4>多行内容行号演示</h4>
+        <TextArea
+          showLineNumber
+          defaultValue={"第一行\n第二行\n第三行\n第四行\n第五行\n第六行\n第七行\n第八行\n第九行\n第十行"}
+          placeholder="多行内容示例"
+        />
+      </div>
+      
+      <div>
+        <h4>行号与 autosize 结合</h4>
+        <TextArea
+          showLineNumber
+          autosize
+          defaultValue={"自动调整高度的文本框\n支持行号显示\n随着内容增加自动扩展"}
+          style={{ width: 400 }}
+          placeholder="输入内容查看自动调整效果"
+        />
+      </div>
+    </div>
+  );
+};
+
+TextareaWithLineNumber.story = {
+  name: 'Textarea with Line Number',
+};
