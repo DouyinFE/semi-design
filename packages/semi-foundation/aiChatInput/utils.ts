@@ -145,7 +145,7 @@ export function getCustomSlotAttribute() {
 
 export function findSkillSlotInString(content: string) {
     const reg = /<skill-slot\s+([^>]*)><\/skill-slot>/i;
-    const attrReg = /([\w-]+)=["']?([^"'\s>]+)["']?/g;
+    const attrReg = /([\w-]+)=["']([^"']*)["']/g;
     const match = reg.exec(content);
     if (match) {
         const attrsStr = match[1];
@@ -175,8 +175,8 @@ function omitUndefinedFromObj(obj: { [key: string]: any }) {
 
 export function getSkillSlotString(skill: BaseSkill) {
     let skillParams = '';
-    skill.label && (skillParams += ` data-label=${skill.label}`);
-    skill.value && (skillParams += ` data-value=${skill.value}`);
+    skill.label && (skillParams += ` data-label="${skill.label}"`);
+    skill.value && (skillParams += ` data-value="${skill.value}"`);
     (typeof skill.hasTemplate === 'boolean') && (skillParams += ` data-template=${skill.hasTemplate}`);
-    return `<skill-slot ${skillParams}"></skill-slot>`;
+    return `<skill-slot ${skillParams}></skill-slot>`;
 }

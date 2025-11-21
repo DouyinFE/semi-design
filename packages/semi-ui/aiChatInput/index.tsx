@@ -13,7 +13,7 @@ import { IconSendMsgStroked, IconFile, IconCode, IconCrossStroked,
 import '@douyinfe/semi-foundation/aiChatInput/aiChatInput.scss';
 import HorizontalScroller from './horizontalScroller';
 import cls from 'classnames';
-import { getAttachmentType, isImageType, getContentType, getCustomSlotAttribute } from '@douyinfe/semi-foundation/aiChatInput/utils';
+import { getAttachmentType, isImageType, getContentType, getCustomSlotAttribute, getSkillSlotString } from '@douyinfe/semi-foundation/aiChatInput/utils';
 import Configure from './configure';
 import RichTextInput from './richTextInput';
 import { Editor, FocusPosition } from '@tiptap/core';
@@ -252,7 +252,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
         if (!skill) {
             realContent = `<p>${content}</p>`;
         } else {
-            realContent = `<p><skill-slot data-value=${skill.label ?? 'test'}></skill-slot>${content}</p>`;
+            realContent = `<p>${getSkillSlotString(skill)}${content}</p>`;
         }
         this.setContent(realContent);
     }

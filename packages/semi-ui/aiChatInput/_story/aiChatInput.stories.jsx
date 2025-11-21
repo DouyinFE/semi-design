@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef, useMemo } from 'react';
+import React, { useCallback, useState, useRef, useMemo, useEffect } from 'react';
 import Button from '../../button';
 import AIChatInput from '../index';
 import Configure from '../configure';
@@ -639,4 +639,43 @@ export const AddPasteRule = () => {
       {/* <Button onClick={onButtonClick2}>点我设置结果</Button> */}
     </>
   );
+}
+
+export const SetContent = () => {
+  const ref = useRef();
+
+  const onContentChange = useCallback((content) => {
+    console.log('onContentChange', content);
+  }, []);
+
+  const onSkillChange = useCallback((skill) => {
+    console.log("skill", skill);
+  })
+
+  useEffect(() => {
+    // 先用 setContent 设置了内容，其中包含 skill-slot
+    ref.current?.setContent('<skill-slot data-label="AI 写代码" data-value="AI coding" data-template=true></skill-slot>帮我完成...');
+    setTimeout(() => {
+      // 后用 setContentWhileSaveTool 实现在保留 skill 的基础上修改内容
+      ref.current?.setContentWhileSaveTool('改变后的内容');
+    }, 1000);
+  }, []);
+
+  return (<>
+      <AIChatInput
+          ref={ref}
+          placeholder={'输入内容或者上传内容'} 
+          uploadProps={uploadProps}
+          onSkillChange={onSkillChange}
+          onContentChange={onContentChange}
+          style={outerStyle} 
+      />
+      <br/><br/>
+      <Button 
+        onClick={() => {
+          console.log('html', ref.current?.getEditor().getHTML());
+          console.log('json', ref.current?.getEditor().getJSON());
+        }}
+      >点我查看富文本区域内容</Button>
+  </>);
 }
