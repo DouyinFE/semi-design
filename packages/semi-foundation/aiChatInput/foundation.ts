@@ -96,6 +96,10 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
         this.setState({
             attachments: newAttachments
         });
+        this.onUploadChange({
+            currentFile: attachment,
+            fileList: newAttachments
+        });
     }
 
     handleReferenceDelete = (reference: Reference) => {
