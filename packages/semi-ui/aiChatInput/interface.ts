@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { OnChangeProps, UploadProps } from "../upload";
 import { TooltipProps } from "../tooltip";
 import { BaseSkill, Reference, Suggestion, Attachment, Content, Setup, LeftMenuChangeProps, RichTextJSON, MessageContent } from "@douyinfe/semi-foundation/aiChatInput/interface";
-import { Extension } from "@tiptap/core";
+import { Extensions } from "@tiptap/core";
 import { Content as TiptapContent } from "@tiptap/core";
 import { PopoverProps } from "../popover";
 export * from "@douyinfe/semi-foundation/aiChatInput/interface";
@@ -27,7 +27,7 @@ export interface AIChatInputProps {
     style?: React.CSSProperties;
     // Rich text editor related
     placeholder?: string;
-    extensions?: Extension[];
+    extensions?: Extensions;
     onContentChange?: (contents: Content[]) => void;
     defaultContent?: TiptapContent;
     onFocus?: (event: React.FocusEvent) => void;

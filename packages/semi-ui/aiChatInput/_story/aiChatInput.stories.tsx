@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { AIChatInput } from '../../index';
 import { storiesOf } from '@storybook/react';
 import { uploadProps } from './constant';
+import ReferSlot from './referSlot';
 
 const stories = storiesOf('AIChatInput', module);
 
@@ -23,6 +24,7 @@ stories.add('default', () => {
     
     return (
       <AIChatInput
+        extensions={[ReferSlot]}
         generating={generating}
         defaultContent={''}
         placeholder={'输入内容或者上传内容'} 
