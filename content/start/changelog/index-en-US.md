@@ -16,6 +16,17 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.88.3 (2025-11-24)
+- 【Fix】
+    - Fixed an issue where the setContentWhileSaveTool method in AIChatInput returned incorrect results. [#3040](https://github.com/DouyinFE/semi-design/issues/3040)
+    - Fixed an issue where, when setting content via setContent,  if the html string parameter of skillSlot contained spaces, the parameter parsing only retained the content before the spaces. [#3040](https://github.com/DouyinFE/semi-design/issues/3040)
+    - Fixed an issue where addPasteRules for custom extensions of AIChatInput was not working. [#3042](https://github.com/DouyinFE/semi-design/pull/3042)
+    - Fixed an issue where the onUploadChange callback was not triggered after deleting an uploaded file in AIChatInput. [#3044](https://github.com/DouyinFE/semi-design/pull/3044)
+    - Fixed the issue where clicking an item in a FloatButtonGroup did not trigger the onClick event [#3043](https://github.com/DouyinFE/semi-design/pull/3043)
+    - fixed an issue where carry-over/borrowing precision was incorrect when setting the decimal step size for InputNumber. [#3026](https://github.com/DouyinFE/semi-design/pull/3026)
+- 【Chore】
+    - Fixed an issue with the DragMove type definition being incorrect  [#3022](https://github.com/DouyinFE/semi-design/issues/3022)
+
 #### 🎉 2.88.2 (2025-11-18)
 - 【Fix】
     - fixed The problems in the use of Tooltip in components in React v19  [#2743 ](https://github.com/DouyinFE/semi-design/issues/2743)

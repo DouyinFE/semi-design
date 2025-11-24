@@ -13,6 +13,17 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.88.3 (2025-11-24)
+- 【Fix】
+    - 修复 AIChatInput 中 setContentWhileSaveTool 方法调用后结果不正确问题  [#3040](https://github.com/DouyinFE/semi-design/issues/3040)
+    - 修复当通过 setContent 设置内容时，如果 skillSlot 的 html 字符串参数中间有空格时候，参数解析仅保留空格前内容问题  [#3040](https://github.com/DouyinFE/semi-design/issues/3040)
+    - 修复 AIChatInput 的自定义扩展的 addPasteRules 不生效问题. [#3042](https://github.com/DouyinFE/semi-design/pull/3042)
+    - 修复 AIChatInput 在删除上传文件时候，未触发 onUploadChange 回调问题 [#3044](https://github.com/DouyinFE/semi-design/pull/3044)
+    - 修复 FloatButtonGroup 中点击项目未触发 onClick 问题 [#3043](https://github.com/DouyinFE/semi-design/pull/3043)
+    - 修复 InputNumber 在设置小数步长时，进退位计算精度不正确问题 [#3026](https://github.com/DouyinFE/semi-design/pull/3026)
+- 【Chore】
+    - 修复 DragMove 类型定义错误问题 [#3022](https://github.com/DouyinFE/semi-design/issues/3022)
+
 #### 🎉 2.88.2 (2025-11-18)
 - 【Fix】
     - 修复在 React v19 下 Semi 组件内 Tooltip 的使用问题 [#2743](https://github.com/DouyinFE/semi-design/issues/2743) [#3039](https://github.com/DouyinFE/semi-design/pull/3039)
