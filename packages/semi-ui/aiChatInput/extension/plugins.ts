@@ -412,9 +412,41 @@ export function handlePasteLogic(view: EditorView, event: ClipboardEvent) {
     const { state, dispatch } = view;
     const $from = state.selection.$from;
     let tr = state.tr;
+    const parentNode = $from.parent;
+    if (parentNode.type.name === 'inputSlot') {
+        return specialPasteLogicForInputSlot(event, $from, tr, dispatch);
+    }
     removeZeroWidthChar($from, tr);
     tr.setMeta(strings.DELETABLE, true);
     dispatch(tr);
+    return false;
+}
+
+/**
+ * 如果是 parentNode 是 input-slot，当里面内容仅为零宽字符时候
+ * 直接去掉零宽字符会导致 input-slot 消失，
+ * 因此将此行为处理成获取文字部分，将零宽字符替换为文字内容
+ * If the parentNode is input-slot, and the content inside is only zero-width characters...
+ * Removing zero-width characters directly will cause the input slot to disappear.
+ * Therefore, this paste behavior is processed to retrieve the text portion and replace the zero-width characters with the text content.
+ */
+export function specialPasteLogicForInputSlot(event: ClipboardEvent, $from: any, tr: Transaction, dispatch: (tr: Transaction) => void) {
+    const parentNode = $from.parent;
+    const nodeText = parentNode.textContent;
+    const isOnlyZeroWidth = nodeText && nodeText === strings.ZERO_WIDTH_CHAR;
+    if (isOnlyZeroWidth) {
+        const pastedText = event.clipboardData?.getData('text/plain') || '';
+        if (pastedText) {
+            const pos = $from.start();
+            tr = tr.insertText(pastedText, pos, pos + nodeText.length); 
+            const endPos = pos + pastedText.length;
+            tr = tr.setSelection(TextSelection.create(tr.doc, endPos));
+            tr.setMeta(strings.DELETABLE, true);
+            dispatch(tr);
+            event.preventDefault();
+            return true;
+        }
+    }
     return false;
 }
 
