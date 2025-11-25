@@ -36,6 +36,10 @@ export type {
     ToastState
 };
 
+/* REACT_19_START */
+// const toastQueue: Array<{ opts: ToastReactProps, id: string }> = [];
+/* REACT_19_END */
+
 const createBaseToast = () => class ToastList extends BaseComponent<ToastListProps, ToastListState> {
     static ref: ToastList;
     static useToast: typeof useToast;
@@ -146,19 +150,22 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             // }
             // this.root.render(React.createElement( 
             //     ToastList,
-            //     { ref: instance => (ToastList.ref = instance) }
+            //     { ref: instance => {
+            //         ToastList.ref = instance;
+            //         // New: flush toast queue after ref ready
+            //         while (toastQueue.length && ToastList.ref && typeof ToastList.ref.add === 'function') {
+            //             const { opts: queuedOpts, id: queuedId } = toastQueue.shift();
+            //             ToastList.ref.add({ ...queuedOpts, id: queuedId });
+            //             ToastList.ref.stack = Boolean(queuedOpts.stack);
+            //         }
+            //     } }
             // ));
             // // 在 React 19 中，render 是同步的，确保 ref 已赋值后再执行add方法
-            // if (typeof queueMicrotask === 'function') {
-            //     queueMicrotask(() => {
-            //         ToastList.ref.add({ ...opts, id });
-            //         ToastList.ref.stack = Boolean(opts.stack);
-            //     });
+            // if (ToastList.ref && typeof ToastList.ref.add === 'function') {
+            //     ToastList.ref.add({ ...opts, id });
+            //     ToastList.ref.stack = Boolean(opts.stack);
             // } else {
-            //     Promise.resolve().then(() => {
-            //         ToastList.ref.add({ ...opts, id });
-            //         ToastList.ref.stack = Boolean(opts.stack);
-            //     });
+            //     toastQueue.push({ opts, id });
             // }
             /* REACT_19_END */
         } else {

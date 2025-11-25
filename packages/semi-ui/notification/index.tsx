@@ -60,6 +60,10 @@ const defaultConfig = {
     zIndex: 1010,
 };
 
+/* REACT_19_START */
+// const notificationQueue: Array<{ notice: NoticeProps; id: string }> = [];
+/* REACT_19_END */
+
 class NotificationList extends BaseComponent<NotificationListProps, NotificationListState> {
     static contextType = ConfigContext;
     static propTypes = {
@@ -133,16 +137,19 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
             // if (!this.root) {
             //     this.root = createRoot(div);
             // }
-            // this.root.render(React.createElement(NotificationList, { ref: instance => (ref = instance) }));
-            // // 在 React 19 中，render 是同步的，确保 ref 已赋值后再执行add方法
-            // if (typeof queueMicrotask === 'function') {
-            //     queueMicrotask(() => {
-            //         ref.add({ ...notice, id });
-            //     });
+            // this.root.render(React.createElement(NotificationList, {
+            //     ref: instance => {
+            //         ref = instance;
+            //         while (notificationQueue.length && ref && typeof ref.add === 'function') {
+            //             const { notice: queuedNotice, id: queuedId } = notificationQueue.shift();
+            //             ref.add({ ...queuedNotice, id: queuedId });
+            //         }
+            //     }
+            // }));
+            // if (ref && typeof ref.add === 'function') {
+            //     ref.add({ ...notice, id });
             // } else {
-            //     Promise.resolve().then(() => {
-            //         ref.add({ ...notice, id });
-            //     });
+            //     notificationQueue.push({ notice, id });
             // }
             /* REACT_19_END */
         } else {
