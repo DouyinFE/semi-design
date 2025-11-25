@@ -40,7 +40,7 @@ export default class FloatButtonGroup extends BaseComponent<FloatButtonGroupProp
 
     handleClick = (e) => {
         const value = e.target.dataset.value;
-        this.props.onClick(value, e);
+        this.props.onClick?.(value, e);
     }
 
     render(): JSX.Element {
