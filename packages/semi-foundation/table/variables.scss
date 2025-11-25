@@ -1,10 +1,9 @@
 // Spacing
-$spacing-table-paddingY: $spacing-base; // 表格单元格垂直内边距
-$spacing-table-paddingX: $spacing-base-tight; // 表格单元格水平内边距
+$spacing-table-paddingY: $spacing-base; // 表格空数据占位及虚拟列表分组垂直内边距
+$spacing-table-paddingX: $spacing-base-tight; // 表格空数据占位及虚拟列表分组水平内边距
 $spacing-table_middle-paddingY: $spacing-base-tight; // 中尺寸表格单元格垂直内边距
 $spacing-table_small-paddingY: $spacing-tight; // 小尺寸表格单元格垂直内边距
-$spacing-table_th-paddingTop: $spacing-tight; // 表格顶部内边距
-$spacing-table_th-paddingBottom: $spacing-tight; // 表格底部内边距
+
 $spacing-table_title-paddingY: $spacing-base; // 表格标题垂直内边距
 $spacing-table_title-paddingX: 0; // 表格标题水平内边距
 $spacing-table_footer-padding: $spacing-base; // 表格 footer 内边距
@@ -17,29 +16,29 @@ $spacing-table_resizable-bottom: 4px; // 可拖动拉伸操作底部距离
 $spacing-table_row_head-paddingY: $spacing-tight; // 表头垂直内边距
 $spacing-table_row_head-paddingX: $spacing-base; // 表头水平内边距
 $spacing-table_react_resizable_handle-right: -1px; // 可拖动拉伸操作向右偏移量
-$spacing-table_tbody_rowCell-padding: $spacing-base; // 表格单元格内边距
-$spacing-table_tbody_rowSelection_rowCell_notSelection-paddingX: 16px; // 可选中的表格单元水平内边距
-$spacing-table_tbody_rowSelection_rowCell_notSelection-paddingY: 10px; // 可选中的表格单元垂直内边距
-$spacing-table_column_sorter-marginLeft: $spacing-extra-tight; // 列排序按钮左侧外边距
+$spacing-table_tbody_rowCell-padding: $spacing-base; // 表格体单元格内边距（默认尺寸）
+$spacing-table_tbody_rowSelection_rowCell_notSelection-paddingX: 16px; // 表格选择状态行（非复选框列）水平内边距
+$spacing-table_tbody_rowSelection_rowCell_notSelection-paddingY: 10px; // 表格选择状态行（非复选框列）垂直内边距
+$spacing-table_column_sorter-marginLeft: $spacing-extra-tight; // 表头标题与排序按钮间距
 $spacing-table_column_filter-marginLeft: $spacing-extra-tight; // 列过滤器按钮左侧外边距
-$spacing-table_bordered_titler-paddingLeft: $spacing-base; // 列过滤器按钮左侧外边距
-$spacing-table_bordered_titler-paddingRight: $spacing-base; // 列过滤器按钮右侧外边距
+$spacing-table_bordered_titler-paddingLeft: $spacing-base; // 带边框表格标题左侧内边距
+$spacing-table_bordered_titler-paddingRight: $spacing-base; // 带边框表格标题右侧内边距
 $spacing-table_expand_icon-marginRight: 8px; // 行展开按钮右侧外边距
-$spacing-table_panel_operation-paddingX: $spacing-base;
-$spacing-table_panel_operation-paddingY: $spacing-tight;
+$spacing-table_panel_operation-paddingX: $spacing-base; // 表格操作栏水平内边距
+$spacing-table_panel_operation-paddingY: $spacing-tight; // 表格操作栏垂直内边距
 
 // Size
 $width-table_base_border: 1px; // 表格单元格分割线宽度
 $width-table_header_border: 2px; // 表格表头分割线宽度
 $width-table_resizer_border: 2px; // 表格拉伸列标示线宽度
 // $radius-table_base: 4px;
-$width-table_column_selection: 48px; // 表格默认列宽
+$width-table_column_selection: 48px; // 表格选择列及展开列宽度
 $width-table_column_sorter-icon: 16px; // 表格排序按钮宽度
 $height-table_column_sorter-icon: 16px; // 表格排序按钮高度
 $width-table_column_filter-icon: 16px; // 表格过滤按钮宽度
 $height-table_column_filter-icon: 16px; // 表格过滤按钮高度
-$width-table_cell_fixed_left_last: 1px; // 表格左上角单元格底部描边宽度
-$width-table_cell_fixed_right_first: 1px; // 表格左上角单元格右侧描边宽度
+$width-table_cell_fixed_left_last: 1px; // 表格左侧固定列右侧分割线宽度
+$width-table_cell_fixed_right_first: 1px; // 表格右侧固定列左侧分割线宽度
 $width-table_react_resizable_handle: 9px; // 表格伸缩列调节热区宽度
 $height-table_pagination_outer_min: 60px; // 表格分页器高度
 $height-table_column_filter_dropdown: 290px; // 表格过滤筛选列表最大高度
@@ -47,8 +46,8 @@ $height-table_column_filter_dropdown: 290px; // 表格过滤筛选列表最大�
 
 // Color no need to change
 $color-table_panel-bg-default: var(--semi-color-primary); // 操作区域样式默认背景颜色
-$color-table_panel-text-default: var(--semi-color-primary-light-active); // 操作区域样式默认文字颜色
-$color-table-bg-default: var(--semi-color-bg-1); // 单元格默认背景颜色
+$color-table_panel-text-default: var(--semi-color-primary-light-active); // 表格操作栏选中项文本颜色
+$color-table-bg-default: var(--semi-color-bg-1); // 表格固定列及吸顶表头背景颜色
 $color-table-text-default: var(--semi-color-text-0); // 单元格默认文字颜色
 
 $color-table-border-default: var(--semi-color-border); // 表格描边颜色
@@ -60,8 +59,8 @@ $color-table_th-text-default: var(--semi-color-text-2); // 表头文字颜色
 $color-table_th-clickSort-bg-hover: var(--semi-color-fill-0); //点击表头触发排序背景色 - 悬浮
 
 $color-table_pl-bg-default: transparent;
-$color-table_body-bg-default: var(--semi-color-bg-1); // 表格背景颜色 - 默认
-$color-table_body-bg-hover: var(--semi-color-fill-0); // 表格背景颜色 - 悬浮
+$color-table_body-bg-default: var(--semi-color-bg-1); // 表格行背景颜色 - 默认态
+$color-table_body-bg-hover: var(--semi-color-fill-0); // 表格行背景颜色 - 悬浮态
 $color-table_footer-bg-default: var(--semi-color-fill-0); // 表格 footer 背景颜色 - 默认
 $color-table_row_expanded-bg-default: var(--semi-color-fill-0); // 表格展开行背景颜色 - 默认
 $color-table_expanded_icon-default: var(--semi-color-text-2); // 表格展开行图标颜色 - 默认
