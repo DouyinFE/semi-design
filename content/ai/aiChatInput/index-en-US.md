@@ -1515,6 +1515,24 @@ render(<CustomRichTextExtension />);
 | uploadProps | Upload configuration | UploadProps | - |
 | uploadTipProps | Upload tip configuration | UploadTipProps | - |
 
+### Configure.Select
+Same as [SelectProps](/en-US/input/select)
+
+### Configure.Button
+Same as [ButtonProps](/en-US/basic/button#Button)
+
+### Configure.RadioButton
+Same as [RadioGroupProps](/zh-CN/input/radio#RadioGroup)
+
+### Configure.Mcp
+| Method | Description | Type | Default |
+|-----|----|------|-------|
+| options | Mcp options | McpOption | - |
+| showConfigure | Displaying the configuration button (added in v2.89.0) | boolean | true |
+| onConfigureButtonClick | Callback when the configuration button is clicked | () => void | - |
+
+### 
+
 ## Methods
 
 | Method | Description | Type | Default |
