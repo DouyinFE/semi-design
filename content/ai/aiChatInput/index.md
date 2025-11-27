@@ -1555,6 +1555,7 @@ render(<CustomRichTextExtension />);
 | defaultContent | 输入框默认内容，支持 html string 以及 json 格式，同 Tiptap 的 Content | TiptapContent | - |
 | dropdownMatchTriggerWidth | 下拉弹出层是否是否与输入框宽度一致 | boolean | true |
 | extensions | 自定义扩展，类型同 tiptap 的 Extension 类型相同 | Extension[] | - |
+| immediatelyRender | 作为 tiptap 的 userEditor 的参数， 如果为 SSR 场景，需要设置此参数为 false，参考 [use-ssr-with-react-and-tiptap](https://tiptap.dev/docs/editor/getting-started/install/react#use-ssr-with-react-and-tiptap) | boolean | - |
 | generating | 是否正在生成中 | boolean | false |
 | onContentChange | 输入框内容变化时候的回调 | (content: <ApiType detail='{ type: string; [key: string]: any }'>OnContentChangeProps</ApiType>) => void | - |
 | onMessageSend | 发送消息回调 | (content: <ApiType detail='{references?: Reference[]; attachments?: Attachment[]; inputContents?: Content[]; setup?: Setup}'>OnMessageSendProps</ApiType>) => void | - |
