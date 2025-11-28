@@ -1531,7 +1531,6 @@ Same as [RadioGroupProps](/zh-CN/input/radio#RadioGroup)
 | showConfigure | Displaying the configuration button (added in v2.89.0) | boolean | true |
 | onConfigureButtonClick | Callback when the configuration button is clicked | () => void | - |
 
-### 
 
 ## Methods
 
