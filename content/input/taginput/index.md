@@ -455,7 +455,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 |separator    |设置批量输入时的分隔符                               |string\|string[]                         |,    |1.19.0, string[]是从1.29.0开始支持|
 |showClear    |是否支持一键删除所有标签和输入内容                     |boolean                        |false      |1.19.0|
 |size         |设置输入框尺寸,可选: `small`、`large`、`default`     |string                          |`default` |1.19.0|
-|split        |自定义分隔符处理函数                              |(value: string, separator: string) => string[] | -        |2.88.0|
+|split        |自定义分隔符处理函数                              |(value: string, separator: string) => string[] | -        |2.89.0|
 |style        |内联样式                                          |React.CSSProperties                         | -        |1.19.0|
 |suffix       |后缀标签                                           |ReactNode                      |-         |1.19.0|
 |validateStatus|设置校验状态样式,可选: `default`、`warning`、`error` |string                          |`default` |1.19.0|
