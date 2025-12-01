@@ -42,9 +42,10 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
     };
 
     titleNode = () => {
-        const { role, dialogueRenderConfig } = this.props;
+        const { role, dialogueRenderConfig, message } = this.props;
         return <DialogueTitle 
             role={this.getRoleInfo()}
+            message={message}
             customRenderFunc={dialogueRenderConfig?.renderDialogueTitle}
         />;
     };
