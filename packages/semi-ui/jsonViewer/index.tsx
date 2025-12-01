@@ -37,7 +37,9 @@ export interface JsonViewerProps extends BaseProps {
     style?: React.CSSProperties;
     onChange?: (value: string) => void;
     renderTooltip?: (value: string, el: HTMLElement) => HTMLElement;
-    options?: JsonViewerOptions
+    options?: JsonViewerOptions;
+    onFocus?: (e: Event) => void;
+    onBlur?: (e: Event) => void
 }
 
 export interface JsonViewerState {
@@ -59,7 +61,8 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
         value: '',
         options: {
             readOnly: false,
-            autoWrap: true
+            autoWrap: true,
+            autoFocus: false
         }
     };
 
@@ -125,6 +128,12 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                         this.searchHandler();
                     }
                 );
+            },
+            notifyFocus: (e) => {
+                this.props.onFocus?.(e);
+            },
+            notifyBlur: (e) => {
+                this.props.onBlur?.(e);
             },
             showSearchBar: () => {
                 this.setState({ showSearchBar: !this.state.showSearchBar });
