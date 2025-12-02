@@ -16,12 +16,13 @@ export interface McpOption {
 export interface McpProps extends DropdownProps {
     options: McpOption[];
     num?: number;
+    showConfigure: boolean;
     onConfigureButtonClick: () => void
 }
 
 // because there may be grouping or nested dropdown forms.
 const Mcp = React.memo((props: McpProps) => {
-    const { className, style, options = [], num = 0, children, onConfigureButtonClick, ...rest } = props;
+    const { className, style, options = [], num = 0, children, onConfigureButtonClick, showConfigure = true, ...rest } = props;
 
     const onClick = useCallback((e: MouseEvent) => {
         // Prevent accidental closing of dropdown when clicking Button
@@ -41,13 +42,13 @@ const Mcp = React.memo((props: McpProps) => {
                     <span className={`${cssClasses.PREFIX}-footer-configure-mcp-header-title`} >
                         {locale.selected.replace('${count}', String(options.length ?? num))}
                     </span>
-                    <Button
+                    {showConfigure && <Button
                         theme='outline'
                         className={`${cssClasses.PREFIX}-footer-configure-mcp-header-config`}
                         onClick={onConfigureButtonClick}
                     >
                         {locale.configure}
-                    </Button>
+                    </Button>}
                 </div>
                 {children ? children : <>
                     <Dropdown.Menu>
