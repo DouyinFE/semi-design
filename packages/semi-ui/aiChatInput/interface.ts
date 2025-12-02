@@ -46,6 +46,7 @@ export interface AIChatInputProps {
     topSlotPosition?: 'top' | 'middle' | 'bottom';
     showUploadFile?: boolean;
     showReference?: boolean;
+    showUploadButton?: boolean;
     // Operate area related
     round?: boolean; // full round for footer operate/configure button
     canSend?: boolean; // custom can send

@@ -550,12 +550,12 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
     }
 
     renderRightFooter = () => {
-        const { renderActionArea } = this.props;
+        const { renderActionArea ,showUploadButton = true} = this.props;
         const actionCls = `${prefixCls}-footer-action`;
         const actionNode = [
-            this.renderUploadButton(),
+            showUploadButton && this.renderUploadButton(),
             this.renderSendButton(),
-        ];
+        ].filter(Boolean);
         if (renderActionArea) {
             return renderActionArea({
                 menuItem: actionNode,
