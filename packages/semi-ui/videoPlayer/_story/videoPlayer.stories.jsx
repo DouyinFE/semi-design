@@ -268,4 +268,19 @@ export const ScrollDemo = () => {
     )
 }
 
+export const AutoPlay = () => {
+    return (
+        <div>
+            <VideoPlayer 
+                src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4'}
+                poster={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg'}
+                theme={'light'}
+                width={500}
+                height={280}
+                autoPlay={true}
+            />
+        </div>
+    )
+}
+
 
