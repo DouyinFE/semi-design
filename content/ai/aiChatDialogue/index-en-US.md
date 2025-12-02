@@ -1555,6 +1555,7 @@ render(StreamingResponseToMessageDemo);
 | roleConfig | Role metadata config (user/assistant/system, etc.) | [RoleConfig](/en-US/ai/aiChatDialogue#RoleConfig) | - |
 | selecting | Enable selection mode | boolean | false |
 | showReset | Show reset action | boolean | true |
+| showUploadButton | Show upload button | boolean | true |
 | showReference | Show quotable icon in text or file messages (user messages only) | boolean | false |
 | style | Style | CSSProperties | - |
 
