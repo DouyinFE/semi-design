@@ -75,7 +75,8 @@ export interface AIChatInputProps {
     // transformer
     transformer?: Map<string, (obj: any) => any>;
     // Popover related
-    popoverProps?: PopoverProps
+    popoverProps?: PopoverProps;
+    immediatelyRender?: boolean
 }
 
 export interface RenderSuggestionItemProps {
