@@ -489,7 +489,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
         <>
             <Upload
                 action={action}
-                maxSize={1024}
+                maxSize={1000}
                 minSize={200}
                 onSizeError={(file, fileList) => Toast.error(`${file.name} size invalid`)}
             >
