@@ -13,6 +13,17 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.89.0 (2025-12-05)
+- 【Fix】
+    - 修复向空的 inputSlot 中粘贴内容时候，仅粘贴了文本，无 inputSlot 样式问题  [#3049 ](https://github.com/DouyinFE/semi-design/issues/3049) [#3050](https://github.com/DouyinFE/semi-design/pull/3050)
+    - 修复当选中 inputSlot 中的所有内容并粘贴nearing时候，仅粘贴了文本，无 inputSlot 样式问题   [#3049](https://github.com/DouyinFE/semi-design/issues/3049) [#3050](https://github.com/DouyinFE/semi-design/pull/3050)
+    - 修复 semi-theme-loader 在用户自定义主题的 custom.css 中有 body 选择器时，custom.css 中的内容未生效问题 [#3078](https://github.com/DouyinFE/semi-design/pull/3078)
+    - 修复 React v19 下 Toast/Notification 首次调用可能出现 TypeError 的问题 [#3053](https://github.com/DouyinFE/semi-design/pull/3053)
+    - 修复 AIChatDialogue renderDialogueTitle 未返回 message 参数问题 [#3068](https://github.com/DouyinFE/semi-design/pull/3068)
+    - 修复VideoPlayer 自动播放时仍旧显示暂停图标问题 [#3072](https://github.com/DouyinFE/semi-design/pull/3072)
+- 【Chore】
+    - 修复  AIChatInput 的 extensions API 类型错误问题 [#3048](https://github.com/DouyinFE/semi-design/pull/3048)
+
 #### 🎉 2.89.0-beta.0 (2025-12-01)
 - 【Fix】
     - 修复JsonViewer RequestIdleCallback在Safari浏览器不兼容问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#3054](https://github.com/DouyinFE/semi-design/pull/3054)

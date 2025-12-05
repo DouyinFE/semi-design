@@ -16,6 +16,17 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.89.0 (2025-12-05)
+- 【Fix】
+    - Fixed an issue where pasting content into an empty inputSlot resulted in only text being pasted without displaying the inputSlot style  [#3049 ](https://github.com/DouyinFE/semi-design/issues/3049)
+    - Fixed an issue where, when pasting content after selecting all text in an inputSlot, the inputSlot would disappear.  [#3049](https://github.com/DouyinFE/semi-design/issues/3049)
+    - Fixed an issue where semi-theme-loader prevented content in custom.css from taking effect when there was a body selector in the custom.css file of a user-defined theme.
+    - Fixed an issue in React v19 where a TypeError might occur on the first call to Toast/Notification.
+    - fixed the issue where AIChatDialogue renderDialogueTitle did not return the message parameter
+    - fix the issue where the pause icon was still displayed during VideoPlayer autoplay.
+- 【Chore】
+    - Fixed an issue with the AIChatInput extensions API type error.
+
 #### 🎉 2.89.0-beta.0 (2025-12-01)
 - 【Fix】
     - Fix JsonViewer RequestIdleCallback incompatibility issue in Safari browser [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
