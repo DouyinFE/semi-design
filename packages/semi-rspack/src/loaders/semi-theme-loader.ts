@@ -73,7 +73,8 @@ export default function SemiThemeLoader(this: LoaderContext<SemiThemeLoaderOptio
                 }
                 const resolved = require.resolve(`${theme}/scss/custom.scss`);
                 const customFileContent = fs.readFileSync(resolved, 'utf-8');
-                if (customFileContent.includes('body {')) {
+                const regex = /body\s*\{/;
+                if (regex.test(customFileContent)) {
                     addBodySelector = false;
                 }
                 const collectAllVariablesPath: string[] = [
