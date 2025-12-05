@@ -1,6 +1,7 @@
 import { LoaderContext } from 'webpack';
 import resolve from 'enhanced-resolve';
 import componentVariablePathList from '../componentName';
+import fs from 'fs';
 
 export interface SemiThemeLoaderOptions {
     prefixCls: string;
@@ -65,9 +66,16 @@ export default function SemiThemeLoader(this: LoaderContext<SemiThemeLoaderOptio
 
         const customStr = (() => {
             let customStr = '';
+            let addBodySelector = true;
             try {
                 if (!resolve.sync(this.context, `${theme}/scss/custom.scss`)) {
                     return '';
+                }
+                const resolved = require.resolve(`${theme}/scss/custom.scss`);
+                const customFileContent = fs.readFileSync(resolved, 'utf-8');
+                const regex = /body\s*\{/;
+                if (regex.test(customFileContent)) {
+                    addBodySelector = false;
                 }
                 const collectAllVariablesPath: string[] = [
                     ...componentVariablePathList,
@@ -83,7 +91,7 @@ export default function SemiThemeLoader(this: LoaderContext<SemiThemeLoaderOptio
             } catch (e) {
                 customStr = ''; // fallback to empty string
             }
-            return `body:not(:not(body)){${customStr}};`;
+            return addBodySelector ? `body:not(:not(body)){${customStr}};` : customStr;
         })();
 
         finalCSS = `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}${customStr}`;
