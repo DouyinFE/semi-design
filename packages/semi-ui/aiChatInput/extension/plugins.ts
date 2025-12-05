@@ -1,4 +1,4 @@
-import { EditorState, Plugin, PluginKey, TextSelection, Transaction } from 'prosemirror-state';
+import { EditorState, Plugin, PluginKey, TextSelection, Transaction, Selection } from 'prosemirror-state';
 import { strings } from '@douyinfe/semi-foundation/aiChatInput/constants';
 import { EditorView } from '@tiptap/pm/view';
 /**
@@ -412,9 +412,49 @@ export function handlePasteLogic(view: EditorView, event: ClipboardEvent) {
     const { state, dispatch } = view;
     const $from = state.selection.$from;
     let tr = state.tr;
+    const parentNode = $from.parent;
+    if (parentNode.type.name === 'inputSlot') {
+        return specialPasteLogicForInputSlot(event, $from, tr, dispatch, state.selection);
+    }
     removeZeroWidthChar($from, tr);
     tr.setMeta(strings.DELETABLE, true);
     dispatch(tr);
+    return false;
+}
+
+/**
+ * specialPasteLogicForInputSlot 处理两种情况
+ * 1. 如果是 parentNode 是 input-slot，当里面内容仅为零宽字符时候
+ * 直接去掉零宽字符会导致 input-slot 消失， 
+ * 因此将此行为处理成获取文字部分，将零宽字符替换为文字内容
+ * 2. 如果 parentNode 是 input-slot，选中 input-slot 中的所有文字并粘贴
+ * 会导致 input-slot 被删除，因此需要处理成使用复制内容替换原有内容的
+ * The `specialPasteLogicForInputSlot` function handles two cases.
+ * 1. If the parentNode is input-slot, and its content consists of only zero-width characters...
+ * Removing zero-width characters directly will cause the input slot to disappear.
+ * Therefore, this behavior is processed by retrieving the text portion and replacing the zero-width characters with the text content.
+ * 2. If the parentNode is input-slot, select all the text in the input-slot and paste it.
+ * This will cause the input slot to be deleted, so it needs to be handled by replacing the original content with copied content.
+ */
+export function specialPasteLogicForInputSlot(event: ClipboardEvent, $from: any, tr: Transaction, dispatch: (tr: Transaction) => void, selection: Selection) {
+    const parentNode = $from.parent;
+    const nodeText = parentNode.textContent;
+    const isOnlyZeroWidth = nodeText && nodeText === strings.ZERO_WIDTH_CHAR;
+    const isAllTextSelected = !selection.empty && 
+        selection.from === $from.start() && selection.to === $from.end();
+    if (isOnlyZeroWidth || isAllTextSelected) {
+        const pastedText = event.clipboardData?.getData('text/plain') || '';
+        if (pastedText) {
+            const pos = $from.start();
+            tr = tr.insertText(pastedText, pos, pos + nodeText.length); 
+            const endPos = pos + pastedText.length;
+            tr = tr.setSelection(TextSelection.create(tr.doc, endPos));
+            tr.setMeta(strings.DELETABLE, true);
+            dispatch(tr);
+            event.preventDefault();
+            return true;
+        }
+    }
     return false;
 }
 
