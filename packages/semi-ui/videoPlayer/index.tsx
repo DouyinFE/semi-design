@@ -188,6 +188,14 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
         this.foundation.handlePause();
     }
 
+    handleVideoPlay = () => {
+        this.foundation.handleVideoPlay();
+    }
+
+    handleVideoPause = () => {
+        this.foundation.handleVideoPause();
+    }
+
     handleCanPlay = () => {
         this.foundation.handleCanPlay();
     }
@@ -461,6 +469,8 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                                     src={src}
                                     onTimeUpdate={this.handleTimeUpdate}
                                     onDurationChange={this.handleDurationChange}
+                                    onPlay={this.handleVideoPlay}
+                                    onPause={this.handleVideoPause}
                                     onClick={() => { this.foundation.handlePlayOrPause();}}
                                     // An error occurred while getting the media data, or the resource is in an unsupported format.
                                     onError={this.handleError}
