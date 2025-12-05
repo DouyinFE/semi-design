@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.89.0-beta.0 (2025-12-01)
+- 【Fix】
+    - Fix JsonViewer RequestIdleCallback incompatibility issue in Safari browser [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fixed an issue where a TypeError occurred when clicking a FloatButtonGroup without passing an onClick method.
+
 #### 🎉 2.88.3 (2025-11-24)
 - 【Fix】
     - Fixed an issue where the setContentWhileSaveTool method in AIChatInput returned incorrect results. [#3040](https://github.com/DouyinFE/semi-design/issues/3040)
