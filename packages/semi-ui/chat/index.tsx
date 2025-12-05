@@ -291,7 +291,8 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             customMarkDownComponents, mode, showClearContext,
             placeholder, inputBoxCls, inputBoxStyle,
             hintStyle, hintCls, uploadProps, uploadTipProps,
-            sendHotKey, renderDivider, markdownRenderProps, enableUpload
+            sendHotKey, renderDivider, markdownRenderProps, enableUpload,
+            canSend,
         } = this.props;
         const { backBottomVisible, chats, wheelScroll, uploadAreaVisible } = this.state;
         let showStopGenerateFlag = false;
@@ -389,6 +390,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     </span>)}
                     {/* input area */}
                     <InputBox
+                        canSend={canSend}
                         showClearContext={showClearContext}
                         uploadRef={this.uploadRef}
                         manualUpload={this.adapter.manualUpload}
