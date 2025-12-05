@@ -1,4 +1,4 @@
-import { Editor, EditorContent, Extension, useEditor } from '@tiptap/react';
+import { Editor, EditorContent, useEditor, Extensions } from '@tiptap/react';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import Document from '@tiptap/extension-document';
 import Text from '@tiptap/extension-text';
@@ -25,7 +25,7 @@ export default (props: {
     setEditor?: (editor: Editor) => void;
     onKeyDown?: (e: KeyboardEvent) => void;
     onChange?: (content: string) => void;
-    extensions?: Extension[];
+    extensions?: Extensions;
     handleKeyDown?: (view: any, event: KeyboardEvent) => boolean;
     onPaste?: (files: File[]) => void;
     onFocus?: (event: FocusEvent) => void;
@@ -116,7 +116,7 @@ export default (props: {
     }, [onPaste]);
 
     const editor = useEditor({
-        extensions: allExtensions as Extension[],
+        extensions: allExtensions as Extensions,
         content: defaultContent ?? ``,
         editorProps: editorProps,
         // onSelectionUpdate,
