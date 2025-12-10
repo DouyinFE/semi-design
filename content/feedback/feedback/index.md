@@ -349,10 +349,10 @@ import { IllustrationSuccess, IllustrationSuccessDark } from '@douyinfe/semi-ill
 | checkboxGroupProps | 设置多选的参数 | [CheckBoxGroupProps](/zh-CN/input/checkbox#Checkbox%20Group) | - |
 | radioGroupProps | 设置单选的参数 | [RadioGroupProps](/zh-CN/input/radio#RadioGroup) | - |
 | renderContent | 自定义反馈内容展示 | (content: ReactNode) => ReactNode | - |
-| mode | 展示模式，支持 popup、modal | boolean | popup |
+| mode | 展示模式，支持 popup、modal | string | popup |
 | okButtonProps | 设置提交按钮的参数，比如当设置 type 为 custom，用户自定义反馈内容时，通过设置 okButtonProps 中的 disabled 设置是否禁用提交 | [ButtonProps](/zh-CN/input/input#Button) | - |
 | onCancel | 取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | (e: any) => void \| Promise<any\> | 无 |
 | onOk | 点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | (e: any) => void \| Promise<any\> | 无 |
 | onValueChange | 在反馈内容变化时候的回调|function  | (value: string \| string[] \| Object) |
-| type | 反馈内容的类型，支持 text、emoji、radio，checkbox，custom| boolean | emoji |
+| type | 反馈内容的类型，支持 text、emoji、radio，checkbox，custom| string | emoji |
 | textAreaProps | 设置多行输入框的参数 | [TextAreaProps](/zh-CN/input/input#TextArea) | - |
