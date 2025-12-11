@@ -61,15 +61,15 @@ English | [简体中文](./README-zh_CN.md)
 
 # 🔥 Install
 
-```sh
+```bash
 npm install @douyinfe/semi-ui
 ```
 
-```sh
+```bash
 yarn add @douyinfe/semi-ui
 ```
 
-```sh
+```bash
 pnpm add @douyinfe/semi-ui
 ```
 
