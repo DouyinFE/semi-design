@@ -1,12 +1,12 @@
-$radius-cascader: var(--semi-border-radius-small); // 级联选择菜单圆角
+$radius-cascader: var(--semi-border-radius-small); // 级联选择触发器圆角
 $radius-cascader_option_empty: var(--semi-border-radius-medium); // 级联选择菜单空状态圆角
 
-$color-cascader_default-border-default: transparent; // 级联选择描边颜色 - 默认
-$color-cascader_default-border-hover: transparent; // 级联选择描边颜色 - 悬浮
-$color-cascader_default-border-focus: var(--semi-color-focus-border); // 级联选择描边颜色 - 选中
-$color-cascader_default-bg-default: var(--semi-color-fill-0); // 级联选择菜单项背景颜色 - 默认
-$color-cascader_default-bg-hover: var(--semi-color-fill-1); // 级联选择菜单项背景颜色 - 悬浮
-$color-cascader_default-bg-active: var(--semi-color-fill-2); // 级联选择菜单项背景颜色 - 按下
+$color-cascader_default-border-default: transparent; // 级联选择触发器描边颜色 - 默认
+$color-cascader_default-border-hover: transparent; // 级联选择触发器描边颜色 - 悬浮
+$color-cascader_default-border-focus: var(--semi-color-focus-border); // 级联选择触发器描边颜色 - 选中
+$color-cascader_default-bg-default: var(--semi-color-fill-0); // 级联选择触发器背景颜色 - 默认
+$color-cascader_default-bg-hover: var(--semi-color-fill-1); // 级联选择触发器背景颜色 - 悬浮
+$color-cascader_default-bg-active: var(--semi-color-fill-2); // 级联选择触发器背景颜色 - 按下
 $color-cascader_option_list-border-default: var(--semi-color-fill-0); // 级联选择各级菜单分割线颜色
 $color-cascader_option_main-text-default: var(--semi-color-text-0); // 级联选择菜单项文字颜色
 $color-cascader_option-bg-hover: var(--semi-color-fill-0); // 级联选择菜单项背景颜色 - 悬浮
@@ -72,9 +72,9 @@ $color-cascader_selection_n-text-disabled: var(--semi-color-disabled-text); // �
 $color-cascader_selection_text_inactive: var(--semi-color-text-2); // 级联选择单选inpu输入框和text并存时，text颜色
 $color-cascader_selection-text-default: var(--semi-color-text-0); // 级联选择选中项文字颜色
 $color-cascader_placeholder-text-default: var(--semi-color-text-2); // 级联选择未选中项文字颜色
-$color-cascader-icon-default: var(--semi-color-text-2); // 级联选择图标颜色 - 默认
-$color-cascader-icon-hover: var(--semi-color-primary-hover); // 级联选择图标颜色 - 悬浮
-$color-cascader-icon-active: var(--semi-color-primary-active); // 级联选择图标颜色 - 按下
+$color-cascader-icon-default: var(--semi-color-text-2); // 级联选择触发器图标颜色 - 默认
+$color-cascader-icon-hover: var(--semi-color-primary-hover); // 级联选择触发器图标颜色 - 悬浮
+$color-cascader-icon-active: var(--semi-color-primary-active); // 级联选择触发器图标颜色 - 按下
 
 $color-cascader_label-text-default: var(--semi-color-text-2); // 级联选择 prefix 文字颜色
 $color-cascader_option-icon-default: $color-cascader-icon-default; // 级联选择菜单项图标颜色
@@ -106,7 +106,7 @@ $width-cascader_hover-border: $width-cascader-border; // 级联选择触发器�
 $width-cascader_focus-border: $border-thickness-control-focus; // 级联选择触发器描边宽度 - 选中态
 $width-cascader_search-border: 1px; // 级联选择触搜索描边宽度
 $width-cascader-icon: 32px; // 级联选择触发器图标尺寸
-$width-cascader-option-icon: 16px; // 级联选择选项面板图标尺寸
+$width-cascader-option-icon: 16px; // 级联选择菜单项图标尺寸
 $width-cascader_option:  150px; // 级联选择各级菜单宽度
 $height-cascader_option_list: 180px; // 级联选择菜单高度
 $height-cascader_selection_tagInput_wrapper_small: 22px;  //级联选择多选搜索时搜索框最小高度 - 小尺寸
@@ -124,8 +124,8 @@ $spacing-cascader_selection_n-paddingX: $spacing-tight; // 级联选择 +N 的�
 $spacing-cascader_flatten_list-paddingRight: 64px; // 级联选择搜索结果菜单右侧内边距
 $spacing-cascader_empty_icon-marginRight: 8px;  // 级联选择搜索结果菜单
 
-$spacing-cacader_option_list-paddingY: 4px; // 级联选择菜单项垂直内边距
-$spacing-cacader_option_list-paddingX: 0px; // 级联选择菜单项水平内边距
+$spacing-cacader_option_list-paddingY: 4px; // 级联选择下拉菜单列表垂直内边距
+$spacing-cacader_option_list-paddingX: 0px; // 级联选择下拉菜单列表水平内边距
 
 $spacing-cascader_search-paddingX: 12px; // 级联选择搜索水平内边距
 $spacing-cascader_search-paddingY: 8px; // 级联选择搜索垂直内边距
