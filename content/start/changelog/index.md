@@ -61,6 +61,13 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
     - 修复 AIChatInput 中 onContentChange 转换结果中，无 skillSlot 数据问题 [#3027](https://github.com/DouyinFE/semi-design/pull/3027)
     - 更新 chatInputToChatCompletion 返回值以适应用户使用情况 [#3024](https://github.com/DouyinFE/semi-design/pull/3024)
     - 将 AIChatDialogue 和 AIChatInput 所有接口定义在组件 index 文件中导出 [#3024](https://github.com/DouyinFE/semi-design/pull/3024)
+    - 修复 Chat 组件的返回底部按钮在 Chat 尺寸变化后不需要显示时还可见问题 [#2999](https://github.com/DouyinFE/semi-design/pull/2999)
+    -  完善 semi-extract-css-content-loader 中的纯 css 内容抽取逻辑 [#3014](https://github.com/DouyinFE/semi-design/pull/3014)
+- 【Style】
+    - 设置 Image 中所有的 img 节点的 max-width 为none，避免同时使用 tailwind 时放大显示错误问题 [#3015](https://github.com/DouyinFE/semi-design/pull/3015)
+    - 设置 Cropper 中的 img 的 max-width 为 none，避免 tailwindCSS 中对 img 的 max-width 设置影响 Cropper 样式 [#3011](https://github.com/DouyinFE/semi-design/pull/3011)
+- 【Chore】
+    - Radio/RadioGroup 的 value/defaultValue 增加 boolean 类型 [#3019](https://github.com/DouyinFE/semi-design/pull/3019)
 
 #### 🎉 2.88.0-beta.1 (2025-11-10)
 - 【Feat】

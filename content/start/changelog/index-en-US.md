@@ -63,7 +63,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed an issue where onSkillChange was not working properly when skills changed in AIChatInput.
     - Fixed an issue where skillSlot data was missing in the onContentChange conversion result in AIChatInput.
     - update chatInputToChatCompletion return value to fit user use
-    - add chat dialogue & input all interface export
+    - add AI chat dialogue & input all interface export
+    - Fixed an issue where the back-to-bottom button in the Chat component remained visible even when it was no longer needed after the Chat size changed
+    - Improve the pure CSS content extraction logic in semi-extract-css-content-loader
+- 【Style】
+    - Set the max-width of all img nodes in the Image to none to avoid display errors when using tailwind simultaneously 
+    - Fixed an issue where the back-to-bottom button in the Chat component remained visible even when it was no longer needed after the Chat size changed
+- 【Chore】
+    - Add a boolean type to the value/defaultValue of Radio/RadioGroup
     
 #### 🎉 2.88.0-beta.1 (2025-11-10)
 - 【Feat】
