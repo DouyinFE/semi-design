@@ -1606,6 +1606,7 @@ render(DefaultChat);
 |------|--------|-------|-------|
 | align | Dialog layout, supports `leftRight`,`leftAlign` | string | `leftRight` |
 | bottomSlot | bottom slot for chat | React.ReactNode | - |
+| canSend | Whether the send button is enabled. Normally, no settings are needed; the component internally determines whether sending is enabled. If settings are configured, the settings will prevail. Added in v2.89.0. | boolean |
 | chatBoxRenderConfig | chatBox rendering configuration | ChatBoxRenderConfig | - |
 | chats | Controlled conversation list | Message | - |
 | className | Custom class name | string | - |

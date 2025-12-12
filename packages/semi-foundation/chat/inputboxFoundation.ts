@@ -60,7 +60,12 @@ export default class InputBoxFoundation <P = Record<string, any>, S = Record<str
 
     getDisableSend = () => {
         const { content, attachment } = this.getStates();
-        const { disableSend: disableSendInProps } = this.getProps();
+        const { disableSend: disableSendInProps, canSend } = this.getProps();
+        // 如果用户设置了 canSend API，则使用 canSend 值
+        // If the user has configured the canSend API, then the canSend value will be used.
+        if (typeof canSend === 'boolean') {
+            return !canSend;
+        }
         /** 不能发送的条件：（满足任1）
          *  1. props 中禁止发送；2. 没有文本输入，且没有上传文件； 3.上传文件中有状态不为 success 的
          *  Conditions under which content cannot be sent: (any one of the following conditions must be met)
