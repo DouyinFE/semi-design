@@ -50,6 +50,7 @@ import FixAllColumnsWithoutWidth from './FixAllColumnsWithoutWidth';
 import HugeData from "./HugeData"
 import RowSelectionRenderCell from './RowSelectionRenderCell';
 import RowBg from './RowBg';
+import BorderedDoubleTable from './borderedDoubleTable';
 
 export default {
   title: 'Table'
@@ -656,3 +657,5 @@ _RowSelectionRenderCell.story = {
 };
 
 export const RowBgDemo = () => <RowBg />;
+
+export const BorderedDoubleTableDemo = () => <BorderedDoubleTable />

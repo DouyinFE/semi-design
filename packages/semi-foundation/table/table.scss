@@ -508,7 +508,7 @@ $module: #{$prefix}-table;
     }
 
     &-bordered {
-        .#{$module}-title {
+        & > .#{$module}-title {
             padding-left: $spacing-table_bordered_titler-paddingLeft;
             padding-right: $spacing-table_bordered_titler-paddingRight;
             border-top: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
@@ -516,37 +516,55 @@ $module: #{$prefix}-table;
             border-left: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
         }
 
-        .#{$module}-container {
+        & > .#{$module}-container {
             border: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
             border-right: 0;
             border-bottom: 0;
         }
 
-        .#{$module}-header {
-            &::-webkit-scrollbar {
+        :where(&) {
+            & > .#{$module}-container {
+                & >  .#{$module}-header {
+                    &::-webkit-scrollbar {
+                        border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+                    }
+                }
+
+                & > .#{$module}-footer {
+                    border-left: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+                    border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+                    border-bottom: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+                }
+            }
+        }
+
+        :where(& > .#{$module}-container) {
+            & > .#{$module}-body > .#{$module}-placeholder {
                 border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
             }
         }
 
-        .#{$module}-footer {
-            border-left: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
-            border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
-            border-bottom: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
-        }
+        :where(& > .#{$module}-container > .#{$module}-body) {
+            & > .#{$module} > .#{$module}-thead > .#{$module}-row > .#{$module}-row-head {
+                .react-resizable-handle {
+                    background-color: transparent;
+                }
+            }
 
-        .#{$module}-thead > .#{$module}-row > .#{$module}-row-head {
-            .react-resizable-handle {
-                background-color: transparent;
+            & > .#{$module} > .#{$module}-thead > .#{$module}-row > .#{$module}-row-head,
+            & > .#{$module} > .#{$module}-tbody > .#{$module}-row > .#{$module}-row-cell {
+                border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
             }
         }
 
-        .#{$module}-thead > .#{$module}-row > .#{$module}-row-head,
-        .#{$module}-tbody > .#{$module}-row > .#{$module}-row-cell {
-            border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
-        }
+        :where(& > .#{$module}-container > .#{$module}-header) {
+            & > .#{$module} > .#{$module}-thead > .#{$module}-row > .#{$module}-row-head {
+                border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
 
-        .#{$module}-placeholder {
-            border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+                .react-resizable-handle {
+                    background-color: transparent;
+                }
+            }
         }
     }
 
