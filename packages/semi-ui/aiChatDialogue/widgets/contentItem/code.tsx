@@ -5,8 +5,6 @@ import copy from 'copy-text-to-clipboard';
 import { IconCopyStroked, IconTick } from '@douyinfe/semi-icons';
 import { nth } from 'lodash';
 import { code } from '../../../markdownRender/components';
-import "prismjs/components/prism-jsx.js";
-import "prismjs/components/prism-tsx.js";
 
 const { PREFIX_CODE } = cssClasses;
 

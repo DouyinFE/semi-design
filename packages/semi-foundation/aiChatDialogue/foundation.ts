@@ -3,6 +3,9 @@ import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 import { getUuidv4 } from "../utils/uuid";
 import { strings } from "./constants";
 import { Animation } from '@douyinfe/semi-animation';
+import 'prismjs';
+import "prismjs/components/prism-jsx.js";
+import "prismjs/components/prism-tsx.js";
 
 export interface DialogueAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getContainerRef: () => HTMLDivElement;
