@@ -1558,6 +1558,7 @@ render(StreamingResponseToMessageDemo);
 | roleConfig | 角色配置（user/assistant/system 等元数据） | [RoleConfig](/zh-CN/ai/aiChatDialogue#RoleConfig) | 必填 |
 | selecting | 是否开启选择模式 | boolean | false |
 | showReset | 是否展示重置操作 | boolean | true |
+| showUploadButton | 是否显示右侧上传按钮 | boolean | true |
 | showReference | 是否在文字或者文件消息中展示可被引用图标，仅对用户消息生效 | boolean | false |
 | style | 样式 | CSSProperties | - |
 
