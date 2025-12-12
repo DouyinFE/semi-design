@@ -67,7 +67,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
     private searchInputRef: React.RefObject<HTMLInputElement>;
     private replaceInputRef: React.RefObject<HTMLInputElement>;
     private isComposing: boolean = false;
-
+    private resizeObserver: ResizeObserver | null = null;
     foundation: JsonViewerFoundation;
 
     constructor(props: JsonViewerProps) {
@@ -89,6 +89,22 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
 
     componentDidMount() {
         this.foundation.init();
+        // 使用 ResizeObserver 检测容器大小变化重新layout
+        this.resizeObserver = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                if (entry.contentRect.height > 0 && this.foundation.jsonViewer) {
+                    this.foundation.jsonViewer.layout();
+                }
+            }
+        });
+
+        if (this.editorRef.current) {
+            this.resizeObserver.observe(this.editorRef.current);
+        }
+    }
+
+    componentWillUnmount() {
+        this.resizeObserver?.disconnect();
     }
 
     componentDidUpdate(prevProps: JsonViewerProps): void {
@@ -128,16 +144,19 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
             },
             showSearchBar: () => {
                 this.setState({ showSearchBar: !this.state.showSearchBar });
-                this.setState({ searchOptions: {
-                    caseSensitive: false,
-                    wholeWord: false,
-                    regex: false,
-                } });
+                this.setState({
+                    searchOptions: {
+                        caseSensitive: false,
+                        wholeWord: false,
+                        regex: false,
+                    }
+                });
             },
         };
     }
 
     getValue() {
+        console.log(this.foundation.jsonViewer.getModel().getValue(), "valuesss");
         return this.foundation.jsonViewer.getModel().getValue();
     }
 
@@ -308,7 +327,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                                 this.foundation.replace(value);
                             }}
                         >
-                            {locale.replace}    
+                            {locale.replace}
                         </Button>
                         <Button
                             style={{ width: 'fit-content' }}
@@ -328,6 +347,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
     render() {
         let isDragging = false;
         const { width, className, style, showSearch = true, ...rest } = this.props;
+        console.log(this.props, "-----");
         return (
             <>
                 <div style={{ ...this.getStyle(), position: 'relative', ...style }} className={className} {...this.getDataAttr(rest)}>
