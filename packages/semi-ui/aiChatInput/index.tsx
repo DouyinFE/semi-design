@@ -577,7 +577,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
     render() {
         const { direction } = this.context;
         const defaultPosition = direction === 'rtl' ? 'bottomRight' : 'bottomLeft';
-        const { style, className, popoverProps, placeholder, extensions, defaultContent } = this.props;
+        const { style, className, popoverProps, placeholder, extensions, defaultContent, immediatelyRender } = this.props;
         const { templateVisible, skillVisible, suggestionVisible, popupKey } = this.state;
        
         return (
@@ -605,6 +605,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
                 >
                     {this.renderTopArea()}
                     <RichTextInput
+                        immediatelyRender={immediatelyRender}
                         innerRef={this.richTextDIVRef}
                         defaultContent={defaultContent}
                         placeholder={placeholder}
