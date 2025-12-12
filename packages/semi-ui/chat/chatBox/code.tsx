@@ -6,6 +6,7 @@ import { IconCopyStroked, IconTick } from '@douyinfe/semi-icons';
 import { nth } from 'lodash';
 import { code } from '../../markdownRender/components';
 // code's default height type is html/js/css, add jsx & tsx;
+import 'prismjs';
 import "prismjs/components/prism-jsx.js";
 import "prismjs/components/prism-tsx.js";
 import LocaleConsumer from "../../locale/localeConsumer";
