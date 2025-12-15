@@ -679,3 +679,37 @@ export const SetContent = () => {
       >点我查看富文本区域内容</Button>
   </>);
 }
+
+export const KeepSkill = () => {
+  const ref = useRef();
+  const [generating, setGenerating] = useState(false);
+
+  const onContentChange = useCallback((content) => {
+    console.log('onContentChange', content);
+  }, []);
+
+  const toggleGenerate = useCallback((props) => {
+    setGenerating(value => !value);
+  }, []);
+
+  return (<>
+      <AIChatInput
+          ref={ref}
+          generating={generating}
+          keepSkillAfterSend
+          defaultContent={`<skill-slot data-label="帮我写作" data-value="writing" data-template=true></skill-slot>帮我完成...`}
+          placeholder={'输入内容或者上传内容'} 
+          uploadProps={uploadProps}
+          onContentChange={onContentChange}
+          onMessageSend={toggleGenerate}
+          onStopGenerate={toggleGenerate}
+          style={outerStyle} 
+      />
+      <Button onClick={() => {
+        const html = ref.current.editor.getHTML();
+        const json = ref.current.editor.getJSON();
+        console.log('html', html);
+        console.log('json', json);
+      }}>点击获取</Button>
+  </>);
+}
