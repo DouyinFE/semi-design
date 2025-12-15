@@ -454,7 +454,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 |separator     |Customize the separator                          |string\|string[]                                                 |,          |1.19.0,string[] is supported since 1.29.0|
 |showClear     |Whether to show the clear button                 |boolean                                                          |false      |1.19.0|
 |size          |Size, one of `small`、`large`、`default`          |string                                                           |`default` |1.19.0|
-|split         |Customize the separator processing function      |(value: string, separator: string) => string[] | -        |2.89.0|
+|split         |Customize the separator processing function      |(value: string, separator: string) => string[] | -        |2.90.0|
 |style         |Inline style                                     |React.CSSProperties                                               | -        |1.19.0|
 |suffix        |Suffix                                            |ReactNode                                                        |-         |1.19.0|
 |validateStatus|Validate status for styling only, one of  `default`、`warning`、`error`|string                                       |`default` |1.19.0|
