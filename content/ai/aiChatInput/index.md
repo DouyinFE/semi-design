@@ -1582,6 +1582,7 @@ render(<CustomRichTextExtension />);
 | onFocus | 富文本输入框聚焦的回调 | (event: React.FocusEvent) => void | - |
 | showReference | 是否展示引用区域，用于配合 renderTopSlot 使用 | boolean | true |
 | showTemplateButton | 是否展示模板按钮，未设置时，将根据当前选中技能中的 hasTemplate 决定是否展示模版按钮 | boolean | false |
+| showUploadButton | 是否显示右侧上传按钮，自 2.90.0 支持 | boolean | true |
 | showUploadFile | 是否展示上传文件区域，用于配合 renderTopSlot 使用 | boolean | true |
 | skillHotKey | 输入框中触发技能的热键 | string | - |
 | skills | 技能列表 | Skill[] | - |
