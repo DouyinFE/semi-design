@@ -328,7 +328,7 @@ function ConfigureButton() {
     const renderLeftMenu = useCallback(() => (<>
         <Configure.Select optionList={modelOptions} field="model" initValue="GPT-4o" />
         <Configure.Button icon={<IconBookOpenStroked />} field="onlineSearch">联网搜索</Configure.Button>
-        <Configure.Mcp options={mcpOptions} onConfigureButtonClick={onConfigureButtonClick}/>
+        <Configure.Mcp options={mcpOptions} onConfigureButtonClick={onConfigureButtonClick} showConfigure={true}/>
         <Configure.RadioButton options={radioButtonProps} field="thinkType" initValue="fast"/>
     </>), []);
 
@@ -1593,6 +1593,22 @@ render(<CustomRichTextExtension />);
 | transformer | 自定义扩展的转换规则 | Map<string, (obj: any) => any> | |
 | uploadProps | 上传文件相关配置 | UploadProps | - |
 | uploadTipProps | 上传文件相关提示配置 | UploadTipProps | - |
+
+### Configure.Select
+同 [ButtonProps](/zh-CN/input/select)
+
+### Configure.Button
+同 [ButtonProps](/zh-CN/basic/button#Button)
+
+### Configure.RadioButton
+同 [RadioGroupProps](/zh-CN/input/radio#RadioGroup)
+
+### Configure.Mcp
+| 属性 | 说明 | 类型 | 默认值 |
+|-----|----|------|-------|
+| options | mcp 选项 | McpOption | - |
+| showConfigure | 是否显示配置按钮, v2.89.0 新增 | boolean | true |
+| onConfigureButtonClick | 点击配置按钮的回调 | () => void | - |
 
 ## Methods
 
