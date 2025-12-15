@@ -1631,6 +1631,7 @@ render(DefaultChat);
 | onInputChange | 输入区域信息变化时触发 | (props: { value?: string, attachment?: FileItem[] }) => void; | - |
 | onMessageBadFeedback | 消息负向反馈时触发 | (message: Message) => void | - |
 | onMessageCopy | 复制消息时触发 | (message: Message) => void | - |
+| allowSend | 是否允许输入框发送文本和文件，受控属性，默认 true | boolean | true |
 | onMessageDelete | 删除消息时触发 | (message: Message) => void | - |
 | onMessageGoodFeedback | 消息正向反馈时触发 | (message: Message) => void | - |
 | onMessageReset | 重置消息时触发 | (message: Message) => void | - |

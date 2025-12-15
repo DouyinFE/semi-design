@@ -38,6 +38,11 @@ export interface ChatProps extends CommonChatsProps {
     onClear?: () => void;
     onInputChange?: (props: { value?: string; attachment?: FileItem[] }) => void;
     onMessageSend?: (content: string, attachment: FileItem[]) => void;
+    /**
+     * 是否允许输入框发送文字消息和文件
+     * 默认true，受控属性
+     */
+    allowSend?: boolean;
     inputBoxStyle?: React.CSSProperties;
     inputBoxCls?: string;
     renderInputArea?: (props?: RenderInputAreaProps) => ReactNode;
@@ -173,7 +178,11 @@ export interface InputBoxProps {
     onClearContext?: (e: any) => void;
     onInputChange?: (props: {inputValue: string; attachment: FileItem[]}) => void;
     clickUpload?: boolean;
-    pasteUpload?: boolean
+    pasteUpload?: boolean;
+    /**
+     * 是否允许输入框发送文字消息和文件，默认true
+     */
+    allowSend?: boolean
 }
 
 export interface InputBoxState {

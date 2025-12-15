@@ -1640,6 +1640,7 @@ render(DefaultChat);
 | topSlot | top slot for chat | React.ReactNode | - |
 | uploadProps | Upload component properties, refer to details [Upload](/en-US/input/upload#API%20%E5%8F%82%E8%80%83) | UploadProps | - |
 | uploadTipProps | Upload component prompt attribute, refer to details [Tooltip](/en-US/show/tooltip#API%20%E5%8F%82%E8%80%83) | TooltipProps | - |
+| allowSend | Whether to allow sending text and files in the input box, controlled prop, default true | boolean | true |
 
 
 #### RoleConfig
