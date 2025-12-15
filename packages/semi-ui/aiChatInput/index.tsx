@@ -55,6 +55,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
         round: true,
         topSlotPosition: 'top',
         keepSkillAfterSend: false,
+        showUploadButton: true,
     }
 
     constructor(props: AIChatInputProps) {
@@ -550,7 +551,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
     }
 
     renderRightFooter = () => {
-        const { renderActionArea ,showUploadButton = true} = this.props;
+        const { renderActionArea, showUploadButton } = this.props;
         const actionCls = `${prefixCls}-footer-action`;
         const actionNode = [
             showUploadButton && this.renderUploadButton(),

@@ -1504,6 +1504,7 @@ render(<CustomRichTextExtension />);
 | onFocus | Callback when input focused | (event: React.FocusEvent) => void | - |
 | showReference | Show reference area | boolean | true |
 | showTemplateButton | Show template button | boolean | false |
+| showUploadButton | Show upload button，supported since version 2.90.0 | boolean | true |
 | showUploadFile | Show upload file area | boolean | true |
 | skillHotKey | Skill panel trigger shortcut | string | - |
 | skills | Skill list | Skill[] | - |
