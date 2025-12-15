@@ -22,6 +22,7 @@ export default (props: {
     innerRef?: React.Ref<HTMLDivElement>;
     defaultContent?: TiptapContent;
     placeholder?: string;
+    immediatelyRender?: boolean;
     setEditor?: (editor: Editor) => void;
     onKeyDown?: (e: KeyboardEvent) => void;
     onChange?: (content: string) => void;
@@ -33,7 +34,7 @@ export default (props: {
     handleCreate?: () => void
 }) => {
     const { setEditor, onKeyDown, onChange, placeholder, extensions = [], 
-        defaultContent, onPaste, innerRef, handleKeyDown, onFocus, onBlur, handleCreate } = props;
+        defaultContent, onPaste, innerRef, handleKeyDown, onFocus, onBlur, handleCreate, immediatelyRender } = props;
     const isComposing = useRef(false);
     
     const handleCompositionStart = useCallback((view: EditorView) => {
@@ -119,6 +120,7 @@ export default (props: {
         extensions: allExtensions as Extensions,
         content: defaultContent ?? ``,
         editorProps: editorProps,
+        immediatelyRender,
         // onSelectionUpdate,
         onCreate,
         onUpdate,
@@ -128,6 +130,11 @@ export default (props: {
     useEffect(() => {
         setEditor(editor);
     }, [editor, setEditor]);
+
+    if (!editor) {
+        // Prevent rendering until the editor is initialized
+        return null; 
+    }
 
     return (<>
         <EditorContent 

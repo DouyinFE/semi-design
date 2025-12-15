@@ -1477,6 +1477,7 @@ render(<CustomRichTextExtension />);
 | defaultContent | Default input content, supports html string or Tiptap content | TiptapContent | - |
 | dropdownMatchTriggerWidth | Should dropdown width match input? | boolean | true |
 | extensions | Custom editor extensions | Extension[] | - |
+| immediatelyRender | As a parameter of tiptap's userEditor, if it's an SSR scenario, this parameter needs to be set to false. See [use-ssr-with-react-and-tiptap](https://tiptap.dev/docs/editor/getting-started/install/react#use-ssr-with-react-and-tiptap)  | boolean | - |
 | generating | Is it generating? | boolean | false |
 | onContentChange | Callback when input content changes | (content: <ApiType detail='{ type: string; [key: string]: any }'>OnContentChangeProps</ApiType>) => void | - |
 | onMessageSend | Callback for sending message | (content: <ApiType detail='{references?: Reference[]; attachments?: Attachment[]; inputContents?: Content[]; setup?: Setup}'>OnMessageSendProps</ApiType>) => void | - |
