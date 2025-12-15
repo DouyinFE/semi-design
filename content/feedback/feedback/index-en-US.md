@@ -348,11 +348,11 @@ When `mode` is `popup`, FeedbackProps also supports the parameters in [SideSheet
 | radioGroupProps | Set radio parameters | [RadioGroupProps](/en-US/input/radio#RadioGroup) | - |
 | renderContent | Customized feedback content display | (content: ReactNode) => ReactNode | - |
 | ModalProps | When mode is modal, it is used to set modal parameters. | ModalProps | - |
-| mode | Display mode, supports popup and modal | boolean | popup |
+| mode | Display mode, supports popup and modal | string | popup |
 | okButtonProps | Set the parameters of the submit button. For example, when customizing content, set disabled in okButtonProps to disable submission | [ButtonProps](/zh-CN/input/input#Button) | - |
 | onCancel | Cancel callback, the parameter is the shutdown function, and it will automatically close after the promise is resolved. | (e: any) => void \| Promise<any\> | - |
 | onOk | Click OK callback, the parameter is the closing function, and it will automatically close after the promise is resolved. | (e: any) => void \| Promise<any\> | - |
 | onValueChange | Callback when feedback content changes |function  | (value: string \| string[] \| Object) |
 | SideSheetProps | When modal is popup, it is used to set the parameters of the internal SideSheet | SideSheetProps | - |
-| type | Type of feedback content, supports text, emoji, radio, checkbox, custom | boolean | emoji |
+| type | Type of feedback content, supports text, emoji, radio, checkbox, custom | string | emoji |
 | textAreaProps | Set parameters of multi-line input box | [TextAreaProps](/en-US/input/input#TextArea) | - |

@@ -107,19 +107,29 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
     handlePlay() {
         const video = this._adapter.getVideo();
         if (video) {
+            // 触发原生 onPlay 后通过 handleVideoPlay 更新 isPlaying 状态
+            // After triggering the native onPlay, the isPlaying state is updated via handleVideoPlay.
             video.play();
-            this._adapter.setIsPlaying(true);
-            this._adapter.notifyPlay();
         }
     }
 
     handlePause() {
         const video = this._adapter.getVideo();
         if (video) {
+            // 触发原生 onPause 后通过 handleVideoPause 更新 isPlaying 状态
+            // After triggering the native onPause, the isPlaying state is updated via handleVideoPause.
             video.pause();
-            this._adapter.setIsPlaying(false);
-            this._adapter.notifyPause();
         }
+    }
+
+    handleVideoPlay = () => {
+        this._adapter.setIsPlaying(true);
+        this._adapter.notifyPlay();
+    }
+
+    handleVideoPause = () => {
+        this._adapter.setIsPlaying(false);
+        this._adapter.notifyPause();
     }
 
     handleCanPlay = () => {

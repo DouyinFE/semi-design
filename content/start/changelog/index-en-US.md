@@ -16,6 +16,17 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.89.0 (2025-12-05)
+- 【Fix】
+    - Fixed an issue where pasting content into an empty inputSlot resulted in only text being pasted without displaying the inputSlot style  [#3049 ](https://github.com/DouyinFE/semi-design/issues/3049)
+    - Fixed an issue where, when pasting content after selecting all text in an inputSlot, the inputSlot would disappear.  [#3049](https://github.com/DouyinFE/semi-design/issues/3049)
+    - Fixed an issue where semi-theme-loader prevented content in custom.css from taking effect when there was a body selector in the custom.css file of a user-defined theme.
+    - Fixed an issue in React v19 where a TypeError might occur on the first call to Toast/Notification.
+    - fixed the issue where AIChatDialogue renderDialogueTitle did not return the message parameter
+    - fix the issue where the pause icon was still displayed during VideoPlayer autoplay.
+- 【Chore】
+    - Fixed an issue with the AIChatInput extensions API type error.
+
 #### 🎉 2.89.0-beta.0 (2025-12-01)
 - 【Fix】
     - Fix JsonViewer RequestIdleCallback incompatibility issue in Safari browser [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
@@ -52,7 +63,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed an issue where onSkillChange was not working properly when skills changed in AIChatInput.
     - Fixed an issue where skillSlot data was missing in the onContentChange conversion result in AIChatInput.
     - update chatInputToChatCompletion return value to fit user use
-    - add chat dialogue & input all interface export
+    - add AI chat dialogue & input all interface export
+    - Fixed an issue where the back-to-bottom button in the Chat component remained visible even when it was no longer needed after the Chat size changed
+    - Improve the pure CSS content extraction logic in semi-extract-css-content-loader
+- 【Style】
+    - Set the max-width of all img nodes in the Image to none to avoid display errors when using tailwind simultaneously 
+    - Fixed an issue where the back-to-bottom button in the Chat component remained visible even when it was no longer needed after the Chat size changed
+- 【Chore】
+    - Add a boolean type to the value/defaultValue of Radio/RadioGroup
     
 #### 🎉 2.88.0-beta.1 (2025-11-10)
 - 【Feat】

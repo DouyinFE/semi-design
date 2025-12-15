@@ -20,7 +20,7 @@ import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui';
 
 ### 单个组件 基本使用
 
-通过`defaultSize`设置初始大小，可以通过`onResizeStart` `onResize` `onResizeEnd`设置拖拽的回调
+通过`defaultSize`设置初始大小，可以通过`onResizeStart`、`onChange`、`onResizeEnd`设置拖拽的回调
 
 ```tsx
 interface Size {
@@ -416,7 +416,7 @@ function Demo() {
 最好不要为`ResizeItem`设置`padding`，会导致最小尺寸不符合预期，可以为子元素设置`padding`
 </Notice>
 
-通过`direction`设置伸缩方向，可选值为`horizontal`和`vertical` 支持`onResizeStart` `onResize` `onResizeEnd`回调，支持`min` `max`设置最大最小宽高
+通过`direction`设置伸缩方向，可选值为`horizontal`和`vertical` 支持`onResizeStart`、`onChange`、`onResizeEnd`回调，支持`min`、`max`设置最大最小宽高
 
 ```jsx live=true dir="column"
 import React, { useState } from 'react';

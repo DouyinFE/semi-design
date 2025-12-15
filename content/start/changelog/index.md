@@ -13,6 +13,17 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.89.0 (2025-12-05)
+- 【Fix】
+    - 修复向空的 inputSlot 中粘贴内容时候，仅粘贴了文本，无 inputSlot 样式问题  [#3049 ](https://github.com/DouyinFE/semi-design/issues/3049) [#3050](https://github.com/DouyinFE/semi-design/pull/3050)
+    - 修复当选中 inputSlot 中的所有内容并粘贴nearing时候，仅粘贴了文本，无 inputSlot 样式问题   [#3049](https://github.com/DouyinFE/semi-design/issues/3049) [#3050](https://github.com/DouyinFE/semi-design/pull/3050)
+    - 修复 semi-theme-loader 在用户自定义主题的 custom.css 中有 body 选择器时，custom.css 中的内容未生效问题 [#3078](https://github.com/DouyinFE/semi-design/pull/3078)
+    - 修复 React v19 下 Toast/Notification 首次调用可能出现 TypeError 的问题 [#3053](https://github.com/DouyinFE/semi-design/pull/3053)
+    - 修复 AIChatDialogue renderDialogueTitle 未返回 message 参数问题 [#3068](https://github.com/DouyinFE/semi-design/pull/3068)
+    - 修复VideoPlayer 自动播放时仍旧显示暂停图标问题 [#3072](https://github.com/DouyinFE/semi-design/pull/3072)
+- 【Chore】
+    - 修复  AIChatInput 的 extensions API 类型错误问题 [#3048](https://github.com/DouyinFE/semi-design/pull/3048)
+
 #### 🎉 2.89.0-beta.0 (2025-12-01)
 - 【Fix】
     - 修复JsonViewer RequestIdleCallback在Safari浏览器不兼容问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#3054](https://github.com/DouyinFE/semi-design/pull/3054)
@@ -50,6 +61,13 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
     - 修复 AIChatInput 中 onContentChange 转换结果中，无 skillSlot 数据问题 [#3027](https://github.com/DouyinFE/semi-design/pull/3027)
     - 更新 chatInputToChatCompletion 返回值以适应用户使用情况 [#3024](https://github.com/DouyinFE/semi-design/pull/3024)
     - 将 AIChatDialogue 和 AIChatInput 所有接口定义在组件 index 文件中导出 [#3024](https://github.com/DouyinFE/semi-design/pull/3024)
+    - 修复 Chat 组件的返回底部按钮在 Chat 尺寸变化后不需要显示时还可见问题 [#2999](https://github.com/DouyinFE/semi-design/pull/2999)
+    -  完善 semi-extract-css-content-loader 中的纯 css 内容抽取逻辑 [#3014](https://github.com/DouyinFE/semi-design/pull/3014)
+- 【Style】
+    - 设置 Image 中所有的 img 节点的 max-width 为none，避免同时使用 tailwind 时放大显示错误问题 [#3015](https://github.com/DouyinFE/semi-design/pull/3015)
+    - 设置 Cropper 中的 img 的 max-width 为 none，避免 tailwindCSS 中对 img 的 max-width 设置影响 Cropper 样式 [#3011](https://github.com/DouyinFE/semi-design/pull/3011)
+- 【Chore】
+    - Radio/RadioGroup 的 value/defaultValue 增加 boolean 类型 [#3019](https://github.com/DouyinFE/semi-design/pull/3019)
 
 #### 🎉 2.88.0-beta.1 (2025-11-10)
 - 【Feat】

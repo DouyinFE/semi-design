@@ -1,6 +1,7 @@
 import loaderUtils from 'loader-utils';
 import resolve from 'enhanced-resolve';
 import componentVariablePathList from './componentName';
+import fs from 'fs';
 
 export default function SemiThemeLoader(source: string) {
     const query = loaderUtils.getOptions ? loaderUtils.getOptions(this) : loaderUtils.parseQuery(this.query);
@@ -63,9 +64,16 @@ export default function SemiThemeLoader(source: string) {
 
         const customStr = (() => {
             let customStr = '';
+            let addBodySelector = true;
             try {
                 if (!resolve.sync(this.context, `${theme}/scss/custom.scss`)) {
                     return '';
+                }
+                const resolved = require.resolve(`${theme}/scss/custom.scss`);
+                const customFileContent = fs.readFileSync(resolved, 'utf-8');
+                const regex = /body\s*\{/;
+                if (regex.test(customFileContent)) {
+                    addBodySelector = false;
                 }
                 const collectAllVariablesPath: string[] = [
                     ...componentVariablePathList,
@@ -81,7 +89,7 @@ export default function SemiThemeLoader(source: string) {
             } catch (e) {
                 customStr = ''; // fallback to empty string
             }
-            return `body:not(:not(body)){${customStr}};`;
+            return addBodySelector ? `body:not(:not(body)){${customStr}};` : customStr; 
         })();
 
         finalCSS = `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}${customStr}`;

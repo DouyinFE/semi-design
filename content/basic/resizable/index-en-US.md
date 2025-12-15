@@ -21,7 +21,7 @@ import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui'
 
 ### Single Component
 Basic Usage and Callbacks
-You can set the initial size using defaultSize, and set drag callbacks with onResizeStart, onResize, and onResizeEnd.
+You can set the initial size using defaultSize, and set drag callbacks with `onResizeStart`, `onResize`, and `onResizeEnd`.
 
 ```tsx
 interface Size {
@@ -425,7 +425,7 @@ It's best not to set padding for ResizeItem, as it may cause the minimum size to
 
 
 
-Use the direction prop to set the resizing direction. Options are horizontal and vertical. Supports onResizeStart, onResize, and onResizeEnd callbacks, as well as setting min and max to control the maximum and minimum width/height.
+Use the direction prop to set the resizing direction. Options are `horizontal` and `vertical`. Supports `onResizeStart`, `onResize`, and `onResizeEnd` callbacks, as well as setting `min` and `max` to control the maximum and minimum width/height.
 
 ```jsx live=true dir="column"
 import React, { useState } from 'react';

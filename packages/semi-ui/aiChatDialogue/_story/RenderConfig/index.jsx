@@ -118,6 +118,7 @@ export default function RenderConfig() {
 
     const renderConfig = {
         renderDialogueTitle: (props) => {
+            console.log('renderDialogueTitle', props);
             return <div className="semi-ai-chat-dialogue-title">My-{props.role.name}</div>;
         },
         renderDialogueAvatar: (props) => {

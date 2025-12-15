@@ -44,6 +44,11 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         zIndex: 1010,
         content: '',
     };
+
+    /* REACT_19_START */
+    // static toastQueue: Array<{ opts: ToastReactProps, id: string }> = [];
+    /* REACT_19_END */
+
     static propTypes = {
         content: PropTypes.node,
         duration: PropTypes.number,
@@ -146,19 +151,22 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             // }
             // this.root.render(React.createElement( 
             //     ToastList,
-            //     { ref: instance => (ToastList.ref = instance) }
+            //     { ref: instance => {
+            //         ToastList.ref = instance;
+            //         // New: flush toast queue after ref ready
+            //         while (ToastList.toastQueue.length && ToastList.ref && typeof ToastList.ref.add === 'function') {
+            //             const { opts: queuedOpts, id: queuedId } = ToastList.toastQueue.shift();
+            //             ToastList.ref.add({ ...queuedOpts, id: queuedId });
+            //             ToastList.ref.stack = Boolean(queuedOpts.stack);
+            //         }
+            //     } }
             // ));
             // // 在 React 19 中，render 是同步的，确保 ref 已赋值后再执行add方法
-            // if (typeof queueMicrotask === 'function') {
-            //     queueMicrotask(() => {
-            //         ToastList.ref.add({ ...opts, id });
-            //         ToastList.ref.stack = Boolean(opts.stack);
-            //     });
+            // if (ToastList.ref && typeof ToastList.ref.add === 'function') {
+            //     ToastList.ref.add({ ...opts, id });
+            //     ToastList.ref.stack = Boolean(opts.stack);
             // } else {
-            //     Promise.resolve().then(() => {
-            //         ToastList.ref.add({ ...opts, id });
-            //         ToastList.ref.stack = Boolean(opts.stack);
-            //     });
+            //     ToastList.toastQueue.push({ opts, id });
             // }
             /* REACT_19_END */
         } else {
@@ -298,11 +306,11 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
                     [`${cssClasses.PREFIX}-innerWrapper`]: true,
                     [`${cssClasses.PREFIX}-innerWrapper-hover`]: this.state.mouseInSide
                 })} ref={this.innerWrapperRef} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
-                    {list.map((item, index) =>{
-                        const isRemoved = removedItems.find(removedItem=>removedItem.id===item.id) !== undefined;
-                        return <CSSAnimation key={item.id} motion={item.motion} animationState={isRemoved?"leave":"enter"} startClassName={isRemoved?`${cssClasses.PREFIX}-animation-hide`:`${cssClasses.PREFIX}-animation-show`}>
+                    {list.map((item, index) => {
+                        const isRemoved = removedItems.find(removedItem => removedItem.id === item.id) !== undefined;
+                        return <CSSAnimation key={item.id} motion={item.motion} animationState={isRemoved ? "leave" : "enter"} startClassName={isRemoved ? `${cssClasses.PREFIX}-animation-hide` : `${cssClasses.PREFIX}-animation-show`}>
                             {
-                                ({ animationClassName, animationEventsNeedBind, isAnimating })=>{
+                                ({ animationClassName, animationEventsNeedBind, isAnimating }) => {
                                     return (isRemoved && !isAnimating) ? null : <Toast {...item} stack={this.stack} stackExpanded={this.state.mouseInSide} positionInList={{ length: list.length, index }} className={cls({
                                         [item.className]: Boolean(item.className),
                                         [animationClassName]: true
