@@ -16,6 +16,20 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.90.0-beta.0 (2025-12-15)
+- 【Feat】
+    - AIChatInput has added a showUploadButton API to control whether the upload button is displayed [#3073](https://github.com/DouyinFE/semi-design/pull/3073)
+    - The Configure.Mcp in AIChatInput now includes a showConfigure API for setting whether the configuration button is displayed [#3059](https://github.com/DouyinFE/semi-design/issues/3059)
+    - TagInput supports split API to support user-defined separator processing functions [#2983](https://github.com/DouyinFE/semi-design/issues/2983)
+    - AIChatInput now includes a new feature: keepSkillAfterSend, which allows you to set whether to delete skills when sending.
+    - AIChatInput has added an immediatelyRender API [#3056](https://github.com/DouyinFE/semi-design/issues/3056)
+    - The Chat component now includes the canSend API.
+- 【Fix】
+    - Fixed the "Prism is not defined" error when using the AIChatDialogue component under vite project
+    - Fixed an issue where setting the bordered property of the outer table to true caused the inner table to also have borders when dealing with nested tables. [#3082](https://github.com/DouyinFE/semi-design/issues/3082)
+- 【Docs】
+    - Correcting incorrect parameter types in the Feedback API list [@yihouhgz](https://github.com/yihouhgz)
+
 #### 🎉 2.89.0 (2025-12-05)
 - 【Fix】
     - Fixed an issue where pasting content into an empty inputSlot resulted in only text being pasted without displaying the inputSlot style  [#3049 ](https://github.com/DouyinFE/semi-design/issues/3049)
