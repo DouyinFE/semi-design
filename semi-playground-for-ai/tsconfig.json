@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "lib": ["DOM", "ES2020"],
+    "jsx": "react-jsx",
+    "target": "ES2020",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "useDefineForClassFields": true,
+
+    /* modules */
+    "module": "ESNext",
+    "resolveJsonModule": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+
+    /* type checking */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    /* paths - 映射到外部仓库源码 */
+    "baseUrl": ".",
+    "paths": {
+      "@douyinfe/semi-ui": ["../packages/semi-ui"],
+      "@douyinfe/semi-ui/*": ["../packages/semi-ui/*"],
+      "@douyinfe/semi-foundation": ["../packages/semi-foundation"],
+      "@douyinfe/semi-foundation/*": ["../packages/semi-foundation/*"],
+      "@douyinfe/semi-icons": ["../packages/semi-icons/src"],
+      "@douyinfe/semi-icons/*": ["../packages/semi-icons/src/*"],
+      "@douyinfe/semi-icons-lab": ["../packages/semi-icons-lab/src"],
+      "@douyinfe/semi-icons-lab/*": ["../packages/semi-icons-lab/src/*"],
+      "@douyinfe/semi-illustrations": ["../packages/semi-illustrations/src"],
+      "@douyinfe/semi-illustrations/*": ["../packages/semi-illustrations/src/*"],
+      "@douyinfe/semi-theme-default": ["../packages/semi-theme-default"],
+      "@douyinfe/semi-theme-default/*": ["../packages/semi-theme-default/*"],
+      "@douyinfe/semi-animation": ["../packages/semi-animation"],
+      "@douyinfe/semi-animation/*": ["../packages/semi-animation/*"],
+      "@douyinfe/semi-animation-react": ["../packages/semi-animation-react"],
+      "@douyinfe/semi-animation-react/*": ["../packages/semi-animation-react/*"],
+      "@douyinfe/semi-animation-styled": ["../packages/semi-animation-styled"],
+      "@douyinfe/semi-animation-styled/*": ["../packages/semi-animation-styled/*"],
+      "@douyinfe/semi-json-viewer-core": ["../packages/semi-json-viewer-core/src"],
+      "@douyinfe/semi-json-viewer-core/*": ["../packages/semi-json-viewer-core/src/*"]
+    }
+  },
+  "include": ["src", "../packages"]
+}
