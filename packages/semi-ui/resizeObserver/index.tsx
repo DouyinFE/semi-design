@@ -1,5 +1,5 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 
@@ -74,7 +74,11 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
             // 2. ensure that we resolve to an actual DOM node (instead of any JSX ref instance).
             
             /* REACT_18_START */
-            return findDOMNode(this.childNode || this);
+            const find = (ReactDOM as any).findDOMNode;
+            if (typeof find === 'function') {
+                return find(this.childNode || this);
+            }
+            return this.childNode || null;
             /* REACT_18_END */
             /* REACT_19_START */
             // return this.childNode || null;

@@ -64,13 +64,16 @@ export default class DragMove extends BaseComponent<DragMoveProps> {
                 let elementDom = this.elementRef.current;
                 if (!isHTMLElement(elementDom)) {
                     /* REACT_18_START */
-                    elementDom = ReactDOM.findDOMNode(elementDom as React.ReactInstance);
+                    const find = (ReactDOM as any).findDOMNode;
+                    if (typeof find === 'function') {
+                        elementDom = find(elementDom as React.ReactInstance);
+                    }
                     /* REACT_18_END */
                     /* REACT_19_START */
                     // console.warn(`[Semi DragMove] elementDom should be a valid DOM element. The element's ref is not returning a DOM node. This may cause dragMove positioning issues. Please ensure the element has a proper ref that returns a DOM node.`);
                     /* REACT_19_END */
                 }
-                return elementDom as HTMLElement;
+                return isHTMLElement(elementDom) ? elementDom : null;
             },
             getConstrainer: () => {
                 const { constrainer } = this.props;

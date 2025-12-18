@@ -1,5 +1,5 @@
 import React, { isValidElement, cloneElement, CSSProperties, ReactInstance } from 'react';
-import ReactDOM, { findDOMNode } from 'react-dom';
+import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { throttle, noop, get, omit, each, isEmpty, isFunction, isEqual } from 'lodash';
@@ -360,21 +360,34 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         return false;
                     }
                     let el = this.triggerEl && this.triggerEl.current;
-                    let popupEl = (this.containerEl && this.containerEl.current) as HTMLDivElement;
+                    let popupEl = (this.containerEl && this.containerEl.current) as HTMLDivElement | null;
 
                     /* REACT_18_START */
-                    el = ReactDOM.findDOMNode(el as React.ReactInstance);
+                    if (!isHTMLElement(el)) {
+                        const find = (ReactDOM as any).findDOMNode;
+                        if (typeof find === 'function') {
+                            el = find(el as React.ReactInstance);
+                        } else {
+                            el = null;
+                        }
+                    }
                     /* REACT_18_END */
                     /* REACT_19_START */
                     // el = el as HTMLElement;
                     /* REACT_19_END */
+                    if (!isHTMLElement(el)) {
+                        el = null;
+                    }
+                    if (!isHTMLElement(popupEl)) {
+                        popupEl = null;
+                    }
                     const target = e.target as Element;
-                    const path = (e as any).composedPath && (e as any).composedPath() || [target];
-                    const isClickTriggerToHide = this.props.clickTriggerToHide ? el && (el as any).contains(target) || path.includes(el) : false;
+                    const path = ((e as any).composedPath && (e as any).composedPath()) || [target];
+                    const isClickTriggerToHide = this.props.clickTriggerToHide ? (el && (el as any).contains(target) || path.includes(el)) : false;
                     if (
-                        el && !(el as any).contains(target) &&
+                        (el && !(el as any).contains(target) &&
                         popupEl && !(popupEl as any).contains(target) &&
-                        !(path.includes(popupEl) || path.includes(el)) ||
+                        !(path.includes(popupEl) || path.includes(el))) ||
                         isClickTriggerToHide
                     ) {
                         this.props.onClickOutSide(e);
@@ -454,17 +467,20 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             getContainerPosition: () => this.containerPosition,
             getContainer: () => this.containerEl && this.containerEl.current,
             getTriggerNode: () => {
-                let triggerDOM = this.triggerEl.current;
-                if (!isHTMLElement(this.triggerEl.current)) {
+                let triggerDOM: any = this.triggerEl.current;
+                if (!isHTMLElement(triggerDOM)) {
                     /* REACT_18_START */
-                    triggerDOM = ReactDOM.findDOMNode(this.triggerEl.current as React.ReactInstance);
+                    const find = (ReactDOM as any).findDOMNode;
+                    if (typeof find === 'function') {
+                        triggerDOM = find(triggerDOM as React.ReactInstance);
+                    }
                     /* REACT_18_END */
                     /* REACT_19_START */
                     // console.warn(`[Semi Tooltip] triggerDOM should be a valid DOM element. The trigger element's ref is not returning a DOM node. This may cause tooltip positioning issues. Please ensure the trigger element has a proper ref that returns a DOM node.`);
                     // triggerDOM = this.triggerEl.current;
                     /* REACT_19_END */
                 }
-                return triggerDOM as Element;
+                return isHTMLElement(triggerDOM) ? triggerDOM : null;
             },
             getFocusableElements: (node: HTMLDivElement) => {
                 return getFocusableElements(node);
@@ -486,17 +502,24 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 this.setState({ id: getUuidShort() });
             },
             getTriggerDOM: () => {
-                if (this.triggerEl.current) {
-                    /* REACT_18_START */
-                    return ReactDOM.findDOMNode(this.triggerEl.current as ReactInstance) as HTMLElement;
-                    /* REACT_18_END */
-                    /* REACT_19_START */
-                    // return this.triggerEl.current as HTMLElement;
-                    /* REACT_19_END */
-                } else {
+                const trigger = this.triggerEl.current;
+                if (!trigger) {
                     return null;
                 }
-
+                if (isHTMLElement(trigger)) {
+                    return trigger;
+                }
+                /* REACT_18_START */
+                const find = (ReactDOM as any).findDOMNode;
+                if (typeof find === 'function') {
+                    const dom = find(trigger as ReactInstance);
+                    return isHTMLElement(dom) ? dom : null;
+                }
+                /* REACT_18_END */
+                /* REACT_19_START */
+                // return this.triggerEl.current as HTMLElement;
+                /* REACT_19_END */
+                return null;
             }
         };
     }
@@ -506,17 +529,23 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         this.getPopupContainer = this.props.getPopupContainer || this.context.getPopupContainer || defaultGetContainer;
         this.foundation.init();
         runAfterTicks(() => {
-            let triggerEle = this.triggerEl.current;
-            if (triggerEle) {
-                if (!(triggerEle instanceof HTMLElement)) {
-                    /* REACT_18_START */
-                    triggerEle = findDOMNode(triggerEle as ReactInstance);
-                    /* REACT_18_END */
-                    /* REACT_19_START */
-                    // console.warn(`[Semi Tooltip] triggerEle should be a valid DOM element. The trigger element's ref is not returning a DOM node. This may cause tooltip positioning issues. Please ensure the trigger element has a proper ref that returns a DOM node.`);
-                    // triggerEle = triggerEle as HTMLElement;
-                    /* REACT_19_END */
+            let triggerEle: any = this.triggerEl.current;
+            if (triggerEle && !isHTMLElement(triggerEle)) {
+                /* REACT_18_START */
+                const find = (ReactDOM as any).findDOMNode;
+                if (typeof find === 'function') {
+                    triggerEle = find(triggerEle as ReactInstance);
+                } else {
+                    triggerEle = null;
                 }
+                /* REACT_18_END */
+                /* REACT_19_START */
+                // console.warn(`[Semi Tooltip] triggerEle should be a valid DOM element. The trigger element's ref is not returning a DOM node. This may cause tooltip positioning issues. Please ensure the trigger element has a proper ref that returns a DOM node.`);
+                // triggerEle = triggerEle as HTMLElement;
+                /* REACT_19_END */
+            }
+            if (!isHTMLElement(triggerEle)) {
+                triggerEle = null;
             }
             this.foundation.updateStateIfCursorOnTrigger(triggerEle as HTMLElement);
         }, 1);

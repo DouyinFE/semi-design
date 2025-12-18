@@ -5,7 +5,7 @@ export function clampValueInRange(value: number, min: number, max: number) {
 }
 
 export interface DragMoveAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    getDragElement: () => HTMLElement;
+    getDragElement: () => HTMLElement | null;
     getConstrainer: () => HTMLElement | null;
     getHandler: () => HTMLElement;
     notifyMouseDown?: (e: MouseEvent) => void;
