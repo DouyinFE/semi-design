@@ -276,36 +276,39 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
         return validRichText || validAttachment;
     }
 
+    handleStopGenerate = () => {
+        const { generating } = this.getProps();
+        generating && this._adapter.notifyStopGenerate();
+    }
+
     handleSend = () => {
         const { generating, transformer } = this.getProps();
         if (generating) {
-            this._adapter.notifyStopGenerate();
             return;
-        } else {
-            if (!this.canSend()) {
-                return;
-            }
-            const references = this.getProp('references');
-            const { attachments } = this.getStates();
-            const editor = this._adapter.getEditor();
-            let richTextResult = [];
-            if (editor) {
-                const json = editor.getJSON?.();
-                richTextResult = transformJSONResult(json, transformer);
-            }
-            // close popup layer for template/skill/suggestion
-            this.setState({
-                templateVisible: false,
-                skillVisible: false,
-                suggestionVisible: false,
-            });
-            this._adapter.notifyMessageSend({
-                references,
-                attachments,
-                inputContents: richTextResult,
-                setup: this._adapter.getConfigureValue() ?? {}
-            });
         }
+        if (!this.canSend()) {
+            return;
+        }
+        const references = this.getProp('references');
+        const { attachments } = this.getStates();
+        const editor = this._adapter.getEditor();
+        let richTextResult = [];
+        if (editor) {
+            const json = editor.getJSON?.();
+            richTextResult = transformJSONResult(json, transformer);
+        }
+        // close popup layer for template/skill/suggestion
+        this.setState({
+            templateVisible: false,
+            skillVisible: false,
+            suggestionVisible: false,
+        });
+        this._adapter.notifyMessageSend({
+            references,
+            attachments,
+            inputContents: richTextResult,
+            setup: this._adapter.getConfigureValue() ?? {}
+        });
     }
 
     handleContainerMouseDown = (e: React.MouseEvent) => {

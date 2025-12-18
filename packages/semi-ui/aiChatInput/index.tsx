@@ -542,7 +542,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
                 [`${prefixCls}-footer-action-stop`]: generating,
                 [`${prefixCls}-footer-action-send-disabled`]: !generating && !canSend,
             })}
-            onClick={this.foundation.handleSend}
+            onClick={generating ? this.foundation.handleStopGenerate : this.foundation.handleSend}
         >
             {generating ? <IconStop /> : <IconArrowUp />}
         </button>;
