@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+
+#### 🎉 2.89.1 (2025-12-19)
+- 【Fix】
+    - Fixed the problem in AIChatInput that when generating is true, pressing enter will incorrectly call the onStopGenerate callback [#3089](https://github.com/DouyinFE/semi-design/pull/3089)
+
 #### 🎉 2.89.0 (2025-12-05)
 - 【Fix】
     - Fixed an issue where pasting content into an empty inputSlot resulted in only text being pasted without displaying the inputSlot style  [#3049 ](https://github.com/DouyinFE/semi-design/issues/3049)

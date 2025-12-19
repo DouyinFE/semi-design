@@ -13,9 +13,13 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.89.1 (2025-12-19)
+- 【Fix】
+    - 修复 AIChatInput 中当 generating 为 true 时，按下 enter 会错误调用 onStopGenerate 回调问题 [#3089](https://github.com/DouyinFE/semi-design/pull/3089)
+
 #### 🎉 2.89.0 (2025-12-05)
 - 【Fix】
-    - 修复向空的 inputSlot 中粘贴内容时候，仅粘贴了文本，无 inputSlot 样式问题  [#3049 ](https://github.com/DouyinFE/semi-design/issues/3049) [#3050](https://github.com/DouyinFE/semi-design/pull/3050)
+    - 修复向空的 inputSlot 中粘贴内容时候，仅粘贴了文本，无 inputSlot 样式问题  [#3049](https://github.com/DouyinFE/semi-design/issues/3049) [#3050](https://github.com/DouyinFE/semi-design/pull/3050)
     - 修复当选中 inputSlot 中的所有内容并粘贴nearing时候，仅粘贴了文本，无 inputSlot 样式问题   [#3049](https://github.com/DouyinFE/semi-design/issues/3049) [#3050](https://github.com/DouyinFE/semi-design/pull/3050)
     - 修复 semi-theme-loader 在用户自定义主题的 custom.css 中有 body 选择器时，custom.css 中的内容未生效问题 [#3078](https://github.com/DouyinFE/semi-design/pull/3078)
     - 修复 React v19 下 Toast/Notification 首次调用可能出现 TypeError 的问题 [#3053](https://github.com/DouyinFE/semi-design/pull/3053)
