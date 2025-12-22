@@ -1488,7 +1488,7 @@ render(<CustomRichTextExtension />);
 | onTemplateVisibleChange | Callback for template's visibility change | (visible: boolean) => void | - |
 | onUploadChange | Callback for file upload | (props: OnChangeProps) => void | - |
 | popoverProps | Popup configuration | PopoverProps | - |
-| placeholder | Input placeholder | string | - |
+| placeholder | Input placeholder | string \| (props: <ApiType detail='{ editor: Editor; node: Node; pos: number; hasAnchor: boolean }'>PlaceholderProps</ApiType>) => string | - |
 | references | Reference list | Reference[] | - |
 | renderActionArea | Custom bottom-right operation area | () => React.ReactNode | - |
 | renderConfigureArea | Custom configuration area | () => React.ReactNode | - |

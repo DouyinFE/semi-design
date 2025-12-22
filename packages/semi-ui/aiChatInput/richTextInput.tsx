@@ -15,13 +15,14 @@ import { cssClasses } from '@douyinfe/semi-foundation/aiChatInput/constants';
 import { EditorView } from '@tiptap/pm/view';
 import { handleCompositionEndLogic, handlePasteLogic, handleTextInputLogic, handleZeroWidthCharLogic } from './extension/plugins';
 import SemiStatusExtension from './extension/statusExtension';
+import { PlaceholderProps } from './interface';
 
 const PREFIX = cssClasses.PREFIX;
 
 export default (props: {
     innerRef?: React.Ref<HTMLDivElement>;
     defaultContent?: TiptapContent;
-    placeholder?: string;
+    placeholder?: PlaceholderProps;
     setEditor?: (editor: Editor) => void;
     onKeyDown?: (e: KeyboardEvent) => void;
     onChange?: (content: string) => void;
