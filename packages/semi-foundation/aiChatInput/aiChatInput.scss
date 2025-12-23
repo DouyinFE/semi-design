@@ -523,7 +523,6 @@ $module: #{$prefix}-aiChatInput;
     
             .input-slot {
                 display: inline-block;
-                box-sizing: content-box;
                 background-color: $color-aiChatInput_rich_text-input_slot-bg;
                 border-radius: $radius-aiChatInput_rich_text-input_slot;
                 padding: $spacing-aiChatInput_rich_text-input_slot-paddingY $spacing-aiChatInput_rich_text-input_slot-paddingX;

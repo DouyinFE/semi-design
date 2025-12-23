@@ -1,0 +1,31 @@
+{
+  "name": "semi-mcp",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "test": "rstest",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4"
+  },
+  "devDependencies": {
+    "@rslib/core": "^0.18.5",
+    "@rstest/core": "^0.7.2",
+    "@types/node": "^24.10.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.9.3"
+  }
+}
