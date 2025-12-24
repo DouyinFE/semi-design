@@ -4,7 +4,7 @@ import cls from 'classnames';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/feedback/constants';
 import BaseComponent from '../_base/baseComponent';
 import { ArrayElement } from '../_base/base';
-import { TextArea, RadioGroup, CheckboxGroup, Button, Modal, SideSheet } from '..';
+import { TextArea, RadioGroup, CheckboxGroup, Button, Modal, SideSheet } from '../index';
 import { RadioGroupProps } from '../radio/radioGroup';
 import { CheckboxGroupProps } from '../checkbox/checkboxGroup';
 import { omit, noop } from 'lodash';
