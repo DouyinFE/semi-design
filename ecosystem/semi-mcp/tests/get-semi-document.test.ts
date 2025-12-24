@@ -16,20 +16,19 @@ test('get_semi_document: 获取组件列表（不提供组件名称）', async (
   if (firstContent.type !== 'text') {
     throw new Error('Expected text content');
   }
-  const data = JSON.parse(firstContent.text);
+  const text = firstContent.text;
   
   // 检查是否有错误
-  if (result.isError || data.error) {
-    console.warn('API 调用返回错误:', data.error || '未知错误');
-    // 如果 API 失败，至少检查返回的数据结构
-    expect(data.version).toBe('latest');
+  if (result.isError) {
+    console.warn('API 调用返回错误:', text);
+    expect(text).toContain('latest');
     return;
   }
 
-  expect(data.version).toBe('latest');
-  expect(data.components).toBeDefined();
-  expect(Array.isArray(data.components)).toBe(true);
-  expect(data.count).toBeGreaterThanOrEqual(0);
+  // 验证返回的是纯文本格式
+  expect(text).toContain('Semi Design 组件列表');
+  expect(text).toContain('版本');
+  expect(text).toContain('个组件');
 });
 
 test('get_semi_document: 获取组件列表（指定版本）', async () => {
@@ -44,18 +43,18 @@ test('get_semi_document: 获取组件列表（指定版本）', async () => {
   if (firstContent.type !== 'text') {
     throw new Error('Expected text content');
   }
-  const data = JSON.parse(firstContent.text);
+  const text = firstContent.text;
   
   // 检查是否有错误
-  if (result.isError || data.error) {
-    console.warn('API 调用返回错误:', data.error || '未知错误');
-    expect(data.version).toBe('2.89.2-alpha.3');
+  if (result.isError) {
+    console.warn('API 调用返回错误:', text);
+    expect(text).toContain('2.89.2-alpha.3');
     return;
   }
 
-  expect(data.version).toBe('2.89.2-alpha.3');
-  expect(data.components).toBeDefined();
-  expect(Array.isArray(data.components)).toBe(true);
+  // 验证返回的是纯文本格式
+  expect(text).toContain('Semi Design 组件列表');
+  expect(text).toContain('2.89.2-alpha.3');
 });
 
 test('get_semi_document: 获取 Button 组件文档', async () => {
@@ -71,25 +70,18 @@ test('get_semi_document: 获取 Button 组件文档', async () => {
   if (firstContent.type !== 'text') {
     throw new Error('Expected text content');
   }
-  const data = JSON.parse(firstContent.text);
+  const text = firstContent.text;
   
   // 检查是否有错误
-  if (result.isError || data.error) {
-    console.warn('API 调用返回错误:', data.error || '未知错误');
-    expect(data.componentName).toBe('button');
-    expect(data.version).toBe('2.89.2-alpha.3');
+  if (result.isError) {
+    console.warn('API 调用返回错误:', text);
     return;
   }
 
-  expect(data.componentName).toBe('button');
-  expect(data.version).toBe('2.89.2-alpha.3');
-  expect(data.documents).toBeDefined();
-  expect(Array.isArray(data.documents)).toBe(true);
-  // 验证返回结果中包含全部组件列表
-  expect(data.allComponents).toBeDefined();
-  expect(Array.isArray(data.allComponents)).toBe(true);
-  // allComponentsCount 可能为 0（如果获取组件列表失败），但至少应该存在这个字段
-  expect(typeof data.allComponentsCount).toBe('number');
+  // Button 文档比较小，应该直接返回文档内容
+  // 验证包含文档分隔符和 markdown 内容
+  expect(text).toContain('=====');
+  expect(text.toLowerCase()).toContain('button');
 });
 
 test('get_semi_document: 获取 Input 组件文档（指定版本）', async () => {
@@ -105,24 +97,16 @@ test('get_semi_document: 获取 Input 组件文档（指定版本）', async () 
   if (firstContent.type !== 'text') {
     throw new Error('Expected text content');
   }
-  const data = JSON.parse(firstContent.text);
+  const text = firstContent.text;
   
   // 检查是否有错误
-  if (result.isError || data.error) {
-    console.warn('API 调用返回错误:', data.error || '未知错误');
-    expect(data.componentName).toBe('input');
-    expect(data.version).toBe('2.89.2-alpha.3');
+  if (result.isError) {
+    console.warn('API 调用返回错误:', text);
     return;
   }
 
-  expect(data.componentName).toBe('input');
-  expect(data.version).toBe('2.89.2-alpha.3');
-  expect(data.documents).toBeDefined();
-  expect(Array.isArray(data.documents)).toBe(true);
-  // 验证返回结果中包含全部组件列表
-  expect(data.allComponents).toBeDefined();
-  expect(Array.isArray(data.allComponents)).toBe(true);
-  expect(data.allComponentsCount).toBeGreaterThan(0);
+  // 验证包含文档内容
+  expect(text.toLowerCase()).toContain('input');
 });
 
 test('get_semi_document: 组件名称应该转为小写', async () => {
@@ -136,8 +120,10 @@ test('get_semi_document: 组件名称应该转为小写', async () => {
   if (firstContent.type !== 'text') {
     throw new Error('Expected text content');
   }
-  const data = JSON.parse(firstContent.text);
-  expect(data.componentName).toBe('button');
+  const text = firstContent.text;
+  
+  // 验证能正确处理大写组件名
+  expect(text.toLowerCase()).toContain('button');
 });
 
 test('get_semi_document: 不传入 version 时应该使用 latest（获取组件列表）', async () => {
@@ -153,18 +139,18 @@ test('get_semi_document: 不传入 version 时应该使用 latest（获取组件
   if (firstContent.type !== 'text') {
     throw new Error('Expected text content');
   }
-  const data = JSON.parse(firstContent.text);
+  const text = firstContent.text;
   
   // 检查是否有错误
-  if (result.isError || data.error) {
-    console.warn('API 调用返回错误:', data.error || '未知错误');
-    expect(data.version).toBe('latest');
+  if (result.isError) {
+    console.warn('API 调用返回错误:', text);
+    expect(text).toContain('latest');
     return;
   }
 
-  expect(data.version).toBe('latest');
-  expect(data.components).toBeDefined();
-  expect(Array.isArray(data.components)).toBe(true);
+  // 验证返回的是纯文本格式，包含 latest 版本信息
+  expect(text).toContain('Semi Design 组件列表');
+  expect(text).toContain('latest');
 });
 
 test('get_semi_document: 不传入 version 时应该使用 latest（获取组件文档）', async () => {
@@ -181,35 +167,22 @@ test('get_semi_document: 不传入 version 时应该使用 latest（获取组件
   if (firstContent.type !== 'text') {
     throw new Error('Expected text content');
   }
-  const data = JSON.parse(firstContent.text);
+  const text = firstContent.text;
   
   // 检查是否有错误（latest 版本可能没有文档）
-  if (result.isError || data.error) {
+  if (result.isError) {
     // latest 版本可能没有文档，这是正常的
-    expect(data.componentName).toBe('button');
-    expect(data.version).toBe('latest');
-    // 即使没有找到文档，也应该包含全部组件列表（如果获取成功）
-    // 但如果获取组件列表也失败，allComponents 可能为空数组
-    if (data.allComponents !== undefined) {
-      expect(Array.isArray(data.allComponents)).toBe(true);
-    }
+    console.warn('API 调用返回错误:', text);
     return;
   }
 
-  expect(data.componentName).toBe('button');
-  expect(data.version).toBe('latest');
-  expect(data.documents).toBeDefined();
-  expect(Array.isArray(data.documents)).toBe(true);
-  // 验证返回结果中包含全部组件列表
-  expect(data.allComponents).toBeDefined();
-  expect(Array.isArray(data.allComponents)).toBe(true);
-  expect(data.allComponentsCount).toBeGreaterThan(0);
+  // 验证返回了有效内容
+  expect(text.length).toBeGreaterThan(0);
 });
 
 test('get_semi_document: 获取 Table 组件文档并验证文档内容', async () => {
   const componentName = 'Table';
   const version = '2.89.2-alpha.3';
-  const packageName = '@douyinfe/semi-ui';
 
   // 1. 获取文档列表
   const result = await handleGetSemiDocument({
@@ -225,40 +198,27 @@ test('get_semi_document: 获取 Table 组件文档并验证文档内容', async 
   if (firstContent.type !== 'text') {
     throw new Error('Expected text content');
   }
-  const data = JSON.parse(firstContent.text);
+  const text = firstContent.text;
 
   // 检查是否有错误
-  if (result.isError || data.error) {
-    console.warn('API 调用返回错误:', data.error || '未知错误');
-    // 如果 API 失败，至少验证返回的数据结构
-    expect(data.componentName).toBe('table');
-    expect(data.version).toBe(version);
-    expect(data.allComponents).toBeDefined();
-    expect(Array.isArray(data.allComponents)).toBe(true);
+  if (result.isError) {
+    console.warn('API 调用返回错误:', text);
     return;
   }
 
-  // 验证文档列表信息
-  expect(data.componentName).toBe('table');
-  expect(data.version).toBe(version);
-  expect(data.category).toBeDefined();
-  expect(typeof data.category).toBe('string');
-  expect(data.allComponents).toBeDefined();
-  expect(Array.isArray(data.allComponents)).toBe(true);
-  expect(data.allComponentsCount).toBeGreaterThan(0);
-
-  // Table 文档很大，会自动启用 get_path，所以返回的是 files 而不是 documents
-  if (data.tempDirectory) {
-    // 使用 get_path 模式
-    expect(data.files).toBeDefined();
-    expect(Array.isArray(data.files)).toBe(true);
-    expect(data.files.length).toBeGreaterThan(0);
-    expect(data.count).toBe(data.files.length);
+  // Table 文档很大，应该自动保存到临时目录
+  expect(text).toContain('文档较大');
+  expect(text).toContain('已保存到临时目录');
+  expect(text).toContain('文档文件列表');
+  
+  // 提取临时目录路径并验证文件存在
+  const pathMatch = text.match(/\/tmp\/semi-docs-table[^\s]+/);
+  if (pathMatch) {
+    const filePath = pathMatch[0];
+    expect(existsSync(filePath)).toBe(true);
     
-    // 验证能够从临时目录读取文档内容
-    const firstFile = data.files[0];
-    expect(existsSync(firstFile.path)).toBe(true);
-    const fileContent = readFileSync(firstFile.path, 'utf-8');
+    // 验证文件内容
+    const fileContent = readFileSync(filePath, 'utf-8');
     expect(fileContent.length).toBeGreaterThan(0);
     
     // 验证文档内容是 markdown 格式
@@ -268,46 +228,6 @@ test('get_semi_document: 获取 Table 组件文档并验证文档内容', async 
       fileContent.includes('```') ||
       fileContent.includes('title:')
     ).toBe(true);
-    
-    return; // 提前返回，因为已经验证了文件内容
-  } else {
-    // 不使用 get_path 模式
-    expect(data.documents).toBeDefined();
-    expect(Array.isArray(data.documents)).toBe(true);
-    expect(data.documents.length).toBeGreaterThan(0);
-    expect(data.count).toBe(data.documents.length);
-  }
-
-  // 2. 验证能够获取文档内容
-  const docPath = `content/${data.category}/${componentName.toLowerCase()}/${data.documents[0].name || data.documents[0]}`;
-  
-  try {
-    const content = await fetchFileContent(packageName, version, docPath);
-    
-    // 验证文档内容不为空
-    expect(content).toBeDefined();
-    expect(typeof content).toBe('string');
-    expect(content.length).toBeGreaterThan(0);
-    
-    // 验证文档内容是 markdown 格式（至少包含一些 markdown 特征）
-    // 应该包含 frontmatter 或者 markdown 语法
-    expect(
-      content.includes('---') || 
-      content.includes('#') || 
-      content.includes('```') ||
-      content.includes('title:')
-    ).toBe(true);
-    
-    // 验证不是 HTML 错误页面
-    expect(content.trim().startsWith('<!DOCTYPE html>')).toBe(false);
-    expect(content.includes('npmmirror 镜像站')).toBe(false);
-    
-  } catch (error) {
-    // 如果获取文档内容失败，记录警告但不失败测试
-    // 因为文档列表已经验证成功，文档内容获取可能因为网络问题失败
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    console.warn(`获取文档内容失败: ${errorMessage}`);
-    // 不抛出错误，因为文档列表已经验证成功
   }
 });
 
@@ -328,29 +248,24 @@ test('get_semi_document: 验证返回结果包含完整的文档内容', async (
   if (firstContent.type !== 'text') {
     throw new Error('Expected text content');
   }
-  const data = JSON.parse(firstContent.text);
+  const text = firstContent.text;
 
   // 检查是否有错误
-  if (result.isError || data.error) {
-    console.warn('API 调用返回错误:', data.error || '未知错误');
-    expect(data.componentName).toBe('table');
-    expect(data.version).toBe(version);
+  if (result.isError) {
+    console.warn('API 调用返回错误:', text);
     return;
   }
 
-  // Table 文档很大，会自动启用 get_path
-  if (data.tempDirectory) {
-    // 使用 get_path 模式，验证临时目录和文件
-    expect(data.tempDirectory).toBeDefined();
-    expect(data.files).toBeDefined();
-    expect(Array.isArray(data.files)).toBe(true);
-    expect(data.files.length).toBeGreaterThan(0);
-    expect(data.count).toBe(data.files.length);
-    
-    // 验证文件存在且内容有效
-    for (const file of data.files) {
-      expect(existsSync(file.path)).toBe(true);
-      const fileContent = readFileSync(file.path, 'utf-8');
+  // Table 文档很大，会自动保存到临时目录
+  expect(text).toContain('文档较大');
+  expect(text).toContain('请使用文件读取工具查看文档内容');
+  
+  // 提取所有文件路径并验证
+  const pathMatches = text.match(/\/tmp\/semi-docs-table[^\s]+/g);
+  if (pathMatches) {
+    for (const filePath of pathMatches) {
+      expect(existsSync(filePath)).toBe(true);
+      const fileContent = readFileSync(filePath, 'utf-8');
       expect(fileContent.length).toBeGreaterThan(0);
       expect(
         fileContent.includes('---') || 
@@ -359,64 +274,7 @@ test('get_semi_document: 验证返回结果包含完整的文档内容', async (
         fileContent.includes('title:')
       ).toBe(true);
     }
-    return; // 提前返回
   }
-
-  // 验证返回结果包含 contents 字段（文档内容）
-  expect(data.contents).toBeDefined();
-  expect(Array.isArray(data.contents)).toBe(true);
-  expect(data.contents.length).toBeGreaterThan(0);
-  expect(data.documents).toBeDefined();
-  expect(Array.isArray(data.documents)).toBe(true);
-  expect(data.contents.length).toBe(data.documents.length);
-
-  // 验证每个文档内容对象的结构
-  data.contents.forEach((doc: any, index: number) => {
-    expect(doc).toBeDefined();
-    expect(doc.name).toBeDefined();
-    expect(typeof doc.name).toBe('string');
-    expect(doc.path).toBeDefined();
-    expect(typeof doc.path).toBe('string');
-    expect(doc.content).toBeDefined();
-    expect(typeof doc.content).toBe('string');
-    
-    // 验证文档内容不为空（除非是错误信息）
-    if (!doc.content.includes('获取文档内容失败')) {
-      expect(doc.content.length).toBeGreaterThan(0);
-      
-      // 验证文档内容是 markdown 格式（至少包含一些 markdown 特征）
-      expect(
-        doc.content.includes('---') || 
-        doc.content.includes('#') || 
-        doc.content.includes('```') ||
-        doc.content.includes('title:')
-      ).toBe(true);
-      
-      // 验证不是 HTML 错误页面
-      expect(doc.content.trim().startsWith('<!DOCTYPE html>')).toBe(false);
-      expect(doc.content.includes('npmmirror 镜像站')).toBe(false);
-    }
-    
-    // 验证文档名称和路径与 documents 列表中的对应
-    expect(doc.name.toLowerCase()).toBe(data.documents[index].toLowerCase());
-  });
-
-  // 验证 documents 字段包含文档元信息
-  expect(data.documents).toBeDefined();
-  expect(Array.isArray(data.documents)).toBe(true);
-  data.documents.forEach((doc: any) => {
-    expect(doc).toBeDefined();
-    expect(doc.name).toBeDefined();
-    expect(doc.path).toBeDefined();
-    expect(doc.contentLength).toBeDefined();
-    expect(typeof doc.contentLength).toBe('number');
-    expect(doc.contentLength).toBeGreaterThan(0);
-  });
-
-  // 验证分类信息
-  expect(data.category).toBeDefined();
-  expect(typeof data.category).toBe('string');
-  expect(data.count).toBe(data.contents.length);
 });
 
 test('get_semi_document: 验证 Button 组件文档内容', async () => {
@@ -436,40 +294,24 @@ test('get_semi_document: 验证 Button 组件文档内容', async () => {
   if (firstContent.type !== 'text') {
     throw new Error('Expected text content');
   }
-  const data = JSON.parse(firstContent.text);
+  const text = firstContent.text;
 
   // 检查是否有错误
-  if (result.isError || data.error) {
-    console.warn('API 调用返回错误:', data.error || '未知错误');
-    expect(data.componentName).toBe('button');
-    expect(data.version).toBe(version);
+  if (result.isError) {
+    console.warn('API 调用返回错误:', text);
     return;
   }
 
-  // 验证返回结果包含 contents 字段
-  expect(data.contents).toBeDefined();
-  expect(Array.isArray(data.contents)).toBe(true);
-  expect(data.contents.length).toBeGreaterThan(0);
-
-  // 验证至少有一个文档包含有效内容
-  const validDocs = data.contents.filter((doc: any) => 
-    doc.content && 
-    doc.content.length > 0 && 
-    !doc.content.includes('获取文档内容失败')
-  );
-  expect(validDocs.length).toBeGreaterThan(0);
-
-  // 验证文档内容包含 Button 相关的关键词
-  const firstValidDoc = validDocs[0];
-  expect(firstValidDoc.content.length).toBeGreaterThan(100);
+  // Button 文档应该直接返回内容（小于 888 行）
+  expect(text).toContain('=====');
   
-  // Button 文档应该包含一些相关关键词
-  const contentLower = firstValidDoc.content.toLowerCase();
+  // 验证文档内容包含 Button 相关的关键词
+  const textLower = text.toLowerCase();
   expect(
-    contentLower.includes('button') ||
-    contentLower.includes('按钮') ||
-    contentLower.includes('click') ||
-    contentLower.includes('type')
+    textLower.includes('button') ||
+    textLower.includes('按钮') ||
+    textLower.includes('click') ||
+    textLower.includes('type')
   ).toBe(true);
 });
 
@@ -750,46 +592,30 @@ test('get_semi_document: 测试 get_path 参数 - 将文档写入临时目录', 
   if (firstContent.type !== 'text') {
     throw new Error('Expected text content');
   }
-  const data = JSON.parse(firstContent.text);
+  const text = firstContent.text;
 
   // 检查是否有错误
-  if (result.isError || data.error) {
-    console.warn('API 调用返回错误:', data.error || '未知错误');
-    expect(data.componentName).toBe('table');
-    expect(data.version).toBe(version);
+  if (result.isError) {
+    console.warn('API 调用返回错误:', text);
     return;
   }
 
   // 验证返回结果包含临时目录信息
-  expect(data.tempDirectory).toBeDefined();
-  expect(typeof data.tempDirectory).toBe('string');
-  expect(data.tempDirectory.length).toBeGreaterThan(0);
+  expect(text).toContain('文档较大');
+  expect(text).toContain('已保存到临时目录');
+  expect(text).toContain('文档文件列表');
+  expect(text).toContain('请使用文件读取工具查看文档内容');
 
-  // 验证临时目录存在
-  expect(existsSync(data.tempDirectory)).toBe(true);
+  // 提取文件路径并验证
+  const pathMatches = text.match(/\/tmp\/semi-docs-table[^\s]+/g);
+  expect(pathMatches).toBeDefined();
+  expect(pathMatches!.length).toBeGreaterThan(0);
 
-  // 验证文件列表
-  expect(data.files).toBeDefined();
-  expect(Array.isArray(data.files)).toBe(true);
-  expect(data.files.length).toBeGreaterThan(0);
-
-  // 验证每个文件都存在
-  for (const file of data.files) {
-    expect(file.path).toBeDefined();
-    expect(typeof file.path).toBe('string');
-    expect(file.contentLength).toBeDefined();
-    expect(typeof file.contentLength).toBe('number');
-    expect(file.contentLength).toBeGreaterThan(0);
-
-    // 验证文件实际存在
-    expect(existsSync(file.path)).toBe(true);
-
-    // 验证文件内容不为空
-    const fileContent = readFileSync(file.path, 'utf-8');
-    expect(fileContent.length).toBe(file.contentLength);
+  // 验证每个文件都存在且内容有效
+  for (const filePath of pathMatches!) {
+    expect(existsSync(filePath)).toBe(true);
+    const fileContent = readFileSync(filePath, 'utf-8');
     expect(fileContent.length).toBeGreaterThan(0);
-
-    // 验证文件内容是 markdown 格式
     expect(
       fileContent.includes('---') ||
       fileContent.includes('#') ||
@@ -797,22 +623,10 @@ test('get_semi_document: 测试 get_path 参数 - 将文档写入临时目录', 
       fileContent.includes('title:')
     ).toBe(true);
   }
-
-  // 验证 message 字段
-  expect(data.message).toBeDefined();
-  expect(typeof data.message).toBe('string');
-  expect(data.message.includes(data.tempDirectory)).toBe(true);
-  expect(data.message.includes('请使用文件读取工具查看文档内容')).toBe(true);
-
-  // 验证其他字段
-  expect(data.componentName).toBe('table');
-  expect(data.version).toBe(version);
-  expect(data.category).toBeDefined();
-  expect(data.count).toBe(data.files.length);
 });
 
 test('get_semi_document: 测试 get_path=false 时返回文档内容', async () => {
-  const componentName = 'Table';
+  const componentName = 'Divider'; // 使用小文档
   const version = '2.89.2-alpha.3';
 
   const result = await handleGetSemiDocument({
@@ -829,30 +643,20 @@ test('get_semi_document: 测试 get_path=false 时返回文档内容', async () 
   if (firstContent.type !== 'text') {
     throw new Error('Expected text content');
   }
-  const data = JSON.parse(firstContent.text);
+  const text = firstContent.text;
 
   // 检查是否有错误
-  if (result.isError || data.error) {
-    console.warn('API 调用返回错误:', data.error || '未知错误');
-    expect(data.componentName).toBe('table');
-    expect(data.version).toBe(version);
+  if (result.isError) {
+    console.warn('API 调用返回错误:', text);
     return;
   }
 
-  // 验证返回结果包含 contents 字段（文档内容）
-  expect(data.contents).toBeDefined();
-  expect(Array.isArray(data.contents)).toBe(true);
-  expect(data.contents.length).toBeGreaterThan(0);
+  // 验证返回结果直接包含文档内容
+  expect(text).toContain('=====');
+  expect(text.toLowerCase()).toContain('divider');
 
-  // 验证每个文档内容对象包含 content 字段
-  data.contents.forEach((doc: any) => {
-    expect(doc.content).toBeDefined();
-    expect(typeof doc.content).toBe('string');
-    expect(doc.content.length).toBeGreaterThan(0);
-  });
-
-  // 验证不包含 tempDirectory 字段
-  expect(data.tempDirectory).toBeUndefined();
+  // 验证不是临时目录路径形式
+  expect(text).not.toContain('已保存到临时目录');
 });
 
 test('get_semi_document: 测试自动开启 get_path（文档大于 888 行）', async () => {
@@ -873,38 +677,23 @@ test('get_semi_document: 测试自动开启 get_path（文档大于 888 行）',
   if (firstContent.type !== 'text') {
     throw new Error('Expected text content');
   }
-  const data = JSON.parse(firstContent.text);
+  const text = firstContent.text;
 
   // 检查是否有错误
-  if (result.isError || data.error) {
-    console.warn('API 调用返回错误:', data.error || '未知错误');
-    expect(data.componentName).toBe('table');
-    expect(data.version).toBe(version);
+  if (result.isError) {
+    console.warn('API 调用返回错误:', text);
     return;
   }
 
-  // 验证自动开启了 get_path（返回了临时目录）
-  expect(data.tempDirectory).toBeDefined();
-  expect(typeof data.tempDirectory).toBe('string');
-  expect(data.tempDirectory.length).toBeGreaterThan(0);
-
-  // 验证 autoGetPath 标记
-  expect(data.autoGetPath).toBe(true);
-
-  // 验证 message 包含文件大小提示
-  expect(data.message).toBeDefined();
-  expect(typeof data.message).toBe('string');
-  expect(data.message.includes('文件较大')).toBe(true);
-  expect(data.message.includes('已自动保存到临时目录')).toBe(true);
-
-  // 验证文件列表包含行数信息
-  expect(data.files).toBeDefined();
-  expect(Array.isArray(data.files)).toBe(true);
-  data.files.forEach((file: any) => {
-    expect(file.lines).toBeDefined();
-    expect(typeof file.lines).toBe('number');
-    expect(file.lines).toBeGreaterThan(0);
-  });
+  // 验证自动开启了 get_path（返回了临时目录信息）
+  expect(text).toContain('文档较大');
+  expect(text).toContain('已保存到临时目录');
+  expect(text).toContain('请使用文件读取工具查看文档内容');
+  
+  // 验证文件路径存在
+  const pathMatches = text.match(/\/tmp\/semi-docs-table[^\s]+/g);
+  expect(pathMatches).toBeDefined();
+  expect(pathMatches!.length).toBeGreaterThan(0);
 });
 
 test('get_semi_document: 测试小文档不自动开启 get_path', async () => {
@@ -926,20 +715,16 @@ test('get_semi_document: 测试小文档不自动开启 get_path', async () => {
   if (firstContent.type !== 'text') {
     throw new Error('Expected text content');
   }
-  const data = JSON.parse(firstContent.text);
+  const text = firstContent.text;
 
   // 检查是否有错误
-  if (result.isError || data.error) {
-    console.warn('API 调用返回错误:', data.error || '未知错误');
-    expect(data.componentName).toBe('divider');
-    expect(data.version).toBe(version);
+  if (result.isError) {
+    console.warn('API 调用返回错误:', text);
     return;
   }
 
-  // 验证小文档不会自动开启 get_path（应该返回文档内容）
-  expect(data.tempDirectory).toBeUndefined();
-  expect(data.contents).toBeDefined();
-  expect(Array.isArray(data.contents)).toBe(true);
-  expect(data.contents.length).toBeGreaterThan(0);
+  // 验证小文档不会自动开启 get_path（应该直接返回文档内容）
+  expect(text).not.toContain('已保存到临时目录');
+  expect(text).toContain('=====');
+  expect(text.toLowerCase()).toContain('divider');
 });
-

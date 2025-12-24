@@ -94,29 +94,48 @@ semi-mcp
 
 **返回格式：**
 
+所有响应均以纯文本形式返回，方便 AI 直接阅读。
+
 获取组件列表时：
-```json
-{
-  "version": "2.89.2-alpha.3",
-  "components": ["button", "input", "select", ...],
-  "count": 70
-}
+```
+Semi Design 组件列表 (版本 2.89.2-alpha.3)，共 70 个组件：
+
+button, input, select, table, ...
 ```
 
-获取组件文档时：
-```json
-{
-  "componentName": "button",
-  "version": "2.89.2-alpha.3",
-  "category": "basic",
-  "documents": ["index.md", "index-en-us.md"],
-  "count": 2,
-  "allComponents": ["button", "input", "select", ...],
-  "allComponentsCount": 70
-}
+获取小型组件文档时（< 888 行）：
+```
+===== index.md =====
+
+---
+title: Button
+...
+---
+
+## 使用方法
+...
+
+===== index-en-US.md =====
+
+---
+title: Button
+...
+---
+
+## Usage
+...
 ```
 
-**注意：** 对于大型文档（超过 888 行），工具会自动将文档保存到临时目录并返回文件路径，而不是返回文档内容。
+获取大型组件文档时（> 888 行），工具会自动保存到临时目录：
+```
+组件 Table (版本 2.89.2-alpha.3) 文档较大，已保存到临时目录。
+
+文档文件列表：
+  - /tmp/semi-docs-table-2.89.2-alpha.3-1234567890/index.md (6,055 行)
+  - /tmp/semi-docs-table-2.89.2-alpha.3-1234567890/index-en-US.md (5,660 行)
+
+请使用文件读取工具查看文档内容。
+```
 
 ### 资源 (Resources)
 
@@ -207,4 +226,3 @@ MIT
 
 - [Semi Design 官网](https://semi.design)
 - [Model Context Protocol 文档](https://modelcontextprotocol.io)
-

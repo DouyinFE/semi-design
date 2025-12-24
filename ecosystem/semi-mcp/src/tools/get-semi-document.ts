@@ -53,15 +53,15 @@ async function getComponentDocuments(
         return null;
     }
 
-    // 从文件路径中查找匹配的组件文档
+    // 从文件路径中查找匹配的组件文档（只要中文文档 index.md）
     // 路径格式：/content/{category}/{componentName}/index.md
     const componentFiles = contentFiles.filter((file) => {
         if (file.type !== 'file') {
             return false;
         }
         const path = file.path.toLowerCase();
-        // 匹配路径：content/{category}/{componentName}/文件名
-        const pathPattern = new RegExp(`/content/[^/]+/${componentNameLower}/[^/]+$`);
+        // 只匹配中文文档 index.md，排除 index-en-US.md
+        const pathPattern = new RegExp(`/content/[^/]+/${componentNameLower}/index\\.md$`);
         return pathPattern.test(path);
     });
 
@@ -141,16 +141,7 @@ export async function handleGetSemiDocument(
                     content: [
                         {
                             type: 'text',
-                            text: JSON.stringify(
-                                {
-                                    version,
-                                    error: `未找到组件列表，请检查版本号 ${version} 是否正确`,
-                                    components: [],
-                                    count: 0,
-                                },
-                                null,
-                                2
-                            ),
+                            text: `未找到组件列表，请检查版本号 ${version} 是否正确`,
                         },
                     ],
                     isError: true,
@@ -161,15 +152,7 @@ export async function handleGetSemiDocument(
                 content: [
                     {
                         type: 'text',
-                        text: JSON.stringify(
-                            {
-                                version,
-                                components,
-                                count: components.length,
-                            },
-                            null,
-                            2
-                        ),
+                        text: `Semi Design 组件列表 (版本 ${version})，共 ${components.length} 个组件：\n\n${components.join(', ')}`,
                     },
                 ],
             };
@@ -185,19 +168,7 @@ export async function handleGetSemiDocument(
                     content: [
                         {
                             type: 'text',
-                            text: JSON.stringify(
-                                {
-                                    componentName: componentName.toLowerCase(),
-                                    version,
-                                    error: '未找到组件文档',
-                                    documents: [],
-                                    count: 0,
-                                    allComponents,
-                                    allComponentsCount: allComponents.length,
-                                },
-                                null,
-                                2
-                            ),
+                            text: `未找到组件 "${componentName}" 的文档 (版本 ${version})。\n\n可用组件列表：${allComponents.join(', ')}`,
                         },
                     ],
                 };
@@ -225,84 +196,43 @@ export async function handleGetSemiDocument(
                 await mkdir(tempDir, { recursive: true });
 
                 // 写入所有文档文件
-                const filePaths: string[] = [];
                 for (const doc of result.documents) {
                     const filePath = join(tempDir, doc.name);
                     await writeFile(filePath, doc.content, 'utf-8');
-                    filePaths.push(filePath);
                 }
 
-                // 构建提示信息
-                const largeDocs = documentsWithLines.filter(doc => doc.lines > 888);
-                let message = `文档已保存到临时目录: ${tempDir}\n请使用文件读取工具查看文档内容。`;
+                // 构建纯文本提示信息
+                const fileList = documentsWithLines.map(doc => 
+                    `  - ${join(tempDir, doc.name)} (${doc.lines.toLocaleString()} 行)`
+                ).join('\n');
                 
-                if (hasLargeDocument && !userExplicitlySetGetPath) {
-                    // 自动开启的情况，添加文件大小提示
-                    const largeDocNames = largeDocs.map(doc => `${doc.name} (${doc.lines.toLocaleString()} 行)`).join(', ');
-                    message = `文档已保存到临时目录: ${tempDir}\n注意：以下文档文件较大，已自动保存到临时目录：${largeDocNames}\n请使用文件读取工具查看文档内容。`;
-                } else if (hasLargeDocument) {
-                    // 用户明确设置 get_path 的情况
-                    const largeDocNames = largeDocs.map(doc => `${doc.name} (${doc.lines.toLocaleString()} 行)`).join(', ');
-                    message = `文档已保存到临时目录: ${tempDir}\n注意：以下文档文件较大：${largeDocNames}\n请使用文件读取工具查看文档内容。`;
-                }
+                const message = `组件 ${componentName} (版本 ${version}) 文档较大，已保存到临时目录。
+
+文档文件列表：
+${fileList}
+
+请使用文件读取工具查看文档内容。`;
 
                 return {
                     content: [
                         {
                             type: 'text',
-                            text: JSON.stringify(
-                                {
-                                    componentName: componentName.toLowerCase(),
-                                    version,
-                                    category: result.category,
-                                    tempDirectory: tempDir,
-                                    files: documentsWithLines.map(doc => ({
-                                        name: doc.name,
-                                        path: join(tempDir, doc.name),
-                                        contentLength: doc.content.length,
-                                        lines: doc.lines,
-                                    })),
-                                    count: result.documents.length,
-                                    message,
-                                    autoGetPath: hasLargeDocument && !userExplicitlySetGetPath, // 标记是否自动开启
-                                    allComponents,
-                                    allComponentsCount: allComponents.length,
-                                },
-                                null,
-                                2
-                            ),
+                            text: message,
                         },
                     ],
                 };
             }
 
-            // 默认返回文档内容
+            // 默认直接返回文档内容（纯文本）
+            const docContents = result.documents.map(doc => {
+                return `===== ${doc.name} =====\n\n${doc.content}`;
+            }).join('\n\n');
+
             return {
                 content: [
                     {
                         type: 'text',
-                        text: JSON.stringify(
-                            {
-                                componentName: componentName.toLowerCase(),
-                                version,
-                                category: result.category,
-                                documents: result.documents.map(doc => ({
-                                    name: doc.name,
-                                    path: doc.path,
-                                    contentLength: doc.content.length,
-                                })),
-                                contents: result.documents.map(doc => ({
-                                    name: doc.name,
-                                    path: doc.path,
-                                    content: doc.content,
-                                })),
-                                count: result.documents.length,
-                                allComponents,
-                                allComponentsCount: allComponents.length,
-                            },
-                            null,
-                            2
-                        ),
+                        text: docContents,
                     },
                 ],
             };
@@ -314,15 +244,7 @@ export async function handleGetSemiDocument(
             content: [
                 {
                     type: 'text',
-                    text: JSON.stringify(
-                        {
-                            error: errorMessage,
-                            componentName: componentName?.toLowerCase(),
-                            version,
-                        },
-                        null,
-                        2
-                    ),
+                    text: `获取文档失败: ${errorMessage}`,
                 },
             ],
             isError: true,

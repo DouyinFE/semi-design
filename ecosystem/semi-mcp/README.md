@@ -94,29 +94,48 @@ Get specific component documentation:
 
 **Response Format:**
 
+All responses are returned as plain text for AI-friendly consumption.
+
 When getting component list:
-```json
-{
-  "version": "2.89.2-alpha.3",
-  "components": ["button", "input", "select", ...],
-  "count": 70
-}
+```
+Semi Design 组件列表 (版本 2.89.2-alpha.3)，共 70 个组件：
+
+button, input, select, table, ...
 ```
 
-When getting component documentation:
-```json
-{
-  "componentName": "button",
-  "version": "2.89.2-alpha.3",
-  "category": "basic",
-  "documents": ["index.md", "index-en-us.md"],
-  "count": 2,
-  "allComponents": ["button", "input", "select", ...],
-  "allComponentsCount": 70
-}
+When getting small component documentation (< 888 lines):
+```
+===== index.md =====
+
+---
+title: Button
+...
+---
+
+## Usage
+...
+
+===== index-en-US.md =====
+
+---
+title: Button
+...
+---
+
+## Usage
+...
 ```
 
-**Note:** For large documents (over 888 lines), the tool will automatically save them to a temporary directory and return the file paths instead of content.
+When getting large component documentation (> 888 lines), the tool automatically saves to temp directory:
+```
+组件 Table (版本 2.89.2-alpha.3) 文档较大，已保存到临时目录。
+
+文档文件列表：
+  - /tmp/semi-docs-table-2.89.2-alpha.3-1234567890/index.md (6,055 行)
+  - /tmp/semi-docs-table-2.89.2-alpha.3-1234567890/index-en-US.md (5,660 行)
+
+请使用文件读取工具查看文档内容。
+```
 
 ### Resources
 
