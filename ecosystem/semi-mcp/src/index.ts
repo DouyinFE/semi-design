@@ -9,6 +9,7 @@ import {
   ReadResourceRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 import { tools, toolHandlers } from './tools/index.js';
+import { getComponentList } from './utils/get-component-list.js';
 
 /**
  * Semi MCP Server
@@ -67,23 +68,53 @@ async function main() {
   server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
     const { uri } = request.params;
 
-    if (uri === 'semi://components') {
-      return {
-        contents: [
-          {
-            uri,
-            mimeType: 'application/json',
-            text: JSON.stringify(
-              {
-                components: ['Button', 'Input', 'Select', 'Table', 'Form'],
-                description: 'Semi Design 组件列表',
-              },
-              null,
-              2
-            ),
-          },
-        ],
-      };
+    if (uri === 'semi://components' || uri.startsWith('semi://components')) {
+      // 默认使用 latest 版本，资源 URI 不支持查询参数，所以固定使用 latest
+      // 如果需要指定版本，应该使用工具 get_semi_document
+      const version = 'latest';
+      
+      try {
+        const components = await getComponentList(version);
+        return {
+          contents: [
+            {
+              uri,
+              mimeType: 'application/json',
+              text: JSON.stringify(
+                {
+                  version,
+                  components,
+                  count: components.length,
+                  description: 'Semi Design 组件列表',
+                  note: '如需指定版本，请使用 get_semi_document 工具',
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        return {
+          contents: [
+            {
+              uri,
+              mimeType: 'application/json',
+              text: JSON.stringify(
+                {
+                  version,
+                  error: errorMessage,
+                  components: [],
+                  count: 0,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
     }
 
     throw new Error(`未知的资源 URI: ${uri}`);

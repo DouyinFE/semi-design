@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-mcp",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "description": "Semi Design MCP Server - Model Context Protocol server for Semi Design components and documentation",
   "type": "module",
   "main": "./dist/index.js",

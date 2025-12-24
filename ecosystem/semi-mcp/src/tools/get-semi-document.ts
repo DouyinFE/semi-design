@@ -1,6 +1,7 @@
 import { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { fetchDirectoryList } from '../utils/fetch-directory-list.js';
+import { getComponentList } from '../utils/get-component-list.js';
 
 /**
  * 工具定义：获取 Semi Design 组件文档
@@ -23,32 +24,6 @@ export const getSemiDocumentTool: Tool = {
         required: [],
     },
 };
-
-
-/**
- * 获取组件列表（从 lib 文件夹）
- */
-async function getComponentList(version: string): Promise<string[]> {
-    const packageName = '@douyinfe/semi-ui';
-    const files = await fetchDirectoryList(packageName, version, 'lib');
-
-    if (!files || files.length === 0) {
-        return [];
-    }
-
-    // 提取文件夹名称，转为小写
-    const components = files
-        .filter((file) => file.type === 'directory')
-        .map((file) => {
-            // 路径格式可能是 "lib/Button" 或 "Button"
-            const parts = file.path.split('/');
-            const componentName = parts[parts.length - 1] || parts[0];
-            return componentName.toLowerCase();
-        })
-        .filter((name) => name && name !== 'lib'); // 过滤掉空值和 lib 本身
-
-    return Array.from(new Set(components)).sort(); // 去重并排序
-}
 
 /**
  * 获取组件文档列表（从 content 文件夹）
@@ -139,6 +114,28 @@ export async function handleGetSemiDocument(
         if (!componentName) {
             // 返回组件列表
             const components = await getComponentList(version);
+            
+            if (components.length === 0) {
+                return {
+                    content: [
+                        {
+                            type: 'text',
+                            text: JSON.stringify(
+                                {
+                                    version,
+                                    error: `未找到组件列表，请检查版本号 ${version} 是否正确`,
+                                    components: [],
+                                    count: 0,
+                                },
+                                null,
+                                2
+                            ),
+                        },
+                    ],
+                    isError: true,
+                };
+            }
+            
             return {
                 content: [
                     {
