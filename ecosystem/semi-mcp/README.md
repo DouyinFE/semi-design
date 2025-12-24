@@ -1,38 +1,40 @@
+[中文](README-zh_CN.md) | [English](README.md)
+
 # Semi MCP Server
 
-基于 Model Context Protocol (MCP) SDK 实现的 MCP 服务器，提供 Semi Design 组件文档和组件列表查询功能。
+An MCP (Model Context Protocol) server implementation based on the MCP SDK, providing Semi Design component documentation and component list query functionality.
 
-## 简介
+## Introduction
 
-Semi MCP Server 是一个 MCP (Model Context Protocol) 服务器，通过 stdio 传输层与支持 MCP 协议的客户端通信。它提供了获取 Semi Design 组件文档、组件列表等功能。
+Semi MCP Server is an MCP (Model Context Protocol) server that communicates with MCP-compatible clients through stdio transport. It provides functionality to fetch Semi Design component documentation, component lists, and more.
 
-## 安装
+## Installation
 
-### 全局安装
+### Global Installation
 
 ```bash
 npm install -g @douyinfe/semi-mcp
 ```
 
-### 本地安装
+### Local Installation
 
 ```bash
 npm install @douyinfe/semi-mcp
 ```
 
-## 使用方法
+## Usage
 
-### 作为命令行工具
+### As a Command Line Tool
 
-全局安装后，可以直接使用：
+After global installation, you can use it directly:
 
 ```bash
 semi-mcp
 ```
 
-### 在 MCP 客户端中配置
+### Configuration in MCP Clients
 
-在支持 MCP 的客户端（如 Claude Desktop）中配置：
+Configure in MCP-compatible clients (such as Claude Desktop):
 
 ```json
 {
@@ -45,7 +47,7 @@ semi-mcp
 }
 ```
 
-或者如果已全局安装：
+Or if installed globally:
 
 ```json
 {
@@ -57,28 +59,29 @@ semi-mcp
 }
 ```
 
-## 功能
+## Features
 
-### 工具 (Tools)
+### Tools
 
 #### `get_semi_document`
 
-获取 Semi Design 组件文档或组件列表。
+Get Semi Design component documentation or component list.
 
-**参数：**
-- `componentName` (可选): 组件名称，例如 `Button`、`Input` 等。如果不提供，则返回组件列表
-- `version` (可选): 版本号，例如 `2.89.2-alpha.3`。如果不提供，默认使用 `latest`
+**Parameters:**
+- `componentName` (optional): Component name, e.g., `Button`, `Input`, etc. If not provided, returns the component list
+- `version` (optional): Version number, e.g., `2.89.2-alpha.3`. If not provided, defaults to `latest`
+- `get_path` (optional): If `true`, saves documents to the system temporary directory and returns the path instead of returning document content in the response. Defaults to `false`
 
-**示例：**
+**Examples:**
 
-获取组件列表：
+Get component list:
 ```json
 {
   "name": "get_semi_document"
 }
 ```
 
-获取指定组件文档：
+Get specific component documentation:
 ```json
 {
   "name": "get_semi_document",
@@ -89,9 +92,9 @@ semi-mcp
 }
 ```
 
-**返回格式：**
+**Response Format:**
 
-获取组件列表时：
+When getting component list:
 ```json
 {
   "version": "2.89.2-alpha.3",
@@ -100,7 +103,7 @@ semi-mcp
 }
 ```
 
-获取组件文档时：
+When getting component documentation:
 ```json
 {
   "componentName": "button",
@@ -113,91 +116,94 @@ semi-mcp
 }
 ```
 
-### 资源 (Resources)
+**Note:** For large documents (over 888 lines), the tool will automatically save them to a temporary directory and return the file paths instead of content.
+
+### Resources
 
 #### `semi://components`
 
-Semi Design 组件列表资源。
+Semi Design component list resource.
 
-## 开发
+## Development
 
-### 环境要求
+### Requirements
 
 - Node.js >= 18.0.0
-- npm 或 yarn
+- npm or yarn
 
-### 安装依赖
+### Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 构建
+### Build
 
-构建生产版本：
+Build production version:
 
 ```bash
 npm run build
 ```
 
-开发模式（监听文件变化并自动重建）：
+Development mode (watch for file changes and auto-rebuild):
 
 ```bash
 npm run dev
 ```
 
-### 测试
+### Test
 
-运行测试：
+Run tests:
 
 ```bash
 npm test
 ```
 
-### 运行
+### Run
 
-构建完成后运行服务器：
+Run the server after building:
 
 ```bash
 npm start
 ```
 
-或者直接运行构建后的文件：
+Or run the built file directly:
 
 ```bash
 node dist/index.js
 ```
 
-## 技术栈
+## Tech Stack
 
-- **TypeScript**: 类型安全的 JavaScript
-- **Rslib**: 快速构建工具
-- **@modelcontextprotocol/sdk**: MCP 官方 SDK
+- **TypeScript**: Type-safe JavaScript
+- **Rslib**: Fast build tool
+- **@modelcontextprotocol/sdk**: Official MCP SDK
 
-## 项目结构
+## Project Structure
 
 ```
 semi-mcp/
 ├── src/
-│   ├── index.ts              # 主入口文件
-│   ├── tools/                # 工具定义
+│   ├── index.ts              # Main entry file
+│   ├── tools/                # Tool definitions
 │   │   ├── index.ts
 │   │   └── get-semi-document.ts
-│   └── utils/                # 工具函数
+│   └── utils/                # Utility functions
 │       ├── fetch-directory-list.ts
-│       └── fetch-file-content.ts
-├── tests/                    # 测试文件
+│       ├── fetch-file-content.ts
+│       └── get-component-list.ts
+├── tests/                    # Test files
 │   └── get-semi-document.test.ts
-├── dist/                     # 构建输出
+├── dist/                     # Build output
 ├── package.json
 └── README.md
 ```
 
-## 许可证
+## License
 
 MIT
 
-## 相关链接
+## Related Links
 
-- [Semi Design 官网](https://semi.design)
-- [Model Context Protocol 文档](https://modelcontextprotocol.io)
+- [Semi Design Official Website](https://semi.design)
+- [Model Context Protocol Documentation](https://modelcontextprotocol.io)
