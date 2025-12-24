@@ -1,6 +1,6 @@
 {
-  "name": "semi-mcp",
-  "version": "0.0.0",
+  "name": "@douyinfe/semi-mcp",
+  "version": "1.0.0",
   "type": "module",
   "exports": {
     ".": {
