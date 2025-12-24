@@ -4,7 +4,20 @@
     "description": "A modern, comprehensive, flexible design system and UI library. Connect DesignOps & DevOps. Quickly build beautiful React apps. Maintained by Douyin-fe team.",
     "main": "lib/cjs/index.js",
     "module": "lib/es/index.js",
+    "types": "lib/es/index.d.ts",
     "typings": "lib/es/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./lib/es/index.d.ts",
+            "import": "./lib/es/index.js",
+            "require": "./lib/cjs/index.js"
+        },
+        "./*": {
+            "types": "./lib/es/*/index.d.ts",
+            "import": "./lib/es/*/index.js",
+            "require": "./lib/cjs/*/index.js"
+        }
+    },
     "scripts": {
         "clean": "rimraf dist lib content",
         "build:lib": "node ./scripts/compileLib.js",
