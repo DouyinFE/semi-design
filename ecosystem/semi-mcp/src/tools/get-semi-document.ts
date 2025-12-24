@@ -28,6 +28,7 @@ export const getSemiDocumentTool: Tool = {
 /**
  * 获取组件文档列表（从 content 文件夹）
  * content 文件夹结构：content/{category}/{componentName}/index.md, index-en-US.md
+ * unpkg 返回的是扁平的文件列表，需要从文件路径中提取信息
  */
 async function getComponentDocuments(
     componentName: string,
@@ -36,69 +37,60 @@ async function getComponentDocuments(
     const packageName = '@douyinfe/semi-ui';
     const componentNameLower = componentName.toLowerCase();
 
-    // 先获取 content 下的所有分类文件夹
-    const contentDirs = await fetchDirectoryList(packageName, version, 'content');
+    // 获取 content 下的所有文件（unpkg 返回扁平列表）
+    const contentFiles = await fetchDirectoryList(packageName, version, 'content');
     
-    if (!contentDirs || contentDirs.length === 0) {
+    if (!contentFiles || contentFiles.length === 0) {
         return null;
     }
 
-    // 获取所有分类文件夹名称
-    const categories = contentDirs
-        .filter((file) => file.type === 'directory')
-        .map((file) => {
-            const parts = file.path.split('/');
-            return parts[parts.length - 1] || parts[0];
-        })
-        .filter((name) => name && name !== 'content');
-
-    // 在每个分类文件夹下查找组件文件夹
-    for (const category of categories) {
-        try {
-            const categoryFiles = await fetchDirectoryList(
-                packageName,
-                version,
-                `content/${category}`
-            );
-
-            // 查找组件名称对应的文件夹
-            const componentDir = categoryFiles.find(
-                (file) =>
-                    file.type === 'directory' &&
-                    file.path.toLowerCase().endsWith(`/${componentNameLower}`)
-            );
-
-            if (componentDir) {
-                // 获取组件文件夹下的文件
-                const componentFiles = await fetchDirectoryList(
-                    packageName,
-                    version,
-                    `content/${category}/${componentNameLower}`
-                );
-
-                if (componentFiles && componentFiles.length > 0) {
-                    // 提取文件名称，转为小写
-                    const documents = componentFiles
-                        .filter((file) => file.type === 'file')
-                        .map((file) => {
-                            const parts = file.path.split('/');
-                            return parts[parts.length - 1].toLowerCase();
-                        })
-                        .filter((name) => name);
-
-                    return {
-                        category,
-                        documents: Array.from(new Set(documents)).sort(),
-                    };
-                }
-            }
-        } catch (error) {
-            // 如果某个分类查找失败，继续查找下一个
-            continue;
+    // 从文件路径中查找匹配的组件文档
+    // 路径格式：/content/{category}/{componentName}/index.md
+    const componentFiles = contentFiles.filter((file) => {
+        if (file.type !== 'file') {
+            return false;
         }
+        const path = file.path.toLowerCase();
+        // 匹配路径：content/{category}/{componentName}/文件名
+        const pathPattern = new RegExp(`/content/[^/]+/${componentNameLower}/[^/]+$`);
+        return pathPattern.test(path);
+    });
+
+    if (componentFiles.length === 0) {
+        return null;
     }
 
-    return null;
+    // 从第一个文件路径中提取分类
+    const firstPath = componentFiles[0].path;
+    const pathParts = firstPath.split('/');
+    // 路径格式：/content/{category}/{componentName}/文件名
+    // 或者：content/{category}/{componentName}/文件名
+    let categoryIndex = -1;
+    for (let i = 0; i < pathParts.length; i++) {
+        if (pathParts[i].toLowerCase() === 'content') {
+            categoryIndex = i + 1;
+            break;
+        }
+    }
+    
+    if (categoryIndex === -1 || categoryIndex >= pathParts.length) {
+        return null;
+    }
+
+    const category = pathParts[categoryIndex];
+
+    // 提取所有文档文件名
+    const documents = componentFiles
+        .map((file) => {
+            const parts = file.path.split('/');
+            return parts[parts.length - 1].toLowerCase();
+        })
+        .filter((name) => name);
+
+    return {
+        category,
+        documents: Array.from(new Set(documents)).sort(),
+    };
 }
 
 /**

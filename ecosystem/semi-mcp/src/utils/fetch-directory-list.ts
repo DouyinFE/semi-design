@@ -4,7 +4,7 @@
  */
 
 const UNPKG_BASE_URL = 'https://unpkg.com';
-const NPMMIRROR_BASE_URL = 'https://npmmirror.com';
+const NPMMIRROR_BASE_URL = 'https://registry.npmmirror.com';
 
 /**
  * 从单个源获取目录列表
@@ -13,9 +13,14 @@ async function fetchFromSource(
   baseUrl: string,
   packageName: string,
   version: string,
-  path: string
+  path: string,
+  isNpmMirror: boolean = false
 ): Promise<Array<{ path: string; type: string }>> {
-  const url = `${baseUrl}/${packageName}@${version}/${path}/?meta`;
+  // npmmirror 使用不同的 URL 格式：/package/version/files/path/?meta
+  // unpkg 使用格式：/package@version/path/?meta
+  const url = isNpmMirror
+    ? `${baseUrl}/${packageName}/${version}/files/${path}/?meta`
+    : `${baseUrl}/${packageName}@${version}/${path}/?meta`;
 
   const response = await fetch(url, {
     headers: {
@@ -35,7 +40,7 @@ async function fetchFromSource(
   const data = (await response.json()) as
     | Array<{ path: string; type?: string; size?: number }>
     | { files?: Array<{ path: string; type?: string; size?: number }> }
-    | { path: string; type?: string; size?: number };
+    | { path: string; type?: string; size?: number; files?: Array<{ path: string; type?: string; size?: number }> };
 
   // 将 MIME 类型转换为 file/directory 类型
   const normalizeType = (item: { path: string; type?: string; size?: number }): { path: string; type: string } => {
@@ -60,6 +65,7 @@ async function fetchFromSource(
   if (Array.isArray(data)) {
     return data.map(normalizeType);
   }
+  // npmmirror 返回格式：{ path: "/content", type: "directory", files: [...] }
   if (data && typeof data === 'object' && 'files' in data && Array.isArray(data.files)) {
     return data.files.map(normalizeType);
   }
@@ -81,8 +87,8 @@ export async function fetchDirectoryList(
   path: string
 ): Promise<Array<{ path: string; type: string }>> {
   // 同时向两个源发送请求
-  const unpkgPromise = fetchFromSource(UNPKG_BASE_URL, packageName, version, path);
-  const npmmirrorPromise = fetchFromSource(NPMMIRROR_BASE_URL, packageName, version, path);
+  const unpkgPromise = fetchFromSource(UNPKG_BASE_URL, packageName, version, path, false);
+  const npmmirrorPromise = fetchFromSource(NPMMIRROR_BASE_URL, packageName, version, path, true);
 
   // 使用 Promise.race 获取第一个成功的结果
   // 将错误转换为永远不会 resolve 的 promise，这样另一个请求有机会成功

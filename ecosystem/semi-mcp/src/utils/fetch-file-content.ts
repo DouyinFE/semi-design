@@ -4,7 +4,7 @@
  */
 
 const UNPKG_BASE_URL = 'https://unpkg.com';
-const NPMMIRROR_BASE_URL = 'https://npmmirror.com';
+const NPMMIRROR_BASE_URL = 'https://registry.npmmirror.com';
 
 /**
  * 从单个源获取文件内容
@@ -13,9 +13,14 @@ async function fetchFromSource(
   baseUrl: string,
   packageName: string,
   version: string,
-  filePath: string
+  filePath: string,
+  isNpmMirror: boolean = false
 ): Promise<string> {
-  const url = `${baseUrl}/${packageName}@${version}/${filePath}`;
+  // npmmirror 使用不同的 URL 格式：/package/version/files/path
+  // unpkg 使用格式：/package@version/path
+  const url = isNpmMirror
+    ? `${baseUrl}/${packageName}/${version}/files/${filePath}`
+    : `${baseUrl}/${packageName}@${version}/${filePath}`;
 
   const response = await fetch(url, {
     headers: {
@@ -27,7 +32,14 @@ async function fetchFromSource(
     throw new Error(`获取文件失败: ${response.status} ${response.statusText}`);
   }
 
-  return await response.text();
+  const content = await response.text();
+  
+  // 检查是否是 HTML 错误页面
+  if (content.trim().startsWith('<!DOCTYPE html>') || content.includes('npmmirror 镜像站')) {
+    throw new Error('返回了 HTML 错误页面');
+  }
+
+  return content;
 }
 
 /**
@@ -40,8 +52,8 @@ export async function fetchFileContent(
   filePath: string
 ): Promise<string> {
   // 同时向两个源发送请求
-  const unpkgPromise = fetchFromSource(UNPKG_BASE_URL, packageName, version, filePath);
-  const npmmirrorPromise = fetchFromSource(NPMMIRROR_BASE_URL, packageName, version, filePath);
+  const unpkgPromise = fetchFromSource(UNPKG_BASE_URL, packageName, version, filePath, false);
+  const npmmirrorPromise = fetchFromSource(NPMMIRROR_BASE_URL, packageName, version, filePath, true);
 
   // 使用 Promise.race 获取第一个成功的结果
   // 将错误转换为永远不会 resolve 的 promise，这样另一个请求有机会成功
