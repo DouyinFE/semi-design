@@ -6,16 +6,34 @@
     "module": "lib/es/index.js",
     "typings": "lib/es/index.d.ts",
     "scripts": {
-        "clean": "rimraf dist lib",
+        "clean": "rimraf dist lib content",
         "build:lib": "node ./scripts/compileLib.js",
         "build:js": "node scripts/compileDist.js",
         "build:css": "node scripts/compileScss.js",
-        "prepublishOnly": "npm run clean && npm run build:lib && npm run build:js && npm run build:css"
+        "copy:content": "node scripts/copyContent.js",
+        "prepublishOnly": "npm run clean && npm run build:lib && npm run build:js && npm run build:css && npm run copy:content"
     },
     "files": [
         "dist/*",
-        "lib/*"
+        "lib/*",
+        "content/**/*",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.scss",
+        "!**/_story/**",
+        "!**/__test__/**",
+        "!**/_test_/**",
+        "!**/node_modules/**",
+        "!**/*.test.ts",
+        "!**/*.test.tsx",
+        "!**/*.spec.ts",
+        "!**/*.spec.tsx"
     ],
+    "typesVersions": {
+        "*": {
+            "*": ["lib/es/*"]
+        }
+    },
     "dependencies": {
         "@dnd-kit/core": "^6.0.8",
         "@dnd-kit/sortable": "^7.0.2",
