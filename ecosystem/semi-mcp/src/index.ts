@@ -8,8 +8,33 @@ import {
   ListResourcesRequestSchema,
   ReadResourceRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import { tools, toolHandlers } from './tools/index.js';
 import { getComponentList } from './utils/get-component-list.js';
+
+// 获取当前文件的目录路径
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// 读取 package.json 获取版本号
+// 尝试多个可能的路径（开发环境和生产环境）
+let packageJson: { version: string };
+try {
+  // 生产环境：dist/index.js -> ../package.json
+  const packageJsonPath = join(__dirname, '../package.json');
+  packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
+} catch {
+  try {
+    // 开发环境：src/index.ts -> ../../package.json
+    const packageJsonPath = join(__dirname, '../../package.json');
+    packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
+  } catch {
+    // 如果都失败，使用默认版本号
+    packageJson = { version: '1.0.0' };
+  }
+}
 
 /**
  * Semi MCP Server
@@ -21,7 +46,7 @@ async function main() {
   const server = new Server(
     {
       name: 'semi-mcp',
-      version: '0.0.0',
+      version: packageJson.version,
     },
     {
       capabilities: {
@@ -125,12 +150,17 @@ async function main() {
 
   // 连接服务器到传输层
   await server.connect(transport);
-
-  console.error('Semi MCP Server 已启动，使用 stdio 传输');
+  
+  // 注意：不要在这里输出任何内容到 stdout/stderr，因为会干扰 JSON-RPC 通信
+  // MCP 服务器通过 stdio 进行 JSON-RPC 通信，任何非 JSON 输出都会导致协议错误
 }
 
 // 启动服务器
 main().catch((error) => {
-  console.error('服务器启动失败:', error);
+  // 只在真正出错时输出错误信息，并确保格式正确
+  const errorMessage = error instanceof Error ? error.message : String(error);
+  // 使用 stderr 输出错误，但要注意不要干扰 JSON-RPC 通信
+  // 如果是在初始化之前出错，可以输出；如果是在运行中出错，应该通过 JSON-RPC 错误响应返回
+  process.stderr.write(`Semi MCP Server 启动失败: ${errorMessage}\n`);
   process.exit(1);
 });
