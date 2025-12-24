@@ -3,13 +3,38 @@
  * 同时向两个数据源发送请求，使用第一个成功返回的结果
  */
 
-const UNPKG_BASE_URL = 'https://unpkg.com';
-const NPMMIRROR_BASE_URL = 'https://registry.npmmirror.com';
+export const UNPKG_BASE_URL = 'https://unpkg.com';
+export const NPMMIRROR_BASE_URL = 'https://registry.npmmirror.com';
+
+/**
+ * 递归扁平化嵌套的目录结构（用于处理 npmmirror 返回的嵌套格式）
+ */
+function flattenDirectoryStructure(
+  item: { path: string; type?: string; size?: number; files?: Array<{ path: string; type?: string; size?: number; files?: Array<{ path: string; type?: string; size?: number }> }> },
+  result: Array<{ path: string; type?: string; size?: number }> = []
+): Array<{ path: string; type?: string; size?: number }> {
+  // 将当前项添加到结果中
+  result.push({
+    path: item.path,
+    type: item.type,
+    size: item.size,
+  });
+
+  // 如果有嵌套的 files 数组，递归处理
+  if (item.files && Array.isArray(item.files)) {
+    for (const file of item.files) {
+      flattenDirectoryStructure(file, result);
+    }
+  }
+
+  return result;
+}
 
 /**
  * 从单个源获取目录列表
+ * 导出用于测试
  */
-async function fetchFromSource(
+export async function fetchDirectoryListFromSource(
   baseUrl: string,
   packageName: string,
   version: string,
@@ -40,7 +65,7 @@ async function fetchFromSource(
   const data = (await response.json()) as
     | Array<{ path: string; type?: string; size?: number }>
     | { files?: Array<{ path: string; type?: string; size?: number }> }
-    | { path: string; type?: string; size?: number; files?: Array<{ path: string; type?: string; size?: number }> };
+    | { path: string; type?: string; size?: number; files?: Array<{ path: string; type?: string; size?: number; files?: Array<{ path: string; type?: string; size?: number }> }> };
 
   // 将 MIME 类型转换为 file/directory 类型
   const normalizeType = (item: { path: string; type?: string; size?: number }): { path: string; type: string } => {
@@ -63,15 +88,37 @@ async function fetchFromSource(
 
   // 处理不同的响应格式
   if (Array.isArray(data)) {
+    // unpkg 返回的是扁平数组
     return data.map(normalizeType);
   }
+  
   // npmmirror 返回格式：{ path: "/content", type: "directory", files: [...] }
-  if (data && typeof data === 'object' && 'files' in data && Array.isArray(data.files)) {
-    return data.files.map(normalizeType);
+  // 可能是嵌套结构，需要递归扁平化
+  if (data && typeof data === 'object' && 'files' in data) {
+    // 检查是否是嵌套结构（有 files 数组）
+    if (Array.isArray(data.files)) {
+      // 如果 files 数组中的项还有嵌套的 files，需要递归扁平化
+      const flattened: Array<{ path: string; type?: string; size?: number }> = [];
+      for (const item of data.files) {
+        flattenDirectoryStructure(item, flattened);
+      }
+      return flattened.map(normalizeType);
+    }
+    // 如果没有 files 数组，返回空数组
+    return [];
   }
-  // 如果返回单个文件对象，包装成数组
+  
+  // 如果返回单个文件对象，检查是否有嵌套结构
   if (data && typeof data === 'object' && 'path' in data) {
-    return [normalizeType(data as { path: string; type?: string; size?: number })];
+    const singleItem = data as { path: string; type?: string; size?: number; files?: Array<{ path: string; type?: string; size?: number; files?: Array<{ path: string; type?: string; size?: number }> }> };
+    // 如果有嵌套的 files，需要扁平化
+    if (singleItem.files && Array.isArray(singleItem.files)) {
+      const flattened: Array<{ path: string; type?: string; size?: number }> = [];
+      flattenDirectoryStructure(singleItem, flattened);
+      return flattened.map(normalizeType);
+    }
+    // 否则直接返回单个项
+    return [normalizeType(singleItem)];
   }
 
   throw new Error('无法解析目录列表数据格式');
@@ -87,8 +134,8 @@ export async function fetchDirectoryList(
   path: string
 ): Promise<Array<{ path: string; type: string }>> {
   // 同时向两个源发送请求
-  const unpkgPromise = fetchFromSource(UNPKG_BASE_URL, packageName, version, path, false);
-  const npmmirrorPromise = fetchFromSource(NPMMIRROR_BASE_URL, packageName, version, path, true);
+  const unpkgPromise = fetchDirectoryListFromSource(UNPKG_BASE_URL, packageName, version, path, false);
+  const npmmirrorPromise = fetchDirectoryListFromSource(NPMMIRROR_BASE_URL, packageName, version, path, true);
 
   // 使用 Promise.race 获取第一个成功的结果
   // 将错误转换为永远不会 resolve 的 promise，这样另一个请求有机会成功

@@ -3,13 +3,14 @@
  * 同时向两个数据源发送请求，使用第一个成功返回的结果
  */
 
-const UNPKG_BASE_URL = 'https://unpkg.com';
-const NPMMIRROR_BASE_URL = 'https://registry.npmmirror.com';
+export const UNPKG_BASE_URL = 'https://unpkg.com';
+export const NPMMIRROR_BASE_URL = 'https://registry.npmmirror.com';
 
 /**
  * 从单个源获取文件内容
+ * 导出用于测试
  */
-async function fetchFromSource(
+export async function fetchFileContentFromSource(
   baseUrl: string,
   packageName: string,
   version: string,
@@ -52,8 +53,8 @@ export async function fetchFileContent(
   filePath: string
 ): Promise<string> {
   // 同时向两个源发送请求
-  const unpkgPromise = fetchFromSource(UNPKG_BASE_URL, packageName, version, filePath, false);
-  const npmmirrorPromise = fetchFromSource(NPMMIRROR_BASE_URL, packageName, version, filePath, true);
+  const unpkgPromise = fetchFileContentFromSource(UNPKG_BASE_URL, packageName, version, filePath, false);
+  const npmmirrorPromise = fetchFileContentFromSource(NPMMIRROR_BASE_URL, packageName, version, filePath, true);
 
   // 使用 Promise.race 获取第一个成功的结果
   // 将错误转换为永远不会 resolve 的 promise，这样另一个请求有机会成功
