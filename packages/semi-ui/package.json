@@ -5,7 +5,6 @@
     "main": "lib/cjs/index.js",
     "module": "lib/es/index.js",
     "types": "lib/es/index.d.ts",
-    "typings": "lib/es/index.d.ts",
     "exports": {
         ".": {
             "types": "./lib/es/index.d.ts",
@@ -16,15 +15,25 @@
             "types": "./lib/es/*/index.d.ts",
             "import": "./lib/es/*/index.js",
             "require": "./lib/cjs/*/index.js"
+        },
+        "./lib/es/*": {
+            "types": "./lib/es/*.d.ts",
+            "import": "./lib/es/*.js"
+        },
+        "./lib/cjs/*": {
+            "types": "./lib/cjs/*.d.ts",
+            "require": "./lib/cjs/*.js"
         }
     },
     "scripts": {
         "clean": "rimraf dist lib content",
+        "clean:content": "rimraf content",
         "build:lib": "node ./scripts/compileLib.js",
         "build:js": "node scripts/compileDist.js",
         "build:css": "node scripts/compileScss.js",
         "copy:content": "node scripts/copyContent.js",
-        "prepublishOnly": "npm run clean && npm run build:lib && npm run build:js && npm run build:css && npm run copy:content"
+        "prepublishOnly": "npm run clean && npm run build:lib && npm run build:js && npm run build:css && npm run copy:content",
+        "postpublish": "npm run clean:content"
     },
     "files": [
         "dist/*",
