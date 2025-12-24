@@ -1,9 +1,11 @@
 {
   "name": "@douyinfe/semi-mcp",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Semi Design MCP Server - Model Context Protocol server for Semi Design components and documentation",
   "type": "module",
   "main": "./dist/index.js",
+  "module": "./dist/browser.js",
+  "browser": "./dist/browser.js",
   "bin": {
     "semi-mcp": "./dist/index.js"
   },
@@ -11,6 +13,16 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "browser": "./dist/browser.js",
+      "import": "./dist/browser.js"
+    },
+    "./utils": {
+      "types": "./dist/browser.d.ts",
+      "browser": "./dist/browser.js",
+      "import": "./dist/browser.js"
     }
   },
   "types": "./dist/index.d.ts",
@@ -20,6 +32,7 @@
   "engines": {
     "node": ">=18.0.0"
   },
+  "sideEffects": false,
   "keywords": [
     "semi",
     "semi-design",
