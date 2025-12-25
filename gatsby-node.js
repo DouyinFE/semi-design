@@ -156,7 +156,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                 },
                 {
                     test: /\.m?js/,
-                    include: [/micromark-util-sanitize-uri/, /mdast-util-from-markdown/, /micromark/, /mdast-util-to-markdown/, /semi-foundation\/node_modules\/@mdx-js/, /jsonc-parser/],
+                    include: [/micromark-util-sanitize-uri/, /mdast-util-from-markdown/, /micromark/, /mdast-util-to-markdown/, /semi-foundation\/node_modules\/@mdx-js/, /jsonc-parser/, /@mlc-ai\/web-llm/],
                     use: ["esbuild-loader"]
                 },
                 {

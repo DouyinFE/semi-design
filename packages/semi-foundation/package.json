@@ -34,7 +34,8 @@
         "memoize-one": "^5.2.1",
         "prismjs": "^1.29.0",
         "remark-gfm": "^4.0.0",
-        "scroll-into-view-if-needed": "^2.2.24"
+        "scroll-into-view-if-needed": "^2.2.24",
+        "@mlc-ai/web-llm": "^0.2.80"
     },
     "keywords": [],
     "author": "",

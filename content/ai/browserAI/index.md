@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 0
+order: 100
 category: Ai
 title: BrowserAI 浏览器 AI
 icon: doc-browserAI

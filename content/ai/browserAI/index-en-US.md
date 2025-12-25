@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 0
+order: 100
 category: Ai
 title: BrowserAI Browser AI
 icon: doc-browserAI

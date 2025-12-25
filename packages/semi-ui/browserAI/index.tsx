@@ -2,7 +2,8 @@ import React from 'react';
 import BaseComponent from '../_base/baseComponent';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { Spin, Typography } from '../index';
+import Spin from '../spin';
+import Typography from '../typography';
 import { AIChatDialogue } from '../aiChatDialogue';
 import { AIChatInput } from '../aiChatInput';
 import BrowserAIFoundation, { BrowserAIAdapter } from '@douyinfe/semi-foundation/browserAI/foundation';
@@ -13,7 +14,6 @@ import {
     DEFAULT_ENGINE_CONFIG,
 } from '@douyinfe/semi-foundation/browserAI/constants';
 import type {
-    CreateWebWorkerMLCEngine,
     WebWorkerMLCEngine,
     MLCEngineConfig,
 } from '@douyinfe/semi-foundation/browserAI/interface';
@@ -22,9 +22,6 @@ import { Message } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
 import chatInputToMessage from '@douyinfe/semi-foundation/aiChatDialogue/dataAdapter/chatInputToMessage';
 
 const prefixCls = cssClasses.PREFIX;
-
-// 动态导入 web-llm（避免在 Foundation 层直接依赖）
-let CreateWebWorkerMLCEngineFn: typeof CreateWebWorkerMLCEngine;
 
 class BrowserAI extends BaseComponent<BrowserAIProps, BrowserAIState> {
     static __SemiComponentName__ = 'BrowserAI';
@@ -100,7 +97,8 @@ class BrowserAI extends BaseComponent<BrowserAIProps, BrowserAIState> {
     }
 
     componentWillUnmount() {
-        this.foundation.destroy();
+        const { modelId } = this.props;
+        this.foundation.destroy(modelId, false);
     }
 
     /**
@@ -110,44 +108,14 @@ class BrowserAI extends BaseComponent<BrowserAIProps, BrowserAIState> {
         const { worker, modelId, engineConfig, chatOpts } = this.props;
 
         try {
-            this.setState({ loading: true, error: null });
-
-            // 动态导入 web-llm
-            if (!CreateWebWorkerMLCEngineFn) {
-                const webllm = await import('@mlc-ai/web-llm');
-                CreateWebWorkerMLCEngineFn = webllm.CreateWebWorkerMLCEngine;
-            }
-
-            // 判断是否使用 Worker
-            const useWorker = worker?.enabled !== false && worker?.url;
-
-            let engine: WebWorkerMLCEngine;
-
-            if (useWorker && worker.url) {
-                // 使用 Worker 模式
-                const workerInstance = new Worker(worker.url, { type: 'module' });
-                engine = await CreateWebWorkerMLCEngineFn(
-                    workerInstance,
-                    modelId,
-                    engineConfig,
-                    chatOpts
-                );
-            } else {
-                // 非 Worker 模式（主线程模式）
-                // 注意：CreateMLCEngine 也需要动态导入
-                const webllm = await import('@mlc-ai/web-llm');
-                const { CreateMLCEngine } = webllm;
-                engine = await CreateMLCEngine(modelId, engineConfig, chatOpts) as any;
-            }
-
-            // 初始化完成，调用 foundation 的方法设置引擎
-            await this.foundation.initWithEngine(engine);
+            await this.foundation.initEngine({
+                modelId,
+                worker,
+                engineConfig,
+                chatOpts,
+            });
         } catch (error) {
             const err = error instanceof Error ? error : new Error('Unknown error');
-            this.setState({
-                error: err.message,
-                loading: false,
-            });
             this.props.onError?.(err);
         }
     };
