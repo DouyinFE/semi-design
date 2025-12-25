@@ -102,7 +102,8 @@
     },
     "peerDependencies": {
         "react": ">=16.0.0",
-        "react-dom": ">=16.0.0"
+        "react-dom": ">=16.0.0",
+        "@mlc-ai/web-llm": "^0.2.80"
     },
     "sideEffects": [
         "*.scss",

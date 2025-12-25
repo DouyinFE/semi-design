@@ -134,4 +134,5 @@ export { default as FloatButton } from './floatButton';
 export { default as FloatButtonGroup } from './floatButton/floatButtonGroup';
 export { default as AIChatDialogue } from './aiChatDialogue';
 export { default as AIChatInput, getConfigureItem } from './aiChatInput';
+export { default as BrowserAI } from './browserAI';
 export { chatCompletionToMessage, streamingChatCompletionToMessage, streamingResponseToMessage, responseToMessage, chatInputToMessage, chatInputToChatCompletion } from '@douyinfe/semi-foundation/aiChatDialogue/dataAdapter';
