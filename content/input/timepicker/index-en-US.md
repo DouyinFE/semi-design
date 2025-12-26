@@ -47,27 +47,19 @@ function Demo() {
 When using `value` And not. `defaultValue` When used as a controlled component.`value` and `onChange` It needs to be used in conjunction.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { TimePicker } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: null,
-        };
-        this.onChange = this.onChange.bind(this);
-    }
-
-    onChange(time) {
+() => {
+    const [value, setValue] = useState(null);
+    
+    const onChange = (time) => {
         console.log(time);
-        this.setState({ value: time });
-    }
+        setValue(time);
+    };
 
-    render() {
-        return <TimePicker value={this.state.value} onChange={this.onChange} />;
-    }
-}
+    return <TimePicker value={value} onChange={onChange} />;
+};
 ```
 
 ### Different Format
@@ -168,8 +160,6 @@ function Demo() {
 ```
 
 ### Time Range
-
-**Version:** > = 0.23.0
 
 Pass type = "timeRange" to enable time range selection.
 

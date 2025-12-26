@@ -206,7 +206,7 @@ import { Button, Popconfirm, Space } from '@douyinfe/semi-ui';
 | --- |-------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
 | arrowPointAtCenter | “小三角”是否指向元素中心，需要同时传入"showArrow=true"                                                                                                      | boolean | false | |
 | cancelText | 取消按钮文字                                                                                                                                    | string | "取消" |
-| cancelButtonProps | 取消按钮的 props                                                                                                                               | object |  | **0.29.0** |
+| cancelButtonProps | 取消按钮的 props                                                                                                                               | object |  |  |
 | cancelType | 取消按钮类型                                                                                                                                    | string | "tertiary" |
 | closeOnEsc | 在 trigger 聚焦时或在弹出层内聚焦元素上按 Esc 键是否关闭面板，受控时不生效                                                                                              | boolean | true | **2.8.0** |
 | content | 显示的内容（函数类型，2.10.0 版本支持）                                                                                                                   | ReactNode\|({ initialFocusRef }) => ReactNode |  |

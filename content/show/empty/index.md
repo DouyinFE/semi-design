@@ -20,7 +20,7 @@ import { Empty } from '@douyinfe/semi-ui';
 
 通过 `image` 设置占位图片，可以从 `@douyinfe/semi-illustrations` 中手动引入对应的插画（插画默认宽高是200x200），也可以传入自定义的插画。目前拥有的插画可以查看[占位图插画](#占位图插画_建设中_)。
 
-**v>=1.13.0** 之后增加一系列暗色模式的插画，并支持通过 `darkModeImage` 传入暗色模式下需要使用的插画，以更好地适配暗色模式。
+增加一系列暗色模式的插画，并支持通过 `darkModeImage` 传入暗色模式下需要使用的插画，以更好地适配暗色模式。
 
 ```jsx live=true dir="column"
 import React from 'react';

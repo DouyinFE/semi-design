@@ -279,7 +279,7 @@ import { Transfer } from '@douyinfe/semi-ui';
 ### Drag and drop + custom selected rendering
 
 Set `draggable` to true to enable the drag and drop sorting function; use `renderSelectedItem` to customize the rendering of the selected items on the right;
-You can define the trigger as any ReactNode you want and add styles. Drag the trigger and use `sortableHandle` to wrap it (sortableHandle is provided after v 1.22.0)
+You can define the trigger as any ReactNode you want and add styles. Drag the trigger and use `sortableHandle` to wrap it
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -1294,14 +1294,14 @@ import { Transfer } from '@douyinfe/semi-ui';
 | onSelect | Callback when checked | (item: Item) => void | | |
 | renderSelectedHeader | Customize the rendering of the header information on the right panel | (props: SelectedHeaderProps) => ReactNode |  | 2.29.0 |
 | renderSelectedItem | Customize the rendering of a single selected item on the right | (item: {onRemove, sortableHandle} & Item) => ReactNode | | |
-| renderSelectedPanel | Customize the rendering of the selected panel on the right | (selectedPanelProps) => ReactNode | | 1.11.0 |
+| renderSelectedPanel | Customize the rendering of the selected panel on the right | (selectedPanelProps) => ReactNode | | - |
 | renderSourceHeader | Customize the rendering of the header information on the left panel | (props: SourceHeaderProps) => ReactNode |  | 2.29.0 |
 | renderSourceItem | Customize the rendering of a single candidate item on the left | (item: {onChange, checked} & Item) => ReactNode | | |
-| renderSourcePanel | Customize the rendering of the left candidate panel | (sourcePanelProps) => ReactNode | | 1.11.0 |
-| showPath | When the type is `treeList`, control whether the selected item on the right shows the selection path | boolean | false | 1.20.0 |
+| renderSourcePanel | Customize the rendering of the left candidate panel | (sourcePanelProps) => ReactNode | | - |
+| showPath | When the type is `treeList`, control whether the selected item on the right shows the selection path | boolean | false | - |
 | style | Inline style | CSSProperties | | |
-| treeProps | When the type is `treeList`, it can be passed as TreeProps to the Tree component on the left | [TreeProps](/en-US/navigation/tree#Tree) | | 1.20.0 |
-| type | Transfer type, optional `list`, `groupList`, `treeList` | string |'list' | 1.20.0 |
+| treeProps | When the type is `treeList`, it can be passed as TreeProps to the Tree component on the left | [TreeProps](/en-US/navigation/tree#Tree) | | - |
+| type | Transfer type, optional `list`, `groupList`, `treeList` | string |'list' | - |
 | value | The selected value, when the item is passed in, it will be used as a controlled component | Array<string\|number> | | |
 
 ### Item Interface

@@ -123,7 +123,7 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
 
 ### Custom CollapseHeight
 
-You could use `collapseHeight` to customize collapsed height. **v>=1.0.0**
+You could use `collapseHeight` to customize collapsed height.
 
 ```jsx live=true hideInDSM
 import React, { useState } from 'react';

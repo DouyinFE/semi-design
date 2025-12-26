@@ -217,30 +217,30 @@ import { IconAlarm, IconBookmark, IconCamera, IconDuration, IconEdit, IconFolder
 
 | Properties | Instructions                           | type                  | Default | version |
 | ---------- |----------------------------------------| --------------------- | ------- | ------- |
-| className  | Class name.                            | string                | -       | 1.1.0   |
+| className  | Class name.                            | string                | -       | -   |
 | onVisibleStateChange | Hide and display state change callback | (visibleState: Map\<string, boolean\>) => void; | -          | 2.61.0 |
 | renderMode | Render mode.                           | `collapse`\| `scroll` | `true`  | -       |
-| style      | OverflowList style                     | React.CSSProperties   | -       | 1.1.0   |
+| style      | OverflowList style                     | React.CSSProperties   | -       | -   |
 
 ### renderMode='collapse'
 
 | Properties | Instructions | type | Default | version |
 | --- | --- | --- | --- | --- |
-| collapseFrom | Which direction the items should collapse from: start or end of the children. | `start`\| `end` | `end` | 1.1.0 |
+| collapseFrom | Which direction the items should collapse from: start or end of the children. | `start`\| `end` | `end` | - |
 | items | All items to display in the list. | Record<string, any>[] | `true` | - |
-| minVisibleItems | The minimum number of visible items that should never collapse into the overflow menu. | number | 0 | 1.1.0 |
-| onOverflow | Callback invoked when the overflowed items change. | (overflowItems: Record<string, any>[]) => void | - | 1.1.0 |
-| overflowRenderer | Callback invoked to render the overflowed items. | (overflowItems: Record<string, any>[]) => React.ReactNode | - | 1.1.0 |
-| visibleItemRenderer | Callback invoked to render each visible item. | (item: Record<string, any>, index: number) => React.ReactElement | - | 1.1.0 |
+| minVisibleItems | The minimum number of visible items that should never collapse into the overflow menu. | number | 0 | - |
+| onOverflow | Callback invoked when the overflowed items change. | (overflowItems: Record<string, any>[]) => void | - | - |
+| overflowRenderer | Callback invoked to render the overflowed items. | (overflowItems: Record<string, any>[]) => React.ReactNode | - | - |
+| visibleItemRenderer | Callback invoked to render each visible item. | (item: Record<string, any>, index: number) => React.ReactElement | - | - |
 
 ### renderMode='scroll'
 
 | Properties | Instructions | type | Default | version |
 | --- | --- | --- | --- | --- |
 | items | All items to display in the list. **Key is required.** | Record<string, any>[] | `true` | - |
-| onIntersect | Callback invoked when the overflowed items change. | ({[key: string]: [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry)}) => void | - | 1.1.0 |
-| overflowRenderer | Callback invoked to render the overflowed items. | (overflowItems: Record<string, any>[]) => React.ReactNode[] | - | 1.1.0 |
-| threshold | At what percentage of the target's visibility the observer's callback should be executed. | number | 0.75 | 1.1.0 |
-| visibleItemRenderer | allback invoked to render each visible item. | (item: Record<string, any>, index: number) => React.ReactElement | - | 1.1.0 |
-| wrapperClassName | Scroll wrapper classname. | string | - | 1.1.0 |
-| wrapperStyle | Scroll wrapper style. | React.CSSProperties | - | 1.1.0 |
+| onIntersect | Callback invoked when the overflowed items change. | ({[key: string]: [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry)}) => void | - | - |
+| overflowRenderer | Callback invoked to render the overflowed items. | (overflowItems: Record<string, any>[]) => React.ReactNode[] | - | - |
+| threshold | At what percentage of the target's visibility the observer's callback should be executed. | number | 0.75 | - |
+| visibleItemRenderer | allback invoked to render each visible item. | (item: Record<string, any>, index: number) => React.ReactElement | - | - |
+| wrapperClassName | Scroll wrapper classname. | string | - | - |
+| wrapperStyle | Scroll wrapper style. | React.CSSProperties | - | - |

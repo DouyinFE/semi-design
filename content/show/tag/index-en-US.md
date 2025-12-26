@@ -372,8 +372,8 @@ import { TagGroup } from '@douyinfe/semi-ui';
 
 | Properties | Instructions | type | Default | Version |
 | --- | --- | --- | --- | --- |
-| avatarShape | Shape of avatar tag, one of `square` and `circle` | string | `square` | 1.6.0 |
-| avatarSrc | Source address of avatar tag | string | - | 1.6.0 |
+| avatarShape | Shape of avatar tag, one of `square` and `circle` | string | `square` | - |
+| avatarSrc | Source address of avatar tag | string | - | - |
 | className | Class name | string |  |  |
 | closable | Toggle whether the tag can be closed | boolean | false |  |
 | color | Color of tags, one of `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow`、 `white` | string | `grey` |  |
@@ -388,13 +388,13 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | visible | Toggle the visibility of the tag | boolean | true |  |
 | tagKey  | The key required by React, as the unique identifier of each tag, does not allow repetition | string | number | |
 | onClick | Callback function when clicking the tag | (e: MouseEvent) => void | - |  |
-| onClose | Callback function when the tag is closed | (tagChildren: ReactNode, e: MouseEvent, tagKey: string \| number ) => void | - | e is available in v1.18, tagKey is available in v2.18.0 |
+| onClose | Callback function when the tag is closed | (tagChildren: ReactNode, e: MouseEvent, tagKey: string \| number ) => void | - | tagKey is available in v2.18.0 |
 
 ### TagGroup
 
 | Properties | Instructions | type | Default | Version |
 | --- | --- | --- | -- | --- |
-| avatarShape | Shape of avatar tag, one of `square` and `circle` | string | `square` | 1.6.0 |
+| avatarShape | Shape of avatar tag, one of `square` and `circle` | string | `square` | - |
 | className | Class name | string |  |  |
 | maxTagCount | Cap number to display, shown as + N when exceeded | number |  |  |
 | popoverProps | Popover configuration properties, you can control the popup props like `direction`, `zIndex`, `trigger`, refer to [Popover](/en-US/components/popover#API) | PopoverProps | {} |  |

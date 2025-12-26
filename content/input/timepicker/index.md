@@ -46,27 +46,19 @@ function Demo() {
 当使用 `value` 而不是 `defaultValue` 时，作为受控组件使用。`value` 和 `onChange` 需要配合使用。
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { TimePicker } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: null,
-        };
-        this.onChange = this.onChange.bind(this);
-    }
-
-    onChange(time) {
+() => {
+    const [value, setValue] = useState(null);
+    
+    const onChange = (time) => {
         console.log(time);
-        this.setState({ value: time });
+        setValue(time);
     };
 
-    render() {
-        return <TimePicker value={this.state.value} onChange={this.onChange} />;
-    }
-}
+    return <TimePicker value={value} onChange={onChange} />;
+};
 ```
 
 ### 不同的 Format 格式
@@ -165,8 +157,6 @@ function Demo() {
 ```
 
 ### 时间范围
-
-**版本：** >=0.23.0
 
 传入 type="timeRange" 开启时间范围选择。
 

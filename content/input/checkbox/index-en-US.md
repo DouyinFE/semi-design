@@ -126,42 +126,39 @@ You can pass an array using `options` to `CheckboxGroup` directly to generate a 
 import React from 'react';
 import { CheckboxGroup } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-
-    render() {
-        function onChange(checkedValues) {
-            console.log('checked = ', checkedValues);
-        }
-
-        const plainOptions = ['semi', 'vigo', 'helo'];
-        const options = [
-            { label: 'Aim for the highest', value: '1', extra: "Raise the bar. Wait for bigger gains. Find the best solutions by widening your perspective. Be attentive. Distill ideas down to their fundamental truths. Keep learning and growing" },
-            { label: 'Be grounded & courageous', value: '2', extra: "Make your own discoveries. Dive deep into facts. Stay level-headed. Focus on impact. Assume ownership, take risks, break the mold. Rapid iterations, multiple possibilities." },
-            { label: 'Be open & humble', value: '3', extra: "Trust yourself, trust each other. Be willing to offer and ask for help. Collaboration creates value. Approach problems with the big picture in mind. Be mindful and check your ego; stay open to different ideas." },
-            { label: 'Be candid & clear', value: '4', extra: "Dare to share your honest opinions. It's okay to make mistakes. Own it when you do. Stick to the facts, identify issues, and avoid \'leader-pleasing.\' Be accurate and forthright; be methodical and focused." }
-        ];
-        const optionsWithDisabled = [
-            { label: 'Photography', value: 'Photography' },
-            { label: 'Movies', value: 'Movies' },
-            { label: 'Running', value: 'Running', disabled: false },
-        ];
-        return (
-            <div>
-                <CheckboxGroup options={plainOptions} defaultValue={['semi']} onChange={onChange} aria-label="CheckboxGroup demo" />
-                <br/><br/>
-                <CheckboxGroup options={options} defaultValue={[]} onChange={onChange} aria-label="CheckboxGroup demo" />
-                <br/><br/>
-                <CheckboxGroup
-                    options={optionsWithDisabled}
-                    disabled
-                    defaultValue={['Photography']}
-                    onChange={onChange}
-                    aria-label="Checkbox demo"
-                />
-            </div>
-        );
+() => {
+    function onChange(checkedValues) {
+        console.log('checked = ', checkedValues);
     }
-}
+
+    const plainOptions = ['semi', 'vigo', 'helo'];
+    const options = [
+        { label: 'Aim for the highest', value: '1', extra: "Raise the bar. Wait for bigger gains. Find the best solutions by widening your perspective. Be attentive. Distill ideas down to their fundamental truths. Keep learning and growing" },
+        { label: 'Be grounded & courageous', value: '2', extra: "Make your own discoveries. Dive deep into facts. Stay level-headed. Focus on impact. Assume ownership, take risks, break the mold. Rapid iterations, multiple possibilities." },
+        { label: 'Be open & humble', value: '3', extra: "Trust yourself, trust each other. Be willing to offer and ask for help. Collaboration creates value. Approach problems with the big picture in mind. Be mindful and check your ego; stay open to different ideas." },
+        { label: 'Be candid & clear', value: '4', extra: "Dare to share your honest opinions. It's okay to make mistakes. Own it when you do. Stick to the facts, identify issues, and avoid \'leader-pleasing.\' Be accurate and forthright; be methodical and focused." }
+    ];
+    const optionsWithDisabled = [
+        { label: 'Photography', value: 'Photography' },
+        { label: 'Movies', value: 'Movies' },
+        { label: 'Running', value: 'Running', disabled: false },
+    ];
+    return (
+        <div>
+            <CheckboxGroup options={plainOptions} defaultValue={['semi']} onChange={onChange} aria-label="CheckboxGroup demo" />
+            <br/><br/>
+            <CheckboxGroup options={options} defaultValue={[]} onChange={onChange} aria-label="CheckboxGroup demo" />
+            <br/><br/>
+            <CheckboxGroup
+                options={optionsWithDisabled}
+                disabled
+                defaultValue={['Photography']}
+                onChange={onChange}
+                aria-label="Checkbox demo"
+            />
+        </div>
+    );
+};
 ```
 
 ### Layout Direction
@@ -190,71 +187,57 @@ import { CheckboxGroup } from '@douyinfe/semi-ui';
 Used as a controlled component.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Checkbox, Button } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
+() => {
+    const [checked, setChecked] = useState(true);
+    const [disabled, setDisabled] = useState(false);
 
-    constructor() {
-        super();
-        this.state = {
-            checked: true,
-            disabled: false,
-        };
-        this.toggleChecked = this.toggleChecked.bind(this);
-        this.toggleDisable = this.toggleDisable.bind(this);
-        this.onChange = this.onChange.bind(this);
-    }
-
-    toggleChecked () {
-        this.setState({ checked: !this.state.checked });
+    const toggleChecked = () => {
+        setChecked(!checked);
     };
 
-    toggleDisable () {
-        this.setState({ disabled: !this.state.disabled });
+    const toggleDisable = () => {
+        setDisabled(!disabled);
     };
 
-    onChange (e) {
+    const onChange = (e) => {
         console.log('checked = ', e.target.checked);
-        this.setState({
-            checked: e.target.checked,
-        });
+        setChecked(e.target.checked);
     };
 
-    render() {
-        const label = `${this.state.checked ? 'Checked' : 'Unchecked'} ${
-            this.state.disabled ? 'Disabled' : 'Enabled'
-        }`;
-        return (
-            <div>
-                <p style={{ marginBottom: '20px' }}>
-                    <Checkbox
-                        checked={this.state.checked}
-                        disabled={this.state.disabled}
-                        onChange={this.onChange}
-                        aria-label="Checkbox demo"
-                    >
-                        {label}
-                    </Checkbox>
-                </p>
-                <p>
-                    <Button type="primary" size="small" onClick={this.toggleChecked}>
-                        {!this.state.checked ? 'Check' : 'Uncheck'}
-                    </Button>
-                    <Button
-                        style={{ marginLeft: '10px' }}
-                        type="primary"
-                        size="small"
-                        onClick={this.toggleDisable}
-                    >
-                        {!this.state.disabled ? 'Disable' : 'Enable'}
-                    </Button>
-                </p>
-            </div>
-        );
-    }
-}
-
+    const label = `${checked ? 'Checked' : 'Unchecked'} ${
+        disabled ? 'Disabled' : 'Enabled'
+    }`;
+    return (
+        <div>
+            <p style={{ marginBottom: '20px' }}>
+                <Checkbox
+                    checked={checked}
+                    disabled={disabled}
+                    onChange={onChange}
+                    aria-label="Checkbox demo"
+                >
+                    {label}
+                </Checkbox>
+            </p>
+            <p>
+                <Button type="primary" size="small" onClick={toggleChecked}>
+                    {!checked ? 'Check' : 'Uncheck'}
+                </Button>
+                <Button
+                    style={{ marginLeft: '10px' }}
+                    type="primary"
+                    size="small"
+                    onClick={toggleDisable}
+                >
+                    {!disabled ? 'Disable' : 'Enable'}
+                </Button>
+            </p>
+        </div>
+    );
+};
 ```
 
 ### Checkbox State
@@ -309,8 +292,6 @@ import { Checkbox, CheckboxGroup } from '@douyinfe/semi-ui';
 
 ### Card Style
 
-version: >=1.30.0
-
 You can set `type='card'` to CheckboxGroup to realize card style with background.
 
 ```jsx live=true dir="column"
@@ -335,8 +316,6 @@ import { CheckboxGroup, Checkbox } from '@douyinfe/semi-ui';
 );
 ```
 ### Pure Card Style
-
-version: >=1.30.0
 
 You can set `type='pureCard'` to CheckboxGroup to realize a pure card style with background and no checkbox.
 
@@ -405,7 +384,7 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 | type           | Set the type of checkboxe, one of: `default`、`card`、`pureCard` <br/>**provided after v2.18.0** | string        | `default`  |
 | defaultChecked | Whether Checked by default (it is invalid when used in Group)                                           | boolean            | false   |
 | disabled       | Disabled state                                               | boolean            | false   |
-| extra          | Provide extra information <br/>**>= v0.25.0**                | ReactNode          | -       |
+| extra          | Provide extra information                | ReactNode          | -       |
 | extraId        | id of extra node. aria-describedby refers to this id, if not set, it will randomly generate an id <br/>**provided after v2.11.0**                     | ReactNode         | -      |
 | value          | The value that the checkbox represents in the CheckboxGroup  | any | - |
 | indeterminate  | Set to indeterminate state, style control only               | boolean            | false   |

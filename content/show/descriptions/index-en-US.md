@@ -121,8 +121,6 @@ import { IconArrowUp } from '@douyinfe/semi-icons';
 
 ### Descriptions Using JSX
 
-Version: >= 1.17.0
-
 ```jsx live=true dir="column"
 import React from 'react';
 import { Descriptions } from '@douyinfe/semi-ui';
@@ -190,12 +188,10 @@ import { Descriptions, Space, Tag } from '@douyinfe/semi-ui';
 | ------ | --------------------------------------------------------- | --------------------------- | ------ |
 | key    | Key value                                       | ReactNode           | -      |
 | value  | Data value                                                | ReactNode \| (() => ReactNode) | -      |
-| hidden | Toggle whether the data should be displayed **v>=1.12.0** | boolean                     | -      |
+| hidden | Toggle whether the data should be displayed | boolean                     | -      |
 | span   | The number of columns the cell should span **v>=2.54.0**               | number      | 1                 |
 
 ### Descriptions.Item
-
-**v>=1.17.0**
 
 | Properties | Instructions                                | type              | Default |
 | ---------- | ------------------------------------------- | ----------------- | ------- |

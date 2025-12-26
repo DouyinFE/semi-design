@@ -151,8 +151,6 @@ import { Switch } from '@douyinfe/semi-ui';
 
 ### 加载中
 
-version: >= 1.29.0
-
 可以通过设置 loading="true" 开启加载中状态。
 
 ```jsx live=true
@@ -179,7 +177,7 @@ import { Switch } from '@douyinfe/semi-ui';
 | checkedText | 打开时展示的内容, size 为 small 时无效 | ReactNode |  |  |
 | defaultChecked | 初始是否选中 | boolean | false |  |
 | disabled | 是否禁用 | boolean | false |  |
-| loading | 设置加载状态 | boolean | false | 1.29.0 |
+| loading | 设置加载状态 | boolean | false | - |
 | onChange | 变化时回调函数 | function(checked:boolean) |  |  |
 | onMouseEnter | 鼠标移入时回调 | function() |  |  |
 | onMouseLeave | 鼠标移出时回调 | function() |  |  |

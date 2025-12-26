@@ -158,7 +158,6 @@ import { Select } from '@douyinfe/semi-ui';
 
 ### 分组
 
-分组功能 v0.31.0 后提供  
 用 OptGroup 进行分组（分组功能仅支持通过 jsx 方式声明 children 使用，不支持 optionList 方式传入）
 
 <Notice title='注意'>
@@ -543,64 +542,45 @@ import { Select, Button } from '@douyinfe/semi-ui';
 使用受控 value，实现不同 Select 之间的联动。如果是带有层级关系的复杂联动建议直接使用`Cascader`组件
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
-class Link extends React.Component {
-    get provinces() {
-        return ['四川', '广东'];
-    }
-    get maps() {
-        return {
-            四川: ['成都', '都江堰'],
-            广东: ['广州', '深圳', '东莞'],
-        };
-    }
-    constructor() {
-        super();
-        this.state = {
-            provinces: this.provinces,
-            maps: this.maps,
-            citys: this.maps[this.provinces[0]],
-            city: this.maps[this.provinces[0]][0],
-        };
-        this.provinceChange = this.provinceChange.bind(this);
-        this.cityChange = this.cityChange.bind(this);
-    }
+() => {
+    const provinces = ['四川', '广东'];
+    const maps = {
+        四川: ['成都', '都江堰'],
+        广东: ['广州', '深圳', '东莞'],
+    };
 
-    provinceChange(newProvince) {
-        const { maps } = this.state;
-        this.setState({ citys: maps[newProvince], city: maps[newProvince][0] });
-    }
-    cityChange(city) {
-        this.setState({ city });
-    }
-    render() {
-        const { provinces, citys, city } = this.state;
-        return (
-            <React.Fragment>
-                <Select
-                    style={{ width: '150px', margin: '10px' }}
-                    onChange={this.provinceChange}
-                    defaultValue={provinces[0]}
-                >
-                    {provinces.map(pro => (
-                        <Select.Option value={pro} key={pro}>
-                            {pro}
-                        </Select.Option>
-                    ))}
-                </Select>
-                <Select style={{ width: '150px', margin: '10px' }} value={city} onChange={this.cityChange}>
-                    {citys.map(c => (
-                        <Select.Option value={c} key={c}>
-                            {c}
-                        </Select.Option>
-                    ))}
-                </Select>
-            </React.Fragment>
-        );
-    }
-}
+    const [province, setProvince] = useState(provinces[0]);
+    const citys = maps[province];
+    const [city, setCity] = useState(citys[0]);
+
+    const provinceChange = newProvince => {
+        setProvince(newProvince);
+        setCity(maps[newProvince][0]);
+    };
+    const cityChange = newCity => setCity(newCity);
+
+    return (
+        <>
+            <Select style={{ width: '150px', margin: '10px' }} onChange={provinceChange} value={province}>
+                {provinces.map(pro => (
+                    <Select.Option value={pro} key={pro}>
+                        {pro}
+                    </Select.Option>
+                ))}
+            </Select>
+            <Select style={{ width: '150px', margin: '10px' }} value={city} onChange={cityChange}>
+                {citys.map(c => (
+                    <Select.Option value={c} key={c}>
+                        {c}
+                    </Select.Option>
+                ))}
+            </Select>
+        </>
+    );
+};
 ```
 
 ### 开启搜索
@@ -820,7 +800,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
         </div>
     );
 
-    // avatarSrc & avatarShape are supported after 1.6.0-beta
+    // avatarSrc & avatarShape are supported
     const renderMultipleWithCustomTag = (optionNode, { onClose }) => {
         const content = (
             <Tag avatarSrc={optionNode.avatar} avatarShape="circle" closable={true} onClose={onClose} size="large">
@@ -1476,7 +1456,7 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | onSearch | input 输入框内容发生改变时回调函数，第二个参数于 v2.31 后提供                                                                                                 | function(sugInput:string, e: ReactEvent) |  |
 | onSelect | 被选中时的回调                                                                                                                               | function(value, option) |  |
 | onDeselect | 取消选中时的回调，仅在多选时有效                                                                                                                      | function(value, option) |  |
-| onExceed | 当试图选择数超出 max 限制时的回调，仅在多选时生效 <br/> 入参在 v1.16.0 后提供                                                                                     | function(option) |  |
+| onExceed | 当试图选择数超出 max 限制时的回调，仅在多选时生效                                                                                     | function(option) |  |
 | onFocus | 获得焦点时的回调                                                                                                                              | function(event) |  |
 
 ### Option Props

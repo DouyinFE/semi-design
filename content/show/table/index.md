@@ -1746,7 +1746,7 @@ render(App);
 
 ### 自定义筛选项渲染
 
-自 **1.1.0** 版本后，支持往 column 中传入 `renderFilterDropdownItem` 自定义每个筛选项的渲染方式。
+支持往 column 中传入 `renderFilterDropdownItem` 自定义每个筛选项的渲染方式。
 
 -   `text: ReactNode` 当前筛选项的文案；
 -   `value: any` 当前筛选项的值；
@@ -1875,7 +1875,7 @@ render(App);
 ### 可以展开的表格
 
 <Notice type="primary" title="注意事项">
-    <div>1. 自 0.27.0 版本后，展开按钮会默认与第一列文案渲染在同一个单元格内，你可以通过往 Table 传入 hideExpandedColumn=false 将展开按钮单独作为一列渲染；</div>
+    <div>1. 展开按钮会默认与第一列文案渲染在同一个单元格内，你可以通过往 Table 传入 hideExpandedColumn=false 将展开按钮单独作为一列渲染；</div>
     <div>2. 请务必为每行数据提供一个与其他行值不同的 key，或者使用 rowKey 参数指定一个作为主键的属性名。</div>
 </Notice>
 
@@ -2028,7 +2028,6 @@ render(App);
 
 #### 展开按钮渲染为单独列
 
-**版本：>=0.27.0**
 
 默认情况，展开按钮会与第一列文案渲染在同一个单元格内，你可以通过传入 `hideExpandedColumn={false}` 来渲染为单独一列：
 
@@ -2175,7 +2174,6 @@ render(App);
 
 #### 关闭某一行的可展开按钮渲染
 
-**版本：>=0.27.0**
 
 可传入 `rowExpandable` 方法，入参为 `record`，判断返回值是否为 `false` 来关闭某一行的可展开按钮的渲染。
 
@@ -2323,7 +2321,6 @@ render(App);
 
 ### 树形数据展示
 
-**版本：>=0.27.0**
 
 表格支持树形数据的展示，当数据中有 `children` 字段时会自动展示为树形表格，如果不需要或使用其他字段可以用 `childrenRecordName` 进行配置。另外可以通过设置 `indentSize` 以控制每一层的缩进宽度。
 
@@ -2439,7 +2436,6 @@ render(App);
 
 #### 行可交换的树形数据
 
-**版本：>=0.27.0**
 
 你可以通过改变 `dataSource` 元素的顺序来实现行交换操作。
 
@@ -2666,7 +2662,6 @@ render(App);
 
 #### 树形选择
 
-**版本：>=0.27.0**
 
 默认情况下，表格的行选中是各自独立的，你可以通过定义 `selectedRowKeys` 来模拟一个树形选中。
 
@@ -3629,7 +3624,6 @@ render(App);
 
 ### 可伸缩列
 
-版本 >= 0.15.0
 
 #### 基本伸缩列
 
@@ -4067,7 +4061,6 @@ render(App);
 
 ### 表格分组
 
-**版本：>=0.29.0**
 
 对于一些数据需要分组展示的表格，可以传入 `groupBy` 定义分组规则，使用 `renderGroupSection` 来定义分组表头的渲染。
 
@@ -4198,7 +4191,7 @@ render(Demo);
 -   需要传递每行的高度 `virtualized.itemSize`（不传时普通行高默认为 `56`，组头行高默认为 `56`），可以为如下类型：
     -   `number`
     -   `(index, { sectionRow?: boolean, expandedRow?: boolean }) => number`
--   表格分组虚拟化需要版本 >= `0.37.0`
+-   表格分组虚拟化已支持
 -   Semi Table 底层借助了 `react-window` 的能力来实现虚拟化，因此 `react-window` `VariableSizeList` 所支持的其他参数也可以通过 `virtualized`(object) 传入，例如 `overscanCount`
 -   如果需要使用 `VariableSizeList` 的 API，可以传入`getVirtualizedListRef` 获取对应 ref，需要版本 >= `1.20`
 
@@ -5033,7 +5026,6 @@ render(App);
 
 ### 完全自定义渲染
 
-**版本：**>=0.34.0
 
 一般情况下，使用 `Column.render` 即可，但是你也可以通过传递 `Column.useFullRender=true` 来开启完全自定义渲染模式，此时复选框按钮、展开按钮、缩进等组件将会透传至 `Column.title` 与 `Column.render` 方法中，你可以进一步来定义表头和单元格的内容渲染方式。
 
@@ -5200,7 +5192,6 @@ render(Demo);
 
 ### 表头合并
 
-**版本：>=1.1.0**
 
 用户可以通过表头合并功能进行表头的分组，表头合并支持与固定列、虚拟化、数据分组、列伸缩等功能复合使用，也同时支持 JSX 或者配置式写法。
 
@@ -5640,12 +5631,12 @@ render(App);
 | bordered | 是否展示外边框和列边框                                                         | boolean | false |
 | childrenRecordName | 树形表格 dataSource 中每行元素中表示子级数据的字段，默认为 children                        | string | 'children' |
 | className | 最外层样式名                                                              | string |  |
-| clickGroupedRowToExpand | 点击分组表头行时分组内容展开或收起                                                   | boolean |  | **0.29.0** |
+| clickGroupedRowToExpand | 点击分组表头行时分组内容展开或收起                                                   | boolean |  | - |
 | columns | 表格列的配置描述，详见[Column](#Column)                                        | Column[] | [] |
 | components | 覆盖 Table 的组成元素，如 table, body，row，td，th 等                            | <a target="_blank" href="https://github.com/DouyinFE/semi-design/blob/340c93e4e1612a879be869c43ad7a9a85ab5a302/packages/semi-ui/table/interface.ts#L200">TableComponents</a> |  |
 | dataSource | 数据。**请为每一条数据分配一个独立的 key，或使用 rowKey 指定一个作为主键的属性名**                                    | RecordType[] | [] |
 | defaultExpandAllRows | 默认是否展开所有行，动态加载数据时不生效                                                | boolean | false |
-| defaultExpandAllGroupRows | 默认是否展开分组行，动态加载数据时不生效                                                | boolean | false | **1.30.0** |
+| defaultExpandAllGroupRows | 默认是否展开分组行，动态加载数据时不生效                                                | boolean | false | - |
 | defaultExpandedRowKeys | 默认展开的行 key 数组，，动态加载数据时不生效                                           | Array<\*> | [] |
 | direction | RTL、LTR 方向，默认值等于 ConfigProvider direction，可在此单独配置 Table 的 direction | 'ltr' \| 'rtl' |  | **2.31.0** |
 | empty | 无数据时展示的内容                                                           | ReactNode | '暂无数据' |
@@ -5653,36 +5644,36 @@ render(App);
 | expandIcon | 自定义展开按钮，传 `false` 关闭默认的渲染                                           | boolean \| ReactNode<br/> \| (expanded: boolean) => ReactNode |  |
 | expandedRowKeys | 展开的行，传入此参数时行展开功能将受控                                                 | (string \| number)[] |  |
 | expandedRowRender | 额外的展开行。**请为每一条数据分配一个独立的 key，或使用 rowKey 指定一个作为主键的属性名**                                                               | (record: object, index: number, expanded: boolean) => ReactNode |  |
-| expandAllRows | 是否展开所有行                                                             | boolean | false | **1.30.0** |
-| expandAllGroupRows | 是否展开分组行                                                             | boolean | false | **1.30.0** |
-| expandRowByClick | 点击行时是否展开可展开行                                                        | boolean | false | **1.31.0** |
+| expandAllRows | 是否展开所有行                                                             | boolean | false | - |
+| expandAllGroupRows | 是否展开分组行                                                             | boolean | false | - |
+| expandRowByClick | 点击行时是否展开可展开行                                                        | boolean | false | - |
 | footer | 表格尾部                                                                | ReactNode<br/>\|(pageData: object) => ReactNode |  |
-| getVirtualizedListRef | 返回虚拟化表格所用 VariableSizeList 的 ref，仅在配置 virtualized 时有效               | (ref: React.RefObject) => void |  | **1.20.0** |
-| groupBy | 分组依据，一般为 dataSource 元素中某个键名或者返回值为字符串、数字的一个方法                        | string\|number<br/>\|(record: RecordType) => string\|number |  | **0.29.0** |
+| getVirtualizedListRef | 返回虚拟化表格所用 VariableSizeList 的 ref，仅在配置 virtualized 时有效               | (ref: React.RefObject) => void |  | - |
+| groupBy | 分组依据，一般为 dataSource 元素中某个键名或者返回值为字符串、数字的一个方法                        | string\|number<br/>\|(record: RecordType) => string\|number |  | - |
 | hideExpandedColumn | 当表格可展开时，展开按钮默认会与第一列文案渲染在同一个单元格内，设为 false 时默认将展开按钮单独作为一列渲染           | boolean | true |
 | indentSize | 树形结构 TableCell 的缩进大小                                                | number | 20 |
 | keepDOM | 折叠行时是否不销毁被折叠的 DOM                                                   | boolean | false |
 | loading | 页面是否加载中                                                             | boolean | false |
 | pagination | 分页组件配置                                                              | boolean\|TablePaginationProps | true |
 | prefixCls | 样式名前缀                                                               | string |  |
-| renderGroupSection | 表头渲染方法                                                              | (groupKey?: string \| number, group?: string[] \| number[]) => ReactNode |  | **0.29.0** |
-| renderPagination | 自定义分页器渲染方法                                                          | (paginationProps?: TablePaginationProps) => ReactNode |  | **1.13.0** |
+| renderGroupSection | 表头渲染方法                                                              | (groupKey?: string \| number, group?: string[] \| number[]) => ReactNode |  | - |
+| renderPagination | 自定义分页器渲染方法                                                          | (paginationProps?: TablePaginationProps) => ReactNode |  | - |
 | resizable | 是否开启伸缩列功能，需要进行伸缩的列必须要提供 width 的值                                    | boolean\|[Resizable](#Resizable) | false |
-| rowExpandable | 传入该参数时，Table 作行渲染时会调用该函数，返回值用于判断该行是否可展开，返回值为 false 时关闭可展开按钮的渲染      | (record: object) => boolean |  | **0.27.0** |
+| rowExpandable | 传入该参数时，Table 作行渲染时会调用该函数，返回值用于判断该行是否可展开，返回值为 false 时关闭可展开按钮的渲染      | (record: object) => boolean |  | - |
 | rowKey | 表格行 key 的取值，可以是字符串或一个函数                                             | string<br/>\|(record: RecordType) => string | 'key' |
 | rowSelection | 表格行是否可选择，详见 [rowSelection](#rowSelection)                           | object | - |
 | scroll | 表格是否可滚动，配置滚动区域的宽或高，详见 [scroll](#scroll)                             | object | - |
 | showHeader | 是否显示表头                                                              | boolean | true |
-| size | 表格尺寸，影响表格行 `padding`                                                | "default"\|"middle"\|"small" | "default" | **1.0.0** |
+| size | 表格尺寸，影响表格行 `padding`                                                | "default"\|"middle"\|"small" | "default" | - |
 | sticky | 固定表头                                                                | boolean \| { top: number } | false | **2.21.0** |
 | title | 表格标题                                                                | ReactNode<br/>\|(pageData: RecordType[]) => ReactNode |  |
-| virtualized | 虚拟化配置                                                               | Virtualized | false | **0.33.0** |
-| virtualized.itemSize | 每行的高度                                                               | number\|(index: number) => number | 56 | **0.33.0** |
-| virtualized.onScroll | 虚拟化滚动回调方法                                                           | ( scrollDirection?: 'forward' \| 'backward', scrollOffset?: number, scrollUpdateWasRequested?: boolean ) => void |  | **0.33.0** |
+| virtualized | 虚拟化配置                                                               | Virtualized | false | - |
+| virtualized.itemSize | 每行的高度                                                               | number\|(index: number) => number | 56 | - |
+| virtualized.onScroll | 虚拟化滚动回调方法                                                           | ( scrollDirection?: 'forward' \| 'backward', scrollOffset?: number, scrollUpdateWasRequested?: boolean ) => void |  | - |
 | onChange | 分页、排序、筛选变化时触发。extra.changeType 自 v2.72 支持。                                                       | ({ pagination: TablePaginationProps, <br/>filters: Array<\*>, sorter: object, extra: { changeType: 'sorter' \| 'filter' \| 'pagination' } }) => void |  |
-| onExpand | 点击行展开图标时进行触发                                                        | (expanded: boolean, record: RecordType, DOMEvent: MouseEvent) => void |  | 第三个参数 DOMEvent 需版本 **>=0.28.0** |
+| onExpand | 点击行展开图标时进行触发                                                        | (expanded: boolean, record: RecordType, DOMEvent: MouseEvent) => void |  | - |
 | onExpandedRowsChange | 展开的行变化时触发                                                           | (rows: RecordType[]) => void |  |
-| onGroupedRow | 类似于 onRow，不过这个参数单独用于定义分组表头的行属性                                      | (record: RecordType, index: number) => object |  | **0.29.0** |
+| onGroupedRow | 类似于 onRow，不过这个参数单独用于定义分组表头的行属性                                      | (record: RecordType, index: number) => object |  | - |
 | onHeaderRow | 设置头部行属性，返回的对象会被合并传给表头行                                              | (columns: Column[], index: number) => object |  |
 | onRow | 设置行属性，返回的对象会被合并传给表格行                                                | (record: RecordType, index: number) => object |  |
 
@@ -5801,9 +5792,9 @@ import { Table } from '@douyinfe/semi-ui';
 | colSpan | 表头列合并，设置为 0 时，不渲染 | number |  |
 | dataIndex | 列数据在数据项中对应的 key，使用排序或筛选时必传，且需要保持不重复 | string |  |
 | defaultFilteredValue | 筛选的默认值，值为已筛选的 value 数组 | any[] |  | **2.5.0** |
-| defaultSortOrder | 排序的默认值，可设置为 'ascend'\|'descend'\|false | boolean\| string | false | **1.31.0** |
+| defaultSortOrder | 排序的默认值，可设置为 'ascend'\|'descend'\|false | boolean\| string | false | - |
 | ellipsis | 文本缩略，开启后 table-layout 会自动切换为 fixed | boolean\| { showTitle: boolean } | false | **2.34.0** |
-| filterChildrenRecord | 是否需要对子级数据进行本地过滤，开启该功能后如果子级符合过滤标准，父级即使不符合仍然会保留 | boolean |  | **0.29.0** |
+| filterChildrenRecord | 是否需要对子级数据进行本地过滤，开启该功能后如果子级符合过滤标准，父级即使不符合仍然会保留 | boolean |  | - |
 | filterDropdown | 可以自定义筛选菜单，此函数只负责渲染图层，需要自行编写各种交互 | ReactNode |  |
 | filterDropdownProps | 透传给 Dropdown 的属性，详情点击[Dropdown API](/zh-CN/show/dropdown#Dropdown) | object |  |
 | filterDropdownVisible | 控制 Dropdown 的 visible，详情点击[Dropdown API](/zh-CN/show/dropdown#Dropdown) | boolean |  |
@@ -5815,16 +5806,16 @@ import { Table } from '@douyinfe/semi-ui';
 | key | React 需要的 key，如果已经设置了唯一的 dataIndex，可以忽略这个属性 | string |  |
 | render | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return 里面可以设置表格行/列合并 | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode }) => object\|ReactNode |  |
 | renderFilterDropdown | 自定义筛选器 dropdown 面板，用法详见[自定义筛选器](#自定义筛选器) | (props?: RenderFilterDropdownProps) => React.ReactNode; | - | **2.52.0** |
-| renderFilterDropdownItem | 自定义每个筛选项渲染方式，用法详见[自定义筛选项渲染](#自定义筛选项渲染) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | **1.1.0** |
+| renderFilterDropdownItem | 自定义每个筛选项渲染方式，用法详见[自定义筛选项渲染](#自定义筛选项渲染) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | - |
 | resize | 是否开启 resize 模式，只有 Table resizable 开启后此属性才会生效 | boolean |  | **2.42.0** |
 | showSortTip | 是否展示排序提示，如果设置了 sortOrder，排序受控，则该参数不会生效 | boolean | false | **2.65.0** |
-| sortChildrenRecord | 是否对子级数据进行本地排序 | boolean |  | **0.29.0** |
+| sortChildrenRecord | 是否对子级数据进行本地排序 | boolean |  | - |
 | sortOrder | 排序的受控属性，外界可用此控制列的排序，可设置为 'ascend'\|'descend'\|false | boolean\| string | false |
 | sorter | 排序函数，本地排序使用一个函数 (参考 Array.sort 的 compareFunction)，需要服务端排序可设为 true。**必须给排序列设置一个独立的 dataIndex，必须为 dataSource 里面的每条数据项设置独立的 key** | boolean\|(r1: RecordType, r2: RecordType, sortOrder: 'ascend' \| 'descend') => number | true |
 | sortIcon | 自定义 sort 图标，返回的节点控制了整个排序按钮，包含升序和降序。需根据 sortOrder 控制高亮行为 | (props: { sortOrder }) => ReactNode | | **2.50.0** |
 | shouldCellUpdate | 自定义控制单元格是否渲染。默认 cell 会深对比 props 和 nextProps 是否变化，来决定是否渲染单元格。如果你的 props 中的 record 比较复杂，建议使用 `shouldCellUpdate` 接管单元格的渲染。 | (props: TableCellProps, prevProps: TableCellProps) => boolean | | **2.71.0** |
-| title | 列头显示文字。传入 function 时，title 将使用函数的返回值；传入其他类型，将会和 sorter、filter 进行聚合。需要搭配 useFullRender 获取函数类型中的 filter 等参数 | ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode |  | Function 类型需要**0.34.0** |
-| useFullRender | 是否完全自定义渲染，用法详见[完全自定义渲染](#完全自定义渲染)，开启此功能会造成一定的性能损耗 | boolean | false | **0.34.0** |
+| title | 列头显示文字。传入 function 时，title 将使用函数的返回值；传入其他类型，将会和 sorter、filter 进行聚合。需要搭配 useFullRender 获取函数类型中的 filter 等参数 | ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode |  | - |
+| useFullRender | 是否完全自定义渲染，用法详见[完全自定义渲染](#完全自定义渲染)，开启此功能会造成一定的性能损耗 | boolean | false | - |
 | width | 列宽度 | string \| number |  |
 | onCell | 设置单元格属性 | (record: RecordType, rowIndex: number) => object |  |
 | onFilter | 本地模式下，确定筛选的运行函数。**必须给筛选列设置一个独立的 dataIndex，必须为 dataSource 里面的每条数据项设置独立的 key** | (filteredValue: any, record: RecordType) => boolean |  |
@@ -5850,10 +5841,10 @@ type Filter = {
 | 属性             | 说明                                                                                                                                                                           | 类型                                                                                                                                                                                                                                                                  | 默认值 | 版本       |
 |------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|------------|
 | className        | 所处列样式名                                                                                                                                                                   | string                                                                                                                                                                                                                                                                |        |            |
-| disabled         | 表头的 `Checkbox` 是否禁用                                                                                                                                                     | boolean                                                                                                                                                                                                                                                               | false  | **0.32.0** |
+| disabled         | 表头的 `Checkbox` 是否禁用                                                                                                                                                     | boolean                                                                                                                                                                                                                                                               | false  | - |
 | fixed            | 把选择框列固定在左边                                                                                                                                                           | boolean                                                                                                                                                                                                                                                               | false  |            |
 | getCheckboxProps | 选择框的默认属性配置                                                                                                                                                           | (record: RecordType) => object                                                                                                                                                                                                                                        |        |            |
-| hidden           | 是否隐藏选择列                                                                                                                                                                 | boolean                                                                                                                                                                                                                                                               | false  | **0.34.0** |
+| hidden           | 是否隐藏选择列                                                                                                                                                                 | boolean                                                                                                                                                                                                                                                               | false  | - |
 | renderCell       | 自定义渲染勾选框                                                                                                                                                               | ({ selected: boolean, record: RecordType, originNode: JSX.Element, inHeader: boolean, disabled: boolean, indeterminate: boolean, index?: number, selectRow?: (selected: boolean, e: Event) => void, selectAll?: (selected: boolean, e: Event) => void }) => ReactNode |        | **2.52.0** |
 | selectedRowKeys  | 指定选中项的 key 数组，需要和 onChange 进行配合                                                                                                                                 | string[]                                                                                                                                                                                                                                                              |        |            |
 | shouldCellUpdate | 自定义控制单元格是否渲染。默认 cell 会深对比 props 和 nextProps 是否变化，来决定是否渲染单元格。如果你的 props 中的 record 比较复杂，建议使用 `shouldCellUpdate` 接管单元格的渲染。 | (props: TableCellProps, prevProps: TableCellProps) => boolean                                                                                                                                                                                                         |        | **2.71.0** |
@@ -5867,7 +5858,7 @@ type Filter = {
 
 | 属性                     | 说明                                                     | 类型           | 默认值 | 版本      |
 |--------------------------|--------------------------------------------------------|----------------|--------|-----------|
-| scrollToFirstRowOnChange | 当分页、排序、筛选变化后是否自动滚动到表格顶部             | boolean        | false  | **1.1.0** |
+| scrollToFirstRowOnChange | 当分页、排序、筛选变化后是否自动滚动到表格顶部             | boolean        | false  | - |
 | x                        | 设置横向滚动区域的宽，可以为像素值、百分比或 'max-content' | string\|number |        |           |
 | y                        | 设置纵向滚动区域的高，可以为像素值                        | number         |        |           |
 
@@ -5880,11 +5871,11 @@ type Filter = {
 | 属性               | 说明                                                                                                                                    | 类型                                                                                          | 默认值   | 版本         |
 |--------------------|---------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|----------|--------------|
 | currentPage        | 当前页码                                                                                                                                | number                                                                                        | -        |              |
-| defaultCurrentPage | 默认的当前页码                                                                                                                          | number                                                                                        | 1        | **>=1.1.0**  |
-| formatPageText     | 翻页区域文案自定义格式化，传 false 关闭文案显示；该项影响表格翻页区域左侧文案显示，不同于 `Pagination` 组件的 `showTotal` 参数，请注意甄别。 | boolean \| ({ currentStart: number, currentEnd: number, total: number }) => string\|ReactNode | true     | **>=0.27.0** |
+| defaultCurrentPage | 默认的当前页码                                                                                                                          | number                                                                                        | 1        | -  |
+| formatPageText     | 翻页区域文案自定义格式化，传 false 关闭文案显示；该项影响表格翻页区域左侧文案显示，不同于 `Pagination` 组件的 `showTotal` 参数，请注意甄别。 | boolean \| ({ currentStart: number, currentEnd: number, total: number }) => string\|ReactNode | true     | - |
 | pageSize           | 每页条数                                                                                                                                | number                                                                                        | 10       |              |
 | position           | 位置                                                                                                                                    | 'bottom'\|'top'\|'both'                                                                       | 'bottom' |              |
-| total              | 数据总数                                                                                                                                | number                                                                                        | 0        | **>=0.25.0** |
+| total              | 数据总数                                                                                                                                | number                                                                                        | 0        | - |
 
 
 其他配置详见[Pagination](/zh-CN/navigation/pagination#API参考)
@@ -5934,7 +5925,7 @@ function Demo() {
 
 | 名称                 | 描述                                                                                                         | 版本   |
 |----------------------|------------------------------------------------------------------------------------------------------------|--------|
-| getCurrentPageData() | 返回当前页的数据对象：{ dataSource: RecordType[], groups: Map<{groupKey: string, recordKeys: Set<string\>}> } | 0.37.0 |
+| getCurrentPageData() | 返回当前页的数据对象：{ dataSource: RecordType[], groups: Map<{groupKey: string, recordKeys: Set<string\>}> } | - |
 
 ## Accessibility
 

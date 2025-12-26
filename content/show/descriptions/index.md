@@ -225,7 +225,7 @@ import { IconArrowUp } from '@douyinfe/semi-icons';
 | ------ | -------------------------------- | --------------------------- | ------ |
 | key    | 键值        | ReactNode           | -      |
 | value  | 属性值                           | ReactNode \| (() => ReactNode) | -      |
-| hidden | 该数据是否需要展示 **v>=1.12.0** | boolean                     | -      |
+| hidden | 该数据是否需要展示 | boolean                     | -      |
 | span   | 单元格应跨越的列数 **v>=2.54.0** | number      | 1                 |
 
 ### DescriptionItem

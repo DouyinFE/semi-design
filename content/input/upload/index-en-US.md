@@ -371,7 +371,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 ### Limit the total number of files
 
 You can limit the maximum number of files that can be uploaded by setting the `limit` property
-When `limit` is 1, always replace the current one with the latest upload, and will not trigger the onExceed callback **v1.5.0 takes effect**
+When `limit` is 1, always replace the current one with the latest upload, and will not trigger the onExceed callback
 
 ```jsx dir="column" live=true width=48%
 import React from 'react';
@@ -1016,43 +1016,36 @@ import { IconUpload } from '@douyinfe/semi-icons';
 `uploadTrigger='custom'`, the upload will not be triggered automatically after the file is selected. Need to manually call the upload method on the ref to trigger
 
 ```jsx live=true width=48%
-import React from 'react';
+import React, { useRef } from 'react';
 import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload, IconPlus } from '@douyinfe/semi-icons';
 
-class ManulUploadDemo extends React.Component {
-    constructor() {
-        super();
-        this.manulUpload = this.manulUpload.bind(this);
-        this.uploadRef = React.createRef();
-    }
+function ManulUploadDemo() {
+    const uploadRef = useRef();
+    const manulUpload = () => {
+        uploadRef.current && uploadRef.current.upload();
+    };
 
-    manulUpload() {
-        this.uploadRef.current.upload();
-    }
-
-    render() {
-        let action = '//semi.design/api/upload';
-        return (
-            <div>
-                <Upload
-                    accept="image/gif, image/png, image/jpeg, image/bmp, image/webp"
-                    action={action}
-                    uploadTrigger="custom"
-                    ref={this.uploadRef}
-                    onSuccess={(...v) => console.log(...v)}
-                    onError={(...v) => console.log(...v)}
-                >
-                    <Button icon={<IconPlus />} theme="light" style={{ marginRight: 8 }}>
-                        Select a document
-                    </Button>
-                </Upload>
-                <Button icon={<IconUpload />} theme="light" onClick={this.manulUpload}>
-                    Start upload
+    let action = '//semi.design/api/upload';
+    return (
+        <div>
+            <Upload
+                accept="image/gif, image/png, image/jpeg, image/bmp, image/webp"
+                action={action}
+                uploadTrigger="custom"
+                ref={uploadRef}
+                onSuccess={(...v) => console.log(...v)}
+                onError={(...v) => console.log(...v)}
+            >
+                <Button icon={<IconPlus />} theme="light" style={{ marginRight: 8 }}>
+                    Select a document
                 </Button>
-            </div>
-        );
-    }
+            </Upload>
+            <Button icon={<IconUpload />} theme="light" onClick={manulUpload}>
+                Start upload
+            </Button>
+        </div>
+    );
 }
 ```
 
@@ -1169,31 +1162,23 @@ The file status can be updated through the `beforeUpload` hook, which is to veri
 ```
 
 ```jsx live=true width=48%
-import React from 'react';
+import React, { useRef } from 'react';
 import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
-class ValidateDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-        this.beforeUpload = this.beforeUpload.bind(this);
-        this.transformFile = this.transformFile.bind(this);
-        this.count = 0;
-    }
+function ValidateDemo() {
+    const countRef = useRef(0);
 
-    transformFile(fileInstance) {
-        if (this.count === 0) {
-            let newFile = new File([fileInstance], 'newFileName', { type: 'image/png' });
-            return newFile;
-        } else {
-            return fileInstance;
+    const transformFile = (fileInstance) => {
+        if (countRef.current === 0) {
+            return new File([fileInstance], 'newFileName', { type: 'image/png' });
         }
-    }
+        return fileInstance;
+    };
 
-    beforeUpload({ file, fileList }) {
+    const beforeUpload = ({ file, fileList }) => {
         let result;
-        if (this.count > 0) {
+        if (countRef.current > 0) {
             result = {
                 autoRemove: false,
                 fileInstance: file.fileInstance,
@@ -1207,23 +1192,17 @@ class ValidateDemo extends React.Component {
                 shouldUpload: false,
             };
         }
-        this.count = this.count + 1;
+        countRef.current = countRef.current + 1;
         return result;
-    }
+    };
 
-    render() {
-        return (
-            <Upload
-                action="//semi.design/api/upload"
-                transformFile={this.transformFile}
-                beforeUpload={this.beforeUpload}
-            >
-                <Button icon={<IconUpload />} theme="light">
-                    Click upload (synchronize check before upload)
-                </Button>
-            </Upload>
-        );
-    }
+    return (
+        <Upload action="//semi.design/api/upload" transformFile={transformFile} beforeUpload={beforeUpload}>
+            <Button icon={<IconUpload />} theme="light">
+                Click upload (synchronize check before upload)
+            </Button>
+        </Upload>
+    );
 }
 ```
 
@@ -1231,51 +1210,42 @@ In the case of asynchronous verification, a Promise must be returned. Promise re
 Object can be passed in when resolve/reject (the structure is the same as beforeUploadResult)
 
 ```jsx live=true width=48%
-import React from 'react';
+import React, { useRef } from 'react';
 import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
-class AsyncBeforeUploadDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-        this.beforeUpload = this.beforeUpload.bind(this);
-        this.count = 0;
-    }
-
-    beforeUpload({ file, fileList }) {
-        let result;
+function AsyncBeforeUploadDemo() {
+    const countRef = useRef(0);
+    const beforeUpload = ({ file, fileList }) => {
         return new Promise((resolve, reject) => {
-            if (this.count > 1) {
-                result = {
+            if (countRef.current > 1) {
+                const result = {
                     autoRemove: false,
                     shouldUpload: true,
                 };
-                this.count = this.count + 1;
+                countRef.current = countRef.current + 1;
                 resolve(result);
             } else {
-                result = {
+                const result = {
                     autoRemove: false,
                     fileInstance: file.fileInstance,
                     status: 'validateFail',
                     shouldUpload: false,
-                    validateMessage: `${this.count + 1} is doomed to fail`,
+                    validateMessage: `${countRef.current + 1} is doomed to fail`,
                 };
-                this.count = this.count + 1;
+                countRef.current = countRef.current + 1;
                 reject(result);
             }
         });
-    }
+    };
 
-    render() {
-        return (
-            <Upload action="//semi.design/api/upload" beforeUpload={this.beforeUpload}>
-                <Button icon={<IconUpload />} theme="light">
-                    Click upload (asynchronous verification before upload)
-                </Button>
-            </Upload>
-        );
-    }
+    return (
+        <Upload action="//semi.design/api/upload" beforeUpload={beforeUpload}>
+            <Button icon={<IconUpload />} theme="light">
+                Click upload (asynchronous verification before upload)
+            </Button>
+        </Upload>
+    );
 }
 ```
 
@@ -1303,14 +1273,8 @@ import React from 'react';
 import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
-class ValidateDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-        this.count = 0;
-    }
-
-    afterUpload({ response, file }) {
+function ValidateDemo() {
+    const afterUpload = ({ response, file }) => {
         // It can be returned according to the business interface to determine whether the upload is successful.
         if (response.status_code === 200) {
             return {
@@ -1319,20 +1283,17 @@ class ValidateDemo extends React.Component {
                 validateMessage: 'The content is illegal',
                 name: 'RenameByServer.jpg',
             };
-        } else {
-            return {};
         }
-    }
+        return {};
+    };
 
-    render() {
-        return (
-            <Upload action="//semi.design/api/upload" afterUpload={this.afterUpload}>
-                <Button icon={<IconUpload />} theme="light">
-                    Click upload
-                </Button>
-            </Upload>
-        );
-    }
+    return (
+        <Upload action="//semi.design/api/upload" afterUpload={afterUpload}>
+            <Button icon={<IconUpload />} theme="light">
+                Click upload
+            </Button>
+        </Upload>
+    );
 }
 ```
 
@@ -1402,26 +1363,26 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |--- | --- | --- | --- | --- |
 |accept | `html` Native attribute, accept uploaded [file type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept). <br/>The value of `accept` is the [MIME types string](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Complete_list_of_MIME_types) or file that you allow to select the file Suffix (.jpg, etc.) | string | | |
 |action | File upload address, required | string | | |
-|afterUpload | Hook after the file upload, update the file status according to the returned object | function(auProps) => afterUploadResult | | 1.0.0 |
-|beforeClear|Call back before clearing the file, judge whether to continue removing according to the return value, return false, Promise.resolve(false), Promise.reject() will prevent removal|(fileList: Array<FileItem \>) => boolean \| Promise||1.31.0|
-|beforeRemove|Callback before removing the file, judge whether to continue removing according to the return value, return false, Promise.resolve(false), Promise.reject() will prevent removal|(file: <FileItem\>, fileList: Array<FileItem \>) => boolean \| Promise||1.31.0|
-|beforeUpload | The hook before uploading the file, according to the return object to update the file status, control whether to upload | function(buProps) => beforeUploadResult \| Promise \| boolean | | 1.0.0 |
+|afterUpload | Hook after the file upload, update the file status according to the returned object | function(auProps) => afterUploadResult | | - |
+|beforeClear|Call back before clearing the file, judge whether to continue removing according to the return value, return false, Promise.resolve(false), Promise.reject() will prevent removal|(fileList: Array<FileItem \>) => boolean \| Promise||-|
+|beforeRemove|Callback before removing the file, judge whether to continue removing according to the return value, return false, Promise.resolve(false), Promise.reject() will prevent removal|(file: <FileItem\>, fileList: Array<FileItem \>) => boolean \| Promise||-|
+|beforeUpload | The hook before uploading the file, according to the return object to update the file status, control whether to upload | function(buProps) => beforeUploadResult \| Promise \| boolean | | - |
 |capture | The way of media shooting in the file upload control | boolean \| string \| undefined | | |
 |className | class name | string | | |
-|customRequest | Asynchronous request method for custom upload | (object: customRequestArgs) => void | | 1.5.0 |
+|customRequest | Asynchronous request method for custom upload | (object: customRequestArgs) => void | | - |
 |data | Additional parameters attached to the upload or the method to return the uploaded additional parameters| object\|(file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => object | {} | |
 |defaultFileList | List of uploaded files | Array<FileItem\> | [] | |
-|directory | Folder type upload | boolean | false | 1.20.0 |
+|directory | Folder type upload | boolean | false | - |
 |disabled | Whether to disable | boolean | false | |
-|dragIcon | Icon on the left side of the drag area | ReactNode | `<IconUpload />` | 0.22.0 |
-|dragMainText | Main text of the drag area | ReactNode |'Click to upload the file or drag and drop the file here' | 0.22.0 |
-|dragSubText | Drag area help text | ReactNode |'' | 0.22.0 |
-|draggable | Whether to support drag and drop upload | boolean | false | 0.22.0 |
-|fileList | A list of uploaded files. When this value is passed in, upload is a controlled component | Array<FileItem\> | | 1.0.0 |
-|fileName | has the same function as name and is mainly used in Form.Upload. In order to avoid conflicts with the props.name of Field, a renamed props is provided here | string | | 1.0.0 |
+|dragIcon | Icon on the left side of the drag area | ReactNode | `<IconUpload />` | - |
+|dragMainText | Main text of the drag area | ReactNode |'Click to upload the file or drag and drop the file here' | - |
+|dragSubText | Drag area help text | ReactNode |'' | - |
+|draggable | Whether to support drag and drop upload | boolean | false | - |
+|fileList | A list of uploaded files. When this value is passed in, upload is a controlled component | Array<FileItem\> | | - |
+|fileName | has the same function as name and is mainly used in Form.Upload. In order to avoid conflicts with the props.name of Field, a renamed props is provided here | string | | - |
 |headers | The headers attached to the upload or the method to return the uploaded additional headers| object\|(file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) = > object | {} | |
 |hotSpotLocation | 照片墙点击热区的放置位置，可选值 `start`, `end` | string | 'end' | 2.5.0 |
-|itemStyle | Inline style of fileCard | CSSProperties | | 1.0.0 |
+|itemStyle | Inline style of fileCard | CSSProperties | | - |
 |limit | Maximum number of files allowed to be uploaded | number | | |
 |listType | File list display type, optional `picture`, `list` | string |'list' | |
 |maxSize | Maximum file size limit, in KB | number | | |
@@ -1429,38 +1390,38 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |multiple | Whether to allow multiple files to be selected at a time | boolean | false | |
 |name | File name used when uploading | string |'' | |
 |onAcceptInvalid | Triggered when the received file does not conform to the accept specification (generally because the folder selects all types of files / drags and drops files that do not conform to the format) | (files: File[]) => void | | 1.24 .0 |
-|onChange | Called when the file status changes, including upload success, failure, upload, the callback input parameter is Object, including fileList, currentFile, etc.| ({fileList: Array<FileItem\>, currentFile?: FileItem}) = > void | | 1.0.0 |
-|onClear | Callback when click to clear | () => void | | 1.1.0 |
-|onDrop | Triggered when the dragged element is released on the drag area | (e, files: Array<File\>, fileList: Array<FileItem\>) => void | | 1.9.0 |
+|onChange | Called when the file status changes, including upload success, failure, upload, the callback input parameter is Object, including fileList, currentFile, etc.| ({fileList: Array<FileItem\>, currentFile?: FileItem}) = > void | | - |
+|onClear | Callback when click to clear | () => void | | - |
+|onDrop | Triggered when the dragged element is released on the drag area | (e, files: Array<File\>, fileList: Array<FileItem\>) => void | | - |
 |onError | Callback when uploading error| (error: Error, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList: Array<FileItem\> , xhr: XMLHttpRequest) => void | | |
 |onExceed | Callback when the total number of uploaded files exceeds `limit` | (fileList:Array<FileItem\>) => void | | |
 |onFileChange | Callback after file selection | (Array<File\>) => void | | |
-|onOpenFileDialog | Triggered when opening the system file system file selection pop-up window | () => void | | 1.18.0 |
-|onPreviewClick | Callback when the file card is clicked | (fileItem: FileItem) => void | | 1.8.0 |
+|onOpenFileDialog | Triggered when opening the system file system file selection pop-up window | () => void | | - |
+|onPreviewClick | Callback when the file card is clicked | (fileItem: FileItem) => void | | - |
 |onProgress | Callback when uploading files| (percent: number, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList: Array<FileItem\> ) => void | | |
 |onRemove | Callback for removing files| (currentFile: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>, currentFileItem: FileItem ) => void | | |
-|onRetry | Upload retry callback | (file: <FileItem\>) => void | | 1.18.0 |
+|onRetry | Upload retry callback | (file: <FileItem\>) => void | | - |
 |onSizeError | File size invalid callback| (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>) => void | | |
 |onSuccess | Callback after successful upload| (responseBody: object, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\> ) => void | |
 |picHeight | Set picture display height when listType='picture' | string\|number |  | 2.42.0 |
 |picWidth | Set picture display width when listType='picture' | string\|number |  | 2.42.0 |
 |previewFile | Customize the preview logic, the content returned by this function will replace the original thumbnail | (fileItem: FileItem) => ReactNode | | |
-|prompt | Custom slot, which can be used to insert prompt text. Different from writing directly in `children`, the content of `prompt` will not trigger upload when clicked.<br/>(In the picture wall mode, the incoming prompt is only supported after v1.3.0) | ReactNode | | |
-|promptPosition | The position of the prompt text. When the listType is list, the reference object is the children element; when the listType is picture, the reference object is the picture list. Optional values ​​`left`, `right`, `bottom`<br/> (In picture wall mode, promptPosition is only supported after v1.3.0) | string |'right' | |
-|renderFileItem | Custom rendering of fileCard | (renderProps: RenderFileItemProps) => ReactNode | | 1.0.0 |
+|prompt | Custom slot, which can be used to insert prompt text. Different from writing directly in `children`, the content of `prompt` will not trigger upload when clicked. | ReactNode | | |
+|promptPosition | The position of the prompt text. When the listType is list, the reference object is the children element; when the listType is picture, the reference object is the picture list. Optional values ​​`left`, `right`, `bottom` | string |'right' | |
+|renderFileItem | Custom rendering of fileCard | (renderProps: RenderFileItemProps) => ReactNode | | - |
 |renderFileOperation | Custom list item operation area | (renderProps: RenderFileItemProps)=>ReactNode | | 2.5.0 |
 |renderPicClose| Customize the photo wall close button, only valid in photo wall mode| ({className: string, remove: (e: MouseEvent) => void})=>ReactNode | | 2.75.0 |
 |renderPicInfo| Custom photo wall information, only valid in photo wall mode| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
 |renderPicPreviewIcon| The preview icon displayed when customizing the photo wall hover, only valid in photo wall mode | (renderProps: RenderFileItemProps)=>ReactNode | | 2.5.0 |
 |renderThumbnail| Custom picture wall thumb, only valid in photo wall mode| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
-|showClear | When limit is not 1 and the current number of uploaded files is greater than 1, whether to show the clear button | boolean | true | 1.0.0 |
+|showClear | When limit is not 1 and the current number of uploaded files is greater than 1, whether to show the clear button | boolean | true | - |
 |showPicInfo| Whether to display picture information, only valid in photo wall mode | boolean| false | 2.2.0 |
-|showReplace | When the upload is successful, whether to display the replace button inside the fileCard | boolean | false | 1.21.0 |
-|showRetry | When uploading fails, whether to display the retry button inside the fileCard | boolean | true | 1.0.0 |
+|showReplace | When the upload is successful, whether to display the replace button inside the fileCard | boolean | false | - |
+|showRetry | When uploading fails, whether to display the retry button inside the fileCard | boolean | true | - |
 |showTooltip | When the file name is too long, whether to display the tooltip and related configurations: type, the component that carries the floating layer content, supports Tooltip \| Popover; opts, other properties that need to be passed to the floating layer component; renderTooltip, custom rendering of the popup layer component | boolean \| {type: 'tooltip' \| 'popover', opts: object, renderTooltip: (content: ReactNode, children: ReactNode) => ReactNode} | true |  |
 |showUploadList | Whether to display the file list | boolean | true | |
 |style | Style | CSSProperties | | |
-|transformFile | After selecting the file, the callback function before uploading the file can be used to customize the conversion processing of the file | (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => FileItem | | 1.0.0 |
+|transformFile | After selecting the file, the callback function before uploading the file can be used to customize the conversion processing of the file | (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => FileItem | | - |
 |uploadTrigger | Trigger upload timing, optional values ​​`auto`, `custom` | string |'auto' | |
 |validateMessage | Upload the overall error message | ReactNode | | 1.0.0 |
 |withCredentials | Whether to bring cookie information | boolean | false | |

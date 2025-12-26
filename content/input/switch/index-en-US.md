@@ -156,8 +156,6 @@ import { Switch } from '@douyinfe/semi-ui';
 
 ### loading
 
-version: >= 1.29.0
-
 You can turn on the loading state by setting loading="true".
 
 ```jsx live=true
@@ -181,16 +179,16 @@ import { Switch } from '@douyinfe/semi-ui';
 | aria-labelledby | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute)attribute establishes relationships between objects and their label(s), and its value should be one or more element IDs, which refer to elements that have the text needed for labeling. | string |  | 2.2.0 |
 | className | The CSS class name of the wrapper element | string |  |  |
 | checked | Indicates whether currently selected, used with onchange | boolean | false |  |
-| checkedText | Content displayed when open, invalid when size is small | React Node |  | 0.25.0 |
+| checkedText | Content displayed when open, invalid when size is small | React Node |  | - |
 | defaultChecked | Whether selected when component mounted | boolean | false |  |
 | disabled | If true, the switch will be disabled. | boolean | false |  |
-| loading | Turn on loading status | boolean | false | 1.29.0 |
+| loading | Turn on loading status | boolean | false | - |
 | onChange | Callback function when changing | function (checked: boolean) |  |  |
 | onMouseEnter | A callback when the mouse moves in | function () |  |  |
 | onMouseLeave | A callback when the mouse moves out | function () |  |  |
 | size | Size, optional value `large`, `default`, `small` | string | 'default' |  |
 | style | Inline style | object | {} |  |
-| uncheckedText | Content displayed when closed, invalid when size is small | React Node |  | 0.25.0 |
+| uncheckedText | Content displayed when closed, invalid when size is small | React Node |  | - |
 
 ## Accessibility
 ### ARIA

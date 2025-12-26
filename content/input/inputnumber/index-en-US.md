@@ -28,28 +28,26 @@ import { InputNumber } from '@douyinfe/semi-ui';
 import React from 'react';
 import { InputNumber } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return (
-            <div style={{ width: 280 }}>
-                <label>Simple</label>
-                <InputNumber />
-                <br/><br/>
+function App() {
+    return (
+        <div style={{ width: 280 }}>
+            <label>Simple</label>
+            <InputNumber />
+            <br/><br/>
 
-                <label>Set step to 2 </label>
-                <InputNumber step={2} />
-                <br/><br/>
+            <label>Set step to 2 </label>
+            <InputNumber step={2} />
+            <br/><br/>
 
-                <label>Press shift key and click the button to increase/decrease the step size </label>
-                <InputNumber shiftStep={100} />
-                <br/><br/>
+            <label>Press shift key and click the button to increase/decrease the step size </label>
+            <InputNumber shiftStep={100} />
+            <br/><br/>
 
-                <label>Set min to 1, max to 10</label>
-                <InputNumber min={1} max={10} Default Value={1} />
-                <br/><br/>
-            </div>
-        );
-    }
+            <label>Set min to 1, max to 10</label>
+            <InputNumber min={1} max={10} defaultValue={1} />
+            <br/><br/>
+        </div>
+    );
 }
 ```
 
@@ -57,29 +55,27 @@ class App extends React.Component {
 import React from 'react';
 import { InputNumber } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return (
-            <div style={{ width: 280 }}>
-                <label>Set defaultValue to 1 </label>
-                <InputNumber defaultValue={1} />
-                <br/><br/>
+function App() {
+    return (
+        <div style={{ width: 280 }}>
+            <label>Set defaultValue to 1 </label>
+            <InputNumber defaultValue={1} />
+            <br/><br/>
 
-                <label>Set disabled to true</label>
-                <InputNumber defaultValue={2} disabled />
-                <br/><br/>
+            <label>Set disabled to true</label>
+            <InputNumber defaultValue={2} disabled />
+            <br/><br/>
 
-                <label>Set precision to 2 </label>
-                <InputNumber precision={2} defaultValue={1.234} />
-                <br/><br/>
+            <label>Set precision to 2 </label>
+            <InputNumber precision={2} defaultValue={1.234} />
+            <br/><br/>
 
-                <label>Set innerButtons=true </label>
-                <InputNumber innerButtons={true} suffix={'Hour'} defaultValue={1} style={{ width: 190 }} />
-                <br/>
+            <label>Set innerButtons=true </label>
+            <InputNumber innerButtons={true} suffix={'Hour'} defaultValue={1} style={{ width: 190 }} />
+            <br/>
 
-            </div>
-        );
-    }
+        </div>
+    );
 }
 ```
 
@@ -115,25 +111,23 @@ import { InputNumber } from '@douyinfe/semi-ui';
 import React from 'react';
 import { InputNumber } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return (
-            <div style={{ width: 180 }}>
-                <label>size=default</label>
-                <InputNumber />
-                <br/><br/>
+function App() {
+    return (
+        <div style={{ width: 180 }}>
+            <label>size=default</label>
+            <InputNumber />
+            <br/><br/>
 
-                <label>size=large</label>
-                <InputNumber size="large" />
-                <br/><br/>
+            <label>size=large</label>
+            <InputNumber size="large" />
+            <br/><br/>
 
-                <label>size=small</label>
-                <InputNumber size="small" />
-                <br/>
+            <label>size=small</label>
+            <InputNumber size="small" />
+            <br/>
 
-            </div>
-        );
-    }
+        </div>
+    );
 }
 ```
 
@@ -142,39 +136,37 @@ class App extends React.Component {
 > A pair of methods for `formatter` and `parser`, which generally need to be set at the same time, otherwise the value cannot be resolved correctly.
 
 ```jsx live=true
-import React from 'react';
+import React, { useCallback } from 'react';
 import { InputNumber } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    log(v) {
+function App() {
+    const log = useCallback((v) => {
         console.log(`Changed to: [${typeof v}] ${v}`);
-    }
+    }, []);
 
-    render() {
-        return (
-            <div style={{ width: 180 }}>
-                <label>RMB</label>
-                <InputNumber
-                    onChange={this.log}
-                    defaultValue={1000}
-                    min={0}
-                    formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    parser={value => value.replace(/\￥\s?|(,*)/g, '')}
-                />
-                <br/><br/>
+    return (
+        <div style={{ width: 180 }}>
+            <label>RMB</label>
+            <InputNumber
+                onChange={log}
+                defaultValue={1000}
+                min={0}
+                formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                parser={value => value.replace(/\￥\s?|(,*)/g, '')}
+            />
+            <br/><br/>
 
-                <label>Custom string</label>
-                <InputNumber
-                    onChange={this.log}
-                    defaultValue={1111}
-                    formatter={value => String(value).split('').join('-')}
-                    parser={value => value.replace(/\-/g, '')}
-                />
-                <br/>
+            <label>Custom string</label>
+            <InputNumber
+                onChange={log}
+                defaultValue={1111}
+                formatter={value => String(value).split('').join('-')}
+                parser={value => value.replace(/\-/g, '')}
+            />
+            <br/>
 
-            </div>
-        );
-    }
+        </div>
+    );
 }
 ```
 
@@ -201,7 +193,7 @@ function Demo () {
 Version 2.77.0 supports currency display. In internationalization mode, enable currency={true} and the component will automatically display the corresponding currency type according to localeCode. (Note that the component key value needs to be updated after switching the language type)
 
 ```jsx live=true
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
 import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
 import en_US from '@douyinfe/semi-ui/lib/es/locale/source/en_US';
@@ -226,77 +218,70 @@ import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
 import ro from '@douyinfe/semi-ui/lib/es/locale/source/ro';
 import { LocaleProvider, InputNumber, Select } from '@douyinfe/semi-ui';
 
-class I18nDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            locale: zh_CN,
-            localeCode: 'zh_CN',
-        };
-        this.onLanguageChange = this.onLanguageChange.bind(this);
-    }
+function I18nDemo() {
+    const [locale, setLocale] = useState(zh_CN);
+    const [localeCode, setLocaleCode] = useState('zh_CN');
 
-    onLanguageChange(code) {
-        let language = {
-            'zh_CN': zh_CN,
-            'en_GB': en_GB,
-            'en_US': en_US,
-            'ko_KR': ko_KR,
-            'ja_JP': ja_JP,
-            'ar': ar,
-            'vi_VN': vi_VN,
-            'ru_RU': ru_RU,
-            'id_ID': id_ID,
-            'ms_MY': ms_MY,
-            'th_TH': th_TH,
-            'tr_TR': tr_TR,
-            'pt_BR': pt_BR,
-            'zh_TW': zh_TW,
-            'es': es,
-            'sv_SE': sv_SE,
-            'pl_PL': pl_PL,
-            'nl_NL': nl_NL,
-            de,
-            it,
-            fr,
-            ro
-        };
-        this.setState({ locale: language[code], localeCode: code });
-    }
+    const language = useMemo(() => ({
+        'zh_CN': zh_CN,
+        'en_GB': en_GB,
+        'en_US': en_US,
+        'ko_KR': ko_KR,
+        'ja_JP': ja_JP,
+        'ar': ar,
+        'vi_VN': vi_VN,
+        'ru_RU': ru_RU,
+        'id_ID': id_ID,
+        'ms_MY': ms_MY,
+        'th_TH': th_TH,
+        'tr_TR': tr_TR,
+        'pt_BR': pt_BR,
+        'zh_TW': zh_TW,
+        'es': es,
+        'sv_SE': sv_SE,
+        'pl_PL': pl_PL,
+        'nl_NL': nl_NL,
+        de,
+        it,
+        fr,
+        ro
+    }), []);
 
-    render() {
-        const { locale, localeCode } = this.state;
-        return (
-            <>
-                <div style={{ paddingBottom: 20 }}>
-                    <Select onChange={this.onLanguageChange} insetLabel='切换语言' style={{ width: 250 }} defaultValue='zh_CN'>
-                        <Select.Option value='zh_CN'>Chinese</Select.Option>
-                        <Select.Option value='en_GB'>English</Select.Option>
-                        <Select.Option value='ja_JP'>Japanese</Select.Option>
-                        <Select.Option value='ko_KR'>Korean</Select.Option>
-                        <Select.Option value='ar'>Arabic</Select.Option>
-                        <Select.Option value='vi_VN'>Vietnamese</Select.Option>
-                        <Select.Option value='ru_RU'>Russian</Select.Option>
-                        <Select.Option value='id_ID'>Indonesian</Select.Option>
-                        <Select.Option value='ms_MY'>Malay</Select.Option>
-                        <Select.Option value='th_TH'>Thai</Select.Option>
-                        <Select.Option value='tr_TR'>Turkish</Select.Option>
-                        <Select.Option value='es'>Spanish</Select.Option>
-                        <Select.Option value='de'>German</Select.Option>
-                        <Select.Option value='it'>Italian</Select.Option>
-                        <Select.Option value='fr'>French</Select.Option>
-                        <Select.Option value='ro'>Romanian</Select.Option>
-                        <Select.Option value='sv_SE'>Swedish</Select.Option>
-                        <Select.Option value='pl_PL'>Polish</Select.Option>
-                        <Select.Option value='nl_NL'>Dutch</Select.Option>
-                    </Select>
-                </div>
-                <LocaleProvider locale={locale}>
-                    <InputNumber key={localeCode} currency={true} defaultValue={123456.78} />
-                </LocaleProvider>
-            </>
-        );
-    }
+    const onLanguageChange = (code) => {
+        setLocale(language[code]);
+        setLocaleCode(code);
+    };
+
+    return (
+        <>
+            <div style={{ paddingBottom: 20 }}>
+                <Select onChange={onLanguageChange} insetLabel='切换语言' style={{ width: 250 }} defaultValue='zh_CN'>
+                    <Select.Option value='zh_CN'>Chinese</Select.Option>
+                    <Select.Option value='en_GB'>English</Select.Option>
+                    <Select.Option value='ja_JP'>Japanese</Select.Option>
+                    <Select.Option value='ko_KR'>Korean</Select.Option>
+                    <Select.Option value='ar'>Arabic</Select.Option>
+                    <Select.Option value='vi_VN'>Vietnamese</Select.Option>
+                    <Select.Option value='ru_RU'>Russian</Select.Option>
+                    <Select.Option value='id_ID'>Indonesian</Select.Option>
+                    <Select.Option value='ms_MY'>Malay</Select.Option>
+                    <Select.Option value='th_TH'>Thai</Select.Option>
+                    <Select.Option value='tr_TR'>Turkish</Select.Option>
+                    <Select.Option value='es'>Spanish</Select.Option>
+                    <Select.Option value='de'>German</Select.Option>
+                    <Select.Option value='it'>Italian</Select.Option>
+                    <Select.Option value='fr'>French</Select.Option>
+                    <Select.Option value='ro'>Romanian</Select.Option>
+                    <Select.Option value='sv_SE'>Swedish</Select.Option>
+                    <Select.Option value='pl_PL'>Polish</Select.Option>
+                    <Select.Option value='nl_NL'>Dutch</Select.Option>
+                </Select>
+            </div>
+            <LocaleProvider locale={locale}>
+                <InputNumber key={localeCode} currency={true} defaultValue={123456.78} />
+            </LocaleProvider>
+        </>
+    );
 }
 
 ```
@@ -399,9 +384,9 @@ import { InputNumber } from '@douyinfe/semi-ui';
 | defaultValue | Default                                                                                         | number                            |           |            |
 | disabled     | Disabled status                                                                                 | boolean                           | false     |            |
 | formatter    | Specifies the format of the input box to display the value                                      | (value: number\|string) => string | -         |            |
-| hideButtons  | Hide the "up/down" button when passing `true`                                                   | boolean                           | false     | **1.0.0**  |
-| innerButtons  | Show the "up/down" button in input box when passing `true`                                 | boolean                           | false         | **1.5.0** |
-| keepFocus    | Keep the input box focused when you click the button                                        | boolean                 |     false               | **1.10.0** |
+| hideButtons  | Hide the "up/down" button when passing `true`                                                   | boolean                           | false     | -  |
+| innerButtons  | Show the "up/down" button in input box when passing `true`                                 | boolean                           | false         | - |
+| keepFocus    | Keep the input box focused when you click the button                                        | boolean                 |     false               | - |
 | localeCode | Used to specify the country code in currency mode. Optional values ​​include `zh-CN`, `en-US`, `en-GB`, `ja-JP`, `ko-KR`, `ar`, `vi-VN`, `ru-RU`, `id-ID`, `ms-MY`, `th-TH`, `tr-TR`, `pt-BR`, `zh-TW`, `es`, `de`, `it`, `fr`, `ro`, `sv-SE`, `pl-PL`, `nl-NL`, etc. | string | - | **2.77.0** |
 | max          | Limit maximum value                                                                             | number                            | Infinity  |            |
 | min          | Limit minimum value                                                                             | number                            | -Infinity |            |
@@ -411,18 +396,18 @@ import { InputNumber } from '@douyinfe/semi-ui';
 | pressInterval| How often will the click event be triggered when the button is long pressed, in milliseconds                                   | number                 |   250        |           |
 | pressTimeout | When the button is long pressed, how long will the click event be triggered after the delay, in milliseconds                                               | number                 |     250      |           |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
-| shiftStep    | Step size for pressing the shift key, it can be a decimal. The default value was adjusted from 1 to 10 in v2.13                     | number                            | 10         | **1.5.0** |
-| showClear    | Do you show the clear button?                                                                   | boolean                           | false     | **0.35.0** |
+| shiftStep    | Step size for pressing the shift key, it can be a decimal. The default value was adjusted from 1 to 10 in v2.13                     | number                            | 10         | - |
+| showClear    | Do you show the clear button?                                                                   | boolean                           | false     | - |
 | showCurrencySymbol | Whether to display the currency symbol/code/name, only valid in currency mode | boolean | true | **2.77.0** |
 | size         | Enter box size, optional value: "default"\|"small"\|"large"                                     | string                            | 'default' |            |
 | step         | Each time you change the number of steps, it can be a decimal.                                  | number                            | 1         |            |
 | style        | Inline style of InputNumber                                                             | CSSProperties  | -      |
 | suffix       | Custom suffix                                                                                   | ReactNode                         |           |            |
 | value        | Current value                                                                                   | number                            |           |            |
-| onBlur       | Callback when focus is lost                                                                     | (e: domEvent) => void             | () => {}  | **1.0.0**  |
+| onBlur       | Callback when focus is lost                                                                     | (e: domEvent) => void             | () => {}  | -  |
 | onChange     | Change callback                                                                                 | (value: number\|string) => void   | -         |            |
-| onFocus      | Callback when focus is obtained                                                                 | (e: domEvent) => void             | () => {}  | **1.0.0**  |
-| onNumberChange | Number change callback                                                 | (value: number) => void   |   -         |     **1.9.0**      |
+| onFocus      | Callback when focus is obtained                                                                 | (e: domEvent) => void             | () => {}  | -  |
+| onNumberChange | Number change callback                                                 | (value: number) => void   |   -         |     -      |
 
 ## Methods
 

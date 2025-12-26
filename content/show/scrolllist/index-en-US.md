@@ -21,92 +21,78 @@ import { ScrollList, ScrollItem } from '@douyinfe/semi-ui';
 The scrolling list provides a scrolling selection mode similar to the iOS operating system, while supporting scrolling to the specified window location selection and click selection.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollList, ScrollItem, Button } from '@douyinfe/semi-ui';
 
-class ScrollListDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectIndex1: 1,
-            selectIndex2: 1,
-            selectIndex3: 1,
+() => {
+    const [selectIndex1, setSelectIndex1] = useState(1);
+    const [selectIndex2, setSelectIndex2] = useState(1);
+    const [selectIndex3, setSelectIndex3] = useState(1);
+
+    const ampms = [{
+        value: 'AM',
+    }, {
+        value: 'PM',
+    }];
+
+    const hours = new Array(12).fill(0).map((itm, index) => {
+        return {
+            value: index + 1
         };
+    });
 
-        this.ampms = [{
-            value: 'AM',
-        }, {
-            value: 'PM',
-        }];
+    const minutes = new Array(60).fill(0).map((itm, index) => {
+        return {
+            value: index,
+            disabled: Math.random() > 0.5 ? true : false
+        };
+    });
 
-        this.hours = new Array(12).fill(0).map((itm, index) => {
-            return {
-                value: index + 1
-            };
-        });
+    const onSelectAP = (data) => {
+        if (data.type === 1) {
+            setSelectIndex1(data.index);
+        }
+    };
 
-        this.minutes = new Array(60).fill(0).map((itm, index) => {
-            return {
-                value: index,
-                disabled: Math.random() > 0.5 ? true : false
-            };
-        });
-
-        this.onSelectAP = this.onSelectAP.bind(this);
-        this.onSelectHour = this.onSelectHour.bind(this);
-        this.onSelectMinute = this.onSelectMinute.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-        this.renderFooter = this.renderFooter.bind(this);
-    }
-
-    onSelectAP(data) {
-        this.setState({
-            ['selectIndex' + data.type]: data.index,
-        });
-    }
-
-
-    onSelectHour(data) {
+    const onSelectHour = (data) => {
         console.log('You have choose the hour for: ', data.value);
-        this.setState({
-            ['selectIndex' + data.type]: data.index,
-        });
-    }
+        if (data.type === 2) {
+            setSelectIndex2(data.index);
+        }
+    };
 
-    onSelectMinute(data) {
+    const onSelectMinute = (data) => {
         console.log('You have choose the minute for: ', data.value);
-        this.setState({
-            ['selectIndex' + data.type]: data.index,
-        });
-    }
+        if (data.type === 3) {
+            setSelectIndex3(data.index);
+        }
+    };
 
-    handleClose() {
+    const handleClose = () => {
         console.log('close');
-    }
+    };
 
-    renderFooter() {
+    const renderFooter = () => {
         return (
-            <Button size="small" type="primary" onClick={this.handleClose}>
+            <Button size="small" type="primary" onClick={handleClose}>
                 Ok
             </Button>
         );
     };
 
-    render() {
-        let list = this.list;
-        const scrollStyle = {
-            border: 'unset',
-            boxShadow: 'unset',
-        };
-        return (
-            <ScrollList style={scrollStyle} header={'Infinite Scroll List'} footer={this.renderFooter()}>
-                <ScrollItem mode="wheel" cycled={false} list={this.ampms} type={1} selectedIndex={this.state.selectIndex1} onSelect={this.onSelectAP} />
-                <ScrollItem mode="wheel" cycled={true} list={this.hours} type={2} selectedIndex={this.state.selectIndex2} onSelect={this.onSelectHour} />
-                <ScrollItem mode="wheel" cycled={true} list={this.minutes} type={3} selectedIndex={this.state.selectIndex3} onSelect={this.onSelectMinute} />
-            </ScrollList>
-        );
-    }
-}
+    const scrollStyle = {
+        border: 'unset',
+        boxShadow: 'unset',
+    };
+    
+    return (
+        <ScrollList style={scrollStyle} header={'Infinite Scroll List'} footer={renderFooter()}>
+            <ScrollItem mode="wheel" cycled={false} list={ampms} type={1} selectedIndex={selectIndex1} onSelect={onSelectAP} />
+            <ScrollItem mode="wheel" cycled={true} list={hours} type={2} selectedIndex={selectIndex2} onSelect={onSelectHour} />
+            <ScrollItem mode="wheel" cycled={true} list={minutes} type={3} selectedIndex={selectIndex3} onSelect={onSelectMinute} />
+        </ScrollList>
+    );
+};
 ```
 
 ## API Reference

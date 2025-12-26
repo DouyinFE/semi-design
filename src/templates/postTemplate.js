@@ -622,7 +622,7 @@ export default function Template(args) {
         }
     }, []);
     useEffect(() => {
-        if (window.location.pathname.indexOf('/start/changelog') !== -1) {
+        if (window.location.pathname.indexOf('/ecosystem/changelog') !== -1) {
             let titles = document.querySelectorAll('.main-article .gatsby-h4');
             for (let title of titles) {
                 const version = title.firstChild;
@@ -646,11 +646,11 @@ export default function Template(args) {
     const calcClassName = () => {
         let cls = ['article-wrapper'];
 
-        if (pageContext.slug.indexOf('start/changelog') !== -1) {
+        if (pageContext.slug.indexOf('ecosystem/changelog') !== -1) {
             cls.push('changelog');
         }
 
-        if (pageContext.slug.indexOf('start/update-to-v2') !== -1) {
+        if (pageContext.slug.indexOf('ecosystem/update-to-v2') !== -1) {
             cls.push('update-to-v2');
         }
 
@@ -658,11 +658,11 @@ export default function Template(args) {
             cls.push('introduction');
         }
 
-        if (pageContext.slug.indexOf('start/content-guidelines') !== -1) {
+        if (pageContext.slug.indexOf('experience/content-guidelines') !== -1) {
             cls.push('content-guidelines');
         }
 
-        if (pageContext.slug.indexOf('start/faq') !== -1) {
+        if (pageContext.slug.indexOf('ecosystem/faq') !== -1) {
             cls.push('faq');
         }
 

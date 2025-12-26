@@ -199,54 +199,36 @@ function Demo() {
 In this scenario, Popover's display is completely at the control of parameter `visible`.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Popover, Button } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    constructor(props = {}) {
-        super(props);
+() => {
+    const [visible, setVisible] = useState(false);
 
-        this.state = {
-            visible: false,
-        };
+    const content = (
+        <article style={{ padding: 12 }}>
+            Hi ByteDancer, this is a popover.
+            <br /> We have 2 lines.
+        </article>
+    );
 
-        this.content = (
-            <article style={{ padding: 12 }}>
-                Hi ByteDancer, this is a popover.
-                <br /> We have 2 lines.
-            </article>
-        );
+    const toggleShow = () => {
+        setVisible(!visible);
+    };
 
-        this.toggleShow = this.toggleShow.bind(this);
-    }
-
-    toggleShow() {
-        this.setState({
-            visible: !this.state.visible,
-        });
-    }
-
-    render() {
-        const content = this.content;
-
-        const { visible } = this.state;
-
-        return (
+    return (
+        <div>
             <div>
-                <div>
-                    <Popover visible={visible} content={content} trigger="custom">
-                        <Button onClick={this.toggleShow}>Click me</Button>
-                    </Popover>
-                </div>
+                <Popover visible={visible} content={content} trigger="custom">
+                    <Button onClick={toggleShow}>Click me</Button>
+                </Popover>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 ```
 
 ### Show Small Triangle
-
-**Version: >= 0.19.0**
 
 Popover also supports the display of a small triangle.
 
@@ -354,8 +336,6 @@ function Demo() {
 ```
 
 ### Arrow Point at Center
-
-**Version: >= 0.34.0**
 
 Under the condition of **showArrow=true**, you can pass in `arrowPointAtCenter=true` so that the small triangle always points to the center of the element.
 
@@ -543,11 +523,11 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | Properties | Instructions                                                                                                                                                                                                                                  | Type | Default | Version |
 | --- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
 | autoAdjustOverflow | Whether to automatically adjust the expansion direction of the floating layer for automatic adjustment of the expansion direction during edge occlusion                                                                                       | boolean | true |
-| arrowPointAtCenter | Whether the "small triangle" points to the center of the element, you need to pass in "showArrow = true" at the same time                                                                                                                     | boolean | true | **0.34.0** |
+| arrowPointAtCenter | Whether the "small triangle" points to the center of the element, you need to pass in "showArrow = true" at the same time                                                                                                                     | boolean | true | - |
 | className | Pop-up layer classname                                                                                                                                                                                                      | string |  |  |
 | closeOnEsc | Whether to close the panel by pressing the Esc key in the trigger or popup layer. It does not take effect when visible is under controlled                                                                                                    | boolean | true | **2.8.0** |
 | content | Content displayed                                                                                                                                                                                                                             | string \| ReactNode |  |
-| clickToHide | Whether to automatically close the elastic layer when clicking on the floating layer and any element inside                                                                                                                                   | boolean | false | **0.24.0** |
+| clickToHide | Whether to automatically close the elastic layer when clicking on the floating layer and any element inside                                                                                                                                   | boolean | false | - |
 | disableFocusListener | When trigger is `hover`, does not respond to the keyboard focus popup event, see details at [issue#977](https://github.com/DouyinFE/semi-design/issues/977)                                                                                   | boolean | true | **2.17.0** |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.                                                                                                                              | () => HTMLElement | () => document.body |
 | guardFocus | When the focus is in the popup layer, toggle whether the Tab makes the focus loop in the popup layer                                                                                                                                          | boolean | true | **2.8.0** |
@@ -562,7 +542,7 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | spacing | The distance between the out layer and the children element, in px. object type props supported after v2.45                                                                                                                                                                            | number｜ <ApiType detail='{ x: number; y: number }'>SpacingObject</ApiType>  | 4(while showArrow=false) 10(while showArrow=true) |  |
 | showArrow | Display little arrow or not                                                                                                                                                                                                                   | boolean |  |
 | trigger | Trigger mode, optional value: `hover`, `focus`, `click`, `custom`                                                                                                                                                                             | string | 'hover' |
-| stopPropagation | Whether to prevent click events on the bomb layer from bubbling                                                                                                                                                                               | boolean | false | **0.34.0** |
+| stopPropagation | Whether to prevent click events on the bomb layer from bubbling                                                                                                                                                                               | boolean | false | - |
 | style | Pop-up layer inline style                                                                                                                                                                                                   | object |  |  |
 | zIndex | Floating layer z-index value                                                                                                                                                                                                                  | number | 1030 |
 | onClickOutSide  | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click)                                                                              | (e:event) => void | | **2.1.0** |

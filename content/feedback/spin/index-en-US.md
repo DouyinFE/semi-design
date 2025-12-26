@@ -151,7 +151,7 @@ import { Spin, Button } from '@douyinfe/semi-ui';
 
 | Properties       | Instructions                                              | type       | Default  |
 | ---------------- | --------------------------------------------------------- | ---------- | -------- |
-| childStyle       | Inline style for children element **v>=1.0.0**            | CSSProperties     | -        |
+| childStyle       | Inline style for children element            | CSSProperties     | -        |
 | delay            | Delay timing to display Spin                              | number(ms) | 0        |
 | indicator        | Indicators                                                | ReactNode  | -        |
 | size             | Size, one of `small`, `middle`, `large`                   | string     | `middle` |

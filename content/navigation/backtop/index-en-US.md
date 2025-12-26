@@ -22,16 +22,12 @@ BackTop can be used directly with the default styles.
 import React from 'react';
 import { BackTop } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    render() {
-        return (
-            <div>
-                <span>Scroll down to see the bottom-right gray button.</span>
-                <BackTop />
-            </div>
-        );
-    }
-}
+() => (
+    <div>
+        <span>Scroll down to see the bottom-right gray button.</span>
+        <BackTop />
+    </div>
+);
 ```
 
 ### Customized Style
@@ -43,34 +39,32 @@ import React from 'react';
 import { BackTop } from '@douyinfe/semi-ui';
 import { IconArrowUp } from '@douyinfe/semi-icons';
 
-class Custom extends React.Component {
-    target() {
+() => {
+    const target = () => {
         return document.querySelector('.scroll-wrapper');
-    }
+    };
 
-    render() {
-        const style = {
-            height: 30,
-            width: 30,
-            borderRadius: '100%',
-            backgroundColor: '#0077fa',
-            color: '#fff',
-            paddingTop: 5,
-            bottom: 100,
-        };
+    const style = {
+        height: 30,
+        width: 30,
+        borderRadius: '100%',
+        backgroundColor: '#0077fa',
+        color: '#fff',
+        paddingTop: 5,
+        bottom: 100,
+    };
 
-        return (
-            <div>
-                <span>
-                    Scroll down to see the bottom-right <span style={{ color: '#0077fa' }}>blue circular</span> button.
-                </span>
-                <BackTop style={style}>
-                    <IconArrowUp />
-                </BackTop>
-            </div>
-        );
-    }
-}
+    return (
+        <div>
+            <span>
+                Scroll down to see the bottom-right <span style={{ color: '#0077fa' }}>blue circular</span> button.
+            </span>
+            <BackTop style={style} target={target}>
+                <IconArrowUp />
+            </BackTop>
+        </div>
+    );
+};
 ```
 
 ## API Reference

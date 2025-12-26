@@ -146,7 +146,7 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 | defaultValue | 默认值 | number | 0 |
 | disabled | 只读，无法进行交互 | boolean | false |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
-| size | 尺寸， `default`， `small`，**v >= 0.35.0** 后支持传入 number 类型自定义尺寸 | string \| number | `default` |
+| size | 尺寸， `default`， `small`，支持传入 number 类型自定义尺寸 | string \| number | `default` |
 | style | 自定义样式对象 | object | - |
 | tooltips | 自定义每项的提示信息 | string[] | - |
 | value | 当前受控值 | number | - |

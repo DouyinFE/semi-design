@@ -46,35 +46,28 @@ import { Slider } from '@douyinfe/semi-ui';
 ### 带输入框的
 滑动条的滑块和输入框组件保持同步。
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Slider, InputNumber } from '@douyinfe/semi-ui';
 
-class InputSlider extends React.Component {
-    constructor(props) {
-        super();
-        this.state = { value: 10 };
-        this.getSliderValue = this.getSliderValue.bind(this);
-    }
+() => {
+    const [value, setValue] = useState(10);
 
-    getSliderValue(value) {
-        if (isNaN(Number(value))){
+    const getSliderValue = (newValue) => {
+        if (isNaN(Number(newValue))){
             return;
         }
-        this.setState({ value: value / 1 }); 
-    }
+        setValue(newValue / 1); 
+    };
 
-    render() {
-        const { value } = this.state;
-        return (
-            <div>
-                <div style={{ width: 320, marginRight: 15 }}>
-                    <Slider step={1} value={value} onChange={(value) => (this.getSliderValue(value))} ></Slider>
-                </div>
-                <InputNumber onChange={(v) => this.getSliderValue(v)} style={{ width: 100 }} value={value} min={0} max={100} />
+    return (
+        <div>
+            <div style={{ width: 320, marginRight: 15 }}>
+                <Slider step={1} value={value} onChange={getSliderValue} ></Slider>
             </div>
-        );
-    }
-}
+            <InputNumber onChange={getSliderValue} style={{ width: 100 }} value={value} min={0} max={100} />
+        </div>
+    );
+};
 ```
 
 ### 自定义提示
@@ -122,78 +115,66 @@ import { Slider } from '@douyinfe/semi-ui';
 ### 分段背景
 通过使用 `linear-gradient` 及 `railStyle` ，配合 onChange 可以实现动态的分段背景效果。
 ```jsx live=true
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { Slider } from '@douyinfe/semi-ui';
 
-class SegSlider extends React.Component {
-    constructor(props) {
-        super();
-        this.state = { value: [20, 60] };
-        this.changeValue = this.changeValue.bind(this);
-        this.getRailStyle = this.getRailStyle.bind(this);
-    }
+() => {
+    const [value, setValue] = useState([20, 60]);
 
-    changeValue(value) {
-        this.setState({ value });
-    }
+    const changeValue = (newValue) => {
+        setValue(newValue);
+    };
 
-    getRailStyle(range) {
+    const getRailStyle = (range) => {
     // color of second segment inherits from .semi-slider-track
         const color = ['var(--semi-color-danger)', 'transparent', 'var(--semi-color-success)'];
-        const gradientPos = this.state.value.map(val => 
+        const gradientPos = value.map(val => 
             ((val - range[0]) / (range[1] - range[0])).toFixed(2) * 100
         );
         const style = {
             background: `linear-gradient(to right, ${color[0]} ${gradientPos[0]}%, ${color[1]} ${gradientPos[0]}%, ${color[1]} ${gradientPos[1]}%, ${color[2]} ${gradientPos[1]}%)`
         };
         return style;
-    }
+    };
 
-    render() {
-        const range = [10, 100];
-        const railStyle = this.getRailStyle(range);
-        return (
-            <Slider
-                range
-                min={range[0]}
-                max={range[1]}
-                onChange={this.changeValue}
-                railStyle={railStyle}
-                defaultValue={this.state.value}
-            />
-        );
-    }
-}
+    const range = [10, 100];
+    const railStyle = useMemo(() => getRailStyle(range), [value, range]);
+    
+    return (
+        <Slider
+            range
+            min={range[0]}
+            max={range[1]}
+            onChange={changeValue}
+            railStyle={railStyle}
+            value={value}
+        />
+    );
+};
 ```
 
 ### 受控组件
 滑块位置即 `Slider` 的值由 value 控制，配合 onChange 使用。
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { Slider, Button } from '@douyinfe/semi-ui';
 
-class ControllSlider extends React.Component {
-    constructor(props) {
-        super();
-        this.state = { value: 10 };
-        this.changeValue = this.changeValue.bind(this);
-    }
+() => {
+    const [value, setValue] = useState(10);
 
-    changeValue() {
-        this.setState({ value: this.state.value + 10 });
-    }
+    const changeValue = () => {
+        setValue(value + 10);
+    };
 
-    render() {
-        return (
-            <div>
-                <Button onClick={this.changeValue} style={{ marginRight: 20 }}>点击改变value值</Button>
-                <br/>
-                <br/>
-                <Slider value={this.state.value}></Slider>
-            </div>
-        );
-    }
-}
+    return (
+        <div>
+            <Button onClick={changeValue} style={{ marginRight: 20 }}>点击改变value值</Button>
+            <br/>
+            <br/>
+            <Slider value={value}></Slider>
+        </div>
+    );
+};
 ```
 
 ### 垂直
@@ -255,7 +236,7 @@ import { Slider } from '@douyinfe/semi-ui';
 | marks            | 刻度，key 的类型必须为 `number` 且取值在闭区间 \[min, max] 内                                                                                                                       | Record<number, string \>                                                       | 无      | -      |
 | max              | 最大值                                                                                                                                                                | number                                                                         | 100    | -      |
 | min              | 最小值                                                                                                                                                                | number                                                                         | 0      | -      |
-| railStyle        | 滑块轨道的样式                                                                                                                                                            | CSSProperties                                                                  | -      | 0.31.0 |
+| railStyle        | 滑块轨道的样式                                                                                                                                                            | CSSProperties                                                                  | -      | - |
 | range            | 是否支持两边同时可滑动                                                                                                                                                        | boolean                                                                        | false  | -      |
 | showArrow        | tooltip 是否带箭头 | boolean                                                                        | true   | 2.48.0 |
 | showBoundary     | 是否在 hover 时展示最大值最小值                                                                                                                                                | boolean                                                                        | false  | -      |
@@ -266,7 +247,7 @@ import { Slider } from '@douyinfe/semi-ui';
 | tooltipVisible   | 是否始终显示Tooltip                                                                                                                                                      | boolean                                                                        | 无      | -      |
 | value            | 设置当前取值                                                                                                                                                             | number \| number[]                                                             |        | -      |
 | vertical         | 是否设置方向为垂直                                                                                                                                                          | boolean                                                                        | false  | -      |
-| verticalReverse  | 反转垂直方向，即上大下小 >=1.29.0                                                                                                                                              | boolean                                                                        | false  | -      |
+| verticalReverse  | 反转垂直方向，即上大下小                                                                                                                                              | boolean                                                                        | false  | -      |
 | onAfterChange    | 值变化后触发，把当前值作为参数传入                                                                                                                                                  | (value: number \| number[]) => void                                            | 无      | -      |
 | onChange         | 当 Slider 的值发生改变时的回调                                                                                                                                                | (value: number \| number[]) => void                                            | 无      | -      |
 | onMouseUp        | 鼠标松开滑块时触发                                                                                                                                                          | (e: React.MouseEvent<HTMLDivElement\>) => void                                 | 无      | 2.41.0 |

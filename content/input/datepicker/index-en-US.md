@@ -23,10 +23,8 @@ import { DatePicker } from '@douyinfe/semi-ui';
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return <DatePicker onChange={(date, dateString) => console.log(dateString)} style={{ width: 240 }} />;
-    }
+function App() {
+    return <DatePicker onChange={(date, dateString) => console.log(dateString)} style={{ width: 240 }} />;
 }
 ```
 
@@ -58,10 +56,8 @@ Set `Multiple` to `true`, can choose multiple dates.
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return <DatePicker multiple={true} style={{ width: 240 }} />;
-    }
+function App() {
+    return <DatePicker multiple={true} style={{ width: 240 }} />;
 }
 ```
 
@@ -74,19 +70,17 @@ Starting from version V2.22.0, we changed the default mode of ScrollItem in Time
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return (
-            <>
-                <h4>Default date and time selection</h4>
-                <DatePicker type="dateTime" />
-                <br />
-                <br />
-                <h4>Turn on cycled mode</h4>
-                <DatePicker type="dateTime" timePickerOpts={{ scrollItemProps: { mode: "wheel", cycled: true } }} />
-            </>
-        );
-    }
+function App() {
+    return (
+        <>
+            <h4>Default date and time selection</h4>
+            <DatePicker type="dateTime" />
+            <br />
+            <br />
+            <h4>Turn on cycled mode</h4>
+            <DatePicker type="dateTime" timePickerOpts={{ scrollItemProps: { mode: "wheel", cycled: true } }} />
+        </>
+    );
 }
 ```
 
@@ -98,10 +92,8 @@ Set `type` to `dateRange`, can choose the date range.
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return <DatePicker type="dateRange" style={{ width: 260 }} onChange={console.log} />;
-    }
+function App() {
+    return <DatePicker type="dateRange" style={{ width: 260 }} onChange={console.log} />;
 }
 ```
 
@@ -117,10 +109,8 @@ Set `type` to `dateTimeRange`, can choose the date range and choose time;
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return <DatePicker type="dateTimeRange" style={{ width: 400 }} onChange={console.log} />;
-    }
+function App() {
+    return <DatePicker type="dateTimeRange" style={{ width: 400 }} onChange={console.log} />;
 }
 ```
 
@@ -187,16 +177,14 @@ In the scenario of range selection, turning on `syncSwitchMonth` means to switch
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return (
-            <DatePicker
-                syncSwitchMonth={true}
-                type="dateTimeRange"
-                style={{ width: 400 }}
-            />
-        );
-    }
+function App() {
+    return (
+        <DatePicker
+            syncSwitchMonth={true}
+            type="dateTimeRange"
+            style={{ width: 400 }}
+        />
+    );
 }
 ```
 
@@ -210,17 +198,15 @@ version：>=1.28.0
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return (
-            <DatePicker
-                syncSwitchMonth={true}
-                type="dateTimeRange"
-                style={{ width: 400 }}
-                onPanelChange={(date, dateString) => console.log(date, dateString)}
-            />
-        );
-    }
+function App() {
+    return (
+        <DatePicker
+            syncSwitchMonth={true}
+            type="dateTimeRange"
+            style={{ width: 400 }}
+            onPanelChange={(date, dateString) => console.log(date, dateString)}
+        />
+    );
 }
 ```
 
@@ -286,10 +272,8 @@ Set `type` to `month`, can make year-to-month selection.
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return <DatePicker defaultValue={new Date()} type="month" style={{ width: 140 }} />;
-    }
+function App() {
+    return <DatePicker defaultValue={new Date()} type="month" style={{ width: 140 }} />;
 }
 ```
 
@@ -322,24 +306,22 @@ The following example binds three callbacks: `onChange`, `onConfirm` and `onCanc
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return (
-            <DatePicker
-                type="dateTime"
-                needConfirm={true}
-                onConfirm={(...args) => {
-                    console.log('Confirmed: ', ...args);
-                }}
-                onCancel={(...args) => {
-                    console.log('Canceled: ', ...args);
-                }}
-                onChange={(...args) => {
-                    console.log('Changed: ', ...args);
-                }}
-            />
-        );
-    }
+function App() {
+    return (
+        <DatePicker
+            type="dateTime"
+            needConfirm={true}
+            onConfirm={(...args) => {
+                console.log('Confirmed: ', ...args);
+            }}
+            onCancel={(...args) => {
+                console.log('Canceled: ', ...args);
+            }}
+            onChange={(...args) => {
+                console.log('Changed: ', ...args);
+            }}
+        />
+    );
 }
 ```
 
@@ -348,28 +330,24 @@ class App extends React.Component {
 Pass parameter `Presets` to set shortcuts for date selection.
 
 ```jsx live=true
-import React from 'react';
+import React, { useMemo } from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    constructor() {
-        this.presets = [
-            {
-                text: 'Today',
-                start: new Date(),
-                end: new Date(),
-            },
-            () => ({
-                text: 'Tomorrow',
-                start: new Date(new Date().valueOf() + 1000 * 3600 * 24),
-                end: new Date(new Date().valueOf() + 1000 * 3600 * 24),
-            }),
-        ];
-    }
+function App() {
+    const presets = useMemo(() => ([
+        {
+            text: 'Today',
+            start: new Date(),
+            end: new Date(),
+        },
+        () => ({
+            text: 'Tomorrow',
+            start: new Date(new Date().valueOf() + 1000 * 3600 * 24),
+            end: new Date(new Date().valueOf() + 1000 * 3600 * 24),
+        }),
+    ]), []);
 
-    render() {
-        return <DatePicker type="dateTime" presets={this.presets} presetPosition="left"/>;
-    }
+    return <DatePicker type="dateTime" presets={presets} presetPosition="left"/>;
 }
 ```
 
@@ -496,10 +474,8 @@ function Demo() {
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return <DatePicker disabled type="dateTime" defaultValue={new Date()} />;
-    }
+function App() {
+    return <DatePicker disabled type="dateTime" defaultValue={new Date()} />;
 }
 ```
 
@@ -514,77 +490,71 @@ Pass in `disabledDate` to disable the specified date, pass in `disabledTime` to 
 </Notice>
 
 ```jsx live=true
-import React from 'react';
+import React, { useCallback } from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 import * as dateFns from 'date-fns';
 import { range } from 'lodash-es';
 
-class App extends React.Component {
-    constructor(props = {}) {
-        super(props);
+function App() {
+    const today = useCallback(() => new Date(), []);
 
-        this.today = () => new Date();
+    const nextValidMonth = useCallback(() => {
+        const nextValidDate = today();
+        nextValidDate.setMonth((nextValidDate.getMonth() + 1) % 12);
+        return nextValidDate;
+    }, [today]);
 
-        this.nextValidMonth = () => {
-            const nextValidDate = this.today();
-            nextValidDate.setMonth((nextValidDate.getMonth() + 1) % 12);
-            return nextValidDate;
-        };
-
-        this.disabledTime = date =>
-            dateFns.isToday(date)
-                ? {
-                    disabledHours: () => [17, 18],
-                    disabledMinutes: hour => (19 === hour ? range(0, 10, 1) : []),
-                    disabledSeconds: (hour, minute) => (hour === 20 && minute === 20 ? range(0, 20, 1) : []),
-                }
-                : null;
-
-        this.disabledTime2 = (date, panelType) => {
-            if (panelType === 'left') {
-                return { disabledHours: () => [17, 18] };
-            } else {
-                return { disabledHours: () => [12, 13, 14, 15, 16, 17, 18] };
+    const disabledTime = useCallback((date) => (
+        dateFns.isToday(date)
+            ? {
+                disabledHours: () => [17, 18],
+                disabledMinutes: hour => (19 === hour ? range(0, 10, 1) : []),
+                disabledSeconds: (hour, minute) => (hour === 20 && minute === 20 ? range(0, 20, 1) : []),
             }
-        };
+            : null
+    ), []);
 
-        this.disabledDate = date => {
-            const deadDate = this.today();
-            const month = deadDate.getMonth();
-            deadDate.setDate(28);
-            deadDate.setMonth((month + 1) % 12);
-            return date.getTime() < deadDate.getTime();
-        };
-    }
+    const disabledTime2 = useCallback((date, panelType) => {
+        if (panelType === 'left') {
+            return { disabledHours: () => [17, 18] };
+        }
+        return { disabledHours: () => [12, 13, 14, 15, 16, 17, 18] };
+    }, []);
 
-    render() {
-        return (
+    const disabledDate = useCallback((date) => {
+        const deadDate = today();
+        const month = deadDate.getMonth();
+        deadDate.setDate(28);
+        deadDate.setMonth((month + 1) % 12);
+        return date.getTime() < deadDate.getTime();
+    }, [today]);
+
+    return (
+        <div>
             <div>
-                <div>
-                    <h4>Disabled 17:00:00-18:00:00 today</h4>
-                    <DatePicker type="dateTime" hideDisabledOptions={false} disabledTime={this.disabledTime} />
-                </div>
-                <div>
-                    <h4>Two panels disable different times</h4>
-                    <DatePicker
-                        type="dateTimeRange"
-                        hideDisabledOptions={false}
-                        disabledTime={this.disabledTime2}
-                        style={{ width: 400 }}
-                    />
-                </div>
-                <div>
-                    <h4>Disable time before the 28th of next month</h4>
-                    <DatePicker
-                        type="dateTimeRange"
-                        disabledDate={this.disabledDate}
-                        defaultPickerValue={this.nextValidMonth()}
-                        style={{ width: 400 }}
-                    />
-                </div>
+                <h4>Disabled 17:00:00-18:00:00 today</h4>
+                <DatePicker type="dateTime" hideDisabledOptions={false} disabledTime={disabledTime} />
             </div>
-        );
-    }
+            <div>
+                <h4>Two panels disable different times</h4>
+                <DatePicker
+                    type="dateTimeRange"
+                    hideDisabledOptions={false}
+                    disabledTime={disabledTime2}
+                    style={{ width: 400 }}
+                />
+            </div>
+            <div>
+                <h4>Disable time before the 28th of next month</h4>
+                <DatePicker
+                    type="dateTimeRange"
+                    disabledDate={disabledDate}
+                    defaultPickerValue={nextValidMonth()}
+                    style={{ width: 400 }}
+                />
+            </div>
+        </div>
+    );
 }
 ```
 
@@ -595,23 +565,21 @@ import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 import * as dateFns from 'date-fns';
 
-class App extends React.Component {
-    render() {
-        return (
-            <div>
-                <h4>Prohibit selection of previous dates</h4>
-                <DatePicker
-                    type={'dateRange'}
-                    disabledDate={(date, options) => {
-                        const { rangeStart } = options;
-                        const startDate = dateFns.parseISO(rangeStart);
-                        return dateFns.isBefore(date, startDate);
-                    }}
-                    style={{ width: 260 }}
-                />
-            </div>
-        );
-    }
+function App() {
+    return (
+        <div>
+            <h4>Prohibit selection of previous dates</h4>
+            <DatePicker
+                type={'dateRange'}
+                disabledDate={(date, options) => {
+                    const { rangeStart } = options;
+                    const startDate = dateFns.parseISO(rangeStart);
+                    return dateFns.isBefore(date, startDate);
+                }}
+                style={{ width: 260 }}
+            />
+        </div>
+    );
 }
 ```
 
@@ -657,10 +625,8 @@ Pass parameter `format` to custom display format.
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return <DatePicker format="yyyy-MM-dd HH:mm" type="dateTime" defaultValue={new Date()} />;
-    }
+function App() {
+    return <DatePicker format="yyyy-MM-dd HH:mm" type="dateTime" defaultValue={new Date()} />;
 }
 ```
 

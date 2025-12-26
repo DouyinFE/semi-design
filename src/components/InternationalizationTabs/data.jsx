@@ -3,7 +3,7 @@ const conceptIntroduction = `
 ## 一. WHY｜为什么我们要做 i18n？
 随着全球化进程的加快，国际贸易和交流日益频繁，i18n 国际化设计是适应这一趋势的必要举措。国际化产品的用户来自不同国家，因此在使用同一款产品的时候，不同国家的用户会有不同的偏好和行为。我们通过调研得知，不同地区因为文化、语言、市场、习惯、政策、技术的影响而形成了独特而多样的设计规则：
 
-<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em'}}>
+<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em', width: 1160 }}>
     <ImageCard 
         icon={<IconArticle />}
         title="文化差异"
@@ -35,7 +35,7 @@ const conceptIntroduction = `
         }
     />
 </div>
-<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em'}}>
+<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em', width: 1160 }}>
     <ImageCard 
         icon={<IconLikeHeart />}
         title="习惯差异"
@@ -61,7 +61,7 @@ const conceptIntroduction = `
 ## 二. i18n 和 l10n 的区别与联系
 我们可以将国际化和本地化的定义和侧重总结如下：
 
-<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em' }}>
+<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em', width: 1160 }}>
     <TextCard
         color="blue"
         title="国际化 Internationalization (i18n)"
@@ -182,7 +182,7 @@ const graphicDesignSpecification = `
 
 ## 一. 图形设计的注意事项
 国际化产品中的图形设计有以下四个注意事项，更多设计案例可以阅读文档：<a target="_blank" href="https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh">i18n 图形设计规范</a>
-<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em' }}>
+<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em', width: 1160 }}>
     <ColorCard
         color="blue"
         icon={<IconBulb />}
@@ -393,7 +393,7 @@ const conceptIntroductionEn = `
 ## 1. WHY｜Why do we do i18n?
 With the acceleration of globalization, international trade and exchanges are becoming more frequent. i18n international design is a necessary measure to adapt to this trend. Users of international products come from different countries. Therefore, when using the same product, users from different countries will have different preferences and behaviors. Through research, we learned that different regions have formed unique and diverse design rules due to the influence of culture, language, market, habits, policies, and technology:
 
-<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em' }}>
+<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em', width: 1160 }}>
     <ImageCard
         icon={<IconArticle />}
         title="Cultural Differences"
@@ -425,7 +425,7 @@ The economic development levels of different countries and regions vary signific
 }
 />
 </div>
-<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em'}}>
+<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em', width: 1160 }}>
 <ImageCard
 icon={<IconLikeHeart />}
 title="Habit Differences"
@@ -450,7 +450,7 @@ In the article: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/J
 ## 2. The difference and connection between i18n and l10n
 We can summarize the definition and focus of internationalization and localization as follows:
 
-<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em' }}>
+<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em', width: 1160 }}>
     <TextCard
         color="blue"
         title="Internationalization (i18n)"
@@ -568,7 +568,7 @@ In the globalization product design, the adaptation of graphics (icons, illustra
 
 ## 1. Graphic Design Considerations
 There are four important considerations for graphic design in international products, more design cases can be read in the document: <a target="_blank" href="https://bytedance.larkoffice.com/wiki/G2guwXwjniA1WEkGyVmcYFm8nbh">i18n graphic design specifications</a>
-<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em' }}>
+<div style={{ display: 'flex', gap: 24, marginBottom: '1.46em', width: 1160 }}>
     <ColorCard
         color="blue"
         icon={<IconBulb />}

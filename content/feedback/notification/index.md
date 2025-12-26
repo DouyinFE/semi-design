@@ -311,30 +311,30 @@ import { Notification, Button } from '@douyinfe/semi-ui';
 | --- |------------------------------------------------------------------------| --- | --- | --- |
 | content | 通知内容                                                                   |ReactNode | '' |  |
 | duration | 自动关闭的延时，单位 s，设为 0 时不自动关闭                                               | number | 3 |  |
-| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                   | () => HTMLElement | () => document.body | 0.34.0 |
+| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                   | () => HTMLElement | () => document.body | - |
 | icon | 左上角 icon                                                               | React.Node |  |  |
 | position | 弹出位置，可选 `top`、`bottom`、`topLeft`、`topRight`、`bottomLeft`、`bottomRight` | string | `topRight` |  |
-| showClose | 是否展示关闭按钮                                                               | boolean | true | 0.25.0 |
-| theme | 填充样式，支持`light`, `normal`                                               | string | `normal` | 1.0.0 |
+| showClose | 是否展示关闭按钮                                                               | boolean | true | - |
+| theme | 填充样式，支持`light`, `normal`                                               | string | `normal` | - |
 | title | 通知标题                                                                   | ReactNode | '' |  |
 | zIndex | 弹层 z-index 值，首次设置一次生效                                                  | number | 1010 |  |
-| onClick | 点击通知的回调函数                                                              | (e: event) => void |  | 0.27.0 |
+| onClick | 点击通知的回调函数                                                              | (e: event) => void |  | - |
 | onClose | 通知关闭的回调函数(主动关闭、延时到达关闭都会触发)                                             | () => void |  |  |
 | onCloseClick | 主动点击关闭按钮时的回调函数                                                         | (id: string \| number) => void |  |  |
 
-全局配置在调用前提前配置，全局一次生效 ( >= 0.25.0 )：
+全局配置在调用前提前配置，全局一次生效：
 
 -   `Notification.config(config)`
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| bottom | 弹出位置 bottom | number \| string | - | 0.25.0 |
-| duration | 自动关闭的延时，单位 s，设为 0 时不自动关闭 | number | 3 | 0.25.0 |
-| left | 弹出位置 left | number \| string | - | 0.25.0 |
-| position | 弹出位置，可选 `top`、`bottom`、`topLeft`、`topRight`、`bottomLeft`、`bottomRight` | string | `topRight` | 0.25.0 |
-| right | 弹出位置 right | number \| string | - | 0.25.0 |
-| top | 弹出位置 top | number \| string | - | 0.25.0 |
-| zIndex | 弹层 z-index 值 | number | 1010 | 0.25.0 |
+| bottom | 弹出位置 bottom | number \| string | - | - |
+| duration | 自动关闭的延时，单位 s，设为 0 时不自动关闭 | number | 3 | - |
+| left | 弹出位置 left | number \| string | - | - |
+| position | 弹出位置，可选 `top`、`bottom`、`topLeft`、`topRight`、`bottomLeft`、`bottomRight` | string | `topRight` | - |
+| right | 弹出位置 right | number \| string | - | - |
+| top | 弹出位置 top | number \| string | - | - |
+| zIndex | 弹层 z-index 值 | number | 1010 | - |
 
 
 ## Accessibility
@@ -383,11 +383,11 @@ import { Notification, Button } from '@douyinfe/semi-ui';
 <DesignToken/>
 
 
-全局销毁 ( >= 0.25.0 )：
+全局销毁：
 
--   `Notification.destroyAll()` ( >= 0.25.0 )
+-   `Notification.destroyAll()`
 
-Hook Notification ( >= 1.2.0 )：
+Hook Notification：
 
 -   `Notification.useNotification`  
     当你需要使用 Context 时，可以通过 Notification.useNotification 创建一个 contextHolder 插入相应的节点中。此时通过 hooks 创建的 Notification 将会得到 contextHolder 所在位置的所有上下文。创建的 notification 对象拥有与以下方法：`info`, `success`, `warning`, `error`, `open`, `close`。使用方法可以参考：[useToast](/zh-CN/feedback/toast#Hooks用法)

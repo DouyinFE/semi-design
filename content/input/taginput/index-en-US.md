@@ -25,7 +25,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 
 () => (
     <TagInput
-        defaultValue={['Semi', 'Hotsoon', 'Pipixia']}
+        defaultValue={['Semi', 'Design', 'Design2Code']}
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
@@ -34,7 +34,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 
 ### Batch Add
 
-You can use `separator` to set the separator to achieve batch input, and its default value is a comma. After version 1.29.0, multiple separators are supported in string[] format.
+You can use `separator` to set the separator to achieve batch input, and its default value is a comma. Multiple separators are supported in string[] format.
 
 ```jsx live=true
 import React from 'react';
@@ -68,7 +68,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 () => (
     <TagInput 
         showClear 
-        defaultValue={['Semi', 'Hotsoon']} 
+        defaultValue={['Semi', 'Design2Code']} 
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
@@ -85,7 +85,7 @@ import { TagInput } from '@douyinfe/semi-ui';
     <TagInput 
         disabled 
         showClear 
-        defaultValue={['Semi', 'Hotsoon', 'Pipixia']} 
+        defaultValue={['Semi', 'Design2Code']} 
         placeholder='Please enter...'
     />
 );
@@ -164,7 +164,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 () => (
     <TagInput
         allowDuplicates={false}
-        defaultValue={['Semi', 'Hotsoon', 'Pipixia']} 
+        defaultValue={['Semi', 'Design', 'Design2Code']} 
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
@@ -182,7 +182,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 () => (
     <TagInput
         addOnBlur={true}
-        defaultValue={['Semi', 'Hotsoon', 'Pipixia']} 
+        defaultValue={['Semi', 'Design', 'Design2Code']} 
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
@@ -237,7 +237,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         maxTagCount={2}
         showRestTagsPopover={true}
         restTagsPopoverProps={{ position: 'top' }}
-        defaultValue={['Semi', 'Hotsoon', 'Pipixia']} 
+        defaultValue={['Semi', 'Design', 'Design2Code']} 
     />
 );
 ```
@@ -247,27 +247,13 @@ import { TagInput } from '@douyinfe/semi-ui';
 You can use `value` to set tags, and use `onChange` to achieve control of the tags.
 
 ```jsx live=true
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { TagInput } from '@douyinfe/semi-ui';
 
-class TagInputDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: ['abc']
-        };
-    }
-    onChange(value) {
-        this.setState({ value });
-    }
-    render() {
-        return (
-            <TagInput
-                value={this.state.value}
-                onChange={value => {this.onChange(value);}}
-            />
-        );
-    }
+function TagInputDemo() {
+    const [value, setValue] = useState(['semi']);
+    const handleChange = useCallback(v => setValue(v), []);
+    return <TagInput value={value} onChange={handleChange} />;
 }
 ```
 
@@ -276,27 +262,13 @@ class TagInputDemo extends React.Component {
 You can use `inputValue` to set input box, and use `onInputChange` to control the input content.
 
 ```jsx live=true
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { TagInput } from '@douyinfe/semi-ui';
 
-class TagInputDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: 'abc'
-        };
-    }
-    handleInputChange(value, event) {
-        this.setState({ value });
-    }
-    render() {
-        return (
-            <TagInput
-                inputValue={this.state.value}
-                onInputChange={(v, e) => this.handleInputChange(v, e)}
-            />
-        );
-    }
+function TagInputDemo() {
+    const [value, setValue] = useState('semi');
+    const handleInputChange = useCallback((v, e) => setValue(v), []);
+    return <TagInput inputValue={value} onInputChange={handleInputChange} />;
 }
 ```
 
@@ -308,7 +280,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 
 () => (
     <TagInput 
-        defaultValue={['Semi', 'Hotsoon', 'Pipixia']} 
+        defaultValue={['Semi', 'Design2Code']} 
         showClear 
         onFocus={e =>{console.log(`onFocus`);}} 
         onBlur={e=>{console.log(`onBlur`);}} 
@@ -325,30 +297,23 @@ import { TagInput } from '@douyinfe/semi-ui';
 You can use the `blur()` and `focus()` methods to manage the focus.
 
 ```jsx live=true
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { TagInput, Button } from '@douyinfe/semi-ui';
 
-class TagInputDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.ref = React.createRef();
-        this.handleTagInputFocus=this.handleTagInputFocus.bind(this);
-    }
+function TagInputDemo() {
+    const ref = useRef();
+    const handleTagInputFocus = useCallback(() => {
+        ref.current && ref.current.focus();
+    }, []);
 
-    handleTagInputFocus(){
-        this.ref.current.focus();
-    }
-
-    render() {
-        return (
-            <>
-                <TagInput defaultValue={['Semi', 'Hotsoon']} ref={this.ref} />
-                <Button style={{ marginTop: 10 }} onClick={this.handleTagInputFocus}>
-                    focus
-                </Button>
-            </>
-        );
-    }
+    return (
+        <>
+            <TagInput defaultValue={['Semi', 'Design2Code']} ref={ref} />
+            <Button style={{ marginTop: 10 }} onClick={handleTagInputFocus}>
+                focus
+            </Button>
+        </>
+    );
 }
 ```
 
@@ -357,36 +322,31 @@ class TagInputDemo extends React.Component {
 You can use `renderTagItem` to customize tag rendering. `renderTagItem(value: string, index: number, onClose: function ) => React.ReactNode` The third parameter `onClose` is available since version 2.23.0.
 
 ```jsx live=true
-import React from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { TagInput, Avatar } from '@douyinfe/semi-ui';
 import { IconClose } from '@douyinfe/semi-ui-icons';
 
-class CustomRender extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: ['xiakeman']
-        };
-        this.list = [
-            { "name": "xiakeman", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
-            { "name": "shenyue", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
-            { "name": "quchenyi", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg" },
-            { "name": "wenjiamao", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/7abf810ff060ac3387bd027ead92c4e0.jpg" },
-        ];
-        this.mapList = new Map(this.list.map( item => [item.name, item]));
-    }
+function CustomRender() {
+    const [value, setValue] = useState(['xiakeman']);
+    const list = useMemo(() => ([
+        { "name": "xiakeman", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
+        { "name": "shenyue", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
+        { "name": "quchenyi", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg" },
+        { "name": "wenjiamao", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/7abf810ff060ac3387bd027ead92c4e0.jpg" },
+    ]), []);
+    const mapList = useMemo(() => new Map(list.map(item => [item.name, item])), [list]);
 
-    renderTagItem(value, index, onClose) {
-        const data = this.mapList.get(value);
+    const renderTagItem = useCallback((value, index, onClose) => {
+        const data = mapList.get(value);
         return (
-            <div 
-                key={index} 
+            <div
+                key={index}
                 style={{ display: 'flex', alignItems: 'center', fontSize: 14, marginRight: 10 }}
             >
-                <Avatar 
+                <Avatar
                     alt='avatar'
-                    src={data?data.avatar:'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png'} 
-                    size="extra-small" 
+                    src={data ? data.avatar : 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png'}
+                    size="extra-small"
                 />
                 <span style={{ marginLeft: 8 }}>
                     {`${value}@semi.com`}
@@ -394,18 +354,15 @@ class CustomRender extends React.Component {
                 <IconClose onClick={onClose} />
             </div>
         );
-    }
+    }, [mapList]);
 
-    render() {
-        const { value } = this.state;
-        return (
-            <TagInput 
-                value={value} 
-                onChange={value=>this.setState({ value })}
-                renderTagItem={(value, index, onClose) => this.renderTagItem(value, index, onClose)}
-            />
-        );
-    }
+    return (
+        <TagInput
+            value={value}
+            onChange={setValue}
+            renderTagItem={renderTagItem}
+        />
+    );
 }
 ```
 
@@ -423,7 +380,7 @@ import { TagInput } from '@douyinfe/semi-ui';
     <TagInput
         draggable
         allowDuplicates={false}
-        defaultValue={['Semi', 'Hotsoon', 'Pipixia']}
+        defaultValue={['Semi', 'Design', 'Design2Code']}
         placeholder='please enter...'
         onChange={v => console.log(v)}
     />
@@ -434,50 +391,50 @@ import { TagInput } from '@douyinfe/semi-ui';
 
 |Properties    |Instructions                                     |Type                                                            |Default  |Version |
 |--------------|-------------------------------------------------|----------------------------------------------------------------|----------|--------|
-|addOnBlur     |Whether to automatically create the current input value into a tag when the blur event is triggered |boolean       | false    |1.20.0|
-|allowDuplicates|Allows adding the same tag multiple times       |boolean                                                          | true    |1.20.0|
-|autoFocus     |Set whether to automatically focus during initial rendering |boolean                                                          | false    |1.29.0|
-|className     |Class name                                       |string                                                           | -        |1.19.0|
-|defaultValue  |Default tag value                                |string[]                                                         | -         |1.19.0|
-|disabled      |Read-only, disable interaction                   |boolean                                                          |false     |1.19.0|
-|inputValue    |Controlled input value                          |string                                                          | -         |1.19.0|
-|maxLength     |Maximum length of a tag                          |number                                                           | -        |1.19.0|
-|max           |Maximum number of tags allowed                   |number                                                           | -        |1.21.0|
-|maxTagCount   |The maximum number of tags to be displayed, if exceeded, they will be displayed in the form of +N |number        | -        |1.21.0|
-|showRestTagsPopover |When maxTagCount is exceeded and hover reaches +N, whether to display the remaining content through Popover  |boolean     | true     |1.21.0|
-|restTagsPopoverProps |The configuration properties of the popover     |PopoverProps     | {}        |1.21.0|
-|showContentTooltip |When the tag is too long and truncated, when hovering the tag, whether to display all contents through Tooltip.If passed in as object: type，type of component to show tooltip, one of Tooltip, Popover; opts, properties that will be passed directly to the component     |boolean\|{type: 'tooltip'\|'popover', opts: object}    | true        |1.21.0|
-|placeholder   |Content to be appear by default                  |string                                                           | -         |1.19.0|
-|prefix        |Prefix                                           |ReactNode                                                        |-          |1.19.0|
+|addOnBlur     |Whether to automatically create the current input value into a tag when the blur event is triggered |boolean       | false    |-|
+|allowDuplicates|Allows adding the same tag multiple times       |boolean                                                          | true    |-|
+|autoFocus     |Set whether to automatically focus during initial rendering |boolean                                                          | false    |-|
+|className     |Class name                                       |string                                                           | -        |-|
+|defaultValue  |Default tag value                                |string[]                                                         | -         |-|
+|disabled      |Read-only, disable interaction                   |boolean                                                          |false     |-|
+|inputValue    |Controlled input value                          |string                                                          | -         |-|
+|maxLength     |Maximum length of a tag                          |number                                                           | -        |-|
+|max           |Maximum number of tags allowed                   |number                                                           | -        |-|
+|maxTagCount   |The maximum number of tags to be displayed, if exceeded, they will be displayed in the form of +N |number        | -        |-|
+|showRestTagsPopover |When maxTagCount is exceeded and hover reaches +N, whether to display the remaining content through Popover  |boolean     | true     |-|
+|restTagsPopoverProps |The configuration properties of the popover     |PopoverProps     | {}        |-|
+|showContentTooltip |When the tag is too long and truncated, when hovering the tag, whether to display all contents through Tooltip.If passed in as object: type，type of component to show tooltip, one of Tooltip, Popover; opts, properties that will be passed directly to the component     |boolean\|{type: 'tooltip'\|'popover', opts: object}    | true        |-|
+|placeholder   |Content to be appear by default                  |string                                                           | -         |-|
+|prefix        |Prefix                                           |ReactNode                                                        |-          |-|
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
-|renderTagItem |Customize the rendering of items, The parameter onClose is available in version 2.23.0  |<ApiType detail='(value: string, index: number, onClose: function) => React.ReactNode'>(params) => React.ReactNode</ApiType> | -        |1.19.0|
-|separator     |Customize the separator                          |string\|string[]                                                 |,          |1.19.0,string[] is supported since 1.29.0|
-|showClear     |Whether to show the clear button                 |boolean                                                          |false      |1.19.0|
-|size          |Size, one of `small`、`large`、`default`          |string                                                           |`default` |1.19.0|
+|renderTagItem |Customize the rendering of items, The parameter onClose is available in version 2.23.0  |<ApiType detail='(value: string, index: number, onClose: function) => React.ReactNode'>(params) => React.ReactNode</ApiType> | -        |-|
+|separator     |Customize the separator                          |string\|string[]                                                 |,          |-|
+|showClear     |Whether to show the clear button                 |boolean                                                          |false      |-|
+|size          |Size, one of `small`、`large`、`default`          |string                                                           |`default` |-|
 |split         |Customize the separator processing function      |(value: string, separator: string) => string[] | -        |2.90.0|
-|style         |Inline style                                     |React.CSSProperties                                               | -        |1.19.0|
-|suffix        |Suffix                                            |ReactNode                                                        |-         |1.19.0|
-|validateStatus|Validate status for styling only, one of  `default`、`warning`、`error`|string                                       |`default` |1.19.0|
-|value         |Controlled tag value                              |string[] \| undefined                                                         | -        |1.19.0|
+|style         |Inline style                                     |React.CSSProperties                                               | -        |-|
+|suffix        |Suffix                                            |ReactNode                                                        |-         |-|
+|validateStatus|Validate status for styling only, one of  `default`、`warning`、`error`|string                                       |`default` |-|
+|value         |Controlled tag value                              |string[] \| undefined                                                         | -        |-|
 |draggable     |Set whether to drag and drop                      |boolean                         |false      |2.17.0| 
 |expandRestTagsOnClick| Without dragging，whether to expand redundant tags after TagInput is clicked     |boolean                          |true       |2.17.0| 
-|onAdd         |Callback invoked when tags are added             |(addedValue: string[]) => void                                   | -        |1.19.0|
-|onBlur        |Callback invoked when input loses focus          |(e:React.MouseEvent) => void                  | -        |1.19.0|
-|onChange      |Callback invoked when tags changes               |(value:string[]) => void                                         | -        |1.19.0|
-|onExceed      |Callback invoked when max is exceeded    |(value:string[]) => void                                         | -        |1.19.0|
-|onFocus       |Callback invoked when input gets focus           |(e:React.MouseEvent) => void                  | -        |1.19.0|
-|onInputChange |Callback invoked when input changes              |(value:string,e: React.KeyboardEvent) => void)| -        |1.19.0|
-|onInputExceed |Callback invoked when maxLength is exceeded      |(value:string) => void                                           | -        |1.19.0|
+|onAdd         |Callback invoked when tags are added             |(addedValue: string[]) => void                                   | -        |-|
+|onBlur        |Callback invoked when input loses focus          |(e:React.MouseEvent) => void                  | -        |-|
+|onChange      |Callback invoked when tags changes               |(value:string[]) => void                                         | -        |-|
+|onExceed      |Callback invoked when max is exceeded    |(value:string[]) => void                                         | -        |-|
+|onFocus       |Callback invoked when input gets focus           |(e:React.MouseEvent) => void                  | -        |-|
+|onInputChange |Callback invoked when input changes              |(value:string,e: React.KeyboardEvent) => void)| -        |-|
+|onInputExceed |Callback invoked when maxLength is exceeded      |(value:string) => void                                           | -        |-|
 |onKeyDown    |Callback invoked when keydown                     |(e: React.KeyboardEvent) => void          | -        |2.1.0|
-|onRemove      |Callback invoked when tags are removed           |(removedValue: string, idx: number) => void                                 | -        |1.19.0|
+|onRemove      |Callback invoked when tags are removed           |(removedValue: string, idx: number) => void                                 | -        |-|
 
 ## Methods
 Some internal methods provided by TagInput can be accessed through ref:
 
 |Name   |Description |Version |
 |-------|------------|--------|
-|blur() |Remove focus|1.19.0|
-|focus()|Get focus   |1.19.0|
+|blur() |Remove focus|-|
+|focus()|Get focus   |-|
 
 ## Accessibility
 

@@ -269,132 +269,122 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 如果想要获取搜索结果的具体信息，可使用 `onSearch` 回调函数，函数具体参数见 API 列表。
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { TreeSelect, Switch } from '@douyinfe/semi-ui';
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            showFilteredOnly: false,
-        };
-        this.onChange = this.onChange.bind(this);
-        this.onSearch = this.onSearch.bind(this);
-    }
-    onChange(showFilteredOnly) {
-        this.setState({ showFilteredOnly });
-    }
-    onSearch(inputValue, filteredExpandedKeys, filteredNodes) {
+() => {
+    const [showFilteredOnly, setShowFilteredOnly] = useState(false);
+
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+
+    function onSearch(inputValue, filteredExpandedKeys, filteredNodes) {
         console.log('onSearch', inputValue, filteredExpandedKeys, filteredNodes);
     }
-    render() {
-        const treeData = [
-            {
-                label: 'Asia',
-                value: 'Asia',
-                key: '0',
-                children: [
-                    {
-                        label: 'China',
-                        value: 'China',
-                        key: '0-0',
-                        children: [
-                            {
-                                label: 'Beijing',
-                                value: 'Beijing',
-                                key: '0-0-0',
-                            },
-                            {
-                                label: 'Shanghai',
-                                value: 'Shanghai',
-                                key: '0-0-1',
-                            },
-                        ],
-                    },
-                    {
-                        label: 'Japan',
-                        value: 'Japan',
-                        key: '0-1',
-                        children: [
-                            {
-                                label: 'Osaka',
-                                value: 'Osaka',
-                                key: '0-1-0'
-                            }
-                        ]
-                    },
-                ],
-            },
-            {
-                label: 'North America',
-                value: 'North America',
-                key: '1',
-                children: [
-                    {
-                        label: 'United States',
-                        value: 'United States',
-                        key: '1-0'
-                    },
-                    {
-                        label: 'Canada',
-                        value: 'Canada',
-                        key: '1-1'
-                    }
-                ]
-            }
-        ];
-        const { showFilteredOnly } = this.state;
-        return (
-            <>
-                <span>showFilteredOnly</span>
-                <Switch
-                    checked={showFilteredOnly}
-                    onChange={this.onChange}
-                    size="small"
-                />
-                <br/>
-                <br/>
-                <TreeSelect
-                    style={{ width: 300 }}
-                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                    treeData={treeData}
-                    filterTreeNode
-                    showFilteredOnly={showFilteredOnly}
-                    placeholder="单选可搜索的"
-                    onSearch={this.onSearch}
-                />
-                <br/>
-                <br/>
-                <TreeSelect
-                    style={{ width: 300 }}
-                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                    treeData={treeData}
-                    multiple
-                    filterTreeNode
-                    maxTagCount={2}
-                    showFilteredOnly={showFilteredOnly}
-                    placeholder="多选可搜索的"
-                    searchPlaceholder="请输入关键字开始搜索"
-                    onSearch={this.onSearch}
-                />
-                <br/>
-                <br/>
-                <TreeSelect
-                    style={{ width: 300 }}
-                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                    treeData={treeData}
-                    multiple
-                    filterTreeNode
-                    maxTagCount={2}
-                    showFilteredOnly={showFilteredOnly}
-                    placeholder="搜索框autofocus"
-                    searchPlaceholder="autofocus"
-                    searchAutoFocus
-                    onSearch={this.onSearch}
-                />
-            </>
-        );
-    }
-}
+
+    return (
+        <>
+            <span>showFilteredOnly</span>
+            <Switch
+                checked={showFilteredOnly}
+                onChange={setShowFilteredOnly}
+                size="small"
+            />
+            <br/>
+            <br/>
+            <TreeSelect
+                style={{ width: 300 }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                filterTreeNode
+                showFilteredOnly={showFilteredOnly}
+                placeholder="单选可搜索的"
+                onSearch={onSearch}
+            />
+            <br/>
+            <br/>
+            <TreeSelect
+                style={{ width: 300 }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                multiple
+                filterTreeNode
+                maxTagCount={2}
+                showFilteredOnly={showFilteredOnly}
+                placeholder="多选可搜索的"
+                searchPlaceholder="请输入关键字开始搜索"
+                onSearch={onSearch}
+            />
+            <br/>
+            <br/>
+            <TreeSelect
+                style={{ width: 300 }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                multiple
+                filterTreeNode
+                maxTagCount={2}
+                showFilteredOnly={showFilteredOnly}
+                placeholder="搜索框autofocus"
+                searchPlaceholder="autofocus"
+                searchAutoFocus
+                onSearch={onSearch}
+            />
+        </>
+    );
+};
 ```
 
 ### 搜索框位置
@@ -772,62 +762,52 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 ### 受控
 传入 `value` 时即为受控组件，可以配合 `onChange` 使用。
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { TreeSelect } from '@douyinfe/semi-ui';
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: 'Shanghai'
-        };
-    }
-    onChange(value) {
-        this.setState({ value });
-    }
-    render() {
-        const treeData = [
-            {
-                label: '亚洲',
-                value: 'Asia',
-                key: '0',
-                children: [
-                    {
-                        label: '中国',
-                        value: 'China',
-                        key: '0-0',
-                        children: [
-                            {
-                                label: '北京',
-                                value: 'Beijing',
-                                key: '0-0-0',
-                            },
-                            {
-                                label: '上海',
-                                value: 'Shanghai',
-                                key: '0-0-1',
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                label: '北美洲',
-                value: 'North America',
-                key: '1',
-            }
-        ];
-        return (
-            <TreeSelect
-                style={{ width: 300 }}
-                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                treeData={treeData}
-                value={this.state.value}
-                placeholder="请选择"
-                onChange={e => this.onChange(e)}
-            />
-        );
-    }
-}
+() => {
+    const [value, setValue] = useState('Shanghai');
+    const treeData = [
+        {
+            label: '亚洲',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: '中国',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: '北京',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: '上海',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: '北美洲',
+            value: 'North America',
+            key: '1',
+        }
+    ];
+    return (
+        <TreeSelect
+            style={{ width: 300 }}
+            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+            treeData={treeData}
+            value={value}
+            placeholder="请选择"
+            onChange={setValue}
+        />
+    );
+};
 ```
 
 ### 节点选中关系
@@ -958,23 +938,17 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 如果带搜索框，建议开启 `showFilteredOnly` 减少多余节点的渲染。
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { TreeSelect, Button } from '@douyinfe/semi-ui';
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            gData: [],
-            total: 0,
-        };
-        this.onGen = this.onGen.bind(this);
-    }
+() => {
+    const [gData, setGData] = useState([]);
+    const [total, setTotal] = useState(0);
 
-    generateData(x = 5, y = 4, z = 3, gData = []) {
+    function generateData(x = 5, y = 4, z = 3, data = []) {
         // x：每一级下的节点总数。y：每级节点里有y个节点、存在子节点。z：树的level层级数（0表示一级）
         function _loop(_level, _preKey, _tns) {
             const preKey = _preKey || '0';
-            const tns = _tns || gData;
+            const tns = _tns || data;
 
             const children = [];
             for (let i = 0; i < x; i++) {
@@ -1001,80 +975,65 @@ class Demo extends React.Component {
             const rec = n => (n >= 0 ? x * y ** n-- + rec(n) : 0);
             return rec(z + 1);
         }
-        return { gData, total: calcTotal(x, y, z) };
+        return { gData: data, total: calcTotal(x, y, z) };
     }
 
-      
-    onGen() {
-        const { gData, total } = this.generateData();
-        this.setState({
-            gData,
-            total
-        });
-    };
-  
-    render() {
-        const style = {
-            width: 260,
-            height: 360,
-            border: '1px solid var(--semi-color-border)'
-        };
-        return (
-            <div style={{ padding: '0 20px' }}>
-                <Button onClick={this.onGen}>生成数据: </Button>
-                <span>共 {this.state.total} 个节点</span>
-                <br/>
-                <br/>
-                {this.state.gData.length ? (
-                    <TreeSelect
-                        style={{ width: 300 }}
-                        treeData={this.state.gData}
-                        filterTreeNode
-                        showFilteredOnly
-                        placeholder="Please select"
-                        dropdownStyle={{ 
-                            // height: 300,
-                            overflow: 'hidden'
-                        }}
-                        virtualize={{
-                            itemSize: 28,
-                            // dropDown height 300 minus search box height minus padding 8 * 2
-                            // or if you set dropdown height, it will fill 100% of rest space
-                            height: 236                
-                        }}
-                    />
-                ) : null}
-            </div>
-        );
+    function onGen() {
+        const { gData, total } = generateData();
+        setGData(gData);
+        setTotal(total);
     }
-}
+
+    return (
+        <div style={{ padding: '0 20px' }}>
+            <Button onClick={onGen}>生成数据: </Button>
+            <span>共 {total} 个节点</span>
+            <br/>
+            <br/>
+            {gData.length ? (
+                <TreeSelect
+                    style={{ width: 300 }}
+                    treeData={gData}
+                    filterTreeNode
+                    showFilteredOnly
+                    placeholder="Please select"
+                    dropdownStyle={{ 
+                        // height: 300,
+                        overflow: 'hidden'
+                    }}
+                    virtualize={{
+                        itemSize: 28,
+                        // dropDown height 300 minus search box height minus padding 8 * 2
+                        // or if you set dropdown height, it will fill 100% of rest space
+                        height: 236                
+                    }}
+                />
+            ) : null}
+        </div>
+    );
+};
 ```
 
 ### 动态更新数据
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { TreeSelect, Button } from '@douyinfe/semi-ui';
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            treeData: [],
-        };
-        this.add = this.add.bind(this);
-    }
-    add() {
-        let itemLength = Math.floor(Math.random() * 5) + 1;
-        let treeData = new Array(itemLength).fill(0).map((v, i) => {
-            let length = Math.floor(Math.random() * 3);
-            let children = new Array(length).fill(0).map((cv, ci) => {
-                let child = {
+() => {
+    const [treeData, setTreeData] = useState([]);
+
+    function add() {
+        const itemLength = Math.floor(Math.random() * 5) + 1;
+        const nextTreeData = new Array(itemLength).fill(0).map((v, i) => {
+            const length = Math.floor(Math.random() * 3);
+            const children = new Array(length).fill(0).map((cv, ci) => {
+                const child = {
                     key: `${i}-${ci}`,
                     label: `Leaf-${i}-${ci}`,
                     value: `${i}-${ci}`
                 };
                 return child;
             });
-            let item = {
+            const item = {
                 key: `${i}`,
                 label: `Item-${i}`,
                 value: `${i}`,
@@ -1082,26 +1041,25 @@ class Demo extends React.Component {
             };
             return item;
         });
-        this.setState({ treeData });
+        setTreeData(nextTreeData);
     }
-    render() {
-        return (
-            <>
-                <TreeSelect
-                    style={{ width: 300 }}
-                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                    treeData={this.state.treeData}
-                    placeholder="请选择"
-                />
-                <br/>
-                <br/>
-                <Button onClick={this.add}>
-                    动态改变数据
-                </Button>
-            </>
-        );
-    }
-}
+
+    return (
+        <>
+            <TreeSelect
+                style={{ width: 300 }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                placeholder="请选择"
+            />
+            <br/>
+            <br/>
+            <Button onClick={add}>
+                动态改变数据
+            </Button>
+        </>
+    );
+};
 ```
 
 ### 异步加载数据

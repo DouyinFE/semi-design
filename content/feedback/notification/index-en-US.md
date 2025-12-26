@@ -318,36 +318,36 @@ Close Manually (`id` is the return value of the display methods)
 | ------------ |-------------------------------------------------------------------------------------------------------------------| -------------------- | ---------- | ------- |
 | content      | Content                                                                                                           | ReactNode | ''      |  |
 | duration     | Automatic close delay, no auto-close when set to 0                                                                | number               | 3          |         |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` This will change the DOM tree position, but not the view's rendering position. | () => HTMLElement | () => document.body    |  0.34.0     |
+| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` This will change the DOM tree position, but not the view's rendering position. | () => HTMLElement | () => document.body    |  -     |
 | icon         | Topleft icon                                                                                                      | ReactNode               |  |         |  |
 | position     | Pop-up position, one of `top`、`bottom`、`topLeft`、`topRight`、`bottomLeft`、`bottomRight`                            | string               | `topRight` |         |
-| showClose    | Toggle Whether show close button                                                                                  | boolean              | true       | 0.25.0  |
-| theme | Style of background fill, one of `light`, `normal`                                                                | string | `normal`   |  1.0.0     |
+| showClose    | Toggle Whether show close button                                                                                  | boolean              | true       | -  |
+| theme | Style of background fill, one of `light`, `normal`                                                                | string | `normal`   |  -     |
 | title        | Title                                                                                                             | string               | ReactNode | ''      |  |
 | zIndex       | Z-index value. Only take effect for the first time.                                                               | number               | 1010       |         |
-| onClick      | Callback function when clicking the notification                                                                  | (e: event) => void   |            | 0.27 .0 |
+| onClick      | Callback function when clicking the notification                                                                  | (e: event) => void   |            | - |
 | onClose      | Callback function when closing notification, triggered for either auto-close or manually close                    | () => void |            |         |
 | onCloseClick | Callback function when actively clicking on the close button                                                      | (id: string \| number) => void |            |         |
 
-The global configuration is set before any method call, and takes effect only once (>= 0.25.0):
+The global configuration is set before any method call, and takes effect only once:
 
 -   `Notification.config(config)`
 
 | Properties | Instructions                                                                                | type           | Default    | version |
 | ---------- | ------------------------------------------------------------------------------------------- | -------------- | ---------- | ------- |
-| bottom     | Bottom, absolute position                                                                   | number \| string | -          | 0.25.0  |
-| duration   | Automatic close delay, no auto-close when set to 0                                          | number(second) | 3          | 0.25.0  |
-| left       | Left, absolute position                                                                     | number \| string | -          | 0.25.0  |
-| position   | Pop-up position, one of `top`、`bottom`、`topLeft`、`topRight`、`bottomLeft`、`bottomRight` | string         | `topRight` | 0.25.0  |
-| right      | Right, absolute position                                                                    | number \| string | -          | 0.25.0  |
-| top        | Top, absolute position                                                                      | number \| string | -          | 0.25.0  |
-| zIndex     | Z-index                                                                                     | number         | 1010       | 0.25.0  |
+| bottom     | Bottom, absolute position                                                                   | number \| string | -          | -  |
+| duration   | Automatic close delay, no auto-close when set to 0                                          | number(second) | 3          | -  |
+| left       | Left, absolute position                                                                     | number \| string | -          | -  |
+| position   | Pop-up position, one of `top`、`bottom`、`topLeft`、`topRight`、`bottomLeft`、`bottomRight` | string         | `topRight` | -  |
+| right      | Right, absolute position                                                                    | number \| string | -          | -  |
+| top        | Top, absolute position                                                                      | number \| string | -          | -  |
+| zIndex     | Z-index                                                                                     | number         | 1010       | -  |
 
-Globally Destroy (>= 0.25.0):
+Globally Destroy:
 
--   `Notification.destroyAll()` ( >= 0.25.0 )
+-   `Notification.destroyAll()`
 
-Hook Notification ( >= 1.2.0 )
+Hook Notification
 -   `Notification.useNotification`
 
 When you need access Context, you could use ``Notification.useNotification` to create a `contextHolder` and insert to corresponding DOM tree. Notification created by hooks will be able to access the context where `contextHolder` is inserted. Hook Notification has following methods: `info`, `success`, `warning`, `error`, `open`, `close`. For more usage demo, refer to [useToast](/en-US/components/toast#useToast_Hooks)

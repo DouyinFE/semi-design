@@ -179,9 +179,9 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | collapseIcon | 自定义折叠图标 | ReactNode | `<IconChevronDown />` | -      |
 | defaultActiveKey | 初始化选中面板的 key | string \| string[] | 无 | -      |
 | expandIcon | 自定义展开图标 | ReactNode | `<IconChevronUp />` | -      |
-| expandIconPosition | 展开图标位置 | `left`, `right` | `right` | 1.12.0 |
-| keepDOM | 是否保留隐藏的面板 DOM 树，默认销毁 | bool | `false` | 0.25.0 |
-| motion | 是否开启动画 | boolean | `true` | 1.4.0  |
+| expandIconPosition | 展开图标位置 | `left`, `right` | `right` | - |
+| keepDOM | 是否保留隐藏的面板 DOM 树，默认销毁 | bool | `false` | - |
+| motion | 是否开启动画 | boolean | `true` | -  |
 | lazyRender | 配合 keepDOM 使用，为 true 时挂载时不会渲染组件 | boolean | `false` | 2.54.1 |
 | style | 内联 CSS 样式 | CSSProperties | {} | -      |
 | onChange | 切换面板的回调 | function(activeKey: string \| string[], e: event) | 无 | -      |
@@ -196,7 +196,7 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | header    | 面板头内容                                                            | ReactNode      | 无     |               |
 | itemKey   | 必填且唯一，选中状态匹配 `activeKey`，`defaultActiveKey`              | string                 | 无     |               |
 | onMotionEnd | 动画结束的回调 | () => void | - | 2.47.0-beta.0 |
-| reCalcKey | 当 reCalcKey 改变时，将重新计算子节点的高度，用于优化动态渲染时的计算 | string \| number |无| 1.5.0         |
+| reCalcKey | 当 reCalcKey 改变时，将重新计算子节点的高度，用于优化动态渲染时的计算 | string \| number |无| -         |
 | showArrow | 是否展示箭头                                                          | boolean                 |  true  | v2.17.0       |
 | style     | 内联 CSS 样式                                                         | CSSProperties                 |  无  |               |
 

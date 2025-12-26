@@ -174,7 +174,7 @@ function Demo () {
 ### 货币展示
 2.77.0 版本开始支持货币展示，国际化模式下通过 currency={true} 开启，组件会自动根据 localeCode 展示对应货币种类。（注意切换语言类型后需要更新组件 key 值）
 ```jsx live=true
-import React from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
 import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
 import en_US from '@douyinfe/semi-ui/lib/es/locale/source/en_US';
@@ -199,80 +199,73 @@ import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
 import ro from '@douyinfe/semi-ui/lib/es/locale/source/ro';
 import { LocaleProvider, InputNumber, Select } from '@douyinfe/semi-ui';
 
-class I18nDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            locale: zh_CN,
-            localeCode: 'zh_CN',
-        };
-        this.onLanguageChange = this.onLanguageChange.bind(this);
-    }
+function I18nDemo() {
+    const [locale, setLocale] = useState(zh_CN);
+    const [localeCode, setLocaleCode] = useState('zh_CN');
 
-    onLanguageChange(code) {
-        let language = {
-            'zh_CN': zh_CN,
-            'en_GB': en_GB,
-            'en_US': en_US,
-            'ko_KR': ko_KR,
-            'ja_JP': ja_JP,
-            'ar': ar,
-            'vi_VN': vi_VN,
-            'ru_RU': ru_RU,
-            'id_ID': id_ID,
-            'ms_MY': ms_MY,
-            'th_TH': th_TH,
-            'tr_TR': tr_TR,
-            'pt_BR': pt_BR,
-            'zh_TW': zh_TW,
-            'es': es,
-            'sv_SE': sv_SE,
-            'pl_PL': pl_PL,
-            'nl_NL': nl_NL,
-            de,
-            it,
-            fr,
-            ro
-        };
-        this.setState({ locale: language[code], localeCode: code });
-    }
+    const language = useMemo(() => ({
+        'zh_CN': zh_CN,
+        'en_GB': en_GB,
+        'en_US': en_US,
+        'ko_KR': ko_KR,
+        'ja_JP': ja_JP,
+        'ar': ar,
+        'vi_VN': vi_VN,
+        'ru_RU': ru_RU,
+        'id_ID': id_ID,
+        'ms_MY': ms_MY,
+        'th_TH': th_TH,
+        'tr_TR': tr_TR,
+        'pt_BR': pt_BR,
+        'zh_TW': zh_TW,
+        'es': es,
+        'sv_SE': sv_SE,
+        'pl_PL': pl_PL,
+        'nl_NL': nl_NL,
+        de,
+        it,
+        fr,
+        ro
+    }), []);
 
-    render() {
-        const { locale, localeCode } = this.state;
-        return (
-            <>
-                <div style={{ paddingBottom: 20 }}>
-                    <Select onChange={this.onLanguageChange} insetLabel='切换语言' style={{ width: 250 }} defaultValue='zh_CN'>
-                        <Select.Option value='zh_CN'>简体中文</Select.Option>
-                        <Select.Option value='en_US'>英语（美）</Select.Option>
-                        <Select.Option value='en_GB'>英语（英）</Select.Option>
-                        <Select.Option value='ja_JP'>日语</Select.Option>
-                        <Select.Option value='ko_KR'>韩语</Select.Option>
-                        <Select.Option value='ar'>阿拉伯语</Select.Option>
-                        <Select.Option value='vi_VN'>越南语</Select.Option>
-                        <Select.Option value='ru_RU'>俄罗斯语</Select.Option>
-                        <Select.Option value='id_ID'>印尼语</Select.Option>
-                        <Select.Option value='ms_MY'>马来语</Select.Option>
-                        <Select.Option value='th_TH'>泰语</Select.Option>
-                        <Select.Option value='tr_TR'>土耳其语</Select.Option>
-                        <Select.Option value='pt_BR'>葡萄牙语（巴西）</Select.Option>
-                        <Select.Option value='zh_TW'>繁体中文</Select.Option>
-                        <Select.Option value='es'>西班牙语</Select.Option>
-                        <Select.Option value='de'>德语</Select.Option>
-                        <Select.Option value='it'>意大利语</Select.Option>
-                        <Select.Option value='fr'>法语</Select.Option>
-                        <Select.Option value='ro'>罗马尼亚语</Select.Option>
-                        <Select.Option value='sv_SE'>瑞典语</Select.Option>
-                        <Select.Option value='pl_PL'>波兰语</Select.Option>
-                        <Select.Option value='nl_NL'>荷兰语</Select.Option>
-                    </Select>
-                </div>
-                <LocaleProvider locale={locale}>
-                    <InputNumber key={localeCode} currency={true} defaultValue={123456.78} />
-                </LocaleProvider>
-            </>
-        );
-    }
+    const onLanguageChange = (code) => {
+        setLocale(language[code]);
+        setLocaleCode(code);
+    };
+
+    return (
+        <>
+            <div style={{ paddingBottom: 20 }}>
+                <Select onChange={onLanguageChange} insetLabel='切换语言' style={{ width: 250 }} defaultValue='zh_CN'>
+                    <Select.Option value='zh_CN'>简体中文</Select.Option>
+                    <Select.Option value='en_US'>英语（美）</Select.Option>
+                    <Select.Option value='en_GB'>英语（英）</Select.Option>
+                    <Select.Option value='ja_JP'>日语</Select.Option>
+                    <Select.Option value='ko_KR'>韩语</Select.Option>
+                    <Select.Option value='ar'>阿拉伯语</Select.Option>
+                    <Select.Option value='vi_VN'>越南语</Select.Option>
+                    <Select.Option value='ru_RU'>俄罗斯语</Select.Option>
+                    <Select.Option value='id_ID'>印尼语</Select.Option>
+                    <Select.Option value='ms_MY'>马来语</Select.Option>
+                    <Select.Option value='th_TH'>泰语</Select.Option>
+                    <Select.Option value='tr_TR'>土耳其语</Select.Option>
+                    <Select.Option value='pt_BR'>葡萄牙语（巴西）</Select.Option>
+                    <Select.Option value='zh_TW'>繁体中文</Select.Option>
+                    <Select.Option value='es'>西班牙语</Select.Option>
+                    <Select.Option value='de'>德语</Select.Option>
+                    <Select.Option value='it'>意大利语</Select.Option>
+                    <Select.Option value='fr'>法语</Select.Option>
+                    <Select.Option value='ro'>罗马尼亚语</Select.Option>
+                    <Select.Option value='sv_SE'>瑞典语</Select.Option>
+                    <Select.Option value='pl_PL'>波兰语</Select.Option>
+                    <Select.Option value='nl_NL'>荷兰语</Select.Option>
+                </Select>
+            </div>
+            <LocaleProvider locale={locale}>
+                <InputNumber key={localeCode} currency={true} defaultValue={123456.78} />
+            </LocaleProvider>
+        </>
+    );
 }
 ```
 也可以通过手动传 localeCode 和 currency 指定展示的货币种类
@@ -368,9 +361,9 @@ import { InputNumber } from '@douyinfe/semi-ui';
 | defaultValue | 默认值                                                         | number                            |           |           |
 | disabled     | 禁用                                                           | boolean                           | false     |           |
 | formatter    | 指定输入框展示值的格式                                         | (value: number\|string) => string | -         |           |
-| hideButtons  | 为 `true` 时隐藏 “上/下” 按钮                                  | boolean                           | false     | **1.0.0** |
-| innerButtons | 为 `true` 时 “上/下” 按钮显示在输入框内部                                  | boolean                           | false     | **1.5.0** |
-| keepFocus    | 点击按钮时保持输入框聚焦                                        | boolean                 |     false      |   **1.10.0**        |
+| hideButtons  | 为 `true` 时隐藏 “上/下” 按钮                                  | boolean                           | false     | - |
+| innerButtons | 为 `true` 时 “上/下” 按钮显示在输入框内部                                  | boolean                           | false     | - |
+| keepFocus    | 点击按钮时保持输入框聚焦                                        | boolean                 |     false      |   -        |
 |  localeCode    | 货币模式下用于指定国家地区代码，可选值有 `zh-CN`, `en-US`, `en-GB`, `ja-JP`, `ko-KR`, `ar`, `vi-VN`, `ru-RU`, `id-ID`, `ms-MY`, `th-TH`, `tr-TR`, `pt-BR`, `zh-TW`, `es`, `de`, `it`, `fr`, `ro`, `sv-SE`, `pl-PL`, `nl-NL`等 | string                 |     -      |   **2.77.0**  |
 | max          | 限定最大值                                                     | number                            | Infinity  |           |
 | min          | 限定最小值                                                     | number                            | -Infinity |           |
@@ -380,18 +373,18 @@ import { InputNumber } from '@douyinfe/semi-ui';
 | pressInterval| 长按按钮时，多久触发一次点击事件，单位毫秒                                   | number                 |   250        |           |
 | pressTimeout | 长按按钮时，延迟多久后触发点击事件，单位毫秒                                                      | number                 |     250      |           |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
-| shiftStep    | 按住 shift 键每次改变步数，可以为小数，v2.13 默认值由 1 调整为 10                           | number                            | 10         | **1.5.0** |
-| showClear    | 是否显示清除按钮                                               | boolean                           | false     | **0.35.0**   |
+| shiftStep    | 按住 shift 键每次改变步数，可以为小数，v2.13 默认值由 1 调整为 10                           | number                            | 10         | - |
+| showClear    | 是否显示清除按钮                                               | boolean                           | false     | -   |
 | showCurrencySymbol | 是否显示货币符号/代码/名称，仅货币模式下生效 | boolean | true | **2.77.0** |
 | size         | 输入框大小，可选值："default"\|"small"\|"large"                | string                            | 'default' |           |
 | step         | 每次改变步数，可以为小数                                       | number                            | 1         |           |
 | style     | 样式                                                               | CSSProperties  | -      |
 | suffix       | 自定义后缀                                                     | ReactNode                         |           |           |
 | value        | 当前值                                                         | number                            |           |           |
-| onBlur       | 失去焦点时的回调                                               | (e: domEvent) => void             | () => {}  | **1.0.0** |
+| onBlur       | 失去焦点时的回调                                               | (e: domEvent) => void             | () => {}  | - |
 | onChange     | 变化回调                                                       | (value: number\|string) => void   | -         |           |
-| onFocus      | 获得焦点时的回调                                               | (e: domEvent) => void             | () => {}  | **1.0.0** |
-| onNumberChange | 数字变化回调                                                  | (value: number) => void   | -         |     **1.9.0**      |
+| onFocus      | 获得焦点时的回调                                               | (e: domEvent) => void             | () => {}  | - |
+| onNumberChange | 数字变化回调                                                  | (value: number) => void   | -         |     -      |
 
 ## Methods
 

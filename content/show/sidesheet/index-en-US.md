@@ -79,7 +79,7 @@ import { SideSheet, RadioGroup, Radio, Button } from '@douyinfe/semi-ui';
 
 ### Size
 
-You could use `size` to set the size of SideSheet, supporting one of `small`(448px), `medium`(684px), and `large`(920px). Only takes effects when `placement` is set to `left` or `right`, and used after `v0.29.0`. If the default size does not meet your needs, you can also set the width by setting the `width` property, for example `width={900}` / `width={'800px'}`
+You could use `size` to set the size of SideSheet, supporting one of `small`(448px), `medium`(684px), and `large`(920px). Only takes effects when `placement` is set to `left` or `right`. If the default size does not meet your needs, you can also set the width by setting the `width` property, for example `width={900}` / `width={'800px'}`
 
 ```jsx live=true
 import React, { useState } from 'react';
@@ -115,7 +115,7 @@ import { SideSheet, RadioGroup, Radio, Button } from '@douyinfe/semi-ui';
 
 ### Non-blocking Workflow
 
-After `v0.29.0`, you could set `mask={false}` to continue working on the area outside SideSheet.
+You could set `mask={false}` to continue working on the area outside SideSheet.
 
 <Notice title='Tips'>
   By default, if you are not setting `getPopupContainer`, SideSheet is rendered inside body. If you want body element to be able to scroll, you could set disableScroll to false and the component will not add `overflow: hidden` to it.
@@ -143,7 +143,7 @@ import { SideSheet, Button, TextArea } from '@douyinfe/semi-ui';
 
 ### Rendered Inside Container
 
-After `v0.29.0`, you could use `getPopupContainer` to render SideSheet in targeted DOM. 
+You could use `getPopupContainer` to render SideSheet in targeted DOM. 
 
 <Notice title='Tips'>
   The container must have `overflow: hidden` to avoid animated SideSheet overflows.
@@ -194,134 +194,130 @@ import { SideSheet, Button } from '@douyinfe/semi-ui';
 
 ### Customized Content
 
-Use `title`, `footer`(v>=1.3.0) and other Semi Components, you could create customized information display layers.
+Use `title`, `footer` and other Semi Components, you could create customized information display layers.
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { SideSheet, Button, Typography, Banner, Form } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = { visible: false };
-    }
-    show() {
-        this.setState({
-            visible: true,
-        });
-    }
-    handleCancel(e) {
-        this.setState({
-            visible: false,
-        });
-    }
-    render() {
-        const {
-            DatePicker,
-            Select,
-            Radio,
-            RadioGroup,
-        } = Form;
-        const footer = (
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button style={{ marginRight: 8 }}>Reset</Button>
-                <Button theme="solid">Submit</Button>
-            </div>
-        );
-        return (
-            <>
-                <Button onClick={() => this.show()}>More Information</Button>
-                <SideSheet
-                    title={<Typography.Title heading={4}>Create New Package</Typography.Title>}
-                    headerStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
-                    bodyStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
-                    visible={this.state.visible}
-                    footer={footer}
-                    onCancel={() => this.handleCancel()}
-                >
-                    <Form>
-                        <DatePicker
-                            field="date"
-                            type="dateTime"
-                            initValue={new Date()}
-                            style={{ width: 272 }}
-                            label={{ text: 'Created Time', required: true }}
-                        />
-                        <RadioGroup
-                            field="type"
-                            label="Target Operating System"
-                            direction="horizontal"
-                            initValue={'all'}
-                        >
-                            <Radio value="all">All</Radio>
-                            <Radio value="ios">iOS</Radio>
-                            <Radio value="android">Android</Radio>
-                            <Radio value="web">Web</Radio>
-                        </RadioGroup>
-                        <RadioGroup field="origin" label="Package Origin" direction="horizontal" initValue={'scm'}>
-                            <Radio value="scm">Uploaded From SCM</Radio>
-                            <Radio value="manual">Uploaded Manually</Radio>
-                        </RadioGroup>
-                        <Banner
-                            fullMode={false}
-                            icon={null}
-                            closeIcon={null}
-                            bordered
-                            description={
-                                <Typography.Text>
-                                    Software Config Management (SCM) is a platform for publish and manage code versions.
-                                    You can compile and manage code versions in this platform.
-                                </Typography.Text>
-                            }
-                        />
-                        <br />
-                        <Select
-                            field="users"
-                            label={{ text: 'Created User', required: true }}
-                            style={{ width: 560 }}
-                            multiple
-                            initValue={['1', '2', '3', '4']}
-                        >
-                            <Select.Option value="1">Tianyi Lee</Select.Option>
-                            <Select.Option value="2">Chen Qu</Select.Option>
-                            <Select.Option value="3">Yan Cai</Select.Option>
-                            <Select.Option value="4">Wenzhuo Cui</Select.Option>
-                        </Select>
-                    </Form>
-                </SideSheet>
-            </>
-        );
-    }
-}
+() => {
+    const [visible, setVisible] = useState(false);
+    
+    const show = () => {
+        setVisible(true);
+    };
+    
+    const handleCancel = (e) => {
+        setVisible(false);
+    };
+    
+    const {
+        DatePicker,
+        Select,
+        Radio,
+        RadioGroup,
+    } = Form;
+    
+    const footer = (
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Button style={{ marginRight: 8 }}>Reset</Button>
+            <Button theme="solid">Submit</Button>
+        </div>
+    );
+    
+    return (
+        <>
+            <Button onClick={show}>More Information</Button>
+            <SideSheet
+                title={<Typography.Title heading={4}>Create New Package</Typography.Title>}
+                headerStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
+                bodyStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
+                visible={visible}
+                footer={footer}
+                onCancel={handleCancel}
+            >
+                <Form>
+                    <DatePicker
+                        field="date"
+                        type="dateTime"
+                        initValue={new Date()}
+                        style={{ width: 272 }}
+                        label={{ text: 'Created Time', required: true }}
+                    />
+                    <RadioGroup
+                        field="type"
+                        label="Target Operating System"
+                        direction="horizontal"
+                        initValue={'all'}
+                    >
+                        <Radio value="all">All</Radio>
+                        <Radio value="ios">iOS</Radio>
+                        <Radio value="android">Android</Radio>
+                        <Radio value="web">Web</Radio>
+                    </RadioGroup>
+                    <RadioGroup field="origin" label="Package Origin" direction="horizontal" initValue={'scm'}>
+                        <Radio value="scm">Uploaded From SCM</Radio>
+                        <Radio value="manual">Uploaded Manually</Radio>
+                    </RadioGroup>
+                    <Banner
+                        fullMode={false}
+                        icon={null}
+                        closeIcon={null}
+                        bordered
+                        description={
+                            <Typography.Text>
+                                Software Config Management (SCM) is a platform for publish and manage code versions.
+                                You can compile and manage code versions in this platform.
+                            </Typography.Text>
+                        }
+                    />
+                    <br />
+                    <Select
+                        field="users"
+                        label={{ text: 'Created User', required: true }}
+                        style={{ width: 560 }}
+                        multiple
+                        initValue={['1', '2', '3', '4']}
+                    >
+                        <Select.Option value="1">Tianyi Lee</Select.Option>
+                        <Select.Option value="2">Chen Qu</Select.Option>
+                        <Select.Option value="3">Yan Cai</Select.Option>
+                        <Select.Option value="4">Wenzhuo Cui</Select.Option>
+                    </Select>
+                </Form>
+            </SideSheet>
+        </>
+    );
+};
 ```
 
 ## API Reference
 
 | Properties | Instructions                                                                                                               | type | Default | Version |
 | --- |----------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
-| afterVisibleChange | Callback function when animation of SideSheet ends                                                                         | (isVisible: boolean) => void | - | 1.0.0 |
+| afterVisibleChange | Callback function when animation of SideSheet ends                                                                         | (isVisible: boolean) => void | - | - |
 | bodyStyle | Content style                                                                                                              | CSSProperties | - | - |
 | className | Class name                                                                                                                 | string | - | - |
 | closable | Toggle whether to show close button                                                                                        | boolean | true | - |
 | closeIcon         | Icon for close button                                                                                              | ReactNode | <IconClose /\>    | - |
-| closeOnEsc | oggle whether to allow close modal by keyboard event Esc                                                                   | boolean | false | 1.0.0 |
+| closeOnEsc | oggle whether to allow close modal by keyboard event Esc                                                                   | boolean | false | - |
 | disableScroll | Toggle whether to add `overflow: hidden` to document.body element. Only works when not setting `getPopupContainer`         | boolean | true | - |
-| footer | Footer                                                                                                                     | ReactNode | null | 1.3.0 |
-| getPopupContainer | Container where to render SideSheet inside, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.                                           | () => HTMLElement | - | 0.29.0 |
-| headerStyle | Header style                                                                                                               | CSSProperties | - | 1.0.0 |
+| footer | Footer                                                                                                                     | ReactNode | null | - |
+| getPopupContainer | Container where to render SideSheet inside, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.                                           | () => HTMLElement | - | - |
+| headerStyle | Header style                                                                                                               | CSSProperties | - | - |
 | height | Height, takes effect when `placement` is set to `top` or `bottom`                                                          | number \| string | 400 | - |
-| keepDOM | Keep components inside when closing sideSheet<br/>**v1.18.0 provided**                                                     | boolean | false |
-| mask | Toggle whether to show mask. After `v0.29.0`, when `mask={false}`, you could continue operations outside SideSheet         | boolean | true | - |
+| keepDOM | Keep components inside when closing sideSheet                                                     | boolean | false |
+| mask | Toggle whether to show mask. When `mask={false}`, you could continue operations outside SideSheet         | boolean | true | - |
 | maskClosable | Toggle whether to allow closing when clicking mask                                                                         | boolean | true | - |
 | maskStyle | Mask style                                                                                                                 | CSSProperties | - | - |
 | motion | Toggle whether to turn on animation                                                                                        | boolean | true | - |
 | placement | Sliding position, one of `top`, `bottom`, `left`, `right`                                                                  | string | `right` | - |
-| size | Size, one of `small`(448px)， `medium`(684px), `large`(920px), only take effects when placement is set to `left` or `right` | string | `small` | 0.29.0 |
+| size | Size, one of `small`(448px)， `medium`(684px), `large`(920px), only take effects when placement is set to `left` or `right` | string | `small` | - |
 | style | Inline style                                                                                                               | CSSProperties | - | - |
 | title | Title                                                                                                                      | ReactNode | - | - |
 | visible | Toggle visibility of the SideSheet                                                                                         | boolean | false | - |
 | width | Width, takes effect when `placement` is set to `left` or `right`                                                           | number \| string | 448 | - |
-| zIndex | Z-index value for SideSheet                                                                                                | number | 1000 | 0.29.0 |
+| zIndex | Z-index value for SideSheet                                                                                                | number | 1000 | - |
 | onCancel | Callback function when clicking cancel button                                                                              | (e: MouseEvent) => void | - | - |
 
 ## Accessibility

@@ -146,7 +146,7 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
 
 ### 自定义折叠高度
 
-可以使用 collapseHeight 自定义收起的高度，需要版本 **v>=1.0.0**
+可以使用 collapseHeight 自定义收起的高度
 
 ```jsx live=true hideInDSM
 import React, { useState } from 'react';

@@ -660,41 +660,41 @@ function Demo() {
 
 |PROPERTIES        |INSTRUCTIONS                                                                         |TYPE              |DEFAULT |VERSION|
 |------------------|-------------------------------------------------------------------------------------|------------------|--------|-------|
-|actions           |Card operation group, located at the bottom of the card content area                 |Array<ReactNode\> |-       |1.21.0 |
-|bodyStyle         |Body style                                                                           |CSSProperties     |-       |1.21.0 |
-|bordered          |Whether to set the outer border of the card                                          |boolean           |true    |1.21.0 |
-|className         |The className of Card container                                                      |string            |-       |1.21.0 |
-|cover             |Card cover                                                                           |ReactNode         |-       |1.21.0 |
-|headerExtraContent|Extra content to the right of the card title                                         |ReactNode         |-       |1.21.0 |
-|footer            |Customize card footer                                                                |ReactNode         |-       |1.21.0 |
-|footerLine        |Whether to set borders in the footer area and content area of the card               |boolean           |false   |1.21.0 |
-|footerStyle       |Footer style                                                                         |CSSProperties     |-       |1.21.0 |
-|header            |Custom card header, if passed in, it will override `title` and `headerExtraContent`  |ReactNode         |-       |1.21.0 |
-|headerLine        |Whether to set borders in the title area and content area of the card                |boolean           |true    |1.21.0 |
-|headerStyle       |Header style                                                                         |CSSProperties     |-       |1.21.0 |
-|loading           |Whether to set a placeholder when loading                                            |boolean           |false   |1.21.0 |
-|shadows           |Set the time to show the shadow. If this property is not set, there will be no shadow. Optiona: `hover`, `always`|string |-       |1.21.0 |
-|style             |Card style                                                                           |CSSProperties     |-       |1.21.0 |
-|title             |Card title                                                                           |ReactNode         |-       |1.21.0 |
+|actions           |Card operation group, located at the bottom of the card content area                 |Array<ReactNode\> |-       |- |
+|bodyStyle         |Body style                                                                           |CSSProperties     |-       |- |
+|bordered          |Whether to set the outer border of the card                                          |boolean           |true    |- |
+|className         |The className of Card container                                                      |string            |-       |- |
+|cover             |Card cover                                                                           |ReactNode         |-       |- |
+|headerExtraContent|Extra content to the right of the card title                                         |ReactNode         |-       |- |
+|footer            |Customize card footer                                                                |ReactNode         |-       |- |
+|footerLine        |Whether to set borders in the footer area and content area of the card               |boolean           |false   |- |
+|footerStyle       |Footer style                                                                         |CSSProperties     |-       |- |
+|header            |Custom card header, if passed in, it will override `title` and `headerExtraContent`  |ReactNode         |-       |- |
+|headerLine        |Whether to set borders in the title area and content area of the card                |boolean           |true    |- |
+|headerStyle       |Header style                                                                         |CSSProperties     |-       |- |
+|loading           |Whether to set a placeholder when loading                                            |boolean           |false   |- |
+|shadows           |Set the time to show the shadow. If this property is not set, there will be no shadow. Optiona: `hover`, `always`|string |-       |- |
+|style             |Card style                                                                           |CSSProperties     |-       |- |
+|title             |Card title                                                                           |ReactNode         |-       |- |
 
 **CardGroup**
 
 |PROPERTIES |INSTRUCTIONS                                                                                                      |TYPE               |DEFAULT |VERSION|
 |-----------|------------------------------------------------------------------------------------------------------------------|-------------------|--------|-------|
-|className  |The className of CardGroup                                                                                        |string             |-       |1.21.0 |
-|spacing    |Spacing size, support numeric value or array, `[horizontal spacing, vertical spacing]`                            |number \| number[] |12px    |1.21.0 |
-|style      |CardGroup style                                                                                                   |CSSProperties      |-       |1.21.0 |
-|type       |You can set the card deck to a grid type. After setting this property, the `spacing` property will be overwritten.Optional: `grid` |string |-  |1.21.0 |
+|className  |The className of CardGroup                                                                                        |string             |-       |- |
+|spacing    |Spacing size, support numeric value or array, `[horizontal spacing, vertical spacing]`                            |number \| number[] |12px    |- |
+|style      |CardGroup style                                                                                                   |CSSProperties      |-       |- |
+|type       |You can set the card deck to a grid type. After setting this property, the `spacing` property will be overwritten.Optional: `grid` |string |-  |- |
 
 **Card.Meta**
 
 |PROPERTIES |INSTRUCTIONS          |TYPE         |DEFAULT |VERSION|
 |-----------|----------------------|-------------|-       |-------|
-|avatar     |avatar                |ReactNode    |-       |1.21.0 |
-|className  |The className of Meta |string       |-       |1.21.0 |
-|description|description           |ReactNode    |-       |1.21.0 |
-|style      |Meta style            |CSSProperties|-       |1.21.0 |
-|title      |title                 |ReactNode    |-       |1.21.0 |
+|avatar     |avatar                |ReactNode    |-       |- |
+|className  |The className of Meta |string       |-       |- |
+|description|description           |ReactNode    |-       |- |
+|style      |Meta style            |CSSProperties|-       |- |
+|title      |title                 |ReactNode    |-       |- |
 
 ## Accessibility
 

@@ -17,7 +17,7 @@ Semi 重点参考了 [VS Code](https://github.com/microsoft/vscode)的 text-buff
 对于五百万行及以下的数据，均可以做到1s内完成数据加载与解析。
 详细的对比数据可查阅 [Performance](#Performance) 章节
 - 如果你仅需要对 Json 做预览/编辑，无需对更复杂的其他编程语言作修改，我们建议你选用 JsonViewer
-- 如果你还需要处理其他格式的数据/代码文件，完整的代码编辑器能力（语法高亮、代码不全、错误提示、复杂编辑等）是刚需，构建产物体积不是关注重点，我们建议你选用 Monaco Editor
+- 如果你还需要处理其他格式的数据/代码文件，完整的代码编辑器能力（语法高亮、代码补全、错误提示、复杂编辑等）是刚需，构建产物体积不是关注重点，我们建议你选用 Monaco Editor
 
 
 ## 代码演示
@@ -64,22 +64,20 @@ const data = `{
     "name": "Semi",
     "version": "0.0.0"
 }`;
-class SimpleJsonViewerWithLineHeight extends React.Component {
-    render() {
-        return (
-            <div>
-                <div style={{ marginBottom: 12, overflow: 'hidden' }}>
-                    <JsonViewer height={100} width={700} value={data} options={{ lineHeight: 20 }} />
-                </div>
-                <div style={{ marginBottom: 12, overflow: 'hidden' }}>
-                    <JsonViewer height={120} width={700} value={data} options={{ lineHeight: 24 }} />
-                </div>
-                <div style={{ marginBottom: 12, overflow: 'hidden' }}>
-                    <JsonViewer height={120} width={700} value={data} options={{ lineHeight: 26 }} />
-                </div>
+function SimpleJsonViewerWithLineHeight() {
+    return (
+        <div>
+            <div style={{ marginBottom: 12, overflow: 'hidden' }}>
+                <JsonViewer height={100} width={700} value={data} options={{ lineHeight: 20 }} />
             </div>
-        );
-    }
+            <div style={{ marginBottom: 12, overflow: 'hidden' }}>
+                <JsonViewer height={120} width={700} value={data} options={{ lineHeight: 24 }} />
+            </div>
+            <div style={{ marginBottom: 12, overflow: 'hidden' }}>
+                <JsonViewer height={120} width={700} value={data} options={{ lineHeight: 26 }} />
+            </div>
+        </div>
+    )
 }
 
 render(SimpleJsonViewerWithLineHeight);
@@ -97,14 +95,12 @@ const data = `{
     "version": "0.0.0",
     "description": "Semi Design is a design system that defines a set of mid_back design and front_end basic components."
 }`;
-class SimpleJsonViewerWithAutoWrap extends React.Component {
-    render() {
-        return (
-            <div style={{ marginBottom: 16 }}>
-                <JsonViewer height={120} width={700} value={data} options={{ autoWrap: true }} />
-            </div>
-        );
-    }
+function SimpleJsonViewerWithAutoWrap() {
+    return (
+        <div style={{ marginBottom: 16 }}>
+            <JsonViewer height={120} width={700} value={data} options={{ autoWrap: true }} />
+        </div>
+    );
 }
 
 render(SimpleJsonViewerWithAutoWrap);

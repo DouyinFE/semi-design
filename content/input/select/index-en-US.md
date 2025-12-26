@@ -477,66 +477,45 @@ import { Select } from '@douyinfe/semi-ui';
 If it is a complex linkage with a hierarchical relationship, it is recommended to use Cascader components directly
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
-class Link extends React.Component {
-    get continents() {
-        return ['Asia', 'Europe'];
-    }
-    get maps() {
-        return {
-            Asia: ['China', 'Korea'],
-            Europe: ['United Kingdom', 'France', 'Germany'],
-        };
-    }
-    constructor() {
-        super();
-        this.state = {
-            continents: this.continents,
-            maps: this.maps,
-            countrys: this.maps[this.continents[0]],
-            country: this.maps[this.continents[0]][0],
-        };
-        this.continentsChange = this.continentsChange.bind(this);
-        this.countryChange = this.countryChange.bind(this);
-    }
+() => {
+    const continents = ['Asia', 'Europe'];
+    const maps = {
+        Asia: ['China', 'Korea'],
+        Europe: ['United Kingdom', 'France', 'Germany'],
+    };
 
-    continentsChange(newContinents) {
-        const { maps } = this.state;
-        this.setState({ countrys: maps[newContinents], country: maps[newContinents][0] });
-    }
+    const [continent, setContinent] = useState(continents[0]);
+    const countrys = maps[continent];
+    const [country, setCountry] = useState(countrys[0]);
 
-    countryChange(country) {
-        this.setState({ country });
-    }
+    const continentsChange = newContinent => {
+        setContinent(newContinent);
+        setCountry(maps[newContinent][0]);
+    };
+    const countryChange = newCountry => setCountry(newCountry);
 
-    render() {
-        const { continents, countrys, country } = this.state;
-        return (
-            <React.Fragment>
-                <Select
-                    style={{ width: '150px', margin: '10px' }}
-                    onChange={this.continentsChange}
-                    defaultValue={continents[0]}
-                >
-                    {continents.map(pro => (
-                        <Select.Option value={pro} key={pro}>
-                            {pro}
-                        </Select.Option>
-                    ))}
-                </Select>
-                <Select style={{ width: '150px', margin: '10px' }} value={country} onChange={this.countryChange}>
-                    {countrys.map(c => (
-                        <Select.Option value={c} key={c}>
-                            {c}
-                        </Select.Option>
-                    ))}
-                </Select>
-            </React.Fragment>
-        );
-    }
-}
+    return (
+        <>
+            <Select style={{ width: '150px', margin: '10px' }} onChange={continentsChange} value={continent}>
+                {continents.map(c => (
+                    <Select.Option value={c} key={c}>
+                        {c}
+                    </Select.Option>
+                ))}
+            </Select>
+            <Select style={{ width: '150px', margin: '10px' }} value={country} onChange={countryChange}>
+                {countrys.map(c => (
+                    <Select.Option value={c} key={c}>
+                        {c}
+                    </Select.Option>
+                ))}
+            </Select>
+        </>
+    );
+};
 ```
 
 ### Search
@@ -766,7 +745,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
         </div>
     );
 
-    // avatarSrc & avatarShape are supported after 1.6.0-beta
+    // avatarSrc & avatarShape are supported
     const renderMultipleWithCustomTag = (optionNode, { onClose }) => {
         const content = (
             <Tag
@@ -1031,39 +1010,32 @@ Turn on list virtualization when passing in `virtualize` to optimize performance
 -   itemSize: The height of each line of Option, must be passed
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
-class VirtualizeDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        let newOptions = Array.from({ length: 3000 }, (v, i) => ({ label: `option-${i}`, value: i }));
-        this.state = {
-            optionList: newOptions,
-        };
-    }
-
-    render() {
-        let { groups, optionList } = this.state;
-        let virtualize = {
-            height: 270,
-            width: '100%',
-            itemSize: 36, // px
-        };
-        return (
-            <>
-                <Select
-                    placeholder="3000 options"
-                    style={{ width: 260 }}
-                    filter
-                    onSearch={this.handleSearch}
-                    virtualize={virtualize}
-                    optionList={optionList}
-                ></Select>
-            </>
-        );
-    }
-}
+() => {
+    const optionList = useMemo(() => {
+        return Array.from({ length: 3000 }, (v, i) => ({ label: `option-${i}`, value: i }));
+    }, []);
+    
+    const virtualize = {
+        height: 270,
+        width: '100%',
+        itemSize: 36, // px
+    };
+    
+    return (
+        <>
+            <Select
+                placeholder="3000 options"
+                style={{ width: 260 }}
+                filter
+                virtualize={virtualize}
+                optionList={optionList}
+            ></Select>
+        </>
+    );
+};
 ```
 
 ### Custom Trigger

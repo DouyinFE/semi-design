@@ -118,76 +118,65 @@ import { Steps } from '@douyinfe/semi-ui';
 Use with content and buttons to represent the processing progress of a process
 
 ```jsx live=true dir="column"
-import React from 'react';
+import React, { useState } from 'react';
 import { Steps, Button } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            current: 0,
-        };
-    }
+() => {
+    const [current, setCurrent] = useState(0);
+    const { Step } = Steps;
+    const steps = [
+        {
+            title: 'First',
+            content: 'First-content',
+        },
+        {
+            title: 'Second',
+            content: 'Second-content',
+        },
+        {
+            title: 'Last',
+            content: 'Last-content',
+        },
+    ];
 
-    next() {
-        const current = this.state.current + 1;
-        this.setState({ current });
-    }
+    const next = () => {
+        setCurrent(current + 1);
+    };
 
-    prev() {
-        const current = this.state.current - 1;
-        this.setState({ current });
-    }
+    const prev = () => {
+        setCurrent(current - 1);
+    };
 
-    render() {
-        const { current } = this.state;
-        const { Step } = Steps;
-        const steps = [
-            {
-                title: 'First',
-                content: 'First-content',
-            },
-            {
-                title: 'Second',
-                content: 'Second-content',
-            },
-            {
-                title: 'Last',
-                content: 'Last-content',
-            },
-        ];
-
-        return (
-            <div>
-                <Steps type="basic" current={current} onChange={(i)=>console.log(i)}>
-                    {steps.map(item => (
-                        <Step key={item.title} title={item.title} />
-                    ))}
-                </Steps>
-                <div className Name="steps-content" style={{ marginTop: 4, marginBottom: 4 }}>
-                    {steps[current].content}
-                </div>
-                <div className="steps-action">
-                    {current < steps.length - 1 && (
-                        <Button type="primary" onClick={() => this.next()}>
-                            Next
-                        </Button>
-                    )}
-                    {current === steps.length - 1 && (
-                        <Button type="primary" onClick={() => console.log('Processing complete!')}>
-                            Done
-                        </Button>
-                    )}
-                    {current > 0 && (
-                        <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
-                            Previous
-                        </Button>
-                    )}
-                </div>
+    return (
+        <div>
+            <Steps type="basic" current={current} onChange={(i)=>console.log(i)}>
+                {steps.map(item => (
+                    <Step key={item.title} title={item.title} />
+                ))}
+            </Steps>
+            <div className="steps-content" style={{ marginTop: 4, marginBottom: 4 }}>
+                {steps[current].content}
             </div>
-        );
-    }
-}
+            <div className="steps-action">
+                {current < steps.length - 1 && (
+                    <Button type="primary" onClick={next}>
+                        Next
+                    </Button>
+                )}
+                {current === steps.length - 1 && (
+                    <Button type="primary" onClick={() => console.log('Processing complete!')}>
+                        Done
+                    </Button>
+                )}
+                {current > 0 && (
+                    <Button style={{ marginLeft: 8 }} onClick={prev}>
+                        Previous
+                    </Button>
+                )}
+            </div>
+        </div>
+    );
+};
 ```
 
 ### Steps bar in vertical direction
@@ -261,50 +250,41 @@ import { IconHome, IconLock, IconClear, IconTickCircle } from '@douyinfe/semi-ic
 Since version 1.29.0, onChange is supported, which can be used to realize the processing progress. onChange receives a parameter of type number, which is equal to initial + current.
 
 ```jsx live=true dir="column"
-import React from 'react';
+import React, { useState } from 'react';
 import { Steps } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            current: 1,
-        };
-    }
+() => {
+    const [current, setCurrent] = useState(1);
+    const { Step } = Steps;
+    const steps = [
+        {
+            title: 'First',
+            content: 'First-content',
+        },
+        {
+            title: 'Second',
+            content: 'Second-content',
+        },
+        {
+            title: 'Last',
+            content: 'Last-content',
+        },
+    ];
 
-    onChange(index) {
-        this.setState({ current: index });
-    }
+    const onChange = (index) => {
+        setCurrent(index);
+    };
 
-    render() {
-        const { current } = this.state;
-        const { Step } = Steps;
-        const steps = [
-            {
-                title: 'First',
-                content: 'First-content',
-            },
-            {
-                title: 'Second',
-                content: 'Second-content',
-            },
-            {
-                title: 'Last',
-                content: 'Last-content',
-            },
-        ];
-
-        return (
-            <div>
-                <Steps type="basic" current={current} onChange={index => this.onChange(index)}>
-                    {steps.map(item => (
-                        <Step key={item.title} title={item.title} />
-                    ))}
-                </Steps>
-            </div>
-        );
-    }
-}
+    return (
+        <div>
+            <Steps type="basic" current={current} onChange={onChange}>
+                {steps.map(item => (
+                    <Step key={item.title} title={item.title} />
+                ))}
+            </Steps>
+        </div>
+    );
+};
 ```
 
 ## API reference

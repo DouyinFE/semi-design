@@ -157,33 +157,26 @@ import { Input } from '@douyinfe/semi-ui';
 `Input` 值完全取决于传入的 `value` 值，配合 `onChange` 回调函数使用
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { Input } from '@douyinfe/semi-ui';
 
-class InputDemo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: 'controlInput',
-            value2: 'input'
-        };
-        this.onChange = this.onChange.bind(this);
-    }
-    onChange(value, e) {
-        console.log(value);
-        this.setState({ value });
-    }
-    render() {
-        return (
-            <>
-                <Input
-                    value={this.state.value}
-                    onChange={this.onChange}>
-                </Input>
-            </>
-        );
-    }
-}
+() => {
+    const [value, setValue] = useState('controlInput');
+    
+    const onChange = (val, e) => {
+        console.log(val);
+        setValue(val);
+    };
+    
+    return (
+        <>
+            <Input
+                value={value}
+                onChange={onChange}>
+            </Input>
+        </>
+    );
+};
 ```
 
 ### 输入框组合
@@ -292,7 +285,7 @@ import { InputGroup, Select, Cascader, TreeSelect } from '@douyinfe/semi-ui';
 
 ### 多行输入框
 
-用于多行输入。通过设置 `maxCount` 属性可以进行字数限制并显示字数统计。1.30.0 开始支持 `showClear`。
+用于多行输入。通过设置 `maxCount` 属性可以进行字数限制并显示字数统计。支持 `showClear`。
 
 ```jsx live=true
 import React from 'react';
@@ -458,10 +451,10 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | disabled          | 是否禁用，默认为false                                  | boolean                         | false     |
 | getValueLength    | 自定义计算字符串长度                                     | (value: string) => number       |      |
 | hideSuffix        | 清除按钮与后缀标签并存时隐藏后缀标签，默认为false两者并列                | boolean                         | false     |
-| mode              | 输入框的模式，可选值password **>=v1.3.0**                | string                          |           |
+| mode              | 输入框的模式，可选值password                | string                          |           |
 | prefix            | 前缀标签                                           | ReactNode                       |           |
 | preventScroll     | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法         | boolean                         |  |  |
-| showClear         | 输入框有内容且 hover 或 focus 时展示清除按钮 **>=1.0.0**      | boolean                         | false     |
+| showClear         | 输入框有内容且 hover 或 focus 时展示清除按钮      | boolean                         | false     |
 | size              | 输入框大小，large、default、small                      | string                          | 'default' |
 | style             | 样式                                             | CSSProperties                   |           |
 | suffix            | 后缀标签                                           | ReactNode                       |           |
@@ -502,17 +495,17 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | placeholder  | 当前的默认值                       | string                          | 无     |
 | readonly     | 只读                               | boolean                         | false  |
 | rows         | 默认行数                           | number                          | 4      |
-| showClear    | 支持清除 **>=1.30.0**               | boolean                         | false     |
+| showClear    | 支持清除               | boolean                         | false     |
 | style        | 样式                               | CSSProperties                   | -      |
 | onBlur       | 输入框失去焦点时的回调             |(e:event) => void               | -      |
 | onChange     | 输入框内容变化时的回调             | (value:string, e:event) => void |        |
-| onClear      | 点击清除按钮时的回调  **>=1.30.0** | (e:event) => void                         | -       |
+| onClear      | 点击清除按钮时的回调 | (e:event) => void                         | -       |
 | onEnterPress | 按下回车的回调                     | (e:event) => void                         | 无     |
 | onFocus      | 输入框 focus 时的回调              | (e:event) => void               | -      |
 | onKeyDown    | keydown 回调，html 事件             | (e:event) => void               | -      |
 | onKeyPress   | keypress 回调，html 事件            | (e:event) => void               | -      |
 | onKeyUp      | keyup 回调，html 事件               | (e:event) => void               | -      |
-| onResize     | 触发高度变化时的回调 **>=v0.37.0** | ({ height:number }) => void    | -      |
+| onResize     | 触发高度变化时的回调 | ({ height:number }) => void    | -      |
 | onCompositionStart | onCompositionStart回调, **>=2.85.0**   | function(e:event) | - |
 | onCompositionEnd | onCompositionEnd回调, **>=2.85.0**  | function(e:event) | - |
 | onCompositionUpdate | onCompositionUpdate回调, **>=2.85.0**  | function(e:event) | - |
