@@ -294,7 +294,7 @@ render(Demo);
 
 ### Destroy all
 
-Globally Destroy (>= 0.25.0):
+Globally Destroy:
 
 -   `Toast.destroyAll()`
 
@@ -369,13 +369,13 @@ function Demo() {
 render(Demo);
 ```
 
-Globally Destroy (>= 0.25.0):
+Globally Destroy:
 
 -   `Toast.destroyAll()`
 
 Consume Context
 
--   `Toast.useToast` **v>=1.2.0**  
+-   `Toast.useToast`  
     When you need access Context, you could use `Toast.useToast` to create a `contextHolder` and insert to corresponding DOM tree. Toast created by hooks will be able to access the context where `contextHolder` is inserted. Hook toast has following methods: `info`, `success`, `warning`, `error`, `close`.
 
 
@@ -383,7 +383,7 @@ Consume Context
 
 The static methods provided are as follows: Display: You can pass in `options` object or string directly. Methods return the value of `toastId`: `const toastId = Toast.info({ /*...options*/ })`
 
-**The global configuration is set before any method call, and takes effect only once (>= 0.25.0)**
+**The global configuration is set before any method call, and takes effect only once**
 -   `Toast.config(config)`
 
 ** Show Toast Directly
@@ -404,9 +404,9 @@ The static methods provided are as follows: Display: You can pass in `options` o
 | Properties | Instructions                                       | type | Default | version |
 | --- |----------------------------------------------------| --- | --- |---------|
 | content | Toast content                                      | string | ReactNode | ''      |  |
-| icon | Custom icons                                       | ReactNode |  | 0.25.0  |
-| showClose | Toggle Whether show close button                   | boolean | true | 0.25.0  |
-| textMaxWidth | Maximum width of content                           | number \| string | 450 | 0.25.0  |
+| icon | Custom icons                                       | ReactNode |  | -  |
+| showClose | Toggle Whether show close button                   | boolean | true | -  |
+| textMaxWidth | Maximum width of content                           | number \| string | 450 | -  |
 | onClose | Callback function when closing toast               | () => void |  |         |
 | stack | Whether to stack toast                             | boolean | false | 2.42.0  |
 | id           | Custom ToastId   | number        |  |  |
@@ -417,14 +417,14 @@ The static methods provided are as follows: Display: You can pass in `options` o
 
 | Properties | Instructions                                                                                                                                                | type | Default | version |
 | --- |-------------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
-| bottom | Pop-up position bottom                                                                                                                                      | number \| string | - | 0.25.0 |
-| left | Pop-up position left                                                                                                                                        | number \| string | - | 0.25.0 |
-| right | Pop-up position right                                                                                                                                       | number \| string | - | 0.25.0 |
-| top | Pop-up position top                                                                                                                                         | number \| string | - | 0.25.0 |
+| bottom | Pop-up position bottom                                                                                                                                      | number \| string | - | - |
+| left | Pop-up position left                                                                                                                                        | number \| string | - | - |
+| right | Pop-up position right                                                                                                                                       | number \| string | - | - |
+| top | Pop-up position top                                                                                                                                         | number \| string | - | - |
 | zIndex | Z-index value                                                                                                                                               | number | 1010 |  |
 | theme | Style of background fill, one of `light`, `normal` | string | `normal` | 2.54.0   |
 | duration | Automatic close delay, no auto-close when set to 0 | number | 3 |         |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set container and inner .semi-toast-wrapper  'position: relative`   This will change the DOM tree position, but not the view's rendering position.  | () => HTMLElement \| null | () => document.body | 0.34.0 |
+| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set container and inner .semi-toast-wrapper  'position: relative`   This will change the DOM tree position, but not the view's rendering position.  | () => HTMLElement \| null | () => document.body | - |
 ## Accessibility
 
 ### ARIA

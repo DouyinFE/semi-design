@@ -320,7 +320,7 @@ function DropdownEvents() {
 | className | classname of the outer style of the pop-up layer                                                                                                                                                                                              | string |  |  |
 | closeOnEsc | Whether to close the panel by pressing the Esc key in the trigger or popup layer. It does not take effect when visible is under controlled                                                                                                    | boolean | true | **2.13.0** |
 | children | Child elements wrapped by the drop layer                                                                                                                                                                                                      | ReactNode |  |  |
-| clickToHide | Whether to close the drop-down layer automatically when clicking on the drop-down layer                                                                                                                                                       | boolean |  | **0.24.0** |
+| clickToHide | Whether to close the drop-down layer automatically when clicking on the drop-down layer                                                                                                                                                       | boolean |  | - |
 | contentClassName | Drop-down menu root element class name                                                                                                                                                                                                        | string |  |  |
 | disableFocusListener | When trigger is `hover`, does not respond to the keyboard focus popup event, see details at [issue#977](https://github.com/DouyinFE/semi-design/issues/977)                                                                                   | boolean | true | **2.17.0** |
 | keepDOM | Whether to keep the internal component DOM from being destroyed when closing | boolean | false | **2.31.0** |
@@ -328,14 +328,14 @@ function DropdownEvents() {
 | margin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin | object\|number |  | 2.25.0 |
 | mouseEnterDelay | After the mouse is moved into the Trigger, the display time is delayed, in milliseconds (only effective when the trigger is hover/focus)                                                                                                      | number | 50 |  |
 | mouseLeaveDelay | The time for the delay to disappear after the mouse moves out of the pop-up layer, in milliseconds (only effective when the trigger is hover/focus)                                                                                           | number | 50 |  |
-| menu | Menu content config                                                                                                                                                                                                                           | Array<DropdownMenuItem\> | [] | **1.12.0** |
+| menu | Menu content config                                                                                                                                                                                                                           | Array<DropdownMenuItem\> | [] | - |
 | position | The position of the pop-up menu, commonly used: 'bottom', 'bottomLeft', 'bottomRight', for more details, see [Tooltip Position](https://semi.design/en-US/show/tooltip#Position)                                                              | string | 'bottom' |  |
 | render | Content of pop-up layer，include `Dropdown.Menu` `Dropdown.Item`、`Dropdown.Title`                                                                                                                                                              | ReactNode |  |  |
 | rePosKey | You can update the value of this item to manually trigger the repositioning of the pop-up layer                                                                                                                                               | string \| number |  |  |
 | spacing | The distance between the pop-up layer and the `children` element, in px                                                                                                                                                                       | number | 4 |  |
 | style | Pop-up layer inline style                                                                                                                                                                                                                     | object |  |  |
-| showTick | Whether to automatically display the checked tick on the left of the active Dropdown.Item item                                                                                                                                                | boolean | false | **0.26.0** |
-| stopPropagation | Whether to prevent the click event on the pop-up layer from bubbling                                                                                                                                                                          | boolean | false | **0.34.0** |
+| showTick | Whether to automatically display the checked tick on the left of the active Dropdown.Item item                                                                                                                                                | boolean | false | - |
+| stopPropagation | Whether to prevent the click event on the pop-up layer from bubbling                                                                                                                                                                          | boolean | false | - |
 | trigger | The act of triggering a drop-down, optional 'hover', 'focus', 'click', 'custom'                                                                                                                                                               | string | 'hover' |  |
 | visible | Display the menu or not, need to be used with trigger custom                                                                                                                                                                                  | boolean |  |  |
 | zIndex | Pop-up layer z-index value                                                                                                                                                                                                                    | number | 1050 |  |
@@ -347,8 +347,8 @@ function DropdownEvents() {
 
 | Properties | Instructions | Type | Default | Version |
 | --- | --- | --- | --- | --- |
-| style | Drop-down menu style | object |  | **0.28.0** |
-| className | Drop-down menu style class name | string |  | **0.28.0** |
+| style | Drop-down menu style | object |  | - |
+| className | Drop-down menu style class name | string |  | - |
 | children | The child elements wrapped by the drop-down menu, usually `Dropdown.Item` or `Dropdown.Title` | ReactNode |  |  |
 
 ### Dropdown.Item
@@ -358,11 +358,11 @@ function DropdownEvents() {
 | active | Whether the current item is in the active state, there is a tick on the left when the active state is activated, the font is bold, and the color is deepened. When the `showTick` is false, even if the `active` is true, the tick will not be displayed | boolean | false |  |
 | className | Style class name | string |  |  |
 | disabled | Do you disable the menu? | boolean | false |  |
-| icon | Icon of DropdownItem, will be displayed on the left | ReactNode |  | **1.16.0** |
+| icon | Icon of DropdownItem, will be displayed on the left | ReactNode |  | - |
 | style | Inline style | object |  |  |
 | type | Type, optional values: "primary","secondary", "tertiary", "warning", "danger" | string | "tertiary" |  |
 | onClick | Click the trigger callback event | function |  |  |
-| onContextMenu | The callback event triggered by right click | function |  | **1.6.0** |
+| onContextMenu | The callback event triggered by right click | function |  | - |
 | onMouseEnter | A callback event triggered by MouseEnter | function |  |  |
 | onMouseLeave | The callback event triggered by Mouse Leave | function |  |  |
 

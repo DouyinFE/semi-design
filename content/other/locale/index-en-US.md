@@ -37,7 +37,7 @@ Calendar、Cascader、Chat、DatePicker、Form、Image、List、List、Modal、N
 When you need to switch the language, you can directly switch the locale passed in by the props.
 
 ```jsx
-import React from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
 import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
 import en_US from '@douyinfe/semi-ui/lib/es/locale/source/en_US';
@@ -83,22 +83,17 @@ import en_GB from '@douyinfe/semi-ui/locale/source/en_GB';
 import ja_JP from '@douyinfe/semi-ui/locale/source/ja_JP';
 import { LocaleProvider, Pagination } from '@douyinfe/semi-ui';
 
-class I18nDemo extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return (
-            <>
-                <LocaleProvider locale={en_GB}>
-                    <Pagination total={100} showTotal showSizeChanger style={{ margin: 20 }} />
-                </LocaleProvider>
-                <LocaleProvider locale={ja_JP}>
-                    <Pagination total={100} showTotal showSizeChanger style={{ margin: 20 }} />
-                </LocaleProvider>
-            </>
-        );
-    }
+function I18nDemo() {
+    return (
+        <>
+            <LocaleProvider locale={en_GB}>
+                <Pagination total={100} showTotal showSizeChanger style={{ margin: 20 }} />
+            </LocaleProvider>
+            <LocaleProvider locale={ja_JP}>
+                <Pagination total={100} showTotal showSizeChanger style={{ margin: 20 }} />
+            </LocaleProvider>
+        </>
+    );
 }
 ```
 
@@ -114,60 +109,54 @@ import ko_KR from '@douyinfe/semi-ui/lib/es/locale/source/ko_KR';
 import { LocaleProvider, LocaleConsumer } from '@douyinfe/semi-ui';
 
 
-class GetLocaleFromSemi extends React.Component {
-    render() {
-        return <LocaleConsumer componentName="TimePicker">
-            {
-                (localeData, localeCode, dateFnsLocale) => (
-                    <div>{localeCode} : {localeData.begin}</div>
-                )
-            }
-        </LocaleConsumer>;
-    }
+function GetLocaleFromSemi() {
+    return (
+        <LocaleConsumer componentName="TimePicker">
+            {(localeData, localeCode, dateFnsLocale) => (
+                <div>{localeCode} : {localeData.begin}</div>
+            )}
+        </LocaleConsumer>
+    );
 }
 
-class ExtractComponent extends React.Component {
-    render() {
-        return <LocaleConsumer componentName="ComponentA">
-            {
-                (localeData, localeCode, dateFnsLocale) => (
-                    <div>{localeData.customKey}</div>
-                )
-            }
-        </LocaleConsumer>;
-    }
+function ExtractComponent() {
+    return (
+        <LocaleConsumer componentName="ComponentA">
+            {(localeData, localeCode, dateFnsLocale) => (
+                <div>{localeData.customKey}</div>
+            )}
+        </LocaleConsumer>
+    );
 }
 
 
-class I18nCustomDemo extends React.Component {
-    render() {
-        const new_zh_CN = { ...zh_CN, ComponentA: { customKey: 'semi' } };
-        const new_ko_KR = { ...ko_KR, ComponentA: { customKey: 'design' } };
-        const new_en_GB = { ...en_GB, ComponentA: { customKey: 'dsm' } };
+function I18nCustomDemo() {
+    const new_zh_CN = { ...zh_CN, ComponentA: { customKey: 'semi' } };
+    const new_ko_KR = { ...ko_KR, ComponentA: { customKey: 'design' } };
+    const new_en_GB = { ...en_GB, ComponentA: { customKey: 'dsm' } };
 
-        return (
-            <>
-                <LocaleProvider locale={new_zh_CN}>
-                    <GetLocaleFromSemi />
-                </LocaleProvider>
-                <LocaleProvider locale={new_ko_KR}>
-                    <GetLocaleFromSemi />
-                </LocaleProvider>
-                <LocaleProvider locale={new_en_GB}>
-                    <GetLocaleFromSemi />
-                </LocaleProvider>
-                <LocaleProvider locale={new_zh_CN}>
-                    <ExtractComponent />
-                </LocaleProvider>
-                <LocaleProvider locale={new_ko_KR}>
-                    <ExtractComponent />
-                </LocaleProvider>
-                <LocaleProvider locale={new_en_GB}>
-                    <ExtractComponent />
-                </LocaleProvider>
-            </>
-        );
-    }
+    return (
+        <>
+            <LocaleProvider locale={new_zh_CN}>
+                <GetLocaleFromSemi />
+            </LocaleProvider>
+            <LocaleProvider locale={new_ko_KR}>
+                <GetLocaleFromSemi />
+            </LocaleProvider>
+            <LocaleProvider locale={new_en_GB}>
+                <GetLocaleFromSemi />
+            </LocaleProvider>
+            <LocaleProvider locale={new_zh_CN}>
+                <ExtractComponent />
+            </LocaleProvider>
+            <LocaleProvider locale={new_ko_KR}>
+                <ExtractComponent />
+            </LocaleProvider>
+            <LocaleProvider locale={new_en_GB}>
+                <ExtractComponent />
+            </LocaleProvider>
+        </>
+    );
 }
 
 render(I18nCustomDemo);
@@ -239,78 +228,72 @@ import uz from '@douyinfe/semi-ui/locale/source/uz';
 import { LocaleProvider, ConfigProvider, Pagination, Modal, Button, Select, Cascader, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography, Transfer, ImagePreview, Image, Form, Nav } from '@douyinfe/semi-ui';
 import { IconUser, IconSemiLogo, IconStar } from '@douyinfe/semi-icons';
 
-class I18nDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            locale: en_GB,
-            localeCode: 'en_GB',
-        };
-        this.onLanguageChange = this.onLanguageChange.bind(this);
-    }
+function I18nDemo() {
+    const [locale, setLocale] = useState(en_GB);
+    const [localeCode, setLocaleCode] = useState('en_GB');
 
-    onLanguageChange(code) {
-        let language = {
-            'zh_CN': zh_CN,
-            'en_GB': en_GB,
-            'ko_KR': ko_KR,
-            'ja_JP': ja_JP,
-            'ar': ar,
-            'vi_VN': vi_VN,
-            'ru_RU': ru_RU,
-            'id_ID': id_ID,
-            'ms_MY': ms_MY,
-            'th_TH': th_TH,
-            'tr_TR': tr_TR,
-            'sv_SE': sv_SE,
-            'pl_PL': pl_PL,
-            'nl_NL': nl_NL,
-            es,
-            de,
-            it,
-            fr,
-            ro,
-            'bn_IN': bn_IN,
-            az,
-            bg,
-            ca,
-            'cs_CZ': cs_CZ,
-            'ceb_PH': ceb_PH,
-            da,
-            'el_GR': el_GR,
-            'es_419': es_419,
-            et,
-            'fa_IR': fa_IR,
-            'fil_PH': fil_PH,
-            'fi_FI': fi_FI,
-            'fr_CA': fr_CA,
-            ga,
-            'he_IL': he_IL,
-            'hi_IN': hi_IN,
-            hr,
-            'hu_HU': hu_HU,
-            is,
-            'jv_ID': jv_ID,
-            kk,
-            'km_KH': km_KH,
-            lt,
-            lv,
-            'my_MM': my_MM,
-            nb,
-            pt,
-            sk,
-            sl,
-            sq,
-            sw,
-            'uk_UA': uk_UA,
-            ur,
-            uz,
-        };
-        this.setState({ locale: language[code], localeCode: code });
-    }
+    const language = useMemo(() => ({
+        'zh_CN': zh_CN,
+        'en_GB': en_GB,
+        'ko_KR': ko_KR,
+        'ja_JP': ja_JP,
+        'ar': ar,
+        'vi_VN': vi_VN,
+        'ru_RU': ru_RU,
+        'id_ID': id_ID,
+        'ms_MY': ms_MY,
+        'th_TH': th_TH,
+        'tr_TR': tr_TR,
+        'sv_SE': sv_SE,
+        'pl_PL': pl_PL,
+        'nl_NL': nl_NL,
+        es,
+        de,
+        it,
+        fr,
+        ro,
+        'bn_IN': bn_IN,
+        az,
+        bg,
+        ca,
+        'cs_CZ': cs_CZ,
+        'ceb_PH': ceb_PH,
+        da,
+        'el_GR': el_GR,
+        'es_419': es_419,
+        et,
+        'fa_IR': fa_IR,
+        'fil_PH': fil_PH,
+        'fi_FI': fi_FI,
+        'fr_CA': fr_CA,
+        ga,
+        'he_IL': he_IL,
+        'hi_IN': hi_IN,
+        hr,
+        'hu_HU': hu_HU,
+        is,
+        'jv_ID': jv_ID,
+        kk,
+        'km_KH': km_KH,
+        lt,
+        lv,
+        'my_MM': my_MM,
+        nb,
+        pt,
+        sk,
+        sl,
+        sq,
+        sw,
+        'uk_UA': uk_UA,
+        ur,
+        uz,
+    }), []);
 
-    render() {
-        const { locale, localeCode } = this.state;
+    const onLanguageChange = useCallback((code) => {
+        setLocale(language[code]);
+        setLocaleCode(code);
+    }, [language]);
+
         const treeData = [
             {
                 label: 'Asia',
@@ -486,10 +469,10 @@ class I18nDemo extends React.Component {
                 </>
             );
         };
-        return (
+    return (
             <>
                 <div style={{ borderBottom: '1px solid var(--semi-color-border)', paddingBottom: 20 }}>
-                    <Select onChange={this.onLanguageChange} prefix='Switch Language' style={{ width: 250 }} defaultValue='en_GB'>
+                    <Select onChange={onLanguageChange} prefix='Switch Language' style={{ width: 250 }} defaultValue='en_GB'>
                         <Select.Option value='zh_CN'>Chinese</Select.Option>
                         <Select.Option value='en_GB'>English</Select.Option>
                         <Select.Option value='ja_JP'>Japanese</Select.Option>
@@ -552,8 +535,7 @@ class I18nDemo extends React.Component {
                     </ConfigProvider>
                 </LocaleProvider>
             </>
-        );
-    }
+    );
 }
 ```
 

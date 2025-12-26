@@ -2219,7 +2219,7 @@ class FormApiDemo extends React.Component {
 | noErrorMessage        | 当你不需要自动添加 ErrorMessage 模块时，可以将该值置为 true，注意此时 helpText 也不会被展示                                                                                                                         | boolean                                                                                       |
 | name                  | 控件名称，传入时会自动在对应 field wrapper div 追加对应的 className，如：abc => '.semi-form-field-abc'。 v2.24 后，还会将 name 透传至底层组件消费，例如你可以用于配置 input的name属性                                                                                                            | string                                                                                        |
 | fieldClassName        | 整个 fieldWrapper 的 className，作用与 name 参数一致，区别是不会自动追加前缀                                                                                                                                        | string                                                                                        |
-| fieldStyle            | 整个 fieldWrapper 的 内联样式<br/> **v1.15.0开始提供**                                                                                                                                        | object                                                                                        |
+| fieldStyle            | 整个 fieldWrapper 的 内联样式                                                                                                                                        | object                                                                                        |
 | initValue             | 该表单控件的初始值（仅在 Field mounted 时消费一次，后续更新无效），相比 Form 的 initValues 中的值，它的优先级更高                                                                                                   | any（类型取决于当前组件，详细见各组件的 api）                                                 |
 | validate              | 该表单控件的的自定义校验函数。支持同步、异步校验（通过返回promise）。<br/>设置了 validate 时，rules 不会生效<br/> 使用示例：(fieldValue, values) => fieldValue >= 5 ? 'value not valid': ''                                              | function(fieldValue, values)                                                                  |           |
 | rules                 | 校验规则，校验库基于[async-validator](https://github.com/yiminghe/async-validator) <br/> 使用示例：const rules=\[{ required: true, message: 'can't be null ' },<br/>{ max: 10, message: 'can't more than 10 word' }\] | array                                                                                         |           |
@@ -2271,10 +2271,10 @@ const { Section } = Form;
 
 | 属性      | 说明     | 类型      | 版本|
 | --------- | -------- | --------- |---- |
-| text      | 段落标题 | ReactNode | v1.0.0|
-| className | 样式类名 | string    | v1.0.0|
-| style     | 内联样式 | object    | v1.0.0|
-| children  | 段落内容 | ReactNode | v1.0.0|
+| text      | 段落标题 | ReactNode | -|
+| className | 样式类名 | string    | -|
+| style     | 内联样式 | object    | -|
+| children  | 段落内容 | ReactNode | -|
 
 ## Form.Label
 
@@ -2289,7 +2289,7 @@ const { Label } = Form;
 | --------- | ------------------------ | --------- | ------ |--- |
 | text      | Label 内容               | ReactNode |        |  |
 | required  | 是否展示必填的\*号       | boolean   | false  |  |
-| extra     | 跟随在 required 后的内容 | ReactNode |        | v0.33.0 |
+| extra     | 跟随在 required 后的内容 | ReactNode |        | - |
 | align     | text-align               | string    | 'left' |  |
 | className | 样式类名                 | string    |        |  |
 | style     | 内联样式                 | string    |        |  |

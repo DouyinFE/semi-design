@@ -228,7 +228,7 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 | className | 类名 | string | - |
 | mode | 通过设置 mode 可以改变时间轴和内容的相对位置 | `left`\|`right`\|`center`\|`alternate` | `left` |
 | style | 样式 | CSSProperties | - |
-| dataSource | 时间轴数据源 **v>=1.16.0**，支持 content 属性及 TimeLine.Item 的所有属性 | array | - |
+| dataSource | 时间轴数据源，支持 content 属性及 TimeLine.Item 的所有属性 | array | - |
 
 ### TimeLine.Item
 

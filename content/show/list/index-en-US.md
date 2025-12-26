@@ -25,53 +25,51 @@ You can use `size` to size list. Supported values include `large`, `default`, `S
 import React from 'react';
 import { List } from '@douyinfe/semi-ui';
 
-class SimpleList extends React.Component {
-    render() {
-        const data = [
-            'Do not go gentle into that good night,',
-            'Old age should burn and rave at close of day;',
-            'Rage, rage against the dying of the light.',
-        ];
+function SimpleList() {
+    const data = [
+        'Do not go gentle into that good night,',
+        'Old age should burn and rave at close of day;',
+        'Rage, rage against the dying of the light.',
+    ];
 
-        return (
-            <div>
-                <div style={{ marginRight: 16 }}>
-                    <h3 style={{ marginBottom: 16 }}>Default Size</h3>
-                    <List
-                        header={<div>Header</div>}
-                        footer={<div>Footer</div>}
-                        bordered
-                        dataSource={data}
-                        renderItem={item => <List.Item>{item}</List.Item>}
-                    />
-                </div>
-                <br />
-                <div style={{ marginRight: 16 }}>
-                    <h3 style={{ margin: '16px 0' }}>Small Size</h3>
-                    <List
-                        size="small"
-                        header={<div>Header</div>}
-                        footer={<div>Footer</div>}
-                        bordered
-                        dataSource={data}
-                        renderItem={item => <List.Item>{item}</List.Item>}
-                    />
-                </div>
-                <br />
-                <div style={{ marginRight: 16 }}>
-                    <h3 style={{ margin: '16px 0' }}>Large Size</h3>
-                    <List
-                        size="large"
-                        header={<div>Header</div>}
-                        footer={<div>Footer</div>}
-                        bordered
-                        dataSource={data}
-                        renderItem={item => <List.Item>{item}</List.Item>}
-                    />
-                </div>
+    return (
+        <div>
+            <div style={{ marginRight: 16 }}>
+                <h3 style={{ marginBottom: 16 }}>Default Size</h3>
+                <List
+                    header={<div>Header</div>}
+                    footer={<div>Footer</div>}
+                    bordered
+                    dataSource={data}
+                    renderItem={item => <List.Item>{item}</List.Item>}
+                />
             </div>
-        );
-    }
+            <br />
+            <div style={{ marginRight: 16 }}>
+                <h3 style={{ margin: '16px 0' }}>Small Size</h3>
+                <List
+                    size="small"
+                    header={<div>Header</div>}
+                    footer={<div>Footer</div>}
+                    bordered
+                    dataSource={data}
+                    renderItem={item => <List.Item>{item}</List.Item>}
+                />
+            </div>
+            <br />
+            <div style={{ marginRight: 16 }}>
+                <h3 style={{ margin: '16px 0' }}>Large Size</h3>
+                <List
+                    size="large"
+                    header={<div>Header</div>}
+                    footer={<div>Footer</div>}
+                    bordered
+                    dataSource={data}
+                    renderItem={item => <List.Item>{item}</List.Item>}
+                />
+            </div>
+        </div>
+    );
 }
 
 render(SimpleList);
@@ -85,59 +83,57 @@ List.Item has a built-in template consisting of: `header`, `main`, and `extra`. 
 import React from 'react';
 import { List, ButtonGroup, Button, Avatar } from '@douyinfe/semi-ui';
 
-class ContentList extends React.Component {
-    render() {
-        const data = [
-            // eslint-disable-next-line react/jsx-key
-            <p
-                style={{
-                    color: 'var(--semi-color-text-2)',
-                    margin: '4px 0',
-                    width: 420,
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                }}
-            >
-                {`Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is
-                heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
-            </p>,
-            // eslint-disable-next-line react/jsx-key
-            <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0', width: 500 }}>
-                Come what come may, time and the hour run through the roughest day.
-            </p>,
-            // eslint-disable-next-line react/jsx-key
-            <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0', width: 500 }}>
-                {`Where shall we three meet again in thunder, lightning, or in rain? When the hurlyburly's done, when the
-                battle's lost and won`}
-            </p>,
-        ];
+function ContentList() {
+    const data = [
+        // eslint-disable-next-line react/jsx-key
+        <p
+            style={{
+                color: 'var(--semi-color-text-2)',
+                margin: '4px 0',
+                width: 420,
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+            }}
+        >
+            {`Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is
+            heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
+        </p>,
+        // eslint-disable-next-line react/jsx-key
+        <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0', width: 500 }}>
+            Come what come may, time and the hour run through the roughest day.
+        </p>,
+        // eslint-disable-next-line react/jsx-key
+        <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0', width: 500 }}>
+            {`Where shall we three meet again in thunder, lightning, or in rain? When the hurlyburly's done, when the
+            battle's lost and won`}
+        </p>,
+    ];
 
-        return (
-            <div style={{ padding: 12, border: '1px solid var(--semi-color-border)', margin: 12 }}>
-                <List
-                    dataSource={data}
-                    renderItem={item => (
-                        <List.Item
-                            header={<Avatar color="blue">SE</Avatar>}
-                            main={
-                                <div>
-                                    <span style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>Example</span>
-                                    {item}
-                                </div>
-                            }
-                            extra={
-                                <ButtonGroup theme="borderless">
-                                    <Button>Edit</Button>
-                                    <Button>More</Button>
-                                </ButtonGroup>
-                            }
-                        />
-                    )}
-                />
-            </div>
-        );
-    }
+    return (
+        <div style={{ padding: 12, border: '1px solid var(--semi-color-border)', margin: 12 }}>
+            <List
+                dataSource={data}
+                renderItem={item => (
+                    <List.Item
+                        header={<Avatar color="blue">SE</Avatar>}
+                        main={
+                            <div>
+                                <span style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>Example</span>
+                                {item}
+                            </div>
+                        }
+                        extra={
+                            <ButtonGroup theme="borderless">
+                                <Button>Edit</Button>
+                                <Button>More</Button>
+                            </ButtonGroup>
+                        }
+                    />
+                )}
+            />
+        </div>
+    );
 }
 
 render(ContentList);
@@ -151,47 +147,45 @@ Use `layout` property to set list layout, one of `vertical`(default) or `horizon
 import React from 'react';
 import { List, Avatar } from '@douyinfe/semi-ui';
 
-class LayoutList extends React.Component {
-    render() {
-        const data = [
-            {
-                title: 'Title 1',
-                color: 'light-blue',
-            },
-            {
-                title: 'Title 2',
-                color: 'grey',
-            },
-            {
-                title: 'Title 3',
-                color: 'light-green',
-            },
-        ];
+function LayoutList() {
+    const data = [
+        {
+            title: 'Title 1',
+            color: 'light-blue',
+        },
+        {
+            title: 'Title 2',
+            color: 'grey',
+        },
+        {
+            title: 'Title 3',
+            color: 'light-green',
+        },
+    ];
 
-        return (
-            <div style={{ padding: 12, border: '1px solid var(--semi-color-border)', margin: 12 }}>
-                <List
-                    dataSource={data}
-                    layout="horizontal"
-                    renderItem={item => (
-                        <List.Item
-                            header={<Avatar color={item.color}>SE</Avatar>}
-                            main={
-                                <div>
-                                    <span style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item.title}</span>
-                                    <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0' }}>
-                                        {` Life's but a walking shadow, a poor player, that struts and frets his hour upon
-                                        the stage, and then is heard no more; it is a tale told by an idiot, full of
-                                        sound and fury, signifying nothing.`}
-                                    </p>
-                                </div>
-                            }
-                        />
-                    )}
-                />
-            </div>
-        );
-    }
+    return (
+        <div style={{ padding: 12, border: '1px solid var(--semi-color-border)', margin: 12 }}>
+            <List
+                dataSource={data}
+                layout="horizontal"
+                renderItem={item => (
+                    <List.Item
+                        header={<Avatar color={item.color}>SE</Avatar>}
+                        main={
+                            <div>
+                                <span style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item.title}</span>
+                                <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0' }}>
+                                    {` Life's but a walking shadow, a poor player, that struts and frets his hour upon
+                                    the stage, and then is heard no more; it is a tale told by an idiot, full of
+                                    sound and fury, signifying nothing.`}
+                                </p>
+                            </div>
+                        }
+                    />
+                )}
+            />
+        </div>
+    );
 }
 
 render(LayoutList);
@@ -205,71 +199,69 @@ Use `grid` property to set grid layout. Use `span` to set the number of occupyin
 import React from 'react';
 import { List, Descriptions, Rating, ButtonGroup, Button } from '@douyinfe/semi-ui';
 
-class LayoutList extends React.Component {
-    render() {
-        const data = [
-            {
-                title: 'Platform A',
-                rating: 4.5,
-                feedbacks: 124,
-            },
-            {
-                title: 'Platform B',
-                rating: 4,
-                feedbacks: 108,
-            },
-            {
-                title: 'Platform C',
-                rating: 4.5,
-                feedbacks: 244,
-            },
-            {
-                title: 'Platform D',
-                feedbacks: 189,
-            },
-        ];
+function LayoutList() {
+    const data = [
+        {
+            title: 'Platform A',
+            rating: 4.5,
+            feedbacks: 124,
+        },
+        {
+            title: 'Platform B',
+            rating: 4,
+            feedbacks: 108,
+        },
+        {
+            title: 'Platform C',
+            rating: 4.5,
+            feedbacks: 244,
+        },
+        {
+            title: 'Platform D',
+            feedbacks: 189,
+        },
+    ];
 
-        const style = {
-            border: '1px solid var(--semi-color-border)',
-            backgroundColor: 'var(--semi-color-bg-2)',
-            borderRadius: '3px',
-            paddingLeft: '20px',
-        };
+    const style = {
+        border: '1px solid var(--semi-color-border)',
+        backgroundColor: 'var(--semi-color-bg-2)',
+        borderRadius: '3px',
+        paddingLeft: '20px',
+    };
 
-        return (
-            <div>
-                <List
-                    grid={{
-                        gutter: 12,
-                        span: 6,
-                    }}
-                    dataSource={data}
-                    renderItem={item => (
-                        <List.Item style={style}>
-                            <div>
-                                <h3 style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item.title}</h3>
-                                <Descriptions
-                                    align="center"
-                                    size="small"
-                                    row
-                                    data={[
-                                        { key: 'Rating', value: <Rating allowHalf size="small" value={item.rating} /> },
-                                        { key: 'Feedbacks', value: item.feedbacks },
-                                    ]}
-                                />
-                                <div style={{ margin: '12px 0', display: 'flex', justifyContent: 'flex-end' }}>
-                                    <ButtonGroup theme="borderless" style={{ marginTop: 8 }}>
-                                        <Button>Edit</Button>
-                                        <Button>More</Button>
-                                    </ButtonGroup>
-                                </div>
+    return (
+        <div>
+            <List
+                grid={{
+                    gutter: 12,
+                    span: 6,
+                }}
+                dataSource={data}
+                renderItem={item => (
+                    <List.Item style={style}>
+                        <div>
+                            <h3 style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item.title}</h3>
+                            <Descriptions
+                                align="center"
+                                size="small"
+                                row
+                                data={[
+                                    { key: 'Rating', value: <Rating allowHalf size="small" value={item.rating} /> },
+                                    { key: 'Feedbacks', value: item.feedbacks },
+                                ]}
+                            />
+                            <div style={{ margin: '12px 0', display: 'flex', justifyContent: 'flex-end' }}>
+                                <ButtonGroup theme="borderless" style={{ marginTop: 8 }}>
+                                    <Button>Edit</Button>
+                                    <Button>More</Button>
+                                </ButtonGroup>
                             </div>
-                        </List.Item>
-                    )}
-                />
-            </div>
-        );
-    }
+                        </div>
+                    </List.Item>
+                )}
+            />
+        </div>
+    );
 }
 
 render(LayoutList);
@@ -283,87 +275,85 @@ Refer to [Grid](/en-US/basic/grid) for responsive dimensions.
 import React from 'react';
 import { List, Descriptions, Rating, ButtonGroup, Button } from '@douyinfe/semi-ui';
 
-class Responsive extends React.Component {
-    render() {
-        const data = [
-            {
-                title: 'Platform A',
-                rating: 4.5,
-                feedbacks: 124,
-            },
-            {
-                title: 'Platform B',
-                rating: 4,
-                feedbacks: 108,
-            },
-            {
-                title: 'Platform C',
-                rating: 3.5,
-                feedbacks: 244,
-            },
-            {
-                title: 'Platform D',
-                feedbacks: 189,
-            },
-            {
-                title: 'Platform E',
-                rating: 3,
-                feedbacks: 128,
-            },
-            {
-                title: 'Platform D',
-                rating: 4,
-                feedbacks: 156,
-            },
-        ];
+function Responsive() {
+    const data = [
+        {
+            title: 'Platform A',
+            rating: 4.5,
+            feedbacks: 124,
+        },
+        {
+            title: 'Platform B',
+            rating: 4,
+            feedbacks: 108,
+        },
+        {
+            title: 'Platform C',
+            rating: 3.5,
+            feedbacks: 244,
+        },
+        {
+            title: 'Platform D',
+            feedbacks: 189,
+        },
+        {
+            title: 'Platform E',
+            rating: 3,
+            feedbacks: 128,
+        },
+        {
+            title: 'Platform D',
+            rating: 4,
+            feedbacks: 156,
+        },
+    ];
 
-        const style = {
-            border: '1px solid var(--semi-color-border)',
-            backgroundColor: 'var(--semi-color-bg-2)',
-            borderRadius: '3px',
-            paddingLeft: '20px',
-            margin: '8px 2px',
-        };
+    const style = {
+        border: '1px solid var(--semi-color-border)',
+        backgroundColor: 'var(--semi-color-bg-2)',
+        borderRadius: '3px',
+        paddingLeft: '20px',
+        margin: '8px 2px',
+    };
 
-        return (
-            <div>
-                <List
-                    grid={{
-                        gutter: 12,
-                        Xs: 0,
-                        sm: 0,
-                        md: 12,
-                        lg: 8,
-                        Xl: 8,
-                        xxl: 6,
-                    }}
-                    dataSource={data}
-                    renderItem={item => (
-                        <List.Item style={style}>
-                            <div>
-                                <h3 style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item.title}</h3>
-                                <Descriptions
-                                    align="center"
-                                    size="small"
-                                    row
-                                    data={[
-                                        { key: 'Rating', value: <Rating allowHalf size="small" value={item.rating} /> },
-                                        { key: 'Feedbacks', value: item.feedbacks },
-                                    ]}
-                                />
-                                <div style={{ margin: '12px 0', display: 'flex', justifyContent: 'flex-end' }}>
-                                    <ButtonGroup theme="borderless" style={{ marginTop: 8 }}>
-                                        <Button>Edit</Button>
-                                        <Button>More</Button>
-                                    </ButtonGroup>
-                                </div>
+    return (
+        <div>
+            <List
+                grid={{
+                    gutter: 12,
+                    Xs: 0,
+                    sm: 0,
+                    md: 12,
+                    lg: 8,
+                    Xl: 8,
+                    xxl: 6,
+                }}
+                dataSource={data}
+                renderItem={item => (
+                    <List.Item style={style}>
+                        <div>
+                            <h3 style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item.title}</h3>
+                            <Descriptions
+                                align="center"
+                                size="small"
+                                row
+                                data={[
+                                    { key: 'Rating', value: <Rating allowHalf size="small" value={item.rating} /> },
+                                    { key: 'Feedbacks', value: item.feedbacks },
+                                ]}
+                            />
+                            <div style={{ margin: '12px 0', display: 'flex', justifyContent: 'flex-end' }}>
+                                <ButtonGroup theme="borderless" style={{ marginTop: 8 }}>
+                                    <Button>Edit</Button>
+                                    <Button>More</Button>
+                                </ButtonGroup>
                             </div>
-                        </List.Item>
-                    )}
-                />
-            </div>
-        );
-    }
+                        </div>
+                    </List.Item>
+                )}
+            />
+        </div>
+    );
 }
 
 render(Responsive);
@@ -374,120 +364,109 @@ render(Responsive);
 You can use `loadMore` to achieve loading state for more incoming contents.
 
 ```jsx live=true dir="column" noInline=true
-import React from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { List, Skeleton, Button, Avatar } from '@douyinfe/semi-ui';
 
-class LoadMoreList extends React.Component {
-    constructor() {
-        super();
-
-        const count = 3;
-        const data = [];
-        for (let i = 0; i < 40; i++) {
-            data.push({
-                color: 'grey',
-                title: `Semi Design Title ${i}`,
-                loading: false,
-            });
-        }
-        this.data = data;
-        this.count = 0;
-
-        this.fetchData = () => {
-            let placeholders = [0, 1, 2].map(key => ({ loading: true }));
-            this.setState({
-                loading: true,
-                list: [...this.state.dataSource, ...placeholders],
-            });
-            return new Promise((res, rej) => {
-                setTimeout(() => {
-                    let dataSource = this.data.slice(this.count * count, this.count * count + count);
-                    res(dataSource);
-                }, 1000);
-            }).then(dataSource => {
-                let newData = [...this.state.dataSource, ...dataSource];
-                this.setState({
-                    loading: false,
-                    dataSource: newData,
-                    list: newData,
-                    noMore: !dataSource.length,
-                });
-            });
-        };
-
-        this.state = {
+function LoadMoreList() {
+    const count = 3;
+    const data = [];
+    for (let i = 0; i < 40; i++) {
+        data.push({
+            color: 'grey',
+            title: `Semi Design Title ${i}`,
             loading: false,
-            dataSource: [],
-            list: [],
-            noMore: false,
-        };
+        });
     }
+    const dataRef = useRef(data);
+    const countRef = useRef(0);
 
-    componentDidMount() {
-        this.fetchData();
-    }
+    const [loading, setLoading] = useState(false);
+    const [dataSource, setDataSource] = useState([]);
+    const [list, setList] = useState([]);
+    const [noMore, setNoMore] = useState(false);
 
-    onLoadMore() {
-        this.count++;
-        this.fetchData();
-    }
+    const fetchData = useCallback(() => {
+        let placeholders = [0, 1, 2].map(key => ({ loading: true }));
+        setLoading(true);
+        setList(prevList => [...prevList, ...placeholders]);
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                let newDataSource = dataRef.current.slice(countRef.current * count, countRef.current * count + count);
+                res(newDataSource);
+            }, 1000);
+        }).then(newDataSource => {
+            setDataSource(prevData => {
+                let newData = [...prevData, ...newDataSource];
+                setLoading(false);
+                setList(newData);
+                setNoMore(!newDataSource.length);
+                return newData;
+            });
+        });
+    }, []);
 
-    render() {
-        const { loading, list, noMore } = this.state;
-        const loadMore =
-            !loading && !noMore ? (
-                <div
-                    style={{
-                        textAlign: 'center',
-                        marginTop: 12,
-                        height: 32,
-                        lineHeight: '32px',
-                    }}
-                >
-                    <Button onClick={() => this.onLoadMore()}>Load More</Button>
-                </div>
-            ) : null;
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
 
-        const placeholder = (
+    const onLoadMore = () => {
+        countRef.current++;
+        fetchData();
+    };
+
+    const loadMore =
+        !loading && !noMore ? (
             <div
                 style={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    padding: 12,
-                    borderBottom: '1px solid var(--semi-color-border)',
+                    textAlign: 'center',
+                    marginTop: 12,
+                    height: 32,
+                    lineHeight: '32px',
                 }}
             >
-                <Skeleton.Avatar style={{ marginRight: 12 }} />
-                <div>
-                    <Skeleton.Title style={{ width: 120, marginBottom: 12, marginTop: 12 }} />
-                    <Skeleton.Paragraph style={{ width: 600 }} rows={2} />
-                </div>
+                <Button onClick={onLoadMore}>Load More</Button>
             </div>
-        );
-        return (
-            <List
-                loading={loading}
-                loadMore={loadMore}
-                dataSource={list}
-                renderItem={item => (
-                    <Skeleton placeholder={placeholder} loading={item.loading}>
-                        <List.Item
-                            header={<Avatar color={item.color}>SE</Avatar>}
-                            main={
-                                <div>
-                                    <span style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item.title}</span>
-                                    <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0' }}>
-                                        Create a consistent, good-looking, easy-to-use, and efficient user experience
-                                        with a user-centric, content-first, and human-friendly design system
-                                    </p>
-                                </div>
-                            }
-                        />
-                    </Skeleton>
-                )}
-            />
-        );
-    }
+        ) : null;
+
+    const placeholder = (
+        <div
+            style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                padding: 12,
+                borderBottom: '1px solid var(--semi-color-border)',
+            }}
+        >
+            <Skeleton.Avatar style={{ marginRight: 12 }} />
+            <div>
+                <Skeleton.Title style={{ width: 120, marginBottom: 12, marginTop: 12 }} />
+                <Skeleton.Paragraph style={{ width: 600 }} rows={2} />
+            </div>
+        </div>
+    );
+    return (
+        <List
+            loading={loading}
+            loadMore={loadMore}
+            dataSource={list}
+            renderItem={item => (
+                <Skeleton placeholder={placeholder} loading={item.loading}>
+                    <List.Item
+                        header={<Avatar color={item.color}>SE</Avatar>}
+                        main={
+                            <div>
+                                <span style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item.title}</span>
+                                <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0' }}>
+                                    Create a consistent, good-looking, easy-to-use, and efficient user experience
+                                    with a user-centric, content-first, and human-friendly design system
+                                </p>
+                            </div>
+                        }
+                    />
+                </Skeleton>
+            )}
+        />
+    );
 }
 
 render(LoadMoreList);
@@ -498,118 +477,106 @@ render(LoadMoreList);
 You can integrate [react-infinite-scroller](https://github.com/CassetteRocks/react-infinite-scroller) to implement scrolling load list. Recommended interaction could be reveal a loadmore button after three scrolling loads.
 
 ```jsx live=true dir="column" noInline=true hideInDSM
-import React from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { List, Avatar, Spin, Button } from '@douyinfe/semi-ui';
 import InfiniteScroll from 'react-infinite-scroller';
 
-class ScrollLoad extends React.Component {
-    constructor() {
-        super();
-
-        const count = 5;
-        const dataList = [];
-        for (let i = 0; i < 100; i++) {
-            dataList.push({
-                color: 'grey',
-                title: `Semi Design Title ${i}`,
-                loading: false,
-            });
-        }
-        this.data = dataList;
-        this.count = 0;
-
-        this.fetchData = () => {
-            this.setState({
-                loading: true,
-            });
-            return new Promise((res, rej) => {
-                setTimeout(() => {
-                    let dataSource = this.data.slice(this.count * count, this.count * count + count);
-                    res(dataSource);
-                }, 1000);
-            }).then(dataSource => {
-                let newData = [...this.state.dataSource, ...dataSource];
-                this.count++;
-                this.setState({
-                    loading: false,
-                    dataSource: newData,
-                    noMore: !dataSource.length,
-                });
-            });
-        };
-
-        this.state = {
+function ScrollLoad() {
+    const count = 5;
+    const dataList = [];
+    for (let i = 0; i < 100; i++) {
+        dataList.push({
+            color: 'grey',
+            title: `Semi Design Title ${i}`,
             loading: false,
-            dataSource: [],
-            hasMore: true,
-        };
+        });
     }
+    const dataRef = useRef(dataList);
+    const countRef = useRef(0);
 
-    componentDidMount() {
-        this.fetchData();
-    }
+    const [loading, setLoading] = useState(false);
+    const [dataSource, setDataSource] = useState([]);
+    const [hasMore, setHasMore] = useState(true);
 
-    render() {
-        const { loading, dataSource, hasMore } = this.state;
-        const showLoadMore = this.count % 4 === 0;
-        const loadMore =
-            !loading && hasMore && showLoadMore ? (
-                <div
-                    style={{
-                        textAlign: 'center',
-                        marginTop: 12,
-                        height: 32,
-                        lineHeight: '32px',
-                    }}
-                >
-                    <Button onClick={this.fetchData}>show more</Button>
-                </div>
-            ) : null;
+    const fetchData = useCallback(() => {
+        setLoading(true);
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                let newDataSource = dataRef.current.slice(countRef.current * count, countRef.current * count + count);
+                res(newDataSource);
+            }, 1000);
+        }).then(newDataSource => {
+            setDataSource(prevData => {
+                let newData = [...prevData, ...newDataSource];
+                countRef.current++;
+                setLoading(false);
+                setHasMore(!!newDataSource.length);
+                return newData;
+            });
+        });
+    }, []);
 
-        return (
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
+
+    const showLoadMore = countRef.current % 4 === 0;
+    const loadMore =
+        !loading && hasMore && showLoadMore ? (
             <div
-                className
-                Name="light-scrollbar"
-                style={{ height: 420, overflow: 'auto', border: '1px solid var(--semi-color-border)', padding: 10 }}
+                style={{
+                    textAlign: 'center',
+                    marginTop: 12,
+                    height: 32,
+                    lineHeight: '32px',
+                }}
             >
-                <InfiniteScroll
-                    initialLoad={false}
-                    pageStart={0}
-                    threshold={20}
-                    loadMore={this.fetchData}
-                    hasMore={!this.state.loading && this.state.hasMore && !showLoadMore}
-                    useWindow={false}
-                >
-                    <List
-                        loadMore={loadMore}
-                        dataSource={dataSource}
-                        renderItem={item => (
-                            <List.Item
-                                header={<Avatar color={item.color}>SE</Avatar>}
-                                main={
-                                    <div>
-                                        <span style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>
-                                            {item.title}
-                                        </span>
-                                        <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0' }}>
-                                            Create a consistent, good-looking, easy-to-use, and efficient user
-                                            experience with a user-centric, content-first, and human-friendly design
-                                            system
-                                        </p>
-                                    </div>
-                                }
-                            />
-                        )}
-                    />
-                    {this.state.loading && this.state.hasMore && (
-                        <div style={{ textAlign: 'center' }}>
-                            <Spin />
-                        </div>
-                    )}
-                </InfiniteScroll>
+                <Button onClick={fetchData}>show more</Button>
             </div>
-        );
-    }
+        ) : null;
+
+    return (
+        <div
+            className="light-scrollbar"
+            style={{ height: 420, overflow: 'auto', border: '1px solid var(--semi-color-border)', padding: 10 }}
+        >
+            <InfiniteScroll
+                initialLoad={false}
+                pageStart={0}
+                threshold={20}
+                loadMore={fetchData}
+                hasMore={!loading && hasMore && !showLoadMore}
+                useWindow={false}
+            >
+                <List
+                    loadMore={loadMore}
+                    dataSource={dataSource}
+                    renderItem={item => (
+                        <List.Item
+                            header={<Avatar color={item.color}>SE</Avatar>}
+                            main={
+                                <div>
+                                    <span style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>
+                                        {item.title}
+                                    </span>
+                                    <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0' }}>
+                                        Create a consistent, good-looking, easy-to-use, and efficient user
+                                        experience with a user-centric, content-first, and human-friendly design
+                                        system
+                                    </p>
+                                </div>
+                            }
+                        />
+                    )}
+                />
+                {loading && hasMore && (
+                    <div style={{ textAlign: 'center' }}>
+                        <Spin />
+                    </div>
+                )}
+            </InfiniteScroll>
+        </div>
+    );
 }
 
 render(ScrollLoad);
@@ -620,82 +587,69 @@ render(ScrollLoad);
 You can integrate [react-virtualized](https://github.com/bvaughn/react-virtualized) to implement infinite scrolling lists with virtualization to improve the performance for large amounts of data.
 
 ```jsx live=true dir="column" noInline=true hideInDSM
-import React from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { List, Avatar } from '@douyinfe/semi-ui';
 import { InfiniteLoader, AutoSizer } from 'react-virtualized';
 import VList from 'react-virtualized/dist/commonjs/List';
 
-class VirtualizedScroll extends React.Component {
-    constructor() {
-        super();
-
-        const dataList = [];
-        for (let i = 0; i < 50; i++) {
-            dataList.push({
-                color: 'grey',
-                title: `Semi Design Title ${i}`,
-            });
-        }
-        this.data = dataList;
-
-        this.fetchData = (startIndex, stopIndex) => {
-            return new Promise((res, rej) => {
-                setTimeout(() => {
-                    let dataSource = this.data.slice(startIndex, stopIndex + 1);
-                    res(dataSource);
-                }, 1000);
-            }).then(dataSource => {
-                let newData = [...this.state.dataSource, ...dataSource];
-                const { loadedRowsMap, loadingRowCount } = this.state;
-                const increment = stopIndex - startIndex + 1;
-                for (let i = startIndex; i <= stopIndex; i++) {
-                    loadedRowsMap[i] = this.statusLoaded;
-                }
-                this.setState({
-                    dataSource: newData,
-                    loadedRowsMap,
-                    loadingRowCount: loadingRowCount - increment,
-                });
-            });
-        };
-
-        this.state = {
-            dataSource: [],
-            loadedRowsMap: {},
-            loadingRowCount: 0,
-        };
-
-        this.statusLoading = 0;
-        this.statusLoaded = 1;
-        this.loadLimit = this.data.length;
-        this.renderItem = this.renderItem.bind(this);
-        this.fetchData = this.fetchData.bind(this);
-        this.handleInfiniteOnLoad = this.handleInfiniteOnLoad.bind(this);
-        this.isRowLoaded = this.isRowLoaded.bind(this);
+function VirtualizedScroll() {
+    const dataList = [];
+    for (let i = 0; i < 50; i++) {
+        dataList.push({
+            color: 'grey',
+            title: `Semi Design Title ${i}`,
+        });
     }
+    const dataRef = useRef(dataList);
 
-    handleInfiniteOnLoad({ startIndex, stopIndex }) {
-        let { dataSource, loadedRowsMap, loadingRowCount } = this.state;
+    const [dataSource, setDataSource] = useState([]);
+    const [loadedRowsMap, setLoadedRowsMap] = useState({});
+    const [loadingRowCount, setLoadingRowCount] = useState(0);
+
+    const statusLoading = 0;
+    const statusLoaded = 1;
+    const loadLimit = dataRef.current.length;
+
+    const fetchData = useCallback((startIndex, stopIndex) => {
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                let newDataSource = dataRef.current.slice(startIndex, stopIndex + 1);
+                res(newDataSource);
+            }, 1000);
+        }).then(newDataSource => {
+            setDataSource(prevData => {
+                let newData = [...prevData, ...newDataSource];
+                const increment = stopIndex - startIndex + 1;
+                const newLoadedRowsMap = { ...loadedRowsMap };
+                for (let i = startIndex; i <= stopIndex; i++) {
+                    newLoadedRowsMap[i] = statusLoaded;
+                }
+                setLoadedRowsMap(newLoadedRowsMap);
+                setLoadingRowCount(prev => prev - increment);
+                return newData;
+            });
+        });
+    }, [loadedRowsMap]);
+
+    const handleInfiniteOnLoad = useCallback(({ startIndex, stopIndex }) => {
         const increment = stopIndex - startIndex + 1;
-        if (stopIndex >= this.loadLimit || loadingRowCount > 0) {
+        if (stopIndex >= loadLimit || loadingRowCount > 0) {
             return;
         }
+        const newLoadedRowsMap = { ...loadedRowsMap };
         for (let i = startIndex; i <= stopIndex; i++) {
-            loadedRowsMap[i] = this.statusLoading;
+            newLoadedRowsMap[i] = statusLoading;
         }
-        this.setState({
-            loadingRowCount: loadingRowCount + increment,
-        });
-        return this.fetchData(startIndex, stopIndex);
-    }
+        setLoadedRowsMap(newLoadedRowsMap);
+        setLoadingRowCount(prev => prev + increment);
+        return fetchData(startIndex, stopIndex);
+    }, [loadLimit, loadingRowCount, loadedRowsMap, fetchData]);
 
-    isRowLoaded({ index }) {
-        const { loadedRowsMap } = this.state;
+    const isRowLoaded = useCallback(({ index }) => {
         return !!loadedRowsMap[index];
-    }
+    }, [loadedRowsMap]);
 
-    renderItem({ index, key, style }) {
-        const { dataSource, loadedRowsMap } = this.state;
+    const renderItem = useCallback(({ index, key, style }) => {
         const item = dataSource[index];
 
         if (!item) {
@@ -718,37 +672,34 @@ class VirtualizedScroll extends React.Component {
             />
         );
         return content;
-    }
+    }, [dataSource]);
 
-    render() {
-        const { dataSource } = this.state;
-        const height = 500;
-        return (
-            <List style={{ border: '1px solid var(--semi-color-border)', padding: 10 }}>
-                <InfiniteLoader
-                    isRowLoaded={this.isRowLoaded}
-                    loadMoreRows={this.handleInfiniteOnLoad}
-                    rowCount={this.loadLimit}
-                >
-                    {({ onRowsRendered, registerChild }) => (
-                        <AutoSizer disableHeight>
-                            {({ width }) => (
-                                <VList
-                                    ref={registerChild}
-                                    height={height}
-                                    onRowsRendered={onRowsRendered}
-                                    rowCount={this.loadLimit}
-                                    rowHeight={118}
-                                    rowRenderer={this.renderItem}
-                                    width={width}
-                                />
-                            )}
-                        </AutoSizer>
-                    )}
-                </InfiniteLoader>
-            </List>
-        );
-    }
+    const height = 500;
+    return (
+        <List style={{ border: '1px solid var(--semi-color-border)', padding: 10 }}>
+            <InfiniteLoader
+                isRowLoaded={isRowLoaded}
+                loadMoreRows={handleInfiniteOnLoad}
+                rowCount={loadLimit}
+            >
+                {({ onRowsRendered, registerChild }) => (
+                    <AutoSizer disableHeight>
+                        {({ width }) => (
+                            <VList
+                                ref={registerChild}
+                                height={height}
+                                onRowsRendered={onRowsRendered}
+                                rowCount={loadLimit}
+                                rowHeight={118}
+                                rowRenderer={renderItem}
+                                width={width}
+                            />
+                        )}
+                    </AutoSizer>
+                )}
+            </InfiniteLoader>
+        </List>
+    );
 }
 
 render(VirtualizedScroll);
@@ -1253,12 +1204,12 @@ body > .component-list-demo-drag-item {
 | size         | Size, one of `small`, `default`, `large`                           | string                           | `default`  |
 | split        | Toggle whether to display split line                               | boolean                          | `true`     |
 | style        | Inline style                                                       | CSSProperties                           | -          |
-| onClick      | Callback function when click an item **v>=1.0.0**                  | function                         | -          |
-| onRightClick | Callback function when right click an item **v>=1.0.0**            | function                         | -          |
+| onClick      | Callback function when click an item                  | function                         | -          |
+| onRightClick | Callback function when right click an item            | function                         | -          |
 
 ### Listgrid props
 
-**v>=1.7.0** Other grid properties are also supported. Refer to [Grid](/en-US/basic/grid).
+Other grid properties are also supported. Refer to [Grid](/en-US/basic/grid).
 
 | Properties | Instructions                                                                  | type           | Default |
 | ---------- | ----------------------------------------------------------------------------- | -------------- | ------- |
@@ -1280,8 +1231,8 @@ body > .component-list-demo-drag-item {
 | extra        | Additional content                                                                                      | ReactNode | -            |
 | header       | List item header content                                                                                | ReactNode | -            |
 | main         | List item body content                                                                                  | ReactNode | -            |
-| onClick      | Callback function when click an item **v>=1.0.0**                                                       | function  | -            |
-| onRightClick | Callback function when right click an item **v>=1.0.0**                                                 | function  | -            |
+| onClick      | Callback function when click an item                                                       | function  | -            |
+| onRightClick | Callback function when right click an item                                                 | function  | -            |
 | style        | Inline style                                                                                            | CSSProperties    | -            |
 
 ## Content Guidelines

@@ -360,76 +360,71 @@ import React from 'react';
 import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
 import { IconArrowLeft, IconArrowRight } from "@douyinfe/semi-icons";
 
-class CarouselDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.imgList = [
-            'https://lf3-static.bytednsdoc.com/obj/eden-cn/hjeh7pldnulm/SemiDocs/bg-1.png',
-            'https://lf3-static.bytednsdoc.com/obj/eden-cn/hjeh7pldnulm/SemiDocs/bg-2.png',
-            'https://lf3-static.bytednsdoc.com/obj/eden-cn/hjeh7pldnulm/SemiDocs/bg-3.png',
-        ];
-        this.textList = [
-            ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
-            ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
-            ['Semi Template', 'Efficient Design2Code converts design into real code in seconds', 'One-click conversion of massive page template front-end code'],
-        ];
-        this.arrowProps = {
-            leftArrow: { children: <IconArrowLeft size='large'/> },
-            rightArrow: { children: <IconArrowRight size='large'/> },
-        };
+() => {
+    const imgList = [
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/hjeh7pldnulm/SemiDocs/bg-1.png',
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/hjeh7pldnulm/SemiDocs/bg-2.png',
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/hjeh7pldnulm/SemiDocs/bg-3.png',
+    ];
+    const textList = [
+        ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
+        ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
+        ['Semi Template', 'Efficient Design2Code converts design into real code in seconds', 'One-click conversion of massive page template front-end code'],
+    ];
+    const arrowProps = {
+        leftArrow: { children: <IconArrowLeft size='large'/> },
+        rightArrow: { children: <IconArrowRight size='large'/> },
     };
     
-    renderLogo() {
+    const renderLogo = () => {
         return (
             <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/semi_logo.svg' alt='semi_logo' style={{ width: 87, height: 31 }} />
         );
     };
 
-    render() {
-        const style = {
-            width: '100%',
-            height: '400px',
-        };
+    const style = {
+        width: '100%',
+        height: '400px',
+    };
 
-        const titleStyle = { 
-            position: 'absolute', 
-            top: '100px', 
-            left: '100px'
-        };
+    const titleStyle = { 
+        position: 'absolute', 
+        top: '100px', 
+        left: '100px'
+    };
 
-        const colorStyle = {
-            color: '#1C1F23'
-        };
+    const colorStyle = {
+        color: '#1C1F23'
+    };
 
-        return (
-            <div>
-                <Carousel 
-                    theme='dark'
-                    style={style} 
-                    autoPlay={false} 
-                    arrowProps={this.arrowProps}
-                >
-                    {
-                        this.imgList.map((src, index) => {
-                            return (
-                                <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url('${src}')` }}>
-                                    <Space vertical align='start' spacing='medium' style={titleStyle}>
-                                        {this.renderLogo()}
-                                        <Typography.Title heading={2} style={colorStyle}>{this.textList[index][0]}</Typography.Title>
-                                        <Space vertical align='start'>
-                                            <Typography.Paragraph style={colorStyle}>{this.textList[index][1]}</Typography.Paragraph>
-                                            <Typography.Paragraph style={colorStyle}>{this.textList[index][2]}</Typography.Paragraph>
-                                        </Space>
+    return (
+        <div>
+            <Carousel 
+                theme='dark'
+                style={style} 
+                autoPlay={false} 
+                arrowProps={arrowProps}
+            >
+                {
+                    imgList.map((src, index) => {
+                        return (
+                            <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url('${src}')` }}>
+                                <Space vertical align='start' spacing='medium' style={titleStyle}>
+                                    {renderLogo()}
+                                    <Typography.Title heading={2} style={colorStyle}>{textList[index][0]}</Typography.Title>
+                                    <Space vertical align='start'>
+                                        <Typography.Paragraph style={colorStyle}>{textList[index][1]}</Typography.Paragraph>
+                                        <Typography.Paragraph style={colorStyle}>{textList[index][2]}</Typography.Paragraph>
                                     </Space>
-                                </div>
-                            );
-                        })
-                    }
-                </Carousel>
-            </div>
-        );
-    }
-}
+                                </Space>
+                            </div>
+                        );
+                    })
+                }
+            </Carousel>
+        </div>
+    );
+};
 ```
 
 ### Play Parameters
@@ -573,79 +568,70 @@ import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
 ### Controlled Carousel
 
 ```jsx live=true dir="column"
-import React from 'react';
+import React, { useState } from 'react';
 import { Carousel, Space, Typography } from '@douyinfe/semi-ui';
 
-class CarouselDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.imgList = [
-            'https://lf3-static.bytednsdoc.com/obj/eden-cn/hjeh7pldnulm/SemiDocs/bg-1.png',
-            'https://lf3-static.bytednsdoc.com/obj/eden-cn/hjeh7pldnulm/SemiDocs/bg-2.png',
-            'https://lf3-static.bytednsdoc.com/obj/eden-cn/hjeh7pldnulm/SemiDocs/bg-3.png',
-        ];
-        this.textList = [
-            ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
-            ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
-            ['Semi Template', 'Efficient Design2Code converts design into real code in seconds', 'One-click conversion of massive page template front-end code'],
-        ];
-        this.state = {
-            activeIndex: 0,
-        };
-    }
+() => {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const imgList = [
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/hjeh7pldnulm/SemiDocs/bg-1.png',
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/hjeh7pldnulm/SemiDocs/bg-2.png',
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/hjeh7pldnulm/SemiDocs/bg-3.png',
+    ];
+    const textList = [
+        ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
+        ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
+        ['Semi Template', 'Efficient Design2Code converts design into real code in seconds', 'One-click conversion of massive page template front-end code'],
+    ];
 
-    renderLogo() {
+    const renderLogo = () => {
         return (
             <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/semi_logo.svg' alt='semi_logo' style={{ width: 87, height: 31 }} />
         );
     };
 
-    onChange(activeIndex){
-        this.setState({ activeIndex });
-    }
+    const onChange = (newActiveIndex) => {
+        setActiveIndex(newActiveIndex);
+    };
 
-    render() {
-        const style = {
-            width: '100%',
-            height: '400px',
-        };
+    const style = {
+        width: '100%',
+        height: '400px',
+    };
 
-        const titleStyle = { 
-            position: 'absolute', 
-            top: '100px', 
-            left: '100px'
-        };
+    const titleStyle = { 
+        position: 'absolute', 
+        top: '100px', 
+        left: '100px'
+    };
 
-        const colorStyle = {
-            color: '#1C1F23'
-        };
-
-        const { activeIndex } = this.state;
-        
-        return (
-            <div>
-                <Carousel style={style} activeIndex={activeIndex} autoPlay={false} theme='dark' onChange={this.onChange.bind(this)}>
-                    {
-                        this.imgList.map((src, index) => {
-                            return (
-                                <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url('${src}')` }}>
-                                    <Space vertical align='start' spacing='medium' style={titleStyle}>
-                                        {this.renderLogo()}
-                                        <Typography.Title heading={2} style={colorStyle}>{this.textList[index][0]}</Typography.Title>
-                                        <Space vertical align='start'>
-                                            <Typography.Paragraph style={colorStyle}>{this.textList[index][1]}</Typography.Paragraph>
-                                            <Typography.Paragraph style={colorStyle}>{this.textList[index][2]}</Typography.Paragraph>
-                                        </Space>
+    const colorStyle = {
+        color: '#1C1F23'
+    };
+    
+    return (
+        <div>
+            <Carousel style={style} activeIndex={activeIndex} autoPlay={false} theme='dark' onChange={onChange}>
+                {
+                    imgList.map((src, index) => {
+                        return (
+                            <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url('${src}')` }}>
+                                <Space vertical align='start' spacing='medium' style={titleStyle}>
+                                    {renderLogo()}
+                                    <Typography.Title heading={2} style={colorStyle}>{textList[index][0]}</Typography.Title>
+                                    <Space vertical align='start'>
+                                        <Typography.Paragraph style={colorStyle}>{textList[index][1]}</Typography.Paragraph>
+                                        <Typography.Paragraph style={colorStyle}>{textList[index][2]}</Typography.Paragraph>
                                     </Space>
-                                </div>
-                            );
-                        })
-                    }
-                </Carousel>
-            </div>
-        );
-    }
-}
+                                </Space>
+                            </div>
+                        );
+                    })
+                }
+            </Carousel>
+        </div>
+    );
+};
 ```
 
 

@@ -314,6 +314,13 @@ i#sdk-fb-icon {
 $font-table_bold-fontWeight: 600;
 $font-table_normal-fontSize: 14px;
 
+.gatsby-table td {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
 .gatsby-table-container {
     .semi-table-container {
         margin-top: 0;

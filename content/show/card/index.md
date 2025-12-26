@@ -660,41 +660,41 @@ function Demo() {
 
 |属性               |说明                                                           |类型               |默认值 |版本   |
 |------------------|---------------------------------------------------------------|------------------|------|------|
-|actions           |卡片操作组，位于卡片内容区的底部                                    |Array<ReactNode\> |-     |1.21.0|
-|bodyStyle         |卡片内容区内联样式                                                |CSSProperties     |-     |1.21.0|
-|bordered          |是否设置卡片的外边框                                              |boolean           |true  |1.21.0|
-|className         |卡片的样式类名                                                   |string            |-     |1.21.0|
-|cover             |卡片封面                                                        |ReactNode         |-     |1.21.0|
-|headerExtraContent|卡片标题右侧的额外内容                                            |ReactNode          |-    |1.21.0|
-|footer            |自定义卡片页脚                                                   |ReactNode         |-     |1.21.0|
-|footerLine        |卡片页脚区与内容区是否有边线                                        |boolean           |false|1.21.0|
-|footerStyle       |卡片页脚区内联样式                                                |CSSProperties     |-     |1.21.0|
-|header            |自定义卡片头部，若传入将覆盖 `title` 和 `headerExtraContent`        |ReactNode         |-     |1.21.0|
-|headerLine        |卡片标题区与内容区是否有边线                                        |boolean           |true  |1.21.0|
-|headerStyle       |卡片标题区内联样式                                                |CSSProperties     |-     |1.21.0|
-|loading           |是否设置加载时的占位                                              |boolean           |false |1.21.0|
-|shadows           |设置显示阴影的时机，如果不设置该属性则没有阴影，可选值：`hover`、`always`|string            |-     |1.21.0|
-|style             |卡片内联样式                                                     |CSSProperties     |-     |1.21.0|
-|title             |卡片标题                                                        |ReactNode         |-     |1.21.0|
+|actions           |卡片操作组，位于卡片内容区的底部                                    |Array<ReactNode\> |-     |-|
+|bodyStyle         |卡片内容区内联样式                                                |CSSProperties     |-     |-|
+|bordered          |是否设置卡片的外边框                                              |boolean           |true  |-|
+|className         |卡片的样式类名                                                   |string            |-     |-|
+|cover             |卡片封面                                                        |ReactNode         |-     |-|
+|headerExtraContent|卡片标题右侧的额外内容                                            |ReactNode          |-    |-|
+|footer            |自定义卡片页脚                                                   |ReactNode         |-     |-|
+|footerLine        |卡片页脚区与内容区是否有边线                                        |boolean           |false|-|
+|footerStyle       |卡片页脚区内联样式                                                |CSSProperties     |-     |-|
+|header            |自定义卡片头部，若传入将覆盖 `title` 和 `headerExtraContent`        |ReactNode         |-     |-|
+|headerLine        |卡片标题区与内容区是否有边线                                        |boolean           |true  |-|
+|headerStyle       |卡片标题区内联样式                                                |CSSProperties     |-     |-|
+|loading           |是否设置加载时的占位                                              |boolean           |false |-|
+|shadows           |设置显示阴影的时机，如果不设置该属性则没有阴影，可选值：`hover`、`always`|string            |-     |-|
+|style             |卡片内联样式                                                     |CSSProperties     |-     |-|
+|title             |卡片标题                                                        |ReactNode         |-     |-|
 
 **CardGroup**
 
 |属性      |说明                                                                |类型              |默认值 |版本  |
 |---------|-------------------------------------------------------------------|------------------|------|------|
-|className|卡片组的样式类名                                                      |string            |-     |1.21.0|
-|spacing  |间距尺寸，支持数值或数组，数组形如: `[水平间距,垂直间距]`                   |number \| number[]|12px  |1.21.0|
-|style    |卡片组的内联样式                                                      |CSSProperties     |-     |1.21.0|
-|type     |可以把卡片组设置为网格型，设置完该属性后将覆盖 `spacing` 属性，可选值：`grid` |string            |-     |1.21.0|
+|className|卡片组的样式类名                                                      |string            |-     |-|
+|spacing  |间距尺寸，支持数值或数组，数组形如: `[水平间距,垂直间距]`                   |number \| number[]|12px  |-|
+|style    |卡片组的内联样式                                                      |CSSProperties     |-     |-|
+|type     |可以把卡片组设置为网格型，设置完该属性后将覆盖 `spacing` 属性，可选值：`grid` |string            |-     |-|
 
 **Card.Meta**
 
 |属性        |说明  |类型          |默认值 |版本   |
 |-----------|------|-------------|-     |------|
-|avatar     |头像   |ReactNode    |-     |1.21.0|
-|className  |类名   |string       |-     |1.21.0|
-|description|描述   |ReactNode    |-     |1.21.0|
-|style      |内联样式|CSSProperties|-     |1.21.0|
-|title      |标题   |ReactNode    |-     |1.21.0|
+|avatar     |头像   |ReactNode    |-     |-|
+|className  |类名   |string       |-     |-|
+|description|描述   |ReactNode    |-     |-|
+|style      |内联样式|CSSProperties|-     |-|
+|title      |标题   |ReactNode    |-     |-|
 
 ## Accessibility
 

@@ -396,8 +396,8 @@ import { TagGroup } from '@douyinfe/semi-ui';
 
 | 属性  | 说明        | 类型   | 默认值 | 版本 |
 |-------|-------------|-----------------|--------|--------|
-| avatarShape | 头像 Tag 形状，可选 `square` 和 `circle` | string |  `square`   | 1.6.0|
-| avatarSrc | 头像的资源地址 | string |  -   | 1.6.0 |
+| avatarShape | 头像 Tag 形状，可选 `square` 和 `circle` | string |  `square`   | -|
+| avatarSrc | 头像的资源地址 | string |  -   | - |
 | className | 类名 | string |     | |
 | closable | 标签是否可以关闭 | boolean  |  false   | |
 | color  | 标签的颜色，可选 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow`、 `white` | string  | `grey`| |
@@ -412,13 +412,13 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | visible | 标签是否可见 | boolean | true    | |
 | tagKey  | React 需要的 key，作为每个标签的唯一标识，不允许重复 | string | number | |
 | onClick | 单击标签时的回调函数 | (e: MouseEvent) => void | 无   | |
-| onClose | 关闭标签时的回调函数 | (tagChildren: ReactNode, e: MouseEvent, tagKey: string \| number ) => void | 无    | e 于 v1.18 版本提供, tagKey 于 v2.18.0 提供 |
+| onClose | 关闭标签时的回调函数 | (tagChildren: ReactNode, e: MouseEvent, tagKey: string \| number ) => void | 无    | tagKey 于 v2.18.0 提供 |
 
 ### TagGroup
 
 | 属性  | 说明        | 类型   | 默认值 | 版本 |
 |-------|-------------|--------------|----|--------|
-| avatarShape | 头像 Tag 形状，可选 `square` 和 `circle` | string |  `square` | 1.6.0 |
+| avatarShape | 头像 Tag 形状，可选 `square` 和 `circle` | string |  `square` | - |
 | className | 类名 | string |    | |
 | maxTagCount | 最大数量限制，超出后显示为 +N | number |    | |
 | popoverProps | popover 的配置属性，可以控制 direction, zIndex, trigger 等，具体参考 [Popover](/zh-CN/show/popover#API_参考) | PopoverProps | {} | |

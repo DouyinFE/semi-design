@@ -26,7 +26,7 @@ const appLocale = {
         "footer.design": "Design System",
         "footer.getInfo": "Get Semi News",
         "footer.getInfo.lark": "Semi Lark Group",
-        "footer.getInfo.redBook": "xiaohongshu",
+        "footer.getInfo.redBook": "Xiaohongshu",
         "footer.friends": "Friends",
 
         // search

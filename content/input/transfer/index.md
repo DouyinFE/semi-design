@@ -282,7 +282,7 @@ import { Transfer } from '@douyinfe/semi-ui';
 ### 拖拽 + 自定义已选项渲染
 
 将 `draggable`设为 true，开启拖拽排序功能;使用 `renderSelectedItem` 自定义右侧已选项渲染；   
-你可以将触发器定义为任意你想要的ReactNode，并且添加样式。将拖拽触发器，使用 `sortableHandle` 进行包裹即可（sortableHandle于 v 1.22.0 后提供）, 
+你可以将触发器定义为任意你想要的ReactNode，并且添加样式。将拖拽触发器，使用 `sortableHandle` 进行包裹即可, 
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -1299,14 +1299,14 @@ import { Transfer } from '@douyinfe/semi-ui';
 | onSelect | 勾选时的回调 | (item: Item) => void | |  |
 | renderSelectedHeader | 自定义右侧面板头部信息的渲染 | (props: SelectedHeaderProps) => ReactNode |  | 2.29.0 |
 | renderSelectedItem | 自定义右侧单个已选项的渲染 | (item: { onRemove, sortableHandle } & Item) => ReactNode |  |  |
-| renderSelectedPanel | 自定义右侧已选面板的渲染 | (selectedPanelProps) => ReactNode |  | 1.11.0 |
+| renderSelectedPanel | 自定义右侧已选面板的渲染 | (selectedPanelProps) => ReactNode |  | - |
 | renderSourceHeader | 自定义左侧面板头部信息的渲染 | (props: SourceHeaderProps) => ReactNode |  | 2.29.0 |
 | renderSourceItem | 自定义左侧单个候选项的渲染 | (item: { onChange, checked } & Item) => ReactNode |  |  |
-| renderSourcePanel | 自定义左侧候选面板的渲染 | (sourcePanelProps) => ReactNode |  | 1.11.0 |
-| showPath | 当 type 为`treeList`时，控制右侧选中项是否显示选择路径 | boolean | false | 1.20.0 |
+| renderSourcePanel | 自定义左侧候选面板的渲染 | (sourcePanelProps) => ReactNode |  | - |
+| showPath | 当 type 为`treeList`时，控制右侧选中项是否显示选择路径 | boolean | false | - |
 | style | 内联样式 | CSSProperties |  |  |
-| treeProps | 当 type 为`treeList`时，可作为 TreeProps 传入左侧的 Tree 组件 | [TreeProps](/zh-CN/navigation/tree#Tree) | | 1.20.0 |
-| type | Transfer 类型，可选`list`，`groupList`，`treeList` | string | 'list' | 1.20.0 |
+| treeProps | 当 type 为`treeList`时，可作为 TreeProps 传入左侧的 Tree 组件 | [TreeProps](/zh-CN/navigation/tree#Tree) | | - |
+| type | Transfer 类型，可选`list`，`groupList`，`treeList` | string | 'list' | - |
 | value | 已选中值，传入该项时，将作为受控组件使用 | Array<string\|number> |  |  |
 
 ### Item Interface

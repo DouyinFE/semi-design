@@ -186,7 +186,7 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 | className  | Class name                                                                                                    | string                                 | -       |
 | mode       | The relative Position of the timeline and content                                                             | `left`\|`right`\|`center`\|`alternate` | `left`  |
 | style      | Inline style                                                                                                  | CSSProperties                                 | -       |
-| dataSource | DataSource array for Timeline **v>=1.16.0**, Support content attribute and all attributes of TimeLine.Item   | array                                  | -       |
+| dataSource | DataSource array for Timeline, Support content attribute and all attributes of TimeLine.Item   | array                                  | -       |
 
 ### TimeLine.Item
 

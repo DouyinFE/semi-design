@@ -29,63 +29,54 @@ import { Skeleton } from '@douyinfe/semi-ui';
 ### Basic Usage
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Skeleton, Switch, Button, Avatar } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = { loading: true };
-    }
+() => {
+    const [loading, setLoading] = useState(true);
+    
+    const showContent = () => {
+        setLoading(!loading);
+    };
 
-    showContent() {
-        const { loading } = this.state;
-        this.setState({
-            loading: !loading,
-        });
-    }
-
-    render() {
-        const { loading } = this.state;
-        return (
-            <>
-                <span style={{ display: 'flex', alignItems: 'center' }}>
-                    <Switch onChange={() => this.showContent()} />
-                    <span style={{ marginLeft: '10px' }}>Show Loading Content</span>
-                </span>
-                <br />
-                <Skeleton placeholder={<Skeleton.Avatar />} loading={loading}>
-                    <Avatar color="blue" style={{ marginBottom: 10 }}>
-                        U
-                    </Avatar>
-                </Skeleton>
-                <br />
-                <Skeleton style={{ width: 200, height: 150 }} placeholder={<Skeleton.Image />} loading={loading}>
-                    <img
-                        src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
-                        height="150"
-                        alt="avatar"
-                    />
-                </Skeleton>
-                <br />
-                <Skeleton
-                    style={{ width: 80 }}
-                    placeholder={<Skeleton.Title style={{ marginBottom: 10 }} />}
-                    loading={loading}
-                >
-                    <h4 style={{ marginBottom: 0 }}>Semi UI</h4>
-                </Skeleton>
-                <Skeleton style={{ width: 240 }} placeholder={<Skeleton.Paragraph rows={2} />} loading={loading}>
-                    <p style={{ width: 240 }}>Carefully polish the user experience of each component.</p>
-                </Skeleton>
-                <br />
-                <Skeleton placeholder={<Skeleton.Button />} loading={loading}>
-                    <Button>Button</Button>
-                </Skeleton>
-            </>
-        );
-    }
-}
+    return (
+        <>
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+                <Switch onChange={showContent} />
+                <span style={{ marginLeft: '10px' }}>Show Loading Content</span>
+            </span>
+            <br />
+            <Skeleton placeholder={<Skeleton.Avatar />} loading={loading}>
+                <Avatar color="blue" style={{ marginBottom: 10 }}>
+                    U
+                </Avatar>
+            </Skeleton>
+            <br />
+            <Skeleton style={{ width: 200, height: 150 }} placeholder={<Skeleton.Image />} loading={loading}>
+                <img
+                    src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                    height="150"
+                    alt="avatar"
+                />
+            </Skeleton>
+            <br />
+            <Skeleton
+                style={{ width: 80 }}
+                placeholder={<Skeleton.Title style={{ marginBottom: 10 }} />}
+                loading={loading}
+            >
+                <h4 style={{ marginBottom: 0 }}>Semi UI</h4>
+            </Skeleton>
+            <Skeleton style={{ width: 240 }} placeholder={<Skeleton.Paragraph rows={2} />} loading={loading}>
+                <p style={{ width: 240 }}>Carefully polish the user experience of each component.</p>
+            </Skeleton>
+            <br />
+            <Skeleton placeholder={<Skeleton.Button />} loading={loading}>
+                <Button>Button</Button>
+            </Skeleton>
+        </>
+    );
+};
 ```
 
 ### Combinations

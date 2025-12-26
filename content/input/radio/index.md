@@ -149,7 +149,6 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 ### 按钮样式
 
-version: >=1.26.0
 
 可以利用 `type='button'` 来设置 button 样式类型的单选器，并且，button 类型单选器支持三种尺寸大小。
 
@@ -184,7 +183,6 @@ import { RadioGroup, Radio, Space } from '@douyinfe/semi-ui';
 
 ### 卡片样式
 
-version: >=1.30.0
 
 可以给 `RadioGroup` 设置 `type='card'` 实现带有背景的卡片样式。
 
@@ -208,7 +206,6 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 ```
 ### 无 radio 的纯卡片样式
 
-version: >=1.30.0
 
 可以给 `RadioGroup` 设置 `type='pureCard'` 实现带有背景且无 radio 的纯卡片样式。
 
@@ -236,81 +233,66 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 通过配置 options 参数来渲染单选框
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { RadioGroup, Space } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value1: 'Guest',
-            value2: 'Developer',
-            value3: 'Maintainer',
-        };
-        this.plainOptions = ['Guest', 'Developer', 'Maintainer'];
-        this.options = [
-            { label: 'Guest', value: 'Guest', extra: 'Semi Design', style: { width: 120 } },
-            { label: 'Developer', value: 'Developer', extra: 'Semi Design', style: { width: 120 } },
-            { label: 'Maintainer', value: 'Maintainer', extra: 'Semi Design', style: { width: 120 } },
-        ];
-        this.optionsWithDisabled = [
-            { label: 'Guest', value: 'Guest' },
-            { label: 'Developer', value: 'Developer' },
-            { label: 'Maintainer', value: 'Maintainer', disabled: true },
-        ];
-        this.onChange1 = this.onChange1.bind(this);
-        this.onChange2 = this.onChange2.bind(this);
-        this.onChange3 = this.onChange3.bind(this);
-    }
-    onChange1(e) {
+() => {
+    const [value1, setValue1] = useState('Guest');
+    const [value2, setValue2] = useState('Developer');
+    const [value3, setValue3] = useState('Maintainer');
+    const plainOptions = ['Guest', 'Developer', 'Maintainer'];
+    const options = [
+        { label: 'Guest', value: 'Guest', extra: 'Semi Design', style: { width: 120 } },
+        { label: 'Developer', value: 'Developer', extra: 'Semi Design', style: { width: 120 } },
+        { label: 'Maintainer', value: 'Maintainer', extra: 'Semi Design', style: { width: 120 } },
+    ];
+    const optionsWithDisabled = [
+        { label: 'Guest', value: 'Guest' },
+        { label: 'Developer', value: 'Developer' },
+        { label: 'Maintainer', value: 'Maintainer', disabled: true },
+    ];
+    
+    const onChange1 = (e) => {
         console.log('radio1 checked', e.target.value);
-        this.setState({
-            value1: e.target.value,
-        });
-    }
+        setValue1(e.target.value);
+    };
 
-    onChange2(e) {
+    const onChange2 = (e) => {
         console.log('radio2 checked', e.target.value);
-        this.setState({
-            value2: e.target.value,
-        });
-    }
+        setValue2(e.target.value);
+    };
 
-    onChange3(e) {
+    const onChange3 = (e) => {
         console.log('radio3 checked', e.target.value);
-        this.setState({
-            value3: e.target.value,
-        });
-    }
+        setValue3(e.target.value);
+    };
 
-    render() {
-        return (
-            <Space vertical align='start' spacing='loose'>
-                <RadioGroup
-                    options={this.plainOptions}
-                    onChange={this.onChange1}
-                    value={this.state.value1}
-                    aria-label="单选组合示例"
-                    name="demo-radio-group-1"
-                />
-                <RadioGroup
-                    options={this.optionsWithDisabled}
-                    onChange={this.onChange2}
-                    value={this.state.value2}
-                    aria-label="单选组合示例"
-                    name="demo-radio-group-2"
-                />
-                <RadioGroup
-                    options={this.options}
-                    onChange={this.onChange3}
-                    value={this.state.value3}
-                    aria-label="单选组合示例"
-                    name="demo-radio-group-3"
-                />
-            </Space>
-        );
-    }
-}
+    return (
+        <Space vertical align='start' spacing='loose'>
+            <RadioGroup
+                options={plainOptions}
+                onChange={onChange1}
+                value={value1}
+                aria-label="单选组合示例"
+                name="demo-radio-group-1"
+            />
+            <RadioGroup
+                options={optionsWithDisabled}
+                onChange={onChange2}
+                value={value2}
+                aria-label="单选组合示例"
+                name="demo-radio-group-2"
+            />
+            <RadioGroup
+                options={options}
+                onChange={onChange3}
+                value={value3}
+                aria-label="单选组合示例"
+                name="demo-radio-group-3"
+            />
+        </Space>
+    );
+};
 ```
 
 ## API 参考
@@ -319,9 +301,9 @@ class App extends React.Component {
 
 | 属性           | 说明                                                                   | 类型              | 默认值  |
 |----------------|-----------------------------------------------------------------------|------------------|--------|
-| addonClassName | 包裹内容容器的样式类名  <br/>**v1.16.0 后提供**                                 | string            |       |
+| addonClassName | 包裹内容容器的样式类名                                 | string            |       |
 | addonId | addon 节点 id，aria-labelledby 指向这个 id，若无设置会随机生成一个 id  <br/>**v2.11.0 后提供**                                 | string            |       |
-| addonStyle     | 包裹内容容器的内联样式  <br/>**v1.16.0 后提供**                                 | CSSProperties     |       |
+| addonStyle     | 包裹内容容器的内联样式                                 | CSSProperties     |       |
 | aria-label      | Radio 的 label                                                            | string           | -  |
 | autoFocus      | 自动获取焦点                                                            | boolean           | false  |
 | checked        | 指定当前是否选中                                                         | boolean           | false  |
@@ -346,17 +328,17 @@ class App extends React.Component {
 | 属性         | 说明                                                                                        | 类型                                                                      | 默认值       |
 | ------------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------ |
 | aria-label      | RadioGroup 的 label                                                            | string           | -  |
-|buttonSize|type='button'的radio的尺寸大小，可选值为：`small`、`middle`、`large` <br/>**v1.26.0 后提供** |string|`middle`|
+|buttonSize|type='button'的radio的尺寸大小，可选值为：`small`、`middle`、`large` |string|`middle`|
 | className    | 样式类名                                                                                    | string                                                                    |              |
 | defaultValue | 默认选中的值                                                                                | string \| number                                                                       | -            |
-| direction    | radio 排列方向, 只对type='default'生效，可选值`horizontal`、`vertical` <br/>**v0.31.0 后提供**                      | string                                                                    | `horizontal` |
+| direction    | radio 排列方向, 只对type='default'生效，可选值`horizontal`、`vertical`                      | string                                                                    | `horizontal` |
 | disabled     | 禁选所有子单选器                                                                            | boolean                                                                   | false        |
-| mode         | 高级和普通模式，可以在 checked 时点击变成 unchecked，可选值 advanced <br/>**v1.9.0 后提供** | string                                                                    | -            |
+| mode         | 高级和普通模式，可以在 checked 时点击变成 unchecked，可选值 advanced | string                                                                    | -            |
 | name         | RadioGroup 下所有 `input[type="radio"]` 的 `name` 属性                                      | string                                                                    | -            |
 | options      | 以配置形式设置子元素                                                                        | Array | -            |
 | style        | 内联样式                                                                                    | CSSProperties                                                                    |              |
 | value        | 用于设置当前选中的值                                                                        | string \| number                                                                       | -            |
-|type|设置所有radio的样式类型，可选值为：`default`、`button`、`card`、`pureCard` <br/>**该 api 在 v1.26.0 后提供，其中 card 和 pureCard 在 v1.30.0 后提供**    |string|`default`|
+|type|设置所有radio的样式类型，可选值为：`default`、`button`、`card`、`pureCard`    |string|`default`|
 | onChange     | 选项变化时的回调函数                                                                        | function(e:Event)                                                         | -            |
 
 ## Methods

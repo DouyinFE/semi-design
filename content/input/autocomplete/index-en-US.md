@@ -71,38 +71,33 @@ When you need to customize the rendering of candidates, data can be passed in an
 The rendering of candidates can be customized through renderItem
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { AutoComplete, Avatar } from '@douyinfe/semi-ui';
 import { IconSearch } from '@douyinfe/semi-icons';
 
-class CustomOptionDemo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            data: [],
-            color: ['amber', 'indigo', 'cyan'],
-            list: [
-                { name: 'Xia', email: 'xiakeman@example.com', abbr: 'XK', color: 'amber' },
-                { name: 'Shen', email: 'shenyue@example.com', abbr: 'SY', color: 'indigo' },
-                { name: 'Qu', email: 'quchenyi@example.com', abbr: 'CY', color: 'blue' },
-                { name: 'Wen', email: 'wenjiamao@example.com', abbr: 'JM', color: 'cyan' },
-            ],
-        };
-    }
+() => {
+    const [data, setData] = useState([]);
+    const color = ['amber', 'indigo', 'cyan'];
+    const list = [
+        { name: 'Xia', email: 'xiakeman@example.com', abbr: 'XK', color: 'amber' },
+        { name: 'Shen', email: 'shenyue@example.com', abbr: 'SY', color: 'indigo' },
+        { name: 'Qu', email: 'quchenyi@example.com', abbr: 'CY', color: 'blue' },
+        { name: 'Wen', email: 'wenjiamao@example.com', abbr: 'JM', color: 'cyan' },
+    ];
 
-    search(value) {
+    const search = (value) => {
         let result;
         if (value) {
-            result = this.state.list.map(item => {
+            result = list.map(item => {
                 return { ...item, value: item.name, label: item.email };
             });
         } else {
             result = [];
         }
-        this.setState({ data: result });
-    }
+        setData(result);
+    };
 
-    renderOption(item) {
+    const renderOption = (item) => {
         let optionStyle = {
             display: 'flex',
         };
@@ -117,22 +112,20 @@ class CustomOptionDemo extends React.Component {
                 </div>
             </>
         );
-    }
+    };
 
-    render() {
-        return (
-            <AutoComplete
-                data={this.state.data}
-                prefix={<IconSearch />}
-                style={{ width: '250px' }}
-                renderSelectedItem={option => option.email}
-                renderItem={this.renderOption}
-                onSearch={this.search.bind(this)}
-                onSelect={v => console.log(v)}
-            ></AutoComplete>
-        );
-    }
-}
+    return (
+        <AutoComplete
+            data={data}
+            prefix={<IconSearch />}
+            style={{ width: '250px' }}
+            renderSelectedItem={option => option.email}
+            renderItem={renderOption}
+            onSearch={search}
+            onSelect={v => console.log(v)}
+        ></AutoComplete>
+    );
+};
 ```
 
 ### Remote search
@@ -140,35 +133,20 @@ class CustomOptionDemo extends React.Component {
 Get user input value from onSearch, update data value dynamically, update loading
 
 ```jsx live=true
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { AutoComplete } from '@douyinfe/semi-ui';
 import { IconSearch } from '@douyinfe/semi-icons';
 
-class ObjectDemo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            list: [
-                { value: 'abc', label: 'douyin', email: '1@gmail.com', type: 2 },
-                { value: 'hotsoon', label: 'huoshan', email: '2@gmail.com', type: 3 },
-                { value: 'pipixia', label: 'pip', email: '3@gmail.com' },
-            ],
-            loading: false,
-        };
-        this.onSearch = this.onSearch.bind(this);
-        this.handleSelect = this.handleSelect.bind(this);
-        this.renderItem = this.renderItem.bind(this);
-        this.renderSelectedItem = this.renderSelectedItem.bind(this);
-        this.search = debounce(this.search.bind(this), 200);
-    }
+() => {
+    const [list, setList] = useState([
+        { value: 'abc', label: 'douyin', email: '1@gmail.com', type: 2 },
+        { value: 'hotsoon', label: 'huoshan', email: '2@gmail.com', type: 3 },
+        { value: 'pipixia', label: 'pip', email: '3@gmail.com' },
+    ]);
+    const [loading, setLoading] = useState(false);
+    const timeoutRef = useRef(null);
 
-    onSearch(inputValue) {
-        this.setState({ loading: true });
-        this.search(inputValue);
-    }
-
-    search(inputValue) {
-        let { list } = this.state;
+    const search = (inputValue) => {
         const newList = list.map(item => {
             let num = Math.random()
                 .toString()
@@ -176,14 +154,25 @@ class ObjectDemo extends React.Component {
             let option = inputValue + '-' + num;
             return { ...item, label: 'Name:' + option, value: option };
         });
-        this.setState({ list: newList, loading: false });
-    }
+        setList(newList);
+        setLoading(false);
+    };
 
-    handleSelect(value) {
+    const onSearch = (inputValue) => {
+        setLoading(true);
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+        timeoutRef.current = setTimeout(() => {
+            search(inputValue);
+        }, 200);
+    };
+
+    const handleSelect = (value) => {
         console.log(value);
-    }
+    };
 
-    renderItem(item) {
+    const renderItem = (item) => {
         return (
             <div>
                 <div>{item.label}</div>
@@ -191,32 +180,29 @@ class ObjectDemo extends React.Component {
                 <div style={{ color: 'pink' }}>value: {item.value}</div>
             </div>
         );
-    }
+    };
 
-    renderSelectedItem(item) {
+    const renderSelectedItem = (item) => {
         // Note: Unlike Select, only String type values can be returned here, ReactNode cannot be returned
         return item.value;
-    }
+    };
 
-    render() {
-        const { loading } = this.state;
-        return (
-            <div>
-                <AutoComplete
-                    data={this.state.list}
-                    style={{ width: 250 }}
-                    prefix={<IconSearch />}
-                    onSearch={this.onSearch}
-                    loading={loading}
-                    onChangeWithObject
-                    renderItem={this.renderItem}
-                    renderSelectedItem={this.renderSelectedItem}
-                    onSelect={this.handleSelect}
-                ></AutoComplete>
-            </div>
-        );
-    }
-}
+    return (
+        <div>
+            <AutoComplete
+                data={list}
+                style={{ width: 250 }}
+                prefix={<IconSearch />}
+                onSearch={onSearch}
+                loading={loading}
+                onChangeWithObject
+                renderItem={renderItem}
+                renderSelectedItem={renderSelectedItem}
+                onSelect={handleSelect}
+            ></AutoComplete>
+        </div>
+    );
+};
 ```
 
 ### Size
@@ -269,13 +255,13 @@ import { AutoComplete } from '@douyinfe/semi-ui';
             data={[1, 2, 3, 4]}
             position="top"
             placeholder="The options menu is shown at the top"
-            style={{ width: 200, margin: 10 }}
+            style={{ width: 300, margin: 10 }}
         ></AutoComplete>
         <AutoComplete
             data={[1, 2, 3, 4]}
             position="rightTop"
             placeholder="The options menu is shown on the right"
-            style={{ width: 200, margin: 10 }}
+            style={{ width: 300, margin: 10 }}
         ></AutoComplete>
     </div>
 );
@@ -357,8 +343,8 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 
 | Properties | Instructions                                                                                                                                                                                                                            | Type | Default | Version|
 | --- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | -- |
-| autoFocus | Whether to auto focus                                                                                                                                                                                                                   | bool | false | 1.16.0|
-| autoAdjustOverflow | Whether to automatically adjust the direction when the floating layer is blocked<br/>                                                                                                                                                   | bool | true | 0.27.0|
+| autoFocus | Whether to auto focus                                                                                                                                                                                                                   | bool | false | -|
+| autoAdjustOverflow | Whether to automatically adjust the direction when the floating layer is blocked<br/>                                                                                                                                                   | bool | true | -|
 | className | Style class name                                                                                                                                                                                                                        | string | |
 | clearIcon | Can be used to customize the clear button, valid when showClear is true                                                                                                                                                                 | ReactNode | |  2.25.0|
 | data | The data source of the candidates, which can be a string array or an object array                                                                                                                                                       | array | [] |
@@ -368,26 +354,26 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | disabled | Whether to disable                                                                                                                                                                                                                      | boolean | false |
 | dropdownClassName | Css class name of the drop-down list                                                                                                                                                                                                    | string |  |
 | dropdownStyle | Inline style of the drop-down list                                                                                                                                                                                                      | object |  |
-| emptyContent | Customize the drop-down content when data is empty                                                                                                                                                                                      | ReactNode | null | 1.16.0|
+| emptyContent | Customize the drop-down content when data is empty                                                                                                                                                                                      | ReactNode | null | -|
 | getPopupContainer | Specify the parent DOM, the floating layer of the drop-down list will be rendered into the DOM, and the customization needs to set `position: relative`  This will change the DOM tree position, but not the view's rendering position.                                                                                 | () => HTMLElement | () => document.body |
 | loading | Whether the drop-down list shows loading animation                                                                                                                                                                                      | boolean | false |
 | maxHeight | The maximum height of the drop-down list                                                                                                                                                                                                | number\|string | 300 |
 | motion | Is there an animation when the drop-down list appears/hidden                                                                                                                                                                            | boolean | true |
-| onSelectWithObject | When clicking on the candidate, whether to add other attributes of the selected item option as callback parameters. When set to true, the input parameter type of onSelect will change from `string` to object: {value, label, ...rest} | boolean | false | 1.23.0|
+| onSelectWithObject | When clicking on the candidate, whether to add other attributes of the selected item option as callback parameters. When set to true, the input parameter type of onSelect will change from `string` to object: {value, label, ...rest} | boolean | false | -|
 | placeholder | Input box prompt                                                                                                                                                                                                                        | string | |
 | position | The display position of the drop-down menu, the optional values are the same as the tooltip component                                                                                                                                   | string | 'bottomLeft' |
-| prefix | The prefix tag of the select box                                                                                                                                                                                                        | ReactNode |  | 0.23.0|
+| prefix | The prefix tag of the select box                                                                                                                                                                                                        | ReactNode |  | -|
 | renderItem | Control the rendering of drop-down list candidates                                                                                                                                                                                      | (option: string\|Item)=> React.Node |  |
-| renderSelectedItem | Customize the drop-down list through renderSelectedItem after the candidate is clicked and selected, the content rendered in the select box<br/>** only supports the return value of String type **                                     | (option: string\|Item) => string |  | 0.23.0|
+| renderSelectedItem | Customize the drop-down list through renderSelectedItem after the candidate is clicked and selected, the content rendered in the select box<br/>** only supports the return value of String type **                                     | (option: string\|Item) => string |  | -|
 | showClear | Whether to show the clear button                                                                                                                                                                                                        | boolean | false |
 | size | Size, optional `small`, `default`, `large`                                                                                                                                                                                              | string | `default` |
 | style | style                                                                                                                                                                                                                                   | object |  |
-| suffix | The prefix tag of the select box                                                                                                                                                                                                        | ReactNode |  | 0.23.0|
+| suffix | The prefix tag of the select box                                                                                                                                                                                                        | ReactNode |  | -|
 | value | The current value                                                                                                                                                                                                                       | string\|number |  |
-| validateStatus | Validation status, optional values are `default`, `error`, `warning`, and the default is default. Only affect the display style                                                                                                         | string | 'default' | 1.14.0|
+| validateStatus | Validation status, optional values are `default`, `error`, `warning`, and the default is default. Only affect the display style                                                                                                         | string | 'default' | -|
 | zIndex | ZIndex of the drop-down menu                                                                                                                                                                                                            | number |  |
 | onBlur | Callback when the focus is lost                                                                                                                                                                                                         | Function(event) | |
-| onChange | Input box change / change when the candidate is selected                                                                                                                                                                                | Function(value:string\|number) | | 1.23.0|
+| onChange | Input box change / change when the candidate is selected                                                                                                                                                                                | Function(value:string\|number) | | -|
 | onFocus | The callback when the focus is obtained                                                                                                                                                                                                 | Function(event) | |
 | onKeyDown | keydown callback                                                                                                                                                                                                                        | (e: React.KeyboardEvent) => void | | 2.21.0 |
 | onSearch | Callback when input changes                                                                                                                                                                                                             | Function(value: string) | |

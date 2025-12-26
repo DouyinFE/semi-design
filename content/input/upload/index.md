@@ -291,7 +291,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 例如只允许用户上传 PNG 和 PDF 文件，`accept` 可以这样写： `accept = '.pdf,.png'` 或 `accept = 'application/pdf,image/png'`（将 PNG 与 PDF 的 MIME type 通过`,`连接起来即可）。
 
 <Notice type="primary" title="注意事项">
-    <div>Upload 会在内部拦截掉不符合 accept 格式的文件，当拦截到不符合格式要求的文件时，会触发 onAcceptInvalid 方法（v1.24提供）；</div>
+    <div>Upload 会在内部拦截掉不符合 accept 格式的文件，当拦截到不符合格式要求的文件时，会触发 onAcceptInvalid 方法；</div>
     <div>accept 使用后缀可以避免因为浏览器或者操作系统的不同导致 file.type 与 MIME 不兼容问题。</div>
 </Notice>
 
@@ -375,7 +375,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 ### 限制文件总数量
 
 通过设置 `limit` 属性可以限制最大可上传的文件数  
-当 `limit` 为1时，始终用最新上传的代替当前，并不会触发onExceed回调**v1.5.0生效**
+当 `limit` 为1时，始终用最新上传的代替当前，并不会触发onExceed回调
 
 ```jsx dir="column" live=true width=48%
 import React from 'react';
@@ -1029,43 +1029,36 @@ import { IconUpload } from '@douyinfe/semi-icons';
 `uploadTrigger='custom'`，选中文件后将不会自动触发上传。需要手动调用 `ref` 上的 `upload` 方法触发
 
 ```jsx live=true width=48%
-import React from 'react';
+import React, { useRef } from 'react';
 import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload, IconPlus } from '@douyinfe/semi-icons';
 
-class ManulUploadDemo extends React.Component {
-    constructor() {
-        super();
-        this.manulUpload = this.manulUpload.bind(this);
-        this.uploadRef = React.createRef();
-    }
+function ManulUploadDemo() {
+    const uploadRef = useRef();
+    const manulUpload = () => {
+        uploadRef.current && uploadRef.current.upload();
+    };
 
-    manulUpload() {
-        this.uploadRef.current.upload();
-    }
-
-    render() {
-        let action = 'https://api.semi.design/upload';
-        return (
-            <div>
-                <Upload
-                    accept="image/gif, image/png, image/jpeg, image/bmp, image/webp"
-                    action={action}
-                    uploadTrigger="custom"
-                    ref={this.uploadRef}
-                    onSuccess={(...v) => console.log(...v)}
-                    onError={(...v) => console.log(...v)}
-                >
-                    <Button icon={<IconPlus />} theme="light" style={{ marginRight: 8 }}>
-                        选择文件
-                    </Button>
-                </Upload>
-                <Button icon={<IconUpload />} theme="light" onClick={this.manulUpload}>
-                    开始上传
+    let action = 'https://api.semi.design/upload';
+    return (
+        <div>
+            <Upload
+                accept="image/gif, image/png, image/jpeg, image/bmp, image/webp"
+                action={action}
+                uploadTrigger="custom"
+                ref={uploadRef}
+                onSuccess={(...v) => console.log(...v)}
+                onError={(...v) => console.log(...v)}
+            >
+                <Button icon={<IconPlus />} theme="light" style={{ marginRight: 8 }}>
+                    选择文件
                 </Button>
-            </div>
-        );
-    }
+            </Upload>
+            <Button icon={<IconUpload />} theme="light" onClick={manulUpload}>
+                开始上传
+            </Button>
+        </div>
+    );
 }
 ```
 
@@ -1181,31 +1174,23 @@ Scss 样式如下
 ```
 
 ```jsx live=true width=48%
-import React from 'react';
+import React, { useRef } from 'react';
 import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
-class ValidateDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-        this.beforeUpload = this.beforeUpload.bind(this);
-        this.transformFile = this.transformFile.bind(this);
-        this.count = 0;
-    }
+function ValidateDemo() {
+    const countRef = useRef(0);
 
-    transformFile(fileInstance) {
-        if (this.count === 0) {
-            let newFile = new File([fileInstance], 'newFileName', { type: 'image/png' });
-            return newFile;
-        } else {
-            return fileInstance;
+    const transformFile = (fileInstance) => {
+        if (countRef.current === 0) {
+            return new File([fileInstance], 'newFileName', { type: 'image/png' });
         }
-    }
+        return fileInstance;
+    };
 
-    beforeUpload({ file, fileList }) {
+    const beforeUpload = ({ file, fileList }) => {
         let result;
-        if (this.count > 0) {
+        if (countRef.current > 0) {
             result = {
                 autoRemove: false,
                 fileInstance: file.fileInstance,
@@ -1219,23 +1204,17 @@ class ValidateDemo extends React.Component {
                 shouldUpload: false,
             };
         }
-        this.count = this.count + 1;
+        countRef.current = countRef.current + 1;
         return result;
-    }
+    };
 
-    render() {
-        return (
-            <Upload
-                action="https://api.semi.design/upload"
-                transformFile={this.transformFile}
-                beforeUpload={this.beforeUpload}
-            >
-                <Button icon={<IconUpload />} theme="light">
-                    点击上传（上传前同步校验）
-                </Button>
-            </Upload>
-        );
-    }
+    return (
+        <Upload action="https://api.semi.design/upload" transformFile={transformFile} beforeUpload={beforeUpload}>
+            <Button icon={<IconUpload />} theme="light">
+                点击上传（上传前同步校验）
+            </Button>
+        </Upload>
+    );
 }
 ```
 
@@ -1243,51 +1222,42 @@ class ValidateDemo extends React.Component {
 resolve/reject 时可以传入 object（结构同上 beforeUploadResult）
 
 ```jsx live=true width=48%
-import React from 'react';
+import React, { useRef } from 'react';
 import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
-class AsyncBeforeUploadDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-        this.beforeUpload = this.beforeUpload.bind(this);
-        this.count = 0;
-    }
-
-    beforeUpload({ file, fileList }) {
-        let result;
+function AsyncBeforeUploadDemo() {
+    const countRef = useRef(0);
+    const beforeUpload = ({ file, fileList }) => {
         return new Promise((resolve, reject) => {
-            if (this.count > 1) {
-                result = {
+            if (countRef.current > 1) {
+                const result = {
                     autoRemove: false,
                     shouldUpload: true,
                 };
-                this.count = this.count + 1;
+                countRef.current = countRef.current + 1;
                 resolve(result);
             } else {
-                result = {
+                const result = {
                     autoRemove: false,
                     fileInstance: file.fileInstance,
                     status: 'validateFail',
                     shouldUpload: false,
-                    validateMessage: `第${this.count + 1}个注定失败`,
+                    validateMessage: `第${countRef.current + 1}个注定失败`,
                 };
-                this.count = this.count + 1;
+                countRef.current = countRef.current + 1;
                 reject(result);
             }
         });
-    }
+    };
 
-    render() {
-        return (
-            <Upload action="https://api.semi.design/upload" beforeUpload={this.beforeUpload}>
-                <Button icon={<IconUpload />} theme="light">
-                    点击上传（上传前异步校验）
-                </Button>
-            </Upload>
-        );
-    }
+    return (
+        <Upload action="https://api.semi.design/upload" beforeUpload={beforeUpload}>
+            <Button icon={<IconUpload />} theme="light">
+                点击上传（上传前异步校验）
+            </Button>
+        </Upload>
+    );
 }
 ```
 
@@ -1455,8 +1425,8 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |picHeight | 图片墙模式下，可通过该 API 定制图片展示高度 | string\|number |  | 2.42.0 |
 |picWidth | 图片墙模式下，可通过该 API 定制图片展示宽度 | string\|number |  | 2.42.0 |
 |previewFile | 自定义预览逻辑，该函数返回内容将会替换原缩略图 | (fileItem: FileItem) => ReactNode |  |  |
-|prompt | 自定义插槽，可用于插入提示文本。与直接在 `children` 中写的区别时，`prompt` 的内容在点击时不会触发上传<br/>（图片墙模式下，v1.3.0 后才支持传入 prompt） | ReactNode |  |  |
-|promptPosition | 提示文本的位置，当 listType 为 list 时，参照物为 children 元素；当 listType 为 picture 时，参照物为图片列表。可选值 `left`、`right`、`bottom`<br/>（图片墙模式下，v1.3.0 后才支持使用 promptPosition） | string | 'right' |  |
+|prompt | 自定义插槽，可用于插入提示文本。与直接在 `children` 中写的区别时，`prompt` 的内容在点击时不会触发上传 | ReactNode |  |  |
+|promptPosition | 提示文本的位置，当 listType 为 list 时，参照物为 children 元素；当 listType 为 picture 时，参照物为图片列表。可选值 `left`、`right`、`bottom` | string | 'right' |  |
 |renderFileItem | fileCard 的自定义渲染 | (renderProps: RenderFileItemProps) => ReactNode |  |  |
 |renderFileOperation | 自定义列表项操作区 | (renderProps: RenderFileItemProps)=>ReactNode | | 2.5.0 |
 |renderPicClose| 自定义照片墙 close 按钮，只在照片墙模式下有效| ({className: string, remove: (e: MouseEvent) => void})=>ReactNode | | 2.75.0 |

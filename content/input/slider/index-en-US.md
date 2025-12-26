@@ -51,34 +51,27 @@ import { Slider } from '@douyinfe/semi-ui';
 Synchronize slider with input value.
 
 ```jsx live=true
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Slider, InputNumber } from '@douyinfe/semi-ui';
 
-class InputSlider extends React.Component {
-    constructor(props) {
-        super();
-        this.state = { value: 10 };
-        this.getSliderValue = this.getSliderValue.bind(this);
-    }
+function InputSlider() {
+    const [value, setValue] = useState(10);
 
-    getSliderValue(value) {
-        if (isNaN(Number(value))){
+    const getSliderValue = useCallback((value) => {
+        if (isNaN(Number(value))) {
             return;
         }
-        this.setState({ value: value / 1 });
-    }
+        setValue(value / 1);
+    }, []);
 
-    render() {
-        const { value } = this.state;
-        return (
-            <div>
-                <div style={{ width: 320, marginRight: 15 }}>
-                    <Slider step={1} value={value} onChange={(value) => (this.getSliderValue(value))} ></Slider>
-                </div>
-                <InputNumber onChange={(v) => this.getSliderValue(v)} style={{ width: 100 }} value={value} min={0} max={100} />
+    return (
+        <div>
+            <div style={{ width: 320, marginRight: 15 }}>
+                <Slider step={1} value={value} onChange={getSliderValue} ></Slider>
             </div>
-        );
-    }
+            <InputNumber onChange={getSliderValue} style={{ width: 100 }} value={value} min={0} max={100} />
+        </div>
+    );
 }
 ```
 
@@ -132,48 +125,42 @@ import { Slider } from '@douyinfe/semi-ui';
 ### Segmented Background
 To create a slider with segmented background, you could use CSS property `linear-gradient` for `railStyle` along with `onChange` to change background dynamically。
 ```jsx live=true
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { Slider } from '@douyinfe/semi-ui';
 
-class SegSlider extends React.Component {
-    constructor(props) {
-        super();
-        this.state = { value: [20, 60] };
-        this.changeValue = this.changeValue.bind(this);
-        this.getRailStyle = this.getRailStyle.bind(this);
-    }
+() => {
+    const [value, setValue] = useState([20, 60]);
 
-    changeValue(value) {
-        this.setState({ value });
-    }
+    const changeValue = (newValue) => {
+        setValue(newValue);
+    };
 
-    getRailStyle(range) {
+    const getRailStyle = (range) => {
     // color of second segment inherits from .semi-slider-track
         const color = ['var(--semi-color-danger)', 'transparent', 'var(--semi-color-success)'];
-        const gradientPos = this.state.value.map(val => 
+        const gradientPos = value.map(val => 
             ((val - range[0]) / (range[1] - range[0])).toFixed(2) * 100
         );
         const style = {
             background: `linear-gradient(to right, ${color[0]} ${gradientPos[0]}%, ${color[1]} ${gradientPos[0]}%, ${color[1]} ${gradientPos[1]}%, ${color[2]} ${gradientPos[1]}%)`
         };
         return style;
-    }
+    };
 
-    render() {
-        const range = [10, 100];
-        const railStyle = this.getRailStyle(range);
-        return (
-            <Slider
-                range
-                min={range[0]}
-                max={range[1]}
-                onChange={this.changeValue}
-                railStyle={railStyle}
-                defaultValue={this.state.value}
-            />
-        );
-    }
-}
+    const range = [10, 100];
+    const railStyle = useMemo(() => getRailStyle(range), [value, range]);
+    
+    return (
+        <Slider
+            range
+            min={range[0]}
+            max={range[1]}
+            onChange={changeValue}
+            railStyle={railStyle}
+            value={value}
+        />
+    );
+};
 ```
 
 ### Controlled Component
@@ -181,31 +168,25 @@ class SegSlider extends React.Component {
 You can use `value` along with `onChange` property if you want to use Slider as a controlled component.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Slider, Button } from '@douyinfe/semi-ui';
 
-class ControllSlider extends React.Component {
-    constructor(props) {
-        super();
-        this.state = { value: 10 };
-        this.changeValue = this.changeValue.bind(this);
-    }
+() => {
+    const [value, setValue] = useState(10);
 
-    changeValue() {
-        this.setState({ value: this.state.value + 10 });
-    }
+    const changeValue = () => {
+        setValue(value + 10);
+    };
 
-    render() {
-        return (
-            <div>
-                <Button onClick={this.changeValue} style={{ marginRight: 20 }}>Click to change value</Button>
-                <br/>
-                <br/>
-                <Slider value={this.state.value}></Slider>
-            </div>
-        );
-    }
-}
+    return (
+        <div>
+            <Button onClick={changeValue} style={{ marginRight: 20 }}>Click to change value</Button>
+            <br/>
+            <br/>
+            <Slider value={value}></Slider>
+        </div>
+    );
+};
 ```
 
 ### Vertical
@@ -268,7 +249,7 @@ import { Slider } from '@douyinfe/semi-ui';
 | marks            | Tick mark of Slider, type of key must be number, and must in closed interval [min, max]                                                                                                                                                                                                               | Record<number, string \>                                                       | -       |- |
 | max              | Maximum value of the slider.                                                                                                                                                                                                                                                                          | number                                                                         | 100     |- |
 | min              | Minimum value of the slider.                                                                                                                                                                                                                                                                          | number                                                                         | 0       |- |
-| railStyle        | Style for slide rail                                                                                                                                                                                                                                                                                  | CSSProperties                                                                  | -       |0.31.0|
+| railStyle        | Style for slide rail                                                                                                                                                                                                                                                                                  | CSSProperties                                                                  | -       | - |
 | range            | Toggle whether it is allow to move slider from both sides                                                                                                                                                                                                                                             | boolean                                                                        | false   |- |
 | showArrow        | whether the tooltip has an arrow                                                                                                                                                                                                                                                                      | boolean                                                                        | true    | 2.48.0|
 | showBoundary     | Toggle whether show max/min value when hover                                                                                                                                                                                                                                                          | boolean                                                                        | false   |- |
@@ -279,7 +260,7 @@ import { Slider } from '@douyinfe/semi-ui';
 | tooltipVisible   | Toggle whether to display tooltip all the time                                                                                                                                                                                                                                                        | boolean                                                                        | -       |- |
 | value            | Set current value, used in controlled component                                                                                                                                                                                                                                                       | number \| number[]                                                             |         |- |
 | vertical         | Toggle whether to display slider vertically                                                                                                                                                                                                                                                           | boolean                                                                        | false   |- |
-| verticalReverse  | Vertical but reverse direction >=1.29.0                                                                                                                                                                                                                                                               | boolean                                                                        | false   |-|
+| verticalReverse  | Vertical but reverse direction                                                                                                                                                                                                                                                               | boolean                                                                        | false   |-|
 | onAfterChange    | Triggered when slider changed, passed in current value as params                                                                                                                                                                                                                                      | (value: number \| number[]) => void                                            | -       |- |
 | onChange         | Callback function when slider value changes                                                                                                                                                                                                                                                           | (value: number \| number[]) => void                                            | -       |- |
 | onMouseUp        | Trigged when mouse up on handle                                                                                                                                                                                                                                                                       | (e: React.MouseEvent<HTMLDivElement\>) => void                                 | -       | 2.41.0 |

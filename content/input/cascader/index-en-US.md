@@ -83,7 +83,6 @@ import { Cascader } from '@douyinfe/semi-ui';
 ```
 
 ### Multiple
-version: >= 1.28.0
 
 Set `multiple` to make multiple selections.
 
@@ -286,75 +285,68 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 ### Searchable Multiple Selection 
 
-When multiple selection and search are supported at the same time (version: >= 1.28.0), in this scenario, you can delete the corresponding selected item by pressing the BackSpace key.
+When multiple selection and search are supported at the same time, in this scenario, you can delete the corresponding selected item by pressing the BackSpace key.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: ['impressionism', 'visualArts', 'Monet']
-        };
-    }
-    onChange(value) {
-        this.setState({ value });
-    }
-    render() {
-        const treeData = [
-            {
-                label: 'Impressionism',
-                value: 'impressionism',
-                children: [
-                    {
-                        label: 'Visual Arts',
-                        value: 'visualArts',
-                        children: [
-                            {
-                                label: 'Claude Monet',
-                                value: 'Monet',
-                            },
-                            {
-                                label: 'Pierre-Auguste Renoir',
-                                value: 'Renoir',
-                            },
-                            {
-                                label: 'Édouard Manet',
-                                value: 'Manet',
-                            },
-                        ],
-                    },
-                    {
-                        label: 'Music',
-                        value: 'music',
-                        children: [
-                            {
-                                label: 'Claude Debussy',
-                                value: 'Debussy',
-                            },
-                            {
-                                label: 'Maurice Ravel',
-                                value: 'Ravel',
-                            }
-                        ]
-                    }
-                ],
-            }];
-        return (
-            <Cascader
-                style={{ width: 300 }}
-                treeData={treeData}
-                placeholder="Please select"
-                value={this.state.value}
-                multiple
-                filterTreeNode
-                onChange={e => this.onChange(e)}
-            />
-        );
-    }
-}
+() => {
+    const [value, setValue] = useState(['impressionism', 'visualArts', 'Monet']);
+    const onChange = (newValue) => {
+        setValue(newValue);
+    };
+    const treeData = [
+        {
+            label: 'Impressionism',
+            value: 'impressionism',
+            children: [
+                {
+                    label: 'Visual Arts',
+                    value: 'visualArts',
+                    children: [
+                        {
+                            label: 'Claude Monet',
+                            value: 'Monet',
+                        },
+                        {
+                            label: 'Pierre-Auguste Renoir',
+                            value: 'Renoir',
+                        },
+                        {
+                            label: 'Édouard Manet',
+                            value: 'Manet',
+                        },
+                    ],
+                },
+                {
+                    label: 'Music',
+                    value: 'music',
+                    children: [
+                        {
+                            label: 'Claude Debussy',
+                            value: 'Debussy',
+                        },
+                        {
+                            label: 'Maurice Ravel',
+                            value: 'Ravel',
+                        }
+                    ]
+                }
+            ],
+        }];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            placeholder="Please select"
+            value={value}
+            multiple
+            filterTreeNode
+            onChange={onChange}
+        />
+    );
+};
 ```
 
 Filtered data can be sorted using `filterSorter`, `filterSorter` is available since v2.28.0.
@@ -624,7 +616,6 @@ import { Cascader, Checkbox, Typography } from '@douyinfe/semi-ui';
 
 ### Limit Tags Displayed
 
-version: >= 1.28.0
 
 When multiple selections, you can use `maxTagCount` to limit the number of tags displayed, and the excess will be displayed as +N. 
 
@@ -695,7 +686,6 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 ### Limit Tags Number
 
-version: >= 1.28.0
 
 In a multi-selection scene, use max to limit the number of multi-selection selections. After max is exceeded, the onExceed callback will be triggered.
 
@@ -1139,7 +1129,6 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 ### Disable Strictly
 
-version: >= 1.32.0
 
 You can use disableStrictly to enable strict disabling. After enabling strict disabling, when the node is disabled, the selected state cannot be changed through the relationship between the child or the parent.
 
@@ -1204,7 +1193,6 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 ### the Way of Expand Menu
 
-version: >= 1.29.0
 
 You can use `showNext` to set the time to expand the Dropdown submenu, optional: `click` (default), `hover`.
 
@@ -1342,70 +1330,63 @@ import { Cascader, Typography } from '@douyinfe/semi-ui';
 You can use `value` along with `onChange` property if you want to use Cascader as a controlled component.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: []
-        };
-    }
-    onChange(value) {
-        this.setState({ value });
-    }
-    render() {
-        const treeData = [
-            {
-                label: 'Impressionism',
-                value: 'impressionism',
-                children: [
-                    {
-                        label: 'Visual Arts',
-                        value: 'visualArts',
-                        children: [
-                            {
-                                label: 'Claude Monet',
-                                value: 'Monet',
-                            },
-                            {
-                                label: 'Pierre-Auguste Renoir',
-                                value: 'Renoir',
-                            },
-                            {
-                                label: 'Édouard Manet',
-                                value: 'Manet',
-                            },
-                        ],
-                    },
-                    {
-                        label: 'Music',
-                        value: 'music',
-                        children: [
-                            {
-                                label: 'Claude Debussy',
-                                value: 'Debussy',
-                            },
-                            {
-                                label: 'Maurice Ravel',
-                                value: 'Ravel',
-                            }
-                        ]
-                    }
-                ],
-            }];
-        return (
-            <Cascader
-                style={{ width: 400 }}
-                treeData={treeData}
-                placeholder="Please select"
-                value={this.state.value}
-                onChange={e => this.onChange(e)}
-            />
-        );
-    }
-}
+() => {
+    const [value, setValue] = useState([]);
+    const onChange = (newValue) => {
+        setValue(newValue);
+    };
+    const treeData = [
+        {
+            label: 'Impressionism',
+            value: 'impressionism',
+            children: [
+                {
+                    label: 'Visual Arts',
+                    value: 'visualArts',
+                    children: [
+                        {
+                            label: 'Claude Monet',
+                            value: 'Monet',
+                        },
+                        {
+                            label: 'Pierre-Auguste Renoir',
+                            value: 'Renoir',
+                        },
+                        {
+                            label: 'Édouard Manet',
+                            value: 'Manet',
+                        },
+                    ],
+                },
+                {
+                    label: 'Music',
+                    value: 'music',
+                    children: [
+                        {
+                            label: 'Claude Debussy',
+                            value: 'Debussy',
+                        },
+                        {
+                            label: 'Maurice Ravel',
+                            value: 'Ravel',
+                        }
+                    ]
+                }
+            ],
+        }];
+    return (
+        <Cascader
+            style={{ width: 400 }}
+            treeData={treeData}
+            placeholder="Please select"
+            value={value}
+            onChange={onChange}
+        />
+    );
+};
 ```
 
 
@@ -1604,20 +1585,15 @@ import { Cascader } from '@douyinfe/semi-ui';
 ### Dynamic Update of Data
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Cascader, Button } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            treeData: [],
-        };
-        this.add = this.add.bind(this);
-    }
-    add() {
+() => {
+    const [treeData, setTreeData] = useState([]);
+    
+    const add = () => {
         let itemLength = Math.floor(Math.random() * 3) + 1;
-        let treeData = new Array(itemLength).fill(0).map((v, i) => {
+        let newTreeData = new Array(itemLength).fill(0).map((v, i) => {
             let length = Math.floor(Math.random() * 3);
             let children = new Array(length).fill(0).map((cv, ci) => {
                 let child = {
@@ -1635,25 +1611,25 @@ class Demo extends React.Component {
             };
             return item;
         });
-        this.setState({ treeData });
-    }
-    render() {
-        return (
-            <>
-                <Cascader
-                    style={{ width: 400 }}
-                    treeData={this.state.treeData}
-                    placeholder="Please select"
-                />
-                <br/>
-                <br/>
-                <Button onClick={this.add}>
-                    Update Data
-                </Button>
-            </>
-        );
-    }
-}
+        setTreeData(newTreeData);
+    };
+    
+    return (
+        <>
+            <Cascader
+                style={{ width: 400 }}
+                treeData={treeData}
+                placeholder="Please select"
+            />
+            <br/>
+            <br/>
+            <Button onClick={add}>
+                Update Data
+            </Button>
+        </>
+    );
+};
+```
 ```
 
 ### Deep & long list
@@ -1722,7 +1698,7 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 ### Load Async Data
 You could use `loadData` to load data asynchronously.
-**v>=1.8.0**  
+
 **Could not be used together with searching**
 
 ```jsx live=true
@@ -1953,11 +1929,11 @@ function Demo() {
 
 | Properties | Instructions                                                                                                                                                                                                                                  | type | Default | version |
 | ---------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ---- | ------- | ------- |
-| arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon                                                                          | ReactNode | - | 1.15.0 |
+| arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon                                                                          | ReactNode | - | - |
 | autoAdjustOverflow | Whether to automatically adjust the expansion direction of the dropdown for automatic adjustment of the expansion direction during edge occlusion                                                                                             | boolean | true | - |
-| autoMergeValue | Auto merge value. Specifically, after opening, when a parent node is selected, the value will not include the descendants of the node. Does not support dynamic switching                                                                     | boolean | true |  1.28.0 |
+| autoMergeValue | Auto merge value. Specifically, after opening, when a parent node is selected, the value will not include the descendants of the node. Does not support dynamic switching                                                                     | boolean | true | - |
 | borderless        | borderless mode  >=2.33.0                                                                                                                                                                                                                     | boolean                         |           |
-| bottomSlot | bottom slot                                                                                                                                                                                                                                   | ReactNode | - |  1.27.0 |
+| bottomSlot | bottom slot                                                                                                                                                                                                                                   | ReactNode | - | - |
 | changeOnSelect | Toggle whether non-leaf nodes are selectable                                                                                                                                                                                                  | boolean | false | - |
 | checkRelation | In multiple, the relationship between the checked states of the nodes, optional: 'related'、'unRelated'.  | string | 'related' | v2.71.0 |
 | className | ClassName                                                                                                                                                                                                                                     | string | - | - |
@@ -1972,38 +1948,38 @@ function Demo() {
 | dropdownStyle | Inline style of drop-down menu                                                                                                                                                                                                                | object  | - | -  |
 | expandIcon | customize expand icon | ReactNode | - | 2.68.0 |
 | emptyContent | Content displayed when the search has no result                                                                                                                                                                                               | ReactNode | `No result`  | - |
-| filterLeafOnly | Whether the search results only show the path of leaf nodes                                                                                                                                                                                   | boolean  | true | 1.26.0  |
+| filterLeafOnly | Whether the search results only show the path of leaf nodes                                                                                                                                                                                   | boolean  | true | -  |
 | filterRender | Used to render filtered options                                                                                                                                                                                                               | (props: FilterRenderProps) => ReactNode; | - | 2.28.0 |
 | filterSorter | Sort the filtered options                                                                                                                                                                                                                     | (first: CascaderData, second: CascaderData, inputValue: string) => number | - | 2.28.0 |
 | filterTreeNode | Set filter, the value of treeNodeFilterProp is used for searching, data parameter provided since v2.28.0                                                                                                                                      | ((inputValue: string, treeNodeString: string, data?: CascaderData) => boolean) \| boolean | false | - |
 | getPopupContainer | Specify the parent DOM, the drop-down box will be rendered into the DOM, the customization needs to set position: relative   This will change the DOM tree position, but not the view's rendering position.                                                                                                                   |() => HTMLElement|() => document.body|-|
 | leafOnly | When multiple selections, the set value only includes leaf nodes, that is, the displayed Tag and onChange value parameters only include leaf nodes. Does not support dynamic switching                                                        | boolean | false | 2.2.0  |
-| loadData | Load data asynchronously and the return value should be a promise                                                                                                                                                                             | (selectOptions: CascaderData[]) => Promise< void > |-| 1.8.0|
-| max| In the case of multiple selections, the number of multiple selections is limited, and the onExceed callback will be triggered when max is exceeded                                                                                            | number |-|1.28.0|
-| maxTagCount| When multiple selections, the maximum number of labels to be displayed will be displayed in the form of +N after exceeding                                                                                                                    | number |-|1.28.0|
+| loadData | Load data asynchronously and the return value should be a promise                                                                                                                                                                             | (selectOptions: CascaderData[]) => Promise< void > |-| -|
+| max| In the case of multiple selections, the number of multiple selections is limited, and the onExceed callback will be triggered when max is exceeded                                                                                            | number |-| -|
+| maxTagCount| When multiple selections, the maximum number of labels to be displayed will be displayed in the form of +N after exceeding                                                                                                                    | number |-| -|
 | motion | Set the pop-up animation of the dropdown box                                                                                                                                                                                                  |boolean|true|-|
 | mouseEnterDelay | After the mouse is moved in, the time to delay the display of the dropdown box, in milliseconds                                                                                                                                               | number | 50 | - |
 | mouseLeaveDelay | After the mouse is moved out, the time to hide the display of the dropdown box, in milliseconds                                                                                                                                               | number | 50 | - |
-| multiple | Set multiple                                                                                                                                                                                                                                  | boolean | false |  1.28.0 |
+| multiple | Set multiple                                                                                                                                                                                                                                  | boolean | false | - |
 | placeholder | Placeholder                                                                                                                                                                                                                                   | string | - | - |
-| prefix | Prefix label                                                                                                                                                                                                                                  | ReactNode | - | 0.28.0  |
+| prefix | Prefix label                                                                                                                                                                                                                                  | ReactNode | - | - |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user                                                 | boolean | - | 2.15.0 |
-|restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)                                                                                                                                                            |PopoverProps   | {}  |1.28.0|
+|restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)                                                                                                                                                            |PopoverProps   | {}  | -|
 | searchPlaceholder  | Placeholder for search input                                                                                                                                                                                                                  | string | - | -  |
 | searchPosition | Set the position of the search box,  `trigger` or `custom` | string| `trigger` | 2.54.0 |
 | separator  | Custom separator, including: the separator of the content displayed in the dropdown during search and displayed in the Trigger during single selection                                                                                        | string| ` / ` | 2.2.0 |
-| showClear | Toggle whether to show clear button                                                                                                                                                                                                           | boolean  | false | 0.35.0 |
-| showNext| Set the way to expand the Dropdown submenu, one of: `click`、`hover`                                                                                                                                                                           | string |`click`|1.29.0|
-| showRestTagsPopover| When the number of tags exceeds maxTagCount and hover reaches +N, whether to display the remaining content through Popover                                                                                                                    | boolean |false|1.28.0|
+| showClear | Toggle whether to show clear button                                                                                                                                                                                                           | boolean  | false | - |
+| showNext| Set the way to expand the Dropdown submenu, one of: `click`、`hover`                                                                                                                                                                           | string |`click`| -|
+| showRestTagsPopover| When the number of tags exceeds maxTagCount and hover reaches +N, whether to display the remaining content through Popover                                                                                                                    | boolean |false| -|
 | size | Selectbox size, one of `large`, `small`, `default`                                                                                                                                                                                            | string | `default`  | - |
 | stopPropagation | Whether to prevent the click event on the dropdown box from bubbling                                                                                                                                                                          | boolean | true | - |
-| disableStrictly | Set whether to enable strict prohibition. After opening, when the node is disabled, the selected state cannot be changed through the relationship between the child or the parent                                                             | boolean | false | 1.32.0|
+| disableStrictly | Set whether to enable strict prohibition. After opening, when the node is disabled, the selected state cannot be changed through the relationship between the child or the parent                                                             | boolean | false | -|
 | style | Inline style                                                                                                                                                                                                                                  | CSSProperties | - | - |
-| suffix | Suffix label                                                                                                                                                                                                                                  | ReactNode | -  | 0.28.0  |
-| topSlot | top slot                                                                                                                                                                                                                                      | ReactNode | - |  1.27.0 |
+| suffix | Suffix label                                                                                                                                                                                                                                  | ReactNode | -  | - |
+| topSlot | top slot                                                                                                                                                                                                                                      | ReactNode | - | - |
 | treeData | Render data. Refer to [CascaderData](#CascaderData)  for detailed formatting.                                                                                                                                                                 | CascaderData[] |  []  | - |
 | treeNodeFilterProp | When searching, the input item filters the corresponding CascaderData property.                                                                                                                                                               | string | `label`   | - |
-| triggerRender | Method to create a custom trigger                                                                                                                                                                                                             | (props: TriggerRenderProps) => ReactNode | - | 0.34.0 |
+| triggerRender | Method to create a custom trigger                                                                                                                                                                                                             | (props: TriggerRenderProps) => ReactNode | - | - |
 | value | Selected value (controlled mode)                                                                                                                                                                                                              | string\|number\|CascaderData\|(string\|number\|CascaderData)[][]  | - | -  |
 | validateStatus | The validation status of the trigger only affects the display style. Optional: default、error、warning                                                                                                                                          | string | `default` | - |
 | virtualizeInSearch  | Search result list virtualization, used when there are a large number of tree nodes, composed of height, width,itemSize  | Object | -  | -  | - |
@@ -2011,13 +1987,13 @@ function Demo() {
 | enableLeafClick | Multiple mode, click the leaf option enable trigger check                                                                                                                                                                                     | boolean | false | 2.2.0 |
 | onBlur | Out of focus Cascader's callback                                                                                                                                                                                                              | (e: MouseEvent) => void | - | - |
 | onChange | Callback function when the tree node is selected                                                                                                                                                                                              | (value: string\|number\|CascaderData\|(string\|number\|CascaderData)[]) => void | - | - |
-| onClear| When showClear is true, click the clear button to trigger the callback                                                                                                                                                                        | () => void |-|1.29.0|
-| onChangeWithObject | Toggle whether to return all properties in an option as a return value. When set to true, return value looks like CascaderData. For controlled mode, you need to pass CascaderData to value correspondingly. DefaultValue similarly.          | boolean | false | 1.16.0 |
-| onDropdownVisibleChange | Callback function when dropdown menu visibility changes                                                                                                                                                                                       | (visible: boolean) => void | - | 0.35.0 |
-| onExceed| When multiple selections are made, the callback triggered after max is exceeded                                                                                                                                                               | (checkedItem: Entity[]) => void |-|1.28.0|
+| onClear| When showClear is true, click the clear button to trigger the callback                                                                                                                                                                        | () => void |-|-|
+| onChangeWithObject | Toggle whether to return all properties in an option as a return value. When set to true, return value looks like CascaderData. For controlled mode, you need to pass CascaderData to value correspondingly. DefaultValue similarly.          | boolean | false | - |
+| onDropdownVisibleChange | Callback function when dropdown menu visibility changes                                                                                                                                                                                       | (visible: boolean) => void | - | - |
+| onExceed| When multiple selections are made, the callback triggered after max is exceeded                                                                                                                                                               | (checkedItem: Entity[]) => void |-|-|
 | onFocus| Focus on Cascader's callback                                                                                                                                                                                                                  | (e: MouseEvent) => void | - | - |
-| onListScroll | Callback function when panel list scroll                                                                                                                                                                                                      | (e: React.Event, panel: { panelIndex: number; activeNode: CascaderData; } ) => void | - | 1.15.0 |
-| onLoad | Callback function when a node is loaded                                                                                                                                                                                                       | (newLoadedKeys: Set< string >, data: CascaderData) => void | - | 1.8.0|
+| onListScroll | Callback function when panel list scroll                                                                                                                                                                                                      | (e: React.Event, panel: { panelIndex: number; activeNode: CascaderData; } ) => void | - | - |
+| onLoad | Callback function when a node is loaded                                                                                                                                                                                                       | (newLoadedKeys: Set< string >, data: CascaderData) => void | - | -|
 | onSearch | Callback function when the values for search input changes                                                                                                                                                                                    | (value: string) => void | - | - |
 | onSelect | Callback function when selected                                                                                                                                                                                                               | (value: string \| number \| (string \| number)[]) => void | - | - |
 
@@ -2026,7 +2002,7 @@ function Demo() {
 | Properties | Instructions                   | type           | Default |
 | ---------- | -------------------------------| -------------- | ------- |
 | children   | children node                  | CascaderData[]     | -       |
-| disabled   | Disabled status **>=0.35.0**   | boolean        | -       |
+| disabled   | Disabled status   | boolean        | -       |
 | isLeaf     | leaf node                      | boolean        | -       |
 | label      | Text to be displayed (required)| ReactNode      | -       |
 | loading    | loading                        | boolean        | -       |

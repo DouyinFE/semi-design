@@ -126,7 +126,7 @@ import { Spin, Button } from '@douyinfe/semi-ui';
 
 | 属性             | 说明                                          | 类型       | 默认值   |
 | ---------------- | --------------------------------------------- | ---------- | -------- |
-| childStyle       | 内部子元素的样式 **v>=1.0.0**                 | CSSProperties     | -        |
+| childStyle       | 内部子元素的样式                 | CSSProperties     | -        |
 | delay            | 延迟显示加载效果的时间                        | number(ms) | 0        |
 | indicator        | 加载指示符                                    | ReactNode  | 无       |
 | size             | 组件大小，可选值为 `small`, `middle`, `large` | string     | `middle` |

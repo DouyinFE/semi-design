@@ -4,7 +4,7 @@ title: Overview 组件总览
 icon: doc-overview
 localeCode: zh-CN
 order: 10
-brief: 基于Semi 设计语言开发，能够在线调试的React UI 桌面端组件库，帮助开发者高效构建应用
+brief: 基于Semi 设计语言开发，能够在线调试的React UI 桌面端组件库，提供 80+ 标准组件，帮助开发者高效构建应用
 ---
 
 ## 基础

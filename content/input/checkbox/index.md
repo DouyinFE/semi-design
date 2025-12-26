@@ -56,7 +56,7 @@ import { Checkbox } from '@douyinfe/semi-ui';
             Semi Design
         </Checkbox>
         <br/>
-        <Checkbox aria-label="Checkbox 示例" extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 400 }}>
+        <Checkbox style={{ width: 280 }} aria-label="Checkbox 示例" extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统'>
             Semi Design
         </Checkbox>
     </>
@@ -115,13 +115,13 @@ import { CheckboxGroup } from '@douyinfe/semi-ui';
         console.log('checked = ', checkedValues);
     }
 
-    const plainOptions = ['抖音', '火山', '皮皮虾'];
-    const options = [
-        { label: '追求极致', value: '1', extra: '不断提高要求，延迟满足感，在更大范围里找最优解' },
-        { label: '务实敢为', value: '2', extra: '直接体验，深入事实；不自嗨，注重效果；能突破有担当，打破定式；尝试多种可能，快速迭代' },
-        { label: '开放谦逊', value: '3', extra: '内心阳光，信任伙伴；乐于助人和求助，合作成大事;格局大，上个台阶想问题；对外敏锐谦虚，ego小，听得进意见' },
-        { label: '坦诚清晰', value: '4', extra: '敢当面表达真实想法；能承认错误，不装不爱面子；实事求是，暴露问题，反对“向上管理”；准确、简洁、直接，有条理有重点' }
-    ];
+    const plainOptions = ['Semi UI', 'Semi DSM', 'Semi D2C'];
+
+    const optionsWithExtra = [
+        { extra: '从 Semi Design，到 Any Design 快速定制你的设计系统，并应用在设计稿和代码中', label: 'Semi DSM', value: 'dsm' },
+        { extra: '高效的 Design To Code 设计稿转代码', label: 'Semi D2C', value: 'd2c' }
+    ]
+
     const optionsWithDisabled = [
         { label: 'Photography', value: 'Photography' },
         { label: 'Movies', value: 'Movies' },
@@ -129,9 +129,9 @@ import { CheckboxGroup } from '@douyinfe/semi-ui';
     ];
     return (
         <div>
-            <CheckboxGroup options={plainOptions} defaultValue={['抖音']} onChange={onChange} aria-label="CheckboxGroup 示例" />
+            <CheckboxGroup options={plainOptions} defaultValue={['Semi D2C']} onChange={onChange} aria-label="CheckboxGroup 示例" />
             <br/><br/>
-            <CheckboxGroup options={options} defaultValue={[]} onChange={onChange} aria-label="CheckboxGroup 示例" />
+            <CheckboxGroup options={optionsWithExtra} defaultValue={[]} onChange={onChange} aria-label="带 extra 示例" />
             <br/><br/>
             <CheckboxGroup
                 options={optionsWithDisabled}
@@ -157,8 +157,6 @@ import { CheckboxGroup } from '@douyinfe/semi-ui';
 () => {
     const options = [
         { label: '抖音', value: 'abc' },
-        { label: '火山', value: 'hotsoon' },
-        { label: '皮皮虾', value: 'pipixia' },
         { label: '今日头条', value: 'toutiao' }
     ];
     return (
@@ -173,71 +171,57 @@ import { CheckboxGroup } from '@douyinfe/semi-ui';
 联动 checkbox。
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { Checkbox, Button } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
+() => {
+    const [checked, setChecked] = useState(true);
+    const [disabled, setDisabled] = useState(false);
 
-    constructor() {
-        super();
-        this.state = {
-            checked: true,
-            disabled: false,
-        };
-        this.toggleChecked = this.toggleChecked.bind(this);
-        this.toggleDisable = this.toggleDisable.bind(this);
-        this.onChange = this.onChange.bind(this);
-    }
-
-    toggleChecked () {
-        this.setState({ checked: !this.state.checked });
+    const toggleChecked = () => {
+        setChecked(!checked);
     };
 
-    toggleDisable () {
-        this.setState({ disabled: !this.state.disabled });
+    const toggleDisable = () => {
+        setDisabled(!disabled);
     };
 
-    onChange (e) {
+    const onChange = (e) => {
         console.log('checked = ', e.target.checked);
-        this.setState({
-            checked: e.target.checked,
-        });
+        setChecked(e.target.checked);
     };
 
-    render() {
-        const label = `${this.state.checked ? 'Checked' : 'Unchecked'} ${
-            this.state.disabled ? 'Disabled' : 'Enabled'
-        }`;
-        return (
-            <div>
-                <p style={{ marginBottom: '20px' }}>
-                    <Checkbox
-                        checked={this.state.checked}
-                        disabled={this.state.disabled}
-                        onChange={this.onChange}
-                        aria-label="Checkbox 示例"
-                    >
-                        {label}
-                    </Checkbox>
-                </p>
-                <p>
-                    <Button type="primary" size="small" onClick={this.toggleChecked}>
-                        {!this.state.checked ? 'Check' : 'Uncheck'}
-                    </Button>
-                    <Button
-                        style={{ marginLeft: '10px' }}
-                        type="primary"
-                        size="small"
-                        onClick={this.toggleDisable}
-                    >
-                        {!this.state.disabled ? 'Disable' : 'Enable'}
-                    </Button>
-                </p>
-            </div>
-        );
-    }
-}
-
+    const label = `${checked ? 'Checked' : 'Unchecked'} ${
+        disabled ? 'Disabled' : 'Enabled'
+    }`;
+    return (
+        <div>
+            <p style={{ marginBottom: '20px' }}>
+                <Checkbox
+                    checked={checked}
+                    disabled={disabled}
+                    onChange={onChange}
+                    aria-label="Checkbox 示例"
+                >
+                    {label}
+                </Checkbox>
+            </p>
+            <p>
+                <Button type="primary" size="small" onClick={toggleChecked}>
+                    {!checked ? 'Check' : 'Uncheck'}
+                </Button>
+                <Button
+                    style={{ marginLeft: '10px' }}
+                    type="primary"
+                    size="small"
+                    onClick={toggleDisable}
+                >
+                    {!disabled ? 'Disable' : 'Enable'}
+                </Button>
+            </p>
+        </div>
+    );
+};
 ```
 
 ### 全选
@@ -291,8 +275,6 @@ import { Checkbox, CheckboxGroup } from '@douyinfe/semi-ui';
 
 ### 卡片样式
 
-version: >=1.30.0
-
 可以给 CheckboxGroup 设置 `type='card'`，实现带有背景的卡片样式。
 
 ```jsx live=true dir="column"
@@ -317,8 +299,6 @@ import { CheckboxGroup, Checkbox } from '@douyinfe/semi-ui';
 );
 ```
 ### 无 checkbox 的纯卡片样式
-
-version: >=1.30.0
 
 可以给 CheckboxGroup 设置 `type='pureCard'`，实现带有背景且无 checkbox 的纯卡片样式。
 
@@ -387,7 +367,7 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 | type |设置checkbox 的样式类型，可选值为: `default`、`card`、`pureCard`<br/>**v2.18.0 后提供** |string|`default`|
 | defaultChecked | 初始是否选中（在Group中使用时无效） | boolean | false |
 | disabled | 失效状态 | boolean | false |
-| extra | 副文本<br/>__v0.25.0后提供__ | ReactNode | - |
+| extra | 副文本 | ReactNode | - |
 | extraId        | 副文本的 id，aria-describedby 指向这个 id，若无设置会随机生成一个 id <br/>**v2.11.0 后提供**                     | ReactNode         | -      |
 | value | 该checkbox在CheckboxGroup中代表的value | any | - |
 | indeterminate | 设置 indeterminate 状态，只负责样式控制 | boolean | false |
@@ -403,7 +383,7 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 | disabled | 整组失效 | boolean | false |
 | name | CheckboxGroup 下所有 `input[type="checkbox"]` 的 `name` 属性 | string | - |
 | options | 指定可选项 | any\[] | \[] |
-| type |设置所有 checkbox 的样式类型，可选值为: `default`、`card`、`pureCard` <br/>**v1.30.0 后提供**|string|`default`|
+| type |设置所有 checkbox 的样式类型，可选值为: `default`、`card`、`pureCard`|string|`default`|
 | value | 指定选中的选项 | any\[] | \[] |
 | onChange | 变化时回调函数 | function(checkedValue) | - |
 

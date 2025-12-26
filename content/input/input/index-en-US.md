@@ -147,33 +147,26 @@ import { Input } from '@douyinfe/semi-ui';
 You can use `value` along with `onChange` property if you want to use Input as a controlled component.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Input } from '@douyinfe/semi-ui';
 
-class InputDemo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: 'controlInput',
-            value2: 'input'
-        };
-        this.onChange = this.onChange.bind(this);
-    }
-    onChange(value, e) {
-        console.log(value);
-        this.setState({ value });
-    }
-    render() {
-        return (
-            <>
-                <Input
-                    value={this.state.value}
-                    onChange={this.onChange}>
-                </Input>
-            </>
-        );
-    }
-}
+() => {
+    const [value, setValue] = useState('controlInput');
+    
+    const onChange = (val, e) => {
+        console.log(val);
+        setValue(val);
+    };
+    
+    return (
+        <>
+            <Input
+                value={value}
+                onChange={onChange}>
+            </Input>
+        </>
+    );
+};
 ```
 
 ### InputGroup
@@ -281,7 +274,7 @@ import { Input, InputGroup, Select, Cascader, TreeSelect } from '@douyinfe/semi-
 
 ### TextArea
 
-Used for multi-line text. You can set `maxCount` to restrict text entering and display text count. Since 1.30.0, `showClear` is supported.
+Used for multi-line text. You can set `maxCount` to restrict text entering and display text count. `showClear` is supported.
 
 ```jsx live=true
 import React from 'react';
@@ -445,10 +438,10 @@ Answers to some questions:
 | disabled          | Toggle whether to disable input                                                                                                                                                               | boolean                         | false     |
 | getValueLength    | Custom calculated character string length                                                                                                                                                     | (value: string) => number       |           |
 | hideSuffix        | Toggle whether to hide suffix if clear icon is shown，by default the two icon are side by side                                                                                                 | boolean                         | false     |
-| mode              | mode of input，optional: `password` **>= v1.3.0**                                                                                                                                              | string                          |           |
+| mode              | mode of input，optional: `password`                                                                                                                                              | string                          |           |
 | prefix            | Prefix                                                                                                                                                                                        | ReactNode                       |           |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
-| showClear         | Show clear button **>=1.0.0**                                                                                                                                                                 | boolean                         | false     |
+| showClear         | Show clear button                                                                                                                                                                 | boolean                         | false     |
 | size              | Size, one of `large`, `default`, `small`                                                                                                                                                      | string                          | `default` |
 | style             | Inline style                                                                                                                                                                                  | CSSProperties                   |           |
 | suffix            | Suffix                                                                                                                                                                                        | ReactNode                       |           |
@@ -489,17 +482,17 @@ Answers to some questions:
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | readonly          | Read-only, not editable                                                                                                | boolean                         | false   |
 | rows              | The number of visible text lines for the control.                                                                      | number                          | 4       |
-| showClear         | Display the clear button when the input box has content and hover or focus **>=1.30.0**                                                                                         | boolean                         | false   |
+| showClear         | Display the clear button when the input box has content and hover or focus                                                                                         | boolean                         | false   |
 | style             | Inline style                                                                                                           | CSSProperties                   | -       |
 | onBlur            | Callback invoked when input loses focus                                                                                | (e:event) => void               | -       |
 | onChange          | Callback invoked when input value changes                                                                              | (value:string, e:event) => void |         |
-| onClear           | Callback invoked when clicking clear icon  **>=1.30.0**                                                                | (e:event) => void               |         |
+| onClear           | Callback invoked when clicking clear icon                                                                | (e:event) => void               |         |
 | onEnterPress      | Callback invoked when pressing enter                                                                                   | (e:event) => void               | -       |
 | onFocus           | Callback invoked when input gets focus                                                                                 | (e:event) => void               | -       |
 | onKeyDown         | Callback invoked when keydown, html event                                                                              | (e:event) => void               | -       |
 | onKeyPress        | Callback invoked when keypress, html event                                                                             | (e:event) => void               | -       |
 | onKeyUp           | Callback invoked when keyup, html event                                                                                | (e:event) => void               | -       |
-| onResize          | Callback invoked when height changes in autosize mode **v>=0.37.0**                                                    | ({ height:number }) => void     | -       |
+| onResize          | Callback invoked when height changes in autosize mode                                                    | ({ height:number }) => void     | -       |
 | onCompositionStart           | Callback invoked when compositionstart **>=2.85.0** | function(e:event)               |           |
 | onCompositionEnd           | Callback invoked when compositionend **>=2.85.0** | function(e:event)               |           |
 | onCompositionUpdate           | Callback invoked when compositionupdate **>=2.85.0**  | function(e:event)               |           |

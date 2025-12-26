@@ -84,8 +84,6 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 ### 多选
 
-version: >= 1.28.0
-
 设置 `multiple`，可以进行多选。
 
 ```jsx live=true
@@ -294,7 +292,7 @@ import { Cascader, Typography } from '@douyinfe/semi-ui';
 
 ### 可搜索的多选
 
-支持多选和搜索同时使用（version >= v1.28.0)，在这种场景下，可以通过按下 BackSpace 键来删除对应的已选项目。
+支持多选和搜索同时使用，在这种场景下，可以通过按下 BackSpace 键来删除对应的已选项目。
 
 ```jsx live=true
 import React from 'react';
@@ -624,8 +622,6 @@ import { Cascader, Checkbox, Typography } from '@douyinfe/semi-ui';
 
 ### 限制标签展示数量
 
-version: >= 1.28.0
-
 在多选的场景中，利用 maxTagCount 可以限制展示的标签数量，超出部分将以 +N 的方式展示。
 
 使用 showRestTagsPopover 可以设置在超出 maxTagCount 后，hover +N 是否显示 Popover，默认为 false。并且，还可以在 restTagsPopoverProps 属性中配置 Popover。
@@ -694,8 +690,6 @@ import { Cascader } from '@douyinfe/semi-ui';
 ```
 
 ### 限制选中数量
-
-version: >= 1.28.0
 
 在多选的场景中，利用 max 可以限制多选选中的数量。超出 max 后将触发 onExceed 回调。
 
@@ -1127,8 +1121,6 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 ### 严格禁用
 
-version: >= 1.32.0
-
 可以使用 disableStrictly 来开启严格禁用。开启严格禁用后，当节点是 disabled 的时候，则不能通过子级或者父级的关系改变选中状态。
 
 以下面的 demo 为例，节点"宁波"开启了严格禁用，因此，当我们改变其父节点"浙江省"的选中状态时，也不会影响到节点"宁波"的选中状态。
@@ -1192,8 +1184,6 @@ import { Cascader } from '@douyinfe/semi-ui';
 ```
 
 ### 展示子菜单的时机
-
-version: >= 1.29.0
 
 可以使用 `showNext` 设置展开 Dropdown 子菜单的触发时机，可选: `click`（默认）、`hover`。
 
@@ -1318,75 +1308,67 @@ import { Cascader, Typography } from '@douyinfe/semi-ui';
 传入 `value` 时即为受控组件，可以配合 `onChange` 使用。
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: []
-        };
-    }
-    onChange(value) {
-        this.setState({ value });
-    }
-    render() {
-        const treeData = [
-            {
-                label: '浙江省',
-                value: 'zhejiang',
-                children: [
-                    {
-                        label: '杭州市',
-                        value: 'hangzhou',
-                        children: [
-                            {
-                                label: '西湖区',
-                                value: 'xihu',
-                            },
-                            {
-                                label: '萧山区',
-                                value: 'xiaoshan',
-                            },
-                            {
-                                label: '临安区',
-                                value: 'linan',
-                            },
-                        ],
-                    },
-                    {
-                        label: '宁波市',
-                        value: 'ningbo',
-                        children: [
-                            {
-                                label: '海曙区',
-                                value: 'haishu',
-                            },
-                            {
-                                label: '江北区',
-                                value: 'jiangbei',
-                            }
-                        ]
-                    },
-                ],
-            }
-        ];
-        return (
-            <Cascader
-                style={{ width: 300 }}
-                treeData={treeData}
-                placeholder="请选择所在地区"
-                value={this.state.value}
-                onChange={e => this.onChange(e)}
-            />
-        );
-    }
-}
+() => {
+    const [value, setValue] = useState([]);
+    const onChange = (newValue) => {
+        setValue(newValue);
+    };
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: '江北区',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
+            ],
+        }
+    ];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            placeholder="请选择所在地区"
+            value={value}
+            onChange={onChange}
+        />
+    );
+};
 ```
 
 ### 自动合并 value
-版本: >=1.28.0
 
 在多选（multiple=true）场景中，当我们选中祖先节点时，如果希望 value 不包含它对应的子孙节点，则可以通过 `autoMergeValue` 来设置，默认为 true。当 autoMergeValue 和 leafOnly 同时开启时，后者优先级更高。
 
@@ -1577,20 +1559,15 @@ import { Cascader } from '@douyinfe/semi-ui';
 ### 动态更新数据
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { Cascader, Button } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            treeData: [],
-        };
-        this.add = this.add.bind(this);
-    }
-    add() {
+() => {
+    const [treeData, setTreeData] = useState([]);
+    
+    const add = () => {
         let itemLength = Math.floor(Math.random() * 3) + 1;
-        let treeData = new Array(itemLength).fill(0).map((v, i) => {
+        let newTreeData = new Array(itemLength).fill(0).map((v, i) => {
             let length = Math.floor(Math.random() * 3);
             let children = new Array(length).fill(0).map((cv, ci) => {
                 let child = {
@@ -1608,30 +1585,29 @@ class Demo extends React.Component {
             };
             return item;
         });
-        this.setState({ treeData });
-    }
-    render() {
-        return (
-            <>
-                <Cascader
-                    style={{ width: 300 }}
-                    treeData={this.state.treeData}
-                    placeholder="请选择"
-                />
-                <br/>
-                <br/>
-                <Button onClick={this.add}>
-                    动态改变数据
-                </Button>
-            </>
-        );
-    }
-}
+        setTreeData(newTreeData);
+    };
+    
+    return (
+        <>
+            <Cascader
+                style={{ width: 300 }}
+                treeData={treeData}
+                placeholder="请选择"
+            />
+            <br/>
+            <br/>
+            <Button onClick={add}>
+                动态改变数据
+            </Button>
+        </>
+    );
+};
 ```
 
 ### 异步加载数据
 可以使用 loadData 实现异步加载数据
-**v>=1.8.0**  
+
 **不能与搜索同时使用**
 
 ```jsx live=true hideInDSM
@@ -1923,13 +1899,13 @@ function Demo() {
 
 | 属性                 | 说明                                                                                                                                                  | 类型                                                                                      | 默认值                         | 版本   |
 |----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|--------------------------------|--------|
-| arrowIcon            | 自定义右侧下拉箭头 Icon，当 showClear 开关打开且当前有选中值时，hover 会优先显示 clear icon                                                                                      | ReactNode                                                                                 | -                              | 1.15.0 |
+| arrowIcon            | 自定义右侧下拉箭头 Icon，当 showClear 开关打开且当前有选中值时，hover 会优先显示 clear icon                                                                                      | ReactNode                                                                                 | -                              | - |
 | autoAdjustOverflow   | 是否自动调整下拉框展开方向，用于边缘遮挡时自动调整展开方向                                                                                                                       | boolean                                                                                   | true                           | -      |
-| autoMergeValue       | 设置自动合并 value。具体而言是，开启后，当某个父节点被选中时，value 将不包括该节点的子孙节点。不支持动态切换                                                                                        | boolean                                                                                   | true                           | 1.28.0 |
-| bottomSlot           | 底部插槽                                                                                                                                                | ReactNode                                                                                 | -                              | 1.27.0 |
-| borderless        | 无边框模式  >=2.33.0                                                                                                                                     | boolean                         |           |
+| autoMergeValue       | 设置自动合并 value。具体而言是，开启后，当某个父节点被选中时，value 将不包括该节点的子孙节点。不支持动态切换                                                                                        | boolean                                                                                   | true                           | - |
+| bottomSlot           | 底部插槽                                                                                                                                                | ReactNode                                                                                 | -                              | - |
+| borderless        | 无边框模式                                                           | boolean                    |    false       | 2.33.0
 | changeOnSelect       | 是否允许选择非叶子节点                                                                                                                                         | boolean                                                                                   | false                          | -      |
-| checkRelation | 多选时，节点之间选中状态的关系，可选：'related'、'unRelated'。  | string | 'related' | v2.71.0 |
+| checkRelation | 多选时，节点之间选中状态的关系，可选：'related'、'unRelated'。  | string | 'related' | 2.71.0 |
 | className            | 选择框的 className 属性                                                                                                                                   | string                                                                                    | -                              | -      |
 | clearIcon            | 可用于自定义清除按钮, showClear为true时有效                                                                                                                       | ReactNode                                                                                 | -                              | 2.25.0 |
 | defaultOpen          | 设置是否默认打开下拉菜单                                                                                                                                        | boolean                                                                                   | false                          | -      |
@@ -1942,39 +1918,39 @@ function Demo() {
 | dropdownStyle        | 下拉菜单的样式                                                                                                                                             | object                                                                                    | -                              | -      |
 | expandIcon | 自定义展开 icon | ReactNode | - | 2.68.0 |
 | emptyContent         | 当搜索无结果时展示的内容                                                                                                                                        | ReactNode                                                                                 | `暂无数据`                     | -      |
-| filterLeafOnly       | 搜索结果是否只展示叶子结点路径                                                                                                                                     | boolean                                                                                   | true                           | 1.26.0 |
+| filterLeafOnly       | 搜索结果是否只展示叶子结点路径                                                                                                                                     | boolean                                                                                   | true                           | - |
 | filterRender         | 自定义渲染筛选后的选项                                                                                                                                         | (props: FilterRenderProps) => ReactNode;                                                  | -                              | 2.28.0 |
 | filterSorter         | 对筛选后的选项进行排序                                                                                                                                         | (first: CascaderData, second: CascaderData, inputValue: string) => number                 | -                              | 2.28.0 |
 | filterTreeNode       | 设置筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值， data 参数自 v2.28.0 开始提供                                                                           | ((inputValue: string, treeNodeString: string, data?: CascaderData) => boolean) \| boolean | false                          | -      |
 | getPopupContainer    | 指定父级 DOM，下拉框将会渲染至该 DOM 中，自定义需要设置 position: relative   这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                                                               | () => HTMLElement                                                                         | () => document.body            | -      |
 | leafOnly             | 多选时设置 value 只包含叶子节点，即显示的 Tag 和 onChange 的 value 参数只包含叶子节点。不支持动态切换                                                                                   | boolean                                                                                   | false                          | 2.2.0  |
-| loadData             | 异步加载数据，需要返回一个Promise                                                                                                                                | (selectOptions: CascaderData[]) => Promise< void >                                        | -                              | 1.8.0  |
-| max                  | 多选时，限制多选选中的数量，超出 max 后将触发 onExceed 回调                                                                                                               | number                                                                                    | -                              | 1.28.0 |
-| maxTagCount          | 多选时，标签的最大展示数量，超出后将以 +N 形式展示                                                                                                                         | number                                                                                    | -                              | 1.28.0 |
+| loadData             | 异步加载数据，需要返回一个Promise                                                                                                                                | (selectOptions: CascaderData[]) => Promise< void >                                        | -                              | - |
+| max                  | 多选时，限制多选选中的数量，超出 max 后将触发 onExceed 回调                                                                                                               | number                                                                                    | -                              | - |
+| maxTagCount          | 多选时，标签的最大展示数量，超出后将以 +N 形式展示                                                                                                                         | number                                                                                    | -                              | - |
 | motion               | 设置下拉框弹出的动画                                                                                                                                          | boolean                                                                                   | true                           | -      |
 | mouseEnterDelay      | 鼠标移入后，延迟显示下拉框的时间，单位毫秒                                                                                                                               | number                                                                                    | 50                             | -      |
 | mouseLeaveDelay      | 鼠标移出后，延迟消失下拉框的时间，单位毫秒                                                                                                                               | number                                                                                    | 50                             | -      |
-| multiple             | 设置多选                                                                                                                                                | boolean                                                                                   | false                          | 1.28.0 |
+| multiple             | 设置多选                                                                                                                                                | boolean                                                                                   | false                          | - |
 | placeholder          | 选择框默认文字                                                                                                                                             | string                                                                                    | -                              | -      |
 | position             | 方向，可选值：`top`,`topLeft`,`topRight`,`left`,`leftTop`,`leftBottom`,`right`,`rightTop`,`rightBottom`,`bottom`,`bottomLeft`,`bottomRight`                | string                                                                                    | `bottom`                       | 2.16.0 |
-| prefix               | 前缀标签                                                                                                                                                | ReactNode                                                                                 | -                              | 0.28.0 |
+| prefix               | 前缀标签                                                                                                                                                | ReactNode                                                                                 | -                              | - |
 | preventScroll        | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                                                                              | boolean                                                                                   | -                              | 2.15.0 |
-| restTagsPopoverProps | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83)                                            | PopoverProps                                                                              | {}                             | 1.28.0 |
+| restTagsPopoverProps | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83)                                            | PopoverProps                                                                              | {}                             | - |
 | searchPlaceholder    | 搜索框默认文字                                                                                                                                             | string                                                                                    | -                              | -      |
 | searchPosition | 设置搜索框的位置，可选: `trigger`、`custom` | string| `trigger` | 2.54.0 |
 | separator            | 自定义分隔符，包括：搜索时显示在下拉框的内容以及单选时回显到 Trigger 的内容的分隔符                                                                                                      | string                                                                                    | `/`                            | 2.2.0  |
-| showClear            | 是否展示清除按钮                                                                                                                                            | boolean                                                                                   | false                          | 0.35.0 |
-| showNext             | 设置展开 Dropdown 子菜单的方式，可选: `click`、`hover`                                                                                                            | string                                                                                    | `click`                        | 1.29.0 |
-| showRestTagsPopover  | 当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容                                                                                                    | boolean                                                                                   | false                          | 1.28.0 |
+| showClear            | 是否展示清除按钮                                                                                                                                            | boolean                                                                                   | false                          | - |
+| showNext             | 设置展开 Dropdown 子菜单的方式，可选: `click`、`hover`                                                                                                            | string                                                                                    | `click`                        | - |
+| showRestTagsPopover  | 当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容                                                                                                    | boolean                                                                                   | false                          | - |
 | size                 | 选择框大小，可选 `large`，`small`，`default`                                                                                                                  | string                                                                                    | `default`                      | -      |
 | stopPropagation      | 是否阻止下拉框上的点击事件冒泡                                                                                                                                     | boolean                                                                                   | true                           | -      |
-| disableStrictly      | 设置是否开启严格禁用。开启后，当节点是 disabled 的时候，则不能通过子级或者父级的关系改变选中状态                                                                                               | boolean                                                                                   | false                          | 1.32.0 |
+| disableStrictly      | 设置是否开启严格禁用。开启后，当节点是 disabled 的时候，则不能通过子级或者父级的关系改变选中状态                                                                                               | boolean                                                                                   | false                          | - |
 | style                | 选择框的样式                                                                                                                                              | CSSProperties                                                                             | -                              | -      |
-| suffix               | 后缀标签                                                                                                                                                | ReactNode                                                                                 | -                              | 0.28.0 |
-| topSlot              | 顶部插槽                                                                                                                                                | ReactNode                                                                                 | -                              | 1.27.0 |
+| suffix               | 后缀标签                                                                                                                                                | ReactNode                                                                                 | -                              | - |
+| topSlot              | 顶部插槽                                                                                                                                                | ReactNode                                                                                 | -                              | - |
 | treeData             | 展示数据，具体属性参考 [CascaderData](#CascaderData)                                                                                                           | CascaderData[]                                                                            | []                             | -      |
 | treeNodeFilterProp   | 搜索时输入项过滤对应的 CascaderData 属性                                                                                                                         | string                                                                                    | `label`                        | -      |
-| triggerRender        | 自定义触发器渲染方法                                                                                                                                          | (props: TriggerRenderProps) => ReactNode                                                  | -                              | 0.34.0 |
+| triggerRender        | 自定义触发器渲染方法                                                                                                                                          | (props: TriggerRenderProps) => ReactNode                                                  | -                              | - |
 | validateStatus       | trigger 的校验状态，仅影响展示样式。可选: default、error、warning                                                                                                     | string                                                                                    | `default`                      | -      |
 | value                | （受控）选中的条目                                                                                                                                           | string\|number\|CascaderData\|(string\|number\|CascaderData)[]                            | -                              | -      |
 | virtualizeInSearch   | 搜索列表虚拟化，用于大量树节点的情况，由 height, width, itemSize 组成 | Object | - | - | - |
@@ -1982,13 +1958,13 @@ function Demo() {
 | enableLeafClick      | 多选时，是否启动点击叶子节点选项触发勾选                                                                                                                                | boolean                                                                                   | false                          | 2.2.0  |
 | onBlur               | 失焦 Cascader 的回调                                                                                                                                     | (e: MouseEvent) => void                                                                   | -                              | -      |
 | onChange | 选中树节点时调用此函数，默认返回选中项 path 的 value 数组                                                                                                                 | (value: string\|number\| CascaderData |(string\|number\|CascaderData)[]) => void | - | - |
-| onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型会从 string/number 变为 TreeNode。此时如果是受控，也需要把 value 设置成 CascaderData 类型，且必须含有 value 的键值，defaultValue 同理 | boolean | false | 1.16.0 |
-| onClear| showClear 为 true 时，点击清空按钮触发的回调                                                                                                                      | () => void | - | 1.29.0 |
-| onDropdownVisibleChange       | 下拉框切换时的回调                                                                                                                                           | (visible: boolean) => void | - | 0.35.0 |
-| onExceed| 多选时，超出 max 后触发的回调                                                                                                                                   | (checkedItem: Entity[]) => void | - | 1.28.0 |
+| onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型会从 string/number 变为 TreeNode。此时如果是受控，也需要把 value 设置成 CascaderData 类型，且必须含有 value 的键值，defaultValue 同理 | boolean | false | - |
+| onClear| showClear 为 true 时，点击清空按钮触发的回调                                                                                                                      | () => void | - | - |
+| onDropdownVisibleChange       | 下拉框切换时的回调                                                                                                                                           | (visible: boolean) => void | - | - |
+| onExceed| 多选时，超出 max 后触发的回调                                                                                                                                   | (checkedItem: Entity[]) => void | - | - |
 | onFocus| 聚焦 Cascader 的回调                                                                                                                                     | (e: MouseEvent) => void | - | - |
-| onListScroll | 下拉面板滚动的回调                                                                                                                                           | (e: React.Event, panel: { panelIndex: number; activeNode: CascaderData; } ) => void | - | 1.15.0 |
-| onLoad | 节点加载完毕时触发的回调                                                                                                                                        | (newLoadedKeys: Set< string >, data: CascaderData) => void |- | 1.8.0 |
+| onListScroll | 下拉面板滚动的回调                                                                                                                                           | (e: React.Event, panel: { panelIndex: number; activeNode: CascaderData; } ) => void | - | - |
+| onLoad | 节点加载完毕时触发的回调                                                                                                                                        | (newLoadedKeys: Set< string >, data: CascaderData) => void |- | - |
 | onSearch | 文本框值变化时回调                                                                                                                                           | (value: string) => void | - | - |
 | onSelect | 被选中时调用，返回选中项的 value                                                                                                                                 | (value: string \| number \| (string \| number)[]) => void| - | - |
 
@@ -1997,7 +1973,7 @@ function Demo() {
 | 属性     | 说明                    | 类型           | 默认值 |
 |----------|-----------------------|----------------|--------|
 | children | 子节点                  | CascaderData[] | -      |
-| disabled | 不可选状态 **>=0.35.0** | boolean        | -      |
+| disabled | 不可选状态 | boolean        | -      |
 | isLeaf   | 叶子节点                | boolean        | -      |
 | label    | 展示的文本（必填）        | ReactNode      | -      |
 | loading  | 正在加载                | boolean        | -      |

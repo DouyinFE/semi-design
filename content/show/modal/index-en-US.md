@@ -19,56 +19,42 @@ import { Modal } from '@douyinfe/semi-ui';
 ### Basic Usage
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from '@douyinfe/semi-ui';
 
-class modalDemo extends React.Component {
-  constructor() {
-    super();
-    this.state = { visible: false };
-    this.showDialog = this.showDialog.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-  showDialog() {
-    this.setState({
-      visible: true
-    });
-  }
-  handleOk(e) {
-    this.setState({
-      visible: false
-    });
+function ModalDemo() {
+  const [visible, setVisible] = useState(false);
+  const showDialog = () => {
+    setVisible(true);
+  };
+  const handleOk = () => {
+    setVisible(false);
     console.log('Ok button clicked');
-  }
-  handleAfterClose(){
+  };
+  const handleAfterClose = () => {
     console.log('After Close callback executed');
-  }
-  handleCancel(e) {
-    this.setState({
-      visible: false
-    });
+  };
+  const handleCancel = () => {
+    setVisible(false);
     console.log('Cancel button clicked');
-  }
-  render() {
-    return (
-            <>
-              <Button onClick={this.showDialog}>Open Modal</Button>
-              <Modal
-                      title="Basic Modal"
-                      visible={this.state.visible}
-                      onOk={this.handleOk}
-                      afterClose={this.handleAfterClose} // >= 1.16.0
-                      onCancel={this.handleCancel}
-                      closeOnEsc={true}
-              >
-                This is the content of a basic modal.
-                <br/>
-                More content...
-              </Modal>
-            </>
-    );
-  }
+  };
+  return (
+    <>
+      <Button onClick={showDialog}>Open Modal</Button>
+      <Modal
+        title="Basic Modal"
+        visible={visible}
+        onOk={handleOk}
+        afterClose={handleAfterClose}
+        onCancel={handleCancel}
+        closeOnEsc={true}
+      >
+        This is the content of a basic modal.
+        <br/>
+        More content...
+      </Modal>
+    </>
+  );
 }
 
 ```
@@ -105,7 +91,7 @@ import { Modal, Button } from '@douyinfe/semi-ui';
                     title="Basic Modal"
                     visible={visible}
                     onOk={handleOk}
-                    afterClose={handleAfterClose} //>=1.16.0
+                    afterClose={handleAfterClose}
                     onCancel={handleCancel}
                     closeOnEsc={true}
                     footerFill={true}
@@ -124,49 +110,35 @@ import { Modal, Button } from '@douyinfe/semi-ui';
 You can set `maskClosable={false}` to prevent modal from closing when clicking on the mask.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from '@douyinfe/semi-ui';
 
-class modalDemo extends React.Component {
-  constructor() {
-    super();
-    this.state = { visible: false };
-    this.showDialog = this.showDialog.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-  showDialog() {
-    this.setState({
-      visible: true
-    });
-  }
-  handleOk(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  handleCancel(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  render() {
-    return (
-            <>
-              <Button onClick={this.showDialog}>Mask Not Closable</Button>
-              <Modal
-                      title="Modal Title"
-                      visible={this.state.visible}
-                      onOk={this.handleOk}
-                      onCancel={this.handleCancel}
-                      maskClosable={false}
-              >
-                <p>This is a modal that cannot be closed by clicking on the mask.</p>
-                <p>More content...</p>
-              </Modal>
-            </>
-    );
-  }
+function ModalDemo() {
+  const [visible, setVisible] = useState(false);
+  const showDialog = () => {
+    setVisible(true);
+  };
+  const handleOk = () => {
+    setVisible(false);
+  };
+  const handleCancel = () => {
+    setVisible(false);
+  };
+  return (
+    <>
+      <Button onClick={showDialog}>Mask Not Closable</Button>
+      <Modal
+        title="Modal Title"
+        visible={visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        maskClosable={false}
+      >
+        <p>This is a modal that cannot be closed by clicking on the mask.</p>
+        <p>More content...</p>
+      </Modal>
+    </>
+  );
 }
 ```
 
@@ -177,50 +149,36 @@ You can set button text using `okText` and `cancelText`.
 > In the case of creating a modal with static methods, you will have to use these two properties to set i18 texts at this moment. Because we cannot modify the React component tree, imperatively inserted components cannot consume Locale-related Context
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from '@douyinfe/semi-ui';
 
-class modalDemo extends React.Component {
-  constructor() {
-    super();
-    this.state = { visible: false };
-    this.showDialog = this.showDialog.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-  showDialog() {
-    this.setState({
-      visible: true
-    });
-  }
-  handleOk(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  handleCancel(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  render() {
-    return (
-            <>
-              <Button onClick={this.showDialog}>Custom Button Text</Button>
-              <Modal
-                      title="Custom Button Text"
-                      visible={this.state.visible}
-                      onOk={this.handleOk}
-                      onCancel={this.handleCancel}
-                      okText={'Sounds great!'}
-                      cancelText={'No, thanks.'}
-              >
-                <p>This is a modal with customized button texts.</p>
-                <p>More content...</p>
-              </Modal>
-            </>
-    );
-  }
+function ModalDemo() {
+  const [visible, setVisible] = useState(false);
+  const showDialog = () => {
+    setVisible(true);
+  };
+  const handleOk = () => {
+    setVisible(false);
+  };
+  const handleCancel = () => {
+    setVisible(false);
+  };
+  return (
+    <>
+      <Button onClick={showDialog}>Custom Button Text</Button>
+      <Modal
+        title="Custom Button Text"
+        visible={visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText={'Sounds great!'}
+        cancelText={'No, thanks.'}
+      >
+        <p>This is a modal with customized button texts.</p>
+        <p>More content...</p>
+      </Modal>
+    </>
+  );
 }
 ```
 
@@ -229,50 +187,36 @@ class modalDemo extends React.Component {
 You can set button properties using `okButtonProps` and `cancelButtonProps`.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from '@douyinfe/semi-ui';
 
-class modalDemo extends React.Component {
-  constructor() {
-    super();
-    this.state = { visible: false };
-    this.showDialog = this.showDialog.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-  showDialog() {
-    this.setState({
-      visible: true
-    });
-  }
-  handleOk(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  handleCancel(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  render() {
-    return (
-            <>
-              <Button onClick={this.showDialog}>Custom Button Properties</Button>
-              <Modal
-                      title="Custom Button Properties"
-                      visible={this.state.visible}
-                      onOk={this.handleOk}
-                      onCancel={this.handleCancel}
-                      okButtonProps={{ size: 'small', type: 'warning' }}
-                      cancelButtonProps={{ size: 'small', disabled: true }}
-              >
-                <p>This is a modal with customized button props.</p>
-                <p>More content...</p>
-              </Modal>
-            </>
-    );
-  }
+function ModalDemo() {
+  const [visible, setVisible] = useState(false);
+  const showDialog = () => {
+    setVisible(true);
+  };
+  const handleOk = () => {
+    setVisible(false);
+  };
+  const handleCancel = () => {
+    setVisible(false);
+  };
+  return (
+    <>
+      <Button onClick={showDialog}>Custom Button Properties</Button>
+      <Modal
+        title="Custom Button Properties"
+        visible={visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okButtonProps={{ size: 'small', type: 'warning' }}
+        cancelButtonProps={{ size: 'small', disabled: true }}
+      >
+        <p>This is a modal with customized button props.</p>
+        <p>More content...</p>
+      </Modal>
+    </>
+  );
 }
 ```
 
@@ -281,53 +225,39 @@ class modalDemo extends React.Component {
 For more customized modal, you could use `header` and `footer`. Set `header={null}` if you do not want header area, or `footer={null}` to remove footer area including buttons.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from '@douyinfe/semi-ui';
 
-class modalDemo extends React.Component {
-  constructor() {
-    super();
-    this.state = { visible: false };
-    this.showDialog = this.showDialog.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-  showDialog() {
-    this.setState({
-      visible: true
-    });
-  }
-  handleOk(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  handleCancel(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  render() {
-    return (
-            <>
-              <Button onClick={this.showDialog}>Customized Footer</Button>
-              <Modal
-                      title="Customized Footer"
-                      visible={this.state.visible}
-                      onOk={this.handleOk}
-                      onCancel={this.handleCancel}
-                      footer={
-                        <Button type="primary" onClick={this.handleOk}>
-                          Yes, I Understand
-                        </Button>
-                      }
-              >
-                <p>This is a modal with a customized footer.</p>
-                <p>More content...</p>
-              </Modal>
-            </>
-    );
-  }
+function ModalDemo() {
+  const [visible, setVisible] = useState(false);
+  const showDialog = () => {
+    setVisible(true);
+  };
+  const handleOk = () => {
+    setVisible(false);
+  };
+  const handleCancel = () => {
+    setVisible(false);
+  };
+  return (
+    <>
+      <Button onClick={showDialog}>Customized Footer</Button>
+      <Modal
+        title="Customized Footer"
+        visible={visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={
+          <Button type="primary" onClick={handleOk}>
+            Yes, I Understand
+          </Button>
+        }
+      >
+        <p>This is a modal with a customized footer.</p>
+        <p>More content...</p>
+      </Modal>
+    </>
+  );
 }
 ```
 
@@ -336,57 +266,43 @@ class modalDemo extends React.Component {
 You can use `style` to customize styling or position e.g. `style.top = '30vh'`, or use `centered` to center modal. Also, you could use `maskStyle` to customize mask style or `bodyStyle` for content style.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from '@douyinfe/semi-ui';
 
-class modalDemo extends React.Component {
-  constructor() {
-    super();
-    this.state = { visible: false };
-    this.showDialog = this.showDialog.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-  showDialog() {
-    this.setState({
-      visible: true
-    });
-  }
-  handleOk(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  handleCancel(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  render() {
-    return (
-            <>
-              <Button onClick={this.showDialog}>Custom Style</Button>
-              <Modal
-                      title="Custom Style"
-                      visible={this.state.visible}
-                      onOk={this.handleOk}
-                      onCancel={this.handleCancel}
-                      centered
-                      bodyStyle={{ overflow: 'auto', height: 200 }}
-              >
-                <p style={{ lineHeight: 1.8 }}>Semi Design is a design system developed and maintained by IES Front-end Team and UED Team</p>
-                <p style={{ lineHeight: 1.8 }}>Semi Design create a consistent, good-looking, easy-to-use, and efficient user experience with a user-centric, content-first, and human-friendly design system.
-                </p>
-                <ul>
-                  <li><p>Content-first</p></li>
-                  <li><p>Customized theming</p></li>
-                  <li><p>Internationalized</p></li>
-                  <li><p>Humanism</p></li>
-                </ul>
-              </Modal>
-            </>
-    );
-  }
+function ModalDemo() {
+  const [visible, setVisible] = useState(false);
+  const showDialog = () => {
+    setVisible(true);
+  };
+  const handleOk = () => {
+    setVisible(false);
+  };
+  const handleCancel = () => {
+    setVisible(false);
+  };
+  return (
+    <>
+      <Button onClick={showDialog}>Custom Style</Button>
+      <Modal
+        title="Custom Style"
+        visible={visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        centered
+        bodyStyle={{ overflow: 'auto', height: 200 }}
+      >
+        <p style={{ lineHeight: 1.8 }}>Semi Design is a design system developed and maintained by IES Front-end Team and UED Team</p>
+        <p style={{ lineHeight: 1.8 }}>Semi Design create a consistent, good-looking, easy-to-use, and efficient user experience with a user-centric, content-first, and human-friendly design system.
+        </p>
+        <ul>
+          <li><p>Content-first</p></li>
+          <li><p>Customized theming</p></li>
+          <li><p>Internationalized</p></li>
+          <li><p>Humanism</p></li>
+        </ul>
+      </Modal>
+    </>
+  );
 }
 ```
 
@@ -395,95 +311,81 @@ class modalDemo extends React.Component {
 By using `header`, `footer`, etc, you could create any modal to your needs.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button, List } from '@douyinfe/semi-ui';
 import { IconVigoLogo, IconSemiLogo } from '@douyinfe/semi-icons';
 
-class modalDemo extends React.Component {
-  constructor() {
-    super();
-    this.state = { visible: false };
-    this.showDialog = this.showDialog.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-  showDialog() {
-    this.setState({
-      visible: true
-    });
-  }
-  handleOk(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  handleCancel(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  render() {
-    const data = [
-      {
-        icon: <IconSemiLogo style={{ fontSize: 48 }} />,
-        title: 'Boost new feature adoption with Integration',
-        content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
-      },
-      {
-        icon: <IconVigoLogo style={{ fontSize: 48 }} />,
-        title: 'Introducing Dark Mode',
-        content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
-      },
-      {
-        icon: <IconSemiLogo style={{ fontSize: 48 }} />,
-        title: 'New List Component',
-        content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
-      },
-    ];
-    const btnStyle = {
-      width: 240,
-      margin: '4px 50px',
-    };
-    const footer = (
-            <div style={{ textAlign: 'center' }}>
-              <Button type="primary" theme="solid" onClick={this.handleOk} style={btnStyle}>
-                Continue
-              </Button>
-              <Button type="primary" theme="borderless" onClick={this.handleCancel} style={btnStyle}>
-                Learn more features
-              </Button>
-            </div>
-    );
-    return (
-            <>
-              <Button onClick={this.showDialog}>Customized Modal</Button>
-              <Modal
-                      header={null}
-                      visible={this.state.visible}
-                      onOk={this.handleOk}
-                      onCancel={this.handleCancel}
-                      footer={footer}
-              >
-                <h3 style={{ textAlign: 'center', fontSize: 24, margin: 40 }}>Semi Design New Features</h3>
-                <List
-                        dataSource={data}
-                        split={false}
-                        renderItem={item => (
-                                <List.Item
-                                        header={item.icon}
-                                        main={
-                                          <div>
-                                            <h6 style={{ margin: 0, fontSize: 16 }}>{item.title}</h6>
-                                            <p style={{ marginTop: 4, color: 'var(--semi-color-text-1)' }}>{item.content}</p>
-                                          </div>
-                                        }
-                                />)
-                        }
-                />
-              </Modal>
-            </>
-    );
-  }
+function ModalDemo() {
+  const [visible, setVisible] = useState(false);
+  const showDialog = () => {
+    setVisible(true);
+  };
+  const handleOk = () => {
+    setVisible(false);
+  };
+  const handleCancel = () => {
+    setVisible(false);
+  };
+  const data = [
+    {
+      icon: <IconSemiLogo style={{ fontSize: 48 }} />,
+      title: 'Boost new feature adoption with Integration',
+      content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
+    },
+    {
+      icon: <IconVigoLogo style={{ fontSize: 48 }} />,
+      title: 'Introducing Dark Mode',
+      content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
+    },
+    {
+      icon: <IconSemiLogo style={{ fontSize: 48 }} />,
+      title: 'New List Component',
+      content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
+    },
+  ];
+  const btnStyle = {
+    width: 240,
+    margin: '4px 50px',
+  };
+  const footer = (
+    <div style={{ textAlign: 'center' }}>
+      <Button type="primary" theme="solid" onClick={handleOk} style={btnStyle}>
+        Continue
+      </Button>
+      <Button type="primary" theme="borderless" onClick={handleCancel} style={btnStyle}>
+        Learn more features
+      </Button>
+    </div>
+  );
+  return (
+    <>
+      <Button onClick={showDialog}>Customized Modal</Button>
+      <Modal
+        header={null}
+        visible={visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={footer}
+      >
+        <h3 style={{ textAlign: 'center', fontSize: 24, margin: 40 }}>Semi Design New Features</h3>
+        <List
+          dataSource={data}
+          split={false}
+          renderItem={item => (
+            <List.Item
+              header={item.icon}
+              main={
+                <div>
+                  <h6 style={{ margin: 0, fontSize: 16 }}>{item.title}</h6>
+                  <p style={{ marginTop: 4, color: 'var(--semi-color-text-1)' }}>{item.content}</p>
+                </div>
+              }
+            />)
+          }
+        />
+      </Modal>
+    </>
+  );
 }
 ```
 
@@ -639,26 +541,26 @@ function Demo(props = {}) {
 
 | Properties        | Instructions                                                                                                                                                                                  | type | Default             |
 | ----------------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| -- |---------------------|
-| afterClose             | Callback function when modal closed completely   <br/>**>= v1.16.0**                                                                                                                          | () => void | -                   |
+| afterClose             | Callback function when modal closed completely                                                                                                                          | () => void | -                   |
 | bodyStyle         | Content style                                                                                                                                                                                 | CSSProperties | -                   |
 | cancelButtonProps | Properties for cancel button                                                                                                                                                                  | [ButtonProps](/en-US/input/button#API-reference) | -                   |
 | cancelText        | Text for cancel button                                                                                                                                                                        | string | -                   |
 | centered          | Toggle whether to center modal                                                                                                                                                                | boolean | false               |
 | closable          | Toggle whether to show close button                                                                                                                                                           | boolean | true                |
-| closeIcon         | Icon for close button  <br/>**>= v1.0.0**                                                                                                                                                     | ReactNode | <IconClose /\>      |
-| closeOnEsc        | Toggle whether to allow close modal by keyboard event Esc  <br/>**>= v1.0.0**                                                                                                                 | boolean | true                | 
+| closeIcon         | Icon for close button                                                                                                                                                     | ReactNode | <IconClose /\>      |
+| closeOnEsc        | Toggle whether to allow close modal by keyboard event Esc                                                                                                                 | boolean | true                | 
 | confirmLoading    | Toggle loading state of confirm button                                                                                                                                                        | boolean | false               |
 | content            | Content                                                                                                                                                                                       | ReactNode  | -                   |
 | footer            | Footer                                                                                                                                                                                        | ReactNode | -                   |
 |footerFill| Is the bottom button full (>= 2.xx.0 ) | boolean | false               | 
-| fullScreen        | Is modal FullScreen（will override width and height） <br/>**>= v1.18.0**                                                                                                                       | boolean     | false               |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.  <br/>** >= v0.33.0 **                                                       | () => HTMLElement | () => document.body |   
+| fullScreen        | Is modal FullScreen（will override width and height）                                                                                                                       | boolean     | false               |
+| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.                                                       | () => HTMLElement | () => document.body |   
 | hasCancel        | Toggle whether to show cancal button                                                                                                                                                          | boolean | true                |
 | header            | Header                                                                                                                                                                                        | ReactNode | -                   |
 | height            | Height                                                                                                                                                                                        | number | -                   |
-| icon              | Custom icon       <br/>**v1.1.0**                                                                                                                                                             | ReactNode | -                   |
-| keepDOM | Keep dom tree when close modal <br/>**>= v1.0.0**                                                                                                                                             | boolean | false               |
-| lazyRender | Lazy render modal, used with `keepDOM` <br/>**>=v1.0.0**                                                                                                                                      | boolean | true                |      
+| icon              | Custom icon                                                                                                                                                             | ReactNode | -                   |
+| keepDOM | Keep dom tree when close modal                                                                                                                                             | boolean | false               |
+| lazyRender | Lazy render modal, used with `keepDOM`                                                                                                                                      | boolean | true                |      
 | mask              | Toggle whether to show mask                                                                                                                                                                   | boolean | true                |
 | maskClosable      | Toggle whether to allow closing when clicking mask                                                                                                                                            | boolean | true                |
 | maskStyle         | Mask style                                                                                                                                                                                    | CSSProperties | -                   |
@@ -669,7 +571,7 @@ function Demo(props = {}) {
 | okText            | Text for confirm button                                                                                                                                                                       | string | -                   |
 | okType            | Type for confirm button, optional: 'primary'、'secondary'、'tertiary'、'warning'、'danger'                                                                                                        | string | primary             |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |                     |  |
-| size | Size of modal, one of `small`(448px), `medium`(684px), `large`(920px), `full-width`(100vw - 64px) <br/>**>= v1.0.0**                                                                          | string | 'small'             |
+| size | Size of modal, one of `small`(448px), `medium`(684px), `large`(920px), `full-width`(100vw - 64px)                                                                          | string | 'small'             |
 | style             | Inline style                                                                                                                                                                                  | CSSProperties | -                   |
 | title             | Title                                                                                                                                                                                         | ReactNode | -                   |
 | visible           | Toggle visibility of the modal                                                                                                                                                                | boolean | false               |
@@ -707,7 +609,7 @@ function Demo(props = {}) {
 | okButtonProps     | Properties for confirm button                      | ButtonProps       | -       |
 | okText            | Text for confirm button                            | string            | -       |
 | okType            | Type for confirm button                            | string            | primary |
-| size | Size of modal, one of `small`(448px), `medium`(684px), `large`(920px), `full-width`(100vw - 64px) <br/>**v >= 0.33.0**  | string  | 'small' |  
+| size | Size of modal, one of `small`(448px), `medium`(684px), `large`(920px), `full-width`(100vw - 64px)  | string  | 'small' |  
 | style             | Inline style                                       | CSSProperties     | -       |
 | title             | Title                                              | ReactNode            | -       |
 | width             | Width                                              | number            | 520     |
@@ -729,11 +631,11 @@ modal.update({
 modal.destroy();
 ```
 
--   `Modal.destroyAll` **v>=0.37.0**
+-   `Modal.destroyAll`
 
 You could use Modal.destroyAll() to destroy Modal that created by methods above e.g. `.info()`
 
--   `Modal.useModal` **v>=1.2.0**  
+-   `Modal.useModal`  
     When you need access Context, you could use `Modal.useModal` to create a `contextHolder` and insert to corresponding DOM tree. Modal created by hooks will be able to access the context where `contextHolder` is inserted. Hook modal shares the same methods with Modal.method.
 
 
@@ -778,7 +680,7 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
 ## FAQ
 
 - #### Why the button texts in Modal.confirm are not internationalized even when I use LocaleProvider?
-  In version >= 1.2.0, you could use `Modal.useModal` to create a `contextHolder` that is accessible to config from ConfigProvider or LocaleProvider.
+  You could use `Modal.useModal` to create a `contextHolder` that is accessible to config from ConfigProvider or LocaleProvider.
 
   For version before 1.2 or if you don't want to use Hooks, you could also use `okText` and `cancelText` to set i18 texts at this moment.
 

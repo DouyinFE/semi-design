@@ -33,7 +33,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 
 ### 批量添加
 
-可以使用 `separator` 设置分隔符，来实现批量输入，它的默认值为英文逗号。1.29.0 版本后支持多个分隔符以 string[] 格式传入。
+可以使用 `separator` 设置分隔符，来实现批量输入，它的默认值为英文逗号。支持多个分隔符以 string[] 格式传入。
 
 ```jsx live=true
 import React from 'react';
@@ -246,28 +246,13 @@ import { TagInput } from '@douyinfe/semi-ui';
 可使用 `value` 设置标签内容，并配合 `onChange` 实现标签内容受控。
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { TagInput } from '@douyinfe/semi-ui';
 
-class TagInputDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: ['抖音']
-        };
-    }
-    onChange(value) {
-        this.setState({ value });
-    }
-    
-    render() {
-        return (
-            <TagInput
-                value={this.state.value}
-                onChange={value => {this.onChange(value);}}
-            />
-        );
-    }
+function TagInputDemo() {
+    const [value, setValue] = useState(['抖音']);
+    const handleChange = v => setValue(v);
+    return <TagInput value={value} onChange={handleChange} />;
 }
 ```
 
@@ -276,27 +261,13 @@ class TagInputDemo extends React.Component {
 可使用 `inputValue` 设置输入框内容，并配合 `onInputChange` 实现输入内容受控。
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { TagInput } from '@douyinfe/semi-ui';
 
-class TagInputDemo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: 'abc'
-        };
-    }
-    handleInputChange(value, event) {
-        this.setState({ value });
-    }
-    render() {
-        return (
-            <TagInput
-                inputValue={this.state.value}
-                onInputChange={(v, e) => this.handleInputChange(v, e)}
-            />
-        );
-    }
+function TagInputDemo() {
+    const [value, setValue] = useState('abc');
+    const handleInputChange = (v, e) => setValue(v);
+    return <TagInput inputValue={value} onInputChange={handleInputChange} />;
 }
 ```
 
@@ -326,30 +297,23 @@ import { TagInput } from '@douyinfe/semi-ui';
 可以使用 `blur()` 和 `focus()` 方法对焦点进行管理。
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useRef } from 'react';
 import { TagInput, Button } from '@douyinfe/semi-ui';
 
-class TagInputDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.ref = React.createRef();
-        this.handleTagInputFocus=this.handleTagInputFocus.bind(this);
-    }
+function TagInputDemo() {
+    const ref = useRef();
+    const handleTagInputFocus = () => {
+        ref.current && ref.current.focus();
+    };
 
-    handleTagInputFocus(){
-        this.ref.current.focus();
-    }
-
-    render() {
-        return (
-            <>
-                <TagInput defaultValue={['抖音', '火山']} ref={this.ref} />
-                <Button style={{ marginTop: 10 }} onClick={this.handleTagInputFocus}>
-                    点击按钮聚焦
-                </Button>
-            </>
-        );
-    }
+    return (
+        <>
+            <TagInput defaultValue={['抖音', '火山']} ref={ref} />
+            <Button style={{ marginTop: 10 }} onClick={handleTagInputFocus}>
+                点击按钮聚焦
+            </Button>
+        </>
+    );
 }
 ```
 
@@ -358,56 +322,55 @@ class TagInputDemo extends React.Component {
 可以使用 `renderTagItem` 自定义标签渲染。 `renderTagItem(value: string, index: number, onClose: function ) => React.ReactNode` 第三个参数 `onClose` 于 2.23.0 版本开始提供。
 
 ```jsx live=true
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { TagInput, Avatar } from '@douyinfe/semi-ui';
 import { IconClose } from '@douyinfe/semi-ui-icons';
 
-class CustomRender extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: ['夏可漫']
-        };
-        this.list = [
-            { "name": "夏可漫", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
-            { "name": "申悦", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
-            { "name": "曲晨一", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg" },
-            { "name": "文嘉茂", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/7abf810ff060ac3387bd027ead92c4e0.jpg" },
-        ];
-        this.mapList = new Map(this.list.map( item => [item.name, item]));
-    }
+function CustomRender() {
+    const [value, setValue] = useState(['夏可漫']);
+    const list = useMemo(() => ([
+        { "name": "夏可漫", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
+        { "name": "申悦", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
+        { "name": "曲晨一", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg" },
+        { "name": "文嘉茂", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/7abf810ff060ac3387bd027ead92c4e0.jpg" },
+    ]), []);
+    const mapList = useMemo(() => new Map(list.map(item => [item.name, item])), [list]);
 
-    renderTagItem(value, index, onClose) {
-        const data = this.mapList.get(value);
+    const renderTagItem = (value, index, onClose) => {
+        const data = mapList.get(value);
         return (
-            <div 
-                key={index} 
-                style={{ display: 'flex', alignItems: 'center', fontSize: 14, marginRight: 10 }}
+            <div
+                key={index}
+                style={{ 
+                    backgroundColor: 'var(--semi-color-info-light-default)',
+                    padding: '4px 8px',
+                    borderRadius: 12,
+                    display: 'flex', alignItems: 'center', fontSize: 14,
+                    marginRight: 10 
+                }}
             >
-                <Avatar 
+                <Avatar
                     alt='avatar'
-                    src={data?data.avatar:'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png'} 
-                    size="extra-small" 
+                    src={data ? data.avatar : 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png'}
+                    size="extra-small"
                 />
                 <span style={{ marginLeft: 8 }}>
                     {`${value}@semi.com`}
                 </span>
-                <IconClose onClick={onClose} />
+                <IconClose style={{ paddingLeft: 4, color: 'var( --semi-color-text-3)' }} size="small" onClick={onClose} />
             </div>
         );
-    }
+    };
 
-    render() {
-        const { value } = this.state;
-        return (
-            <TagInput 
-                value={value} 
-                onChange={value => this.setState({ value })}
-                renderTagItem={(value, index, onClose) => this.renderTagItem(value, index, onClose)}
-            />
-        );
-    }
+    return (
+        <TagInput
+            value={value}
+            onChange={setValue}
+            renderTagItem={renderTagItem}
+        />
+    );
 }
+
 ```
 
 ### 拖拽排序
@@ -435,42 +398,42 @@ import { TagInput } from '@douyinfe/semi-ui';
 
 |属性          |说明                                             |类型                            |默认值    |版本      |
 |-------------|-------------------------------------------------|-------------------------------|----------|--------|
-|addOnBlur    |是否在 blur 事件触发时，将当前 input 的值自动创建成 tag |boolean                        | false   |1.20.0|
-|allowDuplicates|是否允许添加相同 tag                             |boolean                         | true    |1.20.0|
-|autoFocus    |初始渲染时是否自动 focus                            |boolean                         | false    |1.29.0|
-|className    |样式类名                                          |string                         | -        |1.19.0|
-|defaultValue |初始标签                                          |string[]                        | -       |1.19.0|
-|disabled     |是否禁用                                          |boolean                        |false     |1.19.0|
-|inputValue   |当前输入框，配合 onInputChange 实现受控              |string                         | -        |1.19.0|
-|maxLength    |单个标签的最大长度                                  |number                         | -        |1.19.0|
-|max          |允许标签的最大数量                                  |number                         | -        |1.21.0|
-|maxTagCount  |标签的最大展示数量，超出后将以 +N 形式展示              |number                         | -        |1.21.0|
-|showRestTagsPopover  |当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容  |boolean     | true     |1.21.0|
-|restTagsPopoverProps |Popover 的配置属性，可以控制弹出方向、zIndex、trigger等，具体参考[Popover](/zh-CN/show/popover#API_参考)           |PopoverProps     | {}        |1.21.0|
-|showContentTooltip   |当标签长度过长发生截断时，hover 标签的时候，是否通过 Tooltip 显示全部内容, 支持 Tooltip\|Popover；opts，其他需要透传给浮层组件的属性    |boolean\|{type: 'tooltip'\|'popover', opts: object}    | true        |1.21.0|
-|placeholder  |占位默认值                                         |string                         | -         |1.19.0|
-|prefix       |前缀标签                                           |ReactNode                      |-          |1.19.0|
+|addOnBlur    |是否在 blur 事件触发时，将当前 input 的值自动创建成 tag |boolean                        | false   |-|
+|allowDuplicates|是否允许添加相同 tag                             |boolean                         | true    |-|
+|autoFocus    |初始渲染时是否自动 focus                            |boolean                         | false    |-|
+|className    |样式类名                                          |string                         | -        |-|
+|defaultValue |初始标签                                          |string[]                        | -       |-|
+|disabled     |是否禁用                                          |boolean                        |false     |-|
+|inputValue   |当前输入框，配合 onInputChange 实现受控              |string                         | -        |-|
+|maxLength    |单个标签的最大长度                                  |number                         | -        |-|
+|max          |允许标签的最大数量                                  |number                         | -        |-|
+|maxTagCount  |标签的最大展示数量，超出后将以 +N 形式展示              |number                         | -        |-|
+|showRestTagsPopover  |当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容  |boolean     | true     |-|
+|restTagsPopoverProps |Popover 的配置属性，可以控制弹出方向、zIndex、trigger等，具体参考[Popover](/zh-CN/show/popover#API_参考)           |PopoverProps     | {}        |-|
+|showContentTooltip   |当标签长度过长发生截断时，hover 标签的时候，是否通过 Tooltip 显示全部内容, 支持 Tooltip\|Popover；opts，其他需要透传给浮层组件的属性    |boolean\|{type: 'tooltip'\|'popover', opts: object}    | true        |-|
+|placeholder  |占位默认值                                         |string                         | -         |-|
+|prefix       |前缀标签                                           |ReactNode                      |-          |-|
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
-|renderTagItem|自定义标签渲染, 参数 onClose 于版本2.23.0版本提供     | <ApiType detail='(value: string, index: number, onClose: function) => React.ReactNode'>(params) => React.ReactNode</ApiType> | -  |1.19.0|
-|separator    |设置批量输入时的分隔符                               |string\|string[]                         |,    |1.19.0, string[]是从1.29.0开始支持|
-|showClear    |是否支持一键删除所有标签和输入内容                     |boolean                        |false      |1.19.0|
-|size         |设置输入框尺寸,可选: `small`、`large`、`default`     |string                          |`default` |1.19.0|
+|renderTagItem|自定义标签渲染, 参数 onClose 于版本2.23.0版本提供     | <ApiType detail='(value: string, index: number, onClose: function) => React.ReactNode'>(params) => React.ReactNode</ApiType> | -  |-|
+|separator    |设置批量输入时的分隔符                               |string\|string[]                         |,    |-|
+|showClear    |是否支持一键删除所有标签和输入内容                     |boolean                        |false      |-|
+|size         |设置输入框尺寸,可选: `small`、`large`、`default`     |string                          |`default` |-|
 |split        |自定义分隔符处理函数                              |(value: string, separator: string) => string[] | -        |2.90.0|
-|style        |内联样式                                          |React.CSSProperties                         | -        |1.19.0|
-|suffix       |后缀标签                                           |ReactNode                      |-         |1.19.0|
-|validateStatus|设置校验状态样式,可选: `default`、`warning`、`error` |string                          |`default` |1.19.0|
-|value        |当前标签，配合 onChange 实现受控                     |string[] \| undefined                       | -        |1.19.0|
+|style        |内联样式                                          |React.CSSProperties                         | -        |-|
+|suffix       |后缀标签                                           |ReactNode                      |-         |-|
+|validateStatus|设置校验状态样式,可选: `default`、`warning`、`error` |string                          |`default` |-|
+|value        |当前标签，配合 onChange 实现受控                     |string[] \| undefined                       | -        |-|
 |draggable    |设置是否可拖拽                                      |boolean                         |false      |2.17.0| 
 |expandRestTagsOnClick| 在不可拖拽的情况下，在 TagInput 被点击后是否展开多余的 Tag        |boolean                          |true       |2.17.0| 
-|onAdd        |添加标签时的回调                                     |(addedValue: string[]) => void     | -        |1.19.0|
-|onBlur       |输入框失去焦点时的回调           |(e:React.MouseEvent) => void                 | -        |1.19.0|
-|onChange     |标签变化时的回调                                     |(value:string[]) => void | -        |1.19.0|
-|onExceed     |超过 max 时的回调                           |(value:string[]) => void        | -        |1.19.0|
-|onFocus      |输入框获取焦点时的回调                                |(e:React.MouseEvent) => void               | -        |1.19.0|
-|onInputChange|输入框内容变化时的回调                                |(value:string,e: React.KeyboardEvent) => void)  | -        |1.19.0|
-|onInputExceed|超过 maxLength 时的回调                             |(value:string) => void          | -        |1.19.0|
+|onAdd        |添加标签时的回调                                     |(addedValue: string[]) => void     | -        |-|
+|onBlur       |输入框失去焦点时的回调           |(e:React.MouseEvent) => void                 | -        |-|
+|onChange     |标签变化时的回调                                     |(value:string[]) => void | -        |-|
+|onExceed     |超过 max 时的回调                           |(value:string[]) => void        | -        |-|
+|onFocus      |输入框获取焦点时的回调                                |(e:React.MouseEvent) => void               | -        |-|
+|onInputChange|输入框内容变化时的回调                                |(value:string,e: React.KeyboardEvent) => void)  | -        |-|
+|onInputExceed|超过 maxLength 时的回调                             |(value:string) => void          | -        |-|
 |onKeyDown    |keydown 回调                             |(e: React.KeyboardEvent) => void          | -        |2.1.0|
-|onRemove     |移除标签时的回调                                     |(removedValue: string, idx: number) => void     | -        |1.19.0|
+|onRemove     |移除标签时的回调                                     |(removedValue: string, idx: number) => void     | -        |-|
 
 ## Methods
 
@@ -478,8 +441,8 @@ import { TagInput } from '@douyinfe/semi-ui';
 
 |名称    |描述   |版本     |
 |-------|------|---------|
-|blur() |移出焦点|1.19.0|
-|focus()|获取焦点|1.19.0|
+|blur() |移出焦点|-|
+|focus()|获取焦点|-|
 
 ## Accessibility
 

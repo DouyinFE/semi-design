@@ -563,7 +563,7 @@ Table paging currently supports two modes: controlled and uncontrolled.
 -   In controlled mode, the paging state is passed entirely externally, depending on whether the pagination .currentPage field is passed. In general, the controlled mode is suitable for remotely pulling data and rendering.
 -   In uncontrolled mode, Table passes the incoming dataSource length as total to the Pagination component by default, and of course you can also pass a total field to overwrite the value of the Table component, but we do not recommend users to pass this field in uncontrolled paging mode.
 
-> Note: The custom `pagination.total` field passed in uncontrolled conditions is supported only after version 0.25.0.
+> Note: The custom `pagination.total` field passed in uncontrolled conditions is supported.
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useMemo } from 'react';
@@ -1623,7 +1623,7 @@ render(App);
 
 ### Custom Filter Item Rendering
 
-Since the **1.1.0** version, it is supported to pass in `renderFilterDropdownItem` to customize the rendering method of each filter item.
+It is supported to pass in `renderFilterDropdownItem` to customize the rendering method of each filter item.
 
 This method accepts an `Object` input parameter, and the meaning of each attribute is as follows:
 
@@ -1755,7 +1755,7 @@ render(App);
 ### A Table That Can Be Expanded
 
 <Notice type="primary" title="Note">
-    <div>1.  Since version `0.27.0`, the unfold button will be rendered in the same cell as the first column, and you can open a separate column of rendering by passing in `hideExpandedColumn = {false}`.</div>
+    <div>1. The unfold button will be rendered in the same cell as the first column, and you can open a separate column of rendering by passing in `hideExpandedColumn = {false}`.</div>
     <div>2. Be sure to provide a "key" for each row of data that is different from the other row values, or use the rowKey parameter to specify an attribute name as the primary key.</div>
 </Notice>
 
@@ -1908,7 +1908,6 @@ render(App);
 
 #### The Unfold Button Is Rendered In a Separated Column
 
-**Version: >= 0.27.0**
 
 By default, the expansion button will be rendered in the same cell as the first copy, and you can enter `hideExpandedColumn={false}` to render as a separate column:
 
@@ -2055,7 +2054,6 @@ render(App);
 
 #### Turn Off Rendering of Expandable Button of a Row
 
-**Version: > = 0.27.0**
 
 You can pass the row Expandable method, enter the reference as record, and determine whether the return value is false to close the rendering of the expandable button on a row.
 
@@ -2203,7 +2201,6 @@ render(App);
 
 ### Tree Data Display
 
-**Version: > = 0.27.0**
 
 The table supports the display of tree data and is automatically displayed as a tree table when there are children fields in the data. If you do not need or use other fields, you can configure it with the childrenRecordName. In addition, you can control the indent width of each layer by setting indent Size.
 
@@ -2319,7 +2316,6 @@ render(App);
 
 #### Rows of Interchangeable Tree Data
 
-**Version: > = 0.27.0**
 
 You can do row switching by changing the order of the dataSource elements.
 
@@ -2546,7 +2542,6 @@ render(App);
 
 #### Tree Selection
 
-**Version: >=0.27.0**
 
 By default, the row selection of the table is independent. You can simulate a tree selection by defining selectedRowKeys.
 
@@ -3247,7 +3242,6 @@ render(App);
 
 ### Resizable Column
 
-Version > = 0.15.0
 
 #### Basic Resizable Column
 
@@ -3813,7 +3807,7 @@ Virtualization can be used for scenes that need to render large-scale data. You 
 -   Need to pass the height of each line `virtualized.itemSize` (when not transmitting, the normal line height defaults to `56`, and the group head line height defaults to `56`), can be of the following types:
     -   `number`
     -   `(index, { sectionRow?: boolean, expandedRow?: boolean }) => number`
--   Table grouping virtualization requires version >= `0.37.0`.
+-   Table grouping virtualization is supported.
 
 The following is an example of rendering 1000 pieces of data.
 
@@ -4646,7 +4640,6 @@ render(App);
 
 ### Fully custom rendering
 
-**Version:** >=0.34.0
 
 Generally, you can use `Column.render`, but you can also pass`Column.useFullRender = true` to enable full custom rendering mode. At this time, the components such as checkbox button, expand button, indent will be Pass through to the `Column.title` and`Column.render` methods, you can further define the rendering method of the header and cell content.
 
@@ -4812,7 +4805,6 @@ render(Demo);
 
 ### Header Merge
 
-**Version: >=1.1.0**
 
 Users can use the header merge function to group the header. The header merge can be combined with fixed column, virtualization, data grouping, column scaling and other functions. It also supports JSX or configurable writing.
 
@@ -5254,47 +5246,47 @@ render(App);
 | --- |---------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
 | bordered | Whether to display outer and column borders                                                                               | boolean | false |
 | className | Outermost style name                                                                                                      | string |  |
-| clickGroupedRowToExpand | Group content expands or collapses when the group header row is clicked                                                   | boolean |  | **0.29.0** |
+| clickGroupedRowToExpand | Group content expands or collapses when the group header row is clicked                                                   | boolean |  | - |
 | columns | For a configuration description of the table column, see [Column](#Column)                                                | Column [] | [] |
 | components | Override the elements of Table, such as table, body, row, td, th, etc.                                                    | <a target="_blank" href="https://github.com/DouyinFE/semi-design/blob/340c93e4e1612a879be869c43ad7a9a85ab5a302/packages/semi-ui/table/interface.ts#L200">TableComponents</a> |  |
 | dataSource | Data. **An independent key of each data record is need, or use rowKey to specify an attribute name as the primary key**                                                                                                             | RecordType[] | [] |
 | defaultExpandAllRows | All rows are expanded by default                                                                                          | boolean | false |
-| defaultExpandAllGroupRows | All grouped rows are expanded by default                                                                                  | boolean | false | **1.30.0** |
+| defaultExpandAllGroupRows | All grouped rows are expanded by default                                                                                  | boolean | false | - |
 | defaultExpandedRowKeys | Default expansion of row key array                                                                                        | Array <\*> | [] |
 | empty | Content displayed when there is no data                                                                                   | ReactNode | ReactNode | 'No data yet. ' |
 | expandCellFixed | Whether the column of the expansion icon is fixed or not, the same value as the fixed value in Column                     | boolean\|string | false |
 | expandIcon | Custom expansion icon, hidden when it is `false`                                                                          | boolean <br/>\|ReactNode <br/>\| (expanded: boolean) => ReactNode |  |
 | expandedRowKeys | Expanded rows, the row expansion function will be controlled when this parameter is introduced.                           | (string \| number)[] |  |
 | expandedRowRender | Extra unfolding lines. **An independent key of each data record is need**                                                                                                     | (record: object, index: number, expanded: boolean) => ReactNode |  |
-| expandAllRows | All rows are expanded                                                                                                     | boolean | false | **1.30.0** |
-| expandAllGroupRows | All grouped rows are expanded                                                                                             | boolean | false | **1.30.0** |
-| expandRowByClick | Expand row when click row                                                                                                 | boolean | false | **1.31.0** |
+| expandAllRows | All rows are expanded                                                                                                     | boolean | false | - |
+| expandAllGroupRows | All grouped rows are expanded                                                                                             | boolean | false | - |
+| expandRowByClick | Expand row when click row                                                                                                 | boolean | false | - |
 | footer | End of form                                                                                                               | string<br/>\|ReactNode<br/>\|(pageData: object) => string\|ReactNode |  |
-| groupBy | Grouping basis, generally a method of a key name or a return value of a string or number in the dataSource element        | string\|number<br/>\|(record: any) => string\|number |  | **0.29.0** |
+| groupBy | Grouping basis, generally a method of a key name or a return value of a string or number in the dataSource element        | string\|number<br/>\|(record: any) => string\|number |  | - |
 | hideExpandedColumn | Whether to hide the expansion button column and turn off the rendering of the expansion button when it is turned on       | boolean | true |
 | indentSize | indent size of TableCell                                                                                                  | number | 20 |
 | keepDOM | Whether to not destroy the collapsed DOM when folding a row                                                               | boolean | false |
 | loading | Table is loading or not                                                                                                   | boolean | false |
 | pagination | Paging component configuration                                                                                            | boolean\|TablePaginationProps | true |
 | prefixCls | Style name prefix                                                                                                         | string |  |
-| renderGroupSection | Header rendering method                                                                                                   | (groupKey?: string \| number, group?: string[] \| number[]) => ReactNode |  | **0.29.0** |
-| renderPagination | Customize the rendering method of pagination.                                                                             | (paginationProps?: TablePaginationProps) => ReactNode |  | **1.13.0** |
+| renderGroupSection | Header rendering method                                                                                                   | (groupKey?: string \| number, group?: string[] \| number[]) => ReactNode |  | - |
+| renderPagination | Customize the rendering method of pagination.                                                                             | (paginationProps?: TablePaginationProps) => ReactNode |  | - |
 | resizable | Whether to turn on the telescopic column function, the column that needs to be telescopic must provide the value of width | boolean\|[Resizable](#Resizable) | false |
-| rowExpandable | Whether the row can be expanded, turning off the rendering of the expandable button when the value is false               | (record: RecordType): => boolean | () => true | **0.27.0** |
+| rowExpandable | Whether the row can be expanded, turning off the rendering of the expandable button when the value is false               | (record: RecordType): => boolean | () => true | - |
 | rowKey | The value of the table row key, which can be a string or a function.                                                      | string \| (record: RecordType) => string | 'key' |
 | rowSelection | See [rowSelection](#rowSelection)                                                                                         | object | null |
 | scroll | Whether the table is scrollable, configure the width or height of the scroll area, see [scroll](#scroll)                  | object | - |
 | showHeader | Does it show the header?                                                                                                  | boolean | true |
-| size | Table size, will effect the `padding` of the rows                                                                         | "default"\|"middle"\|"small" | "default" | **1.0.0** |
+| size | Table size, will effect the `padding` of the rows                                                                         | "default"\|"middle"\|"small" | "default" | - |
 | sticky | fixed header                                                                                                              | boolean \| { top: number } | false | **2.21.0** |
 | title | Table Title                                                                                                               | string<br/>\|ReactNode<br/>\|(pageData: RecordType[]) => string\|ReactNode |  |
-| virtualized | Virtualization settings                                                                                                   | Virtualized | false | **0.33.0** |
-| virtualized.itemSize | Row height                                                                                                                | number\|(index: number) => number | 56 | **0.33.0** |
-| virtualized.onScroll | Virtualization scroll callback method                                                                                     | ( scrollDirection?: 'forward' \| 'backward', scrollOffset?: number, scrollUpdateWasRequested?: boolean ) => void |  | **0.33.0** |
+| virtualized | Virtualization settings                                                                                                   | Virtualized | false | - |
+| virtualized.itemSize | Row height                                                                                                                | number\|(index: number) => number | 56 | - |
+| virtualized.onScroll | Virtualization scroll callback method                                                                                     | ( scrollDirection?: 'forward' \| 'backward', scrollOffset?: number, scrollUpdateWasRequested?: boolean ) => void |  | - |
 | onChange | Trigger when paging, sorting, filtering changes. extra.changeType is supported in v2.72                                                                           | ({ pagination: TablePaginationProps, <br/>filters: Array<\*>, sorter: object, extra: { changeType: 'sorter' \| 'filter' \| 'pagination' } }) => void |  |
-| onExpand | Trigger when clicking on the row expansion icon                                                                           | (expanded: boolean, record: RecordType, DOMEvent: MouseEvent) => void |  | The third parameter DOMEvent requires version **>=0.28.0** |
+| onExpand | Trigger when clicking on the row expansion icon                                                                           | (expanded: boolean, record: RecordType, DOMEvent: MouseEvent) => void |  | - |
 | onExpandedRowsChange | Triggers when unfolding row changes                                                                                       | (rows: RecordType[]) => void |  |
-| onGroupedRow | Similar to onRow, but this parameter is used to define the row attribute of the grouping header alone                     | (record: RecordType, index: number) => object |  | **0.29.0** |
+| onGroupedRow | Similar to onRow, but this parameter is used to define the row attribute of the grouping header alone                     | (record: RecordType, index: number) => object |  | - |
 | onHeaderRow | Set the header row property, and the returned object is merged to the header line                                         | (columns: Column[], index: number) => object |  |
 | onRow | Set the row property, and the returned object is merged to the table row                                                  | (record: RecordType, index: number) => object |  |
 
@@ -5407,10 +5399,10 @@ import { Table } from '@douyinfe/semi-ui';
 | colSpan | When header columns merge, set to 0, do not render | number |  |
 | dataIndex | The key corresponding to the column data in the data item. It is required when using sorter or filter. | string |  |
 | defaultFilteredValue | Default value of the filter, the filter state of the external control column with a value of the screened value array | any[] |  | **2.5.0** |
-| defaultSortOrder | The default value of sortOrder, one of 'ascend'\|'descend'\|false | boolean\| string | false | **1.31.0** |
+| defaultSortOrder | The default value of sortOrder, one of 'ascend'\|'descend'\|false | boolean\| string | false | - |
 | direction | RTL, LTR direction, the default value is equal to ConfigProvider direction, you can configure the direction of the Table separately here | 'ltr' \| 'rtl' |  | **2.31.0** |
 | ellipsis | Ellipsis Text, table-layout will automatically switch to fixed after it is turned on | boolean\| { showTitle: boolean } | false | **2.34.0** |
-| filterChildrenRecord | Whether the child data needs to be filtered locally. If this function is enabled, if the child meets the filtering criteria, the parent will retain it even if it does not meet the criteria. | boolean |  | **0.29.0** |
+| filterChildrenRecord | Whether the child data needs to be filtered locally. If this function is enabled, if the child meets the filtering criteria, the parent will retain it even if it does not meet the criteria. | boolean |  | - |
 | filterDropdown | You can customize the filter menu. This function is only responsible for rendering the layer and needs to write a variety of interactions. | ReactNode |  |
 | filterDropdownProps | Props passing to Dropdown, see more in [Dropdown API](/en-US/show/dropdown#Dropdown) | object |  |
 | filterDropdownVisible | Visible of Dropdown, see more in [Dropdown API](/en-US/show/dropdown#Dropdown) | boolean |  |
@@ -5422,16 +5414,16 @@ import { Table } from '@douyinfe/semi-ui';
 | key | The key required by React, if a unique dataIndex has been set, can ignore this property | string |  |
 | render | A rendering function that generates complex data, the parameters are the value of the current row, the current row data, the row index, and the table row / column merge can be set in return object | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode }) => React\|object |  |
 | renderFilterDropdown | Custom filter dropdown panel, for usage details, see [Custom Filter Rendering](#Custom-Filter-Rendering) | (props?: RenderFilterDropdownProps) => React.ReactNode; | - | **2.52.0** |
-| renderFilterDropdownItem | Customize the rendering method of each filter item. For usage details, see [Custom Filter Item Rendering](#Custom-Filter-Item-Rendering) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | **1.1.0** |
+| renderFilterDropdownItem | Customize the rendering method of each filter item. For usage details, see [Custom Filter Item Rendering](#Custom-Filter-Item-Rendering) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | - |
 | resize | Whether to enable resize mode, this property will take effect only after Table resizable is enabled | boolean |  | **2.42.0** |
 | showSortTip | Whether to display sorting tips, If sortOrder is set and sorting is controlled, this parameter will not take effect | boolean | false | **2.65.0** |
-| sortChildrenRecord | Whether to sort child data locally | boolean |  | **0.29.0** |
+| sortChildrenRecord | Whether to sort child data locally | boolean |  | - |
 | sortOrder | The controlled property of the sorting, the sorting of this control column can be set to 'ascend'\|'descended '\|false | boolean | false |
 | sorter | Sorting function, local sorting uses a function (refer to the compareFunction of Array.sort), requiring a server-side sorting can be set to true. **An independent dataIndex must be set for the sort column, and an independent key must be set for each data item in the dataSource** | boolean\|(r1: RecordType, r2: RecordType, sortOrder: 'ascend' \| 'descend') => number | true |
 | sortIcon |Customize the sort icon. The returned node controls the entire sort button, including ascending and descending buttons. Need to control highlighting behavior based on sortOrder | (props: { sortOrder }) => ReactNode | | **2.50.0** |
 | shouldCellUpdate | Self control whether cell should be updated | (props: TableCellProps, prevProps: TableCellProps) => boolean | | **2.71.0** |
-| title | Column header displays text. When a function is passed in, title will use the return value of the function; when other types are passed in, they will be aggregated with sorter and filter. It needs to be used with useFullRender to obtain parameters such as filter in the function type | string \| ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode. |  | Function type requires **0.34.0** |
-| useFullRender | Whether to completely customize the rendering, see [Full Custom Rendering](#Fully-custom-rendering) for usage details, enabling this feature will cause a certain performance loss | boolean | false | **0.34.0** |
+| title | Column header displays text. When a function is passed in, title will use the return value of the function; when other types are passed in, they will be aggregated with sorter and filter. It needs to be used with useFullRender to obtain parameters such as filter in the function type | string \| ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode. |  | - |
+| useFullRender | Whether to completely customize the rendering, see [Full Custom Rendering](#Fully-custom-rendering) for usage details, enabling this feature will cause a certain performance loss | boolean | false | - |
 | width | Column width | string \| number |  |
 | onCell | Set cell properties | (record: RecordType, rowIndex: number) => object |  |
 | onFilter | Determine the running function of the filter in local mode. **An independent dataIndex must be set for the filter column, and an independent key must be set for each data item in the dataSource** | (filteredValue: any, record: RecordType) => boolean |  |
@@ -5458,7 +5450,7 @@ type Filter = {
 | disabled | Disabled `Checkbox` in `Table` header or not. | boolean | false | **0.32.0** |
 | fixed | Secure the selection box column to the left. | boolean | false |
 | getCheckboxProps | Default property configuration for the selection box | (record: RecordType) => object |  |  |
-| hidden | Hide selection column or not | boolean | false | **0.34.0** |
+| hidden | Hide selection column or not | boolean | false | - |
 | selectedRowKeys | Specifies the key array of the selected item, which needs to work with onChange | string [] |  |  |
 | shouldCellUpdate | Self control whether cell should be updated | (props: TableCellProps, prevProps: TableCellProps) => boolean | | **2.71.0** |
 | renderCell         | Custom rendering checkbox                                                                                 | ({ selected: boolean, record: RecordType, originNode: JSX.Element, inHeader: boolean, disabled: boolean, indeterminate: boolean, index?: number, selectRow?: (selected: boolean, e: Event) => void, selectAll?: (selected: boolean, e: Event) => void }) => ReactNode |        |      **2.52.0**      |
@@ -5472,7 +5464,7 @@ type Filter = {
 
 | Parameters               | Instructions                                                                                         | Type           | Default | Version |
 |--------------------------|------------------------------------------------------------------------------------------------------|----------------|---------|---------|
-| scrollToFirstRowOnChange | Whether to automatically scroll to the top of the table after paging, sorting, and filtering changes | boolean        | false   | 1.1.0   |
+| scrollToFirstRowOnChange | Whether to automatically scroll to the top of the table after paging, sorting, and filtering changes | boolean        | false   | -   |
 | x                        | Set the width of the horizontal scroll area, which can be pixel value, percentage, or 'max-content'  | string\|number |         |         |
 | y                        | Set the height of the vertical scroll area, which can be a pixel value                               | number         |         |         |
 
@@ -5485,11 +5477,11 @@ Note: After pagination.onChange is set, Table onChange no longer responds to pag
 | Parameters         | Instructions                                                                                                                                                                                                                                                | Type                                                                                         | Default | Version     |
 |--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|---------|-------------|
 | currentPage        | Current page number                                                                                                                                                                                                                                         | number                                                                                       | -       |             |
-| defaultCurrentPage | Default current page number                                                                                                                                                                                                                                 | number                                                                                       | 1       | **>=1.1.0** |
-| formatPageText     | Page-turning area copywriting custom formatting, pass false to close copywriting display; This item affects the copy display on the left of the page turning area of the form. It is different from the `showTotal` parameter of the`Pagination` component. | boolean\| ({ currentStart: number, currentEnd: number, total: number }) => string\|ReactNode | true    | **0.27.0**  |
+| defaultCurrentPage | Default current page number                                                                                                                                                                                                                                 | number                                                                                       | 1       | - |
+| formatPageText     | Page-turning area copywriting custom formatting, pass false to close copywriting display; This item affects the copy display on the left of the page turning area of the form. It is different from the `showTotal` parameter of the`Pagination` component. | boolean\| ({ currentStart: number, currentEnd: number, total: number }) => string\|ReactNode | true    | -  |
 | pageSize           | Number of entries per page                                                                                                                                                                                                                                  | number                                                                                       | 10      |             |
 | position | Location | 'bottom '\|'top '\|'both' | 'bottom' |
-| total | Total number of entries | number | 0 | **>=0.25.0** |
+| total | Total number of entries | number | 0 | - |
 
 For other configurations, see [Pagination](/en-US/navigation/pagination#API-Reference)
 
@@ -5538,7 +5530,7 @@ function Demo() {
 
 | Parameters           | Instructions                                                                                                                         | Version |
 |----------------------|--------------------------------------------------------------------------------------------------------------------------------------|---------|
-| getCurrentPageData() | Returns the data object of the current page: { dataSource: RecordType[], groups: Map<{groupKey: string, recordKeys: Set<string\>}> } | 0.37.0  |
+| getCurrentPageData() | Returns the data object of the current page: { dataSource: RecordType[], groups: Map<{groupKey: string, recordKeys: Set<string\>}> } | -  |
 
 ## Accessibility
 

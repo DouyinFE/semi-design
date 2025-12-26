@@ -52,43 +52,33 @@ import { Radio } from '@douyinfe/semi-ui';
 ### Disabled
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Radio, Button } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            disabled: true,
-        };
-        this.toggleDisabled = this.toggleDisabled.bind(this);
-    }
+() => {
+    const [disabled, setDisabled] = useState(true);
 
-    toggleDisabled() {
-        this.setState({
-            disabled: !this.state.disabled,
-        });
-    }
+    const toggleDisabled = () => {
+        setDisabled(!disabled);
+    };
 
-    render() {
-        return (
-            <div>
-                <Radio defaultChecked={false} disabled={this.state.disabled} aria-label="Radio demo" name="demo-radio-disabled">
-                    Disabled
-                </Radio>
-                <br />
-                <Radio defaultChecked disabled={this.state.disabled} aria-label="Radio demo" name="demo-radio-defaultChecked-disabled">
-                    Disabled
-                </Radio>
-                <div style={{ marginTop: 20 }}>
-                    <Button type="primary" onClick={this.toggleDisabled} aria-label="Radio demo">
-                        Toggle disabled
-                    </Button>
-                </div>
+    return (
+        <div>
+            <Radio defaultChecked={false} disabled={disabled} aria-label="Radio demo" name="demo-radio-disabled">
+                Disabled
+            </Radio>
+            <br />
+            <Radio defaultChecked disabled={disabled} aria-label="Radio demo" name="demo-radio-defaultChecked-disabled">
+                Disabled
+            </Radio>
+            <div style={{ marginTop: 20 }}>
+                <Button type="primary" onClick={toggleDisabled} aria-label="Radio demo">
+                    Toggle disabled
+                </Button>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 ```
 
 ### Advanced Mode
@@ -96,35 +86,25 @@ class App extends React.Component {
 You can set `mode='advanced'` to allow options be able to unchecked when clicked again.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Radio } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            checked: true,
-        };
-        this.onChange = this.onChange.bind(this);
-    }
+() => {
+    const [checked, setChecked] = useState(true);
 
-    onChange(e) {
+    const onChange = (e) => {
         console.log('radio checked', e.target.checked);
-        this.setState({
-            checked: e.target.checked,
-        });
-    }
+        setChecked(e.target.checked);
+    };
 
-    render() {
-        return (
-            <div>
-                <Radio checked={this.state.checked} mode="advanced" onChange={this.onChange} aria-label="Radio demo" name="demo-radio-advanced">
-                    Click Again to Uncheck
-                </Radio>
-            </div>
-        );
-    }
-}
+    return (
+        <div>
+            <Radio checked={checked} mode="advanced" onChange={onChange} aria-label="Radio demo" name="demo-radio-advanced">
+                Click Again to Uncheck
+            </Radio>
+        </div>
+    );
+};
 ```
 
 ### Mutually Exclusive Set
@@ -132,35 +112,26 @@ class App extends React.Component {
 You can use `RadioGroup` to create a set of mutually exclusive options.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: 1,
-        };
-        this.onChange = this.onChange.bind(this);
-    }
-    onChange(e) {
+() => {
+    const [value, setValue] = useState(1);
+    
+    const onChange = (e) => {
         console.log('radio checked', e.target.value);
-        this.setState({
-            value: e.target.value,
-        });
-    }
+        setValue(e.target.value);
+    };
 
-    render() {
-        return (
-            <RadioGroup onChange={this.onChange} value={this.state.value} aria-label="RadioGroup demo" name="demo-radio-group">
-                <Radio value={1}>A</Radio>
-                <Radio value={2}>B</Radio>
-                <Radio value={3}>C</Radio>
-                <Radio value={4}>D</Radio>
-            </RadioGroup>
-        );
-    }
-}
+    return (
+        <RadioGroup onChange={onChange} value={value} aria-label="RadioGroup demo" name="demo-radio-group">
+            <Radio value={1}>A</Radio>
+            <Radio value={2}>B</Radio>
+            <Radio value={3}>C</Radio>
+            <Radio value={4}>D</Radio>
+        </RadioGroup>
+    );
+};
 ```
 
 ### vertical arrangement
@@ -183,74 +154,56 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 ### Button Style
 
-version: >=1.26.0
 
 You can use `type='button'` to set the button style type radio, and the button type radio supports three sizes.
 
 It should be noted that the button type radio selector does not support auxiliary text (`extra`) and vertical arrangement (`direction='vertical'`).
 
 ```jsx live=true dir="column"
-import React from 'react';
+import React, { useState } from 'react';
 import { Radio, RadioGroup, Space } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value1: 1,
-            value2: 1,
-            value3: 1,
-        };
-        this.onChange1 = this.onChange1.bind(this);
-        this.onChange2 = this.onChange2.bind(this);
-        this.onChange3 = this.onChange3.bind(this);
-    }
+() => {
+    const [value1, setValue1] = useState(1);
+    const [value2, setValue2] = useState(1);
+    const [value3, setValue3] = useState(1);
 
-    onChange1(e) {
-        this.setState({
-            value1: e.target.value,
-        });
-    }
+    const onChange1 = (e) => {
+        setValue1(e.target.value);
+    };
 
-    onChange2(e) {
-        this.setState({
-            value2: e.target.value,
-        });
-    }
+    const onChange2 = (e) => {
+        setValue2(e.target.value);
+    };
 
-    onChange3(e) {
-        this.setState({
-            value3: e.target.value,
-        });
-    }
+    const onChange3 = (e) => {
+        setValue3(e.target.value);
+    };
 
-    render() {
-        return (
-            <Space vertical spacing="loose" align="start">
-                <RadioGroup type="button" buttonSize="small" onChange={this.onChange1} value={this.state.value1} aria-label="RadioGroup demo" name="demo-radio-small">
-                    <Radio value={1}>Instant push</Radio>
-                    <Radio value={2}>Timed push</Radio>
-                    <Radio value={3}>Dynamic push</Radio>
-                </RadioGroup>
-                <RadioGroup type="button" buttonSize="middle" onChange={this.onChange2} value={this.state.value2} aria-label="RadioGroup demo" name="demo-radio-middle">
-                    <Radio value={1}>Instant push</Radio>
-                    <Radio value={2}>Timed push</Radio>
-                    <Radio value={3}>Dynamic push</Radio>
-                </RadioGroup>
-                <RadioGroup type="button" buttonSize="large" onChange={this.onChange3} value={this.state.value3} aria-label="RadioGroup demo" name="demo-radio-large">
-                    <Radio value={1}>Instant push</Radio>
-                    <Radio value={2}>Timed push</Radio>
-                    <Radio value={3}>Dynamic push</Radio>
-                </RadioGroup>
-            </Space>
-        );
-    }
-}
+    return (
+        <Space vertical spacing="loose" align="start">
+            <RadioGroup type="button" buttonSize="small" onChange={onChange1} value={value1} aria-label="RadioGroup demo" name="demo-radio-small">
+                <Radio value={1}>Instant push</Radio>
+                <Radio value={2}>Timed push</Radio>
+                <Radio value={3}>Dynamic push</Radio>
+            </RadioGroup>
+            <RadioGroup type="button" buttonSize="middle" onChange={onChange2} value={value2} aria-label="RadioGroup demo" name="demo-radio-middle">
+                <Radio value={1}>Instant push</Radio>
+                <Radio value={2}>Timed push</Radio>
+                <Radio value={3}>Dynamic push</Radio>
+            </RadioGroup>
+            <RadioGroup type="button" buttonSize="large" onChange={onChange3} value={value3} aria-label="RadioGroup demo" name="demo-radio-large">
+                <Radio value={1}>Instant push</Radio>
+                <Radio value={2}>Timed push</Radio>
+                <Radio value={3}>Dynamic push</Radio>
+            </RadioGroup>
+        </Space>
+    );
+};
 ```
 
 ### Card Style
 
-version: >=1.30.0
 
 You can set `type='card'` to `RadioGroup` to achieve card style with background.
 
@@ -276,7 +229,6 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 ### Pure Card Style
 
-version: >=1.30.0
 
 You can set `type='pureCard'` to `RadioGroup` to achieve a pure card style with background and no radio.
 
@@ -304,67 +256,52 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 You can pass an array of options to `RadioGroup` using `options` property to create a set.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { RadioGroup } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value1: 'Guest',
-            value2: 'Developer',
-            value3: 'Maintainer',
-        };
-        this.plainOptions = ['Guest', 'Developer', 'Maintainer'];
-        this.options = [
-            { label: 'Guest', value: 'Guest', extra: 'Semi Design', style: { width: 120 } },
-            { label: 'Developer', value: 'Developer', extra: 'Semi Design', style: { width: 120 } },
-            { label: 'Maintainer', value: 'Maintainer', extra: 'Semi Design', style: { width: 120 } },
-        ];
-        this.optionsWithDisabled = [
-            { label: 'Guest', value: 'Guest' },
-            { label: 'Developer', value: 'Developer' },
-            { label: 'Maintainer', value: 'Maintainer', disabled: true },
-        ];
-        this.onChange1 = this.onChange1.bind(this);
-        this.onChange2 = this.onChange2.bind(this);
-        this.onChange3 = this.onChange3.bind(this);
-    }
-    onChange1(e) {
+() => {
+    const [value1, setValue1] = useState('Guest');
+    const [value2, setValue2] = useState('Developer');
+    const [value3, setValue3] = useState('Maintainer');
+    const plainOptions = ['Guest', 'Developer', 'Maintainer'];
+    const options = [
+        { label: 'Guest', value: 'Guest', extra: 'Semi Design', style: { width: 120 } },
+        { label: 'Developer', value: 'Developer', extra: 'Semi Design', style: { width: 120 } },
+        { label: 'Maintainer', value: 'Maintainer', extra: 'Semi Design', style: { width: 120 } },
+    ];
+    const optionsWithDisabled = [
+        { label: 'Guest', value: 'Guest' },
+        { label: 'Developer', value: 'Developer' },
+        { label: 'Maintainer', value: 'Maintainer', disabled: true },
+    ];
+    
+    const onChange1 = (e) => {
         console.log('radio1 checked', e.target.value);
-        this.setState({
-            value1: e.target.value,
-        });
-    }
+        setValue1(e.target.value);
+    };
 
-    onChange2(e) {
+    const onChange2 = (e) => {
         console.log('radio2 checked', e.target.value);
-        this.setState({
-            value2: e.target.value,
-        });
-    }
+        setValue2(e.target.value);
+    };
 
-    onChange3(e) {
+    const onChange3 = (e) => {
         console.log('radio3 checked', e.target.value);
-        this.setState({
-            value3: e.target.value,
-        });
-    }
+        setValue3(e.target.value);
+    };
 
-    render() {
-        return (
-            <div>
-                <RadioGroup options={this.plainOptions} onChange={this.onChange1} value={this.state.value1} aria-label="RadioGroup demo" name="demo-radio-group-1"/>
-                <br />
-                <br />
-                <RadioGroup options={this.optionsWithDisabled} onChange={this.onChange2} value={this.state.value2} aria-label="RadioGroup demo" name="demo-radio-group-2"/>
-                <br />
-                <br />
-                <RadioGroup options={this.options} onChange={this.onChange3} value={this.state.value3}aria-label="RadioGroup demo" name="demo-radio-group-3"/>
-            </div>
-        );
-    }
-}
+    return (
+        <div>
+            <RadioGroup options={plainOptions} onChange={onChange1} value={value1} aria-label="RadioGroup demo" name="demo-radio-group-1"/>
+            <br />
+            <br />
+            <RadioGroup options={optionsWithDisabled} onChange={onChange2} value={value2} aria-label="RadioGroup demo" name="demo-radio-group-2"/>
+            <br />
+            <br />
+            <RadioGroup options={options} onChange={onChange3} value={value3} aria-label="RadioGroup demo" name="demo-radio-group-3"/>
+        </div>
+    );
+};
 ```
 
 ## API Reference
@@ -373,9 +310,9 @@ class App extends React.Component {
 
 | PROPERTIES | Instructions | Type | Default |
 | --- | --- | --- | --- |
-| addonClassName | classname of content wrapper<br/>**provided after v1.16.0** | string |  |
+| addonClassName | classname of content wrapper | string |  |
 | addonId | id of addon node, aria-labelledby refers to this id, if not set, it will generate an id randomly  <br/>**provided after v2.11.0**                                 | string            |       |
-| addonStyle | inline style of content wrapper<br/>**provided after v1.16.0** | object |  |
+| addonStyle | inline style of content wrapper | object |  |
 | aria-label      | Label of Radio                                                            | string           | -  |
 | autoFocus | Automatically focus the form control when the page is loaded | boolean | false |
 | checked | Specify whether it is currently selected | boolean | false |
@@ -398,17 +335,17 @@ class App extends React.Component {
 | PROPERTIES | Instructions | Type | Default |
 | --- | --- | --- | --- |
 | aria-label      | Label of RadioGroup                                                            | string           | -  |
-| buttonSize | The size of the button type radio， one of `small`、`middle`、`large` <br/>**Provided after v1.26.0** | string | `middle` |
+| buttonSize | The size of the button type radio， one of `small`、`middle`、`large` | string | `middle` |
 | className | Class name | string |  |
 | defaultValue | Options selected by default | string \| number | - |
-| direction | Arrangement direction of Radio, optional 'horizontal' / 'vertical', <br/>**provided after v0.31.0** | string | 'horizontal' |
+| direction | Arrangement direction of Radio, optional 'horizontal' / 'vertical' | string | 'horizontal' |
 | disabled | Disable the entire group | boolean | false |
-| mode | In advanced mode, options can be clicked to uncheck, one of `advanced`<br/>**provided after v1.9.0** | string | - |
+| mode | In advanced mode, options can be clicked to uncheck, one of `advanced` | string | - |
 | name | The `name` attribute for all `input[type="radio"]` in RadioGroup | string | - |
 | options | Set child options through configuration | Array | - |
 | style | Inline style | CSSProperties |  |
 | value | Used to set the currently selected value | string \| number | - |
-| type | Set the type of radio, one of `default`, `button`, `card`, `pureCard` <br/>**This api is provided after v1.26.0, and card and pureCard are in v1.30.0 Provided after ** | string | `default` |
+| type | Set the type of radio, one of `default`, `button`, `card`, `pureCard` | string | `default` |
 | onChange | Callback function when the selected option changes | Function (e: Event) | - |
 ## Methods
 

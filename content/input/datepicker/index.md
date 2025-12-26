@@ -479,77 +479,71 @@ import { DatePicker } from '@douyinfe/semi-ui';
 </Notice>
 
 ```jsx live=true
-import React from 'react';
+import React, { useCallback } from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 import * as dateFns from 'date-fns';
 import { range } from 'lodash-es';
 
-class App extends React.Component {
-    constructor(props = {}) {
-        super(props);
+function App() {
+    const today = useCallback(() => new Date(), []);
 
-        this.today = () => new Date();
+    const nextValidMonth = useCallback(() => {
+        const nextValidDate = today();
+        nextValidDate.setMonth((nextValidDate.getMonth() + 1) % 12);
+        return nextValidDate;
+    }, [today]);
 
-        this.nextValidMonth = () => {
-            const nextValidDate = this.today();
-            nextValidDate.setMonth((nextValidDate.getMonth() + 1) % 12);
-            return nextValidDate;
-        };
-
-        this.disabledTime = date =>
-            dateFns.isToday(date)
-                ? {
-                    disabledHours: () => [17, 18],
-                    disabledMinutes: hour => (19 === hour ? range(0, 10, 1) : []),
-                    disabledSeconds: (hour, minute) => (hour === 20 && minute === 20 ? range(0, 20, 1) : []),
-                }
-                : null;
-
-        this.disabledTime2 = (date, panelType) => {
-            if (panelType === 'left') {
-                return { disabledHours: () => [17, 18] };
-            } else {
-                return { disabledHours: () => [12, 13, 14, 15, 16, 17, 18] };
+    const disabledTime = useCallback((date) => (
+        dateFns.isToday(date)
+            ? {
+                disabledHours: () => [17, 18],
+                disabledMinutes: hour => (19 === hour ? range(0, 10, 1) : []),
+                disabledSeconds: (hour, minute) => (hour === 20 && minute === 20 ? range(0, 20, 1) : []),
             }
-        };
+            : null
+    ), []);
 
-        this.disabledDate = date => {
-            const deadDate = this.today();
-            const month = deadDate.getMonth();
-            deadDate.setDate(28);
-            deadDate.setMonth((month + 1) % 12);
-            return date.getTime() < deadDate.getTime();
-        };
-    }
+    const disabledTime2 = useCallback((date, panelType) => {
+        if (panelType === 'left') {
+            return { disabledHours: () => [17, 18] };
+        }
+        return { disabledHours: () => [12, 13, 14, 15, 16, 17, 18] };
+    }, []);
 
-    render() {
-        return (
+    const disabledDate = useCallback((date) => {
+        const deadDate = today();
+        const month = deadDate.getMonth();
+        deadDate.setDate(28);
+        deadDate.setMonth((month + 1) % 12);
+        return date.getTime() < deadDate.getTime();
+    }, [today]);
+
+    return (
+        <div>
             <div>
-                <div>
-                    <h4>禁用时间：禁用今天下午5-6点</h4>
-                    <DatePicker type="dateTime" hideDisabledOptions={false} disabledTime={this.disabledTime} />
-                </div>
-                <div>
-                    <h4>禁用时间：两个面板禁用不同时间</h4>
-                    <DatePicker
-                        type="dateTimeRange"
-                        hideDisabledOptions={false}
-                        disabledTime={this.disabledTime2}
-                        style={{ width: 400 }}
-                    />
-                </div>
-                <div>
-                    <h4>禁用日期：禁用下个月28号之前的所有日期</h4>
-                    <DatePicker
-                        type="dateTimeRange"
-                        disabledDate={this.disabledDate}
-                        defaultPickerValue={this.nextValidMonth()}
-                        style={{ width: 400 }}
-                    />
-                </div>
+                <h4>禁用时间：禁用今天下午5-6点</h4>
+                <DatePicker type="dateTime" hideDisabledOptions={false} disabledTime={disabledTime} />
             </div>
-        );
-    }
+            <div>
+                <h4>禁用时间：两个面板禁用不同时间</h4>
+                <DatePicker
+                    type="dateTimeRange"
+                    hideDisabledOptions={false}
+                    disabledTime={disabledTime2}
+                    style={{ width: 400 }}
+                />
+            </div>
+            <div>
+                <h4>禁用日期：禁用下个月28号之前的所有日期</h4>
+                <DatePicker
+                    type="dateTimeRange"
+                    disabledDate={disabledDate}
+                    defaultPickerValue={nextValidMonth()}
+                    style={{ width: 400 }}
+                />
+            </div>
+        </div>
+    );
 }
 ```
 

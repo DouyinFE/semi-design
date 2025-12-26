@@ -44,14 +44,12 @@ const data = `{
     "name": "Semi",
     "version": "0.0.0"
 }`;
-class SimpleJsonViewer extends React.Component {
-    render() {
-        return (
-            <div style={{ marginBottom: 16 }}>
-                <JsonViewer height={100} width={700} value={data} />
-            </div>
-        );
-    }
+function SimpleJsonViewer() {
+    return (
+        <div style={{ marginBottom: 16 }}>
+            <JsonViewer height={100} width={700} value={data} />
+        </div>
+    );
 }
 
 render(SimpleJsonViewer);
@@ -68,22 +66,20 @@ const data = `{
     "name": "Semi",
     "version": "0.0.0"
 }`;
-class SimpleJsonViewerWithLineHeight extends React.Component {
-    render() {
-        return (
-            <div>
-                <div style={{ marginBottom: 20 }}>
-                    <JsonViewer height={100} width={700} value={data} options={{ lineHeight: 20 }} />
-                </div>
-                <div style={{ marginBottom: 20 }}>
-                    <JsonViewer height={120} width={700} value={data} options={{ lineHeight: 24 }} />
-                </div>
-                <div style={{ marginBottom: 20 }}>
-                    <JsonViewer height={120} width={700} value={data} options={{ lineHeight: 26 }} />
-                </div>
+function SimpleJsonViewerWithLineHeight() {
+    return (
+        <div>
+            <div style={{ marginBottom: 20 }}>
+                <JsonViewer height={100} width={700} value={data} options={{ lineHeight: 20 }} />
             </div>
-        );
-    }
+            <div style={{ marginBottom: 20 }}>
+                <JsonViewer height={120} width={700} value={data} options={{ lineHeight: 24 }} />
+            </div>
+            <div style={{ marginBottom: 20 }}>
+                <JsonViewer height={120} width={700} value={data} options={{ lineHeight: 26 }} />
+            </div>
+        </div>
+    );
 }
 
 render(SimpleJsonViewerWithLineHeight);
@@ -101,14 +97,12 @@ const data = `{
     "version": "0.0.0",
     "description": "Semi Design is a design system that defines a set of mid_back design and front_end basic components."
 }`;
-class SimpleJsonViewerWithAutoWrap extends React.Component {
-    render() {
-        return (
-            <div style={{ marginBottom: 16 }}>
-                <JsonViewer height={120} width={700} value={data} options={{ autoWrap: true }} />
-            </div>
-        );
-    }
+function SimpleJsonViewerWithAutoWrap() {
+    return (
+        <div style={{ marginBottom: 16 }}>
+            <JsonViewer height={120} width={700} value={data} options={{ autoWrap: true }} />
+        </div>
+    );
 }
 
 render(SimpleJsonViewerWithAutoWrap);

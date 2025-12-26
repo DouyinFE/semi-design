@@ -273,7 +273,7 @@ render(Demo);
 
 ### 销毁所有
 
-全局销毁 ( >= 0.25.0 )：
+全局销毁：
 
 -   `Toast.destroyAll()`
 
@@ -347,11 +347,11 @@ function Demo() {
 render(Demo);
 ```
 
-全局销毁 ( >= 0.25.0 )：
+全局销毁：
 
 -   `Toast.destroyAll()`
 
-消费 Context ( >= 1.2.0 )：
+消费 Context：
 
 -   `Toast.useToast()`  
     当你需要使用 Context 时，可以通过 Toast.useToast 创建一个 contextHolder 插入相应的节点中。此时通过 hooks 创建的 Toast 将会得到 contextHolder 所在位置的所有上下文。创建的 toast 对象拥有与以下方法：`info`, `success`, `warning`, `error`, `close`。
@@ -361,7 +361,7 @@ render(Demo);
 
 组件提供的静态方法，使用方式和参数如下：展示：可以直接传入 `options` 对象或 `string`：
 
-**全局配置, 在调用前提前配置，全局一次生效 ( >= 0.25.0 )**
+**全局配置, 在调用前提前配置，全局一次生效**
 -   `Toast.config(config)` 
 
 **直接展示 Toast**
@@ -387,9 +387,9 @@ render(Demo);
 | 属性           | 说明            | 类型       | 默认值 | 版本     |
 |--------------|---------------|----------| --- |--------|
 | content      | 提示内容          | ReactNode | '' |        |
-| icon         | 自定义图标         | ReactNode |  | 0.25.0 |
-| showClose    | 是否展示关闭按钮      | boolean  | true | 0.25.0 |
-| textMaxWidth | 内容的最大宽度       | number \| string | 450 | 0.25.0 |
+| icon         | 自定义图标         | ReactNode |  | - |
+| showClose    | 是否展示关闭按钮      | boolean  | true | - |
+| textMaxWidth | 内容的最大宽度       | number \| string | 450 | - |
 | onClose      | toast 关闭的回调函数 | () => void |  |        |
 | stack        | 是否堆叠 Toast    | boolean  | false | 2.42.0 |
 | id           | 自定义 ToastId   | number   |  |  |
@@ -400,14 +400,14 @@ render(Demo);
 
 | 属性 | 说明                                                                                                                    | 类型 | 默认值 | 版本     |
 | --- |-----------------------------------------------------------------------------------------------------------------------| --- | --- |--------|
-| bottom | 弹出位置 bottom                                                                                                           | number \| string | - | 0.25.0 |
-| left | 弹出位置 left                                                                                                             | number \| string | - | 0.25.0 |
-| right | 弹出位置 right                                                                                                            | number \| string | - | 0.25.0 |
-| top | 弹出位置 top                                                                                                              | number \| string | - | 0.25.0 |
+| bottom | 弹出位置 bottom                                                                                                           | number \| string | - | - |
+| left | 弹出位置 left                                                                                                             | number \| string | - | - |
+| right | 弹出位置 right                                                                                                            | number \| string | - | - |
+| top | 弹出位置 top                                                                                                              | number \| string | - | - |
 | zIndex | 弹层 z-index 值                                                                                                          | number | 1010 |        |
 | theme | 填充样式，支持 `light`, `normal`                                                                                             | string | `normal` | 2.54.0 |
 | duration | 自动关闭的延时，单位 s，设为 0 时不自动关闭                                                                                              | number | 3 |        |
-| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 container 和 内部的 .semi-toast-wrapper `position: relative`, 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。 | () => HTMLElement \| null | () => document.body | 0.34.0 |
+| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 container 和 内部的 .semi-toast-wrapper `position: relative`, 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。 | () => HTMLElement \| null | () => document.body | - |
 
 ## Accessibility
 

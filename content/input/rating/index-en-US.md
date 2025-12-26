@@ -92,42 +92,35 @@ import { Rating } from '@douyinfe/semi-ui';
 Use `tooltips` to add description to Rating.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Rating } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor(props) {
-        super();
-        this.state = { value: 0 };
-        this.handleChange = this.handleChange.bind(this);
-    }
+() => {
+    const [value, setValue] = useState(0);
+    const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+    
+    const handleChange = (val) => {
+        setValue(val);
+    };
 
-    handleChange(value) {
-        this.setState({ value });
-    }
-
-    render() {
-        const { value } = this.state;
-        const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
-        return (
-            <div>
-                <span>
-                    How was the help you received:
-                    {value ? <span>{desc[value - 1]}</span> : ''}
-                </span>
-                <br />
-                <Rating tooltips={desc} onChange={this.handleChange} value={value} />
-            </div>
-        );
-    }
-}
+    return (
+        <div>
+            <span>
+                How was the help you received:
+                {value ? <span>{desc[value - 1]}</span> : ''}
+            </span>
+            <br />
+            <Rating tooltips={desc} onChange={handleChange} value={value} />
+        </div>
+    );
+};
 ```
 
 ### Customize
 
 You can customize characters, numbers of rating and size.
 
-> **v >= 0.35.0** Note that customized size could only work with customized characters.
+> Note that customized size could only work with customized characters.
 
 ```jsx live=true
 import React from 'react';
@@ -169,7 +162,7 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 | defaultValue  | Default value                                                                         | number                  | 0                                        |
 | disabled      | Read-only, disable interaction.                                                       | boolean                 | false                                    |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
-| size          | Size, one of `default`, `small`, **v >= 0.35.0** could use number for customized size | string\| number         | `default`                                |
+| size          | Size, one of `default`, `small`, could use number for customized size | string\| number         | `default`                                |
 | style         | Inline style                                                                          | object                  | -                                        |
 | tooltips      | Customize prompted information for each item                                          | String[]                | -                                        |
 | value         | Controlled value                                                                      | number                  | -                                        |

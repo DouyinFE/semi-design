@@ -21,7 +21,7 @@ import { Empty } from '@douyinfe/semi-ui';
 
 By setting a placeholder image with `image`, you can manually import the corresponding illustration from `@douyinfe/semi-illustrations` (the default width and height of the illustration is 200x200), or you can import a custom illustration.
 
-After **v>=1.13.0**, a series of dark mode illustrations are added, and the illustrations that need to be used in dark mode can be passed in through `darkModeImage` to better adapt to the dark mode.
+A series of dark mode illustrations are added, and the illustrations that need to be used in dark mode can be passed in through `darkModeImage` to better adapt to the dark mode.
 
 ```jsx live=true dir="column"
 import React from 'react';

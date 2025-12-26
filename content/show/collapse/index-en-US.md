@@ -180,9 +180,9 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | collapseIcon | Custom collapsing icons | ReactNode | `<IconChevronDown />` | -       |
 | defaultActiveKey | Key of the expanded panel when initialized | string \| string[] | - | -       |
 | expandIcon | Custom expanding icon | ReactNode | `<IconChevronUp />` | -       |
-| keepDOM | Whether to keep the hidden panel in DOM tree, destroyed by default | boolean | `false` | 0.25.0  |
-| motion | Toggle whether to have animation | boolean | `true` | 1.4.0   |
-| expandIconPosition | Expand icon position | `left`, `right` | `right` | 1.12.0  |
+| keepDOM | Whether to keep the hidden panel in DOM tree, destroyed by default | boolean | `false` | -  |
+| motion | Toggle whether to have animation | boolean | `true` | -   |
+| expandIconPosition | Expand icon position | `left`, `right` | `right` | -  |
 | lazyRender | Used with keepDOM, when true, the component will not be rendered when mounting                                         | boolean | `false` | 2.54.1  |
 | style | Inline CSS style | CSSProperties | {} | -       |
 | onChange | Callback function when switching panel | function(activeKey: string \| string[], e: event) | - | -       |
@@ -196,7 +196,7 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | header | Panel head content                                                                                                      | ReactNode | - | -             ||
 | itemKey | Required and must be unique, used to match `activeKey`, `defaultActiveKey`                                              | string | - |               |
 | onMotionEnd | Animation end callback                                                                                                  | () => void | - | 2.47.0-beta.0 |
-| reCalcKey | When reCalcKey changes, the height of children will be reset. Used for optimize dynamic content rendering.              | string \| number |-| 1.5.0         |
+| reCalcKey | When reCalcKey changes, the height of children will be reset. Used for optimize dynamic content rendering.              | string \| number |-| -         |
 | showArrow | whether to show arrows icon                                                                                             | boolean                 |  true  | v2.17.0       |
 | style | inline CSS style                                                                                                        | CSSProperties | - |               |
 
