@@ -1,7 +1,7 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { Attachment, BaseSkill, Suggestion, Reference, Content, LeftMenuChangeProps, MessageContent } from './interface';
 import { get, isNumber, isString } from 'lodash';
-import { cssClasses } from './constants';
+import { cssClasses, strings } from './constants';
 import { findSkillSlotInString, getSkillSlotString, transformJSONResult } from './utils';
 
 export interface AIChatInputAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -338,6 +338,7 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
 
     handRichTextArealKeyDown = (view: any, event: KeyboardEvent) => {
         // console.log('outer key down handle');
+        const { sendHotKey } = this.getProps();
         const { suggestionVisible, skillVisible } = this.getStates();
         /**
          * 当建议/技能面板可见时候，上下按键，enter 按键被用于操作面板选项的 active 项，或做选中操作的，
@@ -351,11 +352,11 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
         }
         const editor = this._adapter.getEditor() ?? {};
         const allowHotKeySend = get(editor, 'storage.SemiAIChatInput.allowHotKeySend');
-        if (event.key === 'Enter' && !event.shiftKey && allowHotKeySend) {
+        if (event.key === 'Enter' && (sendHotKey === strings.SEND_HOTKEY.ENTER ? !event.shiftKey : event.shiftKey) && allowHotKeySend) {
             this.handleSend();
             return true;
         }
-        if (event.key === 'Enter' && event.shiftKey) {
+        if (event.key === 'Enter' && (sendHotKey === strings.SEND_HOTKEY.ENTER ? event.shiftKey : !event.shiftKey)) {
             /**
              * Tiptap 默认情况下 Enter + Shift 时候是使用 <br /> 实现换行
              * 为保证自定义的一些逻辑生效（比如零宽字符的插入），Enter + Shift 希望实现通过新建 p 标签的方式完成换行

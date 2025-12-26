@@ -78,7 +78,8 @@ export interface AIChatInputProps {
     // transformer
     transformer?: Map<string, (obj: any) => any>;
     // Popover related
-    popoverProps?: PopoverProps
+    popoverProps?: PopoverProps;
+    sendHotKey?: 'enter' | 'shift+enter'
 }
 
 export interface RenderSuggestionItemProps {
