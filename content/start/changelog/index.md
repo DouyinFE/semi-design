@@ -17,6 +17,20 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 - 【Fix】
     - 修复 AIChatInput 中当 generating 为 true 时，按下 enter 会错误调用 onStopGenerate 回调问题 [#3089](https://github.com/DouyinFE/semi-design/pull/3089)
 
+#### 🎉 2.90.0-beta.0 (2025-12-15)
+- 【Feat】
+    - AIChatInput 新增加 showUploadButton API 用于控制是否展示上传按钮 [#3073](https://github.com/DouyinFE/semi-design/pull/3073)
+    - AIChatInput 中的 Configure.Mcp 新增加 showConfigure API 用于设置是否显示配置按钮 [#3059](https://github.com/DouyinFE/semi-design/issues/3059)
+    - AIChatInput 新增加 keepSkillAfterSend 用于设置是否在发送时候删除技能 [#3046](https://github.com/DouyinFE/semi-design/pull/3046)
+    - AIChatInput 新增加 immediatelyRender API [#3056](https://github.com/DouyinFE/semi-design/issues/3056) 
+    - Chat 组件新增加 canSend API [#3063](https://github.com/DouyinFE/semi-design/pull/3063)
+    - TagInput 支持 split API 用于支持用户自定义分隔符处理函数 [#2983](https://github.com/DouyinFE/semi-design/issues/2983)
+- 【Fix】
+    - 修复在 vite 项目中使用 AIChatDialogue 组件报错 "Prism is not defined" 问题 [#3085](https://github.com/DouyinFE/semi-design/pull/3085)
+    - 修复多层 Table 嵌套时候，外层 Table 的 bordered 设置为 true 导致内层 Table 也有边框问题 [#3082](https://github.com/DouyinFE/semi-design/issues/3082) 
+- 【Docs】
+    - 修正 Feedback API 列表参数类型错误[@yihouhgz](https://github.com/yihouhgz) [#3081](https://github.com/DouyinFE/semi-design/pull/3081)
+
 #### 🎉 2.89.0 (2025-12-05)
 - 【Fix】
     - 修复向空的 inputSlot 中粘贴内容时候，仅粘贴了文本，无 inputSlot 样式问题  [#3049](https://github.com/DouyinFE/semi-design/issues/3049) [#3050](https://github.com/DouyinFE/semi-design/pull/3050)

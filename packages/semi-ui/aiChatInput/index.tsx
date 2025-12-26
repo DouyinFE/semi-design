@@ -55,6 +55,8 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
         round: true,
         topSlotPosition: 'top',
         sendHotKey: strings.SEND_HOTKEY.ENTER,
+        keepSkillAfterSend: false,
+        showUploadButton: true,
     }
 
     constructor(props: AIChatInputProps) {
@@ -204,14 +206,14 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
     }
 
     componentDidUpdate(prevProps: Readonly<AIChatInputProps>): void {
-        const { suggestions } = this.props;
+        const { suggestions, keepSkillAfterSend } = this.props;
         if (!isEqual(suggestions, prevProps.suggestions)) {
             const newVisible = (suggestions && suggestions.length > 0) ? true : false;
             newVisible ? this.foundation.showSuggestionPanel() :
                 this.foundation.hideSuggestionPanel();
         }
         if (this.props.generating && (this.props.generating !== prevProps.generating)) {
-            this.adapter.clearContent();
+            keepSkillAfterSend ? this.setContentWhileSaveTool('') : this.adapter.clearContent();
             this.adapter.clearAttachments();
         }
     }
@@ -550,12 +552,12 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
     }
 
     renderRightFooter = () => {
-        const { renderActionArea } = this.props;
+        const { renderActionArea, showUploadButton } = this.props;
         const actionCls = `${prefixCls}-footer-action`;
         const actionNode = [
-            this.renderUploadButton(),
+            showUploadButton && this.renderUploadButton(),
             this.renderSendButton(),
-        ];
+        ].filter(Boolean);
         if (renderActionArea) {
             return renderActionArea({
                 menuItem: actionNode,
@@ -578,7 +580,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
     render() {
         const { direction } = this.context;
         const defaultPosition = direction === 'rtl' ? 'bottomRight' : 'bottomLeft';
-        const { style, className, popoverProps, placeholder, extensions, defaultContent } = this.props;
+        const { style, className, popoverProps, placeholder, extensions, defaultContent, immediatelyRender } = this.props;
         const { templateVisible, skillVisible, suggestionVisible, popupKey } = this.state;
        
         return (
@@ -606,6 +608,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
                 >
                     {this.renderTopArea()}
                     <RichTextInput
+                        immediatelyRender={immediatelyRender}
                         innerRef={this.richTextDIVRef}
                         defaultContent={defaultContent}
                         placeholder={placeholder}

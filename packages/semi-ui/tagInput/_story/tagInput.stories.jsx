@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Toast, Icon, Button, Avatar, Form, Popover, SideSheet, Modal, TagInput, Switch } from '../../index';
-import { IconGift, IconVigoLogo, IconClose } from '@douyinfe/semi-icons';
+import { IconGift, IconVigoLogo, IconClose, IconCopy } from '@douyinfe/semi-icons';
+import copy from 'copy-text-to-clipboard';
+
 const style = {
   width: 400,
   marginTop: 10,
@@ -591,4 +593,39 @@ export const longTextItemDraggable = () => {
       style={{ width: 300 }} 
     />
   )
+}
+
+export const customSplit = () => {
+  
+  const split = (value, separator) => {
+    // custom split logic
+    // 这是一个简单的测试用例，假设 separator 为 ','，不想被拆分的,前面用了 '/' 反义字符做标识
+    const uniqueSeparator = 'uniq_semi_tag_input_separator';
+    const uniqueSeparator2 = 'uniq2_semi_tag_input_separator';
+    let temp = value.replace(new RegExp('/,', 'g'), uniqueSeparator);
+    temp = temp.replace(new RegExp(',', 'g'), uniqueSeparator2);
+    temp = temp.replace(new RegExp(uniqueSeparator, 'g'), ',');
+    return temp.split(uniqueSeparator2);
+  }
+
+  const clickToCopy = useCallback(() => {
+    copy('test1,test2,test3/,3, test4');
+  }, []);
+
+  return (
+    <>
+     <div>点击获取测试数据<Button theme='borderless' type='primary' onClick={clickToCopy} icon={<IconCopy />} /></div>
+     <TagInput 
+      separator={','}
+      placeholder='单个标签长度不超过5...'  
+      style={{ marginTop: 12, width: 400 }}
+      onChange={v => console.log(v)}
+      split={split}
+      onInputExceed={v => {
+          Toast.warning('超过 maxLength');
+          console.log(v);
+      }} 
+    />
+    </>
+  );
 }

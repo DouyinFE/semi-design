@@ -26,6 +26,7 @@ export type PlaceholderProps = string | ((props: { editor: Editor; node: Node; p
 
 export interface AIChatInputProps {
     dropdownMatchTriggerWidth?: boolean;
+    keepSkillAfterSend: boolean;
     className?: string;
     style?: React.CSSProperties;
     // Rich text editor related
@@ -48,6 +49,7 @@ export interface AIChatInputProps {
     topSlotPosition?: 'top' | 'middle' | 'bottom';
     showUploadFile?: boolean;
     showReference?: boolean;
+    showUploadButton?: boolean;
     // Operate area related
     round?: boolean; // full round for footer operate/configure button
     canSend?: boolean; // custom can send
@@ -79,7 +81,8 @@ export interface AIChatInputProps {
     transformer?: Map<string, (obj: any) => any>;
     // Popover related
     popoverProps?: PopoverProps;
-    sendHotKey?: 'enter' | 'shift+enter'
+    sendHotKey?: 'enter' | 'shift+enter';
+    immediatelyRender?: boolean
 }
 
 export interface RenderSuggestionItemProps {

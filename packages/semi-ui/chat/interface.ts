@@ -29,6 +29,7 @@ export interface CommonChatsProps {
 export interface ChatProps extends CommonChatsProps {
     style?: React.CSSProperties;
     className?: string;
+    canSend?: boolean;
     hints?: string[];
     renderHintBox?: (props: {content: string; index: number;onHintClick: () => void}) => React.ReactNode;
     onHintClick?: (hint: string) => void;
@@ -158,6 +159,7 @@ export interface ChatBoxProps extends Omit<CommonChatsProps, "chats"> {
 }
 
 export interface InputBoxProps {
+    canSend?: boolean;
     showClearContext?: boolean;
     sendHotKey?: 'enter' | 'shift+enter';
     placeholder: string;

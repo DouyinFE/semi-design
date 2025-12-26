@@ -1609,6 +1609,7 @@ render(DefaultChat);
 |------|--------|-------|-------|
 | align | 对话布局方式，支持 `leftRight`、`leftAlign` | string | `leftRight` |
 | bottomSlot | 底部插槽 | React.ReactNode | - |
+| canSend | 发送按钮是否可以发送。通常无需设置，由内部逻辑决定。如有设置，以此设置为准，v2.90.0 新增 | boolean |
 | chatBoxRenderConfig | chatBox 渲染配置 | ChatBoxRenderConfig | - |
 | chats | 受控对话列表 | Message | - |
 | className | 自定义类名 | string | - |

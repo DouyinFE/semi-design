@@ -328,7 +328,7 @@ function ConfigureButton() {
     const renderLeftMenu = useCallback(() => (<>
         <Configure.Select optionList={modelOptions} field="model" initValue="GPT-4o" />
         <Configure.Button icon={<IconBookOpenStroked />} field="onlineSearch">联网搜索</Configure.Button>
-        <Configure.Mcp options={mcpOptions} onConfigureButtonClick={onConfigureButtonClick}/>
+        <Configure.Mcp options={mcpOptions} onConfigureButtonClick={onConfigureButtonClick} showConfigure={true}/>
         <Configure.RadioButton options={radioButtonProps} field="thinkType" initValue="fast"/>
     </>), []);
 
@@ -1555,6 +1555,7 @@ render(<CustomRichTextExtension />);
 | defaultContent | 输入框默认内容，支持 html string 以及 json 格式，同 Tiptap 的 Content | TiptapContent | - |
 | dropdownMatchTriggerWidth | 下拉弹出层是否是否与输入框宽度一致 | boolean | true |
 | extensions | 自定义扩展，类型同 tiptap 的 Extension 类型相同 | Extension[] | - |
+| immediatelyRender | 作为 tiptap 的 userEditor 的参数， 如果为 SSR 场景，需要设置此参数为 false，参考 [use-ssr-with-react-and-tiptap](https://tiptap.dev/docs/editor/getting-started/install/react#use-ssr-with-react-and-tiptap) | boolean | - |
 | generating | 是否正在生成中 | boolean | false |
 | onContentChange | 输入框内容变化时候的回调 | (content: <ApiType detail='{ type: string; [key: string]: any }'>OnContentChangeProps</ApiType>) => void | - |
 | onMessageSend | 发送消息回调 | (content: <ApiType detail='{references?: Reference[]; attachments?: Attachment[]; inputContents?: Content[]; setup?: Setup}'>OnMessageSendProps</ApiType>) => void | - |
@@ -1582,6 +1583,7 @@ render(<CustomRichTextExtension />);
 | sendHotKey | 发送输入内容的键盘快捷键，支持 `enter` \| `shift+enter`。前者在单独按下 enter 将发送输入框中的消息， shift 和 enter 按键同时按下时，仅换行，不发送。后者相反 | string | `enter` |
 | showReference | 是否展示引用区域，用于配合 renderTopSlot 使用 | boolean | true |
 | showTemplateButton | 是否展示模板按钮，未设置时，将根据当前选中技能中的 hasTemplate 决定是否展示模版按钮 | boolean | false |
+| showUploadButton | 是否显示右侧上传按钮，自 2.90.0 支持 | boolean | true |
 | showUploadFile | 是否展示上传文件区域，用于配合 renderTopSlot 使用 | boolean | true |
 | skillHotKey | 输入框中触发技能的热键 | string | - |
 | skills | 技能列表 | Skill[] | - |
@@ -1593,6 +1595,22 @@ render(<CustomRichTextExtension />);
 | transformer | 自定义扩展的转换规则 | Map<string, (obj: any) => any> | |
 | uploadProps | 上传文件相关配置 | UploadProps | - |
 | uploadTipProps | 上传文件相关提示配置 | UploadTipProps | - |
+
+### Configure.Select
+同 [ButtonProps](/zh-CN/input/select)
+
+### Configure.Button
+同 [ButtonProps](/zh-CN/basic/button#Button)
+
+### Configure.RadioButton
+同 [RadioGroupProps](/zh-CN/input/radio#RadioGroup)
+
+### Configure.Mcp
+| 属性 | 说明 | 类型 | 默认值 |
+|-----|----|------|-------|
+| options | mcp 选项 | McpOption | - |
+| showConfigure | 是否显示配置按钮, v2.89.0 新增 | boolean | true |
+| onConfigureButtonClick | 点击配置按钮的回调 | () => void | - |
 
 ## Methods
 
