@@ -2,10 +2,11 @@ import { ReactNode } from "react";
 import { OnChangeProps, UploadProps } from "../upload";
 import { TooltipProps } from "../tooltip";
 import { BaseSkill, Reference, Suggestion, Attachment, Content, Setup, LeftMenuChangeProps, RichTextJSON, MessageContent } from "@douyinfe/semi-foundation/aiChatInput/interface";
-import { Extensions } from "@tiptap/core";
+import { Editor, Extensions } from "@tiptap/core";
 import { Content as TiptapContent } from "@tiptap/core";
 import { PopoverProps } from "../popover";
 export * from "@douyinfe/semi-foundation/aiChatInput/interface";
+import { Node } from '@tiptap/pm/model';
 
 export interface AIChatInputState {
     templateVisible: boolean;
@@ -21,12 +22,14 @@ export interface AIChatInputState {
     richTextInit?: boolean
 }
 
+export type PlaceholderProps = string | ((props: { editor: Editor; node: Node; pos: number; hasAnchor: boolean }) => string);
+
 export interface AIChatInputProps {
     dropdownMatchTriggerWidth?: boolean;
     className?: string;
     style?: React.CSSProperties;
     // Rich text editor related
-    placeholder?: string;
+    placeholder?: PlaceholderProps;
     extensions?: Extensions;
     onContentChange?: (contents: Content[]) => void;
     defaultContent?: TiptapContent;

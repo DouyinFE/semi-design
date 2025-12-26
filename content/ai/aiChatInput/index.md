@@ -1566,7 +1566,7 @@ render(<CustomRichTextExtension />);
 | onTemplateVisibleChange | 模板弹出层可见性变化回调 | (visible: boolean) => void | - |
 | onUploadChange | 上传文件相关回调 | (props: OnChangeProps) => void | - |
 | popoverProps | 下拉弹出层的配置参数 | PopoverProps | - |
-| placeholder | 输入框占位符 | string | - |
+| placeholder | 输入框占位符 | string \| (props: <ApiType detail='{ editor: Editor; node: Node; pos: number; hasAnchor: boolean }'>PlaceholderProps</ApiType>) => string | - |
 | references | 输入框引用列表 | Reference[] | - |
 | renderActionArea | 自定义底部的操作区域 | () => React.ReactNode | - |
 | renderConfigureArea | 自定义底部的配置区域 | () => React.ReactNode | - |
