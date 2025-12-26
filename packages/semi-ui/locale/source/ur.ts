@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'ٹیمپلیٹ',
         configure: 'تشکیل کریں',
         selected: '${count} آئٹمز منتخب کی گئیں',
+    },
+    ClientAI: {
+        deepThink: 'گہری سوچ',
+        loading: 'لوڈ ہو رہا ہے',
+        loadingProgress: 'ماڈل لوڈنگ کی پیشرفت',
+        loadError: 'لوڈنگ میں خرابی',
+        inputPlaceholder: 'پیغام درج کریں...',
+        roleUser: 'صارف',
+        roleAssistant: 'AI اسسٹنٹ',
+        roleSystem: 'نظام',
     }
 };
 

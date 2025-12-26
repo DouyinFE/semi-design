@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'टेंप्लेट',
         configure: 'कॉन्फ़िगर करें',
         selected: '${count} आइटम चुने गए',
+    },
+    ClientAI: {
+        deepThink: 'गहरी सोच',
+        loading: 'लोड हो रहा है',
+        loadingProgress: 'मॉडल लोडिंग प्रगति',
+        loadError: 'लोड त्रुटि',
+        inputPlaceholder: 'संदेश दर्ज करें...',
+        roleUser: 'उपयोगकर्ता',
+        roleAssistant: 'AI सहायक',
+        roleSystem: 'सिस्टम',
     }
 };
 

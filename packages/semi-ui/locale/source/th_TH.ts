@@ -230,6 +230,16 @@ const local: Locale = {
         template: 'ลายฉลุ',
         configure: 'การกำหนดค่า',
         selected: '${count} รายการที่เลือก',
+    },
+    ClientAI: {
+        deepThink: 'การคิดอย่างลึกซึ้ง',
+        loading: 'กำลังโหลด',
+        loadingProgress: 'ความคืบหน้าการโหลดโมเดล',
+        loadError: 'ข้อผิดพลาดในการโหลด',
+        inputPlaceholder: 'ใส่ข้อความ...',
+        roleUser: 'ผู้ใช้',
+        roleAssistant: 'ผู้ช่วย AI',
+        roleSystem: 'ระบบ',
     }
 };
 

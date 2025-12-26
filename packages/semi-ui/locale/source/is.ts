@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Sniðmát',
         configure: 'Stilla',
         selected: '${count} atriði valin',
+    },
+    ClientAI: {
+        deepThink: 'Djúp hugsun',
+        loading: 'Hleður',
+        loadingProgress: 'Framvinda hleðslu líkans',
+        loadError: 'Hleðsluvilla',
+        inputPlaceholder: 'Sláðu inn skilaboð...',
+        roleUser: 'Notandi',
+        roleAssistant: 'AI aðstoðarmaður',
+        roleSystem: 'Kerfi',
     }
 };
 

@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'ពុម្ពគំរូ',
         configure: 'កំណត់រចនាសម្ព័ន្ធ',
         selected: 'បានជ្រើសរើសធាតុ ${count}',
+    },
+    ClientAI: {
+        deepThink: 'ការគិតស៊ីជម្រៅ',
+        loading: 'កំពុងផ្ទុក',
+        loadingProgress: 'ដំណើរការផ្ទុកគំរូ',
+        loadError: 'កំហុសផ្ទុក',
+        inputPlaceholder: 'បញ្ចូលសារ...',
+        roleUser: 'អ្នកប្រើប្រាស់',
+        roleAssistant: 'ជំនួយការ AI',
+        roleSystem: 'ប្រព័ន្ធ',
     }
 };
 

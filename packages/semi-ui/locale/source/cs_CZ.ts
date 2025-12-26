@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Šablona',
         configure: 'Nastavení',
         selected: 'Vybrané položky (${count})',
+    },
+    ClientAI: {
+        deepThink: 'Hluboké přemýšlení',
+        loading: 'Načítání',
+        loadingProgress: 'Průběh načítání modelu',
+        loadError: 'Chyba načítání',
+        inputPlaceholder: 'Zadejte zprávu...',
+        roleUser: 'Uživatel',
+        roleAssistant: 'AI asistent',
+        roleSystem: 'Systém',
     }
 };
 

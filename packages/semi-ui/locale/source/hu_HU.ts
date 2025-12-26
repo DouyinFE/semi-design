@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Sablon',
         configure: 'Beállítás',
         selected: '${count} elem kiválasztva',
+    },
+    ClientAI: {
+        deepThink: 'Mély gondolkodás',
+        loading: 'Betöltés',
+        loadingProgress: 'Modell betöltési folyamat',
+        loadError: 'Betöltési hiba',
+        inputPlaceholder: 'Írja be az üzenetet...',
+        roleUser: 'Felhasználó',
+        roleAssistant: 'AI asszisztens',
+        roleSystem: 'Rendszer',
     }
 };
 

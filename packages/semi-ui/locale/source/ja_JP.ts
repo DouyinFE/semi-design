@@ -227,6 +227,16 @@ const local: Locale = {
         template: 'テンプレート',
         configure: '設定',
         selected: '選択された ${count} 個',
+    },
+    ClientAI: {
+        deepThink: '深い思考',
+        loading: '読み込み中',
+        loadingProgress: 'モデル読み込み進捗',
+        loadError: '読み込みエラー',
+        inputPlaceholder: 'メッセージを入力...',
+        roleUser: 'ユーザー',
+        roleAssistant: 'AI アシスタント',
+        roleSystem: 'システム',
     }
 };
 

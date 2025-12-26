@@ -227,6 +227,16 @@ const local: Locale = {
         template: '템플릿',
         configure: '설정',
         selected: '선택된 ${count} 개',
+    },
+    ClientAI: {
+        deepThink: '깊은 사고',
+        loading: '로딩 중',
+        loadingProgress: '모델 로딩 진행률',
+        loadError: '로딩 오류',
+        inputPlaceholder: '메시지 입력...',
+        roleUser: '사용자',
+        roleAssistant: 'AI 어시스턴트',
+        roleSystem: '시스템',
     }
 };
 

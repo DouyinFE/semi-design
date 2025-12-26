@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Mal',
         configure: 'Konfigurer',
         selected: '${count} elementer er valgt',
+    },
+    ClientAI: {
+        deepThink: 'Dyp tenkning',
+        loading: 'Laster',
+        loadingProgress: 'Modelllastingsfremgang',
+        loadError: 'Lastingsfeil',
+        inputPlaceholder: 'Skriv inn melding...',
+        roleUser: 'Bruker',
+        roleAssistant: 'AI-assistent',
+        roleSystem: 'System',
     }
 };
 

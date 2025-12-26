@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Mall',
         configure: 'Konfigureeri',
         selected: 'Valitud ${count} elementi',
+    },
+    ClientAI: {
+        deepThink: 'Sügav mõtlemine',
+        loading: 'Laadimine',
+        loadingProgress: 'Mudeli laadimise edenemine',
+        loadError: 'Laadimise viga',
+        inputPlaceholder: 'Sisestage sõnum...',
+        roleUser: 'Kasutaja',
+        roleAssistant: 'AI abiline',
+        roleSystem: 'Süsteem',
     }
 };
 

@@ -226,5 +226,15 @@ export interface Locale {
         template: string;
         configure: string;
         selected: string
+    };
+    ClientAI: {
+        deepThink: string;
+        loading: string;
+        loadingProgress: string;
+        loadError: string;
+        inputPlaceholder: string;
+        roleUser: string;
+        roleAssistant: string;
+        roleSystem: string
     }
 }

@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'תבנית',
         configure: 'הגדרת תצורה',
         selected: 'נבחרו ${count} פריטים',
+    },
+    ClientAI: {
+        deepThink: 'חשיבה עמוקה',
+        loading: 'טוען',
+        loadingProgress: 'התקדמות טעינת המודל',
+        loadError: 'שגיאת טעינה',
+        inputPlaceholder: 'הזן הודעה...',
+        roleUser: 'משתמש',
+        roleAssistant: 'עוזר AI',
+        roleSystem: 'מערכת',
     }
 };
 

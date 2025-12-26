@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Kiolezo',
         configure: 'Weka mipangilio',
         selected: 'Umechagua vipengee ${count}',
+    },
+    ClientAI: {
+        deepThink: 'Fikiri kwa kina',
+        loading: 'Inapakia',
+        loadingProgress: 'Maendeleo ya kupakia muundo',
+        loadError: 'Hitilafu ya kupakia',
+        inputPlaceholder: 'Ingiza ujumbe...',
+        roleUser: 'Mtumiaji',
+        roleAssistant: 'Msaidizi wa AI',
+        roleSystem: 'Mfumo',
     }
 };
 

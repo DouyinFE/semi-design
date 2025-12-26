@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Үлгі',
         configure: 'Теңшеу',
         selected: '${count} элемент таңдалды',
+    },
+    ClientAI: {
+        deepThink: 'Терең ойлау',
+        loading: 'Жүктелуде',
+        loadingProgress: 'Модельді жүктеу барысы',
+        loadError: 'Жүктеу қатесі',
+        inputPlaceholder: 'Хабарламаны енгізіңіз...',
+        roleUser: 'Пайдаланушы',
+        roleAssistant: 'AI көмекшісі',
+        roleSystem: 'Жүйе',
     }
 };
 

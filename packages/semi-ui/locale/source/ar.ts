@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'القالب',
         configure: 'التكوين',
         selected: 'تم اختيار ${count} عناصر',
+    },
+    ClientAI: {
+        deepThink: 'تفكير عميق',
+        loading: 'جاري التحميل',
+        loadingProgress: 'تقدم تحميل النموذج',
+        loadError: 'خطأ في التحميل',
+        inputPlaceholder: 'أدخل الرسالة...',
+        roleUser: 'المستخدم',
+        roleAssistant: 'مساعد الذكاء الاصطناعي',
+        roleSystem: 'النظام',
     }
 };
 

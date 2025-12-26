@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'قالب',
         configure: 'پیکربندی',
         selected: 'مواردی {count} دلاری انتخاب‌شده',
+    },
+    ClientAI: {
+        deepThink: 'تفکر عمیق',
+        loading: 'در حال بارگذاری',
+        loadingProgress: 'پیشرفت بارگذاری مدل',
+        loadError: 'خطای بارگذاری',
+        inputPlaceholder: 'پیام را وارد کنید...',
+        roleUser: 'کاربر',
+        roleAssistant: 'دستیار هوش مصنوعی',
+        roleSystem: 'سیستم',
     }
 };
 

@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Πρότυπο',
         configure: 'Ρύθμιση',
         selected: 'Έγινε επιλογή ${count} στοιχείων',
+    },
+    ClientAI: {
+        deepThink: 'Βαθιά σκέψη',
+        loading: 'Φόρτωση',
+        loadingProgress: 'Πρόοδος φόρτωσης μοντέλου',
+        loadError: 'Σφάλμα φόρτωσης',
+        inputPlaceholder: 'Εισάγετε μήνυμα...',
+        roleUser: 'Χρήστης',
+        roleAssistant: 'Βοηθός AI',
+        roleSystem: 'Σύστημα',
     }
 };
 

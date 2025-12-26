@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Stensil',
         configure: 'Konfigurasi',
         selected: '${count} item dipilih',
+    },
+    ClientAI: {
+        deepThink: 'Berfikir mendalam',
+        loading: 'Memuatkan',
+        loadingProgress: 'Kemajuan muat turun model',
+        loadError: 'Ralat muat turun',
+        inputPlaceholder: 'Masukkan mesej...',
+        roleUser: 'Pengguna',
+        roleAssistant: 'Pembantu AI',
+        roleSystem: 'Sistem',
     }
 };
 

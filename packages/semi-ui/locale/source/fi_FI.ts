@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Malli',
         configure: 'Määritä',
         selected: 'Valitut ${count} kohdetta',
+    },
+    ClientAI: {
+        deepThink: 'Syvä ajattelu',
+        loading: 'Ladataan',
+        loadingProgress: 'Mallin latausprosessi',
+        loadError: 'Latausvirhe',
+        inputPlaceholder: 'Kirjoita viesti...',
+        roleUser: 'Käyttäjä',
+        roleAssistant: 'AI-avustaja',
+        roleSystem: 'Järjestelmä',
     }
 };
 

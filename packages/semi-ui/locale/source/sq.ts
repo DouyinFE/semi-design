@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Shabllon',
         configure: 'Konfiguro',
         selected: 'Janë përzgjedhur ${count} artikuj',
+    },
+    ClientAI: {
+        deepThink: 'Mendim i thellë',
+        loading: 'Duke u ngarkuar',
+        loadingProgress: 'Progresi i ngarkimit të modelit',
+        loadError: 'Gabim ngarkimi',
+        inputPlaceholder: 'Shkruani mesazhin...',
+        roleUser: 'Përdoruesi',
+        roleAssistant: 'Asistent AI',
+        roleSystem: 'Sistemi',
     }
 };
 

@@ -227,6 +227,16 @@ const local: Locale = {
         template: 'Template',
         configure: 'I-configure',
         selected: 'Napili ang ${count} ka mga aytem',
+    },
+    ClientAI: {
+        deepThink: 'Lawom nga paghunahuna',
+        loading: 'Nag-load',
+        loadingProgress: 'Pag-uswag sa pag-load sa modelo',
+        loadError: 'Sayop sa pag-load',
+        inputPlaceholder: 'Isulod ang mensahe...',
+        roleUser: 'Tiggamit',
+        roleAssistant: 'AI Katabang',
+        roleSystem: 'Sistema',
     }
 };
 

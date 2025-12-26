@@ -233,6 +233,16 @@ const local: Locale = {
         template: 'Stencil',
         configure: 'Configuratie',
         selected: '${count} items geselecteerd',
+    },
+    ClientAI: {
+        deepThink: 'Diep nadenken',
+        loading: 'Laden',
+        loadingProgress: 'Voortgang model laden',
+        loadError: 'Laadfout',
+        inputPlaceholder: 'Voer bericht in...',
+        roleUser: 'Gebruiker',
+        roleAssistant: 'AI-assistent',
+        roleSystem: 'Systeem',
     }
 };
 

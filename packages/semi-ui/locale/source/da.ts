@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Skabelon',
         configure: 'Konfigurer',
         selected: 'Valgte ${count} elementer',
+    },
+    ClientAI: {
+        deepThink: 'Dybt tænkning',
+        loading: 'Indlæser',
+        loadingProgress: 'Modelloadningsfremgang',
+        loadError: 'Indlæsningsfejl',
+        inputPlaceholder: 'Indtast besked...',
+        roleUser: 'Bruger',
+        roleAssistant: 'AI-assistent',
+        roleSystem: 'System',
     }
 };
 

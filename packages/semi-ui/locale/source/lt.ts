@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Šablonas',
         configure: 'Konfigūruoti',
         selected: 'Pasirinkta ${count} elem.',
+    },
+    ClientAI: {
+        deepThink: 'Gilus mąstymas',
+        loading: 'Įkeliama',
+        loadingProgress: 'Modelio įkėlimo pažanga',
+        loadError: 'Įkėlimo klaida',
+        inputPlaceholder: 'Įveskite žinutę...',
+        roleUser: 'Naudotojas',
+        roleAssistant: 'AI asistentas',
+        roleSystem: 'Sistema',
     }
 };
 

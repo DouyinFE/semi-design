@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Templat',
         configure: 'Konfigurasi',
         selected: 'Item ${count} sing dipilih',
+    },
+    ClientAI: {
+        deepThink: 'Pikiran jero',
+        loading: 'Muat',
+        loadingProgress: 'Kemajuan muat model',
+        loadError: 'Kesalahan muat',
+        inputPlaceholder: 'Lebokake pesen...',
+        roleUser: 'Pangguna',
+        roleAssistant: 'Asisten AI',
+        roleSystem: 'Sistem',
     }
 };
 

@@ -227,6 +227,16 @@ const local: Locale = {
         template: 'Şablon',
         configure: 'Yapılandırma',
         selected: '${count} öğe seçildi',
+    },
+    ClientAI: {
+        deepThink: 'Derin düşünme',
+        loading: 'Yükleniyor',
+        loadingProgress: 'Model yükleme ilerlemesi',
+        loadError: 'Yükleme hatası',
+        inputPlaceholder: 'Mesaj girin...',
+        roleUser: 'Kullanıcı',
+        roleAssistant: 'AI Asistanı',
+        roleSystem: 'Sistem',
     }
 };
 

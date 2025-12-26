@@ -231,6 +231,16 @@ const local: Locale = {
         template: 'Stencil',
         configure: 'Konfiguration',
         selected: '${count} objekt valda',
+    },
+    ClientAI: {
+        deepThink: 'Djup tänkande',
+        loading: 'Laddar',
+        loadingProgress: 'Modellladdningsframsteg',
+        loadError: 'Laddningsfel',
+        inputPlaceholder: 'Ange meddelande...',
+        roleUser: 'Användare',
+        roleAssistant: 'AI-assistent',
+        roleSystem: 'System',
     }
 };
 

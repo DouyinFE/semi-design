@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Шаблон',
         configure: 'Конфигуриране',
         selected: 'Избрани ${count} елемента',
+    },
+    ClientAI: {
+        deepThink: 'Дълбоко мислене',
+        loading: 'Зареждане',
+        loadingProgress: 'Прогрес на зареждане на модела',
+        loadError: 'Грешка при зареждане',
+        inputPlaceholder: 'Въведете съобщение...',
+        roleUser: 'Потребител',
+        roleAssistant: 'AI асистент',
+        roleSystem: 'Система',
     }
 };
 

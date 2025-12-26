@@ -234,6 +234,16 @@ const local: Locale = {
         template: 'Estêncil',
         configure: 'Configuração',
         selected: '${count} itens selecionados',
+    },
+    ClientAI: {
+        deepThink: 'Pensamento profundo',
+        loading: 'Carregando',
+        loadingProgress: 'Progresso de carregamento do modelo',
+        loadError: 'Erro ao carregar',
+        inputPlaceholder: 'Digite uma mensagem...',
+        roleUser: 'Usuário',
+        roleAssistant: 'Assistente IA',
+        roleSystem: 'Sistema',
     }
 };
 

@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Template',
         configure: 'Configure',
         selected: 'Selected ${count} items',
+    },
+    ClientAI: {
+        deepThink: 'Deep Think',
+        loading: 'Loading',
+        loadingProgress: 'Model loading progress',
+        loadError: 'Load Error',
+        inputPlaceholder: 'Enter message...',
+        roleUser: 'User',
+        roleAssistant: 'AI Assistant',
+        roleSystem: 'System',
     }
 };
 

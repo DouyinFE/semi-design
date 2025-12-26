@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Stampino',
         configure: 'Configurazione',
         selected: '${count} elementi selezionati',
+    },
+    ClientAI: {
+        deepThink: 'Pensiero profondo',
+        loading: 'Caricamento',
+        loadingProgress: 'Progresso di caricamento del modello',
+        loadError: 'Errore di caricamento',
+        inputPlaceholder: 'Inserisci messaggio...',
+        roleUser: 'Utente',
+        roleAssistant: 'Assistente IA',
+        roleSystem: 'Sistema',
     }
 };
 

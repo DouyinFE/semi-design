@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Teimpléad',
         configure: 'Cumraigh',
         selected: 'Roghnaíodh ${count} mír',
+    },
+    ClientAI: {
+        deepThink: 'Smaoinimh dhomhain',
+        loading: 'Á lódáil',
+        loadingProgress: 'Dul chun cinn lódáil an tsamhail',
+        loadError: 'Earráid lódála',
+        inputPlaceholder: 'Iontráil teachtaireacht...',
+        roleUser: 'Úsáideoir',
+        roleAssistant: 'Cúntóir AI',
+        roleSystem: 'Córas',
     }
 };
 

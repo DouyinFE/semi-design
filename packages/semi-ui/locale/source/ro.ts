@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Sablon',
         configure: 'Configurare',
         selected: '${count} articole selectate',
+    },
+    ClientAI: {
+        deepThink: 'Gândire profundă',
+        loading: 'Se încarcă',
+        loadingProgress: 'Progresul încărcării modelului',
+        loadError: 'Eroare de încărcare',
+        inputPlaceholder: 'Introduceți mesajul...',
+        roleUser: 'Utilizator',
+        roleAssistant: 'Asistent AI',
+        roleSystem: 'Sistem',
     }
 };
 

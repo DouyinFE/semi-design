@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Andoza',
         configure: 'Sozlash',
         selected: '${count} ta element tanlangan',
+    },
+    ClientAI: {
+        deepThink: 'Chuqur fikrlash',
+        loading: 'Yuklanmoqda',
+        loadingProgress: 'Model yuklanish jarayoni',
+        loadError: 'Yuklash xatosi',
+        inputPlaceholder: 'Xabar kiriting...',
+        roleUser: 'Foydalanuvchi',
+        roleAssistant: 'AI yordamchisi',
+        roleSystem: 'Tizim',
     }
 };
 

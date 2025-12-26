@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'နမူနာပုံစံ',
         configure: 'စီစဉ်သတ်မှတ်ရန်',
         selected: 'ပစ္စည်း ${count} ခု ရွေးချယ်ထားသည်',
+    },
+    ClientAI: {
+        deepThink: 'နက်နဲသောစဉ်းစားခြင်း',
+        loading: 'ဖွင့်နေသည်',
+        loadingProgress: 'မော်ဒယ်တင်ခြင်းတိုးတက်မှု',
+        loadError: 'ဖွင့်မှုအမှား',
+        inputPlaceholder: 'သတင်းစာရိုက်ပါ...',
+        roleUser: 'အသုံးပြုသူ',
+        roleAssistant: 'AI လက်ထောက်',
+        roleSystem: 'စနစ်',
     }
 };
 

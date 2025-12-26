@@ -98,7 +98,7 @@ const order = [
     'audioPlayer',
     'videoPlayer',
     'aiComponent',
-    'browserAI',
+    'clientAI',
     'aiChatInput',
     'aiChatDialogue',
 ];

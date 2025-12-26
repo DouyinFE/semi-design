@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Predloga',
         configure: 'Nastavi',
         selected: 'Izbranih elementov: ${count}',
+    },
+    ClientAI: {
+        deepThink: 'Globoko razmišljanje',
+        loading: 'Nalaganje',
+        loadingProgress: 'Napredek nalaganja modela',
+        loadError: 'Napaka nalaganja',
+        inputPlaceholder: 'Vnesite sporočilo...',
+        roleUser: 'Uporabnik',
+        roleAssistant: 'AI asistent',
+        roleSystem: 'Sistem',
     }
 };
 

@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Veidne',
         configure: 'Konfigurēt',
         selected: 'Atlasīto vienumu skaits: ${count}',
+    },
+    ClientAI: {
+        deepThink: 'Dziļa domāšana',
+        loading: 'Ielādē',
+        loadingProgress: 'Modeļa ielādes progress',
+        loadError: 'Ielādes kļūda',
+        inputPlaceholder: 'Ievadiet ziņojumu...',
+        roleUser: 'Lietotājs',
+        roleAssistant: 'AI asistents',
+        roleSystem: 'Sistēma',
     }
 };
 

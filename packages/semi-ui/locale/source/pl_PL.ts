@@ -234,6 +234,16 @@ const local: Locale = {
         template: 'Szablon',
         configure: 'Konfiguracja',
         selected: 'Wybrano ${count} elementów',
+    },
+    ClientAI: {
+        deepThink: 'Głębokie myślenie',
+        loading: 'Ładowanie',
+        loadingProgress: 'Postęp ładowania modelu',
+        loadError: 'Błąd ładowania',
+        inputPlaceholder: 'Wpisz wiadomość...',
+        roleUser: 'Użytkownik',
+        roleAssistant: 'Asystent AI',
+        roleSystem: 'System',
     }
 };
 

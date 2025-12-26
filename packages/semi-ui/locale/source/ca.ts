@@ -226,6 +226,16 @@ const local: Locale = {
         template: 'Plantilla',
         configure: 'Configura',
         selected: 'S\'han seleccionat ${count} elements',
+    },
+    ClientAI: {
+        deepThink: 'Pensament profund',
+        loading: 'Carregant',
+        loadingProgress: 'Progrés de càrrega del model',
+        loadError: 'Error de càrrega',
+        inputPlaceholder: 'Introduïu el missatge...',
+        roleUser: 'Usuari',
+        roleAssistant: 'Assistent IA',
+        roleSystem: 'Sistema',
     }
 };
 

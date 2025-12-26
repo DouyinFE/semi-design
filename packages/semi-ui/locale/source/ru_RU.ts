@@ -229,6 +229,16 @@ const local: Locale = {
         template: 'Tрафарет',
         configure: 'Конфигурация',
         selected: 'Выбрано ${count} элементов',
+    },
+    ClientAI: {
+        deepThink: 'Глубокое размышление',
+        loading: 'Загрузка',
+        loadingProgress: 'Прогресс загрузки модели',
+        loadError: 'Ошибка загрузки',
+        inputPlaceholder: 'Введите сообщение...',
+        roleUser: 'Пользователь',
+        roleAssistant: 'ИИ-ассистент',
+        roleSystem: 'Система',
     }
 };
 

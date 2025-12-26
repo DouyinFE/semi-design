@@ -229,6 +229,16 @@ const local: Locale = {
         template: 'Bản mẫu',
         configure: 'Cấu hình',
         selected: 'Đã chọn ${count} mục',
+    },
+    ClientAI: {
+        deepThink: 'Suy nghĩ sâu sắc',
+        loading: 'Đang tải',
+        loadingProgress: 'Tiến trình tải mô hình',
+        loadError: 'Lỗi tải',
+        inputPlaceholder: 'Nhập tin nhắn...',
+        roleUser: 'Người dùng',
+        roleAssistant: 'Trợ lý AI',
+        roleSystem: 'Hệ thống',
     }
 };
 

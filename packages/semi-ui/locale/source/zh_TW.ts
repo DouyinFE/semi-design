@@ -227,6 +227,16 @@ const local: Locale = {
         template: '模板',
         configure: '配置',
         selected: '已選 ${count} 個',
+    },
+    ClientAI: {
+        deepThink: '深度思考',
+        loading: '載入中',
+        loadingProgress: '模型載入進度',
+        loadError: '載入錯誤',
+        inputPlaceholder: '輸入訊息...',
+        roleUser: '用戶',
+        roleAssistant: 'AI 助手',
+        roleSystem: '系統',
     }
 };
 
