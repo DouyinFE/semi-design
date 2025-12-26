@@ -1501,6 +1501,7 @@ render(<CustomRichTextExtension />);
 | onBlur | Callback when input blurs | (event: React.FocusEvent) => void | - |
 | onConfigureChange | Callback for configuration area changes | (value: LeftMenuChangeProps, changedValue: LeftMenuChangeProps) => void | - |
 | onFocus | Callback when input focused | (event: React.FocusEvent) => void | - |
+| sendHotKey | Keyboard shortcut for sending content, supports `enter` \| `shift+enter`. The former will send the message in the input box when you press enter alone. When the shift and enter keys are pressed at the same time, it will only wrap the line and not send it. The latter is the opposite | string | `enter` |
 | showReference | Show reference area | boolean | true |
 | showTemplateButton | Show template button | boolean | false |
 | showUploadFile | Show upload file area | boolean | true |

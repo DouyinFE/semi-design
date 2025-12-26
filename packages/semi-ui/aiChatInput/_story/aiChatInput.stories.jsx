@@ -679,3 +679,26 @@ export const SetContent = () => {
       >点我查看富文本区域内容</Button>
   </>);
 }
+
+export const SendHotkeyDemo = () => {
+  const [generating, setGenerating] = useState(false);
+
+  const onUploadChange = useCallback((fileList) => {
+    console.log('onUploadChange', fileList);
+  }, []);
+
+  const toggleGenerate = useCallback((props) => {
+    setGenerating(value => !value);
+  }, []);
+  
+  return (<AIChatInput
+    sendHotKey='shift+enter'
+    generating={generating}
+    placeholder={'输入内容或者上传内容'} 
+    uploadProps={uploadProps}
+    onUploadChange={onUploadChange}
+    style={outerStyle}
+    onMessageSend={toggleGenerate}
+    onStopGenerate={toggleGenerate}
+  />);
+}
