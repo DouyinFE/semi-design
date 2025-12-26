@@ -1477,6 +1477,7 @@ render(<CustomRichTextExtension />);
 | defaultContent | Default input content, supports html string or Tiptap content | TiptapContent | - |
 | dropdownMatchTriggerWidth | Should dropdown width match input? | boolean | true |
 | extensions | Custom editor extensions | Extension[] | - |
+| immediatelyRender | As a parameter of tiptap's userEditor, if it's an SSR scenario, this parameter needs to be set to false. See [use-ssr-with-react-and-tiptap](https://tiptap.dev/docs/editor/getting-started/install/react#use-ssr-with-react-and-tiptap)  | boolean | - |
 | generating | Is it generating? | boolean | false |
 | onContentChange | Callback when input content changes | (content: <ApiType detail='{ type: string; [key: string]: any }'>OnContentChangeProps</ApiType>) => void | - |
 | onMessageSend | Callback for sending message | (content: <ApiType detail='{references?: Reference[]; attachments?: Attachment[]; inputContents?: Content[]; setup?: Setup}'>OnMessageSendProps</ApiType>) => void | - |
@@ -1488,7 +1489,7 @@ render(<CustomRichTextExtension />);
 | onTemplateVisibleChange | Callback for template's visibility change | (visible: boolean) => void | - |
 | onUploadChange | Callback for file upload | (props: OnChangeProps) => void | - |
 | popoverProps | Popup configuration | PopoverProps | - |
-| placeholder | Input placeholder | string | - |
+| placeholder | Input placeholder | string \| (props: <ApiType detail='{ editor: Editor; node: Node; pos: number; hasAnchor: boolean }'>PlaceholderProps</ApiType>) => string | - |
 | references | Reference list | Reference[] | - |
 | renderActionArea | Custom bottom-right operation area | () => React.ReactNode | - |
 | renderConfigureArea | Custom configuration area | () => React.ReactNode | - |
@@ -1501,8 +1502,10 @@ render(<CustomRichTextExtension />);
 | onBlur | Callback when input blurs | (event: React.FocusEvent) => void | - |
 | onConfigureChange | Callback for configuration area changes | (value: LeftMenuChangeProps, changedValue: LeftMenuChangeProps) => void | - |
 | onFocus | Callback when input focused | (event: React.FocusEvent) => void | - |
+| sendHotKey | Keyboard shortcut for sending content, supports `enter` \| `shift+enter`. The former will send the message in the input box when you press enter alone. When the shift and enter keys are pressed at the same time, it will only wrap the line and not send it. The latter is the opposite | string | `enter` |
 | showReference | Show reference area | boolean | true |
 | showTemplateButton | Show template button | boolean | false |
+| showUploadButton | Show upload button，supported since version 2.90.0 | boolean | true |
 | showUploadFile | Show upload file area | boolean | true |
 | skillHotKey | Skill panel trigger shortcut | string | - |
 | skills | Skill list | Skill[] | - |
@@ -1514,6 +1517,23 @@ render(<CustomRichTextExtension />);
 | transformer | Customizing the conversion rules for extensions | Map<string, (obj: any) => any> | |
 | uploadProps | Upload configuration | UploadProps | - |
 | uploadTipProps | Upload tip configuration | UploadTipProps | - |
+
+### Configure.Select
+Same as [SelectProps](/en-US/input/select)
+
+### Configure.Button
+Same as [ButtonProps](/en-US/basic/button#Button)
+
+### Configure.RadioButton
+Same as [RadioGroupProps](/zh-CN/input/radio#RadioGroup)
+
+### Configure.Mcp
+| Method | Description | Type | Default |
+|-----|----|------|-------|
+| options | Mcp options | McpOption | - |
+| showConfigure | Displaying the configuration button (added in v2.89.0) | boolean | true |
+| onConfigureButtonClick | Callback when the configuration button is clicked | () => void | - |
+
 
 ## Methods
 

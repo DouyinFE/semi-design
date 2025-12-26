@@ -10,7 +10,11 @@ const strings = {
     ZERO_WIDTH_CHAR: '\uFEFF',
     PIC_PREFIX: 'image/',
     PIC_SUFFIX_ARRAY: ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp'],
-    DELETABLE: 'skipCustomTransactionPlugin'
+    DELETABLE: 'skipCustomTransactionPlugin',
+    SEND_HOTKEY: {
+        'ENTER': 'enter' as const,
+        'SHIFT_ENTER': 'shift+enter' as const,
+    }
 };
 
 const numbers = {
