@@ -19,6 +19,7 @@ body {
     padding: 0;
     margin: 0;
     background: var(--semi-color-bg-0);
+    text-autospace: normal;
 
     &::-webkit-scrollbar {
         width: 8px;
