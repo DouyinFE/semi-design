@@ -16,6 +16,16 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.90.0 (2025-12-26)
+- 【Feat】
+    - AIChatInput adds sendHotKey API  [#3098](https://github.com/DouyinFE/semi-design/issues/3098)
+- 【Chore】
+    - AIChatInput's placeholder API adds function type support instructions
+- 【Style】
+    - The input-slot of AIChatInput explicitly sets box-sizing to content-box to avoid the introduction of tailwindCss in user projects or the influence of other global style settings.  [#3094 ](https://github.com/DouyinFE/semi-design/issues/3094)
+- 【Docs】
+    - Data visualization official website document update
+
 
 #### 🎉 2.89.1 (2025-12-19)
 - 【Fix】
