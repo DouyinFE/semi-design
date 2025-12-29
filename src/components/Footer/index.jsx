@@ -8,10 +8,18 @@ const _t = id => <FormattedMessage id={id} />;
 
 export class Footer extends Component {
 
-
     render() {
         const locale = getLocale();
         const { style } = this.props;
+        
+        const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+        
+        const isHomePage = pathname === `/${locale}` || pathname === `/${locale}/` || pathname === `/`;
+        
+        if (!isHomePage) {
+            return null;
+        }
+        
         return (
             <footer className="footer" style={{ ...style, zIndex: 10, overflow: 'hidden' }}>
                 <div className="footer-circle" />
