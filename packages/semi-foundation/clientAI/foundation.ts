@@ -330,6 +330,45 @@ export default class ClientAIFoundation extends BaseFoundation<ClientAIAdapter> 
     };
 
     /**
+     * 从 Message 中提取文本内容
+     */
+    private extractTextFromMessage = (message: Message): string => {
+        if (typeof message.content === 'string') {
+            return message.content;
+        }
+        if (Array.isArray(message.content)) {
+            // 提取所有文本内容
+            let text = '';
+            message.content.forEach((item: any) => {
+                if (item.type === 'message' && Array.isArray(item.content)) {
+                    item.content.forEach((contentItem: any) => {
+                        if (contentItem.type === 'input_text' || contentItem.type === 'output_text') {
+                            text += (contentItem.text || '');
+                        }
+                    });
+                } else if (item.type === 'output_text') {
+                    text += (item.text || '');
+                }
+            });
+            return text.trim();
+        }
+        return '';
+    };
+
+    /**
+     * 将 Message[] 转换为 WebLLMMessage[]
+     */
+    private convertMessagesToWebLLM = (messages: Message[]): WebLLMMessage[] => {
+        return messages
+            .filter((msg) => msg.role === 'user' || msg.role === 'assistant')
+            .map((msg) => ({
+                role: msg.role as 'user' | 'assistant',
+                content: this.extractTextFromMessage(msg),
+            }))
+            .filter((msg) => msg.content); // 过滤掉空内容
+    };
+
+    /**
      * 判断是否是 Qwen 系列模型
      */
     private isQwenModel(modelId: string | string[]): boolean {
@@ -625,7 +664,15 @@ For each function call, return a json object with function name and arguments wi
                 role: 'system',
                 content: finalSystemPrompt,
             };
-            this._adapter.setMessages([systemMessage]);
+            
+            // 获取现有的 messages（可能包含 defaultMessages）
+            const existingMessages = this._adapter.getState('messages') || [];
+            const existingWebLLMMessages = existingMessages.filter((msg: any) => 
+                msg.role === 'user' || msg.role === 'assistant'
+            );
+            
+            // 合并系统消息和现有消息
+            this._adapter.setMessages([systemMessage, ...existingWebLLMMessages]);
         } catch (error) {
             const err = error instanceof Error ? error : new Error('Unknown error');
             this._adapter.setError(err.message);
@@ -646,10 +693,24 @@ For each function call, return a json object with function name and arguments wi
         const isGenerating = this._adapter.getState('isGenerating');
 
         // 从 MessageContent 中提取文本
-        const inputText = this.extractTextFromMessageContent(messageContent);
+        let inputText = this.extractTextFromMessageContent(messageContent);
 
         if (!engine || !inputText || isGenerating) {
             return;
+        }
+
+        // 应用 onUserMessage 回调
+        const props = this.getProps();
+        if (props.onUserMessage) {
+            try {
+                const modifiedContent = props.onUserMessage(inputText, messages);
+                if (modifiedContent !== undefined && modifiedContent !== null) {
+                    inputText = modifiedContent || inputText;
+                }
+            } catch (error) {
+                // 如果回调出错，使用原始输入
+                console.warn('onUserMessage callback error:', error);
+            }
         }
 
         // 创建 AbortController 用于停止生成
@@ -663,6 +724,46 @@ For each function call, return a json object with function name and arguments wi
             createdAt: Date.now(),
             status: 'completed',
         };
+        // 更新用户消息内容为修改后的内容
+        // chatInputToMessage 返回的 content 可能是数组格式，需要统一处理
+        if (typeof userChatMessage.content === 'string') {
+            userChatMessage.content = inputText;
+        } else if (Array.isArray(userChatMessage.content)) {
+            // 如果是数组格式，需要更新数组中的文本内容
+            const updatedContent = userChatMessage.content.map((item: any) => {
+                if (item.type === 'message' && Array.isArray(item.content)) {
+                    // 分离文本项和其他项（图片、文件等）
+                    const textItems: any[] = [];
+                    const otherItems: any[] = [];
+                    
+                    item.content.forEach((contentItem: any) => {
+                        if (contentItem.type === 'input_text') {
+                            textItems.push(contentItem);
+                        } else {
+                            otherItems.push(contentItem);
+                        }
+                    });
+                    
+                    // 将所有文本项合并为一个，使用修改后的文本
+                    const newContent = [];
+                    if (textItems.length > 0 && inputText) {
+                        newContent.push({
+                            type: 'input_text',
+                            text: inputText,
+                        });
+                    }
+                    // 保留其他类型的项
+                    newContent.push(...otherItems);
+                    
+                    return {
+                        ...item,
+                        content: newContent,
+                    };
+                }
+                return item;
+            });
+            userChatMessage.content = updatedContent;
+        }
 
         // 添加用户消息到 WebLLM 格式（历史记录中保存原始消息，不带 /no_think）
         const userMessage: WebLLMMessage = { role: 'user', content: inputText };
@@ -685,8 +786,57 @@ For each function call, return a json object with function name and arguments wi
         this._adapter.setIsGenerating(true);
 
         try {
+            // 应用 beforeAIInput 回调
+            let customResponse: string | undefined;
+            if (props.beforeAIInput) {
+                try {
+                    const result = await props.beforeAIInput(updatedMessages);
+                    if (result && result.trim() !== '') {
+                        customResponse = result;
+                    }
+                } catch (error) {
+                    // 如果回调出错，继续正常调用AI
+                    console.warn('beforeAIInput callback error:', error);
+                }
+            }
+
+            // 如果 beforeAIInput 返回了自定义回复，跳过AI调用
+            if (customResponse !== undefined) {
+                // 获取配置以判断是否需要解析 tool calls
+                const { modelId, chatOpts } = props;
+                const isQwen = modelId ? this.isQwenModel(modelId) : false;
+                const chatOptsArray = Array.isArray(chatOpts) ? chatOpts : chatOpts ? [chatOpts] : [];
+                const firstChatOpts = chatOptsArray[0] || {};
+                const { tools } = firstChatOpts as any;
+                const hasTools = tools && tools.length > 0;
+
+                // 解析自定义回复内容
+                const hasToolCallInReply = customResponse.includes('<tool_call>');
+                const parsedContent = (hasToolCallInReply && hasTools && isQwen)
+                    ? this.parseContentWithToolCalls(customResponse, false)
+                    : this.parseThinkingContent(customResponse, false);
+
+                // 更新助手消息为完成状态
+                const finalChats = this._adapter.getState('chats') || [];
+                const updatedFinalChats = [...finalChats];
+                const assistantIndex = updatedFinalChats.findIndex((msg) => msg.id === assistantId);
+                if (assistantIndex !== -1) {
+                    updatedFinalChats[assistantIndex] = {
+                        ...updatedFinalChats[assistantIndex],
+                        content: parsedContent,
+                        status: 'completed',
+                    };
+                }
+
+                this._adapter.setMessages([...updatedMessages, { role: 'assistant', content: customResponse }]);
+                this._adapter.setChats(updatedFinalChats);
+                this._adapter.setIsGenerating(false);
+                this._adapter.setAbortController(null);
+                return;
+            }
+
             // 从 props 获取配置，判断是否需要特殊处理 tool calling
-            const { modelId, chatOpts } = this.getProps();
+            const { modelId, chatOpts } = props;
             const isQwen = modelId ? this.isQwenModel(modelId) : false;
             
             // 获取 tools 配置（用于判断是否需要解析 tool_call 输出）
@@ -724,6 +874,9 @@ For each function call, return a json object with function name and arguments wi
 
             const chunks = await engine.chat.completions.create(requestParams);
 
+            // 获取 stream 配置
+            const streamEnabled = props.stream !== false; // 默认为 true
+
             let reply = '';
             for await (const chunk of chunks) {
                 // 检查是否被中止
@@ -735,44 +888,60 @@ For each function call, return a json object with function name and arguments wi
                 if (deltaContent) {
                     reply += deltaContent;
 
-                    // 检测是否包含特殊标签（<think> 或 <tool_call>），流式解析
-                    let displayContent: string | any[] = reply;
-                    const hasThinkTag = reply.includes('<think>');
-                    const hasToolCallTag = reply.includes('<tool_call>');
-                    
-                    if (hasThinkTag || (hasToolCallTag && hasTools && isQwen)) {
-                        // 使用流式解析，支持显示未闭合的内容
-                        try {
-                            const parsed = hasToolCallTag && hasTools && isQwen
-                                ? this.parseContentWithToolCalls(reply, true)
-                                : this.parseThinkingContent(reply, true);
-                            if (Array.isArray(parsed)) {
-                                displayContent = parsed;
+                    // 如果 stream 为 false，不更新UI，只收集内容
+                    if (streamEnabled) {
+                        // 检测是否包含特殊标签（<think> 或 <tool_call>），流式解析
+                        let displayContent: string | any[] = reply;
+                        const hasThinkTag = reply.includes('<think>');
+                        const hasToolCallTag = reply.includes('<tool_call>');
+                        
+                        if (hasThinkTag || (hasToolCallTag && hasTools && isQwen)) {
+                            // 使用流式解析，支持显示未闭合的内容
+                            try {
+                                const parsed = hasToolCallTag && hasTools && isQwen
+                                    ? this.parseContentWithToolCalls(reply, true)
+                                    : this.parseThinkingContent(reply, true);
+                                if (Array.isArray(parsed)) {
+                                    displayContent = parsed;
+                                }
+                            } catch (e) {
+                                // 解析失败时继续使用原始文本
+                                displayContent = reply;
                             }
-                        } catch (e) {
-                            // 解析失败时继续使用原始文本
-                            displayContent = reply;
                         }
-                    }
 
-                    // 更新助手消息内容
-                    const currentChats = this._adapter.getState('chats') || [];
-                    const updatedChatsWithReply = [...currentChats];
-                    const assistantIndex = updatedChatsWithReply.findIndex((msg) => msg.id === assistantId);
-                    if (assistantIndex !== -1) {
-                        updatedChatsWithReply[assistantIndex] = {
-                            ...updatedChatsWithReply[assistantIndex],
-                            content: displayContent,
-                            status: 'in_progress',
-                        };
+                        // 更新助手消息内容
+                        const currentChats = this._adapter.getState('chats') || [];
+                        const updatedChatsWithReply = [...currentChats];
+                        const assistantIndex = updatedChatsWithReply.findIndex((msg) => msg.id === assistantId);
+                        if (assistantIndex !== -1) {
+                            updatedChatsWithReply[assistantIndex] = {
+                                ...updatedChatsWithReply[assistantIndex],
+                                content: displayContent,
+                                status: 'in_progress',
+                            };
+                        }
+                        this._adapter.setChats(updatedChatsWithReply);
                     }
-                    this._adapter.setChats(updatedChatsWithReply);
                 }
             }
 
             // 获取完整回复
             const fullReply = await engine.getMessage();
-            const finalReply = reply || fullReply;
+            let finalReply = reply || fullReply;
+
+            // 应用 afterAIInput 回调
+            if (props.afterAIInput) {
+                try {
+                    const modifiedContent = await props.afterAIInput(finalReply, [...updatedMessages, { role: 'assistant', content: finalReply }]);
+                    if (modifiedContent !== undefined && modifiedContent !== null) {
+                        finalReply = modifiedContent;
+                    }
+                } catch (error) {
+                    // 如果回调出错，使用原始回复
+                    console.warn('afterAIInput callback error:', error);
+                }
+            }
 
             // 解析内容并转换为 AIChatDialogue 格式（非流式，标记为完成）
             // 如果有 tools 且是 Qwen 模型，使用 parseContentWithToolCalls 同时处理 thinking 和 tool_calls
@@ -781,28 +950,76 @@ For each function call, return a json object with function name and arguments wi
                 ? this.parseContentWithToolCalls(finalReply, false)
                 : this.parseThinkingContent(finalReply, false);
 
-            // 更新助手消息为完成状态
-            const finalChats = this._adapter.getState('chats') || [];
-            const updatedFinalChats = [...finalChats];
-            const assistantIndex = updatedFinalChats.findIndex((msg) => msg.id === assistantId);
-            if (assistantIndex !== -1) {
-                updatedFinalChats[assistantIndex] = {
-                    ...updatedFinalChats[assistantIndex],
-                    content: parsedContent,
-                    status: abortController.signal.aborted ? 'cancelled' : 'completed',
-                };
+            // 如果 stream 为 false，现在更新UI
+            if (!streamEnabled) {
+                const currentChats = this._adapter.getState('chats') || [];
+                const updatedChatsWithReply = [...currentChats];
+                const assistantIndex = updatedChatsWithReply.findIndex((msg) => msg.id === assistantId);
+                if (assistantIndex !== -1) {
+                    updatedChatsWithReply[assistantIndex] = {
+                        ...updatedChatsWithReply[assistantIndex],
+                        content: parsedContent,
+                        status: abortController.signal.aborted ? 'cancelled' : 'completed',
+                    };
+                }
+                this._adapter.setChats(updatedChatsWithReply);
+            }
+
+            // 更新助手消息为完成状态（仅在 stream=true 时执行，stream=false 时已在上面更新）
+            if (streamEnabled) {
+                const finalChats = this._adapter.getState('chats') || [];
+                const updatedFinalChats = [...finalChats];
+                const assistantIndex = updatedFinalChats.findIndex((msg) => msg.id === assistantId);
+                if (assistantIndex !== -1) {
+                    updatedFinalChats[assistantIndex] = {
+                        ...updatedFinalChats[assistantIndex],
+                        content: parsedContent,
+                        status: abortController.signal.aborted ? 'cancelled' : 'completed',
+                    };
+                }
+                this._adapter.setChats(updatedFinalChats);
+            } else {
+                // stream=false 时，只需要更新状态为完成（内容已在上面更新）
+                const finalChats = this._adapter.getState('chats') || [];
+                const updatedFinalChats = [...finalChats];
+                const assistantIndex = updatedFinalChats.findIndex((msg) => msg.id === assistantId);
+                if (assistantIndex !== -1) {
+                    updatedFinalChats[assistantIndex] = {
+                        ...updatedFinalChats[assistantIndex],
+                        status: abortController.signal.aborted ? 'cancelled' : 'completed',
+                    };
+                }
+                this._adapter.setChats(updatedFinalChats);
             }
 
             this._adapter.setMessages([...updatedMessages, { role: 'assistant', content: finalReply }]);
-            this._adapter.setChats(updatedFinalChats);
             this._adapter.setIsGenerating(false);
             this._adapter.setAbortController(null);
             
-            // 如果检测到 tool calls，触发回调
+            // 如果检测到 tool calls，处理工具调用
             if (hasToolCallInReply && hasTools && isQwen) {
                 const toolCalls = this.parseQwenToolCalls(finalReply, false);
                 if (toolCalls && toolCalls.length > 0) {
-                    this._adapter.notifyToolCall?.(toolCalls, finalReply);
+                    const props = this.getProps();
+                    
+                    // 优先使用 handleToolCall（方案2：自动处理）
+                    if (props.handleToolCall) {
+                        try {
+                            const toolResults = await props.handleToolCall(toolCalls, finalReply);
+                            if (toolResults && toolResults.length > 0) {
+                                // 自动发送工具执行结果
+                                await this.sendToolResults(toolResults);
+                            }
+                        } catch (error) {
+                            // 如果 handleToolCall 出错，显示错误但不中断流程
+                            const err = error instanceof Error ? error : new Error('工具调用处理失败');
+                            this._adapter.setError(err.message);
+                            this._adapter.notifyError(err);
+                        }
+                    } else {
+                        // 向后兼容：如果没有 handleToolCall，使用 onToolCall（方案1：手动处理）
+                        this._adapter.notifyToolCall?.(toolCalls, finalReply);
+                    }
                 }
             }
         } catch (error) {
@@ -890,7 +1107,58 @@ For each function call, return a json object with function name and arguments wi
         this._adapter.setIsGenerating(true);
 
         try {
-            const { modelId, chatOpts } = this.getProps();
+            const props = this.getProps();
+            
+            // 应用 beforeAIInput 回调
+            let customResponse: string | undefined;
+            if (props.beforeAIInput) {
+                try {
+                    const result = await props.beforeAIInput(updatedMessages);
+                    if (result && result.trim() !== '') {
+                        customResponse = result;
+                    }
+                } catch (error) {
+                    // 如果回调出错，继续正常调用AI
+                    console.warn('beforeAIInput callback error:', error);
+                }
+            }
+
+            // 如果 beforeAIInput 返回了自定义回复，跳过AI调用
+            if (customResponse !== undefined) {
+                // 获取配置以判断是否需要解析 tool calls
+                const { modelId, chatOpts } = props;
+                const isQwen = modelId ? this.isQwenModel(modelId) : false;
+                const chatOptsArray = Array.isArray(chatOpts) ? chatOpts : chatOpts ? [chatOpts] : [];
+                const firstChatOpts = chatOptsArray[0] || {};
+                const { tools } = firstChatOpts as any;
+                const hasTools = tools && tools.length > 0;
+
+                // 解析自定义回复内容
+                const hasToolCallInReply = customResponse.includes('<tool_call>');
+                const parsedContent = (hasToolCallInReply && hasTools && isQwen)
+                    ? this.parseContentWithToolCalls(customResponse, false)
+                    : this.parseThinkingContent(customResponse, false);
+
+                // 更新助手消息为完成状态
+                const finalChats = this._adapter.getState('chats') || [];
+                const updatedFinalChats = [...finalChats];
+                const assistantIndex = updatedFinalChats.findIndex((msg) => msg.id === assistantId);
+                if (assistantIndex !== -1) {
+                    updatedFinalChats[assistantIndex] = {
+                        ...updatedFinalChats[assistantIndex],
+                        content: parsedContent,
+                        status: 'completed',
+                    };
+                }
+
+                this._adapter.setMessages([...updatedMessages, { role: 'assistant', content: customResponse }]);
+                this._adapter.setChats(updatedFinalChats);
+                this._adapter.setIsGenerating(false);
+                this._adapter.setAbortController(null);
+                return;
+            }
+
+            const { modelId, chatOpts } = props;
             const isQwen = modelId ? this.isQwenModel(modelId) : false;
             const chatOptsArray = Array.isArray(chatOpts) ? chatOpts : chatOpts ? [chatOpts] : [];
             const firstChatOpts = chatOptsArray[0] || {};
@@ -923,6 +1191,9 @@ For each function call, return a json object with function name and arguments wi
 
             const chunks = await engine.chat.completions.create(requestParams);
 
+            // 获取 stream 配置
+            const streamEnabled = props.stream !== false; // 默认为 true
+
             let reply = '';
             for await (const chunk of chunks) {
                 if (abortController.signal.aborted) {
@@ -933,66 +1204,131 @@ For each function call, return a json object with function name and arguments wi
                 if (deltaContent) {
                     reply += deltaContent;
 
-                    let displayContent: string | any[] = reply;
-                    const hasThinkTag = reply.includes('<think>');
-                    const hasToolCallTag = reply.includes('<tool_call>');
-                    
-                    if (hasThinkTag || (hasToolCallTag && hasTools && isQwen)) {
-                        try {
-                            const parsed = hasToolCallTag && hasTools && isQwen
-                                ? this.parseContentWithToolCalls(reply, true)
-                                : this.parseThinkingContent(reply, true);
-                            if (Array.isArray(parsed)) {
-                                displayContent = parsed;
+                    // 如果 stream 为 false，不更新UI，只收集内容
+                    if (streamEnabled) {
+                        let displayContent: string | any[] = reply;
+                        const hasThinkTag = reply.includes('<think>');
+                        const hasToolCallTag = reply.includes('<tool_call>');
+                        
+                        if (hasThinkTag || (hasToolCallTag && hasTools && isQwen)) {
+                            try {
+                                const parsed = hasToolCallTag && hasTools && isQwen
+                                    ? this.parseContentWithToolCalls(reply, true)
+                                    : this.parseThinkingContent(reply, true);
+                                if (Array.isArray(parsed)) {
+                                    displayContent = parsed;
+                                }
+                            } catch (e) {
+                                displayContent = reply;
                             }
-                        } catch (e) {
-                            displayContent = reply;
                         }
-                    }
 
-                    const currentChats = this._adapter.getState('chats') || [];
-                    const updatedChatsWithReply = [...currentChats];
-                    const assistantIndex = updatedChatsWithReply.findIndex((msg) => msg.id === assistantId);
-                    if (assistantIndex !== -1) {
-                        updatedChatsWithReply[assistantIndex] = {
-                            ...updatedChatsWithReply[assistantIndex],
-                            content: displayContent,
-                            status: 'in_progress',
-                        };
+                        const currentChats = this._adapter.getState('chats') || [];
+                        const updatedChatsWithReply = [...currentChats];
+                        const assistantIndex = updatedChatsWithReply.findIndex((msg) => msg.id === assistantId);
+                        if (assistantIndex !== -1) {
+                            updatedChatsWithReply[assistantIndex] = {
+                                ...updatedChatsWithReply[assistantIndex],
+                                content: displayContent,
+                                status: 'in_progress',
+                            };
+                        }
+                        this._adapter.setChats(updatedChatsWithReply);
                     }
-                    this._adapter.setChats(updatedChatsWithReply);
                 }
             }
 
             const fullReply = await engine.getMessage();
-            const finalReply = reply || fullReply;
+            let finalReply = reply || fullReply;
+
+            // 应用 afterAIInput 回调
+            if (props.afterAIInput) {
+                try {
+                    const modifiedContent = await props.afterAIInput(finalReply, [...updatedMessages, { role: 'assistant', content: finalReply }]);
+                    if (modifiedContent !== undefined && modifiedContent !== null) {
+                        finalReply = modifiedContent;
+                    }
+                } catch (error) {
+                    // 如果回调出错，使用原始回复
+                    console.warn('afterAIInput callback error:', error);
+                }
+            }
 
             const hasToolCallInReply = finalReply.includes('<tool_call>');
             const parsedContent = (hasToolCallInReply && hasTools && isQwen)
                 ? this.parseContentWithToolCalls(finalReply, false)
                 : this.parseThinkingContent(finalReply, false);
 
-            const finalChats = this._adapter.getState('chats') || [];
-            const updatedFinalChats = [...finalChats];
-            const assistantIndex = updatedFinalChats.findIndex((msg) => msg.id === assistantId);
-            if (assistantIndex !== -1) {
-                updatedFinalChats[assistantIndex] = {
-                    ...updatedFinalChats[assistantIndex],
-                    content: parsedContent,
-                    status: abortController.signal.aborted ? 'cancelled' : 'completed',
-                };
+            // 如果 stream 为 false，现在更新UI
+            if (!streamEnabled) {
+                const currentChats = this._adapter.getState('chats') || [];
+                const updatedChatsWithReply = [...currentChats];
+                const assistantIndex = updatedChatsWithReply.findIndex((msg) => msg.id === assistantId);
+                if (assistantIndex !== -1) {
+                    updatedChatsWithReply[assistantIndex] = {
+                        ...updatedChatsWithReply[assistantIndex],
+                        content: parsedContent,
+                        status: abortController.signal.aborted ? 'cancelled' : 'completed',
+                    };
+                }
+                this._adapter.setChats(updatedChatsWithReply);
+            }
+
+            // 更新助手消息为完成状态（仅在 stream=true 时执行，stream=false 时已在上面更新）
+            if (streamEnabled) {
+                const finalChats = this._adapter.getState('chats') || [];
+                const updatedFinalChats = [...finalChats];
+                const assistantIndex = updatedFinalChats.findIndex((msg) => msg.id === assistantId);
+                if (assistantIndex !== -1) {
+                    updatedFinalChats[assistantIndex] = {
+                        ...updatedFinalChats[assistantIndex],
+                        content: parsedContent,
+                        status: abortController.signal.aborted ? 'cancelled' : 'completed',
+                    };
+                }
+                this._adapter.setChats(updatedFinalChats);
+            } else {
+                // stream=false 时，只需要更新状态为完成（内容已在上面更新）
+                const finalChats = this._adapter.getState('chats') || [];
+                const updatedFinalChats = [...finalChats];
+                const assistantIndex = updatedFinalChats.findIndex((msg) => msg.id === assistantId);
+                if (assistantIndex !== -1) {
+                    updatedFinalChats[assistantIndex] = {
+                        ...updatedFinalChats[assistantIndex],
+                        status: abortController.signal.aborted ? 'cancelled' : 'completed',
+                    };
+                }
+                this._adapter.setChats(updatedFinalChats);
             }
 
             this._adapter.setMessages([...updatedMessages, { role: 'assistant', content: finalReply }]);
-            this._adapter.setChats(updatedFinalChats);
             this._adapter.setIsGenerating(false);
             this._adapter.setAbortController(null);
 
-            // 如果还有 tool calls，继续触发回调
+            // 如果还有 tool calls，继续处理工具调用
             if (hasToolCallInReply && hasTools && isQwen) {
                 const toolCalls = this.parseQwenToolCalls(finalReply, false);
                 if (toolCalls && toolCalls.length > 0) {
-                    this._adapter.notifyToolCall?.(toolCalls, finalReply);
+                    const props = this.getProps();
+                    
+                    // 优先使用 handleToolCall（方案2：自动处理）
+                    if (props.handleToolCall) {
+                        try {
+                            const toolResults = await props.handleToolCall(toolCalls, finalReply);
+                            if (toolResults && toolResults.length > 0) {
+                                // 自动发送工具执行结果（递归调用，支持多轮工具调用）
+                                await this.sendToolResults(toolResults);
+                            }
+                        } catch (error) {
+                            // 如果 handleToolCall 出错，显示错误但不中断流程
+                            const err = error instanceof Error ? error : new Error('工具调用处理失败');
+                            this._adapter.setError(err.message);
+                            this._adapter.notifyError(err);
+                        }
+                    } else {
+                        // 向后兼容：如果没有 handleToolCall，使用 onToolCall（方案1：手动处理）
+                        this._adapter.notifyToolCall?.(toolCalls, finalReply);
+                    }
                 }
             }
         } catch (error) {

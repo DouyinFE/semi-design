@@ -1,0 +1,25 @@
+// ClientAI component variables
+
+// Spacing
+$spacing-clientAI-wrapper-padding: 20px; // 主容器内边距
+$spacing-clientAI-loading-paddingY: 40px; // 加载状态垂直内边距
+$spacing-clientAI-loading-paddingX: 20px; // 加载状态水平内边距
+$spacing-clientAI-loading-gap: 24px; // 加载状态间距
+$spacing-clientAI-loading-content-gap: 12px; // 加载内容间距
+$spacing-clientAI-error-padding: 20px; // 错误状态内边距
+$spacing-clientAI-input-wrapper-margin: 12px; // 输入框外层外边距
+$spacing-clientAI-input-edit-marginY: 12px; // 编辑输入框垂直外边距
+$spacing-clientAI-input-edit-marginX: 0px; // 编辑输入框水平外边距
+
+// Width/Height
+$width-clientAI-wrapper-max: 1400px; // 主容器最大宽度
+$height-clientAI-wrapper-min: 600px; // 主容器最小高度
+$height-clientAI-loading-min: 400px; // 加载状态最小高度
+$width-clientAI-loading-content-max: 400px; // 加载内容最大宽度
+$height-clientAI-input-wrapper-min: 150px; // 输入框外层最小高度
+$height-clientAI-input-wrapper-max: 300px; // 输入框外层最大高度
+$height-clientAI-input-edit-max: 300px; // 编辑输入框最大高度
+
+// Font
+$font-clientAI-loading-text-fontSize: 16px; // 加载文本字体大小
+

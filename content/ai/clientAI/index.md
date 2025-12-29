@@ -13,6 +13,19 @@ showNew: true
 
 `ClientAI` 是一个基于 [MLC Engine](https://github.com/mlc-ai/mlc-llm) 实现的客户端 AI 聊天组件，支持在浏览器中直接运行 AI 模型，无需后端服务器，适合快速为网站接入 LLM。
 
+### 典型应用场景
+
+`ClientAI` 组件适用于以下典型应用场景：
+
+- **网页知识问答**：基于网站内容构建本地化知识问答系统，用户可直接在页面内获取答案，无需跳转或调用外部服务
+- **智能客服助手**：集成 Tool Calling 能力的智能客服系统，可调用业务接口查询订单、账户等信息，提供更精准的客户服务
+- **搜索查询改写**：对用户输入的搜索关键词进行语义理解和改写优化，提升搜索结果的准确性和相关性
+- **多文本提交校验**：对用户提交的多段文本内容进行一致性校验、格式检查和质量评估，确保内容符合业务规范
+- **用户输入预审核**：实时对用户输入内容进行合规性检测和敏感信息识别，在提交前进行风险提示和内容过滤
+- **复杂地址智能解析**：对用户输入的复杂邮寄地址进行自动分割，提取省市区、街道、门牌号等结构化信息，提升表单填写效率
+- **离线 AI 应用**：需要完全离线运行的 AI 应用场景，不依赖网络连接即可提供智能交互能力
+- **隐私敏感场景**：对数据隐私要求极高的应用场景，所有数据处理在本地完成，数据不上传到服务器
+
 ### 核心特性
 
 - **完全本地运行**：模型在浏览器中运行，数据不上传到服务器，保护用户隐私
@@ -25,7 +38,7 @@ showNew: true
 
 `ClientAI` 对 Qwen 系列模型进行了特殊优化和扩展：
 
-1. **深度思考 CoT（Chain of Thought）**：
+1. **深度思考 CoT**：
    - 通过分析 Qwen 的训练过程和 tokenizer config，我们在 Qwen 的非 instruct 模型下实现了自由开关深度思考 CoT 的能力
    - Qwen3 模型支持 `<think>` 标签来显示思考过程
    - 组件会自动解析并渲染思考内容
@@ -34,15 +47,6 @@ showNew: true
 2. **Tool Calling（函数调用）**：
    - 底层 MLC Engine 原生的 Function Calling 仅支持 Hermes 系列模型
    - 通过分析 Qwen 的训练过程和 tokenizer config，在 MLC Engine 下为 Qwen 系列模型扩展了 Tool Calling 支持
-
-## 使用场景
-
-`ClientAI` 组件适用于以下场景：
-- 需要在浏览器端运行 AI 模型的场景
-- 需要离线 AI 能力的应用
-- 需要保护用户隐私的 AI 应用（数据不上传到服务器）
-- 需要快速原型开发的 AI 应用
-- 需要轻量级 AI 能力的应用（如 Qwen3-1.7B 等小模型）
 
 ## 代码演示
 
@@ -100,7 +104,13 @@ render(<Basic />);
 
 ### 自部署模型文件
 
-你可以选择将模型文件下载到自己的 CDN 或 OSS 上，然后修改配置指向自己的地址。这样可以避免依赖第三方服务的可用性。
+`ClientAI` 组件在第一次运行时需要联网自动从外部数据源下载模型文件：
+- **国际用户**：从 Hugging Face 和 GitHub Raw 下载模型权重和 WASM 运行时文件
+- **中国大陆用户**：从 ModelScope 和 jsDelivr CDN 下载模型权重和 WASM 运行时文件
+
+下载的模型文件会缓存在浏览器的 IndexedDB 中，后续使用无需重复下载。
+
+如果你不希望从外部数据源下载依赖，可以选择将模型文件下载到自己的 CDN 或 OSS 上，然后修改配置指向自己的地址。这样可以避免依赖第三方服务的可用性，并获得更好的下载速度和稳定性。
 
 **步骤 1：下载模型文件**
 
@@ -179,54 +189,8 @@ function CustomModel() {
 | `model` | 模型权重文件的 URL | - |
 | `model_id` | 模型唯一标识符 | - |
 | `model_lib` | WebGPU WASM 运行时文件的 URL | - |
-| `vram_required_MB` | 预估显存需求（MB） | - |
 | `low_resource_required` | 是否为低资源模式 | `false` |
 | `overrides.context_window_size` | 上下文窗口大小（tokens），Qwen3-1.7B 最大支持 40960 | 模型默认值 |
-
-### 透传 Props
-
-你可以通过 `dialogueProps` 和 `inputProps` 透传 `AIChatDialogue` 和 `AIChatInput` 的 props：
-
-```jsx live=true dir="column" noInline=true
-import React from 'react';
-import { ClientAI } from '@douyinfe/semi-ui';
-
-function WithCustomProps() {
-    const engineConfig = ClientAI.Qwen3_1_7B_EngineConfigCN;
-    const modelId = engineConfig.appConfig.model_list[0].model_id;
-    
-    return (
-        <ClientAI
-            modelId={modelId}
-            engineConfig={engineConfig}
-            showDeepThinkButton={true}
-            roleConfig={{
-                user: {
-                    name: '用户',
-                    avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
-                },
-                assistant: {
-                    name: 'AI 助手',
-                    avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png',
-                },
-                system: {
-                    name: '系统',
-                    avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png',
-                },
-            }}
-            dialogueProps={{
-                align: 'leftAlign',
-                mode: 'noBubble',
-            }}
-            inputProps={{
-                placeholder: '请输入你的问题...',
-            }}
-        />
-    );
-}
-
-render(<WithCustomProps />);
-```
 
 ### Tool Calling (函数调用)
 
@@ -238,12 +202,16 @@ render(<WithCustomProps />);
 
 我们通过分析 Qwen 的训练过程和 tokenizer config，在 MLC Engine 下为 **Qwen 系列模型扩展了 Tool Calling 支持**。这使得轻量级的 Qwen 模型（如 1.7B）也能在浏览器端实现工具调用能力。
 
+**使用提示**：
+- 尝试问 AI "北京今天天气怎么样？"
+- 尝试问 AI "帮我计算 123 * 456"
+- 尝试问 AI "现在几点了？"
+
 ```jsx live=true dir="column" noInline=true
-import React, { useRef } from 'react';
+import React from 'react';
 import { ClientAI, Toast } from '@douyinfe/semi-ui';
 
 function ToolCallingDemo() {
-    const clientAIRef = useRef(null);
     const engineConfig = ClientAI.Qwen3_1_7B_EngineConfigCN;
     const modelId = engineConfig.appConfig.model_list[0].model_id;
 
@@ -297,8 +265,11 @@ function ToolCallingDemo() {
         }
     ];
 
-    // 工具实现（同步版本，避免 async/await 兼容性问题）
-    const executeTools = (toolCalls) => {
+    // 处理 Tool Call
+    // 组件会自动调用此函数，等待返回结果后自动发送结果继续对话
+    const handleToolCall = async (toolCalls, rawOutput) => {
+        console.log('Received tool calls:', toolCalls);
+        
         // 模拟天气数据
         const weatherData = {
             '北京': { temp: '5°C', weather: '晴', humidity: '30%' },
@@ -307,6 +278,7 @@ function ToolCallingDemo() {
             '广州': { temp: '20°C', weather: '阴', humidity: '75%' },
         };
 
+        // 执行所有 tool calls
         return toolCalls.map((toolCall) => {
             const { call_id, name, arguments: argsStr } = toolCall;
             let result = '';
@@ -351,22 +323,8 @@ function ToolCallingDemo() {
         });
     };
 
-    // 处理 Tool Call（使用 Promise 链式调用）
-    const handleToolCall = (toolCalls, rawOutput) => {
-        console.log('Received tool calls:', toolCalls);
-        
-        // 执行所有 tool calls
-        const results = executeTools(toolCalls);
-
-        // 将结果发送回 AI 继续对话
-        if (clientAIRef.current) {
-            clientAIRef.current.sendToolResults(results);
-        }
-    };
-
     return (
         <ClientAI
-            ref={clientAIRef}
             modelId={modelId}
             engineConfig={engineConfig}
             showDeepThinkButton={true}
@@ -395,7 +353,7 @@ function ToolCallingDemo() {
 - 不要猜测或编造数据，必须通过调用工具获取准确信息
 - 调用工具后，等待工具返回结果，然后基于结果回答用户
 - 如果工具调用失败，如实告知用户并建议替代方案`}
-            onToolCall={handleToolCall}
+            handleToolCall={handleToolCall}
             onError={(error) => Toast.error(error.message)}
         />
     );
@@ -404,17 +362,13 @@ function ToolCallingDemo() {
 render(<ToolCallingDemo />);
 ```
 
-**使用提示**：
-- 尝试问 AI "北京今天天气怎么样？"
-- 尝试问 AI "帮我计算 123 * 456"
-- 尝试问 AI "现在几点了？"
-
 **注意事项**：
 1. Tool Calling 目前仅支持 Qwen 系列模型
-2. 需要通过 `ref` 获取组件实例来调用 `sendToolResults` 方法
-3. 工具定义遵循 OpenAI Function Calling 的格式规范
+2. 使用 `handleToolCall` prop，组件会自动处理工具调用和结果发送，无需手动调用 `sendToolResults`
+3. `handleToolCall` 返回 `Promise<ToolCallResult[]>` 或 `ToolCallResult[]`，组件会自动发送结果继续对话
+4. 工具定义遵循 OpenAI Function Calling 的格式规范
 
-### 深度思考 CoT（Chain of Thought）
+### 深度思考 CoT
 
 `ClientAI` 支持深度思考 CoT 开关，当开启时 AI 会进行更深入的推理思考（显示思考过程），当关闭时会添加 `/no_think` 标签让模型跳过思考过程直接回答。
 
@@ -462,6 +416,8 @@ render(<DeepThinkDemo />);
 ### 自定义渲染
 
 如果你需要完全自定义 UI（使用自己的消息列表和输入框样式），可以使用 `render` prop。传入 `render` 函数后，组件将不再渲染默认的 `AIChatDialogue` 和 `AIChatInput`，而是调用你的渲染函数。
+
+你也可以选择不渲染任何 UI，直接通过 `render` prop 返回 `null`，然后通过 `sendMessage` 方法调用 AI 能力。这种方式适用于搜索查询改写、文本预审核等用户对 AI 无感知、不需要交互的场景。
 
 ```jsx live=true dir="column" noInline=true
 import React, { useState, useRef } from 'react';
@@ -625,6 +581,47 @@ function CustomRenderDemo() {
 render(<CustomRenderDemo />);
 ```
 
+### 使用 Qwen3-4B 模型
+
+`ClientAI` 还提供了 Qwen3-4B 模型的配置，相比 1.7B 模型具有更强的能力。适合对模型能力要求更高的场景，特别是需要更多世界知识的场景。
+
+```jsx
+import React from 'react';
+import { ClientAI } from '@douyinfe/semi-ui';
+
+function Qwen4B() {
+    // 使用 Qwen3-4B 模型配置（中国大陆用户）
+    const engineConfig = ClientAI.Qwen3_4B_EngineConfigCN;
+    const modelId = engineConfig.appConfig.model_list[0].model_id;
+    
+    return (
+        <ClientAI
+            modelId={modelId}
+            engineConfig={engineConfig}
+            showDeepThinkButton={true}
+            roleConfig={{
+                user: {
+                    name: '用户',
+                    avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+                },
+                assistant: {
+                    name: 'AI 助手',
+                    avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png',
+                },
+                system: {
+                    name: '系统',
+                    avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png',
+                },
+            }}
+        />
+    );
+}
+```
+
+**模型选择建议**：
+- **Qwen3-1.7B**：轻量级模型，适合大多数场景
+- **Qwen3-4B**：能力更强的模型，适合对模型能力要求更高的场景，特别是需要更多世界知识的场景
+
 **ClientAIRenderProps 参数说明**：
 
 | 属性 | 说明 | 类型 |
@@ -652,7 +649,7 @@ render(<CustomRenderDemo />);
 
 ```typescript
 // worker.ts
-import { WebWorkerMLCEngineHandler } from '@douyinfe/semi-foundation/clientAI/interface';
+import { WebWorkerMLCEngineHandler } from '@mlc-ai/web-llm';
 
 const handler = new WebWorkerMLCEngineHandler();
 
@@ -672,7 +669,7 @@ self.onmessage = (msg: MessageEvent) => {
 
 在组件中，通过 `worker` prop 传入 Worker 文件的 URL：
 
-```jsx live=true dir="column" noInline=true
+```jsx
 import React from 'react';
 import { ClientAI } from '@douyinfe/semi-ui';
 
@@ -706,8 +703,6 @@ function WithWorker() {
         />
     );
 }
-
-render(<WithWorker />);
 ```
 
 **配置说明**：
@@ -737,9 +732,160 @@ worker: {
 ```
 
 **注意事项**：
-- Worker 文件需要从 `@douyinfe/semi-foundation/clientAI/interface` 导入 `WebWorkerMLCEngineHandler`
+- Worker 文件需要从 `@mlc-ai/web-llm` 导入 `WebWorkerMLCEngineHandler`
 - 确保打包工具正确配置了 Worker 支持
 - Worker 文件必须使用 ES Module 格式（`type: 'module'`）
+
+### 修改用户输入
+
+`onUserMessage` 回调可以在用户消息发送前修改输入内容，修改后的内容将同时用于显示和发送给AI：
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import { ClientAI } from '@douyinfe/semi-ui';
+
+function OnUserMessageExample() {
+    const engineConfig = ClientAI.Qwen3_1_7B_EngineConfigCN;
+    const modelId = engineConfig.appConfig.model_list[0].model_id;
+    
+    return (
+        <ClientAI
+            modelId={modelId}
+            engineConfig={engineConfig}
+            onUserMessage={(userContent, messages) => {
+                // 自动添加前缀
+                return `请用简洁的语言回答：${userContent}`;
+            }}
+        />
+    );
+}
+
+render(<OnUserMessageExample />);
+```
+
+### 拦截AI调用
+
+`beforeAIInput` 回调可以在AI调用前返回自定义回复，如果返回非空字符串，将跳过AI调用直接使用该回复：
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import { ClientAI } from '@douyinfe/semi-ui';
+
+function BeforeAIInputExample() {
+    const engineConfig = ClientAI.Qwen3_1_7B_EngineConfigCN;
+    const modelId = engineConfig.appConfig.model_list[0].model_id;
+    
+    return (
+        <ClientAI
+            modelId={modelId}
+            engineConfig={engineConfig}
+            beforeAIInput={async (messages) => {
+                const lastMessage = messages[messages.length - 1];
+                // 如果用户问的是"你好"，直接返回固定回复
+                if (lastMessage && lastMessage.content && lastMessage.content.includes('你好')) {
+                    return '你好！我是AI助手，很高兴为您服务。';
+                }
+                // 返回空字符串，正常调用AI
+                return '';
+            }}
+        />
+    );
+}
+
+render(<BeforeAIInputExample />);
+```
+
+### 修改AI回复
+
+`afterAIInput` 回调可以在AI回复后修改回复内容：
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import { ClientAI } from '@douyinfe/semi-ui';
+
+function AfterAIInputExample() {
+    const engineConfig = ClientAI.Qwen3_1_7B_EngineConfigCN;
+    const modelId = engineConfig.appConfig.model_list[0].model_id;
+    
+    return (
+        <ClientAI
+            modelId={modelId}
+            engineConfig={engineConfig}
+            afterAIInput={(aiContent, messages) => {
+                // 在AI回复前添加提示
+                return `[AI回复] ${aiContent}`;
+            }}
+        />
+    );
+}
+
+render(<AfterAIInputExample />);
+```
+
+### 控制流式显示
+
+`stream` 参数控制是否流式显示AI回复。当设置为 `false` 时，会等待流式返回完毕后才一次性显示：
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import { ClientAI } from '@douyinfe/semi-ui';
+
+function StreamExample() {
+    const engineConfig = ClientAI.Qwen3_1_7B_EngineConfigCN;
+    const modelId = engineConfig.appConfig.model_list[0].model_id;
+    
+    return (
+        <ClientAI
+            modelId={modelId}
+            engineConfig={engineConfig}
+            stream={false}
+        />
+    );
+}
+
+render(<StreamExample />);
+```
+
+### 设置默认对话消息
+
+`defaultMessages` 用于设置初始的对话历史，组件加载时会显示这些消息：
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import { ClientAI } from '@douyinfe/semi-ui';
+
+function DefaultMessagesExample() {
+    const engineConfig = ClientAI.Qwen3_1_7B_EngineConfigCN;
+    const modelId = engineConfig.appConfig.model_list[0].model_id;
+    
+    const defaultMessages = [
+        {
+            id: 'msg-1',
+            role: 'user',
+            content: '你好，请介绍一下你自己',
+            createdAt: Date.now() - 60000,
+            status: 'completed',
+        },
+        {
+            id: 'msg-2',
+            role: 'assistant',
+            content: '你好！我是AI助手，很高兴为您服务。我可以帮助您解答问题、提供信息和建议。',
+            createdAt: Date.now() - 30000,
+            status: 'completed',
+        },
+    ];
+    
+    return (
+        <ClientAI
+            modelId={modelId}
+            engineConfig={engineConfig}
+            defaultMessages={defaultMessages}
+        />
+    );
+}
+
+render(<DefaultMessagesExample />);
+```
 
 ## API 参考
 
@@ -747,21 +893,27 @@ worker: {
 
 | 属性 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
-| modelId | 模型 ID，**必填**。可从引擎配置中获取，如：`engineConfig.appConfig.model_list[0].model_id` | `string \| string[]` | - |
-| engineConfig | 引擎配置，**必填**。中国大陆使用 `ClientAI.Qwen3_1_7B_EngineConfigCN`，国外使用 `ClientAI.Qwen3_1_7B_EngineConfig`。也可选择自部署模型文件 | `MLCEngineConfig` | - |
+| afterAIInput | AI回复后的回调，可以修改AI的回复内容 | `(aiContent: string, messages: Message[]) => string \| Promise<string>` | - |
+| beforeAIInput | AI回复前的回调，可以拦截AI调用并返回自定义回复。返回非空字符串将作为AI回复，返回空字符串则正常调用AI | `(messages: Message[]) => string \| Promise<string>` | - |
 | chatOpts | 聊天选项，可配置 tools 等。覆盖模型默认配置 | `ChatOptions \| ChatOptions[]` | - |
-| worker | Worker 配置 | `{ url?: string; enabled?: boolean }` | `{ enabled: true }`（默认在主线程运行，需要提供 `url` 才会使用 Worker） |
-| systemPrompt | 系统提示词 | `string` | 根据浏览器语言动态设置：中文环境为 `'你是一个有用的 AI 助手。使用中文回复用户。'`，其他语言为 `'You are a helpful AI assistant. Reply to users in English.'` |
+| className | 自定义类名 | `string` | - |
+| defaultEnableDeepThink | 深度思考 CoT 默认状态 | `boolean` | `true` |
+| defaultMessages | 默认对话消息，用于设置初始的对话历史 | `Message[]` | - |
+| dialogueProps | AIChatDialogue 的透传 props | `Partial<AIChatDialogueProps>` | - |
+| engineConfig | 引擎配置，**必填**。可使用 `ClientAI.Qwen3_1_7B_EngineConfig` / `ClientAI.Qwen3_1_7B_EngineConfigCN`（1.7B 模型）或 `ClientAI.Qwen3_4B_EngineConfig` / `ClientAI.Qwen3_4B_EngineConfigCN`（4B 模型）。也可选择自部署模型文件 | `MLCEngineConfig` | - |
+| inputProps | AIChatInput 的透传 props | `Partial<AIChatInputProps>` | - |
+| modelId | 模型 ID，**必填**。可从引擎配置中获取，如：`engineConfig.appConfig.model_list[0].model_id` | `string \| string[]` | - |
+| handleToolCall | Tool 调用处理函数，组件会自动调用此函数并等待返回结果，然后自动发送结果继续对话 | `(toolCalls: ToolCall[], rawOutput: string) => Promise<ToolCallResult[]> \| ToolCallResult[]` | - |
+| onError | 错误回调 | `(error: Error) => void` | - |
+| onToolCall | Tool 调用回调，当 AI 输出包含 tool_call 时触发（仅用于通知，需要手动调用 sendToolResults） | `(toolCalls: ToolCall[], rawOutput: string) => void` | - |
+| onUserMessage | 用户消息发送前的回调，可以修改用户输入内容。返回的字符串将同时用于显示和发送给AI | `(userContent: string, messages: Message[]) => string` | - |
+| render | 自定义渲染函数，传入后将完全由用户控制 UI 渲染 | `(props: ClientAIRenderProps) => ReactNode` | - |
 | roleConfig | 角色配置，用于配置用户、助手、系统等角色的名称和头像等信息 | `RoleConfig` | `{ user: { name: '用户' }, assistant: { name: 'AI 助手' }, system: { name: '系统' } }`（默认不包含 avatar） |
 | showDeepThinkButton | 是否显示深度思考 CoT 按钮 | `boolean` | `false` |
-| defaultEnableDeepThink | 深度思考 CoT 默认状态 | `boolean` | `true` |
-| render | 自定义渲染函数，传入后将完全由用户控制 UI 渲染 | `(props: ClientAIRenderProps) => ReactNode` | - |
-| onError | 错误回调 | `(error: Error) => void` | - |
-| onToolCall | Tool 调用回调，当 AI 输出包含 tool_call 时触发 | `(toolCalls: ToolCall[], rawOutput: string) => void` | - |
-| dialogueProps | AIChatDialogue 的透传 props | `Partial<AIChatDialogueProps>` | - |
-| inputProps | AIChatInput 的透传 props | `Partial<AIChatInputProps>` | - |
-| className | 自定义类名 | `string` | - |
+| stream | 控制是否流式显示AI回复。当为 `false` 时，等待流式返回完毕后才一次性显示 | `boolean` | `true` |
 | style | 自定义样式 | `React.CSSProperties` | - |
+| systemPrompt | 系统提示词 | `string` | 根据浏览器语言动态设置：中文环境为 `'你是一个有用的 AI 助手。使用中文回复用户。'`，其他语言为 `'You are a helpful AI assistant. Reply to users in English.'` |
+| worker | Worker 配置 | `{ url?: string; enabled?: boolean }` | `{ enabled: true }`（默认在主线程运行，需要提供 `url` 才会使用 Worker） |
 
 ### 方法
 
@@ -769,7 +921,7 @@ worker: {
 
 | 方法 | 说明 | 参数 |
 |------|------|------|
-| sendToolResults | 发送 Tool 执行结果，让 AI 继续对话 | `(toolResults: ToolCallResult[]) => Promise<void>` |
+| sendToolResults | 发送 Tool 执行结果，让 AI 继续对话（通常不需要手动调用，推荐使用 `handleToolCall` prop） | `(toolResults: ToolCallResult[]) => Promise<void>` |
 
 ### ToolCall 类型
 
@@ -799,8 +951,13 @@ interface ToolCallResult {
 
 `ClientAI` 组件提供了以下静态属性，你需要从中获取引擎配置并传入：
 
+**Qwen3-1.7B 模型**（轻量级）：
 - `ClientAI.Qwen3_1_7B_EngineConfig` - 国际用户引擎配置（使用 Hugging Face + GitHub Raw）
 - `ClientAI.Qwen3_1_7B_EngineConfigCN` - 中国大陆用户引擎配置（使用 ModelScope + jsDelivr CDN）
+
+**Qwen3-4B 模型**（能力更强）：
+- `ClientAI.Qwen3_4B_EngineConfig` - 国际用户引擎配置（使用 Hugging Face + GitHub Raw）
+- `ClientAI.Qwen3_4B_EngineConfigCN` - 中国大陆用户引擎配置（使用 ModelScope + jsDelivr CDN）
 
 > 💡 **提示**：你可以选择将模型文件下载到自己的 CDN 或 OSS 上，然后自定义配置指向自己的地址。参考 [自部署模型文件](#自部署模型文件) 章节。
 

@@ -17,6 +17,8 @@ import { Locale } from '../locale/interface';
 import {
     Qwen3_1_7B_ENGINE_CONFIG,
     Qwen3_1_7B_ENGINE_CONFIG_CN,
+    Qwen3_4B_ENGINE_CONFIG,
+    Qwen3_4B_ENGINE_CONFIG_CN,
 } from '@douyinfe/semi-foundation/clientAI/constants';
 import type {
     WebWorkerMLCEngine,
@@ -26,6 +28,7 @@ import type {
 import { MessageContent } from '@douyinfe/semi-foundation/aiChatInput/interface';
 import { Message } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
 import chatInputToMessage from '@douyinfe/semi-foundation/aiChatDialogue/dataAdapter/chatInputToMessage';
+import '@douyinfe/semi-foundation/clientAI/clientAI.scss';
 
 const { Configure } = AIChatInput;
 
@@ -39,9 +42,11 @@ class ClientAI extends BaseComponent<ClientAIProps, ClientAIState> {
     // 静态属性：引擎配置
     // 国外配置（使用 Hugging Face + GitHub Raw）
     static Qwen3_1_7B_EngineConfig: MLCEngineConfig = Qwen3_1_7B_ENGINE_CONFIG;
+    static Qwen3_4B_EngineConfig: MLCEngineConfig = Qwen3_4B_ENGINE_CONFIG;
     
     // 中国配置（使用 ModelScope + jsDelivr CDN）
     static Qwen3_1_7B_EngineConfigCN: MLCEngineConfig = Qwen3_1_7B_ENGINE_CONFIG_CN;
+    static Qwen3_4B_EngineConfigCN: MLCEngineConfig = Qwen3_4B_ENGINE_CONFIG_CN;
 
     static propTypes = {
         worker: PropTypes.shape({
@@ -61,6 +66,13 @@ class ClientAI extends BaseComponent<ClientAIProps, ClientAIState> {
         showDeepThinkButton: PropTypes.bool,
         defaultEnableDeepThink: PropTypes.bool,
         render: PropTypes.func,
+        onUserMessage: PropTypes.func,
+        beforeAIInput: PropTypes.func,
+        afterAIInput: PropTypes.func,
+        stream: PropTypes.bool,
+        defaultMessages: PropTypes.array,
+        onToolCall: PropTypes.func,
+        handleToolCall: PropTypes.func,
     };
 
     static defaultProps = {
@@ -73,18 +85,60 @@ class ClientAI extends BaseComponent<ClientAIProps, ClientAIState> {
         systemPrompt: undefined, // 使用 undefined 让 foundation 层根据浏览器语言动态设置
         showDeepThinkButton: false,
         defaultEnableDeepThink: true,
+        stream: true,
     };
 
     constructor(props: ClientAIProps) {
         super(props);
 
+        // 处理 defaultMessages
+        const { defaultMessages } = props;
+        let initialChats: Message[] = [];
+        let initialMessages: any[] = [];
+        
+        if (defaultMessages && defaultMessages.length > 0) {
+            initialChats = defaultMessages.map((msg) => ({
+                ...msg,
+                id: msg.id || `msg_${Date.now()}_${Math.random()}`,
+                createdAt: msg.createdAt || Date.now(),
+                status: msg.status || 'completed',
+            }));
+            
+            // 转换为 WebLLM 格式
+            initialMessages = initialChats
+                .filter((msg) => msg.role === 'user' || msg.role === 'assistant')
+                .map((msg) => {
+                    let content = '';
+                    if (typeof msg.content === 'string') {
+                        content = msg.content;
+                    } else if (Array.isArray(msg.content)) {
+                        msg.content.forEach((item: any) => {
+                            if (item.type === 'message' && Array.isArray(item.content)) {
+                                item.content.forEach((contentItem: any) => {
+                                    if (contentItem.type === 'input_text' || contentItem.type === 'output_text') {
+                                        content += (contentItem.text || '');
+                                    }
+                                });
+                            } else if (item.type === 'output_text') {
+                                content += (item.text || '');
+                            }
+                        });
+                    }
+                    return {
+                        role: msg.role,
+                        content: content.trim(),
+                    };
+                })
+                .filter((msg) => msg.content);
+        }
+
         this.state = {
             engine: null,
             loading: true, // 初始状态为加载中，等待 engine 初始化完成
             error: null,
-            chats: [],
+            chats: initialChats,
             isGenerating: false,
-            messages: [],
+            messages: initialMessages,
             abortController: null,
             enableDeepThink: props.defaultEnableDeepThink !== false,
             initProgress: null,
@@ -296,13 +350,15 @@ class ClientAI extends BaseComponent<ClientAIProps, ClientAIState> {
         if (!editingMessage) return null;
 
         const { inputProps } = this.props;
+        const inputEditCls = cls(`${prefixCls}-input-edit`, inputProps?.className);
 
         return (
             <AIChatInput
-                style={{ margin: '12px 0px', maxHeight: 300, flexShrink: 0 }}
+                className={inputEditCls}
                 generating={false}
                 defaultContent={typeof editingMessage.content === 'string' ? editingMessage.content : undefined}
                 onMessageSend={this.handleEditMessageSend}
+                showUploadFile={false}
                 showUploadButton={false}
                 {...inputProps}
             />
@@ -341,8 +397,14 @@ class ClientAI extends BaseComponent<ClientAIProps, ClientAIState> {
         const roleConfig = propRoleConfig;
 
         const wrapperCls = cls(prefixCls, className);
-        const inputOuterStyle = { margin: '12px', minHeight: 150, maxHeight: 300, flexShrink: 0 };
-        const dialogueOuterStyle = { flex: 1, overflow: 'auto' };
+        const loadingCls = cls(`${prefixCls}-loading`);
+        const loadingContentCls = cls(`${prefixCls}-loading-content`);
+        const loadingTextCls = cls(`${prefixCls}-loading-text`);
+        const errorCls = cls(`${prefixCls}-error`);
+        const contentCls = cls(`${prefixCls}-content`);
+        const dialogueWrapperCls = cls(`${prefixCls}-dialogue-wrapper`);
+        const inputWrapperCls = cls(`${prefixCls}-input-wrapper`);
+        const inputEditCls = cls(`${prefixCls}-input-edit`);
 
         if (loading) {
             const { initProgress } = this.state;
@@ -363,21 +425,12 @@ class ClientAI extends BaseComponent<ClientAIProps, ClientAIState> {
                 <LocaleConsumer componentName="ClientAI">
                     {(locale: Locale["ClientAI"]) => (
                         <div
-                            className={wrapperCls}
-                            style={{
-                                padding: '40px 20px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                minHeight: '400px',
-                                gap: '24px',
-                                ...style
-                            }}
+                            className={cls(prefixCls, loadingCls, className)}
+                            style={style}
                         >
                             <Spin size="large" />
-                            <div style={{ width: '100%', maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                                <Typography.Text style={{ textAlign: 'center', fontSize: '16px', color: 'var(--semi-color-text-0)' }}>
+                            <div className={loadingContentCls}>
+                                <Typography.Text className={loadingTextCls}>
                                     {locale.loading}
                                 </Typography.Text>
                                 {showProgress && (
@@ -400,7 +453,7 @@ class ClientAI extends BaseComponent<ClientAIProps, ClientAIState> {
             return (
                 <LocaleConsumer componentName="ClientAI">
                     {(locale: Locale["ClientAI"]) => (
-                        <div className={wrapperCls} style={{ padding: '20px', ...style }}>
+                        <div className={cls(wrapperCls, errorCls)} style={style}>
                             <Typography.Title heading={5} type="danger">
                                 {locale.loadError}
                             </Typography.Title>
@@ -436,19 +489,11 @@ class ClientAI extends BaseComponent<ClientAIProps, ClientAIState> {
 
                     return (
                         <div
-                            className={wrapperCls}
-                            style={{
-                                padding: '20px',
-                                maxWidth: '1400px',
-                                margin: '0 auto',
-                                height: '100vh',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                ...style,
-                            }}
+                            className={cls(wrapperCls, `${prefixCls}-wrapper`)}
+                            style={style}
                         >
-                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, overflow: 'hidden' }}>
-                                <div style={dialogueOuterStyle}>
+                            <div className={contentCls}>
+                                <div className={dialogueWrapperCls}>
                                     <AIChatDialogue
                                         align="leftRight"
                                         mode="bubble"
@@ -462,7 +507,7 @@ class ClientAI extends BaseComponent<ClientAIProps, ClientAIState> {
                                 </div>
 
                                 <AIChatInput
-                                    style={inputOuterStyle}
+                                    className={cls(inputWrapperCls, inputProps?.className)}
                                     onMessageSend={this.handleMessageSend}
                                     placeholder={locale.inputPlaceholder}
                                     generating={isGenerating}

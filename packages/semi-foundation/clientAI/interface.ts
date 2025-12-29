@@ -113,7 +113,56 @@ export interface ClientAIProps {
      * 组件基础 props
      */
     className?: string;
-    style?: any
+    style?: any;
+    
+    /**
+     * 用户消息发送前的回调
+     * 可以修改用户输入内容，返回的字符串将同时用于显示和发送给AI
+     * @param userContent 用户输入的原始内容
+     * @param messages 完整的消息历史数组
+     * @returns 修改后的用户内容
+     */
+    onUserMessage?: (userContent: string, messages: any[]) => string;
+    
+    /**
+     * AI回复前的回调
+     * 可以拦截AI调用并返回自定义回复
+     * @param messages 完整的消息历史数组（包含最新的用户消息）
+     * @returns 非空字符串将作为AI回复，空字符串则正常调用AI
+     */
+    beforeAIInput?: (messages: any[]) => string | Promise<string>;
+    
+    /**
+     * AI回复后的回调
+     * 可以修改AI的回复内容
+     * @param aiContent AI返回的原始内容
+     * @param messages 完整的消息历史数组（包含AI回复）
+     * @returns 修改后的AI回复内容
+     */
+    afterAIInput?: (aiContent: string, messages: any[]) => string | Promise<string>;
+    
+    /**
+     * 控制是否流式显示AI回复
+     * @default true
+     * 当为 false 时，等待流式返回完毕后才一次性显示
+     */
+    stream?: boolean;
+    
+    /**
+     * 默认对话消息
+     * 用于设置初始的对话历史，组件加载时会显示这些消息
+     */
+    defaultMessages?: any[];
+    
+    /**
+     * Tool 调用处理函数
+     * 当 AI 输出包含 tool_call 时，组件会自动调用此函数并等待返回结果，然后自动发送结果继续对话
+     * 如果提供了此函数，将优先使用此函数；否则会调用 onToolCall 回调（需要手动调用 sendToolResults）
+     * @param toolCalls 解析出的 tool calls 数组
+     * @param rawOutput AI 的原始输出
+     * @returns 返回 Tool 执行结果数组，组件会自动发送这些结果继续对话
+     */
+    handleToolCall?: (toolCalls: ToolCall[], rawOutput: string) => Promise<ToolCallResult[]> | ToolCallResult[]
 }
 
 

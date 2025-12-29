@@ -1,0 +1,70 @@
+@import './variables.scss';
+
+$module: #{$prefix}-client-ai;
+
+.#{$module} {
+    &-wrapper {
+        padding: $spacing-clientAI-wrapper-padding;
+        max-width: $width-clientAI-wrapper-max;
+        margin: 0 auto;
+        min-height: $height-clientAI-wrapper-min;
+        height: $height-clientAI-wrapper-min;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &-loading {
+        padding: $spacing-clientAI-loading-paddingY $spacing-clientAI-loading-paddingX !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        min-height: $height-clientAI-loading-min !important;
+        gap: $spacing-clientAI-loading-gap;
+    }
+
+    &-loading-content {
+        width: 100%;
+        max-width: $width-clientAI-loading-content-max;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-clientAI-loading-content-gap;
+    }
+
+    &-loading-text {
+        text-align: center;
+        font-size: $font-clientAI-loading-text-fontSize;
+        color: var(--semi-color-text-0);
+    }
+
+    &-error {
+        padding: $spacing-clientAI-error-padding;
+    }
+
+    &-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    &-dialogue-wrapper {
+        flex: 1;
+        overflow: auto;
+    }
+
+    &-input-wrapper {
+        margin: $spacing-clientAI-input-wrapper-margin;
+        min-height: $height-clientAI-input-wrapper-min;
+        max-height: $height-clientAI-input-wrapper-max;
+        flex-shrink: 0;
+    }
+
+    &-input-edit {
+        margin: $spacing-clientAI-input-edit-marginY $spacing-clientAI-input-edit-marginX;
+        max-height: $height-clientAI-input-edit-max;
+        flex-shrink: 0;
+    }
+}
+
