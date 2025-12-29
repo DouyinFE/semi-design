@@ -34,6 +34,32 @@ The `ClientAI` component is suitable for the following typical use cases:
 - **Worker Support**: Supports running in Web Workers to avoid blocking the main thread
 - **Singleton Pattern**: Multiple component instances share the same model, avoiding duplicate downloads
 
+### Supported Models
+
+`ClientAI` runs on [MLC Engine](https://github.com/mlc-ai/mlc-llm) and supports all MLC pre-compiled WebGPU models. The complete model list can be found at [MLC Official Repository](https://github.com/mlc-ai/binary-mlc-llm-libs/tree/main/web-llm-models/v0_2_80).
+
+**Recommended Lightweight Models for Browser** (small parameter count, fast loading):
+
+| Model Series | Recommended Models | Parameters | Description |
+|-------------|-------------------|------------|-------------|
+| **Qwen3** | Qwen3-0.6B, Qwen3-1.7B, Qwen3-4B | 0.6B-4B | Alibaba Qwen, supports Deep Think CoT and Tool Calling |
+| **SmolLM2** | SmolLM2-135M, SmolLM2-360M, SmolLM2-1.7B | 135M-1.7B | By Hugging Face, ultra-lightweight models |
+| **Phi** | Phi-3.5-mini | 3.8B | By Microsoft, excellent performance for small model |
+| **Llama** | Llama-3.2-1B, Llama-3.2-3B | 1B-3B | By Meta, Llama 3.2 lightweight versions |
+| **Gemma** | Gemma-2-2B | 2B | By Google, suitable for simple tasks |
+| **TinyLlama** | TinyLlama-1.1B | 1.1B | Ultra-lightweight Llama architecture model |
+
+**Other Supported Model Series** (larger parameter count, requires more resources):
+
+- **Llama Series**: Llama-3.1-8B, Llama-3-8B, Llama-2-7B/13B
+- **Mistral Series**: Mistral-7B-Instruct
+- **Qwen Series**: Qwen2.5-7B, Qwen2-7B, Qwen1.5-7B/14B
+- **DeepSeek Series**: DeepSeek-R1-Distill-Qwen, DeepSeek-R1-Distill-Llama
+- **Hermes Series**: Hermes-2-Pro-Llama-3-8B, Hermes-3-Llama-3.1-8B (native Function Calling support)
+- **Others**: Gemma-2-9B, Phi-3-mini, RedPajama, Vicuna, etc.
+
+`ClientAI` theoretically supports all open-source models. For models that haven't been pre-compiled or your private models, you can refer to the [MLC LLM Official Documentation](https://llm.mlc.ai/docs/index.html) to convert model weights yourself for loading.
+
 ### Qwen Model Implementation
 
 `ClientAI` provides special optimizations and extensions for Qwen series models:

@@ -34,6 +34,32 @@ showNew: true
 - **Worker 支持**：支持在 Web Worker 中运行，避免阻塞主线程
 - **单例模式**：多个组件实例共享同一个模型，避免重复下载
 
+### 支持的模型列表
+
+`ClientAI` 基于 [MLC Engine](https://github.com/mlc-ai/mlc-llm) 运行，支持所有 MLC 预编译的 WebGPU 模型。完整的模型列表可在 [MLC 官方仓库](https://github.com/mlc-ai/binary-mlc-llm-libs/tree/main/web-llm-models/v0_2_80) 查看。
+
+**推荐用于浏览器的轻量级模型**（参数量小，加载快）：
+
+| 模型系列 | 推荐模型 | 参数量 | 说明 |
+|---------|---------|-------|------|
+| **Qwen3** | Qwen3-0.6B、Qwen3-1.7B、Qwen3-4B | 0.6B-4B | 阿里云通义千问，支持深度思考 CoT 和 Tool Calling |
+| **SmolLM2** | SmolLM2-135M、SmolLM2-360M、SmolLM2-1.7B | 135M-1.7B | Hugging Face 出品，超轻量级模型 |
+| **Phi** | Phi-3.5-mini | 3.8B | 微软出品，性能优秀的小模型 |
+| **Llama** | Llama-3.2-1B、Llama-3.2-3B | 1B-3B | Meta 出品，Llama 3.2 轻量版 |
+| **Gemma** | Gemma-2-2B | 2B | Google 出品，适合简单任务 |
+| **TinyLlama** | TinyLlama-1.1B | 1.1B | 超轻量级 Llama 架构模型 |
+
+**支持的其他模型系列**（参数量较大，需要更多资源）：
+
+- **Llama 系列**：Llama-3.1-8B、Llama-3-8B、Llama-2-7B/13B
+- **Mistral 系列**：Mistral-7B-Instruct
+- **Qwen 系列**：Qwen2.5-7B、Qwen2-7B、Qwen1.5-7B/14B
+- **DeepSeek 系列**：DeepSeek-R1-Distill-Qwen、DeepSeek-R1-Distill-Llama
+- **Hermes 系列**：Hermes-2-Pro-Llama-3-8B、Hermes-3-Llama-3.1-8B（原生支持 Function Calling）
+- **其他**：Gemma-2-9B、Phi-3-mini、RedPajama、Vicuna 等
+
+`ClientAI` 理论上支持所有开源模型。对于尚未预编译的模型或你的私有模型，可以参考 [MLC LLM 官方文档](https://llm.mlc.ai/docs/index.html) 自行转换模型权重后加载使用。
+
 ### Qwen 模型实现说明
 
 `ClientAI` 对 Qwen 系列模型进行了特殊优化和扩展：
