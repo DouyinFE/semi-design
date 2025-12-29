@@ -155,8 +155,8 @@ function main() {
     const [_, __, savePath] = process.argv;
     const output = '../static/changeLog.json';
     try {
-        const changelogZN = readFile('../content/start/changelog/index.md');
-        const changelogEN = readFile('../content/start/changelog/index-en-US.md');
+        const changelogZN = readFile('../content/ecosystem/changelog/index.md');
+        const changelogEN = readFile('../content/ecosystem/changelog/index-en-US.md');
         const changelogZNList = getChangeLogList(changelogZN);
         const changelogENList = getChangeLogList(changelogEN);
         const changelogJSON = {

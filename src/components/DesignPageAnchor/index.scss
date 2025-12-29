@@ -2,7 +2,7 @@
 .category-anchor {
     width: 150px;
     position: fixed;
-    right: 10px;
+    right: 0;
     top: 120px;
     // bottom: 12%;
     display: flex;
@@ -27,7 +27,7 @@
 @media screen and (max-width: 1920px) and (min-width: 1681px) {
     .category-anchor {
         min-width: 200px;
-        // max-height: 760px;
+        right: -10px;
 
         .semi-anchor-link {
             .semi-anchor-link-title {
