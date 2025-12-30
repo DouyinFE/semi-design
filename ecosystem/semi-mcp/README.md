@@ -92,50 +92,122 @@ Get specific component documentation:
 }
 ```
 
+---
+
+#### `get_component_file_list`
+
+Get all file paths for a Semi Design component.
+
+**Parameters:**
+- `componentName` (required): Component name, e.g., `Table`, `DatePicker`, etc. (case-insensitive)
+- `version` (optional): Version number, defaults to `2.89.2-alpha.3`
+
+**Example:**
+```json
+{
+  "name": "get_component_file_list",
+  "arguments": {
+    "componentName": "Table"
+  }
+}
+```
+
 **Response Format:**
-
-All responses are returned as plain text for AI-friendly consumption.
-
-When getting component list:
 ```
-Semi Design 组件列表 (版本 2.89.2-alpha.3)，共 70 个组件：
+Component: table
+Version: 2.89.2-alpha.3
+Total files: 38
 
-button, input, select, table, ...
-```
+File type statistics:
+  .ts:   11
+  .tsx:  21
+  .scss: 6
 
-When getting small component documentation (< 888 lines):
-```
-===== index.md =====
+===== File List =====
 
----
-title: Button
-...
----
-
-## Usage
-...
-
-===== index-en-US.md =====
-
----
-title: Button
-...
----
-
-## Usage
+@douyinfe/semi-foundation/table/foundation.ts
+@douyinfe/semi-foundation/table/constants.ts
+@douyinfe/semi-ui/table/Table.tsx
+@douyinfe/semi-ui/table/index.tsx
 ...
 ```
 
-When getting large component documentation (> 888 lines), the tool automatically saves to temp directory:
-```
-组件 Table (版本 2.89.2-alpha.3) 文档较大，已保存到临时目录。
+---
 
-文档文件列表：
-  - /tmp/semi-docs-table-2.89.2-alpha.3-1234567890/index.md (6,055 行)
-  - /tmp/semi-docs-table-2.89.2-alpha.3-1234567890/index-en-US.md (5,660 行)
+#### `get_file_code`
 
-请使用文件读取工具查看文档内容。
+Get the code content of a specific file.
+
+**Parameters:**
+- `filePath` (required): Full file path, e.g., `@douyinfe/semi-ui/table/Table.tsx`
+- `version` (optional): Version number, defaults to `2.89.2-alpha.3`
+- `fullCode` (optional): Whether to get full code (including function bodies), defaults to `false`
+
+**Behavior:**
+- `.ts/.tsx` files with >= 500 lines: Function bodies replaced with `{ ... }`, showing only code structure
+- `.ts/.tsx` files with < 500 lines: Full code displayed
+- Other files (`.scss`, etc.): Full content displayed
+- `fullCode: true`: Force display full code
+
+**Example:**
+```json
+{
+  "name": "get_file_code",
+  "arguments": {
+    "filePath": "@douyinfe/semi-ui/table/Table.tsx"
+  }
+}
 ```
+
+---
+
+#### `get_function_code`
+
+Get the full implementation of a specific function from a file.
+
+**Parameters:**
+- `filePath` (required): Full file path
+- `functionName` (required): Function name, e.g., `render`, `handleClick`, etc.
+- `version` (optional): Version number, defaults to `2.89.2-alpha.3`
+
+**Supported function types:**
+- Function declarations: `function foo() {}`
+- Arrow functions: `const foo = () => {}`
+- Class methods: `class Foo { bar() {} }`
+- Getters/Setters: `get foo() {}` / `set foo() {}`
+
+**Example:**
+```json
+{
+  "name": "get_function_code",
+  "arguments": {
+    "filePath": "@douyinfe/semi-foundation/table/foundation.ts",
+    "functionName": "init"
+  }
+}
+```
+
+**Response Format:**
+```
+File: @douyinfe/semi-foundation/table/foundation.ts
+Function: init
+Version: 2.89.2-alpha.3
+
+============================================================
+
+init() {
+    const dataSource = [...this.getProp('dataSource')];
+    // ... full function implementation
+}
+```
+
+---
+
+### Recommended Workflow
+
+1. **Get file list**: Use `get_component_file_list` to get all component files
+2. **View code structure**: Use `get_file_code` to view files of interest (large files auto-filter function bodies)
+3. **Get function implementation**: Use `get_function_code` to get specific function's full code
 
 ### Resources
 

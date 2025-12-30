@@ -10,6 +10,7 @@ import {
   clearCacheDir,
   getCacheDirSize,
 } from './file-cache.js';
+import { resolveVersion } from './resolve-version.js';
 
 export const UNPKG_BASE_URL = 'https://unpkg.com';
 export const NPMMIRROR_BASE_URL = 'https://registry.npmmirror.com';
@@ -244,14 +245,20 @@ export async function fetchDirectoryListFromSource(
  * 从 unpkg 或 npmmirror 获取目录列表
  * 同时向两个数据源发送请求，优先使用返回更多文件的结果
  * 支持文件缓存：相同的 packageName、version、path 会使用缓存
+ * 
+ * 注意：如果 version 是 "latest" 等标签，会先解析为实际版本号再缓存
+ * 这样当远端版本更新时，缓存会自动失效
  */
 export async function fetchDirectoryList(
   packageName: string,
   version: string,
   path: string
 ): Promise<Array<{ path: string; type: string }>> {
-  // 检查文件缓存
-  const cacheKey = getCacheKey(packageName, version, path);
+  // 解析版本号（将 "latest" 等标签解析为实际版本号）
+  const resolvedVersion = await resolveVersion(packageName, version);
+  
+  // 使用解析后的版本号作为缓存 key
+  const cacheKey = getCacheKey(packageName, resolvedVersion, path);
   const cacheDir = getDirectoryListCacheDir();
   const cachedContent = await readCache(cacheDir, cacheKey);
   
@@ -264,9 +271,9 @@ export async function fetchDirectoryList(
     }
   }
 
-  // 同时向两个源发送请求
-  const unpkgPromise = fetchDirectoryListFromSource(UNPKG_BASE_URL, packageName, version, path, false);
-  const npmmirrorPromise = fetchDirectoryListFromSource(NPMMIRROR_BASE_URL, packageName, version, path, true);
+  // 同时向两个源发送请求（使用解析后的版本号）
+  const unpkgPromise = fetchDirectoryListFromSource(UNPKG_BASE_URL, packageName, resolvedVersion, path, false);
+  const npmmirrorPromise = fetchDirectoryListFromSource(NPMMIRROR_BASE_URL, packageName, resolvedVersion, path, true);
 
   // 等待所有请求完成（无论成功或失败）
   const results = await Promise.allSettled([unpkgPromise, npmmirrorPromise]);
