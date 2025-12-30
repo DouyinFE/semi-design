@@ -16,7 +16,8 @@ export interface JsonViewerOptions {
     formatOptions?: FormattingOptions;
     completionOptions?: CompletionOptions;
     customRenderRule?: CustomRenderRule[];
-    prefixCls?: string
+    prefixCls?: string;
+    autoFocus?: boolean
 }
 
 export interface CompletionOptions {
@@ -54,6 +55,10 @@ export class JsonViewer {
 
     layout() {
         this._view.layout();
+        const { autoFocus, readOnly } = this._view.options || {};
+        if (autoFocus && !readOnly) {
+            this._view.contentDom.focus();
+        }
     }
 
     getModel() {
