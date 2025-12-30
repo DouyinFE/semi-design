@@ -229,6 +229,21 @@ const local: Locale = {
         template: 'Bản mẫu',
         configure: 'Cấu hình',
         selected: 'Đã chọn ${count} mục',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Liên kết đã được thêm thành công',
+        linkRemoveSuccess: 'Liên kết đã được xóa thành công',
+        enterLinkAddress: "Nhập địa chỉ liên kết",
+        validateFailInfo: 'Xác thực thất bại, vui lòng tải lên lại',
+        uploadFailInfo: 'Tải lên thất bại, vui lòng thử lại',
+        uploadImgInfo: 'Nhấn để tải ảnh lên hoặc kéo đến đây',
+        defaultMcpInfo: "MCP mặc định, không thể đóng",
+        searchPlaceholder: 'Nhập tại đây',
+        emptyCustomMcpInfo: 'Chưa có MCP tùy chỉnh',
+        newMcpAdd: 'MCP tùy chỉnh',
+        mcpConfigure: 'Cấu hình MCP',
+        annotationTitle: 'Nguồn tham khảo',
+        activeMCPNumber: 'Số lượng MCP đang hoạt động:'
     }
 };
 

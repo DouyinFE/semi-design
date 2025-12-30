@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Šablóna',
         configure: 'Nastaviť',
         selected: 'Vybrané položky (${count})',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Odkaz bol úspešne pridaný',
+        linkRemoveSuccess: 'Odkaz bol úspešne odstránený',
+        enterLinkAddress: "Zadajte adresu odkazu",
+        validateFailInfo: 'Overenie zlyhalo, nahrajte znova',
+        uploadFailInfo: 'Nahravanie zlyhalo, skúste znova',
+        uploadImgInfo: 'Kliknite pre nahranie obrázka alebo ho sem ťahajte',
+        defaultMcpInfo: "Prednastavený MCP, nie je možné zatvoriť",
+        searchPlaceholder: 'Zadajte sem',
+        emptyCustomMcpInfo: 'Ešte nie sú žiadne prispôsobené MCP',
+        newMcpAdd: 'Prispôsobený MCP',
+        mcpConfigure: 'Konfigurácia MCP',
+        annotationTitle: 'Zdroj referencie',
+        activeMCPNumber: 'Počet aktívnych MCP:'
     }
 };
 

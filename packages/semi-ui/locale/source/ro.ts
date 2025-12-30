@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Sablon',
         configure: 'Configurare',
         selected: '${count} articole selectate',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Link adăugat cu succes',
+        linkRemoveSuccess: 'Link eliminat cu succes',
+        enterLinkAddress: "Introduceți adresa link-ului",
+        validateFailInfo: 'Verificare eșuată, încărcați din nou',
+        uploadFailInfo: 'Încărcare eșuată, încercați din nou',
+        uploadImgInfo: 'Faceți clic pentru a încărca imaginea sau trageți-o aici',
+        defaultMcpInfo: "MCP predefinit, nu poate fi închis",
+        searchPlaceholder: 'Introduceți aici',
+        emptyCustomMcpInfo: 'Nu există încă MCP personalizate',
+        newMcpAdd: 'MCP personalizat',
+        mcpConfigure: 'Configurare MCP',
+        annotationTitle: 'Sursă de referință',
+        activeMCPNumber: 'Număr de MCP active:'
     }
 };
 

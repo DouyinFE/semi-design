@@ -234,6 +234,21 @@ const local: Locale = {
         template: 'Szablon',
         configure: 'Konfiguracja',
         selected: 'Wybrano ${count} elementów',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Link został dodany pomyślnie',
+        linkRemoveSuccess: 'Link został usunięty pomyślnie',
+        enterLinkAddress: "Wpisz adres linku",
+        validateFailInfo: 'Weryfikacja nie powiodła się, proszę przesłać ponownie',
+        uploadFailInfo: 'Przesyłanie nie powiodło się, proszę spróbować ponownie',
+        uploadImgInfo: 'Kliknij, aby przesłać obraz, lub przeciągnij go tutaj',
+        defaultMcpInfo: "Domyślny MCP, nie można go zamknąć",
+        searchPlaceholder: 'Proszę wpisać',
+        emptyCustomMcpInfo: 'Nie ma jeszcze dostosowanych MCP',
+        newMcpAdd: 'Dostosowany MCP',
+        mcpConfigure: 'Konfiguracja MCP',
+        annotationTitle: 'Źródło referencyjne',
+        activeMCPNumber: 'Liczba aktywnych MCP:'
     }
 };
 

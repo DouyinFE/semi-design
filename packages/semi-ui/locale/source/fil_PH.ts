@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Template',
         configure: 'I-configure',
         selected: 'Napili ang ${count} (na) item',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Matagumpay na idinagdag ang link',
+        linkRemoveSuccess: 'Matagumpay na inalis ang link',
+        enterLinkAddress: "Ipasok ang address ng link",
+        validateFailInfo: 'Nabigo ang pag-verify, pakiusap ulit na i-upload',
+        uploadFailInfo: 'Nabigo ang pag-upload, pakiusap subukan muli',
+        uploadImgInfo: 'I-click para i-upload ang larawan o i-drag dito',
+        defaultMcpInfo: "Paunang itinakda na MCP, hindi maaaring isara",
+        searchPlaceholder: 'Pakiusap na ipasok',
+        emptyCustomMcpInfo: 'Wala pang custom na MCP',
+        newMcpAdd: 'Custom na MCP',
+        mcpConfigure: 'Pagsasaayos ng MCP',
+        annotationTitle: 'Pinagmulan ng sangguniang',
+        activeMCPNumber: 'Bilang ng aktibong MCP:',
     }
 };
 

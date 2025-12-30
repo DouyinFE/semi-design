@@ -98,7 +98,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
         );
     }
 
-    handleClick = (itemKey: string, e: React.MouseEvent)=>{
+    handleClick = (itemKey: string, e: React.MouseEvent) => {
         // Judge user click Icon or Header
         // Don't mount this func into icon span wrapper, or get triggered twice because of event propagation
         if (this.context.clickHeaderToExpand || this.headerExpandIconTriggerRef.current?.contains(e.target as HTMLElement)) {
@@ -128,6 +128,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
         const active = activeSet.has(itemKey);
         const itemCls = cls(className, {
             [`${cssClasses.PREFIX}-item`]: true,
+            [`${cssClasses.PREFIX}-item-active`]: active,
         });
         const headerCls = cls({
             [`${cssClasses.PREFIX}-header`]: true,

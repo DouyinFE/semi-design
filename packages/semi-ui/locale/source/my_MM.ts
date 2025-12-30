@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'နမူနာပုံစံ',
         configure: 'စီစဉ်သတ်မှတ်ရန်',
         selected: 'ပစ္စည်း ${count} ခု ရွေးချယ်ထားသည်',
+    },
+    Sidebar: {
+        linkAddSuccess: 'လင့်ခ်ကိုအောင်မြင်စွာထည့်သွင်းခဲ့သည်',
+        linkRemoveSuccess: 'လင့်ခ်ကိုအောင်မြင်စွာဖယ်ရှားခဲ့သည်',
+        enterLinkAddress: "လင့်ခ်အိပ်ဒက်ကိုထည့်သွင်းပါ",
+        validateFailInfo: 'မှန်ကန်မှုစစ်ဆေးမှုမအောင်မြင်ပါ၊ ထပ်မံအပ်လုဒ်လုပ်ပါ',
+        uploadFailInfo: 'အပ်လုဒ်လုပ်မှုမအောင်မြင်ပါ၊ ထပ်မံကြိုးစားပါ',
+        uploadImgInfo: 'ပုံရိပ်အပ်လုဒ်လုပ်ရန်နှိပ်ပါ သို့မဟုတ်ဤနေရာသို့ဆွဲယူပါ',
+        defaultMcpInfo: "မူလကိုယ်ပိုင်သတ်မှတ်ထားသောMCP၊ ပိတ်လို့မရပါ",
+        searchPlaceholder: 'ထည့်သွင်းပေးပါ',
+        emptyCustomMcpInfo: 'အသီးသန့်ကိုယ်ပိုင်MCPမရှိသေးပါ',
+        newMcpAdd: 'ကိုယ်ပိုင်ဖန်တီးထားသောMCP',
+        mcpConfigure: 'MCPဖော်မတ်သတ်မှတ်ချက်',
+        annotationTitle: 'ရည်ညွှန်းရင်းမြစ်',
+        activeMCPNumber: 'အသက်ဆောင်သောMCPအရေအတွက်:'
     }
 };
 

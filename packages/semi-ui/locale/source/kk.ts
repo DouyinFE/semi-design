@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Үлгі',
         configure: 'Теңшеу',
         selected: '${count} элемент таңдалды',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Сілтеме сәтті қосылды',
+        linkRemoveSuccess: 'Сілтеме сәтті жойылды',
+        enterLinkAddress: "Сілтеменің адресіне енгізіңіз",
+        validateFailInfo: 'Дұрыс болатынын тексеру сәтсіз болды, қайтала жүктеп беріңіз',
+        uploadFailInfo: 'Жүктеу сәтсіз болды, қайтала көрісіңіз',
+        uploadImgInfo: 'Суретті жүктеу үшін басыңыз немесе осындай тастаңыз',
+        defaultMcpInfo: "Бастапқы бекітілген MCP, жабуға болмайды",
+        searchPlaceholder: 'Енгізіңіз',
+        emptyCustomMcpInfo: 'Босанған MCP жоқ әлі',
+        newMcpAdd: 'Босанған MCP',
+        mcpConfigure: 'MCP конфигурациясы',
+        annotationTitle: 'Солсыныстағы көзге',
+        activeMCPNumber: 'Активті MCP саны:'
     }
 };
 

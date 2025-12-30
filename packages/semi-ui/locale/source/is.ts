@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Sniðmát',
         configure: 'Stilla',
         selected: '${count} atriði valin',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Tengill bættur við með góðu árangri',
+        linkRemoveSuccess: 'Tengill fjarlægður með góðu árangri',
+        enterLinkAddress: "Sláðu inn heimilisfang tengils",
+        validateFailInfo: 'Staðfesting mistókst, vinsamlegast hlaðu upp aftur',
+        uploadFailInfo: 'Upphala mistókst, vinsamlegast reyndu aftur',
+        uploadImgInfo: 'Smelltu til að hlaða upp mynd eða dragðu hana hingað',
+        defaultMcpInfo: "Fyrirskilgreindur MCP, ekki hægt að loka",
+        searchPlaceholder: 'Vinsamlegast sláðu inn',
+        emptyCustomMcpInfo: 'Engar sérsniðnar MCP eru enn',
+        newMcpAdd: 'Sérsniðinn MCP',
+        mcpConfigure: 'Stillingar MCP',
+        annotationTitle: 'Tilvísunarheimildir',
+        activeMCPNumber: 'Fjöldi virkra MCP:'
     }
 };
 

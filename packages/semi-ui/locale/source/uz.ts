@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Andoza',
         configure: 'Sozlash',
         selected: '${count} ta element tanlangan',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Havola muvaffaqiyatli qo\'shildi',
+        linkRemoveSuccess: 'Havola muvaffaqiyatli o\'chirildi',
+        enterLinkAddress: "Havola manzilini kiriting",
+        validateFailInfo: 'Tekshirish muvaffaqiyatsiz bo\'ldi, qayta yuklang',
+        uploadFailInfo: 'Yuklash muvaffaqiyatsiz bo\'ldi, qayta urinib ko\'ring',
+        uploadImgInfo: 'Rasm yuklash uchun bosing yoki shu yerga sudrab o\'tkazing',
+        defaultMcpInfo: "Standart MCP, yopib bo\'lmaydi",
+        searchPlaceholder: 'Bu erga kiriting',
+        emptyCustomMcpInfo: 'Hali moslashtirilgan MCP yo\'q',
+        newMcpAdd: 'Moslashtirilgan MCP',
+        mcpConfigure: 'MCP konfiguratsiyasi',
+        annotationTitle: 'Manba ma\'lumoti',
+        activeMCPNumber: 'Faol MCP soni:'
     }
 };
 

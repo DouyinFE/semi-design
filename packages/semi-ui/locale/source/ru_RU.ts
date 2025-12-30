@@ -229,6 +229,21 @@ const local: Locale = {
         template: 'Tрафарет',
         configure: 'Конфигурация',
         selected: 'Выбрано ${count} элементов',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Ссылка успешно добавлена',
+        linkRemoveSuccess: 'Ссылка успешно удалена',
+        enterLinkAddress: "Введите адрес ссылки",
+        validateFailInfo: 'Проверка не удалась, загрузите снова',
+        uploadFailInfo: 'Загрузка не удалась, попробуйте снова',
+        uploadImgInfo: 'Нажмите, чтобы загрузить изображение, или перетащите его сюда',
+        defaultMcpInfo: "Предустановленный MCP, закрыть нельзя",
+        searchPlaceholder: 'Введите здесь',
+        emptyCustomMcpInfo: 'Персонализированных MCP еще нет',
+        newMcpAdd: 'Персонализированный MCP',
+        mcpConfigure: 'Конфигурация MCP',
+        annotationTitle: 'Источник ссылки',
+        activeMCPNumber: 'Количество активных MCP:'
     }
 };
 

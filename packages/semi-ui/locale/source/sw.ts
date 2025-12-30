@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Kiolezo',
         configure: 'Weka mipangilio',
         selected: 'Umechagua vipengee ${count}',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Link imeongezwa na mafanikio',
+        linkRemoveSuccess: 'Link imefutwa na mafanikio',
+        enterLinkAddress: "Ingiza barua pepe ya link",
+        validateFailInfo: 'Thibitisho limekosa, weka upya tena',
+        uploadFailInfo: 'Wekaji limekosa, jaribu tena',
+        uploadImgInfo: 'Bonyeza ili weka picha au inywe hapa',
+        defaultMcpInfo: "MCP wa msingi, hauwezi kufunga",
+        searchPlaceholder: 'Ingiza hapa',
+        emptyCustomMcpInfo: 'Hakuna MCP yenyewe bado',
+        newMcpAdd: 'MCP yenyewe',
+        mcpConfigure: 'Mabadiliko ya MCP',
+        annotationTitle: 'Chanzo cha makosa',
+        activeMCPNumber: 'Idadi ya MCP yenye uhai:'
     }
 };
 

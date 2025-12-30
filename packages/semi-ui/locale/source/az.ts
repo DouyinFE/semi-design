@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Şablon',
         configure: 'Konfiqurasiya',
         selected: 'Seçilmiş ${count} element',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Link uğurla əlavə edildi',
+        linkRemoveSuccess: 'Link uğurla silindi',
+        enterLinkAddress: "Link ünvanını daxil edin",
+        validateFailInfo: 'Doğrulama uğursuz oldu, zəhmət olmasa yenidən yükləyin',
+        uploadFailInfo: 'Yükləmə uğursuz oldu, zəhmət olmasa yenidən cəhd edin',
+        uploadImgInfo: 'Şəkli yükləmək üçün klik edin və ya buraya sürükləyin',
+        defaultMcpInfo: "Öncədən təyin edilmiş MCP, bağlaya bilməzsiniz",
+        searchPlaceholder: 'Zəhmət olmasa daxil edin',
+        emptyCustomMcpInfo: 'Hələ özəl MCP yoxdur',
+        newMcpAdd: 'Özəl MCP',
+        mcpConfigure: 'MCP konfiqurasiyası',
+        annotationTitle: 'İstinad mənbəsi',
+        activeMCPNumber: 'Aktiv MCP sayı:',
     }
 };
 

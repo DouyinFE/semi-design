@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Mall',
         configure: 'Konfigureeri',
         selected: 'Valitud ${count} elementi',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Link lisati edukalt',
+        linkRemoveSuccess: 'Link eemaldati edukalt',
+        enterLinkAddress: "Sisesta linki aadress",
+        validateFailInfo: 'Valideerimine nurjus, palun laadi üles uuesti',
+        uploadFailInfo: 'Üleslaadimine nurjus, palun proovi uuesti',
+        uploadImgInfo: 'Kliki pildi üleslaadimiseks või lohista see siia',
+        defaultMcpInfo: "Eelmääratud MCP, ei saa sulgeda",
+        searchPlaceholder: 'Palun sisesta',
+        emptyCustomMcpInfo: 'Kohandatud MCP-d pole veel',
+        newMcpAdd: 'Kohandatud MCP',
+        mcpConfigure: 'MCP konfiguratsioon',
+        annotationTitle: 'Viitekogu',
+        activeMCPNumber: 'Aktiivsete MCP-de arv:',
     }
 };
 

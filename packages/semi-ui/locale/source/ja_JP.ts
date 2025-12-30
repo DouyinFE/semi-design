@@ -227,6 +227,21 @@ const local: Locale = {
         template: 'テンプレート',
         configure: '設定',
         selected: '選択された ${count} 個',
+    },
+    Sidebar: {
+        linkAddSuccess: 'リンクを正常に追加しました',
+        linkRemoveSuccess: 'リンクを正常に削除しました',
+        enterLinkAddress: "リンクアドレスを入力してください",
+        validateFailInfo: '検証に失敗しました、再アップロードしてください',
+        uploadFailInfo: 'アップロードに失敗しました、再試行してください',
+        uploadImgInfo: '画像をクリックしてアップロード、またはこちらにドラッグしてください',
+        defaultMcpInfo: "既定のMCPです、閉じることができません",
+        searchPlaceholder: 'ご入力ください',
+        emptyCustomMcpInfo: 'カスタムMCPはまだありません',
+        newMcpAdd: 'カスタムMCP',
+        mcpConfigure: 'MCP設定',
+        annotationTitle: '参照元',
+        activeMCPNumber: 'アクティブMCP数:'
     }
 };
 

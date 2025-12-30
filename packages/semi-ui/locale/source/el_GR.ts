@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Πρότυπο',
         configure: 'Ρύθμιση',
         selected: 'Έγινε επιλογή ${count} στοιχείων',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Ο σύνδεσμος προστέθηκε επιτυχώς',
+        linkRemoveSuccess: 'Ο σύνδεσμος αφαιρέθηκε επιτυχώς',
+        enterLinkAddress: "Εισάγετε τη διεύθυνση σύνδεσμου",
+        validateFailInfo: 'Η επαλήθευση απέτυχε, παρακαλούμε ανεβάστε ξανά',
+        uploadFailInfo: 'Η μεταφόρτωση απέτυχε, παρακαλούμε δοκιμάστε ξανά',
+        uploadImgInfo: 'Κάντε κλικ για ανέβασμα εικόνας ή σύρετε ją εδώ',
+        defaultMcpInfo: "Προκαθορισμένο MCP, δεν μπορεί να κλείσει",
+        searchPlaceholder: 'Παρακαλούμε εισάγετε',
+        emptyCustomMcpInfo: 'Δεν υπάρχουν προσαρμοσμένα MCP ακόμα',
+        newMcpAdd: 'Προσαρμοσμένο MCP',
+        mcpConfigure: 'Ρύθμιση MCP',
+        annotationTitle: 'Πηγή αναφοράς',
+        activeMCPNumber: 'Αριθμός ενεργών MCP:',
     }
 };
 

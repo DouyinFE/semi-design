@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'টেমপ্লেট',
         configure: 'কনফিগার করুন',
         selected: '${count}টি আইটেম নির্বাচন করা হয়েছে',
+    },
+    Sidebar: {
+        linkAddSuccess: 'লিঙ্ক সফলভাবে যোগ করা হয়েছে',
+        linkRemoveSuccess: 'লিঙ্ক সফলভাবে অপসারণ করা হয়েছে',
+        enterLinkAddress: "লিঙ্কের ঠিকানা লিখুন",
+        validateFailInfo: 'ভেরিফিকেশন ব্যর্থ, দয়া করে পুনরায় আপলোড করুন',
+        uploadFailInfo: 'আপলোড ব্যর্থ, দয়া করে পুনরায় চেষ্টা করুন',
+        uploadImgInfo: 'ছবি আপলোড করতে ক্লিক করুন বা এখানে ছবি টেনে আনুন',
+        defaultMcpInfo: "পূর্বনির্ধারিত MCP, বন্ধ করা যাবে না",
+        searchPlaceholder: 'দয়া করে লিখুন',
+        emptyCustomMcpInfo: 'এখনও কোনো কাস্টম MCP নেই',
+        newMcpAdd: 'কাস্টম MCP',
+        mcpConfigure: 'MCP কনফিগারেশন',
+        annotationTitle: 'সংসদর্ভের উৎস',
+        activeMCPNumber: 'সক্রিয় MCP সংখ্যা:',
     }
 };
 

@@ -3,6 +3,9 @@
 $module: #{$prefix}-json-viewer;
 
 .#{$module} {
+    box-sizing: border-box;
+    padding: $spacing-json-viewer-paddingY $spacing-json-viewer-paddingX;
+
     &-background {
         background-color: $color-json-viewer-background;
     }
