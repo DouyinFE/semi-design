@@ -3,7 +3,7 @@ const getWebpackConfig = require('../webpack.config');
 
 function compile() {
     return new Promise((resolve, reject) => {
-        console.log('compile jsx start', process.env);
+        console.log('compile jsx start');
         const config = getWebpackConfig({ minimize: false });
         webpack(config, (err, stats) => {
             if (err) {
