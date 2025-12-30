@@ -49,7 +49,9 @@
     "prepublishOnly": "npm run build && npm test"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.4"
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "@swc/core": "^1.15.8",
+    "oxc-parser": "^0.106.0"
   },
   "devDependencies": {
     "@rslib/core": "^0.18.5",
