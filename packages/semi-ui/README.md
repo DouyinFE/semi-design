@@ -4,7 +4,7 @@
     <h1 style="width: 100%; text-align: center;">Semi-UI</h1>
     <p>
         A modern, comprehensive, flexible design system and UI library. Connect DesignOps & DevOps. Quickly build beautiful React apps. Maintained by Douyin-fe team.
-    </p>
+    </p>.  
 </article>
     
 <div align="center">
