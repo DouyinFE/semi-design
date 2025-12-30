@@ -2,7 +2,7 @@ import { defineConfig } from '@rslib/core';
 
 export default defineConfig({
   lib: [
-    // MCP Server 入口 - 仅 Node.js 环境
+    // MCP Server 入口 - stdio 模式
     {
       source: {
         entry: {
@@ -18,15 +18,15 @@ export default defineConfig({
         },
       },
     },
-    // 浏览器兼容入口 - 可在浏览器和 Node.js 中运行
+    // MCP Server 入口 - HTTP/SSE 模式
     {
       source: {
         entry: {
-          browser: './src/browser.ts',
+          http: './src/http.ts',
         },
       },
       format: 'esm',
-      syntax: ['es2020'],
+      syntax: ['node 18'],
       dts: true,
       output: {
         distPath: {

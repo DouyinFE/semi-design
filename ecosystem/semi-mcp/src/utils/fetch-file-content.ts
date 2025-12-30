@@ -3,8 +3,37 @@
  * 同时向两个数据源发送请求，使用第一个成功返回的结果
  */
 
+import {
+  readCache,
+  writeCache,
+  getFileContentCacheDir,
+  clearCacheDir,
+  getCacheDirSize,
+} from './file-cache.js';
+
 export const UNPKG_BASE_URL = 'https://unpkg.com';
 export const NPMMIRROR_BASE_URL = 'https://registry.npmmirror.com';
+
+/**
+ * 生成缓存 key
+ */
+function getCacheKey(packageName: string, version: string, filePath: string): string {
+  return `${packageName}@${version}/${filePath}`;
+}
+
+/**
+ * 清除文件内容缓存
+ */
+export async function clearFileContentCache(): Promise<number> {
+  return clearCacheDir(getFileContentCacheDir());
+}
+
+/**
+ * 获取文件内容缓存大小
+ */
+export async function getFileContentCacheSize(): Promise<number> {
+  return getCacheDirSize(getFileContentCacheDir());
+}
 
 /**
  * 从单个源获取文件内容
@@ -46,12 +75,22 @@ export async function fetchFileContentFromSource(
 /**
  * 从 unpkg 或 npmmirror 获取具体文件内容
  * 同时向两个数据源发送请求，使用第一个成功返回的结果
+ * 支持文件缓存：相同的 packageName、version、filePath 会使用缓存
  */
 export async function fetchFileContent(
   packageName: string,
   version: string,
   filePath: string
 ): Promise<string> {
+  // 检查文件缓存
+  const cacheKey = getCacheKey(packageName, version, filePath);
+  const cacheDir = getFileContentCacheDir();
+  const cachedContent = await readCache(cacheDir, cacheKey);
+  
+  if (cachedContent) {
+    return cachedContent;
+  }
+
   // 同时向两个源发送请求
   const unpkgPromise = fetchFileContentFromSource(UNPKG_BASE_URL, packageName, version, filePath, false);
   const npmmirrorPromise = fetchFileContentFromSource(NPMMIRROR_BASE_URL, packageName, version, filePath, true);
@@ -67,6 +106,8 @@ export async function fetchFileContent(
   );
 
   if (raceResult) {
+    // 写入文件缓存
+    await writeCache(cacheDir, cacheKey, raceResult);
     return raceResult;
   }
 
@@ -83,4 +124,3 @@ export async function fetchFileContent(
 
   throw new Error(`所有数据源都失败了: ${errors.map((e) => e.message).join('; ')}`);
 }
-

@@ -3,8 +3,37 @@
  * 同时向两个数据源发送请求，使用第一个成功返回的结果
  */
 
+import {
+  readCache,
+  writeCache,
+  getDirectoryListCacheDir,
+  clearCacheDir,
+  getCacheDirSize,
+} from './file-cache.js';
+
 export const UNPKG_BASE_URL = 'https://unpkg.com';
 export const NPMMIRROR_BASE_URL = 'https://registry.npmmirror.com';
+
+/**
+ * 生成缓存 key
+ */
+function getCacheKey(packageName: string, version: string, path: string): string {
+  return `${packageName}@${version}/${path}`;
+}
+
+/**
+ * 清除目录列表缓存
+ */
+export async function clearDirectoryListCache(): Promise<number> {
+  return clearCacheDir(getDirectoryListCacheDir());
+}
+
+/**
+ * 获取目录列表缓存大小
+ */
+export async function getDirectoryListCacheSize(): Promise<number> {
+  return getCacheDirSize(getDirectoryListCacheDir());
+}
 
 /**
  * 递归扁平化嵌套的目录结构（用于处理 npmmirror 返回的嵌套格式）
@@ -214,12 +243,27 @@ export async function fetchDirectoryListFromSource(
 /**
  * 从 unpkg 或 npmmirror 获取目录列表
  * 同时向两个数据源发送请求，优先使用返回更多文件的结果
+ * 支持文件缓存：相同的 packageName、version、path 会使用缓存
  */
 export async function fetchDirectoryList(
   packageName: string,
   version: string,
   path: string
 ): Promise<Array<{ path: string; type: string }>> {
+  // 检查文件缓存
+  const cacheKey = getCacheKey(packageName, version, path);
+  const cacheDir = getDirectoryListCacheDir();
+  const cachedContent = await readCache(cacheDir, cacheKey);
+  
+  if (cachedContent) {
+    try {
+      const cachedResult = JSON.parse(cachedContent) as Array<{ path: string; type: string }>;
+      return cachedResult;
+    } catch {
+      // 缓存解析失败，忽略缓存
+    }
+  }
+
   // 同时向两个源发送请求
   const unpkgPromise = fetchDirectoryListFromSource(UNPKG_BASE_URL, packageName, version, path, false);
   const npmmirrorPromise = fetchDirectoryListFromSource(NPMMIRROR_BASE_URL, packageName, version, path, true);
@@ -258,6 +302,10 @@ export async function fetchDirectoryList(
     return a.source === 'unpkg' ? -1 : 1;
   });
 
-  return successfulResults[0].files;
-}
+  const result = successfulResults[0].files;
 
+  // 写入文件缓存
+  await writeCache(cacheDir, cacheKey, JSON.stringify(result));
+
+  return result;
+}

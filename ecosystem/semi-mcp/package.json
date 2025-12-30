@@ -4,25 +4,18 @@
   "description": "Semi Design MCP Server - Model Context Protocol server for Semi Design components and documentation",
   "type": "module",
   "main": "./dist/index.js",
-  "module": "./dist/browser.js",
-  "browser": "./dist/browser.js",
   "bin": {
-    "semi-mcp": "./dist/index.js"
+    "semi-mcp": "./dist/index.js",
+    "semi-mcp-http": "./dist/http.js"
   },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./browser": {
-      "types": "./dist/browser.d.ts",
-      "browser": "./dist/browser.js",
-      "import": "./dist/browser.js"
-    },
-    "./utils": {
-      "types": "./dist/browser.d.ts",
-      "browser": "./dist/browser.js",
-      "import": "./dist/browser.js"
+    "./http": {
+      "types": "./dist/http.d.ts",
+      "import": "./dist/http.js"
     }
   },
   "types": "./dist/index.d.ts",
@@ -52,6 +45,7 @@
     "dev": "rslib build --watch",
     "test": "rstest",
     "start": "node dist/index.js",
+    "start:http": "node dist/http.js",
     "prepublishOnly": "npm run build && npm test"
   },
   "dependencies": {
