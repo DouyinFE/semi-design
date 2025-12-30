@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.90.1 (2025-12-19)
+- 【Chore】
+    - Remove Optional chaining (?.) from the build artifact of @douyinfe/semi-json-viewer-core. [#3103](https://github.com/DouyinFE/semi-design/pull/3103)
+
 #### 🎉 2.90.0 (2025-12-26)
 - 【Feat】
     - AIChatInput adds sendHotKey API  [#3098](https://github.com/DouyinFE/semi-design/issues/3098)
