@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "ES2020",
+        "sourceMap": true,
+        "allowJs": true,
+        "lib": ["es2020", "dom"],
+        "moduleResolution": "node",
+        "declaration": true,
+        "noImplicitAny": true,
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": false,
+        "strictNullChecks": false,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+    },
+    "include": ["**/*.ts"],
+    "exclude": ["node_modules", "lib"]
+}
