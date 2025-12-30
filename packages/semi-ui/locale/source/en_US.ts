@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Template',
         configure: 'Configure',
         selected: 'Selected ${count} items',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Link added successfully',
+        linkRemoveSuccess: 'Link removed successfully',
+        enterLinkAddress: "Enter link address",
+        validateFailInfo: 'Verification failed, please upload again',
+        uploadFailInfo: 'Upload failed, please try again',
+        uploadImgInfo: 'Click to upload image or drag image here',
+        defaultMcpInfo: "Preset MCP, cannot be closed",
+        searchPlaceholder: 'Please enter',
+        emptyCustomMcpInfo: "No custom MCP yet",
+        newMcpAdd: 'Custom MCP',
+        mcpConfigure: 'MCP Configuration',
+        annotationTitle: 'Reference Source',
+        activeMCPNumber: 'Number of activated MCPs:',
     }
 };
 

@@ -227,6 +227,21 @@ const local: Locale = {
         template: '模板',
         configure: '配置',
         selected: '已選 ${count} 個',
+    },
+    Sidebar: {
+        linkAddSuccess: '連結新增成功',
+        linkRemoveSuccess: '連結刪除成功',
+        enterLinkAddress: "請輸入連結位址",
+        validateFailInfo: '驗證失敗，請重新上傳',
+        uploadFailInfo: '上傳失敗，請重新嘗試',
+        uploadImgInfo: '點選上傳圖片，或拖曳至此处',
+        defaultMcpInfo: "預設MCP，無法關閉",
+        searchPlaceholder: '請於此輸入',
+        emptyCustomMcpInfo: '目前無自訂MCP',
+        newMcpAdd: '自訂MCP',
+        mcpConfigure: 'MCP設定',
+        annotationTitle: '參考來源',
+        activeMCPNumber: '啟用狀態MCP數量:'
     }
 };
 

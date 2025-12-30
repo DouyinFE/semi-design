@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Шаблон',
         configure: 'Налаштувати',
         selected: 'Вибрано елементів: ${count}',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Посилання успішно додано',
+        linkRemoveSuccess: 'Посилання успішно видалено',
+        enterLinkAddress: "Введіть адресу посилання",
+        validateFailInfo: 'Перевірка не вдалася, завантажте знову',
+        uploadFailInfo: 'Завантаження не вдалася, спробуйте знову',
+        uploadImgInfo: 'Натисніть, щоб завантажити зображення, або перетягніть його сюди',
+        defaultMcpInfo: "Стандартний MCP, не можна закрити",
+        searchPlaceholder: 'Введіть тут',
+        emptyCustomMcpInfo: 'Персоналізованих MCP ще немає',
+        newMcpAdd: 'Персоналізований MCP',
+        mcpConfigure: 'Конфігурація MCP',
+        annotationTitle: 'Джерело посилання',
+        activeMCPNumber: 'Кількість активних MCP:'
     }
 };
 

@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'תבנית',
         configure: 'הגדרת תצורה',
         selected: 'נבחרו ${count} פריטים',
+    },
+    Sidebar: {
+        linkAddSuccess: 'הקישור נוסף בהצלחה',
+        linkRemoveSuccess: 'הקישור הוסר בהצלחה',
+        enterLinkAddress: "הכנס כתובת קישור",
+        validateFailInfo: 'אימות נכשל, אנא העלה שוב',
+        uploadFailInfo: 'העלאה נכשלה, אנא נסה שוב',
+        uploadImgInfo: 'לחץ להעלאת תמונה או גרור אותה לכאן',
+        defaultMcpInfo: "MCP מוגדר מראש, לא ניתן לסגור",
+        searchPlaceholder: 'אנא הכנס',
+        emptyCustomMcpInfo: 'אין עדיין MCP מותאם אישית',
+        newMcpAdd: 'MCP מותאם אישית',
+        mcpConfigure: 'תצורת MCP',
+        annotationTitle: 'מקור הפניה',
+        activeMCPNumber: 'מספר MCP פעילים:',
     }
 };
 

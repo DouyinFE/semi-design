@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Veidne',
         configure: 'Konfigurēt',
         selected: 'Atlasīto vienumu skaits: ${count}',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Saite veiksmīgi pievienota',
+        linkRemoveSuccess: 'Saite veiksmīgi izņemta',
+        enterLinkAddress: "Ievadiet saites adresi",
+        validateFailInfo: 'Validācija neizdevās, lūdzu augšupielādējiet vēlreiz',
+        uploadFailInfo: 'Augšupielāde neizdevās, lūdzu mēģiniet vēlreiz',
+        uploadImgInfo: 'Noklikšķiniet, lai augšupielādētu attēlu, vai nometiet to šeit',
+        defaultMcpInfo: "Noklusējuma MCP, nevar aizvērt",
+        searchPlaceholder: 'Lūdzu ievadiet',
+        emptyCustomMcpInfo: 'Pielāgoti MCP vēl nav',
+        newMcpAdd: 'Pielāgots MCP',
+        mcpConfigure: 'MCP konfigurācija',
+        annotationTitle: 'Pamatdarbības avots',
+        activeMCPNumber: 'Aktīvo MCP skaits:'
     }
 };
 

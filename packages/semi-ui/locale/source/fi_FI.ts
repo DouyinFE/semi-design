@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Malli',
         configure: 'Määritä',
         selected: 'Valitut ${count} kohdetta',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Linkki lisätty onnistuneesti',
+        linkRemoveSuccess: 'Linkki poistettu onnistuneesti',
+        enterLinkAddress: "Syötä linkin osoite",
+        validateFailInfo: 'Validointi epäonnistui, ole hyvä ja lataa uudelleen',
+        uploadFailInfo: 'Lataus epäonnistui, ole hyvä ja yritä uudelleen',
+        uploadImgInfo: 'Klikkaa ladataksesi kuvan tai raahaa se tänne',
+        defaultMcpInfo: "Ennalta määritetty MCP, ei voi sulkea",
+        searchPlaceholder: 'Ole hyvä ja syötä',
+        emptyCustomMcpInfo: 'Ei mukautettuja MCP:itä vielä',
+        newMcpAdd: 'Mukautettu MCP',
+        mcpConfigure: 'MCP:n määritys',
+        annotationTitle: 'Viite lähde',
+        activeMCPNumber: 'Aktiivisten MCP:iden määrä:',
     }
 };
 

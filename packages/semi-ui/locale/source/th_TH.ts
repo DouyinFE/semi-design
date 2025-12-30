@@ -230,6 +230,21 @@ const local: Locale = {
         template: 'ลายฉลุ',
         configure: 'การกำหนดค่า',
         selected: '${count} รายการที่เลือก',
+    },
+    Sidebar: {
+        linkAddSuccess: 'ลิงก์เพิ่มสำเร็จแล้ว',
+        linkRemoveSuccess: 'ลิงก์ลบสำเร็จแล้ว',
+        enterLinkAddress: "ป้อนที่อยู่ลิงก์",
+        validateFailInfo: 'ตรวจสอบไม่ผ่าน กรุณาอัปโหลดใหม่',
+        uploadFailInfo: 'อัปโหลดไม่สำเร็จ กรุณาลองใหม่อีกครั้ง',
+        uploadImgInfo: 'คลิกเพื่ออัปโหลดรูปภาพ หรือลากมาที่นี่',
+        defaultMcpInfo: "MCP ค่าเริ่มต้น ไม่สามารถปิดได้",
+        searchPlaceholder: 'กรุณาป้อนข้อมูล',
+        emptyCustomMcpInfo: 'ยังไม่มี MCP ที่กำหนดเอง',
+        newMcpAdd: 'MCP ที่กำหนดเอง',
+        mcpConfigure: 'การตั้งค่า MCP',
+        annotationTitle: 'แหล่งอ้างอิง',
+        activeMCPNumber: 'จำนวน MCPที่ใช้งานอยู่:'
     }
 };
 

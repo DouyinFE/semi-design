@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Sablon',
         configure: 'Beállítás',
         selected: '${count} elem kiválasztva',
+    },
+    Sidebar: {
+        linkAddSuccess: 'A link sikeresen hozzáadva',
+        linkRemoveSuccess: 'A link sikeresen eltávolítva',
+        enterLinkAddress: "Adja meg a link címét",
+        validateFailInfo: 'A megerősítés sikertelen, kérjük töltse fel újra',
+        uploadFailInfo: 'A feltöltés sikertelen, kérjük próbálja újra',
+        uploadImgInfo: 'Kattintson a kép feltöltéséhez vagy húzza ide',
+        defaultMcpInfo: "Előre beállított MCP, nem zárható be",
+        searchPlaceholder: 'Kérjük adja meg',
+        emptyCustomMcpInfo: 'Még nincsenek testreszabott MCP-k',
+        newMcpAdd: 'Testreszabott MCP',
+        mcpConfigure: 'MCP konfiguráció',
+        annotationTitle: 'Hivatkozás forrása',
+        activeMCPNumber: 'Aktív MCP-k száma:'
     }
 };
 

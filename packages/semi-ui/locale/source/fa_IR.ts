@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'قالب',
         configure: 'پیکربندی',
         selected: 'مواردی {count} دلاری انتخاب‌شده',
+    },
+    Sidebar: {
+        linkAddSuccess: 'لینک با موفقیت اضافه شد',
+        linkRemoveSuccess: 'لینک با موفقیت حذف شد',
+        enterLinkAddress: "آدرس لینک را وارد کنید",
+        validateFailInfo: 'تاییدیه ناموفق بود، لطفاً دوباره آپلود کنید',
+        uploadFailInfo: 'آپلود ناموفق بود، لطفاً دوباره امتحان کنید',
+        uploadImgInfo: 'برای آپلود تصویر کلیک کنید یا تصویر را به اینجا بکشید',
+        defaultMcpInfo: "MCP پیش‌فرض، قابل بستن نیست",
+        searchPlaceholder: 'لطفاً وارد کنید',
+        emptyCustomMcpInfo: 'هنوز MCP سفارشی وجود ندارد',
+        newMcpAdd: 'MCP سفارشی',
+        mcpConfigure: 'پیکربندی MCP',
+        annotationTitle: 'منبع مرجع',
+        activeMCPNumber: 'تعداد MCP فعال:',
     }
 };
 

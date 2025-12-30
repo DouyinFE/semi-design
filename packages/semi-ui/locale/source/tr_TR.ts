@@ -227,6 +227,21 @@ const local: Locale = {
         template: 'Şablon',
         configure: 'Yapılandırma',
         selected: '${count} öğe seçildi',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Bağlantı başarıyla eklendi',
+        linkRemoveSuccess: 'Bağlantı başarıyla silindi',
+        enterLinkAddress: "Bağlantı adresini girin",
+        validateFailInfo: 'Doğrulama başarısız, tekrar yükleyin',
+        uploadFailInfo: 'Yükleme başarısız, tekrar deneyin',
+        uploadImgInfo: 'Resim yüklemek için tıklayın veya buraya sürükleyin',
+        defaultMcpInfo: "Varsayılan MCP, kapatılamaz",
+        searchPlaceholder: 'Buraya girin',
+        emptyCustomMcpInfo: 'Henüz özelleştirilmiş MCP bulunmamaktadır',
+        newMcpAdd: 'Özelleştirilmiş MCP',
+        mcpConfigure: 'MCP Yapılandırması',
+        annotationTitle: 'Referans Kaynağı',
+        activeMCPNumber: 'Aktif MCP Sayısı:'
     }
 };
 

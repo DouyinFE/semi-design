@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Teimpléad',
         configure: 'Cumraigh',
         selected: 'Roghnaíodh ${count} mír',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Nasc curtha leis go rathúil',
+        linkRemoveSuccess: 'Nasc bainte air go rathúil',
+        enterLinkAddress: "Iontráil seoladh an nasca",
+        validateFailInfo: 'Theip ar an bhfíorú, téigh i gcionn íoslódáil arís',
+        uploadFailInfo: 'Theip ar an íoslódáil, déan iarracht arís',
+        uploadImgInfo: 'Cliceáil chun íomhá a íoslódáil nó tarraing í go dtí seo',
+        defaultMcpInfo: "MCP réamhshocraithe, ní féidir é a dhúnadh",
+        searchPlaceholder: 'Iontráil le do thoil',
+        emptyCustomMcpInfo: 'Níl aon MCP saincheaptha fós',
+        newMcpAdd: 'MCP saincheaptha',
+        mcpConfigure: 'Cumraíocht MCP',
+        annotationTitle: 'Foinse tagartha',
+        activeMCPNumber: 'Líon na gMCP gníomhacha:',
     }
 };
 
