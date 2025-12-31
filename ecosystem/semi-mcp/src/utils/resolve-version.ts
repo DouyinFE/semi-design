@@ -1,6 +1,11 @@
 /**
  * 版本号解析模块
- * 将 "latest" 等标签解析为实际版本号，确保缓存正确失效
+ * 将 "latest" 等标签解析为实际版本号
+ * 
+ * 缓存策略：
+ * - 每天只在第一次调用时查询 npm registry
+ * - 当天后续调用使用缓存版本号
+ * - 版本号不设过期时间（只有日期变化才重新查询）
  */
 
 import {
@@ -10,15 +15,12 @@ import {
 } from './file-cache.js';
 import { join } from 'path';
 
-// 版本缓存有效期：5 分钟（毫秒）
-const VERSION_CACHE_TTL = 5 * 60 * 1000;
-
 /**
  * 版本缓存数据结构
  */
 interface VersionCacheData {
   version: string;
-  timestamp: number;
+  date: string; // 缓存日期，格式：YYYY-MM-DD
 }
 
 /**
@@ -30,9 +32,22 @@ function getVersionCacheDir(): string {
 
 /**
  * 生成版本缓存 key
+ * 格式：packageName@tag (如 @douyinfe/semi-ui@latest)
  */
 function getVersionCacheKey(packageName: string, tag: string): string {
   return `${packageName}@${tag}`;
+}
+
+/**
+ * 获取当前日期字符串
+ * 格式：YYYY-MM-DD
+ */
+function getCurrentDate(): string {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 /**
@@ -77,12 +92,16 @@ async function fetchVersionFromRegistry(packageName: string, tag: string): Promi
 
 /**
  * 解析版本号
- * 如果是标签（如 "latest"），解析为实际版本号
- * 如果已经是具体版本号，直接返回
  * 
  * @param packageName 包名
- * @param version 版本号或标签
+ * @param version 版本号或标签（如 "latest"、"next"、具体版本号）
  * @returns 实际版本号
+ * 
+ * 工作原理：
+ * 1. 如果是具体版本号（如 2.89.2），直接返回
+ * 2. 如果是标签（如 latest）：
+ *    - 检查缓存：如果缓存日期等于今天，直接返回缓存版本
+ *    - 缓存无效：从 npm registry 获取版本，并缓存（带今天日期）
  */
 export async function resolveVersion(packageName: string, version: string): Promise<string> {
   // 如果是具体版本号（包含数字和点），直接返回
@@ -94,30 +113,30 @@ export async function resolveVersion(packageName: string, version: string): Prom
   // 是标签（如 latest、next、beta 等），需要解析
   const cacheDir = getVersionCacheDir();
   const cacheKey = getVersionCacheKey(packageName, version);
+  const today = getCurrentDate();
 
   // 检查缓存
   const cachedContent = await readCache(cacheDir, cacheKey);
   if (cachedContent) {
     try {
       const cached = JSON.parse(cachedContent) as VersionCacheData;
-      const now = Date.now();
       
-      // 检查缓存是否过期
-      if (now - cached.timestamp < VERSION_CACHE_TTL) {
+      // 如果缓存日期等于今天，直接使用缓存版本
+      if (cached.date === today) {
         return cached.version;
       }
     } catch {
-      // 缓存解析失败，忽略
+      // 缓存解析失败，忽略缓存
     }
   }
 
-  // 从 registry 获取实际版本号
+  // 缓存无效或过期，从 registry 获取实际版本号
   const resolvedVersion = await fetchVersionFromRegistry(packageName, version);
 
-  // 写入缓存
+  // 写入缓存（带今天日期）
   const cacheData: VersionCacheData = {
     version: resolvedVersion,
-    timestamp: Date.now(),
+    date: today,
   };
   await writeCache(cacheDir, cacheKey, JSON.stringify(cacheData));
 
@@ -130,8 +149,7 @@ export async function resolveVersion(packageName: string, version: string): Prom
 export async function resolveVersions(
   packages: Array<{ packageName: string; version: string }>
 ): Promise<Map<string, string>> {
-  const results = new Map<string, string>();
-  
+  const results = new Map<string, string>();  
   await Promise.all(
     packages.map(async ({ packageName, version }) => {
       const resolved = await resolveVersion(packageName, version);
@@ -141,4 +159,3 @@ export async function resolveVersions(
 
   return results;
 }
-
