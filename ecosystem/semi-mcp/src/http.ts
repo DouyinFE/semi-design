@@ -13,7 +13,6 @@
  */
 
 import { createServer, IncomingMessage, ServerResponse } from 'http';
-import { randomUUID } from 'crypto';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { createMCPServer, getPackageVersion } from './server.js';
 
@@ -62,7 +61,6 @@ Options:
 Endpoints:
   POST /mcp         MCP 消息端点 (Streamable HTTP)
   GET  /mcp         SSE 流端点 (用于服务器推送)
-  DELETE /mcp       关闭会话
   GET  /health      健康检查端点
 `);
       process.exit(0);
@@ -72,59 +70,23 @@ Endpoints:
   return { port, host, stateless, timeout };
 }
 
-// 会话信息（包含最后活动时间）
-interface SessionInfo {
-  transport: StreamableHTTPServerTransport;
-  lastActivity: number;
-}
-
-// 存储活跃的传输实例（按 session ID）
-const sessions = new Map<string, SessionInfo>();
-
-// 更新会话活动时间
-function touchSession(sessionId: string): void {
-  const session = sessions.get(sessionId);
-  if (session) {
-    session.lastActivity = Date.now();
-  }
-}
-
-// 清理超时会话
-async function cleanupExpiredSessions(timeoutMs: number): Promise<void> {
-  const now = Date.now();
-  const expiredSessions: string[] = [];
-  
-  sessions.forEach((session, sessionId) => {
-    if (now - session.lastActivity > timeoutMs) {
-      expiredSessions.push(sessionId);
-    }
-  });
-  
-  for (const sessionId of expiredSessions) {
-    const session = sessions.get(sessionId);
-    if (session) {
-      console.log(`[${new Date().toISOString()}] 会话超时清理: ${sessionId} (空闲 ${Math.round((now - session.lastActivity) / 1000 / 60)} 分钟)`);
-      try {
-        await session.transport.close();
-      } catch {
-        // 忽略关闭错误
-      }
-      sessions.delete(sessionId);
-    }
-  }
-}
-
 async function main() {
   const { port, host, stateless, timeout } = parseArgs();
   const version = getPackageVersion();
-  const timeoutMs = timeout * 60 * 1000; // 转换为毫秒
 
-  // 启动会话清理定时器（每分钟检查一次）
-  const cleanupInterval = setInterval(() => {
-    cleanupExpiredSessions(timeoutMs).catch((error) => {
-      console.error(`[${new Date().toISOString()}] 会话清理错误:`, error);
-    });
-  }, 60 * 1000);
+  // 创建 MCP 服务器
+  const server = createMCPServer();
+
+  // 创建 Streamable HTTP 传输层
+  const transport = new StreamableHTTPServerTransport({
+    sessionIdGenerator: stateless ? undefined : () => crypto.randomUUID(),
+  });
+
+  // 连接服务器和传输层
+  await server.connect(transport);
+
+  console.log(`[${new Date().toISOString()}] MCP 服务器已启动`);
+  console.log(`[${new Date().toISOString()}] 模式: ${stateless ? '无状态 (Stateless)' : '有状态 (Stateful)'}`);
 
   // 创建 HTTP 服务器
   const httpServer = createServer(async (req: IncomingMessage, res: ServerResponse) => {
@@ -133,8 +95,8 @@ async function main() {
     // 设置 CORS 头
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, mcp-session-id');
-    res.setHeader('Access-Control-Expose-Headers', 'mcp-session-id');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Mcp-Session-Id');
+    res.setHeader('Access-Control-Expose-Headers', 'Mcp-Session-Id');
 
     // 处理 OPTIONS 预检请求
     if (req.method === 'OPTIONS') {
@@ -153,161 +115,44 @@ async function main() {
         transport: 'streamable-http',
         stateless,
         sessionTimeout: `${timeout} minutes`,
-        activeSessions: sessions.size,
       }));
       return;
     }
 
     // MCP 端点
     if (url.pathname === '/mcp') {
-      const sessionId = req.headers['mcp-session-id'] as string | undefined;
+      // 读取请求体
+      let body = '';
+      req.on('data', (chunk) => {
+        body += chunk.toString();
+      });
       
-      // POST 请求 - 发送消息
-      if (req.method === 'POST') {
-        // 读取请求体
-        let body = '';
-        req.on('data', (chunk) => {
-          body += chunk.toString();
-        });
-        
-        await new Promise<void>((resolve) => {
-          req.on('end', async () => {
-            try {
-              const parsedBody = body ? JSON.parse(body) : undefined;
-              
-              // 检查是否是初始化请求
-              const isInitialize = parsedBody?.method === 'initialize';
-              
-              if (isInitialize) {
-                // 初始化请求 - 创建新的 transport 和 server
-                const server = createMCPServer();
-                const transport = new StreamableHTTPServerTransport({
-                  sessionIdGenerator: stateless ? undefined : () => randomUUID(),
-                });
-                
-                // 连接服务器和传输层
-                await server.connect(transport);
-                
-                // 设置关闭回调
-                transport.onclose = () => {
-                  const sid = transport.sessionId;
-                  if (sid) {
-                    console.log(`[${new Date().toISOString()}] 会话关闭: ${sid}`);
-                    sessions.delete(sid);
-                  }
-                };
-                
-                // 处理请求（这会设置 session ID）
-                await transport.handleRequest(req, res, parsedBody);
-                
-                // 保存 session（在 handleRequest 后 sessionId 才可用）
-                const newSessionId = transport.sessionId;
-                if (newSessionId) {
-                  sessions.set(newSessionId, {
-                    transport,
-                    lastActivity: Date.now(),
-                  });
-                  console.log(`[${new Date().toISOString()}] 新会话创建: ${newSessionId}`);
-                }
-              } else {
-                // 非初始化请求 - 需要 session ID
-                if (!sessionId) {
-                  res.writeHead(400, { 'Content-Type': 'application/json' });
-                  res.end(JSON.stringify({
-                    jsonrpc: '2.0',
-                    error: { code: -32000, message: 'Bad Request: Missing mcp-session-id header' },
-                    id: parsedBody?.id ?? null,
-                  }));
-                  resolve();
-                  return;
-                }
-                
-                const session = sessions.get(sessionId);
-                if (!session) {
-                  res.writeHead(404, { 'Content-Type': 'application/json' });
-                  res.end(JSON.stringify({
-                    jsonrpc: '2.0',
-                    error: { code: -32000, message: 'Not Found: Session not found or expired' },
-                    id: parsedBody?.id ?? null,
-                  }));
-                  resolve();
-                  return;
-                }
-                
-                // 更新活动时间
-                touchSession(sessionId);
-                
-                await session.transport.handleRequest(req, res, parsedBody);
-              }
-            } catch (error) {
-              const errorMessage = error instanceof Error ? error.message : String(error);
-              console.error(`[${new Date().toISOString()}] 请求处理错误:`, errorMessage);
-              if (!res.headersSent) {
-                res.writeHead(500, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ 
-                  jsonrpc: '2.0',
-                  error: { code: -32000, message: errorMessage },
-                  id: null,
-                }));
-              }
+      await new Promise<void>((resolve) => {
+        req.on('end', async () => {
+          try {
+            const parsedBody = body ? JSON.parse(body) : undefined;
+            
+            // 将请求委托给 transport 处理
+            // StreamableHTTPServerTransport 会自动处理 session ID 和初始化流程
+            await transport.handleRequest(req, res, parsedBody);
+            
+            console.log(`[${new Date().toISOString()}] ${req.method} ${url.pathname} - ${res.statusCode}`);
+          } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            console.error(`[${new Date().toISOString()}] 请求处理错误:`, errorMessage);
+            if (!res.headersSent) {
+              res.writeHead(500, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ 
+                jsonrpc: '2.0',
+                error: { code: -32000, message: errorMessage },
+                id: null,
+              }));
             }
-            resolve();
-          });
+          }
+          resolve();
         });
-        return;
-      }
-      
-      // GET 请求 - SSE 流
-      if (req.method === 'GET') {
-        if (!sessionId) {
-          res.writeHead(400, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({
-            jsonrpc: '2.0',
-            error: { code: -32000, message: 'Bad Request: Missing mcp-session-id header' },
-            id: null,
-          }));
-          return;
-        }
-        
-        const session = sessions.get(sessionId);
-        if (!session) {
-          res.writeHead(404, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({
-            jsonrpc: '2.0',
-            error: { code: -32000, message: 'Not Found: Session not found' },
-            id: null,
-          }));
-          return;
-        }
-        
-        // 更新活动时间
-        touchSession(sessionId);
-        
-        await session.transport.handleRequest(req, res);
-        return;
-      }
-      
-      // DELETE 请求 - 关闭会话
-      if (req.method === 'DELETE') {
-        if (!sessionId) {
-          res.writeHead(400, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ error: 'Missing mcp-session-id header' }));
-          return;
-        }
-        
-        const session = sessions.get(sessionId);
-        if (session) {
-          await session.transport.close();
-          sessions.delete(sessionId);
-          console.log(`[${new Date().toISOString()}] 会话已删除: ${sessionId}`);
-          res.writeHead(200, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ success: true, message: '会话已关闭' }));
-        } else {
-          res.writeHead(404, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ error: '会话不存在' }));
-        }
-        return;
-      }
+      });
+      return;
     }
 
     // 根路径 - 返回服务信息
@@ -322,19 +167,18 @@ async function main() {
         sessionTimeout: `${timeout} minutes`,
         endpoints: {
           mcp: {
-            POST: '/mcp - 发送 MCP 请求 (初始化请求无需 session ID)',
-            GET: '/mcp - SSE 流 (需要 mcp-session-id 头)',
-            DELETE: '/mcp - 关闭会话',
+            POST: '/mcp - 发送 MCP 请求',
+            GET: '/mcp - SSE 流 (需要 Mcp-Session-Id 头)',
           },
           health: '/health - 健康检查',
         },
         headers: {
-          'mcp-session-id': '会话 ID (初始化响应后获取，后续请求需携带)',
+          'Mcp-Session-Id': '会话 ID (初始化响应后获取，后续请求需携带)',
         },
         usage: {
-          step1: '发送 initialize 请求获取 session ID',
-          step2: '后续请求携带 mcp-session-id 头',
-          example: `curl -X POST http://${host === '0.0.0.0' ? 'localhost' : host}:${port}/mcp -H "Content-Type: application/json" -H "Accept: application/json, text/event-stream" -d '{"jsonrpc":"2.0","method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"test","version":"1.0"}},"id":1}'`,
+          step1: '客户端发送 initialize 请求',
+          step2: '服务器返回响应并包含 Mcp-Session-Id header',
+          step3: '后续请求携带 Mcp-Session-Id header',
         },
       }, null, 2));
       return;
@@ -358,7 +202,6 @@ async function main() {
 ║  端点:                                                       ║
 ║    POST   /mcp      发送 MCP 请求                            ║
 ║    GET    /mcp      SSE 流 (服务器推送)                      ║
-║    DELETE /mcp      关闭会话                                 ║
 ║    GET    /health   健康检查                                 ║
 ╚══════════════════════════════════════════════════════════════╝
 `);
@@ -368,16 +211,12 @@ async function main() {
   const shutdown = async () => {
     console.log('\n正在关闭服务器...');
     
-    // 停止清理定时器
-    clearInterval(cleanupInterval);
-    
-    // 关闭所有活跃会话
-    const sessionEntries = Array.from(sessions.entries());
-    for (const [sessionId, session] of sessionEntries) {
-      console.log(`关闭会话: ${sessionId}`);
-      await session.transport.close();
+    try {
+      await transport.close();
+      console.log('Transport 已关闭');
+    } catch (error) {
+      console.error('关闭 transport 时出错:', error);
     }
-    sessions.clear();
     
     httpServer.close(() => {
       console.log('服务器已关闭');
