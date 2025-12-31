@@ -4,18 +4,69 @@
     "description": "A modern, comprehensive, flexible design system and UI library. Connect DesignOps & DevOps. Quickly build beautiful React apps. Maintained by Douyin-fe team.",
     "main": "lib/cjs/index.js",
     "module": "lib/es/index.js",
+    "types": "lib/es/index.d.ts",
     "typings": "lib/es/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./lib/es/index.d.ts",
+            "import": "./lib/es/index.js",
+            "require": "./lib/cjs/index.js"
+        },
+        "./*": {
+            "types": "./lib/es/*/index.d.ts",
+            "import": "./lib/es/*/index.js",
+            "require": "./lib/cjs/*/index.js"
+        },
+        "./lib/es/*": {
+            "types": [
+                "./lib/es/*.d.ts",
+                "./lib/es/*/index.d.ts"
+            ],
+            "import": "./lib/es/*.js",
+            "default": "./lib/es/*.js"
+        },
+        "./lib/cjs/*": {
+            "types": [
+                "./lib/cjs/*.d.ts",
+                "./lib/cjs/*/index.d.ts"
+            ],
+            "require": "./lib/cjs/*.js",
+            "default": "./lib/cjs/*.js"
+        }
+    },
     "scripts": {
-        "clean": "rimraf dist lib",
+        "clean": "rimraf dist lib content",
+        "clean:content": "rimraf content",
         "build:lib": "node ./scripts/compileLib.js",
         "build:js": "node scripts/compileDist.js",
         "build:css": "node scripts/compileScss.js",
-        "prepublishOnly": "npm run clean && npm run build:lib && npm run build:js && npm run build:css"
+        "copy:content": "node scripts/copyContent.js",
+        "prepublishOnly": "npm run clean && npm run build:lib && npm run build:js && npm run build:css && npm run copy:content",
+        "postpublish": "npm run clean:content"
     },
     "files": [
         "dist/*",
-        "lib/*"
+        "lib/*",
+        "content/**/*",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.scss",
+        "!**/_story/**",
+        "!**/__test__/**",
+        "!**/_test_/**",
+        "!**/node_modules/**",
+        "!**/*.test.ts",
+        "!**/*.test.tsx",
+        "!**/*.spec.ts",
+        "!**/*.spec.tsx"
     ],
+    "typesVersions": {
+        "*": {
+            "*": [
+                "lib/es/*"
+            ]
+        }
+    },
     "dependencies": {
         "@dnd-kit/core": "^6.0.8",
         "@dnd-kit/sortable": "^7.0.2",
