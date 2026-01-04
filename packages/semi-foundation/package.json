@@ -3,8 +3,22 @@
     "version": "2.90.1",
     "description": "",
     "scripts": {
+        "clean": "rimraf lib",
         "build:lib": "node ./scripts/compileLib.js",
-        "prepublishOnly": "npm run build:lib"
+        "prepublishOnly": "npm run clean && npm run build:lib"
+    },
+    "files": [
+        "lib/*",
+        "**/*.ts",
+        "**/*.scss",
+        "!**/node_modules/**",
+        "!**/*.test.ts",
+        "!**/*.spec.ts"
+    ],
+    "typesVersions": {
+        "*": {
+            "*": ["lib/es/*"]
+        }
     },
     "dependencies": {
         "@douyinfe/semi-animation": "2.90.1",
@@ -38,6 +52,7 @@
         "@types/prismjs": "^1.26.3",
         "babel-plugin-lodash": "^3.3.4",
         "del": "^6.0.0",
+        "rimraf": "^3.0.2",
         "esbuild": "0.24.0",
         "gulp": "^4.0.2",
         "gulp-babel": "^8.0.0",
