@@ -14,13 +14,14 @@
 
 import { createServer, IncomingMessage, ServerResponse } from 'http';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
-import { Server as McpServer } from '@modelcontextprotocol/sdk/server/index.js';
 import { createMCPServer, getPackageVersion } from './server.js';
 
 // 会话存储：sessionId -> transport
 interface SessionInfo {
   transport: StreamableHTTPServerTransport;
   lastActivity: number;
+  requestQueue: Array<() => Promise<void>>;
+  isProcessing: boolean;
 }
 
 const sessions = new Map<string, SessionInfo>();
@@ -91,7 +92,6 @@ function cleanupSessions() {
   for (const [sessionId, info] of sessions) {
     if (now - info.lastActivity > SESSION_TIMEOUT) {
       sessions.delete(sessionId);
-      console.log(`[${new Date().toISOString()}] 会话 ${sessionId} 已过期清理`);
     }
   }
 }
@@ -99,25 +99,47 @@ function cleanupSessions() {
 // 每分钟清理一次过期会话
 setInterval(cleanupSessions, 60 * 1000);
 
+// 处理会话请求（串行化）
+async function processSessionRequest(sessionId: string, handler: () => Promise<void>): Promise<void> {
+  const session = sessions.get(sessionId);
+  if (!session) {
+    throw new Error(`Session not found: ${sessionId}`);
+  }
+  
+  const requestPromise = handler();
+  session.requestQueue.push(() => requestPromise);
+  
+  if (!session.isProcessing) {
+    session.isProcessing = true;
+    
+    try {
+      while (session.requestQueue.length > 0) {
+        const nextHandler = session.requestQueue.shift()!;
+        await nextHandler();
+      }
+    } finally {
+      session.isProcessing = false;
+    }
+  }
+  
+  return requestPromise;
+}
+
 async function main() {
   const { port, hosts, stateless, timeout } = parseArgs();
   const version = getPackageVersion();
 
-  // 智能处理 hosts：如果同时包含 0.0.0.0 和 ::，只保留 ::
-  // 因为在支持双栈的系统上，:: 会同时监听 IPv4 和 IPv6
+  // 智能处理 hosts
   let processedHosts = hosts;
   const hasIPv4All = hosts.includes('0.0.0.0');
   const hasIPv6All = hosts.includes('::');
 
   if (hasIPv4All && hasIPv6All) {
     processedHosts = hosts.filter(h => h !== '0.0.0.0');
-    console.log(`[${new Date().toISOString()}] 检测到同时监听 IPv4 和 IPv6，使用 :: (IPv6) 统一监听`);
   }
 
-  // 如果没有指定主机，默认监听 IPv6（会自动支持 IPv4）
   if (processedHosts.length === 0) {
     processedHosts = ['::'];
-    console.log(`[${new Date().toISOString()}] 使用默认配置: 监听 IPv6 (::)`);
   }
 
   // 创建 MCP 服务器
@@ -162,58 +184,87 @@ async function main() {
     if (url.pathname === '/mcp') {
       const sessionId = req.headers['mcp-session-id'] as string;
 
-      try {
-        // 获取或创建 transport
-        let transport: StreamableHTTPServerTransport;
+      // 读取请求体
+      let body = '';
+      req.on('data', (chunk) => {
+        body += chunk.toString();
+      });
+      
+      await new Promise<void>((resolve) => {
+        req.on('end', async () => {
+          try {
+            let transport: StreamableHTTPServerTransport;
 
-        if (stateless) {
-          // 无状态模式：为每个请求创建新的 transport
-          transport = new StreamableHTTPServerTransport({
-            sessionIdGenerator: undefined,
-          });
-          await server.connect(transport);
-        } else {
-          // 有状态模式
-          if (sessionId && sessions.has(sessionId)) {
-            // 使用已存在的 session
-            transport = sessions.get(sessionId)!.transport;
-            sessions.get(sessionId)!.lastActivity = Date.now();
-          } else {
-            // 创建新的 session
-            const newSessionId = crypto.randomUUID();
-            transport = new StreamableHTTPServerTransport({
-              sessionIdGenerator: () => newSessionId,
-            });
+            if (stateless) {
+              transport = new StreamableHTTPServerTransport({
+                sessionIdGenerator: undefined,
+              });
+              await server.connect(transport);
+            } else {
+              if (sessionId && sessions.has(sessionId)) {
+                transport = sessions.get(sessionId)!.transport;
+                sessions.get(sessionId)!.lastActivity = Date.now();
+              } else {
+                const newSessionId = sessionId || crypto.randomUUID();
+                transport = new StreamableHTTPServerTransport({
+                  sessionIdGenerator: () => newSessionId,
+                });
+                await server.connect(transport);
+                
+                sessions.set(newSessionId, {
+                  transport,
+                  lastActivity: Date.now(),
+                  requestQueue: [],
+                  isProcessing: false,
+                });
+              }
+            }
 
-            await server.connect(transport);
+            // GET 请求（SSE 流）特殊处理
+            if (req.method === 'GET') {
+              transport.handleRequest(req, res).catch(() => {});
+              resolve();
+              return;
+            }
+            
+            // POST 请求：解析请求体
+            let parsedBody: Record<string, any> | undefined;
+            if (body.trim()) {
+              try {
+                parsedBody = JSON.parse(body);
+              } catch {
+                parsedBody = undefined;
+              }
+            }
+            
+            // 使用串行处理
+            if (sessionId && sessions.has(sessionId)) {
+              await processSessionRequest(sessionId, async () => {
+                await transport.handleRequest(req, res, parsedBody);
+              });
+            } else {
+              await transport.handleRequest(req, res, parsedBody);
+            }
 
-            // 保存会话信息
-            sessions.set(newSessionId, {
-              transport,
-              lastActivity: Date.now(),
-            });
+          } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            if (!res.headersSent) {
+              res.writeHead(500, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ 
+                jsonrpc: '2.0',
+                error: { code: -32000, message: errorMessage },
+                id: null,
+              }));
+            }
           }
-        }
-
-        // 处理请求
-        await transport.handleRequest(req, res);
-
-      } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : String(error);
-        console.error(`[${new Date().toISOString()}] 请求处理错误:`, errorMessage);
-        if (!res.headersSent) {
-          res.writeHead(500, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ 
-            jsonrpc: '2.0',
-            error: { code: -32000, message: errorMessage },
-            id: null,
-          }));
-        }
-      }
+          
+          resolve();
+        });
+      });
       return;
     }
 
-    // 根路径 - 返回服务信息
+    // 根路径
     if (url.pathname === '/' && req.method === 'GET') {
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({
@@ -224,42 +275,29 @@ async function main() {
         stateless,
         sessionTimeout: `${timeout} minutes`,
         endpoints: {
-          mcp: {
-            POST: '/mcp - 发送 MCP 请求',
-            GET: '/mcp - SSE 流 (需要 Mcp-Session-Id 头)',
-          },
-          health: '/health - 健康检查',
-        },
-        headers: {
-          'Mcp-Session-Id': '会话 ID (初始化响应后获取，后续请求需携带)',
-        },
-        usage: {
-          step1: '客户端发送 initialize 请求',
-          step2: '服务器返回响应并包含 Mcp-Session-Id header',
-          step3: '后续请求携带 Mcp-Session-Id header',
+          mcp: { POST: '/mcp', GET: '/mcp (SSE)' },
+          health: '/health',
         },
       }, null, 2));
       return;
     }
 
-    // 404 - 未知端点
+    // 404
     res.writeHead(404, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ error: '未知的端点' }));
+    res.end(JSON.stringify({ error: 'Unknown endpoint' }));
   });
 
-  // 为每个主机地址启动监听
   const servers: ReturnType<typeof createServer>[] = [];
   let startedCount = 0;
 
   console.log(`
-╔══════════════════════════════════════════════════════════════╗
+╔══════════════════════════════════════════════════════════════════════╗
 ║        Semi MCP Server (Streamable HTTP) v${version.padEnd(10)}        ║
-╠══════════════════════════════════════════════════════════════╣
+╠══════════════════════════════════════════════════════════════════════╣
 ║  模式: ${stateless ? '无状态 (Stateless)' : '有状态 (Stateful) '}                                 ║
 ║  会话超时: ${String(timeout).padEnd(3)} 分钟                                        ║
 ║                                                              ║`);
 
-  // 格式化主机地址用于显示
   const formatHost = (h: string): string => {
     if (h === '::') return ':: (所有 IPv6)';
     if (h === '0.0.0.0') return '0.0.0.0 (所有 IPv4)';
@@ -268,9 +306,7 @@ async function main() {
     return h;
   };
 
-  // 启动每个服务器
   processedHosts.forEach((host, index) => {
-    // 直接使用 httpServer 监听
     httpServer.on('error', (err) => {
       const displayHost = formatHost(host);
       console.log(`║  ✗ 端点 ${index + 1}: http://${displayHost}:${port}`);
@@ -282,14 +318,13 @@ async function main() {
       const displayHost = formatHost(host);
       console.log(`║  ✓ 端点 ${index + 1}: http://${displayHost}:${port}`);
 
-      // 所有服务器都启动完成后显示底部的信息
       if (startedCount === processedHosts.length) {
         console.log(`║                                                              ║
 ║  可用端点:                                                   ║
 ║    POST   /mcp      发送 MCP 请求                            ║
 ║    GET    /mcp      SSE 流 (服务器推送)                      ║
 ║    GET    /health   健康检查                                 ║
-╚══════════════════════════════════════════════════════════════╝
+╚══════════════════════════════════════════════════════════════════════╝
 `);
         console.log(`[${new Date().toISOString()}] 所有服务器已启动，监听 ${processedHosts.length} 个地址`);
         console.log(`[${new Date().toISOString()}] 总计监听: ${processedHosts.join(', ')}`);
@@ -299,17 +334,14 @@ async function main() {
     servers.push(httpServer);
   });
 
-  // 优雅关闭
   const shutdown = async () => {
     console.log('\n正在关闭服务器...');
 
-    // 关闭所有会话
     for (const [sessionId, info] of sessions) {
       try {
         await info.transport.close();
-        console.log(`[${new Date().toISOString()}] 会话 ${sessionId} 已关闭`);
-      } catch (error) {
-        console.error(`关闭会话 ${sessionId} 时出错:`, error);
+      } catch {
+        // 忽略关闭错误
       }
     }
     sessions.clear();
@@ -318,8 +350,6 @@ async function main() {
     servers.forEach((server, index) => {
       server.close(() => {
         closedCount++;
-        console.log(`[${new Date().toISOString()}] 服务器 ${index + 1}/${servers.length} 已关闭`);
-
         if (closedCount === servers.length) {
           console.log('所有服务器已关闭');
           process.exit(0);
@@ -332,7 +362,6 @@ async function main() {
   process.on('SIGTERM', shutdown);
 }
 
-// 启动服务器
 main().catch((error) => {
   const errorMessage = error instanceof Error ? error.message : String(error);
   console.error(`Semi MCP Server (Streamable HTTP) 启动失败: ${errorMessage}`);
