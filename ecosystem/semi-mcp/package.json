@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-mcp",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Semi Design MCP Server - Model Context Protocol server for Semi Design components and documentation",
   "type": "module",
   "main": "./dist/index.js",
@@ -51,7 +51,8 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.25.1",
     "@swc/core": "^1.15.8",
-    "oxc-parser": "^0.106.0"
+    "oxc-parser": "^0.106.0",
+    "semver": "^7.7.3"
   },
   "devDependencies": {
     "@rslib/core": "^0.18.5",

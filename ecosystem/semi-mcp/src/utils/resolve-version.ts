@@ -14,6 +14,13 @@ import {
   getCacheDir,
 } from './file-cache.js';
 import { join } from 'path';
+import { lt } from 'semver';
+
+/**
+ * 最低支持版本号
+ * 低于此版本的请求会自动 fallback 到 latest
+ */
+const MIN_SUPPORTED_VERSION = '2.90.2';
 
 /**
  * 版本缓存数据结构
@@ -104,13 +111,18 @@ async function fetchVersionFromRegistry(packageName: string, tag: string): Promi
  *    - 缓存无效：从 npm registry 获取版本，并缓存（带今天日期）
  */
 export async function resolveVersion(packageName: string, version: string): Promise<string> {
-  // 如果是具体版本号（包含数字和点），直接返回
+  // 如果是具体版本号（包含数字和点），检查是否低于最低支持版本
   // 例如：2.89.2、2.89.2-alpha.3、1.0.0-beta.1
   if (/^\d+\.\d+\.\d+/.test(version)) {
-    return version;
+    // 如果版本号低于最低支持版本，自动 fallback 到 latest
+    if (lt(version, MIN_SUPPORTED_VERSION)) {
+      version = 'latest';
+    } else {
+      return version;
+    }
   }
 
-  // 是标签（如 latest、next、beta 等），需要解析
+  // 是标签（如 latest、next、beta 等）或需要 fallback 到 latest，需要解析
   const cacheDir = getVersionCacheDir();
   const cacheKey = getVersionCacheKey(packageName, version);
   const today = getCurrentDate();
