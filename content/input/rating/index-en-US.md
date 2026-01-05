@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 44
+order: 45
 category: Input
 title: Rating
 subTitle: Rating

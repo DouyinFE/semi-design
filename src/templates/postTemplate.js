@@ -36,6 +36,7 @@ import FullPalette from 'components/FullPalette';
 import ColorConverter from 'components/ColorConverter';
 import JumpToToken from 'components/JumpToToken';
 import DesignToCodeFeature from 'components/DesignToCodeFeature';
+import SkillsWriter from 'components/SkillsWriter';
 import InternationalizationTabs from 'components/InternationalizationTabs';
 import copy from 'copy-text-to-clipboard';
 import '@douyinfe/semi-site-doc-style';
@@ -242,6 +243,7 @@ const components = {
     FullPalette,
     JumpToToken,
     DesignToCodeFeature,
+    SkillsWriter,
     ...SemiComponents,
     ...Blocks,
     code,

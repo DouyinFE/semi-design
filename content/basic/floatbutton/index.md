@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 22
+order: 23
 category: 基础 
 title: FloatButton 悬浮按钮
 icon: doc-floatButton

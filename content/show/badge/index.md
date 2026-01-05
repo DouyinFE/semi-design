@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 62
+order: 63
 category: 展示类
 title:  Badge 徽章
 icon: doc-badge

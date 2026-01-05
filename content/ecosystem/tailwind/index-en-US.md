@@ -3,7 +3,7 @@ category: Ecosystem
 title: With TailwindCSS 
 icon: doc-tailwind
 localeCode: en-US
-order: 12
+order: 13
 brief: Use TailwindCSS and Semi more elegantly
 ---
 
