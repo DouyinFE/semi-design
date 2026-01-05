@@ -187,6 +187,9 @@ export default function HTML(props) {
                     SEMI_SEARCH_URL ? <script src={SEMI_SEARCH_URL} defer={true}/> : <script src={"https://unpkg.byted-static.com/latest/ies/semi-search-opensource/dist/semi-search.js"} defer={true}/>
                 }
                 {
+                    SEMI_AI_HELP ? <script src={SEMI_AI_HELP} defer={true}/> : null
+                }
+                {
                     MATERIAL_LIST_URL ? <script src={MATERIAL_LIST_URL} defer={true} /> : null
                 }
                 <link rel="icon" href="https://lf9-static.semi.design/obj/semi-tos/images/favicon.ico" />
