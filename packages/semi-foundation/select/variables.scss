@@ -50,8 +50,8 @@ $color-select_option-icon-default: transparent; // 选择器下拉菜单选项�
 $color-select_option-bg-hover: var(--semi-color-fill-0); // 选择器下拉菜单选项背景颜色 - 悬停态
 $color-select_option-bg-active: var(--semi-color-fill-1); // 选择器下拉菜单选项背景颜色 - 按下态
 $color-select_option_disabled-text: var(--semi-color-disabled-text); // 禁用选择器下拉菜单选项文字颜色
-$color-select_option_disabled-bg: transparent; // 禁用选择器下拉菜单选项背景颜色
-$color-select_option-icon-active: var(--semi-color-text-2); // 禁用选择器下拉菜单选项图标颜色 - 选中态
+// $color-select_option_disabled-bg: transparent; // 禁用选择器下拉菜单选项背景颜色
+$color-select_option-icon-active: var(--semi-color-text-2); // 选择器下拉菜单选项图标颜色 - 选中态
 $color-select_option-border-default: var(--semi-color-border); // 选择器下拉菜单分组标题分割线颜色
 $color-select-option-bg-selected: transparent; // 选择器下拉菜单选项背景颜色 - 选中态
 $color-select_create_tips-text: var(--semi-color-text-2); // 选择器下拉菜单新建选项提示文本颜色
