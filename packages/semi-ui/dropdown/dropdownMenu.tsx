@@ -8,7 +8,9 @@ import DropdownContext from './context';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 
 const prefixCls = cssClasses.PREFIX;
-export type DropdownMenuProps = BaseProps;
+export interface DropdownMenuProps extends BaseProps {
+    children: React.ReactNode
+}
 
 class DropdownMenu extends BaseComponent<DropdownMenuProps> {
     static propTypes = {

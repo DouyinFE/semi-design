@@ -13,9 +13,10 @@ Semi AI 组件是一套专为 AI 应用场景设计的创新组件库。面对 A
 
 - `AI Token`， 新增加 AI 场景下的基础 20 个颜色的基础 token
 - `AI 基础组件`， 新增加 AI 场景下的 25 个 icon，以及对 `Button/Tag/FloatButton` 新增 AI 风格
-- `AI Chat 组件`，新增加支持富文本输入、引用，上传、功能配置、及丰富自定义展示的 `AIChatInput`；以及会话展示、选择、编辑、提示、丰富自定义渲染、消息转换的 `AIChatDialogue`，对话组件默认支持 OpenAI 社区 [Response](https://platform.openai.com/docs/api-reference/responses/create) / [Chat Completion](https://platform.openai.com/docs/api-reference/chat/create) 格式标准，对 GPT-5、GPT-4o 系列模型的响应均支持开箱即用，详见[消息数据转换](/zh-CN/ai/aiChatDialogue#%E6%B6%88%E6%81%AF%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2)（关于 `Chat` 组件和 `AI Chat` 组件如何选型见 [FAQ](/zh-CN/ai/aiComponent#FAQ)）
+- `AI Chat 组件`，新增加支持富文本输入、引用，上传、功能配置、及丰富自定义展示的 `AIChatInput`；以及会话展示、选择、编辑、提示、丰富自定义渲染、消息转换的 `AIChatDialogue`，对话组件默认支持 OpenAI 社区 [Response](https://platform.openai.com/docs/api-reference/responses/create) / [Chat Completion](https://platform.openai.com/docs/api-reference/chat/create) 格式标准，对 GPT-5、GPT-4o 系列模型的响应均支持开箱即用，详见[消息数据转换](/zh-CN/ai/aiChatDialogue#%E6%B6%88%E6%81%AF%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2)。以及具备产物编辑、产物查看、引用资料展示等能力的多功能侧边栏组件 `Sidebar`。
+（关于 `Chat` 组件和 `AI Chat` 组件如何选型见 [FAQ](/zh-CN/ai/aiComponent#FAQ)）
 
-在未来，我们将支持更多 AI Chat 组件，比如结合 `AIChatInput` 和 `AIChatDialogue` 的一体化组件 `AIChatBox`，以及具备产物编辑、产物查看、引用资料展示等能力的多功能侧边栏组件 `SideBar`，用于满足复杂 AI 应用场景下的信息与结果管理需求。
+在未来，我们将支持更多 AI Chat 组件，比如结合 `AIChatInput` 和 `AIChatDialogue` 的一体化组件 `AIChatBox`。用于满足复杂 AI 应用场景下的信息与结果管理需求。
 
 
 ### AI 基础组件

@@ -234,6 +234,21 @@ const local: Locale = {
         template: 'Estêncil',
         configure: 'Configuração',
         selected: '${count} itens selecionados',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Link adicionado com sucesso',
+        linkRemoveSuccess: 'Link removido com sucesso',
+        enterLinkAddress: "Insira o endereço do link",
+        validateFailInfo: 'Verificação falhou, faça o upload novamente',
+        uploadFailInfo: 'Upload falhou, tente novamente',
+        uploadImgInfo: 'Clique para fazer upload da imagem ou arraste-a para cá',
+        defaultMcpInfo: "MCP padrão, não pode ser fechado",
+        searchPlaceholder: 'Insira aqui',
+        emptyCustomMcpInfo: 'Ainda não há MCP personalizados',
+        newMcpAdd: 'MCP personalizado',
+        mcpConfigure: 'Configuração do MCP',
+        annotationTitle: 'Fonte de referência',
+        activeMCPNumber: 'Número de MCPs ativos:'
     }
 };
 

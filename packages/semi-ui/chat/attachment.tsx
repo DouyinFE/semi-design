@@ -16,14 +16,14 @@ interface AttachmentProps {
     showClear?: boolean
 }
 
-interface FileProps {
+interface FileItemProps {
     url?: string;
     name?: string;
     size?: string;
     type?: string
 }
 
-export const FileAttachment = React.memo((props: FileProps) => {
+export const FileAttachment = React.memo((props: FileItemProps) => {
     const { url, name, size, type } = props;
     return <a
         href={url}

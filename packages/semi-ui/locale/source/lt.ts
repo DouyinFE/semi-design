@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Šablonas',
         configure: 'Konfigūruoti',
         selected: 'Pasirinkta ${count} elem.',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Nuoroda sėkmingai pridėta',
+        linkRemoveSuccess: 'Nuoroda sėkmingai pašalinta',
+        enterLinkAddress: "Įveskite nuorodos adresą",
+        validateFailInfo: 'Patvirtinimas nepavyko, prašome įkelti vėl',
+        uploadFailInfo: 'Įkėlimas nepavyko, prašome pabandyti vėl',
+        uploadImgInfo: 'Spustelėkite norėdami įkelti vaizdą arba tempkite jį čia',
+        defaultMcpInfo: "Numatytasis MCP, negalima uždaryti",
+        searchPlaceholder: 'Prašome įvesti',
+        emptyCustomMcpInfo: 'Nėra pritaikytų MCP dar',
+        newMcpAdd: 'Pritaikytas MCP',
+        mcpConfigure: 'MCP konfigūracija',
+        annotationTitle: 'Nuorodos šaltinis',
+        activeMCPNumber: 'Aktyvių MCP skaičius:'
     }
 };
 

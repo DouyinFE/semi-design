@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'القالب',
         configure: 'التكوين',
         selected: 'تم اختيار ${count} عناصر',
+    },
+    Sidebar: {
+        linkAddSuccess: 'تمت إضافة الرابط بنجاح',
+        linkRemoveSuccess: 'تمت إزالة الرابط بنجاح',
+        enterLinkAddress: "أدخل عنوان الرابط",
+        validateFailInfo: 'فشل التحقق، يرجى إعادة التحميل',
+        uploadFailInfo: 'فشل التحميل، يرجى المحاولة مرة أخرى',
+        uploadImgInfo: 'انقر لتحميل الصورة أو اسحبها وإفلتها هنا',
+        defaultMcpInfo: "MCP م预设، لا يمكن إغلاقه",
+        searchPlaceholder: 'يرجى الإدخال',
+        emptyCustomMcpInfo: "لا يوجد MCP مخصص حتى الآن",
+        newMcpAdd: 'MCP مخصص',
+        mcpConfigure: 'تكوين MCP',
+        annotationTitle: 'مصدر المرجعية',
+        activeMCPNumber: 'عدد MCP المنشط:',
     }
 };
 

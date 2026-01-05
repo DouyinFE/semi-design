@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Shabllon',
         configure: 'Konfiguro',
         selected: 'Janë përzgjedhur ${count} artikuj',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Link u shtua me sukses',
+        linkRemoveSuccess: 'Link u fshi me sukses',
+        enterLinkAddress: "Shenoni adresën e linkut",
+        validateFailInfo: 'Verifikimi dështoi, ngarkoni përsëri',
+        uploadFailInfo: 'Ngarkimi dështoi, provoni përsëri',
+        uploadImgInfo: 'Klikoni për të ngarkuar imazhin ose të zhvendosni këtu',
+        defaultMcpInfo: "MCP parapërcaktuar, nuk mund të mbyllet",
+        searchPlaceholder: 'Shenoni këtu',
+        emptyCustomMcpInfo: 'Endje nuk ka MCP të personalizuara',
+        newMcpAdd: 'MCP i personalizuar',
+        mcpConfigure: 'Konfigurimi i MCP',
+        annotationTitle: 'Burimi i referencës',
+        activeMCPNumber: 'Numri i MCP aktive:'
     }
 };
 

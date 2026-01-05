@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Templat',
         configure: 'Konfigurasi',
         selected: 'Item ${count} sing dipilih',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Link kasil ditambahaken',
+        linkRemoveSuccess: 'Link kasil dibusakaken',
+        enterLinkAddress: "Mlebuak alamat link",
+        validateFailInfo: 'Verifikasi gagal, mangga upload maneh',
+        uploadFailInfo: 'Upload gagal, mangga coba maneh',
+        uploadImgInfo: 'Klik kanggo upload gambar utawa seret menyang kene',
+        defaultMcpInfo: "MCP sing wis ditemtokake, ora bisa ditutup",
+        searchPlaceholder: 'Mangga mlebu',
+        emptyCustomMcpInfo: 'Durung ana MCP khusus',
+        newMcpAdd: 'MCP khusus',
+        mcpConfigure: 'Konfigurasi MCP',
+        annotationTitle: 'Sumber referensi',
+        activeMCPNumber: 'Jumlah MCP aktif:'
     }
 };
 

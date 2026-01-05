@@ -226,6 +226,21 @@ const local: Locale = {
         template: 'Modèle',
         configure: 'Configurer',
         selected: '${count} éléments sélectionnés',
+    },
+    Sidebar: {
+        linkAddSuccess: 'Lien ajouté avec succès',
+        linkRemoveSuccess: 'Lien supprimé avec succès',
+        enterLinkAddress: "Saisissez l'adresse du lien",
+        validateFailInfo: 'Échec de la vérification, veuillez téléverser à nouveau',
+        uploadFailInfo: 'Échec du téléversement, veuillez réessayer',
+        uploadImgInfo: 'Cliquez pour téléverser l’image ou glissez-la ici',
+        defaultMcpInfo: "MCP prédéfini, impossible de fermer",
+        searchPlaceholder: 'Veuillez saisir',
+        emptyCustomMcpInfo: 'Aucun MCP personnalisé pour l’instant',
+        newMcpAdd: 'MCP personnalisé',
+        mcpConfigure: 'Configuration du MCP',
+        annotationTitle: 'Source de référence',
+        activeMCPNumber: 'Nombre de MCP activés:',
     }
 };
 

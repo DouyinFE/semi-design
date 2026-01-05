@@ -1,0 +1,138 @@
+// Color
+$color-sidebar_container-borderLeft: var(--semi-color-border); // 容器左边框颜色
+$color-sidebar_container_header-borderBottom: var(--semi-color-border); // 容器头部底边框的颜色
+$color-sidebar_mcp_header_counter-text: var(--semi-color-text-2); // MCP 配置头部计数器颜色
+$color-sidebar_mcp_item_label: var(--semi-color-text-0); // MCP 配置项标题颜色
+$color-sidebar_mcp_item_desc: var(--semi-color-text-0); // MCP 配置项描述颜色
+$color-sidebar_annotation_video-border: var(--semi-color-border); // 引用视频卡片边框颜色
+$color-sidebar_annotation_video_duration-bg: rgba(var(--semi-grey-7), 0.7); // 引用视频时长背景颜色
+$color-sidebar_annotation_video_duration-text: var(--semi-color-bg-0); // 引用视频时长文本颜色
+$color-sidebar_annotation_video_title-text: var(--semi-color-text-0); // 引用视频标题文本颜色
+$color-sidebar_collapse_item-border: var(--semi-color-border); // 折叠项边框颜色
+$color-sidebar_collapse_item_content-borderTop: var(--semi-color-border); // 折叠项展开时内容顶部边框颜色
+$color-sidebar_options-borderBottom: var(--semi-color-border); // 视图选项区域底部边框颜色
+$color-sidebar_options_button-text: var(--semi-color-text-2); // 视图顶部按钮文本颜色
+$color-sidebar_file_selection-bg: rgba(var(--semi-light-blue-1), 1); // 富文本编辑器选中区域背景色
+$color-sidebar_file_placeholder-text: var(--semi-color-text-2); // 富文本编辑器 placeholder 颜色
+$color-sidebar_file-text: var(--semi-color-text-0); // 富文本编辑器正文颜色
+$color-sidebar_file_blockquote-borderLeft: var(--semi-color-border); //富文本编辑器引用左侧边框颜色
+$color-sidebar_file_pre_bg: var(--semi-color-fill-0); // 富文本编辑器块级代码区域背景色
+$color-sidebar_file_pre-border: var(--semi-color-border); // 富文本编辑器块级代码区域边框颜色
+$color-sidebar_file_code-bg: var(--semi-color-border); // 富文本编辑器行内代码背景色
+$color-sidebar_file_hr-borderTop: var(--semi-color-border); //富文本编辑器分割线颜色
+$color-sidebar_menu_bar-borderTop: var(--semi-color-border); // 富文本编辑器菜单栏顶部边框颜色
+$color-sidebar_menu_bar-borderBottom: var(--semi-color-border); // 富文本编辑器菜单栏底部边框颜色
+$color-sidebar_menu_bar_dropdown_item-active-text: var(--semi-color-primary); // 富文本编辑器菜单栏下拉框中选择项文本颜色
+$color-sidebar_menu_bar_dropdown_item-active-bg: var(--semi-color-fill-0); // 富文本编辑器菜单栏下拉框中选择项背景颜色
+$color-sidebar_menu_bar_btn-active-bg: var(--semi-color-fill-0); // 富文本编辑器菜单栏按钮背景颜色-激活
+$color-sidebar_menu_bar_link_dropdown_btn-active: var(--semi-color-primary); // 富文本编辑器菜单栏链接按钮下拉框按钮颜色-激活
+$color-sidebar_detail_header-text: var(--semi-color-text-0); // 富文本编辑器详情视图顶部文本颜色
+$color-sidebar_mcp_item-borderBottom: var(--semi-color-border); // MCP 配置项底部边框颜色
+
+// Width/Height
+$width-sidebar_container-borderLeft: 1px; // 容器左边框宽度
+$width-sidebar_menu_bar-borderTop: 1px; // 富文本编辑器菜单栏顶部边框宽度
+$width-sidebar_menu_bar-borderBottom: 1px; // 富文本编辑器菜单栏底部边框宽度
+$width-sidebar_file_pre-border: 1px; // 富文本编辑器块级代码区域边框宽度
+$width-sidebar_collapse_item_border: 1px; // 折叠项边框宽度
+$width-sidebar_file_hr-border: 1px; // 富文本编辑器分割线宽度
+$width-sidebar_container_header_borderBottom: 1px; // 容器头部下边框宽度
+$width-sidebar_collapse_item_content-borderTop: 1px; // 折叠项展开时内容顶部边框宽度
+$width-sidebar_options-borderBottom: 1px; // 视图选项区域底部边框宽度
+$width-sidebar_mcp_item_sign: 32px; // MCP 配置项图标容器宽高
+$width-sidebar_mcp_item_button: 24px; // MCP 配置项图标按钮宽高
+$width-sidebar_annotation_footer_logo: 14px; // 引用项底部 logo 宽高
+$width-sidebar_annotation_footer_order-minWidth: 16px; // 引用项底部序号最小宽度
+$height-sidebar_annotation_footer_order: 16px; // 引用项底部序号高度
+$width-sidebar_annotation_video_play: 20px; // 引用视频播放按钮宽度
+$height-sidebar_annotation_video_img-wrapper: 107px; // 引用视频封面容器高度
+$width-sidebar_collapse_header_expand_btn: 24px; // 折叠面板展开按钮宽高
+$width-sidebar_file_blockquote-borderLeft: 3px; // 富文本编辑器引用左侧边框宽度
+$height-sidebar_main_collapse_file_content-maxHeight: 400px; // 主视图文件内容最大高度
+$height-sidebar_main_collapse_code_content-maxHeight: 200px; // 主视图代码内容最大高度
+$width-sidebar_annotation_video-border: 1px; // 引用视频卡片边框宽度
+$width-sidebar_mcp_item-borderBottom: 1px; // MCP 配置项底部比框宽度
+$height-sidebar_annotation_video_item_title: 40px; // 引用视频标题高度
+
+// Spacing
+$spacing-sidebar_main_content-padding: 12px; // 主视图内容区域内边距
+$spacing-sidebar_container_header-paddingRight: 12px; // 容器头部右内边距
+$spacing-sidebar_container_header-paddingLeft: 20px; // 容器头部左内边距
+$spacing-sidebar_container_header-paddingY: 12px; // 容器头部垂直内边距
+$spacing-sidebar_mcp_content-paddingY: 20px; // MCP 配置内容区域垂直内边距
+$spacing-sidebar_mcp_content-paddingX: 16px; // MCP 配置内容区域水平内边距
+$spacing-sidebar_mcp_search-marginY: 16px; // MCP 配置搜索区域垂直外边距
+$spacing-sidebar_mcp_search-marginX: 0; // MCP 配置搜索区域水平外边距
+$spacing-sidebar_mcp_search_container-columnGap: 8px; // MCP 配置搜索容器列间距
+$spacing-sidebar_mcp_item-paddingY: 8px; // MCP 配置项垂直内边距
+$spacing-sidebar_mcp_item-paddingX: 16px; // MCP 配置项水平内边距
+$spacing-sidebar_mcp_item_sign-marginRight: 12px; // MCP 配置项图标右侧外边距
+$spacing-sidebar_mcp_item_content-marginRight: 24px; // MCP 配置项内容右侧外边距
+$spacing-sidebar_mcp_item_button_configure-marginRight: 12px; // MCP 配置项配置按钮右侧外边距
+$spacing-sidebar_mcp_custom_empty-marginTop: 64px; // MCP 自定义空态顶部外边距
+$spacing-sidebar_annotation_container-padding: 12px; // 引用容器内边距
+$spacing-sidebar_annotation_content-gap: 8px; // 引用内容项间距
+$spacing-sidebar_annotation_footer-columnGap: 4px; // 引用底部列间距
+$spacing-sidebar_annotation_footer_order-paddingY: 0; // 引用序号垂直内边距
+$spacing-sidebar_annotation_footer_order-paddingX: 2px; // 引用序号水平内边距
+$spacing-sidebar_annotation_text-paddingY: 3px; // 引用文本区域垂直内边距
+$spacing-sidebar_annotation_text-paddingX: 12px; // 引用文本区域水平内边距
+$spacing-sidebar_annotation_video_content-paddingTop: 8px; // 引用视频内容区域内边距
+$spacing-sidebar_annotation_video_content-paddingRight: 8px; // 引用视频内容区域内边距
+$spacing-sidebar_annotation_video_content-paddingBottom:12px; // 引用视频内容区域内边距
+$spacing-sidebar_annotation_video_content-paddingLeft: 8px; // 引用视频内容区域内边距
+$spacing-sidebar_annotation_video_duration-paddingY: 2px; // 引用视频时长垂直内边距
+$spacing-sidebar_annotation_video_duration-paddingX: 4px; // 引用视频时长水平内边距
+$spacing-sidebar_annotation_video_play-top: 6px; // 引用视频播放按钮顶部偏移
+$spacing-sidebar_annotation_video_play-right: 6px; // 引用视频播放按钮右侧偏移
+$spacing-sidebar_annotation_video_duration-bottom: 6px; // 引用视频时长底部偏移
+$spacing-sidebar_annotation_video_duration-right: 6px; // 引用视频时长右侧偏移
+$spacing-sidebar_collapse_item_marginBottom: 8px; // 折叠项底部外边距
+$spacing-sidebar_collapse_header-paddingY: 8px; // 折叠项头部垂直内边距
+$spacing-sidebar_collapse_header-paddingX: 16px; // 折叠项头部水平内边距
+$spacing-sidebar_collapse_header_content_gap: 8px; // 折叠项头部内容间距
+$spacing-sidebar_collapse_header_content_paddingRight: 8px; // 折叠项头部内容右侧内边距
+$spacing-sidebar_collapse_header_expand_btn-padding: 4px; // 折叠项展开按钮内边距
+$spacing-sidebar_options-gap: 8px; // 视图顶部按钮区域间距
+$spacing-sidebar_options-paddingY: 8px; // 视图顶部按钮区域垂直内边距
+$spacing-sidebar_options-paddingX: 12px; // 视图顶部按钮区域水平内边距
+$spacing-sidebar_options_button-marginLeft: 4px; // 选项按钮左外边距
+$spacing-sidebar_file_blockquote-marginY: 24px; // 富文本编辑器引用垂直外边距
+$spacing-sidebar_file_blockquote-marginX: 0; // 富文本编辑器引用水平外边距
+$spacing-sidebar_file_blockquote-paddingLeft: 16px; // 富文本编辑器引用左侧内边距
+$spacing-sidebar_file_pre-paddingY: 2px; // 富文本编辑器代码块垂直内边距
+$spacing-sidebar_file_pre-paddingX: 4px; // 富文本编辑器代码块水平内边距
+$spacing-sidebar_file_menu_bar-gap: 2px; // 富文本编辑器菜单栏间距
+$spacing-sidebar_file_menu_bar-paddingY: 2px; // 富文本编辑器菜单栏垂直内边距
+$spacing-sidebar_file_menu_bar-paddingX: 12px; // 富文本编辑器菜单栏水平内边距
+$spacing-sidebar_file_menu_bar_codeblock-padding: 8px; // 富文本编辑器菜单栏代码块按钮内边距
+$spacing-sidebar_file_menu_bar-link-dropdown-padding: 8px; // 富文本编辑器菜单栏链接按钮下拉内容内边距
+$spacing-sidebar_detail_file_editor-paddingY: 0; // 详情视图富文本编辑器区域垂直内边距
+$spacing-sidebar_detail_file_editor-paddingX: 12px; // 详情视图富文本编辑器区域水平内边距
+$spacing-sidebar_detail_header-padding: 12px; // 详情视图头部内边距
+$spacing-sidebar_detail_header_left-columnGap: 8px; // 详情视图头部左侧列间距
+$spacing-sidebar_detail_header_right-columnGap: 4px; // 详情视图头部右侧列间距
+$spacing-sidebar_file_code-paddingY: 2px; //富文本编辑器行内代码的垂直外边距
+$spacing-sidebar_file_code-paddingX: 4px; //富文本编辑器行内代码的水平外边距
+$spacing-sidebar_menu_bar_divider-margin: 0px; // 富文本编辑器分割线外边距
+
+// Radius
+$radius-sidebar_annotation_footer_order: 8px; // 引用序号圆角
+$radius-sidebar_annotation_video: 6px; // 引用视频卡片圆角
+$radius-sidebar_annotation_video_duration: 4px; // 引用视频时长标签圆角
+$radius-sidebar_collapse_item: 8px; // 折叠项圆角
+$radius-sidebar_file_pre: 4px; // 富文本编辑器代码块圆角
+
+// Font
+$font-sidebar_mcp_item_sign_icon-fontSize: 32px; // MCP 配置项图标字号
+$font-sidebar_annotation_footer_logo-fontSize: 14px; // 引用底部 logo 字号
+$font-sidebar_annotation_video_play_icon-fontSize: 12px; // 引用视频播放图标大小
+$font-sidebar_file-fontSize: 14px; // 富文本编辑器正文字号
+$font-sidebar_file-lineHeight: 24px; // 富文本编辑器正文行高
+$font-sidebar_file_pre-fontSize: 14px; //富文本编辑器代码块字号
+$font-sidebar_file_pre-lineHeight: 24px; //富文本编辑器代码块行高
+$font-sidebar_file_menu_bar_codeblock-fontSize: 12px; // 富文本编辑器菜单栏代码块按钮字号
+$font-sidebar_file_menu_bar_codeblock-lineHeight: 16px; // 富文本编辑器菜单栏代码块按钮行高
+
+
+// Other
