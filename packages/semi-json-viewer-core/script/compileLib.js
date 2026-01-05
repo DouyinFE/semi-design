@@ -16,7 +16,7 @@ const compileWorker = async ()=>{
 };
 
 
-const buildMain = async ()=>{
+const buildMain = async (format)=>{
     const mainEntry = path.join(__dirname, "..", "src/index.ts");
 
     const result = await esbuild.build({
@@ -24,7 +24,7 @@ const buildMain = async ()=>{
         bundle: true,
         packages: 'external',
         write: false,
-        format: 'esm'
+        format: format
     });
     return result.outputFiles[0].text;
 
@@ -35,21 +35,37 @@ const buildMain = async ()=>{
 const compile = async ()=>{
     const workerRaw = await compileWorker();
 
-    const mainRaw = await buildMain();
+    // 编译 ESM 格式
+    const mainRawESM = await buildMain('esm');
+    const finalRawESM = mainRawESM.replaceAll("%WORKER_RAW%", encodeURIComponent(workerRaw));
 
-    const finalRaw = mainRaw.replaceAll("%WORKER_RAW%", encodeURIComponent(workerRaw));
+    // 编译 CJS 格式
+    const mainRawCJS = await buildMain('cjs');
+    const finalRawCJS = mainRawCJS.replaceAll("%WORKER_RAW%", encodeURIComponent(workerRaw));
 
-    const saveDir = path.join(__dirname, "..", "lib");
+    const libDir = path.join(__dirname, "..", "lib");
+    const esDir = path.join(libDir, "es");
+    const cjsDir = path.join(libDir, "cjs");
     const workerSaveDir = path.join(__dirname, "..", "workerLib");
 
-    if (!fs.existsSync(saveDir)) {
-        fs.mkdirSync(saveDir);
+    // 创建必要的目录
+    if (!fs.existsSync(libDir)) {
+        fs.mkdirSync(libDir);
+    }
+    if (!fs.existsSync(esDir)) {
+        fs.mkdirSync(esDir, { recursive: true });
+    }
+    if (!fs.existsSync(cjsDir)) {
+        fs.mkdirSync(cjsDir, { recursive: true });
     }
     if (!fs.existsSync(workerSaveDir)) {
         fs.mkdirSync(workerSaveDir);
     }
+
+    // 保存文件
     fs.writeFileSync(path.join(workerSaveDir, "worker.js"), workerRaw, 'utf8');
-    fs.writeFileSync(path.join(saveDir, "index.js"), finalRaw, 'utf8');
+    fs.writeFileSync(path.join(esDir, "index.js"), finalRawESM, 'utf8');
+    fs.writeFileSync(path.join(cjsDir, "index.js"), finalRawCJS, 'utf8');
 };
 
 compile();
