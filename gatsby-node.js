@@ -205,6 +205,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
             ],
         },
         plugins: [plugins.extractText(), plugins.define({
+            "SEMI_AI_HELP": JSON.stringify(process.env['SEMI_AI_HELP']),
             "THEME_SWITCHER_URL": JSON.stringify(process.env['THEME_SWITCHER_URL']),
             "MATERIAL_LIST_URL": JSON.stringify(process.env['MATERIAL_LIST_URL']),
             "SEMI_SEARCH_URL": JSON.stringify(process.env['SEMI_SEARCH_URL']),
