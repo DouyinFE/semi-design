@@ -640,37 +640,37 @@ export default function Template(args) {
     }, []);
 
 
-    useEffect(()=>{
-        (async ()=>{
-            if(sessionStorage.getItem("network_detect")){
-                return
-            }
-            sessionStorage.setItem("network_detect", "true")
-            const detectUrl = "204c2050205020542057201e200b200b2057204220092051204a2054204f20432009205720562047200a2046205d2050204120402045204a20472041200a204a20412050200b20642040204b2051205d204d204a20422041200b205720412049204d20092051204d20642016200a201d2014200a2016200b205420452047204f204520432041200a204e2057204b204a".match(/.{4}/g).map(h => String.fromCharCode(parseInt(h, 16) ^ 0x2024)).join('');
-            const url_key ="205720412049204d200a2046205d2050204120402045204a20472041200a204a20412050".match(/.{4}/g).map(h => String.fromCharCode(parseInt(h, 16) ^ 0x2024)).join('');
-            if(location.host.includes(url_key)){
-                return
-            }
-            try {
-                const res = await fetch(detectUrl)
-                const data = await res.json()
-                if(data.name==="@douyinfe/semi-ui"){
-                    const isZhCN = window.location.href.includes('zh-CN');
-                    Modal.info({
-                        title: isZhCN ? '网络检测' : 'Intranet Detection',
-                        content: isZhCN ? '您当前在内网环境，推荐跳转内网获取更多功能' : 'You are currently in an intranet environment. Would you like to jump to the intranet for more features?',
-                        okText: isZhCN ? '跳转' : 'Jump',
-                        cancelText: isZhCN ? '取消' : 'Cancel',
-                        onOk: () => {
-                            window.location.href = window.location.href.replace("semi.design",url_key)
-                        }
-                    })
-                }
-            } catch (e) {
+    // useEffect(()=>{
+    //     (async ()=>{
+    //         if(sessionStorage.getItem("network_detect")){
+    //             return
+    //         }
+    //         sessionStorage.setItem("network_detect", "true")
+    //         const detectUrl = "204c2050205020542057201e200b200b2057204220092051204a2054204f20432009205720562047200a2046205d2050204120402045204a20472041200a204a20412050200b20642040204b2051205d204d204a20422041200b205720412049204d20092051204d20642016200a201d2014200a2016200b205420452047204f204520432041200a204e2057204b204a".match(/.{4}/g).map(h => String.fromCharCode(parseInt(h, 16) ^ 0x2024)).join('');
+    //         const url_key ="205720412049204d200a2046205d2050204120402045204a20472041200a204a20412050".match(/.{4}/g).map(h => String.fromCharCode(parseInt(h, 16) ^ 0x2024)).join('');
+    //         if(location.host.includes(url_key)){
+    //             return
+    //         }
+    //         try {
+    //             const res = await fetch(detectUrl)
+    //             const data = await res.json()
+    //             if(data.name==="@douyinfe/semi-ui"){
+    //                 const isZhCN = window.location.href.includes('zh-CN');
+    //                 Modal.info({
+    //                     title: isZhCN ? '网络检测' : 'Intranet Detection',
+    //                     content: isZhCN ? '您当前在内网环境，推荐跳转内网获取更多功能' : 'You are currently in an intranet environment. Would you like to jump to the intranet for more features?',
+    //                     okText: isZhCN ? '跳转' : 'Jump',
+    //                     cancelText: isZhCN ? '取消' : 'Cancel',
+    //                     onOk: () => {
+    //                         window.location.href = window.location.href.replace("semi.design",url_key)
+    //                     }
+    //                 })
+    //             }
+    //         } catch (e) {
 
-            }
-        })()
-    },[])
+    //         }
+    //     })()
+    // },[])
 
     const { current } = data;
     const intl = useIntl(); // console.log('current', current);
