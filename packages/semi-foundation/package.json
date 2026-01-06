@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-foundation",
-    "version": "2.90.2",
+    "version": "2.90.3",
     "description": "",
     "scripts": {
         "clean": "rimraf lib",
@@ -23,8 +23,8 @@
         }
     },
     "dependencies": {
-        "@douyinfe/semi-animation": "2.90.2",
-        "@douyinfe/semi-json-viewer-core": "2.90.2",
+        "@douyinfe/semi-animation": "2.90.3",
+        "@douyinfe/semi-json-viewer-core": "2.90.3",
         "@mdx-js/mdx": "^3.0.1",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
