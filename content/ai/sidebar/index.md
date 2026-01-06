@@ -3,7 +3,7 @@ localeCode: zh-CN
 order: 102
 category: Ai
 title: Sidebar 侧边信息栏
-icon: doc-aiInput
+icon: doc-sidebar
 width: 60%
 brief: 展示 AI 场景下的配置和详情信息
 showNew: true

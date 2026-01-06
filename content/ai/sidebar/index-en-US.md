@@ -3,7 +3,7 @@ localeCode: en-US
 order: 102
 category: Ai
 title: Sidebar
-icon: doc-aiInput
+icon: doc-sidebar
 width: 60%
 brief: Display configuration and detail information in AI scenarios
 showNew: true
