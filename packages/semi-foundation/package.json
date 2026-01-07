@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-foundation",
-    "version": "2.90.4",
+    "version": "2.90.5",
     "description": "",
     "scripts": {
         "clean": "rimraf lib",
@@ -21,14 +21,38 @@
     "typings": "lib/cjs/base/index.d.ts",
     "typesVersions": {
         "*": {
-            "lib/es/*": ["lib/es/*", "lib/es/*/index"],
-            "lib/es/*/*": ["lib/es/*/*", "lib/es/*/*/index"],
-            "lib/es/*/*/*": ["lib/es/*/*/*", "lib/es/*/*/*/index"],
-            "lib/es/*/*/*/*": ["lib/es/*/*/*/*", "lib/es/*/*/*/*/index"],
-            "lib/cjs/*": ["lib/cjs/*", "lib/cjs/*/index"],
-            "lib/cjs/*/*": ["lib/cjs/*/*", "lib/cjs/*/*/index"],
-            "lib/cjs/*/*/*": ["lib/cjs/*/*/*", "lib/cjs/*/*/*/index"],
-            "lib/cjs/*/*/*/*": ["lib/cjs/*/*/*/*", "lib/cjs/*/*/*/*/index"]
+            "lib/es/*": [
+                "lib/es/*",
+                "lib/es/*/index"
+            ],
+            "lib/es/*/*": [
+                "lib/es/*/*",
+                "lib/es/*/*/index"
+            ],
+            "lib/es/*/*/*": [
+                "lib/es/*/*/*",
+                "lib/es/*/*/*/index"
+            ],
+            "lib/es/*/*/*/*": [
+                "lib/es/*/*/*/*",
+                "lib/es/*/*/*/*/index"
+            ],
+            "lib/cjs/*": [
+                "lib/cjs/*",
+                "lib/cjs/*/index"
+            ],
+            "lib/cjs/*/*": [
+                "lib/cjs/*/*",
+                "lib/cjs/*/*/index"
+            ],
+            "lib/cjs/*/*/*": [
+                "lib/cjs/*/*/*",
+                "lib/cjs/*/*/*/index"
+            ],
+            "lib/cjs/*/*/*/*": [
+                "lib/cjs/*/*/*/*",
+                "lib/cjs/*/*/*/*/index"
+            ]
         }
     },
     "exports": {
@@ -128,8 +152,8 @@
         }
     },
     "dependencies": {
-        "@douyinfe/semi-animation": "2.90.4",
-        "@douyinfe/semi-json-viewer-core": "2.90.4",
+        "@douyinfe/semi-animation": "2.90.5",
+        "@douyinfe/semi-json-viewer-core": "2.90.5",
         "@mdx-js/mdx": "^3.0.1",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
