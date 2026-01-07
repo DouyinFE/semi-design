@@ -46,13 +46,13 @@ export function replaceCodeBlocksWithPlaceholders(
  */
 export const getSemiDocumentTool: Tool = {
     name: 'get_semi_document',
-    description: '获取 Semi Design 组件文档或组件列表。对于大型文档，代码块会被替换为占位符，需要使用 get_semi_code_block 工具获取具体代码',
+    description: '获取 Semi Design 组件文档、额外文档或组件列表。支持获取：1) 组件文档（如 Button、Input 等组件）；2) 额外文档，包括：advanced 分类下的文档（customize-theme、dark-mode、design-source、design-to-code）、ecosystem 分类下的文档（changelog、faq、react19、tailwind、update-to-v2、web-components）、start 分类下的文档（getting-started、introduction、overview）。注意：changelog 文档较大，需要使用分页格式获取，传入 changelog-1（第1页，最新内容）、changelog-2（第2页）等格式，每页300行。对于大型文档，代码块会被替换为占位符，需要使用 get_semi_code_block 工具获取具体代码',
     inputSchema: {
         type: 'object',
         properties: {
             componentName: {
                 type: 'string',
-                description: '组件名称，例如 Button、Input 等。如果不提供，则返回组件列表',
+                description: '组件名称或文档名称。组件名称例如：Button、Input、Table 等；额外文档名称例如：customize-theme、dark-mode、changelog-1（changelog第1页，最新）、changelog-2（changelog第2页）等、faq、react19、tailwind、update-to-v2、web-components、getting-started、introduction、overview 等。注意：changelog 必须使用分页格式（changelog-1、changelog-2等），不能直接传入 changelog。如果不提供，则返回组件列表',
             },
             version: {
                 type: 'string',
@@ -65,6 +65,56 @@ export const getSemiDocumentTool: Tool = {
 
 /** 文档行数阈值，超过此值会替换代码块 */
 const LARGE_DOCUMENT_THRESHOLD = 888;
+
+/** changelog 分页大小（每页行数） */
+const CHANGELOG_PAGE_SIZE = 300;
+
+/**
+ * 解析 changelog 分页参数
+ * @param componentName - 组件名称，可能是 changelog 或 changelog-1、changelog-2 等
+ * @returns 如果是 changelog 分页格式，返回 { isChangelog: true, page: number }，否则返回 { isChangelog: false }
+ */
+function parseChangelogPage(componentName: string): { isChangelog: boolean; page?: number; baseName?: string } {
+    const changelogMatch = componentName.match(/^(changelog)(?:-(\d+))?$/);
+    if (changelogMatch) {
+        const baseName = changelogMatch[1];
+        const pageStr = changelogMatch[2];
+        if (pageStr) {
+            // changelog-1, changelog-2 等格式
+            const page = parseInt(pageStr, 10);
+            return { isChangelog: true, page, baseName };
+        } else {
+            // 只是 changelog，没有页码
+            return { isChangelog: true, baseName };
+        }
+    }
+    return { isChangelog: false };
+}
+
+/**
+ * 对 changelog 文档进行分页
+ * @param content - 文档内容
+ * @param page - 页码（从1开始，1为最新）
+ * @returns 分页后的内容
+ */
+function paginateChangelog(content: string, page: number): { content: string; totalPages: number; currentPage: number } {
+    const lines = content.split('\n');
+    const totalLines = lines.length;
+    const totalPages = Math.ceil(totalLines / CHANGELOG_PAGE_SIZE);
+    
+    // 页码从1开始，1为最新（文档开头）
+    const startIndex = (page - 1) * CHANGELOG_PAGE_SIZE;
+    const endIndex = Math.min(startIndex + CHANGELOG_PAGE_SIZE, totalLines);
+    
+    const pageLines = lines.slice(startIndex, endIndex);
+    const pageContent = pageLines.join('\n');
+    
+    return {
+        content: pageContent,
+        totalPages,
+        currentPage: page,
+    };
+}
 
 /**
  * 工具处理器：处理 get_semi_document 工具调用
@@ -101,8 +151,26 @@ export async function handleGetSemiDocument(
                 ],
             };
         } else {
+            // 检查是否是 changelog 分页请求
+            const changelogInfo = parseChangelogPage(componentName);
+            
+            if (changelogInfo.isChangelog && !changelogInfo.page) {
+                // 如果只是传入 changelog，没有页码，返回提示信息
+                return {
+                    content: [
+                        {
+                            type: 'text',
+                            text: `changelog 文档较大，需要使用分页方式获取。\n\n请使用以下格式获取：\n- changelog-1（第1页，最新内容）\n- changelog-2（第2页）\n- changelog-3（第3页）\n- ...\n\n页码从1开始，1为最新内容。`,
+                        },
+                    ],
+                };
+            }
+            
+            // 如果是指定了页码的 changelog，使用基础名称获取文档
+            const actualComponentName = changelogInfo.baseName || componentName;
+            
             // 返回组件文档列表
-            const result = await getComponentDocuments(componentName, version);
+            const result = await getComponentDocuments(actualComponentName, version);
             
             // 获取全部组件列表
             const allComponents = await getComponentList(version);
@@ -113,6 +181,54 @@ export async function handleGetSemiDocument(
                         {
                             type: 'text',
                             text: `未找到组件 "${componentName}" 的文档 (版本 ${version})。\n\n可用组件列表：${allComponents.join(', ')}`,
+                        },
+                    ],
+                };
+            }
+            
+            // 如果是 changelog 分页请求，进行分页处理
+            if (changelogInfo.isChangelog && changelogInfo.page) {
+                const page = changelogInfo.page;
+                
+                // changelog 应该只有一个文档
+                if (result.documents.length === 0) {
+                    return {
+                        content: [
+                            {
+                                type: 'text',
+                                text: `未找到 changelog 文档 (版本 ${version})`,
+                            },
+                        ],
+                        isError: true,
+                    };
+                }
+                
+                const doc = result.documents[0];
+                const paginated = paginateChangelog(doc.content, page);
+                
+                if (page < 1 || page > paginated.totalPages) {
+                    return {
+                        content: [
+                            {
+                                type: 'text',
+                                text: `页码 ${page} 超出范围。changelog 文档共有 ${paginated.totalPages} 页，请使用 changelog-1 到 changelog-${paginated.totalPages}。`,
+                            },
+                        ],
+                        isError: true,
+                    };
+                }
+                
+                const nextPageHint = page < paginated.totalPages ? `使用 changelog-${page + 1} 获取下一页` : '';
+                const prevPageHint = page > 1 ? `使用 changelog-${page - 1} 获取上一页` : '';
+                const pageHints = [nextPageHint, prevPageHint].filter(Boolean).join('，');
+                const header = `===== ${doc.name} (第 ${page}/${paginated.totalPages} 页) =====${pageHints ? `\n[提示: ${pageHints}]` : ''}`;
+                const footer = `\n\n[当前页: ${page}/${paginated.totalPages} | 总行数: ${doc.content.split('\n').length} | 每页: ${CHANGELOG_PAGE_SIZE} 行]`;
+                
+                return {
+                    content: [
+                        {
+                            type: 'text',
+                            text: `${header}\n\n${paginated.content}${footer}`,
                         },
                     ],
                 };
