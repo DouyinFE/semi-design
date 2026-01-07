@@ -6,6 +6,16 @@
     "module": "lib/es/index.js",
     "types": "lib/cjs/index.d.ts",
     "typings": "lib/cjs/index.d.ts",
+    "typesVersions": {
+        "*": {
+            "lib/es/*": [
+                "lib/es/*"
+            ],
+            "lib/cjs/*": [
+                "lib/cjs/*"
+            ]
+        }
+    },
     "exports": {
         ".": {
             "types": "./lib/es/index.d.ts",

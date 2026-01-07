@@ -15,11 +15,46 @@
         "!**/*.test.ts",
         "!**/*.spec.ts"
     ],
+    "main": "lib/cjs/base/index.js",
+    "module": "lib/es/base/index.js",
+    "types": "lib/cjs/base/index.d.ts",
+    "typings": "lib/cjs/base/index.d.ts",
     "typesVersions": {
         "*": {
-            "*": [
+            "lib/es/*": [
                 "lib/es/*"
+            ],
+            "lib/cjs/*": [
+                "lib/cjs/*"
             ]
+        }
+    },
+    "exports": {
+        ".": {
+            "types": "./lib/es/base/index.d.ts",
+            "import": "./lib/es/base/index.js",
+            "require": "./lib/cjs/base/index.js"
+        },
+        "./*": {
+            "types": "./lib/es/*/index.d.ts",
+            "import": "./lib/es/*/index.js",
+            "require": "./lib/cjs/*/index.js"
+        },
+        "./lib/es/*": {
+            "types": [
+                "./lib/es/*.d.ts",
+                "./lib/es/*/index.d.ts"
+            ],
+            "import": "./lib/es/*.js",
+            "default": "./lib/es/*.js"
+        },
+        "./lib/cjs/*": {
+            "types": [
+                "./lib/cjs/*.d.ts",
+                "./lib/cjs/*/index.d.ts"
+            ],
+            "require": "./lib/cjs/*.js",
+            "default": "./lib/cjs/*.js"
         }
     },
     "dependencies": {
