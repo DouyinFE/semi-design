@@ -46,13 +46,13 @@ export function replaceCodeBlocksWithPlaceholders(
  */
 export const getSemiDocumentTool: Tool = {
     name: 'get_semi_document',
-    description: '获取 Semi Design 组件文档、额外文档或组件列表。支持获取：1) 组件文档（如 Button、Input 等组件）；2) 额外文档，包括：advanced 分类下的文档（customize-theme、dark-mode、design-source、design-to-code）、ecosystem 分类下的文档（changelog、faq、react19、tailwind、update-to-v2、web-components）、start 分类下的文档（getting-started、introduction、overview）。注意：changelog 文档较大，需要使用分页格式获取，传入 changelog-1（第1页，最新内容）、changelog-2（第2页）等格式，每页300行。对于大型文档，代码块会被替换为占位符，需要使用 get_semi_code_block 工具获取具体代码',
+    description: '获取 Semi Design 组件文档、额外文档或组件列表。支持获取：1) 组件文档（如 Button、Input 等组件）；2) 额外文档，包括：advanced 分类下的文档（customize-theme、dark-mode、design-source、design-to-code）、ecosystem 分类下的文档（changelog、faq、react19、tailwind、update-to-v2、web-components）、experience 分类下的文档（accessibility、content-guidelines、internationalization）、start 分类下的文档（getting-started、introduction、overview）。注意：changelog 文档较大，需要使用分页格式获取，传入 changelog-1（第1页，最新内容）、changelog-2（第2页）等格式，每页300行。对于大型文档，代码块会被替换为占位符，需要使用 get_semi_code_block 工具获取具体代码',
     inputSchema: {
         type: 'object',
         properties: {
             componentName: {
                 type: 'string',
-                description: '组件名称或文档名称。组件名称例如：Button、Input、Table 等；额外文档名称例如：customize-theme、dark-mode、changelog-1（changelog第1页，最新）、changelog-2（changelog第2页）等、faq、react19、tailwind、update-to-v2、web-components、getting-started、introduction、overview 等。注意：changelog 必须使用分页格式（changelog-1、changelog-2等），不能直接传入 changelog。如果不提供，则返回组件列表',
+                description: '组件名称或文档名称。组件名称例如：Button、Input、Table 等；额外文档名称例如：customize-theme、dark-mode、design-source、design-to-code、changelog-1（changelog第1页，最新）、changelog-2（changelog第2页）等、faq、react19、tailwind、update-to-v2、web-components、accessibility、content-guidelines、internationalization、getting-started、introduction、overview 等。注意：changelog 必须使用分页格式（changelog-1、changelog-2等），不能直接传入 changelog。如果不提供，则返回组件列表',
             },
             version: {
                 type: 'string',
@@ -68,6 +68,43 @@ const LARGE_DOCUMENT_THRESHOLD = 888;
 
 /** changelog 分页大小（每页行数） */
 const CHANGELOG_PAGE_SIZE = 300;
+
+/**
+ * 从文档路径生成 URL
+ * @param docPath - 文档路径，格式：/content/{category}/{componentName}/index.md
+ * @returns URL，格式：https://semi.design/zh-CN/{category}/{componentName}
+ */
+export function generateDocumentUrl(docPath: string): string {
+    // 路径格式：/content/{category}/{componentName}/index.md
+    // 或者：content/{category}/{componentName}/index.md
+    const pathParts = docPath.split('/');
+    
+    // 找到 content 的位置
+    let contentIndex = -1;
+    for (let i = 0; i < pathParts.length; i++) {
+        if (pathParts[i].toLowerCase() === 'content') {
+            contentIndex = i;
+            break;
+        }
+    }
+    
+    // 确保 content 存在，且之后至少有 category 和 componentName 两个部分
+    // 还需要一个文件名部分（如 index.md），所以至少需要 contentIndex + 3 个部分
+    if (contentIndex === -1 || contentIndex + 3 >= pathParts.length) {
+        return '';
+    }
+    
+    // 提取 category 和 componentName
+    const category = pathParts[contentIndex + 1];
+    const componentName = pathParts[contentIndex + 2];
+    
+    // 确保 category 和 componentName 都存在且不为空
+    if (!category || !componentName) {
+        return '';
+    }
+    
+    return `https://semi.design/zh-CN/${category}/${componentName}`;
+}
 
 /**
  * 解析 changelog 分页参数
@@ -223,12 +260,14 @@ export async function handleGetSemiDocument(
                 const pageHints = [nextPageHint, prevPageHint].filter(Boolean).join('，');
                 const header = `===== ${doc.name} (第 ${page}/${paginated.totalPages} 页) =====${pageHints ? `\n[提示: ${pageHints}]` : ''}`;
                 const footer = `\n\n[当前页: ${page}/${paginated.totalPages} | 总行数: ${doc.content.split('\n').length} | 每页: ${CHANGELOG_PAGE_SIZE} 行]`;
+                const url = generateDocumentUrl(doc.path);
+                const urlFooter = url ? `\n\n文档链接: ${url}` : '';
                 
                 return {
                     content: [
                         {
                             type: 'text',
-                            text: `${header}\n\n${paginated.content}${footer}`,
+                            text: `${header}\n\n${paginated.content}${footer}${urlFooter}`,
                         },
                     ],
                 };
@@ -271,7 +310,9 @@ export async function handleGetSemiDocument(
                     if (doc.codeBlockCount > 0) {
                         header += `\n[注意: 此文档原有 ${doc.originalLines} 行，包含 ${doc.codeBlockCount} 个代码块已被隐藏。使用 get_semi_code_block 工具查看具体代码]`;
                     }
-                    return `${header}\n\n${doc.content}`;
+                    const url = generateDocumentUrl(doc.path);
+                    const urlFooter = url ? `\n\n文档链接: ${url}` : '';
+                    return `${header}\n\n${doc.content}${urlFooter}`;
                 }).join('\n\n');
 
                 return {
@@ -286,7 +327,9 @@ export async function handleGetSemiDocument(
 
             // 小文档：直接返回完整内容
             const docContents = result.documents.map(doc => {
-                return `===== ${doc.name} =====\n\n${doc.content}`;
+                const url = generateDocumentUrl(doc.path);
+                const urlFooter = url ? `\n\n文档链接: ${url}` : '';
+                return `===== ${doc.name} =====\n\n${doc.content}${urlFooter}`;
             }).join('\n\n');
 
             return {
