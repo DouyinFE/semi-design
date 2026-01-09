@@ -68,6 +68,11 @@
             "require": "./lib/cjs/_portal/portal.css",
             "default": "./lib/es/_portal/portal.css"
         },
+        "./lib/es/_portal/portal.scss": {
+            "import": "./lib/es/_portal/portal.scss",
+            "require": "./lib/cjs/_portal/portal.scss",
+            "default": "./lib/es/_portal/portal.scss"
+        },
         "./lib/es/aiChatDialogue/actionFoundation.js": {
             "types": "./lib/es/aiChatDialogue/actionFoundation.d.ts",
             "import": "./lib/es/aiChatDialogue/actionFoundation.js",
@@ -82,6 +87,11 @@
             "import": "./lib/es/aiChatDialogue/aiChatDialogue.css",
             "require": "./lib/cjs/aiChatDialogue/aiChatDialogue.css",
             "default": "./lib/es/aiChatDialogue/aiChatDialogue.css"
+        },
+        "./lib/es/aiChatDialogue/aiChatDialogue.scss": {
+            "import": "./lib/es/aiChatDialogue/aiChatDialogue.scss",
+            "require": "./lib/cjs/aiChatDialogue/aiChatDialogue.scss",
+            "default": "./lib/es/aiChatDialogue/aiChatDialogue.scss"
         },
         "./lib/es/aiChatDialogue/constants.js": {
             "types": "./lib/es/aiChatDialogue/constants.d.ts",
@@ -198,10 +208,25 @@
             "import": "./lib/es/aiChatDialogue/foundation.js",
             "require": "./lib/cjs/aiChatDialogue/foundation.js"
         },
+        "./lib/es/aiChatDialogue/rtl.scss": {
+            "import": "./lib/es/aiChatDialogue/rtl.scss",
+            "require": "./lib/cjs/aiChatDialogue/rtl.scss",
+            "default": "./lib/es/aiChatDialogue/rtl.scss"
+        },
+        "./lib/es/aiChatDialogue/variables.scss": {
+            "import": "./lib/es/aiChatDialogue/variables.scss",
+            "require": "./lib/cjs/aiChatDialogue/variables.scss",
+            "default": "./lib/es/aiChatDialogue/variables.scss"
+        },
         "./lib/es/aiChatInput/aiChatInput.css": {
             "import": "./lib/es/aiChatInput/aiChatInput.css",
             "require": "./lib/cjs/aiChatInput/aiChatInput.css",
             "default": "./lib/es/aiChatInput/aiChatInput.css"
+        },
+        "./lib/es/aiChatInput/aiChatInput.scss": {
+            "import": "./lib/es/aiChatInput/aiChatInput.scss",
+            "require": "./lib/cjs/aiChatInput/aiChatInput.scss",
+            "default": "./lib/es/aiChatInput/aiChatInput.scss"
         },
         "./lib/es/aiChatInput/constants.js": {
             "types": "./lib/es/aiChatInput/constants.d.ts",
@@ -243,10 +268,25 @@
             "import": "./lib/es/aiChatInput/utils.js",
             "require": "./lib/cjs/aiChatInput/utils.js"
         },
+        "./lib/es/aiChatInput/variables.scss": {
+            "import": "./lib/es/aiChatInput/variables.scss",
+            "require": "./lib/cjs/aiChatInput/variables.scss",
+            "default": "./lib/es/aiChatInput/variables.scss"
+        },
         "./lib/es/anchor/anchor.css": {
             "import": "./lib/es/anchor/anchor.css",
             "require": "./lib/cjs/anchor/anchor.css",
             "default": "./lib/es/anchor/anchor.css"
+        },
+        "./lib/es/anchor/anchor.scss": {
+            "import": "./lib/es/anchor/anchor.scss",
+            "require": "./lib/cjs/anchor/anchor.scss",
+            "default": "./lib/es/anchor/anchor.scss"
+        },
+        "./lib/es/anchor/animation.scss": {
+            "import": "./lib/es/anchor/animation.scss",
+            "require": "./lib/cjs/anchor/animation.scss",
+            "default": "./lib/es/anchor/animation.scss"
         },
         "./lib/es/anchor/constants.js": {
             "types": "./lib/es/anchor/constants.d.ts",
@@ -278,10 +318,25 @@
             "import": "./lib/es/anchor/linkFoundation.js",
             "require": "./lib/cjs/anchor/linkFoundation.js"
         },
+        "./lib/es/anchor/rtl.scss": {
+            "import": "./lib/es/anchor/rtl.scss",
+            "require": "./lib/cjs/anchor/rtl.scss",
+            "default": "./lib/es/anchor/rtl.scss"
+        },
+        "./lib/es/anchor/variables.scss": {
+            "import": "./lib/es/anchor/variables.scss",
+            "require": "./lib/cjs/anchor/variables.scss",
+            "default": "./lib/es/anchor/variables.scss"
+        },
         "./lib/es/audioPlayer/audioPlayer.css": {
             "import": "./lib/es/audioPlayer/audioPlayer.css",
             "require": "./lib/cjs/audioPlayer/audioPlayer.css",
             "default": "./lib/es/audioPlayer/audioPlayer.css"
+        },
+        "./lib/es/audioPlayer/audioPlayer.scss": {
+            "import": "./lib/es/audioPlayer/audioPlayer.scss",
+            "require": "./lib/cjs/audioPlayer/audioPlayer.scss",
+            "default": "./lib/es/audioPlayer/audioPlayer.scss"
         },
         "./lib/es/audioPlayer/constants.js": {
             "types": "./lib/es/audioPlayer/constants.d.ts",
@@ -303,10 +358,25 @@
             "import": "./lib/es/audioPlayer/foundation.js",
             "require": "./lib/cjs/audioPlayer/foundation.js"
         },
+        "./lib/es/audioPlayer/variables.scss": {
+            "import": "./lib/es/audioPlayer/variables.scss",
+            "require": "./lib/cjs/audioPlayer/variables.scss",
+            "default": "./lib/es/audioPlayer/variables.scss"
+        },
+        "./lib/es/autoComplete/animation.scss": {
+            "import": "./lib/es/autoComplete/animation.scss",
+            "require": "./lib/cjs/autoComplete/animation.scss",
+            "default": "./lib/es/autoComplete/animation.scss"
+        },
         "./lib/es/autoComplete/autoComplete.css": {
             "import": "./lib/es/autoComplete/autoComplete.css",
             "require": "./lib/cjs/autoComplete/autoComplete.css",
             "default": "./lib/es/autoComplete/autoComplete.css"
+        },
+        "./lib/es/autoComplete/autoComplete.scss": {
+            "import": "./lib/es/autoComplete/autoComplete.scss",
+            "require": "./lib/cjs/autoComplete/autoComplete.scss",
+            "default": "./lib/es/autoComplete/autoComplete.scss"
         },
         "./lib/es/autoComplete/constants.js": {
             "types": "./lib/es/autoComplete/constants.d.ts",
@@ -328,6 +398,11 @@
             "import": "./lib/es/autoComplete/foundation.js",
             "require": "./lib/cjs/autoComplete/foundation.js"
         },
+        "./lib/es/autoComplete/option.scss": {
+            "import": "./lib/es/autoComplete/option.scss",
+            "require": "./lib/cjs/autoComplete/option.scss",
+            "default": "./lib/es/autoComplete/option.scss"
+        },
         "./lib/es/autoComplete/optionFoundation.js": {
             "types": "./lib/es/autoComplete/optionFoundation.d.ts",
             "import": "./lib/es/autoComplete/optionFoundation.js",
@@ -338,10 +413,30 @@
             "import": "./lib/es/autoComplete/optionFoundation.js",
             "require": "./lib/cjs/autoComplete/optionFoundation.js"
         },
+        "./lib/es/autoComplete/rtl.scss": {
+            "import": "./lib/es/autoComplete/rtl.scss",
+            "require": "./lib/cjs/autoComplete/rtl.scss",
+            "default": "./lib/es/autoComplete/rtl.scss"
+        },
+        "./lib/es/autoComplete/variables.scss": {
+            "import": "./lib/es/autoComplete/variables.scss",
+            "require": "./lib/cjs/autoComplete/variables.scss",
+            "default": "./lib/es/autoComplete/variables.scss"
+        },
+        "./lib/es/avatar/animation.scss": {
+            "import": "./lib/es/avatar/animation.scss",
+            "require": "./lib/cjs/avatar/animation.scss",
+            "default": "./lib/es/avatar/animation.scss"
+        },
         "./lib/es/avatar/avatar.css": {
             "import": "./lib/es/avatar/avatar.css",
             "require": "./lib/cjs/avatar/avatar.css",
             "default": "./lib/es/avatar/avatar.css"
+        },
+        "./lib/es/avatar/avatar.scss": {
+            "import": "./lib/es/avatar/avatar.scss",
+            "require": "./lib/cjs/avatar/avatar.scss",
+            "default": "./lib/es/avatar/avatar.scss"
         },
         "./lib/es/avatar/constants.js": {
             "types": "./lib/es/avatar/constants.d.ts",
@@ -368,10 +463,30 @@
             "require": "./lib/cjs/avatar/mixin.css",
             "default": "./lib/es/avatar/mixin.css"
         },
+        "./lib/es/avatar/mixin.scss": {
+            "import": "./lib/es/avatar/mixin.scss",
+            "require": "./lib/cjs/avatar/mixin.scss",
+            "default": "./lib/es/avatar/mixin.scss"
+        },
+        "./lib/es/avatar/rtl.scss": {
+            "import": "./lib/es/avatar/rtl.scss",
+            "require": "./lib/cjs/avatar/rtl.scss",
+            "default": "./lib/es/avatar/rtl.scss"
+        },
+        "./lib/es/avatar/variables.scss": {
+            "import": "./lib/es/avatar/variables.scss",
+            "require": "./lib/cjs/avatar/variables.scss",
+            "default": "./lib/es/avatar/variables.scss"
+        },
         "./lib/es/backtop/backtop.css": {
             "import": "./lib/es/backtop/backtop.css",
             "require": "./lib/cjs/backtop/backtop.css",
             "default": "./lib/es/backtop/backtop.css"
+        },
+        "./lib/es/backtop/backtop.scss": {
+            "import": "./lib/es/backtop/backtop.scss",
+            "require": "./lib/cjs/backtop/backtop.scss",
+            "default": "./lib/es/backtop/backtop.scss"
         },
         "./lib/es/backtop/constants.js": {
             "types": "./lib/es/backtop/constants.d.ts",
@@ -393,10 +508,25 @@
             "import": "./lib/es/backtop/foundation.js",
             "require": "./lib/cjs/backtop/foundation.js"
         },
+        "./lib/es/backtop/rtl.scss": {
+            "import": "./lib/es/backtop/rtl.scss",
+            "require": "./lib/cjs/backtop/rtl.scss",
+            "default": "./lib/es/backtop/rtl.scss"
+        },
+        "./lib/es/backtop/variables.scss": {
+            "import": "./lib/es/backtop/variables.scss",
+            "require": "./lib/cjs/backtop/variables.scss",
+            "default": "./lib/es/backtop/variables.scss"
+        },
         "./lib/es/badge/badge.css": {
             "import": "./lib/es/badge/badge.css",
             "require": "./lib/cjs/badge/badge.css",
             "default": "./lib/es/badge/badge.css"
+        },
+        "./lib/es/badge/badge.scss": {
+            "import": "./lib/es/badge/badge.scss",
+            "require": "./lib/cjs/badge/badge.scss",
+            "default": "./lib/es/badge/badge.scss"
         },
         "./lib/es/badge/constants.js": {
             "types": "./lib/es/badge/constants.d.ts",
@@ -408,10 +538,25 @@
             "import": "./lib/es/badge/constants.js",
             "require": "./lib/cjs/badge/constants.js"
         },
+        "./lib/es/badge/rtl.scss": {
+            "import": "./lib/es/badge/rtl.scss",
+            "require": "./lib/cjs/badge/rtl.scss",
+            "default": "./lib/es/badge/rtl.scss"
+        },
+        "./lib/es/badge/variables.scss": {
+            "import": "./lib/es/badge/variables.scss",
+            "require": "./lib/cjs/badge/variables.scss",
+            "default": "./lib/es/badge/variables.scss"
+        },
         "./lib/es/banner/banner.css": {
             "import": "./lib/es/banner/banner.css",
             "require": "./lib/cjs/banner/banner.css",
             "default": "./lib/es/banner/banner.css"
+        },
+        "./lib/es/banner/banner.scss": {
+            "import": "./lib/es/banner/banner.scss",
+            "require": "./lib/cjs/banner/banner.scss",
+            "default": "./lib/es/banner/banner.scss"
         },
         "./lib/es/banner/constants.js": {
             "types": "./lib/es/banner/constants.d.ts",
@@ -433,6 +578,16 @@
             "import": "./lib/es/banner/foundation.js",
             "require": "./lib/cjs/banner/foundation.js"
         },
+        "./lib/es/banner/rtl.scss": {
+            "import": "./lib/es/banner/rtl.scss",
+            "require": "./lib/cjs/banner/rtl.scss",
+            "default": "./lib/es/banner/rtl.scss"
+        },
+        "./lib/es/banner/variables.scss": {
+            "import": "./lib/es/banner/variables.scss",
+            "require": "./lib/cjs/banner/variables.scss",
+            "default": "./lib/es/banner/variables.scss"
+        },
         "./lib/es/base": {
             "types": "./lib/es/base/index.d.ts",
             "import": "./lib/es/base/index.js",
@@ -442,6 +597,11 @@
             "import": "./lib/es/base/base.css",
             "require": "./lib/cjs/base/base.css",
             "default": "./lib/es/base/base.css"
+        },
+        "./lib/es/base/base.scss": {
+            "import": "./lib/es/base/base.scss",
+            "require": "./lib/cjs/base/base.scss",
+            "default": "./lib/es/base/base.scss"
         },
         "./lib/es/base/constants.js": {
             "types": "./lib/es/base/constants.d.ts",
@@ -483,10 +643,20 @@
             "import": "./lib/es/base/index.js",
             "require": "./lib/cjs/base/index.js"
         },
+        "./lib/es/breadcrumb/animation.scss": {
+            "import": "./lib/es/breadcrumb/animation.scss",
+            "require": "./lib/cjs/breadcrumb/animation.scss",
+            "default": "./lib/es/breadcrumb/animation.scss"
+        },
         "./lib/es/breadcrumb/breadcrumb.css": {
             "import": "./lib/es/breadcrumb/breadcrumb.css",
             "require": "./lib/cjs/breadcrumb/breadcrumb.css",
             "default": "./lib/es/breadcrumb/breadcrumb.css"
+        },
+        "./lib/es/breadcrumb/breadcrumb.scss": {
+            "import": "./lib/es/breadcrumb/breadcrumb.scss",
+            "require": "./lib/cjs/breadcrumb/breadcrumb.scss",
+            "default": "./lib/es/breadcrumb/breadcrumb.scss"
         },
         "./lib/es/breadcrumb/constants.js": {
             "types": "./lib/es/breadcrumb/constants.d.ts",
@@ -518,10 +688,30 @@
             "import": "./lib/es/breadcrumb/itemFoundation.js",
             "require": "./lib/cjs/breadcrumb/itemFoundation.js"
         },
+        "./lib/es/breadcrumb/rtl.scss": {
+            "import": "./lib/es/breadcrumb/rtl.scss",
+            "require": "./lib/cjs/breadcrumb/rtl.scss",
+            "default": "./lib/es/breadcrumb/rtl.scss"
+        },
+        "./lib/es/breadcrumb/variables.scss": {
+            "import": "./lib/es/breadcrumb/variables.scss",
+            "require": "./lib/cjs/breadcrumb/variables.scss",
+            "default": "./lib/es/breadcrumb/variables.scss"
+        },
+        "./lib/es/button/animation.scss": {
+            "import": "./lib/es/button/animation.scss",
+            "require": "./lib/cjs/button/animation.scss",
+            "default": "./lib/es/button/animation.scss"
+        },
         "./lib/es/button/button.css": {
             "import": "./lib/es/button/button.css",
             "require": "./lib/cjs/button/button.css",
             "default": "./lib/es/button/button.css"
+        },
+        "./lib/es/button/button.scss": {
+            "import": "./lib/es/button/button.scss",
+            "require": "./lib/cjs/button/button.scss",
+            "default": "./lib/es/button/button.scss"
         },
         "./lib/es/button/constants.js": {
             "types": "./lib/es/button/constants.d.ts",
@@ -538,15 +728,45 @@
             "require": "./lib/cjs/button/cssVariables.css",
             "default": "./lib/es/button/cssVariables.css"
         },
+        "./lib/es/button/cssVariables.scss": {
+            "import": "./lib/es/button/cssVariables.scss",
+            "require": "./lib/cjs/button/cssVariables.scss",
+            "default": "./lib/es/button/cssVariables.scss"
+        },
         "./lib/es/button/iconButton.css": {
             "import": "./lib/es/button/iconButton.css",
             "require": "./lib/cjs/button/iconButton.css",
             "default": "./lib/es/button/iconButton.css"
         },
+        "./lib/es/button/iconButton.scss": {
+            "import": "./lib/es/button/iconButton.scss",
+            "require": "./lib/cjs/button/iconButton.scss",
+            "default": "./lib/es/button/iconButton.scss"
+        },
+        "./lib/es/button/rtl.scss": {
+            "import": "./lib/es/button/rtl.scss",
+            "require": "./lib/cjs/button/rtl.scss",
+            "default": "./lib/es/button/rtl.scss"
+        },
+        "./lib/es/button/splitButtonGroup.scss": {
+            "import": "./lib/es/button/splitButtonGroup.scss",
+            "require": "./lib/cjs/button/splitButtonGroup.scss",
+            "default": "./lib/es/button/splitButtonGroup.scss"
+        },
+        "./lib/es/button/variables.scss": {
+            "import": "./lib/es/button/variables.scss",
+            "require": "./lib/cjs/button/variables.scss",
+            "default": "./lib/es/button/variables.scss"
+        },
         "./lib/es/calendar/calendar.css": {
             "import": "./lib/es/calendar/calendar.css",
             "require": "./lib/cjs/calendar/calendar.css",
             "default": "./lib/es/calendar/calendar.css"
+        },
+        "./lib/es/calendar/calendar.scss": {
+            "import": "./lib/es/calendar/calendar.scss",
+            "require": "./lib/cjs/calendar/calendar.scss",
+            "default": "./lib/es/calendar/calendar.scss"
         },
         "./lib/es/calendar/constants.js": {
             "types": "./lib/es/calendar/constants.d.ts",
@@ -578,10 +798,25 @@
             "import": "./lib/es/calendar/foundation.js",
             "require": "./lib/cjs/calendar/foundation.js"
         },
+        "./lib/es/calendar/rtl.scss": {
+            "import": "./lib/es/calendar/rtl.scss",
+            "require": "./lib/cjs/calendar/rtl.scss",
+            "default": "./lib/es/calendar/rtl.scss"
+        },
+        "./lib/es/calendar/variables.scss": {
+            "import": "./lib/es/calendar/variables.scss",
+            "require": "./lib/cjs/calendar/variables.scss",
+            "default": "./lib/es/calendar/variables.scss"
+        },
         "./lib/es/card/card.css": {
             "import": "./lib/es/card/card.css",
             "require": "./lib/cjs/card/card.css",
             "default": "./lib/es/card/card.css"
+        },
+        "./lib/es/card/card.scss": {
+            "import": "./lib/es/card/card.scss",
+            "require": "./lib/cjs/card/card.scss",
+            "default": "./lib/es/card/card.scss"
         },
         "./lib/es/card/constants.js": {
             "types": "./lib/es/card/constants.d.ts",
@@ -593,10 +828,30 @@
             "import": "./lib/es/card/constants.js",
             "require": "./lib/cjs/card/constants.js"
         },
+        "./lib/es/card/rtl.scss": {
+            "import": "./lib/es/card/rtl.scss",
+            "require": "./lib/cjs/card/rtl.scss",
+            "default": "./lib/es/card/rtl.scss"
+        },
+        "./lib/es/card/variables.scss": {
+            "import": "./lib/es/card/variables.scss",
+            "require": "./lib/cjs/card/variables.scss",
+            "default": "./lib/es/card/variables.scss"
+        },
+        "./lib/es/carousel/animation.scss": {
+            "import": "./lib/es/carousel/animation.scss",
+            "require": "./lib/cjs/carousel/animation.scss",
+            "default": "./lib/es/carousel/animation.scss"
+        },
         "./lib/es/carousel/carousel.css": {
             "import": "./lib/es/carousel/carousel.css",
             "require": "./lib/cjs/carousel/carousel.css",
             "default": "./lib/es/carousel/carousel.css"
+        },
+        "./lib/es/carousel/carousel.scss": {
+            "import": "./lib/es/carousel/carousel.scss",
+            "require": "./lib/cjs/carousel/carousel.scss",
+            "default": "./lib/es/carousel/carousel.scss"
         },
         "./lib/es/carousel/constants.js": {
             "types": "./lib/es/carousel/constants.d.ts",
@@ -618,10 +873,30 @@
             "import": "./lib/es/carousel/foundation.js",
             "require": "./lib/cjs/carousel/foundation.js"
         },
+        "./lib/es/carousel/rtl.scss": {
+            "import": "./lib/es/carousel/rtl.scss",
+            "require": "./lib/cjs/carousel/rtl.scss",
+            "default": "./lib/es/carousel/rtl.scss"
+        },
+        "./lib/es/carousel/variables.scss": {
+            "import": "./lib/es/carousel/variables.scss",
+            "require": "./lib/cjs/carousel/variables.scss",
+            "default": "./lib/es/carousel/variables.scss"
+        },
+        "./lib/es/cascader/animation.scss": {
+            "import": "./lib/es/cascader/animation.scss",
+            "require": "./lib/cjs/cascader/animation.scss",
+            "default": "./lib/es/cascader/animation.scss"
+        },
         "./lib/es/cascader/cascader.css": {
             "import": "./lib/es/cascader/cascader.css",
             "require": "./lib/cjs/cascader/cascader.css",
             "default": "./lib/es/cascader/cascader.css"
+        },
+        "./lib/es/cascader/cascader.scss": {
+            "import": "./lib/es/cascader/cascader.scss",
+            "require": "./lib/cjs/cascader/cascader.scss",
+            "default": "./lib/es/cascader/cascader.scss"
         },
         "./lib/es/cascader/constants.js": {
             "types": "./lib/es/cascader/constants.d.ts",
@@ -643,6 +918,11 @@
             "import": "./lib/es/cascader/foundation.js",
             "require": "./lib/cjs/cascader/foundation.js"
         },
+        "./lib/es/cascader/rtl.scss": {
+            "import": "./lib/es/cascader/rtl.scss",
+            "require": "./lib/cjs/cascader/rtl.scss",
+            "default": "./lib/es/cascader/rtl.scss"
+        },
         "./lib/es/cascader/util.js": {
             "types": "./lib/es/cascader/util.d.ts",
             "import": "./lib/es/cascader/util.js",
@@ -653,10 +933,20 @@
             "import": "./lib/es/cascader/util.js",
             "require": "./lib/cjs/cascader/util.js"
         },
+        "./lib/es/cascader/variables.scss": {
+            "import": "./lib/es/cascader/variables.scss",
+            "require": "./lib/cjs/cascader/variables.scss",
+            "default": "./lib/es/cascader/variables.scss"
+        },
         "./lib/es/chat/chat.css": {
             "import": "./lib/es/chat/chat.css",
             "require": "./lib/cjs/chat/chat.css",
             "default": "./lib/es/chat/chat.css"
+        },
+        "./lib/es/chat/chat.scss": {
+            "import": "./lib/es/chat/chat.scss",
+            "require": "./lib/cjs/chat/chat.scss",
+            "default": "./lib/es/chat/chat.scss"
         },
         "./lib/es/chat/chatBoxActionFoundation.js": {
             "types": "./lib/es/chat/chatBoxActionFoundation.d.ts",
@@ -698,10 +988,30 @@
             "import": "./lib/es/chat/inputboxFoundation.js",
             "require": "./lib/cjs/chat/inputboxFoundation.js"
         },
+        "./lib/es/chat/rtl.scss": {
+            "import": "./lib/es/chat/rtl.scss",
+            "require": "./lib/cjs/chat/rtl.scss",
+            "default": "./lib/es/chat/rtl.scss"
+        },
+        "./lib/es/chat/variables.scss": {
+            "import": "./lib/es/chat/variables.scss",
+            "require": "./lib/cjs/chat/variables.scss",
+            "default": "./lib/es/chat/variables.scss"
+        },
+        "./lib/es/checkbox/animation.scss": {
+            "import": "./lib/es/checkbox/animation.scss",
+            "require": "./lib/cjs/checkbox/animation.scss",
+            "default": "./lib/es/checkbox/animation.scss"
+        },
         "./lib/es/checkbox/checkbox.css": {
             "import": "./lib/es/checkbox/checkbox.css",
             "require": "./lib/cjs/checkbox/checkbox.css",
             "default": "./lib/es/checkbox/checkbox.css"
+        },
+        "./lib/es/checkbox/checkbox.scss": {
+            "import": "./lib/es/checkbox/checkbox.scss",
+            "require": "./lib/cjs/checkbox/checkbox.scss",
+            "default": "./lib/es/checkbox/checkbox.scss"
         },
         "./lib/es/checkbox/checkboxFoundation.js": {
             "types": "./lib/es/checkbox/checkboxFoundation.d.ts",
@@ -738,6 +1048,21 @@
             "require": "./lib/cjs/checkbox/mixin.css",
             "default": "./lib/es/checkbox/mixin.css"
         },
+        "./lib/es/checkbox/mixin.scss": {
+            "import": "./lib/es/checkbox/mixin.scss",
+            "require": "./lib/cjs/checkbox/mixin.scss",
+            "default": "./lib/es/checkbox/mixin.scss"
+        },
+        "./lib/es/checkbox/rtl.scss": {
+            "import": "./lib/es/checkbox/rtl.scss",
+            "require": "./lib/cjs/checkbox/rtl.scss",
+            "default": "./lib/es/checkbox/rtl.scss"
+        },
+        "./lib/es/checkbox/variables.scss": {
+            "import": "./lib/es/checkbox/variables.scss",
+            "require": "./lib/cjs/checkbox/variables.scss",
+            "default": "./lib/es/checkbox/variables.scss"
+        },
         "./lib/es/codeHighlight": {
             "types": "./lib/es/codeHighlight/index.d.ts",
             "import": "./lib/es/codeHighlight/index.js",
@@ -747,6 +1072,11 @@
             "import": "./lib/es/codeHighlight/codeHighlight.css",
             "require": "./lib/cjs/codeHighlight/codeHighlight.css",
             "default": "./lib/es/codeHighlight/codeHighlight.css"
+        },
+        "./lib/es/codeHighlight/codeHighlight.scss": {
+            "import": "./lib/es/codeHighlight/codeHighlight.scss",
+            "require": "./lib/cjs/codeHighlight/codeHighlight.scss",
+            "default": "./lib/es/codeHighlight/codeHighlight.scss"
         },
         "./lib/es/codeHighlight/constants.js": {
             "types": "./lib/es/codeHighlight/constants.d.ts",
@@ -768,10 +1098,20 @@
             "import": "./lib/es/codeHighlight/index.js",
             "require": "./lib/cjs/codeHighlight/index.js"
         },
+        "./lib/es/codeHighlight/variables.scss": {
+            "import": "./lib/es/codeHighlight/variables.scss",
+            "require": "./lib/cjs/codeHighlight/variables.scss",
+            "default": "./lib/es/codeHighlight/variables.scss"
+        },
         "./lib/es/collapse/collapse.css": {
             "import": "./lib/es/collapse/collapse.css",
             "require": "./lib/cjs/collapse/collapse.css",
             "default": "./lib/es/collapse/collapse.css"
+        },
+        "./lib/es/collapse/collapse.scss": {
+            "import": "./lib/es/collapse/collapse.scss",
+            "require": "./lib/cjs/collapse/collapse.scss",
+            "default": "./lib/es/collapse/collapse.scss"
         },
         "./lib/es/collapse/constants.js": {
             "types": "./lib/es/collapse/constants.d.ts",
@@ -793,10 +1133,30 @@
             "import": "./lib/es/collapse/foundation.js",
             "require": "./lib/cjs/collapse/foundation.js"
         },
+        "./lib/es/collapse/rtl.scss": {
+            "import": "./lib/es/collapse/rtl.scss",
+            "require": "./lib/cjs/collapse/rtl.scss",
+            "default": "./lib/es/collapse/rtl.scss"
+        },
+        "./lib/es/collapse/variables.scss": {
+            "import": "./lib/es/collapse/variables.scss",
+            "require": "./lib/cjs/collapse/variables.scss",
+            "default": "./lib/es/collapse/variables.scss"
+        },
+        "./lib/es/collapsible/animation.scss": {
+            "import": "./lib/es/collapsible/animation.scss",
+            "require": "./lib/cjs/collapsible/animation.scss",
+            "default": "./lib/es/collapsible/animation.scss"
+        },
         "./lib/es/collapsible/collapsible.css": {
             "import": "./lib/es/collapsible/collapsible.css",
             "require": "./lib/cjs/collapsible/collapsible.css",
             "default": "./lib/es/collapsible/collapsible.css"
+        },
+        "./lib/es/collapsible/collapsible.scss": {
+            "import": "./lib/es/collapsible/collapsible.scss",
+            "require": "./lib/cjs/collapsible/collapsible.scss",
+            "default": "./lib/es/collapsible/collapsible.scss"
         },
         "./lib/es/collapsible/constants.js": {
             "types": "./lib/es/collapsible/constants.d.ts",
@@ -817,6 +1177,11 @@
             "types": "./lib/es/collapsible/foundation.d.ts",
             "import": "./lib/es/collapsible/foundation.js",
             "require": "./lib/cjs/collapsible/foundation.js"
+        },
+        "./lib/es/collapsible/variables.scss": {
+            "import": "./lib/es/collapsible/variables.scss",
+            "require": "./lib/cjs/collapsible/variables.scss",
+            "default": "./lib/es/collapsible/variables.scss"
         },
         "./lib/es/colorPicker/AlphaSliderFoundation.js": {
             "types": "./lib/es/colorPicker/AlphaSliderFoundation.d.ts",
@@ -862,6 +1227,11 @@
             "import": "./lib/es/colorPicker/colorPicker.css",
             "require": "./lib/cjs/colorPicker/colorPicker.css",
             "default": "./lib/es/colorPicker/colorPicker.css"
+        },
+        "./lib/es/colorPicker/colorPicker.scss": {
+            "import": "./lib/es/colorPicker/colorPicker.scss",
+            "require": "./lib/cjs/colorPicker/colorPicker.scss",
+            "default": "./lib/es/colorPicker/colorPicker.scss"
         },
         "./lib/es/colorPicker/constants.js": {
             "types": "./lib/es/colorPicker/constants.d.ts",
@@ -923,6 +1293,11 @@
             "import": "./lib/es/colorPicker/utils/split.js",
             "require": "./lib/cjs/colorPicker/utils/split.js"
         },
+        "./lib/es/colorPicker/variables.scss": {
+            "import": "./lib/es/colorPicker/variables.scss",
+            "require": "./lib/cjs/colorPicker/variables.scss",
+            "default": "./lib/es/colorPicker/variables.scss"
+        },
         "./lib/es/cropper/constants.js": {
             "types": "./lib/es/cropper/constants.d.ts",
             "import": "./lib/es/cropper/constants.js",
@@ -937,6 +1312,11 @@
             "import": "./lib/es/cropper/cropper.css",
             "require": "./lib/cjs/cropper/cropper.css",
             "default": "./lib/es/cropper/cropper.css"
+        },
+        "./lib/es/cropper/cropper.scss": {
+            "import": "./lib/es/cropper/cropper.scss",
+            "require": "./lib/cjs/cropper/cropper.scss",
+            "default": "./lib/es/cropper/cropper.scss"
         },
         "./lib/es/cropper/foundation.js": {
             "types": "./lib/es/cropper/foundation.d.ts",
@@ -957,6 +1337,11 @@
             "types": "./lib/es/cropper/utils.d.ts",
             "import": "./lib/es/cropper/utils.js",
             "require": "./lib/cjs/cropper/utils.js"
+        },
+        "./lib/es/cropper/variables.scss": {
+            "import": "./lib/es/cropper/variables.scss",
+            "require": "./lib/cjs/cropper/variables.scss",
+            "default": "./lib/es/cropper/variables.scss"
         },
         "./lib/es/datePicker/_utils": {
             "types": "./lib/es/datePicker/_utils/index.d.ts",
@@ -1193,6 +1578,11 @@
             "import": "./lib/es/datePicker/_utils/parser.js",
             "require": "./lib/cjs/datePicker/_utils/parser.js"
         },
+        "./lib/es/datePicker/animation.scss": {
+            "import": "./lib/es/datePicker/animation.scss",
+            "require": "./lib/cjs/datePicker/animation.scss",
+            "default": "./lib/es/datePicker/animation.scss"
+        },
         "./lib/es/datePicker/constants.js": {
             "types": "./lib/es/datePicker/constants.d.ts",
             "import": "./lib/es/datePicker/constants.js",
@@ -1207,6 +1597,11 @@
             "import": "./lib/es/datePicker/datePicker.css",
             "require": "./lib/cjs/datePicker/datePicker.css",
             "default": "./lib/es/datePicker/datePicker.css"
+        },
+        "./lib/es/datePicker/datePicker.scss": {
+            "import": "./lib/es/datePicker/datePicker.scss",
+            "require": "./lib/cjs/datePicker/datePicker.scss",
+            "default": "./lib/es/datePicker/datePicker.scss"
         },
         "./lib/es/datePicker/foundation.js": {
             "types": "./lib/es/datePicker/foundation.d.ts",
@@ -1248,6 +1643,16 @@
             "import": "./lib/es/datePicker/monthsGridFoundation.js",
             "require": "./lib/cjs/datePicker/monthsGridFoundation.js"
         },
+        "./lib/es/datePicker/rtl.scss": {
+            "import": "./lib/es/datePicker/rtl.scss",
+            "require": "./lib/cjs/datePicker/rtl.scss",
+            "default": "./lib/es/datePicker/rtl.scss"
+        },
+        "./lib/es/datePicker/variables.scss": {
+            "import": "./lib/es/datePicker/variables.scss",
+            "require": "./lib/cjs/datePicker/variables.scss",
+            "default": "./lib/es/datePicker/variables.scss"
+        },
         "./lib/es/datePicker/yearAndMonthFoundation.js": {
             "types": "./lib/es/datePicker/yearAndMonthFoundation.d.ts",
             "import": "./lib/es/datePicker/yearAndMonthFoundation.js",
@@ -1273,6 +1678,11 @@
             "require": "./lib/cjs/descriptions/descriptions.css",
             "default": "./lib/es/descriptions/descriptions.css"
         },
+        "./lib/es/descriptions/descriptions.scss": {
+            "import": "./lib/es/descriptions/descriptions.scss",
+            "require": "./lib/cjs/descriptions/descriptions.scss",
+            "default": "./lib/es/descriptions/descriptions.scss"
+        },
         "./lib/es/descriptions/foundation.js": {
             "types": "./lib/es/descriptions/foundation.d.ts",
             "import": "./lib/es/descriptions/foundation.js",
@@ -1282,6 +1692,16 @@
             "types": "./lib/es/descriptions/foundation.d.ts",
             "import": "./lib/es/descriptions/foundation.js",
             "require": "./lib/cjs/descriptions/foundation.js"
+        },
+        "./lib/es/descriptions/rtl.scss": {
+            "import": "./lib/es/descriptions/rtl.scss",
+            "require": "./lib/cjs/descriptions/rtl.scss",
+            "default": "./lib/es/descriptions/rtl.scss"
+        },
+        "./lib/es/descriptions/variables.scss": {
+            "import": "./lib/es/descriptions/variables.scss",
+            "require": "./lib/cjs/descriptions/variables.scss",
+            "default": "./lib/es/descriptions/variables.scss"
         },
         "./lib/es/divider/constants.js": {
             "types": "./lib/es/divider/constants.d.ts",
@@ -1298,6 +1718,16 @@
             "require": "./lib/cjs/divider/divider.css",
             "default": "./lib/es/divider/divider.css"
         },
+        "./lib/es/divider/divider.scss": {
+            "import": "./lib/es/divider/divider.scss",
+            "require": "./lib/cjs/divider/divider.scss",
+            "default": "./lib/es/divider/divider.scss"
+        },
+        "./lib/es/divider/variables.scss": {
+            "import": "./lib/es/divider/variables.scss",
+            "require": "./lib/cjs/divider/variables.scss",
+            "default": "./lib/es/divider/variables.scss"
+        },
         "./lib/es/dragMove/foundation.js": {
             "types": "./lib/es/dragMove/foundation.d.ts",
             "import": "./lib/es/dragMove/foundation.js",
@@ -1307,6 +1737,11 @@
             "types": "./lib/es/dragMove/foundation.d.ts",
             "import": "./lib/es/dragMove/foundation.js",
             "require": "./lib/cjs/dragMove/foundation.js"
+        },
+        "./lib/es/dropdown/animation.scss": {
+            "import": "./lib/es/dropdown/animation.scss",
+            "require": "./lib/cjs/dropdown/animation.scss",
+            "default": "./lib/es/dropdown/animation.scss"
         },
         "./lib/es/dropdown/constants.js": {
             "types": "./lib/es/dropdown/constants.d.ts",
@@ -1322,6 +1757,11 @@
             "import": "./lib/es/dropdown/dropdown.css",
             "require": "./lib/cjs/dropdown/dropdown.css",
             "default": "./lib/es/dropdown/dropdown.css"
+        },
+        "./lib/es/dropdown/dropdown.scss": {
+            "import": "./lib/es/dropdown/dropdown.scss",
+            "require": "./lib/cjs/dropdown/dropdown.scss",
+            "default": "./lib/es/dropdown/dropdown.scss"
         },
         "./lib/es/dropdown/foundation.js": {
             "types": "./lib/es/dropdown/foundation.d.ts",
@@ -1343,6 +1783,16 @@
             "import": "./lib/es/dropdown/menuFoundation.js",
             "require": "./lib/cjs/dropdown/menuFoundation.js"
         },
+        "./lib/es/dropdown/rtl.scss": {
+            "import": "./lib/es/dropdown/rtl.scss",
+            "require": "./lib/cjs/dropdown/rtl.scss",
+            "default": "./lib/es/dropdown/rtl.scss"
+        },
+        "./lib/es/dropdown/variables.scss": {
+            "import": "./lib/es/dropdown/variables.scss",
+            "require": "./lib/cjs/dropdown/variables.scss",
+            "default": "./lib/es/dropdown/variables.scss"
+        },
         "./lib/es/empty/constants.js": {
             "types": "./lib/es/empty/constants.d.ts",
             "import": "./lib/es/empty/constants.js",
@@ -1357,6 +1807,21 @@
             "import": "./lib/es/empty/empty.css",
             "require": "./lib/cjs/empty/empty.css",
             "default": "./lib/es/empty/empty.css"
+        },
+        "./lib/es/empty/empty.scss": {
+            "import": "./lib/es/empty/empty.scss",
+            "require": "./lib/cjs/empty/empty.scss",
+            "default": "./lib/es/empty/empty.scss"
+        },
+        "./lib/es/empty/rtl.scss": {
+            "import": "./lib/es/empty/rtl.scss",
+            "require": "./lib/cjs/empty/rtl.scss",
+            "default": "./lib/es/empty/rtl.scss"
+        },
+        "./lib/es/empty/variables.scss": {
+            "import": "./lib/es/empty/variables.scss",
+            "require": "./lib/cjs/empty/variables.scss",
+            "default": "./lib/es/empty/variables.scss"
         },
         "./lib/es/feedback/constants.js": {
             "types": "./lib/es/feedback/constants.d.ts",
@@ -1373,6 +1838,11 @@
             "require": "./lib/cjs/feedback/feedback.css",
             "default": "./lib/es/feedback/feedback.css"
         },
+        "./lib/es/feedback/feedback.scss": {
+            "import": "./lib/es/feedback/feedback.scss",
+            "require": "./lib/cjs/feedback/feedback.scss",
+            "default": "./lib/es/feedback/feedback.scss"
+        },
         "./lib/es/feedback/foundation.js": {
             "types": "./lib/es/feedback/foundation.d.ts",
             "import": "./lib/es/feedback/foundation.js",
@@ -1382,6 +1852,16 @@
             "types": "./lib/es/feedback/foundation.d.ts",
             "import": "./lib/es/feedback/foundation.js",
             "require": "./lib/cjs/feedback/foundation.js"
+        },
+        "./lib/es/feedback/rtl.scss": {
+            "import": "./lib/es/feedback/rtl.scss",
+            "require": "./lib/cjs/feedback/rtl.scss",
+            "default": "./lib/es/feedback/rtl.scss"
+        },
+        "./lib/es/feedback/variables.scss": {
+            "import": "./lib/es/feedback/variables.scss",
+            "require": "./lib/cjs/feedback/variables.scss",
+            "default": "./lib/es/feedback/variables.scss"
         },
         "./lib/es/floatButton/constants.js": {
             "types": "./lib/es/floatButton/constants.d.ts",
@@ -1398,6 +1878,21 @@
             "require": "./lib/cjs/floatButton/floatButton.css",
             "default": "./lib/es/floatButton/floatButton.css"
         },
+        "./lib/es/floatButton/floatButton.scss": {
+            "import": "./lib/es/floatButton/floatButton.scss",
+            "require": "./lib/cjs/floatButton/floatButton.scss",
+            "default": "./lib/es/floatButton/floatButton.scss"
+        },
+        "./lib/es/floatButton/rtl.scss": {
+            "import": "./lib/es/floatButton/rtl.scss",
+            "require": "./lib/cjs/floatButton/rtl.scss",
+            "default": "./lib/es/floatButton/rtl.scss"
+        },
+        "./lib/es/floatButton/variables.scss": {
+            "import": "./lib/es/floatButton/variables.scss",
+            "require": "./lib/cjs/floatButton/variables.scss",
+            "default": "./lib/es/floatButton/variables.scss"
+        },
         "./lib/es/form/constants.js": {
             "types": "./lib/es/form/constants.d.ts",
             "import": "./lib/es/form/constants.js",
@@ -1412,6 +1907,11 @@
             "import": "./lib/es/form/form.css",
             "require": "./lib/cjs/form/form.css",
             "default": "./lib/es/form/form.css"
+        },
+        "./lib/es/form/form.scss": {
+            "import": "./lib/es/form/form.scss",
+            "require": "./lib/cjs/form/form.scss",
+            "default": "./lib/es/form/form.scss"
         },
         "./lib/es/form/foundation.js": {
             "types": "./lib/es/form/foundation.d.ts",
@@ -1433,6 +1933,11 @@
             "import": "./lib/es/form/interface.js",
             "require": "./lib/cjs/form/interface.js"
         },
+        "./lib/es/form/rtl.scss": {
+            "import": "./lib/es/form/rtl.scss",
+            "require": "./lib/cjs/form/rtl.scss",
+            "default": "./lib/es/form/rtl.scss"
+        },
         "./lib/es/form/utils.js": {
             "types": "./lib/es/form/utils.d.ts",
             "import": "./lib/es/form/utils.js",
@@ -1442,6 +1947,11 @@
             "types": "./lib/es/form/utils.d.ts",
             "import": "./lib/es/form/utils.js",
             "require": "./lib/cjs/form/utils.js"
+        },
+        "./lib/es/form/variables.scss": {
+            "import": "./lib/es/form/variables.scss",
+            "require": "./lib/cjs/form/variables.scss",
+            "default": "./lib/es/form/variables.scss"
         },
         "./lib/es/grid/constants.js": {
             "types": "./lib/es/grid/constants.d.ts",
@@ -1458,10 +1968,30 @@
             "require": "./lib/cjs/grid/grid.css",
             "default": "./lib/es/grid/grid.css"
         },
+        "./lib/es/grid/grid.scss": {
+            "import": "./lib/es/grid/grid.scss",
+            "require": "./lib/cjs/grid/grid.scss",
+            "default": "./lib/es/grid/grid.scss"
+        },
         "./lib/es/grid/mixin.css": {
             "import": "./lib/es/grid/mixin.css",
             "require": "./lib/cjs/grid/mixin.css",
             "default": "./lib/es/grid/mixin.css"
+        },
+        "./lib/es/grid/mixin.scss": {
+            "import": "./lib/es/grid/mixin.scss",
+            "require": "./lib/cjs/grid/mixin.scss",
+            "default": "./lib/es/grid/mixin.scss"
+        },
+        "./lib/es/grid/rtl.scss": {
+            "import": "./lib/es/grid/rtl.scss",
+            "require": "./lib/cjs/grid/rtl.scss",
+            "default": "./lib/es/grid/rtl.scss"
+        },
+        "./lib/es/grid/variables.scss": {
+            "import": "./lib/es/grid/variables.scss",
+            "require": "./lib/cjs/grid/variables.scss",
+            "default": "./lib/es/grid/variables.scss"
         },
         "./lib/es/highlight/constants.js": {
             "types": "./lib/es/highlight/constants.d.ts",
@@ -1488,6 +2018,16 @@
             "require": "./lib/cjs/highlight/highlight.css",
             "default": "./lib/es/highlight/highlight.css"
         },
+        "./lib/es/highlight/highlight.scss": {
+            "import": "./lib/es/highlight/highlight.scss",
+            "require": "./lib/cjs/highlight/highlight.scss",
+            "default": "./lib/es/highlight/highlight.scss"
+        },
+        "./lib/es/highlight/variables.scss": {
+            "import": "./lib/es/highlight/variables.scss",
+            "require": "./lib/cjs/highlight/variables.scss",
+            "default": "./lib/es/highlight/variables.scss"
+        },
         "./lib/es/hotKeys/constants.js": {
             "types": "./lib/es/hotKeys/constants.d.ts",
             "import": "./lib/es/hotKeys/constants.js",
@@ -1513,6 +2053,16 @@
             "require": "./lib/cjs/hotKeys/hotKeys.css",
             "default": "./lib/es/hotKeys/hotKeys.css"
         },
+        "./lib/es/hotKeys/hotKeys.scss": {
+            "import": "./lib/es/hotKeys/hotKeys.scss",
+            "require": "./lib/cjs/hotKeys/hotKeys.scss",
+            "default": "./lib/es/hotKeys/hotKeys.scss"
+        },
+        "./lib/es/hotKeys/variables.scss": {
+            "import": "./lib/es/hotKeys/variables.scss",
+            "require": "./lib/cjs/hotKeys/variables.scss",
+            "default": "./lib/es/hotKeys/variables.scss"
+        },
         "./lib/es/icons/constants.js": {
             "types": "./lib/es/icons/constants.d.ts",
             "import": "./lib/es/icons/constants.js",
@@ -1522,6 +2072,11 @@
             "types": "./lib/es/icons/constants.d.ts",
             "import": "./lib/es/icons/constants.js",
             "require": "./lib/cjs/icons/constants.js"
+        },
+        "./lib/es/image/animation.scss": {
+            "import": "./lib/es/image/animation.scss",
+            "require": "./lib/cjs/image/animation.scss",
+            "default": "./lib/es/image/animation.scss"
         },
         "./lib/es/image/constants.js": {
             "types": "./lib/es/image/constants.d.ts",
@@ -1537,6 +2092,11 @@
             "import": "./lib/es/image/image.css",
             "require": "./lib/cjs/image/image.css",
             "default": "./lib/es/image/image.css"
+        },
+        "./lib/es/image/image.scss": {
+            "import": "./lib/es/image/image.scss",
+            "require": "./lib/cjs/image/image.scss",
+            "default": "./lib/es/image/image.scss"
         },
         "./lib/es/image/imageFoundation.js": {
             "types": "./lib/es/image/imageFoundation.d.ts",
@@ -1588,6 +2148,11 @@
             "import": "./lib/es/image/previewInnerFoundation.js",
             "require": "./lib/cjs/image/previewInnerFoundation.js"
         },
+        "./lib/es/image/rtl.scss": {
+            "import": "./lib/es/image/rtl.scss",
+            "require": "./lib/cjs/image/rtl.scss",
+            "default": "./lib/es/image/rtl.scss"
+        },
         "./lib/es/image/utils.js": {
             "types": "./lib/es/image/utils.d.ts",
             "import": "./lib/es/image/utils.js",
@@ -1597,6 +2162,16 @@
             "types": "./lib/es/image/utils.d.ts",
             "import": "./lib/es/image/utils.js",
             "require": "./lib/cjs/image/utils.js"
+        },
+        "./lib/es/image/variables.scss": {
+            "import": "./lib/es/image/variables.scss",
+            "require": "./lib/cjs/image/variables.scss",
+            "default": "./lib/es/image/variables.scss"
+        },
+        "./lib/es/input/animation.scss": {
+            "import": "./lib/es/input/animation.scss",
+            "require": "./lib/cjs/input/animation.scss",
+            "default": "./lib/es/input/animation.scss"
         },
         "./lib/es/input/constants.js": {
             "types": "./lib/es/input/constants.d.ts",
@@ -1623,10 +2198,25 @@
             "require": "./lib/cjs/input/input.css",
             "default": "./lib/es/input/input.css"
         },
+        "./lib/es/input/input.scss": {
+            "import": "./lib/es/input/input.scss",
+            "require": "./lib/cjs/input/input.scss",
+            "default": "./lib/es/input/input.scss"
+        },
+        "./lib/es/input/rtl.scss": {
+            "import": "./lib/es/input/rtl.scss",
+            "require": "./lib/cjs/input/rtl.scss",
+            "default": "./lib/es/input/rtl.scss"
+        },
         "./lib/es/input/textarea.css": {
             "import": "./lib/es/input/textarea.css",
             "require": "./lib/cjs/input/textarea.css",
             "default": "./lib/es/input/textarea.css"
+        },
+        "./lib/es/input/textarea.scss": {
+            "import": "./lib/es/input/textarea.scss",
+            "require": "./lib/cjs/input/textarea.scss",
+            "default": "./lib/es/input/textarea.scss"
         },
         "./lib/es/input/textareaFoundation.js": {
             "types": "./lib/es/input/textareaFoundation.d.ts",
@@ -1668,6 +2258,16 @@
             "import": "./lib/es/input/util/truncateValue.js",
             "require": "./lib/cjs/input/util/truncateValue.js"
         },
+        "./lib/es/input/variables.scss": {
+            "import": "./lib/es/input/variables.scss",
+            "require": "./lib/cjs/input/variables.scss",
+            "default": "./lib/es/input/variables.scss"
+        },
+        "./lib/es/inputNumber/animation.scss": {
+            "import": "./lib/es/inputNumber/animation.scss",
+            "require": "./lib/cjs/inputNumber/animation.scss",
+            "default": "./lib/es/inputNumber/animation.scss"
+        },
         "./lib/es/inputNumber/constants.js": {
             "types": "./lib/es/inputNumber/constants.d.ts",
             "import": "./lib/es/inputNumber/constants.js",
@@ -1692,6 +2292,21 @@
             "import": "./lib/es/inputNumber/inputNumber.css",
             "require": "./lib/cjs/inputNumber/inputNumber.css",
             "default": "./lib/es/inputNumber/inputNumber.css"
+        },
+        "./lib/es/inputNumber/inputNumber.scss": {
+            "import": "./lib/es/inputNumber/inputNumber.scss",
+            "require": "./lib/cjs/inputNumber/inputNumber.scss",
+            "default": "./lib/es/inputNumber/inputNumber.scss"
+        },
+        "./lib/es/inputNumber/rtl.scss": {
+            "import": "./lib/es/inputNumber/rtl.scss",
+            "require": "./lib/cjs/inputNumber/rtl.scss",
+            "default": "./lib/es/inputNumber/rtl.scss"
+        },
+        "./lib/es/inputNumber/variables.scss": {
+            "import": "./lib/es/inputNumber/variables.scss",
+            "require": "./lib/cjs/inputNumber/variables.scss",
+            "default": "./lib/es/inputNumber/variables.scss"
         },
         "./lib/es/jsonViewer/constants.js": {
             "types": "./lib/es/jsonViewer/constants.d.ts",
@@ -1718,10 +2333,25 @@
             "require": "./lib/cjs/jsonViewer/jsonViewer.css",
             "default": "./lib/es/jsonViewer/jsonViewer.css"
         },
+        "./lib/es/jsonViewer/jsonViewer.scss": {
+            "import": "./lib/es/jsonViewer/jsonViewer.scss",
+            "require": "./lib/cjs/jsonViewer/jsonViewer.scss",
+            "default": "./lib/es/jsonViewer/jsonViewer.scss"
+        },
+        "./lib/es/jsonViewer/variables.scss": {
+            "import": "./lib/es/jsonViewer/variables.scss",
+            "require": "./lib/cjs/jsonViewer/variables.scss",
+            "default": "./lib/es/jsonViewer/variables.scss"
+        },
         "./lib/es/keyframes/rotate.css": {
             "import": "./lib/es/keyframes/rotate.css",
             "require": "./lib/cjs/keyframes/rotate.css",
             "default": "./lib/es/keyframes/rotate.css"
+        },
+        "./lib/es/keyframes/rotate.scss": {
+            "import": "./lib/es/keyframes/rotate.scss",
+            "require": "./lib/cjs/keyframes/rotate.scss",
+            "default": "./lib/es/keyframes/rotate.scss"
         },
         "./lib/es/layout/constants.js": {
             "types": "./lib/es/layout/constants.d.ts",
@@ -1738,6 +2368,16 @@
             "require": "./lib/cjs/layout/layout.css",
             "default": "./lib/es/layout/layout.css"
         },
+        "./lib/es/layout/layout.scss": {
+            "import": "./lib/es/layout/layout.scss",
+            "require": "./lib/cjs/layout/layout.scss",
+            "default": "./lib/es/layout/layout.scss"
+        },
+        "./lib/es/layout/rtl.scss": {
+            "import": "./lib/es/layout/rtl.scss",
+            "require": "./lib/cjs/layout/rtl.scss",
+            "default": "./lib/es/layout/rtl.scss"
+        },
         "./lib/es/list/constants.js": {
             "types": "./lib/es/list/constants.d.ts",
             "import": "./lib/es/list/constants.js",
@@ -1752,6 +2392,21 @@
             "import": "./lib/es/list/list.css",
             "require": "./lib/cjs/list/list.css",
             "default": "./lib/es/list/list.css"
+        },
+        "./lib/es/list/list.scss": {
+            "import": "./lib/es/list/list.scss",
+            "require": "./lib/cjs/list/list.scss",
+            "default": "./lib/es/list/list.scss"
+        },
+        "./lib/es/list/rtl.scss": {
+            "import": "./lib/es/list/rtl.scss",
+            "require": "./lib/cjs/list/rtl.scss",
+            "default": "./lib/es/list/rtl.scss"
+        },
+        "./lib/es/list/variables.scss": {
+            "import": "./lib/es/list/variables.scss",
+            "require": "./lib/cjs/list/variables.scss",
+            "default": "./lib/es/list/variables.scss"
         },
         "./lib/es/lottie/constants.js": {
             "types": "./lib/es/lottie/constants.d.ts",
@@ -1798,6 +2453,21 @@
             "require": "./lib/cjs/markdownRender/markdownRender.css",
             "default": "./lib/es/markdownRender/markdownRender.css"
         },
+        "./lib/es/markdownRender/markdownRender.scss": {
+            "import": "./lib/es/markdownRender/markdownRender.scss",
+            "require": "./lib/cjs/markdownRender/markdownRender.scss",
+            "default": "./lib/es/markdownRender/markdownRender.scss"
+        },
+        "./lib/es/markdownRender/variables.scss": {
+            "import": "./lib/es/markdownRender/variables.scss",
+            "require": "./lib/cjs/markdownRender/variables.scss",
+            "default": "./lib/es/markdownRender/variables.scss"
+        },
+        "./lib/es/modal/animation.scss": {
+            "import": "./lib/es/modal/animation.scss",
+            "require": "./lib/cjs/modal/animation.scss",
+            "default": "./lib/es/modal/animation.scss"
+        },
         "./lib/es/modal/constants.js": {
             "types": "./lib/es/modal/constants.d.ts",
             "import": "./lib/es/modal/constants.js",
@@ -1812,6 +2482,11 @@
             "import": "./lib/es/modal/modal.css",
             "require": "./lib/cjs/modal/modal.css",
             "default": "./lib/es/modal/modal.css"
+        },
+        "./lib/es/modal/modal.scss": {
+            "import": "./lib/es/modal/modal.scss",
+            "require": "./lib/cjs/modal/modal.scss",
+            "default": "./lib/es/modal/modal.scss"
         },
         "./lib/es/modal/modalContentFoundation.js": {
             "types": "./lib/es/modal/modalContentFoundation.d.ts",
@@ -1833,6 +2508,16 @@
             "import": "./lib/es/modal/modalFoundation.js",
             "require": "./lib/cjs/modal/modalFoundation.js"
         },
+        "./lib/es/modal/rtl.scss": {
+            "import": "./lib/es/modal/rtl.scss",
+            "require": "./lib/cjs/modal/rtl.scss",
+            "default": "./lib/es/modal/rtl.scss"
+        },
+        "./lib/es/modal/variables.scss": {
+            "import": "./lib/es/modal/variables.scss",
+            "require": "./lib/cjs/modal/variables.scss",
+            "default": "./lib/es/modal/variables.scss"
+        },
         "./lib/es/navigation/NavItem.js": {
             "types": "./lib/es/navigation/NavItem.d.ts",
             "import": "./lib/es/navigation/NavItem.js",
@@ -1842,6 +2527,11 @@
             "types": "./lib/es/navigation/NavItem.d.ts",
             "import": "./lib/es/navigation/NavItem.js",
             "require": "./lib/cjs/navigation/NavItem.js"
+        },
+        "./lib/es/navigation/animation.scss": {
+            "import": "./lib/es/navigation/animation.scss",
+            "require": "./lib/cjs/navigation/animation.scss",
+            "default": "./lib/es/navigation/animation.scss"
         },
         "./lib/es/navigation/constants.js": {
             "types": "./lib/es/navigation/constants.d.ts",
@@ -1878,10 +2568,25 @@
             "require": "./lib/cjs/navigation/mixin.css",
             "default": "./lib/es/navigation/mixin.css"
         },
+        "./lib/es/navigation/mixin.scss": {
+            "import": "./lib/es/navigation/mixin.scss",
+            "require": "./lib/cjs/navigation/mixin.scss",
+            "default": "./lib/es/navigation/mixin.scss"
+        },
         "./lib/es/navigation/navigation.css": {
             "import": "./lib/es/navigation/navigation.css",
             "require": "./lib/cjs/navigation/navigation.css",
             "default": "./lib/es/navigation/navigation.css"
+        },
+        "./lib/es/navigation/navigation.scss": {
+            "import": "./lib/es/navigation/navigation.scss",
+            "require": "./lib/cjs/navigation/navigation.scss",
+            "default": "./lib/es/navigation/navigation.scss"
+        },
+        "./lib/es/navigation/rtl.scss": {
+            "import": "./lib/es/navigation/rtl.scss",
+            "require": "./lib/cjs/navigation/rtl.scss",
+            "default": "./lib/es/navigation/rtl.scss"
         },
         "./lib/es/navigation/subNavFoundation.js": {
             "types": "./lib/es/navigation/subNavFoundation.d.ts",
@@ -1892,6 +2597,16 @@
             "types": "./lib/es/navigation/subNavFoundation.d.ts",
             "import": "./lib/es/navigation/subNavFoundation.js",
             "require": "./lib/cjs/navigation/subNavFoundation.js"
+        },
+        "./lib/es/navigation/variables.scss": {
+            "import": "./lib/es/navigation/variables.scss",
+            "require": "./lib/cjs/navigation/variables.scss",
+            "default": "./lib/es/navigation/variables.scss"
+        },
+        "./lib/es/notification/animation.scss": {
+            "import": "./lib/es/notification/animation.scss",
+            "require": "./lib/cjs/notification/animation.scss",
+            "default": "./lib/es/notification/animation.scss"
         },
         "./lib/es/notification/constants.js": {
             "types": "./lib/es/notification/constants.d.ts",
@@ -1907,6 +2622,11 @@
             "import": "./lib/es/notification/notification.css",
             "require": "./lib/cjs/notification/notification.css",
             "default": "./lib/es/notification/notification.css"
+        },
+        "./lib/es/notification/notification.scss": {
+            "import": "./lib/es/notification/notification.scss",
+            "require": "./lib/cjs/notification/notification.scss",
+            "default": "./lib/es/notification/notification.scss"
         },
         "./lib/es/notification/notificationFoundation.js": {
             "types": "./lib/es/notification/notificationFoundation.d.ts",
@@ -1927,6 +2647,16 @@
             "types": "./lib/es/notification/notificationListFoundation.d.ts",
             "import": "./lib/es/notification/notificationListFoundation.js",
             "require": "./lib/cjs/notification/notificationListFoundation.js"
+        },
+        "./lib/es/notification/rtl.scss": {
+            "import": "./lib/es/notification/rtl.scss",
+            "require": "./lib/cjs/notification/rtl.scss",
+            "default": "./lib/es/notification/rtl.scss"
+        },
+        "./lib/es/notification/variables.scss": {
+            "import": "./lib/es/notification/variables.scss",
+            "require": "./lib/cjs/notification/variables.scss",
+            "default": "./lib/es/notification/variables.scss"
         },
         "./lib/es/overflowList/constants.js": {
             "types": "./lib/es/overflowList/constants.d.ts",
@@ -1953,6 +2683,21 @@
             "require": "./lib/cjs/overflowList/overflowList.css",
             "default": "./lib/es/overflowList/overflowList.css"
         },
+        "./lib/es/overflowList/overflowList.scss": {
+            "import": "./lib/es/overflowList/overflowList.scss",
+            "require": "./lib/cjs/overflowList/overflowList.scss",
+            "default": "./lib/es/overflowList/overflowList.scss"
+        },
+        "./lib/es/overflowList/rtl.scss": {
+            "import": "./lib/es/overflowList/rtl.scss",
+            "require": "./lib/cjs/overflowList/rtl.scss",
+            "default": "./lib/es/overflowList/rtl.scss"
+        },
+        "./lib/es/pagination/animation.scss": {
+            "import": "./lib/es/pagination/animation.scss",
+            "require": "./lib/cjs/pagination/animation.scss",
+            "default": "./lib/es/pagination/animation.scss"
+        },
         "./lib/es/pagination/constants.js": {
             "types": "./lib/es/pagination/constants.d.ts",
             "import": "./lib/es/pagination/constants.js",
@@ -1977,6 +2722,21 @@
             "import": "./lib/es/pagination/pagination.css",
             "require": "./lib/cjs/pagination/pagination.css",
             "default": "./lib/es/pagination/pagination.css"
+        },
+        "./lib/es/pagination/pagination.scss": {
+            "import": "./lib/es/pagination/pagination.scss",
+            "require": "./lib/cjs/pagination/pagination.scss",
+            "default": "./lib/es/pagination/pagination.scss"
+        },
+        "./lib/es/pagination/rtl.scss": {
+            "import": "./lib/es/pagination/rtl.scss",
+            "require": "./lib/cjs/pagination/rtl.scss",
+            "default": "./lib/es/pagination/rtl.scss"
+        },
+        "./lib/es/pagination/variables.scss": {
+            "import": "./lib/es/pagination/variables.scss",
+            "require": "./lib/cjs/pagination/variables.scss",
+            "default": "./lib/es/pagination/variables.scss"
         },
         "./lib/es/pincode/constants.js": {
             "types": "./lib/es/pincode/constants.d.ts",
@@ -2003,6 +2763,16 @@
             "require": "./lib/cjs/pincode/pincode.css",
             "default": "./lib/es/pincode/pincode.css"
         },
+        "./lib/es/pincode/pincode.scss": {
+            "import": "./lib/es/pincode/pincode.scss",
+            "require": "./lib/cjs/pincode/pincode.scss",
+            "default": "./lib/es/pincode/pincode.scss"
+        },
+        "./lib/es/pincode/variables.scss": {
+            "import": "./lib/es/pincode/variables.scss",
+            "require": "./lib/cjs/pincode/variables.scss",
+            "default": "./lib/es/pincode/variables.scss"
+        },
         "./lib/es/popconfirm/constants.js": {
             "types": "./lib/es/popconfirm/constants.d.ts",
             "import": "./lib/es/popconfirm/constants.js",
@@ -2018,6 +2788,11 @@
             "require": "./lib/cjs/popconfirm/popconfirm.css",
             "default": "./lib/es/popconfirm/popconfirm.css"
         },
+        "./lib/es/popconfirm/popconfirm.scss": {
+            "import": "./lib/es/popconfirm/popconfirm.scss",
+            "require": "./lib/cjs/popconfirm/popconfirm.scss",
+            "default": "./lib/es/popconfirm/popconfirm.scss"
+        },
         "./lib/es/popconfirm/popconfirmFoundation.js": {
             "types": "./lib/es/popconfirm/popconfirmFoundation.d.ts",
             "import": "./lib/es/popconfirm/popconfirmFoundation.js",
@@ -2027,6 +2802,21 @@
             "types": "./lib/es/popconfirm/popconfirmFoundation.d.ts",
             "import": "./lib/es/popconfirm/popconfirmFoundation.js",
             "require": "./lib/cjs/popconfirm/popconfirmFoundation.js"
+        },
+        "./lib/es/popconfirm/rtl.scss": {
+            "import": "./lib/es/popconfirm/rtl.scss",
+            "require": "./lib/cjs/popconfirm/rtl.scss",
+            "default": "./lib/es/popconfirm/rtl.scss"
+        },
+        "./lib/es/popconfirm/variables.scss": {
+            "import": "./lib/es/popconfirm/variables.scss",
+            "require": "./lib/cjs/popconfirm/variables.scss",
+            "default": "./lib/es/popconfirm/variables.scss"
+        },
+        "./lib/es/popover/animation.scss": {
+            "import": "./lib/es/popover/animation.scss",
+            "require": "./lib/cjs/popover/animation.scss",
+            "default": "./lib/es/popover/animation.scss"
         },
         "./lib/es/popover/constants.js": {
             "types": "./lib/es/popover/constants.d.ts",
@@ -2042,6 +2832,21 @@
             "import": "./lib/es/popover/popover.css",
             "require": "./lib/cjs/popover/popover.css",
             "default": "./lib/es/popover/popover.css"
+        },
+        "./lib/es/popover/popover.scss": {
+            "import": "./lib/es/popover/popover.scss",
+            "require": "./lib/cjs/popover/popover.scss",
+            "default": "./lib/es/popover/popover.scss"
+        },
+        "./lib/es/popover/rtl.scss": {
+            "import": "./lib/es/popover/rtl.scss",
+            "require": "./lib/cjs/popover/rtl.scss",
+            "default": "./lib/es/popover/rtl.scss"
+        },
+        "./lib/es/popover/variables.scss": {
+            "import": "./lib/es/popover/variables.scss",
+            "require": "./lib/cjs/popover/variables.scss",
+            "default": "./lib/es/popover/variables.scss"
         },
         "./lib/es/progress/constants.js": {
             "types": "./lib/es/progress/constants.d.ts",
@@ -2068,6 +2873,26 @@
             "require": "./lib/cjs/progress/progress.css",
             "default": "./lib/es/progress/progress.css"
         },
+        "./lib/es/progress/progress.scss": {
+            "import": "./lib/es/progress/progress.scss",
+            "require": "./lib/cjs/progress/progress.scss",
+            "default": "./lib/es/progress/progress.scss"
+        },
+        "./lib/es/progress/rtl.scss": {
+            "import": "./lib/es/progress/rtl.scss",
+            "require": "./lib/cjs/progress/rtl.scss",
+            "default": "./lib/es/progress/rtl.scss"
+        },
+        "./lib/es/progress/variables.scss": {
+            "import": "./lib/es/progress/variables.scss",
+            "require": "./lib/cjs/progress/variables.scss",
+            "default": "./lib/es/progress/variables.scss"
+        },
+        "./lib/es/radio/animation.scss": {
+            "import": "./lib/es/radio/animation.scss",
+            "require": "./lib/cjs/radio/animation.scss",
+            "default": "./lib/es/radio/animation.scss"
+        },
         "./lib/es/radio/constants.js": {
             "types": "./lib/es/radio/constants.d.ts",
             "import": "./lib/es/radio/constants.js",
@@ -2083,10 +2908,20 @@
             "require": "./lib/cjs/radio/mixin.css",
             "default": "./lib/es/radio/mixin.css"
         },
+        "./lib/es/radio/mixin.scss": {
+            "import": "./lib/es/radio/mixin.scss",
+            "require": "./lib/cjs/radio/mixin.scss",
+            "default": "./lib/es/radio/mixin.scss"
+        },
         "./lib/es/radio/radio.css": {
             "import": "./lib/es/radio/radio.css",
             "require": "./lib/cjs/radio/radio.css",
             "default": "./lib/es/radio/radio.css"
+        },
+        "./lib/es/radio/radio.scss": {
+            "import": "./lib/es/radio/radio.scss",
+            "require": "./lib/cjs/radio/radio.scss",
+            "default": "./lib/es/radio/radio.scss"
         },
         "./lib/es/radio/radioFoundation.js": {
             "types": "./lib/es/radio/radioFoundation.d.ts",
@@ -2118,6 +2953,21 @@
             "import": "./lib/es/radio/radioInnerFoundation.js",
             "require": "./lib/cjs/radio/radioInnerFoundation.js"
         },
+        "./lib/es/radio/rtl.scss": {
+            "import": "./lib/es/radio/rtl.scss",
+            "require": "./lib/cjs/radio/rtl.scss",
+            "default": "./lib/es/radio/rtl.scss"
+        },
+        "./lib/es/radio/variables.scss": {
+            "import": "./lib/es/radio/variables.scss",
+            "require": "./lib/cjs/radio/variables.scss",
+            "default": "./lib/es/radio/variables.scss"
+        },
+        "./lib/es/rating/animation.scss": {
+            "import": "./lib/es/rating/animation.scss",
+            "require": "./lib/cjs/rating/animation.scss",
+            "default": "./lib/es/rating/animation.scss"
+        },
         "./lib/es/rating/constants.js": {
             "types": "./lib/es/rating/constants.d.ts",
             "import": "./lib/es/rating/constants.js",
@@ -2142,6 +2992,21 @@
             "import": "./lib/es/rating/rating.css",
             "require": "./lib/cjs/rating/rating.css",
             "default": "./lib/es/rating/rating.css"
+        },
+        "./lib/es/rating/rating.scss": {
+            "import": "./lib/es/rating/rating.scss",
+            "require": "./lib/cjs/rating/rating.scss",
+            "default": "./lib/es/rating/rating.scss"
+        },
+        "./lib/es/rating/rtl.scss": {
+            "import": "./lib/es/rating/rtl.scss",
+            "require": "./lib/cjs/rating/rtl.scss",
+            "default": "./lib/es/rating/rtl.scss"
+        },
+        "./lib/es/rating/variables.scss": {
+            "import": "./lib/es/rating/variables.scss",
+            "require": "./lib/cjs/rating/variables.scss",
+            "default": "./lib/es/rating/variables.scss"
         },
         "./lib/es/resizable/constants.js": {
             "types": "./lib/es/resizable/constants.d.ts",
@@ -2183,6 +3048,11 @@
             "require": "./lib/cjs/resizable/resizable.css",
             "default": "./lib/es/resizable/resizable.css"
         },
+        "./lib/es/resizable/resizable.scss": {
+            "import": "./lib/es/resizable/resizable.scss",
+            "require": "./lib/cjs/resizable/resizable.scss",
+            "default": "./lib/es/resizable/resizable.scss"
+        },
         "./lib/es/resizable/single": {
             "types": "./lib/es/resizable/single/index.d.ts",
             "import": "./lib/es/resizable/single/index.js",
@@ -2218,6 +3088,16 @@
             "import": "./lib/es/resizable/utils.js",
             "require": "./lib/cjs/resizable/utils.js"
         },
+        "./lib/es/resizable/variables.scss": {
+            "import": "./lib/es/resizable/variables.scss",
+            "require": "./lib/cjs/resizable/variables.scss",
+            "default": "./lib/es/resizable/variables.scss"
+        },
+        "./lib/es/scrollList/animation.scss": {
+            "import": "./lib/es/scrollList/animation.scss",
+            "require": "./lib/cjs/scrollList/animation.scss",
+            "default": "./lib/es/scrollList/animation.scss"
+        },
         "./lib/es/scrollList/constants.js": {
             "types": "./lib/es/scrollList/constants.d.ts",
             "import": "./lib/es/scrollList/constants.js",
@@ -2248,10 +3128,20 @@
             "import": "./lib/es/scrollList/itemFoundation.js",
             "require": "./lib/cjs/scrollList/itemFoundation.js"
         },
+        "./lib/es/scrollList/rtl.scss": {
+            "import": "./lib/es/scrollList/rtl.scss",
+            "require": "./lib/cjs/scrollList/rtl.scss",
+            "default": "./lib/es/scrollList/rtl.scss"
+        },
         "./lib/es/scrollList/scrollList.css": {
             "import": "./lib/es/scrollList/scrollList.css",
             "require": "./lib/cjs/scrollList/scrollList.css",
             "default": "./lib/es/scrollList/scrollList.css"
+        },
+        "./lib/es/scrollList/scrollList.scss": {
+            "import": "./lib/es/scrollList/scrollList.scss",
+            "require": "./lib/cjs/scrollList/scrollList.scss",
+            "default": "./lib/es/scrollList/scrollList.scss"
         },
         "./lib/es/scrollList/scrollTo.js": {
             "types": "./lib/es/scrollList/scrollTo.d.ts",
@@ -2262,6 +3152,16 @@
             "types": "./lib/es/scrollList/scrollTo.d.ts",
             "import": "./lib/es/scrollList/scrollTo.js",
             "require": "./lib/cjs/scrollList/scrollTo.js"
+        },
+        "./lib/es/scrollList/variables.scss": {
+            "import": "./lib/es/scrollList/variables.scss",
+            "require": "./lib/cjs/scrollList/variables.scss",
+            "default": "./lib/es/scrollList/variables.scss"
+        },
+        "./lib/es/select/animation.scss": {
+            "import": "./lib/es/select/animation.scss",
+            "require": "./lib/cjs/select/animation.scss",
+            "default": "./lib/es/select/animation.scss"
         },
         "./lib/es/select/constants.js": {
             "types": "./lib/es/select/constants.d.ts",
@@ -2288,6 +3188,16 @@
             "require": "./lib/cjs/select/mixin.css",
             "default": "./lib/es/select/mixin.css"
         },
+        "./lib/es/select/mixin.scss": {
+            "import": "./lib/es/select/mixin.scss",
+            "require": "./lib/cjs/select/mixin.scss",
+            "default": "./lib/es/select/mixin.scss"
+        },
+        "./lib/es/select/option.scss": {
+            "import": "./lib/es/select/option.scss",
+            "require": "./lib/cjs/select/option.scss",
+            "default": "./lib/es/select/option.scss"
+        },
         "./lib/es/select/optionFoundation.js": {
             "types": "./lib/es/select/optionFoundation.d.ts",
             "import": "./lib/es/select/optionFoundation.js",
@@ -2298,10 +3208,30 @@
             "import": "./lib/es/select/optionFoundation.js",
             "require": "./lib/cjs/select/optionFoundation.js"
         },
+        "./lib/es/select/rtl.scss": {
+            "import": "./lib/es/select/rtl.scss",
+            "require": "./lib/cjs/select/rtl.scss",
+            "default": "./lib/es/select/rtl.scss"
+        },
         "./lib/es/select/select.css": {
             "import": "./lib/es/select/select.css",
             "require": "./lib/cjs/select/select.css",
             "default": "./lib/es/select/select.css"
+        },
+        "./lib/es/select/select.scss": {
+            "import": "./lib/es/select/select.scss",
+            "require": "./lib/cjs/select/select.scss",
+            "default": "./lib/es/select/select.scss"
+        },
+        "./lib/es/select/variables.scss": {
+            "import": "./lib/es/select/variables.scss",
+            "require": "./lib/cjs/select/variables.scss",
+            "default": "./lib/es/select/variables.scss"
+        },
+        "./lib/es/sideSheet/animation.scss": {
+            "import": "./lib/es/sideSheet/animation.scss",
+            "require": "./lib/cjs/sideSheet/animation.scss",
+            "default": "./lib/es/sideSheet/animation.scss"
         },
         "./lib/es/sideSheet/constants.js": {
             "types": "./lib/es/sideSheet/constants.d.ts",
@@ -2313,10 +3243,20 @@
             "import": "./lib/es/sideSheet/constants.js",
             "require": "./lib/cjs/sideSheet/constants.js"
         },
+        "./lib/es/sideSheet/rtl.scss": {
+            "import": "./lib/es/sideSheet/rtl.scss",
+            "require": "./lib/cjs/sideSheet/rtl.scss",
+            "default": "./lib/es/sideSheet/rtl.scss"
+        },
         "./lib/es/sideSheet/sideSheet.css": {
             "import": "./lib/es/sideSheet/sideSheet.css",
             "require": "./lib/cjs/sideSheet/sideSheet.css",
             "default": "./lib/es/sideSheet/sideSheet.css"
+        },
+        "./lib/es/sideSheet/sideSheet.scss": {
+            "import": "./lib/es/sideSheet/sideSheet.scss",
+            "require": "./lib/cjs/sideSheet/sideSheet.scss",
+            "default": "./lib/es/sideSheet/sideSheet.scss"
         },
         "./lib/es/sideSheet/sideSheetFoundation.js": {
             "types": "./lib/es/sideSheet/sideSheetFoundation.d.ts",
@@ -2328,6 +3268,16 @@
             "import": "./lib/es/sideSheet/sideSheetFoundation.js",
             "require": "./lib/cjs/sideSheet/sideSheetFoundation.js"
         },
+        "./lib/es/sideSheet/variables.scss": {
+            "import": "./lib/es/sideSheet/variables.scss",
+            "require": "./lib/cjs/sideSheet/variables.scss",
+            "default": "./lib/es/sideSheet/variables.scss"
+        },
+        "./lib/es/skeleton/animation.scss": {
+            "import": "./lib/es/skeleton/animation.scss",
+            "require": "./lib/cjs/skeleton/animation.scss",
+            "default": "./lib/es/skeleton/animation.scss"
+        },
         "./lib/es/skeleton/constants.js": {
             "types": "./lib/es/skeleton/constants.d.ts",
             "import": "./lib/es/skeleton/constants.js",
@@ -2338,10 +3288,30 @@
             "import": "./lib/es/skeleton/constants.js",
             "require": "./lib/cjs/skeleton/constants.js"
         },
+        "./lib/es/skeleton/rtl.scss": {
+            "import": "./lib/es/skeleton/rtl.scss",
+            "require": "./lib/cjs/skeleton/rtl.scss",
+            "default": "./lib/es/skeleton/rtl.scss"
+        },
         "./lib/es/skeleton/skeleton.css": {
             "import": "./lib/es/skeleton/skeleton.css",
             "require": "./lib/cjs/skeleton/skeleton.css",
             "default": "./lib/es/skeleton/skeleton.css"
+        },
+        "./lib/es/skeleton/skeleton.scss": {
+            "import": "./lib/es/skeleton/skeleton.scss",
+            "require": "./lib/cjs/skeleton/skeleton.scss",
+            "default": "./lib/es/skeleton/skeleton.scss"
+        },
+        "./lib/es/skeleton/variables.scss": {
+            "import": "./lib/es/skeleton/variables.scss",
+            "require": "./lib/cjs/skeleton/variables.scss",
+            "default": "./lib/es/skeleton/variables.scss"
+        },
+        "./lib/es/slider/animation.scss": {
+            "import": "./lib/es/slider/animation.scss",
+            "require": "./lib/cjs/slider/animation.scss",
+            "default": "./lib/es/slider/animation.scss"
         },
         "./lib/es/slider/constants.js": {
             "types": "./lib/es/slider/constants.d.ts",
@@ -2368,6 +3338,16 @@
             "require": "./lib/cjs/slider/slider.css",
             "default": "./lib/es/slider/slider.css"
         },
+        "./lib/es/slider/slider.scss": {
+            "import": "./lib/es/slider/slider.scss",
+            "require": "./lib/cjs/slider/slider.scss",
+            "default": "./lib/es/slider/slider.scss"
+        },
+        "./lib/es/slider/variables.scss": {
+            "import": "./lib/es/slider/variables.scss",
+            "require": "./lib/cjs/slider/variables.scss",
+            "default": "./lib/es/slider/variables.scss"
+        },
         "./lib/es/space/constants.js": {
             "types": "./lib/es/space/constants.d.ts",
             "import": "./lib/es/space/constants.js",
@@ -2378,10 +3358,30 @@
             "import": "./lib/es/space/constants.js",
             "require": "./lib/cjs/space/constants.js"
         },
+        "./lib/es/space/rtl.scss": {
+            "import": "./lib/es/space/rtl.scss",
+            "require": "./lib/cjs/space/rtl.scss",
+            "default": "./lib/es/space/rtl.scss"
+        },
         "./lib/es/space/space.css": {
             "import": "./lib/es/space/space.css",
             "require": "./lib/cjs/space/space.css",
             "default": "./lib/es/space/space.css"
+        },
+        "./lib/es/space/space.scss": {
+            "import": "./lib/es/space/space.scss",
+            "require": "./lib/cjs/space/space.scss",
+            "default": "./lib/es/space/space.scss"
+        },
+        "./lib/es/space/variables.scss": {
+            "import": "./lib/es/space/variables.scss",
+            "require": "./lib/cjs/space/variables.scss",
+            "default": "./lib/es/space/variables.scss"
+        },
+        "./lib/es/spin/animation.scss": {
+            "import": "./lib/es/spin/animation.scss",
+            "require": "./lib/cjs/spin/animation.scss",
+            "default": "./lib/es/spin/animation.scss"
         },
         "./lib/es/spin/constants.js": {
             "types": "./lib/es/spin/constants.d.ts",
@@ -2408,10 +3408,40 @@
             "require": "./lib/cjs/spin/mixin.css",
             "default": "./lib/es/spin/mixin.css"
         },
+        "./lib/es/spin/mixin.scss": {
+            "import": "./lib/es/spin/mixin.scss",
+            "require": "./lib/cjs/spin/mixin.scss",
+            "default": "./lib/es/spin/mixin.scss"
+        },
+        "./lib/es/spin/rtl.scss": {
+            "import": "./lib/es/spin/rtl.scss",
+            "require": "./lib/cjs/spin/rtl.scss",
+            "default": "./lib/es/spin/rtl.scss"
+        },
         "./lib/es/spin/spin.css": {
             "import": "./lib/es/spin/spin.css",
             "require": "./lib/cjs/spin/spin.css",
             "default": "./lib/es/spin/spin.css"
+        },
+        "./lib/es/spin/spin.scss": {
+            "import": "./lib/es/spin/spin.scss",
+            "require": "./lib/cjs/spin/spin.scss",
+            "default": "./lib/es/spin/spin.scss"
+        },
+        "./lib/es/spin/variables.scss": {
+            "import": "./lib/es/spin/variables.scss",
+            "require": "./lib/cjs/spin/variables.scss",
+            "default": "./lib/es/spin/variables.scss"
+        },
+        "./lib/es/steps/animation.scss": {
+            "import": "./lib/es/steps/animation.scss",
+            "require": "./lib/cjs/steps/animation.scss",
+            "default": "./lib/es/steps/animation.scss"
+        },
+        "./lib/es/steps/bacisSteps.scss": {
+            "import": "./lib/es/steps/bacisSteps.scss",
+            "require": "./lib/cjs/steps/bacisSteps.scss",
+            "default": "./lib/es/steps/bacisSteps.scss"
         },
         "./lib/es/steps/constants.js": {
             "types": "./lib/es/steps/constants.d.ts",
@@ -2423,15 +3453,50 @@
             "import": "./lib/es/steps/constants.js",
             "require": "./lib/cjs/steps/constants.js"
         },
+        "./lib/es/steps/fillSteps.scss": {
+            "import": "./lib/es/steps/fillSteps.scss",
+            "require": "./lib/cjs/steps/fillSteps.scss",
+            "default": "./lib/es/steps/fillSteps.scss"
+        },
         "./lib/es/steps/mixin.css": {
             "import": "./lib/es/steps/mixin.css",
             "require": "./lib/cjs/steps/mixin.css",
             "default": "./lib/es/steps/mixin.css"
         },
+        "./lib/es/steps/mixin.scss": {
+            "import": "./lib/es/steps/mixin.scss",
+            "require": "./lib/cjs/steps/mixin.scss",
+            "default": "./lib/es/steps/mixin.scss"
+        },
+        "./lib/es/steps/navSteps.scss": {
+            "import": "./lib/es/steps/navSteps.scss",
+            "require": "./lib/cjs/steps/navSteps.scss",
+            "default": "./lib/es/steps/navSteps.scss"
+        },
+        "./lib/es/steps/rtl.scss": {
+            "import": "./lib/es/steps/rtl.scss",
+            "require": "./lib/cjs/steps/rtl.scss",
+            "default": "./lib/es/steps/rtl.scss"
+        },
         "./lib/es/steps/steps.css": {
             "import": "./lib/es/steps/steps.css",
             "require": "./lib/cjs/steps/steps.css",
             "default": "./lib/es/steps/steps.css"
+        },
+        "./lib/es/steps/steps.scss": {
+            "import": "./lib/es/steps/steps.scss",
+            "require": "./lib/cjs/steps/steps.scss",
+            "default": "./lib/es/steps/steps.scss"
+        },
+        "./lib/es/steps/variables.scss": {
+            "import": "./lib/es/steps/variables.scss",
+            "require": "./lib/cjs/steps/variables.scss",
+            "default": "./lib/es/steps/variables.scss"
+        },
+        "./lib/es/switch/animation.scss": {
+            "import": "./lib/es/switch/animation.scss",
+            "require": "./lib/cjs/switch/animation.scss",
+            "default": "./lib/es/switch/animation.scss"
         },
         "./lib/es/switch/constants.js": {
             "types": "./lib/es/switch/constants.d.ts",
@@ -2453,10 +3518,30 @@
             "import": "./lib/es/switch/foundation.js",
             "require": "./lib/cjs/switch/foundation.js"
         },
+        "./lib/es/switch/rtl.scss": {
+            "import": "./lib/es/switch/rtl.scss",
+            "require": "./lib/cjs/switch/rtl.scss",
+            "default": "./lib/es/switch/rtl.scss"
+        },
         "./lib/es/switch/switch.css": {
             "import": "./lib/es/switch/switch.css",
             "require": "./lib/cjs/switch/switch.css",
             "default": "./lib/es/switch/switch.css"
+        },
+        "./lib/es/switch/switch.scss": {
+            "import": "./lib/es/switch/switch.scss",
+            "require": "./lib/cjs/switch/switch.scss",
+            "default": "./lib/es/switch/switch.scss"
+        },
+        "./lib/es/switch/variables.scss": {
+            "import": "./lib/es/switch/variables.scss",
+            "require": "./lib/cjs/switch/variables.scss",
+            "default": "./lib/es/switch/variables.scss"
+        },
+        "./lib/es/table/animation.scss": {
+            "import": "./lib/es/table/animation.scss",
+            "require": "./lib/cjs/table/animation.scss",
+            "default": "./lib/es/table/animation.scss"
         },
         "./lib/es/table/bodyFoundation.js": {
             "types": "./lib/es/table/bodyFoundation.d.ts",
@@ -2503,10 +3588,30 @@
             "require": "./lib/cjs/table/mixin.css",
             "default": "./lib/es/table/mixin.css"
         },
+        "./lib/es/table/mixin.scss": {
+            "import": "./lib/es/table/mixin.scss",
+            "require": "./lib/cjs/table/mixin.scss",
+            "default": "./lib/es/table/mixin.scss"
+        },
+        "./lib/es/table/operationPanel.scss": {
+            "import": "./lib/es/table/operationPanel.scss",
+            "require": "./lib/cjs/table/operationPanel.scss",
+            "default": "./lib/es/table/operationPanel.scss"
+        },
+        "./lib/es/table/rtl.scss": {
+            "import": "./lib/es/table/rtl.scss",
+            "require": "./lib/cjs/table/rtl.scss",
+            "default": "./lib/es/table/rtl.scss"
+        },
         "./lib/es/table/table.css": {
             "import": "./lib/es/table/table.css",
             "require": "./lib/cjs/table/table.css",
             "default": "./lib/es/table/table.css"
+        },
+        "./lib/es/table/table.scss": {
+            "import": "./lib/es/table/table.scss",
+            "require": "./lib/cjs/table/table.scss",
+            "default": "./lib/es/table/table.scss"
         },
         "./lib/es/table/tableRowFoundation.js": {
             "types": "./lib/es/table/tableRowFoundation.d.ts",
@@ -2538,6 +3643,16 @@
             "import": "./lib/es/table/utils.js",
             "require": "./lib/cjs/table/utils.js"
         },
+        "./lib/es/table/variables.scss": {
+            "import": "./lib/es/table/variables.scss",
+            "require": "./lib/cjs/table/variables.scss",
+            "default": "./lib/es/table/variables.scss"
+        },
+        "./lib/es/tabs/animation.scss": {
+            "import": "./lib/es/tabs/animation.scss",
+            "require": "./lib/cjs/tabs/animation.scss",
+            "default": "./lib/es/tabs/animation.scss"
+        },
         "./lib/es/tabs/constants.js": {
             "types": "./lib/es/tabs/constants.d.ts",
             "import": "./lib/es/tabs/constants.js",
@@ -2558,10 +3673,25 @@
             "import": "./lib/es/tabs/foundation.js",
             "require": "./lib/cjs/tabs/foundation.js"
         },
+        "./lib/es/tabs/rtl.scss": {
+            "import": "./lib/es/tabs/rtl.scss",
+            "require": "./lib/cjs/tabs/rtl.scss",
+            "default": "./lib/es/tabs/rtl.scss"
+        },
         "./lib/es/tabs/tabs.css": {
             "import": "./lib/es/tabs/tabs.css",
             "require": "./lib/cjs/tabs/tabs.css",
             "default": "./lib/es/tabs/tabs.css"
+        },
+        "./lib/es/tabs/tabs.scss": {
+            "import": "./lib/es/tabs/tabs.scss",
+            "require": "./lib/cjs/tabs/tabs.scss",
+            "default": "./lib/es/tabs/tabs.scss"
+        },
+        "./lib/es/tabs/variables.scss": {
+            "import": "./lib/es/tabs/variables.scss",
+            "require": "./lib/cjs/tabs/variables.scss",
+            "default": "./lib/es/tabs/variables.scss"
         },
         "./lib/es/tag/constants.js": {
             "types": "./lib/es/tag/constants.d.ts",
@@ -2578,10 +3708,35 @@
             "require": "./lib/cjs/tag/mixin.css",
             "default": "./lib/es/tag/mixin.css"
         },
+        "./lib/es/tag/mixin.scss": {
+            "import": "./lib/es/tag/mixin.scss",
+            "require": "./lib/cjs/tag/mixin.scss",
+            "default": "./lib/es/tag/mixin.scss"
+        },
+        "./lib/es/tag/rtl.scss": {
+            "import": "./lib/es/tag/rtl.scss",
+            "require": "./lib/cjs/tag/rtl.scss",
+            "default": "./lib/es/tag/rtl.scss"
+        },
         "./lib/es/tag/tag.css": {
             "import": "./lib/es/tag/tag.css",
             "require": "./lib/cjs/tag/tag.css",
             "default": "./lib/es/tag/tag.css"
+        },
+        "./lib/es/tag/tag.scss": {
+            "import": "./lib/es/tag/tag.scss",
+            "require": "./lib/cjs/tag/tag.scss",
+            "default": "./lib/es/tag/tag.scss"
+        },
+        "./lib/es/tag/variables.scss": {
+            "import": "./lib/es/tag/variables.scss",
+            "require": "./lib/cjs/tag/variables.scss",
+            "default": "./lib/es/tag/variables.scss"
+        },
+        "./lib/es/tagInput/animation.scss": {
+            "import": "./lib/es/tagInput/animation.scss",
+            "require": "./lib/cjs/tagInput/animation.scss",
+            "default": "./lib/es/tagInput/animation.scss"
         },
         "./lib/es/tagInput/constants.js": {
             "types": "./lib/es/tagInput/constants.d.ts",
@@ -2603,10 +3758,20 @@
             "import": "./lib/es/tagInput/foundation.js",
             "require": "./lib/cjs/tagInput/foundation.js"
         },
+        "./lib/es/tagInput/rtl.scss": {
+            "import": "./lib/es/tagInput/rtl.scss",
+            "require": "./lib/cjs/tagInput/rtl.scss",
+            "default": "./lib/es/tagInput/rtl.scss"
+        },
         "./lib/es/tagInput/tagInput.css": {
             "import": "./lib/es/tagInput/tagInput.css",
             "require": "./lib/cjs/tagInput/tagInput.css",
             "default": "./lib/es/tagInput/tagInput.css"
+        },
+        "./lib/es/tagInput/tagInput.scss": {
+            "import": "./lib/es/tagInput/tagInput.scss",
+            "require": "./lib/cjs/tagInput/tagInput.scss",
+            "default": "./lib/es/tagInput/tagInput.scss"
         },
         "./lib/es/tagInput/utils/getSplitedArray.js": {
             "types": "./lib/es/tagInput/utils/getSplitedArray.d.ts",
@@ -2617,6 +3782,11 @@
             "types": "./lib/es/tagInput/utils/getSplitedArray.d.ts",
             "import": "./lib/es/tagInput/utils/getSplitedArray.js",
             "require": "./lib/cjs/tagInput/utils/getSplitedArray.js"
+        },
+        "./lib/es/tagInput/variables.scss": {
+            "import": "./lib/es/tagInput/variables.scss",
+            "require": "./lib/cjs/tagInput/variables.scss",
+            "default": "./lib/es/tagInput/variables.scss"
         },
         "./lib/es/timePicker/ComboxFoundation.js": {
             "types": "./lib/es/timePicker/ComboxFoundation.d.ts",
@@ -2658,15 +3828,30 @@
             "import": "./lib/es/timePicker/inputFoundation.js",
             "require": "./lib/cjs/timePicker/inputFoundation.js"
         },
+        "./lib/es/timePicker/rtl.scss": {
+            "import": "./lib/es/timePicker/rtl.scss",
+            "require": "./lib/cjs/timePicker/rtl.scss",
+            "default": "./lib/es/timePicker/rtl.scss"
+        },
         "./lib/es/timePicker/timePicker.css": {
             "import": "./lib/es/timePicker/timePicker.css",
             "require": "./lib/cjs/timePicker/timePicker.css",
             "default": "./lib/es/timePicker/timePicker.css"
         },
+        "./lib/es/timePicker/timePicker.scss": {
+            "import": "./lib/es/timePicker/timePicker.scss",
+            "require": "./lib/cjs/timePicker/timePicker.scss",
+            "default": "./lib/es/timePicker/timePicker.scss"
+        },
         "./lib/es/timePicker/utils": {
             "types": "./lib/es/timePicker/utils/index.d.ts",
             "import": "./lib/es/timePicker/utils/index.js",
             "require": "./lib/cjs/timePicker/utils/index.js"
+        },
+        "./lib/es/timePicker/utils/animation.scss": {
+            "import": "./lib/es/timePicker/utils/animation.scss",
+            "require": "./lib/cjs/timePicker/utils/animation.scss",
+            "default": "./lib/es/timePicker/utils/animation.scss"
         },
         "./lib/es/timePicker/utils/index.js": {
             "types": "./lib/es/timePicker/utils/index.d.ts",
@@ -2688,6 +3873,11 @@
             "import": "./lib/es/timePicker/utils/localeDate.js",
             "require": "./lib/cjs/timePicker/utils/localeDate.js"
         },
+        "./lib/es/timePicker/variables.scss": {
+            "import": "./lib/es/timePicker/variables.scss",
+            "require": "./lib/cjs/timePicker/variables.scss",
+            "default": "./lib/es/timePicker/variables.scss"
+        },
         "./lib/es/timeline/constants.js": {
             "types": "./lib/es/timeline/constants.d.ts",
             "import": "./lib/es/timeline/constants.js",
@@ -2698,10 +3888,30 @@
             "import": "./lib/es/timeline/constants.js",
             "require": "./lib/cjs/timeline/constants.js"
         },
+        "./lib/es/timeline/rtl.scss": {
+            "import": "./lib/es/timeline/rtl.scss",
+            "require": "./lib/cjs/timeline/rtl.scss",
+            "default": "./lib/es/timeline/rtl.scss"
+        },
         "./lib/es/timeline/timeline.css": {
             "import": "./lib/es/timeline/timeline.css",
             "require": "./lib/cjs/timeline/timeline.css",
             "default": "./lib/es/timeline/timeline.css"
+        },
+        "./lib/es/timeline/timeline.scss": {
+            "import": "./lib/es/timeline/timeline.scss",
+            "require": "./lib/cjs/timeline/timeline.scss",
+            "default": "./lib/es/timeline/timeline.scss"
+        },
+        "./lib/es/timeline/variables.scss": {
+            "import": "./lib/es/timeline/variables.scss",
+            "require": "./lib/cjs/timeline/variables.scss",
+            "default": "./lib/es/timeline/variables.scss"
+        },
+        "./lib/es/toast/animation.scss": {
+            "import": "./lib/es/toast/animation.scss",
+            "require": "./lib/cjs/toast/animation.scss",
+            "default": "./lib/es/toast/animation.scss"
         },
         "./lib/es/toast/constants.js": {
             "types": "./lib/es/toast/constants.d.ts",
@@ -2713,10 +3923,20 @@
             "import": "./lib/es/toast/constants.js",
             "require": "./lib/cjs/toast/constants.js"
         },
+        "./lib/es/toast/rtl.scss": {
+            "import": "./lib/es/toast/rtl.scss",
+            "require": "./lib/cjs/toast/rtl.scss",
+            "default": "./lib/es/toast/rtl.scss"
+        },
         "./lib/es/toast/toast.css": {
             "import": "./lib/es/toast/toast.css",
             "require": "./lib/cjs/toast/toast.css",
             "default": "./lib/es/toast/toast.css"
+        },
+        "./lib/es/toast/toast.scss": {
+            "import": "./lib/es/toast/toast.scss",
+            "require": "./lib/cjs/toast/toast.scss",
+            "default": "./lib/es/toast/toast.scss"
         },
         "./lib/es/toast/toastFoundation.js": {
             "types": "./lib/es/toast/toastFoundation.d.ts",
@@ -2738,6 +3958,21 @@
             "import": "./lib/es/toast/toastListFoundation.js",
             "require": "./lib/cjs/toast/toastListFoundation.js"
         },
+        "./lib/es/toast/variables.scss": {
+            "import": "./lib/es/toast/variables.scss",
+            "require": "./lib/cjs/toast/variables.scss",
+            "default": "./lib/es/toast/variables.scss"
+        },
+        "./lib/es/tooltip/animation.scss": {
+            "import": "./lib/es/tooltip/animation.scss",
+            "require": "./lib/cjs/tooltip/animation.scss",
+            "default": "./lib/es/tooltip/animation.scss"
+        },
+        "./lib/es/tooltip/arrow.scss": {
+            "import": "./lib/es/tooltip/arrow.scss",
+            "require": "./lib/cjs/tooltip/arrow.scss",
+            "default": "./lib/es/tooltip/arrow.scss"
+        },
         "./lib/es/tooltip/constants.js": {
             "types": "./lib/es/tooltip/constants.d.ts",
             "import": "./lib/es/tooltip/constants.js",
@@ -2758,10 +3993,30 @@
             "import": "./lib/es/tooltip/foundation.js",
             "require": "./lib/cjs/tooltip/foundation.js"
         },
+        "./lib/es/tooltip/rtl.scss": {
+            "import": "./lib/es/tooltip/rtl.scss",
+            "require": "./lib/cjs/tooltip/rtl.scss",
+            "default": "./lib/es/tooltip/rtl.scss"
+        },
         "./lib/es/tooltip/tooltip.css": {
             "import": "./lib/es/tooltip/tooltip.css",
             "require": "./lib/cjs/tooltip/tooltip.css",
             "default": "./lib/es/tooltip/tooltip.css"
+        },
+        "./lib/es/tooltip/tooltip.scss": {
+            "import": "./lib/es/tooltip/tooltip.scss",
+            "require": "./lib/cjs/tooltip/tooltip.scss",
+            "default": "./lib/es/tooltip/tooltip.scss"
+        },
+        "./lib/es/tooltip/variables.scss": {
+            "import": "./lib/es/tooltip/variables.scss",
+            "require": "./lib/cjs/tooltip/variables.scss",
+            "default": "./lib/es/tooltip/variables.scss"
+        },
+        "./lib/es/transfer/animation.scss": {
+            "import": "./lib/es/transfer/animation.scss",
+            "require": "./lib/cjs/transfer/animation.scss",
+            "default": "./lib/es/transfer/animation.scss"
         },
         "./lib/es/transfer/constants.js": {
             "types": "./lib/es/transfer/constants.d.ts",
@@ -2783,10 +4038,20 @@
             "import": "./lib/es/transfer/foundation.js",
             "require": "./lib/cjs/transfer/foundation.js"
         },
+        "./lib/es/transfer/rtl.scss": {
+            "import": "./lib/es/transfer/rtl.scss",
+            "require": "./lib/cjs/transfer/rtl.scss",
+            "default": "./lib/es/transfer/rtl.scss"
+        },
         "./lib/es/transfer/transfer.css": {
             "import": "./lib/es/transfer/transfer.css",
             "require": "./lib/cjs/transfer/transfer.css",
             "default": "./lib/es/transfer/transfer.css"
+        },
+        "./lib/es/transfer/transfer.scss": {
+            "import": "./lib/es/transfer/transfer.scss",
+            "require": "./lib/cjs/transfer/transfer.scss",
+            "default": "./lib/es/transfer/transfer.scss"
         },
         "./lib/es/transfer/transferUtils.js": {
             "types": "./lib/es/transfer/transferUtils.d.ts",
@@ -2797,6 +4062,16 @@
             "types": "./lib/es/transfer/transferUtils.d.ts",
             "import": "./lib/es/transfer/transferUtils.js",
             "require": "./lib/cjs/transfer/transferUtils.js"
+        },
+        "./lib/es/transfer/variables.scss": {
+            "import": "./lib/es/transfer/variables.scss",
+            "require": "./lib/cjs/transfer/variables.scss",
+            "default": "./lib/es/transfer/variables.scss"
+        },
+        "./lib/es/tree/animation.scss": {
+            "import": "./lib/es/tree/animation.scss",
+            "require": "./lib/cjs/tree/animation.scss",
+            "default": "./lib/es/tree/animation.scss"
         },
         "./lib/es/tree/constants.js": {
             "types": "./lib/es/tree/constants.d.ts",
@@ -2818,10 +4093,20 @@
             "import": "./lib/es/tree/foundation.js",
             "require": "./lib/cjs/tree/foundation.js"
         },
+        "./lib/es/tree/rtl.scss": {
+            "import": "./lib/es/tree/rtl.scss",
+            "require": "./lib/cjs/tree/rtl.scss",
+            "default": "./lib/es/tree/rtl.scss"
+        },
         "./lib/es/tree/tree.css": {
             "import": "./lib/es/tree/tree.css",
             "require": "./lib/cjs/tree/tree.css",
             "default": "./lib/es/tree/tree.css"
+        },
+        "./lib/es/tree/tree.scss": {
+            "import": "./lib/es/tree/tree.scss",
+            "require": "./lib/cjs/tree/tree.scss",
+            "default": "./lib/es/tree/tree.scss"
         },
         "./lib/es/tree/treeUtil.js": {
             "types": "./lib/es/tree/treeUtil.d.ts",
@@ -2832,6 +4117,11 @@
             "types": "./lib/es/tree/treeUtil.d.ts",
             "import": "./lib/es/tree/treeUtil.js",
             "require": "./lib/cjs/tree/treeUtil.js"
+        },
+        "./lib/es/tree/variables.scss": {
+            "import": "./lib/es/tree/variables.scss",
+            "require": "./lib/cjs/tree/variables.scss",
+            "default": "./lib/es/tree/variables.scss"
         },
         "./lib/es/treeSelect/constants.js": {
             "types": "./lib/es/treeSelect/constants.d.ts",
@@ -2853,10 +4143,25 @@
             "import": "./lib/es/treeSelect/foundation.js",
             "require": "./lib/cjs/treeSelect/foundation.js"
         },
+        "./lib/es/treeSelect/rtl.scss": {
+            "import": "./lib/es/treeSelect/rtl.scss",
+            "require": "./lib/cjs/treeSelect/rtl.scss",
+            "default": "./lib/es/treeSelect/rtl.scss"
+        },
         "./lib/es/treeSelect/treeSelect.css": {
             "import": "./lib/es/treeSelect/treeSelect.css",
             "require": "./lib/cjs/treeSelect/treeSelect.css",
             "default": "./lib/es/treeSelect/treeSelect.css"
+        },
+        "./lib/es/treeSelect/treeSelect.scss": {
+            "import": "./lib/es/treeSelect/treeSelect.scss",
+            "require": "./lib/cjs/treeSelect/treeSelect.scss",
+            "default": "./lib/es/treeSelect/treeSelect.scss"
+        },
+        "./lib/es/treeSelect/variables.scss": {
+            "import": "./lib/es/treeSelect/variables.scss",
+            "require": "./lib/cjs/treeSelect/variables.scss",
+            "default": "./lib/es/treeSelect/variables.scss"
         },
         "./lib/es/typography/constants.js": {
             "types": "./lib/es/typography/constants.d.ts",
@@ -2878,10 +4183,25 @@
             "import": "./lib/es/typography/formatNumeral.js",
             "require": "./lib/cjs/typography/formatNumeral.js"
         },
+        "./lib/es/typography/rtl.scss": {
+            "import": "./lib/es/typography/rtl.scss",
+            "require": "./lib/cjs/typography/rtl.scss",
+            "default": "./lib/es/typography/rtl.scss"
+        },
         "./lib/es/typography/typography.css": {
             "import": "./lib/es/typography/typography.css",
             "require": "./lib/cjs/typography/typography.css",
             "default": "./lib/es/typography/typography.css"
+        },
+        "./lib/es/typography/typography.scss": {
+            "import": "./lib/es/typography/typography.scss",
+            "require": "./lib/cjs/typography/typography.scss",
+            "default": "./lib/es/typography/typography.scss"
+        },
+        "./lib/es/typography/variables.scss": {
+            "import": "./lib/es/typography/variables.scss",
+            "require": "./lib/cjs/typography/variables.scss",
+            "default": "./lib/es/typography/variables.scss"
         },
         "./lib/es/upload/constants.js": {
             "types": "./lib/es/upload/constants.d.ts",
@@ -2913,10 +4233,20 @@
             "import": "./lib/es/upload/foundation.js",
             "require": "./lib/cjs/upload/foundation.js"
         },
+        "./lib/es/upload/rtl.scss": {
+            "import": "./lib/es/upload/rtl.scss",
+            "require": "./lib/cjs/upload/rtl.scss",
+            "default": "./lib/es/upload/rtl.scss"
+        },
         "./lib/es/upload/upload.css": {
             "import": "./lib/es/upload/upload.css",
             "require": "./lib/cjs/upload/upload.css",
             "default": "./lib/es/upload/upload.css"
+        },
+        "./lib/es/upload/upload.scss": {
+            "import": "./lib/es/upload/upload.scss",
+            "require": "./lib/cjs/upload/upload.scss",
+            "default": "./lib/es/upload/upload.scss"
         },
         "./lib/es/upload/utils.js": {
             "types": "./lib/es/upload/utils.d.ts",
@@ -2927,6 +4257,16 @@
             "types": "./lib/es/upload/utils.d.ts",
             "import": "./lib/es/upload/utils.js",
             "require": "./lib/cjs/upload/utils.js"
+        },
+        "./lib/es/upload/variables.scss": {
+            "import": "./lib/es/upload/variables.scss",
+            "require": "./lib/cjs/upload/variables.scss",
+            "default": "./lib/es/upload/variables.scss"
+        },
+        "./lib/es/userGuide/animation.scss": {
+            "import": "./lib/es/userGuide/animation.scss",
+            "require": "./lib/cjs/userGuide/animation.scss",
+            "default": "./lib/es/userGuide/animation.scss"
         },
         "./lib/es/userGuide/constants.js": {
             "types": "./lib/es/userGuide/constants.d.ts",
@@ -2952,6 +4292,16 @@
             "import": "./lib/es/userGuide/userGuide.css",
             "require": "./lib/cjs/userGuide/userGuide.css",
             "default": "./lib/es/userGuide/userGuide.css"
+        },
+        "./lib/es/userGuide/userGuide.scss": {
+            "import": "./lib/es/userGuide/userGuide.scss",
+            "require": "./lib/cjs/userGuide/userGuide.scss",
+            "default": "./lib/es/userGuide/userGuide.scss"
+        },
+        "./lib/es/userGuide/variables.scss": {
+            "import": "./lib/es/userGuide/variables.scss",
+            "require": "./lib/cjs/userGuide/variables.scss",
+            "default": "./lib/es/userGuide/variables.scss"
         },
         "./lib/es/utils": {
             "types": "./lib/es/utils/index.d.ts",
@@ -3288,6 +4638,11 @@
             "import": "./lib/es/utils/warning.js",
             "require": "./lib/cjs/utils/warning.js"
         },
+        "./lib/es/videoPlayer/animation.scss": {
+            "import": "./lib/es/videoPlayer/animation.scss",
+            "require": "./lib/cjs/videoPlayer/animation.scss",
+            "default": "./lib/es/videoPlayer/animation.scss"
+        },
         "./lib/es/videoPlayer/constants.js": {
             "types": "./lib/es/videoPlayer/constants.d.ts",
             "import": "./lib/es/videoPlayer/constants.js",
@@ -3318,10 +4673,20 @@
             "import": "./lib/es/videoPlayer/progressFoundation.js",
             "require": "./lib/cjs/videoPlayer/progressFoundation.js"
         },
+        "./lib/es/videoPlayer/variables.scss": {
+            "import": "./lib/es/videoPlayer/variables.scss",
+            "require": "./lib/cjs/videoPlayer/variables.scss",
+            "default": "./lib/es/videoPlayer/variables.scss"
+        },
         "./lib/es/videoPlayer/videoPlayer.css": {
             "import": "./lib/es/videoPlayer/videoPlayer.css",
             "require": "./lib/cjs/videoPlayer/videoPlayer.css",
             "default": "./lib/es/videoPlayer/videoPlayer.css"
+        },
+        "./lib/es/videoPlayer/videoPlayer.scss": {
+            "import": "./lib/es/videoPlayer/videoPlayer.scss",
+            "require": "./lib/cjs/videoPlayer/videoPlayer.scss",
+            "default": "./lib/es/videoPlayer/videoPlayer.scss"
         },
         "./lib/es/*/*.css": {
             "import": "./lib/es/*/*.css",
@@ -3342,6 +4707,26 @@
             "import": "./lib/es/*.css",
             "require": "./lib/cjs/*.css",
             "default": "./lib/cjs/*.css"
+        },
+        "./lib/es/*/*.scss": {
+            "import": "./lib/es/*/*.scss",
+            "require": "./lib/cjs/*/*.scss",
+            "default": "./lib/es/*/*.scss"
+        },
+        "./lib/es/*.scss": {
+            "import": "./lib/es/*.scss",
+            "require": "./lib/cjs/*.scss",
+            "default": "./lib/es/*.scss"
+        },
+        "./lib/cjs/*/*.scss": {
+            "import": "./lib/es/*/*.scss",
+            "require": "./lib/cjs/*/*.scss",
+            "default": "./lib/cjs/*/*.scss"
+        },
+        "./lib/cjs/*.scss": {
+            "import": "./lib/es/*.scss",
+            "require": "./lib/cjs/*.scss",
+            "default": "./lib/cjs/*.scss"
         }
     },
     "dependencies": {

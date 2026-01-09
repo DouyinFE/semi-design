@@ -71,6 +71,17 @@ function scanDirectory(dir, basePath = '') {
                     require: `./${cjsPath}`,
                     default: `./${esPath}`
                 };
+            } else if (entry.name.endsWith('.scss')) {
+                // 找到 .scss 文件，生成导出映射
+                const exportKey = `./lib/es/${relativePath}`;
+                const esPath = `lib/es/${relativePath}`;
+                const cjsPath = `lib/cjs/${relativePath}`;
+
+                exports[exportKey] = {
+                    import: `./${esPath}`,
+                    require: `./${cjsPath}`,
+                    default: `./${esPath}`
+                };
             }
         }
     }
@@ -125,11 +136,36 @@ function generateExports() {
         }
     };
 
+    // 添加 SCSS 文件的通配符规则
+    const scssExports = {
+        './lib/es/*/*.scss': {
+            import: './lib/es/*/*.scss',
+            require: './lib/cjs/*/*.scss',
+            default: './lib/es/*/*.scss'
+        },
+        './lib/es/*.scss': {
+            import: './lib/es/*.scss',
+            require: './lib/cjs/*.scss',
+            default: './lib/es/*.scss'
+        },
+        './lib/cjs/*/*.scss': {
+            import: './lib/es/*/*.scss',
+            require: './lib/cjs/*/*.scss',
+            default: './lib/cjs/*/*.scss'
+        },
+        './lib/cjs/*.scss': {
+            import: './lib/es/*.scss',
+            require: './lib/cjs/*.scss',
+            default: './lib/cjs/*.scss'
+        }
+    };
+
     // 合并所有 exports
     const allExports = {
         ...mainExports,
         ...exports,
-        ...cssExports
+        ...cssExports,
+        ...scssExports
     };
 
     console.log(`Generated ${Object.keys(exports).length} export paths`);
