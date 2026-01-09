@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.90.8 (2026-01-08)
+- 【Fix】
+    - Fixed an issue where UserGuide was incorrectly executing the target function, causing users to encounter errors when the guide did not contain a DOM element [#3112](https://github.com/DouyinFE/semi-design/issues/3112)
+
 #### 🎉 2.90.1 (2025-12-19)
 - 【Chore】
     - Remove Optional chaining (?.) from the build artifact of @douyinfe/semi-json-viewer-core. [#3103](https://github.com/DouyinFE/semi-design/pull/3103)
