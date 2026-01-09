@@ -13,6 +13,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.90.10 (2026-01-08)
+- 【Fix】
+    - 修复 MarkdownRender 在运行 一些插件的时候报错 async 的问题
+
 #### 🎉 2.90.8 (2026-01-08)
 - 【Fix】
     - 修复 UserGuide 在运行 target 函数实际不正确，导致用户在指引不存在 dom 的时候报错的问题 [#3112](https://github.com/DouyinFE/semi-design/issues/3112)
