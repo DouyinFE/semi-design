@@ -1,33 +1,33 @@
-$color-radio_default-border-default: var(--semi-color-text-3); // 默认态描边颜色
-$color-radio_default-bg-default: transparent; // 默认态背景颜色
-$color-radio_default-bg-hover: var(--semi-color-fill-0); // 悬浮态背景颜色
-$color-radio_default-bg-active: var(--semi-color-fill-1); // 按下态背景颜色
-$color-radio_default-border-hover: var(--semi-color-focus-border); // 悬浮态描边颜色
-$color-radio_checked-border-hover: var(--semi-color-primary-hover); // 选中时悬浮态描边颜色
-$color-radio_checked-border-active: var(--semi-color-primary-active); // 选中时按下态描边颜色
+$color-radio_default-border-default: var(--semi-color-text-3); // 单选圆圈描边颜色 - 默认态
+$color-radio_default-bg-default: transparent; // 单选圆圈背景颜色 - 默认态
+$color-radio_default-bg-hover: var(--semi-color-fill-0); // 单选圆圈背景颜色 - 悬浮态
+$color-radio_default-bg-active: var(--semi-color-fill-1); // 单选圆圈背景颜色 - 按下态
+$color-radio_default-border-hover: var(--semi-color-focus-border); // 单选圆圈描边颜色 - 悬浮态
+$color-radio_checked-border-hover: var(--semi-color-primary-hover); // 选中状态单选圆圈描边颜色 - 悬浮态
+$color-radio_checked-border-active: var(--semi-color-primary-active); // 选中状态单选圆圈描边颜色 - 按下态
 
 $color-radio_default-text-default: var(--semi-color-text-0); // 选项文本颜色
 $color-radio_extra-text-default: var(--semi-color-text-2); // 辅助文本颜色
 
-$color-radio_primary-bg-hover: var(--semi-color-primary-hover); // 选中项悬浮态背景颜色
-$color-radio_primary-bg-active: var(--semi-color-primary-active); // 选中项按下态背景颜色
-$color-radio_primary-border-default: var(--semi-color-primary); // 选中项描边颜色
-$color-radio_primary-bg-default: var(--semi-color-primary); // 选中项背景颜色
-$color-radio_primary-text-default: rgba(var(--semi-white), 1); // 选中项圆点颜色
+$color-radio_primary-bg-hover: var(--semi-color-primary-hover); // 选中状态单选圆圈背景颜色 - 悬浮态
+$color-radio_primary-bg-active: var(--semi-color-primary-active); // 选中状态单选圆圈背景颜色 - 按下态
+$color-radio_primary-border-default: var(--semi-color-primary); // 选中状态单选圆圈描边颜色 - 默认态
+$color-radio_primary-bg-default: var(--semi-color-primary); // 选中状态单选圆圈背景颜色 - 默认态
+$color-radio_primary-text-default: rgba(var(--semi-white), 1); // 选中状态单选圆圈中心圆点颜色
 
-$color-radio_checked-bg-disabled: var(--semi-color-primary-disabled); // 选中项禁用态背景颜色
-$color-radio_default-border-disabled: var(--semi-color-border); // 禁用态描边颜色
-$color-radio_checked-border-disabled: var(--semi-color-primary-disabled); // 选中项禁用态描边颜色
+$color-radio_checked-bg-disabled: var(--semi-color-primary-disabled); // 选中状态单选圆圈背景颜色 - 禁用态
+$color-radio_default-border-disabled: var(--semi-color-border); // 单选圆圈描边颜色 - 禁用态
+$color-radio_checked-border-disabled: var(--semi-color-primary-disabled); // 选中状态单选圆圈描边颜色 - 禁用态
 
-$color-radio_disabled-bg-default: var(--semi-color-disabled-fill); // 禁用态背景颜色
+$color-radio_disabled-bg-default: var(--semi-color-disabled-fill); // 单选圆圈背景颜色 - 禁用态
 $color-radio_disabled-bg-hover: transparent;
 $color-radio_disabled-text-default: var(--semi-color-disabled-text); // 禁用态文本颜色
-$color-radio_disabled-border-default: var(--semi-color-border); // 禁用态描边颜色
-$color-radio_checked-icon-disabled: rgba(var(--semi-white), 1); // 禁用态圆点颜色
+$color-radio_disabled-border-default: var(--semi-color-border); // 单选圆圈描边颜色 - 禁用态
+$color-radio_checked-icon-disabled: rgba(var(--semi-white), 1); // 选中且禁用状态下中心圆点颜色
 
 $color-radio_buttonRadio-text-default: var(--semi-color-text-1); // 按钮样式单选文本颜色
 $color-radio_buttonRadio-bg-default: var(--semi-color-fill-0); // 按钮样式单选背景颜色
-$color-radio_buttonRadio-text-checked-hover: var(--semi-color-primary); // 按钮样式单选选中项文本颜色
+// $color-radio_buttonRadio-text-checked-hover: var(--semi-color-primary); // 按钮样式单选选中项文本颜色
 $color-radio_buttonRadio-text-disabled: var(--semi-color-disabled-text); // 按钮样式单选禁用态文本颜色
 
 $color-radio_addon_buttonRadio-bg-hover: var(--semi-color-fill-1); // 按钮样式单选悬浮态背景色
@@ -48,9 +48,9 @@ $color-radio_cardRadioGroup_addon-text-default: var(--semi-color-text-0); // 卡
 $color-radio_cardRadioGroup_extra-text-default: var(--semi-color-text-2); // 卡片样式单选辅助文字颜色
 $color-radio_cardRadioGroup_checked_disabled-border-default: var(--semi-color-primary-disabled); // 卡片样式选中项禁用态描边颜色 - 默认态
 $color-radio_cardRadioGroup_checked_disabled-border-hover:  var(--semi-color-primary-disabled); // 卡片样式选中项禁用态描边颜色 - 悬浮态
-$color-radio_card-bg-hover: var(--semi-color-white); // 单选圆点颜色
-$color-radio_card-bg-active: var(--semi-color-white); // 单选圆点颜色 - 按下态
-$color-radio_card-bg-default: var(--semi-color-white); // 单选圆点颜色 - 悬浮态
+$color-radio_card-bg-hover: var(--semi-color-white); // 卡片模式下单选圆圈背景颜色 - 悬浮态
+$color-radio_card-bg-active: var(--semi-color-white); // 卡片模式下单选圆圈背景颜色 - 按下态
+$color-radio_card-bg-default: var(--semi-color-white); // 卡片模式下单选圆圈背景颜色 - 默认态
 
 $color-radio_primary-outline-focus: var(--semi-color-primary-light-active); // 轮廓颜色 - 按键聚焦
 

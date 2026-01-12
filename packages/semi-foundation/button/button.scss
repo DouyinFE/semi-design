@@ -34,7 +34,7 @@ $module: #{$prefix}-button;
     &.#{$module}-warning,
     &.#{$module}-danger {
         &:focus-visible {
-            outline: $width-button-outline solid $color-button_primary-outline-focus;
+            outline: $width-button-outline solid $color-button_primary_outline-focus;
         }
     }
 

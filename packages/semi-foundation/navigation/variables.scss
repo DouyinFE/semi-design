@@ -6,7 +6,7 @@ $width-navigation_container_base: 240px; // 侧边导航栏展开后宽度
 $width-navigation_container_collapsed: 60px; // 侧边导航栏收起后宽度
 $width-navigation_header_logo: 36px; // 导航栏 logo 宽度
 $height-navigation_header_logo: 36px; // 导航栏 logo 高度
-$height-navigation_header_logo_collapsed: 36px; // 导航栏 logo 收起后宽度
+$height-navigation_header_logo_collapsed: 36px; // 导航栏 Logo 收起后尺寸（高度/宽度）
 $height-navigation_footer: 48px;  // 侧边导航栏 footer 高度
 $height-navigation_horizontal_header: 60px; // 顶部导航栏高度
 $width-navigation_icon_text_between: 12px; // 导航栏菜单项图标与标题间距
@@ -15,7 +15,7 @@ $width-navigation_item-borderRadius: var(--semi-border-radius-small); // 导航�
 $width-navigation_dropdown_item_nav_item-minWidth: 150px; // 导航栏菜单项下拉菜单最小宽度
 $width-navigation_border: 1px; // 导航栏描边宽度
 $width-navigation_footer_border: 1px; // 导航栏 footer 描边宽度
-$width-navigation_icon_left-minWidth: 20px; // 导航栏菜单项展开收起按钮最小宽度
+$width-navigation_icon_left-minWidth: 20px; // 导航栏菜单项左侧图标区域最小宽度
 $width-navigation-outline: 2px; // 导航栏聚焦outline宽度
 $width-navigation-outlineOffset: -2px; // 导航栏聚焦outline偏移
 
@@ -30,18 +30,18 @@ $spacing-navigation_sub_wrap-marginTop: 0; // 侧边导航栏子级菜单组顶�
 $spacing-navigation_sub_wrap-padding: 0; // 侧边导航栏子级菜单组内边距
 $spacing-navigation_sub-padding: 0; // 侧边导航栏子级菜单组内边距
 $spacing-navigation_item_sub-padding: 0; // 侧边导航栏子级菜单项内边距
-$spacing-navigation_header_logo-marginLeft: 0; // 导航栏 logo 左侧外边距
-$spacing-navigation_header_logo-marginRight: 8px; // 导航栏 logo 右侧外边距
+$spacing-navigation_header_logo-marginLeft: 0; // 侧边导航栏 Logo 左侧外边距
+$spacing-navigation_header_logo-marginRight: 8px; // 侧边导航栏 Logo 右侧外边距
 $spacing-navigation_header-paddingTop: 32px; // 导航栏 header 顶部内边距
 $spacing-navigation_header-paddingBottom: 36px; // 导航栏 header 底部内边距
 $spacing-navigation_list_wrapper-paddingTop: 12px; // 导航栏菜单项列表顶部内边距
 $spacing-navigation_footer-paddingX: 24px; // 导航栏 footer 水平方向内边距
 $spacing-navigation_footer-paddingY: 16px; // 导航栏 footer 垂直方向内边距
 $spacing-navigation_footer_collapse_btn_inner-paddingX: 8px; // 收起侧边栏按钮水平方向内边距
-$spacing-navigation_horizontal_header_logo-marginLeft: 24px; // 顶部导航兰 logo 左侧外边距
-$spacing-navigation_horizontal_header_logo-marginRight: 24px; // 顶部导航兰 logo 右侧外边距
-$spacing-navigation_horizontal-paddingLeft: 24px; // 顶部导航兰左侧内边距
-$spacing-navigation_horizontal-paddingRight: 24px; // 顶部导航兰右侧内边距
+$spacing-navigation_horizontal_header_logo-marginLeft: 24px; // 顶部导航栏 Logo 左侧外边距
+$spacing-navigation_horizontal_header_logo-marginRight: 24px; // 顶部导航栏 Logo 右侧外边距
+$spacing-navigation_horizontal-paddingLeft: 24px; // 顶部导航栏左侧内边距
+$spacing-navigation_horizontal-paddingRight: 24px; // 顶部导航栏右侧内边距
 $spacing-navigation_dropdown_item_nav_sub_title-paddingX: $spacing-base-tight; // 导航栏下拉菜单标题水平方向内边距
 $spacing-navigation_dropdown_item_nav_sub_title-paddingY: $spacing-tight; // 导航栏下拉菜单标题垂直方向内边距
 $spacing-navigation_dropdown_item_nav_item-marginTop: 0; // 导航栏下拉菜单项顶部外边距
@@ -54,7 +54,7 @@ $spacing-navigation_vertical_nav_header_collapsed-paddingRight: 0; // 侧边导�
 $spacing-navigation_vertical_footer-paddingLeft: $spacing-tight; // 侧边导航栏 footer 左侧内边距
 $spacing-navigation_vertical_footer-paddingRight: $spacing-tight; // 侧边导航栏 footer 右侧内边距
 $spacing-navigation_vertical_footer_semi_button_content_right-marginLeft: 12px; // 收起侧边栏 按钮标题左侧外边距
-$spacing-navigation_horizontal_nav_list_item-marginBottom: 0; // 顶部导航栏菜单项底部外边距
+$spacing-navigation_horizontal_nav_list_item-marginBottom: 0; // 顶部导航栏列表项底部外边距
 $spacing-navigation_horizontal_nav_list_item_not_last-marginRight: $spacing-tight; // 顶部导航栏菜单项右侧外边距（非末位）
 $spacing-navigation_horizontal_icon_first-marginRight: $spacing-tight; // 顶部导航栏菜单项首位图标右侧外边距
 $spacing-navigation_horizontal_icon_last-marginLeft: $spacing-tight; // 顶部导航栏菜单项末位图标左侧外边距
