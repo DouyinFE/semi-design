@@ -23,15 +23,21 @@ function scanDirectory(dir, basePath = '') {
             if (fs.existsSync(indexJsPath)) {
                 // 为目录生成导出映射（指向 index.js）
                 const exportKey = `./lib/es/${relativePath}`;
+                const exportKeyNoLib = `./${relativePath}`;
                 const esPath = `lib/es/${relativePath}/index.js`;
                 const cjsPath = `lib/cjs/${relativePath}/index.js`;
                 const typesPath = `lib/es/${relativePath}/index.d.ts`;
 
-                exports[exportKey] = {
+                const exportValue = {
                     types: `./${typesPath}`,
                     import: `./${esPath}`,
                     require: `./${cjsPath}`
                 };
+
+                // 添加带 lib/es 前缀的键
+                exports[exportKey] = exportValue;
+                // 添加不带 lib/es 前缀的键
+                exports[exportKeyNoLib] = exportValue;
             }
             // 递归扫描子目录
             const subExports = scanDirectory(fullPath, relativePath);
@@ -44,6 +50,9 @@ function scanDirectory(dir, basePath = '') {
                 const pathWithoutExt = relativePath.replace(/\.js$/, '');
                 const exportKeyWithExt = `./lib/es/${relativePath}`;
                 const exportKeyWithoutExt = `./lib/es/${pathWithoutExt}`;
+                // 添加不带 lib/es 前缀的路径
+                const exportKeyWithExtNoLib = `./${relativePath}`;
+                const exportKeyWithoutExtNoLib = `./${pathWithoutExt}`;
                 const esPath = `lib/es/${relativePath}`;
                 const cjsPath = `lib/cjs/${relativePath}`;
                 const typesPath = `lib/es/${relativePath.replace(/\.js$/, '.d.ts')}`;
@@ -54,34 +63,52 @@ function scanDirectory(dir, basePath = '') {
                     require: `./${cjsPath}`
                 };
 
-                // 添加带扩展名的键
+                // 添加带扩展名的键（带 lib/es）
                 exports[exportKeyWithExt] = exportValue;
-                // 添加不带扩展名的键（如果不同）
+                // 添加不带扩展名的键（带 lib/es，如果不同）
                 if (exportKeyWithExt !== exportKeyWithoutExt) {
                     exports[exportKeyWithoutExt] = exportValue;
+                }
+                // 添加不带 lib/es 前缀的键（带扩展名）
+                exports[exportKeyWithExtNoLib] = exportValue;
+                // 添加不带 lib/es 前缀的键（不带扩展名，如果不同）
+                if (exportKeyWithExtNoLib !== exportKeyWithoutExtNoLib) {
+                    exports[exportKeyWithoutExtNoLib] = exportValue;
                 }
             } else if (entry.name.endsWith('.css')) {
                 // 找到 .css 文件，生成导出映射
                 const exportKey = `./lib/es/${relativePath}`;
+                const exportKeyNoLib = `./${relativePath}`;
                 const esPath = `lib/es/${relativePath}`;
                 const cjsPath = `lib/cjs/${relativePath}`;
 
-                exports[exportKey] = {
+                const exportValue = {
                     import: `./${esPath}`,
                     require: `./${cjsPath}`,
                     default: `./${esPath}`
                 };
+
+                // 添加带 lib/es 前缀的键
+                exports[exportKey] = exportValue;
+                // 添加不带 lib/es 前缀的键
+                exports[exportKeyNoLib] = exportValue;
             } else if (entry.name.endsWith('.scss')) {
                 // 找到 .scss 文件，生成导出映射
                 const exportKey = `./lib/es/${relativePath}`;
+                const exportKeyNoLib = `./${relativePath}`;
                 const esPath = `lib/es/${relativePath}`;
                 const cjsPath = `lib/cjs/${relativePath}`;
 
-                exports[exportKey] = {
+                const exportValue = {
                     import: `./${esPath}`,
                     require: `./${cjsPath}`,
                     default: `./${esPath}`
                 };
+
+                // 添加带 lib/es 前缀的键
+                exports[exportKey] = exportValue;
+                // 添加不带 lib/es 前缀的键
+                exports[exportKeyNoLib] = exportValue;
             }
         }
     }
@@ -133,6 +160,17 @@ function generateExports() {
             import: './lib/es/*.css',
             require: './lib/cjs/*.css',
             default: './lib/cjs/*.css'
+        },
+        // 添加不带 lib/es 前缀的通配符规则
+        './*/*.css': {
+            import: './lib/es/*/*.css',
+            require: './lib/cjs/*/*.css',
+            default: './lib/es/*/*.css'
+        },
+        './*.css': {
+            import: './lib/es/*.css',
+            require: './lib/cjs/*.css',
+            default: './lib/es/*.css'
         }
     };
 
@@ -157,6 +195,17 @@ function generateExports() {
             import: './lib/es/*.scss',
             require: './lib/cjs/*.scss',
             default: './lib/cjs/*.scss'
+        },
+        // 添加不带 lib/es 前缀的通配符规则
+        './*/*.scss': {
+            import: './lib/es/*/*.scss',
+            require: './lib/cjs/*/*.scss',
+            default: './lib/es/*/*.scss'
+        },
+        './*.scss': {
+            import: './lib/es/*.scss',
+            require: './lib/cjs/*.scss',
+            default: './lib/es/*.scss'
         }
     };
 
