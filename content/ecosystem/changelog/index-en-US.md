@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.90.11 (2026-01-13)
+- 【Fix】
+    - Fixed an issue where the onExceed callback was not triggered when selecting new values in Select component's multiple mode, when the defaultValue count exceeded the max limit
+- 【Feat】
+    - AudioPlayer component adds internationalization support, allowing multi-language text configuration through LocaleProvider
+
 #### 🎉 2.90.10 (2026-01-08)
 - 【Fix】
     - Fix MarkdownRender async problem when run some plugin

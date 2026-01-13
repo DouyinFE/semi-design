@@ -227,6 +227,15 @@ const local: Locale = {
         template: '模板',
         configure: '配置',
         selected: '已选 ${count} 个',
+    },
+    AudioPlayer: {
+        backward: '后退 ${skipDuration} 秒',
+        forward: '前进 ${skipDuration} 秒',
+        prev: '上一首',
+        next: '下一首',
+        loop: '循环播放',
+        volume: '音量',
+        mediaError: '音频加载失败'
     }
 };
 

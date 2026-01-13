@@ -13,6 +13,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.90.11 (2026-01-13)
+- 【Fix】
+    - 修复 Select 组件在多选模式下，当 defaultValue 数量超过 max 时，再选择新值 onExceed 回调未被触发的问题
+- 【Feat】
+    - AudioPlayer 组件新增国际化支持，支持通过 LocaleProvider 配置多语言文案
+
 #### 🎉 2.90.10 (2026-01-08)
 - 【Fix】
     - 修复 MarkdownRender 在运行 一些插件的时候报错 async 的问题
