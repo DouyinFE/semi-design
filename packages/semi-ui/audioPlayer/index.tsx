@@ -338,13 +338,15 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
                     <AudioSlider value={volume} max={100} vertical height={120} theme={theme} showTooltip={false} onChange={this.handleVolumeChange} />
                 </div>
             }>
-                <LocaleConsumer<Locale["AudioPlayer"]> componentName="AudioPlayer">
-                    {(locale: Locale["AudioPlayer"]) => (
-                        <Tooltip content={locale.volume} autoAdjustOverflow showArrow={false}>
-                            <Button style={transparentStyle} icon={!isVolumeSilent ? <IconVolume2 className={iconClass} /> : <IconVolumnSilent className={iconClass} />} onClick={this.handleVolumeSilent} />
-                        </Tooltip>
-                    )}
-                </LocaleConsumer>
+                <span>
+                    <LocaleConsumer<Locale["AudioPlayer"]> componentName="AudioPlayer">
+                        {(locale: Locale["AudioPlayer"]) => (
+                            <Tooltip content={locale.volume} autoAdjustOverflow showArrow={false}>
+                                <Button style={transparentStyle} icon={!isVolumeSilent ? <IconVolume2 className={iconClass} /> : <IconVolumnSilent className={iconClass} />} onClick={this.handleVolumeSilent} />
+                            </Tooltip>
+                        )}
+                    </LocaleConsumer>
+                </span>
             </Popover>
             <LocaleConsumer<Locale["AudioPlayer"]> componentName="AudioPlayer">
                 {(locale: Locale["AudioPlayer"]) => (
