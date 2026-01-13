@@ -8,7 +8,8 @@
  */
 
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { createMCPServer } from './server.js';
+import { createMCPServer, getPackageVersion } from './server.js';
+import { toolHandlers, tools } from './tools/index.js';
 
 async function main() {
   // 创建 MCP 服务器实例
@@ -30,3 +31,5 @@ main().catch((error) => {
   process.stderr.write(`Semi MCP Server (stdio) 启动失败: ${errorMessage}\n`);
   process.exit(1);
 });
+
+export { tools, toolHandlers, createMCPServer, getPackageVersion };
