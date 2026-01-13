@@ -10,6 +10,7 @@
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { createMCPServer, getPackageVersion } from './server.js';
 import { toolHandlers, tools } from './tools/index.js';
+import { getComponentList } from './utils/get-component-list.js';
 
 async function main() {
   // 创建 MCP 服务器实例
@@ -32,4 +33,4 @@ main().catch((error) => {
   process.exit(1);
 });
 
-export { tools, toolHandlers, createMCPServer, getPackageVersion };
+export { tools, toolHandlers, createMCPServer, getPackageVersion, getComponentList };
