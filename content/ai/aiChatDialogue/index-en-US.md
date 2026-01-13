@@ -1549,7 +1549,7 @@ render(StreamingResponseToMessageDemo);
 | onMessageShare | Share message callback | (message?: Message) => void | - |
 | onReferenceClick | Reference button click callback | (message?: Message) => void | - |
 | onSelect | Selection change callback | (selectedIds: string[]) => void | - |
-| renderConfig | Custom render config for sections | DialogueRenderConfig | - |
+| dialogueRenderConfig | Custom render config for sections | DialogueRenderConfig | - |
 | renderDialogueContentItem | Renderer map by message content type | DialogueContentItemRendererMap | - |
 | renderHintBox | Custom hint item renderer | (props: { content: string; index: number; onHintClick: () => void }) => React.ReactNode | - |
 | roleConfig | Role metadata config (user/assistant/system, etc.) | [RoleConfig](/en-US/ai/aiChatDialogue#RoleConfig) | - |
