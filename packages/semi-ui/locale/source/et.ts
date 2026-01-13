@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Mall',
         configure: 'Konfigureeri',
         selected: 'Valitud ${count} elementi',
+    },
+    AudioPlayer: {
+        backward: 'Tagasi ${skipDuration}s',
+        forward: 'Edasi ${skipDuration}s',
+        prev: 'Eelmine',
+        next: 'Järgmine',
+        loop: 'Korda',
+        volume: 'Helitugevus',
+        mediaError: 'Audio laadimise viga'
     }
 };
 

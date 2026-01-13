@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'תבנית',
         configure: 'הגדרת תצורה',
         selected: 'נבחרו ${count} פריטים',
+    },
+    AudioPlayer: {
+        backward: 'אחורה ${skipDuration} שניות',
+        forward: 'קדימה ${skipDuration} שניות',
+        prev: 'קודם',
+        next: 'הבא',
+        loop: 'לולאה',
+        volume: 'עוצמת קול',
+        mediaError: 'שגיאת טעינת אודיו'
     }
 };
 

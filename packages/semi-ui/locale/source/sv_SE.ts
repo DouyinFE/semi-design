@@ -231,6 +231,15 @@ const local: Locale = {
         template: 'Stencil',
         configure: 'Konfiguration',
         selected: '${count} objekt valda',
+    },
+    AudioPlayer: {
+        backward: 'Bakåt ${skipDuration}s',
+        forward: 'Framåt ${skipDuration}s',
+        prev: 'Föregående',
+        next: 'Nästa',
+        loop: 'Upprepa',
+        volume: 'Volym',
+        mediaError: 'Ljudinläsningsfel'
     }
 };
 

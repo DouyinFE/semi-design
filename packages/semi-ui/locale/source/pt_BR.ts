@@ -234,6 +234,15 @@ const local: Locale = {
         template: 'Estêncil',
         configure: 'Configuração',
         selected: '${count} itens selecionados',
+    },
+    AudioPlayer: {
+        backward: 'Retroceder ${skipDuration}s',
+        forward: 'Avançar ${skipDuration}s',
+        prev: 'Anterior',
+        next: 'Próximo',
+        loop: 'Repetir',
+        volume: 'Volume',
+        mediaError: 'Erro ao carregar áudio'
     }
 };
 

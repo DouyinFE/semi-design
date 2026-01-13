@@ -227,6 +227,15 @@ const local: Locale = {
         template: 'Template',
         configure: 'I-configure',
         selected: 'Napili ang ${count} ka mga aytem',
+    },
+    AudioPlayer: {
+        backward: 'Ubos ${skipDuration}s',
+        forward: 'Usa ka ${skipDuration}s',
+        prev: 'Kaniadto',
+        next: 'Sunod',
+        loop: 'Balik',
+        volume: 'Tunog',
+        mediaError: 'Sayop sa pag-load sa audio'
     }
 };
 

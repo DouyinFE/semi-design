@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Sniðmát',
         configure: 'Stilla',
         selected: '${count} atriði valin',
+    },
+    AudioPlayer: {
+        backward: 'Til baka ${skipDuration}s',
+        forward: 'Áfram ${skipDuration}s',
+        prev: 'Fyrra',
+        next: 'Næsta',
+        loop: 'Endurtaka',
+        volume: 'Hljóðstyrkur',
+        mediaError: 'Villa við að hlaða hljóði'
     }
 };
 

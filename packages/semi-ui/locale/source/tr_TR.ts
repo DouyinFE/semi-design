@@ -227,6 +227,15 @@ const local: Locale = {
         template: 'Şablon',
         configure: 'Yapılandırma',
         selected: '${count} öğe seçildi',
+    },
+    AudioPlayer: {
+        backward: 'Geri ${skipDuration}s',
+        forward: 'İleri ${skipDuration}s',
+        prev: 'Önceki',
+        next: 'Sonraki',
+        loop: 'Döngü',
+        volume: 'Ses',
+        mediaError: 'Ses yükleme hatası'
     }
 };
 

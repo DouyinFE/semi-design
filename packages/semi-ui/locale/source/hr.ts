@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Predložak',
         configure: 'Konfiguriraj',
         selected: 'Odabrane stavke: ${count}',
+    },
+    AudioPlayer: {
+        backward: 'Natrag ${skipDuration}s',
+        forward: 'Naprijed ${skipDuration}s',
+        prev: 'Prethodno',
+        next: 'Sljedeće',
+        loop: 'Ponovi',
+        volume: 'Glasnoća',
+        mediaError: 'Greška učitavanja zvuka'
     }
 };
 

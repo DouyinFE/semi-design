@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'ٹیمپلیٹ',
         configure: 'تشکیل کریں',
         selected: '${count} آئٹمز منتخب کی گئیں',
+    },
+    AudioPlayer: {
+        backward: 'پیچھے ${skipDuration}s',
+        forward: 'آگے ${skipDuration}s',
+        prev: 'پچھلا',
+        next: 'اگلا',
+        loop: 'لوپ',
+        volume: 'آواز',
+        mediaError: 'آڈیو لوڈنگ کی خرابی'
     }
 };
 

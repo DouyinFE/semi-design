@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Πρότυπο',
         configure: 'Ρύθμιση',
         selected: 'Έγινε επιλογή ${count} στοιχείων',
+    },
+    AudioPlayer: {
+        backward: 'Πίσω ${skipDuration}s',
+        forward: 'Μπροστά ${skipDuration}s',
+        prev: 'Προηγούμενο',
+        next: 'Επόμενο',
+        loop: 'Επανάληψη',
+        volume: 'Ένταση',
+        mediaError: 'Σφάλμα φόρτωσης ήχου'
     }
 };
 

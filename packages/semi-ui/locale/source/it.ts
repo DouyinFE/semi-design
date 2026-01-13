@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Stampino',
         configure: 'Configurazione',
         selected: '${count} elementi selezionati',
+    },
+    AudioPlayer: {
+        backward: 'Indietro ${skipDuration}s',
+        forward: 'Avanti ${skipDuration}s',
+        prev: 'Precedente',
+        next: 'Successivo',
+        loop: 'Ripeti',
+        volume: 'Volume',
+        mediaError: 'Errore caricamento audio'
     }
 };
 

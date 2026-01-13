@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Shabllon',
         configure: 'Konfiguro',
         selected: 'Janë përzgjedhur ${count} artikuj',
+    },
+    AudioPlayer: {
+        backward: 'Prapa ${skipDuration}s',
+        forward: 'Përpara ${skipDuration}s',
+        prev: 'Paraardhës',
+        next: 'Tjetër',
+        loop: 'Përsërit',
+        volume: 'Volumi',
+        mediaError: 'Gabim në ngarkimin e audios'
     }
 };
 

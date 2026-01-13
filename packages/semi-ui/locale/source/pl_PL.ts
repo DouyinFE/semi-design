@@ -234,6 +234,15 @@ const local: Locale = {
         template: 'Szablon',
         configure: 'Konfiguracja',
         selected: 'Wybrano ${count} elementów',
+    },
+    AudioPlayer: {
+        backward: 'Wstecz ${skipDuration}s',
+        forward: 'Naprzód ${skipDuration}s',
+        prev: 'Poprzedni',
+        next: 'Następny',
+        loop: 'Pętla',
+        volume: 'Głośność',
+        mediaError: 'Błąd ładowania audio'
     }
 };
 

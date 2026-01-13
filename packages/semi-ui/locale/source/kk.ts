@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Үлгі',
         configure: 'Теңшеу',
         selected: '${count} элемент таңдалды',
+    },
+    AudioPlayer: {
+        backward: 'Артқа ${skipDuration}s',
+        forward: 'Алға ${skipDuration}s',
+        prev: 'Алдыңғы',
+        next: 'Келесі',
+        loop: 'Қайталау',
+        volume: 'Дыбыс',
+        mediaError: 'Аудио жүктеу қатесі'
     }
 };
 

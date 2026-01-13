@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Skabelon',
         configure: 'Konfigurer',
         selected: 'Valgte ${count} elementer',
+    },
+    AudioPlayer: {
+        backward: 'Tilbage ${skipDuration}s',
+        forward: 'Fremad ${skipDuration}s',
+        prev: 'Forrige',
+        next: 'Næste',
+        loop: 'Gentag',
+        volume: 'Lydstyrke',
+        mediaError: 'Audio indlæsningsfejl'
     }
 };
 

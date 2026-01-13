@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Шаблон',
         configure: 'Конфигуриране',
         selected: 'Избрани ${count} елемента',
+    },
+    AudioPlayer: {
+        backward: 'Назад ${skipDuration}s',
+        forward: 'Напред ${skipDuration}s',
+        prev: 'Предишен',
+        next: 'Следващ',
+        loop: 'Повторение',
+        volume: 'Звук',
+        mediaError: 'Грешка при зареждане на аудио'
     }
 };
 

@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Stensil',
         configure: 'Konfigurasi',
         selected: '${count} item dipilih',
+    },
+    AudioPlayer: {
+        backward: 'Undur ${skipDuration}s',
+        forward: 'Maju ${skipDuration}s',
+        prev: 'Sebelumnya',
+        next: 'Seterusnya',
+        loop: 'Ulang',
+        volume: 'Volum',
+        mediaError: 'Ralat memuatkan audio'
     }
 };
 

@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Andoza',
         configure: 'Sozlash',
         selected: '${count} ta element tanlangan',
+    },
+    AudioPlayer: {
+        backward: 'Orqaga ${skipDuration}s',
+        forward: 'Oldinga ${skipDuration}s',
+        prev: 'Oldingi',
+        next: 'Keyingi',
+        loop: 'Takrorlash',
+        volume: 'Ovoz',
+        mediaError: 'Audio yuklash xatosi'
     }
 };
 

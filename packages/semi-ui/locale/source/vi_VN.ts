@@ -229,6 +229,15 @@ const local: Locale = {
         template: 'Bản mẫu',
         configure: 'Cấu hình',
         selected: 'Đã chọn ${count} mục',
+    },
+    AudioPlayer: {
+        backward: 'Lùi ${skipDuration}s',
+        forward: 'Tiến ${skipDuration}s',
+        prev: 'Trước',
+        next: 'Tiếp theo',
+        loop: 'Lặp lại',
+        volume: 'Âm lượng',
+        mediaError: 'Lỗi tải âm thanh'
     }
 };
 

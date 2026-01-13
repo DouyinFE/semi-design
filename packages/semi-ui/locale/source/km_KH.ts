@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'ពុម្ពគំរូ',
         configure: 'កំណត់រចនាសម្ព័ន្ធ',
         selected: 'បានជ្រើសរើសធាតុ ${count}',
+    },
+    AudioPlayer: {
+        backward: 'ថយក្រោយ ${skipDuration}s',
+        forward: 'ទៅមុខ ${skipDuration}s',
+        prev: 'មុន',
+        next: 'បន្ទាប់',
+        loop: 'រង្វិល',
+        volume: 'សំឡេង',
+        mediaError: 'កំហុសផ្ទុកសំឡេង'
     }
 };
 

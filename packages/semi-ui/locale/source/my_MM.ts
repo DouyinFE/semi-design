@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'နမူနာပုံစံ',
         configure: 'စီစဉ်သတ်မှတ်ရန်',
         selected: 'ပစ္စည်း ${count} ခု ရွေးချယ်ထားသည်',
+    },
+    AudioPlayer: {
+        backward: 'နောက်သို့ ${skipDuration}s',
+        forward: 'ရှေ့သို့ ${skipDuration}s',
+        prev: 'အရင်',
+        next: 'နောက်တော့',
+        loop: 'ပတ်လည်',
+        volume: 'အသံ',
+        mediaError: 'အသံဖိုင်လွဲမှားခြင်း'
     }
 };
 
