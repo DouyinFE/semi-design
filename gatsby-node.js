@@ -8,6 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const path = require('path');
 const fs = require('fs');
+const JSZip = require('jszip');
 const items = ['basic', 'chart'];
 const sha1 = require('sha1');
 const hash = sha1(`${new Date().getTime()}${Math.random()}`);
@@ -18,6 +19,48 @@ const glob = require('glob');
 function resolve(...dirs) {
     return path.resolve(__dirname, ...dirs);
 }
+
+// 打包 skills 目录到 static 文件夹
+async function packageSkills() {
+    const skillsDir = resolve('ecosystem/semi-ui-skills');
+    const outputPath = resolve('static/skills.zip');
+
+    // 检查 skills 目录是否存在
+    if (!fs.existsSync(skillsDir)) {
+        console.log('Skills directory not found, skipping packaging');
+        return;
+    }
+
+    console.log('Packaging skills directory...');
+
+    const zip = new JSZip();
+    const skillsFolderName = path.basename(skillsDir);
+    const rootFolder = zip.folder(skillsFolderName);
+
+    // 递归读取目录并添加到 zip，确保 semi-ui-skills 文件夹本身在 zip 中
+    function addFolderToZip(dir, zipFolder) {
+        const files = fs.readdirSync(dir);
+        files.forEach(file => {
+            const filePath = path.join(dir, file);
+            
+            if (fs.statSync(filePath).isDirectory()) {
+                const folder = zipFolder.folder(file);
+                addFolderToZip(filePath, folder);
+            } else {
+                zipFolder.file(path.basename(filePath), fs.readFileSync(filePath));
+            }
+        });
+    }
+
+    addFolderToZip(skillsDir, rootFolder);
+
+    // 生成 zip 文件
+    const content = await zip.generateAsync({ type: 'nodebuffer' });
+    fs.writeFileSync(outputPath, content);
+    
+    console.log(`Skills packaged successfully to: ${outputPath}`);
+}
+
 const getLocale = path => {
     let pathname = path || window.location.pathname;
     let locale = 'zh-CN';
@@ -254,7 +297,10 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     }
 };
 
-exports.onPreBootstrap = ({ Joi }) => {
+exports.onPreBootstrap = async ({ Joi }) => {
+    // 首先打包 skills 目录
+    await packageSkills();
+    
     let orderFunc = require('./content/order');
     console.log('starting order mdx');
     orderFunc();

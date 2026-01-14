@@ -268,6 +268,38 @@ const appLocale = {
             'Support using D2C capabilities through OPEN API or Node SDK without the Figma plugin, enabling integration into self-built platforms.',
         'd2c.advanced.view': 'View Now',
         'd2c.advanced.comingSoon': 'Coming Soon',
+
+        // SkillsWriter
+        'skillsWriter.title': 'Add to My Project',
+        'skillsWriter.subtitle': 'Select the coding tools to add Skills to:',
+        'skillsWriter.button': 'Add to My Project',
+        'skillsWriter.processing': 'Processing...',
+        'skillsWriter.error.noSelection': 'Please select at least one coding tool',
+        'skillsWriter.error.downloadFailed': 'Failed to download skills.zip',
+        'skillsWriter.error.zipNotFound': 'semi-ui-skills folder not found in zip file',
+        'skillsWriter.error.unsupportedBrowser': 'Your browser does not support directory selection. Please use the latest version of Chrome or Edge browser',
+        'skillsWriter.error.addFailed': 'Failed to add to project: ',
+        'skillsWriter.success.addedFiles': 'Successfully added {count} files to project',
+        'skillsWriter.info.canceled': 'Directory selection canceled',
+
+        // Skills options
+        'skillsOption.traue.label': 'Trae',
+        'skillsOption.traue.description': 'ByteDance AI-native programming IDE, supports Skills',
+        'skillsOption.cursor.label': 'Cursor',
+        'skillsOption.cursor.description': 'AI-enhanced code editor, supports Skills (Nightly channel required)',
+        'skillsOption.codebuddy.label': 'CodeBuddy (Tencent Cloud)',
+        'skillsOption.codebuddy.description': 'Tencent Cloud AI programming assistant, supports Skills',
+        'skillsOption.claudeCode.label': 'Claude Code',
+        'skillsOption.claudeCode.description': 'Anthropic official AI programming assistant, supports Skills',
+        'skillsOption.qwenCode.label': 'Qwen Code (Tongyi Qianwen)',
+        'skillsOption.qwenCode.description': 'Alibaba AI programming assistant, supports Skills',
+        'skillsOption.openAICodex.label': 'OpenAI Codex CLI',
+        'skillsOption.openAICodex.description': 'OpenAI official CLI tool, supports Skills',
+        'skillsOption.standard.label': 'Standard (.skills/)',
+        'skillsOption.standard.description': 'Standard Skills directory (supported by some tools)',
+
+        // Permission hint
+        'skillsWriter.permissionHint': 'Click to select your project directory, browser permission required',
     },
 };
 

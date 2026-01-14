@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 101
+order: 102
 category: Ai
 title: AIChatDialogue AI对话
 icon: doc-aiDialogue

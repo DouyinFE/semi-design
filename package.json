@@ -46,6 +46,7 @@
         "node": ">= 20.0.0"
     },
     "dependencies": {
+        "jszip": "^3.10.1",
         "@dnd-kit/modifiers": "^7.0.0",
         "@douyinfe/semi-site-banner": "^0.1.5",
         "@douyinfe/semi-site-doc-style": "0.0.5",

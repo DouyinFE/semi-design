@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 28
+order: 29
 category: Plus
 title:  CodeHighlight 代码高亮
 icon: doc-codehighlight

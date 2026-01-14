@@ -252,6 +252,38 @@ const appLocale = {
             '支持 OPEN API 或 Node SDK 形式脱离 Figma 插件使用 D2C 能力，可将 D2C 能力嵌入自建平台或工具，比如搭建平台，VS Code 插件等。',
         'd2c.advanced.view': '立即查看',
         'd2c.advanced.comingSoon': '暂未开放，敬请期待',
+
+        // SkillsWriter
+        'skillsWriter.title': '添加到我的项目',
+        'skillsWriter.subtitle': '选择要将 Skills 添加到的编程工具：',
+        'skillsWriter.button': '添加到我的项目',
+        'skillsWriter.processing': '正在处理...',
+        'skillsWriter.error.noSelection': '请至少选择一个编程工具',
+        'skillsWriter.error.downloadFailed': '下载 skills.zip 失败',
+        'skillsWriter.error.zipNotFound': 'zip 文件中未找到 semi-ui-skills 文件夹',
+        'skillsWriter.error.unsupportedBrowser': '您的浏览器不支持目录选择功能，请使用最新版本的 Chrome 或 Edge 浏览器',
+        'skillsWriter.error.addFailed': '添加到项目失败: ',
+        'skillsWriter.success.addedFiles': '成功添加 {count} 个文件到项目',
+        'skillsWriter.info.canceled': '已取消选择目录',
+
+        // Skills options
+        'skillsOption.traue.label': 'Trae',
+        'skillsOption.traue.description': '字节跳动 AI 原生编程 IDE，支持 Skills',
+        'skillsOption.cursor.label': 'Cursor',
+        'skillsOption.cursor.description': 'AI 增强代码编辑器，支持 Skills（需开启 Nightly 渠道）',
+        'skillsOption.codebuddy.label': 'CodeBuddy (腾讯云)',
+        'skillsOption.codebuddy.description': '腾讯云 AI 编程助手，支持 Skills',
+        'skillsOption.claudeCode.label': 'Claude Code',
+        'skillsOption.claudeCode.description': 'Anthropic 官方 AI 编程助手，支持 Skills',
+        'skillsOption.qwenCode.label': 'Qwen Code (通义千问)',
+        'skillsOption.qwenCode.description': '阿里巴巴 AI 编程助手，支持 Skills',
+        'skillsOption.openAICodex.label': 'OpenAI Codex CLI',
+        'skillsOption.openAICodex.description': 'OpenAI 官方 CLI 工具，支持 Skills',
+        'skillsOption.standard.label': '通用标准 (.skills/)',
+        'skillsOption.standard.description': '通用 Skills 目录标准（部分工具支持）',
+
+        // Permission hint
+        'skillsWriter.permissionHint': '点击后选择你的项目目录，需要浏览器授权访问目录权限',
     },
 };
 

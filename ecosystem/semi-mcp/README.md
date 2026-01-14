@@ -70,7 +70,6 @@ Get Semi Design component documentation or component list.
 **Parameters:**
 - `componentName` (optional): Component name, e.g., `Button`, `Input`, etc. If not provided, returns the component list
 - `version` (optional): Version number, e.g., `2.89.2-alpha.3`. If not provided, defaults to `latest`
-- `get_path` (optional): If `true`, saves documents to the system temporary directory and returns the path instead of returning document content in the response. Defaults to `false`
 
 **Examples:**
 

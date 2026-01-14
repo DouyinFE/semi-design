@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 100
+order: 101
 category: Ai
 title: AIChatInput
 icon: doc-aiInput

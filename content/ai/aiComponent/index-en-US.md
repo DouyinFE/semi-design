@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 99
+order: 100
 category: Ai
 title: AI Ability Introduction
 icon: doc-aiComponent

@@ -1,0 +1,23 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 8C2 6.34315 3.34315 5 5 5H19C20.6569 5 22 6.34315 22 8V18C22 19.6569 20.6569 21 19 21H5C3.34315 21 2 19.6569 2 18V8Z" fill="url(#paint0_linear_mcp)"/>
+    <path d="M6 9H10V15H6V9Z" fill="url(#paint1_linear_mcp)"/>
+    <path d="M12 9L16 9L16 15L12 15L12 9Z" fill="url(#paint1_linear_mcp)"/>
+    <path d="M12 9L12 15" stroke="#324350" stroke-width="1"/>
+    <circle cx="17" cy="10" r="1" fill="#324350"/>
+    <circle cx="17" cy="14" r="1" fill="#324350"/>
+    <path d="M6 17H18" stroke="#324350" stroke-width="1.5" stroke-linecap="round"/>
+    <defs>
+        <linearGradient id="paint0_linear_mcp" x1="22" y1="21" x2="0.0299362" y2="17.8312" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FFDAFE"/>
+            <stop offset="0.3" stop-color="#F2DAFF"/>
+            <stop offset="0.6" stop-color="#DFE0FF"/>
+            <stop offset="1" stop-color="#D5EBFF"/>
+        </linearGradient>
+        <linearGradient id="paint1_linear_mcp" x1="16" y1="15" x2="4.19026" y2="9.54902" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#E945FF"/>
+            <stop offset="0.3" stop-color="#A647FF"/>
+            <stop offset="0.6" stop-color="#6B61FF"/>
+            <stop offset="1" stop-color="#2E8CFF"/>
+        </linearGradient>
+    </defs>
+</svg>
