@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'تكوين MCP',
         annotationTitle: 'مصدر المرجعية',
         activeMCPNumber: 'عدد MCP المنشط:',
+        copySuccess: 'تم النسخ بنجاح',
     }
 };
 

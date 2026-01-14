@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'Pielāgots MCP',
         mcpConfigure: 'MCP konfigurācija',
         annotationTitle: 'Pamatdarbības avots',
-        activeMCPNumber: 'Aktīvo MCP skaits:'
+        activeMCPNumber: 'Aktīvo MCP skaits:',
+        copySuccess: 'Veiksmīgi nokopēts.',
     }
 };
 

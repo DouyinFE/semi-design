@@ -242,6 +242,7 @@ const local: Locale = {
         mcpConfigure: 'MCP 配置',
         annotationTitle: '参考来源',
         activeMCPNumber: '已激活 MCP 数:',
+        copySuccess: '复制成功',
     }
 };
 

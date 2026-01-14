@@ -241,7 +241,8 @@ const local: Locale = {
         newMcpAdd: '맞춤형 MCP',
         mcpConfigure: 'MCP 설정',
         annotationTitle: '참고 출처',
-        activeMCPNumber: '활성화된 MCP 개수:'
+        activeMCPNumber: '활성화된 MCP 개수:',
+        copySuccess: '복사 성공',
     }
 };
 

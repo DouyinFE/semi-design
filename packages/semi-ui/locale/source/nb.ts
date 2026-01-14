@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'Tilpasset MCP',
         mcpConfigure: 'MCP-konfigurasjon',
         annotationTitle: 'Referansekilde',
-        activeMCPNumber: 'Antall aktive MCP:'
+        activeMCPNumber: 'Antall aktive MCP:',
+        copySuccess: 'Kopiert.',
     }
 };
 

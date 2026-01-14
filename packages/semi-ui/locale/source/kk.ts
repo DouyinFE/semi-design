@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'Босанған MCP',
         mcpConfigure: 'MCP конфигурациясы',
         annotationTitle: 'Солсыныстағы көзге',
-        activeMCPNumber: 'Активті MCP саны:'
+        activeMCPNumber: 'Активті MCP саны:',
+        copySuccess: 'Сәтті түрде көшірілді.',
     }
 };
 

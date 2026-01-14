@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'Персоналізований MCP',
         mcpConfigure: 'Конфігурація MCP',
         annotationTitle: 'Джерело посилання',
-        activeMCPNumber: 'Кількість активних MCP:'
+        activeMCPNumber: 'Кількість активних MCP:',
+        copySuccess: 'Копіювання успішне.',
     }
 };
 

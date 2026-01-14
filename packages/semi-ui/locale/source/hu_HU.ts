@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'Testreszabott MCP',
         mcpConfigure: 'MCP konfiguráció',
         annotationTitle: 'Hivatkozás forrása',
-        activeMCPNumber: 'Aktív MCP-k száma:'
+        activeMCPNumber: 'Aktív MCP-k száma:',
+        copySuccess: 'Másolás sikeres.',
     }
 };
 

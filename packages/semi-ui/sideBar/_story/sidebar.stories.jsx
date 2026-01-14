@@ -303,7 +303,7 @@ export const AnnotationDemo = () => {
             visible={visible}
             onCancel={toggleVisible}
             activeKey={activeKey}
-            style={{ width: 400 }}
+            defaultSize={{ width: 400 }}
             info={defaultInfoList}
             onChange={onChange}
             onClick={onClick}
@@ -433,11 +433,12 @@ export const SideBarDemo = () => {
     return <div style={containerStyle}>
        <div style={{ flexGrow: 1,  flexShrink: 1 }}>工作区</div>
         <Sidebar
+            resizable={true}
             visible={true}
             motion={false}
             mode={mode}
+            defaultSize={{width: 600}}
             title="Agent 的工作空间"
-            style={{ width: '60%' }}
             // renderDetailHeader={renderDetailHeader}
             onActiveOptionChange={onActiveOptionChange}
             activeKey={activeKey}
@@ -464,7 +465,7 @@ export const FileDemo = () => {
         <FileItem
             content={content}
             onContentChange={setContent}
-            editable={true}
+            editable={editable}
             style={{ border: '1px solid var(--semi-color-border)', padding: 12 }}
             imgUploadProps={imgUploadProps}
         />

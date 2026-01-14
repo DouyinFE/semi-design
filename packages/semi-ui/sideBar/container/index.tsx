@@ -38,6 +38,7 @@ class Container extends BaseComponent<ContainerReactProps, ContainerState> {
         motion: true,
         minWidth: 150,
         showClose: true,
+        resizable: true,
     };
 
     directionEnable: Enable;

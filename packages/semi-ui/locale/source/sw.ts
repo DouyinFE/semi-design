@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'MCP yenyewe',
         mcpConfigure: 'Mabadiliko ya MCP',
         annotationTitle: 'Chanzo cha makosa',
-        activeMCPNumber: 'Idadi ya MCP yenye uhai:'
+        activeMCPNumber: 'Idadi ya MCP yenye uhai:',
+        copySuccess: 'Umenakili.',
     }
 };
 

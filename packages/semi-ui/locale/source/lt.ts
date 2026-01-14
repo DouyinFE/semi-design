@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'Pritaikytas MCP',
         mcpConfigure: 'MCP konfigūracija',
         annotationTitle: 'Nuorodos šaltinis',
-        activeMCPNumber: 'Aktyvių MCP skaičius:'
+        activeMCPNumber: 'Aktyvių MCP skaičius:',
+        copySuccess: 'Sėkmingai nukopijuota.',
     }
 };
 

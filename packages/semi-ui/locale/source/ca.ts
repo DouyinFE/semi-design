@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'Configuració del MCP',
         annotationTitle: 'Font de referència',
         activeMCPNumber: 'Nombre de MCP activats:',
+        copySuccess: 'S\'ha copiat.',
     }
 };
 

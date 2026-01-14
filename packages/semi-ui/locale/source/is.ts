@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'Sérsniðinn MCP',
         mcpConfigure: 'Stillingar MCP',
         annotationTitle: 'Tilvísunarheimildir',
-        activeMCPNumber: 'Fjöldi virkra MCP:'
+        activeMCPNumber: 'Fjöldi virkra MCP:',
+        copySuccess: 'Afritun tókst.',
     }
 };
 

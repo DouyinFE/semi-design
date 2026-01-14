@@ -244,7 +244,8 @@ const local: Locale = {
         newMcpAdd: 'MCP ที่กำหนดเอง',
         mcpConfigure: 'การตั้งค่า MCP',
         annotationTitle: 'แหล่งอ้างอิง',
-        activeMCPNumber: 'จำนวน MCPที่ใช้งานอยู่:'
+        activeMCPNumber: 'จำนวน MCPที่ใช้งานอยู่:',
+        copySuccess: 'คัดลอกสำเร็จ',
     }
 };
 

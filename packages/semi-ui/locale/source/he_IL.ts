@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'תצורת MCP',
         annotationTitle: 'מקור הפניה',
         activeMCPNumber: 'מספר MCP פעילים:',
+        copySuccess: 'ההעתקה בוצעה בהצלחה.',
     }
 };
 

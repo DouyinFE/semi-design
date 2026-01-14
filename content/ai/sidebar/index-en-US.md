@@ -187,6 +187,8 @@ const containerStyle = {
     boxSizing: 'border-box'
 };
 
+let index = 1;
+
 function McpConfigureDemo() {
     const [visible, setVisible] = useState(true);
     const toggleVisible = useCallback(() => {
@@ -202,7 +204,7 @@ function McpConfigureDemo() {
             const newOptions = [...customOptions, {
                 label: values.name,
                 icon: values.src,
-                value: getUuidShort({ prefix: 'mcp' }),
+                value: `mcp-${index++}`,
                 desc: values.desc
             }];
             setCustomOptions(newOptions);
@@ -210,7 +212,7 @@ function McpConfigureDemo() {
         }).catch(errors => {
             console.log('errors', errors);
         });
-    }, []);
+    }, [customOptions]);
 
     const showDialog = useCallback(() => {
         setMVisible(true);
@@ -367,10 +369,10 @@ function Demo() {
             <Button onClick={toggleVisible}>{visible ? 'Show' : 'Hide'} references </Button>
         </div>
         <Annotation
+            defaultSize={{ width: 420 }}
             visible={visible}
             onCancel={toggleVisible}
             activeKey={activeKey}
-            style={{ width: 400 }}
             info={defaultInfoList}
             onChange={onChange}
             onClick={onClick}
@@ -1330,7 +1332,7 @@ const SideBarDemo = () => {
             motion={false}
             title="Agent 的工作空间"
             mode={mode}
-            style={{ width: '60%' }}
+            defaultSize={{ width: '60%' }}
             onActiveOptionChange={onActiveOptionChange}
             activeKey={activeKey}
             options={optionList}

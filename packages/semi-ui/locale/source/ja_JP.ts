@@ -241,7 +241,8 @@ const local: Locale = {
         newMcpAdd: 'カスタムMCP',
         mcpConfigure: 'MCP設定',
         annotationTitle: '参照元',
-        activeMCPNumber: 'アクティブMCP数:'
+        activeMCPNumber: 'アクティブMCP数:',
+        copySuccess: '正常にコピーされました',
     }
 };
 

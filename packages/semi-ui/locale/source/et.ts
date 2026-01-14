@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'MCP konfiguratsioon',
         annotationTitle: 'Viitekogu',
         activeMCPNumber: 'Aktiivsete MCP-de arv:',
+        copySuccess: 'Kopeerimine õnnestus.',
     }
 };
 

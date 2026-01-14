@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'Pagsasaayos ng MCP',
         annotationTitle: 'Pinagmulan ng sangguniang',
         activeMCPNumber: 'Bilang ng aktibong MCP:',
+        copySuccess: 'Matagumpay na nakopya.',
     }
 };
 

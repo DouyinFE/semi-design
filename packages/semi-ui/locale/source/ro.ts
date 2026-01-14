@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'MCP personalizat',
         mcpConfigure: 'Configurare MCP',
         annotationTitle: 'Sursă de referință',
-        activeMCPNumber: 'Număr de MCP active:'
+        activeMCPNumber: 'Număr de MCP active:',
+        copySuccess: 'Copiere reușită',
     }
 };
 

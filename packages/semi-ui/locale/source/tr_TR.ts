@@ -241,7 +241,8 @@ const local: Locale = {
         newMcpAdd: 'Özelleştirilmiş MCP',
         mcpConfigure: 'MCP Yapılandırması',
         annotationTitle: 'Referans Kaynağı',
-        activeMCPNumber: 'Aktif MCP Sayısı:'
+        activeMCPNumber: 'Aktif MCP Sayısı:',
+        copySuccess: 'Başarıyla kopyalandı',
     }
 };
 

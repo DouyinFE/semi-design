@@ -242,6 +242,7 @@ const local: Locale = {
         mcpConfigure: 'Pag-configure sa MCP',
         annotationTitle: 'Pinagmulan sang reperensya',
         activeMCPNumber: 'Kadaghanan sang aktibo nga MCP:',
+        copySuccess: 'Nagmalampuson ang pagkopya.',
     }
 };
 

@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'Prilagojen MCP',
         mcpConfigure: 'Konfiguracija MCP',
         annotationTitle: 'Vir referencia',
-        activeMCPNumber: 'Število aktivnih MCP:'
+        activeMCPNumber: 'Število aktivnih MCP:',
+        copySuccess: 'Kopiranje uspešno.',
     }
 };
 

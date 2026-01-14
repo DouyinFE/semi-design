@@ -240,6 +240,7 @@ export interface Locale {
         newMcpAdd: string;
         mcpConfigure: string;
         annotationTitle: string;
-        activeMCPNumber: string
+        activeMCPNumber: string;
+        copySuccess: string
     }
 }

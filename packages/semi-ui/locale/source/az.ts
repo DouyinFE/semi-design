@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'MCP konfiqurasiyası',
         annotationTitle: 'İstinad mənbəsi',
         activeMCPNumber: 'Aktiv MCP sayı:',
+        copySuccess: 'Uğurla kopiyalandı.',
     }
 };
 

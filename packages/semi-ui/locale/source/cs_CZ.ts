@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'Konfigurace MCP',
         annotationTitle: 'Zdroj reference',
         activeMCPNumber: 'Počet aktivních MCP:',
+        copySuccess: 'Kopírování bylo úspěšné.',
     }
 };
 

@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'Cumraíocht MCP',
         annotationTitle: 'Foinse tagartha',
         activeMCPNumber: 'Líon na gMCP gníomhacha:',
+        copySuccess: 'Cóip rathúil.',
     }
 };
 

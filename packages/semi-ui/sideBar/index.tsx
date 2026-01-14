@@ -15,6 +15,8 @@ import copy from 'copy-text-to-clipboard';
 import { ToastFactory } from '../toast';
 import FileContent from './widget/file';
 import CodeContent from './widget/code';
+import LocaleConsumer from '../locale/localeConsumer';
+import { Locale } from '../locale/interface';
 
 const prefixCls = cssClasses.SIDEBAR;
 
@@ -110,13 +112,12 @@ class Sidebar extends BaseComponent<SideBarProps, SideBarState> {
         onBackWard?.(e, strings.MODE.MAIN);
     }
 
-    handleCopyDetailContent = (e: React.MouseEvent) => {
+    handleCopyDetailContent = (e: React.MouseEvent, locale: Locale['Sidebar']) => {
         const { detailContent, mode, onDetailContentCopy } = this.props;
-        const content = mode === strings.MODE.CODE ? detailContent.code.content : detailContent.content;
+        const content = detailContent.content;
         const res = copy(content);
         res && this.ToastInCustomContainer.success({
-            //todo: locale
-            content: 'Copy Success',
+            content: locale.copySuccess,
         });
         onDetailContentCopy?.(e, content, res);
     }
@@ -138,12 +139,14 @@ class Sidebar extends BaseComponent<SideBarProps, SideBarState> {
                 <span className={`${prefixCls}-detail-header-title`}>{detailContent.name}</span>
             </span>
             <span className={`${prefixCls}-detail-header-right`}>
-                <Button
-                    theme='borderless'
-                    type='tertiary'
-                    icon={<IconCopyStroked />}
-                    onClick={this.handleCopyDetailContent}
-                />
+                <LocaleConsumer componentName="Sidebar" >
+                    {(locale: Locale['Sidebar']) => (<Button
+                        theme='borderless'
+                        type='tertiary'
+                        icon={<IconCopyStroked />}
+                        onClick={(e) => this.handleCopyDetailContent(e, locale)}
+                    />)}
+                </LocaleConsumer>
             </span>
         </div>;
     }

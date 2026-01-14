@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'MCP कॉन्फिगरेशन',
         annotationTitle: 'संदर्भ स्रोत',
         activeMCPNumber: 'सक्रिय MCP की संख्या:',
+        copySuccess: 'कॉपी सफल हुई।',
     }
 };
 

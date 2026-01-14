@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'MCP tersuai',
         mcpConfigure: 'Konfigurasi MCP',
         annotationTitle: 'Sumber rujukan',
-        activeMCPNumber: 'Bilangan MCP aktif:'
+        activeMCPNumber: 'Bilangan MCP aktif:',
+        copySuccess: 'Berjaya disalin',
     }
 };
 

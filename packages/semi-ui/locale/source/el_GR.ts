@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'Ρύθμιση MCP',
         annotationTitle: 'Πηγή αναφοράς',
         activeMCPNumber: 'Αριθμός ενεργών MCP:',
+        copySuccess: 'Επιτυχής αντιγραφή.',
     }
 };
 

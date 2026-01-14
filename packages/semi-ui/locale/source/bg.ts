@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'Конфигуриране на MCP',
         annotationTitle: 'Източник на референция',
         activeMCPNumber: 'Брой активирани MCP:',
+        copySuccess: 'Копирането е успешно.',
     }
 };
 

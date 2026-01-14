@@ -243,7 +243,8 @@ const local: Locale = {
         newMcpAdd: 'MCP tùy chỉnh',
         mcpConfigure: 'Cấu hình MCP',
         annotationTitle: 'Nguồn tham khảo',
-        activeMCPNumber: 'Số lượng MCP đang hoạt động:'
+        activeMCPNumber: 'Số lượng MCP đang hoạt động:',
+        copySuccess: 'Sao chép thành công',
     }
 };
 

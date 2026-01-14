@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'پیکربندی MCP',
         annotationTitle: 'منبع مرجع',
         activeMCPNumber: 'تعداد MCP فعال:',
+        copySuccess: 'کپی با موفقیت انجام شد.',
     }
 };
 

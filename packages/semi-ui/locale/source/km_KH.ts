@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'MCP កែប្រែ',
         mcpConfigure: 'ការកំណត់ MCP',
         annotationTitle: 'ប្រភពយោង',
-        activeMCPNumber: 'ចំនួន MCP ដែលសកម្ម:'
+        activeMCPNumber: 'ចំនួន MCP ដែលសកម្ម:',
+        copySuccess: 'ចម្លងដោយជោគជ័យ។',
     }
 };
 

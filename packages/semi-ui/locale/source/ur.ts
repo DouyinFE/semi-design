@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'اپنی مرضی کے مطابق MCP',
         mcpConfigure: 'MCP کی ترتیبات',
         annotationTitle: 'حوالہ کا ذریعہ',
-        activeMCPNumber: 'فعال MCP کی تعداد:'
+        activeMCPNumber: 'فعال MCP کی تعداد:',
+        copySuccess: 'کاپی کرنے کا عمل کامیاب ہو گیا۔',
     }
 };
 

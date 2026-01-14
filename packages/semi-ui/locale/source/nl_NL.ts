@@ -247,7 +247,8 @@ const local: Locale = {
         newMcpAdd: 'Aangepaste MCP',
         mcpConfigure: 'MCP-configuratie',
         annotationTitle: 'Referentiebron',
-        activeMCPNumber: 'Aantal actieve MCP\'s:'
+        activeMCPNumber: 'Aantal actieve MCP\'s:',
+        copySuccess: 'Succesvol gekopieerd',
     }
 };
 

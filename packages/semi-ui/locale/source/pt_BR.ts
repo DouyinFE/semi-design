@@ -248,7 +248,8 @@ const local: Locale = {
         newMcpAdd: 'MCP personalizado',
         mcpConfigure: 'Configuração do MCP',
         annotationTitle: 'Fonte de referência',
-        activeMCPNumber: 'Número de MCPs ativos:'
+        activeMCPNumber: 'Número de MCPs ativos:',
+        copySuccess: 'Copiado com sucesso',
     }
 };
 

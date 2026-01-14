@@ -353,7 +353,8 @@ $module: #{$prefix}-sidebar;
             padding-top: 0px;
             padding-bottom: 0px;
             background-color: transparent;
-            overflow: hidden;
+            overflow-y: hidden;
+            overflow-x: auto;
         }
 
         .#{$prefix}-codeHighlight .line-numbers .line-numbers-rows {

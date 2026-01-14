@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'MCP-konfiguration',
         annotationTitle: 'Kilde til henvisning',
         activeMCPNumber: 'Antal aktive MCP:',
+        copySuccess: 'Kopiering lykkedes.',
     }
 };
 

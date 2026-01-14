@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'ကိုယ်ပိုင်ဖန်တီးထားသောMCP',
         mcpConfigure: 'MCPဖော်မတ်သတ်မှတ်ချက်',
         annotationTitle: 'ရည်ညွှန်းရင်းမြစ်',
-        activeMCPNumber: 'အသက်ဆောင်သောMCPအရေအတွက်:'
+        activeMCPNumber: 'အသက်ဆောင်သောMCPအရေအတွက်:',
+        copySuccess: 'ကူးယူခြင်း အောင်မြင်သည်။',
     }
 };
 

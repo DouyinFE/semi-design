@@ -245,7 +245,8 @@ const local: Locale = {
         newMcpAdd: 'Anpassad MCP',
         mcpConfigure: 'MCP-konfiguration',
         annotationTitle: 'Referenskälla',
-        activeMCPNumber: 'Antal aktiva MCP:'
+        activeMCPNumber: 'Antal aktiva MCP:',
+        copySuccess: 'Kopiering lyckades',
     }
 };
 

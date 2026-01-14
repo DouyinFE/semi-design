@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'Prispôsobený MCP',
         mcpConfigure: 'Konfigurácia MCP',
         annotationTitle: 'Zdroj referencie',
-        activeMCPNumber: 'Počet aktívnych MCP:'
+        activeMCPNumber: 'Počet aktívnych MCP:',
+        copySuccess: 'Kopírovanie bolo úspešné.',
     }
 };
 

@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'MCP:n määritys',
         annotationTitle: 'Viite lähde',
         activeMCPNumber: 'Aktiivisten MCP:iden määrä:',
+        copySuccess: 'Kopiointi onnistui.',
     }
 };
 

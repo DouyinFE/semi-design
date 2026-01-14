@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'Moslashtirilgan MCP',
         mcpConfigure: 'MCP konfiguratsiyasi',
         annotationTitle: 'Manba ma\'lumoti',
-        activeMCPNumber: 'Faol MCP soni:'
+        activeMCPNumber: 'Faol MCP soni:',
+        copySuccess: 'Nusxa olindi.',
     }
 };
 

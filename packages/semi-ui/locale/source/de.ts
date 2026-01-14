@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'MCP-Konfiguration',
         annotationTitle: 'Referenzquelle',
         activeMCPNumber: 'Anzahl aktiver MCPs:',
+        copySuccess: 'Erfolgreich kopiert',
     }
 };
 

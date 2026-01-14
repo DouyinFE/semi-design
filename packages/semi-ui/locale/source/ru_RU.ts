@@ -243,7 +243,8 @@ const local: Locale = {
         newMcpAdd: 'Персонализированный MCP',
         mcpConfigure: 'Конфигурация MCP',
         annotationTitle: 'Источник ссылки',
-        activeMCPNumber: 'Количество активных MCP:'
+        activeMCPNumber: 'Количество активных MCP:',
+        copySuccess: 'Скопировано успешно',
     }
 };
 

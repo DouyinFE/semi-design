@@ -241,6 +241,7 @@ const local: Locale = {
         mcpConfigure: 'MCP কনফিগারেশন',
         annotationTitle: 'সংসদর্ভের উৎস',
         activeMCPNumber: 'সক্রিয় MCP সংখ্যা:',
+        copySuccess: 'কপি করা সফল হয়েছে।',
     }
 };
 

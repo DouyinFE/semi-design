@@ -178,6 +178,8 @@ const CustomOptionCreateModel = (props) => {
     </Modal>);
 };
 
+let index = 1;
+
 const containerStyle = {
     display: 'flex',
     height: '500px',
@@ -202,7 +204,7 @@ function McpConfigureDemo() {
             const newOptions = [...customOptions, {
                 label: values.name,
                 icon: values.src,
-                value: getUuidShort({ prefix: 'mcp' }),
+                value: `mcp-${index++}`,
                 desc: values.desc
             }];
             setCustomOptions(newOptions);
@@ -210,7 +212,7 @@ function McpConfigureDemo() {
         }).catch(errors => {
             console.log('errors', errors);
         });
-    }, []);
+    }, [customOptions]);
 
     const showDialog = useCallback(() => {
         setMVisible(true);
@@ -367,10 +369,10 @@ function Demo() {
             <Button onClick={toggleVisible}>{visible ? '关闭' : '展示'}参考来源 </Button>
         </div>
         <Annotation
+            defaultSize={{ width: 420 }}
             visible={visible}
             onCancel={toggleVisible}
             activeKey={activeKey}
-            style={{ width: 400 }}
             info={defaultInfoList}
             onChange={onChange}
             onClick={onClick}
@@ -1324,7 +1326,7 @@ const SideBarDemo = () => {
             motion={false}
             title="Agent 的工作空间"
             mode={mode}
-            style={{ width: '60%' }}
+            defaultSize={{ width: '60%' }}
             onActiveOptionChange={onActiveOptionChange}
             activeKey={activeKey}
             options={optionList}

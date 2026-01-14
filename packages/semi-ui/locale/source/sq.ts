@@ -240,7 +240,8 @@ const local: Locale = {
         newMcpAdd: 'MCP i personalizuar',
         mcpConfigure: 'Konfigurimi i MCP',
         annotationTitle: 'Burimi i referencës',
-        activeMCPNumber: 'Numri i MCP aktive:'
+        activeMCPNumber: 'Numri i MCP aktive:',
+        copySuccess: 'U kopjua me sukses.',
     }
 };
 

@@ -241,7 +241,8 @@ const local: Locale = {
         newMcpAdd: '自訂MCP',
         mcpConfigure: 'MCP設定',
         annotationTitle: '參考來源',
-        activeMCPNumber: '啟用狀態MCP數量:'
+        activeMCPNumber: '啟用狀態MCP數量:',
+        copySuccess: '複製成功',
     }
 };
 
