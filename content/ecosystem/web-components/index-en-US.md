@@ -3,7 +3,7 @@ category: Ecosystem
 title: Web Components
 icon: doc-webcomponents
 localeCode: en-US
-order: 13
+order: 14
 brief: Semi UI 在 web components 中使用的最佳实践
 ---
 

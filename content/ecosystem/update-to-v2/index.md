@@ -3,7 +3,7 @@ category: 生态与帮助
 title: Update 从 1.x 到 2.0
 icon: doc-updateV2
 localeCode: zh-CN
-order: 16
+order: 17
 ---
 
 ### 升级准备

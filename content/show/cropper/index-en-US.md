@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 73
+order: 74
 category: Plus
 title:  Cropper
 icon: doc-cropper

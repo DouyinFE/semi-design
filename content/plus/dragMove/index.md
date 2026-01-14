@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 30
+order: 31
 category: Plus
 title:  DragMove 拖拽移动
 icon: doc-dragmove

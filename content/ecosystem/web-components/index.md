@@ -3,7 +3,7 @@ category: 生态与帮助
 title: Web components 适配
 icon: doc-webcomponents
 localeCode: zh-CN
-order: 13
+order: 14
 brief: Best practices for using Semi UI in web components
 ---
 

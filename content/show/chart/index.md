@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 85
+order: 86
 category: 展示类
 title:  Semi DV 数据可视化
 icon: doc-vchart
