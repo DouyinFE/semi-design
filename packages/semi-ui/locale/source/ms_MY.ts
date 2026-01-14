@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Sumber rujukan',
         activeMCPNumber: 'Bilangan MCP aktif:',
         copySuccess: 'Berjaya disalin',
+    },
+    AudioPlayer: {
+        backward: 'Undur ${skipDuration}s',
+        forward: 'Maju ${skipDuration}s',
+        prev: 'Sebelumnya',
+        next: 'Seterusnya',
+        loop: 'Ulang',
+        volume: 'Volum',
+        mediaError: 'Ralat memuatkan audio'
     }
 };
 

@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'حوالہ کا ذریعہ',
         activeMCPNumber: 'فعال MCP کی تعداد:',
         copySuccess: 'کاپی کرنے کا عمل کامیاب ہو گیا۔',
+    },
+    AudioPlayer: {
+        backward: 'پیچھے ${skipDuration}s',
+        forward: 'آگے ${skipDuration}s',
+        prev: 'پچھلا',
+        next: 'اگلا',
+        loop: 'لوپ',
+        volume: 'آواز',
+        mediaError: 'آڈیو لوڈنگ کی خرابی'
     }
 };
 

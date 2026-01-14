@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-animation-styled",
-    "version": "2.90.0",
+    "version": "2.90.13",
     "description": "semi styled animation",
     "keywords": [
         "semi",
@@ -39,5 +39,5 @@
         "gulp-typescript": "^6.0.0-alpha.1",
         "merge2": "^1.4.1"
     },
-    "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a"
+    "gitHead": "208186435ee571d1dde07a7fa378050d56d94fe2"
 }

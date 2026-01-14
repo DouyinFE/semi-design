@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Nuorodos šaltinis',
         activeMCPNumber: 'Aktyvių MCP skaičius:',
         copySuccess: 'Sėkmingai nukopijuota.',
+    },
+    AudioPlayer: {
+        backward: 'Atgal ${skipDuration}s',
+        forward: 'Pirmyn ${skipDuration}s',
+        prev: 'Ankstesnis',
+        next: 'Kitas',
+        loop: 'Kartoti',
+        volume: 'Garsas',
+        mediaError: 'Garso įkėlimo klaida'
     }
 };
 

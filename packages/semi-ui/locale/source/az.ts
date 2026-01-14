@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'İstinad mənbəsi',
         activeMCPNumber: 'Aktiv MCP sayı:',
         copySuccess: 'Uğurla kopiyalandı.',
+    },
+    AudioPlayer: {
+        backward: 'Geri ${skipDuration}s',
+        forward: 'İrəli ${skipDuration}s',
+        prev: 'Əvvəlki',
+        next: 'Növbəti',
+        loop: 'Təkrarla',
+        volume: 'Səs',
+        mediaError: 'Audio yüklənmə xətası'
     }
 };
 

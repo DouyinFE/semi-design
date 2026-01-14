@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Πηγή αναφοράς',
         activeMCPNumber: 'Αριθμός ενεργών MCP:',
         copySuccess: 'Επιτυχής αντιγραφή.',
+    },
+    AudioPlayer: {
+        backward: 'Πίσω ${skipDuration}s',
+        forward: 'Μπροστά ${skipDuration}s',
+        prev: 'Προηγούμενο',
+        next: 'Επόμενο',
+        loop: 'Επανάληψη',
+        volume: 'Ένταση',
+        mediaError: 'Σφάλμα φόρτωσης ήχου'
     }
 };
 

@@ -243,6 +243,15 @@ const local: Locale = {
         annotationTitle: 'Referans Kaynağı',
         activeMCPNumber: 'Aktif MCP Sayısı:',
         copySuccess: 'Başarıyla kopyalandı',
+    },
+    AudioPlayer: {
+        backward: 'Geri ${skipDuration}s',
+        forward: 'İleri ${skipDuration}s',
+        prev: 'Önceki',
+        next: 'Sonraki',
+        loop: 'Döngü',
+        volume: 'Ses',
+        mediaError: 'Ses yükleme hatası'
     }
 };
 

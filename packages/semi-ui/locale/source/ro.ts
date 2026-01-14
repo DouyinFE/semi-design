@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Sursă de referință',
         activeMCPNumber: 'Număr de MCP active:',
         copySuccess: 'Copiere reușită',
+    },
+    AudioPlayer: {
+        backward: 'Înapoi ${skipDuration}s',
+        forward: 'Înainte ${skipDuration}s',
+        prev: 'Anterior',
+        next: 'Următor',
+        loop: 'Repetă',
+        volume: 'Volum',
+        mediaError: 'Eroare la încărcarea audio'
     }
 };
 

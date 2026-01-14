@@ -245,6 +245,15 @@ const local: Locale = {
         annotationTitle: 'Nguồn tham khảo',
         activeMCPNumber: 'Số lượng MCP đang hoạt động:',
         copySuccess: 'Sao chép thành công',
+    },
+    AudioPlayer: {
+        backward: 'Lùi ${skipDuration}s',
+        forward: 'Tiến ${skipDuration}s',
+        prev: 'Trước',
+        next: 'Tiếp theo',
+        loop: 'Lặp lại',
+        volume: 'Âm lượng',
+        mediaError: 'Lỗi tải âm thanh'
     }
 };
 

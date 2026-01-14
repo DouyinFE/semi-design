@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-webpack-plugin",
-    "version": "2.90.0",
+    "version": "2.90.13",
     "description": "",
     "author": "伍浩威 <wuhaowei.whw@bytedance.com>",
     "homepage": "",
@@ -27,7 +27,7 @@
         "raw-loader": "^4.0.2",
         "sass": "^1.54.9",
         "sass-loader": "^10.1.1",
-        "semver": "7.3.2",
+        "semver": "7.5.2",
         "style-loader": "1.3.0"
     },
     "peerDependencies": {
@@ -38,5 +38,5 @@
         "rimraf": "^3.0.2",
         "typescript": "^4"
     },
-    "gitHead": "393946538cf42a2b9f9d8746bc25b0d5ee233985"
+    "gitHead": "208186435ee571d1dde07a7fa378050d56d94fe2"
 }

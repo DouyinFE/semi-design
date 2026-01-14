@@ -242,5 +242,14 @@ export interface Locale {
         annotationTitle: string;
         activeMCPNumber: string;
         copySuccess: string
+    };
+    AudioPlayer: {
+        backward: string;
+        forward: string;
+        prev: string;
+        next: string;
+        loop: string;
+        volume: string;
+        mediaError: string
     }
 }

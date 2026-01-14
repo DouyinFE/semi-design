@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Manba ma\'lumoti',
         activeMCPNumber: 'Faol MCP soni:',
         copySuccess: 'Nusxa olindi.',
+    },
+    AudioPlayer: {
+        backward: 'Orqaga ${skipDuration}s',
+        forward: 'Oldinga ${skipDuration}s',
+        prev: 'Oldingi',
+        next: 'Keyingi',
+        loop: 'Takrorlash',
+        volume: 'Ovoz',
+        mediaError: 'Audio yuklash xatosi'
     }
 };
 

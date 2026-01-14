@@ -13,6 +13,25 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.90.12 (2026-01-13)
+- 【Fix】
+    - 修复 Select 组件在多选模式下，当 defaultValue 数量超过 max 时，再选择新值 onExceed 回调未被触发的问题
+- 【Feat】
+    - AudioPlayer 组件新增国际化支持，支持通过 LocaleProvider 配置多语言文案
+
+#### 🎉 2.90.10 (2026-01-08)
+- 【Fix】
+    - 修复 MarkdownRender 在运行 一些插件的时候报错 async 的问题
+
+#### 🎉 2.90.8 (2026-01-08)
+- 【Fix】
+    - 修复 UserGuide 在运行 target 函数实际不正确，导致用户在指引不存在 dom 的时候报错的问题 [#3112](https://github.com/DouyinFE/semi-design/issues/3112)
+
+#### 🎉 2.90.1 (2025-12-19)
+- 【Chore】
+    - 去除 @douyinfe/semi-json-viewer-core 构建产物中的 Optional chaining (?.) [#3103](https://github.com/DouyinFE/semi-design/pull/3103)
+
+
 #### 🎉 2.90.0 (2025-12-26)
 - 【Feat】
     - AIChatInput 新增加 sendHotKey API  [#3098](https://github.com/DouyinFE/semi-design/issues/3098) [#3099](https://github.com/DouyinFE/semi-design/pull/3099)
@@ -45,24 +64,24 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 #### 🎉 2.89.0 (2025-12-05)
 - 【Fix】
     - 修复向空的 inputSlot 中粘贴内容时候，仅粘贴了文本，无 inputSlot 样式问题  [#3049](https://github.com/DouyinFE/semi-design/issues/3049) [#3050](https://github.com/DouyinFE/semi-design/pull/3050)
-    - 修复当选中 inputSlot 中的所有内容并粘贴nearing时候，仅粘贴了文本，无 inputSlot 样式问题   [#3049](https://github.com/DouyinFE/semi-design/issues/3049) [#3050](https://github.com/DouyinFE/semi-design/pull/3050)
+    - 修复当选中 inputSlot 中的所有内容并粘贴 nearing 时候，仅粘贴了文本，无 inputSlot 样式问题   [#3049](https://github.com/DouyinFE/semi-design/issues/3049) [#3050](https://github.com/DouyinFE/semi-design/pull/3050)
     - 修复 semi-theme-loader 在用户自定义主题的 custom.css 中有 body 选择器时，custom.css 中的内容未生效问题 [#3078](https://github.com/DouyinFE/semi-design/pull/3078)
     - 修复 React v19 下 Toast/Notification 首次调用可能出现 TypeError 的问题 [#3053](https://github.com/DouyinFE/semi-design/pull/3053)
     - 修复 AIChatDialogue renderDialogueTitle 未返回 message 参数问题 [#3068](https://github.com/DouyinFE/semi-design/pull/3068)
-    - 修复VideoPlayer 自动播放时仍旧显示暂停图标问题 [#3072](https://github.com/DouyinFE/semi-design/pull/3072)
+    - 修复 VideoPlayer 自动播放时仍旧显示暂停图标问题 [#3072](https://github.com/DouyinFE/semi-design/pull/3072)
 - 【Chore】
     - 修复  AIChatInput 的 extensions API 类型错误问题 [#3048](https://github.com/DouyinFE/semi-design/pull/3048)
 
 #### 🎉 2.89.0-beta.0 (2025-12-01)
 - 【Fix】
-    - 修复JsonViewer RequestIdleCallback在Safari浏览器不兼容问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#3054](https://github.com/DouyinFE/semi-design/pull/3054)
+    - 修复 JsonViewer RequestIdleCallback 在 Safari 浏览器不兼容问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#3054](https://github.com/DouyinFE/semi-design/pull/3054)
     - 修复 FloatButtonGroup 未传入 onClick 时，点击出现 TypeError 问题 [#3052](https://github.com/DouyinFE/semi-design/pull/3052)
 
 #### 🎉 2.88.3 (2025-11-24)
 - 【Fix】
     - 修复 AIChatInput 中 setContentWhileSaveTool 方法调用后结果不正确问题  [#3040](https://github.com/DouyinFE/semi-design/issues/3040)
     - 修复当通过 setContent 设置内容时，如果 skillSlot 的 html 字符串参数中间有空格时候，参数解析仅保留空格前内容问题  [#3040](https://github.com/DouyinFE/semi-design/issues/3040)
-    - 修复 AIChatInput 的自定义扩展的 addPasteRules 不生效问题. [#3042](https://github.com/DouyinFE/semi-design/pull/3042)
+    - 修复 AIChatInput 的自定义扩展的 addPasteRules 不生效问题。[#3042](https://github.com/DouyinFE/semi-design/pull/3042)
     - 修复 AIChatInput 在删除上传文件时候，未触发 onUploadChange 回调问题 [#3044](https://github.com/DouyinFE/semi-design/pull/3044)
     - 修复 FloatButtonGroup 中点击项目未触发 onClick 问题 [#3043](https://github.com/DouyinFE/semi-design/pull/3043)
     - 修复 InputNumber 在设置小数步长时，进退位计算精度不正确问题 [#3026](https://github.com/DouyinFE/semi-design/pull/3026)
@@ -93,7 +112,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
     - 修复 Chat 组件的返回底部按钮在 Chat 尺寸变化后不需要显示时还可见问题 [#2999](https://github.com/DouyinFE/semi-design/pull/2999)
     -  完善 semi-extract-css-content-loader 中的纯 css 内容抽取逻辑 [#3014](https://github.com/DouyinFE/semi-design/pull/3014)
 - 【Style】
-    - 设置 Image 中所有的 img 节点的 max-width 为none，避免同时使用 tailwind 时放大显示错误问题 [#3015](https://github.com/DouyinFE/semi-design/pull/3015)
+    - 设置 Image 中所有的 img 节点的 max-width 为 none，避免同时使用 tailwind 时放大显示错误问题 [#3015](https://github.com/DouyinFE/semi-design/pull/3015)
     - 设置 Cropper 中的 img 的 max-width 为 none，避免 tailwindCSS 中对 img 的 max-width 设置影响 Cropper 样式 [#3011](https://github.com/DouyinFE/semi-design/pull/3011)
 - 【Chore】
     - Radio/RadioGroup 的 value/defaultValue 增加 boolean 类型 [#3019](https://github.com/DouyinFE/semi-design/pull/3019)
@@ -101,7 +120,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 #### 🎉 2.88.0-beta.1 (2025-11-10)
 - 【Feat】
     - 新增加 IconRealSize 等 10 个线性图标，IconScissorsStroked 等 33 个面性图标。 [#3016](https://github.com/DouyinFE/semi-design/pull/3016)
-    - 新增阿塞拜疆(az)、保加利亚(bg)、加泰罗尼亚(ca)、捷克(cs_CZ)、宿务(ceb_PH)、丹麦(da)、希腊(el_GR)、西班牙（拉美）(es_419)、爱沙尼亚(et)、波斯(fa_IR)、菲律宾(fil_PH)、芬兰(fi_FI)、法语（加）(fr_CA)、爱尔兰(ga)、希伯来(he_IL)、印地(hi_IN)、克罗地亚(hr)、匈牙利(hu_HU)、冰岛(is)、爪哇(jv_ID)、哈萨克(kk)、高棉(km_KH)、立陶宛(lt)、拉脱维亚(lv)、缅甸(my_MM)、挪威(nb)、葡萄牙(pt)、斯洛伐克(sk)、斯洛文尼亚(sl)、阿尔巴尼亚(sq)、斯瓦希里(sw)、乌克兰(uk_UA)、乌尔都(ur)、乌兹别克(uz) 等 34 种语言翻译 [#3018](https://github.com/DouyinFE/semi-design/pull/3018)
+    - 新增阿塞拜疆 (az)、保加利亚 (bg)、加泰罗尼亚 (ca)、捷克 (cs_CZ)、宿务 (ceb_PH)、丹麦 (da)、希腊 (el_GR)、西班牙（拉美）(es_419)、爱沙尼亚 (et)、波斯 (fa_IR)、菲律宾 (fil_PH)、芬兰 (fi_FI)、法语（加）(fr_CA)、爱尔兰 (ga)、希伯来 (he_IL)、印地 (hi_IN)、克罗地亚 (hr)、匈牙利 (hu_HU)、冰岛 (is)、爪哇 (jv_ID)、哈萨克 (kk)、高棉 (km_KH)、立陶宛 (lt)、拉脱维亚 (lv)、缅甸 (my_MM)、挪威 (nb)、葡萄牙 (pt)、斯洛伐克 (sk)、斯洛文尼亚 (sl)、阿尔巴尼亚 (sq)、斯瓦希里 (sw)、乌克兰 (uk_UA)、乌尔都 (ur)、乌兹别克 (uz) 等 34 种语言翻译 [#3018](https://github.com/DouyinFE/semi-design/pull/3018)
 - 【Style】
     - 修改 IconHourglass 图标，UI 样式有变化 [#3016](https://github.com/DouyinFE/semi-design/pull/3016)
 
@@ -117,8 +136,8 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 
 #### 🎉 2.87.1 (2025-10-16)
 - 【Fix】
-    - 修复部分 chrome V140，141版本中，Tree/TreeSelect 在收起后，再次展开出现错误问题 [#3005](https://github.com/DouyinFE/semi-design/issues/3005)
-    - 修复部分 chrome V140，141版本中，Collapsible 收起动画不生效问题 [#3006](https://github.com/DouyinFE/semi-design/pull/3006)
+    - 修复部分 chrome V140，141 版本中，Tree/TreeSelect 在收起后，再次展开出现错误问题 [#3005](https://github.com/DouyinFE/semi-design/issues/3005)
+    - 修复部分 chrome V140，141 版本中，Collapsible 收起动画不生效问题 [#3006](https://github.com/DouyinFE/semi-design/pull/3006)
 
 #### 🎉 2.87.0 (2025-10-15)
 - 【Style】
@@ -126,13 +145,13 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 
 #### 🎉 2.87.0-beta.0 (2025-09-08)
 - 【Fix】
-    - JsonViewer 键盘事件兼容window [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2979](https://github.com/DouyinFE/semi-design/pull/2979)
+    - JsonViewer 键盘事件兼容 window [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2979](https://github.com/DouyinFE/semi-design/pull/2979)
 
 
 #### 🎉 2.86.0 (2025-09-01)
 - 【Fix】
-    - 修复Folding Model 初始化问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2972](https://github.com/DouyinFE/semi-design/pull/2972)
-    - 修复自定义主题传入prefix JsonViewer样式丢失问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2926](https://github.com/DouyinFE/semi-design/pull/2926)
+    - 修复 Folding Model 初始化问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2972](https://github.com/DouyinFE/semi-design/pull/2972)
+    - 修复自定义主题传入 prefix JsonViewer 样式丢失问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2926](https://github.com/DouyinFE/semi-design/pull/2926)
     - 修复多选，可搜索的 Cascader 在内容太长时，内容未正确缩略问题 [#2967](https://github.com/DouyinFE/semi-design/issues/2967) [#2970](https://github.com/DouyinFE/semi-design/pull/2970)
     - 修复 TagInput 中可拖拽的 tag 在内容太长时，内容未正确缩略问题 [#2970](https://github.com/DouyinFE/semi-design/pull/2970)
     - 修复 TreeSelect 在 disabled 情况下，点击会有意外的聚焦样式问题 [#2968](https://github.com/DouyinFE/semi-design/issues/2968) [#2969](https://github.com/DouyinFE/semi-design/pull/2969)
@@ -157,7 +176,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
     - Image 组件增加 renderCloseIcon/renderLeftIcon/renderRightIcon API [@rubbishmaker](https://github.com/rubbishmaker) [#2919](https://github.com/DouyinFE/semi-design/pull/2919)
 - 【Fix】
     - 修复 tooltip 在某些场景有 updateState warning 的问题 [#2682](https://github.com/DouyinFE/semi-design/issues/2682) [#2928](https://github.com/DouyinFE/semi-design/pull/2928)
-    - 修复JsonViewer错误信息不展示问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2943](https://github.com/DouyinFE/semi-design/pull/2943)
+    - 修复 JsonViewer 错误信息不展示问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2943](https://github.com/DouyinFE/semi-design/pull/2943)
 
 
 #### 🎉 2.84.0 (2025-07-29)
@@ -175,12 +194,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
     
 #### 🎉 2.83.0 (2025-07-14)
 - 【Fix】
-    - 修复JsonViewer 全选删除后继续删除报错问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
-    - 修复JsonViewer 始光标删除行为报错问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
-    - 修复JsonViewer 选区边界问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
-    - 修复JsonViewer 代码补全无法点击问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
-    - 修复JsonViewer 代码补全布尔类型提示问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
-    - 修复JsonViewer 拖动选择复制删除不完全问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复 JsonViewer 全选删除后继续删除报错问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复 JsonViewer 始光标删除行为报错问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复 JsonViewer 选区边界问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复 JsonViewer 代码补全无法点击问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复 JsonViewer 代码补全布尔类型提示问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
+    - 修复 JsonViewer 拖动选择复制删除不完全问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2896](https://github.com/DouyinFE/semi-design/pull/2896)
     - 修复 Modal 中的 height 设置未生效问题，影响版本 2.82.0-2.82.1  [#2899 ](https://github.com/DouyinFE/semi-design/issues/2899) [#2901](https://github.com/DouyinFE/semi-design/pull/2901)
 
 
@@ -197,7 +216,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 
 #### 🎉 2.82.0 (2025-06-27)
 - 【Style】
-    - 修复 Select 在 multiple/small 尺寸时候，如果 border 的 token 设置不为 1， 则最小高度会不正确问题。 废弃默认尺寸最小宽度设置 token $height-select_multiple_content_wrapper-minHeight   [#2877](https://github.com/DouyinFE/semi-design/issues/2877) [#2878](https://github.com/DouyinFE/semi-design/pull/2878)
+    - 修复 Select 在 multiple/small 尺寸时候，如果 border 的 token 设置不为 1，则最小高度会不正确问题。废弃默认尺寸最小宽度设置 token $height-select_multiple_content_wrapper-minHeight   [#2877](https://github.com/DouyinFE/semi-design/issues/2877) [#2878](https://github.com/DouyinFE/semi-design/pull/2878)
 
 #### 🎉 2.82.0-beta.0 (2025-06-23)
 - 【Feat】
@@ -207,7 +226,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 
 #### 🎉 2.81.0 (2025-06-16)
 - 【Fix】
-    - 修复 Input、TextArea 组件在同时设置 maxLength 和getValueLength时候，中文输入会在未输入完成时候被截断 [#2858](https://github.com/DouyinFE/semi-design/issues/2858) [#2859](https://github.com/DouyinFE/semi-design/pull/2859)
+    - 修复 Input、TextArea 组件在同时设置 maxLength 和 getValueLength 时候，中文输入会在未输入完成时候被截断 [#2858](https://github.com/DouyinFE/semi-design/issues/2858) [#2859](https://github.com/DouyinFE/semi-design/pull/2859)
 - 【Style】
     - 对于范围类型的 DatePicker，增加其中设置的 hover/active 状态下的 input 背景色的优先级 [#2856](https://github.com/DouyinFE/semi-design/pull/2856)
 - 【Design Token】
@@ -216,14 +235,14 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 
 #### 🎉 2.81.0-beta.0 (2025-06-10)
 - 【Style】
-    - 调整 range 类型的DatePicker 中 input-wrapper 层的高度, 让内容居中 [#2855](https://github.com/DouyinFE/semi-design/pull/2855)
+    - 调整 range 类型的 DatePicker 中 input-wrapper 层的高度，让内容居中 [#2855](https://github.com/DouyinFE/semi-design/pull/2855)
 - 【Fix】
     - 修复 Select 在分组 label 为 ReactNode 的情况下，filter 后 optionList 展示有误问题 [#2854](https://github.com/DouyinFE/semi-design/pull/2854)
     - 修改 Tooltip 中获取 container 的 position 时机，提升组件初始化的性能 [#2841](https://github.com/DouyinFE/semi-design/pull/2841)
 
 #### 🎉 2.80.0 (2025-05-19)
 - 【Fix】
-    - 修复单选，受控 value且 value 为undefined，异步加载，showNext 为 hover 的 cascader 在同时加载多个项目时的显示问题  [#2831](https://github.com/DouyinFE/semi-design/issues/2831) [#2832](https://github.com/DouyinFE/semi-design/pull/2832)
+    - 修复单选，受控 value 且 value 为 undefined，异步加载，showNext 为 hover 的 cascader 在同时加载多个项目时的显示问题  [#2831](https://github.com/DouyinFE/semi-design/issues/2831) [#2832](https://github.com/DouyinFE/semi-design/pull/2832)
 
 #### 🎉 2.80.0-beta.0 (2025-05-14)
 - 【Feat】
@@ -241,14 +260,14 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
     - 修复禁用，选中的 Checkbox 组件内部的对勾在悬停状态时，颜色未受到正确 token 控制问题 [#2819](https://github.com/DouyinFE/semi-design/pull/2819)
     - 增加 $color-radio_checked-icon-disabled token 用于允许用户配置选中，禁用状态下的 Radio 的原点颜色 [#2820](https://github.com/DouyinFE/semi-design/pull/2820)
 - 【Chore】
-    - Webpack/Rspack 插件的 web components loader 增加其他组件的样式插入支持。增加的组件为AudioPlayer， Chat，CodeHighlight， ColorPicker， Cropper，HotKeys，JsonViewer， MarkdownRender，PinCode， Resizable， UserGuide， ButtonGroup，SplitButton，List，TimePicker。[#2812](https://github.com/DouyinFE/semi-design/pull/2812)
-    - 当 Tree组件 key 错传为 number 时抛出 warning [@LonelySnowman](https://github.com/LonelySnowman) [#2773](https://github.com/DouyinFE/semi-design/pull/2773)
+    - Webpack/Rspack 插件的 web components loader 增加其他组件的样式插入支持。增加的组件为 AudioPlayer，Chat，CodeHighlight，ColorPicker，Cropper，HotKeys，JsonViewer，MarkdownRender，PinCode，Resizable，UserGuide，ButtonGroup，SplitButton，List，TimePicker。[#2812](https://github.com/DouyinFE/semi-design/pull/2812)
+    - 当 Tree 组件 key 错传为 number 时抛出 warning [@LonelySnowman](https://github.com/LonelySnowman) [#2773](https://github.com/DouyinFE/semi-design/pull/2773)
 
 
 #### 🎉 2.79.0-beta.0 (2025-04-23)
 - 【Style】
     - 修改 Progress 中背景色和进度颜色的实现方式，保证主题配置生效 [#2808](https://github.com/DouyinFE/semi-design/pull/2808)
-    - 修复 Chat 内容区域的宽度被内容中的 table 撑开, 滚动区域为整条内容的问题，修改后滚动区域在 table 内部  [#2776](https://github.com/DouyinFE/semi-design/issues/2776) [#2775](https://github.com/DouyinFE/semi-design/pull/2775)
+    - 修复 Chat 内容区域的宽度被内容中的 table 撑开，滚动区域为整条内容的问题，修改后滚动区域在 table 内部  [#2776](https://github.com/DouyinFE/semi-design/issues/2776) [#2775](https://github.com/DouyinFE/semi-design/pull/2775)
 - 【Design Token】
     - Chat 增加 $width-chat_chatBox_avatar 用于设置头像宽度 [#2775](https://github.com/DouyinFE/semi-design/pull/2775)
     - 增加 Cascader 在大尺寸/小尺寸下的内边距 token 设置，包括$spacing-cascader_small_selection-paddingLeft，$spacing-cascader_small_selection-paddingRight 等 token [#2809](https://github.com/DouyinFE/semi-design/pull/2809)
@@ -261,10 +280,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 #### 🎉 2.78.0 (2025-04-08)
 - 【Fix】
     - BackTop 组件的 target 不存在时候的兜底操作，避免 TypeError [#2786](https://github.com/DouyinFE/semi-design/pull/2786)
-    - 修复 Chat 组件在解析消息的 content 为数组的文本内容时， markdownRenderProps 未生效问题 [#2794](https://github.com/DouyinFE/semi-design/pull/2794)
+    - 修复 Chat 组件在解析消息的 content 为数组的文本内容时，markdownRenderProps 未生效问题 [#2794](https://github.com/DouyinFE/semi-design/pull/2794)
     - 修复 Collapse Tabs 初次加载无法将 activeTab 滚动到视口内问题 [#2787](https://github.com/DouyinFE/semi-design/pull/2787)
 - 【Style】
-    - 修复Table 中具有排序的表头单元格在明暗切换时候的闪动 [#2795](https://github.com/DouyinFE/semi-design/pull/2795)
+    - 修复 Table 中具有排序的表头单元格在明暗切换时候的闪动 [#2795](https://github.com/DouyinFE/semi-design/pull/2795)
 - 【Design Token】
     - ScrollList 新增 $color-scrollList_header-bg 用于控制 header 颜色 [#2789](https://github.com/DouyinFE/semi-design/pull/2789)
 

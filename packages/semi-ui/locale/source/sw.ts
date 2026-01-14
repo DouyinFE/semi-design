@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Chanzo cha makosa',
         activeMCPNumber: 'Idadi ya MCP yenye uhai:',
         copySuccess: 'Umenakili.',
+    },
+    AudioPlayer: {
+        backward: 'Nyuma ${skipDuration}s',
+        forward: 'Mbele ${skipDuration}s',
+        prev: 'Iliyopita',
+        next: 'Ifuatayo',
+        loop: 'Rudia',
+        volume: 'Sauti',
+        mediaError: 'Hitilafu ya kupakia sauti'
     }
 };
 

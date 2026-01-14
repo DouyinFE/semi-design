@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Izvor reference',
         activeMCPNumber: 'Broj aktivnih MCP-a:',
         copySuccess: 'Kopiranje je uspjelo.',
+    },
+    AudioPlayer: {
+        backward: 'Natrag ${skipDuration}s',
+        forward: 'Naprijed ${skipDuration}s',
+        prev: 'Prethodno',
+        next: 'Sljedeće',
+        loop: 'Ponovi',
+        volume: 'Glasnoća',
+        mediaError: 'Greška učitavanja zvuka'
     }
 
 };

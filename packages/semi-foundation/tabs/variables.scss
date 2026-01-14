@@ -1,8 +1,8 @@
-$color-tabs_tab_line_default-border-default: var(--semi-color-border); // 线条式页签描边颜色默认
+$color-tabs_tab_line_default-border-default: var(--semi-color-border); // 线条式页签轨道颜色 - 默认
 
 $color-tabs_tab_line_default-bg-default: transparent; // 线条式页签背景颜色 - 默认
 $color-tabs_tab_line_default-text-default: var(--semi-color-text-2); // 线条式页签文本颜色 - 默认
-$color-tabs_tab_line_default-icon-default: var(--semi-color-text-2); // 线条式页签标示线颜色 - 默认
+// $color-tabs_tab_line_default-icon-default: var(--semi-color-text-2); // 线条式页签标示线颜色 - 默认
 
 $color-tabs_tab_line_default-bg-hover: transparent; // 线条式页签背景颜色 - 悬浮
 $color-tabs_tab_line_default-text-hover: var(--semi-color-text-0); // 线条式页签文本颜色 - 悬浮
@@ -24,7 +24,7 @@ $color-tabs_tab_line_vertical-bg-active: var(--semi-color-fill-1); // 垂直线�
 $color-tabs_tab_line_disabled-text-default: var(--semi-color-disabled-text); // 禁用线条式页签文本颜色 - 默认
 $color-tabs_tab_line_disabled-text-hover: var(--semi-color-disabled-text); // 禁用线条式页签文本颜色 - 悬浮
 
-$color-tabs_tab_card_default-border-default: var(--semi-color-border); // 卡片式页签描边颜色 - 默认
+$color-tabs_tab_card_default-border-default: var(--semi-color-border); // 卡片式页签容器底部长线颜色 - 默认
 
 $color-tabs_tab_button_selected-bg-default: var(--semi-color-primary-light-default); // 按钮式页签背景颜色 - 选中
 $color-tabs_tab_button_selected-text-default: var(--semi-color-primary); // 按钮式页签文本颜色 - 选中
@@ -32,7 +32,7 @@ $color-tabs_tab_button-text-default: var(--semi-color-text-2); // 按钮式页�
 $color-tabs_tab_button-bg-hover: var(--semi-color-fill-0); // 按钮式页签背景颜色 - 悬浮
 $color-tabs_tab_button-bg-active: var(--semi-color-fill-1); // 按钮式页签背景颜色 - 按下
 
-$color-tabs_tab_card_indicator_selected-icon-default: var(--semi-color-border); // 卡片式页签描边
+$color-tabs_tab_card_indicator_selected-icon-default: var(--semi-color-border); // 卡片式页签选中页签描边
 $color-tabs_tab_card-bg-hover: var(--semi-color-fill-0); // 卡片式页签背景颜色 - 悬浮
 
 $color-tabs_tab_card_selected-bg-default: var(--semi-color-bg-1); // 卡片式页签背景颜色 - 选中
@@ -75,7 +75,7 @@ $height-tabs_overflow_list: 300px;  // 页签折叠收起菜单高度
 $width-tabs_bar_line-border: $border-thickness-control; // 线条式页签底部分割线宽度
 $width-tabs_bar_line_tab-border: 2px; // 页签标示线宽度
 
-$width-tabs_bar_card-border: $border-thickness-control; // 卡片式页签底部分割线宽度
+$width-tabs_bar_card-border: $border-thickness-control; // 卡片式页签容器底部长线宽度
 $width-tabs-outline: 2px; // 聚焦轮廓宽度
 $width-tabs-outline-offset: -2px; // 聚焦轮廓偏移宽度
 $width-tabs_bar_line-outline-offset: -1px; // 线条式页签聚焦轮廓偏移宽度

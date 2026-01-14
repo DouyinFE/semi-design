@@ -243,6 +243,15 @@ const local: Locale = {
         annotationTitle: '参考来源',
         activeMCPNumber: '已激活 MCP 数:',
         copySuccess: '复制成功',
+    },
+    AudioPlayer: {
+        backward: '后退 ${skipDuration} 秒',
+        forward: '前进 ${skipDuration} 秒',
+        prev: '上一首',
+        next: '下一首',
+        loop: '循环播放',
+        volume: '音量',
+        mediaError: '音频加载失败'
     }
 };
 

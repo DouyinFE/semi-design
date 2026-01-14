@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Foinse tagartha',
         activeMCPNumber: 'Líon na gMCP gníomhacha:',
         copySuccess: 'Cóip rathúil.',
+    },
+    AudioPlayer: {
+        backward: 'Siar ${skipDuration}s',
+        forward: 'Ar Aghaidh ${skipDuration}s',
+        prev: 'Roimhe Seo',
+        next: 'Ar Aghaidh',
+        loop: 'Lúb',
+        volume: 'Toirt',
+        mediaError: 'Earráid luchtú fuaime'
     }
 };
 

@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Pamatdarbības avots',
         activeMCPNumber: 'Aktīvo MCP skaits:',
         copySuccess: 'Veiksmīgi nokopēts.',
+    },
+    AudioPlayer: {
+        backward: 'Atpakaļ ${skipDuration}s',
+        forward: 'Uz priekšu ${skipDuration}s',
+        prev: 'Iepriekšējais',
+        next: 'Nākamais',
+        loop: 'Cikls',
+        volume: 'Skaļums',
+        mediaError: 'Audio ielādes kļūda'
     }
 };
 

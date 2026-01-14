@@ -16,6 +16,24 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.90.12 (2026-01-13)
+- 【Fix】
+    - Fixed an issue where the onExceed callback was not triggered when selecting new values in Select component's multiple mode, when the defaultValue count exceeded the max limit
+- 【Feat】
+    - AudioPlayer component adds internationalization support, allowing multi-language text configuration through LocaleProvider
+
+#### 🎉 2.90.10 (2026-01-08)
+- 【Fix】
+    - Fix MarkdownRender async problem when run some plugin
+
+#### 🎉 2.90.8 (2026-01-08)
+- 【Fix】
+    - Fixed an issue where UserGuide was incorrectly executing the target function, causing users to encounter errors when the guide did not contain a DOM element [#3112](https://github.com/DouyinFE/semi-design/issues/3112)
+
+#### 🎉 2.90.1 (2025-12-19)
+- 【Chore】
+    - Remove Optional chaining (?.) from the build artifact of @douyinfe/semi-json-viewer-core. [#3103](https://github.com/DouyinFE/semi-design/pull/3103)
+
 #### 🎉 2.90.0 (2025-12-26)
 - 【Feat】
     - AIChatInput adds sendHotKey API  [#3098](https://github.com/DouyinFE/semi-design/issues/3098)

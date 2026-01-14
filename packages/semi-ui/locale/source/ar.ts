@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'مصدر المرجعية',
         activeMCPNumber: 'عدد MCP المنشط:',
         copySuccess: 'تم النسخ بنجاح',
+    },
+    AudioPlayer: {
+        backward: 'تراجع ${skipDuration} ثانية',
+        forward: 'تقدم ${skipDuration} ثانية',
+        prev: 'السابق',
+        next: 'التالي',
+        loop: 'تكرار',
+        volume: 'الصوت',
+        mediaError: 'خطأ في تحميل الصوت'
     }
 };
 

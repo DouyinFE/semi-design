@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Viitekogu',
         activeMCPNumber: 'Aktiivsete MCP-de arv:',
         copySuccess: 'Kopeerimine õnnestus.',
+    },
+    AudioPlayer: {
+        backward: 'Tagasi ${skipDuration}s',
+        forward: 'Edasi ${skipDuration}s',
+        prev: 'Eelmine',
+        next: 'Järgmine',
+        loop: 'Korda',
+        volume: 'Helitugevus',
+        mediaError: 'Audio laadimise viga'
     }
 };
 

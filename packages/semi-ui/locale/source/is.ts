@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Tilvísunarheimildir',
         activeMCPNumber: 'Fjöldi virkra MCP:',
         copySuccess: 'Afritun tókst.',
+    },
+    AudioPlayer: {
+        backward: 'Til baka ${skipDuration}s',
+        forward: 'Áfram ${skipDuration}s',
+        prev: 'Fyrra',
+        next: 'Næsta',
+        loop: 'Endurtaka',
+        volume: 'Hljóðstyrkur',
+        mediaError: 'Villa við að hlaða hljóði'
     }
 };
 

@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Hivatkozás forrása',
         activeMCPNumber: 'Aktív MCP-k száma:',
         copySuccess: 'Másolás sikeres.',
+    },
+    AudioPlayer: {
+        backward: 'Vissza ${skipDuration}s',
+        forward: 'Előre ${skipDuration}s',
+        prev: 'Előző',
+        next: 'Következő',
+        loop: 'Ismétlés',
+        volume: 'Hangerő',
+        mediaError: 'Audió betöltési hiba'
     }
 };
 

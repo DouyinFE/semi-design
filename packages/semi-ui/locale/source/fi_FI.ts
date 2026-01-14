@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Viite lähde',
         activeMCPNumber: 'Aktiivisten MCP:iden määrä:',
         copySuccess: 'Kopiointi onnistui.',
+    },
+    AudioPlayer: {
+        backward: 'Taakse ${skipDuration}s',
+        forward: 'Eteenpäin ${skipDuration}s',
+        prev: 'Edellinen',
+        next: 'Seuraava',
+        loop: 'Toista',
+        volume: 'Äänenvoimakkuus',
+        mediaError: 'Äänen latausvirhe'
     }
 };
 

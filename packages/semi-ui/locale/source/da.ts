@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Kilde til henvisning',
         activeMCPNumber: 'Antal aktive MCP:',
         copySuccess: 'Kopiering lykkedes.',
+    },
+    AudioPlayer: {
+        backward: 'Tilbage ${skipDuration}s',
+        forward: 'Fremad ${skipDuration}s',
+        prev: 'Forrige',
+        next: 'Næste',
+        loop: 'Gentag',
+        volume: 'Lydstyrke',
+        mediaError: 'Audio indlæsningsfejl'
     }
 };
 

@@ -4,7 +4,7 @@ import { graphql, Link } from 'gatsby';
 import Blocks from '@douyinfe/semi-site-markdown-blocks';
 import '@douyinfe/semi-site-markdown-blocks/dist/index.css';
 import SearchAllInOne from '../components/SearchAllInOne';
-import { Icon, Row, Col, Tag, Tooltip, Popover, Checkbox, Button, Radio, Avatar,Skeleton, Toast, Table, CheckboxGroup, Descriptions, Dropdown, Form, Typography, Empty, Image, Card, Space } from '@douyinfe/semi-ui';
+import { Icon, Row, Col, Tag,Modal, Tooltip, Popover, Checkbox, Button, Radio, Avatar,Skeleton, Toast, Table, CheckboxGroup, Descriptions, Dropdown, Form, Typography, Empty, Image, Card, Space } from '@douyinfe/semi-ui';
 import { IllustrationNoAccess, IllustrationNoAccessDark } from '@douyinfe/semi-illustrations';
 import NotificationCard from '../../packages/semi-ui/notification/notice';
 import ToastCard from '../../packages/semi-ui/toast/toast';
@@ -638,6 +638,36 @@ export default function Template(args) {
             }
         }
     }, []);
+
+
+    useEffect(()=>{
+        (async ()=>{
+            if(sessionStorage.getItem("network_detect")){
+                return
+            }
+            sessionStorage.setItem("network_detect", "true")
+            try {
+                const res = await fetch(window.location.origin + '/')
+                const internal = res.headers.get('x-user-internal')
+                const internalUrl = res.headers.get('x-user-bytedance-url')
+                if(internal === '1' && internalUrl){
+                    const isZhCN = window.location.href.includes('zh-CN');
+                    Modal.info({
+                        title: isZhCN ? '网络检测' : 'Intranet Detection',
+                        content: isZhCN ? '您当前在内网环境，推荐跳转内网获取更多功能' : 'You are currently in an intranet environment. Would you like to jump to the intranet for more features?',
+                        okText: isZhCN ? '跳转' : 'Jump',
+                        cancelText: isZhCN ? '取消' : 'Cancel',
+                        onOk: () => {
+                            window.location.href = window.location.href.replace(window.location.hostname, new URL(internalUrl).hostname)
+                        }
+                    })
+                }
+            } catch (e) {
+
+            }
+        })()
+    },[])
+
     const { current } = data;
     const intl = useIntl(); // console.log('current', current);
     const { prev, next } = getPrevAndNext(pageContext);

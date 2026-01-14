@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Referansekilde',
         activeMCPNumber: 'Antall aktive MCP:',
         copySuccess: 'Kopiert.',
+    },
+    AudioPlayer: {
+        backward: 'Tilbake ${skipDuration}s',
+        forward: 'Fremover ${skipDuration}s',
+        prev: 'Forrige',
+        next: 'Neste',
+        loop: 'Gjenta',
+        volume: 'Volum',
+        mediaError: 'Audio innlastingsfeil'
     }
 };
 

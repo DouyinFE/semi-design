@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'ប្រភពយោង',
         activeMCPNumber: 'ចំនួន MCP ដែលសកម្ម:',
         copySuccess: 'ចម្លងដោយជោគជ័យ។',
+    },
+    AudioPlayer: {
+        backward: 'ថយក្រោយ ${skipDuration}s',
+        forward: 'ទៅមុខ ${skipDuration}s',
+        prev: 'មុន',
+        next: 'បន្ទាប់',
+        loop: 'រង្វិល',
+        volume: 'សំឡេង',
+        mediaError: 'កំហុសផ្ទុកសំឡេង'
     }
 };
 

@@ -1,0 +1,74 @@
+{
+  "name": "@douyinfe/semi-mcp",
+  "version": "1.0.21",
+  "description": "Semi Design MCP Server - Model Context Protocol server for Semi Design components and documentation",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "semi-mcp": "./dist/stdio.js",
+    "semi-mcp-http": "./dist/http.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./http": {
+      "types": "./dist/http.d.ts",
+      "import": "./dist/http.js"
+    },
+    "./tools": {
+      "types": "./dist/tools/index.d.ts",
+      "import": "./dist/tools/index.js"
+    },
+    "./utils/*": {
+      "types": "./dist/utils/*.d.ts",
+      "import": "./dist/utils/*.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "semi",
+    "semi-design",
+    "mcp",
+    "model-context-protocol",
+    "design-system",
+    "component-library",
+    "documentation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "test": "rstest",
+    "start": "node dist/index.js",
+    "start:http": "node dist/http.js",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.1",
+    "@swc/core": "^1.15.8",
+    "axios": "^1.13.2",
+    "oxc-parser": "^0.106.0",
+    "semver": "^7.7.3"
+  },
+  "devDependencies": {
+    "@rslib/core": "^0.18.5",
+    "@rstest/core": "^0.7.2",
+    "@types/axios": "^0.9.36",
+    "@types/node": "^24.10.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.9.3"
+  }
+}

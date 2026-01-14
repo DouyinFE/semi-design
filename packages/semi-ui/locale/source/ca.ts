@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Font de referència',
         activeMCPNumber: 'Nombre de MCP activats:',
         copySuccess: 'S\'ha copiat.',
+    },
+    AudioPlayer: {
+        backward: 'Enrere ${skipDuration}s',
+        forward: 'Endavant ${skipDuration}s',
+        prev: 'Anterior',
+        next: 'Següent',
+        loop: 'Repetir',
+        volume: 'Volum',
+        mediaError: 'Error de càrrega d\'àudio'
     }
 };
 

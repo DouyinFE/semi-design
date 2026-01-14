@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Burimi i referencës',
         activeMCPNumber: 'Numri i MCP aktive:',
         copySuccess: 'U kopjua me sukses.',
+    },
+    AudioPlayer: {
+        backward: 'Prapa ${skipDuration}s',
+        forward: 'Përpara ${skipDuration}s',
+        prev: 'Paraardhës',
+        next: 'Tjetër',
+        loop: 'Përsërit',
+        volume: 'Volumi',
+        mediaError: 'Gabim në ngarkimin e audios'
     }
 };
 

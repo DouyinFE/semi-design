@@ -243,6 +243,15 @@ const local: Locale = {
         annotationTitle: '参照元',
         activeMCPNumber: 'アクティブMCP数:',
         copySuccess: '正常にコピーされました',
+    },
+    AudioPlayer: {
+        backward: '戻る ${skipDuration}秒',
+        forward: '進む ${skipDuration}秒',
+        prev: '前へ',
+        next: '次へ',
+        loop: 'ループ',
+        volume: '音量',
+        mediaError: 'オーディオ読み込みエラー'
     }
 };
 

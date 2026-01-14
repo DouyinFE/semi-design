@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'מקור הפניה',
         activeMCPNumber: 'מספר MCP פעילים:',
         copySuccess: 'ההעתקה בוצעה בהצלחה.',
+    },
+    AudioPlayer: {
+        backward: 'אחורה ${skipDuration} שניות',
+        forward: 'קדימה ${skipDuration} שניות',
+        prev: 'קודם',
+        next: 'הבא',
+        loop: 'לולאה',
+        volume: 'עוצמת קול',
+        mediaError: 'שגיאת טעינת אודיו'
     }
 };
 

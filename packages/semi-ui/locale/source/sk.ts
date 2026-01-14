@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Zdroj referencie',
         activeMCPNumber: 'Počet aktívnych MCP:',
         copySuccess: 'Kopírovanie bolo úspešné.',
+    },
+    AudioPlayer: {
+        backward: 'Späť ${skipDuration}s',
+        forward: 'Dopredu ${skipDuration}s',
+        prev: 'Predchádzajúci',
+        next: 'Nasledujúci',
+        loop: 'Opakovať',
+        volume: 'Hlasitosť',
+        mediaError: 'Chyba načítania audia'
     }
 };
 

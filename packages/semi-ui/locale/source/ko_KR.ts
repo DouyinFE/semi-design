@@ -243,6 +243,15 @@ const local: Locale = {
         annotationTitle: '참고 출처',
         activeMCPNumber: '활성화된 MCP 개수:',
         copySuccess: '복사 성공',
+    },
+    AudioPlayer: {
+        backward: '뒤로 ${skipDuration}초',
+        forward: '앞으로 ${skipDuration}초',
+        prev: '이전',
+        next: '다음',
+        loop: '반복',
+        volume: '볼륨',
+        mediaError: '오디오 로드 오류'
     }
 };
 

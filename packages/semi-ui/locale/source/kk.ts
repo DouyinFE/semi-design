@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Солсыныстағы көзге',
         activeMCPNumber: 'Активті MCP саны:',
         copySuccess: 'Сәтті түрде көшірілді.',
+    },
+    AudioPlayer: {
+        backward: 'Артқа ${skipDuration}s',
+        forward: 'Алға ${skipDuration}s',
+        prev: 'Алдыңғы',
+        next: 'Келесі',
+        loop: 'Қайталау',
+        volume: 'Дыбыс',
+        mediaError: 'Аудио жүктеу қатесі'
     }
 };
 

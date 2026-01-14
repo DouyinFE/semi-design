@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Vir referencia',
         activeMCPNumber: 'Število aktivnih MCP:',
         copySuccess: 'Kopiranje uspešno.',
+    },
+    AudioPlayer: {
+        backward: 'Nazaj ${skipDuration}s',
+        forward: 'Naprej ${skipDuration}s',
+        prev: 'Prejšnji',
+        next: 'Naslednji',
+        loop: 'Ponovi',
+        volume: 'Glasnost',
+        mediaError: 'Napaka pri nalaganju zvoka'
     }
 };
 

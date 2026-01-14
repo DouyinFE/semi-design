@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Източник на референция',
         activeMCPNumber: 'Брой активирани MCP:',
         copySuccess: 'Копирането е успешно.',
+    },
+    AudioPlayer: {
+        backward: 'Назад ${skipDuration}s',
+        forward: 'Напред ${skipDuration}s',
+        prev: 'Предишен',
+        next: 'Следващ',
+        loop: 'Повторение',
+        volume: 'Звук',
+        mediaError: 'Грешка при зареждане на аудио'
     }
 };
 

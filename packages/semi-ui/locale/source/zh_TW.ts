@@ -243,6 +243,15 @@ const local: Locale = {
         annotationTitle: '參考來源',
         activeMCPNumber: '啟用狀態MCP數量:',
         copySuccess: '複製成功',
+    },
+    AudioPlayer: {
+        backward: '後退 ${skipDuration} 秒',
+        forward: '前進 ${skipDuration} 秒',
+        prev: '上一首',
+        next: '下一首',
+        loop: '循環播放',
+        volume: '音量',
+        mediaError: '音頻加載失敗'
     }
 };
 

@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'संदर्भ स्रोत',
         activeMCPNumber: 'सक्रिय MCP की संख्या:',
         copySuccess: 'कॉपी सफल हुई।',
+    },
+    AudioPlayer: {
+        backward: 'पीछे ${skipDuration}s',
+        forward: 'आगे ${skipDuration}s',
+        prev: 'पिछला',
+        next: 'अगला',
+        loop: 'लूप',
+        volume: 'वॉल्यूम',
+        mediaError: 'ऑडियो लोड त्रुटि'
     }
 };
 

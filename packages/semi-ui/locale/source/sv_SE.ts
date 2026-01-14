@@ -247,6 +247,15 @@ const local: Locale = {
         annotationTitle: 'Referenskälla',
         activeMCPNumber: 'Antal aktiva MCP:',
         copySuccess: 'Kopiering lyckades',
+    },
+    AudioPlayer: {
+        backward: 'Bakåt ${skipDuration}s',
+        forward: 'Framåt ${skipDuration}s',
+        prev: 'Föregående',
+        next: 'Nästa',
+        loop: 'Upprepa',
+        volume: 'Volym',
+        mediaError: 'Ljudinläsningsfel'
     }
 };
 

@@ -2,6 +2,8 @@ const esbuild = require('esbuild');
 const path = require('path');
 const fs = require('fs');
 
+// 设置 target，转换 `?.`(optional chaining) 
+const ESBUILD_TARGET = process.env.ESBUILD_TARGET || 'es2018';
 
 const compileWorker = async ()=>{
     const workerEntry = path.join(__dirname, "..", "src/worker/json.worker.ts");
@@ -11,6 +13,7 @@ const compileWorker = async ()=>{
         bundle: true,
         write: false,
         minify: true,
+        target: ESBUILD_TARGET,
     });
     return result.outputFiles[0].text;
 };
@@ -24,7 +27,8 @@ const buildMain = async ()=>{
         bundle: true,
         packages: 'external',
         write: false,
-        format: 'esm'
+        format: 'esm',
+        target: ESBUILD_TARGET,
     });
     return result.outputFiles[0].text;
 

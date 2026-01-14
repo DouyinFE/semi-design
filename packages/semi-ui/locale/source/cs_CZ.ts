@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Zdroj reference',
         activeMCPNumber: 'Počet aktivních MCP:',
         copySuccess: 'Kopírování bylo úspěšné.',
+    },
+    AudioPlayer: {
+        backward: 'Zpět ${skipDuration}s',
+        forward: 'Vpřed ${skipDuration}s',
+        prev: 'Předchozí',
+        next: 'Další',
+        loop: 'Opakovat',
+        volume: 'Hlasitost',
+        mediaError: 'Chyba načítání audia'
     }
 };
 

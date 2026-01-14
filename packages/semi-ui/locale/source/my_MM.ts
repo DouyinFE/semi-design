@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'ရည်ညွှန်းရင်းမြစ်',
         activeMCPNumber: 'အသက်ဆောင်သောMCPအရေအတွက်:',
         copySuccess: 'ကူးယူခြင်း အောင်မြင်သည်။',
+    },
+    AudioPlayer: {
+        backward: 'နောက်သို့ ${skipDuration}s',
+        forward: 'ရှေ့သို့ ${skipDuration}s',
+        prev: 'အရင်',
+        next: 'နောက်တော့',
+        loop: 'ပတ်လည်',
+        volume: 'အသံ',
+        mediaError: 'အသံဖိုင်လွဲမှားခြင်း'
     }
 };
 

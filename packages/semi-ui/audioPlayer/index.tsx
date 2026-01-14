@@ -13,6 +13,8 @@ import AudioSlider from './audioSlider';
 import AudioPlayerFoundation from '@douyinfe/semi-foundation/audioPlayer/foundation';
 import { AudioPlayerAdapter } from '@douyinfe/semi-foundation/audioPlayer/foundation';
 import { formatTime } from './utils';
+import LocaleConsumer from '../locale/localeConsumer';
+import { Locale } from '../locale/interface';
 
 type AudioSrc = string
 type AudioInfo = {
@@ -284,13 +286,21 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
             marginLeft: '1px',
         };
         return <div className={cls(`${prefixCls}-control`)}>
-            {isAudioUrlArray && <Tooltip content='Previous' autoAdjustOverflow showArrow={false}>
-                <span><Button style={{ ...circleStyle, ...transparentStyle }} size='large' icon={<IconRestart size='large' className={iconClass} />} onClick={() => this.handleTrackChange('prev')} /></span>
-            </Tooltip>}
+            {isAudioUrlArray && <LocaleConsumer<Locale["AudioPlayer"]> componentName="AudioPlayer">
+                {(locale: Locale["AudioPlayer"]) => (
+                    <Tooltip content={locale.prev} autoAdjustOverflow showArrow={false}>
+                        <span><Button style={{ ...circleStyle, ...transparentStyle }} size='large' icon={<IconRestart size='large' className={iconClass} />} onClick={() => this.handleTrackChange('prev')} /></span>
+                    </Tooltip>
+                )}
+            </LocaleConsumer>}
             <Button style={circleStyle} size='large' disabled={error} onClick={this.handleStatusClick} icon={this.state.isPlaying ? <IconPause size='large' /> : <IconPlay style={playStyle} size='large' />} className={cls(`${cssClasses.PREFIX}-control-button-play`, { [`${cssClasses.PREFIX}-control-button-play-disabled`]: error })} />
-            {isAudioUrlArray && <Tooltip content='Next' autoAdjustOverflow showArrow={false}>
-                <span><Button style={{ ...circleStyle, ...transparentStyle }} size='large' icon={<IconRestart size='large' rotate={180} className={iconClass} />} onClick={() => this.handleTrackChange('next')} /></span>
-            </Tooltip>}
+            {isAudioUrlArray && <LocaleConsumer<Locale["AudioPlayer"]> componentName="AudioPlayer">
+                {(locale: Locale["AudioPlayer"]) => (
+                    <Tooltip content={locale.next} autoAdjustOverflow showArrow={false}>
+                        <span><Button style={{ ...circleStyle, ...transparentStyle }} size='large' icon={<IconRestart size='large' rotate={180} className={iconClass} />} onClick={() => this.handleTrackChange('next')} /></span>
+                    </Tooltip>
+                )}
+            </LocaleConsumer>}
         </div>;
     }
 
@@ -328,26 +338,42 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
                     <AudioSlider value={volume} max={100} vertical height={120} theme={theme} showTooltip={false} onChange={this.handleVolumeChange} />
                 </div>
             }>
-                <Button style={transparentStyle} icon={!isVolumeSilent ? <IconVolume2 className={iconClass} /> : <IconVolumnSilent className={iconClass} />} onClick={this.handleVolumeSilent} />
+                <span>
+                    <LocaleConsumer<Locale["AudioPlayer"]> componentName="AudioPlayer">
+                        {(locale: Locale["AudioPlayer"]) => (
+                            <Tooltip content={locale.volume} autoAdjustOverflow showArrow={false}>
+                                <Button style={transparentStyle} icon={!isVolumeSilent ? <IconVolume2 className={iconClass} /> : <IconVolumnSilent className={iconClass} />} onClick={this.handleVolumeSilent} />
+                            </Tooltip>
+                        )}
+                    </LocaleConsumer>
+                </span>
             </Popover>
-            <Tooltip content={`Backward ${skipDuration}s`} autoAdjustOverflow showArrow={false}>
-                <span>
-                    <Button
-                        style={transparentStyle}
-                        icon={<IconBackward className={iconClass} />}
-                        onClick={() => this.handleSeek(-1)}
-                    />
-                </span>
-            </Tooltip>
-            <Tooltip content={`Forward ${skipDuration}s`} autoAdjustOverflow showArrow={false}>
-                <span>
-                    <Button
-                        style={transparentStyle}
-                        icon={<IconFastForward className={iconClass} />}
-                        onClick={() => this.handleSeek(1)}
-                    />
-                </span>
-            </Tooltip>
+            <LocaleConsumer<Locale["AudioPlayer"]> componentName="AudioPlayer">
+                {(locale: Locale["AudioPlayer"]) => (
+                    <Tooltip content={locale.backward.replace('${skipDuration}', String(skipDuration))} autoAdjustOverflow showArrow={false}>
+                        <span>
+                            <Button
+                                style={transparentStyle}
+                                icon={<IconBackward className={iconClass} />}
+                                onClick={() => this.handleSeek(-1)}
+                            />
+                        </span>
+                    </Tooltip>
+                )}
+            </LocaleConsumer>
+            <LocaleConsumer<Locale["AudioPlayer"]> componentName="AudioPlayer">
+                {(locale: Locale["AudioPlayer"]) => (
+                    <Tooltip content={locale.forward.replace('${skipDuration}', String(skipDuration))} autoAdjustOverflow showArrow={false}>
+                        <span>
+                            <Button
+                                style={transparentStyle}
+                                icon={<IconFastForward className={iconClass} />}
+                                onClick={() => this.handleSeek(1)}
+                            />
+                        </span>
+                    </Tooltip>
+                )}
+            </LocaleConsumer>
             <Dropdown className={cls(`${prefixCls}-control-speed-menu`)} render={<Dropdown.Menu>
                 {this.rateOptions.map((option) => (
                     <Dropdown.Item className={cls(`${prefixCls}-control-speed-menu-item`)} key={option.value} onClick={() => this.handleSpeedChange(option)} active={option.value === this.state.currentRate.value}>

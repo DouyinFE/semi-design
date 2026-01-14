@@ -242,6 +242,15 @@ const local: Locale = {
         annotationTitle: 'Pinagmulan ng sangguniang',
         activeMCPNumber: 'Bilang ng aktibong MCP:',
         copySuccess: 'Matagumpay na nakopya.',
+    },
+    AudioPlayer: {
+        backward: 'Bumalik ${skipDuration}s',
+        forward: 'Sumulong ${skipDuration}s',
+        prev: 'Nakaraang',
+        next: 'Susunod',
+        loop: 'Ulitin',
+        volume: 'Volume',
+        mediaError: 'Error sa pag-load ng audio'
     }
 };
 
