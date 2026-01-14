@@ -25,7 +25,6 @@
       "types": "./dist/utils/*.d.ts",
       "import": "./dist/utils/*.js"
     }
-    
   },
   "types": "./dist/index.d.ts",
   "files": [
@@ -60,12 +59,14 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.25.1",
     "@swc/core": "^1.15.8",
+    "axios": "^1.13.2",
     "oxc-parser": "^0.106.0",
     "semver": "^7.7.3"
   },
   "devDependencies": {
     "@rslib/core": "^0.18.5",
     "@rstest/core": "^0.7.2",
+    "@types/axios": "^0.9.36",
     "@types/node": "^24.10.4",
     "tsx": "^4.19.2",
     "typescript": "^5.9.3"

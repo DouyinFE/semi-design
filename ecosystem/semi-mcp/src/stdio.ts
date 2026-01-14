@@ -9,8 +9,17 @@
 
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { createMCPServer } from './server.js';
+import axios from 'axios';
 
 async function main() {
+
+  const res = await axios.get("https://semi.design");
+  if(res.headers['x-user-internal']==="1"){
+    console.log("Semi MCP Server (stdio) 启动失败: 字节跳动内部用户请使用内网 MCP 服务, 在字节云 MCP market 搜索 Semi");
+    console.log("Semi MCP Server (stdio) Load failed: ByteDance internal users please use the internal MCP service, search Semi in ByteCloud MCP market");
+    process.exit(1);
+  }
+
   // 创建 MCP 服务器实例
   const server = createMCPServer();
 
