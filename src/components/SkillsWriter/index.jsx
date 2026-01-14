@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Checkbox,CheckboxGroup, Button, Typography, Space, Card, Spin } from '@douyinfe/semi-ui';
 import { IconDownload, IconFolder } from '@douyinfe/semi-icons';
 import JSZip from 'jszip';
+import { FormattedMessage } from 'react-intl';
 import './index.scss';
 
 const { Text, Title } = Typography;
@@ -10,39 +11,32 @@ const { Text, Title } = Typography;
 // 确认支持 skills 的工具及其路径
 const skillsOptions = [
     {
-        label: 'Trae',
+        id: 'traue',
         path: '.trae/skills/',
-        description: '字节跳动 AI 原生编程 IDE，支持 Skills'
     },
     {
-        label: 'Cursor',
+        id: 'cursor',
         path: '.cursor/skills/',
-        description: 'AI 增强代码编辑器，支持 Skills（需开启 Nightly 渠道）'
     },
     {
-        label: 'CodeBuddy (腾讯云)',
+        id: 'codebuddy',
         path: '.codebuddy/skills/',
-        description: '腾讯云 AI 编程助手，支持 Skills'
     },
     {
-        label: 'Claude Code',
+        id: 'claudeCode',
         path: '.claude/skills/',
-        description: 'Anthropic 官方 AI 编程助手，支持 Skills'
     },
     {
-        label: 'Qwen Code (通义千问)',
+        id: 'qwenCode',
         path: '.qwen/skills/',
-        description: '阿里巴巴 AI 编程助手，支持 Skills'
     },
     {
-        label: 'OpenAI Codex CLI',
+        id: 'openAICodex',
         path: '.codex/skills/',
-        description: 'OpenAI 官方 CLI 工具，支持 Skills'
     },
     {
-        label: '通用标准 (.skills/)',
+        id: 'standard',
         path: '.skills/',
-        description: '通用 Skills 目录标准（部分工具支持）'
     },
 ];
 
@@ -85,102 +79,99 @@ const SkillsWriter = () => {
     // 下载并解压 skills.zip
     const downloadAndExtractSkills = async () => {
         if (selectedSkills.length === 0) {
-            setMessage('请至少选择一个编程工具');
+            setMessage(<FormattedMessage id='skillsWriter.error.noSelection' />);
+            setMessageType('error');
+            return;
+        }
+
+        // 检查是否支持目录选择器
+        if (!('showDirectoryPicker' in window)) {
+            setMessage(<FormattedMessage id='skillsWriter.error.unsupportedBrowser' />);
             setMessageType('error');
             return;
         }
 
         try {
+            // 1. 先让用户选择目录
+            const handle = await window.showDirectoryPicker();
+            
+            // 2. 用户选择目录后开始处理
             setLoading(true);
             setMessage(null);
 
-            // 2. 下载 skills.zip
+            // 3. 下载 skills.zip
             const response = await fetch('/skills.zip');
             if (!response.ok) {
-                throw new Error('下载 skills.zip 失败');
+                throw new Error(<FormattedMessage id='skillsWriter.error.downloadFailed' />);
             }
             const blob = await response.blob();
 
-            // 3. 使用浏览器 File System Access API 选择目标目录
-            if ('showDirectoryPicker' in window) {
-                try {
-                    const handle = await window.showDirectoryPicker();
+            // 4. 解压 zip 文件，把 semi-ui-skills 文件夹写入到用户选择的路径下
+            const zip = await JSZip.loadAsync(blob);
+            
+            // 获取用户选择的路径列表
+            const selectedPaths = selectedSkills.map(s => s.path);
+            
+            // 找到 zip 中的 semi-ui-skills 文件夹
+            const skillsFolderEntry = Object.entries(zip.files).find(([path]) => 
+                path === 'semi-ui-skills' || path.startsWith('semi-ui-skills/')
+            );
 
-                    // 4. 解压 zip 文件，把 semi-ui-skills 文件夹写入到用户选择的路径下
-                    const zip = await JSZip.loadAsync(blob);
-                    
-                    // 获取用户选择的路径列表
-                    const selectedPaths = selectedSkills.map(s => s.path);
-                    
-                    // 找到 zip 中的 semi-ui-skills 文件夹
-                    const skillsFolderEntry = Object.entries(zip.files).find(([path]) => 
-                        path === 'semi-ui-skills' || path.startsWith('semi-ui-skills/')
-                    );
+            if (!skillsFolderEntry) {
+                throw new Error(<FormattedMessage id='skillsWriter.error.zipNotFound' />);
+            }
 
-                    if (!skillsFolderEntry) {
-                        throw new Error('zip 文件中未找到 semi-ui-skills 文件夹');
-                    }
-
-                    // 对每个用户选择的路径，创建 semi-ui-skills 文件夹并写入内容
-                    let totalCount = 0;
-                    
-                    for (const selectedPath of selectedPaths) {
-                        // 在用户选择的路径下创建 semi-ui-skills 文件夹
-                        const skillsFolderName = 'semi-ui-skills';
-                        const normalizedPath = selectedPath.replace(/^\//, '').replace(/\/$/, '');
-                        const pathParts = normalizedPath.split('/');
-                        
-                        let currentHandle = handle;
-                        for (const part of pathParts) {
-                            try {
-                                currentHandle = await currentHandle.getDirectoryHandle(part, { create: true });
-                            } catch {
-                                currentHandle = await currentHandle.getDirectoryHandle(part);
-                            }
-                        }
-
-                        // 创建 semi-ui-skills 文件夹
-                        let skillsHandle;
-                        try {
-                            skillsHandle = await currentHandle.getDirectoryHandle(skillsFolderName, { create: true });
-                        } catch {
-                            skillsHandle = await currentHandle.getDirectoryHandle(skillsFolderName);
-                        }
-
-                        // 遍历 zip 中 semi-ui-skills 文件夹下的所有文件
-                        for (const [filePath, zipEntry] of Object.entries(zip.files)) {
-                            if (filePath.startsWith('semi-ui-skills/')) {
-                                const relativePath = filePath.replace('semi-ui-skills/', '');
-                                
-                                if (!zipEntry.dir && relativePath) {
-                                    // 写入文件
-                                    const content = await zipEntry.async('uint8array');
-                                    await writeFile(skillsHandle, relativePath, content);
-                                    totalCount++;
-                                }
-                            }
-                        }
-                    }
-
-                    setMessage(`成功添加 ${totalCount} 个文件到项目`);
-                    setMessageType('success');
-                } catch (err) {
-                    if (err.name === 'AbortError') {
-                        setMessage('已取消选择目录');
-                        setMessageType('info');
-                    } else {
-                        throw err;
+            // 对每个用户选择的路径，创建 semi-ui-skills 文件夹并写入内容
+            let totalCount = 0;
+            
+            for (const selectedPath of selectedPaths) {
+                // 在用户选择的路径下创建 semi-ui-skills 文件夹
+                const skillsFolderName = 'semi-ui-skills';
+                const normalizedPath = selectedPath.replace(/^\//, '').replace(/\/$/, '');
+                const pathParts = normalizedPath.split('/');
+                
+                let currentHandle = handle;
+                for (const part of pathParts) {
+                    try {
+                        currentHandle = await currentHandle.getDirectoryHandle(part, { create: true });
+                    } catch {
+                        currentHandle = await currentHandle.getDirectoryHandle(part);
                     }
                 }
-            } else {
-                setMessage('您的浏览器不支持目录选择功能，请使用最新版本的 Chrome 或 Edge 浏览器');
-                setMessageType('error');
-                console.log('选择的 skills 路径:', selectedSkills.map(s => s.path));
+
+                // 创建 semi-ui-skills 文件夹
+                let skillsHandle;
+                try {
+                    skillsHandle = await currentHandle.getDirectoryHandle(skillsFolderName, { create: true });
+                } catch {
+                    skillsHandle = await currentHandle.getDirectoryHandle(skillsFolderName);
+                }
+
+                // 遍历 zip 中 semi-ui-skills 文件夹下的所有文件
+                for (const [filePath, zipEntry] of Object.entries(zip.files)) {
+                    if (filePath.startsWith('semi-ui-skills/')) {
+                        const relativePath = filePath.replace('semi-ui-skills/', '');
+                        
+                        if (!zipEntry.dir && relativePath) {
+                            // 写入文件
+                            const content = await zipEntry.async('uint8array');
+                            await writeFile(skillsHandle, relativePath, content);
+                            totalCount++;
+                        }
+                    }
+                }
             }
-        } catch (error) {
-            console.error('添加到项目失败:', error);
-            setMessage(`添加到项目失败: ${error.message}`);
-            setMessageType('error');
+
+            setMessage(<FormattedMessage id='skillsWriter.success.addedFiles' values={{ count: totalCount }} />);
+            setMessageType('success');
+        } catch (err) {
+            if (err.name === 'AbortError') {
+                // 用户取消选择，不显示任何消息
+            } else {
+                console.error('添加到项目失败:', err);
+                setMessage(<FormattedMessage id='skillsWriter.error.addFailed' values={{ message: err.message }} />);
+                setMessageType('error');
+            }
         } finally {
             setLoading(false);
         }
@@ -191,11 +182,13 @@ const SkillsWriter = () => {
             <Card className="skills-writer-card">
                 <div className="skills-writer-header">
                     <IconDownload size="large" style={{ color: 'var(--semi-color-link)' }} />
-                    <Title level={4} style={{ margin: '0 0 16px 0' }}>添加到我的项目</Title>
+                    <Title level={5} style={{ margin: 0, fontSize: '20px', fontWeight: 600 }}>
+                        <FormattedMessage id='skillsWriter.title' />
+                    </Title>
                 </div>
                 
                 <Text type="secondary" style={{ display: 'block', marginBottom: 16 }}>
-                    选择要将 Skills 添加到的编程工具：
+                    <FormattedMessage id='skillsWriter.subtitle' />
                 </Text>
 
                 <CheckboxGroup
@@ -206,43 +199,45 @@ const SkillsWriter = () => {
                         <Checkbox key={index} value={option}>
                             <div style={{ display: 'flex', flexDirection: 'column', padding: '4px 0' }}>
                                 <Space>
-                                    <Text strong>{option.label}</Text>
+                                    <Text strong>
+                                        <FormattedMessage id={`skillsOption.${option.id}.label`} />
+                                    </Text>
                                     <Text type="quaternary" style={{ fontSize: 12 }}>
                                         ({option.path})
                                     </Text>
                                 </Space>
                                 <Text type="secondary" style={{ fontSize: 12, marginTop: 2 }}>
-                                    {option.description}
+                                    <FormattedMessage id={`skillsOption.${option.id}.description`} />
                                 </Text>
                             </div>
                         </Checkbox>
                     ))}
                 </CheckboxGroup>
 
-                {message && (
+                {message && !loading && (
                     <Text type={messageType === 'error' ? 'danger' : messageType === 'success' ? 'success' : 'secondary'} style={{ display: 'block', marginBottom: 12 }}>
                         {message}
                     </Text>
                 )}
 
                 <div className="skills-writer-actions">
-                    <Button
-                        type="primary"
-                        icon={<IconFolder />}
-                        onClick={downloadAndExtractSkills}
-                        loading={loading}
-                        disabled={selectedSkills.length === 0}
-                    >
-                        添加到我的项目
-                    </Button>
+                    <Space>
+                        <Button
+                            type="primary"
+                            icon={<IconFolder />}
+                            onClick={downloadAndExtractSkills}
+                            loading={loading}
+                            disabled={selectedSkills.length === 0}
+                        >
+                            <FormattedMessage id='skillsWriter.button' />
+                        </Button>
+                        {!loading && (
+                            <Text type="tertiary" style={{ fontSize: 12 }}>
+                                <FormattedMessage id='skillsWriter.permissionHint' />
+                            </Text>
+                        )}
+                    </Space>
                 </div>
-
-                {loading && (
-                    <div className="skills-writer-loading">
-                        <Spin size="small" style={{ marginRight: 8 }} />
-                        <Text type="secondary">正在处理...</Text>
-                    </div>
-                )}
             </Card>
         </div>
     );

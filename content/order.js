@@ -9,7 +9,7 @@ const order = [
     'internationalization',
     'design-source',
     'overview',
-    'ai-mcp',
+    'mcp-skills',
     'faq',
     "tailwind",
     "web-components",
