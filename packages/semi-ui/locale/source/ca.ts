@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Plantilla',
         configure: 'Configura',
         selected: 'S\'han seleccionat ${count} elements',
+    },
+    AudioPlayer: {
+        backward: 'Enrere ${skipDuration}s',
+        forward: 'Endavant ${skipDuration}s',
+        prev: 'Anterior',
+        next: 'Següent',
+        loop: 'Repetir',
+        volume: 'Volum',
+        mediaError: 'Error de càrrega d\'àudio'
     }
 };
 

@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'قالب',
         configure: 'پیکربندی',
         selected: 'مواردی {count} دلاری انتخاب‌شده',
+    },
+    AudioPlayer: {
+        backward: 'عقب ${skipDuration} ثانیه',
+        forward: 'جلو ${skipDuration} ثانیه',
+        prev: 'قبلی',
+        next: 'بعدی',
+        loop: 'حلقه',
+        volume: 'صدا',
+        mediaError: 'خطای بارگذاری صدا'
     }
 };
 

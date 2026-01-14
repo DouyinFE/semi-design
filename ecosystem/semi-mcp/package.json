@@ -1,11 +1,11 @@
 {
   "name": "@douyinfe/semi-mcp",
-  "version": "1.0.15",
+  "version": "1.0.21",
   "description": "Semi Design MCP Server - Model Context Protocol server for Semi Design components and documentation",
   "type": "module",
   "main": "./dist/index.js",
   "bin": {
-    "semi-mcp": "./dist/index.js",
+    "semi-mcp": "./dist/stdio.js",
     "semi-mcp-http": "./dist/http.js"
   },
   "exports": {
@@ -16,6 +16,14 @@
     "./http": {
       "types": "./dist/http.d.ts",
       "import": "./dist/http.js"
+    },
+    "./tools": {
+      "types": "./dist/tools/index.d.ts",
+      "import": "./dist/tools/index.js"
+    },
+    "./utils/*": {
+      "types": "./dist/utils/*.d.ts",
+      "import": "./dist/utils/*.js"
     }
   },
   "types": "./dist/index.d.ts",
@@ -51,12 +59,14 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.25.1",
     "@swc/core": "^1.15.8",
+    "axios": "^1.13.2",
     "oxc-parser": "^0.106.0",
     "semver": "^7.7.3"
   },
   "devDependencies": {
     "@rslib/core": "^0.18.5",
     "@rstest/core": "^0.7.2",
+    "@types/axios": "^0.9.36",
     "@types/node": "^24.10.4",
     "tsx": "^4.19.2",
     "typescript": "^5.9.3"

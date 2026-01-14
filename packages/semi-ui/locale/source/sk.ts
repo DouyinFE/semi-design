@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Šablóna',
         configure: 'Nastaviť',
         selected: 'Vybrané položky (${count})',
+    },
+    AudioPlayer: {
+        backward: 'Späť ${skipDuration}s',
+        forward: 'Dopredu ${skipDuration}s',
+        prev: 'Predchádzajúci',
+        next: 'Nasledujúci',
+        loop: 'Opakovať',
+        volume: 'Hlasitosť',
+        mediaError: 'Chyba načítania audia'
     }
 };
 

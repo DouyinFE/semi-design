@@ -1552,7 +1552,7 @@ render(StreamingResponseToMessageDemo);
 | onMessageShare | 分享消息回调 | (message?: Message) => void | - |
 | onReferenceClick | 引用按钮点击回调 | (item?: Reference) => void | - |
 | onSelect | 选择项变更回调 | (selectedIds: string[]) => void | - |
-| renderConfig | 自定义各区块渲染 | DialogueRenderConfig | - |
+| dialogueRenderConfig | 自定义各区块渲染 | DialogueRenderConfig | - |
 | renderDialogueContentItem | 按消息类型返回内容渲染映射 | DialogueContentItemRendererMap | - |
 | renderHintBox | 自定义提示项渲染 | (props: { content: string; index: number; onHintClick: () => void }) => React.ReactNode | - |
 | roleConfig | 角色配置（user/assistant/system 等元数据） | [RoleConfig](/zh-CN/ai/aiChatDialogue#RoleConfig) | 必填 |

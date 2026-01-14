@@ -230,6 +230,15 @@ const local: Locale = {
         template: 'ลายฉลุ',
         configure: 'การกำหนดค่า',
         selected: '${count} รายการที่เลือก',
+    },
+    AudioPlayer: {
+        backward: 'ถอยหลัง ${skipDuration}s',
+        forward: 'ไปข้างหน้า ${skipDuration}s',
+        prev: 'ก่อนหน้า',
+        next: 'ถัดไป',
+        loop: 'วนซ้ำ',
+        volume: 'ระดับเสียง',
+        mediaError: 'ข้อผิดพลาดในการโหลดเสียง'
     }
 };
 

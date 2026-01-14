@@ -2,7 +2,7 @@ import { defineConfig } from '@rslib/core';
 
 export default defineConfig({
   lib: [
-    // MCP Server 入口 - stdio 模式
+    // MCP Server 导出入口 - 仅导出，不包含启动逻辑
     {
       source: {
         entry: {
@@ -18,6 +18,22 @@ export default defineConfig({
         },
       },
     },
+    // MCP Server 入口 - stdio 模式
+    {
+      source: {
+        entry: {
+          stdio: './src/stdio.ts',
+        },
+      },
+      format: 'esm',
+      syntax: ['node 18'],
+      dts: false,
+      output: {
+        distPath: {
+          root: './dist',
+        },
+      },
+    },
     // MCP Server 入口 - HTTP/SSE 模式
     {
       source: {
@@ -27,7 +43,7 @@ export default defineConfig({
       },
       format: 'esm',
       syntax: ['node 18'],
-      dts: true,
+      dts: false,
       output: {
         distPath: {
           root: './dist',

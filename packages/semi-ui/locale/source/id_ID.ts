@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Templat',
         configure: 'Konfigurasikan',
         selected: 'Item yang dipilih ${count}',
+    },
+    AudioPlayer: {
+        backward: 'Mundur ${skipDuration}s',
+        forward: 'Maju ${skipDuration}s',
+        prev: 'Sebelumnya',
+        next: 'Selanjutnya',
+        loop: 'Ulangi',
+        volume: 'Volume',
+        mediaError: 'Kesalahan memuat audio'
     }
 };
 

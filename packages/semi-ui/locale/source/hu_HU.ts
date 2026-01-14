@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Sablon',
         configure: 'Beállítás',
         selected: '${count} elem kiválasztva',
+    },
+    AudioPlayer: {
+        backward: 'Vissza ${skipDuration}s',
+        forward: 'Előre ${skipDuration}s',
+        prev: 'Előző',
+        next: 'Következő',
+        loop: 'Ismétlés',
+        volume: 'Hangerő',
+        mediaError: 'Audió betöltési hiba'
     }
 };
 

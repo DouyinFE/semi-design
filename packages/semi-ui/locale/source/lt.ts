@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Šablonas',
         configure: 'Konfigūruoti',
         selected: 'Pasirinkta ${count} elem.',
+    },
+    AudioPlayer: {
+        backward: 'Atgal ${skipDuration}s',
+        forward: 'Pirmyn ${skipDuration}s',
+        prev: 'Ankstesnis',
+        next: 'Kitas',
+        loop: 'Kartoti',
+        volume: 'Garsas',
+        mediaError: 'Garso įkėlimo klaida'
     }
 };
 

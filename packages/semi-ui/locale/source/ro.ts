@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Sablon',
         configure: 'Configurare',
         selected: '${count} articole selectate',
+    },
+    AudioPlayer: {
+        backward: 'Înapoi ${skipDuration}s',
+        forward: 'Înainte ${skipDuration}s',
+        prev: 'Anterior',
+        next: 'Următor',
+        loop: 'Repetă',
+        volume: 'Volum',
+        mediaError: 'Eroare la încărcarea audio'
     }
 };
 

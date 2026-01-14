@@ -233,6 +233,15 @@ const local: Locale = {
         template: 'Stencil',
         configure: 'Configuratie',
         selected: '${count} items geselecteerd',
+    },
+    AudioPlayer: {
+        backward: 'Terug ${skipDuration}s',
+        forward: 'Vooruit ${skipDuration}s',
+        prev: 'Vorige',
+        next: 'Volgende',
+        loop: 'Herhalen',
+        volume: 'Volume',
+        mediaError: 'Audio laadfout'
     }
 };
 

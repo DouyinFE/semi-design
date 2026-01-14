@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Template',
         configure: 'Configure',
         selected: 'Selected ${count} items',
+    },
+    AudioPlayer: {
+        backward: 'Backward ${skipDuration}s',
+        forward: 'Forward ${skipDuration}s',
+        prev: 'Previous',
+        next: 'Next',
+        loop: 'Loop',
+        volume: 'Volume',
+        mediaError: 'Audio load error'
     }
 };
 

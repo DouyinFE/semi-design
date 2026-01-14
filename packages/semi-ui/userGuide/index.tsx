@@ -312,13 +312,15 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         const { current } = this.state;
 
         const isCurrentStep = current === index;
+        if (!isCurrentStep) {
+            return null;
+        }
+        const target = typeof step.target === 'function' ? step.target() : step.target;
         if (!step.target) {
             return null;
         }
-
         const basePopoverStyle = { padding: 0 };
 
-        const target = typeof step.target === 'function' ? step.target() : step.target;
         const rect = target.getBoundingClientRect();
         const padding = step?.spotlightPadding || spotlightPadding || numbers.DEFAULT_SPOTLIGHT_PADDING;
         const isPrimaryTheme = theme === 'primary' || step?.theme === 'primary';

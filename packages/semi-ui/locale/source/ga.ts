@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Teimpléad',
         configure: 'Cumraigh',
         selected: 'Roghnaíodh ${count} mír',
+    },
+    AudioPlayer: {
+        backward: 'Siar ${skipDuration}s',
+        forward: 'Ar Aghaidh ${skipDuration}s',
+        prev: 'Roimhe Seo',
+        next: 'Ar Aghaidh',
+        loop: 'Lúb',
+        volume: 'Toirt',
+        mediaError: 'Earráid luchtú fuaime'
     }
 };
 

@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Kiolezo',
         configure: 'Weka mipangilio',
         selected: 'Umechagua vipengee ${count}',
+    },
+    AudioPlayer: {
+        backward: 'Nyuma ${skipDuration}s',
+        forward: 'Mbele ${skipDuration}s',
+        prev: 'Iliyopita',
+        next: 'Ifuatayo',
+        loop: 'Rudia',
+        volume: 'Sauti',
+        mediaError: 'Hitilafu ya kupakia sauti'
     }
 };
 

@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Malli',
         configure: 'Määritä',
         selected: 'Valitut ${count} kohdetta',
+    },
+    AudioPlayer: {
+        backward: 'Taakse ${skipDuration}s',
+        forward: 'Eteenpäin ${skipDuration}s',
+        prev: 'Edellinen',
+        next: 'Seuraava',
+        loop: 'Toista',
+        volume: 'Äänenvoimakkuus',
+        mediaError: 'Äänen latausvirhe'
     }
 };
 

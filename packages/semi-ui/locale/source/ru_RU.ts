@@ -229,6 +229,15 @@ const local: Locale = {
         template: 'Tрафарет',
         configure: 'Конфигурация',
         selected: 'Выбрано ${count} элементов',
+    },
+    AudioPlayer: {
+        backward: 'Назад ${skipDuration}s',
+        forward: 'Вперед ${skipDuration}s',
+        prev: 'Предыдущий',
+        next: 'Следующий',
+        loop: 'Повтор',
+        volume: 'Громкость',
+        mediaError: 'Ошибка загрузки аудио'
     }
 };
 

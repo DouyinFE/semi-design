@@ -227,6 +227,15 @@ const local: Locale = {
         template: 'テンプレート',
         configure: '設定',
         selected: '選択された ${count} 個',
+    },
+    AudioPlayer: {
+        backward: '戻る ${skipDuration}秒',
+        forward: '進む ${skipDuration}秒',
+        prev: '前へ',
+        next: '次へ',
+        loop: 'ループ',
+        volume: '音量',
+        mediaError: 'オーディオ読み込みエラー'
     }
 };
 

@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'القالب',
         configure: 'التكوين',
         selected: 'تم اختيار ${count} عناصر',
+    },
+    AudioPlayer: {
+        backward: 'تراجع ${skipDuration} ثانية',
+        forward: 'تقدم ${skipDuration} ثانية',
+        prev: 'السابق',
+        next: 'التالي',
+        loop: 'تكرار',
+        volume: 'الصوت',
+        mediaError: 'خطأ في تحميل الصوت'
     }
 };
 

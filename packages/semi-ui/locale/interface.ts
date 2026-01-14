@@ -226,5 +226,14 @@ export interface Locale {
         template: string;
         configure: string;
         selected: string
+    };
+    AudioPlayer: {
+        backward: string;
+        forward: string;
+        prev: string;
+        next: string;
+        loop: string;
+        volume: string;
+        mediaError: string
     }
 }

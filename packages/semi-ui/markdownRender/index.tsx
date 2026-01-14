@@ -29,7 +29,7 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
     constructor(props: MarkdownRenderProps) {
         super(props);
         this.state = {
-            MDXContentComponent: this.foundation.evaluateSync(this.props.raw)
+            MDXContentComponent: "div"
         };
     }
 
@@ -49,10 +49,18 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
         format: "mdx",
         remarkGfm: true,
     })
+    
+    componentDidMount(): void {
+        (async () => {
+            this.setState({ MDXContentComponent: await this.foundation.evaluate(this.props.raw) });
+        })();
+    }
 
     componentDidUpdate(prevProps: Readonly<MarkdownRenderProps>, prevState: Readonly<MarkdownRenderState>, snapshot?: any) {
         if (prevProps.raw !== this.props.raw) {
-            this.setState({ MDXContentComponent: this.foundation.evaluateSync(this.props.raw) });
+            (async () => {
+                this.setState({ MDXContentComponent: await this.foundation.evaluate(this.props.raw) });
+            })();
         }
     }
 

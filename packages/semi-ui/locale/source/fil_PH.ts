@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Template',
         configure: 'I-configure',
         selected: 'Napili ang ${count} (na) item',
+    },
+    AudioPlayer: {
+        backward: 'Bumalik ${skipDuration}s',
+        forward: 'Sumulong ${skipDuration}s',
+        prev: 'Nakaraang',
+        next: 'Susunod',
+        loop: 'Ulitin',
+        volume: 'Volume',
+        mediaError: 'Error sa pag-load ng audio'
     }
 };
 

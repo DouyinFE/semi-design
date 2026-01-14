@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'টেমপ্লেট',
         configure: 'কনফিগার করুন',
         selected: '${count}টি আইটেম নির্বাচন করা হয়েছে',
+    },
+    AudioPlayer: {
+        backward: 'পিছনে ${skipDuration}s',
+        forward: 'সামনে ${skipDuration}s',
+        prev: 'আগে',
+        next: 'পরে',
+        loop: 'লুপ',
+        volume: 'ভলিউম',
+        mediaError: 'অডিও লোড ত্রুটি'
     }
 };
 

@@ -1,17 +1,17 @@
 // Size
-$width-datepicker_day: 36px; // 日期格子尺寸
+$width-datepicker_day: 36px; // 日期格子及星期标题尺寸
 $width-datepicker_day_main: 32px; // 日期格子内容尺寸
-$width-datepicker_month: $width-datepicker_day * 7; // 年月面板宽度
-$width-datepicker_nav: 32px; // 导航高度
+$width-datepicker_month: $width-datepicker_day * 7; // 日期视图单月面板宽度
+$width-datepicker_nav: 32px; // 顶部导航栏高度
 $height-datepicker_switch: 54px; // 日期时间切换高度
 $height-datepicker_timeType_yam: calc(100% - 54px); // 时间面板高度
 $height-datepicker_timeType_tpk: calc(100% - 54px); // 时间面板高度
-$height-datepicker_panel_yam_scrolllist:  266px; // 时间滚动内容高度
+$height-datepicker_panel_yam_scrolllist:  266px; // 年月选择列表滚动区域高度
 
 $width-datepicker_monthPanel_max: 284px; // 年月选择器最大宽度
 $width-datepicker_monthRangePanel_max: 384px; // 年月选择器最大宽度
-$height-datepicker_timepicker_header_min: 24px; // 年月选择 header 最小高度
-$width-datepicker_navigation_button_min: 32px; // header 按钮最小宽度
+$height-datepicker_timepicker_header_min: 24px; // 年月选择面板顶部导航栏最小高度
+$width-datepicker_navigation_button_min: 32px; // 顶部导航栏按钮最小宽度
 $height-datepicker_yamShowing_min: 378px; // 日期时间选择器菜单最小高度
 $width-datepicker_yamShowing_min: 284px; // 选择器菜单最小宽度
 $height-datepicker_dateType_yamShowing_min: 325px; // 日期选择器菜单最小高度
@@ -20,8 +20,8 @@ $width-datepicker_presetPanel_left_and_right: 200px; // 左右方位快捷选择
 $height-datepicker_presetPanel_top_and_bottom_max: 100px; // 上下方位快捷选择面板最大高度
 $width-datepicker_presetPanel_scroll_bar: 15px; // 快捷选择面板scrollbar宽度
 
-$width-datepicker-border: $border-thickness-control; // 年月选择 header 底部分割线宽度
-$width-datepicker_yam_header-borderRadius: var(--semi-border-radius-medium); // 年月选择 header 按钮圆角
+$width-datepicker-border: $border-thickness-control; // 年月选择面板顶部导航栏底部分割线宽度
+$width-datepicker_yam_header-borderRadius: var(--semi-border-radius-medium); // 年月选择面板顶部导航栏圆角
 $width-datepicker_day_main-borderRadius: var(--semi-border-radius-small); // 日期格子圆角
 $width-datepicker_quick_control-borderRadius: var(--semi-border-radius-medium); // 快捷操作按钮圆角
 $width-datepicker_slot-border: 1px; // 日期星期分割线宽度
@@ -40,8 +40,8 @@ $width-datepicker_range_trigger-border: 0px; //  触发器边框宽度
 
 // Spacing
 $spacing-datepicker_day-marginX: ($width-datepicker_day - $width-datepicker_day_main) * 0.5; // 日期格子水平外边距
-$spacing-datepicker_yam_header-paddingX: $spacing-base; // 年月选择 header 水平内边距
-$spacing-datepicker_yam_header-paddingY: $spacing-base-tight; // 年月选择 header 垂直内边距
+$spacing-datepicker_yam_header-paddingX: $spacing-base; // 年月选择面板顶部导航栏水平内边距
+$spacing-datepicker_yam_header-paddingY: $spacing-base-tight; // 年月选择面板顶部导航栏垂直内边距
 $spacing-datepicker_scrolllist_header-padding: $spacing-base; // 时间选择 header 内边距
 $spacing-datepicker_scrolllist_body-padding: 0; // 时间选择滚动菜单内边距
 $spacing-datepicker_footer-paddingTop: 10px; // 确认选择 footer 顶部内边距
@@ -55,7 +55,7 @@ $spacing-datepicker_month-padding: $spacing-base;
 $spacing-datepicker_switch_datetime-paddingTop: $spacing-base; // 日期时间切换顶部内边距
 $spacing-datepicker_switch_datetime-paddingBottom: $spacing-base; // 日期时间切换底部内边距
 $spacing-datepicker_switch_text-paddingLeft: $spacing-tight; // 日期时间切换左侧内边距
-$spacing-datepicker_quick_control_header-paddingTop: 18px;  // 快捷面板标题，上内边距
+$spacing-datepicker_quick_control_header-paddingTop: 18px;  // 快捷预设面板标题区域上内边距
 $spacing-datepicker_quick_control_top_and_bottom_content-paddingX: $spacing-base-loose; // 上下方位快捷操作面板, 左右内边距，默认20px
 $spacing-datepicker_quick_control_content-paddingX: 12px; // 快捷面板内容，左右内边距
 $spacing-datepicker_quick_control_content-marginTop: 14px; // 快捷面板内容，上边距
@@ -88,7 +88,7 @@ $color-datepicker_footer-bg-default: var(--semi-color-fill-0); // 日期选择�
 $color-datepicker_quick-bg-default: transparent; // 日期选择器快捷操作背景颜色
 $color-datepicker_quick_button-text-default: var(--semi-color-primary); // 日期选择器快捷操作按钮文字颜色
 
-$color-datepicker_day-text-default: var(--semi-color-text-2); // 日期时间切换文字颜色 - 默认
+$color-datepicker_day-text-default: var(--semi-color-text-2); // 星期标题及日期时间切换按钮文字颜色 - 默认
 $color-datepicker_day-text-hover: var(--semi-color-fill-1); // 日期时间切换文字颜色 - 悬浮
 $color-datepicker_day-text-active: var(--semi-color-text-0); // 日期时间切换文字颜色 - 选中
 
@@ -109,13 +109,13 @@ $color-datepicker_date_today-text-default: var(--semi-color-primary); // 今日�
 $color-datepicker_date_today_disabled-text-default: var(--semi-color-primary-disabled); // 今日文字颜色 - 禁用
 
 $color-datepicker_date_inHover-bg-default: var(--semi-color-primary-light-default); // 范围选择日期格子颜色
-$color-datepicker_date_inRangeHover-bg-default: var(--semi-color-fill-0); // 年月面板菜单项背景色 - 悬浮
-$color-datepicker_date_hoverDay-bg-default: var(--semi-color-fill-1); // 年月面板菜单项背景色 - 按下
+$color-datepicker_date_inRangeHover-bg-default: var(--semi-color-fill-0); // 范围选择时悬停路径内的日期背景色
+$color-datepicker_date_hoverDay-bg-default: var(--semi-color-fill-1); // 范围选择时日期格子背景色 - 悬停
 $color-datepicker_date_selectedRange-bg-hover: var(--semi-color-primary-light-hover); // 范围选择日期格子颜色 - 悬浮
 $color-datepicker_date_hoverday_range-bg-default: var(--semi-color-primary-light-active);
 $color-datepicker_date_hoverday_around_single_selected-bg-default: var(--semi-color-primary-light-active);
 
-$color-datepicker_nav_monthIcon-text-default: var(--semi-color-text-0); // 日期选择器 header 文字颜色
+$color-datepicker_nav_monthIcon-text-default: var(--semi-color-text-0); // 顶部导航栏年月文字颜色 - 默认
 $color-datepicker_navIcon-text-default: var(--semi-color-text-2);  // 日期选择器 header 左右箭头颜色
 $color-datepicker_input_primary-text-default: var(--semi-color-primary);
 $color-datepicker_range_input-text-default: var(--semi-color-text-2);

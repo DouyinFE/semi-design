@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Şablon',
         configure: 'Konfiqurasiya',
         selected: 'Seçilmiş ${count} element',
+    },
+    AudioPlayer: {
+        backward: 'Geri ${skipDuration}s',
+        forward: 'İrəli ${skipDuration}s',
+        prev: 'Əvvəlki',
+        next: 'Növbəti',
+        loop: 'Təkrarla',
+        volume: 'Səs',
+        mediaError: 'Audio yüklənmə xətası'
     }
 };
 

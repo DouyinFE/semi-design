@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Шаблон',
         configure: 'Налаштувати',
         selected: 'Вибрано елементів: ${count}',
+    },
+    AudioPlayer: {
+        backward: 'Назад ${skipDuration}s',
+        forward: 'Вперед ${skipDuration}s',
+        prev: 'Попередній',
+        next: 'Наступний',
+        loop: 'Повтор',
+        volume: 'Гучність',
+        mediaError: 'Помилка завантаження аудіо'
     }
 };
 

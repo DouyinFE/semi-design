@@ -226,6 +226,15 @@ const local: Locale = {
         template: 'Veidne',
         configure: 'Konfigurēt',
         selected: 'Atlasīto vienumu skaits: ${count}',
+    },
+    AudioPlayer: {
+        backward: 'Atpakaļ ${skipDuration}s',
+        forward: 'Uz priekšu ${skipDuration}s',
+        prev: 'Iepriekšējais',
+        next: 'Nākamais',
+        loop: 'Cikls',
+        volume: 'Skaļums',
+        mediaError: 'Audio ielādes kļūda'
     }
 };
 
