@@ -16,6 +16,13 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.91.0-beta.0 (2026-01-14)
+- 【Feat】
+    - Added Sidebar component
+- 【Docs】
+    - Optimized token descriptions for 10 components including Button, Select, Checkbox, Input, Radio, Switch, Tabs, Navigation, Cascader, Table, Datepicker, and Upload.
+
+
 #### 🎉 2.90.12 (2026-01-13)
 - 【Fix】
     - Fixed an issue where the onExceed callback was not triggered when selecting new values in Select component's multiple mode, when the defaultValue count exceeded the max limit

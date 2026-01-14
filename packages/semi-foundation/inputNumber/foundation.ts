@@ -149,7 +149,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         for (const part of parts) {
             if (part.type === 'decimal') {
                 this._decimalPointSymbol = part.value;
-                console.log('this._decimalPointSymbol: ', this._decimalPointSymbol);
+                // console.log('this._decimalPointSymbol: ', this._decimalPointSymbol);
             }
             // if (part.type === 'group') {
             //     groupSeparator = part.value;
