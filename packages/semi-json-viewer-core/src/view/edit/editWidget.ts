@@ -62,12 +62,10 @@ export class EditWidget {
 
         this._view.contentDom.addEventListener('mousedown', e => {
             if (e.button !== 0) return; // 只处理左键
-            this._selectionModel.isSelecting = true;
             this._selectionModel.updateFromSelectingStart();
         });
 
         this._view.contentDom.addEventListener('mousemove', e => {
-            if (!this._selectionModel.isSelecting) return;
             if (e.button !== 0) return; // 只处理左键
         });
 
@@ -93,7 +91,7 @@ export class EditWidget {
             endRow = lineCount;
             endCol = this._jsonModel.getLineLength(lineCount) + 1;
         }
-        
+
         // 确保最小值为1
         startRow = Math.max(1, startRow);
         startCol = Math.max(1, startCol);
@@ -153,7 +151,7 @@ export class EditWidget {
     private _handleBeforeInput(e: InputEvent) {
         if (this._isComposition) return;
         e.preventDefault();
-        if (!this._selectionModel.isSelecting) {
+        if (this._selectionModel.isCollapsed) {
             this._selectionModel.updateFromSelection();
         }
         // this._selectionModel.updateFromSelection();
@@ -190,14 +188,17 @@ export class EditWidget {
                 } as Range);
                 if (enterAction) {
                     if (enterAction.indentAction === IndentAction.Indent) {
-                        op.newText = '\n' + this.normalizeIndentation(enterAction.appendText + enterAction.indentation) || '';
+                        op.newText =
+                            '\n' + this.normalizeIndentation(enterAction.appendText + enterAction.indentation) || '';
                         op.keepPosition = {
                             lineNumber: startLineNumber + 1,
                             column: op.newText.length,
                         };
                     } else {
                         const normalIndent = this.normalizeIndentation(enterAction.indentation);
-                        const increasedIndent = this.normalizeIndentation(enterAction.indentation + enterAction.appendText);
+                        const increasedIndent = this.normalizeIndentation(
+                            enterAction.indentation + enterAction.appendText
+                        );
                         op.newText = '\n' + increasedIndent + '\n' + normalIndent;
                         op.keepPosition = {
                             lineNumber: startLineNumber + 1,
@@ -243,7 +244,7 @@ export class EditWidget {
                 break;
         }
         this._selectionModel.isSelectedAll = false;
-        this._selectionModel.isSelecting = false;
+        this._selectionModel.isCollapsed = true;
 
         this._jsonModel.applyOperation(op);
     }
@@ -320,10 +321,6 @@ export class EditWidget {
 
     private _handleKeyDown(e: KeyboardEvent) {
         // this._selectionModel.updateFromSelection();
-        
-        if (!this._selectionModel.isSelecting) {
-            this._selectionModel.updateFromSelection();
-        }
         const startRow = this._selectionModel.startRow;
         const startCol = this._selectionModel.startCol;
         const endRow = this._selectionModel.endRow;
