@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 102
+order: 103
 category: Ai
 title: Sidebar
 icon: doc-sidebar

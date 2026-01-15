@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 102
+order: 103
 category: Ai
 title: Sidebar 侧边信息栏
 icon: doc-sidebar
