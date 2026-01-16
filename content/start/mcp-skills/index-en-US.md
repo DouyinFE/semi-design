@@ -51,6 +51,18 @@ Through Semi Skills, AI assistants can think and code like professional Semi Des
 
 ## Installation Guide
 
+<Notice type="warning" title='⚠️ Version Requirements'>
+Before starting the installation, please ensure your environment meets the following version requirements:
+- **Node.js**: Version must be greater than 20.19.0
+- **npm**: Version must be greater than 11.3.0
+
+If the versions do not meet the requirements, MCP will not run properly. You can check your current versions with the following commands:
+```bash
+node -v
+npm -v
+```
+</Notice>
+
 ### Install MCP
 
 Installation methods vary by client. Here are the configuration methods for common clients:
