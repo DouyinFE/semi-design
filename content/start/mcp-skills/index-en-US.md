@@ -53,6 +53,7 @@ Through Semi Skills, AI assistants can think and code like professional Semi Des
 
 <Notice type="warning" title='⚠️ Version Recommendations'>
 Before starting the installation, it is recommended that your environment meets the following version requirements:
+
 - **Node.js**: Recommended version greater than 20.19.0
 - **npm**: Recommended version greater than 11.3.0
 
