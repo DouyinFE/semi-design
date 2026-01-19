@@ -1,13 +1,13 @@
 {
     "name": "@douyinfe/semi-foundation",
-    "version": "2.38.3-alpha.2-patch-2254",
+    "version": "2.38.3-alpha.2-patch-select-max",
     "description": "",
     "scripts": {
         "build:lib": "node ./scripts/compileLib.js",
         "prepublishOnly": "npm run build:lib"
     },
     "dependencies": {
-        "@douyinfe/semi-animation": "2.38.3-alpha.2-patch-2254",
+        "@douyinfe/semi-animation": "2.38.3-alpha.2-patch-select-max",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
         "date-fns": "^2.29.3",
