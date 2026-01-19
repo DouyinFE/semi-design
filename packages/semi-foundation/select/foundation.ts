@@ -455,7 +455,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         if (selections.has(label)) {
             this._notifyDeselect(value, { value, label, ...rest });
             selections.delete(label);
-        } else if (maxLimit && selections.size === maxLimit) {
+        } else if (maxLimit && selections.size >= maxLimit) {
             this._adapter.notifyMaxLimit({ value, label, ...omit(rest, '_scrollIndex') });
             return;
         } else {
