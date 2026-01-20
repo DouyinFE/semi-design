@@ -57,6 +57,7 @@ import {
   ArrayFieldWithFormInitValues,
   ArrayFieldWithInitValue,
   ArrayFieldSetValues,
+  ArrayFieldIndexedInsertDemo
 } from './DynamicField/arrayFieldDemo';
 import { NestArrayField } from './DynamicField/nestArrayField';
 import { ArrayDemo } from './FormApi/arrayDemo';
@@ -154,6 +155,7 @@ export const ArrayFieldWithArrayFieldInitValue = () => <ArrayFieldWithInitValue 
 export const ArrayFieldSetValuesDemo = () => <ArrayFieldSetValues />;
 export const ArrayFieldNestUsage = () => <NestArrayField />;
 export const _ArrayFieldCollapseDemo = () => <ArrayFieldCollapseDemo />;
+export const ArrayFieldIndexedInsertStory  = () => <ArrayFieldIndexedInsertDemo />;
 
 
 export const LinkField = () => <LinkFieldForm />;
