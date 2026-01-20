@@ -200,6 +200,12 @@ function withField<
             setStatus('default');
         };
 
+
+        const unmounted = useRef(false);
+        useEffect(() => () => {
+            unmounted.current = true;
+        }, []);
+
         // Execute the validation rules specified by rules
         const _validateInternal = (val: any, callOpts: CallOpts) => {
             let latestRules = rulesRef.current || [];
@@ -222,6 +228,9 @@ function withField<
                             console.warn(`[Semi Form]: When FieldComponent (${field}) has an unfinished validation process, you repeatedly trigger a new validation, the old validation will be abandoned, and will neither resolve nor reject. Usually this is an unreasonable practice. Please check your code.`);
                             return;
                         }
+                        if (unmounted.current) {
+                            return;
+                        }
                         // validation passed
                         setStatus('success');
                         updateError(undefined, callOpts);
@@ -230,6 +239,9 @@ function withField<
                     .catch(err => {
                         if (isUnmounted.current || validatePromise.current !== rootPromise) {
                             console.warn(`[Semi Form]: When FieldComponent (${field}) has an unfinished validation process, you repeatedly trigger a new validation, the old validation will be abandoned, and will neither resolve nor reject. Usually this is an unreasonable practice. Please check your code.`);
+                            return;
+                        }
+                        if (unmounted.current) {
                             return;
                         }
                         let { errors, fields } = err;
