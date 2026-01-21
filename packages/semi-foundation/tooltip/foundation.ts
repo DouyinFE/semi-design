@@ -88,9 +88,9 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     }
 
     init() {
-        const { wrapperId } = this.getProps();
+        const { wrapperId, exist } = this.getProps();
         this._mounted = true;
-        this._bindEvent();
+        exist && this._bindEvent();
         this._shouldShow();
         if (!wrapperId) {
             this._adapter.setId();
