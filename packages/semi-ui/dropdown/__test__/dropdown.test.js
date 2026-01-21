@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Icon, Dropdown, Tag } from '../../index';
 import { string } from 'prop-types';
 import { noop, drop } from 'lodash';
@@ -308,5 +309,84 @@ describe('Dropdown', () => {
         DD.setProps({ menu: menu2 })
         DD.update()
         expect(DD.find('.semi-dropdown-menu').children().length).toEqual(menu2.length - 1);
+    });
+
+    it('Nested Dropdown - should trigger onClick of nested item before parent closes', async () => {
+        const spyChildClick = sinon.spy();
+        const spyParentClickOutside = sinon.spy();
+        
+        const Demo = () => {
+            const [visible, setVisible] = useState(true);
+            return (
+                <Dropdown
+                    trigger="custom"
+                    visible={visible}
+                    motion={false}
+                    onClickOutSide={() => {
+                        spyParentClickOutside();
+                        setVisible(false);
+                    }}
+                    content={
+                        <Dropdown.Menu>
+                            {/* We use DropdownContext.Provider here to simulate nested structure without full component tree if needed, 
+                                but here we rely on standard usage pattern which works with the fix.
+                                Actually in this simplified test setup, Dropdown inside Dropdown.Menu might need manual context 
+                                if not rendered by Parent Dropdown's renderContent logic in a way that passes context.
+                                BUT: Dropdown component itself consumes context. 
+                                The parent Dropdown renders content via Portal.
+                                The nested Dropdown is inside that Portal.
+                            */}
+                            {/* Note: In real app, nested Dropdown works because it is children of Dropdown.Menu 
+                                which is rendered by Dropdown.
+                            */}
+                             <Dropdown
+                                position="rightTop"
+                                trigger="click"
+                                motion={false}
+                                visible={true}
+                                render={
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item onClick={spyChildClick} className="child-item">
+                                            Child Item
+                                        </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                }
+                            >
+                                <Dropdown.Item className="child-trigger">Hover to open child</Dropdown.Item>
+                            </Dropdown>
+                        </Dropdown.Menu>
+                    }
+                >
+                    <div className="parent-trigger">Open Parent</div>
+                </Dropdown>
+            );
+        };
+
+        // We need to use mount with attachTo for Portal to work correctly in jsdom environment regarding events
+        const wrapper = mount(<Demo />, { attachTo: document.getElementById('container') });
+        
+        await sleep(100);
+        wrapper.update();
+        
+        const childItemNode = document.querySelector('.child-item');
+        if (!childItemNode) {
+            throw new Error('Child item not found');
+        }
+        
+        // Simulate mousedown on child item
+        // This triggers window mousedown listener in Parent Dropdown
+        const mousedownEvent = new MouseEvent('mousedown', { bubbles: true, cancelable: true, view: window });
+        childItemNode.dispatchEvent(mousedownEvent);
+        
+        wrapper.update();
+        
+        // Dispatch click.
+        const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true, view: window });
+        childItemNode.dispatchEvent(clickEvent);
+        
+        // Check expectations
+        expect(spyChildClick.calledOnce).toBe(true);
+        // With stopPropagation fix, parent onClickOutside should NOT be called
+        expect(spyParentClickOutside.called).toBe(false);
     });
 });

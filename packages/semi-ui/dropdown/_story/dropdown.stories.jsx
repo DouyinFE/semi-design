@@ -396,3 +396,49 @@ export function Fix1606() {
       </Dropdown>
   );
 }
+
+export function NestedDropdownIssue() {
+    const [visible, setVisible] = React.useState(false);
+    return (
+        <div style={{ padding: 50 }}>
+            <Dropdown
+                trigger="custom"
+                visible={visible}
+                onClickOutSide={() => {
+                    console.log('1. Parent onClickOutSide triggered, closing');
+                    setVisible(false);
+                }}
+                content={
+                    <Dropdown.Menu>
+                        <Dropdown
+                            position="rightTop"
+                            render={
+                                <Dropdown.Menu>
+                                    <Dropdown
+                                        position="rightTop"
+                                        render={
+                                            <Dropdown.Menu>
+                                                <Dropdown.Item onClick={() => console.log('3. Grandchild menu onClick triggered')}>
+                                                    Grandchild Item (Click me)
+                                                </Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        }
+                                    >
+                                        <Dropdown.Item>Hover to expand grandchild</Dropdown.Item>
+                                    </Dropdown>
+                                    <Dropdown.Item onClick={() => console.log('2. Child menu onClick triggered')}>
+                                        Child Item
+                                    </Dropdown.Item>
+                                </Dropdown.Menu>
+                            }
+                        >
+                            <Dropdown.Item>Hover to expand child menu</Dropdown.Item>
+                        </Dropdown>
+                    </Dropdown.Menu>
+                }
+            >
+                <Button onClick={() => setVisible(true)}>Open Dropdown</Button>
+            </Dropdown>
+        </div>
+    );
+}
