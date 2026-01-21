@@ -8,7 +8,7 @@ on:
                 description: '要发布的基础分支名称 (例如: release-v2, feature-xxx) | 原始分支不会被修改'
                 required: true
             target_version:
-                description: '目标版本号 (例如: 2.74.0) | 会在新分支 v版本号 上发布'
+                description: '目标版本号 (例如: 2.74.0) | 会在新分支 v版本号-publish 上发布'
                 required: true
 
 jobs:
@@ -38,7 +38,7 @@ jobs:
             - name: Create new branch with version name
               run: |
                   set -e
-                  git checkout -b v${{ github.event.inputs.target_version }}
+                  git checkout -b v${{ github.event.inputs.target_version }}-publish
 
             - name: Use Node.js 20
               uses: actions/setup-node@v4
@@ -69,4 +69,6 @@ jobs:
                   echo "Publishing version: ${{ github.event.inputs.target_version }}"
                   lerna version ${{ github.event.inputs.target_version }} --exact --force-publish --yes --no-push
                   lerna publish from-package --yes --dist-tag custom
-                  git push --set-upstream origin v${{ github.event.inputs.target_version }} -o ci.skip --follow-tags --no-verify
+                  BRANCH_NAME=v${{ github.event.inputs.target_version }}-publish
+                  git push --set-upstream origin HEAD:refs/heads/$BRANCH_NAME -o ci.skip --no-verify
+                  git push origin refs/tags/v${{ github.event.inputs.target_version }} --no-verify
