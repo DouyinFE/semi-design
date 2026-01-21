@@ -18,6 +18,7 @@ jobs:
         steps:
             - name: gen token
               run: |
+                  set -e
                   git config --global user.name 'semi-team'
                   git config --global user.email 'semi-team@bytedance.com'
                   mkdir ~/.ssh
@@ -36,6 +37,7 @@ jobs:
 
             - name: Create new branch with version name
               run: |
+                  set -e
                   git checkout -b v${{ github.event.inputs.target_version }}
 
             - name: Use Node.js 20
@@ -44,13 +46,15 @@ jobs:
                   node-version: 20
 
             - name: npm install
-              run: npm i -g lerna@^4.0.0 && npm run bootstrap
+              run: |
+                  set -e
+                  npm i -g lerna@^4.0.0 && npm run bootstrap
 
             - name: publish
               run: |
+                  set -e
                   git config --global user.name 'semi-team'
                   git config --global user.email 'semi-team@bytedance.com'
-                  node scripts/sitemap_update.js
                   if [ -n "$(git status --porcelain)" ]; then
                     echo "there are changes";
                     git add .
