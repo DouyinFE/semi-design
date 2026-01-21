@@ -11,7 +11,18 @@ export interface OverflowListAdapter extends DefaultAdapter {
     getItemSizeMap: () => Map<string, number>
 }
 
+// 防抖稳定性检测的时间阈值（毫秒）
+const STABILITY_THRESHOLD_MS = 150;
+
 class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
+    // 记录上次的 overflow 结果，用于稳定性检测
+    previousOverflowResult: Array<Array<Record<string, any>>> = [[], []];
+    
+    // 记录每个 item 的状态变化历史（时间戳）
+    stateChangeHistory: Map<string, number[]> = new Map();
+    
+    // 最后一次稳定更新的时间戳
+    lastStableUpdateTimestamp: number = 0;
 
     constructor(adapter: OverflowListAdapter) {
         super({ ...adapter });
@@ -35,10 +46,50 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
         const visibleStart = visibleStateArr.indexOf(true);
         const visibleEnd = visibleStateArr.lastIndexOf(true);
 
-        const overflowList = [];
+        const overflowList: Array<Array<Record<string, any>>> = [];
         overflowList[0] = visibleStart >= 0 ? items.slice(0, visibleStart) : [];
         overflowList[1] = visibleEnd >= 0 ? items.slice(visibleEnd + 1, items.length) : items;
+        
+        // 稳定性检测：比较新旧 overflow 结果
+        const isResultChanged = this.isOverflowResultChanged(overflowList);
+        
+        if (isResultChanged) {
+            const now = Date.now();
+            const timeSinceLastUpdate = now - this.lastStableUpdateTimestamp;
+            
+            // 如果距离上次稳定更新时间太短，说明可能在抖动，返回上次稳定结果
+            if (timeSinceLastUpdate < STABILITY_THRESHOLD_MS && this.previousOverflowResult[0].length + this.previousOverflowResult[1].length > 0) {
+                return this.previousOverflowResult;
+            }
+            
+            // 更新稳定状态
+            this.lastStableUpdateTimestamp = now;
+            this.previousOverflowResult = overflowList;
+        }
+        
         return overflowList;
+    }
+    
+    /**
+     * 检查 overflow 结果是否发生变化
+     */
+    isOverflowResultChanged(newResult: Array<Array<Record<string, any>>>): boolean {
+        const prevLeft = this.previousOverflowResult[0];
+        const prevRight = this.previousOverflowResult[1];
+        const newLeft = newResult[0];
+        const newRight = newResult[1];
+        
+        if (prevLeft.length !== newLeft.length || prevRight.length !== newRight.length) {
+            return true;
+        }
+        
+        // 比较 key 是否一致
+        const prevLeftKeys = prevLeft.map(item => item.key).join(',');
+        const prevRightKeys = prevRight.map(item => item.key).join(',');
+        const newLeftKeys = newLeft.map(item => item.key).join(',');
+        const newRightKeys = newRight.map(item => item.key).join(',');
+        
+        return prevLeftKeys !== newLeftKeys || prevRightKeys !== newRightKeys;
     }
 
     handleIntersect(entries: Array<IntersectionObserverEntry>): void {
