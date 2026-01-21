@@ -1,0 +1,65 @@
+name: 'Publish(指定版本)'
+
+on:
+    workflow_dispatch:
+        inputs:
+            branch:
+                description: '要发布的分支名称'
+                required: true
+            target_version:
+                description: '目标版本号 (例如: 2.74.0)'
+                required: true
+
+jobs:
+    publish-specified-version:
+        name: '在指定分支发布指定版本'
+        runs-on: ubuntu-latest
+        steps:
+            - name: gen token
+              run: |
+                  git config --global user.name 'semi-team'
+                  git config --global user.email 'semi-team@bytedance.com'
+                  mkdir ~/.ssh
+                  echo $SEMI_TEAM_PRIVATE_KEY > ~/.ssh/ssh-ed25519
+                  echo $SEMI_TEAM_PRIVATE_KEY_PUB > ~/.ssh/ssh-ed25519.pub
+                  echo "Host\n  github.com\n  AddKeysToAgent yes\n  UseKeychain yes\n  IdentityFile ~/.ssh/id_ed25519" > ~/.ssh/config
+
+            - name: Checkout source branch
+              uses: actions/checkout@v4
+              with:
+                  ref: ${{ github.event.inputs.branch }}
+
+            - name: Create new branch with version name
+              run: |
+                  git config --global user.name 'semi-team'
+                  git config --global user.email 'semi-team@bytedance.com'
+                  git checkout -b v${{ github.event.inputs.target_version }}
+
+            - name: Use Node.js 20
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+
+            - name: npm install
+              run: npm i -g lerna@^4.0.0 && npm run bootstrap
+
+            - name: publish
+              run: |
+                  git config --global user.name 'semi-team'
+                  git config --global user.email 'semi-team@bytedance.com'
+                  node scripts/sitemap_update.js
+                  if [ -n "$(git status --porcelain)" ]; then
+                    echo "there are changes";
+                    git add .
+                    git commit --no-verify -m "chore: publish ${{ github.event.inputs.target_version }}"
+                  else
+                    echo "no changes";
+                  fi
+                  npm config set registry=https://registry.npmjs.org/
+                  npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+                  npm whoami
+                  echo "Publishing version: ${{ github.event.inputs.target_version }}"
+                  echo "Branch: ${{ github.event.inputs.branch }}"
+                  lerna version ${{ github.event.inputs.target_version }} --exact --force-publish --yes --no-push
+                  lerna publish from-package --yes --dist-tag custom
+                  git push -o ci.skip --follow-tags --no-verify
