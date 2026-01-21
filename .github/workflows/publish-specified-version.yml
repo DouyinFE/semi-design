@@ -69,4 +69,4 @@ jobs:
                   echo "Publishing version: ${{ github.event.inputs.target_version }}"
                   lerna version ${{ github.event.inputs.target_version }} --exact --force-publish --yes --no-push
                   lerna publish from-package --yes --dist-tag custom
-                  git push -o ci.skip --follow-tags --no-verify
+                  git push --set-upstream origin v${{ github.event.inputs.target_version }} -o ci.skip --follow-tags --no-verify
