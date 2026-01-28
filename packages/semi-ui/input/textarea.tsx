@@ -61,7 +61,11 @@ export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
        Used to disable line breaks by pressing the enter key。
        Press enter + shift at the same time can start new line.
     */
-    disabledEnterStartNewLine?: boolean
+    disabledEnterStartNewLine?: boolean;
+    showLineNumber?: boolean;
+    lineNumberStart?: number;
+    lineNumberClassName?: string;
+    lineNumberStyle?: React.CSSProperties
 }
 
 export interface TextAreaState {
@@ -94,6 +98,10 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         onCompositionUpdate: PropTypes.func,
         getValueLength: PropTypes.func,
         disabledEnterStartNewLine: PropTypes.bool,
+        showLineNumber: PropTypes.bool,
+        lineNumberStart: PropTypes.number,
+        lineNumberClassName: PropTypes.string,
+        lineNumberStyle: PropTypes.object,
         // TODO
         // resize: PropTypes.bool,
     };
@@ -115,6 +123,10 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         onCompositionStart: noop,
         onCompositionEnd: noop,
         onCompositionUpdate: noop,
+        showLineNumber: false,
+        lineNumberStart: 1,
+        lineNumberClassName: '',
+        lineNumberStyle: {},
         // resize: false,
     };
 
@@ -207,6 +219,15 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         this.foundation.handleClear(e);
     };
 
+    renderLineNumbers(value: string, start: number) {
+        const lines = value ? value.split('\n').length : 1;
+        return Array.from({ length: lines }).map((_, i) => (
+            <div key={i} className={`${prefixCls}-textarea-lineNumber-item`}>
+                {start + i}
+            </div>
+        ));
+    }
+
     renderClearBtn() {
         const { showClear } = this.props;
         const displayClearBtn = this.foundation.isAllowClear();
@@ -248,6 +269,17 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         return counter;
     }
 
+    lineNumberContainerRef: HTMLDivElement | null = null;
+    lineNumberInnerRef: HTMLDivElement | null = null;
+
+    handleTextareaScroll = (e: React.UIEvent<HTMLTextAreaElement>) => {
+        if (this.props.showLineNumber && this.lineNumberInnerRef) {
+            const st = (e.target as HTMLTextAreaElement).scrollTop;
+            this.lineNumberInnerRef.style.transform = `translateY(-${st}px)`;
+        }
+        this.props.onScroll?.(e);
+    }
+
     setRef = (node: HTMLTextAreaElement) => {
         (this.libRef as any).current = node;
         const { forwardRef } = this.props;
@@ -280,6 +312,10 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             showClear,
             borderless,
             autoFocus,
+            showLineNumber,
+            lineNumberStart,
+            lineNumberClassName,
+            lineNumberStyle,
             ...rest
         } = this.props;
         const { isFocus, value, minLength: stateMinLength } = this.state;
@@ -289,6 +325,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             [`${prefixCls}-textarea-wrapper-readonly`]: readonly,
             [`${prefixCls}-textarea-wrapper-${validateStatus}`]: Boolean(validateStatus),
             [`${prefixCls}-textarea-wrapper-focus`]: isFocus,
+            [`${prefixCls}-textarea-wrapper-showLineNumber`]: showLineNumber,
             // [`${prefixCls}-textarea-wrapper-resize`]: !autosize && resize,
         });
         // const ref = this.props.forwardRef || this.textAreaRef;
@@ -328,12 +365,28 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
                 onMouseEnter={e => this.foundation.handleMouseEnter(e)}
                 onMouseLeave={e => this.foundation.handleMouseLeave(e)}
             >
+                {showLineNumber ? (
+                    <div
+                        ref={ref => { this.lineNumberContainerRef = ref; }}
+                        className={cls(`${prefixCls}-textarea-lineNumber`, lineNumberClassName)}
+                        style={lineNumberStyle}
+                        aria-hidden
+                        role="presentation"
+                    >
+                        <div
+                            ref={ref => { this.lineNumberInnerRef = ref; }}
+                            className={`${prefixCls}-textarea-lineNumber-inner`}
+                        >
+                            {this.renderLineNumbers(value, lineNumberStart)}
+                        </div>
+                    </div>
+                ) : null}
                 {autosize ? (
                     <ResizeObserver onResize={this.throttledResizeTextarea}>
-                        <textarea {...itemProps} ref={this.setRef} />
+                        <textarea {...itemProps} ref={this.setRef} onScroll={this.handleTextareaScroll} />
                     </ResizeObserver>
                 ) : (
-                    <textarea {...itemProps} ref={this.setRef} />
+                    <textarea {...itemProps} ref={this.setRef} onScroll={this.handleTextareaScroll} />
                 )}
                 {this.renderClearBtn()}
                 {this.renderCounter()}

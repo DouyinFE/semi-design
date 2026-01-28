@@ -229,4 +229,39 @@ $module: #{$prefix}-input;
 
 }
 
+
+.#{$module}-textarea-wrapper-showLineNumber {
+    position: relative;
+    
+    .#{$module}-textarea {
+        padding-left: $width-input_textarea_lineNumber;
+    }
+}
+
+.#{$module}-textarea-lineNumber {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: $width-input_textarea_lineNumber;
+    color: $color-input_default-text-default;
+    overflow: hidden;
+    display: block;
+    padding: $spacing-textarea-paddingY 4px;
+    box-sizing: border-box;
+    @include font-size-regular;
+    user-select: none;
+    pointer-events: none;
+    white-space: pre;
+
+    &-item {
+        display: block;
+        padding-right: 4px;
+        text-align: right;
+        white-space: nowrap;
+        font-size: inherit;
+        font-family: inherit;
+        color: inherit;
+    }
+}
+
 @import "./rtl.scss";
