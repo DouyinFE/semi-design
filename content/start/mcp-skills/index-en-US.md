@@ -92,11 +92,7 @@ Find MCP configuration in settings and add:
 #### Troubleshooting
 
 <Notice type="warning" title='⚠️ oxc-parser Related Errors'>
-If you encounter `oxc-parser` or similar dependency resolution errors when running MCP, this is a known npm bug. Please follow these steps to resolve:
-
-1. First, upgrade npm to the latest version: `npm install -g npm@latest`
-2. Manually install globally in the terminal: `npm i -g @douyinfe/semi-mcp`
-3. Then try configuring MCP again
+If you encounter `oxc-parser` or similar dependency resolution errors when running MCP, this is a known npm bug. Please follow these steps to resolve: First, upgrade npm to the latest version `npm install -g npm@latest`, then manually install globally in the terminal `npm i -g @douyinfe/semi-mcp` (ByteDance intranet users should replace the package name), and finally try configuring MCP again.
 </Notice>
 
 ### Install Skills
