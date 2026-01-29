@@ -103,6 +103,16 @@ MCP 的安装方式因客户端而异，以下是常见客户端的配置方法�
 }
 ```
 
+#### 故障排除
+
+<Notice type="warning" title='⚠️ oxc-parser 相关错误'>
+如果运行 MCP 时遇到 `oxc-parser` 或类似的依赖解析错误，这是 npm 的已知 bug。请按以下步骤解决：
+
+1. 首先升级 npm 和 nodejs 到最新版本：`npm install -g npm@latest`
+2. 在终端中手动全局安装：`npm i -g @douyinfe/semi-mcp`，字节跳动内网用户注意替换包名
+3. 然后重新尝试配置 MCP 即可
+</Notice>
+
 ### 安装 Skills
 
 下面的安装面板可以帮助你一键安装 Semi Skills 到你的项目中。选中你使用的编程工具，点击「添加到我的项目」，选择目标目录，即可完成安装。

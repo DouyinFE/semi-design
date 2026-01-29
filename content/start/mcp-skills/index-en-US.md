@@ -102,6 +102,16 @@ Find MCP configuration in settings and add:
 }
 ```
 
+#### Troubleshooting
+
+<Notice type="warning" title='⚠️ oxc-parser Related Errors'>
+If you encounter `oxc-parser` or similar dependency resolution errors when running MCP, this is a known npm bug. Please follow these steps to resolve:
+
+1. First, upgrade npm to the latest version: `npm install -g npm@latest`
+2. Manually install globally in the terminal: `npm i -g @douyinfe/semi-mcp`
+3. Then try configuring MCP again
+</Notice>
+
 ### Install Skills
 
 The installation panel below helps you install Semi Skills to your project with one click. Select the programming tool you use, click "Add to My Project," choose the target directory, and the installation is complete.
