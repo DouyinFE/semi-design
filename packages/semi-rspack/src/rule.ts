@@ -1,11 +1,11 @@
 import { RuleSetRule } from 'webpack';
-import { SOURCE_SUFFIX_LOADER, THEME_LOADER, OMIT_CSS_LOADER, PREFIX_LOADER, WEB_COMPONENT_LOADER, EXTRACT_CSS_LOADER } from './constants';
-import { SemiWebpackPluginOptions, SemiThemeOptions } from './types';
+import { EXTRACT_CSS_LOADER, OMIT_CSS_LOADER, PREFIX_LOADER, SOURCE_SUFFIX_LOADER, THEME_LOADER, WEB_COMPONENT_LOADER } from './constants';
+import { SemiThemeOptions, SemiWebpackPluginOptions } from './types';
 import { stringifyVariableRecord } from './utils';
 
 export function createSourceSuffixLoaderRule(_opts?: SemiWebpackPluginOptions) {
     return {
-        test: /@douyinfe(\/|\\)+semi-(ui|icons)(\/|\\)+.+\.js$/,
+        test: /@douyinfe(\/|\\)+semi-(ui-19|ui|icons)(\/|\\)+.+\.js$/,
         use: [{ loader: SOURCE_SUFFIX_LOADER }],
     };
 }
@@ -27,7 +27,7 @@ export function createThemeLoaderRule(opts?: SemiWebpackPluginOptions) {
         cssLayer: opts.cssLayer
     };
     const loaderInfo = {
-        test: /@douyinfe(\/|\\)+semi-(ui|icons|foundation)(\/|\\)+lib(\/|\\)+.+\.scss$/,
+        test: /@douyinfe(\/|\\)+semi-(ui-19|ui|icons|foundation)(\/|\\)+lib(\/|\\)+.+\.scss$/,
         use: [{ loader: THEME_LOADER, options }],
     };
     let commonLoader: any[] = [
