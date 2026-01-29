@@ -75,6 +75,14 @@ export class EditWidget {
             if (e.button !== 0) return; // 只处理左键
             this._selectionModel.updateFromSelectingEnd();
         });
+        this._view.contentDom.addEventListener('focus', e => {
+            if (this._view.options?.readOnly) return;
+            this.emitter.emit('focus', e);
+        });
+        this._view.contentDom.addEventListener('blur', e => {
+            if (this._view.options?.readOnly) return;
+            this.emitter.emit('blur', e);
+        });
     }
 
     private buildBaseOperation(type: IModelContentChangeEvent['type'] = 'insert') {
