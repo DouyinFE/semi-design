@@ -154,7 +154,17 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         }
         return (
             <DropdownContext.Provider value={contextValue}>
-                <div className={className} style={style}>
+                <div
+                    className={className}
+                    style={style}
+                    onMouseDown={
+                        (e: React.MouseEvent) => {
+                            // Always stop propagation for dropdown content to prevent closing parent dropdowns
+                            // This is safe because clicking inside a dropdown should not close it (nor its parents)
+                            e.nativeEvent.stopImmediatePropagation();
+                        }
+                    }
+                >
                     <div className={`${prefixCls}-content`} x-semi-prop="render">{content}</div>
                 </div>
             </DropdownContext.Provider>
