@@ -19,7 +19,6 @@ export class SelectionModel {
     public preEndCol: number;
     public isCollapsed: boolean;
     public isSelectedAll: boolean = false;
-    public isSelecting: boolean = false;
     private _view: View;
     private _jsonModel: JSONModel;
     constructor(row: number, col: number, view: View, jsonModel: JSONModel) {
@@ -33,7 +32,6 @@ export class SelectionModel {
         this.isCollapsed = true;
         this._jsonModel = jsonModel;
     }
-
 
     updateSelection(row: number, col: number) {
         this._row = row;
@@ -142,30 +140,27 @@ export class SelectionModel {
             return;
         }
 
+        if (!this.isCollapsed) {
+            this._renderSelectionRange(selection);
+            return;
+        }
+
         const row = this._jsonModel.lastChangeBufferPos.lineNumber;
         const col = this._jsonModel.lastChangeBufferPos.column - 1;
 
-        if (this.isSelecting) {
-            
-        }
-
         const lineElement = this._view.getLineElement(row);
-        
+
         if (!lineElement) return;
-        
+
         if (col === 0) {
             range.setStart(lineElement, 0);
             range.setEnd(lineElement, 0);
         } else {
-            const walker = document.createTreeWalker(
-                lineElement,
-                NodeFilter.SHOW_TEXT,
-                null
-            );
+            const walker = document.createTreeWalker(lineElement, NodeFilter.SHOW_TEXT, null);
 
             let node: Text | null = walker.nextNode() as Text;
             let currentOffset = 0;
-            
+
             while (node) {
                 const nodeLength = node.length;
                 if (currentOffset + nodeLength >= col) {
@@ -180,6 +175,81 @@ export class SelectionModel {
 
         selection.removeAllRanges();
         selection.addRange(range);
+    }
+
+    private _renderSelectionRange(selection: Selection) {
+        const range = new Range();
+        let startRow = this.startRow;
+        let startCol = this.startCol;
+        let endRow = this.endRow;
+        let endCol = this.endCol;
+
+        if (startRow > endRow || (startRow === endRow && startCol > endCol)) {
+            [startRow, endRow] = [endRow, startRow];
+            [startCol, endCol] = [endCol, startCol];
+        }
+
+        const visibleStart = this._view.startLineNumber;
+        const visibleEnd = this._view.startLineNumber + this._view.visibleLineCount - 1;
+
+        const renderStartRow = Math.max(startRow, visibleStart);
+        const renderEndRow = Math.min(endRow, visibleEnd);
+
+        const firstVisibleLine = this._view.getLineElement(renderStartRow);
+        const lastVisibleLine = this._view.getLineElement(renderEndRow);
+        if (!firstVisibleLine || !lastVisibleLine) return;
+        if (renderStartRow === startRow) {
+            if (startCol === 1) {
+                range.setStart(firstVisibleLine, 0);
+            } else {
+                const { node, offset } = this._findTextNodeAndOffset(firstVisibleLine, startCol - 1);
+                range.setStart(node, offset);
+            }
+        } else {
+            range.setStart(firstVisibleLine, 0);
+            range.setEnd(firstVisibleLine, firstVisibleLine.childNodes.length);
+        }
+        if (renderEndRow === endRow) {
+            // // 终点在可见范围内
+            const endLineLength = this._jsonModel.getLineLength(endRow);
+            if (endCol > endLineLength) {
+                range.setEnd(lastVisibleLine, lastVisibleLine.childNodes.length);
+            } else {
+                const { node, offset } = this._findTextNodeAndOffset(lastVisibleLine, endCol - 1);
+                range.setEnd(node, offset);
+            }
+        } else {
+            // 终点在可见范围之后，到最后一个可见行结束
+            range.setEnd(lastVisibleLine, lastVisibleLine.childNodes.length);
+        }
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+
+    private _findTextNodeAndOffset(lineElement: HTMLElement, col: number): { node: Node; offset: number } {
+        const walker = document.createTreeWalker(lineElement, NodeFilter.SHOW_TEXT, null);
+
+        let node: Text | null = walker.nextNode() as Text;
+        let currentOffset = 0;
+
+        while (node) {
+            const nodeLength = node.length;
+            if (currentOffset + nodeLength >= col) {
+                return {
+                    node,
+                    offset: col - currentOffset,
+                };
+            }
+            currentOffset += nodeLength;
+            node = walker.nextNode() as Text;
+        }
+
+        // 如果没找到，返回最后一个文本节点
+        const lastNode = lineElement.lastChild;
+        return {
+            node: lastNode || lineElement,
+            offset: lastNode ? lastNode.textContent?.length || 0 : 0,
+        };
     }
 
     public toLastPosition() {
@@ -204,7 +274,7 @@ export class SelectionModel {
         let row = 1;
         let col = 0;
         if (!node) return { row, col };
-        
+
         let lineElement: HTMLElement | null;
         if (node instanceof HTMLElement) {
             lineElement = node.closest(`.${this._view.prefixCls}-view-line`);
@@ -212,15 +282,11 @@ export class SelectionModel {
             lineElement = getLineElement(node);
             if (!lineElement) return { row, col };
 
-            const walker = document.createTreeWalker(
-                lineElement,
-                NodeFilter.SHOW_TEXT,
-                null
-            );
+            const walker = document.createTreeWalker(lineElement, NodeFilter.SHOW_TEXT, null);
 
             let currentNode: Text | null = walker.nextNode() as Text;
             let totalOffset = 0;
-            
+
             while (currentNode) {
                 if (currentNode === node) {
                     totalOffset += isStart ? selection.anchorOffset : selection.focusOffset;
@@ -232,11 +298,11 @@ export class SelectionModel {
                         break;
                     }
                 }
-                
+
                 totalOffset += currentNode.length;
                 currentNode = walker.nextNode() as Text;
             }
-            
+
             col = totalOffset;
         }
         row = (lineElement as any)?.lineNumber || 1;
@@ -260,6 +326,4 @@ export class SelectionModel {
             column: this.startCol,
         };
     }
-    
 }
-

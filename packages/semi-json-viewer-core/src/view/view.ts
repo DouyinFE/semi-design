@@ -177,7 +177,6 @@ export class View {
             e.stopPropagation();
             this._completeWidget.hide();
             this._selectionModel.isSelectedAll = false;
-            this._selectionModel.isSelecting = false;
             this._selectionModel.updateFromSelection();
         });
 
