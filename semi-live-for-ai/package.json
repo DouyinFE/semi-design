@@ -1,0 +1,27 @@
+{
+  "name": "semi-live-for-ai",
+  "private": true,
+  "version": "1.0.0",
+  "description": "React Live playground with Semi Design components",
+  "scripts": {
+    "dev": "rspack dev",
+    "build": "rspack build",
+    "preview": "rspack preview"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-live": "^4.1.7"
+  },
+  "devDependencies": {
+    "@rspack/cli": "^1.6.8",
+    "@rspack/core": "^1.6.8",
+    "@rspack/plugin-react-refresh": "^1.5.3",
+    "@types/react": "^18.0.5",
+    "@types/react-dom": "^18.0.1",
+    "react-refresh": "^0.18.0",
+    "sass": "1.54.9",
+    "sass-loader": "^13.3.2",
+    "typescript": "^5.9.3"
+  }
+}
