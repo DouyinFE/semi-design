@@ -2,7 +2,15 @@ import React, { useState, useCallback } from 'react';
 import { LiveProvider, LiveEditor, LivePreview, LiveError } from 'react-live';
 
 // Semi UI 组件 - 使用稳定的导入方式
-import {
+import * as SemiUI from '@douyinfe/semi-ui';
+
+// Semi Icons - 导入全部图标
+import * as SemiIcons from '@douyinfe/semi-icons';
+
+import './App.css';
+
+// 从 SemiUI 中解构常用组件
+const {
     // Layout
     Row, Col, Layout,
     // Navigation
@@ -24,73 +32,7 @@ import {
     // Other
     ConfigProvider, LocaleProvider, Space, Dropdown, DropdownMenu, DropdownItem, DropdownDivider,
     Highlight,
-} from '@douyinfe/semi-ui';
-
-// Semi Icons
-import {
-    IconPlus,
-    IconMinus,
-    IconRefresh,
-    IconSearch,
-    IconSetting,
-    IconEdit,
-    IconDelete,
-    IconCode,
-    IconEyeOpened,
-    IconGridView,
-    IconUser,
-    IconHome,
-    IconStar,
-    IconHeart,
-    IconLike,
-    IconComment,
-    IconShare,
-    IconDownload,
-    IconUpload,
-    IconCopy,
-    IconClose,
-    IconTick,
-    IconArrowLeft,
-    IconArrowRight,
-    IconArrowUp,
-    IconArrowDown,
-    IconChevronLeft,
-    IconChevronRight,
-    IconChevronUp,
-    IconChevronDown,
-    IconFilter,
-    IconSort,
-    IconMore,
-    IconMenu,
-    IconBell,
-    IconMail,
-    IconCalendar,
-    IconClock,
-    IconImage,
-    IconFile,
-    IconFolder,
-    IconLink,
-    IconGlobe,
-    IconLock,
-    IconUnlock,
-    IconInfoCircle,
-    IconAlertCircle,
-    IconAlertTriangle,
-    IconHelpCircle,
-    IconCheckCircleStroked,
-    IconPlay,
-    IconPause,
-    IconStop,
-    IconVolume1,
-    IconVolume2,
-    IconMute,
-    IconSun,
-    IconMoon,
-    IconGithubLogo,
-    IconSemiLogo,
-} from '@douyinfe/semi-icons';
-
-import './App.css';
+} = SemiUI;
 
 // 默认代码示例
 const defaultCode = `() => {
@@ -170,6 +112,10 @@ const noInlineDefaultCode = `const App = () => {
 render(<App />);`;
 
 // 创建 scope 对象，包含所有 Semi 组件和图标
+// 注意：需要过滤掉 default 属性，否则 react-live 会报错 "Unexpected token 'default'"
+const { default: _defaultUI, ...semiUIComponents } = SemiUI;
+const { default: _defaultIcons, ...semiIconComponents } = SemiIcons;
+
 const scope = {
     // React hooks
     React,
@@ -181,49 +127,18 @@ const scope = {
     useContext: React.useContext,
     useReducer: React.useReducer,
     
-    // Layout
-    Layout, Row, Col,
+    // 所有 Semi UI 组件（排除 default 导出）
+    ...semiUIComponents,
     
-    // Navigation
-    Nav, Breadcrumb, Anchor, BackTop, Pagination, Steps, Step, Tabs, TabPane,
-    
-    // Input
-    Input, InputGroup, TextArea, InputNumber, AutoComplete, Cascader, Checkbox, CheckboxGroup,
-    DatePicker, Radio, RadioGroup, Rating, Select, Slider, Switch, TimePicker, Transfer, TreeSelect,
-    Upload, TagInput, ColorPicker, PinCode,
-    
-    // Display
-    Avatar, AvatarGroup, Badge, Calendar, Card, CardGroup, Carousel, Collapse, Collapsible,
-    Descriptions, Divider, Empty, Image, List, Popover, Table, Tag, TagGroup,
-    Timeline, Tooltip, Tree, Typography, Skeleton, OverflowList, ScrollList, ScrollItem,
-    
-    // Feedback
-    Banner, Modal, Notification, Popconfirm, Progress, SideSheet, Spin, Toast,
-    
-    // Form
-    Form, useFormApi, useFormState, useFieldApi, useFieldState, withFormState, withFormApi, withField, ArrayField,
-    
-    // Button
-    Button, ButtonGroup, IconButton, SplitButtonGroup,
-    
-    // Other
-    ConfigProvider, LocaleProvider, Space, Dropdown, DropdownMenu, DropdownItem, DropdownDivider, Highlight,
-    
-    // Icons
-    IconPlus, IconMinus, IconRefresh, IconSearch, IconSetting, IconEdit, IconDelete,
-    IconCode, IconEyeOpened, IconGridView, IconUser, IconHome, IconStar, IconHeart,
-    IconLike, IconComment, IconShare, IconDownload, IconUpload, IconCopy, IconClose, IconTick,
-    IconArrowLeft, IconArrowRight, IconArrowUp, IconArrowDown,
-    IconChevronLeft, IconChevronRight, IconChevronUp, IconChevronDown,
-    IconFilter, IconSort, IconMore, IconMenu, IconBell, IconMail, IconCalendar, IconClock,
-    IconImage, IconFile, IconFolder, IconLink, IconGlobe, IconLock, IconUnlock,
-    IconInfoCircle, IconAlertCircle, IconAlertTriangle, IconHelpCircle, IconCheckCircleStroked,
-    IconPlay, IconPause, IconStop, IconVolume1, IconVolume2, IconMute,
-    IconSun, IconMoon, IconGithubLogo, IconSemiLogo,
+    // 所有 Semi Icons（排除 default 导出）
+    ...semiIconComponents,
 };
 
 type EditorMode = 'inline' | 'noInline';
 type LayoutMode = 'horizontal' | 'vertical';
+
+// 从 SemiIcons 中获取常用图标用于 UI
+const { IconCode, IconEdit, IconEyeOpened, IconSetting, IconGridView, IconRefresh } = SemiIcons;
 
 function App() {
     const [code, setCode] = useState(defaultCode);
@@ -348,7 +263,7 @@ function App() {
             {/* Footer */}
             <footer className="app-footer">
                 <Typography.Text type="tertiary">
-                    提示：所有 Semi Design 组件和常用图标都已注入到编辑器中，可以直接使用。
+                    提示：所有 Semi Design 组件和图标都已注入到编辑器中，可以直接使用。图标以 Icon 开头，如 IconPlus、IconMinus 等。
                 </Typography.Text>
             </footer>
         </div>
