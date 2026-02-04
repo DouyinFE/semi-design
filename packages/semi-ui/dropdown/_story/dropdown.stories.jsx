@@ -400,7 +400,7 @@ export function Fix1606() {
 export function NestedDropdownIssue() {
     const [visible, setVisible] = React.useState(false);
     return (
-        <div style={{ padding: 50 }}>
+        <div>
             <Dropdown
                 trigger="custom"
                 visible={visible}
@@ -408,8 +408,9 @@ export function NestedDropdownIssue() {
                     console.log('1. Parent onClickOutSide triggered, closing');
                     setVisible(false);
                 }}
-                content={
+                render={
                     <Dropdown.Menu>
+                        <Dropdown.Title>Render 嵌套</Dropdown.Title>
                         <Dropdown
                             position="rightTop"
                             render={
@@ -420,6 +421,9 @@ export function NestedDropdownIssue() {
                                             <Dropdown.Menu>
                                                 <Dropdown.Item onClick={() => console.log('3. Grandchild menu onClick triggered')}>
                                                     Grandchild Item (Click me)
+                                                </Dropdown.Item>
+                                                <Dropdown.Item onClick={() => console.log('3. Grandchild Item 2 clicked')}>
+                                                    Grandchild Item 2
                                                 </Dropdown.Item>
                                             </Dropdown.Menu>
                                         }
@@ -433,6 +437,19 @@ export function NestedDropdownIssue() {
                             }
                         >
                             <Dropdown.Item>Hover to expand child menu</Dropdown.Item>
+                        </Dropdown>
+                        <Dropdown.Title>Menu 嵌套</Dropdown.Title>
+                        <Dropdown
+                            position="rightTop"
+                            trigger="click"
+                            menu={[
+                                { node: 'item', name: 'Menu Child Item 1', onClick: () => console.log('2. Menu Child Item 1 clicked') },
+                                { node: 'item', name: 'Menu Child Item 2', onClick: () => console.log('2. Menu Child Item 2 clicked') },
+                                { node: 'divider' },
+                                { node: 'item', name: 'Menu Child Item 3', onClick: () => console.log('2. Menu Child Item 3 clicked') },
+                            ]}
+                        >
+                            <Dropdown.Item>Click to expand child menu</Dropdown.Item>
                         </Dropdown>
                     </Dropdown.Menu>
                 }

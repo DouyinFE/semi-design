@@ -157,13 +157,6 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                 <div
                     className={className}
                     style={style}
-                    onMouseDown={
-                        (e: React.MouseEvent) => {
-                            // Always stop propagation for dropdown content to prevent closing parent dropdowns
-                            // This is safe because clicking inside a dropdown should not close it (nor its parents)
-                            e.nativeEvent.stopImmediatePropagation();
-                        }
-                    }
                 >
                     <div className={`${prefixCls}-content`} x-semi-prop="render">{content}</div>
                 </div>
@@ -248,7 +241,6 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                 zIndex={zIndex}
                 motion={motion}
                 margin={margin}
-                content={pop}
                 className={className}
                 prefixCls={prefixCls}
                 spacing={spacing}
@@ -259,6 +251,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                 returnFocusOnClose={true}
                 ref={this.tooltipRef}
                 {...attr}
+                content={pop}
             >
                 {React.isValidElement(children) ?
                     React.cloneElement(children, {
