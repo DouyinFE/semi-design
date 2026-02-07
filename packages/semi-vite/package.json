@@ -1,0 +1,35 @@
+{
+    "name": "@douyinfe/vite-plugin-semi",
+    "version": "2.74.0",
+    "description": "",
+    "author": "田丰 <tianfeng.1012@bytedance.com>",
+    "license": "MIT",
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./lib/index.mjs",
+            "require": "./lib/index.cjs"
+        }
+    },
+    "main": "./lib/index.cjs",
+    "types": "./lib/index.d.ts",
+    "files": [
+        "lib"
+    ],
+    "scripts": {
+        "build:lib": "unbuild",
+        "prepublishOnly": "npm run build:lib"
+    },
+    "directories": {
+        "lib": "lib"
+    },
+    "peerDependencies": {
+        "vite": "5.1.0"
+    },
+    "dependencies": {
+        "sass": "^1.85.1"
+    },
+    "devDependencies": {
+        "unbuild": "^3.5.0"
+    }
+}
