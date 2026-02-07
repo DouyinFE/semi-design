@@ -82,6 +82,12 @@ export const DefaultJsonViewer = () => {
         console.log(value, 'value');
     };
 
+	const onFocusHandler = (e) => {
+		console.log('focus', e);
+	};
+	const onBlurHandler = (e) => {
+		console.log('blur', e);
+	};
     const [autoWrap, setAutoWrap] = useState(true);
     const [lineHeight, setLineHeight] = useState(20);
     const jsonviewerRef = useRef(null);
@@ -94,8 +100,10 @@ export const DefaultJsonViewer = () => {
                 value={baseStr}
                 width={700}
                 height={400}
-                options={{ lineHeight: lineHeight, autoWrap: autoWrap, formatOptions: { tabSize: 4 } }}
+                options={{ lineHeight: lineHeight, autoWrap: autoWrap, formatOptions: { tabSize: 4 } ,autoFocus: true}}
                 onChange={onChangeHandler}
+                onFocus={onFocusHandler}
+                onBlur={onBlurHandler}
                 ref={jsonviewerRef}
             />
         </>

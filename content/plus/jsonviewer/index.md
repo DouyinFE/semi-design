@@ -229,6 +229,8 @@ render(CustomRenderJsonComponent);
 | showSearch        | 是否显示搜索Icon                           | boolean                                  | true   |
 | options           | 编辑器配置                                | JsonViewerOptions                       | -   |
 | onChange          | 内容变化回调                           | (value: string) => void                  | -   |
+| onBlur        | 输入框失去焦点时的回调         | (e:event) => void                                             | -         |
+| onFocus       | 输入框 focus 时的回调          | (e:event) => void                                             | -         |
 
 ### JsonViewerOptions
 
@@ -239,6 +241,7 @@ render(CustomRenderJsonComponent);
 | readOnly        | 是否只读                             | boolean                            | false  | - |
 | customRenderRule | 自定义渲染规则                             | CustomRenderRule[]               |  -  | 2.74.0 |
 | formatOptions     | 格式化配置                               | FormattingOptions                |  -  | - |
+| autoFocus| 是否自动对焦 | boolean | false | - | 
 
 ### CustomRenderRule
 | 属性                | 说明                                          | 类型                              | 默认值    |

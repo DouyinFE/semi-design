@@ -10,7 +10,9 @@ export interface JsonViewerAdapter<P = Record<string, any>, S = Record<string, a
     notifyHover: (value: string, el: HTMLElement) => HTMLElement | undefined;
     setSearchOptions: (key: string) => void;
     showSearchBar: () => void;
-    notifyCustomRender: (customRenderMap: Map<HTMLElement, any>) => void
+    notifyCustomRender: (customRenderMap: Map<HTMLElement, any>) => void;
+    notifyFocus: (e: Event) => void;
+    notifyBlur: (e: Event) => void
 }
 
 class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
@@ -37,7 +39,12 @@ class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
                 this.search(this._adapter.getSearchRef().value);
             }
         });
-
+        this.jsonViewer.emitter.on('focus', (e) => {
+            this._adapter.notifyFocus(e);
+        });
+        this.jsonViewer.emitter.on('blur', (e) => {
+            this._adapter.notifyBlur(e);
+        });
     }
 
     search(searchText: string, caseSensitive?: boolean, wholeWord?: boolean, regex?: boolean) {
