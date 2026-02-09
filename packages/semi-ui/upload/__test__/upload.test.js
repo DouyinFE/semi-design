@@ -944,4 +944,91 @@ describe('Upload', () => {
         expect(upload.exists(`.${BASE_CLASS_PREFIX}-upload-file-list-main`)).toEqual(true);
         expect(upload.exists(`.${BASE_CLASS_PREFIX}-upload-picture-file-card-pic-info`)).toEqual(true);
     });
+
+    it('customRequest prop', () => {
+        const customRequest = ({ file, onProgress, onSuccess, onError }) => {
+            // 自定义上传逻辑
+            setTimeout(() => {
+                onSuccess({ url: 'https://example.com/file.jpg' });
+            }, 100);
+        };
+        const spyCustomRequest = sinon.spy(customRequest);
+        const props = {
+            customRequest: spyCustomRequest,
+        };
+        const upload = getUpload(props);
+        const file = createFile(100, 'test.jpg');
+        const event = createEvent(file);
+        trigger(upload, event);
+        expect(spyCustomRequest.calledOnce).toEqual(true);
+    });
+
+    it('disabled prop', () => {
+        const props = {
+            disabled: true,
+        };
+        const upload = getUpload(props);
+        expect(upload.exists(`.${BASE_CLASS_PREFIX}-upload-disabled`)).toEqual(true);
+    });
+
+    it('directory prop', () => {
+        const props = {
+            directory: true,
+        };
+        const upload = getUpload(props);
+        // 验证 directory 属性被正确传递
+        expect(upload.props().directory).toEqual(true);
+    });
+
+    it('fileList controlled mode', () => {
+        const onChange = sinon.spy();
+        const props = {
+            fileList: defaultFileList,
+            onChange,
+        };
+        const upload = getUpload(props);
+        // 验证受控模式下 fileList 属性被正确传递
+        expect(upload.props().fileList).toEqual(defaultFileList);
+        expect(upload.props().fileList.length).toEqual(2);
+    });
+
+    it('capture prop', () => {
+        const props = {
+            capture: 'user',
+        };
+        const upload = getUpload(props);
+        // 验证 capture 属性被正确传递
+        expect(upload.props().capture).toEqual('user');
+    });
+
+    it('fileName prop', () => {
+        const props = {
+            fileName: 'customFileName',
+        };
+        const upload = getUpload(props);
+        const file = createFile(100, 'test.jpg');
+        const event = createEvent(file);
+        trigger(upload, event);
+        const requestBody = Array.from(requests[0].requestBody);
+        expect(requestBody[0][0]).toEqual('customFileName');
+    });
+
+    it('hotSpotLocation prop', () => {
+        const props = {
+            listType: 'picture',
+            hotSpotLocation: 'start',
+            defaultFileList,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().hotSpotLocation).toEqual('start');
+    });
+
+    it('multiple prop', () => {
+        const props = {
+            multiple: true,
+        };
+        const upload = getUpload(props);
+        const input = upload.find(`input.${BASE_CLASS_PREFIX}-upload-hidden-input`);
+        expect(input.instance().multiple).toEqual(true);
+    });
 });

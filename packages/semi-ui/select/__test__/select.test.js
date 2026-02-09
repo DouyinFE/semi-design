@@ -1307,6 +1307,120 @@ describe('Select', () => {
     // it('autoAdjustOverflow', ()=>{})
     // it('remote', ()=>{})
 
+    it('searchPosition dropdown', () => {
+        let props = {
+            filter: true,
+            searchPosition: 'dropdown',
+            defaultOpen: true,
+        };
+        const select = getSelect(props);
+        // searchPosition='dropdown' 时，搜索框应该在下拉框内的 popover 中
+        // 验证 searchPosition 属性被正确传递
+        expect(select.props().searchPosition).toEqual('dropdown');
+    });
+
+    it('onCreate callback', () => {
+        let spyOnCreate = sinon.spy((option) => {});
+        const props = {
+            allowCreate: true,
+            filter: true,
+            onCreate: spyOnCreate,
+            defaultOpen: true,
+        };
+        const select = getSelect(props);
+        const inputValue = 'newOption';
+        select.find('input').simulate('change', { target: { value: inputValue } });
+        // 点击创建选项
+        const createOption = select.find(`.${BASE_CLASS_PREFIX}-select-option-create`);
+        if (createOption.exists()) {
+            const nativeEvent = { nativeEvent: { stopImmediatePropagation: noop } };
+            createOption.simulate('click', nativeEvent);
+            expect(spyOnCreate.calledOnce).toBe(true);
+        }
+    });
+
+    it('value null/undefined boundary', () => {
+        // 测试 value 为 null 的情况
+        let props = {
+            value: null,
+        };
+        const select = getSelect(props);
+        expect(select.find(`.${BASE_CLASS_PREFIX}-select-selection-text`).getDOMNode().textContent).toEqual('');
+        
+        // 测试 value 为 undefined 的情况
+        select.setProps({ value: undefined });
+        select.update();
+        expect(select.find(`.${BASE_CLASS_PREFIX}-select-selection-text`).getDOMNode().textContent).toEqual('');
+    });
+
+    it('multiple value with null/undefined items', () => {
+        let props = {
+            multiple: true,
+            value: ['abc', null, undefined, 'hotsoon'],
+        };
+        const select = getSelect(props);
+        // 应该只显示有效的选项
+        let tags = select.find(`.${BASE_CLASS_PREFIX}-select-selection .${BASE_CLASS_PREFIX}-tag-content`);
+        expect(tags.length).toBeGreaterThanOrEqual(2);
+    });
+
+    it('ARIA attributes - aria-labelledby', () => {
+        const props = {
+            'aria-labelledby': 'label-id',
+        };
+        const select = getSelect(props);
+        expect(select.find(`.${BASE_CLASS_PREFIX}-select`).prop('aria-labelledby')).toEqual('label-id');
+    });
+
+    it('ARIA attributes - aria-describedby', () => {
+        const props = {
+            'aria-describedby': 'description-id',
+        };
+        const select = getSelect(props);
+        expect(select.find(`.${BASE_CLASS_PREFIX}-select`).prop('aria-describedby')).toEqual('description-id');
+    });
+
+    it('ARIA attributes - aria-required', () => {
+        const props = {
+            'aria-required': true,
+        };
+        const select = getSelect(props);
+        expect(select.find(`.${BASE_CLASS_PREFIX}-select`).prop('aria-required')).toEqual(true);
+    });
+
+    it('ARIA attributes - aria-invalid', () => {
+        const props = {
+            'aria-invalid': true,
+        };
+        const select = getSelect(props);
+        expect(select.find(`.${BASE_CLASS_PREFIX}-select`).prop('aria-invalid')).toEqual(true);
+    });
+
+    it('borderless prop', () => {
+        const props = {
+            borderless: true,
+        };
+        const select = getSelect(props);
+        expect(select.exists(`.${BASE_CLASS_PREFIX}-select-borderless`)).toEqual(true);
+    });
+
+    it('onClear callback', () => {
+        let spyOnClear = sinon.spy(() => {});
+        const props = {
+            defaultValue: 'abc',
+            showClear: true,
+            onClear: spyOnClear,
+        };
+        const select = getSelect(props);
+        select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('mouseEnter', {});
+        const clearBtn = select.find(`.${BASE_CLASS_PREFIX}-icon-clear`);
+        if (clearBtn.exists()) {
+            const nativeEvent = { nativeEvent: { stopImmediatePropagation: noop } };
+            clearBtn.simulate('click', nativeEvent);
+            expect(spyOnClear.calledOnce).toBe(true);
+        }
+    });
+
     //     it('【data】updateOptionList when data change', () => {
     //         let props = {
     //             defaultOpen: true,

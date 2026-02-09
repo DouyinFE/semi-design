@@ -125,4 +125,45 @@ describe('Switch', () => {
         expect(wrapper.exists(`.${BASE_CLASS_PREFIX}-switch-loading`)).toEqual(false);
     });
 
+    it('switch loading state', () => {
+        const wrapper = mount(<Switch loading />);
+        // loading 状态下，switch 应该显示 loading 样式
+        expect(wrapper.exists(`.${BASE_CLASS_PREFIX}-switch-loading`)).toEqual(true);
+        wrapper.unmount();
+    });
+
+    it('switch aria-label', () => {
+        const wrapper = mount(<Switch aria-label="Toggle switch" />);
+        const input = wrapper.find('input').first();
+        expect(input.prop('aria-label')).toEqual('Toggle switch');
+        wrapper.unmount();
+    });
+
+    it('switch defaultChecked', () => {
+        const wrapper = mount(<Switch defaultChecked />);
+        expect(wrapper.exists(CHECKED_CLS)).toEqual(true);
+        // 验证 defaultChecked 属性被正确传递
+        expect(wrapper.props().defaultChecked).toEqual(true);
+        wrapper.unmount();
+    });
+
+    it('switch id prop', () => {
+        const wrapper = mount(<Switch id="my-switch" />);
+        const input = wrapper.find('input').first();
+        expect(input.prop('id')).toEqual('my-switch');
+        wrapper.unmount();
+    });
+
+    it('switch with custom checkedText and uncheckedText ReactNode', () => {
+        const checkSwitch = mount(
+            <Switch 
+                checkedText={<span className="custom-checked">ON</span>} 
+                uncheckedText={<span className="custom-unchecked">OFF</span>} 
+                checked={true} 
+            />
+        );
+        expect(checkSwitch.exists('.custom-checked')).toEqual(true);
+        checkSwitch.unmount();
+    });
+
 });

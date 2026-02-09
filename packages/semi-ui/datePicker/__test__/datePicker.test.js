@@ -1064,4 +1064,169 @@ describe(`DatePicker`, () => {
         const baseElem = elem.find(BaseDatePicker);
         expect(baseElem.state('panelShow')).toBeFalsy();
     });
+
+    it('test type month', async () => {
+        const onChange = sinon.spy();
+        const props = {
+            type: 'month',
+            defaultOpen: true,
+            motion: false,
+            onChange,
+        };
+        const elem = mount(<DatePicker {...props} />);
+        await sleep();
+        
+        // 验证月选择器面板存在
+        expect(document.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker`).length).toBeGreaterThan(0);
+        expect(document.querySelectorAll(`.${BASE_CLASS_PREFIX}-scrolllist`).length).toBeGreaterThan(0);
+        elem.unmount();
+    });
+
+    it('test type year', async () => {
+        const onChange = sinon.spy();
+        const props = {
+            type: 'year',
+            defaultOpen: true,
+            motion: false,
+            onChange,
+        };
+        const elem = mount(<DatePicker {...props} />);
+        await sleep();
+        
+        // 验证年选择器面板存在
+        expect(document.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker`).length).toBeGreaterThan(0);
+        expect(document.querySelectorAll(`.${BASE_CLASS_PREFIX}-scrolllist`).length).toBeGreaterThan(0);
+        elem.unmount();
+    });
+
+    it('test disabled prop', async () => {
+        const props = {
+            disabled: true,
+            defaultValue: baseDate,
+            motion: false,
+        };
+        const elem = mount(<DatePicker {...props} />);
+        
+        // 验证输入框是禁用状态
+        expect(elem.find('input').prop('disabled')).toBe(true);
+        expect(elem.exists(`.${BASE_CLASS_PREFIX}-input-wrapper-disabled`)).toBe(true);
+    });
+
+    it('test inputReadOnly prop', async () => {
+        const props = {
+            inputReadOnly: true,
+            defaultValue: baseDate,
+            motion: false,
+        };
+        const elem = mount(<DatePicker {...props} />);
+        
+        // 验证输入框是只读状态
+        expect(elem.find('input').prop('readOnly')).toBe(true);
+    });
+
+    it('test placeholder prop', async () => {
+        const placeholder = '请选择日期';
+        const props = {
+            placeholder,
+            motion: false,
+        };
+        const elem = mount(<DatePicker {...props} />);
+        
+        expect(elem.find('input').prop('placeholder')).toBe(placeholder);
+    });
+
+    it('test prefix and insetLabel', async () => {
+        const prefix = <span className="custom-prefix">前缀</span>;
+        const insetLabel = '日期';
+        const props = {
+            prefix,
+            insetLabel,
+            motion: false,
+        };
+        const elem = mount(<DatePicker {...props} />);
+        
+        expect(elem.exists('.custom-prefix')).toBe(true);
+        expect(elem.exists(`.${BASE_CLASS_PREFIX}-input-inset-label`)).toBe(true);
+    });
+
+    it('test borderless prop', async () => {
+        const props = {
+            borderless: true,
+            defaultValue: baseDate,
+            motion: false,
+        };
+        const elem = mount(<DatePicker {...props} />);
+        
+        // borderless 类名在 Input 组件上
+        expect(elem.exists(`.${BASE_CLASS_PREFIX}-input-borderless`)).toBe(true);
+    });
+
+    it('test validateStatus', async () => {
+        // 测试 error 状态
+        const errorProps = {
+            validateStatus: 'error',
+            defaultValue: baseDate,
+            motion: false,
+        };
+        const errorElem = mount(<DatePicker {...errorProps} />);
+        expect(errorElem.exists(`.${BASE_CLASS_PREFIX}-input-wrapper-error`)).toBe(true);
+        errorElem.unmount();
+    });
+
+    it('test size prop', async () => {
+        // 测试 small 尺寸
+        const smallProps = {
+            size: 'small',
+            defaultValue: baseDate,
+            motion: false,
+        };
+        const smallElem = mount(<DatePicker {...smallProps} />);
+        expect(smallElem.exists(`.${BASE_CLASS_PREFIX}-input-wrapper-small`)).toBe(true);
+        smallElem.unmount();
+    });
+
+    it('test onFocus callback', async () => {
+        const onFocus = sinon.spy();
+        const props = {
+            onFocus,
+            motion: false,
+        };
+        const elem = mount(<DatePicker {...props} />);
+        
+        elem.find('input').simulate('focus');
+        await sleep();
+        expect(onFocus.calledOnce).toBe(true);
+        elem.unmount();
+    });
+
+    it('test multiple selection', async () => {
+        const onChange = sinon.spy();
+        const props = {
+            type: 'date',
+            multiple: true,
+            defaultOpen: true,
+            motion: false,
+            onChange,
+            defaultPickerValue: '2021-08-01',
+        };
+        const elem = mount(<DatePicker {...props} />);
+        const baseElem = elem.find(BaseDatePicker);
+        
+        const leftPanel = document.querySelector(`.${BASE_CLASS_PREFIX}-datepicker-month-grid-left`);
+        const leftSecondWeek = leftPanel.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-week`)[1];
+        const leftSecondWeekDays = leftSecondWeek.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-day`);
+        
+        // 选择第一个日期
+        leftSecondWeekDays[0].click();
+        await sleep();
+        expect(onChange.calledOnce).toBe(true);
+        
+        // 选择第二个日期
+        leftSecondWeekDays[1].click();
+        await sleep();
+        expect(onChange.calledTwice).toBe(true);
+        
+        const value = baseElem.state('value');
+        expect(value.length).toBe(2);
+    });
 });

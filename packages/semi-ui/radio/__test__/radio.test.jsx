@@ -87,4 +87,72 @@ describe('radio', () => {
         );
         expect(radio.exists(`.${BASE_CLASS_PREFIX}-radio-buttonRadioComponent`)).toEqual(true);
     });
+
+    it('radio card style', () => {
+        const radio = mount(
+            <Radio type="card">Card Radio</Radio>
+        );
+        expect(radio.exists(`.${BASE_CLASS_PREFIX}-radio-cardRadioGroup`)).toEqual(true);
+    });
+
+    it('radio pureCard style', () => {
+        const radio = mount(
+            <Radio type="pureCard">Pure Card Radio</Radio>
+        );
+        expect(radio.exists(`.${BASE_CLASS_PREFIX}-radio-cardRadioGroup`)).toEqual(true);
+        expect(radio.exists(`.${BASE_CLASS_PREFIX}-radio-inner-pureCardRadio`)).toEqual(true);
+    });
+
+    it('radio onMouseEnter and onMouseLeave', () => {
+        const onMouseEnter = sinon.spy(() => {});
+        const onMouseLeave = sinon.spy(() => {});
+        const radio = mount(
+            <Radio onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>Test</Radio>
+        );
+        radio.find('label').simulate('mouseEnter', {});
+        expect(onMouseEnter.calledOnce).toBe(true);
+        radio.find('label').simulate('mouseLeave', {});
+        expect(onMouseLeave.calledOnce).toBe(true);
+    });
+
+    it('radio extra prop', () => {
+        const extraText = 'Extra information';
+        const radio = mount(
+            <Radio extra={extraText}>Radio with extra</Radio>
+        );
+        expect(radio.find(`.${BASE_CLASS_PREFIX}-radio-extra`).text()).toEqual(extraText);
+    });
+
+    it('radio displayMode vertical', () => {
+        const radio = mount(
+            <Radio displayMode="vertical">Vertical Radio</Radio>
+        );
+        expect(radio.exists(`.${BASE_CLASS_PREFIX}-radio-vertical`)).toEqual(true);
+    });
+
+    it('radio controlled mode', () => {
+        const radio = mount(
+            <Radio checked={true}>Controlled Radio</Radio>
+        );
+        expect(radio.find('input').getDOMNode().checked).toEqual(true);
+        
+        radio.setProps({ checked: false });
+        radio.update();
+        expect(radio.find('input').getDOMNode().checked).toEqual(false);
+    });
+
+    it('radio with value prop', () => {
+        const radio = mount(
+            <Radio value="test-value">Radio with value</Radio>
+        );
+        // value 属性在 Radio 组件中用于 RadioGroup 的选中判断，不直接传递给 input
+        expect(radio.props().value).toEqual('test-value');
+    });
+
+    it('radio aria-label', () => {
+        const radio = mount(
+            <Radio aria-label="Test radio">Radio</Radio>
+        );
+        expect(radio.find('input').prop('aria-label')).toEqual('Test radio');
+    });
 });

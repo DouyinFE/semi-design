@@ -571,5 +571,83 @@ describe(`InputNumber`, () => {
         expect(inputNumber.find('input').instance().value).toBe('0.08');
     });
 
+    it('disabled prop', () => {
+        const inputNumber = mount(<InputNumber disabled defaultValue={100} />);
+        expect(inputNumber.find('input').prop('disabled')).toBe(true);
+        expect(inputNumber.exists(`.${BASE_CLASS_PREFIX}-input-wrapper-disabled`)).toBe(true);
+    });
+
+    it('disabled buttons should not respond to clicks', () => {
+        const onChange = sinon.spy();
+        const inputNumber = mount(<InputNumber disabled defaultValue={100} onChange={onChange} />);
+        const btns = inputNumber.find(`.${BASE_CLASS_PREFIX}-input-number-suffix-btns .${BASE_CLASS_PREFIX}-input-number-button`);
+        const addBtn = btns.first();
+        addBtn.simulate('mousedown', { button: numbers.MOUSE_BUTTON_LEFT });
+        // disabled 状态下 onChange 不应该被调用（除了初始化）
+        expect(inputNumber.find('input').instance().value).toBe('100');
+    });
+
+    it('readonly prop', () => {
+        const inputNumber = mount(<InputNumber readonly defaultValue={100} />);
+        expect(inputNumber.find('input').prop('readOnly')).toBe(true);
+    });
+
+    it('keyboard ArrowUp increases value', () => {
+        const onChange = sinon.spy();
+        const inputNumber = mount(<InputNumber defaultValue={10} onChange={onChange} />);
+        inputNumber.find('input').simulate('keydown', { keyCode: keyCode.UP });
+        expect(inputNumber.find('input').instance().value).toBe('11');
+    });
+
+    it('keyboard ArrowDown decreases value', () => {
+        const onChange = sinon.spy();
+        const inputNumber = mount(<InputNumber defaultValue={10} onChange={onChange} />);
+        inputNumber.find('input').simulate('keydown', { keyCode: keyCode.DOWN });
+        expect(inputNumber.find('input').instance().value).toBe('9');
+    });
+
+    it('step prop affects increment/decrement', () => {
+        const inputNumber = mount(<InputNumber defaultValue={10} step={5} />);
+        const btns = inputNumber.find(`.${BASE_CLASS_PREFIX}-input-number-suffix-btns .${BASE_CLASS_PREFIX}-input-number-button`);
+        const addBtn = btns.first();
+        addBtn.simulate('mousedown', { button: numbers.MOUSE_BUTTON_LEFT });
+        expect(inputNumber.find('input').instance().value).toBe('15');
+    });
+
+    it('validateStatus warning', () => {
+        const inputNumber = mount(<InputNumber validateStatus="warning" />);
+        expect(inputNumber.exists(`.${BASE_CLASS_PREFIX}-input-wrapper-warning`)).toBe(true);
+    });
+
+    it('validateStatus error', () => {
+        const inputNumber = mount(<InputNumber validateStatus="error" />);
+        expect(inputNumber.exists(`.${BASE_CLASS_PREFIX}-input-wrapper-error`)).toBe(true);
+    });
+
+    it('prefix and suffix props', () => {
+        const inputNumber = mount(<InputNumber prefix="$" suffix="USD" defaultValue={100} />);
+        expect(inputNumber.find(`.${BASE_CLASS_PREFIX}-input-prefix`).text()).toBe('$');
+        expect(inputNumber.find(`.${BASE_CLASS_PREFIX}-input-suffix`).first().text()).toBe('USD');
+    });
+
+    it('innerButtons prop shows buttons on hover', () => {
+        const inputNumber = mount(<InputNumber innerButtons defaultValue={100} />);
+        // innerButtons 模式下，按钮在 hover 时才显示
+        const inputWrapper = inputNumber.find(`.${BASE_CLASS_PREFIX}-input-number`);
+        inputWrapper.simulate('mouseEnter');
+        const btns = inputNumber.find(`.${BASE_CLASS_PREFIX}-input-number-suffix-btns .${BASE_CLASS_PREFIX}-input-number-button`);
+        expect(btns.length).toBe(2);
+    });
+
+    it('onNumberChange callback', () => {
+        const onNumberChange = sinon.spy();
+        const inputNumber = mount(<InputNumber defaultValue={10} onNumberChange={onNumberChange} />);
+        const btns = inputNumber.find(`.${BASE_CLASS_PREFIX}-input-number-suffix-btns .${BASE_CLASS_PREFIX}-input-number-button`);
+        const addBtn = btns.first();
+        addBtn.simulate('mousedown', { button: numbers.MOUSE_BUTTON_LEFT });
+        expect(onNumberChange.calledOnce).toBe(true);
+        expect(onNumberChange.calledWith(11)).toBe(true);
+    });
+
 });
  

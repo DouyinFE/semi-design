@@ -203,4 +203,72 @@ describe('RadioGroup', () => {
 
         expect(radioGroup.exists(`${BASE_CLASS_PREFIX}-radio-checked`)).toEqual(false);
     });
+
+    it('direction horizontal', () => {
+        const radioGroup = mount(
+            createRadioGroup({ direction: 'horizontal' })
+        );
+        expect(radioGroup.exists(`.${BASE_CLASS_PREFIX}-radioGroup-horizontal`)).toEqual(true);
+    });
+
+    it('direction vertical', () => {
+        const radioGroup = mount(
+            createRadioGroup({ direction: 'vertical' })
+        );
+        expect(radioGroup.exists(`.${BASE_CLASS_PREFIX}-radioGroup-vertical`)).toEqual(true);
+    });
+
+    it('controlled value', () => {
+        const radioGroup = mount(
+            createRadioGroup({ value: 'A' })
+        );
+        const radios = radioGroup.find('input');
+        expect(radios.at(0).getDOMNode().checked).toEqual(true);
+        expect(radios.at(1).getDOMNode().checked).toEqual(false);
+        
+        radioGroup.setProps({ value: 'B' });
+        radioGroup.update();
+        expect(radioGroup.find('input').at(0).getDOMNode().checked).toEqual(false);
+        expect(radioGroup.find('input').at(1).getDOMNode().checked).toEqual(true);
+    });
+
+    it('defaultValue', () => {
+        const radioGroup = mount(
+            createRadioGroup({ defaultValue: 'B' })
+        );
+        const radios = radioGroup.find('input');
+        expect(radios.at(0).getDOMNode().checked).toEqual(false);
+        expect(radios.at(1).getDOMNode().checked).toEqual(true);
+    });
+
+    it('disabled group', () => {
+        const radioGroup = mount(
+            createRadioGroup({ disabled: true })
+        );
+        radioGroup.find('input').forEach(input => {
+            expect(input.getDOMNode().disabled).toEqual(true);
+        });
+    });
+
+    it('aria-label', () => {
+        const radioGroup = mount(
+            createRadioGroup({ 'aria-label': 'Radio group label' })
+        );
+        expect(radioGroup.find(`.${BASE_CLASS_PREFIX}-radioGroup`).prop('aria-label')).toEqual('Radio group label');
+    });
+
+    it('mode advanced allows deselection', () => {
+        const onChange = jest.fn();
+        const radioGroup = mount(
+            <RadioGroup mode="advanced" onChange={onChange} defaultValue="A">
+                <Radio value="A">A</Radio>
+                <Radio value="B">B</Radio>
+            </RadioGroup>
+        );
+        
+        // 再次点击已选中的选项应该可以取消选择
+        const radios = radioGroup.find('input');
+        radios.at(0).simulate('change', { target: { checked: false } });
+        expect(onChange).toHaveBeenCalled();
+    });
 });

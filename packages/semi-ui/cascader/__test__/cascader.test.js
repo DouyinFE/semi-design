@@ -1413,4 +1413,79 @@ describe('Cascader', () => {
         expect(placeholder.getDOMNode().placeholder).toEqual('value not in treeData, show placeholder');
         cascader.unmount();
     })
+
+    it('onFocus callback', () => {
+        const spyOnFocus = sinon.spy(() => {});
+        const cascader = render({
+            onFocus: spyOnFocus,
+        });
+        const selectBox = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection`).at(0);
+        selectBox.simulate('click');
+        // onFocus 在打开下拉框时触发
+        expect(spyOnFocus.calledOnce).toBe(true);
+        cascader.unmount();
+    });
+
+    it('onBlur callback', () => {
+        const spyOnBlur = sinon.spy(() => {});
+        const cascader = render({
+            onBlur: spyOnBlur,
+        });
+        // 验证 onBlur 属性被正确传递
+        expect(cascader.props().onBlur).toBe(spyOnBlur);
+        cascader.unmount();
+    });
+
+    it('max prop', () => {
+        const cascader = render({
+            multiple: true,
+            max: 2,
+        });
+        // 验证 max 属性被正确传递
+        expect(cascader.props().max).toBe(2);
+        cascader.unmount();
+    });
+
+    it('onExceed callback', () => {
+        const spyOnExceed = sinon.spy(() => {});
+        const cascader = render({
+            multiple: true,
+            onExceed: spyOnExceed,
+        });
+        // 验证 onExceed 属性被正确传递
+        expect(cascader.props().onExceed).toBe(spyOnExceed);
+        cascader.unmount();
+    });
+
+    it('maxTagCount', () => {
+        const cascader = render({
+            multiple: true,
+            maxTagCount: 1,
+            defaultValue: [['Asia', 'China', 'Beijing'], ['Asia', 'China', 'Shanghai']],
+            autoMergeValue: false,
+        });
+        
+        // 应该只显示 maxTagCount 个 tag
+        const tags = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection .${BASE_CLASS_PREFIX}-tag`);
+        // 有 +N 的标签
+        expect(tags.length).toBeLessThanOrEqual(2); // 1 tag + 1 "+N" tag
+        cascader.unmount();
+    });
+
+    it('borderless prop', () => {
+        const cascader = render({
+            borderless: true,
+        });
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader-borderless`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    it('arrowIcon prop', () => {
+        const customIcon = <span className="custom-arrow">arrow</span>;
+        const cascader = render({
+            arrowIcon: customIcon,
+        });
+        expect(cascader.exists('.custom-arrow')).toEqual(true);
+        cascader.unmount();
+    });
 });

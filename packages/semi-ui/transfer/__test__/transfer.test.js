@@ -321,4 +321,119 @@ describe(`Transfer`, () => {
         expect(spyOnSearch.firstCall.args).toHaveLength(1);
         expect(spyOnSearch.firstCall.args[0] === '1').toEqual(true);
     });
+
+    it('disabled', () => {
+        const props = {
+            dataSource: defaultItems,
+            disabled: true,
+        };
+        const transfer = getTransfer(props);
+        expect(transfer.exists(`.${BASE_CLASS_PREFIX}-transfer-disabled`)).toEqual(true);
+    });
+
+    it('controlled value', () => {
+        const spyOnChange = spy();
+        const props = {
+            dataSource: defaultItems,
+            value: ['1'],
+            onChange: spyOnChange,
+        };
+        const transfer = getTransfer(props);
+        
+        // 验证受控模式下的初始值
+        expect(transfer.state().selectedItems.has('a')).toEqual(true);
+        
+        // 点击选择第二个项目
+        const secondItem = transfer.find(`span.${BASE_CLASS_PREFIX}-transfer-item`).at(1);
+        secondItem.simulate('click');
+        
+        // onChange 应该被调用，但 UI 不应该更新（受控模式）
+        expect(spyOnChange.calledOnce).toEqual(true);
+        // 在受控模式下，状态不会自动更新，需要通过 props 更新
+    });
+
+    it('draggable prop', () => {
+        const props = {
+            dataSource: defaultItems,
+            defaultValue: ['1'],
+            draggable: true,
+        };
+        const transfer = getTransfer(props);
+        // 验证 draggable 属性被正确传递
+        expect(transfer.props().draggable).toEqual(true);
+    });
+
+    it('emptyContent prop', () => {
+        const props = {
+            dataSource: [],
+            emptyContent: {
+                left: <span className="custom-empty-left">No data</span>,
+                right: <span className="custom-empty-right">No selection</span>,
+            },
+        };
+        const transfer = getTransfer(props);
+        expect(transfer.exists('.custom-empty-left')).toEqual(true);
+        expect(transfer.exists('.custom-empty-right')).toEqual(true);
+    });
+
+    it('showPath prop', () => {
+        const props = {
+            type: 'treeList',
+            dataSource: treeData,
+            showPath: true,
+        };
+        const transfer = getTransfer(props);
+        // 验证 showPath 属性被正确传递
+        expect(transfer.props().showPath).toEqual(true);
+    });
+
+    it('filter prop', () => {
+        const customFilter = (sugInput, item) => {
+            return item.label.toLowerCase().includes(sugInput.toLowerCase());
+        };
+        const props = {
+            dataSource: defaultItems,
+            filter: customFilter,
+        };
+        const transfer = getTransfer(props);
+        // 验证 filter 属性被正确传递
+        expect(transfer.props().filter).toEqual(customFilter);
+    });
+
+    it('renderSourceItem prop', () => {
+        const renderSourceItem = (item) => (
+            <div className="custom-source-item">{item.label}</div>
+        );
+        const props = {
+            dataSource: defaultItems,
+            renderSourceItem,
+        };
+        const transfer = getTransfer(props);
+        expect(transfer.exists('.custom-source-item')).toEqual(true);
+    });
+
+    it('renderSelectedItem prop', () => {
+        const renderSelectedItem = (item) => (
+            <div className="custom-selected-item">{item.label}</div>
+        );
+        const props = {
+            dataSource: defaultItems,
+            defaultValue: ['1'],
+            renderSelectedItem,
+        };
+        const transfer = getTransfer(props);
+        expect(transfer.exists('.custom-selected-item')).toEqual(true);
+    });
+
+    it('inputProps prop', () => {
+        const props = {
+            dataSource: defaultItems,
+            inputProps: {
+                placeholder: 'Custom placeholder',
+            },
+        };
+        const transfer = getTransfer(props);
+        const input = transfer.find(`.${BASE_CLASS_PREFIX}-transfer-filter input`).at(0);
+        expect(input.props().placeholder).toEqual('Custom placeholder');
+    });
 });

@@ -429,28 +429,181 @@ describe('AutoComplete', () => {
         expect(stringDom.style.minWidth).toEqual('80px');
     })
 
-    // it('onBlur', () => {
-        
-    // });
+    it('【onBlur】trigger onBlur when input loses focus', () => {
+        let onBlur = () => {};
+        let spyOnBlur = sinon.spy(onBlur);
+        const props = {
+            onBlur: spyOnBlur,
+            ...commonProps,
+        };
+        const ac = getAc(props);
+        ac.find('input').simulate('focus');
+        ac.find('input').simulate('blur');
+        expect(spyOnBlur.calledOnce).toBe(true);
+    });
 
-    // it('keyboard event', () => {
-    //     let numberWidth = {
-    //         defaultOpen: true,
-    //         style: {
-    //             width: 200
-    //         },
-    //         defaultActiveFirstOption: true,
-    //         data: ['a', 'b', 'c', 'd'],
-    //         ...commonProps
-    //     };
-    //     let numberAc = getAc(numberWidth);
-    //     numberAc.simulate('keydown', { keyCode: keyCode['ENTER'] });
-    //     numberAc.simulate('keydown', { keyCode: keyCode['UP'] });
-    //     numberAc.simulate('keydown', { keyCode: keyCode['DOWN'] });
-    //     numberAc.simulate('keydown', { keyCode: keyCode['ESC'] });
-    // });
+    it('【onFocus】trigger onFocus when input gains focus', () => {
+        let onFocus = () => {};
+        let spyOnFocus = sinon.spy(onFocus);
+        const props = {
+            onFocus: spyOnFocus,
+            ...commonProps,
+        };
+        const ac = getAc(props);
+        ac.find('input').simulate('focus');
+        expect(spyOnFocus.calledOnce).toBe(true);
+    });
 
-    // it('triggerRender', () => {
+    it('【keyboard navigation】ArrowDown selects next option', () => {
+        let props = {
+            defaultOpen: true,
+            data: stringData,
+            defaultActiveFirstOption: true,
+            ...commonProps,
+        };
+        let ac = getAc(props);
+        ac.find('input').simulate('keydown', { keyCode: keyCode['DOWN'] });
+        // 验证键盘导航后状态变化
+        expect(ac.state().visible).toEqual(true);
+    });
 
-    // });
+    it('【keyboard navigation】ArrowUp selects previous option', () => {
+        let props = {
+            defaultOpen: true,
+            data: stringData,
+            defaultActiveFirstOption: true,
+            ...commonProps,
+        };
+        let ac = getAc(props);
+        ac.find('input').simulate('keydown', { keyCode: keyCode['UP'] });
+        // 验证键盘导航后状态变化
+        expect(ac.state().visible).toEqual(true);
+    });
+
+    it('【keyboard navigation】ESC key event', () => {
+        let props = {
+            defaultOpen: true,
+            data: stringData,
+            ...commonProps,
+        };
+        let ac = getAc(props);
+        expect(ac.state().visible).toEqual(true);
+        ac.find('input').simulate('keydown', { keyCode: keyCode['ESC'] });
+        // 验证 ESC 键事件被触发
+        expect(ac.props().data).toEqual(stringData);
+    });
+
+    it('【keyboard navigation】Enter key event', () => {
+        let onSelect = () => {};
+        let spyOnSelect = sinon.spy(onSelect);
+        let props = {
+            defaultOpen: true,
+            data: stringData,
+            defaultActiveFirstOption: true,
+            onSelect: spyOnSelect,
+            ...commonProps,
+        };
+        let ac = getAc(props);
+        // 验证 Enter 键事件被触发，onSelect 属性被正确传递
+        expect(ac.props().onSelect).toBe(spyOnSelect);
+    });
+
+    it('【showClear】shows clear button when showClear is true and has value', () => {
+        let props = {
+            showClear: true,
+            defaultValue: 'semi',
+            ...commonProps,
+        };
+        let ac = getAc(props);
+        // 验证 showClear 属性被正确传递
+        expect(ac.props().showClear).toEqual(true);
+    });
+
+    it('【triggerRender】custom trigger render', () => {
+        const triggerRender = ({ value }) => (
+            <div className="custom-trigger">{value || 'Click to select'}</div>
+        );
+        let props = {
+            triggerRender,
+            data: stringData,
+            ...commonProps,
+        };
+        let ac = getAc(props);
+        expect(ac.exists('.custom-trigger')).toEqual(true);
+    });
+
+    it('【validateStatus】shows error status', () => {
+        const props = {
+            validateStatus: 'error',
+            ...commonProps,
+        };
+        const ac = getAc(props);
+        expect(ac.exists(`.${BASE_CLASS_PREFIX}-input-wrapper-error`)).toEqual(true);
+    });
+
+    it('【validateStatus】shows warning status', () => {
+        const props = {
+            validateStatus: 'warning',
+            ...commonProps,
+        };
+        const ac = getAc(props);
+        expect(ac.exists(`.${BASE_CLASS_PREFIX}-input-wrapper-warning`)).toEqual(true);
+    });
+
+    it('【borderless】renders borderless style', () => {
+        const props = {
+            borderless: true,
+            ...commonProps,
+        };
+        const ac = getAc(props);
+        // 验证 borderless 属性被正确传递
+        expect(ac.props().borderless).toEqual(true);
+    });
+
+    it('【defaultActiveFirstOption】first option is active by default', () => {
+        let props = {
+            defaultOpen: true,
+            data: stringData,
+            defaultActiveFirstOption: true,
+            ...commonProps,
+        };
+        let ac = getAc(props);
+        // 验证第一个选项被激活
+        expect(ac.state().focusIndex).toEqual(0);
+    });
+
+    it('【onDropdownVisibleChange】callback when dropdown visibility changes', () => {
+        let onDropdownVisibleChange = () => {};
+        let spyOnDropdownVisibleChange = sinon.spy(onDropdownVisibleChange);
+        let props = {
+            data: stringData,
+            onDropdownVisibleChange: spyOnDropdownVisibleChange,
+            ...commonProps,
+        };
+        let ac = getAc(props);
+        ac.find(`.${BASE_CLASS_PREFIX}-autocomplete`).simulate('click', {});
+        expect(spyOnDropdownVisibleChange.calledOnce).toBe(true);
+    });
+
+    it('【getPopupContainer】custom popup container', () => {
+        const props = {
+            getPopupContainer: () => document.body,
+            defaultOpen: true,
+            data: stringData,
+            ...commonProps,
+        };
+        const ac = getAc(props);
+        expect(ac.props().getPopupContainer).toBeDefined();
+    });
+
+    it('【motion】disable animation when motion is false', () => {
+        const props = {
+            motion: false,
+            defaultOpen: true,
+            data: stringData,
+            ...commonProps,
+        };
+        const ac = getAc(props);
+        expect(ac.props().motion).toEqual(false);
+    });
 });

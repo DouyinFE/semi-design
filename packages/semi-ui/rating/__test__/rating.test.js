@@ -244,4 +244,44 @@ describe('Rating', () => {
         stars.at(1).simulate('click', event);
         expect(R.find(`.${BASE_CLASS_PREFIX}-rating-star-full`).length).toEqual(2);
     });
+
+    it('autoFocus prop', () => {
+        const R = getRating({ autoFocus: true });
+        expect(R.props().autoFocus).toEqual(true);
+        R.unmount();
+    });
+
+    it('aria-label prop', () => {
+        const R = getRating({ 'aria-label': 'Rating component' });
+        const ul = R.find('ul');
+        // aria-label 会被组件内部处理，包含额外的描述信息
+        expect(ul.prop('aria-label')).toContain('Rating');
+        R.unmount();
+    });
+
+    it('aria-labelledby prop', () => {
+        const R = getRating({ 'aria-labelledby': 'rating-label' });
+        const ul = R.find('ul');
+        expect(ul.prop('aria-labelledby')).toEqual('rating-label');
+        R.unmount();
+    });
+
+    it('preventScroll prop', () => {
+        const R = getRating({ preventScroll: true });
+        expect(R.props().preventScroll).toEqual(true);
+        R.unmount();
+    });
+
+    it('tabIndex prop', () => {
+        const R = getRating({ tabIndex: 0 });
+        const ul = R.find('ul');
+        expect(ul.prop('tabIndex')).toEqual(0);
+        R.unmount();
+    });
+
+    it('id prop', () => {
+        const R = getRating({ id: 'my-rating' });
+        expect(R.find(`#my-rating`).exists()).toEqual(true);
+        R.unmount();
+    });
 });

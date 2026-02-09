@@ -395,4 +395,86 @@ describe('TagInput', () => {
         expect(spyOnKeyDown.callCount).toEqual(1);
         tagInput.unmount();
     });
+
+    it('TagInput with allowDuplicates', () => {
+        const props = {
+            allowDuplicates: true,
+            defaultValue: ['abc'],
+            inputValue: 'abc',
+        };
+        const tagInput = getTagInput(props);
+        tagInput.find('input').simulate('keyDown', { keyCode: 13 });
+        const tags = tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`);
+        // allowDuplicates=true 时，可以添加重复的标签
+        expect(tags.length).toEqual(2);
+        tagInput.unmount();
+    });
+
+    it('TagInput with allowDuplicates false', () => {
+        const props = {
+            allowDuplicates: false,
+            defaultValue: ['abc'],
+            inputValue: 'abc',
+        };
+        const tagInput = getTagInput(props);
+        tagInput.find('input').simulate('keyDown', { keyCode: 13 });
+        const tags = tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`);
+        // allowDuplicates=false 时，不能添加重复的标签
+        expect(tags.length).toEqual(1);
+        tagInput.unmount();
+    });
+
+    it('TagInput with draggable prop', () => {
+        const props = {
+            draggable: true,
+            defaultValue: ['abc', 'hotsoon'],
+        };
+        const tagInput = getTagInput(props);
+        // 验证 draggable 属性被正确传递
+        expect(tagInput.props().draggable).toEqual(true);
+        tagInput.unmount();
+    });
+
+    it('TagInput with renderTagItem', () => {
+        const renderTagItem = (value, index) => (
+            <span className="custom-tag-item" key={index}>{value}</span>
+        );
+        const props = {
+            defaultValue: ['abc', 'hotsoon'],
+            renderTagItem,
+        };
+        const tagInput = getTagInput(props);
+        expect(tagInput.exists('.custom-tag-item')).toEqual(true);
+        tagInput.unmount();
+    });
+
+    it('TagInput with autoFocus', () => {
+        const props = {
+            autoFocus: true,
+        };
+        const tagInput = getTagInput(props);
+        // 验证 autoFocus 属性被正确传递
+        expect(tagInput.props().autoFocus).toEqual(true);
+        tagInput.unmount();
+    });
+
+    it('TagInput with aria-label', () => {
+        const props = {
+            'aria-label': 'Tag input field',
+        };
+        const tagInput = getTagInput(props);
+        // 验证 aria-label 属性被正确传递到组件
+        expect(tagInput.props()['aria-label']).toEqual('Tag input field');
+        tagInput.unmount();
+    });
+
+    it('TagInput with preventScroll', () => {
+        const props = {
+            preventScroll: true,
+        };
+        const tagInput = getTagInput(props);
+        // 验证 preventScroll 属性被正确传递
+        expect(tagInput.props().preventScroll).toEqual(true);
+        tagInput.unmount();
+    });
 })

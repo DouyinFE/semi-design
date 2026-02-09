@@ -147,4 +147,99 @@ describe('Slider', () => {
         wrapper.setProps({ disabled: false });
         expect(wrapper.exists(`.${BASE_CLASS_PREFIX}-slider-disabled`)).toBe(false);
     });
+
+    it('vertical', () => {
+        const wrapper = shallow(<Slider vertical defaultValue={30} />);
+        // vertical 模式下，wrapper 类名包含 vertical-wrapper
+        expect(wrapper.exists(`.${BASE_CLASS_PREFIX}-slider-vertical-wrapper`)).toBe(true);
+    });
+
+    it('step prop', () => {
+        const wrapper = mount(<Slider step={10} defaultValue={30} />);
+        expect(wrapper.props().step).toBe(10);
+        wrapper.unmount();
+    });
+
+    it('min and max props', () => {
+        const wrapper = mount(<Slider min={10} max={50} defaultValue={30} />);
+        expect(wrapper.props().min).toBe(10);
+        expect(wrapper.props().max).toBe(50);
+        wrapper.unmount();
+    });
+
+    it('tipFormatter prop', () => {
+        const tipFormatter = (value) => `${value}%`;
+        const wrapper = mount(<Slider tipFormatter={tipFormatter} defaultValue={30} tooltipVisible />);
+        expect(wrapper.props().tipFormatter).toBe(tipFormatter);
+        wrapper.unmount();
+    });
+
+    it('onAfterChange callback', () => {
+        const onAfterChange = sinon.spy();
+        const wrapper = mount(<Slider onAfterChange={onAfterChange} defaultValue={30} />);
+        expect(wrapper.props().onAfterChange).toBe(onAfterChange);
+        wrapper.unmount();
+    });
+
+    it('included prop', () => {
+        const wrapper = mount(<Slider included={false} marks={{ 0: '0', 50: '50', 100: '100' }} defaultValue={30} />);
+        expect(wrapper.props().included).toBe(false);
+        wrapper.unmount();
+    });
+
+    it('railStyle and trackStyle props', () => {
+        const railStyle = { backgroundColor: '#ccc' };
+        const trackStyle = { backgroundColor: '#1890ff' };
+        const wrapper = mount(<Slider railStyle={railStyle} trackStyle={trackStyle} defaultValue={30} />);
+        expect(wrapper.props().railStyle).toEqual(railStyle);
+        expect(wrapper.props().trackStyle).toEqual(trackStyle);
+        wrapper.unmount();
+    });
+
+    it('handleStyle prop', () => {
+        const handleStyle = { borderColor: '#1890ff' };
+        const wrapper = mount(<Slider handleStyle={handleStyle} defaultValue={30} />);
+        expect(wrapper.props().handleStyle).toEqual(handleStyle);
+        wrapper.unmount();
+    });
+
+    it('getAriaValueText prop', () => {
+        const getAriaValueText = (value) => `${value} percent`;
+        const wrapper = mount(<Slider getAriaValueText={getAriaValueText} defaultValue={30} />);
+        expect(wrapper.props().getAriaValueText).toBe(getAriaValueText);
+        wrapper.unmount();
+    });
+
+    it('range with controlled value', () => {
+        const onChange = sinon.spy();
+        const wrapper = mount(<Slider range value={[20, 60]} onChange={onChange} />);
+        expect(isEqual(wrapper.state('currentValue'), [20, 60])).toBe(true);
+        
+        wrapper.setProps({ value: [30, 70] });
+        expect(isEqual(wrapper.state('currentValue'), [30, 70])).toBe(true);
+        wrapper.unmount();
+    });
+
+    it('marks with simple values', () => {
+        const marks = {
+            0: '0°C',
+            26: '26°C',
+            37: '37°C',
+            100: '100°C',
+        };
+        const wrapper = shallow(<Slider marks={marks} defaultValue={37} />);
+        expect(wrapper.exists(`.${BASE_CLASS_PREFIX}-slider-dot`)).toBe(true);
+    });
+
+    it('className and style props', () => {
+        const wrapper = mount(
+            <Slider 
+                className="custom-slider" 
+                style={{ width: 300 }} 
+                defaultValue={30} 
+            />
+        );
+        expect(wrapper.find('.custom-slider').exists()).toBe(true);
+        wrapper.unmount();
+    });
 });

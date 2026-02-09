@@ -309,4 +309,80 @@ describe('Input', () => {
       inputDom.simulate('compositionupdate', { target: { value: 'test' } });
       expect(spyOnCompositionUpdate.calledOnce).toBe(true);
   });
+
+  it('input showClear and onClear callback', () => {
+    const spyOnClear = sinon.spy();
+    const input = mount(<Input showClear defaultValue="test" onClear={spyOnClear} />);
+    // 需要先触发 hover 状态才能显示清除按钮
+    input.simulate('mouseEnter', {});
+    input.find(`.${BASE_CLASS_PREFIX}-input-clearbtn`).simulate('mousedown');
+    expect(spyOnClear.calledOnce).toBe(true);
+  });
+
+  it('input readonly prop', () => {
+    const input = mount(<Input readonly defaultValue="readonly text" />);
+    expect(input.find('input').prop('readOnly')).toBe(true);
+    expect(input.exists(`.${BASE_CLASS_PREFIX}-input-wrapper-readonly`)).toEqual(true);
+  });
+
+  it('input onFocus callback', () => {
+    const spyOnFocus = sinon.spy();
+    const input = mount(<Input onFocus={spyOnFocus} />);
+    input.find('input').simulate('focus');
+    expect(spyOnFocus.calledOnce).toBe(true);
+  });
+
+  it('input onBlur callback', () => {
+    const spyOnBlur = sinon.spy();
+    const input = mount(<Input onBlur={spyOnBlur} />);
+    input.find('input').simulate('focus');
+    input.find('input').simulate('blur');
+    expect(spyOnBlur.calledOnce).toBe(true);
+  });
+
+  it('input onEnterPress callback', () => {
+    const spyOnEnterPress = sinon.spy();
+    const input = mount(<Input onEnterPress={spyOnEnterPress} />);
+    // onEnterPress is triggered in handleKeyPress, not handleKeyDown
+    input.find('input').simulate('keypress', { key: 'Enter', keyCode: 13 });
+    expect(spyOnEnterPress.calledOnce).toBe(true);
+  });
+
+  it('input borderless prop', () => {
+    const input = mount(<Input borderless />);
+    expect(input.exists(`.${BASE_CLASS_PREFIX}-input-borderless`)).toEqual(true);
+  });
+
+  it('input onKeyDown callback', () => {
+    const spyOnKeyDown = sinon.spy();
+    const input = mount(<Input onKeyDown={spyOnKeyDown} />);
+    input.find('input').simulate('keydown', { key: 'a', keyCode: 65 });
+    expect(spyOnKeyDown.calledOnce).toBe(true);
+  });
+
+  it('input onKeyUp callback', () => {
+    const spyOnKeyUp = sinon.spy();
+    const input = mount(<Input onKeyUp={spyOnKeyUp} />);
+    input.find('input').simulate('keyup', { key: 'a', keyCode: 65 });
+    expect(spyOnKeyUp.calledOnce).toBe(true);
+  });
+
+  it('input insetLabel prop', () => {
+    const input = mount(<Input insetLabel="Label" />);
+    expect(input.exists(`.${BASE_CLASS_PREFIX}-input-inset-label`)).toEqual(true);
+    expect(input.find(`.${BASE_CLASS_PREFIX}-input-inset-label`).text()).toEqual('Label');
+  });
+
+  it('input clearIcon custom icon', () => {
+    const customIcon = <span className="custom-clear-icon">X</span>;
+    const input = mount(<Input showClear clearIcon={customIcon} defaultValue="test" />);
+    input.simulate('mouseEnter', {});
+    expect(input.find('.custom-clear-icon').exists()).toBe(true);
+  });
+
+  it('input hideSuffix prop', () => {
+    const input = mount(<Input suffix="suffix" hideSuffix showClear defaultValue="test" />);
+    input.simulate('mouseEnter', {});
+    expect(input.exists(`.${BASE_CLASS_PREFIX}-input-suffix-hidden`)).toEqual(true);
+  });
 });

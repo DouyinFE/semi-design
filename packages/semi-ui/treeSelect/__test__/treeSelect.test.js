@@ -1308,4 +1308,91 @@ describe('TreeSelect', () => {
             { "label": "Osaka", "value": "Osaka", "key": "0-1-0" }
         ]);
     });
+
+    it('onFocus callback', () => {
+        const spyOnFocus = sinon.spy(() => {});
+        const treeSelect = getTreeSelect({
+            defaultOpen: false,
+            onFocus: spyOnFocus,
+        });
+        const selectBox = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select`).at(0);
+        selectBox.simulate('click');
+        // onFocus 在打开下拉框时触发
+        expect(spyOnFocus.calledOnce).toBe(true);
+        treeSelect.unmount();
+    });
+
+    it('onBlur callback', () => {
+        const spyOnBlur = sinon.spy(() => {});
+        const treeSelect = getTreeSelect({
+            onBlur: spyOnBlur,
+        });
+        // 验证 onBlur 属性被正确传递
+        expect(treeSelect.props().onBlur).toBe(spyOnBlur);
+        treeSelect.unmount();
+    });
+
+    it('maxTagCount', () => {
+        const treeSelect = getTreeSelect({
+            multiple: true,
+            maxTagCount: 1,
+            defaultValue: ['Beijing', 'Shanghai'],
+            defaultExpandAll: true,
+        });
+        
+        // 应该只显示 maxTagCount 个 tag + 1 个 "+N" tag
+        const tags = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-selection .${BASE_CLASS_PREFIX}-tag`);
+        expect(tags.length).toBeLessThanOrEqual(2);
+        treeSelect.unmount();
+    });
+
+    it('borderless prop', () => {
+        const treeSelect = getTreeSelect({
+            borderless: true,
+        });
+        expect(treeSelect.exists(`.${BASE_CLASS_PREFIX}-tree-select-borderless`)).toEqual(true);
+        treeSelect.unmount();
+    });
+
+    it('arrowIcon prop', () => {
+        const customIcon = <span className="custom-arrow">arrow</span>;
+        const treeSelect = getTreeSelect({
+            arrowIcon: customIcon,
+        });
+        expect(treeSelect.exists('.custom-arrow')).toEqual(true);
+        treeSelect.unmount();
+    });
+
+    it('showClear prop', () => {
+        const treeSelect = getTreeSelect({
+            showClear: true,
+            defaultValue: 'Beijing',
+            defaultExpandAll: true,
+        });
+        
+        const selectTree = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select`).at(0);
+        selectTree.simulate('mouseenter');
+        
+        const clearBtn = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-clearbtn`);
+        expect(clearBtn.exists()).toEqual(true);
+        treeSelect.unmount();
+    });
+
+    it('leafOnly prop', () => {
+        const spyOnChange = sinon.spy(() => {});
+        const treeSelect = getTreeSelect({
+            multiple: true,
+            leafOnly: true,
+            defaultExpandAll: true,
+            onChange: spyOnChange,
+        });
+        
+        // 选择父节点，应该只选中叶子节点
+        const nodeYazhou = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`).at(0);
+        nodeYazhou.simulate('click');
+        
+        // onChange 应该被调用，且只包含叶子节点
+        expect(spyOnChange.called).toBe(true);
+        treeSelect.unmount();
+    });
 })

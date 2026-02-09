@@ -251,4 +251,48 @@ describe('TextArea', () => {
         textareaDom.simulate('compositionupdate', { target: { value: 'test' } });
         expect(spyOnCompositionUpdate.calledOnce).toBe(true);
     });
+
+    it('TextArea onFocus callback', () => {
+        const spyOnFocus = sinon.spy();
+        const textArea = mount(<TextArea onFocus={spyOnFocus} />);
+        textArea.find('textarea').simulate('focus');
+        expect(spyOnFocus.calledOnce).toBe(true);
+    });
+
+    it('TextArea onBlur callback', () => {
+        const spyOnBlur = sinon.spy();
+        const textArea = mount(<TextArea onBlur={spyOnBlur} />);
+        textArea.find('textarea').simulate('focus');
+        textArea.find('textarea').simulate('blur');
+        expect(spyOnBlur.calledOnce).toBe(true);
+    });
+
+    it('TextArea readonly prop', () => {
+        const textArea = mount(<TextArea readonly defaultValue="readonly text" />);
+        expect(textArea.find('textarea').prop('readOnly')).toBe(true);
+    });
+
+    it('TextArea borderless prop', () => {
+        const textArea = mount(<TextArea borderless />);
+        expect(textArea.exists(`.${BASE_CLASS_PREFIX}-input-textarea-borderless`)).toEqual(true);
+    });
+
+    it('TextArea different validateStatus', () => {
+        const warningTextArea = mount(<TextArea validateStatus="warning" />);
+        const errorTextArea = mount(<TextArea validateStatus="error" />);
+        expect(warningTextArea.exists(`.${BASE_CLASS_PREFIX}-input-textarea-wrapper-warning`)).toEqual(true);
+        expect(errorTextArea.exists(`.${BASE_CLASS_PREFIX}-input-textarea-wrapper-error`)).toEqual(true);
+    });
+
+    it('TextArea onKeyDown callback', () => {
+        const spyOnKeyDown = sinon.spy();
+        const textArea = mount(<TextArea onKeyDown={spyOnKeyDown} />);
+        textArea.find('textarea').simulate('keydown', { key: 'a', keyCode: 65 });
+        expect(spyOnKeyDown.calledOnce).toBe(true);
+    });
+
+    it('TextArea rows prop', () => {
+        const textArea = mount(<TextArea rows={5} />);
+        expect(textArea.find('textarea').prop('rows')).toEqual(5);
+    });
 });

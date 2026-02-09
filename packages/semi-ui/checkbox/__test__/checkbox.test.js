@@ -82,4 +82,148 @@ describe('checkbox', () => {
         const checkbox = getCb({ extra: text });
         expect(checkbox.find(`.${BASE_CLASS_PREFIX}-checkbox-extra`).text()).toEqual(text);
     });
+
+    it('indeterminate state', () => {
+        const checkbox = getCb({ indeterminate: true });
+        expect(checkbox.exists(`.${BASE_CLASS_PREFIX}-checkbox-indeterminate`)).toEqual(true);
+        // indeterminate 状态下，checked 应该为 false
+        expect(checkbox.state().checked).toEqual(false);
+    });
+
+    it('indeterminate with checked', () => {
+        const checkbox = getCb({ indeterminate: true, checked: true });
+        expect(checkbox.exists(`.${BASE_CLASS_PREFIX}-checkbox-indeterminate`)).toEqual(true);
+        // indeterminate 优先级高于 checked 的视觉效果
+        expect(checkbox.state().checked).toEqual(true);
+    });
+
+    it('keyboard Enter press', () => {
+        const onChange = sinon.spy(value => {});
+        const checkbox = mount(<Checkbox onChange={onChange} />);
+        // 模拟 Enter 键按下
+        checkbox.find(`.${BASE_CLASS_PREFIX}-checkbox`).simulate('keypress', { key: 'Enter', keyCode: 13 });
+        expect(onChange.calledOnce).toBe(true);
+    });
+
+    it('onMouseEnter and onMouseLeave', () => {
+        const onMouseEnter = sinon.spy(() => {});
+        const onMouseLeave = sinon.spy(() => {});
+        const checkbox = getCb({ onMouseEnter, onMouseLeave });
+        checkbox.find(`.${BASE_CLASS_PREFIX}-checkbox`).simulate('mouseEnter', {});
+        expect(onMouseEnter.calledOnce).toBe(true);
+        checkbox.find(`.${BASE_CLASS_PREFIX}-checkbox`).simulate('mouseLeave', {});
+        expect(onMouseLeave.calledOnce).toBe(true);
+    });
+
+    it('ARIA attributes - aria-labelledby', () => {
+        const checkbox = getCb({ 'aria-labelledby': 'label-id' });
+        expect(checkbox.find(`.${BASE_CLASS_PREFIX}-checkbox`).prop('aria-labelledby')).toEqual('label-id');
+    });
+
+    it('type card', () => {
+        const checkbox = getCb({ type: 'card' });
+        expect(checkbox.exists(`.${BASE_CLASS_PREFIX}-checkbox-cardType`)).toEqual(true);
+    });
+
+    it('type pureCard', () => {
+        const checkbox = getCb({ type: 'pureCard' });
+        expect(checkbox.exists(`.${BASE_CLASS_PREFIX}-checkbox-cardType`)).toEqual(true);
+    });
+});
+
+describe('CheckboxGroup', () => {
+    const { Group } = Checkbox;
+
+    function getCheckboxGroup(props) {
+        return mount(
+            <Group {...props}>
+                <Checkbox value="A">A</Checkbox>
+                <Checkbox value="B">B</Checkbox>
+                <Checkbox value="C">C</Checkbox>
+            </Group>
+        );
+    }
+
+    it('basic render', () => {
+        const group = getCheckboxGroup();
+        expect(group.find(`.${BASE_CLASS_PREFIX}-checkbox`).length).toEqual(3);
+    });
+
+    it('defaultValue', () => {
+        const group = getCheckboxGroup({ defaultValue: ['A', 'B'] });
+        const checkboxes = group.find(`.${BASE_CLASS_PREFIX}-checkbox`);
+        expect(checkboxes.at(0).hasClass(`${BASE_CLASS_PREFIX}-checkbox-checked`)).toEqual(true);
+        expect(checkboxes.at(1).hasClass(`${BASE_CLASS_PREFIX}-checkbox-checked`)).toEqual(true);
+        expect(checkboxes.at(2).hasClass(`${BASE_CLASS_PREFIX}-checkbox-checked`)).toEqual(false);
+    });
+
+    it('controlled value', () => {
+        const group = getCheckboxGroup({ value: ['A'] });
+        const checkboxes = group.find(`.${BASE_CLASS_PREFIX}-checkbox`);
+        expect(checkboxes.at(0).hasClass(`${BASE_CLASS_PREFIX}-checkbox-checked`)).toEqual(true);
+        expect(checkboxes.at(1).hasClass(`${BASE_CLASS_PREFIX}-checkbox-checked`)).toEqual(false);
+        
+        group.setProps({ value: ['B', 'C'] });
+        group.update();
+        const updatedCheckboxes = group.find(`.${BASE_CLASS_PREFIX}-checkbox`);
+        expect(updatedCheckboxes.at(0).hasClass(`${BASE_CLASS_PREFIX}-checkbox-checked`)).toEqual(false);
+        expect(updatedCheckboxes.at(1).hasClass(`${BASE_CLASS_PREFIX}-checkbox-checked`)).toEqual(true);
+        expect(updatedCheckboxes.at(2).hasClass(`${BASE_CLASS_PREFIX}-checkbox-checked`)).toEqual(true);
+    });
+
+    it('onChange callback', () => {
+        const onChange = sinon.spy(value => {});
+        const group = getCheckboxGroup({ onChange });
+        group.find(`.${BASE_CLASS_PREFIX}-checkbox`).at(0).simulate('click', {});
+        expect(onChange.calledOnce).toBe(true);
+        expect(onChange.getCall(0).args[0]).toEqual(['A']);
+    });
+
+    it('disabled group', () => {
+        const group = getCheckboxGroup({ disabled: true });
+        const checkboxes = group.find(`.${BASE_CLASS_PREFIX}-checkbox`);
+        checkboxes.forEach(checkbox => {
+            expect(checkbox.hasClass(`${BASE_CLASS_PREFIX}-checkbox-disabled`)).toEqual(true);
+        });
+    });
+
+    it('direction horizontal', () => {
+        const group = getCheckboxGroup({ direction: 'horizontal' });
+        expect(group.exists(`.${BASE_CLASS_PREFIX}-checkboxGroup-horizontal`)).toEqual(true);
+    });
+
+    it('direction vertical', () => {
+        const group = getCheckboxGroup({ direction: 'vertical' });
+        expect(group.exists(`.${BASE_CLASS_PREFIX}-checkboxGroup-vertical`)).toEqual(true);
+    });
+
+    it('type card', () => {
+        const group = getCheckboxGroup({ type: 'card' });
+        // card 类型会应用到子 checkbox 上
+        expect(group.exists(`.${BASE_CLASS_PREFIX}-checkbox-cardType`)).toEqual(true);
+    });
+
+    it('options prop', () => {
+        const options = [
+            { label: 'Option 1', value: '1' },
+            { label: 'Option 2', value: '2' },
+            { label: 'Option 3', value: '3', disabled: true },
+        ];
+        const group = mount(<Group options={options} />);
+        expect(group.find(`.${BASE_CLASS_PREFIX}-checkbox`).length).toEqual(3);
+        // 验证第三个选项是禁用的
+        expect(group.find(`.${BASE_CLASS_PREFIX}-checkbox`).at(2).hasClass(`${BASE_CLASS_PREFIX}-checkbox-disabled`)).toEqual(true);
+    });
+
+    it('name prop', () => {
+        const group = getCheckboxGroup({ name: 'test-group' });
+        group.find('input').forEach(input => {
+            expect(input.prop('name')).toEqual('test-group');
+        });
+    });
+
+    it('ARIA attributes - aria-label', () => {
+        const group = getCheckboxGroup({ 'aria-label': 'Checkbox group' });
+        expect(group.find(`.${BASE_CLASS_PREFIX}-checkboxGroup-wrapper`).prop('aria-label')).toEqual('Checkbox group');
+    });
 });
