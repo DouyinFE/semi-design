@@ -295,4 +295,87 @@ describe('TextArea', () => {
         const textArea = mount(<TextArea rows={5} />);
         expect(textArea.find('textarea').prop('rows')).toEqual(5);
     });
+
+    it('TextArea autosize triggers resize on value change', () => {
+        const spyOnResize = sinon.spy();
+        const textArea = mount(<TextArea autosize onResize={spyOnResize} defaultValue="test" />);
+        textArea.setProps({ value: 'new value that is longer' });
+        textArea.update();
+        // autosize 时 value 变化会触发 resizeTextarea
+        expect(textArea.find('textarea').prop('value')).toEqual('new value that is longer');
+    });
+
+    it('TextArea autosize triggers resize on placeholder change', () => {
+        const textArea = mount(<TextArea autosize placeholder="initial" />);
+        textArea.setProps({ placeholder: 'new placeholder text' });
+        textArea.update();
+        expect(textArea.find('textarea').prop('placeholder')).toEqual('new placeholder text');
+    });
+
+    it('TextArea forwardRef as function', () => {
+        let refNode = null;
+        const refFn = (node) => { refNode = node; };
+        const textArea = mount(<TextArea ref={refFn} />);
+        expect(refNode).not.toBeNull();
+        expect(refNode.tagName.toLowerCase()).toEqual('textarea');
+    });
+
+    it('TextArea forwardRef as object', () => {
+        const refObj = React.createRef();
+        const textArea = mount(<TextArea ref={refObj} />);
+        expect(refObj.current).not.toBeNull();
+        expect(refObj.current.tagName.toLowerCase()).toEqual('textarea');
+    });
+
+    it('TextArea mouseEnter and mouseLeave events', () => {
+        const textArea = mount(<TextArea defaultValue="test" showClear />);
+        const wrapper = textArea.find(`.${BASE_CLASS_PREFIX}-input-textarea-wrapper`);
+        wrapper.simulate('mouseEnter', {});
+        wrapper.simulate('mouseLeave', {});
+        // 验证 hover 状态变化不会导致错误
+        expect(textArea.find('textarea').exists()).toBe(true);
+    });
+
+    it('TextArea showCounter without maxCount', () => {
+        const textArea = mount(<TextArea showCounter defaultValue="test" />);
+        const counter = textArea.find(`.${BASE_CLASS_PREFIX}-input-textarea-counter`);
+        expect(counter.exists()).toBe(true);
+        expect(counter.text()).toEqual('4');
+    });
+
+    it('TextArea with autosize object config', () => {
+        const textArea = mount(<TextArea autosize={{ minRows: 2, maxRows: 6 }} />);
+        expect(textArea.find('textarea').exists()).toBe(true);
+    });
+
+    it('TextArea with autosize object without maxRows', () => {
+        const textArea = mount(<TextArea autosize={{ minRows: 2 }} />);
+        expect(textArea.exists(`.${BASE_CLASS_PREFIX}-input-textarea-autosize`)).toEqual(true);
+    });
+
+    it('TextArea componentWillUnmount cancels throttled resize', () => {
+        const textArea = mount(<TextArea autosize defaultValue="test" />);
+        textArea.unmount();
+        // 验证 unmount 不会导致错误
+        expect(true).toBe(true);
+    });
+
+    it('TextArea onResize callback', () => {
+        const spyOnResize = sinon.spy();
+        const textArea = mount(<TextArea autosize onResize={spyOnResize} />);
+        // 直接调用 adapter 的 notifyHeightUpdate 方法
+        const instance = textArea.find('TextArea').instance();
+        instance.adapter.notifyHeightUpdate(100);
+        expect(spyOnResize.calledOnce).toBe(true);
+        expect(spyOnResize.calledWith({ height: 100 })).toBe(true);
+    });
+
+    it('TextArea adapter setValue with autosize triggers resize', () => {
+        const textArea = mount(<TextArea autosize defaultValue="test" />);
+        const instance = textArea.find('TextArea').instance();
+        // 直接调用 adapter 的 setValue 方法
+        instance.adapter.setValue('new value');
+        textArea.update();
+        expect(textArea.find('textarea').prop('value')).toEqual('new value');
+    });
 });

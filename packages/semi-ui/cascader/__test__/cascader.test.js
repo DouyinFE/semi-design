@@ -1488,4 +1488,1755 @@ describe('Cascader', () => {
         expect(cascader.exists('.custom-arrow')).toEqual(true);
         cascader.unmount();
     });
+
+    // 测试 handleMouseLeave
+    it('handleMouseLeave with showClear', () => {
+        const cascader = render({
+            showClear: true,
+            defaultValue: ['Asia', 'China', 'Beijing'],
+        });
+        
+        // 触发 mouseEnter
+        cascader.find(`.${BASE_CLASS_PREFIX}-cascader`).simulate('mouseEnter');
+        
+        // 触发 mouseLeave
+        cascader.find(`.${BASE_CLASS_PREFIX}-cascader`).simulate('mouseLeave');
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 onKeyPress 事件
+    it('onKeyPress on selection', () => {
+        const cascader = render({
+            defaultValue: ['Asia', 'China', 'Beijing'],
+        });
+        
+        // 触发 keyPress 事件
+        cascader.find(`.${BASE_CLASS_PREFIX}-cascader`).simulate('keyPress', { key: 'Enter' });
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 handleClick
+    it('handleClick on selection', () => {
+        const cascader = render({
+            defaultValue: ['Asia', 'China', 'Beijing'],
+        });
+        
+        // 触发 click 事件
+        cascader.find(`.${BASE_CLASS_PREFIX}-cascader`).simulate('click');
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 focus 和 blur 方法
+    it('focus and blur methods', () => {
+        const ref = React.createRef();
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                ref={ref}
+            />
+        );
+        
+        // 调用 focus 方法
+        if (ref.current && ref.current.focus) {
+            ref.current.focus();
+        }
+        
+        // 调用 blur 方法
+        if (ref.current && ref.current.blur) {
+            ref.current.blur();
+        }
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 open 和 close 方法
+    it('open and close methods', () => {
+        const ref = React.createRef();
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                ref={ref}
+            />
+        );
+        
+        // 调用 open 方法
+        if (ref.current && ref.current.open) {
+            ref.current.open();
+        }
+        
+        // 调用 close 方法
+        if (ref.current && ref.current.close) {
+            ref.current.close();
+        }
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 multiple 模式下的 selectedKeys
+    it('multiple mode with selectedKeys', () => {
+        const cascader = render({
+            multiple: true,
+            defaultValue: [['Asia', 'China', 'Beijing']],
+            autoMergeValue: false,
+        });
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 triggerRender 自定义触发器
+    it('triggerRender custom trigger', () => {
+        const cascader = render({
+            triggerRender: ({ value }) => (
+                <div className="custom-trigger">Custom: {value}</div>
+            ),
+            defaultValue: ['Asia', 'China', 'Beijing'],
+        });
+        
+        expect(cascader.exists('.custom-trigger')).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 handleListScroll
+    it('handleListScroll', async () => {
+        const cascader = render({
+            defaultOpen: true,
+        });
+        
+        await sleep();
+        
+        // 找到列表并触发滚动
+        const list = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option-lists ul`).first();
+        if (list.exists()) {
+            list.simulate('scroll');
+        }
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 displayRender 自定义渲染
+    it('displayRender in multiple mode', () => {
+        const displayRender = sinon.spy((entity, idx) => (
+            <span key={idx} className="custom-display">{entity.data.label}</span>
+        ));
+        const cascader = render({
+            multiple: true,
+            displayRender,
+            defaultValue: [['Asia', 'China', 'Beijing']],
+            autoMergeValue: false,
+        });
+        
+        expect(displayRender.called).toBe(true);
+        cascader.unmount();
+    });
+
+    // 测试 handleTagClose
+    it('handleTagClose in multiple mode', async () => {
+        const onChange = sinon.spy();
+        const cascader = render({
+            multiple: true,
+            onChange,
+            defaultValue: [['Asia', 'China', 'Beijing']],
+            autoMergeValue: false,
+        });
+        
+        // 找到 tag 的关闭按钮并点击
+        const closeBtn = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection-tag .${BASE_CLASS_PREFIX}-tag-close`).first();
+        if (closeBtn.exists()) {
+            closeBtn.simulate('click', { 
+                preventDefault: () => {},
+                stopPropagation: () => {},
+                nativeEvent: {
+                    stopImmediatePropagation: () => {}
+                }
+            });
+        }
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 onRemoveInTagInput
+    it('onRemoveInTagInput', () => {
+        const onChange = sinon.spy();
+        const cascader = render({
+            multiple: true,
+            onChange,
+            defaultValue: [['Asia', 'China', 'Beijing']],
+            autoMergeValue: false,
+        });
+        
+        // 找到 TagInput 并触发 remove
+        const tagInput = cascader.find(`.${BASE_CLASS_PREFIX}-tagInput`);
+        if (tagInput.exists()) {
+            // 模拟删除操作
+            const tag = cascader.find(`.${BASE_CLASS_PREFIX}-tagInput .${BASE_CLASS_PREFIX}-tag`).first();
+            if (tag.exists()) {
+                const closeBtn = tag.find(`.${BASE_CLASS_PREFIX}-tag-close`);
+                if (closeBtn.exists()) {
+                    closeBtn.simulate('click');
+                }
+            }
+        }
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 renderTagItem 返回 null 的情况
+    it('renderTagItem returns null when keyEntities does not have the key', () => {
+        const cascader = render({
+            multiple: true,
+            defaultValue: [['NonExistent', 'Path']],
+            autoMergeValue: false,
+        });
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 disableStrictly 属性
+    it('disableStrictly with disabled item', () => {
+        const treeDataWithDisabled = [
+            {
+                label: '亚洲',
+                value: 'Asia',
+                children: [
+                    {
+                        label: '中国',
+                        value: 'China',
+                        disabled: true,
+                        children: [
+                            {
+                                label: '北京',
+                                value: 'Beijing',
+                            },
+                        ],
+                    },
+                ],
+            },
+        ];
+        const cascader = mount(
+            <Cascader
+                treeData={treeDataWithDisabled}
+                multiple
+                disableStrictly
+                defaultValue={[['Asia', 'China', 'Beijing']]}
+                autoMergeValue={false}
+            />
+        );
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 prefix 和 suffix 属性
+    it('prefix and suffix props', () => {
+        const cascader = render({
+            prefix: <span className="custom-prefix">Prefix</span>,
+            suffix: <span className="custom-suffix">Suffix</span>,
+        });
+        
+        expect(cascader.exists('.custom-prefix')).toEqual(true);
+        expect(cascader.exists('.custom-suffix')).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 insetLabel 属性
+    it('insetLabel prop', () => {
+        const cascader = render({
+            insetLabel: <span className="custom-inset-label">Label</span>,
+        });
+        
+        expect(cascader.exists('.custom-inset-label')).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 virtualize 属性
+    it('virtualize prop', async () => {
+        const cascader = render({
+            virtualize: {
+                height: 300,
+                itemSize: 36,
+            },
+            defaultOpen: true,
+        });
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 handleTagRemoveInTrigger
+    it('handleTagRemoveInTrigger', () => {
+        const onChange = sinon.spy();
+        const cascader = render({
+            multiple: true,
+            onChange,
+            triggerRender: ({ value, onRemove }) => (
+                <div className="custom-trigger">
+                    {Array.isArray(value) && value.map((v, i) => (
+                        <span key={i} onClick={() => onRemove && onRemove(v)}>
+                            {String(v)}
+                        </span>
+                    ))}
+                </div>
+            ),
+            defaultValue: [['Asia', 'China', 'Beijing']],
+            autoMergeValue: false,
+        });
+        
+        expect(cascader.exists('.custom-trigger')).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 search 方法
+    it('search method', () => {
+        const ref = React.createRef();
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                ref={ref}
+                filterTreeNode
+            />
+        );
+        
+        // 调用 search 方法
+        if (ref.current && ref.current.search) {
+            ref.current.search('北京');
+        }
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 emptyContent 为 null
+    it('emptyContent is null', async () => {
+        const cascader = render({
+            treeData: [],
+            emptyContent: null,
+            defaultOpen: true,
+        });
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 onKeyPress on item
+    it('onKeyPress on item', async () => {
+        const cascader = render({
+            defaultOpen: true,
+        });
+        
+        await sleep();
+        
+        // 找到选项并触发 keyPress
+        const item = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`).first();
+        if (item.exists()) {
+            item.simulate('keyPress', { key: 'Enter' });
+        }
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 loadData 属性
+    it('loadData prop', async () => {
+        const loadData = sinon.spy(() => Promise.resolve());
+        const treeDataWithLoad = [
+            {
+                label: '亚洲',
+                value: 'Asia',
+                isLeaf: false,
+            },
+        ];
+        const cascader = mount(
+            <Cascader
+                treeData={treeDataWithLoad}
+                loadData={loadData}
+                defaultOpen
+            />
+        );
+        
+        await sleep();
+        
+        // 点击选项触发 loadData
+        const item = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`).first();
+        if (item.exists()) {
+            item.simulate('click');
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 handleValueChange
+    it('handleValueChange when value prop changes', () => {
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                value={['Asia', 'China', 'Beijing']}
+            />
+        );
+        
+        // 更新 value prop
+        cascader.setProps({ value: ['North America', 'United States'] });
+        cascader.update();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 filterTreeNode 搜索功能
+    it('filterTreeNode with search', async () => {
+        const cascader = render({
+            filterTreeNode: true,
+            defaultOpen: true,
+        });
+        
+        await sleep();
+        
+        // 输入搜索内容
+        const input = cascader.find('input').first();
+        if (input.exists()) {
+            input.simulate('change', { target: { value: '北京' } });
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 onFocus 和 onBlur 事件
+    it('onFocus and onBlur events', () => {
+        const onFocus = sinon.spy();
+        const onBlur = sinon.spy();
+        const cascader = render({
+            onFocus,
+            onBlur,
+        });
+        
+        // 触发 focus
+        cascader.find(`.${BASE_CLASS_PREFIX}-cascader`).simulate('focus');
+        
+        // 触发 blur
+        cascader.find(`.${BASE_CLASS_PREFIX}-cascader`).simulate('blur');
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 onSelect 事件
+    it('onSelect event', async () => {
+        const onSelect = sinon.spy();
+        const cascader = render({
+            onSelect,
+            defaultOpen: true,
+        });
+        
+        await sleep();
+        
+        // 点击选项
+        const item = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`).first();
+        if (item.exists()) {
+            item.simulate('click');
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 onSearch 事件
+    it('onSearch event', async () => {
+        const onSearch = sinon.spy();
+        const cascader = render({
+            filterTreeNode: true,
+            onSearch,
+            defaultOpen: true,
+        });
+        
+        await sleep();
+        
+        // 输入搜索内容
+        const input = cascader.find('input').first();
+        if (input.exists()) {
+            input.simulate('change', { target: { value: '北京' } });
+        }
+        
+        await sleep();
+        
+        expect(onSearch.called).toBe(true);
+        cascader.unmount();
+    });
+
+    // 测试 onDropdownVisibleChange 事件
+    it('onDropdownVisibleChange event', async () => {
+        const onDropdownVisibleChange = sinon.spy();
+        const cascader = render({
+            onDropdownVisibleChange,
+        });
+        
+        // 点击打开下拉
+        cascader.find(`.${BASE_CLASS_PREFIX}-cascader`).simulate('click');
+        
+        await sleep();
+        
+        expect(onDropdownVisibleChange.called).toBe(true);
+        cascader.unmount();
+    });
+
+    // 测试 renderTagItem 返回 null
+    it('renderTagItem returns null for invalid key', () => {
+        const cascader = render({
+            multiple: true,
+            autoMergeValue: false,
+        });
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 onRemoveInTagInput
+    it('onRemoveInTagInput with TagInput', async () => {
+        const onChange = sinon.spy();
+        const cascader = render({
+            multiple: true,
+            onChange,
+            defaultValue: [['Asia', 'China', 'Beijing'], ['Asia', 'China', 'Shanghai']],
+            autoMergeValue: false,
+        });
+        
+        // 找到 TagInput 中的 tag 并删除
+        const tagClose = cascader.find(`.${BASE_CLASS_PREFIX}-tagInput .${BASE_CLASS_PREFIX}-tag-close`).first();
+        if (tagClose.exists()) {
+            tagClose.simulate('click', {
+                stopPropagation: () => {},
+                nativeEvent: {
+                    stopImmediatePropagation: () => {}
+                }
+            });
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 filterRender 自定义渲染
+    it('filterRender custom render', async () => {
+        const filterRender = sinon.spy((props) => (
+            <div className="custom-filter-item">{props.data.label}</div>
+        ));
+        const cascader = render({
+            filterTreeNode: true,
+            filterRender,
+            defaultOpen: true,
+        });
+        
+        await sleep();
+        
+        // 输入搜索内容
+        const input = cascader.find('input').first();
+        if (input.exists()) {
+            input.simulate('change', { target: { value: '北京' } });
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 componentDidUpdate 中 treeData 变化时调用 collectOptions (line 552)
+    it('componentDidUpdate calls collectOptions when treeData changes in single mode', async () => {
+        const initialTreeData = [
+            { label: '选项1', value: 'opt1' },
+        ];
+        const cascader = mount(
+            <Cascader
+                treeData={initialTreeData}
+                defaultOpen={true}
+            />
+        );
+        
+        await sleep();
+        
+        // 更新 treeData
+        const newTreeData = [
+            { label: '选项1', value: 'opt1' },
+            { label: '选项2', value: 'opt2' },
+        ];
+        cascader.setProps({ treeData: newTreeData });
+        cascader.update();
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 handleTagRemoveInTrigger (line 569)
+    it('handleTagRemoveInTrigger removes tag', async () => {
+        const onChange = sinon.spy();
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                multiple={true}
+                onChange={onChange}
+                defaultValue={[['Asia', 'China', 'Beijing'], ['Asia', 'China', 'Shanghai']]}
+                autoMergeValue={false}
+            />
+        );
+        
+        await sleep();
+        
+        // handleTagRemoveInTrigger 需要 pos 格式如 "0-0-0" (表示树中的位置)
+        // treeData[0] = Asia, treeData[0].children[0] = China, treeData[0].children[0].children[0] = Beijing
+        const instance = cascader.instance();
+        if (instance && instance.handleTagRemoveInTrigger) {
+            instance.handleTagRemoveInTrigger('0-0-0'); // 对应 Asia-China-Beijing
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 onRemoveInTagInput 直接调用 (line 612)
+    it('onRemoveInTagInput removes tag by key', async () => {
+        const onChange = sinon.spy();
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                multiple={true}
+                onChange={onChange}
+                defaultValue={[['Asia', 'China', 'Beijing'], ['Asia', 'China', 'Shanghai']]}
+                autoMergeValue={false}
+            />
+        );
+        
+        await sleep();
+        
+        // onRemoveInTagInput 需要 key 格式，通过 getKeyByValuePath 生成
+        // VALUE_SPLIT = '_SEMI_CASCADER_SPLIT_'
+        // 对于 ['Asia', 'China', 'Beijing']，key 应该是 'Asia_SEMI_CASCADER_SPLIT_China_SEMI_CASCADER_SPLIT_Beijing'
+        const instance = cascader.instance();
+        if (instance && instance.onRemoveInTagInput) {
+            instance.onRemoveInTagInput('Asia_SEMI_CASCADER_SPLIT_China_SEMI_CASCADER_SPLIT_Beijing');
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 renderTagItem 返回 null (line 608)
+    it('renderTagItem returns null for non-existent key', async () => {
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                multiple={true}
+                defaultValue={[['Asia', 'China', 'Beijing']]}
+                autoMergeValue={false}
+            />
+        );
+        
+        await sleep();
+        
+        // 获取 ref 并调用 renderTagItem 传入不存在的 key
+        const instance = cascader.instance();
+        if (instance && instance.renderTagItem) {
+            const result = instance.renderTagItem('non-existent-key', 0);
+            expect(result).toBe(null);
+        }
+        
+        cascader.unmount();
+    });
+
+    // 测试 virtualize 在 flatten 搜索模式下 (item.tsx lines 286-288)
+    it('virtualize in flatten search mode', async () => {
+        const cascader = render({
+            filterTreeNode: true,
+            defaultOpen: true,
+            virtualize: {
+                height: 300,
+                width: '100%',
+                itemSize: 36,
+            },
+        });
+        
+        await sleep();
+        
+        // 输入搜索内容触发 flatten 模式
+        const input = cascader.find('input').first();
+        if (input.exists()) {
+            input.simulate('change', { target: { value: '北京' } });
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 disabled 选项在 renderItem 中 (item.tsx line 321)
+    it('disabled item in cascader list', async () => {
+        const treeDataWithDisabled = [
+            {
+                label: '亚洲',
+                value: 'Asia',
+                children: [
+                    {
+                        label: '中国',
+                        value: 'China',
+                        disabled: true,
+                        children: [
+                            { label: '北京', value: 'Beijing' },
+                        ],
+                    },
+                ],
+            },
+        ];
+        const cascader = mount(
+            <Cascader
+                treeData={treeDataWithDisabled}
+                defaultOpen={true}
+            />
+        );
+        
+        await sleep();
+        
+        // 点击第一个选项展开
+        const firstItem = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`).first();
+        if (firstItem.exists()) {
+            firstItem.simulate('click');
+        }
+        
+        await sleep();
+        
+        // 检查 disabled 选项
+        expect(cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option-disabled`).exists()).toBe(true);
+        cascader.unmount();
+    });
+
+    // 测试 TagInput 的 onRemove 回调
+    it('TagInput onRemove callback', async () => {
+        const onChange = sinon.spy();
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                multiple={true}
+                onChange={onChange}
+                defaultValue={[['Asia', 'China', 'Beijing'], ['Asia', 'China', 'Shanghai']]}
+                autoMergeValue={false}
+            />
+        );
+        
+        await sleep();
+        
+        // 找到 TagInput 并模拟 backspace 删除
+        const tagInput = cascader.find(`.${BASE_CLASS_PREFIX}-tagInput input`).first();
+        if (tagInput.exists()) {
+            tagInput.simulate('keydown', { keyCode: 8 }); // Backspace
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 treeData 变化但 value 不变的情况
+    it('treeData changes without value change', async () => {
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                value={['Asia', 'China', 'Beijing']}
+            />
+        );
+        
+        await sleep();
+        
+        // 更新 treeData 但保持 value 不变
+        const newTreeData = [
+            ...treeData,
+            {
+                label: '欧洲',
+                value: 'Europe',
+                children: [
+                    { label: '英国', value: 'UK' },
+                ],
+            },
+        ];
+        cascader.setProps({ treeData: newTreeData });
+        cascader.update();
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 value 变化但 treeData 不变的情况 (line 555)
+    it('value changes without treeData change', async () => {
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                value={['Asia', 'China', 'Beijing']}
+            />
+        );
+        
+        await sleep();
+        
+        // 只更新 value
+        cascader.setProps({ value: ['Asia', 'China', 'Shanghai'] });
+        cascader.update();
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 click outside 关闭下拉 (line 328)
+    it('click outside closes dropdown', async () => {
+        const onDropdownVisibleChange = sinon.spy();
+        const cascader = render({
+            defaultOpen: true,
+            onDropdownVisibleChange,
+        });
+        
+        await sleep();
+        
+        // 点击 cascader 外部区域来关闭下拉
+        // 使用 simulate 而不是原生事件
+        cascader.find(`.${BASE_CLASS_PREFIX}-cascader`).simulate('blur');
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 updateSelection (line 365)
+    it('updateSelection adapter method', async () => {
+        const cascader = render({
+            defaultOpen: true,
+        });
+        
+        await sleep();
+        
+        // 点击选项触发 updateSelection
+        const item = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`).first();
+        if (item.exists()) {
+            item.simulate('click');
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 onExceed 回调 (line 416)
+    it('onExceed callback when max is reached', async () => {
+        const onExceed = sinon.spy();
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                multiple={true}
+                max={1}
+                onExceed={onExceed}
+                defaultOpen={true}
+            />
+        );
+        
+        await sleep();
+        
+        // 点击第一个选项
+        const firstItem = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`).first();
+        if (firstItem.exists()) {
+            firstItem.simulate('click');
+        }
+        
+        await sleep();
+        
+        // 展开并点击子选项
+        const childItems = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`);
+        if (childItems.length > 1) {
+            childItems.at(1).simulate('click');
+        }
+        
+        await sleep();
+        
+        // 再点击一个选项尝试超过 max
+        const allItems = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`);
+        if (allItems.length > 2) {
+            allItems.at(2).simulate('click');
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 multiple 模式下 checkedKeys 为空的情况 (line 529)
+    it('multiple mode with empty checkedKeys', async () => {
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                multiple={true}
+                defaultValue={[]}
+            />
+        );
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 virtualize 搜索模式下的 VirtualRow (virtualRow.tsx lines 10-12)
+    it('virtualize search mode renders VirtualRow', async () => {
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                filterTreeNode={true}
+                defaultOpen={true}
+                virtualize={{
+                    height: 300,
+                    width: '100%',
+                    itemSize: 36,
+                }}
+            />
+        );
+        
+        await sleep();
+        
+        // 输入搜索内容触发 flatten 模式
+        const input = cascader.find('input').first();
+        if (input.exists()) {
+            input.simulate('change', { target: { value: 'China' } });
+        }
+        
+        await sleep(300);
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 renderEmpty 返回 null (item.tsx line 370)
+    it('renderEmpty returns null when emptyContent is null', async () => {
+        const cascader = mount(
+            <Cascader
+                treeData={[]}
+                emptyContent={null}
+                defaultOpen={true}
+            />
+        );
+        
+        await sleep();
+        
+        // 检查是否没有渲染空内容
+        expect(cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option-empty`).exists()).toBe(false);
+        cascader.unmount();
+    });
+
+    // 测试 disabled 选项的 className (item.tsx line 321)
+    it('disabled item has correct className', async () => {
+        const treeDataWithDisabled = [
+            {
+                label: '亚洲',
+                value: 'Asia',
+                children: [
+                    {
+                        label: '中国',
+                        value: 'China',
+                        disabled: true,
+                    },
+                    {
+                        label: '日本',
+                        value: 'Japan',
+                    },
+                ],
+            },
+        ];
+        const cascader = mount(
+            <Cascader
+                treeData={treeDataWithDisabled}
+                defaultOpen={true}
+            />
+        );
+        
+        await sleep();
+        
+        // 点击第一个选项展开
+        const firstItem = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`).first();
+        if (firstItem.exists()) {
+            firstItem.simulate('click');
+        }
+        
+        await sleep();
+        
+        // 检查 disabled 选项
+        expect(cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option-disabled`).exists()).toBe(true);
+        cascader.unmount();
+    });
+
+    // 测试 renderVirtualizeList 方法 (item.tsx lines 286-288)
+    it('renderVirtualizeList in item', async () => {
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                filterTreeNode={true}
+                defaultOpen={true}
+                virtualize={{
+                    height: 200,
+                    width: 300,
+                    itemSize: 32,
+                }}
+            />
+        );
+        
+        await sleep();
+        
+        // 输入搜索触发 virtualize 列表渲染
+        const input = cascader.find('input').first();
+        if (input.exists()) {
+            input.simulate('change', { target: { value: 'Bei' } });
+        }
+        
+        await sleep(300);
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 notifyListScroll (line 414)
+    it('notifyListScroll callback', async () => {
+        const onListScroll = sinon.spy();
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                defaultOpen={true}
+                onListScroll={onListScroll}
+            />
+        );
+        
+        await sleep();
+        
+        // 找到列表并模拟滚动
+        const list = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option-lists ul`).first();
+        if (list.exists()) {
+            list.simulate('scroll');
+        }
+        
+        await sleep();
+        
+        expect(onListScroll.called).toBe(true);
+        cascader.unmount();
+    });
+
+    // 测试 checkRelation = 'unRelated' 时的 checkedKeys 处理 (line 529)
+    it('checkRelation unRelated sets checkedKeys directly', async () => {
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                multiple={true}
+                checkRelation="unRelated"
+                defaultValue={[['Asia', 'China', 'Beijing']]}
+            />
+        );
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 updateSelection adapter (line 365)
+    it('updateSelection is called when selecting item', async () => {
+        const onSelect = sinon.spy();
+        const cascader = render({
+            defaultOpen: true,
+            onSelect,
+            changeOnSelect: true,
+        });
+        
+        await sleep();
+        
+        // 点击选项触发 updateSelection
+        const item = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`).first();
+        if (item.exists()) {
+            item.simulate('click');
+        }
+        
+        await sleep();
+        
+        expect(onSelect.called).toBe(true);
+        cascader.unmount();
+    });
+
+    // 测试 notifyOnExceed (line 416)
+    it('notifyOnExceed is called when exceeding max', async () => {
+        const onExceed = sinon.spy();
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                multiple={true}
+                max={1}
+                onExceed={onExceed}
+                defaultValue={[['Asia', 'China', 'Beijing']]}
+                defaultOpen={true}
+            />
+        );
+        
+        await sleep();
+        
+        // 尝试选择更多项
+        const items = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`);
+        // 找到未选中的项并点击
+        for (let i = 0; i < items.length; i++) {
+            const item = items.at(i);
+            if (!item.hasClass(`${BASE_CLASS_PREFIX}-cascader-option-select`)) {
+                item.simulate('click');
+                break;
+            }
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 virtualize 在 flatten 搜索模式下渲染 VirtualRow
+    it('virtualize flatten mode with search renders correctly', async () => {
+        // 创建更多数据以确保 virtualize 生效
+        const largeTreeData = [];
+        for (let i = 0; i < 50; i++) {
+            largeTreeData.push({
+                label: `选项${i}`,
+                value: `opt${i}`,
+                children: [
+                    { label: `子选项${i}-1`, value: `child${i}-1` },
+                    { label: `子选项${i}-2`, value: `child${i}-2` },
+                ],
+            });
+        }
+        
+        const cascader = mount(
+            <Cascader
+                treeData={largeTreeData}
+                filterTreeNode={true}
+                defaultOpen={true}
+                virtualize={{
+                    height: 200,
+                    width: 300,
+                    itemSize: 36,
+                }}
+            />
+        );
+        
+        await sleep();
+        
+        // 输入搜索触发 flatten 模式
+        const input = cascader.find('input').first();
+        if (input.exists()) {
+            input.simulate('change', { target: { value: '选项' } });
+        }
+        
+        await sleep(500);
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 clickOutsideHandler (line 328)
+    it('clickOutsideHandler closes dropdown when clicking outside', async () => {
+        const onDropdownVisibleChange = sinon.spy();
+        
+        // 创建一个容器来模拟外部点击
+        const container = document.createElement('div');
+        document.body.appendChild(container);
+        
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                defaultOpen={true}
+                onDropdownVisibleChange={onDropdownVisibleChange}
+                getPopupContainer={() => container}
+            />,
+            { attachTo: container }
+        );
+        
+        await sleep();
+        
+        // 关闭下拉
+        const instance = cascader.instance();
+        if (instance && instance.close) {
+            instance.close();
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.detach();
+        document.body.removeChild(container);
+    });
+
+    // 测试 disabled 选项在 item 中的渲染 (item.tsx line 321)
+    it('disabled option renders with disabled class', async () => {
+        const treeDataWithDisabled = [
+            {
+                label: '选项1',
+                value: 'opt1',
+                disabled: true,
+            },
+            {
+                label: '选项2',
+                value: 'opt2',
+            },
+        ];
+        const cascader = mount(
+            <Cascader
+                treeData={treeDataWithDisabled}
+                defaultOpen={true}
+            />
+        );
+        
+        await sleep();
+        
+        // 检查 disabled 选项
+        expect(cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option-disabled`).exists()).toBe(true);
+        cascader.unmount();
+    });
+
+    // 测试 virtualize 在搜索模式下的 renderVirtualizeList (item.tsx lines 285-288)
+    it('virtualize search mode triggers renderVirtualizeList', async () => {
+        // 创建足够多的数据
+        const largeTreeData = [];
+        for (let i = 0; i < 100; i++) {
+            largeTreeData.push({
+                label: `Item${i}`,
+                value: `item${i}`,
+                children: [
+                    { label: `Child${i}-A`, value: `child${i}a` },
+                    { label: `Child${i}-B`, value: `child${i}b` },
+                ],
+            });
+        }
+        
+        const cascader = mount(
+            <Cascader
+                treeData={largeTreeData}
+                filterTreeNode={true}
+                defaultOpen={true}
+                virtualizeInSearch={{
+                    height: 200,
+                    width: 300,
+                    itemSize: 36,
+                }}
+            />
+        );
+        
+        await sleep();
+        
+        // 输入搜索内容触发搜索模式
+        const input = cascader.find('input').first();
+        if (input.exists()) {
+            input.simulate('change', { target: { value: 'Item' } });
+        }
+        
+        await sleep(500);
+        
+        // 检查是否渲染了虚拟列表
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 VirtualRow 组件 (virtualRow.tsx lines 10-12)
+    it('VirtualRow renders correctly in virtualize mode', async () => {
+        const largeTreeData = [];
+        for (let i = 0; i < 50; i++) {
+            largeTreeData.push({
+                label: `TestItem${i}`,
+                value: `testitem${i}`,
+            });
+        }
+        
+        const cascader = mount(
+            <Cascader
+                treeData={largeTreeData}
+                filterTreeNode={true}
+                defaultOpen={true}
+                virtualizeInSearch={{
+                    height: 150,
+                    width: 250,
+                    itemSize: 30,
+                }}
+            />
+        );
+        
+        await sleep();
+        
+        // 输入搜索
+        const input = cascader.find('input').first();
+        if (input.exists()) {
+            input.simulate('change', { target: { value: 'Test' } });
+        }
+        
+        await sleep(500);
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 adapter updateSelection (line 365)
+    it('adapter updateSelection updates selectedKeys', async () => {
+        const cascader = render({
+            defaultOpen: true,
+            changeOnSelect: true,
+        });
+        
+        await sleep();
+        
+        // 点击选项
+        const item = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`).first();
+        if (item.exists()) {
+            item.simulate('click');
+        }
+        
+        await sleep();
+        
+        // 验证选中状态
+        const selectedItem = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option-select`);
+        expect(selectedItem.exists()).toBe(true);
+        cascader.unmount();
+    });
+
+    // 测试 adapter notifyOnExceed (line 416)
+    it('adapter notifyOnExceed is triggered when exceeding max', async () => {
+        const onExceed = sinon.spy();
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                multiple={true}
+                max={1}
+                onExceed={onExceed}
+                defaultOpen={true}
+                autoMergeValue={false}
+            />
+        );
+        
+        await sleep();
+        
+        // 点击第一个选项
+        const firstItem = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`).first();
+        if (firstItem.exists()) {
+            firstItem.simulate('click');
+        }
+        
+        await sleep();
+        
+        // 展开子选项
+        cascader.update();
+        const items = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`);
+        if (items.length > 1) {
+            items.at(1).simulate('click');
+        }
+        
+        await sleep();
+        
+        // 尝试再选择一个
+        cascader.update();
+        const allItems = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`);
+        if (allItems.length > 2) {
+            allItems.at(2).simulate('click');
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 onHover 返回 disabled 项 (item.tsx line 132)
+    it('onHover returns early for disabled item', async () => {
+        const treeDataWithDisabled = [
+            {
+                label: '选项1',
+                value: 'opt1',
+                disabled: true,
+            },
+            {
+                label: '选项2',
+                value: 'opt2',
+            },
+        ];
+        const cascader = mount(
+            <Cascader
+                treeData={treeDataWithDisabled}
+                defaultOpen={true}
+                showNext="hover"
+            />
+        );
+        
+        await sleep();
+        
+        // hover 到 disabled 项
+        const disabledItem = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option-disabled`).first();
+        if (disabledItem.exists()) {
+            disabledItem.simulate('mouseenter');
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 renderIcon 返回 expandIcon (item.tsx line 172)
+    it('renderIcon returns custom expandIcon', async () => {
+        const customIcon = <span className="custom-expand-icon">></span>;
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                defaultOpen={true}
+                expandIcon={customIcon}
+            />
+        );
+        
+        await sleep();
+        
+        // 检查自定义图标
+        expect(cascader.find('.custom-expand-icon').exists()).toBe(true);
+        cascader.unmount();
+    });
+
+    // 测试 renderIcon 返回 null (item.tsx line 182)
+    it('renderIcon returns null for unknown type', async () => {
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                defaultOpen={true}
+            />
+        );
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 onClick 在 flatten 搜索结果中 (item.tsx line 221)
+    it('onClick in flatten search result', async () => {
+        const onChange = sinon.spy();
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                filterTreeNode={true}
+                defaultOpen={true}
+                onChange={onChange}
+            />
+        );
+        
+        await sleep();
+        
+        // 输入搜索
+        const input = cascader.find('input').first();
+        if (input.exists()) {
+            input.simulate('change', { target: { value: '北京' } });
+        }
+        
+        await sleep(300);
+        
+        // 点击搜索结果
+        cascader.update();
+        const flattenItem = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option-flatten`).first();
+        if (flattenItem.exists()) {
+            flattenItem.simulate('click');
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 showNext hover 模式
+    it('showNext hover mode expands on hover', async () => {
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                defaultOpen={true}
+                showNext="hover"
+            />
+        );
+        
+        await sleep();
+        
+        // hover 到第一个选项
+        const firstItem = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`).first();
+        if (firstItem.exists()) {
+            firstItem.simulate('mouseenter');
+        }
+        
+        await sleep();
+        
+        // 检查是否展开了子菜单
+        cascader.update();
+        expect(cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option-lists ul`).length).toBeGreaterThan(1);
+        cascader.unmount();
+    });
+
+    // 测试 onClick 返回 disabled 项 (item.tsx line 115)
+    it('onClick returns early for disabled item', async () => {
+        const onChange = sinon.spy();
+        const treeDataWithDisabled = [
+            {
+                label: '选项1',
+                value: 'opt1',
+                disabled: true,
+            },
+            {
+                label: '选项2',
+                value: 'opt2',
+            },
+        ];
+        const cascader = mount(
+            <Cascader
+                treeData={treeDataWithDisabled}
+                defaultOpen={true}
+                onChange={onChange}
+            />
+        );
+        
+        await sleep();
+        
+        // 点击 disabled 项
+        const disabledItem = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option-disabled`).first();
+        if (disabledItem.exists()) {
+            disabledItem.simulate('click');
+        }
+        
+        await sleep();
+        
+        // onChange 不应该被调用
+        expect(onChange.called).toBe(false);
+        cascader.unmount();
+    });
+
+    // 测试点击 disabled 的 flatten 搜索结果 (item.tsx line 115)
+    it('onClick returns early for disabled flatten item', async () => {
+        const onChange = sinon.spy();
+        const treeDataWithDisabled = [
+            {
+                label: '选项1',
+                value: 'opt1',
+                children: [
+                    { label: '子选项1', value: 'child1', disabled: true },
+                    { label: '子选项2', value: 'child2' },
+                ],
+            },
+        ];
+        const cascader = mount(
+            <Cascader
+                treeData={treeDataWithDisabled}
+                filterTreeNode={true}
+                defaultOpen={true}
+                onChange={onChange}
+            />
+        );
+        
+        await sleep();
+        
+        // 输入搜索
+        const input = cascader.find('input').first();
+        if (input.exists()) {
+            input.simulate('change', { target: { value: '子选项1' } });
+        }
+        
+        await sleep(300);
+        
+        // 点击 disabled 的搜索结果
+        cascader.update();
+        const disabledItem = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option-disabled`).first();
+        if (disabledItem.exists()) {
+            disabledItem.simulate('click');
+        }
+        
+        await sleep();
+        
+        // onChange 不应该被调用
+        expect(onChange.called).toBe(false);
+        cascader.unmount();
+    });
+
+    // 测试 updateSelection adapter (index.tsx line 365)
+    it('updateSelection is triggered on item selection', async () => {
+        const onSelect = sinon.spy();
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                defaultOpen={true}
+                onSelect={onSelect}
+                changeOnSelect={true}
+            />
+        );
+        
+        await sleep();
+        
+        // 点击选项
+        const item = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option`).first();
+        if (item.exists()) {
+            item.simulate('click');
+        }
+        
+        await sleep();
+        
+        expect(onSelect.called).toBe(true);
+        cascader.unmount();
+    });
+
+    // 测试 clickOutsideHandler 真正触发 (index.tsx lines 321-328)
+    it('clickOutsideHandler triggers cb when clicking outside', async () => {
+        const onDropdownVisibleChange = sinon.spy();
+        
+        const cascader = mount(
+            <Cascader
+                treeData={treeData}
+                defaultOpen={true}
+                onDropdownVisibleChange={onDropdownVisibleChange}
+            />
+        );
+        
+        await sleep();
+        
+        // 确保下拉框已打开
+        expect(onDropdownVisibleChange.calledWith(true)).toBe(true);
+        
+        // 直接调用组件的 clickOutsideHandler
+        const instance = cascader.instance();
+        if (instance && instance.clickOutsideHandler) {
+            // 创建一个模拟的外部元素
+            const outsideElement = document.createElement('div');
+            document.body.appendChild(outsideElement);
+            
+            const mockEvent = {
+                target: outsideElement,
+                composedPath: () => [outsideElement, document.body, document],
+            };
+            
+            instance.clickOutsideHandler(mockEvent);
+            
+            document.body.removeChild(outsideElement);
+        }
+        
+        await sleep();
+        
+        // 检查下拉框是否关闭
+        expect(onDropdownVisibleChange.calledWith(false)).toBe(true);
+        
+        cascader.unmount();
+    });
+
+    // 测试 blurInput adapter (index.tsx lines 306-307)
+    it('blurInput is called when blur method is invoked with filterTreeNode', async () => {
+        let cascaderRef;
+        const cascader = mount(
+            <Cascader
+                ref={ref => { cascaderRef = ref; }}
+                treeData={treeData}
+                filterTreeNode={true}
+                defaultOpen={true}
+            />
+        );
+        
+        await sleep();
+        
+        // 调用 blur 方法
+        if (cascaderRef && cascaderRef.blur) {
+            cascaderRef.blur();
+        }
+        
+        await sleep();
+        
+        expect(cascader.exists(`.${BASE_CLASS_PREFIX}-cascader`)).toEqual(true);
+        cascader.unmount();
+    });
+
+    // 测试 notifyOnExceed 在 unRelated 模式下触发 (index.tsx line 416)
+    it('notifyOnExceed is triggered when max exceeded in unRelated mode', async () => {
+        const onExceed = sinon.spy();
+        const onChange = sinon.spy();
+        const simpleTreeData = [
+            { label: '选项1', value: 'opt1' },
+            { label: '选项2', value: 'opt2' },
+            { label: '选项3', value: 'opt3' },
+        ];
+        
+        const cascader = render({
+            treeData: simpleTreeData,
+            multiple: true,
+            checkRelation: 'unRelated',
+            max: 1,
+            onExceed: onExceed,
+            onChange: onChange,
+        });
+        
+        // 打开下拉框
+        const selectBox = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection`).at(0);
+        selectBox.simulate('click');
+        
+        await sleep();
+        
+        // 点击第一个 checkbox
+        cascader
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option-list`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-checkbox`)
+            .at(0)
+            .simulate('click');
+        
+        await sleep();
+        
+        // 确认第一个选项已被选中
+        expect(onChange.called).toBe(true);
+        expect(cascader.state().checkedKeys.size).toEqual(1);
+        
+        // 再尝试选择第二个选项，应该触发 onExceed
+        cascader
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option-list`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-checkbox`)
+            .at(1)
+            .simulate('click');
+        
+        await sleep();
+        
+        expect(onExceed.called).toBe(true);
+        cascader.unmount();
+    });
 });

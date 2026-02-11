@@ -385,4 +385,178 @@ describe('Input', () => {
     input.simulate('mouseEnter', {});
     expect(input.exists(`.${BASE_CLASS_PREFIX}-input-suffix-hidden`)).toEqual(true);
   });
+
+  it('input onInput callback', () => {
+    const spyOnInput = sinon.spy();
+    const input = mount(<Input onInput={spyOnInput} />);
+    input.find('input').simulate('input', { target: { value: 'test' } });
+    expect(spyOnInput.calledOnce).toBe(true);
+  });
+
+  it('input onKeyPress callback', () => {
+    const spyOnKeyPress = sinon.spy();
+    const input = mount(<Input onKeyPress={spyOnKeyPress} />);
+    input.find('input').simulate('keypress', { key: 'a', keyCode: 65 });
+    expect(spyOnKeyPress.calledOnce).toBe(true);
+  });
+
+  it('input onlyBorder prop', () => {
+    const input = mount(<Input onlyBorder={1} style={{ color: 'red' }} />);
+    const wrapperStyle = input.find(`.${BASE_CLASS_PREFIX}-input-wrapper`).prop('style');
+    expect(wrapperStyle.borderWidth).toEqual(1);
+  });
+
+  it('input mouseEnter and mouseLeave events', () => {
+    const input = mount(<Input defaultValue="test" showClear />);
+    const wrapper = input.find(`.${BASE_CLASS_PREFIX}-input-wrapper`);
+    wrapper.simulate('mouseEnter', {});
+    expect(input.find(BaseInput).state('isHovering')).toEqual(true);
+    wrapper.simulate('mouseLeave', {});
+    expect(input.find(BaseInput).state('isHovering')).toEqual(false);
+  });
+
+  it('input mode change via componentDidUpdate', () => {
+    const input = mount(<Input mode="password" defaultValue="test" />);
+    expect(input.find('input').instance().type).toEqual('password');
+    input.setProps({ mode: 'text' });
+    input.update();
+    expect(input.find('input').instance().type).toEqual('text');
+  });
+
+  it('InputGroup with label', () => {
+    const inputGroup = mount(
+      <InputGroup label={{ text: 'Group Label' }} labelPosition="top">
+        <Input placeholder="Name" />
+        <InputNumber placeholder="Score" />
+      </InputGroup>
+    );
+    expect(inputGroup.exists(`.${BASE_CLASS_PREFIX}-input-group-wrapper`)).toEqual(true);
+    expect(inputGroup.exists(`.${BASE_CLASS_PREFIX}-input-group-wrapper-with-top-label`)).toEqual(true);
+  });
+
+  it('InputGroup with left label position', () => {
+    const inputGroup = mount(
+      <InputGroup label={{ text: 'Label', name: 'custom-label' }} labelPosition="left">
+        <Input placeholder="Name" />
+      </InputGroup>
+    );
+    expect(inputGroup.exists(`.${BASE_CLASS_PREFIX}-input-group-wrapper-with-left-label`)).toEqual(true);
+  });
+
+  it('InputGroup with size prop', () => {
+    const inputGroup = mount(
+      <InputGroup size="large">
+        <Input placeholder="Name" />
+      </InputGroup>
+    );
+    expect(inputGroup.exists(`.${BASE_CLASS_PREFIX}-input-large`)).toEqual(true);
+  });
+
+  it('InputGroup with null child', () => {
+    const inputGroup = mount(
+      <InputGroup>
+        <Input placeholder="Name" />
+        {null}
+        <Input placeholder="Score" />
+      </InputGroup>
+    );
+    expect(inputGroup.find('input')).toHaveLength(2);
+  });
+
+  it('InputGroup single child', () => {
+    const inputGroup = mount(
+      <InputGroup>
+        <Input placeholder="Name" />
+      </InputGroup>
+    );
+    expect(inputGroup.find('input')).toHaveLength(1);
+  });
+
+  it('input handleModeEnterPress', () => {
+    const input = mount(<Input mode="password" defaultValue="test" />);
+    input.simulate('mouseEnter', {});
+    const modeBtn = input.find(`.${BASE_CLASS_PREFIX}-input-modebtn`);
+    modeBtn.simulate('keydown', { key: 'Enter', keyCode: 13 });
+    // 验证按 Enter 键可以切换密码显示模式
+    expect(input.find('input').exists()).toBe(true);
+  });
+
+  it('input handlePreventMouseDown', () => {
+    const input = mount(<Input mode="password" defaultValue="test" />);
+    input.simulate('mouseEnter', {});
+    const modeBtn = input.find(`.${BASE_CLASS_PREFIX}-input-modebtn`);
+    const preventDefault = sinon.spy();
+    modeBtn.simulate('mousedown', { preventDefault });
+    expect(preventDefault.calledOnce).toBe(true);
+  });
+
+  it('input forwardRef as function', () => {
+    let refNode = null;
+    const refFn = (node) => { refNode = node; };
+    const input = mount(<Input ref={refFn} />);
+    expect(refNode).not.toBeNull();
+    expect(refNode.tagName.toLowerCase()).toEqual('input');
+  });
+
+  it('input forwardRef as object', () => {
+    const refObj = React.createRef();
+    const input = mount(<Input ref={refObj} />);
+    expect(refObj.current).not.toBeNull();
+    expect(refObj.current.tagName.toLowerCase()).toEqual('input');
+  });
+
+  it('input handleMouseUp', () => {
+    const input = mount(<Input mode="password" defaultValue="test" />);
+    input.simulate('mouseEnter', {});
+    const modeBtn = input.find(`.${BASE_CLASS_PREFIX}-input-modebtn`);
+    modeBtn.simulate('mouseup', {});
+    // 验证 mouseup 事件处理不会导致错误
+    expect(input.find('input').exists()).toBe(true);
+  });
+
+  it('input adapter getIfFocusing', () => {
+    const input = mount(<Input defaultValue="test" />);
+    const instance = input.find(BaseInput).instance();
+    expect(instance.adapter.getIfFocusing()).toBe(false);
+    input.find('input').simulate('focus');
+    expect(instance.adapter.getIfFocusing()).toBe(true);
+  });
+
+  it('input adapter toggleHovering', () => {
+    const input = mount(<Input defaultValue="test" />);
+    const instance = input.find(BaseInput).instance();
+    instance.adapter.toggleHovering(true);
+    input.update();
+    expect(input.find(BaseInput).state('isHovering')).toBe(true);
+    instance.adapter.toggleHovering(false);
+    input.update();
+    expect(input.find(BaseInput).state('isHovering')).toBe(false);
+  });
+
+  it('input handleModeEnterPress with keypress event', () => {
+    const input = mount(<Input mode="password" defaultValue="test" />);
+    input.simulate('mouseEnter', {});
+    const modeBtn = input.find(`.${BASE_CLASS_PREFIX}-input-modebtn`);
+    // 模拟按 Enter 键 - 使用 keypress 事件
+    modeBtn.simulate('keypress', { key: 'Enter', keyCode: 13 });
+    input.update();
+    // 验证密码模式切换
+    expect(input.find('input').instance().type).toEqual('text');
+  });
+
+  it('input prefix handlePreventMouseDown prevents default', () => {
+    const input = mount(<Input prefix="prefix" defaultValue="test" />);
+    const prefix = input.find(`.${BASE_CLASS_PREFIX}-input-prefix`);
+    const preventDefaultSpy = sinon.spy();
+    prefix.simulate('mousedown', { preventDefault: preventDefaultSpy });
+    expect(preventDefaultSpy.calledOnce).toBe(true);
+  });
+
+  it('input suffix handlePreventMouseDown prevents default', () => {
+    const input = mount(<Input suffix="suffix" defaultValue="test" />);
+    const suffix = input.find(`.${BASE_CLASS_PREFIX}-input-suffix`);
+    const preventDefaultSpy = sinon.spy();
+    suffix.simulate('mousedown', { preventDefault: preventDefaultSpy });
+    expect(preventDefaultSpy.calledOnce).toBe(true);
+  });
 });

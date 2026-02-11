@@ -155,4 +155,79 @@ describe('radio', () => {
         );
         expect(radio.find('input').prop('aria-label')).toEqual('Test radio');
     });
+
+    it('radio focus and blur methods', () => {
+        const radio = mount(<Radio>Test Radio</Radio>);
+        const instance = radio.instance();
+        // 测试 focus 方法
+        instance.focus();
+        // 测试 blur 方法
+        instance.blur();
+        radio.unmount();
+    });
+
+    it('radio handleFocusVisible and handleBlur', () => {
+        const radio = mount(<Radio>Test Radio</Radio>);
+        const instance = radio.instance();
+        // 直接调用 handleFocusVisible 方法
+        instance.handleFocusVisible({ target: {} });
+        radio.update();
+        // 直接调用 handleBlur 方法
+        instance.handleBlur({ target: {} });
+        radio.update();
+        radio.unmount();
+    });
+
+    it('radio setFocusVisible adapter method', () => {
+        const radio = mount(<Radio>Test Radio</Radio>);
+        const instance = radio.instance();
+        // 直接调用 adapter 方法
+        instance.adapter.setFocusVisible(true);
+        radio.update();
+        expect(radio.state().focusVisible).toEqual(true);
+        
+        instance.adapter.setFocusVisible(false);
+        radio.update();
+        expect(radio.state().focusVisible).toEqual(false);
+        radio.unmount();
+    });
+
+    it('radio controlled mode with undefined', () => {
+        const radio = mount(<Radio checked={true}>Controlled Radio</Radio>);
+        expect(radio.find('input').getDOMNode().checked).toEqual(true);
+        
+        // 设置 checked 为 undefined
+        radio.setProps({ checked: undefined });
+        radio.update();
+        expect(radio.state().checked).toEqual(false);
+        radio.unmount();
+    });
+
+    it('radioInner blur and focus methods', () => {
+        const radio = mount(<Radio>Test Radio</Radio>);
+        const radioInner = radio.find(RadioInner);
+        if (radioInner.length > 0) {
+            const innerInstance = radioInner.instance();
+            if (innerInstance) {
+                // 测试 focus 方法
+                innerInstance.focus();
+                // 测试 blur 方法
+                innerInstance.blur();
+            }
+        }
+        radio.unmount();
+    });
+
+    it('radioInner with preventScroll', () => {
+        const radio = mount(<Radio preventScroll={true}>Test Radio</Radio>);
+        const radioInner = radio.find(RadioInner);
+        if (radioInner.length > 0) {
+            const innerInstance = radioInner.instance();
+            if (innerInstance) {
+                // 测试带 preventScroll 的 focus 方法
+                innerInstance.focus();
+            }
+        }
+        radio.unmount();
+    });
 });

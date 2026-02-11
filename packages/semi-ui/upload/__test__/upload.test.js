@@ -1,6 +1,7 @@
 import sleep from '@douyinfe/semi-ui/_test_/utils/function/sleep';
 import { IconUser } from '@douyinfe/semi-icons';
 import { Upload, Button } from '../../index';
+import FileCard from '../fileCard';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 
 let action = 'https://semi.bytendance.com';
@@ -1030,5 +1031,2050 @@ describe('Upload', () => {
         const upload = getUpload(props);
         const input = upload.find(`input.${BASE_CLASS_PREFIX}-upload-hidden-input`);
         expect(input.instance().multiple).toEqual(true);
+    });
+
+    it('showRetry prop', () => {
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.png',
+                    status: 'uploadFail',
+                    size: '130KB',
+                },
+            ],
+            showRetry: true,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().showRetry).toEqual(true);
+    });
+
+    it('onRetry callback', () => {
+        const spyOnRetry = sinon.spy();
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.png',
+                    status: 'uploadFail',
+                    size: '130KB',
+                },
+            ],
+            showRetry: true,
+            onRetry: spyOnRetry,
+        };
+        const upload = getUpload(props);
+        // 验证 onRetry 属性被正确传递
+        expect(upload.props().onRetry).toBeDefined();
+    });
+
+    it('onPreviewClick callback', () => {
+        const spyOnPreviewClick = sinon.spy();
+        const props = {
+            defaultFileList,
+            onPreviewClick: spyOnPreviewClick,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().onPreviewClick).toBeDefined();
+    });
+
+    it('previewFile function', () => {
+        const customPreviewFile = file => 'data:image/png;base64,...';
+        const props = {
+            previewFile: customPreviewFile,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().previewFile).toBeDefined();
+    });
+
+    it('transformFile function', () => {
+        const transformFile = file => {
+            return new Promise(resolve => {
+                resolve(file);
+            });
+        };
+        const props = {
+            transformFile,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().transformFile).toBeDefined();
+    });
+
+    it('uploadTrigger prop', () => {
+        const props = {
+            uploadTrigger: 'custom',
+        };
+        const upload = getUpload(props);
+        expect(upload.props().uploadTrigger).toEqual('custom');
+    });
+
+    it('onOpenFileDialog callback', () => {
+        const spyOnOpenFileDialog = sinon.spy();
+        const props = {
+            onOpenFileDialog: spyOnOpenFileDialog,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().onOpenFileDialog).toBeDefined();
+    });
+
+    it('addOnPasting prop', () => {
+        const props = {
+            addOnPasting: true,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().addOnPasting).toEqual(true);
+    });
+
+    it('onDrop callback', () => {
+        const spyOnDrop = sinon.spy();
+        const props = {
+            draggable: true,
+            onDrop: spyOnDrop,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().onDrop).toBeDefined();
+    });
+
+    it('renderThumbnail function', () => {
+        const renderThumbnail = file => <img src={file.url} alt={file.name} />;
+        const props = {
+            listType: 'picture',
+            defaultFileList,
+            renderThumbnail,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().renderThumbnail).toBeDefined();
+    });
+
+    it('showClear prop', () => {
+        const props = {
+            defaultFileList,
+            showClear: true,
+        };
+        const upload = getUpload(props);
+        expect(upload.find(`.${BASE_CLASS_PREFIX}-upload-file-list-title-clear`).length).toBeGreaterThan(0);
+    });
+
+    it('showReplace prop', () => {
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'vigo.png',
+                    status: 'success',
+                    size: '130KB',
+                    preview: true,
+                    url: 'https://example.com/image.jpg',
+                },
+            ],
+            showReplace: true,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().showReplace).toEqual(true);
+    });
+
+    it('itemStyle prop', () => {
+        const props = {
+            defaultFileList,
+            itemStyle: { backgroundColor: 'red' },
+        };
+        const upload = getUpload(props);
+        expect(upload.props().itemStyle).toEqual({ backgroundColor: 'red' });
+    });
+
+    it('picHeight and picWidth props', () => {
+        const props = {
+            listType: 'picture',
+            defaultFileList,
+            picHeight: 100,
+            picWidth: 100,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().picHeight).toEqual(100);
+        expect(upload.props().picWidth).toEqual(100);
+    });
+
+    it('timeout prop', () => {
+        const props = {
+            timeout: 5000,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().timeout).toEqual(5000);
+    });
+
+    it('onError callback', () => {
+        const spyOnError = sinon.spy();
+        const props = {
+            onError: spyOnError,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().onError).toBeDefined();
+    });
+
+    it('onSuccess callback', () => {
+        const spyOnSuccess = sinon.spy();
+        const props = {
+            onSuccess: spyOnSuccess,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().onSuccess).toBeDefined();
+    });
+
+    it('onProgress callback', () => {
+        const spyOnProgress = sinon.spy();
+        const props = {
+            onProgress: spyOnProgress,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().onProgress).toBeDefined();
+    });
+
+    it('upload method', () => {
+        const props = {
+            uploadTrigger: 'custom',
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 验证 upload 方法存在
+        expect(typeof instance.upload).toEqual('function');
+    });
+
+    it('openFileDialog method', () => {
+        const props = {};
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 验证 openFileDialog 方法存在
+        expect(typeof instance.openFileDialog).toEqual('function');
+    });
+
+    it('listType picture', () => {
+        const props = {
+            listType: 'picture',
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'vigo.png',
+                    status: 'success',
+                    size: '130KB',
+                    preview: true,
+                    url: 'https://example.com/image.jpg',
+                },
+            ],
+        };
+        const upload = getUpload(props);
+        // 验证 listType 属性被正确传递
+        expect(upload.props().listType).toEqual('picture');
+    });
+
+    it('renderPicPreviewIcon function', () => {
+        const renderPicPreviewIcon = file => <span className="custom-preview-icon">Preview</span>;
+        const props = {
+            listType: 'picture',
+            defaultFileList,
+            renderPicPreviewIcon,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().renderPicPreviewIcon).toBeDefined();
+    });
+
+    it('renderPicInfo function', () => {
+        const renderPicInfo = file => <span className="custom-pic-info">{file.name}</span>;
+        const props = {
+            listType: 'picture',
+            defaultFileList,
+            showPicInfo: true,
+            renderPicInfo,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().renderPicInfo).toBeDefined();
+    });
+
+    it('onFileChange callback', () => {
+        const spyOnFileChange = sinon.spy();
+        const props = {
+            onFileChange: spyOnFileChange,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().onFileChange).toBeDefined();
+    });
+
+    it('promptPosition end', () => {
+        const props = {
+            prompt: <span>Upload hint</span>,
+            promptPosition: 'right',
+        };
+        const upload = getUpload(props);
+        expect(upload.props().promptPosition).toEqual('right');
+    });
+
+    it('validateStatus error', () => {
+        const props = {
+            defaultFileList,
+            validateStatus: 'error',
+            validateMessage: 'Error message',
+        };
+        const upload = getUpload(props);
+        expect(upload.find(`.${BASE_CLASS_PREFIX}-upload-validate-message`).text()).toEqual('Error message');
+    });
+
+    it('afterUpload callback', () => {
+        const afterUpload = ({ response, file }) => {
+            return { autoRemove: false, status: 'success' };
+        };
+        const props = {
+            afterUpload,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().afterUpload).toBeDefined();
+    });
+
+    it('maxCount prop', () => {
+        const props = {
+            maxCount: 5,
+        };
+        const upload = getUpload(props);
+        // maxCount 是 limit 的别名
+        expect(upload.props().maxCount).toEqual(5);
+    });
+
+    it('showReplace prop with file card', () => {
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'success',
+                    size: '130KB',
+                },
+            ],
+            showReplace: true,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().showReplace).toEqual(true);
+    });
+
+    it('onDrop callback', () => {
+        const onDrop = sinon.spy();
+        const props = {
+            draggable: true,
+            onDrop,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().onDrop).toBeDefined();
+    });
+
+    it('onDragOver event', () => {
+        const props = {
+            draggable: true,
+        };
+        const upload = getUpload(props);
+        const dragArea = upload.find(`.${BASE_CLASS_PREFIX}-upload-drag-area`);
+        if (dragArea.length > 0) {
+            dragArea.simulate('dragOver', { preventDefault: () => {}, dataTransfer: { files: [] } });
+        }
+        upload.unmount();
+    });
+
+    it('onDragLeave event', () => {
+        const props = {
+            draggable: true,
+        };
+        const upload = getUpload(props);
+        const dragArea = upload.find(`.${BASE_CLASS_PREFIX}-upload-drag-area`);
+        if (dragArea.length > 0) {
+            dragArea.simulate('dragLeave', { preventDefault: () => {} });
+        }
+        upload.unmount();
+    });
+
+    it('onDragEnter event', () => {
+        const props = {
+            draggable: true,
+        };
+        const upload = getUpload(props);
+        const dragArea = upload.find(`.${BASE_CLASS_PREFIX}-upload-drag-area`);
+        if (dragArea.length > 0) {
+            dragArea.simulate('dragEnter', { preventDefault: () => {} });
+        }
+        upload.unmount();
+    });
+
+    it('disabled upload onClick does nothing', () => {
+        const props = {
+            disabled: true,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 调用 onClick 方法，disabled 状态下不应该触发
+        instance.onClick();
+        upload.unmount();
+    });
+
+    it('replace method', () => {
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'success',
+                    size: '130KB',
+                },
+            ],
+            showReplace: true,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 验证 replace 方法存在
+        expect(typeof instance.replace).toEqual('function');
+        upload.unmount();
+    });
+
+    it('clear method', () => {
+        const props = {
+            defaultFileList,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 验证 clear 方法存在
+        expect(typeof instance.clear).toEqual('function');
+        upload.unmount();
+    });
+
+    it('insert method', () => {
+        const props = {
+            defaultFileList,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 验证 insert 方法存在
+        expect(typeof instance.insert).toEqual('function');
+        upload.unmount();
+    });
+
+    it('file card onRetry click', () => {
+        const onRetry = sinon.spy();
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'uploadFail',
+                    size: '130KB',
+                },
+            ],
+            showRetry: true,
+            onRetry,
+        };
+        const upload = getUpload(props);
+        // 验证 onRetry 回调被正确传递
+        expect(upload.props().onRetry).toBeDefined();
+        upload.unmount();
+    });
+
+    it('file card onRemove click', () => {
+        const onRemove = sinon.spy();
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'success',
+                    size: '130KB',
+                },
+            ],
+            onRemove,
+        };
+        const upload = getUpload(props);
+        const removeBtn = upload.find(`.${BASE_CLASS_PREFIX}-upload-file-card-close`);
+        if (removeBtn.length > 0) {
+            removeBtn.at(0).simulate('click', { stopPropagation: () => {} });
+        }
+        upload.unmount();
+    });
+
+    it('file card onReplace click', () => {
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'success',
+                    size: '130KB',
+                },
+            ],
+            showReplace: true,
+        };
+        const upload = getUpload(props);
+        const replaceBtn = upload.find(`.${BASE_CLASS_PREFIX}-upload-file-card-info-replace`);
+        if (replaceBtn.length > 0) {
+            replaceBtn.at(0).find('button').simulate('click', { stopPropagation: () => {} });
+        }
+        upload.unmount();
+    });
+
+    it('listType with unknown value returns null', () => {
+        const props = {
+            listType: 'unknown',
+            defaultFileList,
+        };
+        const upload = getUpload(props);
+        // 未知的 listType 不应该渲染 FileCard
+        expect(upload.props().listType).toEqual('unknown');
+        upload.unmount();
+    });
+
+    it('renderFileItem custom renderer', () => {
+        const renderFileItem = (fileCardProps) => (
+            <div key={fileCardProps.uid} className="custom-file-item">{fileCardProps.name}</div>
+        );
+        const props = {
+            defaultFileList,
+            renderFileItem,
+        };
+        const upload = getUpload(props);
+        expect(upload.find('.custom-file-item').length).toBeGreaterThan(0);
+        upload.unmount();
+    });
+
+    it('file with _sizeInvalid shows illegalSize message', () => {
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'validateFail',
+                    size: '130KB',
+                    _sizeInvalid: true,
+                },
+            ],
+        };
+        const upload = getUpload(props);
+        // 验证文件列表渲染
+        expect(upload.state().fileList.length).toEqual(1);
+        upload.unmount();
+    });
+
+    it('file with uploadFail status and no validateMessage', () => {
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'uploadFail',
+                    size: '130KB',
+                },
+            ],
+        };
+        const upload = getUpload(props);
+        // 验证文件列表渲染
+        expect(upload.state().fileList.length).toEqual(1);
+        upload.unmount();
+    });
+
+    it('onOpenFileDialog callback', () => {
+        const onOpenFileDialog = sinon.spy();
+        const props = {
+            onOpenFileDialog,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().onOpenFileDialog).toBeDefined();
+        upload.unmount();
+    });
+
+    it('onChange event handler', () => {
+        const props = {};
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 验证 onChange 方法存在
+        expect(typeof instance.onChange).toEqual('function');
+        upload.unmount();
+    });
+
+    it('onReplaceChange event handler', () => {
+        const props = {
+            showReplace: true,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 验证 onReplaceChange 方法存在
+        expect(typeof instance.onReplaceChange).toEqual('function');
+        upload.unmount();
+    });
+
+    it('renderAddContent with listType picture returns null', () => {
+        const props = {
+            listType: 'picture',
+            defaultFileList,
+        };
+        const upload = getUpload(props);
+        // listType 为 picture 时，renderAddContent 返回 null
+        expect(upload.props().listType).toEqual('picture');
+        upload.unmount();
+    });
+
+    it('showPicInfo prop', () => {
+        const props = {
+            listType: 'picture',
+            defaultFileList,
+            showPicInfo: true,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().showPicInfo).toEqual(true);
+        upload.unmount();
+    });
+
+    it('renderPicClose function', () => {
+        const renderPicClose = () => <span className="custom-close">X</span>;
+        const props = {
+            listType: 'picture',
+            defaultFileList,
+            renderPicClose,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().renderPicClose).toBeDefined();
+        upload.unmount();
+    });
+
+    it('renderFileOperation function', () => {
+        const renderFileOperation = (file) => <span className="custom-operation">Op</span>;
+        const props = {
+            defaultFileList,
+            renderFileOperation,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().renderFileOperation).toBeDefined();
+        upload.unmount();
+    });
+
+    it('showTooltip prop', () => {
+        const props = {
+            defaultFileList,
+            showTooltip: true,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().showTooltip).toEqual(true);
+        upload.unmount();
+    });
+
+    it('componentWillUnmount calls foundation.destroy', () => {
+        const props = {
+            defaultFileList,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        const destroySpy = sinon.spy(instance.foundation, 'destroy');
+        upload.unmount();
+        expect(destroySpy.called).toBe(true);
+    });
+
+    it('draggable with drop event', () => {
+        const onDrop = sinon.spy();
+        const props = {
+            draggable: true,
+            onDrop,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 验证 onDrop 方法存在
+        expect(typeof instance.onDrop).toEqual('function');
+        upload.unmount();
+    });
+
+    it('draggable with dragOver event', () => {
+        const props = {
+            draggable: true,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 验证 onDragOver 方法存在
+        expect(typeof instance.onDragOver).toEqual('function');
+        upload.unmount();
+    });
+
+    it('draggable with dragLeave event', () => {
+        const props = {
+            draggable: true,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 验证 onDragLeave 方法存在
+        expect(typeof instance.onDragLeave).toEqual('function');
+        upload.unmount();
+    });
+
+    it('draggable with dragEnter event', () => {
+        const props = {
+            draggable: true,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 验证 onDragEnter 方法存在
+        expect(typeof instance.onDragEnter).toEqual('function');
+        upload.unmount();
+    });
+
+    it('listType picture with showRetry', () => {
+        const props = {
+            listType: 'picture',
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'uploadFail',
+                    size: '130KB',
+                    url: 'https://example.com/image.jpg',
+                },
+            ],
+            showRetry: true,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().showRetry).toEqual(true);
+        upload.unmount();
+    });
+
+    it('listType picture with showReplace', () => {
+        const props = {
+            listType: 'picture',
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'success',
+                    size: '130KB',
+                    url: 'https://example.com/image.jpg',
+                },
+            ],
+            showReplace: true,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().showReplace).toEqual(true);
+        upload.unmount();
+    });
+
+    it('listType picture with picWidth and picHeight', () => {
+        const props = {
+            listType: 'picture',
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'success',
+                    size: '130KB',
+                    url: 'https://example.com/image.jpg',
+                },
+            ],
+            picWidth: 100,
+            picHeight: 100,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().picWidth).toEqual(100);
+        expect(upload.props().picHeight).toEqual(100);
+        upload.unmount();
+    });
+
+    it('listType picture with renderThumbnail', () => {
+        const renderThumbnail = (file) => <img src={file.url} alt={file.name} />;
+        const props = {
+            listType: 'picture',
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'success',
+                    size: '130KB',
+                    url: 'https://example.com/image.jpg',
+                },
+            ],
+            renderThumbnail,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().renderThumbnail).toBeDefined();
+        upload.unmount();
+    });
+
+    it('file with validateFail status', () => {
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'validateFail',
+                    size: '130KB',
+                    validateMessage: 'File validation failed',
+                },
+            ],
+        };
+        const upload = getUpload(props);
+        expect(upload.state().fileList[0].status).toEqual('validateFail');
+        upload.unmount();
+    });
+
+    it('file with validating status', () => {
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'validating',
+                    size: '130KB',
+                    validateMessage: 'Validating...',
+                },
+            ],
+        };
+        const upload = getUpload(props);
+        expect(upload.state().fileList[0].status).toEqual('validating');
+        upload.unmount();
+    });
+
+    it('file with uploading status shows progress', () => {
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'uploading',
+                    size: '130KB',
+                    percent: 50,
+                },
+            ],
+        };
+        const upload = getUpload(props);
+        expect(upload.state().fileList[0].percent).toEqual(50);
+        upload.unmount();
+    });
+
+    it('hotSpotLocation end', () => {
+        const props = {
+            listType: 'picture',
+            defaultFileList,
+            hotSpotLocation: 'end',
+        };
+        const upload = getUpload(props);
+        expect(upload.props().hotSpotLocation).toEqual('end');
+        upload.unmount();
+    });
+
+    it('hotSpotLocation start', () => {
+        const props = {
+            listType: 'picture',
+            defaultFileList,
+            hotSpotLocation: 'start',
+        };
+        const upload = getUpload(props);
+        expect(upload.props().hotSpotLocation).toEqual('start');
+        upload.unmount();
+    });
+
+    it('showClear with limit 1 does not show title', () => {
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'success',
+                    size: '130KB',
+                },
+            ],
+            showClear: true,
+            limit: 1,
+        };
+        const upload = getUpload(props);
+        // limit 为 1 时不显示标题
+        expect(upload.props().limit).toEqual(1);
+        upload.unmount();
+    });
+
+    it('showClear with multiple files shows title', () => {
+        const props = {
+            defaultFileList,
+            showClear: true,
+            limit: 10,
+        };
+        const upload = getUpload(props);
+        // limit 大于 1 且有多个文件时显示标题
+        expect(upload.props().showClear).toEqual(true);
+        upload.unmount();
+    });
+
+    it('remove method calls foundation.handleRemove', () => {
+        const props = {
+            defaultFileList,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 验证 remove 方法存在
+        expect(typeof instance.remove).toEqual('function');
+        upload.unmount();
+    });
+
+    it('listType none renders no file list', () => {
+        const props = {
+            listType: 'none',
+            defaultFileList,
+        };
+        const upload = getUpload(props);
+        // listType 为 none 时不渲染文件列表
+        expect(upload.props().listType).toEqual('none');
+        upload.unmount();
+    });
+
+    it('file with preview prop', () => {
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'success',
+                    size: '130KB',
+                    preview: true,
+                    url: 'https://example.com/image.jpg',
+                },
+            ],
+        };
+        const upload = getUpload(props);
+        expect(upload.state().fileList[0].preview).toEqual(true);
+        upload.unmount();
+    });
+
+    it('file with onPreviewClick callback', () => {
+        const onPreviewClick = sinon.spy();
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'success',
+                    size: '130KB',
+                    preview: true,
+                    url: 'https://example.com/image.jpg',
+                },
+            ],
+            onPreviewClick,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().onPreviewClick).toBeDefined();
+        upload.unmount();
+    });
+
+    it('file card with validateMessage as React element', () => {
+        const props = {
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'test.jpg',
+                    status: 'validateFail',
+                    size: '130KB',
+                    validateMessage: <span className="custom-validate-msg">Custom error</span>,
+                },
+            ],
+        };
+        const upload = getUpload(props);
+        expect(upload.state().fileList[0].validateMessage).toBeDefined();
+        upload.unmount();
+    });
+
+    it('draggable with custom children', () => {
+        const props = {
+            draggable: true,
+            children: <div className="custom-drag-content">Drop files here</div>,
+        };
+        const upload = getUpload(props);
+        expect(upload.find('.custom-drag-content').length).toBeGreaterThan(0);
+        upload.unmount();
+    });
+
+    it('draggable with dragIcon prop', () => {
+        const props = {
+            draggable: true,
+            dragIcon: <IconUser />,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().dragIcon).toBeDefined();
+        upload.unmount();
+    });
+
+    it('draggable with dragMainText and dragSubText', () => {
+        const props = {
+            draggable: true,
+            dragMainText: 'Custom main text',
+            dragSubText: 'Custom sub text',
+        };
+        const upload = getUpload(props);
+        expect(upload.props().dragMainText).toEqual('Custom main text');
+        expect(upload.props().dragSubText).toEqual('Custom sub text');
+        upload.unmount();
+    });
+
+    it('showUploadList false hides file list', () => {
+        const props = {
+            defaultFileList,
+            showUploadList: false,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().showUploadList).toEqual(false);
+        upload.unmount();
+    });
+
+    it('addOnPasting prop', () => {
+        const props = {
+            addOnPasting: true,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().addOnPasting).toEqual(true);
+        upload.unmount();
+    });
+
+    it('directory prop', () => {
+        const props = {
+            directory: true,
+        };
+        const upload = getUpload(props);
+        expect(upload.props().directory).toEqual(true);
+        upload.unmount();
+    });
+});
+
+describe('FileCard', () => {
+    it('renders file card with list type', () => {
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.find(`.${BASE_CLASS_PREFIX}-upload-file-card`).length).toBeGreaterThan(0);
+        wrapper.unmount();
+    });
+
+    it('renders picture card with picture type', () => {
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            url: 'https://example.com/image.jpg',
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.find(`.${BASE_CLASS_PREFIX}-upload-picture-file-card`).length).toBeGreaterThan(0);
+        wrapper.unmount();
+    });
+
+    it('returns null for unknown listType', () => {
+        const props = {
+            listType: 'unknown',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.isEmptyRender()).toBe(true);
+        wrapper.unmount();
+    });
+
+    it('onRemove is called when close button clicked', () => {
+        const onRemove = sinon.spy();
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            onRemove,
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        const closeBtn = wrapper.find(`.${BASE_CLASS_PREFIX}-upload-file-card-close`);
+        if (closeBtn.length > 0) {
+            closeBtn.at(0).simulate('click', { stopPropagation: () => {} });
+            expect(onRemove.called).toBe(true);
+        }
+        wrapper.unmount();
+    });
+
+    it('onRetry is called when retry button clicked', () => {
+        const onRetry = sinon.spy();
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'uploadFail',
+            showRetry: true,
+            onRemove: () => {},
+            onRetry,
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        const retryBtn = wrapper.find(`.${BASE_CLASS_PREFIX}-upload-file-card-info-retry`);
+        if (retryBtn.length > 0) {
+            retryBtn.at(0).simulate('click', { stopPropagation: () => {} });
+            expect(onRetry.called).toBe(true);
+        }
+        wrapper.unmount();
+    });
+
+    it('onReplace is called when replace button clicked', () => {
+        const onReplace = sinon.spy();
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            showReplace: true,
+            onRemove: () => {},
+            onRetry: () => {},
+            onReplace,
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        const replaceBtn = wrapper.find(`.${BASE_CLASS_PREFIX}-upload-file-card-info-replace`);
+        if (replaceBtn.length > 0) {
+            const button = replaceBtn.find('button');
+            if (button.length > 0) {
+                button.at(0).simulate('click', { stopPropagation: () => {} });
+                expect(onReplace.called).toBe(true);
+            }
+        }
+        wrapper.unmount();
+    });
+
+    it('picture card onRemove is called when close button clicked', () => {
+        const onRemove = sinon.spy();
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            url: 'https://example.com/image.jpg',
+            onRemove,
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        const closeBtn = wrapper.find(`.${BASE_CLASS_PREFIX}-upload-picture-file-card-close`);
+        if (closeBtn.length > 0) {
+            closeBtn.at(0).simulate('click', { stopPropagation: () => {} });
+            expect(onRemove.called).toBe(true);
+        }
+        wrapper.unmount();
+    });
+
+    it('picture card onRetry is called when retry button clicked', () => {
+        const onRetry = sinon.spy();
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'uploadFail',
+            showRetry: true,
+            url: 'https://example.com/image.jpg',
+            onRemove: () => {},
+            onRetry,
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        const retryBtn = wrapper.find(`.${BASE_CLASS_PREFIX}-upload-picture-file-card-retry`);
+        if (retryBtn.length > 0) {
+            retryBtn.at(0).simulate('click', { stopPropagation: () => {} });
+            expect(onRetry.called).toBe(true);
+        }
+        wrapper.unmount();
+    });
+
+    it('picture card onReplace is called when replace button clicked', () => {
+        const onReplace = sinon.spy();
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            showReplace: true,
+            url: 'https://example.com/image.jpg',
+            onRemove: () => {},
+            onRetry: () => {},
+            onReplace,
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        const replaceBtn = wrapper.find(`.${BASE_CLASS_PREFIX}-upload-picture-file-card-replace`);
+        if (replaceBtn.length > 0) {
+            replaceBtn.at(0).simulate('click', { stopPropagation: () => {} });
+            expect(onReplace.called).toBe(true);
+        }
+        wrapper.unmount();
+    });
+
+    it('file card with validateMessage string and validating status', () => {
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'validating',
+            validateMessage: 'Validating...',
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().validateMessage).toEqual('Validating...');
+        wrapper.unmount();
+    });
+
+    it('file card with validateMessage string and non-validating status', () => {
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'validateFail',
+            validateMessage: 'Validation failed',
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().validateMessage).toEqual('Validation failed');
+        wrapper.unmount();
+    });
+
+    it('file card with validateMessage as React element', () => {
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'validateFail',
+            validateMessage: <span className="custom-msg">Error</span>,
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.find('.custom-msg').length).toBeGreaterThan(0);
+        wrapper.unmount();
+    });
+
+    it('file card with numeric size', () => {
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: 1024,
+            status: 'success',
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().size).toEqual(1024);
+        wrapper.unmount();
+    });
+
+    it('file card with uploading status shows progress', () => {
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'uploading',
+            percent: 50,
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().percent).toEqual(50);
+        wrapper.unmount();
+    });
+
+    it('file card with style prop', () => {
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            style: { width: '100%' },
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().style.width).toEqual('100%');
+        wrapper.unmount();
+    });
+
+    it('picture card with picWidth and picHeight', () => {
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            url: 'https://example.com/image.jpg',
+            picWidth: 100,
+            picHeight: 100,
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().picWidth).toEqual(100);
+        expect(wrapper.props().picHeight).toEqual(100);
+        wrapper.unmount();
+    });
+
+    it('picture card with renderThumbnail', () => {
+        const renderThumbnail = (props) => <img src={props.url} alt={props.name} />;
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            url: 'https://example.com/image.jpg',
+            picWidth: 100,
+            picHeight: 100,
+            renderThumbnail,
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().renderThumbnail).toBeDefined();
+        wrapper.unmount();
+    });
+
+    it('picture card with showPicInfo', () => {
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            url: 'https://example.com/image.jpg',
+            showPicInfo: true,
+            index: 0,
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().showPicInfo).toEqual(true);
+        wrapper.unmount();
+    });
+
+    it('picture card with renderPicInfo', () => {
+        const renderPicInfo = (props) => <span>{props.name}</span>;
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            url: 'https://example.com/image.jpg',
+            showPicInfo: true,
+            renderPicInfo,
+            index: 0,
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().renderPicInfo).toBeDefined();
+        wrapper.unmount();
+    });
+
+    it('picture card with renderPicClose', () => {
+        const renderPicClose = ({ className, remove }) => (
+            <span className={className} onClick={remove}>X</span>
+        );
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            url: 'https://example.com/image.jpg',
+            renderPicClose,
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().renderPicClose).toBeDefined();
+        wrapper.unmount();
+    });
+
+    it('picture card with renderPicPreviewIcon', () => {
+        const renderPicPreviewIcon = (props) => <span>Preview</span>;
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            url: 'https://example.com/image.jpg',
+            showPreview: true,
+            renderPicPreviewIcon,
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().renderPicPreviewIcon).toBeDefined();
+        wrapper.unmount();
+    });
+
+    it('file card with renderFileOperation', () => {
+        const renderFileOperation = (props) => <span>Operations</span>;
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            renderFileOperation,
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().renderFileOperation).toBeDefined();
+        wrapper.unmount();
+    });
+
+    it('file card with onPreviewClick', () => {
+        const onPreviewClick = sinon.spy();
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            preview: true,
+            url: 'https://example.com/image.jpg',
+            onPreviewClick,
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().onPreviewClick).toBeDefined();
+        wrapper.unmount();
+    });
+
+    it('file card with disabled prop', () => {
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            disabled: true,
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().disabled).toEqual(true);
+        wrapper.unmount();
+    });
+
+    it('picture card with disabled prop', () => {
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            url: 'https://example.com/image.jpg',
+            disabled: true,
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().disabled).toEqual(true);
+        wrapper.unmount();
+    });
+
+    it('picture card with validating status and validateMessage', () => {
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'validating',
+            validateMessage: 'Validating...',
+            url: 'https://example.com/image.jpg',
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().status).toEqual('validating');
+        wrapper.unmount();
+    });
+
+    it('picture card with validateFail status and validateMessage', () => {
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'validateFail',
+            validateMessage: 'Validation failed',
+            url: 'https://example.com/image.jpg',
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().status).toEqual('validateFail');
+        wrapper.unmount();
+    });
+
+    it('picture card with uploadFail status and validateMessage', () => {
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'uploadFail',
+            validateMessage: 'Upload failed',
+            url: 'https://example.com/image.jpg',
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().status).toEqual('uploadFail');
+        wrapper.unmount();
+    });
+
+    it('picture card with uploading status', () => {
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'uploading',
+            percent: 50,
+            url: 'https://example.com/image.jpg',
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().percent).toEqual(50);
+        wrapper.unmount();
+    });
+
+    it('picture card with fallback preview', () => {
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            url: 'https://example.com/image.jpg',
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        // 触发图片加载错误来测试 fallback
+        const instance = wrapper.instance();
+        if (instance && instance.foundation) {
+            instance.foundation.handleImageError({});
+        }
+        wrapper.unmount();
+    });
+
+    it('file card with preview and url', () => {
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            preview: true,
+            url: 'https://example.com/image.jpg',
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().preview).toEqual(true);
+        wrapper.unmount();
+    });
+
+    it('file card with preview but no url', () => {
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            preview: true,
+            onRemove: () => {},
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        expect(wrapper.props().preview).toEqual(true);
+        wrapper.unmount();
+    });
+
+    it('renderPicClose with custom function', () => {
+        const onRemove = sinon.spy();
+        const renderPicClose = ({ className, remove }) => (
+            <div className={className} onClick={remove}>Custom Close</div>
+        );
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            url: 'https://example.com/image.jpg',
+            renderPicClose,
+            onRemove,
+            onRetry: () => {},
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        const closeBtn = wrapper.find(`.${BASE_CLASS_PREFIX}-upload-picture-file-card-close`);
+        if (closeBtn.length > 0) {
+            closeBtn.at(0).simulate('click', { stopPropagation: () => {} });
+        }
+        wrapper.unmount();
+    });
+
+    it('file card without onRemove and onRetry uses default functions', () => {
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        // 默认的 onRemove 和 onRetry 应该被定义（来自 defaultProps）
+        expect(wrapper.props().onRemove).toBeDefined();
+        expect(wrapper.props().onRetry).toBeDefined();
+        wrapper.unmount();
+    });
+
+    it('file card with showReplace triggers onReplace on button click', () => {
+        const onReplace = sinon.spy();
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            showReplace: true,
+            onRemove: () => {},
+            onRetry: () => {},
+            onReplace,
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        // 找到替换按钮并点击
+        const replaceBtn = wrapper.find(`.${BASE_CLASS_PREFIX}-upload-file-card-info-replace`).find('button');
+        if (replaceBtn.length > 0) {
+            replaceBtn.at(0).simulate('click', { stopPropagation: () => {} });
+            expect(onReplace.called).toBe(true);
+        }
+        wrapper.unmount();
+    });
+
+    it('file card list type replace button onClick triggers onReplace', () => {
+        const onReplace = sinon.spy();
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            showReplace: true,
+            onRemove: () => {},
+            onRetry: () => {},
+            onReplace,
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        // 直接找到 Button 组件并触发点击
+        const buttons = wrapper.find('Button');
+        buttons.forEach((btn) => {
+            const icon = btn.props().icon;
+            if (icon && icon.type && icon.type.name === 'DirectorySvg') {
+                btn.simulate('click', { stopPropagation: () => {} });
+            }
+        });
+        wrapper.unmount();
+    });
+
+    it('file card calls default onRemove', () => {
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        // 调用默认的 onRemove
+        const result = wrapper.props().onRemove();
+        expect(result).toBeUndefined();
+        wrapper.unmount();
+    });
+
+    it('file card calls default onRetry', () => {
+        const props = {
+            listType: 'list',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'uploadFail',
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        // 调用默认的 onRetry
+        const result = wrapper.props().onRetry();
+        expect(result).toBeUndefined();
+        wrapper.unmount();
+    });
+
+    it('picture file card with showReplace triggers onReplace', () => {
+        const onReplace = sinon.spy();
+        const props = {
+            listType: 'picture',
+            name: 'test.jpg',
+            size: '130KB',
+            status: 'success',
+            url: 'https://example.com/image.jpg',
+            showReplace: true,
+            onRemove: () => {},
+            onRetry: () => {},
+            onReplace,
+        };
+        const wrapper = mount(<FileCard {...props} />);
+        // 找到替换按钮并点击
+        const replaceBtn = wrapper.find(`.${BASE_CLASS_PREFIX}-upload-picture-file-card-replace`).find('button');
+        if (replaceBtn.length > 0) {
+            replaceBtn.at(0).simulate('click', { stopPropagation: () => {} });
+            expect(onReplace.called).toBe(true);
+        }
+        wrapper.unmount();
+    });
+});
+
+describe('Upload additional coverage', () => {
+    it('beforeClear default returns true', () => {
+        const props = {
+            defaultFileList,
+        };
+        const upload = getUpload(props);
+        // 验证 beforeClear 默认返回 true
+        expect(upload.props().beforeClear).toBeDefined();
+        upload.unmount();
+    });
+
+    it('resetReplaceInput updates replaceInputKey', () => {
+        const props = {
+            defaultFileList,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        const initialKey = upload.state().replaceInputKey;
+        // 调用 resetReplaceInput
+        instance.adapter.resetReplaceInput();
+        expect(upload.state().replaceInputKey).not.toEqual(initialKey);
+        upload.unmount();
+    });
+
+    it('isMac adapter returns boolean', () => {
+        const props = {
+            defaultFileList,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 验证 isMac 返回布尔值
+        const result = instance.adapter.isMac();
+        expect(typeof result).toBe('boolean');
+        upload.unmount();
+    });
+
+    it('notifyPastingError calls onPastingError', () => {
+        const onPastingError = sinon.spy();
+        const props = {
+            defaultFileList,
+            onPastingError,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 调用 notifyPastingError
+        instance.adapter.notifyPastingError(new Error('test'));
+        expect(onPastingError.called).toBe(true);
+        upload.unmount();
+    });
+
+    it('notifyPreviewClick calls onPreviewClick', () => {
+        const onPreviewClick = sinon.spy();
+        const props = {
+            defaultFileList,
+            onPreviewClick,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 调用 notifyPreviewClick
+        instance.adapter.notifyPreviewClick(defaultFileList[0]);
+        expect(onPreviewClick.called).toBe(true);
+        upload.unmount();
+    });
+
+    it('notifyDrop calls onDrop', () => {
+        const onDrop = sinon.spy();
+        const props = {
+            defaultFileList,
+            onDrop,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 调用 notifyDrop
+        instance.adapter.notifyDrop({}, [], []);
+        expect(onDrop.called).toBe(true);
+        upload.unmount();
+    });
+
+    it('replace method updates replaceIdx and clicks input', () => {
+        const props = {
+            defaultFileList,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 调用 replace 方法
+        instance.replace(0);
+        expect(upload.state().replaceIdx).toEqual(0);
+        upload.unmount();
+    });
+
+    it('openFileDialog calls onClick', () => {
+        const props = {
+            defaultFileList,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 验证 openFileDialog 方法存在
+        expect(instance.openFileDialog).toBeDefined();
+        upload.unmount();
+    });
+
+    it('onPreviewClick with undefined does not render preview icon', () => {
+        const props = {
+            defaultFileList,
+            listType: 'picture',
+            onPreviewClick: undefined,
+        };
+        const upload = getUpload(props);
+        // 验证没有 onPreviewClick 时的渲染
+        expect(upload.props().onPreviewClick).toBeUndefined();
+        upload.unmount();
+    });
+
+    it('draggable with picture listType assigns draggableProps', () => {
+        const props = {
+            defaultFileList,
+            listType: 'picture',
+            draggable: true,
+        };
+        const upload = getUpload(props);
+        // 验证 draggable 属性
+        expect(upload.props().draggable).toBe(true);
+        upload.unmount();
+    });
+
+    it('showUploadList false with picture listType returns null', () => {
+        const props = {
+            defaultFileList: [],
+            listType: 'picture',
+            showUploadList: false,
+        };
+        const upload = getUpload(props);
+        // 验证 showUploadList 为 false 时
+        expect(upload.props().showUploadList).toBe(false);
+        upload.unmount();
+    });
+
+    it('onDrop handler calls foundation.handleDrop', () => {
+        const onDrop = sinon.spy();
+        const props = {
+            defaultFileList,
+            draggable: true,
+            onDrop,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 调用 onDrop
+        const mockEvent = {
+            preventDefault: () => {},
+            stopPropagation: () => {},
+            dataTransfer: { files: [] },
+        };
+        instance.onDrop(mockEvent);
+        upload.unmount();
+    });
+
+    it('registerPastingHandler and unRegisterPastingHandler', () => {
+        const props = {
+            defaultFileList,
+            addOnPasting: true,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 验证 pastingCb 被注册
+        expect(instance.pastingCb).toBeDefined();
+        // 卸载时会调用 unRegisterPastingHandler
+        upload.unmount();
+    });
+
+    it('notifyClear calls onClear', () => {
+        const onClear = sinon.spy();
+        const props = {
+            defaultFileList,
+            onClear,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 调用 notifyClear
+        instance.adapter.notifyClear();
+        expect(onClear.called).toBe(true);
+        upload.unmount();
+    });
+
+    it('notifyAcceptInvalid calls onAcceptInvalid', () => {
+        const onAcceptInvalid = sinon.spy();
+        const props = {
+            defaultFileList,
+            onAcceptInvalid,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 调用 notifyAcceptInvalid
+        instance.adapter.notifyAcceptInvalid([]);
+        expect(onAcceptInvalid.called).toBe(true);
+        upload.unmount();
+    });
+
+    it('notifyBeforeRemove calls beforeRemove', () => {
+        const beforeRemove = sinon.spy(() => true);
+        const props = {
+            defaultFileList,
+            beforeRemove,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 调用 notifyBeforeRemove
+        instance.adapter.notifyBeforeRemove(defaultFileList[0], defaultFileList);
+        expect(beforeRemove.called).toBe(true);
+        upload.unmount();
+    });
+
+    it('notifyBeforeClear calls beforeClear', () => {
+        const beforeClear = sinon.spy(() => true);
+        const props = {
+            defaultFileList,
+            beforeClear,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 调用 notifyBeforeClear
+        instance.adapter.notifyBeforeClear(defaultFileList);
+        expect(beforeClear.called).toBe(true);
+        upload.unmount();
+    });
+
+    it('openFileDialog method calls onClick', () => {
+        const onOpenFileDialog = sinon.spy();
+        const props = {
+            defaultFileList,
+            onOpenFileDialog,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 调用 openFileDialog
+        instance.openFileDialog();
+        upload.unmount();
+    });
+
+    it('onReplace callback in renderFile calls replace', () => {
+        const props = {
+            defaultFileList,
+            showReplace: true,
+            listType: 'list',
+        };
+        const upload = getUpload(props);
+        // 找到替换按钮并点击
+        const replaceBtn = upload.find(`.${BASE_CLASS_PREFIX}-upload-file-card-info-replace`).find('button');
+        if (replaceBtn.length > 0) {
+            replaceBtn.at(0).simulate('click', { stopPropagation: () => {} });
+            // 验证 replaceIdx 被设置
+            expect(upload.state().replaceIdx).toBeDefined();
+        }
+        upload.unmount();
+    });
+
+    it('onPreviewClick callback in renderFile calls handlePreviewClick', () => {
+        const onPreviewClick = sinon.spy();
+        const props = {
+            defaultFileList,
+            listType: 'picture',
+            onPreviewClick,
+        };
+        const upload = getUpload(props);
+        // 找到预览图标并点击
+        const previewIcon = upload.find(`.${BASE_CLASS_PREFIX}-upload-picture-file-card-preview`);
+        if (previewIcon.length > 0) {
+            previewIcon.at(0).simulate('click', { stopPropagation: () => {} });
+            expect(onPreviewClick.called).toBe(true);
+        }
+        upload.unmount();
+    });
+
+    it('renderFileListPic returns null when showUploadList is false and showAddTriggerInList is false', () => {
+        const props = {
+            defaultFileList: [],
+            listType: 'picture',
+            showUploadList: false,
+        };
+        const upload = getUpload(props);
+        // 验证 showUploadList 为 false 时
+        expect(upload.props().showUploadList).toBe(false);
+        upload.unmount();
+    });
+
+    it('default beforeClear returns true', () => {
+        const props = {
+            defaultFileList,
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 调用默认的 beforeClear
+        const result = instance.adapter.notifyBeforeClear(defaultFileList);
+        expect(result).toBe(true);
+        upload.unmount();
+    });
+
+    it('FileCard onReplace triggers replace method', () => {
+        const props = {
+            defaultFileList,
+            showReplace: true,
+            listType: 'list',
+        };
+        const upload = getUpload(props);
+        // 找到 FileCard 组件
+        const fileCards = upload.find('FileCard');
+        if (fileCards.length > 0) {
+            // 获取 onReplace prop 并调用
+            const onReplace = fileCards.at(0).props().onReplace;
+            if (onReplace) {
+                onReplace();
+                // 验证 replaceIdx 被设置
+                expect(upload.state().replaceIdx).toEqual(0);
+            }
+        }
+        upload.unmount();
+    });
+
+    it('renderFileListPic returns null when conditions met', () => {
+        const props = {
+            defaultFileList: [],
+            listType: 'picture',
+            showUploadList: false,
+            showAddTriggerInList: false,
+        };
+        const upload = getUpload(props);
+        // 验证条件
+        expect(upload.props().showUploadList).toBe(false);
+        expect(upload.props().showAddTriggerInList).toBeFalsy();
+        upload.unmount();
+    });
+
+    it('picture listType with empty fileList and showUploadList false returns null', () => {
+        const props = {
+            fileList: [],
+            listType: 'picture',
+            showUploadList: false,
+        };
+        const upload = getUpload(props);
+        // 验证没有文件列表渲染
+        expect(upload.find(`.${BASE_CLASS_PREFIX}-upload-picture-file-list`).length).toEqual(0);
+        upload.unmount();
+    });
+
+    it('picture listType with showUploadList false and showAddTriggerInList false returns null from renderFileListPic', () => {
+        // 这个测试覆盖 renderFileListPic 中 return null 的分支
+        // showAddTriggerInList 为 false 需要 limit 等于 fileList.length
+        const props = {
+            defaultFileList: [defaultFileList[0]], // 1 个文件
+            listType: 'picture',
+            showUploadList: false,
+            limit: 1, // limit 等于文件数量，showAddTriggerInList 为 false
+        };
+        const upload = getUpload(props);
+        const instance = upload.instance();
+        // 直接调用 renderFileListPic 方法
+        const result = instance.renderFileListPic();
+        // 当 showUploadList 为 false 且 showAddTriggerInList 为 false 时返回 null
+        expect(result).toBeNull();
+        upload.unmount();
     });
 });

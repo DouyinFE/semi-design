@@ -129,6 +129,87 @@ describe('checkbox', () => {
         const checkbox = getCb({ type: 'pureCard' });
         expect(checkbox.exists(`.${BASE_CLASS_PREFIX}-checkbox-cardType`)).toEqual(true);
     });
+
+    it('focus and blur methods', () => {
+        const checkbox = getCb({ defaultChecked: false });
+        const instance = checkbox.instance();
+        // 测试 focus 方法
+        instance.focus();
+        // 测试 blur 方法
+        instance.blur();
+        checkbox.unmount();
+    });
+
+    it('handleFocusVisible and handleBlur', () => {
+        const checkbox = getCb({ defaultChecked: false });
+        const instance = checkbox.instance();
+        // 直接调用 handleFocusVisible 方法
+        instance.handleFocusVisible({ target: {} });
+        checkbox.update();
+        // 直接调用 handleBlur 方法
+        instance.handleBlur({ target: {} });
+        checkbox.update();
+        checkbox.unmount();
+    });
+
+    it('setFocusVisible adapter method', () => {
+        const checkbox = getCb({ defaultChecked: false });
+        const instance = checkbox.instance();
+        // 直接调用 adapter 方法
+        instance.adapter.setFocusVisible(true);
+        checkbox.update();
+        expect(checkbox.state().focusVisible).toEqual(true);
+        
+        instance.adapter.setFocusVisible(false);
+        checkbox.update();
+        expect(checkbox.state().focusVisible).toEqual(false);
+        checkbox.unmount();
+    });
+
+    it('onChange event with stopPropagation and preventDefault', () => {
+        const onChange = sinon.spy(e => {
+            // 调用 stopPropagation
+            e.stopPropagation();
+            // 调用 preventDefault
+            e.preventDefault();
+        });
+        const checkbox = mount(<Checkbox onChange={onChange} />);
+        checkbox.find(`.${BASE_CLASS_PREFIX}-checkbox`).simulate('click', {});
+        expect(onChange.calledOnce).toBe(true);
+        checkbox.unmount();
+    });
+
+    it('onChange event with nativeEvent.stopImmediatePropagation', () => {
+        const onChange = sinon.spy(e => {
+            // 调用 nativeEvent.stopImmediatePropagation
+            if (e.nativeEvent && e.nativeEvent.stopImmediatePropagation) {
+                e.nativeEvent.stopImmediatePropagation();
+            }
+        });
+        const checkbox = mount(<Checkbox onChange={onChange} />);
+        // 创建带有 nativeEvent 的事件
+        const event = {
+            nativeEvent: {
+                stopImmediatePropagation: sinon.spy()
+            }
+        };
+        checkbox.find(`.${BASE_CLASS_PREFIX}-checkbox`).simulate('click', event);
+        expect(onChange.calledOnce).toBe(true);
+        checkbox.unmount();
+    });
+
+    it('checkboxInner blur method', () => {
+        const checkbox = getCb({ defaultChecked: false });
+        // 获取 CheckboxInner 组件
+        const checkboxInner = checkbox.find('CheckboxInner');
+        if (checkboxInner.length > 0) {
+            const innerInstance = checkboxInner.instance();
+            if (innerInstance && innerInstance.blur) {
+                innerInstance.blur();
+            }
+        }
+        checkbox.unmount();
+    });
 });
 
 describe('CheckboxGroup', () => {

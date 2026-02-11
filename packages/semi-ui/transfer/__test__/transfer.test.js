@@ -436,4 +436,328 @@ describe(`Transfer`, () => {
         const input = transfer.find(`.${BASE_CLASS_PREFIX}-transfer-filter input`).at(0);
         expect(input.props().placeholder).toEqual('Custom placeholder');
     });
+
+    it('renderSelectedPanel prop', () => {
+        const renderSelectedPanel = (props) => {
+            const { selectedData, onClear, onRemove, onSortEnd } = props;
+            return (
+                <div className="custom-selected-panel">
+                    <button className="custom-clear" onClick={onClear}>Clear</button>
+                    {selectedData.map(item => (
+                        <div key={item.key} className="custom-item">
+                            {item.label}
+                            <button className="custom-remove" onClick={() => onRemove(item)}>Remove</button>
+                        </div>
+                    ))}
+                </div>
+            );
+        };
+        const props = {
+            dataSource: defaultItems,
+            defaultValue: ['1', '2'],
+            renderSelectedPanel,
+        };
+        const transfer = getTransfer(props);
+        expect(transfer.exists('.custom-selected-panel')).toEqual(true);
+        
+        // 测试 onRemove
+        transfer.find('.custom-remove').at(0).simulate('click');
+        expect(transfer.state().selectedItems.size).toEqual(1);
+        
+        // 测试 onClear
+        transfer.find('.custom-clear').simulate('click');
+        expect(transfer.state().selectedItems.size).toEqual(0);
+    });
+
+    it('renderSourcePanel prop', () => {
+        const renderSourcePanel = (props) => {
+            const { filterData, onSelectOrRemove, onAllClick, onSearch, onSelect } = props;
+            return (
+                <div className="custom-source-panel">
+                    <input className="custom-search" onChange={(e) => onSearch(e.target.value)} />
+                    <button className="custom-select-all" onClick={onAllClick}>Select All</button>
+                    {filterData.map(item => (
+                        <div key={item.key} className="custom-source-item" onClick={() => onSelectOrRemove(item)}>
+                            {item.label}
+                        </div>
+                    ))}
+                </div>
+            );
+        };
+        const props = {
+            dataSource: defaultItems,
+            renderSourcePanel,
+        };
+        const transfer = getTransfer(props);
+        expect(transfer.exists('.custom-source-panel')).toEqual(true);
+    });
+
+    it('renderSourceHeader prop', () => {
+        const renderSourceHeader = (props) => {
+            const { num, showButton, allChecked, onAllClick } = props;
+            return (
+                <div className="custom-source-header">
+                    <span>Total: {num}</span>
+                    {showButton && <button className="custom-all-btn" onClick={onAllClick}>
+                        {allChecked ? 'Deselect' : 'Select All'}
+                    </button>}
+                </div>
+            );
+        };
+        const props = {
+            dataSource: defaultItems,
+            renderSourceHeader,
+        };
+        const transfer = getTransfer(props);
+        expect(transfer.exists('.custom-source-header')).toEqual(true);
+    });
+
+    it('renderSelectedHeader prop', () => {
+        const renderSelectedHeader = (props) => {
+            const { num, showButton, onClear } = props;
+            return (
+                <div className="custom-selected-header">
+                    <span>Selected: {num}</span>
+                    {showButton && <button className="custom-clear-btn" onClick={onClear}>Clear</button>}
+                </div>
+            );
+        };
+        const props = {
+            dataSource: defaultItems,
+            defaultValue: ['1'],
+            renderSelectedHeader,
+        };
+        const transfer = getTransfer(props);
+        expect(transfer.exists('.custom-selected-header')).toEqual(true);
+    });
+
+    it('loading prop', () => {
+        const props = {
+            dataSource: defaultItems,
+            loading: true,
+        };
+        const transfer = getTransfer(props);
+        expect(transfer.exists(`.${BASE_CLASS_PREFIX}-spin`)).toEqual(true);
+    });
+
+    it('filter false hides search input', () => {
+        const props = {
+            dataSource: defaultItems,
+            filter: false,
+        };
+        const transfer = getTransfer(props);
+        expect(transfer.exists(`.${BASE_CLASS_PREFIX}-transfer-filter`)).toEqual(false);
+    });
+
+    it('draggable with selected items', () => {
+        const spyOnChange = spy();
+        const props = {
+            dataSource: defaultItems,
+            defaultValue: ['1', '2'],
+            draggable: true,
+            onChange: spyOnChange,
+        };
+        const transfer = getTransfer(props);
+        // 验证拖拽组件渲染
+        expect(transfer.props().draggable).toEqual(true);
+    });
+
+    it('remove item from right panel', () => {
+        const spyOnChange = spy();
+        const props = {
+            dataSource: defaultItems,
+            defaultValue: ['1'],
+            onChange: spyOnChange,
+        };
+        const transfer = getTransfer(props);
+        
+        // 点击右侧面板的关闭按钮
+        const closeIcon = transfer.find(`.${BASE_CLASS_PREFIX}-transfer-item-close-icon`).at(0);
+        closeIcon.simulate('click');
+        
+        expect(spyOnChange.calledOnce).toEqual(true);
+        expect(spyOnChange.firstCall.args[0]).toHaveLength(0);
+    });
+
+    it('all items disabled shows no select all button', () => {
+        const disabledItems = [
+            { label: 'item1', value: '1', key: 'a', disabled: true },
+            { label: 'item2', value: '2', key: 'b', disabled: true },
+        ];
+        const props = {
+            dataSource: disabledItems,
+        };
+        const transfer = getTransfer(props);
+        // 当所有项都禁用时，不应显示全选按钮
+        const selectAllBtn = transfer.find(`button.${BASE_CLASS_PREFIX}-transfer-header-all`).at(0);
+        expect(selectAllBtn.exists()).toEqual(false);
+    });
+
+    it('search method', () => {
+        const props = {
+            dataSource: defaultItems,
+        };
+        const transfer = getTransfer(props);
+        const instance = transfer.instance();
+        
+        // 调用 search 方法
+        instance.search('item1');
+        transfer.update();
+        
+        expect(transfer.state().inputValue).toEqual('item1');
+    });
+
+    it('renderSelectedPanel with onSortEnd', () => {
+        const spyOnSortEnd = spy();
+        const renderSelectedPanel = (props) => {
+            const { selectedData, onSortEnd } = props;
+            return (
+                <div className="custom-selected-panel">
+                    <button className="trigger-sort" onClick={() => onSortEnd({ oldIndex: 0, newIndex: 1 })}>Sort</button>
+                    {selectedData.map(item => (
+                        <div key={item.key}>{item.label}</div>
+                    ))}
+                </div>
+            );
+        };
+        const props = {
+            dataSource: defaultItems,
+            defaultValue: ['1', '2'],
+            renderSelectedPanel,
+        };
+        const transfer = getTransfer(props);
+        
+        // 触发排序
+        transfer.find('.trigger-sort').simulate('click');
+        // 验证排序后的顺序
+        const selectedItems = [...transfer.state().selectedItems.values()];
+        expect(selectedItems[0].value).toEqual('2');
+    });
+
+    it('custom panel with both renderSourcePanel and renderSelectedPanel', () => {
+        const renderSourcePanel = () => <div className="custom-source">Source</div>;
+        const renderSelectedPanel = () => <div className="custom-selected">Selected</div>;
+        const props = {
+            dataSource: defaultItems,
+            renderSourcePanel,
+            renderSelectedPanel,
+        };
+        const transfer = getTransfer(props);
+        expect(transfer.exists(`.${BASE_CLASS_PREFIX}-transfer-custom-panel`)).toEqual(true);
+    });
+
+    it('renderSourcePanel with onSelect callback', () => {
+        const spyOnChange = spy();
+        const renderSourcePanel = (props) => {
+            const { filterData, onSelect, onAllClick } = props;
+            return (
+                <div className="custom-source-panel">
+                    <button className="select-multiple" onClick={() => onSelect(['1', '2'])}>Select Multiple</button>
+                    <button className="select-all-custom" onClick={onAllClick}>Select All</button>
+                </div>
+            );
+        };
+        const props = {
+            dataSource: defaultItems,
+            renderSourcePanel,
+            onChange: spyOnChange,
+        };
+        const transfer = getTransfer(props);
+        
+        // 测试 onSelect 回调
+        transfer.find('.select-multiple').simulate('click');
+        expect(spyOnChange.calledOnce).toEqual(true);
+        
+        // 测试 onAllClick 回调
+        transfer.find('.select-all-custom').simulate('click');
+    });
+
+    it('adapter notifySelect and notifyDeselect', () => {
+        const spyOnSelect = spy();
+        const spyOnDeselect = spy();
+        const props = {
+            dataSource: defaultItems,
+            onSelect: spyOnSelect,
+            onDeselect: spyOnDeselect,
+        };
+        const transfer = getTransfer(props);
+        
+        // 选择第一个项目
+        const firstItem = transfer.find(`span.${BASE_CLASS_PREFIX}-transfer-item`).at(0);
+        firstItem.simulate('click');
+        expect(spyOnSelect.calledOnce).toEqual(true);
+        
+        // 取消选择
+        firstItem.simulate('click');
+        expect(spyOnDeselect.calledOnce).toEqual(true);
+    });
+
+    it('default case in renderRight switch', () => {
+        // 测试 renderRight 中的 default case
+        const props = {
+            dataSource: [],
+            defaultValue: [],
+        };
+        const transfer = getTransfer(props);
+        // 当没有选中项时，应该显示空状态
+        expect(transfer.exists(`.${BASE_CLASS_PREFIX}-transfer-right-empty`)).toEqual(true);
+    });
+
+    it('tree transfer with treeProps', () => {
+        const props = {
+            type: 'treeList',
+            dataSource: treeData,
+            treeProps: {
+                expandAll: true,
+            },
+        };
+        const transfer = getTransfer(props);
+        expect(transfer.exists(`.${BASE_CLASS_PREFIX}-tree`)).toEqual(true);
+    });
+
+    it('adapter updateSelected', () => {
+        const props = {
+            dataSource: defaultItems,
+        };
+        const transfer = getTransfer(props);
+        const instance = transfer.instance();
+        
+        // 直接调用 adapter 的 updateSelected 方法
+        const newSelectedItems = new Map();
+        newSelectedItems.set('a', defaultItems[0]);
+        instance.adapter.updateSelected(newSelectedItems);
+        transfer.update();
+        
+        expect(transfer.state().selectedItems.has('a')).toEqual(true);
+    });
+
+    it('renderSourcePanel with onSelectOrRemove', () => {
+        const spyOnChange = spy();
+        const renderSourcePanel = (props) => {
+            const { filterData, onSelectOrRemove } = props;
+            return (
+                <div className="custom-source-panel">
+                    {filterData.map(item => (
+                        <div 
+                            key={item.key} 
+                            className="custom-item" 
+                            onClick={() => onSelectOrRemove(item)}
+                        >
+                            {item.label}
+                        </div>
+                    ))}
+                </div>
+            );
+        };
+        const props = {
+            dataSource: defaultItems,
+            renderSourcePanel,
+            onChange: spyOnChange,
+        };
+        const transfer = getTransfer(props);
+        
+        // 点击自定义项目
+        transfer.find('.custom-item').at(0).simulate('click');
+        expect(spyOnChange.calledOnce).toEqual(true);
+    });
 });
