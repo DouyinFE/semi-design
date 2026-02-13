@@ -2,6 +2,7 @@ import MarkdownRender from '../index'
 import React from 'react';
 import { mount } from 'enzyme';
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
+import { sleep } from '../../_test_/utils';
 
 
 describe(`MarkdownRender`, () => {
@@ -16,6 +17,10 @@ describe(`MarkdownRender`, () => {
         const render = mount(
             <MarkdownRender raw={content} />
         );
+
+        // wait for async markdown evaluation to complete
+        await sleep(100);
+        render.update();
 
         // check if has table container
         expect(render.exists(`.${BASE_CLASS_PREFIX}-table-container`)).toEqual(true);
@@ -36,6 +41,10 @@ describe(`MarkdownRender`, () => {
             <MarkdownRender raw={content} />
         );
 
+        // wait for async markdown evaluation to complete
+        await sleep(100);
+        render.update();
+
         // check if has table container
         expect(render.exists(`.${BASE_CLASS_PREFIX}-table-container`)).toEqual(true);
         // check if has table head & body
@@ -54,6 +63,10 @@ describe(`MarkdownRender`, () => {
         const render = mount(
             <MarkdownRender raw={content} />
         );
+
+        // wait for async markdown evaluation to complete
+        await sleep(100);
+        render.update();
 
         // check if has table container
         expect(render.exists(`.${BASE_CLASS_PREFIX}-table-container`)).toEqual(true);
@@ -83,6 +96,10 @@ describe(`MarkdownRender`, () => {
         const render = mount(
             <MarkdownRender raw={content} format="mdx"/>
         );
+
+        // wait for async markdown evaluation to complete
+        await sleep(100);
+        render.update();
 
         // check if has table container
         expect(render.exists(`.${BASE_CLASS_PREFIX}-table-container`)).toEqual(true);
