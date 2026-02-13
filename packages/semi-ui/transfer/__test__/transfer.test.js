@@ -712,7 +712,8 @@ describe(`Transfer`, () => {
             },
         };
         const transfer = getTransfer(props);
-        expect(transfer.exists(`.${BASE_CLASS_PREFIX}-tree`)).toEqual(true);
+        // Tree component renders with semi-tree-wrapper class, not semi-tree
+        expect(transfer.exists(`.${BASE_CLASS_PREFIX}-tree-wrapper`)).toEqual(true);
     });
 
     it('adapter updateSelected', () => {
