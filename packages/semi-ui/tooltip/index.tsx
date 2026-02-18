@@ -89,7 +89,8 @@ export interface TooltipProps extends BaseProps {
     preventScroll?: boolean;
     disableFocusListener?: boolean;
     afterClose?: () => void;
-    keepDOM?: boolean
+    keepDOM?: boolean;
+    exist?: boolean
 }
 
 interface TooltipState {
@@ -155,6 +156,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         returnFocusOnClose: PropTypes.bool,
         preventScroll: PropTypes.bool,
         keepDOM: PropTypes.bool,
+        exist: PropTypes.bool,
     };
     static __SemiComponentName__ = "Tooltip";
     static defaultProps = getDefaultPropsFromGlobalConfig(Tooltip.__SemiComponentName__, {
@@ -182,7 +184,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         onEscKeyDown: noop,
         disableFocusListener: false,
         disableArrowKeyDown: false,
-        keepDOM: false
+        keepDOM: false,
+        exist: true,
     });
 
     eventManager: Event;
@@ -591,6 +594,15 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 this.props.visible ? this.foundation.show() : this.foundation.hide();
             }
         }
+
+        if (prevProps.exist !== this.props.exist) {
+            if (this.props.exist) {
+                this.foundation._bindEvent();
+            } else {
+                this.foundation.unBindEvent();
+            }
+        }
+
         if (!isEqual(prevProps.rePosKey, this.props.rePosKey)) {
             this.rePosition();
         }
@@ -669,7 +681,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             id,
             isPositionUpdated
         } = this.state;
-        const { prefixCls, content, showArrow, style, motion, role, zIndex } = this.props;
+        const { prefixCls, content, showArrow, style, motion, role, zIndex, exist } = this.props;
         const contentNode = this.renderContentNode(content);
         const { className: propClassName } = this.props;
         const direction = this.context.direction;
@@ -724,7 +736,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
 
         return (
-            <Portal getPopupContainer={this.props.getPopupContainer} style={{ zIndex }}>
+            exist && <Portal getPopupContainer={this.props.getPopupContainer} style={{ zIndex }}>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div
                     // listen keyboard event, don't move tabIndex -1
