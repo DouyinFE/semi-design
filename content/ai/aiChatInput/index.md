@@ -1622,6 +1622,7 @@ render(<CustomRichTextExtension />);
 | onBlur | 富文本输入框失焦的回调 | (event: React.FocusEvent) => void | - |
 | onConfigureChange | 配置区域发生变化的回调 | (value: LeftMenuChangeProps, changedValue: LeftMenuChangeProps) => void | - |
 | onFocus | 富文本输入框聚焦的回调 | (event: React.FocusEvent) => void | - |
+| onPaste | 监听输入框粘贴事件（不默认阻止粘贴行为，可通过 event.clipboardData 获取内容） | `(event: React.ClipboardEvent<HTMLDivElement>) => void` | - |
 | sendHotKey | 发送输入内容的键盘快捷键，支持 `enter` \| `shift+enter`。前者在单独按下 enter 将发送输入框中的消息， shift 和 enter 按键同时按下时，仅换行，不发送。后者相反 | string | `enter` |
 | showReference | 是否展示引用区域，用于配合 renderTopSlot 使用 | boolean | true |
 | showTemplateButton | 是否展示模板按钮，未设置时，将根据当前选中技能中的 hasTemplate 决定是否展示模版按钮 | boolean | false |

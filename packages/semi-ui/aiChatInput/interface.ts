@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode, ClipboardEvent as ReactClipboardEvent } from "react";
 import { OnChangeProps, UploadProps } from "../upload";
 import { TooltipProps } from "../tooltip";
 import { BaseSkill, Reference, Suggestion, Attachment, Content, Setup, LeftMenuChangeProps, RichTextJSON, MessageContent } from "@douyinfe/semi-foundation/aiChatInput/interface";
@@ -36,6 +36,12 @@ export interface AIChatInputProps {
     defaultContent?: TiptapContent;
     onFocus?: (event: React.FocusEvent) => void;
     onBlur?: (event: React.FocusEvent) => void;
+    /**
+     * Listen to paste event on input editor
+     *
+     * Note: This is a clipboard event callback and does not change default paste behavior.
+     */
+    onPaste?: (event: ReactClipboardEvent<HTMLDivElement>) => void;
     // Reference related
     references?: Reference[];
     renderReference?: (reference: Reference) => ReactNode;
