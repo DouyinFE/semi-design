@@ -44,6 +44,11 @@ export interface AIChatInputProps {
     // Upload related
     uploadProps?: UploadProps;
     onUploadChange?: (props: OnChangeProps) => void;
+    /**
+     * Customize upload button UI in footer action area,
+     * while keeping built-in upload / paste-upload logic.
+     */
+    renderUploadButton?: (props: RenderUploadButtonProps) => ReactNode;
     // TopSlot related
     renderTopSlot?: (props: RenderTopSlotProps) => ReactNode;
     topSlotPosition?: 'top' | 'middle' | 'bottom';
@@ -83,6 +88,22 @@ export interface AIChatInputProps {
     popoverProps?: PopoverProps;
     sendHotKey?: 'enter' | 'shift+enter';
     immediatelyRender?: boolean
+}
+
+export interface RenderUploadButtonProps {
+    /**
+     * Default upload button node rendered by AIChatInput.
+     * You can wrap/clone it or return a completely custom node.
+     */
+    defaultNode: ReactNode;
+    /**
+     * Open file selector dialog.
+     * Note: Upload wrapper will also open dialog on click by default,
+     * but you can use this when you stop propagation in your custom node.
+     */
+    openFileDialog: () => void;
+    disabled: boolean;
+    attachments: Attachment[];
 }
 
 export interface RenderSuggestionItemProps {
