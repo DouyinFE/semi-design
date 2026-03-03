@@ -2,7 +2,23 @@ import MarkdownRender from '../index'
 import React from 'react';
 import { mount } from 'enzyme';
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
-import { sleep } from '../../_test_/utils';
+import { act } from 'react-dom/test-utils';
+
+
+async function waitForRender(wrapper, selector, maxTries = 20) {
+    // MarkdownRender renders MDX asynchronously in componentDidMount.
+    // Enzyme does not automatically wait for async setState, so we poll until the expected node exists.
+    for (let i = 0; i < maxTries; i++) {
+        wrapper.update();
+        if (!selector || wrapper.exists(selector)) {
+            return;
+        }
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+        });
+    }
+    wrapper.update();
+}
 
 
 describe(`MarkdownRender`, () => {
@@ -18,9 +34,7 @@ describe(`MarkdownRender`, () => {
             <MarkdownRender raw={content} />
         );
 
-        // wait for async markdown evaluation to complete
-        await sleep(100);
-        render.update();
+        await waitForRender(render, `.${BASE_CLASS_PREFIX}-table-container`);
 
         // check if has table container
         expect(render.exists(`.${BASE_CLASS_PREFIX}-table-container`)).toEqual(true);
@@ -41,9 +55,7 @@ describe(`MarkdownRender`, () => {
             <MarkdownRender raw={content} />
         );
 
-        // wait for async markdown evaluation to complete
-        await sleep(100);
-        render.update();
+        await waitForRender(render, `.${BASE_CLASS_PREFIX}-table-container`);
 
         // check if has table container
         expect(render.exists(`.${BASE_CLASS_PREFIX}-table-container`)).toEqual(true);
@@ -64,9 +76,7 @@ describe(`MarkdownRender`, () => {
             <MarkdownRender raw={content} />
         );
 
-        // wait for async markdown evaluation to complete
-        await sleep(100);
-        render.update();
+        await waitForRender(render, `.${BASE_CLASS_PREFIX}-table-container`);
 
         // check if has table container
         expect(render.exists(`.${BASE_CLASS_PREFIX}-table-container`)).toEqual(true);
@@ -97,9 +107,7 @@ describe(`MarkdownRender`, () => {
             <MarkdownRender raw={content} format="mdx"/>
         );
 
-        // wait for async markdown evaluation to complete
-        await sleep(100);
-        render.update();
+        await waitForRender(render, `.${BASE_CLASS_PREFIX}-table-container`);
 
         // check if has table container
         expect(render.exists(`.${BASE_CLASS_PREFIX}-table-container`)).toEqual(true);
@@ -116,5 +124,24 @@ describe(`MarkdownRender`, () => {
         expect(render.contains('￥100')).toEqual(true);
         // exist '￥200' text
         expect(render.contains('￥200')).toEqual(true);
+    });
+
+    it(`test single column gfm table should not lose cell content`, async () => {
+        const content = `
+        | 标题 |
+        | - |
+        | 内容 |
+        `;
+
+        const render = mount(
+            <MarkdownRender raw={content} />
+        );
+
+        await waitForRender(render, `.${BASE_CLASS_PREFIX}-table-container`);
+
+        // should render cell content
+        expect(render.contains('内容')).toEqual(true);
+        // check if has table container
+        expect(render.exists(`.${BASE_CLASS_PREFIX}-table-container`)).toEqual(true);
     });
 });
