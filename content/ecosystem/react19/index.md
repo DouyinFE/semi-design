@@ -141,7 +141,6 @@ class MyComponent extends React.Component {
 
 **不受影响的场景**：
 
-- Semi 内置组件（如 `Button`、`Input`、`Select` 等）已做适配，可直接使用
 - 函数组件配合 `forwardRef` 正确转发 ref 的情况
 - 原生 DOM 元素（如 `<span>`、`<div>`、`<button>` 等）
 

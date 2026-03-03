@@ -141,7 +141,6 @@ class MyComponent extends React.Component {
 
 **Unaffected scenarios**:
 
-- Semi's built-in components (like `Button`, `Input`, `Select`, etc.) are already adapted
 - Function components that correctly forward ref using `forwardRef`
 - Native DOM elements (like `<span>`, `<div>`, `<button>`, etc.)
 
