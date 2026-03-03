@@ -28,7 +28,7 @@ React 19 removed the `ReactDOM.findDOMNode` API, which was used to get the DOM n
 
 - `Tooltip` and all popup components based on it (`Popover`, `PopConfirm`, `Dropdown`, etc.)
 
-### Why Do We Need an Adapter?
+### Why Do We Need an Adapter
 
 Since Semi needs to support React 16/17/18/19 simultaneously, and React 19's `createRoot` is located in the `react-dom/client` subpath, directly importing it in the library would cause errors in older React versions. Therefore, we use an adapter pattern that allows React 19 users to explicitly inject the required API.
 
