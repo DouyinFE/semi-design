@@ -1,10 +1,5 @@
 import React, { CSSProperties } from 'react';
-/* REACT_18_START */
-import ReactDOM from 'react-dom';
-/* REACT_18_END */
-/* REACT_19_START */
-// import { createRoot } from 'react-dom/client';
-/* REACT_19_END */
+import { render as reactRender, unmount as reactUnmount } from '../_utils/reactRender';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import ConfigContext, { ContextValue } from '../configProvider/context';
@@ -60,10 +55,6 @@ const defaultConfig = {
     zIndex: 1010,
 };
 
-/* REACT_19_START */
-// const notificationQueue: Array<{ notice: NoticeProps; id: string }> = [];
-/* REACT_19_END */
-
 class NotificationList extends BaseComponent<NotificationListProps, NotificationListState> {
     static contextType = ConfigContext;
     static propTypes = {
@@ -74,9 +65,6 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     static defaultProps = {};
     static useNotification: typeof useNotification;
     private static wrapperId: string;
-    /* REACT_19_START */
-    // private static root: any = null;
-    /* REACT_19_END */
     private noticeStorage: NoticeInstance[];
     private removeItemStorage: NoticeInstance[];
 
@@ -127,31 +115,14 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
             } else {
                 document.body.appendChild(div);
             }
-            /* REACT_18_START */
-            ReactDOM.render(React.createElement(NotificationList, { ref: instance => (ref = instance) }), div, () => {
-                ref.add({ ...notice, id });
-            });
-            /* REACT_18_END */
-            
-            /* REACT_19_START */
-            // if (!this.root) {
-            //     this.root = createRoot(div);
-            // }
-            // this.root.render(React.createElement(NotificationList, {
-            //     ref: instance => {
-            //         ref = instance;
-            //         while (notificationQueue.length && ref && typeof ref.add === 'function') {
-            //             const { notice: queuedNotice, id: queuedId } = notificationQueue.shift();
-            //             ref.add({ ...queuedNotice, id: queuedId });
-            //         }
-            //     }
-            // }));
-            // if (ref && typeof ref.add === 'function') {
-            //     ref.add({ ...notice, id });
-            // } else {
-            //     notificationQueue.push({ notice, id });
-            // }
-            /* REACT_19_END */
+            reactRender(React.createElement(NotificationList, {
+                ref: (instance: NotificationList) => {
+                    if (instance) {
+                        ref = instance;
+                        instance.add({ ...notice, id });
+                    }
+                }
+            }), div);
         } else {
             if (ref.has(`${id}`)) {
                 ref.update(id, notice);
@@ -200,18 +171,10 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
             ref.destroyAll();
             const wrapper = document.querySelector(`#${this.wrapperId}`);
             
-            /* REACT_18_START */
-            ReactDOM.unmountComponentAtNode(wrapper);
-            wrapper && wrapper.parentNode.removeChild(wrapper);
-            /* REACT_18_END */
-            
-            /* REACT_19_START */
-            // if (this.root) {
-            //     this.root.unmount();
-            //     this.root = null;
-            // }
-            // wrapper && wrapper.parentNode.removeChild(wrapper);
-            /* REACT_19_END */
+            if (wrapper) {
+                reactUnmount(wrapper);
+                wrapper.parentNode?.removeChild(wrapper);
+            }
             
             ref = null;
             this.wrapperId = null;

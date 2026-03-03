@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { isHTMLElement } from '../_base/reactUtils';
-import ReactDOM from 'react-dom';
+import { resolveDOM, getRef } from '../_utils/reactRender';
 
 export interface DragMoveProps {
     // The element that triggers the drag event，default is element
@@ -63,12 +63,7 @@ export default class DragMove extends BaseComponent<DragMoveProps> {
             getDragElement: () => {
                 let elementDom = this.elementRef.current;
                 if (!isHTMLElement(elementDom)) {
-                    /* REACT_18_START */
-                    elementDom = ReactDOM.findDOMNode(elementDom as React.ReactInstance);
-                    /* REACT_18_END */
-                    /* REACT_19_START */
-                    // console.warn(`[Semi DragMove] elementDom should be a valid DOM element. The element's ref is not returning a DOM node. This may cause dragMove positioning issues. Please ensure the element has a proper ref that returns a DOM node.`);
-                    /* REACT_19_END */
+                    elementDom = resolveDOM(elementDom);
                 }
                 return elementDom as HTMLElement;
             },
@@ -127,17 +122,11 @@ export default class DragMove extends BaseComponent<DragMoveProps> {
         const newChildren = React.cloneElement(children, {
             ref: (node: React.ReactNode) => {
                 (this.elementRef as any).current = node;
-                // Call the original ref, if any
-                /* REACT_18_START */
-                const { ref } = children as any;
-                /* REACT_18_END */
-                /* REACT_19_START */
-                // const { ref } = (children as any).props;
-                /* REACT_19_END */
+                const ref = getRef(children);
                 if (typeof ref === 'function') {
                     ref(node);
                 } else if (ref && typeof ref === 'object') {
-                    ref.current = node;
+                    (ref as React.MutableRefObject<any>).current = node;
                 }
             },
         });

@@ -81,6 +81,8 @@ export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyBeforeRemove: (file: BaseFileItem, fileList: Array<BaseFileItem>) => boolean | Promise<boolean>;
     notifyBeforeClear: (fileList: Array<BaseFileItem>) => boolean | Promise<boolean>;
     notifyChange: ({ currentFile, fileList }: { currentFile: BaseFileItem | null; fileList: Array<BaseFileItem> }) => void;
+    // Keep this as Array<string> for backward compatibility (external type stability).
+    // Internal logic uses uid->url map to avoid setState async timing issues.
     updateLocalUrls: (urls: Array<string>) => void;
     notifyClear: () => void;
     notifyPreviewClick: (file: any) => void;
@@ -95,6 +97,12 @@ export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>>
 
 class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<UploadAdapter<P, S>, P, S> {
     destroyState: boolean = false;
+    /**
+     * Canonical storage for objectURL created by this Upload instance.
+     * Do NOT rely on React state localUrls because setState is async and may lose updates
+     * when _createURL is called multiple times in a sync loop.
+     */
+    _localUrls: Record<string, string> = {};
     constructor(adapter: UploadAdapter<P, S>) {
         super({ ...adapter });
     }
@@ -102,19 +110,87 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     init(): void {
         // make sure state reset, otherwise may cause upload abort in React StrictMode, like https://github.com/DouyinFE/semi-design/pull/843
         this.destroyState = false;
+        // In controlled mode, parent may keep and pass back fileList with blob url.
+        // Sync them into internal map so later remove/clear can revoke correctly.
+        this._syncLocalUrlsFromFileList();
         const { disabled, addOnPasting } = this.getProps();
         if (addOnPasting && !disabled) {
             this.bindPastingHandler();
         }
     }
 
+    /**
+     * Sync internal objectURL map from current fileList.
+     * Only track blob: url with an in-memory File instance.
+     */
+    _syncLocalUrlsFromFileList(): void {
+        const { fileList } = this.getStates() as any;
+        const next: Record<string, string> = {};
+        if (!Array.isArray(fileList)) {
+            this._localUrls = {};
+            this._adapter.updateLocalUrls([]);
+            return;
+        }
+        fileList.forEach((item: any) => {
+            const uid = item && item.uid;
+            const url = item && item.url;
+            const fileInstance = item && item.fileInstance;
+            const hasFileCtor = typeof File !== 'undefined';
+            const isFile = hasFileCtor && fileInstance instanceof File;
+            if (uid && typeof url === 'string' && url.startsWith('blob:') && isFile) {
+                next[uid] = url;
+            }
+        });
+        this._localUrls = next;
+        this._adapter.updateLocalUrls(Object.values(this._localUrls));
+    }
+
     destroy() {
         const { disabled, addOnPasting } = this.getProps();
-        this.releaseMemory();
+        // Do NOT revoke objectURL on unmount.
+        // In controlled mode, parent may keep and pass back fileList with blob url;
+        // revoking here will cause preview/blob ERR_FILE_NOT_FOUND after remount.
         if (!disabled) {
             this.unbindPastingHandler();
         }
         this.destroyState = true;
+    }
+
+    /**
+     * Release objectURL created for a specific file uid
+     */
+    _releaseFileUrl(uid: string): void {
+        if (!uid) {
+            return;
+        }
+        const url = this._localUrls && this._localUrls[uid];
+        if (!url) {
+            return;
+        }
+        this._releaseBlob(url);
+        const next = { ...(this._localUrls || {}) };
+        delete next[uid];
+        this._localUrls = next;
+        this._adapter.updateLocalUrls(Object.values(this._localUrls));
+    }
+
+    /**
+     * Release all objectURL created by this Upload instance.
+     * Only call this when files are truly removed (e.g. clear).
+     */
+    _releaseAllFileUrls(): void {
+        const localUrls = this._localUrls;
+        if (!localUrls || typeof localUrls !== 'object') {
+            return;
+        }
+        Object.keys(localUrls).forEach(uid => {
+            const url = localUrls[uid];
+            if (url) {
+                this._releaseBlob(url);
+            }
+        });
+        this._localUrls = {};
+        this._adapter.updateLocalUrls([]);
     }
 
     getError({ action, xhr, message, fileName }: { action: string;xhr: XMLHttpRequest;message?: string;fileName: string }): XhrError {
@@ -272,6 +348,12 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         this._adapter.notifyFileSelect([newFile]);
         const newFileItem = this.buildFileItem(newFile, uploadTrigger);
         const newFileList = [...fileList];
+
+        // replace an item, release its previous objectURL
+        const oldItem = newFileList[replaceIdx];
+        if (oldItem && oldItem.uid) {
+            this._releaseFileUrl(oldItem.uid);
+        }
         newFileList.splice(replaceIdx, 1, newFileItem);
         this._adapter.notifyChange({ currentFile: newFileItem, fileList: newFileList });
         this._adapter.updateFileList(newFileList, () => {
@@ -297,7 +379,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             uid: fileInstance.uid,
             percent: 0,
             fileInstance,
-            url: this._createURL(fileInstance),
+            url: this._createURL(fileInstance, fileInstance.uid),
         };
 
         if (_sizeInvalid) {
@@ -497,6 +579,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         const { shouldUpload, status, autoRemove, validateMessage, fileInstance } = buResult;
         let newFileList: Array<BaseFileItem> = this.getState('fileList').slice();
         if (autoRemove) {
+            this._releaseFileUrl(file.uid);
             newFileList = newFileList.filter(item => item.uid !== file.uid);
         } else {
             const index = this._getFileIndex(file, newFileList);
@@ -510,7 +593,9 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                 newFileList[index].fileInstance = fileInstance;
                 newFileList[index].size = getFileSize(fileInstance.size);
                 newFileList[index].name = fileInstance.name;
-                newFileList[index].url = this._createURL(fileInstance);
+                // replace preview url, release old one first
+                this._releaseFileUrl(file.uid);
+                newFileList[index].url = this._createURL(fileInstance, file.uid);
             }
             newFileList[index].shouldUpload = shouldUpload;
         }
@@ -674,8 +759,15 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             status ? (newFileList[index].status = status) : null;
             validateMessage ? (newFileList[index].validateMessage = validateMessage) : null;
             name ? (newFileList[index].name = name) : null;
-            url ? (newFileList[index].url = url) : null;
-            autoRemove ? newFileList.splice(index, 1) : null;
+            if (url) {
+                // if user replaces url, release local objectURL
+                this._releaseFileUrl(newFileList[index].uid);
+                newFileList[index].url = url;
+            }
+            if (autoRemove) {
+                this._releaseFileUrl(newFileList[index].uid);
+                newFileList.splice(index, 1);
+            }
         }
         this._adapter.notifySuccess(body, fileInstance, newFileList);
         this._adapter.notifyChange({ fileList: newFileList, currentFile: newFileList[index] });
@@ -705,6 +797,8 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                 return;
             }
             newFileList.splice(index, 1);
+
+            this._releaseFileUrl(file.uid);
 
             this._adapter.notifyRemove(file.fileInstance, newFileList, file);
             this._adapter.updateFileList(newFileList);
@@ -742,6 +836,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             if (res === false) {
                 return;
             }
+            this._releaseAllFileUrls();
             this._adapter.updateFileList([]);
             this._adapter.notifyClear();
             this._adapter.notifyChange({ fileList: [] } as any);
@@ -750,23 +845,50 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         });
     }
 
-    _createURL(fileInstance: CustomFile): string {
+    _createURL(fileInstance: CustomFile, uid: string): string {
         // https://stackoverflow.com/questions/31742072/filereader-vs-window-url-createobjecturl
         const url = URL.createObjectURL(fileInstance);
-        const { localUrls } = this.getStates();
-        const newUrls = localUrls.slice();
-        newUrls.push(url);
-        this._adapter.updateLocalUrls(newUrls);
+        const next = { ...(this._localUrls || {}) };
+        // if there is an old url for this uid, release it first
+        if (uid && next[uid] && next[uid] !== url) {
+            this._releaseBlob(next[uid]);
+        }
+        if (uid) {
+            next[uid] = url;
+        }
+        this._localUrls = next;
+        // keep adapter/state in sync as a snapshot (legacy array type)
+        this._adapter.updateLocalUrls(Object.values(this._localUrls));
         return url;
     }
 
     // 释放预览文件所占用的内存
     // Release memory used by preview files
     releaseMemory(): void {
-        const { localUrls }: { localUrls: Array<string> } = this.getStates();
-        localUrls.forEach(url => {
-            this._releaseBlob(url);
-        });
+        // Prefer internal map (canonical). Keep old state-based fallback for safety.
+        if (this._localUrls && Object.keys(this._localUrls).length) {
+            this._releaseAllFileUrls();
+            return;
+        }
+
+        const { localUrls } = this.getStates() as any;
+        if (!localUrls) {
+            return;
+        }
+        if (Array.isArray(localUrls)) {
+            localUrls.forEach(url => {
+                this._releaseBlob(url);
+            });
+            return;
+        }
+        if (typeof localUrls === 'object') {
+            Object.keys(localUrls).forEach(uid => {
+                const url = localUrls[uid];
+                if (url) {
+                    this._releaseBlob(url);
+                }
+            });
+        }
     }
 
     _releaseBlob(url: string): void {
