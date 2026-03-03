@@ -25,6 +25,7 @@
         "lint:style": "stylelint '**/*.{scss,sass}'",
         "lint:style-fix": "stylelint '**/*.{scss,sass}' --fix",
         "test": "cross-env NODE_ENV=test ./node_modules/.bin/jest --silent",
+        "test:unit:verbose":"cross-env NODE_ENV=test type=unit ./node_modules/.bin/jest --silent --notify",
         "test:unit": "cross-env NODE_ENV=test type=unit ./node_modules/.bin/jest --silent --notify",
         "test:story": "cross-env NODE_ENV=test type=story ./node_modules/.bin/jest --silent --notify --maxWorkers=4",
         "test:coverage": "cross-env TZ=Asia/Shanghai NODE_ENV=test type=unit ./node_modules/.bin/jest --silent --coverage --notify",

@@ -29,6 +29,7 @@ import { AIChatInput } from '@douyinfe/semi-ui';
 
 - `uploadProps` 配置文件上传相关的参数，详见 [UploadProps](/zh-CN/plus/upload#API)
 - `onUploadChange` 获取文件上传变化
+- 删除上传文件时，会触发 `uploadProps.onRemove`，并遵循 `uploadProps.beforeRemove`（支持 Promise）
 - `placeholder` 输入框的占位符
 - `defaultContent` 输入框的默认内容
 - `onContentChange` 输入框内容变化时的回调函数，参数为当前输入框的内容
@@ -480,6 +481,46 @@ function ActionArea() {
 };
 
 render(<ActionArea />);
+```
+
+### 自定义上传按钮
+
+底部操作区左侧默认会渲染上传按钮。你可以通过 `renderUploadButton` **仅自定义按钮 UI**（例如改成图标按钮、加 Tooltip 等）。
+
+注意：这不会影响上传/粘贴上传逻辑（`Upload` 仍由组件内部托管），`openFileDialog` 会触发内部 Upload 的文件选择。
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import { AIChatInput } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+const uploadProps = { action: "https://api.semi.design/upload" };
+const outerStyle = { margin: 12 };
+
+function CustomUploadButton() {
+    return (
+        <AIChatInput
+            placeholder={'自定义上传按钮（仍支持粘贴上传）'}
+            uploadProps={uploadProps}
+            renderUploadButton={({ openFileDialog, disabled }) => (
+                <button
+                    type="button"
+                    disabled={disabled}
+                    className="semi-button semi-button-borderless"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        openFileDialog();
+                    }}
+                >
+                    <IconUpload />
+                </button>
+            )}
+            style={outerStyle}
+        />
+    );
+}
+
+render(<CustomUploadButton />);
 ```
 
 ### 底部按钮形状
@@ -1566,6 +1607,7 @@ render(<CustomRichTextExtension />);
 | onSuggestClick | 建议点击回调 | (suggestion: Suggestion) => void | - |
 | onTemplateVisibleChange | 模板弹出层可见性变化回调 | (visible: boolean) => void | - |
 | onUploadChange | 上传文件相关回调 | (props: OnChangeProps) => void | - |
+| renderUploadButton | 自定义底部操作区上传按钮 UI（Upload 仍由组件内部托管，保留内置上传/粘贴上传逻辑） | (props: <ApiType detail='{ defaultNode: React.ReactNode; openFileDialog: () => void; disabled: boolean; attachments: Attachment[] }'>RenderUploadButtonProps</ApiType>) => React.ReactNode | - |
 | popoverProps | 下拉弹出层的配置参数 | PopoverProps | - |
 | placeholder | 输入框占位符 | string \| (props: <ApiType detail='{ editor: Editor; node: Node; pos: number; hasAnchor: boolean }'>PlaceholderProps</ApiType>) => string | - |
 | references | 输入框引用列表 | Reference[] | - |
@@ -1580,6 +1622,7 @@ render(<CustomRichTextExtension />);
 | onBlur | 富文本输入框失焦的回调 | (event: React.FocusEvent) => void | - |
 | onConfigureChange | 配置区域发生变化的回调 | (value: LeftMenuChangeProps, changedValue: LeftMenuChangeProps) => void | - |
 | onFocus | 富文本输入框聚焦的回调 | (event: React.FocusEvent) => void | - |
+| onPaste | 监听输入框粘贴事件（不默认阻止粘贴行为，可通过 event.clipboardData 获取内容） | `(event: React.ClipboardEvent<HTMLDivElement>) => void` | - |
 | sendHotKey | 发送输入内容的键盘快捷键，支持 `enter` \| `shift+enter`。前者在单独按下 enter 将发送输入框中的消息， shift 和 enter 按键同时按下时，仅换行，不发送。后者相反 | string | `enter` |
 | showReference | 是否展示引用区域，用于配合 renderTopSlot 使用 | boolean | true |
 | showTemplateButton | 是否展示模板按钮，未设置时，将根据当前选中技能中的 hasTemplate 决定是否展示模版按钮 | boolean | false |
@@ -1628,5 +1671,4 @@ render(<CustomRichTextExtension />);
 
 ## 设计变量
 <DesignToken/>
-
 

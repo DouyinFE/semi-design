@@ -12,7 +12,7 @@ brief: Use TailwindCSS and Semi more elegantly
 
 <br/>
 
-This page will provide best practices for some issues encountered when using atomic style libraries such as TailwindCSS (only v3, Tailwind V4 is not supported yet) with Semi.
+This page will provide best practices for some issues encountered when using atomic style libraries such as TailwindCSS (supports both v3 and v4) with Semi.
 
 These problems are often encountered when other component libraries are used with Tailwind, but Semi provides official solutions. It is recommended to follow the instructions in this article to configure the project correctly.
 
@@ -86,7 +86,36 @@ For users who use neither webpack or rspack build, please refer to the principle
 
 ** 3. Modify Tailwind entry configuration**
 
-The CSS of Tailwind entry is usually a file containing the following three lines
+<Notice title="Choose your Tailwind version">
+The configuration methods for Tailwind v3 and v4 are different. Please choose the corresponding configuration method based on the version you are using.
+</Notice>
+
+**Tailwind v4 Configuration:**
+
+1. Create a CSS file (e.g., `semi-layer.css`) with the following content:
+```css
+@layer theme, base, semi, utilities;
+```
+
+2. Import this file at the **very top** of your project's JS entry file (e.g., `main.tsx`, `App.tsx`, or `index.js`), before all other import statements:
+
+```js
+// main.tsx or index.js - must be at the very top
+import './semi-layer.css';  // must be first
+import './tailwind.css';    // file containing @import "tailwindcss";
+import { Button } from '@douyinfe/semi-ui';
+// ... other imports
+```
+
+<Notice type="warning" title="Important">
+`semi-layer.css` must be imported before any CSS file containing `@import "tailwindcss";` and before any Semi component imports, otherwise the CSS Layer order will be incorrect. It is recommended to place it on the first line of the entry file.
+</Notice>
+
+---
+
+**Tailwind v3 Configuration:**
+
+The CSS of Tailwind v3 entry is usually a file containing the following three lines
 ```css
 @tailwind base;
 @tailwind components;
@@ -129,17 +158,337 @@ The meaning of the above CSS is that base (including Preflight) has the lowest p
 
 ### 2. Solve the problem of using Semi Token in Tailwind atomic class (optional)
 
-Tailwind supports users to configure their own Token to implement themes. At the same time, Semi also provides its own theme solution and corresponding Token
-If you want to use Semi Token directly in the project, for example, set the text color of a span to `--semi-color-text-0` to automatically switch between light and dark colors to be consistent with the theme, you need to set the css `color separately: var(--semi-color-text-0)`, very inconvenient.
+Tailwind supports users to configure their own Token to implement themes. At the same time, Semi also provides its own theme solution and corresponding Token.
+If you want to use Semi Token directly in the project, for example, set the text color of a span to `--semi-color-text-0` to automatically switch between light and dark colors to be consistent with the theme, you need to set the css `color: var(--semi-color-text-0)` separately, which is very inconvenient.
 
 Semi provides Tailwind's theme configuration file, which is used to map Semi's Token to atomic Token. For the above requirements, you can directly set `text-semi-color-text-0` for span.
 
-Just configure the following content in the Tailwind configuration (i.e. `tainwind.config.js`):
+<Notice title="Choose your Tailwind version">
+The theme configuration methods for Tailwind v3 and v4 are different. Please choose the corresponding configuration method based on the version you are using.
+</Notice>
 
+**Tailwind v4 Configuration:**
 
+In your Tailwind entry CSS file (the file containing `@import "tailwindcss";`), add the `@theme` configuration:
+
+```css
+@import "tailwindcss";
+
+/**
+ * Semi Design Token integration with Tailwind CSS v4
+ * 
+ * How it works:
+ * 1. Use var(--semi-xxx) as placeholders in @theme to let Tailwind generate utility classes
+ *    (var() in @theme won't be resolved at build time, only serves as placeholder)
+ * 2. Redefine these variables in body selector, pointing to Semi's actual tokens
+ *    (Use body instead of :root to ensure it takes effect after Semi injects :root variables)
+ * 
+ * Usage examples:
+ *   bg-semi-color-primary     -> Primary color background
+ *   text-semi-color-text-0    -> Primary text color
+ *   rounded-semi-border-radius-medium -> Medium border radius
+ */
+
+@theme {
+  /* ========== Base Colors ========== */
+  --color-semi-color-white: var(--semi-color-white);
+  --color-semi-color-black: var(--semi-color-black);
+
+  /* ========== Primary Colors ========== */
+  --color-semi-color-primary: var(--semi-color-primary);
+  --color-semi-color-primary-hover: var(--semi-color-primary-hover);
+  --color-semi-color-primary-active: var(--semi-color-primary-active);
+  --color-semi-color-primary-disabled: var(--semi-color-primary-disabled);
+  --color-semi-color-primary-light-default: var(--semi-color-primary-light-default);
+  --color-semi-color-primary-light-hover: var(--semi-color-primary-light-hover);
+  --color-semi-color-primary-light-active: var(--semi-color-primary-light-active);
+
+  /* ========== Secondary Colors ========== */
+  --color-semi-color-secondary: var(--semi-color-secondary);
+  --color-semi-color-secondary-hover: var(--semi-color-secondary-hover);
+  --color-semi-color-secondary-active: var(--semi-color-secondary-active);
+  --color-semi-color-secondary-disabled: var(--semi-color-secondary-disabled);
+  --color-semi-color-secondary-light-default: var(--semi-color-secondary-light-default);
+  --color-semi-color-secondary-light-hover: var(--semi-color-secondary-light-hover);
+  --color-semi-color-secondary-light-active: var(--semi-color-secondary-light-active);
+
+  /* ========== Tertiary Colors ========== */
+  --color-semi-color-tertiary: var(--semi-color-tertiary);
+  --color-semi-color-tertiary-hover: var(--semi-color-tertiary-hover);
+  --color-semi-color-tertiary-active: var(--semi-color-tertiary-active);
+  --color-semi-color-tertiary-light-default: var(--semi-color-tertiary-light-default);
+  --color-semi-color-tertiary-light-hover: var(--semi-color-tertiary-light-hover);
+  --color-semi-color-tertiary-light-active: var(--semi-color-tertiary-light-active);
+
+  /* ========== Default Colors ========== */
+  --color-semi-color-default: var(--semi-color-default);
+  --color-semi-color-default-hover: var(--semi-color-default-hover);
+  --color-semi-color-default-active: var(--semi-color-default-active);
+
+  /* ========== Info Colors ========== */
+  --color-semi-color-info: var(--semi-color-info);
+  --color-semi-color-info-hover: var(--semi-color-info-hover);
+  --color-semi-color-info-active: var(--semi-color-info-active);
+  --color-semi-color-info-disabled: var(--semi-color-info-disabled);
+  --color-semi-color-info-light-default: var(--semi-color-info-light-default);
+  --color-semi-color-info-light-hover: var(--semi-color-info-light-hover);
+  --color-semi-color-info-light-active: var(--semi-color-info-light-active);
+
+  /* ========== Success Colors ========== */
+  --color-semi-color-success: var(--semi-color-success);
+  --color-semi-color-success-hover: var(--semi-color-success-hover);
+  --color-semi-color-success-active: var(--semi-color-success-active);
+  --color-semi-color-success-disabled: var(--semi-color-success-disabled);
+  --color-semi-color-success-light-default: var(--semi-color-success-light-default);
+  --color-semi-color-success-light-hover: var(--semi-color-success-light-hover);
+  --color-semi-color-success-light-active: var(--semi-color-success-light-active);
+
+  /* ========== Danger Colors ========== */
+  --color-semi-color-danger: var(--semi-color-danger);
+  --color-semi-color-danger-hover: var(--semi-color-danger-hover);
+  --color-semi-color-danger-active: var(--semi-color-danger-active);
+  --color-semi-color-danger-light-default: var(--semi-color-danger-light-default);
+  --color-semi-color-danger-light-hover: var(--semi-color-danger-light-hover);
+  --color-semi-color-danger-light-active: var(--semi-color-danger-light-active);
+
+  /* ========== Warning Colors ========== */
+  --color-semi-color-warning: var(--semi-color-warning);
+  --color-semi-color-warning-hover: var(--semi-color-warning-hover);
+  --color-semi-color-warning-active: var(--semi-color-warning-active);
+  --color-semi-color-warning-light-default: var(--semi-color-warning-light-default);
+  --color-semi-color-warning-light-hover: var(--semi-color-warning-light-hover);
+  --color-semi-color-warning-light-active: var(--semi-color-warning-light-active);
+
+  /* ========== Functional Colors ========== */
+  --color-semi-color-focus-border: var(--semi-color-focus-border);
+  --color-semi-color-disabled-text: var(--semi-color-disabled-text);
+  --color-semi-color-disabled-border: var(--semi-color-disabled-border);
+  --color-semi-color-disabled-bg: var(--semi-color-disabled-bg);
+  --color-semi-color-disabled-fill: var(--semi-color-disabled-fill);
+  --color-semi-color-shadow: var(--semi-color-shadow);
+
+  /* ========== Link Colors ========== */
+  --color-semi-color-link: var(--semi-color-link);
+  --color-semi-color-link-hover: var(--semi-color-link-hover);
+  --color-semi-color-link-active: var(--semi-color-link-active);
+  --color-semi-color-link-visited: var(--semi-color-link-visited);
+
+  /* ========== Border Colors ========== */
+  --color-semi-color-border: var(--semi-color-border);
+
+  /* ========== Background Colors ========== */
+  --color-semi-color-nav-bg: var(--semi-color-nav-bg);
+  --color-semi-color-overlay-bg: var(--semi-color-overlay-bg);
+  --color-semi-color-bg-0: var(--semi-color-bg-0);
+  --color-semi-color-bg-1: var(--semi-color-bg-1);
+  --color-semi-color-bg-2: var(--semi-color-bg-2);
+  --color-semi-color-bg-3: var(--semi-color-bg-3);
+  --color-semi-color-bg-4: var(--semi-color-bg-4);
+
+  /* ========== Fill Colors ========== */
+  --color-semi-color-fill-0: var(--semi-color-fill-0);
+  --color-semi-color-fill-1: var(--semi-color-fill-1);
+  --color-semi-color-fill-2: var(--semi-color-fill-2);
+
+  /* ========== Text Colors ========== */
+  --color-semi-color-text-0: var(--semi-color-text-0);
+  --color-semi-color-text-1: var(--semi-color-text-1);
+  --color-semi-color-text-2: var(--semi-color-text-2);
+  --color-semi-color-text-3: var(--semi-color-text-3);
+
+  /* ========== Highlight Colors ========== */
+  --color-semi-color-highlight-bg: var(--semi-color-highlight-bg);
+  --color-semi-color-highlight: var(--semi-color-highlight);
+
+  /* ========== Data Visualization Colors ========== */
+  --color-semi-color-data-0: var(--semi-color-data-0);
+  --color-semi-color-data-1: var(--semi-color-data-1);
+  --color-semi-color-data-2: var(--semi-color-data-2);
+  --color-semi-color-data-3: var(--semi-color-data-3);
+  --color-semi-color-data-4: var(--semi-color-data-4);
+  --color-semi-color-data-5: var(--semi-color-data-5);
+  --color-semi-color-data-6: var(--semi-color-data-6);
+  --color-semi-color-data-7: var(--semi-color-data-7);
+  --color-semi-color-data-8: var(--semi-color-data-8);
+  --color-semi-color-data-9: var(--semi-color-data-9);
+  --color-semi-color-data-10: var(--semi-color-data-10);
+  --color-semi-color-data-11: var(--semi-color-data-11);
+  --color-semi-color-data-12: var(--semi-color-data-12);
+  --color-semi-color-data-13: var(--semi-color-data-13);
+  --color-semi-color-data-14: var(--semi-color-data-14);
+  --color-semi-color-data-15: var(--semi-color-data-15);
+  --color-semi-color-data-16: var(--semi-color-data-16);
+  --color-semi-color-data-17: var(--semi-color-data-17);
+  --color-semi-color-data-18: var(--semi-color-data-18);
+  --color-semi-color-data-19: var(--semi-color-data-19);
+
+  /* ========== Border Radius ========== */
+  --radius-semi-border-radius-extra-small: var(--semi-border-radius-extra-small);
+  --radius-semi-border-radius-small: var(--semi-border-radius-small);
+  --radius-semi-border-radius-medium: var(--semi-border-radius-medium);
+  --radius-semi-border-radius-large: var(--semi-border-radius-large);
+  --radius-semi-border-radius-circle: var(--semi-border-radius-circle);
+  --radius-semi-border-radius-full: var(--semi-border-radius-full);
+}
+
+/**
+ * Runtime variable override
+ * Use body selector to ensure it takes effect after Semi's :root variables are injected
+ */
+body {
+  /* Base Colors */
+  --color-semi-color-white: var(--semi-color-white);
+  --color-semi-color-black: var(--semi-color-black);
+
+  /* Primary Colors */
+  --color-semi-color-primary: var(--semi-color-primary);
+  --color-semi-color-primary-hover: var(--semi-color-primary-hover);
+  --color-semi-color-primary-active: var(--semi-color-primary-active);
+  --color-semi-color-primary-disabled: var(--semi-color-primary-disabled);
+  --color-semi-color-primary-light-default: var(--semi-color-primary-light-default);
+  --color-semi-color-primary-light-hover: var(--semi-color-primary-light-hover);
+  --color-semi-color-primary-light-active: var(--semi-color-primary-light-active);
+
+  /* Secondary Colors */
+  --color-semi-color-secondary: var(--semi-color-secondary);
+  --color-semi-color-secondary-hover: var(--semi-color-secondary-hover);
+  --color-semi-color-secondary-active: var(--semi-color-secondary-active);
+  --color-semi-color-secondary-disabled: var(--semi-color-secondary-disabled);
+  --color-semi-color-secondary-light-default: var(--semi-color-secondary-light-default);
+  --color-semi-color-secondary-light-hover: var(--semi-color-secondary-light-hover);
+  --color-semi-color-secondary-light-active: var(--semi-color-secondary-light-active);
+
+  /* Tertiary Colors */
+  --color-semi-color-tertiary: var(--semi-color-tertiary);
+  --color-semi-color-tertiary-hover: var(--semi-color-tertiary-hover);
+  --color-semi-color-tertiary-active: var(--semi-color-tertiary-active);
+  --color-semi-color-tertiary-light-default: var(--semi-color-tertiary-light-default);
+  --color-semi-color-tertiary-light-hover: var(--semi-color-tertiary-light-hover);
+  --color-semi-color-tertiary-light-active: var(--semi-color-tertiary-light-active);
+
+  /* Default Colors */
+  --color-semi-color-default: var(--semi-color-default);
+  --color-semi-color-default-hover: var(--semi-color-default-hover);
+  --color-semi-color-default-active: var(--semi-color-default-active);
+
+  /* Info Colors */
+  --color-semi-color-info: var(--semi-color-info);
+  --color-semi-color-info-hover: var(--semi-color-info-hover);
+  --color-semi-color-info-active: var(--semi-color-info-active);
+  --color-semi-color-info-disabled: var(--semi-color-info-disabled);
+  --color-semi-color-info-light-default: var(--semi-color-info-light-default);
+  --color-semi-color-info-light-hover: var(--semi-color-info-light-hover);
+  --color-semi-color-info-light-active: var(--semi-color-info-light-active);
+
+  /* Success Colors */
+  --color-semi-color-success: var(--semi-color-success);
+  --color-semi-color-success-hover: var(--semi-color-success-hover);
+  --color-semi-color-success-active: var(--semi-color-success-active);
+  --color-semi-color-success-disabled: var(--semi-color-success-disabled);
+  --color-semi-color-success-light-default: var(--semi-color-success-light-default);
+  --color-semi-color-success-light-hover: var(--semi-color-success-light-hover);
+  --color-semi-color-success-light-active: var(--semi-color-success-light-active);
+
+  /* Danger Colors */
+  --color-semi-color-danger: var(--semi-color-danger);
+  --color-semi-color-danger-hover: var(--semi-color-danger-hover);
+  --color-semi-color-danger-active: var(--semi-color-danger-active);
+  --color-semi-color-danger-light-default: var(--semi-color-danger-light-default);
+  --color-semi-color-danger-light-hover: var(--semi-color-danger-light-hover);
+  --color-semi-color-danger-light-active: var(--semi-color-danger-light-active);
+
+  /* Warning Colors */
+  --color-semi-color-warning: var(--semi-color-warning);
+  --color-semi-color-warning-hover: var(--semi-color-warning-hover);
+  --color-semi-color-warning-active: var(--semi-color-warning-active);
+  --color-semi-color-warning-light-default: var(--semi-color-warning-light-default);
+  --color-semi-color-warning-light-hover: var(--semi-color-warning-light-hover);
+  --color-semi-color-warning-light-active: var(--semi-color-warning-light-active);
+
+  /* Functional Colors */
+  --color-semi-color-focus-border: var(--semi-color-focus-border);
+  --color-semi-color-disabled-text: var(--semi-color-disabled-text);
+  --color-semi-color-disabled-border: var(--semi-color-disabled-border);
+  --color-semi-color-disabled-bg: var(--semi-color-disabled-bg);
+  --color-semi-color-disabled-fill: var(--semi-color-disabled-fill);
+  --color-semi-color-shadow: var(--semi-color-shadow);
+
+  /* Link Colors */
+  --color-semi-color-link: var(--semi-color-link);
+  --color-semi-color-link-hover: var(--semi-color-link-hover);
+  --color-semi-color-link-active: var(--semi-color-link-active);
+  --color-semi-color-link-visited: var(--semi-color-link-visited);
+
+  /* Border Colors */
+  --color-semi-color-border: var(--semi-color-border);
+
+  /* Background Colors */
+  --color-semi-color-nav-bg: var(--semi-color-nav-bg);
+  --color-semi-color-overlay-bg: var(--semi-color-overlay-bg);
+  --color-semi-color-bg-0: var(--semi-color-bg-0);
+  --color-semi-color-bg-1: var(--semi-color-bg-1);
+  --color-semi-color-bg-2: var(--semi-color-bg-2);
+  --color-semi-color-bg-3: var(--semi-color-bg-3);
+  --color-semi-color-bg-4: var(--semi-color-bg-4);
+
+  /* Fill Colors */
+  --color-semi-color-fill-0: var(--semi-color-fill-0);
+  --color-semi-color-fill-1: var(--semi-color-fill-1);
+  --color-semi-color-fill-2: var(--semi-color-fill-2);
+
+  /* Text Colors */
+  --color-semi-color-text-0: var(--semi-color-text-0);
+  --color-semi-color-text-1: var(--semi-color-text-1);
+  --color-semi-color-text-2: var(--semi-color-text-2);
+  --color-semi-color-text-3: var(--semi-color-text-3);
+
+  /* Highlight Colors */
+  --color-semi-color-highlight-bg: var(--semi-color-highlight-bg);
+  --color-semi-color-highlight: var(--semi-color-highlight);
+
+  /* Data Visualization Colors */
+  --color-semi-color-data-0: var(--semi-color-data-0);
+  --color-semi-color-data-1: var(--semi-color-data-1);
+  --color-semi-color-data-2: var(--semi-color-data-2);
+  --color-semi-color-data-3: var(--semi-color-data-3);
+  --color-semi-color-data-4: var(--semi-color-data-4);
+  --color-semi-color-data-5: var(--semi-color-data-5);
+  --color-semi-color-data-6: var(--semi-color-data-6);
+  --color-semi-color-data-7: var(--semi-color-data-7);
+  --color-semi-color-data-8: var(--semi-color-data-8);
+  --color-semi-color-data-9: var(--semi-color-data-9);
+  --color-semi-color-data-10: var(--semi-color-data-10);
+  --color-semi-color-data-11: var(--semi-color-data-11);
+  --color-semi-color-data-12: var(--semi-color-data-12);
+  --color-semi-color-data-13: var(--semi-color-data-13);
+  --color-semi-color-data-14: var(--semi-color-data-14);
+  --color-semi-color-data-15: var(--semi-color-data-15);
+  --color-semi-color-data-16: var(--semi-color-data-16);
+  --color-semi-color-data-17: var(--semi-color-data-17);
+  --color-semi-color-data-18: var(--semi-color-data-18);
+  --color-semi-color-data-19: var(--semi-color-data-19);
+
+  /* Border Radius */
+  --radius-semi-border-radius-extra-small: var(--semi-border-radius-extra-small);
+  --radius-semi-border-radius-small: var(--semi-border-radius-small);
+  --radius-semi-border-radius-medium: var(--semi-border-radius-medium);
+  --radius-semi-border-radius-large: var(--semi-border-radius-large);
+  --radius-semi-border-radius-circle: var(--semi-border-radius-circle);
+  --radius-semi-border-radius-full: var(--semi-border-radius-full);
+}
+
+```
+
+After configuration, you can use atomic classes like `text-semi-color-text-0`, `bg-semi-color-primary`, `rounded-semi-border-radius-small`, etc.
+
+---
+
+**Tailwind v3 Configuration:**
+
+Just configure the following content in the Tailwind configuration (i.e. `tailwind.config.js`):
 
 ```js
-module.export = {
+module.exports = {
     theme:{
         colors:{
             "semi-color-white": "var(--semi-color-white)",

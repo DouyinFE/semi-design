@@ -29,13 +29,20 @@ export default (props: {
     onChange?: (content: string) => void;
     extensions?: Extensions;
     handleKeyDown?: (view: any, event: KeyboardEvent) => boolean;
+    /**
+     * Used for file paste upload.
+     */
     onPaste?: (files: File[]) => void;
+    /**
+     * Listen to paste event on editor content DOM.
+     */
+    onPasteEvent?: (event: React.ClipboardEvent<HTMLDivElement>) => void;
     onFocus?: (event: FocusEvent) => void;
     onBlur?: (event: FocusEvent) => void;
     handleCreate?: () => void
 }) => {
     const { setEditor, onKeyDown, onChange, placeholder, extensions = [], 
-        defaultContent, onPaste, innerRef, handleKeyDown, onFocus, onBlur, handleCreate, immediatelyRender } = props;
+        defaultContent, onPaste, onPasteEvent, innerRef, handleKeyDown, onFocus, onBlur, handleCreate, immediatelyRender } = props;
     const isComposing = useRef(false);
     
     const handleCompositionStart = useCallback((view: EditorView) => {
@@ -143,6 +150,7 @@ export default (props: {
             onKeyDown={onKeyDown as any}
             onFocus={onFocus as any}
             onBlur={onBlur as any}
+            onPaste={onPasteEvent as any}
             ref={innerRef}
             className={`${PREFIX}-editor-content`}
         />

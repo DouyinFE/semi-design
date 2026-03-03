@@ -59,6 +59,14 @@ semi-mcp
 }
 ```
 
+### 在 Claude CLI (Claude Code) 中配置
+
+在终端中运行以下命令添加 MCP：
+
+```bash
+claude mcp add semi-mcp -- npx -y @douyinfe/semi-mcp
+```
+
 ## 功能
 
 ### 工具 (Tools)

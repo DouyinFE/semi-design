@@ -16,6 +16,19 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.91.0 (2026-02-06)
+- 【Fix】
+    - Fixed regex matching issue in semi-webpack/semi-rspack to support package names with numeric suffixes like @douyinfe/semi-ui-19 [#3127](https://github.com/DouyinFE/semi-design/pull/3127)
+- 【Docs】
+    - Added Claude CLI installation guide for Semi MCP [@guowei-gong](https://github.com/guowei-gong) [#3124](https://github.com/DouyinFE/semi-design/pull/3124)
+
+#### 🎉 2.91.0-beta.0 (2026-01-14)
+- 【Feat】
+    - Added Sidebar component
+- 【Docs】
+    - Optimized token descriptions for 10 components including Button, Select, Checkbox, Input, Radio, Switch, Tabs, Navigation, Cascader, Table, Datepicker, and Upload.
+
+
 #### 🎉 2.90.12 (2026-01-13)
 - 【Fix】
     - Fixed an issue where the onExceed callback was not triggered when selecting new values in Select component's multiple mode, when the defaultValue count exceeded the max limit

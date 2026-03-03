@@ -5,7 +5,8 @@ import { stringifyVariableRecord } from './utils';
 
 export function createSourceSuffixLoaderRule(_opts?: SemiWebpackPluginOptions) {
     return {
-        test: /@douyinfe(\/|\\)+semi-(ui|icons)(\/|\\)+.+\.js$/,
+        // Support packages like @douyinfe/semi-ui-19, @douyinfe/semi-icons-19
+        test: /@douyinfe(\/|\\)+semi-(ui|icons)(-\d+)?(\/|\\)+.+\.js$/,
         use: [{ loader: SOURCE_SUFFIX_LOADER }],
     };
 }
@@ -27,7 +28,8 @@ export function createThemeLoaderRule(opts?: SemiWebpackPluginOptions) {
         cssLayer: opts.cssLayer
     };
     const loaderInfo = {
-        test: /@douyinfe(\/|\\)+semi-(ui|icons|foundation)(\/|\\)+lib(\/|\\)+.+\.scss$/,
+        // Support packages like @douyinfe/semi-ui-19, @douyinfe/semi-foundation-19
+        test: /@douyinfe(\/|\\)+semi-(ui|icons|foundation)(-\d+)?(\/|\\)+lib(\/|\\)+.+\.scss$/,
         use: [{ loader: THEME_LOADER, options }],
     };
     let commonLoader: any[] = [

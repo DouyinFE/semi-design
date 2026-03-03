@@ -135,3 +135,6 @@ export { default as FloatButtonGroup } from './floatButton/floatButtonGroup';
 export { default as AIChatDialogue } from './aiChatDialogue';
 export { default as AIChatInput, getConfigureItem } from './aiChatInput';
 export { chatCompletionToMessage, streamingChatCompletionToMessage, streamingResponseToMessage, responseToMessage, chatInputToMessage, chatInputToChatCompletion } from '@douyinfe/semi-foundation/aiChatDialogue/dataAdapter';
+export { default as MCPConfigure } from './sideBar/mcpConfigure';
+export { default as Annotation } from './sideBar/annotation';
+export { default as Sidebar } from './sideBar';

@@ -227,6 +227,22 @@ const local: Locale = {
         configure: 'Konfiguriraj',
         selected: 'Odabrane stavke: ${count}',
     },
+    Sidebar: {
+        linkAddSuccess: 'Link je uspješno dodan',
+        linkRemoveSuccess: 'Link je uspješno uklonjen',
+        enterLinkAddress: "Unesite adresu linka",
+        validateFailInfo: 'Provjera je neuspješna, molimo učitajte ponovno',
+        uploadFailInfo: 'Učitavanje je neuspješno, molimo pokušajte ponovno',
+        uploadImgInfo: 'Kliknite za učitavanje slike ili je povucite ovdje',
+        defaultMcpInfo: "Predefinirani MCP, nije moguće zatvoriti",
+        searchPlaceholder: 'Molimo unesite',
+        emptyCustomMcpInfo: 'Još nema prilagođenih MCP-a',
+        newMcpAdd: 'Prilagođeni MCP',
+        mcpConfigure: 'Konfiguracija MCP-a',
+        annotationTitle: 'Izvor reference',
+        activeMCPNumber: 'Broj aktivnih MCP-a:',
+        copySuccess: 'Kopiranje je uspjelo.',
+    },
     AudioPlayer: {
         backward: 'Natrag ${skipDuration}s',
         forward: 'Naprijed ${skipDuration}s',
@@ -236,6 +252,7 @@ const local: Locale = {
         volume: 'Glasnoća',
         mediaError: 'Greška učitavanja zvuka'
     }
+
 };
 
 export default local;

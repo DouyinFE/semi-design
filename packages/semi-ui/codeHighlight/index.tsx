@@ -13,7 +13,7 @@ import cls from "classnames";
 import { cssClasses } from "@douyinfe/semi-foundation/codeHighlight/constants";
 
 
-interface CodeHighlightProps extends CodeHighlightBaseProps {
+export interface CodeHighlightProps extends CodeHighlightBaseProps {
     className?: string;
     style?: CSSProperties;
     defaultTheme?: boolean

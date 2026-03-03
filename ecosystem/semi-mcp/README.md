@@ -59,6 +59,14 @@ Or if installed globally:
 }
 ```
 
+### Configuration in Claude CLI (Claude Code)
+
+Run the following command in terminal to add MCP:
+
+```bash
+claude mcp add semi-mcp -- npx -y @douyinfe/semi-mcp
+```
+
 ## Features
 
 ### Tools
