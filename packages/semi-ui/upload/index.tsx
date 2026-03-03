@@ -128,6 +128,7 @@ export interface UploadState {
     dragAreaStatus: 'default' | 'legal' | 'illegal'; // Status of the drag zone
     fileList: Array<FileItem>;
     inputKey: number;
+    // Track objectURL created by Upload (legacy, kept for compatibility)
     localUrls: Array<string>;
     replaceIdx: number;
     replaceInputKey: number
@@ -324,7 +325,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             updateDragAreaStatus: (dragAreaStatus: string): void =>
                 this.setState({ dragAreaStatus } as { dragAreaStatus: 'default' | 'legal' | 'illegal' }),
             notifyChange: ({ currentFile, fileList }): void => this.props.onChange({ currentFile, fileList }),
-            updateLocalUrls: (urls): void => this.setState({ localUrls: urls }),
+            updateLocalUrls: (urls: Array<string>): void => this.setState({ localUrls: urls }),
             notifyClear: (): void => this.props.onClear(),
             notifyPreviewClick: (file): void => this.props.onPreviewClick(file),
             notifyDrop: (e, files, fileList): void => this.props.onDrop(e, files, fileList),

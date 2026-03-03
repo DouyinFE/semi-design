@@ -1,4 +1,5 @@
 import sleep from '@douyinfe/semi-ui/_test_/utils/function/sleep';
+import React from 'react';
 import { IconUser } from '@douyinfe/semi-icons';
 import { Upload, Button } from '../../index';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
@@ -68,12 +69,14 @@ describe('Upload', () => {
     let requests;
     let xhr;
     window.URL.createObjectURL = jest.fn();
+    window.URL.revokeObjectURL = jest.fn();
 
     beforeEach(() => {
         xhr = sinon.useFakeXMLHttpRequest();
         requests = [];
         xhr.onCreate = req => requests.push(req);
         window.URL.createObjectURL.mockReset();
+        window.URL.revokeObjectURL.mockReset();
     });
 
     afterEach(() => {
@@ -565,6 +568,125 @@ describe('Upload', () => {
         const previewContent = upload.find(`.${BASE_CLASS_PREFIX}-upload-file-card-preview`);
         expect(previewContent.contains(specificContent)).toEqual(true);
         upload.unmount();
+    });
+
+    it('should not revoke objectURL on unmount in controlled mode', done => {
+        // Simulate issue scenario: controlled fileList + Upload unmount/remount
+        const objUrl = 'blob:semi-upload-test-url';
+        window.URL.createObjectURL.mockImplementation(() => objUrl);
+
+        class ControlledWrapper extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    fileList: [],
+                    visible: true,
+                };
+            }
+            toggle = () => {
+                this.setState(prev => ({ visible: !prev.visible }));
+            };
+            onChange = ({ fileList }) => {
+                this.setState({ fileList });
+            };
+            render() {
+                const { visible, fileList } = this.state;
+                return (
+                    <div>
+                        <button className="toggle" onClick={this.toggle}>toggle</button>
+                        {visible ? (
+                            <Upload action={action} fileList={fileList} onChange={this.onChange} showUploadList>
+                                <Button>Upload</Button>
+                            </Upload>
+                        ) : null}
+                    </div>
+                );
+            }
+        }
+
+        const wrapper = mount(<ControlledWrapper />);
+        const upload = wrapper.find(Upload).at(0);
+        // select a file to create objectURL
+        const event = { target: { files: [createFile(20, 'toggle.png', 'image/png')] } };
+        trigger(upload, event);
+
+        expect(window.URL.createObjectURL).toHaveBeenCalled();
+        // toggle to unmount Upload
+        wrapper.find('button.toggle').simulate('click');
+        wrapper.update();
+        // should not revoke on unmount
+        setTimeout(() => {
+            expect(window.URL.revokeObjectURL).not.toHaveBeenCalled();
+            // toggle back to mount Upload again
+            wrapper.find('button.toggle').simulate('click');
+            wrapper.update();
+            expect(wrapper.find(Upload).exists()).toEqual(true);
+            // fileList still kept in wrapper state
+            expect(wrapper.state('fileList').length).toEqual(1);
+            wrapper.unmount();
+            done();
+        });
+    });
+
+    it('should revoke objectURL when remove/clear', done => {
+        const objUrl = 'blob:semi-upload-test-url-2';
+        window.URL.createObjectURL.mockImplementation(() => objUrl);
+
+        // remove
+        const upload = getUpload({});
+        trigger(upload, { target: { files: [createFile(10, 'remove.png', 'image/png')] } });
+        expect(window.URL.createObjectURL).toHaveBeenCalled();
+        upload.update();
+        upload.find(`button.${BASE_CLASS_PREFIX}-upload-file-card-close`).at(0).simulate('click', {});
+
+        setTimeout(() => {
+            expect(window.URL.revokeObjectURL).toHaveBeenCalled();
+
+            // clear
+            window.URL.revokeObjectURL.mockReset();
+            const upload2 = getUpload({ limit: 3 });
+            trigger(upload2, { target: { files: [createFile(10, 'clear.png', 'image/png')] } });
+            upload2.update();
+            const clearBtn = upload2.find(`.${BASE_CLASS_PREFIX}-upload-file-list-title-clear`).at(0);
+            // showTitle needs limit !== 1 and fileList.length
+            expect(clearBtn.exists()).toEqual(true);
+            clearBtn.simulate('click', {});
+
+            setTimeout(() => {
+                expect(window.URL.revokeObjectURL).toHaveBeenCalled();
+                upload.unmount();
+                upload2.unmount();
+                done();
+            });
+        });
+    });
+
+    it('should revoke all objectURLs when selecting multiple files then clear', done => {
+        const urlMap = {
+            'a.png': 'blob:multi-a',
+            'b.png': 'blob:multi-b',
+        };
+        window.URL.createObjectURL.mockImplementation(file => urlMap[file.name] || `blob:${file.name}`);
+
+        const upload = getUpload({ limit: 3 });
+        const fileA = createFile(10, 'a.png', 'image/png');
+        const fileB = createFile(10, 'b.png', 'image/png');
+        trigger(upload, { target: { files: [fileA, fileB] } });
+
+        expect(window.URL.createObjectURL).toHaveBeenCalledTimes(2);
+        upload.update();
+
+        const clearBtn = upload.find(`.${BASE_CLASS_PREFIX}-upload-file-list-title-clear`).at(0);
+        expect(clearBtn.exists()).toEqual(true);
+        clearBtn.simulate('click', {});
+
+        setTimeout(() => {
+            expect(window.URL.revokeObjectURL).toHaveBeenCalledTimes(2);
+            const revoked = window.URL.revokeObjectURL.mock.calls.map(args => args[0]);
+            expect(revoked).toEqual(expect.arrayContaining(['blob:multi-a', 'blob:multi-b']));
+            upload.unmount();
+            done();
+        });
     });
 
     it('afterUpload', () => {
