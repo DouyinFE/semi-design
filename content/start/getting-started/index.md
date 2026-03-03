@@ -209,5 +209,4 @@ module.exports = {
         document.getElementById('root')
     );
 </script>
-;
 ```
