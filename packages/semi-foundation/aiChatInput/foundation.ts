@@ -90,12 +90,50 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
         this._adapter.focusEditor();
     }
 
+    /**
+     * Delete uploaded file item.
+     * Notes:
+     * - AIChatInput uses custom upload list UI, so we need to align remove behavior with Upload:
+     *   1) respect uploadProps.beforeRemove (support Promise)
+     *   2) call uploadProps.onRemove with (currentFile, nextFileList, currentFileItem)
+     *   3) still trigger onUploadChange/uploadProps.onChange for fileList update
+     */
     handleUploadFileDelete = (attachment: Attachment) => {
-        const { attachments } = this.getStates();
-        const newAttachments = attachments.filter(item => item.uid !== attachment.uid);
-        this.onUploadChange({
-            currentFile: attachment,
-            fileList: newAttachments
+        const { uploadProps } = this.getProps();
+        const { attachments: attachmentsFromState } = this.getStates();
+        const attachments = Array.isArray(attachmentsFromState) ? attachmentsFromState : [];
+
+        // Keep consistent with Upload: disabled means no-op
+        if (uploadProps?.disabled) {
+            return;
+        }
+
+        const index = attachments.findIndex(item => item.uid === attachment.uid);
+        if (index < 0) {
+            return;
+        }
+
+        const beforeRemove = uploadProps?.beforeRemove;
+        Promise.resolve(beforeRemove?.(attachment, attachments) ?? true).then(res => {
+            // prevent remove while user return false
+            if (res === false) {
+                return;
+            }
+
+            const newAttachments = attachments.slice();
+            newAttachments.splice(index, 1);
+
+            // Align Upload onRemove signature: (File, nextFileList, currentFileItem)
+            // currentFile: use original File instance when available
+            uploadProps?.onRemove?.(attachment.fileInstance as any, newAttachments as any, attachment as any);
+
+            // keep existing behavior: update state + notify upload change
+            this.onUploadChange({
+                currentFile: attachment,
+                fileList: newAttachments
+            });
+        }).catch(() => {
+            // if user pass reject promise, no need to do anything
         });
     }
 

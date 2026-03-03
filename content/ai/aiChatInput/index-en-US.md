@@ -29,6 +29,7 @@ Supports text input and file upload. You can configure the following parameters 
 
 - `uploadProps`: Configure parameters related to file upload. See [UploadProps](/en-US/plus/upload#API)
 - `onUploadChange`: Callback when file upload changes
+- When deleting uploaded files, `uploadProps.onRemove` will be triggered, and `uploadProps.beforeRemove` will be respected (Promise supported)
 - `placeholder`: Placeholder for the input box
 - `defaultContent`: Default content for the input box
 - `onContentChange`: Callback when the content of the input box changes; the parameter is the current content
