@@ -16,6 +16,17 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.92.0 (2026-03-03)
+- 【Feat】
+    - Unified React 19 support with adapter pattern, React 19 users only need to import `@douyinfe/semi-ui/react19-adapter` [#3140](https://github.com/DouyinFE/semi-design/pull/3140)
+    - Add renderUploadButton to AIChatInput to customize upload button UI [#3087](https://github.com/DouyinFE/semi-design/issues/3087) [#3139](https://github.com/DouyinFE/semi-design/pull/3139)
+    - Add onPaste event callback support for AIChatInput [#3132](https://github.com/DouyinFE/semi-design/issues/3132) [#3137](https://github.com/DouyinFE/semi-design/pull/3137)
+    - @douyinfe/semi-next now supports passing through all @douyinfe/semi-webpack-plugin options [#3115](https://github.com/DouyinFE/semi-design/issues/3115) [#3128](https://github.com/DouyinFE/semi-design/pull/3128)
+- 【Fix】
+    - Fix AIChatInput attachment removal not triggering uploadProps.onRemove and not honoring beforeRemove [#3100](https://github.com/DouyinFE/semi-design/issues/3100) [#3138](https://github.com/DouyinFE/semi-design/pull/3138)
+    - Fix Upload component blob URL invalidation after toggle visible in controlled fileList mode [#3122](https://github.com/DouyinFE/semi-design/issues/3122) [#3130](https://github.com/DouyinFE/semi-design/pull/3130)
+    - Fix MarkdownRender component losing cell content when rendering single-column GFM tables [#3077](https://github.com/DouyinFE/semi-design/issues/3077) [#3129](https://github.com/DouyinFE/semi-design/pull/3129)
+
 #### 🎉 2.91.0 (2026-02-06)
 - 【Fix】
     - Fixed regex matching issue in semi-webpack/semi-rspack to support package names with numeric suffixes like @douyinfe/semi-ui-19 [#3127](https://github.com/DouyinFE/semi-design/pull/3127)

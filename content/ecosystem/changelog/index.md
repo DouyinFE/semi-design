@@ -14,6 +14,17 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.92.0 (2026-03-03)
+- 【Feat】
+    - 统一 React 19 支持方案，使用 adapter 模式替代双包方案，React 19 用户只需导入 `@douyinfe/semi-ui/react19-adapter` [#3140](https://github.com/DouyinFE/semi-design/pull/3140)
+    - AIChatInput 支持通过 renderUploadButton 自定义上传按钮 UI [#3087](https://github.com/DouyinFE/semi-design/issues/3087) [#3139](https://github.com/DouyinFE/semi-design/pull/3139)
+    - AIChatInput 支持 onPaste 回调监听输入框粘贴事件 [#3132](https://github.com/DouyinFE/semi-design/issues/3132) [#3137](https://github.com/DouyinFE/semi-design/pull/3137)
+    - @douyinfe/semi-next 支持透传 @douyinfe/semi-webpack-plugin 全量 options [#3115](https://github.com/DouyinFE/semi-design/issues/3115) [#3128](https://github.com/DouyinFE/semi-design/pull/3128)
+- 【Fix】
+    - 修复 AIChatInput 删除附件时未触发 uploadProps.onRemove，且 beforeRemove 无法阻断的问题 [#3100](https://github.com/DouyinFE/semi-design/issues/3100) [#3138](https://github.com/DouyinFE/semi-design/pull/3138)
+    - 修复 Upload 组件在受控 fileList 模式下，toggle visible 导致 blob URL 失效的问题 [#3122](https://github.com/DouyinFE/semi-design/issues/3122) [#3130](https://github.com/DouyinFE/semi-design/pull/3130)
+    - 修复 MarkdownRender 组件渲染 GFM 单列表格时内容丢失的问题 [#3077](https://github.com/DouyinFE/semi-design/issues/3077) [#3129](https://github.com/DouyinFE/semi-design/pull/3129)
+
 #### 🎉 2.91.0 (2026-02-06)
 - 【Fix】
     - 修复 semi-webpack/semi-rspack 正则匹配问题，支持匹配 @douyinfe/semi-ui-19 等带数字后缀包名 [#3127](https://github.com/DouyinFE/semi-design/pull/3127)
