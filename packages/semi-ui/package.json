@@ -7761,7 +7761,10 @@
         "*.scss",
         "*.css",
         "lib/es/index.js",
-        "./index.ts"
+        "./index.ts",
+        "./react19-adapter.ts",
+        "lib/es/react19-adapter.js",
+        "lib/cjs/react19-adapter.js"
     ],
     "keywords": [
         "bytedance douyin design system",

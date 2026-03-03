@@ -2,105 +2,207 @@
 localeCode: en-US
 order: 3
 category: Ecosystem
-title: React v19 Adaptation
+title: React 19 Adaptation
 icon: doc-configprovider
 dir: column
-brief: React v19 adaptation
+brief: React 19 adaptation guide
 ---
 
-Since the release of React v19, React has introduced numerous underlying mechanism and API changes, including upgrades and adjustments to the render mechanism, ref, context, TypeScript types, and related deprecated APIs. To ensure that the Semi Design component library is smoothly compatible with both React v19 and lower versions, we provide the original component package `@douyinfe/semi-ui` for React versions below v19, as well as a new package `@douyinfe/semi-ui-19` specifically adapted for React v19, so users can choose as needed. This guide will help you understand how to install, use, and the precautions to take.
+Semi Design now supports React 19. Due to some underlying API changes in React 19, a simple adaptation is required.
 
-## Installation & Usage
+## What's Special About React 19
 
-If your project is using React v19, please use `@douyinfe/semi-ui-19`. For React versions below v19, continue using `@douyinfe/semi-ui` as before.
+React 19 removed two APIs that Semi components depend on:
+
+### 1. `ReactDOM.render` Removed
+
+React 19 removed the legacy `ReactDOM.render` API in favor of `createRoot`. The following Semi components rely on this API to dynamically mount content:
+
+- `Modal.info()` / `Modal.success()` / `Modal.error()` / `Modal.warning()` / `Modal.confirm()`
+- `Toast.info()` / `Toast.success()` / `Toast.error()` / `Toast.warning()`
+- `Notification.info()` / `Notification.success()` / `Notification.error()` / `Notification.warning()`
+
+### 2. `ReactDOM.findDOMNode` Removed
+
+React 19 removed the `ReactDOM.findDOMNode` API, which was used to get the DOM node from a class component instance. The following Semi components are affected:
+
+- `Tooltip` and all popup components based on it (`Popover`, `PopConfirm`, `Dropdown`, etc.)
+
+### Why Do We Need an Adapter
+
+Since Semi needs to support React 16/17/18/19 simultaneously, and React 19's `createRoot` is located in the `react-dom/client` subpath, directly importing it in the library would cause errors in older React versions. Therefore, we use an adapter pattern that allows React 19 users to explicitly inject the required API.
+
+## Quick Start
+
+### Installation
+
+Use the same package regardless of whether you're using React 16, 17, 18, or 19:
 
 ```bash
-# For users of React v19
-# Using npm
-npm i @douyinfe/semi-ui-19 
+# npm
+npm install @douyinfe/semi-ui
 
-# Using yarn
-yarn add @douyinfe/semi-ui-19
+# yarn
+yarn add @douyinfe/semi-ui
 
-# Using pnpm
-pnpm add @douyinfe/semi-ui-19 
+# pnpm
+pnpm add @douyinfe/semi-ui
 ```
 
-To use, just import components from `@douyinfe/semi-ui-19`:
+### React 19 Users (Important)
+
+If your project uses **React 19**, you need to import the adapter at the **very top** of your entry file:
 
 ```jsx
-import React, { Component } from 'react';
-import { Button, Toast } from '@douyinfe/semi-ui-19';
+// main.tsx or index.tsx
+// ⚠️ Must be imported at the top, before any Semi components
+import '@douyinfe/semi-ui/react19-adapter';
 
-const SemiApp = () => {
-    return (
-        <Button onClick={() => Toast.warning({ content: 'I can now adapt to React v19.' })}>
-            Hello Semi
-        </Button>
-    );
-};
+import ReactDOM from 'react-dom/client';
+import App from './App';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(<App />);
 ```
 
-*** Why maintain two packages? ***
+Then use Semi components as usual:
 
-React v19 introduces several major updates, new deprecations, breaking changes, and TypeScript modifications. Check the [React v19 Upgrade Guide](https://react.dev/blog/2024/04/25/react-19-upgrade-guide) for details. For most changes, we have re-implemented components to ensure they work consistently across different React versions.
+```jsx
+// App.tsx
+import { Button, Toast, Modal, Notification } from '@douyinfe/semi-ui';
 
-However, the removal of [ReactDOM.render](https://react.dev/blog/2024/04/25/react-19-upgrade-guide#removed-reactdom-render) and [ReactDOM.findDOMNode](https://react.dev/blog/2024/04/25/react-19-upgrade-guide#removed-reactdom-finddomnode) in React v19 cannot be simply patched to work with both React versions.
+function App() {
+    const showToast = () => {
+        Toast.success('Operation successful!');
+    };
 
-For the Semi component library:
-- `Modal`, `Notification`, and `Toast` components use `ReactDOM.render` to mount content onto nodes.
-- `Tooltip` uses `ReactDOM.findDOMNode` to obtain the real DOM node, and other popover components like `Popover` and `PopConfirm` are implemented based on `Tooltip`.
+    const showModal = () => {
+        Modal.confirm({
+            title: 'Confirm',
+            content: 'Are you sure you want to proceed?',
+        });
+    };
 
-For frontend projects:
-- Some legacy projects do not have an urgent need to upgrade to React v19.
-- Some projects use syntax or APIs removed in React v19, so they need to continue using the Semi library supporting React below v19 for now.
+    return (
+        <div>
+            <Button onClick={showToast}>Show Toast</Button>
+            <Button onClick={showModal}>Show Modal</Button>
+        </div>
+    );
+}
+```
 
-Therefore, to ensure functional consistency, we use different code implementations for React v19 and versions below it, and continue to update both `@douyinfe/semi-ui-19` (React v19) and `@douyinfe/semi-ui` (below v19) for at least a year.
+### React 16/17/18 Users
+
+For React 16, 17, or 18 projects, **no additional configuration is needed**:
+
+```jsx
+import { Button, Toast } from '@douyinfe/semi-ui';
+
+function App() {
+    return (
+        <Button onClick={() => Toast.success('Hello Semi!')}>
+            Click me
+        </Button>
+    );
+}
+```
 
 ## Notes
 
-The removal of `ReactDOM.findDOMNode` in React v19 makes it impossible to find and return the real DOM node for a given class component instance.
+### Tooltip and Class Component Limitations
 
-For `Tooltip` and other popover components based on `Tooltip` (such as `Popover`, `PopConfirm`， `Dropdown`), if the `children` are class components and the props are forwarded to the real DOM node, it works fine with `@douyinfe/semi-ui`. However, in `@douyinfe/semi-ui-19`, it may not work, and you should wrap the class component in a real DOM node (such as `<span>`, `<div>`, `<p>`, etc.) for a workaround.
+Due to the removal of `ReactDOM.findDOMNode` in React 19, when the children of `Tooltip` (and components based on it like `Popover`, `PopConfirm`, `Dropdown`, etc.) is a **class component**, it may not be able to correctly get the DOM node for positioning.
 
-In addition, some nodes of a component can be customized by the user. If the node uses a tooltip for suggestions, such as the custom copy node in Typography, the same restrictions apply if the user-defined node is a class component node.
+**Affected scenarios**:
 
-For example:
-
-```js noInline=true
-// @douyinfe/semi-ui
-// The children of Tooltip is a class component (MyComponent), props are forwarded to the real DOM node
-// Works fine
-import React from 'react';
-import { Tooltip } from '@douyinfe/semi-ui';
-
+```jsx
+// ❌ Class component as direct child of Tooltip may not position correctly
 class MyComponent extends React.Component {
     render() {
-        return (<span {...this.props} style={{ border: '2px solid var(--semi-color-border)' }}>ClassComponent</span>);
+        return <span {...this.props}>Content</span>;
     }
-};
+}
 
-() => (<Tooltip content="Hello">
-    <MyComponent>Hover me</MyComponent>
-</Tooltip>);
+<Tooltip content="Tip">
+    <MyComponent />
+</Tooltip>
 ```
+
+**Solution**: Wrap the class component with a DOM element
+
+```jsx
+// ✅ Recommended: wrap with a DOM element
+<Tooltip content="Tip">
+    <span>
+        <MyComponent />
+    </span>
+</Tooltip>
+```
+
+**Unaffected scenarios**:
+
+- Semi's built-in components (like `Button`, `Input`, `Select`, etc.) are already adapted
+- Function components that correctly forward ref using `forwardRef`
+- Native DOM elements (like `<span>`, `<div>`, `<button>`, etc.)
+
+### Error Messages
+
+If you forget to import the adapter in React 19, the console will display:
+
+```
+[Semi UI] createRoot is not available. 
+If you are using React 19, please inject createRoot before using Semi components.
+For details, see: https://semi.design/zh-CN/ecosystem/react19
+```
+
+When you see this error, add the following at the top of your entry file:
 
 ```js
-// Using @douyinfe/semi-ui-19,
-// Can't use MyComponent as a direct child of Tooltip
-// wrap it in a real DOM node for proper functioning
-import React from 'react';
-import { Tooltip, Button } from '@douyinfe/semi-ui-19';
-
-class MyComponent extends React.Component {
-    render() {
-        return (<span {...this.props} style={{ border: '2px solid var(--semi-color-border)' }}>ClassComponent</span>);
-    }
-};
-
-() => (<Tooltip content="Hello">
-    <span style={{ display: 'inline-flex' }}>
-        <MyComponent>Hover me</MyComponent>
-    </span>
-</Tooltip>);
+import '@douyinfe/semi-ui/react19-adapter';
 ```
+
+## FAQ
+
+**Q: Will importing the adapter in React 18 cause issues?**
+
+A: No. In React 18, Semi automatically detects and uses the built-in `createRoot`. Importing the adapter has no side effects.
+
+**Q: What does the adapter do?**
+
+A: The adapter does one thing: inject React 19's `createRoot` function into Semi's internals, enabling Modal, Toast, Notification, and similar components to work properly. The code is very simple:
+
+```js
+import { createRoot } from 'react-dom/client';
+import semiGlobal from './_utils/semi-global';
+
+semiGlobal.config.createRoot = createRoot;
+```
+
+**Q: Why must the adapter be imported at the very top?**
+
+A: Because the adapter needs to inject `createRoot` before any Semi components are rendered. If imported after components have started rendering, the first render may fail.
+
+**Q: I was using `@douyinfe/semi-ui-19`, how do I migrate?**
+
+A: 
+1. Uninstall `@douyinfe/semi-ui-19`
+2. Install `@douyinfe/semi-ui` (if not already installed)
+3. Change all `from '@douyinfe/semi-ui-19'` to `from '@douyinfe/semi-ui'`
+4. Add `import '@douyinfe/semi-ui/react19-adapter'` at the top of your entry file
+
+## Technical Details
+
+### Version Compatibility Matrix
+
+| React Version | Adapter Required | `ReactDOM.render` | `createRoot` |
+|--------------|------------------|-------------------|--------------|
+| 16.x | No | ✅ Used | ❌ Not available |
+| 17.x | No | ✅ Used | ❌ Not available |
+| 18.x | No | ⚠️ Deprecated | ✅ Auto-detected |
+| 19.x | **Yes** | ❌ Removed | ✅ Needs injection |
+
+### How the Adapter Works
+
+1. React 16/17: Uses legacy `ReactDOM.render` and `ReactDOM.unmountComponentAtNode`
+2. React 18: Automatically detects and uses `createRoot` exported from `react-dom`
+3. React 19: `createRoot` is no longer exported directly from `react-dom`, needs to be imported from `react-dom/client` and injected via adapter
