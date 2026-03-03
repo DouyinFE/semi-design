@@ -600,7 +600,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
     render() {
         const { direction } = this.context;
         const defaultPosition = direction === 'rtl' ? 'bottomRight' : 'bottomLeft';
-        const { style, className, popoverProps, placeholder, extensions, defaultContent, immediatelyRender } = this.props;
+        const { style, className, popoverProps, placeholder, extensions, defaultContent, immediatelyRender, onPaste } = this.props;
         const { templateVisible, skillVisible, suggestionVisible, popupKey } = this.state;
        
         return (
@@ -637,6 +637,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
                         onChange={this.foundation.handleContentChange}
                         extensions={extensions}
                         handleKeyDown={this.foundation.handRichTextArealKeyDown}
+                        onPasteEvent={onPaste}
                         onPaste={this.foundation.handlePaste}
                         onFocus={this.foundation.handleFocus}
                         onBlur={this.foundation.handleBlur}

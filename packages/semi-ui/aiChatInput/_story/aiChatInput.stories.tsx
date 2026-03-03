@@ -32,6 +32,10 @@ stories.add('default', () => {
         uploadProps={uploadProps}
         onContentChange={onContentChange}
         onUploadChange={onUploadChange}
+        onPaste={(e) => {
+          const text = e.clipboardData?.getData('text/plain');
+          console.log('onPaste', { textLength: text?.length, text });
+        }}
         style={outerStyle}
         onMessageSend={toggleGenerate}
         onStopGenerate={toggleGenerate}
@@ -68,6 +72,20 @@ stories.add('renderUploadButton', () => {
       style={outerStyle}
       onMessageSend={toggleGenerate}
       onStopGenerate={toggleGenerate}
+    />
+  );
+});
+
+stories.add('onPaste', () => {
+  return (
+    <AIChatInput
+      placeholder={'粘贴到输入框以触发 onPaste'}
+      uploadProps={uploadProps}
+      style={outerStyle}
+      onPaste={(e) => {
+        const text = e.clipboardData?.getData('text/plain') || '';
+        console.log('onPaste', { textLength: text.length, text });
+      }}
     />
   );
 });
