@@ -228,7 +228,7 @@ export default defineConfig((env, argv) => {
 		isDev && new ReactRefreshPlugin(),
 	].filter(Boolean),
 	devServer: {
-		port: 3005,
+		port: 3000,
 		hot: true,
 		open: false,
 		historyApiFallback: true,
