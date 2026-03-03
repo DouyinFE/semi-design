@@ -193,11 +193,11 @@ const SkillsWriter = () => {
 
                 <CheckboxGroup
                     onChange={handleCheckboxChange}
-                    style={{ display: 'flex', flexDirection: 'column', gap: 8 }}
+                    style={{ display: 'flex', flexDirection: 'column', gap: 8}}
                 >
                     {skillsOptions.map((option, index) => (
-                        <Checkbox key={index} value={option}>
-                            <div style={{ display: 'flex', flexDirection: 'column', padding: '4px 0' }}>
+                        <Checkbox key={index} value={option} style={{ alignItems: 'flex-start' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column'}}>
                                 <Space>
                                     <Text strong>
                                         <FormattedMessage id={`skillsOption.${option.id}.label`} />

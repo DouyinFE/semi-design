@@ -227,6 +227,22 @@ export interface Locale {
         configure: string;
         selected: string
     };
+    Sidebar: {
+        linkAddSuccess: string;
+        linkRemoveSuccess: string;
+        enterLinkAddress: string;
+        validateFailInfo: string;
+        uploadFailInfo: string;
+        uploadImgInfo: string;
+        defaultMcpInfo: string;
+        searchPlaceholder: string;
+        emptyCustomMcpInfo: string;
+        newMcpAdd: string;
+        mcpConfigure: string;
+        annotationTitle: string;
+        activeMCPNumber: string;
+        copySuccess: string
+    };
     AudioPlayer: {
         backward: string;
         forward: string;

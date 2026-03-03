@@ -101,6 +101,7 @@ const order = [
     'aiComponent',
     'aiChatInput',
     'aiChatDialogue',
+    'sidebar',
 ];
 let { exec } = require('child_process');
 let fs = require('fs');

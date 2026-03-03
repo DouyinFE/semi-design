@@ -29,6 +29,7 @@ Supports text input and file upload. You can configure the following parameters 
 
 - `uploadProps`: Configure parameters related to file upload. See [UploadProps](/en-US/plus/upload#API)
 - `onUploadChange`: Callback when file upload changes
+- When deleting uploaded files, `uploadProps.onRemove` will be triggered, and `uploadProps.beforeRemove` will be respected (Promise supported)
 - `placeholder`: Placeholder for the input box
 - `defaultContent`: Default content for the input box
 - `onContentChange`: Callback when the content of the input box changes; the parameter is the current content
@@ -419,6 +420,46 @@ function ActionArea() {
 };
 
 render(<ActionArea />);
+```
+
+### Custom Upload Button
+
+By default, an upload button is rendered on the left side of the footer action area. Use `renderUploadButton` for **UI-only** customization (e.g. icon-only button, tooltip, etc.).
+
+Note: This does not affect upload / paste-upload behavior (`Upload` is still managed internally). `openFileDialog` triggers the internal Upload file chooser.
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import { AIChatInput } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+const uploadProps = { action: "https://api.semi.design/upload" };
+const outerStyle = { margin: 12 };
+
+function CustomUploadButton() {
+    return (
+        <AIChatInput
+            placeholder={'Custom upload button UI (paste-upload still works)'}
+            uploadProps={uploadProps}
+            renderUploadButton={({ openFileDialog, disabled }) => (
+                <button
+                    type="button"
+                    disabled={disabled}
+                    className="semi-button semi-button-borderless"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        openFileDialog();
+                    }}
+                >
+                    <IconUpload />
+                </button>
+            )}
+            style={outerStyle}
+        />
+    );
+}
+
+render(<CustomUploadButton />);
 ```
 
 ### Button Shape
@@ -1488,6 +1529,7 @@ render(<CustomRichTextExtension />);
 | onSuggestClick | Callback for clicking a suggestion | (suggestion: Suggestion) => void | - |
 | onTemplateVisibleChange | Callback for template's visibility change | (visible: boolean) => void | - |
 | onUploadChange | Callback for file upload | (props: OnChangeProps) => void | - |
+| renderUploadButton | Customize upload button UI in the footer action area (Upload is still managed internally; built-in upload/paste-upload logic is preserved) | (props: <ApiType detail='{ defaultNode: React.ReactNode; openFileDialog: () => void; disabled: boolean; attachments: Attachment[] }'>RenderUploadButtonProps</ApiType>) => React.ReactNode | - |
 | popoverProps | Popup configuration | PopoverProps | - |
 | placeholder | Input placeholder | string \| (props: <ApiType detail='{ editor: Editor; node: Node; pos: number; hasAnchor: boolean }'>PlaceholderProps</ApiType>) => string | - |
 | references | Reference list | Reference[] | - |
@@ -1502,6 +1544,7 @@ render(<CustomRichTextExtension />);
 | onBlur | Callback when input blurs | (event: React.FocusEvent) => void | - |
 | onConfigureChange | Callback for configuration area changes | (value: LeftMenuChangeProps, changedValue: LeftMenuChangeProps) => void | - |
 | onFocus | Callback when input focused | (event: React.FocusEvent) => void | - |
+| onPaste | Callback when paste occurs on the editor. Does not prevent default paste behavior unless you call preventDefault(). | `(event: React.ClipboardEvent<HTMLDivElement>) => void` | - |
 | sendHotKey | Keyboard shortcut for sending content, supports `enter` \| `shift+enter`. The former will send the message in the input box when you press enter alone. When the shift and enter keys are pressed at the same time, it will only wrap the line and not send it. The latter is the opposite | string | `enter` |
 | showReference | Show reference area | boolean | true |
 | showTemplateButton | Show template button | boolean | false |

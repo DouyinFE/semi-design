@@ -332,7 +332,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
             <>
                 <div style={{ ...this.getStyle(), position: 'relative', ...style }} className={className} {...this.getDataAttr(rest)}>
                     <div
-                        style={{ ...this.getStyle(), padding: '12px 0' }}
+                        style={{ ...this.getStyle() }}
                         ref={this.editorRef}
                         className={classNames(prefixCls, `${prefixCls}-background`)}
                     ></div>

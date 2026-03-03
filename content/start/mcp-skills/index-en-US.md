@@ -51,6 +51,19 @@ Through Semi Skills, AI assistants can think and code like professional Semi Des
 
 ## Installation Guide
 
+<Notice type="warning" title='⚠️ Version Recommendations'>
+Before starting the installation, it is recommended that your environment meets the following version requirements:
+
+- **Node.js**: Recommended version greater than 20.19.0
+- **npm**: Recommended version greater than 11.3.0
+
+If the versions do not meet the requirements, MCP may not run properly. You can check your current versions with the following commands:
+```bash
+node -v
+npm -v
+```
+</Notice>
+
 ### Install MCP
 
 Installation methods vary by client. Here are the configuration methods for common clients:
@@ -87,6 +100,15 @@ Find MCP configuration in settings and add:
     }
   }
 }
+```
+
+#### Claude CLI (Claude Code)
+
+Run the following command in terminal to add MCP:
+
+```bash
+claude mcp add semi-mcp -- npx -y @douyinfe/semi-mcp
+# For intranet users: claude mcp add semi-mcp -- npx -y @ies/semi-mcp-bytedance
 ```
 
 #### Troubleshooting
