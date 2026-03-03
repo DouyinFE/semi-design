@@ -482,6 +482,46 @@ function ActionArea() {
 render(<ActionArea />);
 ```
 
+### 自定义上传按钮
+
+底部操作区左侧默认会渲染上传按钮。你可以通过 `renderUploadButton` **仅自定义按钮 UI**（例如改成图标按钮、加 Tooltip 等）。
+
+注意：这不会影响上传/粘贴上传逻辑（`Upload` 仍由组件内部托管），`openFileDialog` 会触发内部 Upload 的文件选择。
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import { AIChatInput } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+const uploadProps = { action: "https://api.semi.design/upload" };
+const outerStyle = { margin: 12 };
+
+function CustomUploadButton() {
+    return (
+        <AIChatInput
+            placeholder={'自定义上传按钮（仍支持粘贴上传）'}
+            uploadProps={uploadProps}
+            renderUploadButton={({ openFileDialog, disabled }) => (
+                <button
+                    type="button"
+                    disabled={disabled}
+                    className="semi-button semi-button-borderless"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        openFileDialog();
+                    }}
+                >
+                    <IconUpload />
+                </button>
+            )}
+            style={outerStyle}
+        />
+    );
+}
+
+render(<CustomUploadButton />);
+```
+
 ### 底部按钮形状
 
 用户可以通过 `round` API 配置底部按钮的形状，默认是 `true`，是圆角按钮， 可以设置为 `false` 来配置为方形按钮。
@@ -1566,6 +1606,7 @@ render(<CustomRichTextExtension />);
 | onSuggestClick | 建议点击回调 | (suggestion: Suggestion) => void | - |
 | onTemplateVisibleChange | 模板弹出层可见性变化回调 | (visible: boolean) => void | - |
 | onUploadChange | 上传文件相关回调 | (props: OnChangeProps) => void | - |
+| renderUploadButton | 自定义底部操作区上传按钮 UI（Upload 仍由组件内部托管，保留内置上传/粘贴上传逻辑） | (props: <ApiType detail='{ defaultNode: React.ReactNode; openFileDialog: () => void; disabled: boolean; attachments: Attachment[] }'>RenderUploadButtonProps</ApiType>) => React.ReactNode | - |
 | popoverProps | 下拉弹出层的配置参数 | PopoverProps | - |
 | placeholder | 输入框占位符 | string \| (props: <ApiType detail='{ editor: Editor; node: Node; pos: number; hasAnchor: boolean }'>PlaceholderProps</ApiType>) => string | - |
 | references | 输入框引用列表 | Reference[] | - |
@@ -1628,5 +1669,4 @@ render(<CustomRichTextExtension />);
 
 ## 设计变量
 <DesignToken/>
-
 

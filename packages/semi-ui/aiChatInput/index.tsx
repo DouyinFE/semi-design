@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import BaseComponent from '../_base/baseComponent';
-import { AIChatInputProps, AIChatInputState, Skill, Attachment, Reference, Content, LeftMenuChangeProps } from './interface';
+import { AIChatInputProps, AIChatInputState, Skill, Attachment, Reference, Content, LeftMenuChangeProps, RenderUploadButtonProps } from './interface';
 import { noop, isEqual } from 'lodash';
 import { cssClasses, numbers, strings } from '@douyinfe/semi-foundation/aiChatInput/constants';
 import { Popover, Tooltip, Upload, Progress } from '../index';
@@ -512,25 +512,45 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
         </LocaleConsumer>;
     }
 
-    renderUploadButton = () => {
-        const { uploadTipProps, uploadProps } = this.props;
+    renderUploadNode = () => {
+        const { uploadTipProps, uploadProps, renderUploadButton } = this.props;
         const { attachments } = this.state;
-        const { className, onChange, renderFileItem, children, ...rest } = uploadProps ?? {};
+        const { children, ...rest } = uploadProps ?? {};
         const realUploadProps = {
             ...rest,
             onChange: this.foundation.onUploadChange,
         };
-        const uploadNode = <Upload
-            ref={this.uploadRef}
-            fileList={attachments}
-            listType="none" 
-            {...realUploadProps}
-            key='upload'
-        >
-            <button className={`${prefixCls}-footer-action-button ${prefixCls}-footer-action-upload`} >
+
+        const defaultButtonNode = (
+            <button className={`${prefixCls}-footer-action-button ${prefixCls}-footer-action-upload`}>
                 <IconPaperclip />
             </button>
-        </Upload>;
+        );
+
+        const openFileDialog = () => {
+            this.uploadRef.current?.openFileDialog?.();
+        };
+
+        const renderProps: RenderUploadButtonProps = {
+            defaultNode: children ?? defaultButtonNode,
+            openFileDialog,
+            disabled: Boolean(uploadProps?.disabled),
+            attachments: attachments ?? [],
+        };
+
+        const uploadChild = renderUploadButton ? renderUploadButton(renderProps) : renderProps.defaultNode;
+
+        const uploadNode = (
+            <Upload
+                ref={this.uploadRef}
+                fileList={attachments}
+                listType="none"
+                {...realUploadProps}
+                key='upload'
+            >
+                {uploadChild}
+            </Upload>
+        );
 
         return uploadTipProps ? <Tooltip {...uploadTipProps} key='upload'><span>{uploadNode}</span></Tooltip> : uploadNode;
     }
@@ -555,7 +575,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
         const { renderActionArea, showUploadButton } = this.props;
         const actionCls = `${prefixCls}-footer-action`;
         const actionNode = [
-            showUploadButton && this.renderUploadButton(),
+            showUploadButton && this.renderUploadNode(),
             this.renderSendButton(),
         ].filter(Boolean);
         if (renderActionArea) {

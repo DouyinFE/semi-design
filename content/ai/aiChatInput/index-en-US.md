@@ -421,6 +421,46 @@ function ActionArea() {
 render(<ActionArea />);
 ```
 
+### Custom Upload Button
+
+By default, an upload button is rendered on the left side of the footer action area. Use `renderUploadButton` for **UI-only** customization (e.g. icon-only button, tooltip, etc.).
+
+Note: This does not affect upload / paste-upload behavior (`Upload` is still managed internally). `openFileDialog` triggers the internal Upload file chooser.
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import { AIChatInput } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+const uploadProps = { action: "https://api.semi.design/upload" };
+const outerStyle = { margin: 12 };
+
+function CustomUploadButton() {
+    return (
+        <AIChatInput
+            placeholder={'Custom upload button UI (paste-upload still works)'}
+            uploadProps={uploadProps}
+            renderUploadButton={({ openFileDialog, disabled }) => (
+                <button
+                    type="button"
+                    disabled={disabled}
+                    className="semi-button semi-button-borderless"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        openFileDialog();
+                    }}
+                >
+                    <IconUpload />
+                </button>
+            )}
+            style={outerStyle}
+        />
+    );
+}
+
+render(<CustomUploadButton />);
+```
+
 ### Button Shape
 
 You can use the `round` API to configure the button shape at the bottom. The default is `true` (rounded). Set it to `false` for square buttons.
@@ -1488,6 +1528,7 @@ render(<CustomRichTextExtension />);
 | onSuggestClick | Callback for clicking a suggestion | (suggestion: Suggestion) => void | - |
 | onTemplateVisibleChange | Callback for template's visibility change | (visible: boolean) => void | - |
 | onUploadChange | Callback for file upload | (props: OnChangeProps) => void | - |
+| renderUploadButton | Customize upload button UI in the footer action area (Upload is still managed internally; built-in upload/paste-upload logic is preserved) | (props: <ApiType detail='{ defaultNode: React.ReactNode; openFileDialog: () => void; disabled: boolean; attachments: Attachment[] }'>RenderUploadButtonProps</ApiType>) => React.ReactNode | - |
 | popoverProps | Popup configuration | PopoverProps | - |
 | placeholder | Input placeholder | string \| (props: <ApiType detail='{ editor: Editor; node: Node; pos: number; hasAnchor: boolean }'>PlaceholderProps</ApiType>) => string | - |
 | references | Reference list | Reference[] | - |
