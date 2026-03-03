@@ -1,20 +1,23 @@
 // import { NextConfig } from 'next';
-import SemiWebpackPlugin from '@douyinfe/semi-webpack-plugin';
+import SemiWebpackPlugin, { SemiWebpackPluginOptions } from '@douyinfe/semi-webpack-plugin';
 
-export interface SemiNextOptions {
-    omitCss?: boolean
-}
+export type SemiNextOptions = SemiWebpackPluginOptions;
 
 export default function(options: SemiNextOptions = {}) {
     return (nextConfig: any = {}) => {
         const actualConfig: any = {
             ...nextConfig,
             webpack(config: any, { isServer, webpack, ...rest }: any) {
+                const { omitCss = true, webpackContext, ...restOptions } = options;
                 config.plugins.push(new SemiWebpackPlugin({
-                    omitCss: options.omitCss === undefined ? true : options.omitCss,
+                    omitCss,
+                    ...restOptions,
+                    // Ensure SemiWebpackPlugin can access NormalModule under Next.
+                    // Keep backward compatible with user-provided webpackContext.
                     webpackContext: {
+                        ...webpackContext,
                         NormalModule: webpack.NormalModule
-                    }
+                    },
                 }));
                 if (isServer) {
                     if (
