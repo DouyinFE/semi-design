@@ -45,7 +45,17 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
 
     static propTypes = {
         align: PropTypes.oneOf(['leftRight', 'leftAlign']),
-        chats: PropTypes.array,
+        chats: PropTypes.arrayOf(PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            content: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+            output_text: PropTypes.string,
+            role: PropTypes.string.isRequired,
+            name: PropTypes.string,
+            createdAt: PropTypes.number,
+            updatedAt: PropTypes.number,
+            model: PropTypes.string,
+            status: PropTypes.string,
+        })),
         className: PropTypes.string,
         disabledFileItemClick: PropTypes.bool,
         hints: PropTypes.arrayOf(PropTypes.string),
