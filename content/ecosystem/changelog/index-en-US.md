@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.92.2 (2026-03-04)
+- 【Fix】
+    - Fix `@douyinfe/semi-ui/react19-adapter` import failure due to missing exports declaration in package.json
+    - Fix compilation failure caused by missing `@douyinfe/semi-illustrations` path mapping in `packages/semi-ui/tsconfig.json`
+
 #### 🎉 2.92.1 (2026-03-04)
 - 【Fix】
     - Align AIChatDialogue PropTypes with TypeScript interface definition [#3141](https://github.com/DouyinFE/semi-design/pull/3141)

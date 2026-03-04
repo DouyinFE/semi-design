@@ -14,6 +14,11 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.92.2 (2026-03-04)
+- 【Fix】
+    - 修复 `@douyinfe/semi-ui/react19-adapter` 因 package.json exports 缺少声明导致无法导入的问题
+    - 修复 `packages/semi-ui/tsconfig.json` 缺少 `@douyinfe/semi-illustrations` 路径映射导致编译失败的问题
+
 #### 🎉 2.92.1 (2026-03-04)
 - 【Fix】
     - 修复 AIChatDialogue PropTypes 与 TypeScript 类型定义不一致的问题 [#3141](https://github.com/DouyinFE/semi-design/pull/3141)

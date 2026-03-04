@@ -127,9 +127,21 @@ function generateExports() {
         }
     };
 
+    // 添加顶层快捷导出（如 react19-adapter）
+    const shortcutExports = {};
+    const react19AdapterJs = path.join(libEsPath, 'react19-adapter.js');
+    if (fs.existsSync(react19AdapterJs)) {
+        shortcutExports['./react19-adapter'] = {
+            types: './lib/es/react19-adapter.d.ts',
+            import: './lib/es/react19-adapter.js',
+            require: './lib/cjs/react19-adapter.js'
+        };
+    }
+
     // 合并所有 exports
     const allExports = {
         ...mainExports,
+        ...shortcutExports,
         ...exports,
         ...cssExports
     };

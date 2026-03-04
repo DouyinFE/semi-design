@@ -56,6 +56,10 @@
                 "lib/es/_utils/index.d.ts",
                 "lib/es/_utils/index"
             ],
+            "lib/es/_utils/reactRender": [
+                "lib/es/_utils/reactRender.d.ts",
+                "lib/es/_utils/reactRender"
+            ],
             "lib/es/_utils/semi-global": [
                 "lib/es/_utils/semi-global.d.ts",
                 "lib/es/_utils/semi-global"
@@ -1488,6 +1492,10 @@
                 "lib/es/rating/item.d.ts",
                 "lib/es/rating/item"
             ],
+            "lib/es/react19-adapter": [
+                "lib/es/react19-adapter.d.ts",
+                "lib/es/react19-adapter"
+            ],
             "lib/es/resizable": [
                 "lib/es/resizable/index.d.ts",
                 "lib/es/resizable/index"
@@ -1563,6 +1571,70 @@
             "lib/es/select/virtualRow": [
                 "lib/es/select/virtualRow.d.ts",
                 "lib/es/select/virtualRow"
+            ],
+            "lib/es/sideBar": [
+                "lib/es/sideBar/index.d.ts",
+                "lib/es/sideBar/index"
+            ],
+            "lib/es/sideBar/annotation": [
+                "lib/es/sideBar/annotation/index.d.ts",
+                "lib/es/sideBar/annotation/index"
+            ],
+            "lib/es/sideBar/annotation/content": [
+                "lib/es/sideBar/annotation/content.d.ts",
+                "lib/es/sideBar/annotation/content"
+            ],
+            "lib/es/sideBar/annotation/index": [
+                "lib/es/sideBar/annotation/index.d.ts",
+                "lib/es/sideBar/annotation/index"
+            ],
+            "lib/es/sideBar/annotation/item": [
+                "lib/es/sideBar/annotation/item.d.ts",
+                "lib/es/sideBar/annotation/item"
+            ],
+            "lib/es/sideBar/container": [
+                "lib/es/sideBar/container/index.d.ts",
+                "lib/es/sideBar/container/index"
+            ],
+            "lib/es/sideBar/container/index": [
+                "lib/es/sideBar/container/index.d.ts",
+                "lib/es/sideBar/container/index"
+            ],
+            "lib/es/sideBar/index": [
+                "lib/es/sideBar/index.d.ts",
+                "lib/es/sideBar/index"
+            ],
+            "lib/es/sideBar/interface": [
+                "lib/es/sideBar/interface.d.ts",
+                "lib/es/sideBar/interface"
+            ],
+            "lib/es/sideBar/mcpConfigure": [
+                "lib/es/sideBar/mcpConfigure/index.d.ts",
+                "lib/es/sideBar/mcpConfigure/index"
+            ],
+            "lib/es/sideBar/mcpConfigure/content": [
+                "lib/es/sideBar/mcpConfigure/content.d.ts",
+                "lib/es/sideBar/mcpConfigure/content"
+            ],
+            "lib/es/sideBar/mcpConfigure/index": [
+                "lib/es/sideBar/mcpConfigure/index.d.ts",
+                "lib/es/sideBar/mcpConfigure/index"
+            ],
+            "lib/es/sideBar/options": [
+                "lib/es/sideBar/options.d.ts",
+                "lib/es/sideBar/options"
+            ],
+            "lib/es/sideBar/widget/code": [
+                "lib/es/sideBar/widget/code.d.ts",
+                "lib/es/sideBar/widget/code"
+            ],
+            "lib/es/sideBar/widget/file": [
+                "lib/es/sideBar/widget/file.d.ts",
+                "lib/es/sideBar/widget/file"
+            ],
+            "lib/es/sideBar/widget/imageSlot": [
+                "lib/es/sideBar/widget/imageSlot.d.ts",
+                "lib/es/sideBar/widget/imageSlot"
             ],
             "lib/es/sideSheet": [
                 "lib/es/sideSheet/index.d.ts",
@@ -2098,6 +2170,11 @@
             "import": "./lib/es/index.js",
             "require": "./lib/cjs/index.js"
         },
+        "./react19-adapter": {
+            "types": "./lib/es/react19-adapter.d.ts",
+            "import": "./lib/es/react19-adapter.js",
+            "require": "./lib/cjs/react19-adapter.js"
+        },
         "./lib/es/_base/base.css": {
             "import": "./lib/es/_base/base.css",
             "require": "./lib/cjs/_base/base.css",
@@ -2222,6 +2299,18 @@
             "import": "./lib/es/_utils/index.js",
             "require": "./lib/cjs/_utils/index.js",
             "default": "./lib/es/_utils/index.js"
+        },
+        "./lib/es/_utils/reactRender.js": {
+            "types": "./lib/es/_utils/reactRender.d.ts",
+            "import": "./lib/es/_utils/reactRender.js",
+            "require": "./lib/cjs/_utils/reactRender.js",
+            "default": "./lib/es/_utils/reactRender.js"
+        },
+        "./lib/es/_utils/reactRender": {
+            "types": "./lib/es/_utils/reactRender.d.ts",
+            "import": "./lib/es/_utils/reactRender.js",
+            "require": "./lib/cjs/_utils/reactRender.js",
+            "default": "./lib/es/_utils/reactRender.js"
         },
         "./lib/es/_utils/semi-global.js": {
             "types": "./lib/es/_utils/semi-global.d.ts",
@@ -6099,6 +6188,18 @@
             "require": "./lib/cjs/rating/item.js",
             "default": "./lib/es/rating/item.js"
         },
+        "./lib/es/react19-adapter.js": {
+            "types": "./lib/es/react19-adapter.d.ts",
+            "import": "./lib/es/react19-adapter.js",
+            "require": "./lib/cjs/react19-adapter.js",
+            "default": "./lib/es/react19-adapter.js"
+        },
+        "./lib/es/react19-adapter": {
+            "types": "./lib/es/react19-adapter.d.ts",
+            "import": "./lib/es/react19-adapter.js",
+            "require": "./lib/cjs/react19-adapter.js",
+            "default": "./lib/es/react19-adapter.js"
+        },
         "./lib/es/resizable": {
             "types": "./lib/es/resizable/index.d.ts",
             "import": "./lib/es/resizable/index.js",
@@ -6302,6 +6403,174 @@
             "import": "./lib/es/select/virtualRow.js",
             "require": "./lib/cjs/select/virtualRow.js",
             "default": "./lib/es/select/virtualRow.js"
+        },
+        "./lib/es/sideBar": {
+            "types": "./lib/es/sideBar/index.d.ts",
+            "import": "./lib/es/sideBar/index.js",
+            "require": "./lib/cjs/sideBar/index.js",
+            "default": "./lib/es/sideBar/index.js"
+        },
+        "./lib/es/sideBar/annotation": {
+            "types": "./lib/es/sideBar/annotation/index.d.ts",
+            "import": "./lib/es/sideBar/annotation/index.js",
+            "require": "./lib/cjs/sideBar/annotation/index.js",
+            "default": "./lib/es/sideBar/annotation/index.js"
+        },
+        "./lib/es/sideBar/annotation/content.js": {
+            "types": "./lib/es/sideBar/annotation/content.d.ts",
+            "import": "./lib/es/sideBar/annotation/content.js",
+            "require": "./lib/cjs/sideBar/annotation/content.js",
+            "default": "./lib/es/sideBar/annotation/content.js"
+        },
+        "./lib/es/sideBar/annotation/content": {
+            "types": "./lib/es/sideBar/annotation/content.d.ts",
+            "import": "./lib/es/sideBar/annotation/content.js",
+            "require": "./lib/cjs/sideBar/annotation/content.js",
+            "default": "./lib/es/sideBar/annotation/content.js"
+        },
+        "./lib/es/sideBar/annotation/index.js": {
+            "types": "./lib/es/sideBar/annotation/index.d.ts",
+            "import": "./lib/es/sideBar/annotation/index.js",
+            "require": "./lib/cjs/sideBar/annotation/index.js",
+            "default": "./lib/es/sideBar/annotation/index.js"
+        },
+        "./lib/es/sideBar/annotation/index": {
+            "types": "./lib/es/sideBar/annotation/index.d.ts",
+            "import": "./lib/es/sideBar/annotation/index.js",
+            "require": "./lib/cjs/sideBar/annotation/index.js",
+            "default": "./lib/es/sideBar/annotation/index.js"
+        },
+        "./lib/es/sideBar/annotation/item.js": {
+            "types": "./lib/es/sideBar/annotation/item.d.ts",
+            "import": "./lib/es/sideBar/annotation/item.js",
+            "require": "./lib/cjs/sideBar/annotation/item.js",
+            "default": "./lib/es/sideBar/annotation/item.js"
+        },
+        "./lib/es/sideBar/annotation/item": {
+            "types": "./lib/es/sideBar/annotation/item.d.ts",
+            "import": "./lib/es/sideBar/annotation/item.js",
+            "require": "./lib/cjs/sideBar/annotation/item.js",
+            "default": "./lib/es/sideBar/annotation/item.js"
+        },
+        "./lib/es/sideBar/container": {
+            "types": "./lib/es/sideBar/container/index.d.ts",
+            "import": "./lib/es/sideBar/container/index.js",
+            "require": "./lib/cjs/sideBar/container/index.js",
+            "default": "./lib/es/sideBar/container/index.js"
+        },
+        "./lib/es/sideBar/container/index.js": {
+            "types": "./lib/es/sideBar/container/index.d.ts",
+            "import": "./lib/es/sideBar/container/index.js",
+            "require": "./lib/cjs/sideBar/container/index.js",
+            "default": "./lib/es/sideBar/container/index.js"
+        },
+        "./lib/es/sideBar/container/index": {
+            "types": "./lib/es/sideBar/container/index.d.ts",
+            "import": "./lib/es/sideBar/container/index.js",
+            "require": "./lib/cjs/sideBar/container/index.js",
+            "default": "./lib/es/sideBar/container/index.js"
+        },
+        "./lib/es/sideBar/index.js": {
+            "types": "./lib/es/sideBar/index.d.ts",
+            "import": "./lib/es/sideBar/index.js",
+            "require": "./lib/cjs/sideBar/index.js",
+            "default": "./lib/es/sideBar/index.js"
+        },
+        "./lib/es/sideBar/index": {
+            "types": "./lib/es/sideBar/index.d.ts",
+            "import": "./lib/es/sideBar/index.js",
+            "require": "./lib/cjs/sideBar/index.js",
+            "default": "./lib/es/sideBar/index.js"
+        },
+        "./lib/es/sideBar/interface.js": {
+            "types": "./lib/es/sideBar/interface.d.ts",
+            "import": "./lib/es/sideBar/interface.js",
+            "require": "./lib/cjs/sideBar/interface.js",
+            "default": "./lib/es/sideBar/interface.js"
+        },
+        "./lib/es/sideBar/interface": {
+            "types": "./lib/es/sideBar/interface.d.ts",
+            "import": "./lib/es/sideBar/interface.js",
+            "require": "./lib/cjs/sideBar/interface.js",
+            "default": "./lib/es/sideBar/interface.js"
+        },
+        "./lib/es/sideBar/mcpConfigure": {
+            "types": "./lib/es/sideBar/mcpConfigure/index.d.ts",
+            "import": "./lib/es/sideBar/mcpConfigure/index.js",
+            "require": "./lib/cjs/sideBar/mcpConfigure/index.js",
+            "default": "./lib/es/sideBar/mcpConfigure/index.js"
+        },
+        "./lib/es/sideBar/mcpConfigure/content.js": {
+            "types": "./lib/es/sideBar/mcpConfigure/content.d.ts",
+            "import": "./lib/es/sideBar/mcpConfigure/content.js",
+            "require": "./lib/cjs/sideBar/mcpConfigure/content.js",
+            "default": "./lib/es/sideBar/mcpConfigure/content.js"
+        },
+        "./lib/es/sideBar/mcpConfigure/content": {
+            "types": "./lib/es/sideBar/mcpConfigure/content.d.ts",
+            "import": "./lib/es/sideBar/mcpConfigure/content.js",
+            "require": "./lib/cjs/sideBar/mcpConfigure/content.js",
+            "default": "./lib/es/sideBar/mcpConfigure/content.js"
+        },
+        "./lib/es/sideBar/mcpConfigure/index.js": {
+            "types": "./lib/es/sideBar/mcpConfigure/index.d.ts",
+            "import": "./lib/es/sideBar/mcpConfigure/index.js",
+            "require": "./lib/cjs/sideBar/mcpConfigure/index.js",
+            "default": "./lib/es/sideBar/mcpConfigure/index.js"
+        },
+        "./lib/es/sideBar/mcpConfigure/index": {
+            "types": "./lib/es/sideBar/mcpConfigure/index.d.ts",
+            "import": "./lib/es/sideBar/mcpConfigure/index.js",
+            "require": "./lib/cjs/sideBar/mcpConfigure/index.js",
+            "default": "./lib/es/sideBar/mcpConfigure/index.js"
+        },
+        "./lib/es/sideBar/options.js": {
+            "types": "./lib/es/sideBar/options.d.ts",
+            "import": "./lib/es/sideBar/options.js",
+            "require": "./lib/cjs/sideBar/options.js",
+            "default": "./lib/es/sideBar/options.js"
+        },
+        "./lib/es/sideBar/options": {
+            "types": "./lib/es/sideBar/options.d.ts",
+            "import": "./lib/es/sideBar/options.js",
+            "require": "./lib/cjs/sideBar/options.js",
+            "default": "./lib/es/sideBar/options.js"
+        },
+        "./lib/es/sideBar/widget/code.js": {
+            "types": "./lib/es/sideBar/widget/code.d.ts",
+            "import": "./lib/es/sideBar/widget/code.js",
+            "require": "./lib/cjs/sideBar/widget/code.js",
+            "default": "./lib/es/sideBar/widget/code.js"
+        },
+        "./lib/es/sideBar/widget/code": {
+            "types": "./lib/es/sideBar/widget/code.d.ts",
+            "import": "./lib/es/sideBar/widget/code.js",
+            "require": "./lib/cjs/sideBar/widget/code.js",
+            "default": "./lib/es/sideBar/widget/code.js"
+        },
+        "./lib/es/sideBar/widget/file.js": {
+            "types": "./lib/es/sideBar/widget/file.d.ts",
+            "import": "./lib/es/sideBar/widget/file.js",
+            "require": "./lib/cjs/sideBar/widget/file.js",
+            "default": "./lib/es/sideBar/widget/file.js"
+        },
+        "./lib/es/sideBar/widget/file": {
+            "types": "./lib/es/sideBar/widget/file.d.ts",
+            "import": "./lib/es/sideBar/widget/file.js",
+            "require": "./lib/cjs/sideBar/widget/file.js",
+            "default": "./lib/es/sideBar/widget/file.js"
+        },
+        "./lib/es/sideBar/widget/imageSlot.js": {
+            "types": "./lib/es/sideBar/widget/imageSlot.d.ts",
+            "import": "./lib/es/sideBar/widget/imageSlot.js",
+            "require": "./lib/cjs/sideBar/widget/imageSlot.js",
+            "default": "./lib/es/sideBar/widget/imageSlot.js"
+        },
+        "./lib/es/sideBar/widget/imageSlot": {
+            "types": "./lib/es/sideBar/widget/imageSlot.d.ts",
+            "import": "./lib/es/sideBar/widget/imageSlot.js",
+            "require": "./lib/cjs/sideBar/widget/imageSlot.js",
+            "default": "./lib/es/sideBar/widget/imageSlot.js"
         },
         "./lib/es/sideSheet": {
             "types": "./lib/es/sideSheet/index.d.ts",
