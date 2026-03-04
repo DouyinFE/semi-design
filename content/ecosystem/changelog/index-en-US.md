@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.92.1 (2026-03-04)
+- 【Fix】
+    - Align AIChatDialogue PropTypes with TypeScript interface definition [#3141](https://github.com/DouyinFE/semi-design/pull/3141)
+
 #### 🎉 2.92.0 (2026-03-03)
 - 【Feat】
     - Unified React 19 support with adapter pattern, React 19 users only need to import `@douyinfe/semi-ui/react19-adapter` [#3140](https://github.com/DouyinFE/semi-design/pull/3140)
