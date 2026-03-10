@@ -289,6 +289,26 @@ import { TextArea } from '@douyinfe/semi-ui';
 );
 ```
 
+### Line Numbers
+
+Set `showLineNumber` to display line numbers. You can use `lineNumberStart` to set the starting line number, and customize the line number area via `lineNumberStyle`/`lineNumberClassName`.
+
+```jsx live=true
+import React from 'react';
+import { TextArea } from '@douyinfe/semi-ui';
+
+() => (
+    <TextArea
+        showLineNumber
+        lineNumberStart={1}
+        defaultValue={'Line 1\nLine 2\nThis is a long line to demonstrate soft wrap alignment with line numbers.\nLine 4\nLine 5'}
+        rows={5}
+        style={{ width: 420 }}
+        lineNumberStyle={{ color: 'var(--semi-color-text-2)' }}
+    />
+);
+```
+
 ### Line break by Shift + Enter
 By default, in a TextArea, both `Enter` and `Shift` + `Enter` can achieve line breaks.
 Through appropriate event listening and disabling the default behavior, you can achieve disabling line breaks with Enter and only allowing line breaks with Shift + Enter.
@@ -482,6 +502,10 @@ Answers to some questions:
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | readonly          | Read-only, not editable                                                                                                | boolean                         | false   |
 | rows              | The number of visible text lines for the control.                                                                      | number                          | 4       |
+| showLineNumber     | Whether to display line numbers                                                                                        | boolean                         | false   |
+| lineNumberStart    | Starting line number                                                                                                   | number                          | 1       |
+| lineNumberClassName | ClassName for line number area                                                                                        | string                          | -       |
+| lineNumberStyle    | Style for line number area                                                                                              | CSSProperties                   | -       |
 | showClear         | Display the clear button when the input box has content and hover or focus                                                                                         | boolean                         | false   |
 | style             | Inline style                                                                                                           | CSSProperties                   | -       |
 | onBlur            | Callback invoked when input loses focus                                                                                | (e:event) => void               | -       |
