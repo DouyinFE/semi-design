@@ -229,4 +229,56 @@ $module: #{$prefix}-input;
 
 }
 
+// Line number styles
+.#{$module}-textarea-wrapper-withLineNumber {
+    display: flex;
+    padding: 0;
+    align-items: flex-start;
+
+    .#{$module}-textarea-lineNumber {
+        flex-shrink: 0;
+        padding: $spacing-textarea-paddingY $spacing-textarea-paddingX;
+        background-color: var(--semi-color-fill-1);
+        border-right: 1px solid var(--semi-color-border);
+        color: var(--semi-color-text-2);
+        // Use common monospace font stack for better alignment
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: inherit;
+        line-height: 1.5;
+        text-align: right;
+        user-select: none;
+        min-width: 36px;
+        border-radius: $radius-input_wrapper 0 0 $radius-input_wrapper;
+        // Allow scrolling but hide scrollbar
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: none; // Firefox
+        -ms-overflow-style: none; // IE 10+
+        &::-webkit-scrollbar {
+            display: none; // Chrome, Safari, Edge
+        }
+    }
+
+    // Content wrapper for textarea to participate in flex layout
+    .#{$module}-textarea-content {
+        display: flex;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .#{$module}-textarea-lineNumber-item {
+        display: flex;
+        // Align to the first visual line when soft-wrapping
+        align-items: flex-start;
+        justify-content: flex-end;
+        box-sizing: border-box;
+    }
+
+    .#{$module}-textarea {
+        border-radius: 0 $radius-input_wrapper $radius-input_wrapper 0;
+        line-height: 1.5;
+        flex: 1;
+    }
+}
+
 @import "./rtl.scss";
