@@ -302,7 +302,7 @@ import { TextArea } from '@douyinfe/semi-ui';
         showLineNumber
         lineNumberStart={1}
         defaultValue={'Line 1\nLine 2\nThis is a long line to demonstrate soft wrap alignment with line numbers.\nLine 4\nLine 5'}
-        rows={5}
+        rows={12}
         style={{ width: 420 }}
         lineNumberStyle={{ color: 'var(--semi-color-text-2)' }}
     />
