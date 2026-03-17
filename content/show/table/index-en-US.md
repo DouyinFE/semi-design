@@ -1621,6 +1621,128 @@ function App() {
 render(App);
 ```
 
+### Filter Confirm Mode
+
+By setting `filterConfirmMode='confirm'`, the filter dropdown panel can support confirm mode. In this mode:
+
+-   Clicking filter items will not take effect immediately, but will be temporarily stored
+-   The bottom of the dropdown panel will show "Confirm" and "Reset" buttons
+-   Clicking the "Confirm" button will apply the filter conditions and close the dropdown panel
+-   Clicking the "Reset" button will restore to the initial state when the dropdown was opened (will not close the panel)
+
+This feature is suitable for scenarios where multiple filter conditions need to be selected before applying them at once, avoiding triggering filtering on every click.
+
+```jsx live=true noInline=true dir="column"
+import React, { useState, useEffect } from 'react';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
+
+function App() {
+    const [dataSource, setData] = useState([]);
+
+    const DAY = 24 * 60 * 60 * 1000;
+    const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'name',
+            width: 300,
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                        {text}
+                    </div>
+                );
+            },
+            filters: [
+                {
+                    text: 'Semi Design',
+                    value: 'Semi Design',
+                },
+                {
+                    text: 'Semi Pro',
+                    value: 'Semi Pro',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            filterMultiple: true,
+            // Enable filter confirm mode
+            filterConfirmMode: 'confirm',
+        },
+        {
+            title: 'Size',
+            dataIndex: 'size',
+            sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+            render: text => `${text} KB`,
+        },
+        {
+            title: 'Owner',
+            dataIndex: 'owner',
+            filters: [
+                {
+                    text: 'Jiang Pengzhi',
+                    value: 'Jiang Pengzhi',
+                },
+                {
+                    text: 'Hao Xuan',
+                    value: 'Hao Xuan',
+                },
+            ],
+            onFilter: (value, record) => record.owner.includes(value),
+            filterMultiple: true,
+            // Enable filter confirm mode
+            filterConfirmMode: 'confirm',
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                            {typeof text === 'string' && text.slice(0, 1)}
+                        </Avatar>
+                        {text}
+                    </div>
+                );
+            },
+        },
+        {
+            title: 'Update Date',
+            dataIndex: 'updateTime',
+            sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+            render: value => {
+                return dateFns.format(new Date(value), 'yyyy-MM-dd');
+            },
+        },
+    ];
+
+    const getData = () => {
+        const data = [];
+        for (let i = 0; i < 20; i++) {
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            data.push({
+                key: '' + i,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro homepage${i}.fig`,
+                owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+                size: randomNumber,
+                updateTime: new Date('2024-01-25').valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red',
+            });
+        }
+        return data;
+    };
+
+    useEffect(() => {
+        const data = getData();
+        setData(data);
+    }, []);
+
+    return <Table columns={columns} dataSource={dataSource} />;
+}
+
+render(App);
+```
+
 ### Custom Filter Item Rendering
 
 It is supported to pass in `renderFilterDropdownItem` to customize the rendering method of each filter item.
@@ -5408,6 +5530,7 @@ import { Table } from '@douyinfe/semi-ui';
 | filterDropdownVisible | Visible of Dropdown, see more in [Dropdown API](/en-US/show/dropdown#Dropdown) | boolean |  |
 | filterIcon | Custom filter icon | boolean\|ReactNode\|(filtered: boolean) => ReactNode |  |
 | filterMultiple | Whether to choose more | boolean | true |
+| filterConfirmMode | Filter confirm mode. `immediate` means filter immediately when clicking option; `confirm` means filter after clicking confirm button, and the dropdown panel will show confirm and reset buttons at the bottom | 'immediate' \| 'confirm' | 'immediate' |
 | filteredValue | Controlled property of the filter, the filter state of the external control column with a value of the screened value array | any[] |  |
 | filters | Filter menu items for the header | Filter[] |  |
 | fixed | Whether the column is fixed, optional true (equivalent to left) 'left' 'right' | boolean\|string | false |
