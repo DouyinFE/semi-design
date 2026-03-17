@@ -539,6 +539,141 @@ import { IconUpload, IconDownload, IconEyeOpened, IconDelete } from '@douyinfe/s
 };
 ```
 
+### Custom file list title
+
+When `listType` is `list`, you can customize the title area at the top of the file list through `fileListTitle`. Two forms are supported:
+
+#### String or ReactNode form
+
+When passing a string or ReactNode, only the title text is replaced, and the clear button retains its default style:
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://api.semi.design/upload';
+
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'document.pdf',
+            status: 'success',
+            size: '130KB',
+        },
+        {
+            uid: '2',
+            name: 'report.xlsx',
+            status: 'success',
+            size: '222KB',
+        },
+    ];
+
+    return (
+        <>
+            <Upload 
+                action={action} 
+                defaultFileList={defaultFileList} 
+                fileListTitle="Uploaded files"
+                style={{ marginBottom: 20 }}
+            >
+                <Button icon={<IconUpload />} theme="light">Custom title text</Button>
+            </Upload>
+            <Upload 
+                action={action} 
+                defaultFileList={defaultFileList} 
+                fileListTitle={<span style={{ color: 'var(--semi-color-primary)', fontWeight: 600 }}>📁 Important files</span>}
+            >
+                <Button icon={<IconUpload />} theme="light">Title with styles</Button>
+            </Upload>
+        </>
+    );
+};
+```
+
+#### Function form
+
+When passing a function, you can fully customize the title area, including the clear button. The function receives the following parameters:
+- `fileList`: Current file list
+- `onClear`: Callback function to clear files
+- `clearText`: Default text for the clear button (based on current locale)
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload, IconClose } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://api.semi.design/upload';
+
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'document.pdf',
+            status: 'success',
+            size: '130KB',
+        },
+        {
+            uid: '2',
+            name: 'report.xlsx',
+            status: 'success',
+            size: '222KB',
+        },
+    ];
+
+    return (
+        <>
+            <Upload 
+                action={action} 
+                defaultFileList={defaultFileList} 
+                style={{ marginBottom: 20 }}
+                fileListTitle={({ fileList, onClear, clearText }) => (
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                        <span style={{ color: 'var(--semi-color-primary)' }}>
+                            📂 {fileList.length} files total
+                        </span>
+                        <Button 
+                            size="small" 
+                            type="danger" 
+                            icon={<IconClose />}
+                            onClick={onClear}
+                        >
+                            {clearText}
+                        </Button>
+                    </div>
+                )}
+            >
+                <Button icon={<IconUpload />} theme="light">Custom clear button style</Button>
+            </Upload>
+            <Upload 
+                action={action} 
+                defaultFileList={defaultFileList} 
+                fileListTitle={({ fileList, onClear }) => (
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                        <span>
+                            Selected <strong style={{ color: 'var(--semi-color-danger)' }}>{fileList.length}</strong> files
+                        </span>
+                        <span 
+                            onClick={onClear}
+                            style={{ 
+                                cursor: 'pointer', 
+                                color: 'var(--semi-color-link)',
+                                fontSize: 12
+                            }}
+                        >
+                            Remove all
+                        </span>
+                    </div>
+                )}
+            >
+                <Button icon={<IconUpload />} theme="light">Fully customized title area</Button>
+            </Upload>
+        </>
+    );
+};
+```
+
 ### Custom preview logic
 
 When `listType` is list, the preview logic can be implemented by passing in `previewFile`.  
@@ -1379,6 +1514,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |dragSubText | Drag area help text | ReactNode |'' | - |
 |draggable | Whether to support drag and drop upload | boolean | false | - |
 |fileList | A list of uploaded files. When this value is passed in, upload is a controlled component | Array<FileItem\> | | - |
+|fileListTitle | Customize the file list title area. Two forms are supported:<br/>1. When passing a ReactNode, only the title text is replaced, and the clear button retains its default style<br/>2. When passing a function, you can fully customize the title area (including the clear button). The function parameters are `{ fileList, onClear, clearText }` | ReactNode \| (props: RenderFileListTitleProps) => ReactNode | | 2.75.0 |
 |fileName | has the same function as name and is mainly used in Form.Upload. In order to avoid conflicts with the props.name of Field, a renamed props is provided here | string | | - |
 |headers | The headers attached to the upload or the method to return the uploaded additional headers| object\|(file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) = > object | {} | |
 |hotSpotLocation | 照片墙点击热区的放置位置，可选值 `start`, `end` | string | 'end' | 2.5.0 |
@@ -1461,6 +1597,18 @@ interface FileItem {
     uid: string, // The unique identifier of the file. If the current file is selected and added by upload, the uid will be automatically generated. If it is defaultFileList, you need to ensure that it will not be repeated
     url: string,
     validateMessage?: ReactNode | string,
+}
+```
+
+### RenderFileListTitleProps Interface
+
+The parameter type when `fileListTitle` is passed as a function:
+
+```ts
+interface RenderFileListTitleProps {
+    fileList: Array<FileItem>;  // Current file list
+    onClear: () => void;        // Callback function to clear files
+    clearText: string;          // Default text for the clear button (based on current locale)
 }
 ```
 

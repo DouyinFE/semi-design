@@ -67,3 +67,9 @@ export interface RenderPictureCloseProps {
     className: string;
     remove: (e: MouseEvent) => void
 }
+
+export interface RenderFileListTitleProps {
+    fileList: Array<FileItem>;
+    onClear: () => void;
+    clearText: string;
+}

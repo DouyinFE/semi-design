@@ -541,6 +541,141 @@ import { IconUpload, IconDownload, IconEyeOpened, IconDelete } from '@douyinfe/s
 };
 ```
 
+### 自定义文件列表标题
+
+`listType` 为 `list` 时，可以通过 `fileListTitle` 自定义文件列表顶部的标题区域。支持两种形式：
+
+#### 字符串或 ReactNode 形式
+
+当传入字符串或 ReactNode 时，仅替换标题文字，清空按钮保持默认样式：
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://api.semi.design/upload';
+
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'document.pdf',
+            status: 'success',
+            size: '130KB',
+        },
+        {
+            uid: '2',
+            name: 'report.xlsx',
+            status: 'success',
+            size: '222KB',
+        },
+    ];
+
+    return (
+        <>
+            <Upload 
+                action={action} 
+                defaultFileList={defaultFileList} 
+                fileListTitle="已上传文件"
+                style={{ marginBottom: 20 }}
+            >
+                <Button icon={<IconUpload />} theme="light">自定义标题文字</Button>
+            </Upload>
+            <Upload 
+                action={action} 
+                defaultFileList={defaultFileList} 
+                fileListTitle={<span style={{ color: 'var(--semi-color-primary)', fontWeight: 600 }}>📁 重要文件</span>}
+            >
+                <Button icon={<IconUpload />} theme="light">带样式的标题</Button>
+            </Upload>
+        </>
+    );
+};
+```
+
+#### 函数形式
+
+当传入函数时，可以完全自定义标题区域，包括清空按钮。函数会接收以下参数：
+- `fileList`: 当前文件列表
+- `onClear`: 清空文件的回调函数
+- `clearText`: 清空按钮的默认文案（根据当前语言环境）
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload, IconClose } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://api.semi.design/upload';
+
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'document.pdf',
+            status: 'success',
+            size: '130KB',
+        },
+        {
+            uid: '2',
+            name: 'report.xlsx',
+            status: 'success',
+            size: '222KB',
+        },
+    ];
+
+    return (
+        <>
+            <Upload 
+                action={action} 
+                defaultFileList={defaultFileList} 
+                style={{ marginBottom: 20 }}
+                fileListTitle={({ fileList, onClear, clearText }) => (
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                        <span style={{ color: 'var(--semi-color-primary)' }}>
+                            📂 共 {fileList.length} 个文件
+                        </span>
+                        <Button 
+                            size="small" 
+                            type="danger" 
+                            icon={<IconClose />}
+                            onClick={onClear}
+                        >
+                            {clearText}
+                        </Button>
+                    </div>
+                )}
+            >
+                <Button icon={<IconUpload />} theme="light">自定义清空按钮样式</Button>
+            </Upload>
+            <Upload 
+                action={action} 
+                defaultFileList={defaultFileList} 
+                fileListTitle={({ fileList, onClear }) => (
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                        <span>
+                            已选择 <strong style={{ color: 'var(--semi-color-danger)' }}>{fileList.length}</strong> 个文件
+                        </span>
+                        <span 
+                            onClick={onClear}
+                            style={{ 
+                                cursor: 'pointer', 
+                                color: 'var(--semi-color-link)',
+                                fontSize: 12
+                            }}
+                        >
+                            全部移除
+                        </span>
+                    </div>
+                )}
+            >
+                <Button icon={<IconUpload />} theme="light">完全自定义标题区域</Button>
+            </Upload>
+        </>
+    );
+};
+```
+
 ### 自定义预览逻辑
 
 `listType` 为 `list` 时，可以通过传入 `previewFile` 览逻辑  
@@ -1397,6 +1532,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |dragSubText | 拖拽区帮助文本 | ReactNode | '' |  |
 |draggable | 是否支持拖拽上传 | boolean | false |  |
 |fileList | 已上传的文件列表，传入该值时，upload 即为受控组件 | Array<FileItem\> |  |  |
+|fileListTitle | 自定义文件列表标题区域。支持两种形式：<br/>1. 传入 ReactNode 时，仅替换标题文字，清空按钮保持默认样式<br/>2. 传入函数时，可完全自定义标题区域（包括清空按钮），函数参数为 `{ fileList, onClear, clearText }` | ReactNode \| (props: RenderFileListTitleProps) => ReactNode | | 2.75.0 |
 |fileName | 作用与 name 相同，主要在 Form.Upload 中使用，为了避免与 Field 的 props.name 冲突，此处另外提供一个重命名的 props | string |  | |
 |headers | 上传时附带的 headers 或返回上传额外 headers 的方法 | object\|(file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => object | {} |  |
 |hotSpotLocation | 照片墙点击热区的放置位置，可选值 `start`, `end` | string | 'end' | 2.5.0 |
@@ -1471,6 +1607,18 @@ interface FileItem {
     uid: string, // 文件唯一标识符，如果当前文件是通过upload选中添加的，会自动生成uid。如果是defaultFileList, 需要自行保证不会重复
     url: string,
     validateMessage?: ReactNode | string,
+}
+```
+
+### RenderFileListTitleProps Interface
+
+`fileListTitle` 传入函数时的参数类型：
+
+```ts
+interface RenderFileListTitleProps {
+    fileList: Array<FileItem>;  // 当前文件列表
+    onClear: () => void;        // 清空文件的回调函数
+    clearText: string;          // 清空按钮的默认文案（根据当前语言环境）
 }
 ```
 

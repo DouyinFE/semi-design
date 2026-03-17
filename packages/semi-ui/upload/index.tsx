@@ -19,6 +19,7 @@ import type {
     customRequestArgs,
     CustomError,
     RenderPictureCloseProps,
+    RenderFileListTitleProps,
 } from './interface';
 import { Locale } from '../locale/interface';
 import '@douyinfe/semi-foundation/upload/upload.scss';
@@ -48,6 +49,7 @@ export type {
     CustomError,
     BeforeUploadObjectResult,
     AfterUploadResult,
+    RenderFileListTitleProps,
 };
 
 export interface UploadProps {
@@ -109,6 +111,7 @@ export interface UploadProps {
     renderPicPreviewIcon?: (renderFileItemProps: RenderFileItemProps) => ReactNode;
     renderPicClose?: (renderPicCloseProps: RenderPictureCloseProps) => ReactNode;
     renderFileOperation?: (fileItem: RenderFileItemProps) => ReactNode;
+    fileListTitle?: ReactNode | ((props: RenderFileListTitleProps) => ReactNode);
     showClear?: boolean;
     showPicInfo?: boolean; // Show pic info in picture wall
     showReplace?: boolean; // Display replacement function
@@ -191,6 +194,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         renderPicClose: PropTypes.func,
         renderPicInfo: PropTypes.func,
         renderThumbnail: PropTypes.func,
+        fileListTitle: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
         showClear: PropTypes.bool,
         showPicInfo: PropTypes.bool,
         showReplace: PropTypes.bool,
@@ -561,7 +565,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     };
 
     renderFileListDefault = () => {
-        const { showUploadList, limit, disabled } = this.props;
+        const { showUploadList, limit, disabled, fileListTitle } = this.props;
         const { fileList: stateFileList } = this.state;
         const fileList = this.props.fileList || stateFileList;
         const fileListCls = cls(`${prefixCls}-file-list`);
@@ -579,11 +583,21 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
 
         return (
             <LocaleConsumer componentName="Upload">
-                {(locale: Locale['Upload']) => (
-                    <div {...containerProps}>
-                        {showTitle ? (
-                            <div className={titleCls}>
-                                <span className={`${titleCls}-choosen`}>{locale.selectedFiles}</span>
+                {(locale: Locale['Upload']) => {
+                    let titleContent: ReactNode;
+                    
+                    if (typeof fileListTitle === 'function') {
+                        // 函数形式：用户完全控制标题区域
+                        titleContent = fileListTitle({
+                            fileList,
+                            onClear: this.clear,
+                            clearText: locale.clear,
+                        });
+                    } else {
+                        // ReactNode 或默认值：显示标题文字和清空按钮
+                        titleContent = (
+                            <>
+                                <span className={`${titleCls}-choosen`}>{fileListTitle || locale.selectedFiles}</span>
                                 {showClear ? (
                                     <span
                                         role="button"
@@ -594,14 +608,24 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                                         {locale.clear}
                                     </span>
                                 ) : null}
-                            </div>
-                        ) : null}
+                            </>
+                        );
+                    }
+                    
+                    return (
+                        <div {...containerProps}>
+                            {showTitle ? (
+                                <div className={titleCls}>
+                                    {titleContent}
+                                </div>
+                            ) : null}
 
-                        <div className={mainCls} role="list" aria-label="file list">
-                            {fileList.map((file, index) => this.renderFile(file, index, locale))}
+                            <div className={mainCls} role="list" aria-label="file list">
+                                {fileList.map((file, index) => this.renderFile(file, index, locale))}
+                            </div>
                         </div>
-                    </div>
-                )}
+                    );
+                }}
             </LocaleConsumer>
         );
     };
