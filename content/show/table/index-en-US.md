@@ -5482,6 +5482,7 @@ Note: After pagination.onChange is set, Table onChange no longer responds to pag
 | pageSize           | Number of entries per page                                                                                                                                                                                                                                  | number                                                                                       | 10      |             |
 | position | Location | 'bottom '\|'top '\|'both' | 'bottom' |
 | total | Total number of entries | number | 0 | - |
+| preventPageChangeOnPageSizeChange | Whether to prevent automatic adjustment of currentPage when pageSize changes. By default, when pageSize changes, the component automatically calculates the new currentPage to maintain the current data position. When set to true, the user controls the page change | boolean | false | - |
 
 For other configurations, see [Pagination](/en-US/navigation/pagination#API-Reference)
 
