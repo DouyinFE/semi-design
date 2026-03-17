@@ -1229,6 +1229,62 @@ import { Cascader } from '@douyinfe/semi-ui';
 };
 ```
 
+### 点击选中
+
+在多选模式下，默认情况下点击非叶子节点不会触发选中。你可以通过 `clickToSelect` 开启点击任意节点即选中的功能。
+
+这个 API 在配合 `showNext="hover"` 使用时特别有用：鼠标悬浮展开子菜单，点击则选中当前节点。
+
+```jsx live=true
+import React from 'react';
+import { Cascader } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                    ],
+                },
+            ],
+        }
+    ];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            multiple
+            placeholder="请选择所在地区"
+            showNext="hover"
+            clickToSelect
+        />
+    );
+};
+```
+
 ### 在顶部/底部渲染附加项
 
 我们在级联选择器的顶部、底部分别预留了插槽，你可以通过 `topSlot` 或 `bottomSlot` 来设置。
@@ -1955,6 +2011,7 @@ function Demo() {
 | value                | （受控）选中的条目                                                                                                                                           | string\|number\|CascaderData\|(string\|number\|CascaderData)[]                            | -                              | -      |
 | virtualizeInSearch   | 搜索列表虚拟化，用于大量树节点的情况，由 height, width, itemSize 组成 | Object | - | - | - |
 | zIndex               | 下拉菜单的 zIndex                                                                                                                                        | number                                                                                    | 1030                           | -      |
+| clickToSelect        | 多选时，点击任意节点即可触发选中，常配合 showNext="hover" 使用，悬浮展开子菜单，点击选中当前节点                                                                              | boolean                                                                                   | false                          | -      |
 | enableLeafClick      | 多选时，是否启动点击叶子节点选项触发勾选                                                                                                                                | boolean                                                                                   | false                          | 2.2.0  |
 | onBlur               | 失焦 Cascader 的回调                                                                                                                                     | (e: MouseEvent) => void                                                                   | -                              | -      |
 | onChange | 选中树节点时调用此函数，默认返回选中项 path 的 value 数组                                                                                                                 | (value: string\|number\| CascaderData |(string\|number\|CascaderData)[]) => void | - | - |

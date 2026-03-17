@@ -166,6 +166,7 @@ export interface BasicCascaderProps {
     disableStrictly?: boolean;
     leafOnly?: boolean;
     enableLeafClick?: boolean;
+    clickToSelect?: boolean;
     preventScroll?: boolean;
     virtualizeInSearch?: Virtualize;
     checkRelation?: string;
@@ -734,7 +735,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     }
 
     handleSingleSelect(e: any, item: BasicEntity | BasicData) {
-        const { changeOnSelect: allowChange, filterLeafOnly, multiple, enableLeafClick } = this.getProps();
+        const { changeOnSelect: allowChange, filterLeafOnly, multiple, enableLeafClick, clickToSelect } = this.getProps();
         const { keyEntities, selectedKeys, isSearching } = this.getStates();
         const filterable = this._isFilterable();
         const { data, key } = item;
@@ -745,14 +746,18 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const selectedKey = [key];
         const hasChanged = key !== [...selectedKeys][0];
 
-        if (!isLeaf && !allowChange && !isSearching) {
+        // When clickToSelect is enabled in multiple mode, allow clicking non-leaf nodes to select
+        // In single mode, changeOnSelect (allowChange) controls this behavior
+        if (!isLeaf && !allowChange && !isSearching && !(multiple && clickToSelect)) {
             this._adapter.updateStates({ activeKeys: new Set(activeKeys) });
             this.notifyIfLoadData(item);
             return;
         }
         if (multiple) {
             this._adapter.updateStates({ activeKeys: new Set(activeKeys) });
-            if (isLeaf && enableLeafClick) {
+            // clickToSelect: click any node to select (takes precedence over enableLeafClick)
+            // enableLeafClick: click leaf node to select
+            if (clickToSelect || (isLeaf && enableLeafClick)) {
                 this.onItemCheckboxClick(item);
             }
         } else {
