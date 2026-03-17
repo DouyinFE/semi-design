@@ -198,8 +198,19 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         return {
             ...super.adapter,
             resetScrollY: () => {
-                if (this.bodyWrapRef.current) {
-                    this.bodyWrapRef.current.scrollTop = 0;
+                const { scroll = {} } = this.props;
+                const hasScrollY = Boolean(get(scroll, 'y'));
+
+                if (hasScrollY) {
+                    // When scroll.y is set, scroll the table body container to top
+                    if (this.bodyWrapRef.current) {
+                        this.bodyWrapRef.current.scrollTop = 0;
+                    }
+                } else {
+                    // When scroll.y is not set, scroll the page to the table header
+                    if (this.wrapRef.current) {
+                        this.wrapRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 }
             },
             setSelectedRowKeys: selectedRowKeys => {
@@ -1364,6 +1375,28 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
      * Combine pagination and table paging processing functions
      */
     mergePagination = (pagination: TablePaginationProps) => {
+        const userOnChange = pagination?.onChange;
+        const { scroll } = this.props;
+        const scrollToFirstRowOnChange = get(scroll, 'scrollToFirstRowOnChange');
+        
+        // If scrollToFirstRowOnChange is true, we need to call internal setPage to trigger resetScrollY
+        // Otherwise, use the original behavior (user's onChange may override internal setPage)
+        if (scrollToFirstRowOnChange) {
+            const newPagination = {
+                ...pagination,
+                onChange: (currentPage: number, pageSize: number) => {
+                    // Call internal setPage to ensure resetScrollY is called
+                    this.foundation.setPage(currentPage, pageSize);
+                    // Then call user's onChange if provided
+                    if (typeof userOnChange === 'function') {
+                        userOnChange(currentPage, pageSize);
+                    }
+                },
+            };
+            return newPagination;
+        }
+        
+        // Original behavior: user's onChange may override internal setPage
         const newPagination = { onChange: this.foundation.setPage, ...pagination };
         return newPagination;
     };

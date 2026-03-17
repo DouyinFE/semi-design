@@ -5464,7 +5464,7 @@ type Filter = {
 
 | Parameters               | Instructions                                                                                         | Type           | Default | Version |
 |--------------------------|------------------------------------------------------------------------------------------------------|----------------|---------|---------|
-| scrollToFirstRowOnChange | Whether to automatically scroll to the top of the table after paging, sorting, and filtering changes | boolean        | false   | -   |
+| scrollToFirstRowOnChange | Whether to automatically scroll to the top of the table after paging, sorting, and filtering changes. When `scroll.y` is set, it scrolls the table body to the top; when `scroll.y` is not set, it scrolls the page to the table header position | boolean        | false   | -   |
 | x                        | Set the width of the horizontal scroll area, which can be pixel value, percentage, or 'max-content'  | string\|number |         |         |
 | y                        | Set the height of the vertical scroll area, which can be a pixel value                               | number         |         |         |
 
