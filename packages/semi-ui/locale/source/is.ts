@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Smelltu til að fara niður',
         ascend: 'Smelltu til að fara upp',
         cancelSort: 'Hætta við röðun',
+        confirmFilter: 'Í lagi',
+        resetFilter: 'Frumstilla',
     },
     Select: {
         emptyText: 'Engar niðurstöður',

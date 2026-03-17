@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Klikk for synkende',
         ascend: 'Klikk for stigende',
         cancelSort: 'Avbryt sortering',
+        confirmFilter: 'OK',
+        resetFilter: 'Tilbakestill',
     },
     Select: {
         emptyText: 'Ingen resultater',

@@ -106,6 +106,8 @@ const local: Locale = {
         descend: '내림차순을 보려면 클릭하세요',
         ascend: '오름차순을 보려면 클릭하세요',
         cancelSort: '정렬 취소',
+        confirmFilter: '확인',
+        resetFilter: '초기화',
     },
     Select: {
         emptyText: '결과 없음',

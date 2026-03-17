@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'انقر للهبوط',
         ascend: 'انقر للصعود',
         cancelSort: 'إلغاء الترتيب',
+        confirmFilter: 'موافق',
+        resetFilter: 'إعادة تعيين',
     },
     Select: {
         emptyText: 'لا نتيجة',

@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'I-click para pababa',
         ascend: 'I-click para pataas',
         cancelSort: 'Kanselahin ang pag-sort',
+        confirmFilter: 'OK',
+        resetFilter: 'I-reset',
     },
     Select: {
         emptyText: 'Walang Resulta',

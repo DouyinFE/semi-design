@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Kliko për të zbritur',
         ascend: 'Kliko për të rritur',
         cancelSort: 'Anulo renditjen',
+        confirmFilter: 'OK',
+        resetFilter: 'Poništi',
     },
     Select: {
         emptyText: 'Nuk ka rezultat',

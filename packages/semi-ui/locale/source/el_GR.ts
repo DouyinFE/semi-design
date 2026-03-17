@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Κάντε κλικ για φθίνουσα σειρά',
         ascend: 'Κάντε κλικ για αύξουσα σειρά',
         cancelSort: 'Ακύρωση ταξινόμησης',
+        confirmFilter: 'OK',
+        resetFilter: 'Επαναφορά',
     },
     Select: {
         emptyText: 'Δεν υπάρχουν αποτελέσματα',

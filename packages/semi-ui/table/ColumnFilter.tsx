@@ -10,6 +10,8 @@ import { Radio } from '../radio';
 import { Checkbox } from '../checkbox';
 import Button from '../button';
 import Space from '../space';
+import LocaleConsumer from '../locale/localeConsumer';
+import { Locale } from '../locale/interface';
 import {
     FilterIcon,
     Filter,
@@ -18,7 +20,7 @@ import {
     FilterConfirmMode
 } from './interface';
 
-function renderDropdown(props: RenderDropdownProps, nestedElem: React.ReactNode = null, level = 0) {
+function renderDropdown(props: RenderDropdownProps, nestedElem: React.ReactNode = null, level = 0, locale?: Locale['Table']) {
     const {
         filterMultiple = true,
         filters = [],
@@ -140,7 +142,7 @@ function renderDropdown(props: RenderDropdownProps, nestedElem: React.ReactNode 
 
                         delete childrenDropdownProps.filterDropdownVisible;
 
-                        item = renderDropdown(childrenDropdownProps, item, level + 1);
+                        item = renderDropdown(childrenDropdownProps, item, level + 1, locale);
                     }
                     return item;
                 })}
@@ -152,14 +154,14 @@ function renderDropdown(props: RenderDropdownProps, nestedElem: React.ReactNode 
                             size="small" 
                             onClick={() => reset?.()}
                         >
-                            重置
+                            {locale?.resetFilter || 'Reset'}
                         </Button>
                         <Button 
                             size="small" 
                             theme="solid" 
                             onClick={() => confirm?.({ closeDropdown: true })}
                         >
-                            确定
+                            {locale?.confirmFilter || 'OK'}
                         </Button>
                     </Space>
                 </div>
@@ -308,11 +310,16 @@ export default function ColumnFilter(props: ColumnFilterProps = {}): React.React
         onFilterDropdownVisibleChange: handleFilterDropdownVisibleChange,
     };
 
-    filterDropdown = React.isValidElement<ColumnFilterProps>(filterDropdown) ?
-        filterDropdown :
-        renderDropdown(renderProps, iconElem);
-
-    return filterDropdown;
+    return (
+        <LocaleConsumer componentName="Table">
+            {(locale: Locale['Table']) => {
+                if (React.isValidElement<ColumnFilterProps>(filterDropdown)) {
+                    return filterDropdown;
+                }
+                return renderDropdown(renderProps, iconElem, 0, locale);
+            }}
+        </LocaleConsumer>
+    );
 }
 
 export interface ColumnFilterProps extends Omit<RenderDropdownProps, keyof RenderFilterDropdownProps> {

@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Klik kanggo mudhun',
         ascend: 'Klik kanggo munggah',
         cancelSort: 'Wurungake anggone ngurutake',
+        confirmFilter: 'OK',
+        resetFilter: 'Reset',
     },
     Select: {
         emptyText: 'Ora Ana Asil',

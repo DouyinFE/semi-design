@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'کلیک برای مرتب‌سازی نزولی',
         ascend: 'کلیک برای مرتب‌سازی صعودی',
         cancelSort: 'لغو مرتب‌سازی',
+        confirmFilter: 'تایید',
+        resetFilter: 'بازنشانی',
     },
     Select: {
         emptyText: 'نتیجه‌ای وجود ندارد',

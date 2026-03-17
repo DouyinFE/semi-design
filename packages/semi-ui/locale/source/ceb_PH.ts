@@ -106,6 +106,8 @@ const local: Locale = {
         descend: 'Pindota aron mopaubos',
         ascend: 'Pindota aron mopataas',
         cancelSort: 'Kanselahon ang pag-sort',
+        confirmFilter: 'OK',
+        resetFilter: 'I-reset',
     },
     Select: {
         emptyText: 'Walay Resulta',

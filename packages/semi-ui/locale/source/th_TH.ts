@@ -109,6 +109,8 @@ const local: Locale = {
         descend: 'คลิกเพื่อเรียงจากมากไปหาน้อย',
         ascend: 'คลิกเพื่อเรียงจากน้อยไปหามาก',
         cancelSort: 'ยกเลิกการเรียงลำดับ',
+        confirmFilter: 'ตกลง',
+        resetFilter: 'รีเซ็ต',
     },
     Select: {
         emptyText: 'ไม่มีข้อมูล',

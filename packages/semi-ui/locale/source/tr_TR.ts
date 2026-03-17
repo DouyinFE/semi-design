@@ -112,6 +112,8 @@ const local: Locale = {
         descend: 'Azalan sıralama için tıklayın',
         ascend: 'Artan sıralama için tıklayın',
         cancelSort: 'Sıralamayı iptal et',
+        confirmFilter: 'Tamam',
+        resetFilter: 'Sıfırla',
     
     },
     Select: { emptyText: 'Henüz veri yok', createText: 'Oluştur' },
