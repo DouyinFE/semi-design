@@ -173,6 +173,11 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             notifyCompositionEnd: (e: React.CompositionEvent<HTMLTextAreaElement>) => this.props.onCompositionEnd(e),
             notifyCompositionUpdate: (e: React.CompositionEvent<HTMLTextAreaElement>) => this.props.onCompositionUpdate(e),
             setMinLength: (minLength: number) => this.setState({ minLength }),
+            focusInput: () => {
+                const textarea = this.libRef && this.libRef.current;
+                textarea && textarea.focus();
+            },
+            isEventTarget: (e: React.MouseEvent) => e && e.target === e.currentTarget,
         };
     }
 
@@ -207,6 +212,14 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         this.foundation.handleClear(e);
     };
 
+    handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        this.foundation.handleClick(e);
+    };
+
+    handleCounterClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        this.foundation.handleCounterClick(e);
+    };
+
     renderClearBtn() {
         const { showClear } = this.props;
         const displayClearBtn = this.foundation.isAllowClear();
@@ -236,7 +249,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
                 [`${prefixCls}-textarea-counter-exceed`]: current > total,
             });
             counter = (
-                <div className={countCls}>
+                <div className={countCls} onClick={this.handleCounterClick}>
                     {current}
                     {total ? '/' : null}
                     {total}
@@ -327,6 +340,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
                 style={style}
                 onMouseEnter={e => this.foundation.handleMouseEnter(e)}
                 onMouseLeave={e => this.foundation.handleMouseLeave(e)}
+                onClick={e => this.handleClick(e)}
             >
                 {autosize ? (
                     <ResizeObserver onResize={this.throttledResizeTextarea}>
