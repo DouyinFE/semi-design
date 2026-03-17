@@ -35,7 +35,8 @@ import {
     FormRating,
     FormAutoComplete,
     FormUpload,
-    FormTagInput } from './field';
+    FormTagInput,
+    FormPinCode } from './field';
 import {
     BaseFormProps,
     FormState,
@@ -119,6 +120,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
     static AutoComplete = FormAutoComplete;
     static Upload = FormUpload;
     static TagInput = FormTagInput;
+    static PinCode = FormPinCode;
 
     static Slot = Slot;
     static ErrorMessage = ErrorMessage;

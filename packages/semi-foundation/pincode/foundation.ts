@@ -5,7 +5,7 @@ export interface PinCodeBaseProps {
     disabled?: boolean;
     value?: string;
     format?: "number" | "mixed" | RegExp | ((value: string) => boolean);
-    onChange: (value: string) => void;
+    onChange?: (value: string) => void;
     defaultValue?: string;
     count?: number;
     autoFocus?: boolean;
