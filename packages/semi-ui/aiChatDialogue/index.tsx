@@ -289,6 +289,14 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         }
     }
 
+    scrollToTop = (animation: boolean) => {
+        if (animation) {
+            this.foundation.scrollToTopWithAnimation();
+        } else {
+            this.foundation.scrollToTopImmediately();
+        }
+    }
+
     containerScroll = (e: React.UIEvent<HTMLDivElement>) => {
         (this.scrollTargetRef as any).current = e.target as HTMLElement;
         if (e.target !== e.currentTarget) {
