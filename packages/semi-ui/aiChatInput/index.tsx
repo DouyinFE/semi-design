@@ -632,7 +632,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
                         innerRef={this.richTextDIVRef}
                         defaultContent={defaultContent}
                         placeholder={placeholder}
-                        onKeyDown={this.foundation.handleKeyDown} 
+                        onKeyDown={this.foundation.handleKeyDown}
                         setEditor={this.setEditor}
                         onChange={this.foundation.handleContentChange}
                         extensions={extensions}
@@ -642,6 +642,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
                         onFocus={this.foundation.handleFocus}
                         onBlur={this.foundation.handleBlur}
                         handleCreate={this.foundation.handleCreate}
+                        showPlaceholderWhenSkillOnly={this.props.showPlaceholderWhenSkillOnly}
                     />
                     {this.renderFooter()}
                 </div>
