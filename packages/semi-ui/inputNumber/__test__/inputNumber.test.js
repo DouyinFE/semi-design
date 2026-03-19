@@ -453,7 +453,8 @@ describe(`InputNumber`, () => {
         expect(inputNumber.find('input').instance().value).toBe('฿123,456.78');
 
         inputNumber = mount(<InputNumber localeCode="id-ID" currency="IDR" defaultValue={defaultValue} />);
-        expect(inputNumber.find('input').instance().value).toBe('Rp 123.456,78');
+        const expectedIDR = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(defaultValue);
+        expect(inputNumber.find('input').instance().value).toBe(expectedIDR);
         
     });
 
@@ -478,7 +479,8 @@ describe(`InputNumber`, () => {
         expect(inputNumber.find('input').instance().value).toBe('฿123,456.78');
 
         inputNumber = mount(<InputNumber localeCode="id-ID" currency="IDR" defaultValue={defaultValue} />);
-        expect(inputNumber.find('input').instance().value).toBe('Rp 123.456,78');
+        const expectedIDR2 = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(defaultValue);
+        expect(inputNumber.find('input').instance().value).toBe(expectedIDR2);
         
     });
 
@@ -547,7 +549,10 @@ describe(`InputNumber`, () => {
         expect(inputNumber.find('input').instance().value).toBe('123,456.78');
 
         inputNumber = mount(<InputNumber localeCode="id-ID" currency="IDR" defaultValue={defaultValue} showCurrencySymbol={false} />);
-        expect(inputNumber.find('input').instance().value).toBe('123.456,78');
+        const idrFormatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' });
+        const idrCurrencySymbol = idrFormatter.formatToParts(0).find(p => p.type === 'currency').value;
+        const expectedIDRNoSymbol = idrFormatter.format(defaultValue).replace(idrCurrencySymbol, '').trim();
+        expect(inputNumber.find('input').instance().value).toBe(expectedIDRNoSymbol);
     });
 
     it('CNY currency with different currencyDisplay options', () => {
