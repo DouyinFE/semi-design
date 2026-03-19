@@ -6,6 +6,7 @@ export interface CollapsibleFoundationProps {
     keepDOM?: boolean;
     className?: string;
     collapseHeight?: number;
+    collapseHeightAdaptive?: boolean;
     reCalcKey?: number | string;
     id?: string;
     fade?: boolean

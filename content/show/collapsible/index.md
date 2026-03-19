@@ -212,6 +212,7 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
 | -- | --- | --- |---------|--------|
 | className | 类名 | string | -       | 0.34.0 |
 | collapseHeight | 折叠高度 | number | 0       | 1.0.0  |
+| collapseHeightAdaptive | 当内容高度小于 collapseHeight 时，是否自适应内容高度。为 true 时，收起状态高度为 Math.min(内容高度, collapseHeight) | boolean | false   | 2.77.0  |
 | duration | 动画执行的时间 | number | 250     | -      |
 | fade | 是否开启淡入淡出 | boolean | false   | 2.21.0 |
 | isOpen | 是否展开内容区域 | boolean | `false` | -      |
