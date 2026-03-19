@@ -1598,6 +1598,7 @@ render(StreamingResponseToMessageDemo);
 | selectAll | Select all messages |
 | deselectAll | Deselect all messages |
 | scrollToBottom(animation: boolean) | Scroll to bottom; if `true`, animate; otherwise no animation |
+| scrollToTop(animation: boolean) | Scroll to top; if `true`, animate; otherwise no animation |
 
 ### ContentItem
 `ContentItem` supports all OpenAI Response [InputItem](https://platform.openai.com/docs/api-reference/responses/create#responses-create-input) and [OutputItem](https://platform.openai.com/docs/api-reference/responses/object#responses/object-output) types. Definitions:

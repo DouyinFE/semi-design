@@ -113,7 +113,13 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
             onKeyDown={e => {
                 this.foundation.handleKeyDownOnSingleInput(e.nativeEvent, index);
             }}
-            onChange={v => {
+            onChange={(v, e) => {
+                // 检查是否在输入法组合状态（中文输入法等）
+                // 原生 InputEvent 有 isComposing 属性，表示是否处于组合输入中
+                const nativeEvent = e.nativeEvent;
+                if (nativeEvent && 'isComposing' in nativeEvent && (nativeEvent as InputEvent).isComposing) {
+                    return;
+                }
                 const userInputChar = v[v.length - 1];
                 if (this.foundation.validateValue(userInputChar)) {
                     this.foundation.completeSingleInput(index, userInputChar);
