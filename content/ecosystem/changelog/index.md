@@ -14,6 +14,14 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.93.0 (2026-03-16)
+- 【Feat】
+    - TextArea 组件新增行号支持，通过 showLineNumber 属性开启 [#2890](https://github.com/DouyinFE/semi-design/issues/2890) [#3146](https://github.com/DouyinFE/semi-design/pull/3146)
+    - AIChatDialogue 组件新增 scrollToTop 方法，支持滚动回到顶部 [#3021](https://github.com/DouyinFE/semi-design/issues/3021) [#3145](https://github.com/DouyinFE/semi-design/pull/3145)
+    - AIChatInput 组件新增 showPlaceholderWhenSkillOnly 属性，支持当仅有技能时展示 placeholder [#3086](https://github.com/DouyinFE/semi-design/issues/3086) [#3144](https://github.com/DouyinFE/semi-design/pull/3144)
+- 【Chore】
+    - semi-foundation package.json exports 新增 lib/cjs 路径映射，支持通过 lib/cjs 路径直接导入
+
 #### 🎉 2.92.2 (2026-03-04)
 - 【Fix】
     - 修复 `@douyinfe/semi-ui/react19-adapter` 因 package.json exports 缺少声明导致无法导入的问题

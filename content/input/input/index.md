@@ -300,6 +300,26 @@ import { TextArea } from '@douyinfe/semi-ui';
 );
 ```
 
+### 行号
+
+通过设置 `showLineNumber` 展示行号。可用 `lineNumberStart` 设置起始行号，或通过 `lineNumberStyle`/`lineNumberClassName` 自定义行号区样式。
+
+```jsx live=true
+import React from 'react';
+import { TextArea } from '@douyinfe/semi-ui';
+
+() => (
+    <TextArea
+        showLineNumber
+        lineNumberStart={1}
+        defaultValue={'Line 1\nLine 2\n这是一行较长的文本，用来演示软换行时的行号对齐效果。\nLine 4\nLine 5'}
+        rows={12}
+        style={{ width: 420 }}
+        lineNumberStyle={{ color: 'var(--semi-color-text-2)' }}
+    />
+);
+```
+
 ### 使用 Shift + Enter 换行的多行输入框
 TextArea 默认情况下 Enter 回车与 Shift + Enter 均可实现换行  
 通过适当的事件监听与禁用默认行为，你可以实现禁用 Enter 换行，仅 Shift + Enter 才能换行
@@ -495,6 +515,10 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | placeholder  | 当前的默认值                       | string                          | 无     |
 | readonly     | 只读                               | boolean                         | false  |
 | rows         | 默认行数                           | number                          | 4      |
+| showLineNumber | 是否展示行号 | boolean | false |
+| lineNumberStart | 行号起始值 | number | 1 |
+| lineNumberClassName | 行号区域 className | string | - |
+| lineNumberStyle | 行号区域样式 | CSSProperties | - |
 | showClear    | 支持清除               | boolean                         | false     |
 | style        | 样式                               | CSSProperties                   | -      |
 | onBlur       | 输入框失去焦点时的回调             |(e:event) => void               | -      |
@@ -558,4 +582,3 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 
 ## 相关物料
 <semi-material-list code="46"></semi-material-list>
-
