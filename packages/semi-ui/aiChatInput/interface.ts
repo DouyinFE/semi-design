@@ -31,6 +31,11 @@ export interface AIChatInputProps {
     style?: React.CSSProperties;
     // Rich text editor related
     placeholder?: PlaceholderProps;
+    /**
+     * Whether to show placeholder when only skill is selected (no other content)
+     * @default false
+     */
+    showPlaceholderWhenSkillOnly?: boolean;
     extensions?: Extensions;
     onContentChange?: (contents: Content[]) => void;
     defaultContent?: TiptapContent;

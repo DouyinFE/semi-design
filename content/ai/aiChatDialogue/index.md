@@ -1602,6 +1602,7 @@ render(StreamingResponseToMessageDemo);
 | selectAll | 全选所有消息 |
 | deselectAll | 取消全选所有消息 |
 | scrollToBottom(animation: boolean) | 滚动到最底部, animation 为 true，则有动画，反之无动画 |
+| scrollToTop(animation: boolean) | 滚动到最顶部, animation 为 true，则有动画，反之无动画 |
 
 ### ContentItem
 `ContentItem` 支持所有 OpenAI Response [InputItem](https://platform.openai.com/docs/api-reference/responses/create#responses-create-input) 和 [OutputItem](https://platform.openai.com/docs/api-reference/responses/object#responses/object-output) 类型，具体类型定义如下

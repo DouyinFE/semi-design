@@ -1610,6 +1610,7 @@ render(<CustomRichTextExtension />);
 | renderUploadButton | 自定义底部操作区上传按钮 UI（Upload 仍由组件内部托管，保留内置上传/粘贴上传逻辑） | (props: <ApiType detail='{ defaultNode: React.ReactNode; openFileDialog: () => void; disabled: boolean; attachments: Attachment[] }'>RenderUploadButtonProps</ApiType>) => React.ReactNode | - |
 | popoverProps | 下拉弹出层的配置参数 | PopoverProps | - |
 | placeholder | 输入框占位符 | string \| (props: <ApiType detail='{ editor: Editor; node: Node; pos: number; hasAnchor: boolean }'>PlaceholderProps</ApiType>) => string | - |
+| showPlaceholderWhenSkillOnly | 当仅选中技能（无其他内容）时是否显示 placeholder，开启后 placeholder 会显示在 skill 后方 | boolean | false |
 | references | 输入框引用列表 | Reference[] | - |
 | renderActionArea | 自定义底部的操作区域 | () => React.ReactNode | - |
 | renderConfigureArea | 自定义底部的配置区域 | () => React.ReactNode | - |
