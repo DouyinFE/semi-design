@@ -16,6 +16,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.93.0 (2026-03-16)
+- 【Feat】
+    - TextArea component adds line number support via showLineNumber prop [#2890](https://github.com/DouyinFE/semi-design/issues/2890) [#3146](https://github.com/DouyinFE/semi-design/pull/3146)
+    - AIChatDialogue component adds scrollToTop method to support scrolling back to top [#3021](https://github.com/DouyinFE/semi-design/issues/3021) [#3145](https://github.com/DouyinFE/semi-design/pull/3145)
+    - AIChatInput component adds showPlaceholderWhenSkillOnly prop to display placeholder when only skills are present [#3086](https://github.com/DouyinFE/semi-design/issues/3086) [#3144](https://github.com/DouyinFE/semi-design/pull/3144)
+- 【Chore】
+    - Add lib/cjs path mappings to semi-foundation package.json exports for direct cjs path imports
+
 #### 🎉 2.92.2 (2026-03-04)
 - 【Fix】
     - Fix `@douyinfe/semi-ui/react19-adapter` import failure due to missing exports declaration in package.json
