@@ -14,6 +14,7 @@ import Code from './contentItem/code';
 import { Locale } from '../../locale/interface';
 import LocaleConsumer from "../../locale/localeConsumer";
 import { messageToChatInput } from '@douyinfe/semi-foundation/aiChatDialogue/dataAdapter';
+import { escapeHtmlInMarkdown } from '@douyinfe/semi-foundation/utils/escapeHtml';
 
 interface FileAttachmentProps extends InputFile {
     onFileClick?: (file: InputFile) => void;
@@ -143,8 +144,10 @@ const ToolCallWidget = React.memo((props: FunctionToolCall) => {
 
 const DialogueContent = React.memo((props: DialogueContentProps) => {
     const { message, customRenderFunc, role: roleInfo, mode, markdownRenderProps, editing, messageEditRender, showReference,
-        onFileClick, onImageClick, disabledFileItemClick, renderDialogueContentItem, onAnnotationClick, onReferenceClick } = props;
+        onFileClick, onImageClick, disabledFileItemClick, renderDialogueContentItem, onAnnotationClick, onReferenceClick, escapeHtml } = props;
     const { content, role, status, references } = message;
+
+    const shouldEscapeHtml = escapeHtml && role === ROLE.USER;
 
     const markdownComponents = useMemo(() => ({
         'code': Code,
@@ -197,10 +200,11 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
 
     const renderMarkdown = useCallback((text: string, key: React.Key) => {
         if (text !== '') {
+            const rawText = shouldEscapeHtml ? escapeHtmlInMarkdown(text) : text;
             return <div className={wrapCls} key={key}>
                 <MarkdownRender
                     format='md'
-                    raw={text}
+                    raw={rawText}
                     components={markdownComponents as any}
                     {...markdownRenderProps}
                 />
@@ -219,7 +223,7 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
             </div>;
         }
         return null;
-    }, [wrapCls, markdownComponents, markdownRenderProps, role, onReferenceClick, showReference]);
+    }, [wrapCls, markdownComponents, markdownRenderProps, role, onReferenceClick, showReference, shouldEscapeHtml]);
 
     const renderMessage = useCallback((msg: InputMessage | OutputMessage, index: number) => {
         if (typeof msg.content === 'string') {
@@ -345,10 +349,11 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
                 if (typeof defaultRenderer === 'function') {
                     realContent = <div className={`${PREFIX_CONTENT}-custom-renderer`}>{defaultRenderer(textContent, message)}</div>;
                 } else {
+                    const rawText = shouldEscapeHtml ? escapeHtmlInMarkdown(textContent) : textContent;
                     realContent = <div className={wrapCls}>
                         <MarkdownRender
                             format='md'
-                            raw={textContent}
+                            raw={rawText}
                             components={markdownComponents as any}
                             {...markdownRenderProps}
                         />
@@ -390,7 +395,7 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
             );
         }
     }, [status, content, editing, message, role, messageEditRender, markdownRenderProps, wrapCls, 
-        markdownComponents, builtinRenderers, customRenderer, renderDialogueContentItem, showReference, onReferenceClick]);
+        markdownComponents, builtinRenderers, customRenderer, renderDialogueContentItem, showReference, onReferenceClick, shouldEscapeHtml]);
         
     if (customRenderFunc) {
         return customRenderFunc({ 

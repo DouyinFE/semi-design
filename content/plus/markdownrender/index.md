@@ -143,6 +143,24 @@ function Demo() {
 
 ```
 
+<Notice type="primary" title="format='md' 模式下 HTML 标签的处理">
+  <div>在 format="md" 模式下，Markdown 中嵌入的 raw HTML（如 {'`<div>`'}、{'`<span style="color:red">`'} 等）会被底层编译器移除，不会渲染到页面上。这是 @mdx-js/mdx 在 md 模式下的默认行为。</div>
+  <div>如果你需要在 format="md" 模式下保留 HTML 标签的渲染，可以通过 rehypePlugins 传入 rehype-raw 插件：</div>
+</Notice>
+
+```jsx
+import { MarkdownRender } from '@douyinfe/semi-ui';
+import rehypeRaw from 'rehype-raw';
+
+function Demo() {
+    return <MarkdownRender 
+        format="md" 
+        raw={`<span style="color:red">红色文字</span>`} 
+        rehypePlugins={[rehypeRaw]} 
+    />
+}
+```
+
 ### 添加自定义组件
 
 通过传入自定义组件到 `components` Props，能够实现在 Markdown 中直接书写 JSX，组件会被渲染到最终页面上，支持 JS 事件。
@@ -177,7 +195,7 @@ function Demo() {
 
 ```
 
-# 添加插件
+### 添加插件
 
 通过 `remarkPlugins` `rehypePlugins` 支持 MDXJS 的所有 RemarkPlugin 和 RehypePlugins 插件，详情请参考 [MDXJS](https://mdxjs.com/docs/extending-mdx/)
 

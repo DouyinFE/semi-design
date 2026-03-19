@@ -92,6 +92,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         onSelect: PropTypes.func,
         showReset: PropTypes.bool,
         showReference: PropTypes.bool,
+        escapeHtml: PropTypes.bool,
     };
 
     static defaultProps = getDefaultPropsFromGlobalConfig(AIChatDialogue.__SemiComponentName__, {
@@ -101,6 +102,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         disabledFileItemClick: false,
         showReset: true,
         showReference: false,
+        escapeHtml: true,
     })
 
     constructor(props: AIChatDialogueProps) {

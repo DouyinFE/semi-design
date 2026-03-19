@@ -1529,6 +1529,7 @@ render(StreamingResponseToMessageDemo);
 | chats | Controlled conversation messages | Message[] | - |
 | className | Custom class name | string | - |
 | disabledFileItemClick | Disable file click | boolean | false |
+| escapeHtml | Whether to escape HTML tags in user messages to prevent them from being treated as HTML by the Markdown parser, which would cause content loss | boolean | true |
 | hintCls | Hint area outer wrapper class name | string | - |
 | hints | Hint texts | string[] | - |
 | hintStyle | Hint area outer wrapper style | CSSProperties | - |
