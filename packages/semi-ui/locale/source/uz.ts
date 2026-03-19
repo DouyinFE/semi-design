@@ -106,7 +106,7 @@ const local: Locale = {
         ascend: 'Ortish tartibida koʻrsatish uchun cherting',
         cancelSort: 'Saralashni bekor qilish',
         confirmFilter: 'OK',
-        resetFilter: 'Qayta o'rnatish',
+        resetFilter: 'Qayta oʻrnatish',
     },
     Select: {
         emptyText: 'Natija yoʻq',
