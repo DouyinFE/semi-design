@@ -1532,6 +1532,7 @@ render(<CustomRichTextExtension />);
 | renderUploadButton | Customize upload button UI in the footer action area (Upload is still managed internally; built-in upload/paste-upload logic is preserved) | (props: <ApiType detail='{ defaultNode: React.ReactNode; openFileDialog: () => void; disabled: boolean; attachments: Attachment[] }'>RenderUploadButtonProps</ApiType>) => React.ReactNode | - |
 | popoverProps | Popup configuration | PopoverProps | - |
 | placeholder | Input placeholder | string \| (props: <ApiType detail='{ editor: Editor; node: Node; pos: number; hasAnchor: boolean }'>PlaceholderProps</ApiType>) => string | - |
+| showPlaceholderWhenSkillOnly | Whether to show placeholder when only skill is selected (no other content). When enabled, the placeholder will appear after the skill | boolean | false |
 | references | Reference list | Reference[] | - |
 | renderActionArea | Custom bottom-right operation area | () => React.ReactNode | - |
 | renderConfigureArea | Custom configuration area | () => React.ReactNode | - |
