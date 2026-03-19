@@ -273,6 +273,56 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 };
 ```
 
+### Using ref for control
+Get the native video element via `ref` for more flexible control, such as synchronized playback/pause of multiple videos
+
+```jsx live=true dir="column"
+import React from 'react';
+import { VideoPlayer, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const videoRef1 = useRef();
+    const videoRef2 = useRef();
+    const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
+    const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
+    
+    const handlePlayAll = () => {
+        videoRef1.current?.play();
+        videoRef2.current?.play();
+    };
+    
+    const handlePauseAll = () => {
+        videoRef1.current?.pause();
+        videoRef2.current?.pause();
+    };
+    
+    return (
+        <div>
+            <div style={{ marginBottom: 12 }}>
+                <Button onClick={handlePlayAll} style={{ marginRight: 8 }}>Play All</Button>
+                <Button onClick={handlePauseAll}>Pause All</Button>
+            </div>
+            <div style={{ display: 'flex', gap: 12 }}>
+                <VideoPlayer 
+                    ref={videoRef1}
+                    src={src}
+                    poster={poster}
+                    height={315}
+                    width="50%"
+                />
+                <VideoPlayer 
+                    ref={videoRef2}
+                    src={src}
+                    poster={poster}
+                    height={315}
+                    width="50%"
+                />
+            </div>
+        </div>
+    );
+};
+```
+
 ### API
 
 | Properties | Description | Type | Default Value |
@@ -286,6 +336,7 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 | defaultPlaybackRate | Default playback rate                            | number                              | 1   |
 | defaultPlaybackRate | Default video resolution                       | string                              | -   |
 | defaultRoute | Default Line                       | string                              | -   |
+| forwardRef | Pass the ref of the native video element for more flexible control | React.Ref&lt;HTMLVideoElement&gt; | - |
 | height | height                       | string \| number                                    | -   |
 | loop | Whether to enable loop playback                                   | boolean                              | false   |
 | markers | Chapter marking                                 | Marker[]                              | -   |
