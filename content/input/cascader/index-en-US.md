@@ -1251,6 +1251,62 @@ import { Cascader } from '@douyinfe/semi-ui';
 };
 ```
 
+### Click to Select
+
+In multiple mode, clicking on non-leaf nodes does not trigger selection by default. You can use `clickToSelect` to enable selecting any node on click.
+
+This API is especially useful when combined with `showNext="hover"`: hovering expands the submenu, while clicking selects the current node.
+
+```jsx live=true
+import React from 'react';
+import { Cascader } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Impressionism',
+            value: 'impressionism',
+            children: [
+                {
+                    label: 'Visual Arts',
+                    value: 'visualArts',
+                    children: [
+                        {
+                            label: 'Claude Monet',
+                            value: 'Monet',
+                        },
+                        {
+                            label: 'Pierre-Auguste Renoir',
+                            value: 'Renoir',
+                        },
+                    ],
+                },
+                {
+                    label: 'Music',
+                    value: 'music',
+                    children: [
+                        {
+                            label: 'Claude Debussy',
+                            value: 'Debussy',
+                        },
+                    ],
+                },
+            ],
+        }
+    ];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            multiple
+            placeholder="Please select"
+            showNext="hover"
+            clickToSelect
+        />
+    );
+};
+```
+
 ### Additional items
 
 We have reserved slots at the top and bottom of the cascade selector. You can set them through bottomSlot or topSlot.
@@ -1984,6 +2040,7 @@ function Demo() {
 | validateStatus | The validation status of the trigger only affects the display style. Optional: default、error、warning                                                                                                                                          | string | `default` | - |
 | virtualizeInSearch  | Search result list virtualization, used when there are a large number of tree nodes, composed of height, width,itemSize  | Object | -  | -  | - |
 | zIndex | zIndex for dropdown menu                                                                                                                                                                                                                      | number | 1030 | - |
+| clickToSelect | Multiple mode, clicking any node triggers selection. Useful with showNext="hover": hover expands submenu, click selects current node                                                                                                        | boolean | false | - |
 | enableLeafClick | Multiple mode, click the leaf option enable trigger check                                                                                                                                                                                     | boolean | false | 2.2.0 |
 | onBlur | Out of focus Cascader's callback                                                                                                                                                                                                              | (e: MouseEvent) => void | - | - |
 | onChange | Callback function when the tree node is selected                                                                                                                                                                                              | (value: string\|number\|CascaderData\|(string\|number\|CascaderData)[]) => void | - | - |
