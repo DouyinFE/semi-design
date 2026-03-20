@@ -18,7 +18,8 @@ export interface DataItem {
 
 export interface StateOptionItem extends DataItem {
     show?: boolean;
-    key?: string | number
+    key?: string | number;
+    _renderedLabel?: any; // Internal property to store the rendered label from renderItem
 }
 
 export type AutoCompleteData = Array<DataItem | string>;
@@ -144,7 +145,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
                     option = { show: true, ...item };
                 }
                 if (renderItem && typeof renderItem === 'function') {
-                    option.label = renderItem(item);
+                    option._renderedLabel = renderItem(item);
                 }
                 options.push(option);
             });

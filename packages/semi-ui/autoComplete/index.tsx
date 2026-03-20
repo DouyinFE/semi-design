@@ -496,7 +496,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
                 key={option.key || option.label + option.value + optionIndex}
                 {...option}
             >
-                {option.label}
+                {option._renderedLabel ?? option.label}
             </Option>
         );
     }
