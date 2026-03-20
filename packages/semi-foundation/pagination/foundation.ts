@@ -203,9 +203,16 @@ class PaginationFoundation<P = Record<string, any>, S = Record<string, any>> ext
         this._adapter.notifyPageSizeChange(newPageSize);
         const { total, currentPage } = this.getStates();
 
-        // After converting the switching page capacity, which page is the current page
-        const currentPageFirstItemIndex = (currentPage - 1) * pageSize + 1;
-        const newCurrentPage = Math.ceil(currentPageFirstItemIndex / newPageSize);
+        // Check if we should prevent page change when pageSize changes
+        const { preventPageChangeOnPageSizeChange } = this.getProps();
+        
+        let newCurrentPage = currentPage;
+        if (!preventPageChangeOnPageSizeChange) {
+            // After converting the switching page capacity, which page is the current page
+            const currentPageFirstItemIndex = (currentPage - 1) * pageSize + 1;
+            newCurrentPage = Math.ceil(currentPageFirstItemIndex / newPageSize);
+        }
+        
         this.updatePage(newCurrentPage, total, newPageSize);
         if (currentPage !== newCurrentPage) {
             this._adapter.notifyPageChange(newCurrentPage);

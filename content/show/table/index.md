@@ -5876,6 +5876,7 @@ type Filter = {
 | pageSize           | 每页条数                                                                                                                                | number                                                                                        | 10       |              |
 | position           | 位置                                                                                                                                    | 'bottom'\|'top'\|'both'                                                                       | 'bottom' |              |
 | total              | 数据总数                                                                                                                                | number                                                                                        | 0        | - |
+| preventPageChangeOnPageSizeChange | 切换 pageSize 时是否阻止自动调整 currentPage。默认情况下，切换 pageSize 时组件会自动计算新的 currentPage 以保持当前数据位置，设为 true 后由用户自行控制页码变化 | boolean | false | - |
 
 
 其他配置详见[Pagination](/zh-CN/navigation/pagination#API参考)

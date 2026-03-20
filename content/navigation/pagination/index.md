@@ -199,6 +199,7 @@ import { Pagination } from '@douyinfe/semi-ui';
 | popoverPosition    | 浮层方向，具体可见 [Popover·API 参考·position](/zh-CN/show/popover#API参考) | string                                          | "bottomLeft"        |
 | popoverZIndex      | 浮层 z-index 值                                                                   | number                                          |  1030                   |
 | prevText           | 上一页文本                                                                        | string\|ReactNode                               |                     |
+| preventPageChangeOnPageSizeChange | 切换 pageSize 时是否阻止自动调整 currentPage。默认情况下，切换 pageSize 时组件会自动计算新的 currentPage 以保持当前数据位置，设为 true 后由用户自行控制页码变化 | boolean | false | - |
 | style              | 样式                                                                              | object                                          |                     |
 | size               | 尺寸                                                                              | string                                          |                     |
 | showTotal          | 是否显示总页数                                                                    | boolean                                         |                     |
