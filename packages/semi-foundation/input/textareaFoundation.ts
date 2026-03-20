@@ -28,7 +28,9 @@ export interface TextAreaAdapter extends Partial<DefaultAdapter>, Partial<TextAr
     setMinLength(length: number): void;
     notifyPressEnter(e: any): void;
     getRef(): HTMLInputElement;
-    notifyHeightUpdate(e: any): void
+    notifyHeightUpdate(e: any): void;
+    focusInput(): void;
+    isEventTarget(e: any): boolean
 }
 
 export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> {
@@ -280,5 +282,36 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
         this._adapter.notifyChange('', e);
         this._adapter.notifyClear(e);
         this.stopPropagation(e);
+    }
+
+    /**
+     * trigger when click textarea wrapper
+     * @param {Event} e
+     */
+    handleClick(e: any) {
+        const { disabled, readonly } = this._adapter.getProps();
+        const { isFocus } = this._adapter.getStates();
+        if (disabled || readonly || isFocus) {
+            return;
+        }
+        // do not handle bubbling up events
+        if (this._adapter.isEventTarget(e)) {
+            this._adapter.focusInput();
+            this._adapter.toggleFocusing(true);
+        }
+    }
+
+    /**
+     * trigger when click textarea counter
+     * @param {Event} e
+     */
+    handleCounterClick(e: any) {
+        const { disabled, readonly } = this._adapter.getProps();
+        const { isFocus } = this._adapter.getStates();
+        if (disabled || readonly || isFocus) {
+            return;
+        }
+        this._adapter.focusInput();
+        this._adapter.toggleFocusing(true);
     }
 }
