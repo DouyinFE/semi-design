@@ -124,6 +124,24 @@ function Demo() {
 
 ```
 
+<Notice type="primary" title="HTML tags handling in format='md' mode">
+  <div>In format="md" mode, raw HTML embedded in Markdown (such as {'`<div>`'}, {'`<span style="color:red">`'}, etc.) will be removed by the underlying compiler and will not be rendered on the page. This is the default behavior of @mdx-js/mdx in md mode.</div>
+  <div>If you need to preserve HTML tag rendering in format="md" mode, you can pass the rehype-raw plugin via rehypePlugins:</div>
+</Notice>
+
+```jsx
+import { MarkdownRender } from '@douyinfe/semi-ui';
+import rehypeRaw from 'rehype-raw';
+
+function Demo() {
+    return <MarkdownRender 
+        format="md" 
+        raw={`<span style="color:red">Red text</span>`} 
+        rehypePlugins={[rehypeRaw]} 
+    />
+}
+```
+
 ### Add custom components
 
 By passing in custom components to `components` Props, you can write JSX directly in Markdown, and the component will be rendered to the final page, supporting JS events.
@@ -159,7 +177,7 @@ Just write JSX directly in Markdown
 
 ```
 
-# Add plugins
+### Add plugins
 
 Support all RemarkPlugin and RehypePlugins plugins of MDXJS through `remarkPlugins` `rehypePlugins`, please refer to [MDXJS](https://mdxjs.com/docs/extending-mdx/) for details
 

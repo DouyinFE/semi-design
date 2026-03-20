@@ -13,6 +13,7 @@ export interface CommonChatsProps {
     align?: 'leftRight' | 'leftAlign';
     mode?: 'bubble' | 'noBubble' | 'userBubble';
     chats?: Message[];
+    escapeHtml?: boolean;
     roleConfig?: RoleConfig;
     onMessageDelete?: (message?: Message) => void;
     onChatsChange?: (chats?: Message[]) => void;

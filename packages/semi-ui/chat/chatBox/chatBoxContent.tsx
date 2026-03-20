@@ -6,6 +6,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/chat/constants';
 import { MDXProps } from 'mdx/types';
 import { FileAttachment, ImageAttachment } from '../attachment';
 import Code from './code';
+import { escapeHtmlInMarkdown } from '@douyinfe/semi-foundation/utils/escapeHtml';
 
 const { PREFIX_CHAT_BOX } = cssClasses;
 const { MESSAGE_STATUS, MODE, ROLE } = strings;
@@ -14,6 +15,7 @@ interface ChatBoxContentProps {
     mode?: 'bubble' | 'noBubble' | 'userBubble';
     customMarkDownComponents?: MDXProps['components'];
     children?: string;
+    escapeHtml?: boolean;
     role?: Metadata;
     message?: Message;
     customRenderFunc?: (props: RenderContentProps) => ReactNode;
@@ -21,8 +23,10 @@ interface ChatBoxContentProps {
 }
 
 const ChatBoxContent = (props: ChatBoxContentProps) => {
-    const { message = {}, customRenderFunc, role: roleInfo, customMarkDownComponents, mode, markdownRenderProps } = props;
+    const { message = {}, customRenderFunc, role: roleInfo, customMarkDownComponents, mode, markdownRenderProps, escapeHtml } = props;
     const { content, role, status } = message;
+
+    const shouldEscapeHtml = escapeHtml && role === ROLE.USER;
 
     const markdownComponents = useMemo(() => ({
         'code': Code,
@@ -50,19 +54,21 @@ const ChatBoxContent = (props: ChatBoxContentProps) => {
         } else {
             let realContent;
             if (typeof content === 'string') {
+                const rawText = shouldEscapeHtml ? escapeHtmlInMarkdown(content) : content;
                 realContent = <MarkdownRender
                     format='md'
-                    raw={content}
+                    raw={rawText}
                     components={markdownComponents as any}
                     {...markdownRenderProps}
                 />;
             } else if (Array.isArray(content)) {
                 realContent = content.map((item, index) => {
                     if (item.type === 'text') {
+                        const rawText = shouldEscapeHtml ? escapeHtmlInMarkdown(item.text) : item.text;
                         return <MarkdownRender
                             key={`index`}
                             format='md'
-                            raw={item.text}
+                            raw={rawText}
                             components={markdownComponents as any}
                             {...markdownRenderProps}
                         />;

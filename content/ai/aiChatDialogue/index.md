@@ -1532,6 +1532,7 @@ render(StreamingResponseToMessageDemo);
 | chats | 受控对话消息列表 | Message[] | - |
 | className | 自定义类名 | string | - |
 | disabledFileItemClick | 是否禁用文件点击 | boolean | false |
+| escapeHtml | 是否对用户消息中的 HTML 标签进行转义，防止被 Markdown 解析器当作 HTML 处理导致内容丢失 | boolean | true |
 | hintCls | 提示区最外层样式类名 | string | - |
 | hints | 提示信息 | string[] | - |
 | hintStyle | 提示区最外层样式 | CSSProperties | - |
