@@ -8,14 +8,19 @@ import { cssClasses } from '@douyinfe/semi-foundation/table/constants';
 import Dropdown, { DropdownProps } from '../dropdown';
 import { Radio } from '../radio';
 import { Checkbox } from '../checkbox';
+import Button from '../button';
+import Space from '../space';
+import LocaleConsumer from '../locale/localeConsumer';
+import { Locale } from '../locale/interface';
 import {
     FilterIcon,
     Filter,
     OnFilterDropdownVisibleChange,
-    RenderFilterDropdownItem
+    RenderFilterDropdownItem,
+    FilterConfirmMode
 } from './interface';
 
-function renderDropdown(props: RenderDropdownProps, nestedElem: React.ReactNode = null, level = 0) {
+function renderDropdown(props: RenderDropdownProps, nestedElem: React.ReactNode = null, level = 0, locale?: Locale['Table']) {
     const {
         filterMultiple = true,
         filters = [],
@@ -27,7 +32,18 @@ function renderDropdown(props: RenderDropdownProps, nestedElem: React.ReactNode 
         position = 'bottom',
         renderFilterDropdown,
         renderFilterDropdownItem,
+        filterConfirmMode = 'immediate',
+        tempFilteredValue,
+        setTempFilteredValue,
+        confirm,
+        clear,
+        close,
+        reset,
     } = props ?? {};
+
+    // Determine which value to use for displaying checked state
+    // In confirm mode, use tempFilteredValue; otherwise use filteredValue
+    const displayValue = filterConfirmMode === 'confirm' ? (tempFilteredValue ?? []) : filteredValue;
 
     const renderFilterDropdownProps: RenderFilterDropdownProps = pick(props, ['tempFilteredValue', 'setTempFilteredValue', 'confirm', 'clear', 'close', 'filters']);
     const render = typeof renderFilterDropdown === 'function' ? renderFilterDropdown(renderFilterDropdownProps) : (
@@ -44,27 +60,48 @@ function renderDropdown(props: RenderDropdownProps, nestedElem: React.ReactNode 
                             domEvent.stopPropagation();
                             domEvent.preventDefault();
                         }
-                        let values = [...filteredValue];
 
-                        const included = values.includes(filter.value);
-                        const idx = values.indexOf(filter.value);
+                        // In confirm mode, update tempFilteredValue instead of calling onSelect
+                        if (filterConfirmMode === 'confirm') {
+                            const currentTempValue = tempFilteredValue ?? [...filteredValue];
+                            let values = [...currentTempValue];
 
-                        if (idx > -1) {
-                            values.splice(idx, 1);
-                        } else if (filterMultiple) {
-                            values.push(filter.value);
+                            const included = values.includes(filter.value);
+                            const idx = values.indexOf(filter.value);
+
+                            if (idx > -1) {
+                                values.splice(idx, 1);
+                            } else if (filterMultiple) {
+                                values.push(filter.value);
+                            } else {
+                                values = [filter.value];
+                            }
+                            
+                            setTempFilteredValue?.(values);
                         } else {
-                            values = [filter.value];
+                            // Immediate mode: original behavior
+                            let values = [...filteredValue];
+
+                            const included = values.includes(filter.value);
+                            const idx = values.indexOf(filter.value);
+
+                            if (idx > -1) {
+                                values.splice(idx, 1);
+                            } else if (filterMultiple) {
+                                values.push(filter.value);
+                            } else {
+                                values = [filter.value];
+                            }
+                            return onSelect({
+                                value: filter.value,
+                                filteredValue: values,
+                                included: !included,
+                                domEvent,
+                            });
                         }
-                        return onSelect({
-                            value: filter.value,
-                            filteredValue: values,
-                            included: !included,
-                            domEvent,
-                        });
                     };
 
-                    const checked = filteredValue.includes(filter.value);
+                    const checked = displayValue.includes(filter.value);
                     const { text } = filter;
                     const { value } = filter;
                     const key = `${level}_${index}`;
@@ -77,7 +114,7 @@ function renderDropdown(props: RenderDropdownProps, nestedElem: React.ReactNode 
                                 value,
                                 text,
                                 checked,
-                                filteredValue,
+                                filteredValue: displayValue,
                                 level,
                             }) :
                             null;
@@ -105,21 +142,46 @@ function renderDropdown(props: RenderDropdownProps, nestedElem: React.ReactNode 
 
                         delete childrenDropdownProps.filterDropdownVisible;
 
-                        item = renderDropdown(childrenDropdownProps, item, level + 1);
+                        item = renderDropdown(childrenDropdownProps, item, level + 1, locale);
                     }
                     return item;
                 })}
+            {/* Show confirm and reset buttons in confirm mode */}
+            {filterConfirmMode === 'confirm' && level === 0 && (
+                <div style={{ padding: '8px 12px', borderTop: '1px solid var(--semi-color-border)', display: 'flex', justifyContent: 'flex-end' }}>
+                    <Space>
+                        <Button 
+                            size="small" 
+                            onClick={() => reset?.()}
+                        >
+                            {locale?.resetFilter || 'Reset'}
+                        </Button>
+                        <Button 
+                            size="small" 
+                            theme="solid" 
+                            onClick={() => confirm?.({ closeDropdown: true })}
+                        >
+                            {locale?.confirmFilter || 'OK'}
+                        </Button>
+                    </Space>
+                </div>
+            )}
         </Dropdown.Menu>
     );
 
+    // Extract filterDropdownVisible to avoid passing it twice
+    const { filterDropdownVisible: _, ...restProps } = props;
+    
     const dropdownProps: DropdownProps = {
-        ...props,
-        onVisibleChange: (visible: boolean) => onFilterDropdownVisibleChange(visible),
+        ...restProps,
         trigger,
         position,
         render,
+        onVisibleChange: (visible: boolean) => onFilterDropdownVisibleChange(visible),
     };
 
+    // Only set visible when it's controlled (not null/undefined)
+    // This is important for confirm mode to work correctly
     if (filterDropdownVisible != null) {
         dropdownProps.visible = filterDropdownVisible;
     }
@@ -140,7 +202,8 @@ export default function ColumnFilter(props: ColumnFilterProps = {}): React.React
         onSelect,
         filterDropdownVisible,
         renderFilterDropdown,
-        onFilterDropdownVisibleChange
+        onFilterDropdownVisibleChange,
+        filterConfirmMode = 'immediate'
     } = props;
     let { filterDropdown = null } = props;
 
@@ -148,8 +211,11 @@ export default function ColumnFilter(props: ColumnFilterProps = {}): React.React
     // custom filter related status
     const isFilterDropdownVisibleControlled = typeof filterDropdownVisible !== 'undefined';
     const isCustomFilterDropdown = typeof renderFilterDropdown === 'function';
-    const isCustomDropdownVisible = !isFilterDropdownVisibleControlled && isCustomFilterDropdown;
+    // In confirm mode, we also need to control the dropdown visible state
+    const isCustomDropdownVisible = !isFilterDropdownVisibleControlled && (isCustomFilterDropdown || filterConfirmMode === 'confirm');
     const [tempFilteredValue, setTempFilteredValue] = useState<any[]>(filteredValue);
+    // Store the initial filtered value when dropdown opens (for reset functionality)
+    const [initialFilteredValue, setInitialFilteredValue] = useState<any[]>(filteredValue);
     const dropdownVisibleInitValue = isCustomDropdownVisible ? false : filterDropdownVisible;
     const [dropdownVisible, setDropdownVisible] = useState<boolean | undefined>(dropdownVisibleInitValue);
 
@@ -185,9 +251,18 @@ export default function ColumnFilter(props: ColumnFilterProps = {}): React.React
         setDropdownVisible(false);
     };
 
+    const reset: RenderFilterDropdownProps['reset'] = () => {
+        setTempFilteredValue(initialFilteredValue);
+    };
+
     const handleFilterDropdownVisibleChange = (visible: boolean) => {
         if (isCustomDropdownVisible) {
             setDropdownVisible(visible);
+        }
+        // When dropdown opens in confirm mode, save the initial filtered value for reset
+        if (visible && filterConfirmMode === 'confirm') {
+            setInitialFilteredValue(filteredValue);
+            setTempFilteredValue(filteredValue);
         }
         onFilterDropdownVisibleChange(visible);
     };
@@ -197,7 +272,9 @@ export default function ColumnFilter(props: ColumnFilterProps = {}): React.React
         setTempFilteredValue,
         confirm,
         clear,
-        close
+        close,
+        reset,
+        filters: props.filters
     };
 
     const finalCls = cls(`${prefixCls}-column-filter`, {
@@ -233,11 +310,16 @@ export default function ColumnFilter(props: ColumnFilterProps = {}): React.React
         onFilterDropdownVisibleChange: handleFilterDropdownVisibleChange,
     };
 
-    filterDropdown = React.isValidElement<ColumnFilterProps>(filterDropdown) ?
-        filterDropdown :
-        renderDropdown(renderProps, iconElem);
-
-    return filterDropdown;
+    return (
+        <LocaleConsumer componentName="Table">
+            {(locale: Locale['Table']) => {
+                if (React.isValidElement<ColumnFilterProps>(filterDropdown)) {
+                    return filterDropdown;
+                }
+                return renderDropdown(renderProps, iconElem, 0, locale);
+            }}
+        </LocaleConsumer>
+    );
 }
 
 export interface ColumnFilterProps extends Omit<RenderDropdownProps, keyof RenderFilterDropdownProps> {
@@ -257,7 +339,8 @@ export interface RenderDropdownProps extends FilterDropdownProps, RenderFilterDr
     onSelect?: (data: OnSelectData) => void;
     onFilterDropdownVisibleChange?: OnFilterDropdownVisibleChange;
     renderFilterDropdown?: (props: RenderFilterDropdownProps) => React.ReactNode;
-    renderFilterDropdownItem?: RenderFilterDropdownItem
+    renderFilterDropdownItem?: RenderFilterDropdownItem;
+    filterConfirmMode?: FilterConfirmMode;
 }
 
 export interface FilterDropdownProps extends Omit<DropdownProps, 'render' | 'onVisibleChange'> {}
@@ -281,6 +364,8 @@ export interface RenderFilterDropdownProps {
     clear: (props?: { closeDropdown?: boolean }) => void;
     /** close dropdown  */
     close: () => void;
+    /** reset tempFilteredValue to initial value when dropdown opened  */
+    reset?: () => void;
     /** column filters  */
     filters?: RenderDropdownProps['filters']
 }

@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Kattints a lefelé haladáshoz',
         ascend: 'Kattints a felfelé haladáshoz',
         cancelSort: 'Rendezés törlése',
+        confirmFilter: 'OK',
+        resetFilter: 'Visszaállítás',
     },
     Select: {
         emptyText: 'Nincs eredmény',

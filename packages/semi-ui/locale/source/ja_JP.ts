@@ -106,6 +106,8 @@ const local: Locale = {
         descend: 'クリックして降順',
         ascend: 'クリックして昇順',
         cancelSort: 'ソートのキャンセル',
+        confirmFilter: '確認',
+        resetFilter: 'リセット',
     },
     Select: {
         emptyText: 'データがありません',

@@ -106,6 +106,8 @@ const local: Locale = {
         descend: '点击降序',
         ascend: '点击升序',
         cancelSort: '取消排序',
+        confirmFilter: '确定',
+        resetFilter: '重置',
     },
     Select: {
         emptyText: '暂无数据',

@@ -1742,6 +1742,128 @@ function App() {
 render(App);
 ```
 
+### 筛选确认模式
+
+通过设置 `filterConfirmMode='confirm'`，可以让筛选下拉面板支持确认模式。在该模式下：
+
+-   点击筛选项不会立即生效，而是先暂存到临时状态
+-   下拉面板底部会显示"确定"和"重置"按钮
+-   点击"确定"按钮后才会应用筛选条件并关闭下拉面板
+-   点击"重置"按钮会恢复到打开下拉面板时的初始状态（不会关闭面板）
+
+这个功能适用于需要多选筛选条件后再一次性应用的场景，避免每次点击都触发筛选。
+
+```jsx live=true noInline=true dir="column"
+import React, { useState, useEffect } from 'react';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
+
+function App() {
+    const [dataSource, setData] = useState([]);
+
+    const DAY = 24 * 60 * 60 * 1000;
+    const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+
+    const columns = [
+        {
+            title: '标题',
+            dataIndex: 'name',
+            width: 300,
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                        {text}
+                    </div>
+                );
+            },
+            filters: [
+                {
+                    text: 'Semi Design 设计稿',
+                    value: 'Semi Design',
+                },
+                {
+                    text: 'Semi Pro 设计稿',
+                    value: 'Semi Pro',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            filterMultiple: true,
+            // 开启筛选确认模式
+            filterConfirmMode: 'confirm',
+        },
+        {
+            title: '大小',
+            dataIndex: 'size',
+            sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+            render: text => `${text} KB`,
+        },
+        {
+            title: '所有者',
+            dataIndex: 'owner',
+            filters: [
+                {
+                    text: '姜鹏志',
+                    value: '姜鹏志',
+                },
+                {
+                    text: '郝宣',
+                    value: '郝宣',
+                },
+            ],
+            onFilter: (value, record) => record.owner.includes(value),
+            filterMultiple: true,
+            // 开启筛选确认模式
+            filterConfirmMode: 'confirm',
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                            {typeof text === 'string' && text.slice(0, 1)}
+                        </Avatar>
+                        {text}
+                    </div>
+                );
+            },
+        },
+        {
+            title: '更新日期',
+            dataIndex: 'updateTime',
+            sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+            render: value => {
+                return dateFns.format(new Date(value), 'yyyy-MM-dd');
+            },
+        },
+    ];
+
+    const getData = () => {
+        const data = [];
+        for (let i = 0; i < 20; i++) {
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            data.push({
+                key: '' + i,
+                name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi Pro 首页${i}.fig`,
+                owner: isSemiDesign ? '姜鹏志' : '郝宣',
+                size: randomNumber,
+                updateTime: new Date('2024-01-25').valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red',
+            });
+        }
+        return data;
+    };
+
+    useEffect(() => {
+        const data = getData();
+        setData(data);
+    }, []);
+
+    return <Table columns={columns} dataSource={dataSource} />;
+}
+
+render(App);
+```
+
 
 
 ### 自定义筛选项渲染
@@ -5800,6 +5922,7 @@ import { Table } from '@douyinfe/semi-ui';
 | filterDropdownVisible | 控制 Dropdown 的 visible，详情点击[Dropdown API](/zh-CN/show/dropdown#Dropdown) | boolean |  |
 | filterIcon | 自定义 filter 图标 | boolean\|ReactNode\|(filtered: boolean) => ReactNode |  |
 | filterMultiple | 是否多选 | boolean | true |
+| filterConfirmMode | 筛选确认模式。`immediate` 为点击筛选项立即生效；`confirm` 为点击筛选项后需点击确定按钮才生效，此时下拉面板底部会显示确定和重置按钮 | 'immediate' \| 'confirm' | 'immediate' |
 | filteredValue | 筛选的受控属性，外界可用此控制列的筛选状态，值为已筛选的 value 数组 | any[] |  |
 | filters | 表头的筛选菜单项。 | Filter[] |  |
 | fixed | 列是否固定，可选 true(等效于 left) 'left' 'right'，在 RTL 时会自动切换 | boolean\|string | false |

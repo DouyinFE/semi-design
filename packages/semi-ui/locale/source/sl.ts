@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Klikni za padajoč vrstni red',
         ascend: 'Klikni za naraščajoč vrstni red',
         cancelSort: 'Prekliči razvrščanje',
+        confirmFilter: 'OK',
+        resetFilter: 'Ponastavi',
     },
     Select: {
         emptyText: 'Brez rezultatov',

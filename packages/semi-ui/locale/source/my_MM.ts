@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'အောက်သို့ဆင်းရန် နှိပ်ပါ',
         ascend: 'အပေါ်သို့တက်ရန် နှိပ်ပါ',
         cancelSort: 'စီခြင်းကို ပယ်ဖျက်မည်',
+        confirmFilter: 'OK',
+        resetFilter: 'Reset',
     },
     Select: {
         emptyText: 'ရလဒ်မရှိပါ',

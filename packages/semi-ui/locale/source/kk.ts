@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Кему реті бойынша сұрыптау үшін басыңыз',
         ascend: 'Өсу реті бойынша сұрыптау үшін басыңыз',
         cancelSort: 'Сұрыптаудан бас тарту',
+        confirmFilter: 'Жарайды',
+        resetFilter: 'Қалпына келтіру',
     },
     Select: {
         emptyText: 'Нәтиже жоқ',
