@@ -13,6 +13,7 @@ import Dropdown from '../dropdown';
 import VideoProgress from './videoProgress';
 import { formatTime } from './utils';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
+import { isUndefined } from 'lodash';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
 import ErrorSVG from './ErrorSvg';
@@ -30,6 +31,7 @@ export interface VideoPlayerProps {
     defaultPlaybackRate: number;
     defaultQuality?: string;
     defaultRoute?: string;
+    forwardRef?: React.Ref<HTMLVideoElement>;
     height?: number | string;
     loop?: boolean;
     markers?: Marker[];
@@ -142,6 +144,22 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
             setTotalTime: (totalTime: number) => this.setState({ totalTime }),
             setVolume: (volume: number) => this.setState({ volume }),
         };
+    }
+
+    getVideoRef() {
+        const { forwardRef } = this.props;
+        if (!isUndefined(forwardRef)) {
+            if (typeof forwardRef === 'function') {
+                return (node: HTMLVideoElement) => {
+                    forwardRef(node);
+                    this.videoRef = { current: node };
+                };
+            } else if (Object.prototype.toString.call(forwardRef) === '[object Object]') {
+                this.videoRef = forwardRef as React.RefObject<HTMLVideoElement>;
+                return forwardRef;
+            }
+        }
+        return this.videoRef;
     }
 
     static getDerivedStateFromProps(props: VideoPlayerProps, state: VideoPlayerState): Partial<VideoPlayerState> {
@@ -461,7 +479,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                                 { [`${cssClasses.PREFIX}-wrapper-${theme}`]: theme }
                             )}>
                                 <video 
-                                    ref={this.videoRef} 
+                                    ref={this.getVideoRef()} 
                                     autoPlay={autoPlay}
                                     loop={loop}
                                     controls={false}
@@ -526,4 +544,10 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
     }
 }
 
-export default VideoPlayer; 
+const ForwardVideoPlayer = React.forwardRef<HTMLVideoElement, Omit<VideoPlayerProps, 'forwardRef'>>((props, ref) => (
+    <VideoPlayer {...props} forwardRef={ref} />
+));
+
+export default ForwardVideoPlayer;
+
+export { VideoPlayer }; 
