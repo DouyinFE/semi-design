@@ -937,11 +937,11 @@ $module-list: #{$prefix}-scrolllist;
                     height: fit-content;
                     border: none;
 
-                    &:active  {
+                    &:active:not(#neverExistElement) {
                         background-color: transparent;
                     }
 
-                    &:hover {
+                    &:hover:not(#neverExistElement) {
                         background-color: transparent;
                     }
                 }
