@@ -12,9 +12,11 @@ export default class DescriptionsFoundation<P = Record<string, any>, S = Record<
     getHorizontalList() {
         const { column, data, children } = this.getProps();
         const columns = this._adapter.getColumns();
+        // Filter out hidden items before grouping
+        const visibleColumns = columns.filter(item => !item.hidden);
         const horizontalList = [];
         const curSpan = { totalSpan: 0, itemList: [] };
-        for (const item of columns) {
+        for (const item of visibleColumns) {
             curSpan.totalSpan += item.span || 1;
             curSpan.itemList.push(item);
             if (curSpan.totalSpan >= column) {
