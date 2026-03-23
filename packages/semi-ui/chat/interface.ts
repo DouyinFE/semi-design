@@ -133,7 +133,7 @@ export interface RoleConfig {
 
 export interface Metadata {
     name?: string;
-    avatar?: string;
+    avatar?: ReactNode | string;
     color?: string;
     [x: string]: any
 }
