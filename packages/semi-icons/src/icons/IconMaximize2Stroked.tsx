@@ -15,11 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M5 5.5A.5.5 0 015.5 5h13a.5.5 0 01.5.5v13a.5.5 0 01-.5.5H5.5A.5.5 0 015 18.5V5.5Zm-3 0v13A3.5 3.5 0 005.5 22h13A3.5 3.5 0 0022 18.5V5A3.5 3.5 0 0018.5 2H5.5A3.5 3.5 0 002 5.5Z"
+                d="M4 4H21V20H4V4ZM2 3V21a1 1 0 001 1H22a1 1 0 001-1V3A1 1 0 0022 2H3A1 1 0 002 3Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-const IconComponent = convertIcon(SvgComponent, 'maximize_2');
+const IconComponent = convertIcon(SvgComponent, 'maximize_2_stroked');
 export default IconComponent;
