@@ -93,7 +93,12 @@ export interface AIChatInputProps {
     // Popover related
     popoverProps?: PopoverProps;
     sendHotKey?: 'enter' | 'shift+enter';
-    immediatelyRender?: boolean
+    immediatelyRender?: boolean;
+    /**
+     * Whether to clear input content when generating state changes from false to true
+     * @default true
+     */
+    clearContentOnGenerating?: boolean;
 }
 
 export interface RenderUploadButtonProps {
