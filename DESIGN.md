@@ -14,12 +14,15 @@ Semi Design uses a comprehensive CSS variable system to automatically handle Lig
 - **Success** (`var(--semi-color-success)`): Success messages, safe actions. (Light: #3BB346 / Dark: #5DC264)
 - **Warning** (`var(--semi-color-warning)`): Warning states, alerts. (Light: #FC8800 / Dark: #FFAE43)
 - **Danger** (`var(--semi-color-danger)`): Error states, destructive actions. (Light: #F93920 / Dark: #FC725A)
+- **Info** (`var(--semi-color-info)`): Informational messages, neutral feedback. Same hue as Primary. (Light: #0064FA / Dark: #54A9FF)
 
 ### Backgrounds & Surfaces (Light / Dark)
 - **Page Background** (`var(--semi-color-bg-0)`): The lowest level background. (Light: #FFFFFF / Dark: #16161A)
 - **Elevated Surface** (`var(--semi-color-bg-1)`): Cards, containers. (Light: #FFFFFF / Dark: #232429)
 - **Modal/Popover Surface** (`var(--semi-color-bg-2)`): Middle layer containers. (Light: #FFFFFF / Dark: #35363C)
-- **Fill Default** (`var(--semi-color-fill-0)`): Component backgrounds (e.g., input). (Light: rgba(28,31,35,0.05) / Dark: rgba(255,255,255,0.12))
+- **Fill Default** (`var(--semi-color-fill-0)`): Component backgrounds (e.g., input). (Light: rgba(46,50,56,0.05) / Dark: rgba(255,255,255,0.12))
+- **Fill Hover** (`var(--semi-color-fill-1)`): Component hover backgrounds. (Light: rgba(46,50,56,0.09) / Dark: rgba(255,255,255,0.16))
+- **Fill Active** (`var(--semi-color-fill-2)`): Component active/pressed backgrounds. (Light: rgba(46,50,56,0.13) / Dark: rgba(255,255,255,0.20))
 
 ### Text & Borders (Light / Dark)
 - **Primary Text** (`var(--semi-color-text-0)`): Main content. (Light: #1C1F23 / Dark: #F9F9F9)
@@ -27,10 +30,21 @@ Semi Design uses a comprehensive CSS variable system to automatically handle Lig
 - **Tertiary Text** (`var(--semi-color-text-2)`): Placeholder, disabled-like text. (Light: rgba(28,31,35,0.62) / Dark: rgba(249,249,249,0.6))
 - **Outline/Border** (`var(--semi-color-border)`): Default borders and dividers. (Light: rgba(28,31,35,0.08) / Dark: rgba(255,255,255,0.08))
 
+### AI Colors
+Semi Design provides dedicated AI-themed color variables for AI-powered features and interfaces:
+- **AI General** (`var(--semi-color-ai-general)`): Gradient-based AI accent color for AI-related UI elements. Uses a multi-stop linear gradient blending blue, purple, and pink hues.
+- **AI Purple** (`var(--semi-color-ai-purple)`): Solid purple accent for secondary AI elements. (Light: rgba(166,71,255) / Dark: rgba(195,117,255))
+- **AI Background Bottom** (`var(--semi-color-ai-background-bottom)`): Subtle gradient overlay for AI section backgrounds.
+- **AI Background Top** (`var(--semi-color-ai-background-top)`): Stronger gradient overlay for AI section top layers.
+
+Each AI color supports `-hover`, `-active`, and `-disabled` state variants.
+
+### Data Visualization Palette
+Semi Design provides 20 data colors (`var(--semi-color-data-0)` through `var(--semi-color-data-19)`) optimized for charts and data visualizations. These colors are designed to be distinguishable and accessible in both Light and Dark modes. Use them with VChart or any charting library.
+
 ## Typography
-- **Headline Font**: Inter, system-ui, sans-serif
-- **Body Font**: Inter, system-ui, sans-serif
-- **Label Font**: Inter, system-ui, sans-serif
+- **Font Stack**: `"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif`
+- All text (headlines, body, labels) uses the same font stack.
 
 Headlines use bold weight (600) ranging from 16px to 32px:
 - H1: 32px, line-height 44px
@@ -51,7 +65,8 @@ Text colors strictly follow the hierarchy:
 
 ## Elevation
 This design uses subtle shadows to convey depth for floating elements (modals, popovers, toasts, dropdowns).
-- **Elevated**: `0 0 1px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(0, 0, 0, 0.1)`
+- **Elevated (Light)**: `0 0 1px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(0, 0, 0, 0.1)`
+- **Elevated (Dark)**: `inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 4px 14px rgba(0, 0, 0, 0.25)`
 
 Standard page elements (cards, containers) generally stay flat, relying on 1px borders and background color variations (`--semi-color-fill-0`) for hierarchy.
 
@@ -70,12 +85,12 @@ Semi Design uses a strict border-radius hierarchy:
 - **Modals & Cards**: Use `var(--semi-border-radius-large)`, elevated shadow for modals, flat with borders for standard cards. Modals use `var(--semi-color-bg-2)` (Light: #FFFFFF / Dark: #35363C) for background.
 - **Tags & Badges**: Use `var(--semi-border-radius-small)` for tags, fully rounded for badges and avatars.
 - **Tabs**: Line tabs use a 2px bottom border (`var(--semi-color-primary)`, Light: #0064FA / Dark: #54A9FF for active). Card tabs use `var(--semi-border-radius-small)` on top corners.
-- **Tables**: Use `var(--semi-color-bg-1)` (Light: #FFFFFF / Dark: #232429) for header backgrounds and `var(--semi-color-border)` (Light: rgba(28,31,35,0.08) / Dark: rgba(255,255,255,0.08)) for dividers. Hovering over a row changes its background to `var(--semi-color-fill-0)` (Light: rgba(28,31,35,0.05) / Dark: rgba(255,255,255,0.12)).
+- **Tables**: Use `var(--semi-color-bg-1)` (Light: #FFFFFF / Dark: #232429) for header backgrounds and `var(--semi-color-border)` (Light: rgba(28,31,35,0.08) / Dark: rgba(255,255,255,0.08)) for dividers. Hovering over a row changes its background to `var(--semi-color-fill-0)` (Light: rgba(46,50,56,0.05) / Dark: rgba(255,255,255,0.12)).
 
 ### Forms & Inputs
 - **Sizing**: Default control height is 32px. Small size is 24px, Large size is 40px.
-- **Styling**: Inputs use a transparent border (`transparent`), 3px corner radius, and a filled background (`var(--semi-color-fill-0)`, Light: rgba(28,31,35,0.05) / Dark: rgba(255,255,255,0.12)).
-- **Hover State**: Background changes to `var(--semi-color-fill-1)` (Light: rgba(28,31,35,0.09) / Dark: rgba(255,255,255,0.16)).
+- **Styling**: Inputs use a transparent border (`transparent`), 3px corner radius, and a filled background (`var(--semi-color-fill-0)`, Light: rgba(46,50,56,0.05) / Dark: rgba(255,255,255,0.12)).
+- **Hover State**: Background changes to `var(--semi-color-fill-1)` (Light: rgba(46,50,56,0.09) / Dark: rgba(255,255,255,0.16)).
 - **Focus State**: Background changes back to `var(--semi-color-fill-0)` and uses a 1px primary blue border (`var(--semi-color-focus-border)`, Light: #0064FA / Dark: #54A9FF).
 - **Required Fields**: Indicated by a red asterisk (`var(--semi-color-danger)`).
 
@@ -84,8 +99,8 @@ Semi Design uses a strict border-radius hierarchy:
 - **Color**: Icons generally inherit the text color (`currentColor`) or use `var(--semi-color-text-2)` for neutral/secondary actions.
 
 ### Interaction States
-- **Hover**: For filled components, use the `-hover` suffix variable (e.g., `var(--semi-color-primary-hover)`). For neutral items (like list items or transparent buttons), use `var(--semi-color-fill-1)` (Light: rgba(28,31,35,0.09) / Dark: rgba(255,255,255,0.16)) as the background.
-- **Active/Pressed**: Use the `-active` suffix variable (e.g., `var(--semi-color-primary-active)`), or `var(--semi-color-fill-2)` (Light: rgba(28,31,35,0.13) / Dark: rgba(255,255,255,0.20)) for neutral items.
+- **Hover**: For filled components, use the `-hover` suffix variable (e.g., `var(--semi-color-primary-hover)`). For neutral items (like list items or transparent buttons), use `var(--semi-color-fill-1)` (Light: rgba(46,50,56,0.09) / Dark: rgba(255,255,255,0.16)) as the background.
+- **Active/Pressed**: Use the `-active` suffix variable (e.g., `var(--semi-color-primary-active)`), or `var(--semi-color-fill-2)` (Light: rgba(46,50,56,0.13) / Dark: rgba(255,255,255,0.20)) for neutral items.
 - **Disabled**: Use `var(--semi-color-disabled-bg)` (Light: #E6E8EA / Dark: #2E3238) for backgrounds, `var(--semi-color-disabled-text)` (Light: rgba(28,31,35,0.35) / Dark: rgba(249,249,249,0.35)) for text, and `var(--semi-color-disabled-border)` (Light: #E6E8EA / Dark: #2E3238) for borders. Disabled elements often have reduced opacity and `cursor: not-allowed`.
 
 ## Do's and Don'ts
