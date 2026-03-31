@@ -6,6 +6,7 @@ import "@douyinfe/semi-foundation/aiChatDialogue/aiChatDialogue.scss";
 import { ReasoningWidget } from './widgets/contentItem/reasoning';
 import { DialogueStepWidget } from './widgets/contentItem/dialogueStep';
 import { AnnotationWidget } from './widgets/contentItem/annotation';
+import Code from './widgets/contentItem/code';
 import DialogueItem from './Dialogue';
 import DialogueFoundation, { DialogueAdapter, Message } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
 import { AIChatDialogueProps } from './interface';
@@ -36,6 +37,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
     static Reasoning = ReasoningWidget;
     static Step = DialogueStepWidget;
     static Annotation = AnnotationWidget;
+    static defaultComponents = { code: Code };
 
     foundation: DialogueFoundation;
     containerRef: React.RefObject<HTMLDivElement>;
