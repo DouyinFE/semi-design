@@ -114,6 +114,8 @@ export interface BaseFormProps <Values extends Record<string, any> = any> extend
     id?: string;
     /** getFormApi will be call once when Form mounted, u can save formApi reference in your component  */
     getFormApi?: (formApi: FormApi<Values>) => void;
+    /** External formApi created by Form.useForm() */
+    form?: any; // 使用 any 类型以兼容代理对象
     style?: React.CSSProperties;
     className?: string;
     extraTextPosition?: 'middle' | 'bottom';

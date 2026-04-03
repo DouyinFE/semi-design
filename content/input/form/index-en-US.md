@@ -2061,6 +2061,7 @@ render(WithFieldDemo2);
 | disabled          | If true, all fields inside the form structure will automatically inherit the disabled attribute                                                                                                                                                                                                                     | boolean                                         | false      |
 | extraTextPosition | The extraTextPosition property applied to each Field uniformly controls the display position of extraText. Middle (the vertical direction is displayed in the order of Label, extraText, and Field), bottom (the vertical direction is displayed in the order of Label, Field, and extraText) | string                                          | 'bottom'   |
 | getFormApi        | This function will be executed once when the form is mounted and returns formApi. <br/>formApi can be used to modify the internal state of the form (value, touched, error)                                                                                                                                         | function (formApi: object)                      |            |
+| form              | External formApi instance created by `Form.useForm()`. Used to control form state from outside the Form component.                                                                                                                                                                                                  | object                                          |            |
 | initValues        | Used to uniformly set the initial value of the form <br/>(will be consumed only once when form is mount)                                                                                                                                                                                                            | object                                          |            |
 | layout            | The layout of fields, optional `horizontal` or `vertical`                                                                                                                                                                                                                                                           | string                                          | 'vertical' |
 | labelCol          | Uniformly applied to the label label layout of each Field, with [Col Component](/en-US/basic/grid#Col), <br/>set `span`, `span` values, such as {span: 6, selected: 2}                                                                                                                     | object                                          |
@@ -2133,13 +2134,63 @@ The table below describes the features available in the formApi.
 
 ### How to access formApi
 
+-   Use `Form.useForm()` to create formApi outside Form, then pass it via props.form to the Form component. This allows you to get formApi before Form renders, suitable for scenarios where you need to control the form from outside the component.
 -   The Form component in the `ComponentDidMount` phase will execute the `getFormApi` callback passed in by props. You can save a reference to formApi in the callback function for subsequent calls (example code below)
-    In addition, we provide other ways to get formApi, and you can choose different ways of calling according to your preference.
+     In addition, we provide other ways to get formApi, and you can choose different ways of calling according to your preference.
 -   Use reference to get form instance，you can access form instance & its formApi
 -   By declaring fields through "child render function", formApi will injected as a parameter
 -   By declaring fields through "render props", formApi will injected as a parameter
 -   Via [useFormApi](#useFormApi) hook for children component of Form
 -   Via [withFormApi](#withFormApi) HOC for children component of Form
+
+#### Using Form.useForm()
+
+`Form.useForm()` is used to **create** a formApi instance **outside** the Form component, suitable for scenarios where you need to control the form before it renders. It returns an array `[formApi, formState, formValues]`.
+
+<Notice type="primary" title="Difference between Form.useForm() and useFormApi">
+<div><strong>Form.useForm()</strong>: Creates formApi <strong>outside</strong> Form, needs to be passed to Form via props.form. Used for parent components controlling child Form.</div>
+<div><strong>useFormApi</strong>: Gets formApi <strong>inside</strong> Form, used for child components of Form to access the parent Form. See [useFormApi](#useFormApi).</div>
+</Notice>
+
+Usage example:
+
+```jsx
+import React from 'react';
+import { Form, Button } from '@douyinfe/semi-ui';
+
+() => {
+    // Create formApi outside Form
+    const [formApi, formState, formValues] = Form.useForm();
+
+    const handleClick = () => {
+        // Call formApi outside Form
+        formApi.setValue('username', 'semi');
+        console.log('Current form values:', formValues);
+    };
+
+    return (
+        <>
+            <Button onClick={handleClick}>Set Value Externally</Button>
+            <Button onClick={() => formApi.reset()}>Reset Form</Button>
+            
+            {/* Pass formApi to Form component */}
+            <Form form={formApi}>
+                <Form.Input field='username' label='Username' />
+                <Form.Input field='email' label='Email' />
+            </Form>
+            
+            <div style={{ marginTop: 16 }}>
+                <div>Form Values: {JSON.stringify(formValues)}</div>
+                <div>Touched Status: {JSON.stringify(formState.touched)}</div>
+            </div>
+        </>
+    );
+};
+```
+
+<Notice type="primary" title="Notice">
+When using formApi created by `Form.useForm()` before the Form component mounts, a warning will be logged in the console. It is recommended to call formApi methods after the Form has mounted.
+</Notice>
 
 ```jsx
 import React from 'react';
