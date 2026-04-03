@@ -300,6 +300,29 @@ import { TextArea } from '@douyinfe/semi-ui';
 );
 ```
 
+### 设置 TextArea 高度
+
+通过 `textareaStyle` 可以设置内部 textarea 元素的样式，如高度、背景色等。
+
+```jsx live=true
+import React from 'react';
+import { TextArea } from '@douyinfe/semi-ui';
+
+() => (
+    <div>
+        <TextArea textareaStyle={{ height: 120 }} placeholder="高度 120px" />
+        <br/><br/>
+        <TextArea textareaStyle={{ height: 200, backgroundColor: '#f9f9f9' }} placeholder="高度 200px，灰色背景" />
+        <br/><br/>
+        <TextArea 
+            style={{ border: '2px solid var(--semi-color-primary)' }} 
+            textareaStyle={{ height: 150 }} 
+            placeholder="style 控制外层容器，textareaStyle 控制 textarea" 
+        />
+    </div>
+);
+```
+
 ### 行号
 
 通过设置 `showLineNumber` 展示行号。可用 `lineNumberStart` 设置起始行号，或通过 `lineNumberStyle`/`lineNumberClassName` 自定义行号区样式。
@@ -520,7 +543,8 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | lineNumberClassName | 行号区域 className | string | - |
 | lineNumberStyle | 行号区域样式 | CSSProperties | - |
 | showClear    | 支持清除               | boolean                         | false     |
-| style        | 样式                               | CSSProperties                   | -      |
+| style        | 外层容器样式                               | CSSProperties                   | -      |
+| textareaStyle | textarea 元素的样式，可用于设置 textarea 的高度等样式 **>=2.94.0** | CSSProperties | - |
 | onBlur       | 输入框失去焦点时的回调             |(e:event) => void               | -      |
 | onChange     | 输入框内容变化时的回调             | (value:string, e:event) => void |        |
 | onClear      | 点击清除按钮时的回调 | (e:event) => void                         | -       |

@@ -289,6 +289,29 @@ import { TextArea } from '@douyinfe/semi-ui';
 );
 ```
 
+### Setting TextArea Height
+
+You can set the style of the internal textarea element through `textareaStyle`, such as height, background color, etc.
+
+```jsx live=true
+import React from 'react';
+import { TextArea } from '@douyinfe/semi-ui';
+
+() => (
+    <div>
+        <TextArea textareaStyle={{ height: 120 }} placeholder="Height 120px" />
+        <br/><br/>
+        <TextArea textareaStyle={{ height: 200, backgroundColor: '#f9f9f9' }} placeholder="Height 200px with gray background" />
+        <br/><br/>
+        <TextArea 
+            style={{ border: '2px solid var(--semi-color-primary)' }} 
+            textareaStyle={{ height: 150 }} 
+            placeholder="style controls outer container, textareaStyle controls textarea" 
+        />
+    </div>
+);
+```
+
 ### Line Numbers
 
 Set `showLineNumber` to display line numbers. You can use `lineNumberStart` to set the starting line number, and customize the line number area via `lineNumberStyle`/`lineNumberClassName`.
@@ -507,7 +530,8 @@ Answers to some questions:
 | lineNumberClassName | ClassName for line number area                                                                                        | string                          | -       |
 | lineNumberStyle    | Style for line number area                                                                                              | CSSProperties                   | -       |
 | showClear         | Display the clear button when the input box has content and hover or focus                                                                                         | boolean                         | false   |
-| style             | Inline style                                                                                                           | CSSProperties                   | -       |
+| style             | Inline style for the outer container                                                                                                           | CSSProperties                   | -       |
+| textareaStyle     | Style for the textarea element, can be used to set height, background color, etc. **>=2.94.0** | CSSProperties | - |
 | onBlur            | Callback invoked when input loses focus                                                                                | (e:event) => void               | -       |
 | onChange          | Callback invoked when input value changes                                                                              | (value:string, e:event) => void |         |
 | onClear           | Callback invoked when clicking clear icon                                                                | (e:event) => void               |         |

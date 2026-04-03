@@ -61,7 +61,7 @@ export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
     /* Inner params for TextArea, Chat use it, 。
        Used to disable line breaks by pressing the enter key。
        Press enter + shift at the same time can start new line.
-    */
+     */
     disabledEnterStartNewLine?: boolean;
     /** Whether to show line numbers */
     showLineNumber?: boolean;
@@ -71,6 +71,8 @@ export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
     lineNumberClassName?: string;
     /** Custom style for line number area */
     lineNumberStyle?: CSSProperties;
+    /** The style of textarea element */
+    textareaStyle?: CSSProperties;
 }
 
 export interface TextAreaState {
@@ -99,6 +101,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         validateStatus: PropTypes.string,
         className: PropTypes.string,
         style: PropTypes.object,
+        textareaStyle: PropTypes.object,
         showClear: PropTypes.bool,
         onClear: PropTypes.func,
         onResize: PropTypes.func,
@@ -458,6 +461,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             maxCount,
             defaultValue,
             style,
+            textareaStyle,
             forwardRef,
             getValueLength,
             maxLength,
@@ -490,6 +494,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         });
         const itemProps = {
             ...omit(rest, 'insetLabel', 'insetLabelId', 'getValueLength', 'onClear', 'showClear', 'disabledEnterStartNewLine'),
+            style: textareaStyle,
             autoFocus: autoFocus || this.props['autofocus'],
             className: itemCls,
             disabled,
