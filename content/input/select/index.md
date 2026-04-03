@@ -1547,6 +1547,41 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 
 <DesignToken/>
 
+## TypeScript 泛型支持
+
+`Select` 组件支持通过泛型参数来约束 `value` 的类型，从而提供更好的类型推断。
+
+```jsx
+import { Select } from '@douyinfe/semi-ui';
+
+// 指定 value 为 string 类型
+<Select<string>
+    value={selectedValue}
+    onChange={(value) => {
+        // value 类型为 string | string[]
+        setSelectedValue(value);
+    }}
+>
+    <Select.Option value="option1">选项 1</Select.Option>
+    <Select.Option value="option2">选项 2</Select.Option>
+</Select>
+
+// 多选模式下，value 类型为 string[]
+<Select<string>
+    multiple
+    value={selectedValues}
+    onChange={(value) => {
+        // value 类型为 string | string[]，由于 multiple 为 true，实际为 string[]
+        setSelectedValues(value as string[]);
+    }}
+>
+    <Select.Option value="option1">选项 1</Select.Option>
+    <Select.Option value="option2">选项 2</Select.Option>
+</Select>
+```
+
+使用泛型参数后，你可以获得更精确的类型推断，无需再手动进行类型转换。
+
 ## FAQ
 
 -   **为什么 Semi 的 Select 要求 label 必须唯一，而不是 value 必须唯一?**
