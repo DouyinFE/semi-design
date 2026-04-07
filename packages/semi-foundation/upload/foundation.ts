@@ -88,8 +88,10 @@ export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyPreviewClick: (file: any) => void;
     notifyDrop: (e: any, files: Array<File>, fileList: Array<BaseFileItem>) => void;
     notifyAcceptInvalid: (invalidFiles: Array<File>) => void;
-    registerPastingHandler: (cb?: (params?: any) => void) => void;
+    registerPastingHandler: (cb?: (params?: KeyboardEvent | ClipboardEvent) => void) => void;
     unRegisterPastingHandler: () => void;
+    registerPasteEventHandler: (cb?: (params?: ClipboardEvent) => void) => void;
+    unRegisterPasteEventHandler: () => void;
     isMac: () => boolean;
     notifyPastingError: (error: Error | PermissionStatus) => void
     // notifyPasting: () => void; 
@@ -103,6 +105,11 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
      * when _createURL is called multiple times in a sync loop.
      */
     _localUrls: Record<string, string> = {};
+    /**
+     * Flag to prevent duplicate handling of paste events.
+     * When paste event is successfully handled, we ignore the subsequent keydown event.
+     */
+    _pasteHandled: boolean = false;
     constructor(adapter: UploadAdapter<P, S>) {
         super({ ...adapter });
     }
@@ -1024,41 +1031,91 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     }
 
     handlePasting(e: any) {
+        const { addOnPasting } = this.getProps();
+        if (!addOnPasting) {
+            return;
+        }
+
+        // Try to read from native paste event (clipboardData) first as fallback
+        if (e.type === 'paste' && e.clipboardData && e.clipboardData.items) {
+            const items = e.clipboardData.items;
+            const files: File[] = [];
+            
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i];
+                // Check if the item is a file (image, etc.)
+                if (item.kind === 'file') {
+                    const file = item.getAsFile();
+                    if (file) {
+                        files.push(file);
+                    }
+                }
+            }
+
+            if (files.length > 0) {
+                e.preventDefault();
+                this.handleChange(files);
+                // Mark that paste event has been handled to prevent duplicate handling by keydown event
+                this._pasteHandled = true;
+                // Reset the flag after a short delay to allow future paste operations
+                setTimeout(() => {
+                    this._pasteHandled = false;
+                }, 100);
+                return;
+            }
+        }
+
+        // Fallback to navigator.clipboard for keyboard events (keydown with Ctrl/Cmd+V)
+        // Skip if paste event has already been handled
+        if (this._pasteHandled) {
+            this._pasteHandled = false;
+            return;
+        }
+
         const isMac = this._adapter.isMac();
         const isCombineKeydown = isMac ? e.metaKey : e.ctrlKey;
-        const { addOnPasting } = this.getProps();
-        if (addOnPasting) {
-            if (isCombineKeydown && e.code === 'KeyV') {
-                // https://github.com/microsoft/TypeScript/issues/33923
-                const permissionName = 'clipboard-read' as PermissionName;
-                // The main thread should not be blocked by clipboard, so callback writing is required here. No await here
-                navigator.permissions
-                    .query({ name: permissionName })
-                    .then(result => {
-                        if (result.state === 'granted' || result.state === 'prompt') {
-                            // user has authorized or will authorize
-                            navigator.clipboard.read().then(clipboardItems => {
-                                // Process the data read from the pasteboard
-                                // Check the returned data type to determine if it is image data, and process accordingly
-                                this.readFileFromClipboard(clipboardItems);
-                            });
-                        } else {
-                            this._adapter.notifyPastingError(result);
-                        }
-                    })
-                    .catch(error => {
-                        this._adapter.notifyPastingError(error);
-                    });
+        
+        if (isCombineKeydown && e.code === 'KeyV') {
+            // Check if navigator.clipboard is available
+            if (!navigator.clipboard || typeof navigator.clipboard.read !== 'function') {
+                return;
             }
+
+            // https://github.com/microsoft/TypeScript/issues/33923
+            const permissionName = 'clipboard-read' as PermissionName;
+            // The main thread should not be blocked by clipboard, so callback writing is required here. No await here
+            navigator.permissions
+                .query({ name: permissionName })
+                .then(result => {
+                    if (result.state === 'granted' || result.state === 'prompt') {
+                        // user has authorized or will authorize
+                        navigator.clipboard.read().then(clipboardItems => {
+                            // Process the data read from the pasteboard
+                            // Check the returned data type to determine if it is image data, and process accordingly
+                            this.readFileFromClipboard(clipboardItems);
+                        }).catch(error => {
+                            this._adapter.notifyPastingError(error);
+                        });
+                    } else {
+                        this._adapter.notifyPastingError(result);
+                    }
+                })
+                .catch(error => {
+                    this._adapter.notifyPastingError(error);
+                });
         }
     }
 
     bindPastingHandler(): void {
+        // Register keyboard event handler (keydown with Ctrl/Cmd+V)
         this._adapter.registerPastingHandler((event) => this.handlePasting(event));
+        // Register native paste event handler as fallback
+        this._adapter.registerPasteEventHandler((event) => this.handlePasting(event));
     }
 
     unbindPastingHandler() {
         this._adapter.unRegisterPastingHandler();
+        this._adapter.unRegisterPasteEventHandler();
     }
 }
 

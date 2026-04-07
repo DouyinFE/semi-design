@@ -316,13 +316,22 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             isMac: (): boolean => {
                 return navigator.platform.toUpperCase().indexOf('MAC') >= 0;
             },
-            registerPastingHandler: (cb?: (e: KeyboardEvent) => void): void => {
+            registerPastingHandler: (cb?: (e: KeyboardEvent | ClipboardEvent) => void): void => {
                 document.body.addEventListener('keydown', cb);
                 this.pastingCb = cb;
             },
             unRegisterPastingHandler: (): void => {
                 if (this.pastingCb) {
                     document.body.removeEventListener('keydown', this.pastingCb);
+                }
+            },
+            registerPasteEventHandler: (cb?: (e: ClipboardEvent) => void): void => {
+                document.body.addEventListener('paste', cb);
+                this.pasteEventCb = cb;
+            },
+            unRegisterPasteEventHandler: (): void => {
+                if (this.pasteEventCb) {
+                    document.body.removeEventListener('paste', this.pasteEventCb);
                 }
             },
             notifyPastingError: (error): void => this.props.onPastingError(error),
@@ -343,6 +352,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     inputRef: RefObject<HTMLInputElement> = null;
     replaceInputRef: RefObject<HTMLInputElement> = null;
     pastingCb: null | ((params: any) => void);
+    pasteEventCb: null | ((params: any) => void);
 
     componentDidMount(): void {
         this.foundation.init();
