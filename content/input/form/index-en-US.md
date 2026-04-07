@@ -1266,8 +1266,71 @@ class FieldLevelValidateDemo extends React.Component {
 
 ### Manually Trigger specified validation
 When you want to manually trigger the validation of some specific Field, you can do it through `formApi.validate`.  
- When no parameters are passed in, all Fields are checked by default. When parameters are passed in, the parameters specified shall prevail  
+ When no parameters are passed in, all Fields are checked by default. When parameters are passed in, the parameters specified shall prevail
 
+### Silent Validation
+When you need to get the validation result without triggering UI updates (no error messages shown, no touched state set), you can use `formApi.validate({ silent: true })`. This is useful in scenarios where you want to decide whether to make a backend request based on the validation result.
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Form, Button, Toast } from '@douyinfe/semi-ui';
+
+class SilentValidationDemo extends React.Component {
+    constructor() {
+        super();
+        this.getFormApi = this.getFormApi.bind(this);
+        this.handleSilentValidate = this.handleSilentValidate.bind(this);
+    }
+
+    getFormApi(formApi) {
+        this.formApi = formApi;
+    }
+
+    // Silent validation: does not trigger UI updates
+    async handleSilentValidate() {
+        try {
+            const values = await this.formApi.validate({ silent: true });
+            Toast.success('Validation passed, ready to send request');
+            console.log('Sending backend request:', values);
+        } catch (errors) {
+            Toast.error('Validation failed, but no error UI shown');
+            console.log('Validation errors:', errors);
+        }
+    }
+
+    // Normal validation: triggers UI updates
+    handleNormalValidate() {
+        this.formApi.validate()
+            .then(values => {
+                Toast.success('Validation passed');
+            })
+            .catch(errors => {
+                Toast.error('Validation failed, showing error UI');
+            });
+    }
+
+    render() {
+        return (
+            <Form getFormApi={this.getFormApi} layout='horizontal'>
+                <Form.Input
+                    field="username"
+                    label="Username"
+                    rules={[{ required: true, message: 'Username is required' }, { min: 3, message: 'Username must be at least 3 characters' }]}
+                />
+                <Form.Input
+                    field="email"
+                    label="Email"
+                    rules={[{ required: true, message: 'Email is required' }, { type: 'email', message: 'Invalid email format' }]}
+                />
+                <div style={{ display: 'flex', gap: 12, marginTop: 12 }}>
+                    <Button onClick={this.handleSilentValidate} type="primary">Silent Validate (no error UI)</Button>
+                    <Button onClick={this.handleNormalValidate}>Normal Validate (shows error UI)</Button>
+                </div>
+            </Form>
+        );
+    }
+}
+```
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -2118,7 +2181,7 @@ The table below describes the features available in the formApi.
 | getFormState  | Get FormState                                                                                                                                                                                                                                                                                                                      | formApi.getFormState()                                                                                                        |
 | submitForm    | Manually submit form operation                                                                                                                                                                                                                                                                                               | formApi.submitForm()                                                                                                          |
 | reset         | Reset the form manually                                                                                                                                                                                                                                                                                                            | formApi.reset(fields?: Array <string\>)                                                                                      |
-| validate      | Manually trigger validation of the entire form. the verification of the entire Field will be triggered by default when no parameters are passed , if you want to trigger the verification of some fields, pass in the target field array <br/><br/> After the Form level validator is configured, the Field level validator will not be triggered again when submit or formApi.validate()  | formApi.validate() <br/>.then(values ​​=> {})<br/>.catch(errors => {})<br/>OR formApi.validate(['fieldA','fieldB'])           |
+| validate      | Manually trigger validation of the entire form. the verification of the entire Field will be triggered by default when no parameters are passed , if you want to trigger the verification of some fields, pass in the target field array <br/><br/> After the Form level validator is configured, the Field level validator will not be triggered again when submit or formApi.validate()<br/><br/>**Supported since v2.x**: Pass `{ silent: true }` to get validation results without triggering UI updates (no error messages shown, no touched state set). You can also use `{ fields: ['fieldA'], silent: true }` to perform silent validation on specific fields. | formApi.validate() <br/>.then(values ​​=> {})<br/>.catch(errors => {})<br/>OR formApi.validate(['fieldA','fieldB'])<br/>OR formApi.validate({ silent: true })<br/>OR formApi.validate({ fields: ['fieldA'], silent: true })<br/> |
 | setValues ​​  | Set the values ​​of the entire form. The isOverride in the second parameter is false by default. <br/> By default, only the values ​​of the existing field in the Form are updated from `newValues` to`formState.values`. <br/> When isOverride is `true`, the newValues ​​will be overwritten and assigned to formState.values ​​ | formApi.setValues(newValues: object, {isOverride: boolean})                                                                   |
 | getValues ​​  | Get the values of all Field                                                                                                                                                                                                                                                                                                        | formApi.getValues()                                                                                                           |
 | setValue      | provides direct modification of formState.values ​​method.<br/>The difference from `setValues` ​​is that it only modifies a single field.                                                                                                                                                                                          | formApi.setValue(field: string, newFieldValue: any)                                                                           |

@@ -70,6 +70,13 @@ export type ScrollToErrorOptions<K> = {
     scrollOpts?: ScrollIntoViewOptions
 }
 
+export interface ValidateOptions<K extends keyof any = keyof any> {
+    /** Fields to validate, if not specified, validate all fields */
+    fields?: Array<K>;
+    /** Whether to validate silently (without updating UI or setting touched state) */
+    silent?: boolean;
+}
+
 // use object replace Record<string, any>, fix issue 933
 export interface BaseFormApi<T extends object = any> {
     /** get value of field */
@@ -94,8 +101,8 @@ export interface BaseFormApi<T extends object = any> {
     submitForm: () => void;
     /** reset form manual */
     reset: (fields?: Array<string>) => void;
-    /** trigger validate  manual */
-    validate: <K extends keyof T, Params extends Array<K>, V extends Params[number]>(fields?: Params) => Promise<{ [R in V]: T[R] }>;
+    /** trigger validate manual */
+    validate: <K extends keyof T, Params extends Array<K>, V extends Params[number]>(fields?: Params | ValidateOptions<K>) => Promise<{ [R in V]: T[R] }>;
     getInitValue: <K extends keyof T>(field: K) => any;
     getInitValues: () => any;
     getValues: () => T;

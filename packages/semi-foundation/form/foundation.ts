@@ -5,7 +5,7 @@ import { isValid } from './utils';
 import { isUndefined, isFunction, toPath } from 'lodash';
 import scrollIntoView, { Options as ScrollIntoViewOptions } from 'scroll-into-view-if-needed';
 
-import { BaseFormAdapter, FormState, CallOpts, FieldState, FieldStaff, ComponentProps, setValuesConfig, ArrayFieldStaff } from './interface';
+import { BaseFormAdapter, FormState, CallOpts, FieldState, FieldStaff, ComponentProps, setValuesConfig, ArrayFieldStaff, ValidateOptions } from './interface';
 
 export type { BaseFormAdapter };
 
@@ -157,17 +157,32 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         this.registeredArrayField.set(arrayField, mergeVal);
     }
 
-    validate(fieldPaths?: Array<string>): Promise<unknown> {
+    validate(fieldPaths?: Array<string> | ValidateOptions): Promise<unknown> {
         const { validateFields } = this.getProps();
-        if (validateFields && isFunction(validateFields)) {
-            return this._formValidate();
+        
+        // Parse options
+        let fields: Array<string> | undefined;
+        let silent = false;
+        
+        if (fieldPaths && !Array.isArray(fieldPaths)) {
+            // It's a ValidateOptions object
+            const options = fieldPaths as ValidateOptions;
+            fields = options.fields as Array<string> | undefined;
+            silent = options.silent || false;
         } else {
-            return this._fieldsValidate(fieldPaths);
+            // It's an array of fields (or undefined)
+            fields = fieldPaths as Array<string> | undefined;
+        }
+        
+        if (validateFields && isFunction(validateFields)) {
+            return this._formValidate(silent);
+        } else {
+            return this._fieldsValidate(fields, silent);
         }
     }
 
     // form level validate
-    _formValidate(): Promise<unknown> {
+    _formValidate(silent: boolean = false): Promise<unknown> {
         const { values } = this.data;
         const { validateFields } = this.getProps();
 
@@ -182,7 +197,9 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             if (!maybePromisedErrors) {
                 const _values = this._adapter.cloneDeep(values);
                 resolve(_values);
-                this.injectErrorToField({});
+                if (!silent) {
+                    this.injectErrorToField({});
+                }
             } else if (isPromise(maybePromisedErrors)) {
                 maybePromisedErrors.then(
                     (result: any) => {
@@ -190,39 +207,45 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                         if (!result) {
                             const _values = this._adapter.cloneDeep(values);
                             resolve(_values);
-                            this.injectErrorToField({});
+                            if (!silent) {
+                                this.injectErrorToField({});
+                            }
                         } else {
                             this.data.errors = result;
-                            this._adapter.notifyChange(this.data);
-
-                            this.injectErrorToField(result);
-                            this._adapter.forceUpdate();
-                            this._autoScroll(100);
+                            if (!silent) {
+                                this._adapter.notifyChange(this.data);
+                                this.injectErrorToField(result);
+                                this._adapter.forceUpdate();
+                                this._autoScroll(100);
+                            }
                             reject(result);
                         }
                     },
                     (errors: any) => {
                         // validate failed
-                        // this._adapter.notifyChange(this.data);
-                        this._autoScroll(100);
+                        if (!silent) {
+                            // this._adapter.notifyChange(this.data);
+                            this._autoScroll(100);
+                        }
                         reject(errors);
                     }
                 );
             } else {
                 // TODO: current design, returning an empty object will be considered a checksum failure and will be rejected. Only returning an empty string will be considered a success, consider resetting it in 1.0?
                 this.data.errors = maybePromisedErrors;
-                this.injectErrorToField(maybePromisedErrors);
-                this._adapter.notifyChange(this.data);
-
-                this._adapter.forceUpdate();
-                this._autoScroll(100);
+                if (!silent) {
+                    this.injectErrorToField(maybePromisedErrors);
+                    this._adapter.notifyChange(this.data);
+                    this._adapter.forceUpdate();
+                    this._autoScroll(100);
+                }
                 reject(maybePromisedErrors);
             }
         });
     }
 
     // field level validate
-    _fieldsValidate(fieldPaths: Array<string>): Promise<unknown> {
+    _fieldsValidate(fieldPaths: Array<string>, silent: boolean = false): Promise<unknown> {
         const { values } = this.data;
         // When there is no custom validation function at Form level, perform validation of each Field
         return new Promise((resolve, reject) => {
@@ -232,25 +255,33 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 // Call each fieldApi for verification
                 const fieldValue = this.getValue(fieldPath);
                 // When centralized verification, no need to trigger forceUpdate and notify
+                // In silent mode, also set notUpdate to true to prevent UI updates
                 const opts = {
                     notNotify: true,
-                    notUpdate: true,
+                    notUpdate: silent,
                 };
                 const validateResult = field.fieldApi.validate(fieldValue, opts);
                 promiseSet.push(validateResult);
-                field.fieldApi.setTouched(true, opts);
+                // Only set touched when not in silent mode
+                if (!silent) {
+                    field.fieldApi.setTouched(true, { notNotify: true, notUpdate: true });
+                }
             });
             Promise.all(promiseSet).then(() => {
                 // After the centralized verification is completed, trigger notify and forceUpdate once.
-                this._adapter.notifyChange(this.data);
-
-                this._adapter.forceUpdate();
+                // But skip UI updates in silent mode
+                if (!silent) {
+                    this._adapter.notifyChange(this.data);
+                    this._adapter.forceUpdate();
+                }
                 const errors = this.getError();
                 if (this._isValid(targetFields)) {
                     const _values = this._adapter.cloneDeep(values);
                     resolve(_values);
                 } else {
-                    this._autoScroll();
+                    if (!silent) {
+                        this._autoScroll();
+                    }
                     reject(errors);
                 }
             });
@@ -620,7 +651,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         return {
             ...fieldSetterApi,
             reset: (fields?: Array<string>) => this.reset(fields),
-            validate: (fields?: Array<string>) => this.validate(fields),
+            validate: (fields?: Array<string> | ValidateOptions) => this.validate(fields),
             getValue: (field?: string) => this.getValue(field, { needClone: true }),
             getValues: () => this.getValue(undefined, { needClone: true }),
             getFormState: () => this.getFormState(true),
