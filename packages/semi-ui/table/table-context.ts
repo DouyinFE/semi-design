@@ -21,7 +21,8 @@ export interface TableContextProps {
     renderSelection?: (record?: Record<string, any>, isHeader?: boolean) => React.ReactNode;
     getVirtualizedListRef?: GetVirtualizedListRef;
     setBodyHasScrollbar?: (bodyHasScrollBar: boolean) => void;
-    direction?: ContextValue['direction']
+    direction?: ContextValue['direction'];
+    handleRowSelection?: (rowKey: BaseRowKeyType, selected: boolean, e: React.MouseEvent) => void;
 }
 
 const TableContext = React.createContext<TableContextProps>({
