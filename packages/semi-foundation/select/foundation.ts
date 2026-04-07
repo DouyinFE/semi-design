@@ -81,21 +81,32 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
         const autoFocus = this.getProp('autoFocus');
         if (autoFocus) {
-            this.focus();
+            this.focus(originalOptions);
         }
     }
 
-    focus() {
+    focus(optionsForOpen?: BasicOptionProps[]) {
         const isFilterable = this._isFilterable();
         const isMultiple = this._isMultiple();
+        const { isOpen } = this.getStates();
+
         this._adapter.updateFocusState(true);
         this._adapter.setIsFocusInContainer(false);
-        if (isFilterable && isMultiple) {
-            // when filter and multiple, only focus input
-            this.focusInput();
-        } else if (isFilterable && !isMultiple) {
-            // when filter and not multiple, only show input and focus input
-            this.toggle2SearchInput(true);
+
+        if (isFilterable) {
+            if (isMultiple) {
+                // when filter and multiple, focus input and open dropdown
+                this.focusInput();
+                if (!isOpen) {
+                    this.open(undefined, optionsForOpen);
+                }
+            } else {
+                // when filter and not multiple, show input, focus it and open dropdown
+                this.toggle2SearchInput(true);
+                if (!isOpen) {
+                    this.open(undefined, optionsForOpen);
+                }
+            }
         } else {
             this._focusTrigger();
         }
