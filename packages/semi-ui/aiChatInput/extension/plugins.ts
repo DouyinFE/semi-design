@@ -201,6 +201,11 @@ export function keyDownHandlePlugin(schema: any) {
                 }
 
                 if (event.key === 'Backspace' && selection.empty) {
+                    // 如果输入法激活（如中文拼音输入），不拦截 Backspace 事件，让输入法自己处理
+                    // If IME is active (e.g., Chinese pinyin input), don't intercept Backspace event, let IME handle it
+                    if (event.isComposing) {
+                        return false;
+                    }
                     const beforeNode = $from.nodeBefore;
                     const afterNode = $from.nodeAfter;
                     /**
@@ -321,6 +326,11 @@ export function keyDownHandlePlugin(schema: any) {
                 }
 
                 if (event.key === 'Backspace' && !selection.empty) {
+                    // 如果输入法激活（如中文拼音输入），不拦截 Backspace 事件，让输入法自己处理
+                    // If IME is active (e.g., Chinese pinyin input), don't intercept Backspace event, let IME handle it
+                    if (event.isComposing) {
+                        return false;
+                    }
                     let startPos = selection.from;
                     let endPos = selection.to;
                     const nodeBefore = $from.nodeBefore;
@@ -362,6 +372,11 @@ export function keyDownHandlePlugin(schema: any) {
                     if ($from.pos === $from.end() && node.textContent.length === 1 && node.textContent !== strings.ZERO_WIDTH_CHAR &&
                         event.key === 'Backspace'
                     ) {
+                        // 如果输入法激活（如中文拼音输入），不拦截 Backspace 事件，让输入法自己处理
+                        // If IME is active (e.g., Chinese pinyin input), don't intercept Backspace event, let IME handle it
+                        if (event.isComposing) {
+                            return false;
+                        }
                         const pos = $from.pos - 1;
                         dispatch(state.tr.insertText(strings.ZERO_WIDTH_CHAR, pos, pos + 1));
                         event.preventDefault();
@@ -374,6 +389,11 @@ export function keyDownHandlePlugin(schema: any) {
                         selection.from === $from.start() && selection.to >= $from.end() &&
                         (event.key === 'Backspace')
                     ) {
+                        // 如果输入法激活（如中文拼音输入），不拦截 Backspace 事件，让输入法自己处理
+                        // If IME is active (e.g., Chinese pinyin input), don't intercept Backspace event, let IME handle it
+                        if (event.isComposing) {
+                            return false;
+                        }
                         const tr = state.tr;
                         // 删除 inputSlot 之后被选中的内容
                         // Delete the selected content after inputSlot
@@ -394,6 +414,11 @@ export function keyDownHandlePlugin(schema: any) {
                     if (node.textContent === strings.ZERO_WIDTH_CHAR &&
                     (event.key === 'Backspace')
                     ) {
+                        // 如果输入法激活（如中文拼音输入），不拦截 Backspace 事件，让输入法自己处理
+                        // If IME is active (e.g., Chinese pinyin input), don't intercept Backspace event, let IME handle it
+                        if (event.isComposing) {
+                            return false;
+                        }
                         // 计算当前节点在文档中的位置
                         // Calculate the position of the current node in the document
                         const pos = $from.before();
