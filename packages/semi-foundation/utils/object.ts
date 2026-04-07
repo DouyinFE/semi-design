@@ -66,7 +66,9 @@ function cleanup(obj: ObjectType, path: string[], pull = true) {
     // }
 
     // Delete object if its empty
-    if (Array.isArray(target) && target.every(e => e == null)) {
+    // Only delete array if it's not empty AND all elements are null/undefined
+    // This prevents empty arrays from being deleted (issue #2834)
+    if (Array.isArray(target) && target.length > 0 && target.every(e => e == null)) {
         lodashUnset(obj, path);
     } else if (isEmptyObject(target)) {
         lodashUnset(obj, path);
