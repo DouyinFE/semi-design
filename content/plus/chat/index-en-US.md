@@ -1657,7 +1657,7 @@ render(DefaultChat);
 | PROPERTIES | INSTRUCTIONS | TYPE | DEFAULT |
 |------|--------|-------|-------|
 | name | name | string | - |
-| avatar | avatar | string | - |
+| avatar | avatar, supports image URL or ReactNode (such as Semi icons) | ReactNode \| string | - |
 | color | Avatar background color, same as the color parameter of Avatar component, support `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow` | string | `grey` |
 
 #### Message

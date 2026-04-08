@@ -1660,7 +1660,7 @@ render(DefaultChat);
 | 属性  | 说明   | 类型   | 默认值 |
 |------|--------|-------|-------|
 | name | 名称 | string | - |
-| avatar | 头像 | string | - |
+| avatar | 头像，支持图片 URL 或 ReactNode（如 Semi 图标） | ReactNode \| string | - |
 | color | 头像背景色，同 Avatar 组件的 color 参数, 支持 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow` | string | `grey` |
 
 #### Message

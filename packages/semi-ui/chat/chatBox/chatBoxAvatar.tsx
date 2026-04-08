@@ -19,14 +19,16 @@ const ChatBoxAvatar = React.memo((props: ChatBoxAvatarProps) => {
 
     const node = useMemo(() => {
         const { avatar, color } = role;
+        const isAvatarString = typeof avatar === 'string';
         return (<Avatar
             className={cls(`${PREFIX_CHAT_BOX}-avatar`,
                 {
                     [`${PREFIX_CHAT_BOX}-avatar-hidden`]: continueSend
                 })}
-            src={avatar}
+            src={isAvatarString ? avatar : undefined}
             size="extra-small"
         >
+            {!isAvatarString ? avatar : null}
         </Avatar>);
     }, [role]);
 
