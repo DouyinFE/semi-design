@@ -104,6 +104,10 @@ const BasicStep = (props: BasicStepProps) => {
             onChange?.();
         }
     };
+    const titleTextClass = classnames(`${prefixCls}-title-text`, {
+        [`${prefixCls}-title-text-empty`]: !title,
+    });
+
     return (
         <div role={props["role"]} aria-label={props["aria-label"]} tabIndex={0} aria-current="step"
             className={classString} style={style} onClick={e => handleClick(e)} onKeyDown={handleKeyDown}>
@@ -111,7 +115,7 @@ const BasicStep = (props: BasicStepProps) => {
                 <div className={`${prefixCls}-left`}>{renderIcon()}</div>
                 <div className={`${prefixCls}-content`}>
                     <div className={`${prefixCls}-title`}>
-                        <div className={`${prefixCls}-title-text`}>{title}</div>
+                        <div className={titleTextClass}>{title}</div>
                     </div>
                     {description && <div className={`${prefixCls}-description`}>{description}</div>}
                 </div>
