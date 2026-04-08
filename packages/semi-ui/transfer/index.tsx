@@ -118,14 +118,16 @@ interface HeaderConfig {
     type: string;
     showButton: boolean;
     num: number;
-    allChecked?: boolean
+    allChecked?: boolean;
+    leafOnlyNum?: number;
 }
 
 type SourceHeaderProps = {
     num: number;
     showButton: boolean;
     allChecked: boolean;
-    onAllClick: () => void
+    onAllClick: () => void;
+    leafOnlyNum?: number;
 }
 
 type SelectedHeaderProps = {
@@ -344,8 +346,8 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         });
 
         if (type === 'left' && typeof renderSourceHeader === 'function') {
-            const { num, showButton, allChecked, onAllClick } = headerConfig;
-            return renderSourceHeader({ num, showButton, allChecked, onAllClick });
+            const { num, showButton, allChecked, onAllClick, leafOnlyNum } = headerConfig;
+            return renderSourceHeader({ num, showButton, allChecked, onAllClick, leafOnlyNum });
         }
         
         if (type === 'right' && typeof renderSelectedHeader === 'function') {
@@ -405,6 +407,16 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         const inSearchMode = inputValue !== '';
         const showNumber = inSearchMode ? searchResult.size : data.length;
         const filterData = inSearchMode ? data.filter(item => searchResult.has(item.key)) : data;
+        
+        // Calculate leaf node count for treeList mode
+        let leafOnlyNum: number | undefined;
+        if (type === strings.TYPE_TREE_TO_LIST) {
+            const leafData = inSearchMode 
+                ? filterData.filter((item: any) => item.isLeaf) 
+                : data.filter((item: any) => item.isLeaf);
+            leafOnlyNum = leafData.length;
+        }
+        
         // Whether to select all should be a judgment, whether the filtered data on the left is a subset of the selected items
         // For example, the filtered data on the left is 1, 3, 4;
         // The selected option is 1,2,3,4, it is true
@@ -430,7 +442,8 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             type: 'left',
             showButton: type !== strings.TYPE_TREE_TO_LIST && !filterDataAllDisabled,
             num: showNumber,
-            allChecked: !leftContainsNotInSelected
+            allChecked: !leftContainsNotInSelected,
+            leafOnlyNum
         };
         const inputCom = this.renderFilter(locale);
         const headerCom = this.renderHeader(headerConfig);

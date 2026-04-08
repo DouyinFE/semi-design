@@ -372,7 +372,8 @@ type SourceHeaderProps = {
     num: number; // 数据总数或筛选结果数目
     showButton: boolean; // 是否展示全选/取消全选按钮
     allChecked: boolean; // 当前数据是否已全选
-    onAllClick: () => void // 点击全选/取消全选按钮后应调用的函数
+    onAllClick: () => void; // 点击全选/取消全选按钮后应调用的函数
+    leafOnlyNum?: number; // 仅在 type 为 treeList 时有效，表示叶子节点数量
 }
 
 type SelectedHeaderProps = {
@@ -1267,6 +1268,123 @@ import { Transfer } from '@douyinfe/semi-ui';
         <div style={{ margin: 10, padding: 10, width: 600 }}>
             <Transfer dataSource={treeData} type="treeList" value={v} onChange={$v}></Transfer>
         </div>
+    );
+};
+```
+
+### 树穿梭框自定义头部显示叶子节点数量
+
+当 type 为 `treeList` 时，`renderSourceHeader` 的 `SourceHeaderProps` 参数中会额外提供 `leafOnlyNum` 字段，表示叶子节点的数量。这在文件选择等场景中非常有用，可以在头部只显示文件数量而不是包含文件夹的总数。
+
+```jsx live=true dir="column"
+import React, { useState } from 'react';
+import { Transfer, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: '文件夹 1',
+            value: 'folder1',
+            key: 'folder1',
+            children: [
+                {
+                    label: '文件 1-1',
+                    value: 'file1-1',
+                    key: 'file1-1',
+                },
+                {
+                    label: '文件 1-2',
+                    value: 'file1-2',
+                    key: 'file1-2',
+                },
+                {
+                    label: '子文件夹 1',
+                    value: 'subfolder1',
+                    key: 'subfolder1',
+                    children: [
+                        {
+                            label: '文件 1-1-1',
+                            value: 'file1-1-1',
+                            key: 'file1-1-1',
+                        },
+                        {
+                            label: '文件 1-1-2',
+                            value: 'file1-1-2',
+                            key: 'file1-1-2',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: '文件夹 2',
+            value: 'folder2',
+            key: 'folder2',
+            children: [
+                {
+                    label: '文件 2-1',
+                    value: 'file2-1',
+                    key: 'file2-1',
+                },
+                {
+                    label: '文件 2-2',
+                    value: 'file2-2',
+                    key: 'file2-2',
+                },
+            ],
+        },
+        {
+            label: '独立文件',
+            value: 'file3',
+            key: 'file3',
+        },
+    ];
+
+    const [value, setValue] = useState([]);
+
+    const renderSourceHeader = (props) => {
+        const { num, leafOnlyNum, showButton, allChecked, onAllClick } = props;
+        
+        return (
+            <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                padding: '8px 12px',
+                borderBottom: '1px solid var(--semi-color-border)'
+            }}>
+                <span>
+                    <strong>文件总数：</strong>
+                    {leafOnlyNum !== undefined ? leafOnlyNum : num} 个文件
+                    {leafOnlyNum !== undefined && (
+                        <span style={{ color: 'var(--semi-color-text-2)', marginLeft: 8, fontSize: 12 }}>
+                            （总节点数：{num}）
+                        </span>
+                    )}
+                </span>
+                {showButton && (
+                    <Button
+                        theme="borderless"
+                        type="tertiary"
+                        size="small"
+                        onClick={onAllClick}
+                    >
+                        {allChecked ? '取消全选' : '全选'}
+                    </Button>
+                )}
+            </div>
+        );
+    };
+
+    return (
+        <Transfer
+            style={{ width: 600 }}
+            dataSource={treeData}
+            type="treeList"
+            value={value}
+            onChange={setValue}
+            renderSourceHeader={renderSourceHeader}
+        />
     );
 };
 ```
