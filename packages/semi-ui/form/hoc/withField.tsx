@@ -170,13 +170,21 @@ function withField<
                 // errors为数组时，不做deepEqual，始终当做需要更新处理
                 return;
             }
-            setError(errors);
-            updater.updateStateError(field, errors, callOpts);
-            if (!isValid(errors)) {
-                setStatus('error');
-            } else {
-                setStatus('success');
+            
+            const notUpdate = callOpts && callOpts.notUpdate;
+            
+            // When notUpdate is true, only update formState, not local state (for silent validation)
+            // 当 notUpdate 为 true 时，只更新 formState，不更新本地状态（用于静默校验）
+            if (!notUpdate) {
+                setError(errors);
+                if (!isValid(errors)) {
+                    setStatus('error');
+                } else {
+                    setStatus('success');
+                }
             }
+            
+            updater.updateStateError(field, errors, callOpts);
         };
 
         const updateValue = (val: any, callOpts?: CallOpts) => {
@@ -223,7 +231,6 @@ function withField<
                             return;
                         }
                         // validation passed
-                        setStatus('success');
                         updateError(undefined, callOpts);
                         resolve({});
                     })
@@ -240,12 +247,10 @@ function withField<
                             }
                             updateError(messages, callOpts);
                             if (!isValid(messages)) {
-                                setStatus('error');
                                 resolve(errors);
                             }
                         } else {
                             // Some grammatical errors in rules
-                            setStatus('error');
                             updateError(err.message, callOpts);
                             resolve(err.message);
                             throw err;
