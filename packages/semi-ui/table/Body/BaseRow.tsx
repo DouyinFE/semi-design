@@ -21,6 +21,7 @@ import { BaseRowKeyType } from '@douyinfe/semi-foundation/table/foundation';
 
 import BaseComponent from '../../_base/baseComponent';
 import TableCell from '../TableCell';
+import TableContext, { TableContextProps } from '../table-context';
 import { ColumnProps, Fixed, TableComponents, Virtualized, ExpandIcon, OnRow, RowExpandable } from '../interface';
 
 export interface BaseRowProps {
@@ -112,6 +113,7 @@ export const baseRowPropTypes = {
 
 export default class TableRow extends BaseComponent<BaseRowProps, Record<string, any>> {
     static propTypes = baseRowPropTypes;
+    static contextType = TableContext;
 
     static defaultProps = {
         columns: [] as [],
@@ -135,6 +137,8 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
         selected: false,
         disabled: false,
     };
+
+    context: TableContextProps;
 
     get adapter(): TableRowAdapter<BaseRowProps> {
         return {
@@ -321,6 +325,14 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
 
         if (customRowProps && typeof customRowProps.onClick === 'function') {
             customRowProps.onClick(e);
+        }
+
+        // Handle clickRow selection
+        const { handleRowSelection } = this.context;
+        const { rowKey, selected, disabled, record } = this.props;
+        
+        if (typeof handleRowSelection === 'function' && !disabled) {
+            handleRowSelection(rowKey, !selected, e);
         }
     };
 

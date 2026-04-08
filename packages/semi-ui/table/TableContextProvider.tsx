@@ -15,7 +15,8 @@ const TableContextProvider = ({
     renderSelection,
     getVirtualizedListRef,
     setBodyHasScrollbar,
-    direction
+    direction,
+    handleRowSelection
 }: TableContextProps) => {
     const tableContextValue = useMemo(
         () => ({
@@ -31,7 +32,8 @@ const TableContextProvider = ({
             handleRowExpanded,
             getVirtualizedListRef,
             setBodyHasScrollbar,
-            direction
+            direction,
+            handleRowSelection
         }),
         [
             anyColumnFixed,
@@ -46,7 +48,8 @@ const TableContextProvider = ({
             handleRowExpanded,
             getVirtualizedListRef,
             setBodyHasScrollbar,
-            direction
+            direction,
+            handleRowSelection
         ]
     );
 

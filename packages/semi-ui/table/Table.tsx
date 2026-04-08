@@ -1118,6 +1118,35 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         this.foundation.handleSelectRow(realKey, selected, e);
     };
 
+    handleRowClickSelection = (rowKey: BaseRowKeyType, selected: boolean, e: React.MouseEvent) => {
+        const { rowSelection } = this.state;
+        const clickRowEnabled = get(rowSelection, 'clickRow', false);
+        
+        if (clickRowEnabled && rowSelection) {
+            const disabled = get(rowSelection, 'disabled', false);
+            const getCheckboxProps = get(rowSelection, 'getCheckboxProps');
+            
+            // Check if the row is disabled
+            if (disabled) {
+                return;
+            }
+            
+            // Get record to check getCheckboxProps
+            const record = this.cachedFilteredSortedDataSource.find(
+                (r: RecordType) => this.foundation.getRecordKey(r) === rowKey
+            );
+            
+            if (record && typeof getCheckboxProps === 'function') {
+                const checkboxProps = getCheckboxProps(record);
+                if (checkboxProps.disabled) {
+                    return;
+                }
+            }
+            
+            this.foundation.handleSelectRow(rowKey, selected, e);
+        }
+    };
+
     toggleSelectAllRow = (selected: boolean, e: TableSelectionCellEvent) => {
         this.foundation.handleSelectAllRow(selected, e);
     };
@@ -1542,6 +1571,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             handleRowExpanded: this.handleRowExpanded,
             getVirtualizedListRef,
             setBodyHasScrollbar: this.setBodyHasScrollbar,
+            handleRowSelection: this.handleRowClickSelection,
         };
 
         const dataAttr = this.getDataAttr(rest);

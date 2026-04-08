@@ -254,6 +254,8 @@ export interface RowSelectionProps<RecordType> {
     selectedRowKeys?: (string | number)[];
     title?: ReactNode;
     width?: string | number;
+    /** Whether to enable click row to select */
+    clickRow?: boolean;
     onChange?: RowSelectionOnChange<RecordType>;
     onSelect?: RowSelectionOnSelect<RecordType>;
     onSelectAll?: RowSelectionOnSelectAll<RecordType>;
