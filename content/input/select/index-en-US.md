@@ -1507,6 +1507,41 @@ Some internal methods provided by Select can be accessed through ref:
 ## Related Material
 <semi-material-list code="3, 4, 58, 62, 696"></semi-material-list>
 
+## TypeScript Generic Support
+
+The `Select` component supports constraining the `value` type through a generic parameter, providing better type inference.
+
+```jsx
+import { Select } from '@douyinfe/semi-ui';
+
+// Specify value as string type
+<Select<string>
+    value={selectedValue}
+    onChange={(value) => {
+        // value type is string | string[]
+        setSelectedValue(value);
+    }}
+>
+    <Select.Option value="option1">Option 1</Select.Option>
+    <Select.Option value="option2">Option 2</Select.Option>
+</Select>
+
+// In multiple mode, value type is string[]
+<Select<string>
+    multiple
+    value={selectedValues}
+    onChange={(value) => {
+        // value type is string | string[], since multiple is true, it's actually string[]
+        setSelectedValues(value as string[]);
+    }}
+>
+    <Select.Option value="option1">Option 1</Select.Option>
+    <Select.Option value="option2">Option 2</Select.Option>
+</Select>
+```
+
+With the generic parameter, you can get more precise type inference without manual type conversion.
+
 ## FAQ
 
 -   **Searchable Select, using remote data to dynamically update the `optionList`, why sometimes there is no data before the asynchronous request is completed?？**  
