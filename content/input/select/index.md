@@ -1558,7 +1558,7 @@ import { Select } from '@douyinfe/semi-ui';
 <Select<string>
     value={selectedValue}
     onChange={(value) => {
-        // value 类型为 string | string[]
+        // value 类型为 string | string[] | undefined
         setSelectedValue(value);
     }}
 >
@@ -1571,7 +1571,7 @@ import { Select } from '@douyinfe/semi-ui';
     multiple
     value={selectedValues}
     onChange={(value) => {
-        // value 类型为 string | string[]，由于 multiple 为 true，实际为 string[]
+        // value 类型为 string | string[] | undefined，由于 multiple 为 true，实际为 string[]
         setSelectedValues(value as string[]);
     }}
 >

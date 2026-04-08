@@ -211,8 +211,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                                 this.injectErrorToField({});
                             }
                         } else {
-                            this.data.errors = result;
                             if (!silent) {
+                                this.data.errors = result;
                                 this._adapter.notifyChange(this.data);
                                 this.injectErrorToField(result);
                                 this._adapter.forceUpdate();
@@ -232,8 +232,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 );
             } else {
                 // TODO: current design, returning an empty object will be considered a checksum failure and will be rejected. Only returning an empty string will be considered a success, consider resetting it in 1.0?
-                this.data.errors = maybePromisedErrors;
                 if (!silent) {
+                    this.data.errors = maybePromisedErrors;
                     this.injectErrorToField(maybePromisedErrors);
                     this._adapter.notifyChange(this.data);
                     this._adapter.forceUpdate();

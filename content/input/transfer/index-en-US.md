@@ -370,7 +370,7 @@ type SourceHeaderProps = {
     showButton: boolean; // Whether to show select all/unselect all buttons
     allChecked: boolean; // Whether the current data has been selected
     onAllClick: () => void; // Function that should be called after clicking the select/unselect all button
-    leafOnlyNum?: number; // Only valid when type is treeList, represents the number of leaf nodes
+    leafOnlyNum?: number; // Only valid when type is treeList, represents the number of leaf nodes >=2.94.0
 }
 
 type SelectedHeaderProps = {

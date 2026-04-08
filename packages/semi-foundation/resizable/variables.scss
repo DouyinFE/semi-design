@@ -1,5 +1,5 @@
 $z-resizable_handler: 10 !default; // 伸缩框组件中handler的z-index，保持较低层级避免覆盖弹出层组件
-$z-resizable_background: 2010; // 伸缩框组件中背景的z-index
+$z-resizable_background: 20; // 伸缩框组件中背景的z-index，保持略高于handler
 
 $height-row-handler: 10px; // 单个伸缩框中上下handler的高度
 $width-col-handler: 10px;  // 单个伸缩框中左右handler的宽度

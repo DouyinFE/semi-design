@@ -375,7 +375,9 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
     }
 
     handRichTextArealKeyDown = (view: any, event: KeyboardEvent) => {
-        // console.log('outer key down handle');
+        if (view.composing) {
+            return false;
+        }
         const { sendHotKey } = this.getProps();
         const { suggestionVisible, skillVisible } = this.getStates();
         /**

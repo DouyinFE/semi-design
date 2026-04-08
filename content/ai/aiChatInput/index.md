@@ -1593,7 +1593,7 @@ render(<CustomRichTextExtension />);
 |------|----|------|-------|
 | canSend | 是否可以发送，未设置时，根据输入框内容，上传内容，引用内容决定是否可发送 | boolean | true |
 | className | 自定义类名 | string | - |
-| clearContentOnGenerating | 当 generating 从 false 变为 true 时，是否清空输入框内容和附件。设为 false 可保留输入内容（适用于无限画布等非对话场景） | boolean | true |
+| clearContentOnGenerating | 当 generating 从 false 变为 true 时，是否清空输入框内容和附件。设为 false 可保留输入内容（适用于无限画布等非对话场景） **>=2.94.0** | boolean | true |
 | defaultContent | 输入框默认内容，支持 html string 以及 json 格式，同 Tiptap 的 Content | TiptapContent | - |
 | dropdownMatchTriggerWidth | 下拉弹出层是否是否与输入框宽度一致 | boolean | true |
 | extensions | 自定义扩展，类型同 tiptap 的 Extension 类型相同 | Extension[] | - |

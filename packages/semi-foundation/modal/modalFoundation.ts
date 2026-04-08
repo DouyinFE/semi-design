@@ -68,17 +68,38 @@ export interface ModalState {
 
 export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
 
+    private _debouncedCancel: ReturnType<typeof debounce>;
+    private _debouncedOk: ReturnType<typeof debounce>;
+
     constructor(adapter: ModalAdapter) {
         super({
             ...adapter,
         });
+        this._debouncedCancel = debounce((e: any) => this._handleCancelImpl(e), 100, {
+            leading: true,
+            trailing: false
+        });
+        this._debouncedOk = debounce((e: any) => this._handleOkImpl(e), 100, {
+            leading: true,
+            trailing: false
+        });
     }
 
     destroy() {
+        this._debouncedCancel.cancel();
+        this._debouncedOk.cancel();
         this.afterHide();
     }
 
-    handleCancel = debounce((e: any) => {
+    handleCancel(e: any) {
+        this._debouncedCancel(e);
+    }
+
+    handleOk(e: any) {
+        this._debouncedOk(e);
+    }
+
+    private _handleCancelImpl(e: any) {
         const result = this._adapter.notifyCancel(e);
         if (isPromise(result)) {
             this._adapter.setState({ onCancelReturnPromiseStatus: "pending" });
@@ -89,12 +110,9 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
                 throw e;
             });
         }
-    }, 100, {
-        leading: true,
-        trailing: false
-    });
+    }
 
-    handleOk = debounce((e: any) => {
+    private _handleOkImpl(e: any) {
         const result = this._adapter.notifyOk(e);
         if (isPromise(result)) {
             this._adapter.setState({ onOKReturnPromiseStatus: "pending" });
@@ -105,10 +123,7 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
                 throw e;
             });
         }
-    }, 100, {
-        leading: true,
-        trailing: false
-    });
+    }
 
     beforeShow() {
         this._adapter.disabledBodyScroll();

@@ -373,7 +373,7 @@ type SourceHeaderProps = {
     showButton: boolean; // 是否展示全选/取消全选按钮
     allChecked: boolean; // 当前数据是否已全选
     onAllClick: () => void; // 点击全选/取消全选按钮后应调用的函数
-    leafOnlyNum?: number; // 仅在 type 为 treeList 时有效，表示叶子节点数量
+    leafOnlyNum?: number; // 仅在 type 为 treeList 时有效，表示叶子节点数量 >=2.94.0
 }
 
 type SelectedHeaderProps = {

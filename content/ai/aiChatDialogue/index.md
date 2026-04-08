@@ -1608,7 +1608,7 @@ render(StreamingResponseToMessageDemo);
 ### Static Properties
 | 属性  | 说明   | 类型 |
 |------|--------|------|
-| defaultComponents | 默认的 Markdown 渲染组件集合，包含增强版的 Code 组件，支持代码语言标识和复制功能。可用于 `markdownRenderProps.components` 的二次封装 | { code: React.ComponentType } |
+| defaultComponents | 默认的 Markdown 渲染组件集合，包含增强版的 Code 组件，支持代码语言标识和复制功能。可用于 `markdownRenderProps.components` 的二次封装 **>=2.94.0** | { code: React.ComponentType } |
 
 **使用示例：**
 
