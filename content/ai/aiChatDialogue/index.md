@@ -1536,7 +1536,7 @@ render(StreamingResponseToMessageDemo);
 | hintCls | 提示区最外层样式类名 | string | - |
 | hints | 提示信息 | string[] | - |
 | hintStyle | 提示区最外层样式 | CSSProperties | - |
-| markdownRenderProps | 该参数将透传给对话框渲染所用的 MarkdownRender 组件，详见 [MarkdownRenderProps](/zh-CN/plus/markdownrender#API) | MarkdownRenderProps | - |
+| markdownRenderProps | 该参数将透传给对话框渲染所用的 MarkdownRender 组件，详见 [MarkdownRenderProps](/zh-CN/plus/markdownrender#API)。注意：当自定义 `markdownRenderProps.components` 时，如果包含 `code` 组件，会覆盖默认的代码块渲染组件。如需在自定义代码块渲染时保留默认功能，可通过 `AIChatDialogue.defaultComponents.code` 获取默认组件进行二次封装。 | MarkdownRenderProps | - |
 | messageEditRender | 自定义消息编辑渲染 | (props: MessageContent) => React.ReactNode | - |
 | mode | 对话模式 | 'bubble' \| 'noBubble' \| 'userBubble' | 'bubble' |
 | onAnnotationClick | annotation 点击回调 | (annotation?: Annotation) => void | - |
@@ -1604,6 +1604,38 @@ render(StreamingResponseToMessageDemo);
 | deselectAll | 取消全选所有消息 |
 | scrollToBottom(animation: boolean) | 滚动到最底部, animation 为 true，则有动画，反之无动画 |
 | scrollToTop(animation: boolean) | 滚动到最顶部, animation 为 true，则有动画，反之无动画 |
+
+### Static Properties
+| 属性  | 说明   | 类型 |
+|------|--------|------|
+| defaultComponents | 默认的 Markdown 渲染组件集合，包含增强版的 Code 组件，支持代码语言标识和复制功能。可用于 `markdownRenderProps.components` 的二次封装 | { code: React.ComponentType } |
+
+**使用示例：**
+
+当需要在自定义代码块渲染时保留默认功能，可以通过 `AIChatDialogue.defaultComponents.code` 获取默认组件：
+
+```jsx
+import { AIChatDialogue } from '@douyinfe/semi-ui';
+
+function CustomCodeDemo() {
+    return (
+        <AIChatDialogue
+            chats={messages}
+            roleConfig={roleConfig}
+            markdownRenderProps={{
+                components: {
+                    code: (props) => {
+                        // 获取默认的 Code 组件
+                        const DefaultCode = AIChatDialogue.defaultComponents.code;
+                        // 可以在此处添加自定义逻辑
+                        return <DefaultCode {...props} />;
+                    }
+                }
+            }}
+        />
+    );
+}
+```
 
 ### ContentItem
 `ContentItem` 支持所有 OpenAI Response [InputItem](https://platform.openai.com/docs/api-reference/responses/create#responses-create-input) 和 [OutputItem](https://platform.openai.com/docs/api-reference/responses/object#responses/object-output) 类型，具体类型定义如下
