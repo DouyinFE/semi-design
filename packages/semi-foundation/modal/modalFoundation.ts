@@ -1,5 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import isPromise from "../utils/isPromise";
+import { debounce } from 'lodash';
 
 export type OKType = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger';
 export type Size = 'small' | 'medium' | 'large' | 'full-width';
@@ -77,7 +78,7 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
         this.afterHide();
     }
 
-    handleCancel(e: any) {
+    handleCancel = debounce((e: any) => {
         const result = this._adapter.notifyCancel(e);
         if (isPromise(result)) {
             this._adapter.setState({ onCancelReturnPromiseStatus: "pending" });
@@ -88,9 +89,12 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
                 throw e;
             });
         }
-    }
+    }, 100, {
+        leading: true,
+        trailing: false
+    });
 
-    handleOk(e: any) {
+    handleOk = debounce((e: any) => {
         const result = this._adapter.notifyOk(e);
         if (isPromise(result)) {
             this._adapter.setState({ onOKReturnPromiseStatus: "pending" });
@@ -101,7 +105,10 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
                 throw e;
             });
         }
-    }
+    }, 100, {
+        leading: true,
+        trailing: false
+    });
 
     beforeShow() {
         this._adapter.disabledBodyScroll();
