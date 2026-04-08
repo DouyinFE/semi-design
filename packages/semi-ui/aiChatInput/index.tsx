@@ -57,6 +57,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
         sendHotKey: strings.SEND_HOTKEY.ENTER,
         keepSkillAfterSend: false,
         showUploadButton: true,
+        clearContentOnGenerating: true,
     }
 
     constructor(props: AIChatInputProps) {
@@ -206,15 +207,17 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
     }
 
     componentDidUpdate(prevProps: Readonly<AIChatInputProps>): void {
-        const { suggestions, keepSkillAfterSend } = this.props;
+        const { suggestions, keepSkillAfterSend, clearContentOnGenerating } = this.props;
         if (!isEqual(suggestions, prevProps.suggestions)) {
             const newVisible = (suggestions && suggestions.length > 0) ? true : false;
             newVisible ? this.foundation.showSuggestionPanel() :
                 this.foundation.hideSuggestionPanel();
         }
         if (this.props.generating && (this.props.generating !== prevProps.generating)) {
-            keepSkillAfterSend ? this.setContentWhileSaveTool('') : this.adapter.clearContent();
-            this.adapter.clearAttachments();
+            if (clearContentOnGenerating !== false) {
+                keepSkillAfterSend ? this.setContentWhileSaveTool('') : this.adapter.clearContent();
+                this.adapter.clearAttachments();
+            }
         }
     }
 
