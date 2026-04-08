@@ -37,7 +37,12 @@ export interface JsonViewerProps extends BaseProps {
     style?: React.CSSProperties;
     onChange?: (value: string) => void;
     renderTooltip?: (value: string, el: HTMLElement) => HTMLElement;
-    options?: JsonViewerOptions
+    options?: JsonViewerOptions;
+    /**
+     * Whether to limit the search button drag bounds within the jsonViewer container
+     * @default false
+     */
+    limitSearchButtonBounds?: boolean;
 }
 
 export interface JsonViewerState {
@@ -327,7 +332,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
     }
     render() {
         let isDragging = false;
-        const { width, className, style, showSearch = true, ...rest } = this.props;
+        const { width, className, style, showSearch = true, limitSearchButtonBounds, ...rest } = this.props;
         return (
             <>
                 <div style={{ ...this.getStyle(), position: 'relative', ...style }} className={className} {...this.getDataAttr(rest)}>
@@ -338,6 +343,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                     ></div>
                     {showSearch && (
                         <DragMove
+                            constrainer={limitSearchButtonBounds ? 'parent' as any : undefined}
                             onMouseDown={() => {
                                 isDragging = false;
                             }}

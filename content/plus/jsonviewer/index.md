@@ -227,6 +227,7 @@ render(CustomRenderJsonComponent);
 | className         | 类名                           | string                                  | -   |
 | style             | 内联样式                           | object                                  | -   |
 | showSearch        | 是否显示搜索Icon                           | boolean                                  | true   |
+| limitSearchButtonBounds | 是否限制搜索按钮拖动范围在容器内                           | boolean                                  | false   |
 | options           | 编辑器配置                                | JsonViewerOptions                       | -   |
 | onChange          | 内容变化回调                           | (value: string) => void                  | -   |
 
