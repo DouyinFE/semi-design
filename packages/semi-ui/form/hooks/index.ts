@@ -3,10 +3,11 @@ import useFormApi from './useFormApi';
 import useFormState from './useFormState';
 import useFieldState from './useFieldState';
 import useFieldApi from './useFieldApi';
+import useForm from './useForm';
 
 // hooks only use internal
 import useFormUpdater from './useFormUpdater';
 import useStateWithGetter from './useStateWithGetter';
 import useArrayFieldState from './useArrayFieldState';
 
-export { useFormApi, useFormState, useFieldState, useFieldApi, useFormUpdater, useStateWithGetter, useArrayFieldState };
+export { useFormApi, useFormState, useFieldState, useFieldApi, useForm, useFormUpdater, useStateWithGetter, useArrayFieldState };
