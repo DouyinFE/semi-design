@@ -70,33 +70,62 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
 
     private _debouncedCancel: ReturnType<typeof debounce>;
     private _debouncedOk: ReturnType<typeof debounce>;
+    private _debouncedCancelByTrigger: Map<any, ReturnType<typeof debounce>>;
+    private _debouncedOkByTrigger: Map<any, ReturnType<typeof debounce>>;
 
     constructor(adapter: ModalAdapter) {
         super({
             ...adapter,
         });
-        this._debouncedCancel = debounce((e: any) => this._handleCancelImpl(e), 100, {
-            leading: true,
-            trailing: false
-        });
-        this._debouncedOk = debounce((e: any) => this._handleOkImpl(e), 100, {
-            leading: true,
-            trailing: false
-        });
+        this._debouncedCancel = this._createDebouncedHandler((e: any) => this._handleCancelImpl(e));
+        this._debouncedOk = this._createDebouncedHandler((e: any) => this._handleOkImpl(e));
+        this._debouncedCancelByTrigger = new Map();
+        this._debouncedOkByTrigger = new Map();
     }
 
     destroy() {
         this._debouncedCancel.cancel();
         this._debouncedOk.cancel();
+        this._debouncedCancelByTrigger.forEach(handler => handler.cancel());
+        this._debouncedOkByTrigger.forEach(handler => handler.cancel());
+        this._debouncedCancelByTrigger.clear();
+        this._debouncedOkByTrigger.clear();
         this.afterHide();
     }
 
     handleCancel(e: any) {
-        this._debouncedCancel(e);
+        this._getDebouncedHandler(this._debouncedCancelByTrigger, this._debouncedCancel, (evt: any) => this._handleCancelImpl(evt), e)(e);
     }
 
     handleOk(e: any) {
-        this._debouncedOk(e);
+        this._getDebouncedHandler(this._debouncedOkByTrigger, this._debouncedOk, (evt: any) => this._handleOkImpl(evt), e)(e);
+    }
+
+    private _createDebouncedHandler(handler: (e: any) => void) {
+        return debounce(handler, 100, {
+            leading: true,
+            trailing: false
+        });
+    }
+
+    private _getDebouncedHandler(
+        cache: Map<any, ReturnType<typeof debounce>>,
+        fallback: ReturnType<typeof debounce>,
+        handler: (e: any) => void,
+        e: any
+    ) {
+        // De-duplicate repeated activation from the same control, while still
+        // allowing different cancel/close entry points in confirm modal tests.
+        const trigger = e?.currentTarget || e?.target;
+        if (!trigger) {
+            return fallback;
+        }
+        let debounced = cache.get(trigger);
+        if (!debounced) {
+            debounced = this._createDebouncedHandler(handler);
+            cache.set(trigger, debounced);
+        }
+        return debounced;
     }
 
     private _handleCancelImpl(e: any) {
