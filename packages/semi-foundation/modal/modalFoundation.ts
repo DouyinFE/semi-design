@@ -68,67 +68,48 @@ export interface ModalState {
 
 export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
 
-    private _debouncedCancel: ReturnType<typeof debounce>;
-    private _debouncedOk: ReturnType<typeof debounce>;
-    private _debouncedCancelByTrigger: Map<any, ReturnType<typeof debounce>>;
-    private _debouncedOkByTrigger: Map<any, ReturnType<typeof debounce>>;
+    private _debouncedOk = debounce((e: any) => {
+        this._invokeOk(e);
+    }, 100, { leading: true, trailing: false });
+
+    private _debouncedCancel = debounce((e: any) => {
+        this._invokeCancel(e);
+    }, 100, { leading: true, trailing: false });
+
+    private _lastCancelTarget: EventTarget | null = null;
+    private _lastOkTarget: EventTarget | null = null;
 
     constructor(adapter: ModalAdapter) {
         super({
             ...adapter,
         });
-        this._debouncedCancel = this._createDebouncedHandler((e: any) => this._handleCancelImpl(e));
-        this._debouncedOk = this._createDebouncedHandler((e: any) => this._handleOkImpl(e));
-        this._debouncedCancelByTrigger = new Map();
-        this._debouncedOkByTrigger = new Map();
     }
 
     destroy() {
-        this._debouncedCancel.cancel();
         this._debouncedOk.cancel();
-        this._debouncedCancelByTrigger.forEach(handler => handler.cancel());
-        this._debouncedOkByTrigger.forEach(handler => handler.cancel());
-        this._debouncedCancelByTrigger.clear();
-        this._debouncedOkByTrigger.clear();
+        this._debouncedCancel.cancel();
         this.afterHide();
     }
 
     handleCancel(e: any) {
-        this._getDebouncedHandler(this._debouncedCancelByTrigger, this._debouncedCancel, (evt: any) => this._handleCancelImpl(evt), e)(e);
+        const target = e?.currentTarget ?? e?.target ?? null;
+        if (target !== this._lastCancelTarget) {
+            this._debouncedCancel.cancel();
+        }
+        this._lastCancelTarget = target;
+        this._debouncedCancel(e);
     }
 
     handleOk(e: any) {
-        this._getDebouncedHandler(this._debouncedOkByTrigger, this._debouncedOk, (evt: any) => this._handleOkImpl(evt), e)(e);
-    }
-
-    private _createDebouncedHandler(handler: (e: any) => void) {
-        return debounce(handler, 100, {
-            leading: true,
-            trailing: false
-        });
-    }
-
-    private _getDebouncedHandler(
-        cache: Map<any, ReturnType<typeof debounce>>,
-        fallback: ReturnType<typeof debounce>,
-        handler: (e: any) => void,
-        e: any
-    ) {
-        // De-duplicate repeated activation from the same control, while still
-        // allowing different cancel/close entry points in confirm modal tests.
-        const trigger = e?.currentTarget || e?.target;
-        if (!trigger) {
-            return fallback;
+        const target = e?.currentTarget ?? e?.target ?? null;
+        if (target !== this._lastOkTarget) {
+            this._debouncedOk.cancel();
         }
-        let debounced = cache.get(trigger);
-        if (!debounced) {
-            debounced = this._createDebouncedHandler(handler);
-            cache.set(trigger, debounced);
-        }
-        return debounced;
+        this._lastOkTarget = target;
+        this._debouncedOk(e);
     }
 
-    private _handleCancelImpl(e: any) {
+    private _invokeCancel(e: any) {
         const result = this._adapter.notifyCancel(e);
         if (isPromise(result)) {
             this._adapter.setState({ onCancelReturnPromiseStatus: "pending" });
@@ -141,7 +122,7 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
         }
     }
 
-    private _handleOkImpl(e: any) {
+    private _invokeOk(e: any) {
         const result = this._adapter.notifyOk(e);
         if (isPromise(result)) {
             this._adapter.setState({ onOKReturnPromiseStatus: "pending" });
@@ -167,38 +148,7 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
         this._adapter.enabledBodyScroll();
     }
 
-    // afterClose() {
-    //     this._adapter.notifyClose();
-    // }
-
-
     toggleDisplayNone = (displayNone: boolean, callback?: (displayNone: boolean) => void) => {
         this._adapter.toggleDisplayNone(displayNone, callback);
     };
-
-
-    // mergeMotionProp = (motion: Motion, prop: string, cb: () => void) => {
-    //     const mergedMotion = typeof (motion) === 'undefined' || motion ? {
-    //         ...(motion as { [key: string]: (() => void) | boolean }),
-    //         [prop]: (...args: any) => {
-    //             const curr = get(motion, prop);
-    //             if (typeof curr === 'function') {
-    //                 curr(...args);
-    //             }
-    //             cb();
-    //         }
-    //     } : false;
-    //     return mergedMotion;
-    // };
-    //
-    // getMergedMotion() {
-    //     let { motion } = this._adapter.getProps();
-    //     const { keepDOM } = this._adapter.getProps();
-    //     motion = this.mergeMotionProp(motion, 'didLeave', this.afterClose.bind(this));
-    //     if (!keepDOM) {
-    //         return motion;
-    //     }
-    //     const mergedMotion = this.mergeMotionProp(motion, 'didLeave', this.toggleHidden.bind(this, true));
-    //     return mergedMotion;
-    // }
 }
