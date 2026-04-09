@@ -351,8 +351,8 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     foundation: UploadFoundation;
     inputRef: RefObject<HTMLInputElement> = null;
     replaceInputRef: RefObject<HTMLInputElement> = null;
-    pastingCb: null | ((params: any) => void);
-    pasteEventCb: null | ((params: any) => void);
+    pastingCb: null | ((params: any) => void) = null;
+    pasteEventCb: null | ((params: any) => void) = null;
 
     componentDidMount(): void {
         this.foundation.init();

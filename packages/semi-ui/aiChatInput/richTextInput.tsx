@@ -1,5 +1,5 @@
 import { Editor, EditorContent, useEditor, Extensions, Extension, isNodeEmpty } from '@tiptap/react';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import Document from '@tiptap/extension-document';
 import Text from '@tiptap/extension-text';
 import { UndoRedo } from '@tiptap/extensions';
@@ -212,23 +212,21 @@ export default (props: {
     onFocus?: (event: FocusEvent) => void;
     onBlur?: (event: FocusEvent) => void;
     handleCreate?: () => void;
-    showPlaceholderWhenSkillOnly?: boolean;
+    showPlaceholderWhenSkillOnly?: boolean
 }) => {
     const { setEditor, onKeyDown, onChange, placeholder, extensions = [], 
         defaultContent, onPaste, onPasteEvent, innerRef, handleKeyDown, onFocus, onBlur, handleCreate, immediatelyRender, showPlaceholderWhenSkillOnly } = props;
-    const isComposing = useRef(false);
-    
-    const handleCompositionStart = useCallback((view: EditorView) => {
-        isComposing.current = true;
-    }, []);
 
     const handleCompositionEnd = useCallback((view: EditorView) => {
-        isComposing.current = false;
-        handleCompositionEndLogic(view);
+        // Wait for ProseMirror to flush composition mutations before cleaning
+        // zero-width placeholders, otherwise the slot content can be lost.
+        setTimeout(() => {
+            handleCompositionEndLogic(view);
+        }, 60);
     }, []);
 
     const handleTextInput = useCallback((view: EditorView, from: number, to: number, text: string) => {
-        if (isComposing.current) {
+        if (view.composing) {
             return false;
         }
         return handleTextInputLogic(view, from, to, text);
@@ -261,11 +259,10 @@ export default (props: {
             handlePaste: handlePasteLogic,
             handleTextInput,
             handleDOMEvents: {
-                compositionstart: handleCompositionStart,
                 compositionend: handleCompositionEnd,
             }
         };
-    }, [handleKeyDown, handleTextInput, handleCompositionStart, handleCompositionEnd]);
+    }, [handleKeyDown, handleTextInput, handleCompositionEnd]);
 
     // const onSelectionUpdate = useCallback(({ editor }) => {
     //     // For debug

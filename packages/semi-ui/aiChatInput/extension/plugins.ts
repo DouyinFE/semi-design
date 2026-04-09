@@ -90,16 +90,99 @@ export function handleZeroWidthCharLogic(newState: EditorState) {
     return null;
 }
 
+type SyntheticBackspacePatchedView = EditorView & {
+    _semiSyntheticBackspaceGuard?: boolean;
+    _semiOrigSomeProp?: typeof EditorView.prototype.someProp
+};
+
+/**
+ * ProseMirror uses `document.createEvent("Event")` to synthesize a Backspace
+ * during `readDOMChange()` when a DOM diff "looks like" a deletion. That replay
+ * is not a real browser KeyboardEvent, but it still flows through `handleKeyDown`.
+ */
+function isSyntheticBackspaceEvent(event: KeyboardEvent) {
+    return event?.type === 'keydown' &&
+        event?.key === 'Backspace' &&
+        event?.keyCode === 8 &&
+        (event.isTrusted === false || !(event instanceof KeyboardEvent));
+}
+
+/**
+ * Wrap `view.someProp("handleKeyDown")` so we can ignore only ProseMirror's
+ * synthetic Backspace replay inside `inputSlot` while IME composition is active.
+ *
+ * The real user Backspace must still go through unchanged, otherwise slot
+ * deletion, placeholder recovery and cursor movement regressions come back.
+ */
+function installSyntheticBackspaceGuard(view: EditorView) {
+    const patchedView = view as SyntheticBackspacePatchedView;
+    if (patchedView._semiSyntheticBackspaceGuard) {
+        return;
+    }
+
+    const origSomeProp = view.someProp.bind(view);
+    patchedView._semiSyntheticBackspaceGuard = true;
+    patchedView._semiOrigSomeProp = origSomeProp;
+
+    view.someProp = function (propName: any, f?: any) {
+        if (propName !== 'handleKeyDown' || typeof f !== 'function') {
+            return origSomeProp(propName, f);
+        }
+
+        return origSomeProp(propName, (prop: any) => {
+            if (typeof prop !== 'function') {
+                return f(prop);
+            }
+
+            return f((innerView: EditorView, event: KeyboardEvent) => {
+                // ProseMirror may replay a synthetic Backspace from readDOMChange().
+                // Ignore only that replay inside inputSlot while IME is active.
+                if (
+                    innerView.composing &&
+                    innerView.state.selection.$from.parent.type.name === 'inputSlot' &&
+                    isSyntheticBackspaceEvent(event)
+                ) {
+                    return false;
+                }
+
+                return prop(innerView, event);
+            });
+        });
+    } as any;
+}
+
+/**
+ * Restore the original `someProp` implementation when the plugin view unmounts.
+ */
+function removeSyntheticBackspaceGuard(view: EditorView) {
+    const patchedView = view as SyntheticBackspacePatchedView;
+    if (!patchedView._semiSyntheticBackspaceGuard || !patchedView._semiOrigSomeProp) {
+        return;
+    }
+
+    view.someProp = patchedView._semiOrigSomeProp;
+    delete patchedView._semiOrigSomeProp;
+    delete patchedView._semiSyntheticBackspaceGuard;
+}
+
 export function ensureTrailingText(schema: any) {
     return new Plugin({
+        view(view) {
+            installSyntheticBackspaceGuard(view);
+
+            return {
+                destroy() {
+                    removeSyntheticBackspaceGuard(view);
+                },
+            };
+        },
         appendTransaction(transactions, oldState, newState) {
-            if (transactions.some(tr => tr.getMeta(strings.DELETABLE))) {
-                // 此次 transaction 是主动删除 inputSlot，不补零宽字符
-                // This is an active deletion of inputSlot, do not add zero-width characters
+            if (transactions.some(tr => tr.getMeta('composition'))) {
                 return null;
             }
-            // 只在内容发生变化时修正，防止选区丢失
-            // Only correct when content changes to prevent loss of selections
+            if (transactions.some(tr => tr.getMeta(strings.DELETABLE))) {
+                return null;
+            }
             const docChanged = transactions.some(tr => tr.docChanged);
             if (!docChanged) return null;
             return handleZeroWidthCharLogic(newState);
@@ -112,7 +195,9 @@ export function keyDownHandlePlugin(schema: any) {
         key: new PluginKey('prevent-empty-inline-node'),
         props: {
             handleKeyDown(view, event) {
-                // console.log('handle key down plugin');
+                if (view.composing) {
+                    return false;
+                }
                 const { state, dispatch } = view;
                 const { selection } = state;
                 const { $from, $to } = selection;
@@ -201,11 +286,6 @@ export function keyDownHandlePlugin(schema: any) {
                 }
 
                 if (event.key === 'Backspace' && selection.empty) {
-                    // 如果输入法激活（如中文拼音输入），不拦截 Backspace 事件，让输入法自己处理
-                    // If IME is active (e.g., Chinese pinyin input), don't intercept Backspace event, let IME handle it
-                    if (event.isComposing) {
-                        return false;
-                    }
                     const beforeNode = $from.nodeBefore;
                     const afterNode = $from.nodeAfter;
                     /**
@@ -326,13 +406,8 @@ export function keyDownHandlePlugin(schema: any) {
                 }
 
                 if (event.key === 'Backspace' && !selection.empty) {
-                    // 如果输入法激活（如中文拼音输入），不拦截 Backspace 事件，让输入法自己处理
-                    // If IME is active (e.g., Chinese pinyin input), don't intercept Backspace event, let IME handle it
-                    if (event.isComposing) {
-                        return false;
-                    }
                     let startPos = selection.from;
-                    let endPos = selection.to;
+                    let endPos = selection.to; 
                     const nodeBefore = $from.nodeBefore;
                     const nodeAfter = $from.nodeAfter;
                     if (nodeBefore && nodeBefore.isText && nodeBefore.text.endsWith(strings.ZERO_WIDTH_CHAR)) {
@@ -354,7 +429,8 @@ export function keyDownHandlePlugin(schema: any) {
                     // 处理当显示 placeholder 时候，按键的光标移动，保证通过一次按键，光标就跳出节点
                     // When the placeholder is displayed, the cursor of the button moves to ensure that the cursor 
                     // jumps out of the node after pressing the button once.
-                    if (node.textContent === strings.ZERO_WIDTH_CHAR &&
+                    const slotVisibleText = node.textContent.replace(new RegExp(strings.ZERO_WIDTH_CHAR, 'g'), '');
+                    if (slotVisibleText.length === 0 && node.textContent.length > 0 &&
                         (event.key === 'ArrowLeft' || event.key === 'ArrowRight')
                     ) {
                         // 如果光标在节点内，按左右键时直接跳出节点
@@ -367,20 +443,26 @@ export function keyDownHandlePlugin(schema: any) {
                             return true;
                         }
                     }
-                    // 删除 input-slot 的最后一个字符时，插入零宽字符
-                    // When removing the last character of input-slot, insert a zero-width character
-                    if ($from.pos === $from.end() && node.textContent.length === 1 && node.textContent !== strings.ZERO_WIDTH_CHAR &&
-                        event.key === 'Backspace'
-                    ) {
-                        // 如果输入法激活（如中文拼音输入），不拦截 Backspace 事件，让输入法自己处理
-                        // If IME is active (e.g., Chinese pinyin input), don't intercept Backspace event, let IME handle it
-                        if (event.isComposing) {
-                            return false;
+                    // 删除 input-slot 的最后一个可见字符时，将整个内容替换为零宽字符
+                    // When removing the last visible character of input-slot, replace entire content with zero-width character
+                    if (event.key === 'Backspace' && selection.empty) {
+                        const zeroWidthRegex = new RegExp(strings.ZERO_WIDTH_CHAR, 'g');
+                        const visibleText = node.textContent.replace(zeroWidthRegex, '');
+                        const onlyZeroWidth = node.textContent.length > 0 && visibleText.length === 0;
+
+                        if ($from.pos === $from.end() && visibleText.length === 1) {
+                            const tr = state.tr.insertText(strings.ZERO_WIDTH_CHAR, $from.start(), $from.end());
+                            dispatch(tr);
+                            event.preventDefault();
+                            return true;
                         }
-                        const pos = $from.pos - 1;
-                        dispatch(state.tr.insertText(strings.ZERO_WIDTH_CHAR, pos, pos + 1));
-                        event.preventDefault();
-                        return true;
+
+                        if (onlyZeroWidth) {
+                            const pos = $from.before();
+                            dispatch(state.tr.delete(pos, pos + node.nodeSize));
+                            event.preventDefault();
+                            return true;
+                        }
                     }
 
                     // 全选 input-slot 节点内容时，点击删除，插入零宽字符
@@ -389,40 +471,14 @@ export function keyDownHandlePlugin(schema: any) {
                         selection.from === $from.start() && selection.to >= $from.end() &&
                         (event.key === 'Backspace')
                     ) {
-                        // 如果输入法激活（如中文拼音输入），不拦截 Backspace 事件，让输入法自己处理
-                        // If IME is active (e.g., Chinese pinyin input), don't intercept Backspace event, let IME handle it
-                        if (event.isComposing) {
-                            return false;
-                        }
                         const tr = state.tr;
-                        // 删除 inputSlot 之后被选中的内容
-                        // Delete the selected content after inputSlot
                         if (selection.to > $from.end()) {
                             tr.delete($from.end(), selection.to);
                         }
-                        // 替换 inputSlot 内部内容为 ZERO_WIDTH_CHAR
-                        // Replace the internal content of inputSlot with ZERO_WIDTH_CHAR
                         tr.insertText(strings.ZERO_WIDTH_CHAR, $from.start(), $from.end());
-                        const pos = $from.start() + 1; // 1 是零宽字符的长度
+                        const pos = $from.start() + 1;
                         tr.setSelection(TextSelection.create(tr.doc, pos));
                         dispatch(tr);
-                        event.preventDefault();
-                        return true;
-                    }
-                    // 如果内容只剩零宽字符，再次删除时允许节点被删
-                    // If only zero-width characters remain in the content, allow the node to be deleted when deleting again.
-                    if (node.textContent === strings.ZERO_WIDTH_CHAR &&
-                    (event.key === 'Backspace')
-                    ) {
-                        // 如果输入法激活（如中文拼音输入），不拦截 Backspace 事件，让输入法自己处理
-                        // If IME is active (e.g., Chinese pinyin input), don't intercept Backspace event, let IME handle it
-                        if (event.isComposing) {
-                            return false;
-                        }
-                        // 计算当前节点在文档中的位置
-                        // Calculate the position of the current node in the document
-                        const pos = $from.before();
-                        dispatch(state.tr.delete(pos, pos + node.nodeSize));
                         event.preventDefault();
                         return true;
                     }
@@ -498,29 +554,30 @@ export function removeZeroWidthChar($from: any, tr: Transaction) {
     return false;
 }
 
-export function removeZeroWidthCharForComposition($from: any, tr: Transaction) {
-    // 检查光标左侧的 text node 是否以零宽字符开头
+export function handleCompositionEndLogic(view: EditorView) {
+    const { state, dispatch } = view;
+    const $from = state.selection.$from;
+    const node = $from.node();
+    if (node.type.name === 'inputSlot') {
+        const text = node.textContent;
+        const zeroWidthRegex = new RegExp(strings.ZERO_WIDTH_CHAR, 'g');
+        const cleanText = text.replace(zeroWidthRegex, '');
+        if (cleanText.length > 0 && cleanText.length < text.length) {
+            const tr = state.tr;
+            tr.insertText(cleanText, $from.start(), $from.end());
+            dispatch(tr);
+            return;
+        }
+    }
+    const tr = state.tr;
     if ($from.nodeBefore && $from.nodeBefore.isText) {
         const text = $from.nodeBefore.text;
         if (text?.startsWith(strings.ZERO_WIDTH_CHAR)) {
-            // 删除第一个字符
             const removeStart = $from.pos - $from.nodeBefore.nodeSize;
-            const removeEnd = removeStart + 1; // 只删开头零宽字符
-            tr = tr.delete(removeStart, removeEnd);
-            return tr;
+            const removeEnd = removeStart + 1;
+            tr.delete(removeStart, removeEnd);
+            dispatch(tr);
         }
-    }
-    // 或者再补 $from.nodeAfter 的情况（一般只需要 nodeBefore）
-    return null;
-}
-
-export function handleCompositionEndLogic(view: EditorView) {    // composition 结束时再移除零宽字符
-    const { state, dispatch } = view;
-    const $from = state.selection.$from;
-    let tr = state.tr;
-    let modified = removeZeroWidthCharForComposition($from, tr);
-    if (modified) {
-        dispatch(tr);
     }
 }
 

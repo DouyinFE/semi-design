@@ -1604,7 +1604,7 @@ render(StreamingResponseToMessageDemo);
 ### Static Properties
 | Property  | Description   | Type |
 |------|--------|------|
-| defaultComponents | Default Markdown rendering components, including an enhanced Code component with language identifier and copy functionality. Can be used for extending `markdownRenderProps.components` | { code: React.ComponentType } |
+| defaultComponents | Default Markdown rendering components, including an enhanced Code component with language identifier and copy functionality. Can be used for extending `markdownRenderProps.components` **>=2.94.0** | { code: React.ComponentType } |
 
 **Usage Example:**
 

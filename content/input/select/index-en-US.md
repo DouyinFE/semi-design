@@ -1518,7 +1518,7 @@ import { Select } from '@douyinfe/semi-ui';
 <Select<string>
     value={selectedValue}
     onChange={(value) => {
-        // value type is string | string[]
+        // value type is string | string[] | undefined
         setSelectedValue(value);
     }}
 >
@@ -1531,7 +1531,7 @@ import { Select } from '@douyinfe/semi-ui';
     multiple
     value={selectedValues}
     onChange={(value) => {
-        // value type is string | string[], since multiple is true, it's actually string[]
+        // value type is string | string[] | undefined, since multiple is true, it's actually string[]
         setSelectedValues(value as string[]);
     }}
 >

@@ -1515,7 +1515,7 @@ render(<CustomRichTextExtension />);
 |------|-------------|------|---------|
 | canSend | Whether sending is allowed. If not set, sending depends on input, uploads, and references | boolean | true |
 | className | Custom class name | string | - |
-| clearContentOnGenerating | Whether to clear input content and attachments when generating changes from false to true. Set to false to retain input content (for infinite canvas and other non-chat scenarios) | boolean | true |
+| clearContentOnGenerating | Whether to clear input content and attachments when generating changes from false to true. Set to false to retain input content (for infinite canvas and other non-chat scenarios) **>=2.94.0** | boolean | true |
 | defaultContent | Default input content, supports html string or Tiptap content | TiptapContent | - |
 | dropdownMatchTriggerWidth | Should dropdown width match input? | boolean | true |
 | extensions | Custom editor extensions | Extension[] | - |

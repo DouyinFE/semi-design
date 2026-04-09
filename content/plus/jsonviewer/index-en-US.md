@@ -228,7 +228,7 @@ render(CustomRenderJsonComponent);
 | className | className of wrapper DOM | string | - |
 | style | InlineStyle of wrapper DOM | object | - |
 | showSearch | Whether to show search icon | boolean | true |
-| limitSearchButtonBounds | Whether to limit the search button drag bounds within the container | boolean | false |
+| limitSearchButtonBounds | Whether to limit the search button drag bounds within the container **>=2.94.0** | boolean | false |
 | options | Formatting configuration | JsonViewerOptions | - |
 | onChange | Callback for content change | (value: string) => void | - |
 

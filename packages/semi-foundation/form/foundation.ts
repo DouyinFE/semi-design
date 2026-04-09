@@ -211,8 +211,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                                 this.injectErrorToField({});
                             }
                         } else {
-                            this.data.errors = result;
                             if (!silent) {
+                                this.data.errors = result;
                                 this._adapter.notifyChange(this.data);
                                 this.injectErrorToField(result);
                                 this._adapter.forceUpdate();
@@ -232,8 +232,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 );
             } else {
                 // TODO: current design, returning an empty object will be considered a checksum failure and will be rejected. Only returning an empty string will be considered a success, consider resetting it in 1.0?
-                this.data.errors = maybePromisedErrors;
                 if (!silent) {
+                    this.data.errors = maybePromisedErrors;
                     this.injectErrorToField(maybePromisedErrors);
                     this._adapter.notifyChange(this.data);
                     this._adapter.forceUpdate();
@@ -255,10 +255,11 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 // Call each fieldApi for verification
                 const fieldValue = this.getValue(fieldPath);
                 // When centralized verification, no need to trigger forceUpdate and notify
-                // In silent mode, also set notUpdate to true to prevent UI updates
-                const opts = {
+                // Each field skips individual updates; a single forceUpdate fires after all resolve.
+                const opts: CallOpts = {
                     notNotify: true,
-                    notUpdate: silent,
+                    notUpdate: true,
+                    silent,
                 };
                 const validateResult = field.fieldApi.validate(fieldValue, opts);
                 promiseSet.push(validateResult);

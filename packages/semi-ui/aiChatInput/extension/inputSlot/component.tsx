@@ -1,8 +1,8 @@
 import { NodeViewWrapper, NodeViewContent } from '@tiptap/react';
-import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
+import React, { useRef, useLayoutEffect, useState } from 'react';
 import { strings } from '@douyinfe/semi-foundation/aiChatInput/constants';
 
-export default (props: any) => {
+const InputSlotComponent = (props: any) => {
     const isEmpty = props.node.textContent === strings.ZERO_WIDTH_CHAR;
     const placeholder = props.node.attrs.placeholder || '';
 
@@ -29,19 +29,19 @@ export default (props: any) => {
             className="input-slot"
             style={{ minWidth: isEmpty && placeholderWidth ? `${placeholderWidth}px` : undefined }}
         >
-            {isEmpty && (
-                <span
-                    ref={placeholderRef}
-                    data-placeholder={true}
-                    // contentEditable 必须传入 boolean，strings 导致控制台报错
-                    // contentEditable' s value must be boolean，strings will cause warning
-                    contentEditable={false}
-                    className="input-slot-placeholder"
-                >
-                    {placeholder}
-                </span>
-            )}
-            <NodeViewContent as="div" className="content" />
+            {/* Keep placeholder DOM stable during IME updates. */}
+            <span
+                ref={placeholderRef}
+                data-placeholder={true}
+                contentEditable={false}
+                className="input-slot-placeholder"
+                style={{ display: isEmpty ? undefined : 'none' }}
+            >
+                {placeholder}
+            </span>
+            <NodeViewContent as={"span" as any} className="content" />
         </NodeViewWrapper>
     );
 };
+
+export default InputSlotComponent;

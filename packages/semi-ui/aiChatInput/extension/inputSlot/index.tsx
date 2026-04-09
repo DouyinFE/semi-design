@@ -46,7 +46,19 @@ export default Node.create({
     },
 
     addNodeView() {
-        return ReactNodeViewRenderer(Component);
+        return ReactNodeViewRenderer(Component, {
+            update: ({ oldNode, newNode, updateProps }) => {
+                if (newNode.type !== oldNode.type) {
+                    return false;
+                }
+                if (this.editor.view.composing) {
+                    // Keep the live composition DOM untouched while IME is active.
+                    return true;
+                }
+                updateProps();
+                return true;
+            },
+        });
     },
 
     addProseMirrorPlugins() {

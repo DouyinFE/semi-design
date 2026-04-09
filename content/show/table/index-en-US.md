@@ -5570,7 +5570,7 @@ type Filter = {
 | Parameters | Instructions | Type | Default | Version |
 | --- | --- | --- | --- | --- |
 | className | Style name listed | string |  |
-| clickRow | Whether to enable click row to select. When enabled, clicking anywhere on the row will trigger selection/deselection, including fixed columns. Disabled rows (via getCheckboxProps) cannot be selected by clicking. | boolean | false | **2.89.0** |
+| clickRow | Whether to enable click row to select. When enabled, clicking anywhere on the row will trigger selection/deselection, including fixed columns. Disabled rows (via getCheckboxProps) cannot be selected by clicking. | boolean | false | **2.94.0** |
 | disabled | Disabled `Checkbox` in `Table` header or not. | boolean | false | **0.32.0** |
 | fixed | Secure the selection box column to the left. | boolean | false |
 | getCheckboxProps | Default property configuration for the selection box | (record: RecordType) => object |  |  |
