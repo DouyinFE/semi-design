@@ -1357,25 +1357,25 @@ class SilentValidationDemo extends React.Component {
         super();
         this.getFormApi = this.getFormApi.bind(this);
         this.handleSilentValidate = this.handleSilentValidate.bind(this);
+        this.handleNormalValidate = this.handleNormalValidate.bind(this);
     }
 
     getFormApi(formApi) {
         this.formApi = formApi;
     }
 
-    // 静默校验：不触发 UI 更新
-    async handleSilentValidate() {
-        try {
-            const values = await this.formApi.validate({ silent: true });
-            Toast.success('表单校验通过，准备发起请求');
-            console.log('发起后端请求:', values);
-        } catch (errors) {
-            Toast.error('表单校验未通过，但不显示错误提示');
-            console.log('校验错误:', errors);
-        }
+    handleSilentValidate() {
+        this.formApi.validate({ silent: true })
+            .then(values => {
+                Toast.success('表单校验通过，准备发起请求');
+                console.log('发起后端请求:', values);
+            })
+            .catch(errors => {
+                Toast.error('表单校验未通过，但不显示错误提示');
+                console.log('校验错误:', errors);
+            });
     }
 
-    // 普通校验：触发 UI 更新
     handleNormalValidate() {
         this.formApi.validate()
             .then(values => {

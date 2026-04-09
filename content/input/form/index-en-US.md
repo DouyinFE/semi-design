@@ -1280,25 +1280,25 @@ class SilentValidationDemo extends React.Component {
         super();
         this.getFormApi = this.getFormApi.bind(this);
         this.handleSilentValidate = this.handleSilentValidate.bind(this);
+        this.handleNormalValidate = this.handleNormalValidate.bind(this);
     }
 
     getFormApi(formApi) {
         this.formApi = formApi;
     }
 
-    // Silent validation: does not trigger UI updates
-    async handleSilentValidate() {
-        try {
-            const values = await this.formApi.validate({ silent: true });
-            Toast.success('Validation passed, ready to send request');
-            console.log('Sending backend request:', values);
-        } catch (errors) {
-            Toast.error('Validation failed, but no error UI shown');
-            console.log('Validation errors:', errors);
-        }
+    handleSilentValidate() {
+        this.formApi.validate({ silent: true })
+            .then(values => {
+                Toast.success('Validation passed, ready to send request');
+                console.log('Sending backend request:', values);
+            })
+            .catch(errors => {
+                Toast.error('Validation failed, but no error UI shown');
+                console.log('Validation errors:', errors);
+            });
     }
 
-    // Normal validation: triggers UI updates
     handleNormalValidate() {
         this.formApi.validate()
             .then(values => {
