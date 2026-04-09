@@ -255,10 +255,11 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 // Call each fieldApi for verification
                 const fieldValue = this.getValue(fieldPath);
                 // When centralized verification, no need to trigger forceUpdate and notify
-                // In silent mode, also set notUpdate to true to prevent UI updates
-                const opts = {
+                // Each field skips individual updates; a single forceUpdate fires after all resolve.
+                const opts: CallOpts = {
                     notNotify: true,
-                    notUpdate: silent,
+                    notUpdate: true,
+                    silent,
                 };
                 const validateResult = field.fieldApi.validate(fieldValue, opts);
                 promiseSet.push(validateResult);

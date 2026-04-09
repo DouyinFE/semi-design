@@ -166,16 +166,10 @@ function withField<
             if (errors === getError()) {
                 // When the inspection result is unchanged, no need to update, saving a forceUpdate overhead
                 // When errors is an array, deepEqual is not used, and it is always treated as a need to update
-                // 检验结果不变时，无需更新，节省一次forceUpdate开销
-                // errors为数组时，不做deepEqual，始终当做需要更新处理
                 return;
             }
-            
-            const notUpdate = callOpts && callOpts.notUpdate;
-            
-            // When notUpdate is true, only update formState, not local state (for silent validation)
-            // 当 notUpdate 为 true 时，只更新 formState，不更新本地状态（用于静默校验）
-            if (!notUpdate) {
+            const isSilent = callOpts && callOpts.silent;
+            if (!isSilent) {
                 setError(errors);
                 if (!isValid(errors)) {
                     setStatus('error');
@@ -183,7 +177,6 @@ function withField<
                     setStatus('success');
                 }
             }
-            
             updater.updateStateError(field, errors, callOpts);
         };
 
@@ -231,6 +224,7 @@ function withField<
                             return;
                         }
                         // validation passed
+                        setStatus('success');
                         updateError(undefined, callOpts);
                         resolve({});
                     })
@@ -247,10 +241,16 @@ function withField<
                             }
                             updateError(messages, callOpts);
                             if (!isValid(messages)) {
+                                if (!callOpts?.silent) {
+                                    setStatus('error');
+                                }
                                 resolve(errors);
                             }
                         } else {
                             // Some grammatical errors in rules
+                            if (!callOpts?.silent) {
+                                setStatus('error');
+                            }
                             updateError(err.message, callOpts);
                             resolve(err.message);
                             throw err;
