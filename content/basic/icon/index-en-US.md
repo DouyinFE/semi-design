@@ -303,6 +303,8 @@ IconMarginLeftStroked
 IconMarginStroked
 IconMark
 IconMaximize
+IconMaximize2
+IconMaximize2Stroked
 IconMember
 IconMenu
 IconMicrophone
@@ -372,6 +374,8 @@ IconReply
 IconReplyStroked
 IconResso
 IconRestart
+IconRestore
+IconRestoreStroked
 IconRingChartStroked
 IconRotate
 IconRotationStroked

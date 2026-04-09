@@ -548,6 +548,14 @@
         "category": "Interface"
     },
     {
+        "name": "maximize2",
+        "category": "Interface"
+    },
+    {
+        "name": "maximize2_stroked",
+        "category": "Interface"
+    },
+    {
         "name": "minimize",
         "category": "Interface"
     },
@@ -1138,6 +1146,14 @@
     {
         "name": "restart",
         "category": "Music"
+    },
+    {
+        "name": "restore",
+        "category": "Interface"
+    },
+    {
+        "name": "restore_stroked",
+        "category": "Interface"
     },
     {
         "name": "dongchedi_logo",
