@@ -1038,6 +1038,11 @@ virtualize 是一个包含下列值的对象：
     will-change 对于复杂元素的渲染会有性能改善，所以我们默认不会对 react-window的样式进行覆盖。如果你希望关闭这个效果，可以通过自行覆盖 CSS，将 will-change 设置为 unset 解决
 </Notice>
 
+<Notice title='关于高度设置'>
+    当 virtualize.height 大于默认值 270px 时，为了避免出现双滚动条问题，需要将 maxHeight 属性设置为与 virtualize.height 相同的值。
+    例如：当设置 virtualize.height 为 400px 时，应同时设置 maxHeight={400}。
+</Notice>
+
 ```css
 .semi-select-option-list > div {
     will-change: unset !important; // 由于 react-window自带样式是内联的，所以这里用 important 覆盖
@@ -1418,7 +1423,7 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | loading | 下拉列表是否展示加载动画                                                                                                                          | boolean | false |
 | maxTagCount | 多选模式下，已选项超出 maxTagCount 时，后续选项会被渲染成+N 的形式                                                                                             | number |  |
 | max | 最多可选几项，仅在多选模式下生效                                                                                                                      | number |  |
-| maxHeight | 下拉菜单中 `optionList` 的最大高度                                                                                                              | string\|number | 270 |
+| maxHeight | 下拉菜单中 `optionList` 的最大高度。**注意：当使用虚拟化列表且 virtualize.height 大于默认值 270px 时，需要将 maxHeight 设置为与 virtualize.height 相同的值，以避免出现双滚动条问题** | string\|number | 270 |
 | multiple | 是否多选                                                                                                                                  | boolean | false |
 | outerTopSlot | 渲染在弹出层顶部，与 optionList 平级的自定义 slot                                                                                                     | ReactNode |  |
 | outerBottomSlot | 渲染在弹出层底部，与 optionList 平级的自定义 slot                                                                                                     | ReactNode |  |
@@ -1444,7 +1449,7 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | triggerRender | 自定义触发器渲染                                                                                                                              | function |  |
 | value | 当前选中的的值,传入该值时将作为受控组件，配合 `onChange` 使用                                                                                                 | string\|number\|array |  |
 | validateStatus | 校验结果，可选`warning`、`error`、 `default`（只影响样式背景色）                                                                                         | string | 'default' |
-| virtualize | 列表虚拟化，用于大量节点的情况优化性能表现，由 height, width, itemSize 组成                                                                                    | object |  |
+| virtualize | 列表虚拟化，用于大量节点的情况优化性能表现，由 height, width, itemSize 组成。**注意：当 height 大于默认值 270px 时，需同时设置 maxHeight 为相同值** | object |  |
 | zIndex | 弹层的 zIndex                                                                                                                            | number | 1030 |
 | onBlur | 失去焦点时的回调                                                                                                                              | function(event) |  |
 | onChange | 变化时回调函数                                                                                                                               | function(value:string\|number\|array) |  |
