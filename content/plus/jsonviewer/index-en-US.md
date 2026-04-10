@@ -216,6 +216,46 @@ function CustomRenderJsonComponent() {
 render(CustomRenderJsonComponent);
 ```
 
+### Custom Search Button
+
+Use the `renderSearchButton` property to customize the rendering of the search button, enabling fixed positioning, custom styles, and more.
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import { JsonViewer, Button } from '@douyinfe/semi-ui';
+import { IconSearch } from '@douyinfe/semi-icons';
+
+const data = `{
+    "name": "Semi",
+    "version": "0.0.0"
+}`;
+
+function CustomSearchButtonDemo() {
+    return (
+        <div style={{ marginBottom: 16 }}>
+            <JsonViewer 
+                height={200} 
+                width={700} 
+                value={data}
+                renderSearchButton={(defaultButton, controls) => (
+                    <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 10 }}>
+                        {!controls.showSearchBar ? (
+                            <Button icon={<IconSearch />} onClick={controls.onToggleSearchBar}>
+                                Search
+                            </Button>
+                        ) : (
+                            defaultButton
+                        )}
+                    </div>
+                )}
+            />
+        </div>
+    );
+}
+
+render(CustomSearchButtonDemo);
+```
+
 ## API Reference
 
 ### JsonViewer
@@ -229,6 +269,7 @@ render(CustomRenderJsonComponent);
 | style | InlineStyle of wrapper DOM | object | - |
 | showSearch | Whether to show search icon | boolean | true |
 | limitSearchButtonBounds | Whether to limit the search button drag bounds within the container **>=2.94.0** | boolean | false |
+| renderSearchButton | Custom render search button **>=2.95.0** | (defaultButton: ReactNode, controls: SearchControls) => ReactNode | - |
 | options | Formatting configuration | JsonViewerOptions | - |
 | onChange | Callback for content change | (value: string) => void | - |
 
@@ -256,6 +297,20 @@ render(CustomRenderJsonComponent);
 | --- | --- | --- | --- |
 | match | Matching rule | string \| RegExp \| (value: string, path: string) => boolean | - |
 | render | Render function | (content: string) => React.ReactNode | - |
+
+### SearchControls
+
+When using `renderSearchButton`, the second parameter `controls` contains the following properties:
+
+| Attribute | Description | Type |
+| --- | --- | --- |
+| showSearchBar | Whether the search bar is currently visible | boolean |
+| onToggleSearchBar | Toggle search bar visibility | () => void |
+| onSearch | Execute search | (text: string, caseSensitive?: boolean, wholeWord?: boolean, regex?: boolean) => void |
+| onPrevSearch | Navigate to previous search result | () => void |
+| onNextSearch | Navigate to next search result | () => void |
+| onReplace | Replace current search match | (text: string) => void |
+| onReplaceAll | Replace all search matches | (text: string) => void |
 
 ## Methods
 

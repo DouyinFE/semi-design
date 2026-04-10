@@ -214,6 +214,46 @@ function CustomRenderJsonComponent() {
 render(CustomRenderJsonComponent);
 ```
 
+### 自定义搜索按钮
+
+通过 `renderSearchButton` 属性，你可以自定义搜索按钮的渲染方式，实现固定位置、自定义样式等需求。
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import { JsonViewer, Button } from '@douyinfe/semi-ui';
+import { IconSearch } from '@douyinfe/semi-icons';
+
+const data = `{
+    "name": "Semi",
+    "version": "0.0.0"
+}`;
+
+function CustomSearchButtonDemo() {
+    return (
+        <div style={{ marginBottom: 16 }}>
+            <JsonViewer 
+                height={200} 
+                width={700} 
+                value={data}
+                renderSearchButton={(defaultButton, controls) => (
+                    <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 10 }}>
+                        {!controls.showSearchBar ? (
+                            <Button icon={<IconSearch />} onClick={controls.onToggleSearchBar}>
+                                搜索
+                            </Button>
+                        ) : (
+                            defaultButton
+                        )}
+                    </div>
+                )}
+            />
+        </div>
+    );
+}
+
+render(CustomSearchButtonDemo);
+```
+
 
 ## API 参考
 
@@ -228,6 +268,7 @@ render(CustomRenderJsonComponent);
 | style             | 内联样式                           | object                                  | -   |
 | showSearch        | 是否显示搜索Icon                           | boolean                                  | true   |
 | limitSearchButtonBounds | 是否限制搜索按钮拖动范围在容器内 **>=2.94.0**                          | boolean                                  | false   |
+| renderSearchButton | 自定义渲染搜索按钮 **>=2.95.0** | (defaultButton: ReactNode, controls: SearchControls) => ReactNode | - |
 | options           | 编辑器配置                                | JsonViewerOptions                       | -   |
 | onChange          | 内容变化回调                           | (value: string) => void                  | -   |
 
@@ -254,6 +295,20 @@ render(CustomRenderJsonComponent);
 | tabSize           | 缩进大小                                 | number                          | 4  |
 | insertSpaces      | 是否使用空格进行缩进                       | boolean                         | true  |
 | eol               | 换行符                                   | string                          | '\n'  |
+
+### SearchControls
+
+当使用 `renderSearchButton` 时，第二个参数 `controls` 包含以下属性：
+
+| 属性                | 说明                                          | 类型                              |
+|-------------------|------------------------------------------------|---------------------------------|
+| showSearchBar     | 当前是否显示搜索栏                            | boolean                         |
+| onToggleSearchBar | 切换搜索栏显示/隐藏                           | () => void                      |
+| onSearch          | 执行搜索                                      | (text: string, caseSensitive?: boolean, wholeWord?: boolean, regex?: boolean) => void |
+| onPrevSearch      | 跳转到上一个搜索结果                          | () => void                      |
+| onNextSearch      | 跳转到下一个搜索结果                          | () => void                      |
+| onReplace         | 替换当前搜索结果                              | (text: string) => void          |
+| onReplaceAll      | 替换所有搜索结果                              | (text: string) => void          |
 
 ## Methods
 
