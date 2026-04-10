@@ -4202,6 +4202,27 @@ describe('Select', () => {
         expect(select.exists(`.${BASE_CLASS_PREFIX}-select-content-wrapper-collapse`)).toBe(true);
     });
 
+    it('ellipsisTrigger keeps OverflowList mounted when selections update', async () => {
+        const props = {
+            multiple: true,
+            ellipsisTrigger: true,
+            maxTagCount: 2,
+            defaultValue: ['abc', 'hotsoon', 'pipixia'],
+            optionList: defaultList,
+            motion: false,
+            style: { width: 200 },
+        };
+        const select = getSelect(props);
+        await sleep(200);
+        const overflowList = select.find('OverflowList').instance();
+        const nextSelections = new Map(select.state().selections);
+        nextSelections.set(defaultList[3].label, defaultList[3]);
+        select.setState({ selections: nextSelections });
+        await sleep(50);
+        select.update();
+        expect(select.find('OverflowList').instance()).toBe(overflowList);
+    });
+
     it('ellipsisTrigger with handleOverflow callback', async () => {
         const props = {
             multiple: true,

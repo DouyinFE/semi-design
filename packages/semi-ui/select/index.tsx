@@ -1198,7 +1198,7 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
             <div className={`${prefixcls}-content-wrapper-collapse`}>
                 <OverflowList
                     items={normalTags}
-                    key={String(selections.length)}
+                    itemKey={item => item?.[1]?.value}
                     overflowRenderer={overflowItems => this.renderOverflow(overflowItems as [React.ReactNode, any][], length - 1)}
                     onOverflow={overflowItems => this.handleOverflow(overflowItems as [React.ReactNode, any][])}
                     visibleItemRenderer={(item, index) => this.renderTag(item as [React.ReactNode, any], index)}
