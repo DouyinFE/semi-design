@@ -43,6 +43,23 @@ export interface JsonViewerProps extends BaseProps {
      * @default false
      */
     limitSearchButtonBounds?: boolean;
+    /**
+     * Custom render search button
+     * @param defaultSearchButton - Default search button React node
+     * @param searchControls - Search related controls and methods
+     */
+    renderSearchButton?: (
+        defaultSearchButton: React.ReactNode,
+        searchControls: {
+            showSearchBar: boolean;
+            onToggleSearchBar: () => void;
+            onSearch: (text: string, caseSensitive?: boolean, wholeWord?: boolean, regex?: boolean) => void;
+            onPrevSearch: () => void;
+            onNextSearch: () => void;
+            onReplace: (text: string) => void;
+            onReplaceAll: (text: string) => void;
+        }
+    ) => React.ReactNode;
 }
 
 export interface JsonViewerState {
@@ -332,7 +349,55 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
     }
     render() {
         let isDragging = false;
-        const { width, className, style, showSearch = true, limitSearchButtonBounds, ...rest } = this.props;
+        const { width, className, style, showSearch = true, limitSearchButtonBounds, renderSearchButton, ...rest } = this.props;
+        
+        // Default search button
+        const defaultSearchButton = (
+            <DragMove
+                constrainer={limitSearchButtonBounds ? 'parent' as any : undefined}
+                onMouseDown={() => {
+                    isDragging = false;
+                }}
+                onMouseMove={() => {
+                    isDragging = true;
+                }}
+            >
+                <div style={{ position: 'absolute', top: 0, left: width }}>
+                    {!this.state.showSearchBar ? (
+                        <Button
+                            className={`${prefixCls}-search-bar-trigger`}
+                            onClick={e => {
+                                e.preventDefault();
+                                if (isDragging) {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    return;
+                                }
+                                this.foundation.showSearchBar();
+                            }}
+                            icon={<IconSearch />}
+                            style={{ position: 'absolute', top: 20, right: 20 }}
+                        />
+                    ) : (
+                        this.renderSearchBox()
+                    )}
+                </div>
+            </DragMove>
+        );
+
+        // Search controls for custom render
+        const searchControls = {
+            showSearchBar: this.state.showSearchBar,
+            onToggleSearchBar: () => this.foundation.showSearchBar(),
+            onSearch: (text: string, caseSensitive?: boolean, wholeWord?: boolean, regex?: boolean) => {
+                this.foundation.search(text, caseSensitive, wholeWord, regex);
+            },
+            onPrevSearch: () => this.foundation.prevSearch(),
+            onNextSearch: () => this.foundation.nextSearch(),
+            onReplace: (text: string) => this.foundation.replace(text),
+            onReplaceAll: (text: string) => this.foundation.replaceAll(text),
+        };
+
         return (
             <>
                 <div style={{ ...this.getStyle(), position: 'relative', ...style }} className={className} {...this.getDataAttr(rest)}>
@@ -342,36 +407,9 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                         className={classNames(prefixCls, `${prefixCls}-background`)}
                     ></div>
                     {showSearch && (
-                        <DragMove
-                            constrainer={limitSearchButtonBounds ? 'parent' as any : undefined}
-                            onMouseDown={() => {
-                                isDragging = false;
-                            }}
-                            onMouseMove={() => {
-                                isDragging = true;
-                            }}
-                        >
-                            <div style={{ position: 'absolute', top: 0, left: width }}>
-                                {!this.state.showSearchBar ? (
-                                    <Button
-                                        className={`${prefixCls}-search-bar-trigger`}
-                                        onClick={e => {
-                                            e.preventDefault();
-                                            if (isDragging) {
-                                                e.stopPropagation();
-                                                e.preventDefault();
-                                                return;
-                                            }
-                                            this.foundation.showSearchBar();
-                                        }}
-                                        icon={<IconSearch />}
-                                        style={{ position: 'absolute', top: 20, right: 20 }}
-                                    />
-                                ) : (
-                                    this.renderSearchBox()
-                                )}
-                            </div>
-                        </DragMove>
+                        renderSearchButton 
+                            ? renderSearchButton(defaultSearchButton, searchControls)
+                            : defaultSearchButton
                     )}
                 </div>
                 {Array.from(this.state.customRenderMap.entries()).map(([key, value]) => {
