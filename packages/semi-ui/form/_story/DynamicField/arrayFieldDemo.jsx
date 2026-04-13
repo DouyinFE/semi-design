@@ -437,21 +437,21 @@ class ArrayFieldIndexedInsertDemo extends React.Component {
                                 </Button>
                                 <Button
                                     onClick={() => {
+                                        const newKey = add(0);
+                                        this.setState({ lastAddedKey: newKey });
+                                    }}
+                                    type="primary"
+                                >
+                                    插入到最前面 (index=0)
+                                </Button>
+                                <Button
+                                    onClick={() => {
                                         const newKey = add(1);
                                         this.setState({ lastAddedKey: newKey });
                                     }}
                                     type="primary"
                                 >
-                                    添加到第一个位置后
-                                </Button>
-                                <Button
-                                    onClick={() => {
-                                        const newKey = add(2);
-                                        this.setState({ lastAddedKey: newKey });
-                                    }}
-                                    type="primary"
-                                >
-                                    添加到第二个位置后
+                                    插入到第2个位置 (index=1)
                                 </Button>
                                 <Button
                                     onClick={() => {
@@ -460,7 +460,7 @@ class ArrayFieldIndexedInsertDemo extends React.Component {
                                     }}
                                     type="primary"
                                 >
-                                    添加到倒数第二个位置
+                                    插入到倒数第二个位置
                                 </Button>
                             </Space>
                             {arrayFields.map(({ field, key, remove }, index) => (
