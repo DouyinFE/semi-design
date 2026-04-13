@@ -11,7 +11,6 @@ import { IconClose, IconCopyStroked } from '@douyinfe/semi-icons';
 import Button from '../button';
 import { CodeItem } from './widget/code';
 import { FileItem } from './widget/file';
-import copy from 'copy-text-to-clipboard';
 import { ToastFactory } from '../toast';
 import FileContent from './widget/file';
 import CodeContent from './widget/code';
@@ -112,10 +111,10 @@ class Sidebar extends BaseComponent<SideBarProps, SideBarState> {
         onBackWard?.(e, strings.MODE.MAIN);
     }
 
-    handleCopyDetailContent = (e: React.MouseEvent, locale: Locale['Sidebar']) => {
-        const { detailContent, mode, onDetailContentCopy } = this.props;
+    handleCopyDetailContent = async (e: React.MouseEvent, locale: Locale['Sidebar']) => {
+        const { detailContent,  onDetailContentCopy } = this.props;
         const content = detailContent.content;
-        const res = copy(content);
+        const res = await navigator.clipboard.writeText(content).then(() => true).catch(() => false);
         res && this.ToastInCustomContainer.success({
             content: locale.copySuccess,
         });

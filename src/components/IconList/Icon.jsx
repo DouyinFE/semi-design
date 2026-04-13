@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import cls from 'classnames';
 import { Typography, Toast } from '@douyinfe/semi-ui';
-import copy from 'copy-text-to-clipboard';
 import * as SemiIconSet from '@douyinfe/semi-icons';
 import * as SemiIconLabSet from '@douyinfe/semi-icons-lab';
 
@@ -18,9 +17,9 @@ const SemiIcon = props => {
 
     const [copied, setCopied] = useState(false);
 
-    const handleCopy = () => {
+    const handleCopy = async () => {
         const componentText = `<${name} />`;
-        copy(componentText);
+        await navigator.clipboard.writeText(componentText);
         setCopied(true);
         Toast.success({
             content: `${componentText} copied! `,

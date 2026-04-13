@@ -11,7 +11,6 @@ import { IconThumbUpStroked,
 } from '@douyinfe/semi-icons';
 import BaseComponent from '../../_base/baseComponent';
 import { Button, Dropdown, Modal, Toast } from '../../index';
-import copy from 'copy-text-to-clipboard';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
 import DialogueActionFoundation, { DialogueActionAdapter } from '@douyinfe/semi-foundation/aiChatDialogue/actionFoundation';
 import LocaleConsumer from "../../locale/localeConsumer";
@@ -60,10 +59,10 @@ class DialogueAction extends BaseComponent<AIChatDialogueActionProps, AIChatDial
                 const { message, onMessageCopy } = this.props;
                 onMessageCopy?.(message);
             },
-            copyToClipboardAndToast: () => {
+            copyToClipboardAndToast: async () => {
                 const { message } = this.props;
                 if (typeof message?.content === 'string') {
-                    copy(message.content);
+                    await navigator.clipboard.writeText(message.content);
                 } else if (Array.isArray(message?.content)) {
                     const content = message.content?.map(item => {
                         if (typeof (item as any)?.content === 'string') {
@@ -72,7 +71,7 @@ class DialogueAction extends BaseComponent<AIChatDialogueActionProps, AIChatDial
                             return (item as any)?.content?.map(innerItem => innerItem?.text).join('');
                         }
                     }).join('');
-                    copy(content);
+                    await navigator.clipboard.writeText(content);
                 }
                 Toast.success({
                     content: this.copySuccessNode

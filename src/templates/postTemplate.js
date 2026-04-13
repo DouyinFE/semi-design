@@ -38,7 +38,6 @@ import JumpToToken from 'components/JumpToToken';
 import DesignToCodeFeature from 'components/DesignToCodeFeature';
 import SkillsWriter from 'components/SkillsWriter';
 import InternationalizationTabs from 'components/InternationalizationTabs';
-import copy from 'copy-text-to-clipboard';
 import '@douyinfe/semi-site-doc-style';
 import SemiSiteChangeLogDiff from 'components/SemiSiteChangeLogDiff';
 import { COMPONENT_LIST } from 'components/SemiSiteChangeLogDiff/constant';
@@ -251,8 +250,8 @@ const components = {
     hr: ({ }) => <hr className={'gatsby-hr'} />,
     h2: ({ children }) => {
         const intl = useIntl();
-        const onIconLinkClick = () => {
-            copy(`${window.location.href.replace(window.location.hash, '')}#${window.encodeURI(children)}`);
+        const onIconLinkClick = async () => {
+            await navigator.clipboard.writeText(`${window.location.href.replace(window.location.hash, '')}#${window.encodeURI(children)}`);
             Toast.success({
                 content: intl.formatMessage({
                     id: 'editor.copy.success',
@@ -308,8 +307,8 @@ const components = {
     blockquote: ({ children }) => <blockquote className={'gatsby-blockquote'}>{children}</blockquote>,
     h3: ({ children }) => {
         const intl = useIntl();
-        const onIconLinkClick = () => {
-            copy(`${window.location.href.replace(window.location.hash, '')}#${window.encodeURI(children)}`);
+        const onIconLinkClick = async () => {
+            await navigator.clipboard.writeText(`${window.location.href.replace(window.location.hash, '')}#${window.encodeURI(children)}`);
             Toast.success({
                 content: intl.formatMessage({
                     id: 'editor.copy.success',
