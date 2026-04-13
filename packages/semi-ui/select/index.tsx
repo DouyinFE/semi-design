@@ -32,8 +32,6 @@ import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import '@douyinfe/semi-foundation/select/select.scss';
 import type { Locale } from '../locale/interface';
 import type { Position, TooltipProps } from '../tooltip';
-import type { Subtract } from 'utility-types';
-
 export type { OptionProps } from './option';
 export type { OptionGroupProps } from './optionGroup';
 export type { VirtualRowProps } from './virtualRow';
@@ -173,7 +171,7 @@ export type SelectProps<T = BasicSelectValue> = {
     prefix?: React.ReactNode;
     insetLabel?: React.ReactNode;
     insetLabelId?: string;
-    inputProps?: Subtract<InputProps, ExcludeInputType>;
+    inputProps?: Omit<InputProps, keyof ExcludeInputType>;
     showClear?: boolean;
     showArrow?: boolean;
     renderSelectedItem?: RenderSelectedItemFn;
@@ -207,7 +205,7 @@ TooltipProps,
 | 'mouseLeaveDelay'
 | 'mouseEnterDelay'
 | 'stopPropagation'
-> & React.RefAttributes<any>;
+>;
 
 export interface SelectState {
     isOpen: boolean;
