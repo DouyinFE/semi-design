@@ -14,6 +14,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.94.1 (2026-04-13)
+- 【Feat】
+    - JsonViewer 支持通过 renderSearchButton 自定义搜索按钮渲染 [#2838](https://github.com/DouyinFE/semi-design/issues/2838) [#3199](https://github.com/DouyinFE/semi-design/pull/3199)
+- 【Fix】
+    - 修复 Select 在 Safari 中的闪烁问题 [@nekocode](https://github.com/nekocode) [#1961](https://github.com/DouyinFE/semi-design/pull/1961)
+    - 修复 SelectProps 类型实例化过深导致 TS2589 错误，将 Subtract 替换为内置 Omit 并移除冗余的 RefAttributes [#2426](https://github.com/DouyinFE/semi-design/issues/2426)
+- 【Docs】
+    - 补充 Select virtualize.height 使用指引 [#2646](https://github.com/DouyinFE/semi-design/issues/2646) [#3198](https://github.com/DouyinFE/semi-design/pull/3198)
+    - 修正 Form setValues API 文档描述与实际行为不一致的问题 [#885](https://github.com/DouyinFE/semi-design/issues/885) [#3197](https://github.com/DouyinFE/semi-design/pull/3197)
+
 #### 🎉 2.94.0 (2026-04-09)
 - 【Feat】
     - Form 组件新增静默校验功能，validate 方法支持传入 silent 参数，校验不触发 UI 错误展示 [#2724](https://github.com/DouyinFE/semi-design/issues/2724) [#3195](https://github.com/DouyinFE/semi-design/pull/3195)

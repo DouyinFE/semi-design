@@ -16,6 +16,16 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.94.1 (2026-04-13)
+- 【Feat】
+    - JsonViewer supports customizing search button rendering via renderSearchButton prop [#2838](https://github.com/DouyinFE/semi-design/issues/2838) [#3199](https://github.com/DouyinFE/semi-design/pull/3199)
+- 【Fix】
+    - Fix Select flickering in Safari [@nekocode](https://github.com/nekocode) [#1961](https://github.com/DouyinFE/semi-design/pull/1961)
+    - Fix SelectProps type instantiation excessively deep (TS2589) by replacing Subtract with built-in Omit and removing redundant RefAttributes [#2426](https://github.com/DouyinFE/semi-design/issues/2426)
+- 【Docs】
+    - Add guidance for virtualize.height usage in Select component [#2646](https://github.com/DouyinFE/semi-design/issues/2646) [#3198](https://github.com/DouyinFE/semi-design/pull/3198)
+    - Fix Form setValues API documentation to accurately describe behavior [#885](https://github.com/DouyinFE/semi-design/issues/885) [#3197](https://github.com/DouyinFE/semi-design/pull/3197)
+
 #### 🎉 2.94.0 (2026-04-09)
 - 【Feat】
     - Form component adds silent validation, validate method supports silent parameter to suppress UI error display [#2724](https://github.com/DouyinFE/semi-design/issues/2724) [#3195](https://github.com/DouyinFE/semi-design/pull/3195)
