@@ -18,8 +18,8 @@ export interface ArrayFieldChildrenProps {
         field: string;
         remove: () => void
     }[];
-    add: () => void;
-    addWithInitValue: (lineObject: Record<string, any>) => void
+    add: (index?: number) => void;
+    addWithInitValue: (lineObject: Record<string, any>, index?: number) => void
 }
 
 export interface ArrayFieldState {
@@ -131,24 +131,51 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         }
     }
 
-    add() {
+    add(index?: number) {
         const { keys } = this.state;
         const { field } = this.props;
         const updater = this.context;
-        keys.push(getUuidv4());
+        const newKey = getUuidv4();
+        const opts = { notNotify: true, notUpdate: true };
+
+        if (typeof index === 'number') {
+            const safeIndex = Math.max(0, Math.min(index, keys.length));
+            keys.splice(safeIndex, 0, newKey);
+            let currentValues = updater.getValue(field);
+            if (Array.isArray(currentValues)) {
+                currentValues = currentValues.slice();
+                currentValues.splice(safeIndex, 0, undefined);
+                updater.updateStateValue(field, currentValues, opts);
+            }
+            let currentErrors = updater.getError(field);
+            if (Array.isArray(currentErrors)) {
+                currentErrors = currentErrors.slice();
+                currentErrors.splice(safeIndex, 0, undefined);
+                updater.updateStateError(field, currentErrors, opts);
+            }
+        } else {
+            keys.push(newKey);
+        }
+
         this.shouldUseInitValue = true;
         this.setState({ keys });
-        let updateKey = new Date().valueOf();
+        const updateKey = new Date().valueOf();
         updater.updateArrayField(field, { updateKey });
         this.cacheUpdateKey = updateKey;
+        return newKey;
     }
 
-    addWithInitValue(rowVal: Record<string, any> | string) {
+    addWithInitValue(rowVal: Record<string, any> | string, index?: number) {
         const updater = this.context;
         const { field } = this.props;
         const newArrayFieldVal = updater.getValue(field) ? updater.getValue(field).slice() : [];
         const cloneRowVal = copy(rowVal);
-        newArrayFieldVal.push(cloneRowVal);
+        if (typeof index === 'number') {
+            const safeIndex = Math.max(0, Math.min(index, newArrayFieldVal.length));
+            newArrayFieldVal.splice(safeIndex, 0, cloneRowVal);
+        } else {
+            newArrayFieldVal.push(cloneRowVal);
+        }
         updater.updateStateValue(field, newArrayFieldVal, {});
         updater.updateArrayField(field, { updateKey: new Date().valueOf() });
     }
