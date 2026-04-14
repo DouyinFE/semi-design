@@ -66,11 +66,11 @@ export interface AfterUploadResult {
 
 export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     notifyFileSelect: (files: Array<CustomFile>) => void;
-    notifyError: (error: XhrError, fileInstance: File, fileList: Array<BaseFileItem>, xhr: XMLHttpRequest) => void;
-    notifySuccess: (body: any, fileInstance: File, newFileList: Array<BaseFileItem>) => void;
-    notifyProgress: (percent: number, fileInstance: File, newFileList: Array<BaseFileItem>) => void;
-    notifyRemove: (file: File, newFileList: Array<BaseFileItem>, fileItem: BaseFileItem) => void;
-    notifySizeError: (file: File, fileList: Array<BaseFileItem>) => void;
+    notifyError: (error: XhrError, fileInstance: CustomFile, fileList: Array<BaseFileItem>, xhr: XMLHttpRequest) => void;
+    notifySuccess: (body: any, fileInstance: CustomFile, newFileList: Array<BaseFileItem>) => void;
+    notifyProgress: (percent: number, fileInstance: CustomFile, newFileList: Array<BaseFileItem>) => void;
+    notifyRemove: (file: CustomFile, newFileList: Array<BaseFileItem>, fileItem: BaseFileItem) => void;
+    notifySizeError: (file: CustomFile, fileList: Array<BaseFileItem>) => void;
     notifyExceed: (files: Array<File>) => void;
     updateFileList: (newFileList: Array<BaseFileItem>, callback?: () => void) => void;
     notifyBeforeUpload: ({ file, fileList }: { file: BaseFileItem; fileList: Array<BaseFileItem> }) => boolean | BeforeUploadObjectResult | Promise<BeforeUploadObjectResult>;
