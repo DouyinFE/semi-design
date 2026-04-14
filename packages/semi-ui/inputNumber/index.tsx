@@ -246,15 +246,64 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
     foundation: InputNumberFoundation;
     constructor(props: InputNumberProps) {
         super(props);
+        this.foundation = new InputNumberFoundation(this.adapter);
+        this.inputNode = null;
+        this.clickUpOrDown = false;
+
+        // Initialize state with formatted value to ensure formatter is applied on first render.
+        // Fix issue #2548: [InputNumber] 受控模式下，默认第一次的 value 不会被 formatter 转换
+        const initValue = this._getInitState(props);
         this.state = {
-            value: '',
-            number: null, // Current parsed numbers
+            value: initValue.value,
+            number: initValue.number, // Current parsed numbers
             focusing: Boolean(props.autofocus) || false,
             hovering: false,
         };
-        this.inputNode = null;
-        this.foundation = new InputNumberFoundation(this.adapter);
-        this.clickUpOrDown = false;
+    }
+
+    /**
+     * Calculate initial state for first render.
+     * Keep logic aligned with componentDidUpdate (non-focusing branch).
+     */
+    _getInitState(props: InputNumberProps): { value: string; number: number | null } {
+        const propsValue = this.isControlled('value') ? props.value : props.defaultValue;
+
+        if (isNullOrUndefined(propsValue) || propsValue === '') {
+            return { value: '', number: null };
+        }
+
+        // In currency mode, foundation relies on init() to compute locale currency symbols.
+        // Avoid parsing currency strings during constructor to prevent incorrect initial state.
+        const isCurrency = props.currency === true || (typeof props.currency === 'string' && props.currency.trim() !== '');
+        if (isCurrency) {
+            if (typeof propsValue === 'number') {
+                const parsedNum = this.foundation.doParse(propsValue, false, true, true);
+                if (this.foundation.isValidNumber(parsedNum)) {
+                    // Do not adjust currency here (symbols not ready before init). Init() will re-format.
+                    const formatted = this.foundation.doFormat(parsedNum, true, false);
+                    return { value: formatted, number: parsedNum };
+                }
+                return { value: '', number: null };
+            }
+
+            // String currency value: keep as-is for first render; init() will normalize.
+            return { value: String(propsValue), number: null };
+        }
+
+        let valueStr: any = propsValue;
+        // Same as componentDidUpdate: if incoming is number, format first
+        if (typeof propsValue === 'number') {
+            valueStr = this.foundation.doFormat(propsValue);
+        }
+
+        const parsedNum = this.foundation.doParse(valueStr, false, true, true);
+        if (this.foundation.isValidNumber(parsedNum)) {
+            const formatted = this.foundation.doFormat(parsedNum, true, true);
+            return { value: formatted, number: parsedNum };
+        }
+
+        // Invalid number -> empty (consistent with blur-like behavior)
+        return { value: '', number: null };
     }
 
     componentDidUpdate(prevProps: InputNumberProps) {

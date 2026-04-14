@@ -118,6 +118,13 @@ import { InputNumber } from '@douyinfe/semi-ui';
 
 > formatter 和 parser 一对方法，一般需要同时设置，否则无法正确解析值
 
+<Notice type="info" title="2.95.0 行为调整">
+
+- **2.94.0 及之前**：当 InputNumber 处于**受控模式**（传入 `value`）且 `value` 为 **number** 时，首次渲染阶段输入框的展示值可能不会先经过 `formatter` 处理，组件会在 mount 后（或后续更新）再应用 `formatter/parser`，从而出现首帧展示与后续不一致的现象。
+- **2.95.0 及之后**：受控模式下当 `value` 为 **number** 时，首次渲染也会应用 `formatter`（并与 `parser` 配合得到内部数值），保证首帧展示与后续一致。例如百分比场景：`value=1` 且 `formatter/parser` 使展示乘以 100 时，首帧将直接展示 `100`。
+
+</Notice>
+
 ```jsx live=true
 import React from 'react';
 import { InputNumber } from '@douyinfe/semi-ui';

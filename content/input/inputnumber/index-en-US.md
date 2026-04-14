@@ -135,6 +135,13 @@ function App() {
 
 > A pair of methods for `formatter` and `parser`, which generally need to be set at the same time, otherwise the value cannot be resolved correctly.
 
+<Notice type="info" title="Behavior change in 2.95.0">
+
+- **2.94.0 and earlier**: In **controlled** mode (passing `value`), when `value` is a **number**, the initial render might not apply `formatter` to the displayed text. `formatter/parser` could be applied after mount (or on subsequent updates), causing the first paint to differ from later renders.
+- **2.95.0 and later**: In controlled mode, when `value` is a **number**, `formatter` is applied on the initial render (and paired with `parser` to derive the internal numeric value), keeping the first paint consistent with later renders. For example, in a percentage formatter/parser setup where `value=1` should display `100`, the first paint will display `100`.
+
+</Notice>
+
 ```jsx live=true
 import React, { useCallback } from 'react';
 import { InputNumber } from '@douyinfe/semi-ui';

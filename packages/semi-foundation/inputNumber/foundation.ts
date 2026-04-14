@@ -405,7 +405,22 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
         const propsValue = this._isControlledComponent('value') ? value : defaultValue;
 
-        const tmpNumber = this.doParse(this._isCurrency() ? propsValue : toString(propsValue), false, true, true);
+        // Align init logic with controlled update logic in semi-ui:
+        // - When propsValue is a number, we should apply formatter first (doFormat)
+        //   so that parser/formatter pairs like percentage (value=1 => display=100)
+        //   work correctly on first mount.
+        // - When propsValue is a string, keep original behavior.
+        let valueStr: any = propsValue;
+        // NOTE: Currency mode should keep the original behavior (number stays number) because
+        // parseInternationalCurrency expects locale-formatted strings and relies on symbols
+        // computed during init().
+        if (typeof propsValue === 'number' && !this._isCurrency()) {
+            valueStr = this.doFormat(propsValue);
+        } else if (!this._isCurrency()) {
+            valueStr = toString(propsValue);
+        }
+
+        const tmpNumber = this.doParse(valueStr, false, true, true);
 
         let number = null;
         if (typeof tmpNumber === 'number' && !isNaN(tmpNumber)) {
