@@ -593,7 +593,8 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         const parser = this.getProp('parser');
 
         if (typeof parser === 'function') {
-            value = parser(value);
+            const parsedValue = parser(value) as unknown;
+            value = typeof parsedValue === 'number' ? toString(parsedValue) : parsedValue as string;
         }
 
         if (needCheckPrec && typeof value === 'string') {
@@ -648,7 +649,8 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
             }
 
             if (typeof parser === 'function') {
-                value = parser(value);
+                const parsedValue = parser(value) as unknown;
+                value = typeof parsedValue === 'number' ? toString(parsedValue) : parsedValue as string;
             }
             if (needAdjustPrec) {
                 value = this._adjustPrec(value);
