@@ -1416,7 +1416,7 @@ import { Transfer, Button } from '@douyinfe/semi-ui';
 | onSearch | 搜索框输入内容变化时调用 | (inputValue: string) => void | |  |
 | onSelect | 勾选时的回调 | (item: Item) => void | |  |
 | renderSelectedHeader | 自定义右侧面板头部信息的渲染 | (props: SelectedHeaderProps) => ReactNode |  | 2.29.0 |
-| renderSelectedItem | 自定义右侧单个已选项的渲染 | (item: { onRemove, sortableHandle } & Item) => ReactNode |  |  |
+| renderSelectedItem | 自定义右侧单个已选项的渲染；当 `type="treeList"` 且 `showPath` 为 `true` 时，可通过 `item.fullPath` 获取完整路径 | (item: { onRemove, sortableHandle } & Item) => ReactNode |  |  |
 | renderSelectedPanel | 自定义右侧已选面板的渲染 | (selectedPanelProps) => ReactNode |  | - |
 | renderSourceHeader | 自定义左侧面板头部信息的渲染 | (props: SourceHeaderProps) => ReactNode |  | 2.29.0 |
 | renderSourceItem | 自定义左侧单个候选项的渲染 | (item: { onChange, checked } & Item) => ReactNode |  |  |
@@ -1435,6 +1435,7 @@ import { Transfer, Button } from '@douyinfe/semi-ui';
 | disabled  | 是否禁用                             | boolean          | false  |
 | key       | 必填，每个选项的唯一标识，不允许重复 | string \| number          |        |
 | label     | 选项展示内容                         | ReactNode        |        |
+| fullPath  | 当 `type="treeList"` 且 `showPath` 为 `true` 时，返回当前节点从根节点到自身的完整路径节点数组 | Array<Item\> |        |
 | style     | 内联样式                             | CSSProperties           |        |
 | value     | 选项代表的值                         | string \| number |        |
 
