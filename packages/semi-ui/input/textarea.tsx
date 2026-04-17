@@ -73,6 +73,8 @@ export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
     lineNumberStyle?: CSSProperties;
     /** The style of textarea element */
     textareaStyle?: CSSProperties;
+    /** Whether to enable composition mode. When enabled, onChange will not be triggered during IME composition, and will only be triggered once after composition ends */
+    composition?: boolean;
 }
 
 export interface TextAreaState {
@@ -110,6 +112,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         onCompositionUpdate: PropTypes.func,
         getValueLength: PropTypes.func,
         disabledEnterStartNewLine: PropTypes.bool,
+        composition: PropTypes.bool,
         showLineNumber: PropTypes.bool,
         lineNumberStart: PropTypes.number,
         lineNumberClassName: PropTypes.string,
@@ -135,6 +138,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         onCompositionStart: noop,
         onCompositionEnd: noop,
         onCompositionUpdate: noop,
+        composition: false,
         showLineNumber: false,
         lineNumberStart: 1,
         // resize: false,
@@ -473,6 +477,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             lineNumberStart,
             lineNumberClassName,
             lineNumberStyle,
+            composition,
             ...rest
         } = this.props;
         const { isFocus, value, minLength: stateMinLength } = this.state;
@@ -493,7 +498,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             [`${prefixCls}-textarea-showClear`]: showClear,
         });
         const itemProps = {
-            ...omit(rest, 'insetLabel', 'insetLabelId', 'getValueLength', 'onClear', 'showClear', 'disabledEnterStartNewLine'),
+            ...omit(rest, 'insetLabel', 'insetLabelId', 'getValueLength', 'onClear', 'showClear', 'disabledEnterStartNewLine', 'composition'),
             style: textareaStyle,
             autoFocus: autoFocus || this.props['autofocus'],
             className: itemCls,

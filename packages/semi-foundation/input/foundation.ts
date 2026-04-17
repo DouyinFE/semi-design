@@ -59,7 +59,15 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
     }
 
     handleChange(value: any, e: any) {
+        const { composition } = this._adapter.getProps();
         let nextValue = value;
+        // When composition is enabled and in IME composing, only update internal state without triggering onChange
+        // We still need to update internal state for both controlled and uncontrolled components,
+        // so that the input can correctly display the composing text
+        if (composition && this.compositionEnter) {
+            this._adapter.setValue(nextValue);
+            return;
+        }
         if (!this.compositionEnter) {
             nextValue = this.getNextValue(nextValue);
         }
@@ -101,9 +109,16 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
     }
 
     handleCompositionEnd = (e: any) => {
+        const { composition } = this._adapter.getProps();
         const value = e.target.value;
         this.compositionEnter = false;
-        this._adapter.notifyCompositionEnd(e); 
+        this._adapter.notifyCompositionEnd(e);
+        // When composition is enabled, trigger onChange after IME composition ends
+        if (composition) {
+            const nextValue = this.getNextValue(value);
+            this.changeInput(nextValue, e);
+            return;
+        }
         const { getValueLength, maxLength, minLength } = this.getProps();
         if (!isFunction(getValueLength)) {
             return;
