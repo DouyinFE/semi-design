@@ -21,6 +21,12 @@ import { verticalListSortingStrategy } from '@dnd-kit/sortable';
 
 export interface DataItem extends BasicDataItem {
     label?: React.ReactNode;
+    style?: React.CSSProperties;
+    fullPath?: Array<FullPathItem>
+}
+
+export interface FullPathItem extends BasicDataItem {
+    label?: React.ReactNode;
     style?: React.CSSProperties
 }
 
@@ -40,7 +46,11 @@ export interface RenderSourceItemProps extends DataItem {
 
 export interface RenderSelectedItemProps extends DataItem {
     onRemove?: () => void;
-    sortableHandle?: any
+    sortableHandle?: any;
+    /**
+     * The full path of the node in treeList mode (only available when showPath is true)
+     */
+    fullPath?: Array<FullPathItem>;
 }
 
 export interface EmptyContent {
@@ -577,6 +587,17 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         return <div className={`${prefixCls}-left-list`} role="list" aria-label="Option list">{content}</div>;
     }
 
+    getFullPath(item: ResolvedDataItem): Array<FullPathItem> | undefined {
+        const { type, showPath } = this.props;
+        const shouldShowPath = type === strings.TYPE_TREE_TO_LIST && showPath === true;
+
+        if (!shouldShowPath || !Array.isArray(item.path)) {
+            return undefined;
+        }
+
+        return item.path.map((pathItem: FullPathItem) => ({ ...pathItem }));
+    }
+
     renderRightItem = (item: ResolvedDataItem, sortableHandle?: any): React.ReactNode => {
         const { renderSelectedItem, draggable, type, showPath } = this.props;
         const onRemove = () => this.foundation.handleSelectOrRemove(item);
@@ -586,11 +607,12 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             [`${prefixCls}-right-item-draggable`]: draggable
         });
         const shouldShowPath = type === strings.TYPE_TREE_TO_LIST && showPath === true;
+        const fullPath = this.getFullPath(item);
 
         const label = shouldShowPath ? this.foundation._generatePath(item) : item.label;
 
         if (renderSelectedItem) {
-            return renderSelectedItem({ ...item, onRemove, sortableHandle });
+            return renderSelectedItem({ ...item, fullPath, onRemove, sortableHandle });
         }
 
         const DragHandle = sortableHandle && sortableHandle(() => (
@@ -646,7 +668,10 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     renderRight(locale: Locale['Transfer']) {
         const { selectedItems } = this.state;
         const { emptyContent, renderSelectedPanel, draggable } = this.props;
-        const selectedData = [...selectedItems.values()];
+        const selectedData = [...selectedItems.values()].map(item => ({
+            ...item,
+            fullPath: this.getFullPath(item)
+        }));
 
         // when custom render panel
         const renderProps: SelectedPanelProps = {

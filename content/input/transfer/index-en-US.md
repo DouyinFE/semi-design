@@ -1411,7 +1411,7 @@ import { Transfer, Button } from '@douyinfe/semi-ui';
 | onSearch | Called when the input content of the search box changes | (inputValue: string) => void | | |
 | onSelect | Callback when checked | (item: Item) => void | | |
 | renderSelectedHeader | Customize the rendering of the header information on the right panel | (props: SelectedHeaderProps) => ReactNode |  | 2.29.0 |
-| renderSelectedItem | Customize the rendering of a single selected item on the right | (item: {onRemove, sortableHandle} & Item) => ReactNode | | |
+| renderSelectedItem | Customize the rendering of a single selected item on the right. When `type="treeList"` and `showPath` is `true`, the complete path is available through `item.fullPath` | (item: {onRemove, sortableHandle} & Item) => ReactNode | | |
 | renderSelectedPanel | Customize the rendering of the selected panel on the right | (selectedPanelProps) => ReactNode | | - |
 | renderSourceHeader | Customize the rendering of the header information on the left panel | (props: SourceHeaderProps) => ReactNode |  | 2.29.0 |
 | renderSourceItem | Customize the rendering of a single candidate item on the left | (item: {onChange, checked} & Item) => ReactNode | | |
@@ -1430,6 +1430,7 @@ import { Transfer, Button } from '@douyinfe/semi-ui';
 | disabled | Whether to disable | boolean | false |
 | key | Required, unique identification of each option, no repetition is allowed | string \| number | |
 | label | Options display content | ReactNode | |
+| fullPath | When `type="treeList"` and `showPath` is `true`, returns the full path node array from the root node to the current node | Array<Item\> | |
 | style | Inline style | CSSProperties | |
 | value | The value represented by the option | string \| number | |
 
