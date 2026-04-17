@@ -1430,6 +1430,7 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | optionList | 可以通过该属性传入 Option,请确保数组内每个元素都具备 label、value 属性                                                                                         | array(\[{value, label}\]) |  |
 | placeholder | 选择框默认文字                                                                                                                               | ReactNode |  |
 | position | 菜单展开的位置，可选项同 Tooltip position                                                                                                         | string | 'bottomLeft' |
+| rePosKey | 可以更新该项值手动触发弹出层的重新定位                                                                                                          | string\|number |  |  |
 | prefix | 选择框的前缀标签                                                                                                                              | ReactNode |  |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                                                                | boolean |  |  |
 | renderCreateItem | allowCreate 为 true 时，可自定义创建标签的渲染。与虚拟化结合使用时，必须将第三个参数style传入自定义DOM中消费(v2.44.1后提供)                                                                                                | function(inputValue:string, isFocus: boolean, style: object) | inputValue => '创建' + inputValue |
@@ -1502,6 +1503,7 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | deselectAll | 调用时可以手动清空所有已选项        |  |
 | selectAll   | 调用时可以选中所有 Option           |  |
 | search(value: string, event: event)| 可通过 ref 调用该方法进行搜索，该搜索值会被置给 Input   | v2.35.0 |
+| rePosition | 调用时可以手动触发下拉层重新定位 |  |
 
 ## Accessibility
 

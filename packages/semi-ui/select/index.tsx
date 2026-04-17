@@ -104,7 +104,8 @@ export interface selectMethod {
     deselectAll?: () => void;
     focus?: () => void;
     close?: () => void;
-    open?: () => void
+    open?: () => void;
+    rePosition?: () => void;
 }
 export type SelectSize = 'small' | 'large' | 'default';
 
@@ -197,14 +198,15 @@ export type SelectProps<T = BasicSelectValue> = {
     showRestTagsPopover?: boolean;
     restTagsPopoverProps?: PopoverProps
 } & Pick<
-TooltipProps,
-| 'spacing'
-| 'getPopupContainer'
-| 'motion'
-| 'autoAdjustOverflow'
-| 'mouseLeaveDelay'
-| 'mouseEnterDelay'
-| 'stopPropagation'
+    TooltipProps,
+    | 'spacing'
+    | 'getPopupContainer'
+    | 'motion'
+    | 'autoAdjustOverflow'
+    | 'mouseLeaveDelay'
+    | 'mouseEnterDelay'
+    | 'stopPropagation'
+    | 'rePosKey'
 >;
 
 export interface SelectState {
@@ -317,6 +319,7 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
         mouseEnterDelay: PropTypes.number,
         mouseLeaveDelay: PropTypes.number,
         spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+        rePosKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         onBlur: PropTypes.func,
         onFocus: PropTypes.func,
         onClear: PropTypes.func,
@@ -804,6 +807,12 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
 
     focus() {
         this.foundation.focus();
+    }
+
+    rePosition() {
+        let { optionKey } = this.state;
+        optionKey = optionKey + 1;
+        this.setState({ optionKey });
     }
 
     onSelect(option: OptionProps, optionIndex: number, e: any) {
@@ -1524,9 +1533,13 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
             spacing,
             stopPropagation,
             dropdownMargin,
+            rePosKey,
         } = this.props;
         const { isOpen, optionKey } = this.state;
         const selection = this.renderSelection();
+        // Combine internal optionKey with user-provided rePosKey
+        // When either changes, the dropdown will reposition
+        const popoverRePosKey = rePosKey !== undefined ? `${optionKey}-${rePosKey}` : optionKey;
         return (
             <Popover
                 getPopupContainer={getPopupContainer}
@@ -1540,7 +1553,7 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
                 content={() => this.renderOptions(children)}
                 visible={isOpen}
                 trigger="custom"
-                rePosKey={optionKey}
+                rePosKey={popoverRePosKey}
                 position={position}
                 spacing={spacing}
                 stopPropagation={stopPropagation}
