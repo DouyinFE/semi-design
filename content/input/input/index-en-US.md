@@ -457,6 +457,62 @@ Answers to some questions:
 
 > Why not modify maxLength dynamically? Modify maxLength dynamically after the input operation is completed, calculate the remaining character length that can be entered. If the maxLength is set to 1, you want to enter a '💖' with a length of 2, but due to the limitation of input maxLength, you can't enter it at all here, and you can't update maxLength.
 
+### IME Input Mode
+
+By setting the `composition` property to `true`, you can enable IME input mode. In this mode, when using an IME (e.g., Chinese pinyin input), `onChange` will not be triggered during IME confirmation (e.g., while pinyin is being typed), and will only be triggered once after the IME confirms the input. This is useful for real-time search scenarios to avoid unnecessary requests during pinyin input.
+
+Both Input and TextArea support this property.
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Input, TextArea } from '@douyinfe/semi-ui';
+
+() => {
+    const [inputValue, setInputValue] = useState('');
+    const [textAreaValue, setTextAreaValue] = useState('');
+    const [inputLogs, setInputLogs] = useState([]);
+    const [textAreaLogs, setTextAreaLogs] = useState([]);
+
+    const handleInputChange = (value) => {
+        setInputValue(value);
+        setInputLogs(prev => [...prev, value]);
+    };
+
+    const handleTextAreaChange = (value) => {
+        setTextAreaValue(value);
+        setTextAreaLogs(prev => [...prev, value]);
+    };
+
+    return (
+        <div>
+            <h4>Input with composition</h4>
+            <Input
+                composition
+                value={inputValue}
+                onChange={handleInputChange}
+                placeholder="With composition, onChange is not triggered during IME input"
+                style={{ width: 300 }}
+            />
+            <div style={{ marginTop: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                onChange trigger count: {inputLogs.length}
+            </div>
+            <br/><br/>
+            <h4>TextArea with composition</h4>
+            <TextArea
+                composition
+                value={textAreaValue}
+                onChange={handleTextAreaChange}
+                placeholder="With composition, onChange is not triggered during IME input"
+                style={{ width: 300 }}
+            />
+            <div style={{ marginTop: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                onChange trigger count: {textAreaLogs.length}
+            </div>
+        </div>
+    );
+};
+```
+
 
 ## API Reference
 
@@ -477,6 +533,7 @@ Answers to some questions:
 | borderless        | borderless mode  >=2.33.0                                                                                                                                                                     | boolean                         |           |
 | className         | Class name                                                                                                                                                                                    | string                          |           |
 | clearIcon         | Can be used to customize the clear button, valid when showClear is true  **>=2.25**                                                                                                           | ReactNode                       |           |
+| composition       | Whether to enable IME composition input mode. When enabled, `onChange` will not be triggered during IME composition (e.g., Chinese pinyin input), and will only be triggered once after composition ends | boolean                         | false     |
 | defaultValue      | Default value                                                                                                                                                                                 | ReactText                       |           |
 | disabled          | Toggle whether to disable input                                                                                                                                                               | boolean                         | false     |
 | getValueLength    | Custom calculated character string length                                                                                                                                                     | (value: string) => number       |           |
@@ -518,6 +575,7 @@ Answers to some questions:
 | borderless        | borderless mode  >=2.33.0                                                                                                                                                                     | boolean                         |           |
 | className         | Class name                                                                                                             | string                          | -       |
 | cols              | The visible width of the text control, in average character widths. If it is specified, it must be a positive integer. | number                          | -       |
+| composition       | Whether to enable IME composition input mode. When enabled, `onChange` will not be triggered during IME composition (e.g., Chinese pinyin input), and will only be triggered once after composition ends | boolean                         | false     |
 | disabled          | Disabled                                                                                                               | boolean                         | false   |
 | getValueLength    | Custom calculated character string length                                                                              | (value: string) => number       |         |
 | maxCount          | The maximum number of characters and display count                                                                     | number                          | -       |

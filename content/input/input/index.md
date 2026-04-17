@@ -472,6 +472,62 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 
 > 为何不动态修改 maxLength？动态修改 maxLength 在输入操作完成以后，计算剩余可以输入的字符长度。 如 maxLength 设置为 1，想输入一个 length 为 2 的 '💖'，但是由于 input maxLength 的限制，这里根本就输入不进去，也就无法更新 maxLength。
 
+### 输入法模式
+
+通过设置 `composition` 属性为 `true`，可以开启输入法模式。在该模式下，使用输入法（如中文拼音）输入时，`onChange` 不会在输入法未确认（如拼音过程中）触发，而是在输入法确认后触发一次。适用于实时搜索等场景，避免在拼音输入过程中触发不必要的请求。
+
+Input 和 TextArea 均支持该属性。
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Input, TextArea } from '@douyinfe/semi-ui';
+
+() => {
+    const [inputValue, setInputValue] = useState('');
+    const [textAreaValue, setTextAreaValue] = useState('');
+    const [inputLogs, setInputLogs] = useState([]);
+    const [textAreaLogs, setTextAreaLogs] = useState([]);
+
+    const handleInputChange = (value) => {
+        setInputValue(value);
+        setInputLogs(prev => [...prev, value]);
+    };
+
+    const handleTextAreaChange = (value) => {
+        setTextAreaValue(value);
+        setTextAreaLogs(prev => [...prev, value]);
+    };
+
+    return (
+        <div>
+            <h4>Input with composition</h4>
+            <Input
+                composition
+                value={inputValue}
+                onChange={handleInputChange}
+                placeholder="开启 composition，拼音输入时不会触发 onChange"
+                style={{ width: 300 }}
+            />
+            <div style={{ marginTop: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                onChange 触发次数: {inputLogs.length}
+            </div>
+            <br/><br/>
+            <h4>TextArea with composition</h4>
+            <TextArea
+                composition
+                value={textAreaValue}
+                onChange={handleTextAreaChange}
+                placeholder="开启 composition，拼音输入时不会触发 onChange"
+                style={{ width: 300 }}
+            />
+            <div style={{ marginTop: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                onChange 触发次数: {textAreaLogs.length}
+            </div>
+        </div>
+    );
+};
+```
+
 ## API 参考
 
 ### Input
@@ -490,6 +546,7 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | borderless        | 无边框模式  >=2.33.0                                | boolean                         |           |
 | className         | 类名                                             | string                          |           |
 | clearIcon         | 可用于自定义清除按钮, showClear为true时有效 **>=2.25.0**     | ReactNode                       |  |
+| composition       | 是否开启输入法模式，开启后输入法未确认期间不会触发 onChange，输入法确认后触发一次 onChange | boolean                         | false     |
 | defaultValue      | 输入框内容默认值                                       | ReactText                       |           |
 | disabled          | 是否禁用，默认为false                                  | boolean                         | false     |
 | getValueLength    | 自定义计算字符串长度                                     | (value: string) => number       |      |
@@ -532,6 +589,7 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | borderless        | 无边框模式  >=2.33.0                                 | boolean                         |           |
 | className    | 类名                               | string                          | -      |
 | cols         | 默认列数                           | number                          | 无     |
+| composition  | 是否开启输入法模式，开启后输入法未确认期间不会触发 onChange，输入法确认后触发一次 onChange | boolean                         | false     |
 | disabled     | 禁用状态                           | boolean                         | false  |
 | getValueLength| 自定义计算字符串长度                                            | (value: string) => number        |      |
 | maxCount     | 设置字数限制并显示字数统计         | number                          | 无     |
