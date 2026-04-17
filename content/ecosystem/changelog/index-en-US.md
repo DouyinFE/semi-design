@@ -16,6 +16,16 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.95.0 (2026-04-17)
+- 【Feat】
+    - Input and TextArea components add `composition` prop, when enabled onChange won't trigger during IME composition and only triggers once after composition ends, suitable for real-time search scenarios [#2134](https://github.com/DouyinFE/semi-design/issues/2134) [#3211](https://github.com/DouyinFE/semi-design/pull/3211)
+    - Select component adds `rePosKey` prop and `rePosition()` instance method to support manual repositioning of dropdown menu [#2648](https://github.com/DouyinFE/semi-design/issues/2648) [#3209](https://github.com/DouyinFE/semi-design/pull/3209)
+    - Transfer component's renderSelectedItem callback adds `fullPath` parameter, providing complete node path info in treeList mode when showPath is enabled [#2588](https://github.com/DouyinFE/semi-design/issues/2588) [#3207](https://github.com/DouyinFE/semi-design/pull/3207)
+- 【Fix】
+    - Fix InputNumber formatter not being applied to initial value on first render in controlled mode [#2548](https://github.com/DouyinFE/semi-design/issues/2548) [#3205](https://github.com/DouyinFE/semi-design/pull/3205)
+    - Fix InputNumber parser behavior when returning number type, improved robustness [#1114](https://github.com/DouyinFE/semi-design/issues/1114) [#3208](https://github.com/DouyinFE/semi-design/pull/3208)
+    - Fix DatePicker disabledDate incorrectly judging date disabled status when adjusting time in dateTimeRange mode [#2875](https://github.com/DouyinFE/semi-design/issues/2875) [#3204](https://github.com/DouyinFE/semi-design/pull/3204)
+
 #### 🎉 2.94.1 (2026-04-13)
 - 【Feat】
     - JsonViewer supports customizing search button rendering via renderSearchButton prop [#2838](https://github.com/DouyinFE/semi-design/issues/2838) [#3199](https://github.com/DouyinFE/semi-design/pull/3199)

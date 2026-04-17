@@ -14,6 +14,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.95.0 (2026-04-17)
+- 【Feat】
+    - Input 和 TextArea 组件新增 `composition` prop，开启后输入法未确认期间不触发 onChange，确认后触发一次，适用于实时搜索等场景 [#2134](https://github.com/DouyinFE/semi-design/issues/2134) [#3211](https://github.com/DouyinFE/semi-design/pull/3211)
+    - Select 组件新增 `rePosKey` prop 和 `rePosition()` 实例方法，支持手动触发下拉菜单重新定位 [#2648](https://github.com/DouyinFE/semi-design/issues/2648) [#3209](https://github.com/DouyinFE/semi-design/pull/3209)
+    - Transfer 组件 renderSelectedItem 回调新增 `fullPath` 参数，在 treeList 模式下开启 showPath 时可获取节点的完整路径信息 [#2588](https://github.com/DouyinFE/semi-design/issues/2588) [#3207](https://github.com/DouyinFE/semi-design/pull/3207)
+- 【Fix】
+    - 修复 InputNumber 组件 formatter 在受控模式下首次渲染时未应用到初始 value 的问题 [#2548](https://github.com/DouyinFE/semi-design/issues/2548) [#3205](https://github.com/DouyinFE/semi-design/pull/3205)
+    - 修复 InputNumber 组件 parser 返回数字类型时行为异常的问题，增强鲁棒性 [#1114](https://github.com/DouyinFE/semi-design/issues/1114) [#3208](https://github.com/DouyinFE/semi-design/pull/3208)
+    - 修复 DatePicker 组件 disabledDate 在 dateTimeRange 类型下调整时间时错误判断日期禁用状态的问题 [#2875](https://github.com/DouyinFE/semi-design/issues/2875) [#3204](https://github.com/DouyinFE/semi-design/pull/3204)
+
 #### 🎉 2.94.1 (2026-04-13)
 - 【Feat】
     - JsonViewer 支持通过 renderSearchButton 自定义搜索按钮渲染 [#2838](https://github.com/DouyinFE/semi-design/issues/2838) [#3199](https://github.com/DouyinFE/semi-design/pull/3199)
