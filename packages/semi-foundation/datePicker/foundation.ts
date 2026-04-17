@@ -1,4 +1,4 @@
-import { format, isValid, isSameSecond, isEqual as isDateEqual, isDate } from 'date-fns';
+import { format, isValid, isSameSecond, isEqual as isDateEqual, isDate, startOfDay } from 'date-fns';
 import { get, isObject, isString, isEqual, isFunction } from 'lodash';
 
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
@@ -1228,9 +1228,18 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         let isSomeDateDisabled = false;
         for (const date of value) {
             // skip check if date is null
-            if (!isNullOrUndefined(date) && this.disabledDisposeDate(date, disabledOptions)) {
-                isSomeDateDisabled = true;
-                break;
+            if (!isNullOrUndefined(date)) {
+                /**
+                 * When type is dateTimeRange, disabledDate should only consider the date part, not the time part.
+                 * This ensures that when user adjusts time, the date disable check is not affected by the time portion.
+                 * For example, if the user selects start date X and end date X+7 (exactly 7 days), then adjusts
+                 * the end time to 10:00, the end date should still be valid, not be incorrectly judged as disabled.
+                 */
+                const dateToCheck = this._isRangeType() && isValid(date) ? startOfDay(date) : date;
+                if (this.disabledDisposeDate(dateToCheck, disabledOptions)) {
+                    isSomeDateDisabled = true;
+                    break;
+                }
             }
         }
         return isSomeDateDisabled;
