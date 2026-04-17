@@ -277,7 +277,7 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 Get the native video element via `ref` for more flexible control, such as synchronized playback/pause of multiple videos
 
 ```jsx live=true dir="column"
-import React from 'react';
+import React, { useRef } from 'react';
 import { VideoPlayer, Button } from '@douyinfe/semi-ui';
 
 () => {
@@ -287,13 +287,17 @@ import { VideoPlayer, Button } from '@douyinfe/semi-ui';
     const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
     
     const handlePlayAll = () => {
-        videoRef1.current?.play();
-        videoRef2.current?.play();
+        const v1 = videoRef1.current;
+        const v2 = videoRef2.current;
+        if (v1) v1.play();
+        if (v2) v2.play();
     };
     
     const handlePauseAll = () => {
-        videoRef1.current?.pause();
-        videoRef2.current?.pause();
+        const v1 = videoRef1.current;
+        const v2 = videoRef2.current;
+        if (v1) v1.pause();
+        if (v2) v2.pause();
     };
     
     return (
