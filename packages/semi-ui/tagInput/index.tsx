@@ -425,7 +425,13 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         });
         const DragHandle = sortableHandle && sortableHandle(() => <IconHandle className={`${prefixCls}-drag-handler`}></IconHandle>);
         const elementKey = showIconHandler ? value : `${index}${value}`;
-        const onClose = () => {
+        const onClose = (...args: any[]) => {
+            // args[1] is the event object from Tag component's close method
+            // We need to call preventDefault to prevent Tag's internal setVisible(false)
+            // when the user passes this onClose to a Tag component
+            if (args[1] && typeof args[1].preventDefault === 'function') {
+                args[1].preventDefault();
+            }
             !disabled && this.handleTagClose(index);
         };
         if (isFunction(renderTagItem)) {
