@@ -5410,7 +5410,7 @@ render(App);
 | onExpandedRowsChange | Triggers when unfolding row changes                                                                                       | (rows: RecordType[]) => void |  |
 | onGroupedRow | Similar to onRow, but this parameter is used to define the row attribute of the grouping header alone                     | (record: RecordType, index: number) => object |  | - |
 | onHeaderRow | Set the header row property, and the returned object is merged to the header line                                         | (columns: Column[], index: number) => object |  |
-| onRow | Set the row property, and the returned object is merged to the table row                                                  | (record: RecordType, index: number) => object |  |
+| onRow | Set the row property, and the returned object is merged to the table row | (record: RecordType, index: number, rowStatus?: { disabled?: boolean; selected?: boolean }) => object |  | - |
 
 Some of the type definitions used above:
 
@@ -5481,15 +5481,25 @@ function App() {
 
 > Also in `column.onCell` `column.onHeaderCell` Properties or events supported by td / th can also be returned.
 
+The third parameter `rowStatus` of `onRow` can get the current row's status information, including `disabled` and `selected` properties (supported in v2.61.0). This is useful when you need to execute different logic based on the row's selected or disabled state, for example, determining whether to allow selection when clicking a row.
+
 ```jsx noInline=true
 import React from 'react';
 import { Table } from '@douyinfe/semi-ui';
 
 () => (
     <Table
-        onRow={(record, index) => {
+        onRow={(record, index, rowStatus) => {
             return {
-                onClick: event => {},
+                onClick: event => {
+                    // rowStatus.disabled indicates whether the current row is disabled
+                    // rowStatus.selected indicates whether the current row is selected
+                    if (rowStatus?.disabled) {
+                        console.log('This row is disabled');
+                        return;
+                    }
+                    console.log('Clicked row', index, rowStatus);
+                },
                 onMouseEnter: event => {},
                 onMouseLeave: event => {},
                 className: '',

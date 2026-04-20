@@ -340,7 +340,7 @@ export interface ChangeInfo<RecordType> {
     extra?: OnChangeExtra
 }
 export type OnChange<RecordType> = (changeInfo: ChangeInfo<RecordType>) => void;
-export type OnRow<RecordType> = (record?: RecordType, index?: number) => OnRowReturnObject;
+export type OnRow<RecordType> = (record?: RecordType, index?: number, rowStatus?: { disabled?: boolean; selected?: boolean }) => OnRowReturnObject;
 export type OnGroupedRow<RecordType> = (record?: RecordType, index?: number) => OnGroupedRowReturnObject;
 export type OnHeaderRow<RecordType> = (columns?: ColumnProps<RecordType>[], index?: number) => OnHeaderRowReturnObject;
 export type OnExpandedRowsChange<RecordType> = (expandedRows?: IncludeGroupRecord<RecordType>[]) => void;

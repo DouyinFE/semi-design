@@ -168,10 +168,12 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
             onRow,
             index,
             record,
+            disabled,
+            selected,
         } = this.props;
         const customRowProps = this.adapter.getCache('customRowProps');
         if (typeof customRowProps === 'undefined') {
-            const { className: customClassName, style: customStyle, ...rowProps } = onRow(record, index) || {};
+            const { className: customClassName, style: customStyle, ...rowProps } = onRow(record, index, { disabled, selected }) || {};
             this.adapter.setCache('customRowProps', { ...rowProps });
         }
     }
@@ -342,6 +344,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
             components,
             prefixCls,
             selected,
+            disabled,
             onRow,
             index,
             className,
@@ -359,7 +362,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
 
         const BodyRow = components.body.row;
 
-        const { className: customClassName, style: customStyle, ...rowProps } = onRow(record, index) || {};
+        const { className: customClassName, style: customStyle, ...rowProps } = onRow(record, index, { disabled, selected }) || {};
 
         this.adapter.setCache('customRowProps', { ...rowProps });
 

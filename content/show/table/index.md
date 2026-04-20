@@ -5797,7 +5797,7 @@ render(App);
 | onExpandedRowsChange | 展开的行变化时触发                                                           | (rows: RecordType[]) => void |  |
 | onGroupedRow | 类似于 onRow，不过这个参数单独用于定义分组表头的行属性                                      | (record: RecordType, index: number) => object |  | - |
 | onHeaderRow | 设置头部行属性，返回的对象会被合并传给表头行                                              | (columns: Column[], index: number) => object |  |
-| onRow | 设置行属性，返回的对象会被合并传给表格行                                                | (record: RecordType, index: number) => object |  |
+| onRow | 设置行属性，返回的对象会被合并传给表格行 | (record: RecordType, index: number, rowStatus?: { disabled?: boolean; selected?: boolean }) => object |  | - |
 
 一些上面用到的类型定义：
 
@@ -5874,15 +5874,25 @@ function App() {
 
 `onHeaderRow` 中可以返回 th 支持的属性或者事件 `onRow` 中可以返回 tr 支持的属性或者事件
 
+`onRow` 的第三个参数 `rowStatus` 可以获取当前行的状态信息，包括 `disabled` 和 `selected` 属性（v2.61.0 支持）。这在需要根据行的选中或禁用状态执行不同逻辑时非常有用，例如点击行时判断是否允许选中。
+
 ```jsx
 import React from 'react';
 import { Table } from '@douyinfe/semi-ui';
 
 () => (
     <Table
-        onRow={(record, index) => {
+        onRow={(record, index, rowStatus) => {
             return {
-                onClick: event => {}, // 点击行
+                onClick: event => {
+                    // rowStatus.disabled 表示当前行是否被禁用
+                    // rowStatus.selected 表示当前行是否被选中
+                    if (rowStatus?.disabled) {
+                        console.log('该行已被禁用');
+                        return;
+                    }
+                    console.log('点击行', index, rowStatus);
+                }, // 点击行
                 onMouseEnter: event => {}, // 鼠标移入行
                 onMouseLeave: event => {}, // 鼠标移出行
                 className: '',
