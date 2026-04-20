@@ -1,7 +1,7 @@
-import { JsonViewer, JsonViewerOptions, CustomRenderRule } from '@douyinfe/semi-json-viewer-core';
+import { JsonViewer, JsonViewerOptions, CustomRenderRule, TokenRenderType } from '@douyinfe/semi-json-viewer-core';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { cssClasses } from './constants';
-export type { JsonViewerOptions, CustomRenderRule };
+export type { JsonViewerOptions, CustomRenderRule, TokenRenderType };
 
 export interface JsonViewerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getEditorRef: () => HTMLElement;

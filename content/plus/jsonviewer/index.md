@@ -146,13 +146,30 @@ render(FormatJsonComponent);
 
 通过配置 `options.customRenderRule` 参数，你可以自定义 JSON 内容的渲染方式（注意：仅在只读模式下生效）。
 
+> **2.96.0 行为变更说明**
+>
+> 从 2.96.0 起，`customRenderRule` 在计算 `path` 时会更精确：**同一条键值对的 key token 与 value token 会拥有相同的 `path`**（即都对应到该属性所在的路径，例如 `root.<key>`）。
+>
+> 因此，像 `path === 'root.<key>'` 这类仅依赖 `path` 的规则，可能同时命中 key 和 value，导致与后续 value 匹配规则产生“覆盖/优先级”差异。
+>
+> 若你希望只匹配 key 或只匹配 value，请使用函数匹配的第三个参数 `tokenType`：
+>
+> ```ts
+> const targetPath = 'root.<key>';
+> // 仅匹配 key
+> match: (_value, path, tokenType) => tokenType === 'key' && path === targetPath
+> // 仅匹配 value
+> match: (value, path, tokenType) => tokenType === 'value' && path === targetPath
+> ```
+
 `customRenderRule` 是一个规则数组，每条规则包含两个属性：
 - `match`: 匹配条件，可以是以下三种类型之一：
   - 字符串：精确匹配
   - 正则表达式：按正则匹配
-  - 函数：自定义匹配逻辑，函数签名为 `(value: string, path: string) => boolean`
-    - `value`: 待匹配的值（为Json字符串的键值对的键或者值，由于内部处理注入时仅过滤引号，因此类型全部为string）
+  - 函数：自定义匹配逻辑，函数签名为 `(value: string | number | boolean | null, path: string, tokenType: 'key' | 'value') => boolean`
+    - `value`: 待匹配的值（JSON 键或值）。当 `match` 为函数时，`value` 会尽量传入解析后的原始类型（number / boolean / null / string），因此可以使用 `===` 进行严格匹配；当 `match` 为字符串或正则时，仍基于文本内容匹配（字符串类型会去除两侧引号）
     - `path`: 当前匹配到的路径，格式为 `root.key1.key2.key3[0].key4`
+    - `tokenType`: 当前 token 的类型，`'key'` 表示 JSON 键名，`'value'` 表示 JSON 值。可用于区分同名键和值的匹配
 - `render`: 自定义渲染函数，函数签名为 `(content: string) => React.ReactNode`
   - `content`: 匹配到的内容。如果是字符串类型的值，将包含双引号（如 `"name"`，`"Semi"`）
 
@@ -285,7 +302,7 @@ render(CustomSearchButtonDemo);
 ### CustomRenderRule
 | 属性                | 说明                                          | 类型                              | 默认值    |
 |-------------------|------------------------------------------------|---------------------------------|-----------|
-| match             | 匹配规则                                   | string \| RegExp \| (value: string, path: string) => boolean | -  |
+| match             | 匹配规则                                   | string \| RegExp \| (value: string \| number \| boolean \| null, path: string, tokenType: 'key' \| 'value') => boolean | -  |
 | render            | 渲染函数                                   | (content: string) => React.ReactNode | -  |
 
 ### FormattingOptions
