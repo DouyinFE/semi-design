@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.95.1 (2026-04-21)
+- 【Fix】
+    - Fix nested Dropdown submenu positioning broken in React 19 (flashing at top-left corner then disappearing), caused by React 19 removing `ReactDOM.findDOMNode` which prevented Tooltip from resolving DOM nodes from class component instances for popup positioning [#3219](https://github.com/DouyinFE/semi-design/pull/3219)
+    - DropdownItem is now wrapped with `React.forwardRef`, making the standard ref point directly to the `<li>` DOM node per React 19 best practices [#3219](https://github.com/DouyinFE/semi-design/pull/3219)
+
 #### 🎉 2.95.0 (2026-04-17)
 - 【Feat】
     - Input and TextArea components add `composition` prop, when enabled onChange won't trigger during IME composition and only triggers once after composition ends, suitable for real-time search scenarios [#2134](https://github.com/DouyinFE/semi-design/issues/2134) [#3211](https://github.com/DouyinFE/semi-design/pull/3211)
