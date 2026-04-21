@@ -115,8 +115,53 @@ export function unmount(container: ContainerType) {
 // ======================== findDOMNode ========================
 
 /**
+ * React 19+ fallback for findDOMNode: traverse React Fiber tree downward
+ * from a class component instance to find the first DOM element.
+ * 
+ * Uses React internal Fiber structure (_reactInternals). If React changes
+ * its internals in future versions, this will safely return null without
+ * throwing errors, falling back to the warning path in resolveDOM.
+ */
+function findDOMFromFiber(instance: any): Element | null {
+    try {
+        const fiber = instance?._reactInternals ?? instance?._reactInternalFiber;
+        if (!fiber || typeof fiber !== 'object') {
+            return null;
+        }
+        let node = fiber.child;
+        let iterations = 0;
+        const MAX_ITERATIONS = 50;
+        while (node && iterations < MAX_ITERATIONS) {
+            iterations++;
+            // HostComponent: stateNode is a DOM element
+            if (node.stateNode instanceof Element) {
+                return node.stateNode;
+            }
+            if (node.child) {
+                node = node.child;
+                continue;
+            }
+            while (node && !node.sibling) {
+                if (node === fiber) {
+                    return null;
+                }
+                node = node.return;
+            }
+            if (node && node !== fiber) {
+                node = node.sibling;
+            } else {
+                break;
+            }
+        }
+    } catch (e) {
+        // Fiber structure may have changed in a future React version; fail silently
+    }
+    return null;
+}
+
+/**
  * React 16/17/18: use ReactDOM.findDOMNode to resolve real DOM from component instance.
- * React 19: findDOMNode is removed; returns null for non-HTMLElement instances.
+ * React 19: findDOMNode is removed; traverse Fiber tree to find DOM node.
  * 
  * 注意：findDOMNode 可能返回 Text 节点，但我们只返回 Element 类型以保证类型安全。
  */
@@ -142,7 +187,8 @@ export function resolveDOM(instance: any): Element | null {
             return null;
         }
     }
-    return null;
+    // React 19 fallback: traverse Fiber tree to find the first DOM element
+    return findDOMFromFiber(instance);
 }
 
 // ========================= getRef ===========================

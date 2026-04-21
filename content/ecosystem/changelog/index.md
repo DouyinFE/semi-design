@@ -14,6 +14,11 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.95.1 (2026-04-21)
+- 【Fix】
+    - 修复 React 19 下嵌套 Dropdown 子菜单定位异常（在左上角闪烁后消失）的问题，原因是 React 19 移除了 `ReactDOM.findDOMNode`，导致 Tooltip 无法从类组件实例获取 DOM 节点进行弹出层定位 [#3219](https://github.com/DouyinFE/semi-design/pull/3219)
+    - DropdownItem 使用 `React.forwardRef` 包裹，使标准 ref 直接指向 `<li>` DOM 节点，符合 React 19 推荐做法 [#3219](https://github.com/DouyinFE/semi-design/pull/3219)
+
 #### 🎉 2.95.0 (2026-04-17)
 - 【Feat】
     - Input 和 TextArea 组件新增 `composition` prop，开启后输入法未确认期间不触发 onChange，确认后触发一次，适用于实时搜索等场景 [#2134](https://github.com/DouyinFE/semi-design/issues/2134) [#3211](https://github.com/DouyinFE/semi-design/pull/3211)
