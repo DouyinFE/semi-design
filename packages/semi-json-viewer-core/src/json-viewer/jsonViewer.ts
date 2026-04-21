@@ -29,9 +29,19 @@ export interface FormattingOptions {
     eol?: string
 }
 
+export type TokenRenderType = 'key' | 'value';
+
 export interface CustomRenderRule {
-    match: string | RegExp | ((value: string, pathChain: string) => boolean);
-    render: (value: string) => HTMLElement
+    /**
+     * Match rule
+     * - string / RegExp: matches against the textual content (string tokens are unquoted)
+     * - function: receives the parsed primitive value (number/boolean/null/string), path, and token type ('key' or 'value')
+     */
+    match: string | RegExp | ((value: string | number | boolean | null, pathChain: string, tokenType: TokenRenderType) => boolean);
+    /**
+     * Render result can be a DOM element or any value that will be handled by upper layer (e.g. React portal)
+     */
+    render: (value: string) => any;
 }
 
 export class JsonViewer {

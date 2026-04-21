@@ -148,13 +148,30 @@ render(FormatJsonComponent);
 
 By configuring the `options.customRenderRule` parameter, you can customize how JSON content is rendered (Note: only works in read-only mode).
 
+> **Behavior change in 2.96.0**
+>
+> Starting from 2.96.0, `path` in `customRenderRule` is computed more accurately: **the key token and the value token of the same key-value pair share the same `path`** (they both map to the property path, e.g. `root.<key>`).
+>
+> As a result, rules that only rely on `path` (such as `path === 'root.<key>'`) may match both the key and the value, which can change which rule “wins” compared to previous versions.
+>
+> If you want to match only the key or only the value, use the third argument `tokenType` of function match:
+>
+> ```ts
+> const targetPath = 'root.<key>';
+> // Key only
+> match: (_value, path, tokenType) => tokenType === 'key' && path === targetPath
+> // Value only
+> match: (value, path, tokenType) => tokenType === 'value' && path === targetPath
+> ```
+
 `customRenderRule` is an array of rules, where each rule contains two properties:
 - `match`: Matching condition, can be one of three types:
   - String: Exact match
   - Regular expression: Match by regex
-  - Function: Custom matching logic, with signature `(value: string, pathChain: string) => boolean`
-    - `value`: Value to match (key or value from JSON key-value pairs, as strings since internal processing only filters quotes)
+  - Function: Custom matching logic, with signature `(value: string | number | boolean | null, pathChain: string, tokenType: 'key' | 'value') => boolean`
+    - `value`: Value to match (JSON key or value). When `match` is a function, `value` will be passed as the parsed primitive when possible (number / boolean / null / string), so strict comparisons like `===` work; when `match` is a string or RegExp, matching is still based on textual content (string tokens are unquoted)
     - `path`: Current matching path, format is `root.key1.key2.key3[0].key4`
+    - `tokenType`: Current token type, `'key'` for JSON property name, `'value'` for JSON value. Useful for distinguishing between key and value matching
 - `render`: Custom render function, with signature `(content: string) => React.ReactNode`
   - `content`: Matched content. For string values, includes double quotes (e.g., `"name"`, `"Semi"`)
 
@@ -295,7 +312,7 @@ render(CustomSearchButtonDemo);
 
 | Attribute | Description | Type | Default |
 | --- | --- | --- | --- |
-| match | Matching rule | string \| RegExp \| (value: string, path: string) => boolean | - |
+| match | Matching rule | string \| RegExp \| (value: string \| number \| boolean \| null, path: string, tokenType: 'key' \| 'value') => boolean | - |
 | render | Render function | (content: string) => React.ReactNode | - |
 
 ### SearchControls
