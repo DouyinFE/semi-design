@@ -325,6 +325,14 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
     }
 
     handleBodyKeyDown(e: KeyboardEvent) {
+        const videoWrapper = this._adapter.getVideoWrapper();
+        
+        // Only respond to keyboard events when focus is within the video player
+        // This prevents interference with other interactive elements on the page
+        if (videoWrapper && !videoWrapper.contains(document.activeElement)) {
+            return;
+        }
+        
         const { currentTime, volume } = this.getStates();
         const { seekTime } = this.getProps();
         if (e.key === ' ') {
