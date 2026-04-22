@@ -28,4 +28,29 @@ describe('OverflowList', () => {
         expect(node.find(`.${BASE_CLASS_PREFIX}-overflow-list-scroll-wrapper`).exists()).toEqual(true);
         node.unmount();
     });
+
+    it('keeps collapse content visible when items update after first measurement', () => {
+        const node = mount(
+            <OverflowList
+                items={[{ key: 'alarm' }, { key: 'bookmark' }]}
+                visibleItemRenderer={item => <div>{item.key}</div>}
+                overflowRenderer={() => null}
+            />
+        );
+
+        node.setState({
+            overflowStatus: 'normal',
+            pivot: 1,
+            visible: [{ key: 'alarm' }, { key: 'bookmark' }],
+            overflow: [],
+        });
+
+        node.setProps({
+            items: [{ key: 'alarm' }, { key: 'bookmark' }, { key: 'camera' }],
+        });
+        node.update();
+
+        expect(node.find(`.${BASE_CLASS_PREFIX}-overflow-list`).prop('style').visibility).toEqual('visible');
+        node.unmount();
+    });
 });

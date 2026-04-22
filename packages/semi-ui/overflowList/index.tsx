@@ -141,7 +141,6 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                 newState.overflow = overflow;
                 newState.maxCount = maxCount;
             }
-            newState.pivot = -1;
             newState.overflowStatus = "calculating";
         }
         return newState;
@@ -180,17 +179,17 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
     };
 
     componentDidUpdate(prevProps: OverflowListProps, prevState: OverflowListState): void {
-
-        const prevItemsKeys = prevProps.items.map((item) =>
-            item.key
+        const prevItemsKeys = prevProps.items.map((item, index) =>
+            this.getItemKey(item, index)
         );
-        const nowItemsKeys = this.props.items.map((item) =>
-            item.key
+        const nowItemsKeys = this.props.items.map((item, index) =>
+            this.getItemKey(item, index)
         );
 
         // Determine whether to update by comparing key values
         if (!isEqual(prevItemsKeys, nowItemsKeys)) {
             this.itemRefs = {};
+            this.itemSizeMap = new Map();
             this.setState({ visibleState: new Map() });
         }
 
@@ -300,7 +299,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                 [
                     collapseFrom === Boundary.START ? overflow : null,
                     visible.map((item, idx) => {
-                        const { key } = item;
+                        const key = this.getItemKey(item, idx);
                         const element = visibleItemRenderer(item, idx);
                         const child = React.cloneElement(element);
                         return (
@@ -325,7 +324,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                     ...style,
                     ...(renderMode === RenderMode.COLLAPSE ? {
                         maxWidth: '100%',
-                        visibility: overflowStatus === "calculating" ? "hidden" : "visible",
+                        visibility: overflowStatus === "calculating" && this.state.pivot < 0 ? "hidden" : "visible",
                     } : null)
                 },
             },
