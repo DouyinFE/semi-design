@@ -70,7 +70,6 @@
         "chalk": "^5.3.0",
         "chroma-js": "^2.1.2",
         "classnames": "^2.3.1",
-        "copy-text-to-clipboard": "^2.2.0",
         "cross-env": "^5.2.1",
         "css": "^2.2.4",
         "cypress-real-events": "^1.8.1",

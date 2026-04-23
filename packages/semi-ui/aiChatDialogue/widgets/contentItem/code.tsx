@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { PropsWithChildren } from 'react';
 import { cssClasses } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
-import copy from 'copy-text-to-clipboard';
 import { IconCopyStroked, IconTick } from '@douyinfe/semi-icons';
 import { nth } from 'lodash';
 import { code } from '../../../markdownRender/components';
@@ -14,8 +13,8 @@ const Code = (props: PropsWithChildren<{ className: string }>) => {
         return nth(props.className?.split("-"), -1);
     }, [props.className]);
 
-    const onCopyButtonClick = useCallback(() => {
-        copy(props.children as string);
+    const onCopyButtonClick = useCallback(async () => {
+        await navigator.clipboard.writeText(props.children as string);
         setCopied(true);
         setTimeout(() => {
             setCopied(false);

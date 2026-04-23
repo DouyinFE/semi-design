@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Toast, Icon, Button, Avatar, Form, Popover, SideSheet, Modal, TagInput, Switch } from '../../index';
 import { IconGift, IconVigoLogo, IconClose, IconCopy } from '@douyinfe/semi-icons';
-import copy from 'copy-text-to-clipboard';
 
 const style = {
   width: 400,
@@ -608,8 +607,8 @@ export const customSplit = () => {
     return temp.split(uniqueSeparator2);
   }
 
-  const clickToCopy = useCallback(() => {
-    copy('test1,test2,test3/,3, test4');
+  const clickToCopy = useCallback(async () => {
+    await navigator.clipboard.writeText('test1,test2,test3/,3, test4');
   }, []);
 
   return (

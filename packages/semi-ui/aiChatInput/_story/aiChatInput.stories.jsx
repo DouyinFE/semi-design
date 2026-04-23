@@ -13,7 +13,6 @@ import ReferSlot from './referSlot';
 import { RadioGroup, Radio, Cascader, Toast } from '../../index';
 import getConfigureItem from '../configure/getConfigureItem';
 import DocSlot from './docSlot';
-import copy from 'copy-text-to-clipboard';
 
 export default {
   title: 'AIChatInput',
@@ -616,9 +615,9 @@ export const AddPasteRule = () => {
     ]);
   }, []);
 
-  const onClickCopy = useCallback(() => {
+  const onClickCopy = useCallback(async () => {
     const url = 'https://bytedance.larkoffice.com/docx/UihWdOxOmoya5CxbzKEcWTfTnnf';
-    copy(url);
+    await navigator.clipboard.writeText(url);
     Toast.success('复制成功，粘贴到富文本输入框中查看效果')
   }, []);
 

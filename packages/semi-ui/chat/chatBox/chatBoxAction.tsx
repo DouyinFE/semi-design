@@ -8,7 +8,6 @@ import { IconThumbUpStroked,
     IconRedoStroked 
 } from '@douyinfe/semi-icons';
 import { BaseComponent, Button, Popconfirm } from '../../index';
-import copy from 'copy-text-to-clipboard';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/chat/constants';
 import ChatBoxActionFoundation, { ChatBoxActionAdapter } from '@douyinfe/semi-foundation/chat/chatBoxActionFoundation';
 import LocaleConsumer from "../../locale/localeConsumer";
@@ -82,13 +81,13 @@ class ChatBoxAction extends BaseComponent<ChatBoxActionProps, ChatBoxActionState
                 const { message, onMessageCopy } = this.props;
                 onMessageCopy?.(message);
             },
-            copyToClipboardAndToast: () => {
+            copyToClipboardAndToast: async () => {
                 const { message = {}, toast } = this.props;
                 if (typeof message.content === 'string') {
-                    copy(message.content);
+                    await navigator.clipboard.writeText(message.content);
                 } else if (Array.isArray(message.content)) {
                     const content = message.content?.map(item => item.text).join('');
-                    copy(content);
+                    await navigator.clipboard.writeText(content);
                 }
                 toast.success({
                     content: this.copySuccessNode

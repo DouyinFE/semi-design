@@ -3,7 +3,7 @@ import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 export interface ChatBoxActionAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     notifyDeleteMessage: () => void;
     notifyMessageCopy: () => void;
-    copyToClipboardAndToast: () => void;
+    copyToClipboardAndToast: () => Promise<void>;
     notifyLikeMessage: () => void;
     notifyDislikeMessage: () => void;
     notifyResetMessage: () => void;
@@ -44,9 +44,9 @@ export default class ChatBoxActionFoundation <P = Record<string, any>, S = Recor
         this._adapter.notifyDeleteMessage();
     }
 
-    copyMessage = () => {
+    copyMessage = async () => {
         this._adapter.notifyMessageCopy();
-        this._adapter.copyToClipboardAndToast(); 
+        await this._adapter.copyToClipboardAndToast(); 
     }
 
     likeMessage = () => {

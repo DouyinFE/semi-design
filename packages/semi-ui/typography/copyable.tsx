@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Tooltip from '../tooltip/index';
 import { cssClasses } from '@douyinfe/semi-foundation/typography/constants';
-import copy from 'copy-text-to-clipboard';
 import cls from 'classnames';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
 import LocaleConsumer from '../locale/localeConsumer';
@@ -65,9 +64,9 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
         }
     }
 
-    copy = (e: React.MouseEvent) => {
+    copy = async (e: React.MouseEvent) => {
         const { content, duration, onCopy } = this.props;
-        const res = copy(content);
+        const res = await navigator.clipboard.writeText(content).then(() => true).catch(() => false);
         onCopy && onCopy(e, content, res);
         this.setCopied(content, duration);
     };
