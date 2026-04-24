@@ -490,7 +490,8 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // left = middleX;
                 // top = triggerRect.top - SPACING;
                 left = isWidthOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth) : middleX + ANO_SPACING;
-                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
+                // When height overflows, keep Popover inside container (at top edge) instead of positioning it outside
+                top = isHeightOverFlow ? containerRect.top : triggerRect.top - SPACING;
                 translateX = -0.5;
                 translateY = -1;
                 break;
@@ -498,14 +499,16 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // left = pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left;
                 // top = triggerRect.top - SPACING;
                 left = isWidthOverFlow ? (isWrapperWidthOverflow ? containerRect.left : containerRect.right - wrapperRect.width ) : (pointAtCenter ? middleX - offsetXWithArrow + ANO_SPACING : triggerRect.left + ANO_SPACING);
-                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
+                // When height overflows, keep Popover inside container (at top edge) instead of positioning it outside
+                top = isHeightOverFlow ? containerRect.top : triggerRect.top - SPACING;
                 translateY = -1;
                 break;
             case 'topRight':
                 // left = pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right;
                 // top = triggerRect.top - SPACING;
                 left = isWidthOverFlow ? containerRect.right + offsetWidth : (pointAtCenter ? middleX + offsetXWithArrow + ANO_SPACING : triggerRect.right + ANO_SPACING);
-                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
+                // When height overflows, keep Popover inside container (at top edge) instead of positioning it outside
+                top = isHeightOverFlow ? containerRect.top : triggerRect.top - SPACING;
                 translateY = -1;
                 translateX = -1;
                 break;
@@ -513,7 +516,8 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // left = triggerRect.left - SPACING;
                 // top = middleY;
                 // left = isWidthOverFlow? containerRect.right - SPACING : triggerRect.left - SPACING;
-                left = isWidthOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
+                // When width overflows, keep Popover inside container (at left edge) instead of positioning it outside
+                left = isWidthOverFlow ? containerRect.left : triggerRect.left - SPACING;
                 top = isHeightOverFlow ? (isTriggerNearTop ? containerRect.top + wrapperRect.height / 2 : containerRect.bottom - wrapperRect.height / 2 + offsetHeight) : middleY + ANO_SPACING;
                 translateX = -1;
                 translateY = -0.5;
@@ -521,15 +525,18 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             case 'leftTop':
                 // left = triggerRect.left - SPACING;
                 // top = pointAtCenter ? middleY - offsetYWithArrow : triggerRect.top;
-                left = isWidthOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
+                // When width overflows, keep Popover inside container (at left edge) instead of positioning it outside
+                left = isWidthOverFlow ? containerRect.left : triggerRect.left - SPACING;
                 top = isHeightOverFlow ? containerRect.top : (pointAtCenter ? middleY - offsetYWithArrow + ANO_SPACING : triggerRect.top + ANO_SPACING);
                 translateX = -1;
                 break;
             case 'leftBottom':
                 // left = triggerRect.left - SPACING;
                 // top = pointAtCenter ? middleY + offsetYWithArrow : triggerRect.bottom;
-                left = isWidthOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
-                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : (pointAtCenter ? middleY + offsetYWithArrow + ANO_SPACING : triggerRect.bottom + ANO_SPACING);
+                // When width overflows, keep Popover inside container (at left edge) instead of positioning it outside
+                left = isWidthOverFlow ? containerRect.left : triggerRect.left - SPACING;
+                // When height overflows, keep Popover inside container (at bottom edge) instead of positioning it outside
+                top = isHeightOverFlow ? containerRect.bottom : (pointAtCenter ? middleY + offsetYWithArrow + ANO_SPACING : triggerRect.bottom + ANO_SPACING);
                 translateX = -1;
                 translateY = -1;
                 break;
@@ -537,40 +544,47 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // left = middleX;
                 // top = triggerRect.top + triggerRect.height + SPACING;
                 left = isWidthOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth) : middleX + ANO_SPACING;
-                top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING : triggerRect.top + triggerRect.height + SPACING;
+                // When height overflows, keep Popover inside container (at bottom edge with translateY=-1 to show upward)
+                top = isHeightOverFlow ? containerRect.bottom : triggerRect.top + triggerRect.height + SPACING;
                 translateX = -0.5;
                 break;
             case 'bottomLeft':
                 // left = pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left;
                 // top = triggerRect.bottom + SPACING;
                 left = isWidthOverFlow ? (isWrapperWidthOverflow ? containerRect.left : containerRect.right - wrapperRect.width ) : (pointAtCenter ? middleX - offsetXWithArrow + ANO_SPACING : triggerRect.left + ANO_SPACING);
-                top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING : triggerRect.top + triggerRect.height + SPACING;
+                // When height overflows, keep Popover inside container (at bottom edge with translateY=-1 to show upward)
+                top = isHeightOverFlow ? containerRect.bottom : triggerRect.top + triggerRect.height + SPACING;
                 break;
             case 'bottomRight':
                 // left = pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right;
                 // top = triggerRect.bottom + SPACING;
                 left = isWidthOverFlow ? containerRect.right + offsetWidth : (pointAtCenter ? middleX + offsetXWithArrow + ANO_SPACING : triggerRect.right + ANO_SPACING);
-                top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING : triggerRect.top + triggerRect.height + SPACING;
+                // When height overflows, keep Popover inside container (at bottom edge with translateY=-1 to show upward)
+                top = isHeightOverFlow ? containerRect.bottom : triggerRect.top + triggerRect.height + SPACING;
                 translateX = -1;
                 break;
             case 'right':
                 // left = triggerRect.right + SPACING;
                 // top = middleY;
-                left = isWidthOverFlow ? containerRect.left - SPACING + offsetXWithArrow : triggerRect.right + SPACING;
+                // When width overflows, keep Popover inside container (at right edge with translateX=-1 to show leftward)
+                left = isWidthOverFlow ? containerRect.right : triggerRect.right + SPACING;
                 top = isHeightOverFlow ? (isTriggerNearTop ? containerRect.top + wrapperRect.height / 2 : containerRect.bottom - wrapperRect.height / 2 + offsetHeight) : middleY + ANO_SPACING;
                 translateY = -0.5;
                 break;
             case 'rightTop':
                 // left = triggerRect.right + SPACING;
                 // top = pointAtCenter ? middleY - offsetYWithArrow : triggerRect.top;
-                left = isWidthOverFlow ? containerRect.left - SPACING + offsetXWithArrow : triggerRect.right + SPACING;
+                // When width overflows, keep Popover inside container (at right edge with translateX=-1 to show leftward)
+                left = isWidthOverFlow ? containerRect.right : triggerRect.right + SPACING;
                 top = isHeightOverFlow ? containerRect.top : (pointAtCenter ? middleY - offsetYWithArrow + ANO_SPACING : triggerRect.top + ANO_SPACING);
                 break;
             case 'rightBottom':
                 // left = triggerRect.right + SPACING;
                 // top = pointAtCenter ? middleY + offsetYWithArrow : triggerRect.bottom;
-                left = isWidthOverFlow ? containerRect.left - SPACING + offsetXWithArrow : triggerRect.right + SPACING;
-                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : (pointAtCenter ? middleY + offsetYWithArrow + ANO_SPACING : triggerRect.bottom + ANO_SPACING);
+                // When width overflows, keep Popover inside container (at right edge with translateX=-1 to show leftward)
+                left = isWidthOverFlow ? containerRect.right : triggerRect.right + SPACING;
+                // When height overflows, keep Popover inside container (at bottom edge) instead of positioning it outside
+                top = isHeightOverFlow ? containerRect.bottom : (pointAtCenter ? middleY + offsetYWithArrow + ANO_SPACING : triggerRect.bottom + ANO_SPACING);
                 translateY = -1;
                 break;
             case 'leftTopOver':
