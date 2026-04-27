@@ -229,7 +229,11 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
                 formattedNum = this.doFormat(valueAfterParser as unknown as number, false);
             }
 
-            notifyVal = valueAfterParser;
+            // Fix issue #2396: In controlled mode, when input is invalid, 
+            // we should notify the filtered value instead of the raw invalid input.
+            // This ensures formatter is applied consistently in both controlled and uncontrolled modes.
+            // When notifyVal is the filtered value, parent component will receive the correct value.
+            notifyVal = this.isControlled() ? formattedNum : valueAfterParser;
         }
 
         if (!this.isControlled() && (num === null || (typeof num === 'number' && !isNaN(num)))) {
