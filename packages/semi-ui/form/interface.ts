@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Subtract } from 'utility-types';
 import type { RuleItem } from 'async-validator';
 import type { Options as ScrollIntoViewOptions } from 'scroll-into-view-if-needed';
 
@@ -47,7 +46,7 @@ export type CommonFieldProps = {
     /* Extra message, you can use this when you need an error message and the prompt text to appear at the same time, after helpText/errorMessage */
     extraText?: React.ReactNode;
     extraTextPosition?: 'middle' | 'bottom';
-    /** These declaration just hack for Subtract, not valid props in CommonFieldProps */
+    /** These declaration just hack for Omit, not valid props in CommonFieldProps */
     defaultValue?: any;
     /** Whether to take over only the data stream, when true, it will not automatically insert modules such as ErrorMessage, Label, extraText, etc. The style and DOM structure are consistent with the original component */
     pure?: boolean
@@ -72,7 +71,7 @@ export type RCIncludeType = {
     field?: string
 };
 
-export class FormSelect extends React.Component<Subtract<SelectProps & CommonFieldProps, CommonexcludeType>> {
+export class FormSelect extends React.Component<Omit<SelectProps & CommonFieldProps, keyof CommonexcludeType>> {
     static Option: typeof Option;
     static OptGroup: typeof OptGroup;
 }
@@ -82,10 +81,10 @@ export interface SelectStatic {
     OptGroup: typeof OptGroup
 }
 
-export class Field<P> extends React.Component<Subtract<P & CommonFieldProps, CommonexcludeType> & React.RefAttributes<any>> {}
-export let FormSelectType: React.ComponentType<Subtract<SelectProps & CommonFieldProps, CommonexcludeType>> & SelectStatic;
-export let FormCheckboxType: React.ComponentType<Subtract<CommonFieldProps, RadioCheckboxExcludeProps> & CheckboxProps & RCIncludeType>;
-export let FormRadioType: React.ComponentType<Subtract<CommonFieldProps, RadioCheckboxExcludeProps> & RadioProps & RCIncludeType>;
+export class Field<P> extends React.Component<Omit<P & CommonFieldProps, keyof CommonexcludeType> & React.RefAttributes<any>> {}
+export let FormSelectType: React.ComponentType<Omit<SelectProps & CommonFieldProps, keyof CommonexcludeType>> & SelectStatic;
+export let FormCheckboxType: React.ComponentType<Omit<CommonFieldProps, keyof RadioCheckboxExcludeProps> & CheckboxProps & RCIncludeType>;
+export let FormRadioType: React.ComponentType<Omit<CommonFieldProps, keyof RadioCheckboxExcludeProps> & RadioProps & RCIncludeType>;
 
 export interface ErrorMsg {
     [optionalKey: string]: FieldError
