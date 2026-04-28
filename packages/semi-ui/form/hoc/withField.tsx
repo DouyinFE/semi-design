@@ -127,10 +127,23 @@ function withField<
         try {
             arrayFieldState = useArrayFieldState();
             if (arrayFieldState) {
-                initVal =
-                    arrayFieldState.shouldUseInitValue && typeof initValue !== 'undefined'
-                        ? initValue
-                        : initValueInFormOpts;
+                /**
+                 * In ArrayField, when setValues causes ArrayField re-render, ArrayField will set shouldUseInitValue to false.
+                 * But Field may be conditionally unmounted/remounted later. In that case, if the value in form state is
+                 * still undefined (e.g. API data doesn't provide that key), we should still fall back to initValue.
+                 *
+                 * This keeps behavior consistent with fields outside ArrayField and avoids overriding values
+                 * that were already provided by setValues.
+                 */
+                if (typeof initValue !== 'undefined') {
+                    if (arrayFieldState.shouldUseInitValue) {
+                        initVal = initValue;
+                    } else {
+                        initVal = typeof initValueInFormOpts !== 'undefined' ? initValueInFormOpts : initValue;
+                    }
+                } else {
+                    initVal = initValueInFormOpts;
+                }
             }
         } catch (err) {}
 
