@@ -14,6 +14,28 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.96.0 (2026-04-28)
+- 【Feat】
+    - Table 组件 onRow 回调新增第三个参数 `rowStatus`，包含当前行的 `disabled` 与 `selected` 状态，方便在行事件中获取行状态 [#2462](https://github.com/DouyinFE/semi-design/issues/2462) [#3217](https://github.com/DouyinFE/semi-design/pull/3217)
+    - JsonViewer `customRenderRule.match` 支持传入解析后的原始类型（`string | number | boolean | null`），可使用 `===` 严格匹配；同时新增第三个参数 `tokenType: 'key' | 'value'`，用于区分当前匹配的是 key 还是 value [#2995](https://github.com/DouyinFE/semi-design/issues/2995) [#3218](https://github.com/DouyinFE/semi-design/pull/3218)
+- 【Fix】
+    - 修复 AIChatInput 在 `onContentChange` / `onMessageSend.inputContents` 中丢失 `hardBreak` 软换行符的问题，使输出在多段落（`<p>...</p><p>...</p>`）与单段落软换行（`<p>...<br>...</p>`）粘贴场景下保持一致 [#3228](https://github.com/DouyinFE/semi-design/pull/3228)
+    - 修复 Typography 组件 `ellipsis.showTooltip` 在设置 `padding` 时无法正常显示 tooltip 的问题；同时在使用 CSS ellipsis 且开启 showTooltip 时主动计算溢出状态，避免首次 hover 时 tooltip 未挂载 [#2350](https://github.com/DouyinFE/semi-design/issues/2350) [#3226](https://github.com/DouyinFE/semi-design/pull/3226)
+    - 修复 Toast 和 Notification 组件 `bottom`、`top` 等位置属性通过 `semiGlobal.config.overrideDefaultProps` 配置后不生效的问题 [#2549](https://github.com/DouyinFE/semi-design/issues/2549) [#3220](https://github.com/DouyinFE/semi-design/pull/3220)
+    - 修复 Anchor 组件初始使用 `display: none` 隐藏、后续显示出来时左侧灰色滑轨不展示的问题 [#2398](https://github.com/DouyinFE/semi-design/issues/2398) [#3221](https://github.com/DouyinFE/semi-design/pull/3221)
+    - 修复 Popover 组件在使用自定义 `getPopupContainer` 时，浏览器窗口缩小导致弹层超出容器消失的问题；现在弹层在容器溢出时会贴住容器边缘并保持可见，覆盖全部 12 个常规位置与 4 个 *Over 系列位置 [#2220](https://github.com/DouyinFE/semi-design/issues/2220) [#3222](https://github.com/DouyinFE/semi-design/pull/3222)
+    - 修复 PinCode 组件在 Firefox 浏览器下粘贴字符错位的问题（将 `e.preventDefault()` 提到 async handler 起始位置以避免双重写入）[#2903](https://github.com/DouyinFE/semi-design/issues/2903) [#3223](https://github.com/DouyinFE/semi-design/pull/3223)
+    - 修复 InputNumber 组件 `formatter` 在受控模式下输入非法字符时通知给 onChange 的值未经过 formatter 处理，导致与非受控模式行为不一致的问题 [#2396](https://github.com/DouyinFE/semi-design/issues/2396) [#3224](https://github.com/DouyinFE/semi-design/pull/3224)
+    - 优化 Form 组件类型推导性能，将 `utility-types` 的 `Subtract` 替换为内置 `Omit`，缓解 VSCode 下类型提示卡顿的问题 [#2175](https://github.com/DouyinFE/semi-design/issues/2175) [#3225](https://github.com/DouyinFE/semi-design/pull/3225)
+    - 修复 ArrayField 内部 Field 在条件显隐重新挂载后 `initValue` 未生效的问题，使其与 ArrayField 外部的 Field 行为保持一致 [#1849](https://github.com/DouyinFE/semi-design/issues/1849) [#3227](https://github.com/DouyinFE/semi-design/pull/3227)
+    - 修复 JsonViewer 组件滚动时多选区域丢失的问题；同时修复 AST offset 定位不稳定导致 pathChain 为空/错误的问题，提升复杂条件匹配可靠性 [#2976](https://github.com/DouyinFE/semi-design/issues/2976) [#3216](https://github.com/DouyinFE/semi-design/pull/3216) [#3218](https://github.com/DouyinFE/semi-design/pull/3218)
+    - 修复 TagInput 组件 `renderTagItem` 回调参数 `onClose` 在透传给 Tag 组件时被自动 hook 进而阻止 Tag 内部默认 onClose 的问题 [#3212](https://github.com/DouyinFE/semi-design/issues/3212) [#3215](https://github.com/DouyinFE/semi-design/pull/3215)
+    - 修复 VideoPlayer 组件未获焦时按空格键也会触发播放/暂停的问题，现在仅在播放器获得焦点后响应 [#3210](https://github.com/DouyinFE/semi-design/issues/3210) [#3214](https://github.com/DouyinFE/semi-design/pull/3214)
+    - 修复 Table 组件 `resizable` 在 Windows Chrome/Edge 浏览器上拖动异常的问题，拖动开始时清除文本选择以避免事件冲突 [#2962](https://github.com/DouyinFE/semi-design/issues/2962) [#3213](https://github.com/DouyinFE/semi-design/pull/3213)
+    - 修复 Select 组件在 React 18 下首次测量后由于 OverflowList 重渲染导致 ellipsisTrigger 闪烁的问题；OverflowList 改用稳定 item key 跟踪变化，不再在选中长度变化时重新挂载 [@LiuHuaize](https://github.com/LiuHuaize) [#3004](https://github.com/DouyinFE/semi-design/issues/3004) [#3201](https://github.com/DouyinFE/semi-design/pull/3201)
+- 【Breaking Change】
+    - **JsonViewer `customRenderRule` 的 `path` 计算更精确：同一键值对的 key 与 value token 现在共享同一个 `path`，因此仅依赖 `path` 的规则可能同时命中 key 与 value，进而改变原有规则的命中与覆盖顺序。如需仅匹配 key 或仅匹配 value，请使用函数 match 的第三个参数 `tokenType`（`'key' | 'value'`）进行区分** [#2995](https://github.com/DouyinFE/semi-design/issues/2995) [#3218](https://github.com/DouyinFE/semi-design/pull/3218)
+
 #### 🎉 2.95.1 (2026-04-21)
 - 【Fix】
     - 修复 React 19 下嵌套 Dropdown 子菜单定位异常（在左上角闪烁后消失）的问题，原因是 React 19 移除了 `ReactDOM.findDOMNode`，导致 Tooltip 无法从类组件实例获取 DOM 节点进行弹出层定位 [#3219](https://github.com/DouyinFE/semi-design/pull/3219)
