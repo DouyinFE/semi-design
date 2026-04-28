@@ -15,6 +15,7 @@ import useToast from './useToast';
 import { ConfigProps, ToastInstance, ToastProps, ToastState } from '@douyinfe/semi-foundation/toast/toastFoundation';
 import CSSAnimation from '../_cssAnimation';
 import cls from 'classnames';
+import semiGlobal from '../_utils/semi-global';
 
 
 export interface ToastReactProps extends ToastProps{
@@ -99,6 +100,13 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
     static create(opts: ToastReactProps) {
         const id = opts.id ?? getUuid('toast');
         // this.id = id;
+        
+        // Get global config for Toast
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Toast || {};
+        
+        // Merge configs with priority: opts > globalConfig > defaultOpts
+        const mergedOpts = { ...ToastList.defaultOpts, ...globalConfig, ...opts };
+        
         if (!ToastList.ref) {
             const div = document.createElement('div');
             if (!this.wrapperId) {
@@ -107,16 +115,16 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             div.className = cssClasses.WRAPPER;
             div.id = this.wrapperId;
             div.style.zIndex = String(typeof opts.zIndex === 'number' ?
-                opts.zIndex : ToastList.defaultOpts.zIndex);
+                opts.zIndex : mergedOpts.zIndex);
             ['top', 'left', 'bottom', 'right'].map(pos => {
-                if (pos in ToastList.defaultOpts || pos in opts) {
-                    const val = opts[pos] ? opts[pos] : ToastList.defaultOpts[pos];
+                if (pos in mergedOpts) {
+                    const val = mergedOpts[pos];
                     div.style[pos] = typeof val === 'number' ? `${val}px` : val;
                 }
             });
             // document.body.appendChild(div);
-            if (ToastList.defaultOpts.getPopupContainer) {
-                const container = ToastList.defaultOpts.getPopupContainer();
+            if (mergedOpts.getPopupContainer) {
+                const container = mergedOpts.getPopupContainer();
                 container.appendChild(div);
             } else {
                 document.body.appendChild(div);
@@ -126,25 +134,25 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
                 { ref: (instance: ToastList) => {
                     if (instance) {
                         ToastList.ref = instance;
-                        instance.add({ ...opts, id });
-                        instance.stack = Boolean(opts.stack);
+                        instance.add({ ...mergedOpts, id });
+                        instance.stack = Boolean(mergedOpts.stack);
                     }
                 } }
             ), div);
         } else {
             const node = document.querySelector(`#${this.wrapperId}`) as HTMLElement;
             ['top', 'left', 'bottom', 'right'].map(pos => {
-                if (pos in opts) {
-                    node.style[pos] = typeof opts[pos] === 'number' ? `${opts[pos]}px` : opts[pos];
+                if (pos in mergedOpts) {
+                    node.style[pos] = typeof mergedOpts[pos] === 'number' ? `${mergedOpts[pos]}px` : mergedOpts[pos];
                 }
             });
-            if (Boolean(opts.stack) !== ToastList.ref.stack) {
-                ToastList.ref.stack = Boolean(opts.stack);
+            if (Boolean(mergedOpts.stack) !== ToastList.ref.stack) {
+                ToastList.ref.stack = Boolean(mergedOpts.stack);
             }
             if (ToastList.ref.has(id)) {
-                ToastList.ref.update(id, { ...opts, id });
+                ToastList.ref.update(id, { ...mergedOpts, id });
             } else {
-                ToastList.ref.add({ ...opts, id });
+                ToastList.ref.add({ ...mergedOpts, id });
             }
         }
         return id;
@@ -177,28 +185,36 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
-        return this.create({ ...ToastList.defaultOpts, ...opts, type: 'info' });
+        // Merge with global config
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Toast || {};
+        return this.create({ ...ToastList.defaultOpts, ...globalConfig, ...opts, type: 'info' });
     }
 
     static warning(opts: Omit<ToastReactProps, 'type'> | string) {
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
-        return this.create({ ...ToastList.defaultOpts, ...opts, type: 'warning' });
+        // Merge with global config
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Toast || {};
+        return this.create({ ...ToastList.defaultOpts, ...globalConfig, ...opts, type: 'warning' });
     }
 
     static error(opts: Omit<ToastReactProps, 'type'> | string) {
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
-        return this.create({ ...ToastList.defaultOpts, ...opts, type: 'error' });
+        // Merge with global config
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Toast || {};
+        return this.create({ ...ToastList.defaultOpts, ...globalConfig, ...opts, type: 'error' });
     }
 
     static success(opts: Omit<ToastReactProps, 'type'> | string) {
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
-        return this.create({ ...ToastList.defaultOpts, ...opts, type: 'success' });
+        // Merge with global config
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Toast || {};
+        return this.create({ ...ToastList.defaultOpts, ...globalConfig, ...opts, type: 'success' });
     }
 
     static config(opts: ConfigProps) {

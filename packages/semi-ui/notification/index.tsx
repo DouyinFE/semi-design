@@ -21,6 +21,7 @@ import {
     NoticeState
 } from '@douyinfe/semi-foundation/notification/notificationFoundation';
 import CSSAnimation from "../_cssAnimation";
+import semiGlobal from '../_utils/semi-global';
 
 // TODO: Automatic folding + unfolding function when there are more than N
 
@@ -98,7 +99,11 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     }
 
     static addNotice(notice: NoticeProps) {
-        notice = { ...defaultConfig, ...notice };
+        // Get global config for Notification
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Notification || {};
+        
+        // Merge configs with priority: notice > globalConfig > defaultConfig
+        notice = { ...defaultConfig, ...globalConfig, ...notice };
         const id = notice.id ?? getUuid('notification');
         if (!ref) {
             const { getPopupContainer } = notice;
@@ -143,23 +148,33 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     }
 
     static info(opts: NoticeProps) {
-        return this.addNotice({ ...opts, type: 'info' });
+        // Merge with global config
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Notification || {};
+        return this.addNotice({ ...defaultConfig, ...globalConfig, ...opts, type: 'info' });
     }
 
     static success(opts: NoticeProps) {
-        return this.addNotice({ ...opts, type: 'success' });
+        // Merge with global config
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Notification || {};
+        return this.addNotice({ ...defaultConfig, ...globalConfig, ...opts, type: 'success' });
     }
 
     static error(opts: NoticeProps) {
-        return this.addNotice({ ...opts, type: 'error' });
+        // Merge with global config
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Notification || {};
+        return this.addNotice({ ...defaultConfig, ...globalConfig, ...opts, type: 'error' });
     }
 
     static warning(opts: NoticeProps) {
-        return this.addNotice({ ...opts, type: 'warning' });
+        // Merge with global config
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Notification || {};
+        return this.addNotice({ ...defaultConfig, ...globalConfig, ...opts, type: 'warning' });
     }
 
     static open(opts: NoticeProps) {
-        return this.addNotice({ ...opts, type: 'default' });
+        // Merge with global config
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Notification || {};
+        return this.addNotice({ ...defaultConfig, ...globalConfig, ...opts, type: 'default' });
     }
 
     static close(id: string) {
