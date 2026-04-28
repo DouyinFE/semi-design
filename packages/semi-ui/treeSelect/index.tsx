@@ -173,7 +173,8 @@ export interface TreeSelectState extends Omit<BasicTreeSelectInnerData, Override
     dropdownMinWidth: null | number;
     isHovering: boolean;
     prevProps: TreeSelectProps;
-    isFocus: boolean
+    isFocus: boolean;
+    activeKey?: string | null;
 }
 
 const prefixcls = cssClasses.PREFIX;
@@ -356,6 +357,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             cachedKeyValuePairs: {},
             loadedKeys: new Set(),
             loadingKeys: new Set(),
+            activeKey: null,
         };
         this.inputRef = React.createRef();
         this.tagInputRef = React.createRef();
@@ -697,6 +699,21 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             ...filterAdapter,
             ...treeSelectAdapter,
             ...treeAdapter,
+            focusOptionContainer: () => {
+                const optionsDom = this.optionContainerEl?.current;
+                // make popover content focusable so it can receive keyboard events
+                optionsDom?.focus?.();
+            },
+            scrollToNode: (key: string) => {
+                const optionsDom = this.optionContainerEl?.current;
+                if (!optionsDom) {
+                    return;
+                }
+                // Escape for attribute selector: keep it minimal & safe
+                const escaped = String(key).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+                const el = optionsDom.querySelector(`[data-key="${escaped}"]`) as HTMLElement;
+                el?.scrollIntoView?.({ block: 'nearest' });
+            },
             updateLoadKeys: (data, resolve) => {
                 this.setState(({ loadedKeys, loadingKeys }) =>
                     this.foundation.handleNodeLoad(loadedKeys, loadingKeys, data, resolve));
@@ -813,7 +830,14 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const style = { minWidth: dropdownMinWidth, ...dropdownStyle };
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
         return (
-            <div className={popoverCls} style={style} onKeyDown={this.foundation.handleKeyDown} ref={this.optionContainerEl}>
+            <div
+                className={popoverCls}
+                style={style}
+                // Make container focusable for keyboard navigation
+                tabIndex={-1}
+                onKeyDown={this.foundation.handleKeyDown}
+                ref={this.optionContainerEl}
+            >
                 {this.renderTree()}
             </div>
         );
@@ -1265,6 +1289,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 maxTagCount={maxTagCount}
                 disabled={disabled}
                 onInputChange={v => this.search(v)}
+                // In multiple mode, the search input is inside TagInput.
+                // Forward key events so TreeSelect can handle a11y navigation (Tab/Arrow/Enter/Esc).
+                onKeyDown={this.foundation.handleKeyDown}
                 ref={this.tagInputRef}
                 placeholder={placeholder}
                 value={triggerRenderKeys}
@@ -1410,6 +1437,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
 
     renderTreeNode = (treeNode: FlattenNode, ind: number, style: React.CSSProperties) => {
         const { data, key } = treeNode;
+        const { activeKey } = this.state;
         const treeNodeProps = this.foundation.getTreeNodeProps(key);
         const { showLine } = this.props;
         if (!treeNodeProps) {
@@ -1419,6 +1447,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const { keyMaps, expandIcon } = this.props;
         const children = data[get(keyMaps, 'children', 'children')];
         !isUndefined(children) && (props.children = children);
+        
+        // Add active state
+        const isActive = activeKey === key;
+        
         return <TreeNode 
             {...treeNodeProps} 
             {...data} 
@@ -1427,6 +1459,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             style={style} 
             showLine={showLine}
             expandIcon={expandIcon}
+            active={isActive}
         />;
     };
 
@@ -1490,7 +1523,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     };
 
     renderTree = () => {
-        const { keyEntities, motionKeys, motionType, inputValue, filteredKeys, flattenNodes, checkedKeys, realCheckedKeys } = this.state;
+        const { keyEntities, motionKeys, motionType, inputValue, filteredKeys, flattenNodes, checkedKeys, realCheckedKeys, activeKey } = this.state;
         const {
             loadData,
             filterTreeNode,
@@ -1542,6 +1575,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     renderLabel,
                     renderFullLabel,
                     labelEllipsis: typeof labelEllipsis === 'undefined' ? virtualize : labelEllipsis,
+                    activeKey,
                 }}
             >
                 <div className={wrapperCls}>

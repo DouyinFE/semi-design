@@ -24,7 +24,7 @@ import {
 } from '../tree/foundation';
 import { Motion } from '../utils/type';
 import isEnterPress from '../utils/isEnterPress';
-import { ESC_KEY } from '../utils/keyCode';
+import keyCode from '../utils/keyCode';
 
 /* Here ValidateStatus is the same as ValidateStatus in baseComponent */
 export type ValidateStatus = 'error' | 'warning' | 'default';
@@ -174,7 +174,8 @@ export interface BasicTreeSelectInnerData extends Pick<BasicTreeInnerData,
     rePosKey: number;
     dropdownMinWidth: null | number;
     isHovering: boolean;
-    prevProps: BasicTreeSelectProps
+    prevProps: BasicTreeSelectProps;
+    activeKey?: string | null;
 }
 
 export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -200,7 +201,18 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     notifyLoad: (newLoadedKeys: Set<string>, data: BasicTreeNodeData) => void;
     updateInputFocus: (bool: boolean) => void;
     updateLoadKeys: (data: BasicTreeNodeData, resolve: (value?: any) => void) => void;
-    updateIsFocus: (bool: boolean) => void
+    updateIsFocus: (bool: boolean) => void;
+
+    /**
+     * A11y: move focus into the option list container
+     * (e.g. when pressing TAB from the search input)
+     */
+    focusOptionContainer?: () => void;
+
+    /**
+     * Scroll the specific node into view
+     */
+    scrollToNode?: (key: string) => void;
 }
 
 export default class TreeSelectFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TreeSelectAdapter<P, S>, P, S> {
@@ -310,10 +322,199 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     }
 
     handleKeyDown = (e: any) => {
-        if (e.key === ESC_KEY) {
-            const isOpen = this.getState('isOpen');
-            isOpen && this.close(e);
-        } 
+        const { disabled } = this.getProps();
+        const { isOpen } = this.getStates();
+
+        if (disabled) {
+            return;
+        }
+
+        const key = e.keyCode;
+
+        switch (key) {
+            case keyCode.ESC:
+                isOpen && this.close(e);
+                break;
+            case keyCode.UP:
+                // Prevent Input's cursor from following
+                e.preventDefault();
+                this.handleArrowKeyDown(-1);
+                break;
+            case keyCode.DOWN:
+                // Prevent Input's cursor from following
+                e.preventDefault();
+                this.handleArrowKeyDown(1);
+                break;
+            case keyCode.ENTER:
+                e.preventDefault();
+                this.handleEnterKeyDown(e);
+                break;
+            case keyCode.TAB:
+                this.handleTabKeyDown(e);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * A11y: Press TAB in search input to enter tree list
+     */
+    handleTabKeyDown(e: any) {
+        const { isOpen } = this.getStates();
+        // Only handle forward tab when dropdown is open
+        if (!isOpen || e.shiftKey) {
+            return;
+        }
+
+        const target = e.target as HTMLElement;
+        const tagName = target?.tagName?.toLowerCase?.();
+        const isInputLike = tagName === 'input' || tagName === 'textarea';
+        if (!isInputLike) {
+            return;
+        }
+
+        e.preventDefault();
+
+        // Init activeKey if missing
+        const { activeKey, flattenNodes } = this.getStates();
+        if (!activeKey && flattenNodes && flattenNodes.length) {
+            const firstKey = this.getFirstNavigableKey(flattenNodes);
+            if (firstKey) {
+                this._adapter.updateState({ activeKey: firstKey });
+                this.scrollToActiveNode(firstKey);
+            }
+        }
+
+        // Move focus to option container so that next arrow/enter works on tree
+        this._adapter.focusOptionContainer?.();
+    }
+
+    getFirstNavigableKey(flattenNodes: any[]): string | null {
+        if (!flattenNodes || flattenNodes.length === 0) {
+            return null;
+        }
+        for (let i = 0; i < flattenNodes.length; i++) {
+            const node = flattenNodes[i];
+            const treeNodeProps = this.getTreeNodeProps(node.key);
+            if (treeNodeProps && !treeNodeProps.disabled) {
+                return node.key;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Handle arrow key navigation (up/down)
+     * Move the active key through the flatten nodes
+     */
+    handleArrowKeyDown(offset: number) {
+        const { isOpen, activeKey, flattenNodes } = this.getStates();
+        
+        if (!isOpen) {
+            this.open();
+            return;
+        }
+
+        if (!flattenNodes || flattenNodes.length === 0) {
+            return;
+        }
+
+        // Find current index
+        let currentIndex = -1;
+        if (activeKey) {
+            currentIndex = flattenNodes.findIndex((node: any) => node.key === activeKey);
+        }
+
+        // Calculate next index
+        let nextIndex = currentIndex + offset;
+        
+        // Wrap around
+        if (nextIndex < 0) {
+            nextIndex = flattenNodes.length - 1;
+        } else if (nextIndex >= flattenNodes.length) {
+            nextIndex = 0;
+        }
+
+        // Skip disabled nodes
+        const maxIterations = flattenNodes.length;
+        let iterations = 0;
+        while (iterations < maxIterations) {
+            const node = flattenNodes[nextIndex];
+            const treeNodeProps = this.getTreeNodeProps(node.key);
+            
+            // If node is not disabled, use it
+            if (treeNodeProps && !treeNodeProps.disabled) {
+                break;
+            }
+            
+            // Move to next node
+            nextIndex = nextIndex + offset;
+            if (nextIndex < 0) {
+                nextIndex = flattenNodes.length - 1;
+            } else if (nextIndex >= flattenNodes.length) {
+                nextIndex = 0;
+            }
+            iterations++;
+        }
+
+        // Update active key
+        const newActiveKey = flattenNodes[nextIndex]?.key;
+        if (newActiveKey) {
+            this._adapter.updateState({ activeKey: newActiveKey });
+            // Scroll to active node
+            this.scrollToActiveNode(newActiveKey);
+        }
+    }
+
+    /**
+     * Handle Enter key press
+     * - If dropdown is closed, open it
+     * - If active node has children, toggle expand
+     * - If active node is a leaf, select it
+     */
+    handleEnterKeyDown(e: any) {
+        const { isOpen, activeKey, keyEntities } = this.getStates();
+
+        if (!isOpen) {
+            this.open();
+            return;
+        }
+
+        if (!activeKey) {
+            return;
+        }
+
+        const entity = keyEntities[activeKey];
+        if (!entity) {
+            return;
+        }
+
+        const treeNodeProps = this.getTreeNodeProps(activeKey);
+        if (!treeNodeProps || treeNodeProps.disabled) {
+            return;
+        }
+
+        const { data } = entity;
+        const { loadData, keyMaps } = this.getProps();
+        const childrenKey = get(keyMaps, 'children', 'children');
+        const children = get(data, childrenKey);
+        const hasChildren = Array.isArray(children) && children.length > 0;
+
+        // If node has children or loadData is provided, toggle expand
+        if (hasChildren || loadData) {
+            this.handleNodeExpand(e, { ...treeNodeProps, data, children });
+        } else {
+            // Otherwise, select the node
+            this.handleNodeSelect(e, { ...treeNodeProps, data });
+        }
+    }
+
+    /**
+     * Scroll to the active node in the tree
+     */
+    scrollToActiveNode(activeKey: string) {
+        this._adapter.scrollToNode?.(activeKey);
     }
 
     getTreeNodeProps(key: string) {

@@ -379,7 +379,8 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             [`${prefixcls}-collapsed`]: !expanded,
             [`${prefixcls}-disabled`]: Boolean(disabled),
             [`${prefixcls}-selected`]: selected,
-            [`${prefixcls}-active`]: !multiple && active,
+            // A11y: show active indicator for keyboard navigation in both single & multiple modes
+            [`${prefixcls}-active`]: active,
             [`${prefixcls}-ellipsis`]: labelEllipsis,
             [`${prefixcls}-drag-over`]: !disabled && dragOver,
             [`${prefixcls}-draggable`]: !disabled && draggable && !renderFullLabel,
