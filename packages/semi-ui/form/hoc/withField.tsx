@@ -14,7 +14,6 @@ import Label from '../label';
 import { Col } from '../../grid';
 import type { CallOpts, WithFieldOption } from '@douyinfe/semi-foundation/form/interface';
 import type { CommonFieldProps, CommonexcludeType } from '../interface';
-import type { Subtract } from 'utility-types';
 import { noop } from "lodash";
 
 const prefix = cssClasses.PREFIX;
@@ -32,7 +31,7 @@ const useIsomorphicEffect = typeof window !== 'undefined' ? useLayoutEffect : us
 
 function withField<
     C extends React.ElementType,
-    T extends Subtract<React.ComponentProps<C>, CommonexcludeType> & CommonFieldProps & React.RefAttributes<any>,
+    T extends Omit<React.ComponentProps<C>, keyof CommonexcludeType> & CommonFieldProps & React.RefAttributes<any>,
     R extends React.ComponentType<T>
 >(Component: C, opts?: WithFieldOption): R {
     let SemiField = (props: any, ref: React.MutableRefObject<any> | ((instance: any) => void)) => {
