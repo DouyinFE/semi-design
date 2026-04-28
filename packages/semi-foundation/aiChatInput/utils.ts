@@ -74,11 +74,24 @@ export function transformText(obj: any) {
     };
 }
 
+// hardBreak 来源于 Shift+Enter 软换行，或某些剪贴板 HTML 中的 <br>。
+// 不处理时，单 paragraph + hardBreak 与多 paragraph 在 onContentChange 输出上会不一致（前者丢换行）。
+// hardBreak originates from Shift+Enter soft line breaks, or <br> in some clipboard HTML payloads.
+// Without handling, "single paragraph + hardBreak" and "multiple paragraphs"
+// would yield inconsistent onContentChange output (the former drops the line break).
+export function transformHardBreak() {
+    return {
+        type: 'text',
+        text: '\n',
+    };
+}
+
 export const transformMap = new Map<string, any>([
     ['text', transformText],
     ['selectSlot', transformSelectSlot],
     ['inputSlot', transformInputSlot],
     ['skillSlot', transformSkillSlot],
+    ['hardBreak', transformHardBreak],
 ]);
 
 export function transformJSONResult(input: any, customTransformObj: Map<string, (obj: any) => any> = new Map()) {
