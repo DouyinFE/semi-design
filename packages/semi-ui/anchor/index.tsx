@@ -93,6 +93,8 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
     handler: () => void;
     clickHandler: () => void;
     context: ContextValue;
+    linkWrapperRef: React.RefObject<HTMLDivElement>;
+    resizeObserver: ResizeObserver | null;
 
     constructor(props: AnchorProps) {
         super(props);
@@ -106,6 +108,8 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
 
         this.foundation = new AnchorFoundation(this.adapter);
         this.childMap = {};
+        this.linkWrapperRef = React.createRef();
+        this.resizeObserver = null;
     }
 
     get adapter(): AnchorAdapter<AnchorProps, AnchorState> {
@@ -205,6 +209,24 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
         this.foundation.handleClickLink();
     };
 
+    handleResize = (entries: ResizeObserverEntry[]) => {
+        const entry = entries[0];
+        if (entry) {
+            // Check if the element is visible (not display: none)
+            let isVisible = false;
+            if (entry.borderBoxSize) {
+                isVisible = !(entry.borderBoxSize[0].blockSize === 0 && entry.borderBoxSize[0].inlineSize === 0);
+            } else {
+                isVisible = !(entry.contentRect.height === 0 && entry.contentRect.width === 0);
+            }
+            
+            // If the element becomes visible, recalculate scroll height
+            if (isVisible) {
+                this.setScrollHeight();
+            }
+        }
+    };
+
     setChildMap = () => {
         this.foundation.setChildMap();
     };
@@ -254,6 +276,12 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
         this.setScrollHeight();
         this.setChildMap();
         Boolean(defaultAnchor) && this.foundation.handleClick(null, defaultAnchor, false);
+
+        // Set up ResizeObserver to detect when anchor becomes visible
+        if (this.linkWrapperRef.current) {
+            this.resizeObserver = new ResizeObserver(this.handleResize);
+            this.resizeObserver.observe(this.linkWrapperRef.current);
+        }
     }
 
     componentDidUpdate(prevProps: AnchorProps, prevState: AnchorState) {
@@ -264,6 +292,9 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
     componentWillUnmount() {
         this.scrollContainer.removeEventListener('scroll', this.handler);
         this.scrollContainer.removeEventListener('scroll', this.clickHandler);
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+        }
     }
 
     render() {
@@ -322,7 +353,7 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
                     <div aria-hidden className={slideCls} style={{ height: scrollHeight }}>
                         <span className={slideBarCls} style={{ top: slideBarTop }} />
                     </div>
-                    <div className={anchorWrapper} role="list">
+                    <div className={anchorWrapper} role="list" ref={this.linkWrapperRef}>
                         {this.renderChildren()}
                     </div>
                 </div>
