@@ -490,106 +490,132 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // left = middleX;
                 // top = triggerRect.top - SPACING;
                 left = isWidthOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth) : middleX + ANO_SPACING;
-                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
+                // When height overflows, pin popover top to container top so it stays inside the container
+                top = isHeightOverFlow ? containerRect.top : triggerRect.top - SPACING;
                 translateX = -0.5;
-                translateY = -1;
+                // Drop the upward translateY when overflowing so popover does not get pushed outside the top edge
+                translateY = isHeightOverFlow ? 0 : -1;
                 break;
             case 'topLeft':
                 // left = pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left;
                 // top = triggerRect.top - SPACING;
                 left = isWidthOverFlow ? (isWrapperWidthOverflow ? containerRect.left : containerRect.right - wrapperRect.width ) : (pointAtCenter ? middleX - offsetXWithArrow + ANO_SPACING : triggerRect.left + ANO_SPACING);
-                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
-                translateY = -1;
+                // When height overflows, pin popover top to container top so it stays inside the container
+                top = isHeightOverFlow ? containerRect.top : triggerRect.top - SPACING;
+                translateY = isHeightOverFlow ? 0 : -1;
                 break;
             case 'topRight':
                 // left = pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right;
                 // top = triggerRect.top - SPACING;
                 left = isWidthOverFlow ? containerRect.right + offsetWidth : (pointAtCenter ? middleX + offsetXWithArrow + ANO_SPACING : triggerRect.right + ANO_SPACING);
-                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
-                translateY = -1;
+                // When height overflows, pin popover top to container top so it stays inside the container
+                top = isHeightOverFlow ? containerRect.top : triggerRect.top - SPACING;
+                translateY = isHeightOverFlow ? 0 : -1;
                 translateX = -1;
                 break;
             case 'left':
                 // left = triggerRect.left - SPACING;
                 // top = middleY;
                 // left = isWidthOverFlow? containerRect.right - SPACING : triggerRect.left - SPACING;
-                left = isWidthOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
+                // When width overflows, pin popover left to container left so it stays inside the container
+                left = isWidthOverFlow ? containerRect.left : triggerRect.left - SPACING;
                 top = isHeightOverFlow ? (isTriggerNearTop ? containerRect.top + wrapperRect.height / 2 : containerRect.bottom - wrapperRect.height / 2 + offsetHeight) : middleY + ANO_SPACING;
-                translateX = -1;
+                // Drop the leftward translateX when overflowing so popover does not get pushed outside the left edge
+                translateX = isWidthOverFlow ? 0 : -1;
                 translateY = -0.5;
                 break;
             case 'leftTop':
                 // left = triggerRect.left - SPACING;
                 // top = pointAtCenter ? middleY - offsetYWithArrow : triggerRect.top;
-                left = isWidthOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
+                // When width overflows, pin popover left to container left so it stays inside the container
+                left = isWidthOverFlow ? containerRect.left : triggerRect.left - SPACING;
                 top = isHeightOverFlow ? containerRect.top : (pointAtCenter ? middleY - offsetYWithArrow + ANO_SPACING : triggerRect.top + ANO_SPACING);
-                translateX = -1;
+                translateX = isWidthOverFlow ? 0 : -1;
                 break;
             case 'leftBottom':
                 // left = triggerRect.left - SPACING;
                 // top = pointAtCenter ? middleY + offsetYWithArrow : triggerRect.bottom;
-                left = isWidthOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
-                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : (pointAtCenter ? middleY + offsetYWithArrow + ANO_SPACING : triggerRect.bottom + ANO_SPACING);
-                translateX = -1;
+                // When width overflows, pin popover left to container left so it stays inside the container
+                left = isWidthOverFlow ? containerRect.left : triggerRect.left - SPACING;
+                // When height overflows, pin popover bottom to container bottom (translateY=-1 keeps it stuck to bottom edge)
+                top = isHeightOverFlow ? containerRect.bottom : (pointAtCenter ? middleY + offsetYWithArrow + ANO_SPACING : triggerRect.bottom + ANO_SPACING);
+                translateX = isWidthOverFlow ? 0 : -1;
                 translateY = -1;
                 break;
             case 'bottom':
                 // left = middleX;
                 // top = triggerRect.top + triggerRect.height + SPACING;
                 left = isWidthOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth) : middleX + ANO_SPACING;
-                top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING : triggerRect.top + triggerRect.height + SPACING;
+                // When height overflows, pin popover bottom to container bottom (translateY=-1 stretches it upward inside the container)
+                top = isHeightOverFlow ? containerRect.bottom : triggerRect.top + triggerRect.height + SPACING;
                 translateX = -0.5;
+                translateY = isHeightOverFlow ? -1 : 0;
                 break;
             case 'bottomLeft':
                 // left = pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left;
                 // top = triggerRect.bottom + SPACING;
                 left = isWidthOverFlow ? (isWrapperWidthOverflow ? containerRect.left : containerRect.right - wrapperRect.width ) : (pointAtCenter ? middleX - offsetXWithArrow + ANO_SPACING : triggerRect.left + ANO_SPACING);
-                top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING : triggerRect.top + triggerRect.height + SPACING;
+                // When height overflows, pin popover bottom to container bottom (translateY=-1 stretches it upward inside the container)
+                top = isHeightOverFlow ? containerRect.bottom : triggerRect.top + triggerRect.height + SPACING;
+                translateY = isHeightOverFlow ? -1 : 0;
                 break;
             case 'bottomRight':
                 // left = pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right;
                 // top = triggerRect.bottom + SPACING;
                 left = isWidthOverFlow ? containerRect.right + offsetWidth : (pointAtCenter ? middleX + offsetXWithArrow + ANO_SPACING : triggerRect.right + ANO_SPACING);
-                top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING : triggerRect.top + triggerRect.height + SPACING;
+                // When height overflows, pin popover bottom to container bottom (translateY=-1 stretches it upward inside the container)
+                top = isHeightOverFlow ? containerRect.bottom : triggerRect.top + triggerRect.height + SPACING;
                 translateX = -1;
+                translateY = isHeightOverFlow ? -1 : 0;
                 break;
             case 'right':
                 // left = triggerRect.right + SPACING;
                 // top = middleY;
-                left = isWidthOverFlow ? containerRect.left - SPACING + offsetXWithArrow : triggerRect.right + SPACING;
+                // When width overflows, pin popover right to container right (translateX=-1 stretches it leftward inside the container)
+                left = isWidthOverFlow ? containerRect.right : triggerRect.right + SPACING;
                 top = isHeightOverFlow ? (isTriggerNearTop ? containerRect.top + wrapperRect.height / 2 : containerRect.bottom - wrapperRect.height / 2 + offsetHeight) : middleY + ANO_SPACING;
+                translateX = isWidthOverFlow ? -1 : 0;
                 translateY = -0.5;
                 break;
             case 'rightTop':
                 // left = triggerRect.right + SPACING;
                 // top = pointAtCenter ? middleY - offsetYWithArrow : triggerRect.top;
-                left = isWidthOverFlow ? containerRect.left - SPACING + offsetXWithArrow : triggerRect.right + SPACING;
+                // When width overflows, pin popover right to container right (translateX=-1 stretches it leftward inside the container)
+                left = isWidthOverFlow ? containerRect.right : triggerRect.right + SPACING;
                 top = isHeightOverFlow ? containerRect.top : (pointAtCenter ? middleY - offsetYWithArrow + ANO_SPACING : triggerRect.top + ANO_SPACING);
+                translateX = isWidthOverFlow ? -1 : 0;
                 break;
             case 'rightBottom':
                 // left = triggerRect.right + SPACING;
                 // top = pointAtCenter ? middleY + offsetYWithArrow : triggerRect.bottom;
-                left = isWidthOverFlow ? containerRect.left - SPACING + offsetXWithArrow : triggerRect.right + SPACING;
-                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : (pointAtCenter ? middleY + offsetYWithArrow + ANO_SPACING : triggerRect.bottom + ANO_SPACING);
+                // When width overflows, pin popover right to container right (translateX=-1 stretches it leftward inside the container)
+                left = isWidthOverFlow ? containerRect.right : triggerRect.right + SPACING;
+                // When height overflows, pin popover bottom to container bottom (translateY=-1 keeps it stuck to bottom edge)
+                top = isHeightOverFlow ? containerRect.bottom : (pointAtCenter ? middleY + offsetYWithArrow + ANO_SPACING : triggerRect.bottom + ANO_SPACING);
+                translateX = isWidthOverFlow ? -1 : 0;
                 translateY = -1;
                 break;
             case 'leftTopOver':
-                left = triggerRect.left - SPACING;
-                top = triggerRect.top - SPACING;
+                // When width overflows, pin popover left to container left (translateX=0 keeps default)
+                left = isWidthOverFlow ? containerRect.left : triggerRect.left - SPACING;
+                // When height overflows, pin popover top to container top (translateY=0 keeps default)
+                top = isHeightOverFlow ? containerRect.top : triggerRect.top - SPACING;
                 break;
             case 'rightTopOver':
-                left = triggerRect.right + SPACING;
-                top = triggerRect.top - SPACING;
+                // When width overflows, pin popover right to container right (translateX=-1 stretches it leftward inside the container)
+                left = isWidthOverFlow ? containerRect.right : triggerRect.right + SPACING;
+                top = isHeightOverFlow ? containerRect.top : triggerRect.top - SPACING;
                 translateX = -1;
                 break;
             case 'leftBottomOver':
-                left = triggerRect.left - SPACING;
-                top = triggerRect.bottom + SPACING;
+                left = isWidthOverFlow ? containerRect.left : triggerRect.left - SPACING;
+                // When height overflows, pin popover bottom to container bottom (translateY=-1 stretches it upward inside the container)
+                top = isHeightOverFlow ? containerRect.bottom : triggerRect.bottom + SPACING;
                 translateY = -1;
                 break;
             case 'rightBottomOver':
-                left = triggerRect.right + SPACING;
-                top = triggerRect.bottom + SPACING;
+                left = isWidthOverFlow ? containerRect.right : triggerRect.right + SPACING;
+                top = isHeightOverFlow ? containerRect.bottom : triggerRect.bottom + SPACING;
                 translateX = -1;
                 translateY = -1;
                 break;
