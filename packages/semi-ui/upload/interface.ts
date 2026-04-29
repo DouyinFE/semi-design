@@ -73,3 +73,26 @@ export interface RenderFileListTitleProps {
     onClear: () => void;
     clearText: string;
 }
+
+export interface CropProps {
+    /** 裁切框比例 */
+    aspectRatio?: number;
+    /** 裁切框形状 */
+    shape?: 'rect' | 'round' | 'roundRect';
+    /** 最小缩放比例 */
+    minZoom?: number;
+    /** 最大缩放比例 */
+    maxZoom?: number;
+    /** 缩放步长 */
+    zoomStep?: number;
+    /** 输出图片质量 0-1 */
+    quality?: number;
+    /** 填充颜色 */
+    fill?: string;
+    /** 弹窗标题 */
+    modalTitle?: string;
+    /** 确认按钮文字 */
+    modalOkText?: string;
+    /** 取消按钮文字 */
+    modalCancelText?: string;
+}

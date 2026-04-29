@@ -137,7 +137,10 @@ export interface Locale {
         selectedFiles: string;
         replace: string;
         illegalSize: string;
-        fail: string
+        fail: string;
+        cropTitle?: string;
+        cropOk?: string;
+        cropCancel?: string
     };
     TreeSelect: {
         searchPlaceholder: string
