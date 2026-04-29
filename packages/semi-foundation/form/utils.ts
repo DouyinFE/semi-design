@@ -131,6 +131,7 @@ export function mergeProps(props: any) {
         wrapperCol,
         initValue,
         validate,
+        validator,
         onValidate,
         /**
          * error、warning、default、success
@@ -181,8 +182,8 @@ export function mergeProps(props: any) {
 
     emptyValue = typeof emptyValue !== 'undefined' ? emptyValue : '';
     
-    // Handle onValidate as alias for validate (onValidate takes precedence)
-    const finalValidate = onValidate || validate;
+    // Support validator/onValidate as alias for validate (validator takes precedence)
+    const finalValidate = validator || onValidate || validate;
 
     return {
         field,
