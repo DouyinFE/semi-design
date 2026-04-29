@@ -13,7 +13,7 @@ brief: Tag component is used to display a collection of concise information for 
 ### How to import
 
 ```jsx import
-import { Tag } from '@douyinfe/semi-ui';
+import { Tag, TagGroup, SplitTagGroup } from '@douyinfe/semi-ui';
 ```
 
 ### Basic usage
@@ -93,277 +93,44 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 };
 ```
 
-### AI style - colorful labels
+### SplitTagGroup
 
-Set `colorful` to `true` to get colorful labels.
-
-```jsx live=true direction
-import React from 'react';
-import { Tag } from '@douyinfe/semi-ui';
-import { IconAIFilledLevel1, IconAIFilledLevel3 } from '@douyin/semi-icons';
-
-() => (
-    <div style={{ display: 'flex', flexDirection: 'column', rowGap: 30 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gridGap: '10px', width: 'fit-content' }}>
-            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small"/>} type="solid" shape='circle' gradient>AI</Tag>
-            <Tag colorful prefixIcon={<IconAIFilledLevel3 size="small" />} type="light" shape='circle' gradient>AI</Tag>
-            <Tag colorful prefixIcon={<IconAIFilledLevel3 size="small"/>} type="ghost" shape='circle' gradient >AI</Tag>
-            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small"/>} type="solid" shape='circle' >AI</Tag>
-            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small" />} type="light" shape='circle'>AI</Tag>
-            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small"/>} type="ghost" shape='circle'>AI</Tag>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gridGap: '10px', width: 'fit-content' }}>
-            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small"/>} type="solid" gradient>AI</Tag>
-            <Tag colorful prefixIcon={<IconAIFilledLevel3 size="small" />} type="light" gradient>AI</Tag>
-            <Tag colorful prefixIcon={<IconAIFilledLevel3 size="small"/>} type="ghost" gradient >AI</Tag>
-            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small"/>} type="solid" >AI</Tag>
-            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small" />} type="light" >AI</Tag>
-            <Tag colorful prefixIcon={<IconAIFilledLevel1 size="small"/>} type="ghost" >AI</Tag>
-        </div>
-    </div>
-);
-```
-
-### Type
-
-Tag supports three different types, including: `light`(default), `ghost`, `solid`.
+Use `SplitTagGroup` to combine multiple tags into a whole. The first and last tags will have rounded corners, while the middle tags have no rounded corners, creating a continuous visual effect.
 
 ```jsx live=true
 import React from 'react';
-import { Tag, Space } from '@douyinfe/semi-ui';
-import { IconGithubLogo, IconSemiLogo } from '@douyinfe/semi-icons';
+import { Tag, SplitTagGroup, Space } from '@douyinfe/semi-ui';
 
-() => (
-    <Space wrap>
-        <Tag
-            color='light-blue'
-            prefixIcon={<IconGithubLogo />}
-            size='large'
-            shape='circle'
-            type='light'
-        >
-            Semi Design Light Tag
-        </Tag>
-        <Tag
-            color='cyan'
-            size='large'
-            shape='circle'
-            suffixIcon={<IconSemiLogo />}
-            type='light'
-        >
-            D2C: figma to code in one click</Tag>
-        <Tag
-            color='light-blue'
-            prefixIcon={<IconGithubLogo />}
-            size='large'
-            shape='circle'
-            type='ghost'
-        >
-            Semi Design Ghost Tag
-        </Tag>
-        <Tag
-            color='cyan'
-            size='large'
-            shape='circle'
-            type='ghost'
-            suffixIcon={<IconSemiLogo />}
-        >
-            D2C: figma to code in one click</Tag>
-        <Tag
-            color='light-blue'
-            prefixIcon={<IconGithubLogo />}
-            size='large'
-            shape='circle'
-            type='solid'
-        >
-            Semi Design Solid Tag
-        </Tag>
-        <Tag
-            color='cyan'
-            size='large'
-            shape='circle'
-            type='solid'
-            suffixIcon={<IconSemiLogo />}
-        >
-            D2C: figma to code in one click</Tag>
-    </Space>
-);
-```
-
-### Avatar Tag
-
-You can get a avatar tag with `avatarSrc` property. `avatarShape` can change the shape of avatar tag including `square`(default) and `circle`.
-
-```jsx live=true
-import React from 'react';
-import { Tag, Space } from '@douyinfe/semi-ui';
-
-function Demo() {
-    const src =
-        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
+() => {
     return (
-        <Space vertical align='start'>
-            <Tag avatarSrc={src}>Peter Behrens</Tag>
-            <Tag avatarSrc={src} size="large">
-                Peter Behrens
-            </Tag>
-            <Tag avatarSrc={src} size="large" closable={true}>
-                Peter Behrens
-            </Tag>
-            <Tag avatarSrc={src} avatarShape="circle">
-                Peter Behrens
-            </Tag>
-            <Tag avatarSrc={src} avatarShape="circle" size="large">
-                Peter Behrens
-            </Tag>
-            <Tag avatarSrc={src} avatarShape="circle" size="large" closable={true}>
-                Peter Behrens
-            </Tag>
+        <Space vertical align="start">
+            <SplitTagGroup>
+                <Tag color="blue" type="solid">Tag One</Tag>
+                <Tag color="cyan" type="solid">Tag Two</Tag>
+                <Tag color="teal" type="solid">Tag Three</Tag>
+            </SplitTagGroup>
+            
+            <SplitTagGroup>
+                <Tag color="violet" shape="circle">Grouped</Tag>
+                <Tag color="purple" shape="circle">Tags</Tag>
+                <Tag color="pink" shape="circle">Example</Tag>
+                <Tag color="red" shape="circle">Effect</Tag>
+            </SplitTagGroup>
+            
+            <SplitTagGroup>
+                <Tag color="amber" type="light">Light</Tag>
+                <Tag color="orange" type="light">Grouped</Tag>
+                <Tag color="yellow" type="light">Tags</Tag>
+            </SplitTagGroup>
+            
+            <SplitTagGroup>
+                <Tag color="green" type="ghost">Ghost</Tag>
+                <Tag color="light-green" type="ghost">Style</Tag>
+                <Tag color="lime" type="ghost">Group</Tag>
+            </SplitTagGroup>
         </Space>
     );
-}
-```
-
-### Invisible
-
-You can use `visible` property to control whether the tag is visible.
-
-```jsx live=true
-import React, { useState } from 'react';
-import { Tag, Button, RadioGroup, Radio } from '@douyinfe/semi-ui';
-
-() => {
-    const [visible, setVisible] = useState(false);
-    const toggleVisible = () => {
-        setVisible(!visible);
-    };
-    return (
-        <div>
-            <RadioGroup type='button' defaultValue={0} onChange={e => toggleVisible(e.target.value)}>
-                <Radio value={1}>Show</Radio>
-                <Radio value={0}>Hide</Radio>
-            </RadioGroup>
-            <div style={{ marginTop: 10 }}>
-                <Tag visible={visible} size='large' color='light-blue'>Invisible tag </Tag>
-            </div>
-        </div>
-    );
 };
-
-```
-
-### TagGroup
-
-You can pass in configs for tags through `tagList` to create a TagGroup. The `maxTagCount` can be used to cap the number of list and will be displayed as `+N` when the limit is exceeded.  
-Set the `showPopover` property to control whether the remaining content is displayed by Popover when hover to + N Tag
-
-```jsx live=true
-import React from 'react';
-import { TagGroup } from '@douyinfe/semi-ui';
-
-() => {
-    const tagList = [
-        { color: 'white', children: 'Abc' },
-        { color: 'white', children: 'Hotsoon' },
-        { color: 'white', children: 'Toutiao' },
-        { color: 'white', children: 'Vigo' },
-        { color: 'white', children: 'Pipixia' },
-    ];
-    const src =
-        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
-    const tagList2 = [
-        { color: 'white', children: 'Abcd', avatarSrc: src },
-        { color: 'white', children: 'Hotsoon', avatarSrc: src },
-        { color: 'white', children: 'Toutiao', avatarSrc: src },
-        { color: 'white', children: 'Vigo', avatarSrc: src },
-        { color: 'white', children: 'Pipixia', avatarSrc: src },
-    ];
-    const divStyle = {
-        backgroundColor: 'var(--semi-color-fill-0)',
-        height: 35,
-        width: 300,
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 10px',
-        marginBottom: 30,
-    };
-    const tagGroupStyle = {
-        display: 'flex',
-        alignItems: 'center',
-        width: 350,
-    };
-    return (
-        <>
-            <div style={divStyle}>
-                <TagGroup
-                    maxTagCount={3}
-                    style={tagGroupStyle}
-                    tagList={tagList}
-                    size="large"
-                />
-            </div>
-            <div style={divStyle}>
-                <TagGroup
-                    maxTagCount={2}
-                    style={tagGroupStyle}
-                    tagList={tagList2}
-                    size="large"
-                    avatarShape="circle"
-                    showPopover
-                />
-            </div>
-        </>
-    );
-};
-```
-
-If the tags in the TagGroup can be deleted, the user needs to process the `tagList` passed to the TagGroup in `onTagClose`
-
-```jsx live=true
-import React, { useState } from 'react';
-import { TagGroup } from '@douyinfe/semi-ui';
-
-() => {
-    const defaultList = [
-        { tagKey: '1', color: 'light-blue', children: 'Douyin', closable: true, },
-        { tagKey: '3', color: 'amber', children: 'Jianying', closable: true, },
-        { tagKey: '3', color: 'violet', children: 'Faceu', closable: true, },
-        { tagKey: '4', color: 'white', children: 'Lark', closable: true, },
-    ];
-
-    const [tagList, setTagList] = useState(defaultList);
-
-    const tagListClick = (value, e, tagKey) => {
-        const newTagList = [...tagList];
-        const closeTagIndex = newTagList.findIndex(t => t.tagKey === tagKey);
-        newTagList.splice(closeTagIndex, 1);
-        setTagList(newTagList);
-    };
-
-    return (
-        <div style={ {
-            backgroundColor: 'var(--semi-color-fill-0)',
-            height: 35,
-            width: 300,
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 10px',
-            marginBottom: 30,
-        }}>
-            <TagGroup
-                maxTagCount={3}
-                style={ {
-                    display: 'flex',
-                    alignItems: 'center',
-                    width: 350,
-                }}
-                tagList={tagList}
-                size='large'
-                onTagClose={tagListClick}
-            />
-        </div>
-    );
-}
 ```
 
 ## API Reference
@@ -403,6 +170,15 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | style | Inline style | CSSProperties |  |  |
 | tagList | Label Group data | (TagProps)[] |  |  |
 | onTagClose | The callback function when deleting the Tag in the TagGroup | (tagChildren: ReactNode, e: MouseEvent, tagKey: string \| number ) => void | - |  2.18.0 |
+
+### SplitTagGroup
+
+| Property | Description | Type | Default | Version |
+|-------|-------------|--------------|----|--------|
+| className | Classname | string |    | |
+| style | Inline style | CSSProperties |    | |
+| children | Tag group content | ReactNode |     | |
+| aria-label | Accessibility label | string | | |
 
 ## Accessibility
 
