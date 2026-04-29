@@ -896,7 +896,7 @@ import { Form } from '@douyinfe/semi-ui';
     const [validateStatus, setValidateStatus] = useState('default');
     const formRef = useRef();
 
-    const validate = (val, values) => {
+    const validator = (val, values) => {
         if (!val) {
             setValidateStatus('error');
             return <span>密码不能为空</span>;
@@ -927,7 +927,7 @@ import { Form } from '@douyinfe/semi-ui';
             onSubmitFail={(errors) => console.log(errors)}
         >
             <Form.Input
-                validate={validate}
+                validator={validator}
                 field="Password"
                 validateStatus={validateStatus}
                 helpText={helpText}
@@ -1190,10 +1190,10 @@ import { Form, Button } from '@douyinfe/semi-ui';
 
 ### 自定义校验(Form 级别)
 
-你可以给`Form`整体设置自定义校验函数 validateFields。submit 或调用formApi.validate()时会进行调用
+你可以给`Form`整体设置自定义校验函数。推荐使用 `validator`（`validateFields` 为旧写法，`onValidate` 也为旧写法，均仍保持兼容）。submit 或调用 formApi.validate() 时会进行调用
 
 <Notice title='注意'>
-    当配置了 Form级别校验器 validateFields 后，Field 级别的校验器（fieldProps.validate、fieldProps.rules 将不再生效）
+    当配置了 Form 级别校验器（validator / onValidate / validateFields）后，Field 级别的校验器（fieldProps.validator / fieldProps.onValidate / fieldProps.validate、fieldProps.rules 将不再生效）
 </Notice>
 
 #### 同步校验
@@ -1228,7 +1228,7 @@ class FormLevelValidateSync extends React.Component {
 
     render() {
         return (
-            <Form validateFields={this.syncValidate} layout='horizontal'>
+            <Form validator={this.syncValidate} layout='horizontal'>
                 <Form.Input field='name' trigger='blur'></Form.Input>
                 <Form.Input field='familyName[0].before' trigger='blur'></Form.Input>
                 <Form.Input field='familyName[0].after' trigger='blur'></Form.Input>
@@ -1275,7 +1275,7 @@ class FormLevelValidateAsync extends React.Component {
 
     render() {
         return (
-            <Form validateFields={this.asyncValidate} layout='horizontal'>
+            <Form validator={this.asyncValidate} layout='horizontal'>
                 <Form.Input field='name' trigger='blur'></Form.Input>
                 <Form.Input field='familyName[0].before' trigger='blur'></Form.Input>
                 <Form.Input field='familyName[1]' trigger='blur'></Form.Input>
@@ -1294,7 +1294,7 @@ class FormLevelValidateAsync extends React.Component {
 
 ### 自定义校验(Field 级别)
 
-你可以指定单个表单控件的自定义校验函数，支持同步、异步校验（通过返回 promise）
+你可以指定单个表单控件的自定义校验函数，推荐使用 `validator`（`validate` 为旧写法，`onValidate` 也为旧写法，均仍保持兼容）。支持同步、异步校验（通过返回 promise）
 
 ```jsx live=true dir="column" hideInDSM
 import React from 'react';
@@ -1332,8 +1332,8 @@ class FieldLevelValidateDemo extends React.Component {
     render() {
         return (
             <Form>
-                <Form.Input field='name' label='【name】asyncValidate after 2s' validate={this.asyncValidate} trigger='blur'></Form.Input>
-                <Form.Input field='familyName' label='【familyName】syncValidate' validate={this.validateName} trigger='blur'></Form.Input>
+                <Form.Input field='name' label='【name】asyncValidate after 2s' validator={this.asyncValidate} trigger='blur'></Form.Input>
+                <Form.Input field='familyName' label='【familyName】syncValidate' validator={this.validateName} trigger='blur'></Form.Input>
                 <Button htmlType="reset">reset</Button>
             </Form >
         );
@@ -1461,13 +1461,13 @@ class PartValidAndResetDemo extends React.Component {
                     ({ formState, values, formApi }) => (
                         <>
                             <div>
-                                <Form.Input field="a[1]" validate={this.validate} trigger="blur" />
-                                <Form.Input field="a[0]" validate={this.validate} trigger="blur" />
-                                <Form.Input field="b.name[0]" validate={this.validate} trigger="blur" />
-                                <Form.Input field="b.name[1]" validate={this.validate} trigger="blur" />
-                                <Form.Input field="b.type" validate={this.validate} trigger="blur" />
-                                <Form.Input field="c" validate={this.validate} trigger="blur" />
-                                <Form.Input field="d" validate={this.validate} trigger="blur" />
+                                <Form.Input field="a[1]" validator={this.validate} trigger="blur" />
+                                <Form.Input field="a[0]" validator={this.validate} trigger="blur" />
+                                <Form.Input field="b.name[0]" validator={this.validate} trigger="blur" />
+                                <Form.Input field="b.name[1]" validator={this.validate} trigger="blur" />
+                                <Form.Input field="b.type" validator={this.validate} trigger="blur" />
+                                <Form.Input field="c" validator={this.validate} trigger="blur" />
+                                <Form.Input field="d" validator={this.validate} trigger="blur" />
                             </div>
                             <div>
                                 <Form.CheckboxGroup options={options} field="validateScope" label="当前希望校验的Field" initValue={['a', 'b']} direction="horizontal" />
@@ -2150,7 +2150,9 @@ render(WithFieldDemo2);
 | stopValidateWithError | 统一应用在每个 Field 的 stopValidateWithError，使用说明见 Field props中同名 API （v2.42后提供）                                                                            | boolean                             | false     |
 | stopPropagation | 是否阻止 submit或reset事件冒泡，用于嵌套 Form 场景下，内部 Form submit或reset时阻止事件往外传播，触发外部Form的事件。默认为 `{ reset: false, submit: false }`（v2.63后提供）                                                                            | object                             |      |
 | trigger    |  统一应用在每个 Field 的 trigger，使用说明详见 Field props中同名 API（v2.42后提供）                                                        | string\|array                            |  'change'  |
-| validateFields    | Form 级别的自定义校验函数，submit 时或 formApi.validate 时会被调用（配置Form级别校验器后，Field级别校验器在submit或formApi.validate()时不会再被触发）。支持同步校验、异步校验                                                                                   | function(values)                              |            |
+| validator         | Form 级别的自定义校验函数（推荐），submit 时或 formApi.validate 时会被调用（配置 Form 级别校验器后，Field 级别校验器在 submit 或 formApi.validate() 时不会再被触发）。支持同步校验、异步校验                                               | function(values)                              |            |
+| onValidate        | Form 级别的自定义校验函数（已废弃，仍兼容）。建议使用 validator 替代。submit 时或 formApi.validate 时会被调用（配置 Form 级别校验器后，Field 级别校验器在 submit 或 formApi.validate() 时不会再被触发）。支持同步校验、异步校验                                               | function(values)                              |            |
+| validateFields    | Form 级别的自定义校验函数（已废弃，建议使用 validator；仍保持兼容）。submit 时或 formApi.validate 时会被调用（配置 Form 级别校验器后，Field 级别校验器在 submit 或 formApi.validate() 时不会再被触发）。支持同步校验、异步校验 | function(values)                              |            |
 | wrapperCol        | 统一应用在每个 Field 上的布局，同[Col 组件](/zh-CN/basic/grid#Col)，设置`span`、`offset`值，如{span: 20, offset: 4}                                 | object                                        |
 
 ## FormState
@@ -2335,7 +2337,9 @@ class FormApiDemo extends React.Component {
 | fieldClassName        | 整个 fieldWrapper 的 className，作用与 name 参数一致，区别是不会自动追加前缀                                                                                                                                        | string                                                                                        |
 | fieldStyle            | 整个 fieldWrapper 的 内联样式                                                                                                                                        | object                                                                                        |
 | initValue             | 该表单控件的初始值（仅在 Field mounted 时消费一次，后续更新无效），相比 Form 的 initValues 中的值，它的优先级更高                                                                                                   | any（类型取决于当前组件，详细见各组件的 api）                                                 |
-| validate              | 该表单控件的的自定义校验函数。支持同步、异步校验（通过返回promise）。<br/>设置了 validate 时，rules 不会生效<br/> 使用示例：(fieldValue, values) => fieldValue >= 5 ? 'value not valid': ''                                              | function(fieldValue, values)                                                                  |           |
+| validator             | **推荐**。该表单控件的自定义校验函数。支持同步、异步校验（通过返回 promise）。<br/>设置了 validator 时，rules 不会生效<br/>使用示例：(fieldValue, values) => fieldValue >= 5 ? 'value not valid' : ''                                      | function(fieldValue, values)                                                                  |           |
+| onValidate            | **已废弃（仍兼容）**。建议使用 validator 替代。该表单控件的自定义校验函数。支持同步、异步校验（通过返回 promise）。<br/>设置了 onValidate 时，rules 不会生效<br/>使用示例：(fieldValue, values) => fieldValue >= 5 ? 'value not valid' : ''                                      | function(fieldValue, values)                                                                  |           |
+| validate              | **已废弃（仍兼容）**。请使用 validator 替代。该表单控件的自定义校验函数。支持同步、异步校验（通过返回 promise）。<br/>设置了 validate 时，rules 不会生效<br/>使用示例：(fieldValue, values) => fieldValue >= 5 ? 'value not valid' : '' | function(fieldValue, values)                                                                  |           |
 | rules                 | 校验规则，校验库基于[async-validator](https://github.com/yiminghe/async-validator) <br/> 使用示例：const rules=\[{ required: true, message: 'can't be null ' },<br/>{ max: 10, message: 'can't more than 10 word' }\] | array                                                                                         |           |
 | validateStatus        | 该表单控件的校验结果状态（仅影响样式），可选值:`success`/`error`/`warning`/`default`                                                                                                                                | string                                                                                        | 'default' |
 | trigger               | 触发校验的时机，可选值:`blur`/`change`/`custom`/`mount`，或以上值的组合\[`'blur'`,`'change'`\]<br/>1、设置为 custom 时，仅会由 formApi/fieldApi 触发校验时被触发<br/>2、mount（挂载时即触发一次校验）                     | string/array                                                                                  | 'change'  |

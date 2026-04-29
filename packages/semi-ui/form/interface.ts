@@ -28,7 +28,23 @@ export type CommonFieldProps = {
     fieldClassName?: string;
     fieldStyle?: React.CSSProperties;
     initValue?: any;
+    /**
+     * Custom field validation function
+     * @deprecated Use `validator` instead. This alias will be maintained for backward compatibility.
+     */
     validate?: (fieldValue: any, values: Record<string, any>) => string | Promise<string>;
+    /**
+     * Custom field validation function (**recommended**)
+     * @param fieldValue - The current field value
+     * @param values - All form values
+     * @returns Error message string, empty string for valid, or Promise that resolves to error message
+     */
+    validator?: (fieldValue: any, values: Record<string, any>) => string | Promise<string>;
+    /**
+     * Custom field validation function
+     * @deprecated `onValidate` is misleading as an event-like naming. Use `validator` instead. This alias will be maintained for backward compatibility.
+     */
+    onValidate?: (fieldValue: any, values: Record<string, any>) => string | Promise<string>;
     /** Check rules, check library based on async-validator */
     rules?: Array<RuleItem>;
     /** Check trigger timing */
@@ -107,7 +123,22 @@ export interface BaseFormProps <Values extends Record<string, any> = any> extend
     onErrorChange?: (errors: Record<keyof Values, FieldError>, changedError?: Partial<Record<keyof Values, FieldError>>) => void;
     onChange?: (formState: FormState<Values>) => void;
     allowEmpty?: boolean;
+    /**
+     * Custom form-level validation function
+     * @deprecated Use `validator` instead. This alias will be maintained for backward compatibility.
+     */
     validateFields?: (values: Values) => BatchValidateResult<Values> | Promise<BatchValidateResult<Values>>;
+    /**
+     * Custom form-level validation function (**recommended**)
+     * @param values - All form values
+     * @returns Errors object with field names as keys, empty string for valid, or Promise that resolves to errors
+     */
+    validator?: (values: Values) => BatchValidateResult<Values> | Promise<BatchValidateResult<Values>>;
+    /**
+     * Custom form-level validation function
+     * @deprecated `onValidate` is misleading as an event-like naming. Use `validator` instead. This alias will be maintained for backward compatibility.
+     */
+    onValidate?: (values: Values) => BatchValidateResult<Values> | Promise<BatchValidateResult<Values>>;
     /** Use this if you want to populate the form with initial values. */
     initValues?: Values;
     id?: string;
