@@ -8,9 +8,9 @@ import { resolveDOM, getRef } from '../_utils/reactRender';
 
 export interface DragMoveProps {
     // The element that triggers the drag event，default is element
-    handler?: () => ReactNode;
+    handler?: () => HTMLElement;
     // The element that constrains the movement range, This element requires relative positioning
-    constrainer?: () => ReactNode | 'parent';
+    constrainer?: () => HTMLElement | 'parent';
     children?: ReactNode | undefined | any;
     onMouseDown?: (e: MouseEvent) => void;
     onMouseMove?: (e: MouseEvent) => void;
@@ -33,6 +33,9 @@ export default class DragMove extends BaseComponent<DragMoveProps> {
         handler: PropTypes.func,
         allowInputDrag: PropTypes.bool,
         constrainNode: PropTypes.func,
+        constrainer: PropTypes.oneOfType([PropTypes.func, PropTypes.oneOf(['parent'])]),
+        allowMove: PropTypes.func,
+        customMove: PropTypes.func,
         onMouseDown: PropTypes.func,
         onMouseMove: PropTypes.func,
         onMouseUp: PropTypes.func,
