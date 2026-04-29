@@ -158,7 +158,9 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     }
 
     validate(fieldPaths?: Array<string> | ValidateOptions): Promise<unknown> {
-        const { validateFields } = this.getProps();
+        const props = this.getProps();
+        // Support onValidate as alias for validateFields (onValidate takes precedence)
+        const validateFields = props.onValidate || props.validateFields;
         
         // Parse options
         let fields: Array<string> | undefined;
@@ -184,7 +186,9 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     // form level validate
     _formValidate(silent: boolean = false): Promise<unknown> {
         const { values } = this.data;
-        const { validateFields } = this.getProps();
+        const props = this.getProps();
+        // Support onValidate as alias for validateFields (onValidate takes precedence)
+        const validateFields = props.onValidate || props.validateFields;
 
         return new Promise((resolve, reject) => {
             let maybePromisedErrors;
@@ -245,7 +249,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     }
 
     // field level validate
-    _fieldsValidate(fieldPaths: Array<string>, silent: boolean = false): Promise<unknown> {
+    _fieldsValidate(fieldPaths?: Array<string>, silent: boolean = false): Promise<unknown> {
         const { values } = this.data;
         // When there is no custom validation function at Form level, perform validation of each Field
         return new Promise((resolve, reject) => {

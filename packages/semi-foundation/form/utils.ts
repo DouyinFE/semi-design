@@ -131,6 +131,7 @@ export function mergeProps(props: any) {
         wrapperCol,
         initValue,
         validate,
+        onValidate,
         /**
          * error、warning、default、success
          */
@@ -179,6 +180,10 @@ export function mergeProps(props: any) {
     const required = isRequired(rules);
 
     emptyValue = typeof emptyValue !== 'undefined' ? emptyValue : '';
+    
+    // Handle onValidate as alias for validate (onValidate takes precedence)
+    const finalValidate = onValidate || validate;
+
     return {
         field,
         label,
@@ -191,7 +196,7 @@ export function mergeProps(props: any) {
         noErrorMessage,
         isInInputGroup,
         initValue,
-        validate,
+        validate: finalValidate,
         validateStatus,
         trigger,
         allowEmptyString,

@@ -728,7 +728,7 @@ import { Form } from '@douyinfe/semi-ui';
             trigger='blur'
             noLabel={true}
             style={{ width: 250 }}
-            validate={val => val !== 'semi' ? 'not semi' : '' }
+            onValidate={val => val !== 'semi' ? 'not semi' : '' }
             placeholder='Type your name'
         />
         <Form.Input field='purename' pure placeholder='DOM same as origin Input component'/>
@@ -823,7 +823,7 @@ import { Form } from '@douyinfe/semi-ui';
     const [validateStatus, setValidateStatus] = useState('default');
     const formRef = useRef();
 
-    const validate = (val, values) => {
+    const onValidate = (val, values) => {
         if (!val) {
             setValidateStatus('error');
             return <span>Password can not be blank</span>;
@@ -854,7 +854,7 @@ import { Form } from '@douyinfe/semi-ui';
             onSubmitFail={(errors) => console.log(errors)}
         >
             <Form.Input
-                validate={validate}
+                onValidate={onValidate}
                 field="Password"
                 validateStatus={validateStatus}
                 helpText={helpText}
@@ -1117,7 +1117,7 @@ import { Form, Button } from '@douyinfe/semi-ui';
 
 ### Custom Validate (Form Level)
 
-You can set a custom validation function validateFields for the `form` as a whole, which will be called when submit
+You can set a custom validation function for the `Form` as a whole. **Recommended:** use `onValidate` (`validateFields` is legacy but still compatible). It will be called on submit or when calling `formApi.validate()`.
 
 #### Synchronous Validate
 
@@ -1151,7 +1151,7 @@ class FormLevelValidateSync extends React.Component {
 
     render() {
         return (
-            <Form validateFields={this.syncValidate} layout='horizontal'>
+            <Form onValidate={this.syncValidate} layout='horizontal'>
                 <Form.Input field='name' trigger='blur'></Form.Input>
                 <Form.Input field='familyName[0].before' trigger='blur'></Form.Input>
                 <Form.Input field='familyName[0].after' trigger='blur'></Form.Input>
@@ -1198,7 +1198,7 @@ class FormLevelValidateAsync extends React.Component {
 
     render() {
         return (
-            <Form validateFields={this.asyncValidate} layout='horizontal'>
+            <Form onValidate={this.asyncValidate} layout='horizontal'>
                 <Form.Input field='name' trigger='blur'></Form.Input>
                 <Form.Input field='familyName[0].before' trigger='blur'></Form.Input>
                 <Form.Input field='familyName[1]' trigger='blur'></Form.Input>
@@ -1217,7 +1217,7 @@ class FormLevelValidateAsync extends React.Component {
 
 ### Custom Validate (Field Level)
 
-You can specify a custom validation function for field. Supports synchronous and asynchronous validation (by returning promises)
+You can specify a custom validation function for a single Field. **Recommended:** use `onValidate` (`validate` is legacy but still compatible). Supports synchronous and asynchronous validation (by returning promises)
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -1255,8 +1255,8 @@ class FieldLevelValidateDemo extends React.Component {
     render() {
         return (
             <Form>
-                <Form.Input field='name' label='【name】asyncValidate after 2s' validate={this.asyncValidate} trigger='blur'></Form.Input>
-                <Form.Input field='familyName' label='【familyName】syncValidate' validate={this.validateName} trigger='blur'></Form.Input>
+                <Form.Input field='name' label='【name】asyncValidate after 2s' onValidate={this.asyncValidate} trigger='blur'></Form.Input>
+                <Form.Input field='familyName' label='【familyName】syncValidate' onValidate={this.validateName} trigger='blur'></Form.Input>
                 <Button htmlType="reset">reset</Button>
             </Form >
         );
@@ -1384,13 +1384,13 @@ class PartValidAndResetDemo extends React.Component {
                     ({ formState, values, formApi }) => (
                         <>
                             <div>
-                                <Form.Input field="a[1]" validate={this.validate} trigger="blur" />
-                                <Form.Input field="a[0]" validate={this.validate} trigger="blur" />
-                                <Form.Input field="b.name[0]" validate={this.validate} trigger="blur" />
-                                <Form.Input field="b.name[1]" validate={this.validate} trigger="blur" />
-                                <Form.Input field="b.type" validate={this.validate} trigger="blur" />
-                                <Form.Input field="c" validate={this.validate} trigger="blur" />
-                                <Form.Input field="d" validate={this.validate} trigger="blur" />
+                                <Form.Input field="a[1]" onValidate={this.validate} trigger="blur" />
+                                <Form.Input field="a[0]" onValidate={this.validate} trigger="blur" />
+                                <Form.Input field="b.name[0]" onValidate={this.validate} trigger="blur" />
+                                <Form.Input field="b.name[1]" onValidate={this.validate} trigger="blur" />
+                                <Form.Input field="b.type" onValidate={this.validate} trigger="blur" />
+                                <Form.Input field="c" onValidate={this.validate} trigger="blur" />
+                                <Form.Input field="d" onValidate={this.validate} trigger="blur" />
                             </div>
                             <div>
                                 <Form.CheckboxGroup options={options} field="validateScope" label="The Field you want to validate currently" initValue={['a', 'b']} direction="horizontal" />
@@ -2143,7 +2143,8 @@ render(WithFieldDemo2);
 | stopValidateWithError | Apply stopValidateWithError to each Field uniformly. For usage instructions, see the API of the same name in Field props (available after v2.42)                                                                            | boolean                             | false     |
 | stopPropagation | Whether to prevent submit or reset events from bubbling. This is used in nested Form scenarios to prevent events from propagating outwards when the inner Form submits or resets, triggering events in the outer Form. The default is `{ reset: false, submit: false }`(available after v2.63)                                                                              | object                             |      |
 | trigger  | Apply the trigger uniformly to each Field to control the timing of verification. For detailed instructions, see the API of the same name in Field props.(available after v2.42)                                               | string\|array                            |  'change'  |
-| validateFields    | Form-level custom validate functions are called at submit or formApi.validate(). <br/>Supported synchronous / asynchronous function                                                                                                                                                                                 | function (values)                               |            |
+| onValidate        | Form-level custom validation function (**recommended**). Called at submit or formApi.validate(). <br/>Supports synchronous / asynchronous functions                                                                                                                                                                 | function (values)                               |            |
+| validateFields    | Form-level custom validation function (**deprecated**, use onValidate; still compatible). Called at submit or formApi.validate(). <br/>Supports synchronous / asynchronous functions                                                                                                                                | function (values)                               |            |
 | wrapperCol        | Uniformly apply the layout on each Field, with [Col component](/en-US/basic/grid#Col), <br/>set `span`, `span` values, such as {span: 20, offset: 4}                                                                                                                                     | object                                          |
 
 ## FormState
@@ -2326,7 +2327,8 @@ import { Form, Button } from '@douyinfe/semi-ui';
 | fieldClassName        | The className of the entire fieldWrapper is the same as the name parameter, except that the prefix is ​​not automatically appended                                                                                                       | string                                 |           |
 | fieldStyle            | The inline style of the entire fieldWrapper                                                                                                      | object                                 |           |
 | initValue             | The initial value of the field (consumed only once when Field mounted, subsequent updates are invalid), it has higher priority than the values ​​in Form's initValues ​​                                                                 | any(type depends on current component) |           |
-| validate              | The custom validation function for this form control. Supports synchronous and asynchronous verification. <br/> Rules does not take effect when validate is set                                                                           | function(fieldValue, values)           |           | (fieldValue) => fieldValue.length>5? 'error balabala': ''          |
+| onValidate            | The custom validation function for this form control (**recommended**). Supports synchronous and asynchronous validation. <br/>Rules does not take effect when onValidate is set                                                                 | function(fieldValue, values)           |           | (fieldValue) => fieldValue.length>5? 'error balabala': ''          |
+| validate              | The custom validation function for this form control (**deprecated**, use onValidate; still compatible). Supports synchronous and asynchronous validation. <br/>Rules does not take effect when validate/onValidate is set                   | function(fieldValue, values)           |           | (fieldValue) => fieldValue.length>5? 'error balabala': ''          |
 | rules                 | validation rules, validation library based on [async-validator](https://github.com/yiminghe/async-validator)                                                                                                                             | array                                  |           | const rules = \[{type:' string ', message:' invalidate string'} \] |
 | validateStatus        | The validation result status of this form control, optional: `success` / `error` / `warning` / `default`                                                                                                                                 | string                                 | 'default' |
 | trigger               | The timing of triggering the verification, optional: `blur` / `change` / `custom` / `mount` <br/> 1. When set to custom, only formApi will trigger the verification <br/> 2.mount (triggered once when mounting)                          | string                                 | 'change'  |
