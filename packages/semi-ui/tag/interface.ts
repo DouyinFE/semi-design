@@ -63,3 +63,6 @@ export interface TagGroupProps<T> {
     onTagClose?: (tagChildren: React.ReactNode, event: React.MouseEvent<HTMLElement>, tagKey: string | number) => void;
     onPlusNMouseEnter?: () => void
 }
+
+// SplitTagGroupProps is defined in splitTagGroup.tsx to extend BaseProps
+export type { SplitTagGroupProps } from './splitTagGroup';

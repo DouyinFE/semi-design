@@ -1,0 +1,35 @@
+$module: #{$prefix}-tag;
+$component: #{$module}-split;
+
+.#{$component} {
+    display: inline-flex;
+    align-items: center;
+
+    .#{$module} {
+        border-radius: 0;
+        margin-right: 1px;
+
+        &-first {
+            border-top-left-radius: $radius-tag;
+            border-bottom-left-radius: $radius-tag;
+        }
+
+        &-last {
+            border-top-right-radius: $radius-tag;
+            border-bottom-right-radius: $radius-tag;
+            margin-right: unset;
+        }
+
+        &-circle {
+            &.#{$module}-first {
+                border-top-left-radius: $radius-tag_circle;
+                border-bottom-left-radius: $radius-tag_circle;
+            }
+
+            &.#{$module}-last {
+                border-top-right-radius: $radius-tag_circle;
+                border-bottom-right-radius: $radius-tag_circle;
+            }
+        }
+    }
+}

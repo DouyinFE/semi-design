@@ -72,6 +72,7 @@ export { default as Tabs } from './tabs';
 export { default as TabPane } from './tabs/TabPane';
 export { default as Tag } from './tag';
 export { default as TagGroup } from './tag/group';
+export { default as SplitTagGroup } from './tag/splitTagGroup';
 export { default as TagInput } from './tagInput';
 export { default as Timeline } from './timeline';
 export { default as TimePicker } from './timePicker';
