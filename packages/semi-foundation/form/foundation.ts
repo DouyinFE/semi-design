@@ -159,8 +159,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
 
     validate(fieldPaths?: Array<string> | ValidateOptions): Promise<unknown> {
         const props = this.getProps();
-        // Support onValidate as alias for validateFields (onValidate takes precedence)
-        const validateFields = props.onValidate || props.validateFields;
+        // Support validator/onValidate as alias for validateFields (validator takes precedence)
+        const validateFields = props.validator || props.onValidate || props.validateFields;
         
         // Parse options
         let fields: Array<string> | undefined;
@@ -187,8 +187,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     _formValidate(silent: boolean = false): Promise<unknown> {
         const { values } = this.data;
         const props = this.getProps();
-        // Support onValidate as alias for validateFields (onValidate takes precedence)
-        const validateFields = props.onValidate || props.validateFields;
+        // Support validator/onValidate as alias for validateFields (validator takes precedence)
+        const validateFields = props.validator || props.onValidate || props.validateFields;
 
         return new Promise((resolve, reject) => {
             let maybePromisedErrors;
