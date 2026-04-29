@@ -8,6 +8,8 @@ import FileCard from './fileCard';
 import BaseComponent from '../_base/baseComponent';
 import LocaleConsumer from '../locale/localeConsumer';
 import { IconUpload } from '@douyinfe/semi-icons';
+import Cropper from '../cropper';
+import Modal from '../modal';
 import type {
     FileItem,
     RenderFileItemProps,
@@ -20,6 +22,7 @@ import type {
     CustomError,
     RenderPictureCloseProps,
     RenderFileListTitleProps,
+    CropProps,
 } from './interface';
 import { Locale } from '../locale/interface';
 import '@douyinfe/semi-foundation/upload/upload.scss';
@@ -50,6 +53,7 @@ export type {
     BeforeUploadObjectResult,
     AfterUploadResult,
     RenderFileListTitleProps,
+    CropProps,
 };
 
 export interface UploadProps {
@@ -124,7 +128,15 @@ export interface UploadProps {
     validateMessage?: ReactNode;
     validateStatus?: ValidateStatus;
     withCredentials?: boolean;
-    showTooltip?: boolean | ShowTooltip
+    showTooltip?: boolean | ShowTooltip;
+    /** 启用图片裁切功能，可传入裁切配置对象 */
+    crop?: boolean | CropProps;
+    /** 裁切前的回调，返回 false 可阻止裁切 */
+    beforeCrop?: (file: File, fileList: File[]) => boolean | Promise<boolean>;
+    /** 裁切失败的回调 */
+    onCropError?: (error: Error) => void;
+    /** 自定义裁切弹窗属性 */
+    cropModalProps?: Record<string, any>;
 }
 
 export interface UploadState {
@@ -134,7 +146,12 @@ export interface UploadState {
     // Track objectURL created by Upload (legacy, kept for compatibility)
     localUrls: Array<string>;
     replaceIdx: number;
-    replaceInputKey: number
+    replaceInputKey: number;
+    // Cropper state
+    cropperVisible: boolean;
+    cropperFile: File | null;
+    cropperSrc: string;
+    pendingFiles: File[];
 }
 
 class Upload extends BaseComponent<UploadProps, UploadState> {
@@ -207,7 +224,11 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         validateMessage: PropTypes.node,
         validateStatus: PropTypes.oneOf<UploadProps['validateStatus']>(strings.VALIDATE_STATUS),
         withCredentials: PropTypes.bool,
-        showTooltip: PropTypes.oneOfType([PropTypes.bool, PropTypes.object])
+        showTooltip: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+        crop: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+        beforeCrop: PropTypes.func,
+        onCropError: PropTypes.func,
+        cropModalProps: PropTypes.object,
     };
 
     static defaultProps: Partial<UploadProps> = {
@@ -255,10 +276,16 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             // Status of the drag zone
             dragAreaStatus: 'default',
             localUrls: [],
+            // Cropper state
+            cropperVisible: false,
+            cropperFile: null,
+            cropperSrc: '',
+            pendingFiles: [],
         };
         this.foundation = new UploadFoundation(this.adapter);
         this.inputRef = React.createRef<HTMLInputElement>();
         this.replaceInputRef = React.createRef<HTMLInputElement>();
+        this.cropperRef = React.createRef<any>();
     }
 
     /**
@@ -353,6 +380,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     replaceInputRef: RefObject<HTMLInputElement> = null;
     pastingCb: null | ((params: any) => void) = null;
     pasteEventCb: null | ((params: any) => void) = null;
+    cropperRef: RefObject<any> = null;
 
     componentDidMount(): void {
         this.foundation.init();
@@ -377,7 +405,147 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
 
     onChange = (e: ChangeEvent<HTMLInputElement>): void => {
         const { files } = e.target;
+        const { crop } = this.props;
+        
+        if (crop && files && files.length > 0) {
+            // Check if any files are images that need cropping
+            const imageFiles = Array.from(files).filter(file => this.isImageFile(file));
+            
+            if (imageFiles.length > 0) {
+                // Start cropping process
+                this.handleCropFiles(Array.from(files));
+                return;
+            }
+        }
+        
         this.foundation.handleChange(files);
+    };
+
+    /**
+     * Check if file is an image
+     */
+    isImageFile = (file: File): boolean => {
+        return file.type.startsWith('image/');
+    };
+
+    /**
+     * Handle files that may need cropping
+     * Note: Currently only processes the first image file for cropping.
+     * Multiple image cropping can be extended in the future if needed.
+     */
+    handleCropFiles = async (files: File[]): Promise<void> => {
+        const { beforeCrop, crop } = this.props;
+        
+        // Filter image files that need cropping
+        const imageFiles = files.filter(file => this.isImageFile(file));
+        const nonImageFiles = files.filter(file => !this.isImageFile(file));
+        
+        // Check beforeCrop hook
+        if (beforeCrop) {
+            try {
+                const shouldCrop = await beforeCrop(imageFiles[0], files);
+                if (shouldCrop === false) {
+                    // Skip cropping, process files directly
+                    this.foundation.handleChange(files);
+                    return;
+                }
+            } catch (error) {
+                console.error('beforeCrop error:', error);
+                return;
+            }
+        }
+        
+        // Store all files for later processing
+        // Currently only the first image is cropped, subsequent images are ignored
+        // This matches common use cases like avatar upload
+        if (imageFiles.length > 0) {
+            this.setState({
+                cropperVisible: true,
+                cropperFile: imageFiles[0],
+                cropperSrc: URL.createObjectURL(imageFiles[0]),
+                pendingFiles: nonImageFiles,
+            });
+        } else {
+            // No images to crop, process directly
+            this.foundation.handleChange(files);
+        }
+    };
+
+    /**
+     * Handle crop confirmation
+     */
+    handleCropOk = async (): Promise<void> => {
+        const { cropperFile, pendingFiles } = this.state;
+        const { crop, onCropError } = this.props;
+        
+        try {
+            // Get cropped canvas
+            const cropperInstance = this.cropperRef.current;
+            if (!cropperInstance) {
+                throw new Error('Cropper instance not found');
+            }
+            
+            const canvas = cropperInstance.getCropperCanvas();
+            
+            // Convert canvas to blob
+            const cropConfig = typeof crop === 'object' ? crop : {};
+            const quality = cropConfig.quality || 0.92;
+            const type = cropperFile?.type || 'image/png';
+            
+            const blob = await new Promise<Blob>((resolve, reject) => {
+                canvas.toBlob(
+                    (b) => {
+                        if (b) {
+                            resolve(b);
+                        } else {
+                            reject(new Error('Failed to create blob'));
+                        }
+                    },
+                    type,
+                    quality
+                );
+            });
+            
+            // Create new File from blob
+            const croppedFile = new File([blob], cropperFile?.name || 'cropped-image.png', {
+                type,
+                lastModified: Date.now(),
+            });
+            
+            // Combine cropped file with other pending files
+            const allFiles = [croppedFile, ...pendingFiles];
+            
+            // Close cropper and clean up
+            this.handleCropCancel();
+            
+            // Process files through normal upload flow
+            this.foundation.handleChange(allFiles as any);
+            
+        } catch (error) {
+            console.error('Crop error:', error);
+            if (onCropError) {
+                onCropError(error as Error);
+            }
+        }
+    };
+
+    /**
+     * Handle crop cancellation
+     */
+    handleCropCancel = (): void => {
+        const { cropperSrc } = this.state;
+        
+        // Revoke object URL
+        if (cropperSrc) {
+            URL.revokeObjectURL(cropperSrc);
+        }
+        
+        this.setState({
+            cropperVisible: false,
+            cropperFile: null,
+            cropperSrc: '',
+            pendingFiles: [],
+        });
     };
 
     replace = (index: number): void => {
@@ -730,6 +898,51 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         );
     };
 
+    renderCropperModal = (): ReactNode => {
+        const { cropperVisible, cropperSrc } = this.state;
+        const { crop, cropModalProps } = this.props;
+        const cropConfig = typeof crop === 'object' ? crop : {};
+        
+        return (
+            <LocaleConsumer componentName="Upload">
+                {(locale: Locale['Upload']) => {
+                    const modalTitle = cropConfig.modalTitle || locale.cropTitle || '裁切图片';
+                    const modalOkText = cropConfig.modalOkText || locale.cropOk || '确定';
+                    const modalCancelText = cropConfig.modalCancelText || locale.cropCancel || '取消';
+                    
+                    return (
+                        <Modal
+                            title={modalTitle}
+                            visible={cropperVisible}
+                            onOk={this.handleCropOk}
+                            onCancel={this.handleCropCancel}
+                            okText={modalOkText}
+                            cancelText={modalCancelText}
+                            width={600}
+                            {...cropModalProps}
+                            style={{ height: 500, ...cropModalProps?.style }}
+                            bodyStyle={{ height: 400, ...cropModalProps?.bodyStyle }}
+                        >
+                            {cropperSrc && (
+                                <Cropper
+                                    ref={this.cropperRef}
+                                    src={cropperSrc}
+                                    shape={cropConfig.shape || 'rect'}
+                                    aspectRatio={cropConfig.aspectRatio}
+                                    minZoom={cropConfig.minZoom}
+                                    maxZoom={cropConfig.maxZoom}
+                                    zoomStep={cropConfig.zoomStep}
+                                    fill={cropConfig.fill}
+                                    style={{ width: '100%', height: '100%' }}
+                                />
+                            )}
+                        </Modal>
+                    );
+                }}
+            </LocaleConsumer>
+        );
+    };
+
     render(): ReactNode {
         const {
             style,
@@ -806,6 +1019,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                     </div>
                 ) : null}
                 {this.renderFileList()}
+                {this.renderCropperModal()}
             </div>
         );
     }
