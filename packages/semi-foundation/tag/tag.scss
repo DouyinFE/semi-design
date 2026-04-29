@@ -1,6 +1,7 @@
 //@import '../theme/variables.scss';
 @import "./variables.scss";
 @import "./mixin.scss";
+@import "./splitTagGroup.scss";
 $module: #{$prefix}-tag;
 
 $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "light-green", "lime", "orange", "pink",
