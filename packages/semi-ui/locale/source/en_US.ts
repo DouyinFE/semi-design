@@ -139,6 +139,9 @@ const local: Locale = {
         selectedFiles: 'Selected Files',
         illegalSize: 'Illegal file size',
         fail: 'Upload fail',
+        cropTitle: 'Crop Image',
+        cropOk: 'OK',
+        cropCancel: 'Cancel',
     },
     TreeSelect: {
         searchPlaceholder: 'Search',

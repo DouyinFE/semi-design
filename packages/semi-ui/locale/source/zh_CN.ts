@@ -140,6 +140,9 @@ const local: Locale = {
         selectedFiles: '已选择文件',
         illegalSize: '文件尺寸不合法',
         fail: '上传失败',
+        cropTitle: '裁切图片',
+        cropOk: '确定',
+        cropCancel: '取消',
     },
     TreeSelect: {
         searchPlaceholder: '搜索',
