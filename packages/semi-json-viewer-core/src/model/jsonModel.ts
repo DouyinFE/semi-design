@@ -135,9 +135,37 @@ export class JSONModel {
             this.lastChangeBufferPos = op.keepPosition;
             return;
         }
+
+        const getEndPosition = (
+            startLineNumber: number,
+            startColumn: number,
+            text: string
+        ): { lineNumber: number; column: number } => {
+            // Handle LF/CRLF/CR consistently
+            const parts = text.split(/\r\n|\r|\n/);
+            const lineBreakCount = parts.length - 1;
+
+            if (lineBreakCount === 0) {
+                return {
+                    lineNumber: startLineNumber,
+                    column: startColumn + text.length,
+                };
+            }
+
+            return {
+                lineNumber: startLineNumber + lineBreakCount,
+                // After a line break, column is based on the last line segment
+                column: parts[parts.length - 1].length + 1,
+            };
+        };
+
         switch (op.type) {
             case 'insert':
-                this.lastChangeBufferPos.column += op.newText.length;
+                this.lastChangeBufferPos = getEndPosition(
+                    op.range.startLineNumber,
+                    op.range.startColumn,
+                    op.newText
+                );
                 break;
             case 'delete':
                 if (this.lastChangeBufferPos.column === 1) {
@@ -150,10 +178,11 @@ export class JSONModel {
                 }
                 break;
             case 'replace':
-                const newLineNumber = op.range.startLineNumber;
-                const newColumn = op.range.startColumn + op.newText.length;
-                this.lastChangeBufferPos.lineNumber = newLineNumber;
-                this.lastChangeBufferPos.column = newColumn;
+                this.lastChangeBufferPos = getEndPosition(
+                    op.range.startLineNumber,
+                    op.range.startColumn,
+                    op.newText
+                );
                 break;
         }
     }
