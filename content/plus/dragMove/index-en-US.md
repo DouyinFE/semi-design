@@ -222,10 +222,10 @@ function CustomMove() {
 | Property | Description | Type | Default value |
 | --- | --- | --- | ----- |
 | allowInputDrag | Whether to allow dragging when clicking on native input/textarea | boolean | false |
-| allowMove | Determine whether dragging is allowed when clicking/touching. | (event: TouchEvent \|MouseEvent, element: ReactNode) => boolean | - |
-| constrainer | Returns the element that limits the draggable range. | () => ReactNode \| 'parent' | - |
-| customMove | Customize position processing after dragging| (element: ReactNode, top: number, left: number) => void | -|
-| handler | Returns the element that triggers dragging. | () => ReactNode | - |
+| allowMove | Determine whether dragging is allowed when clicking/touching. | (event: TouchEvent \| MouseEvent, element: HTMLElement) => boolean | - |
+| constrainer | Returns the element that limits the draggable range. | () => HTMLElement \| 'parent' | - |
+| customMove | Customize position processing after dragging| (element: HTMLElement, top: number, left: number) => void | -|
+| handler | Returns the element that triggers dragging. | () => HTMLElement | - |
 | onMouseDown | Callback when mouse is pressed | (e: MouseEvent) => void | - |
 | onMouseMove | Callback when mouse moves | (e: MouseEvent) => void | - |
 | onMouseUp | Callback when mouse is raised | (e: MouseEvent) => void | - |
