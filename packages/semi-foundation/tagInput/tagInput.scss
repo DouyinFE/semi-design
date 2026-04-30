@@ -137,6 +137,7 @@ $module: #{$prefix}-tagInput;
         padding-left: $spacing-extra-tight;
         padding-right: $spacing-extra-tight;
         overflow: hidden;
+        position: relative;
 
         &-tag {
             margin-right: $spacing-extra-tight;
@@ -190,6 +191,8 @@ $module: #{$prefix}-tagInput;
         & &-input {
             flex-grow: 1;
             width: min-content;
+            min-width: 2px;
+            max-width: 100%;
             // min-width: 38px;
             border: none;
             outline: none;
@@ -239,6 +242,21 @@ $module: #{$prefix}-tagInput;
                     line-height: $height-tagInput_input_large;
                 }
             }
+        }
+
+        /* hidden mirror used to measure input text width */
+        &-inputMirror {
+            position: absolute;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+            pointer-events: none;
+            height: 0;
+            overflow: hidden;
+            white-space: pre;
+            font-size: $font-size-regular;
+            font-weight: $font-weight-regular;
+            font-family: inherit;
         }
     }
 
