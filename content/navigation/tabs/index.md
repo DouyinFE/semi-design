@@ -642,6 +642,141 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
 );
 ```
 
+### 拖拽排序
+
+通过 `renderTabBar` API 结合第三方拖拽库（如 [@dnd-kit](https://docs.dndkit.com/)）可以实现标签栏的拖拽排序功能。
+
+<Notice title='使用前提'>
+    需要先安装 dnd-kit 相关依赖：<br/>
+    <code>npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities</code>
+</Notice>
+
+```jsx live=true hideInDSM
+import React, { useState } from 'react';
+import { Tabs, TabPane } from '@douyinfe/semi-ui';
+import {
+    DndContext,
+    closestCenter,
+    KeyboardSensor,
+    PointerSensor,
+    useSensor,
+    useSensors,
+} from '@dnd-kit/core';
+import {
+    arrayMove,
+    SortableContext,
+    sortableKeyboardCoordinates,
+    horizontalListSortingStrategy,
+    useSortable,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
+// 可拖拽的 TabItem 组件
+const SortableTabItem = (props) => {
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+        isDragging,
+    } = useSortable({
+        id: props.id,
+        disabled: props.disabled,
+    });
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+        opacity: isDragging ? 0.5 : 1,
+        cursor: props.disabled ? 'not-allowed' : 'grab',
+        zIndex: isDragging ? 1 : 0,
+        display: 'inline-block',
+    };
+
+    return (
+        <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+            <div
+                role="tab"
+                aria-selected={props.selected}
+                className={`semi-tabs-tab semi-tabs-tab-line ${props.selected ? 'semi-tabs-tab-active' : ''} ${props.disabled ? 'semi-tabs-tab-disabled' : ''}`}
+                onClick={() => !props.disabled && props.onClick?.(props.id)}
+            >
+                {props.tab}
+            </div>
+        </div>
+    );
+};
+
+// 拖拽排序的 Tabs 示例
+function DraggableTabsDemo() {
+    const [activeKey, setActiveKey] = useState('1');
+    const [items, setItems] = useState([
+        { itemKey: '1', tab: '文档', content: '文档内容' },
+        { itemKey: '2', tab: '表格', content: '表格内容' },
+        { itemKey: '3', tab: '幻灯片', content: '幻灯片内容' },
+        { itemKey: '4', tab: '表单', content: '表单内容' },
+    ]);
+
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: { distance: 5 },
+        }),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
+
+    const handleDragEnd = (event) => {
+        const { active, over } = event;
+        if (over && active.id !== over.id) {
+            setItems((items) => {
+                const oldIndex = items.findIndex((i) => i.itemKey === active.id);
+                const newIndex = items.findIndex((i) => i.itemKey === over.id);
+                return arrayMove(items, oldIndex, newIndex);
+            });
+        }
+    };
+
+    return (
+        <Tabs
+            activeKey={activeKey}
+            onChange={setActiveKey}
+            renderTabBar={(tabBarProps) => (
+                <DndContext
+                    sensors={sensors}
+                    collisionDetection={closestCenter}
+                    onDragEnd={handleDragEnd}
+                >
+                    <SortableContext
+                        items={items.map((i) => i.itemKey)}
+                        strategy={horizontalListSortingStrategy}
+                    >
+                        <div className="semi-tabs-bar" role="tablist">
+                            {items.map((item) => (
+                                <SortableTabItem
+                                    key={item.itemKey}
+                                    id={item.itemKey}
+                                    tab={item.tab}
+                                    selected={activeKey === item.itemKey}
+                                    onClick={setActiveKey}
+                                />
+                            ))}
+                        </div>
+                    </SortableContext>
+                </DndContext>
+            )}
+        >
+            {items.map((item) => (
+                <TabPane key={item.itemKey} tab={item.tab} itemKey={item.itemKey}>
+                    <div style={{ padding: 20 }}>{item.content}</div>
+                </TabPane>
+            ))}
+        </Tabs>
+    );
+}
+```
+
 ### 动态更新
 
 通过绑定事件，可以使标签栏动态更新。
@@ -765,7 +900,7 @@ class App extends React.Component {
 | keepDOM | 使用 TabPane 写法时是否渲染隐藏面板的 DOM 结构 | boolean | true |
 | lazyRender | 懒渲染，仅当面板激活过才被渲染在 DOM 树中  | boolean | false |
 | more | 将一部分 Tab 渲染到下拉菜单中 ** >= 2.59.0** | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | - |
-| renderTabBar | 用于二次封装标签栏 | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | 无 |
+| renderTabBar | 用于二次封装标签栏，可配合第三方拖拽库实现标签排序功能 | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | 无 |
 | renderArrow | 折叠滚动模式下，自定义左右切换箭头如何渲染，默认为箭头按钮 hover 时展开溢出项。前三个参数自 **>=2.61.0** 支持，defaultNode 参数自 **>=2.66.0** 支持| (items: OverflowItem[],pos:"start"\|"end", handleArrowClick:()=>void, defaultNode: ReactNode)=> ReactNode | 无 |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | showRestInDropdown | 是否将收起的 Tab 展示在下拉菜单中（仅当 collapsible 为 true 时生效） **>= 2.61.0** | boolean | true |
