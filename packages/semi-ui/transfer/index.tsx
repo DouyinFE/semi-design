@@ -18,6 +18,8 @@ import { IconClose, IconSearch, IconHandle } from '@douyinfe/semi-icons';
 import { Value as TreeValue, TreeProps } from '../tree/interface';
 import { RenderItemProps, Sortable } from '../_sortable';
 import { verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { FixedSizeList as VirtualList } from 'react-window';
+import AutoSizer from '../tree/autoSizer';
 
 export interface DataItem extends BasicDataItem {
     label?: React.ReactNode;
@@ -106,6 +108,15 @@ export interface SelectedPanelProps {
     onSortEnd: OnSortEnd
 }
 
+export interface VirtualizeProps {
+    /* Height of virtualized list */
+    height?: number | string;
+    /* Width of virtualized list */
+    width?: number | string;
+    /* Size of each item in the virtualized list */
+    itemSize: number
+}
+
 export interface ResolvedDataItem extends DataItem {
     _parent?: {
         title: string
@@ -168,6 +179,7 @@ export interface TransferProps {
     treeProps?: Omit<TreeProps, 'value' | 'ref' | 'onChange'>;
     showPath?: boolean;
     loading?: boolean;
+    virtualize?: VirtualizeProps;
     onChange?: (values: Array<string | number>, items: Array<DataItem>) => void;
     onSelect?: (item: DataItem) => void;
     onDeselect?: (item: DataItem) => void;
@@ -209,6 +221,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         renderSourcePanel: PropTypes.func,
         renderSelectedPanel: PropTypes.func,
         draggable: PropTypes.bool,
+        virtualize: PropTypes.object,
     };
 
     static defaultProps = {
@@ -665,9 +678,83 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         return sortList;
     }
 
+    renderVirtualizedSelectedList(selectedData: Array<ResolvedDataItem>) {
+        const { virtualize } = this.props;
+        if (!virtualize || isEmpty(virtualize)) {
+            return null;
+        }
+        const { height, width, itemSize } = virtualize;
+
+        // Keep item identity stable when removing/inserting items.
+        // Otherwise react-window may reuse DOM nodes by index and cause visual glitches.
+        const itemKey = (index: number) => {
+            const item = selectedData[index];
+            return item?.key ?? index;
+        };
+
+        // Add semantics back to the scroll container (react-window renders divs by default).
+        const OuterElement = React.forwardRef<HTMLDivElement, any>((props: any, ref) => (
+            <div {...props} ref={ref} role="list" aria-label="Selected list" />
+        ));
+
+        const listCls = `${prefixCls}-right-list ${prefixCls}-right-virtual-list`;
+
+        // Virtual list item renderer
+        const VirtualizedItem = ({ index, style }: { index: number; style: React.CSSProperties }) => {
+            const item = selectedData[index];
+            return (
+                <div role="presentation" style={style}>
+                    {this.renderRightItem(item)}
+                </div>
+            );
+        };
+
+        // Use AutoSizer to automatically calculate height if height is not specified or is percentage
+        if (typeof height !== 'number') {
+            return (
+                <div style={{ flexGrow: 1, minHeight: 0 }}>
+                    <AutoSizer defaultHeight={height} defaultWidth={width}>
+                        {({ height: autoHeight, width: autoWidth }: { height: string | number; width: string | number }) => (
+                            <VirtualList
+                                height={autoHeight}
+                                // Keep consistent with existing TreeSelect usage: AutoSizer width may be string (e.g. '100%').
+                                // @ts-ignore react-window typing expects number but runtime can handle CSS width strings.
+                                width={autoWidth}
+                                itemCount={selectedData.length}
+                                itemSize={itemSize}
+                                itemKey={itemKey}
+                                className={listCls}
+                                // @ts-ignore react-window typing is too strict for custom outer element
+                                outerElementType={OuterElement}
+                            >
+                                {VirtualizedItem}
+                            </VirtualList>
+                        )}
+                    </AutoSizer>
+                </div>
+            );
+        }
+
+        // Directly use VirtualList with specified height
+        return (
+            <VirtualList
+                height={height}
+                width={width || '100%'}
+                itemCount={selectedData.length}
+                itemSize={itemSize}
+                itemKey={itemKey}
+                className={listCls}
+                // @ts-ignore react-window typing is too strict for custom outer element
+                outerElementType={OuterElement}
+            >
+                {VirtualizedItem}
+            </VirtualList>
+        );
+    }
+
     renderRight(locale: Locale['Transfer']) {
         const { selectedItems } = this.state;
-        const { emptyContent, renderSelectedPanel, draggable } = this.props;
+        const { emptyContent, renderSelectedPanel, draggable, virtualize } = this.props;
         const selectedData = [...selectedItems.values()].map(item => ({
             ...item,
             fullPath: this.getFullPath(item)
@@ -701,12 +788,20 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
         let content = null;
 
+        // Check if virtualization should be used
+        const shouldVirtualize = virtualize && !isEmpty(virtualize);
+
         switch (true) {
             // when empty
             case !selectedData.length:
                 content = emptyCom;
                 break;
-            case selectedData.length && !draggable:
+            // Use virtualized list when virtualize prop is provided
+            case shouldVirtualize && selectedData.length && !draggable:
+                content = this.renderVirtualizedSelectedList(selectedData);
+                break;
+            // Use normal list
+            case !shouldVirtualize && selectedData.length && !draggable:
                 const list = (
                     <div className={`${prefixCls}-right-list`} role="list" aria-label="Selected list">
                         {selectedData.map(item => this.renderRightItem({ ...item }))}
@@ -714,6 +809,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 );
                 content = list;
                 break;
+            // Use sortable list when draggable is true
             case selectedData.length && draggable:
                 content = this.renderRightSortableList(selectedData);
                 break;
