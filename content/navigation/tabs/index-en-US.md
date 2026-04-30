@@ -627,6 +627,141 @@ class App extends React.Component {
 }
 ```
 
+### Drag and Drop Reordering
+
+You can implement drag-and-drop tab reordering using `renderTabBar` API combined with third-party drag libraries like [@dnd-kit](https://docs.dndkit.com/).
+
+<Notice title='Prerequisites'>
+    Install dnd-kit dependencies first:<br/>
+    <code>npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities</code>
+</Notice>
+
+```jsx live=true hideInDSM
+import React, { useState } from 'react';
+import { Tabs, TabPane } from '@douyinfe/semi-ui';
+import {
+    DndContext,
+    closestCenter,
+    KeyboardSensor,
+    PointerSensor,
+    useSensor,
+    useSensors,
+} from '@dnd-kit/core';
+import {
+    arrayMove,
+    SortableContext,
+    sortableKeyboardCoordinates,
+    horizontalListSortingStrategy,
+    useSortable,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
+// Sortable TabItem component
+const SortableTabItem = (props) => {
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+        isDragging,
+    } = useSortable({
+        id: props.id,
+        disabled: props.disabled,
+    });
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+        opacity: isDragging ? 0.5 : 1,
+        cursor: props.disabled ? 'not-allowed' : 'grab',
+        zIndex: isDragging ? 1 : 0,
+        display: 'inline-block',
+    };
+
+    return (
+        <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+            <div
+                role="tab"
+                aria-selected={props.selected}
+                className={`semi-tabs-tab semi-tabs-tab-line ${props.selected ? 'semi-tabs-tab-active' : ''} ${props.disabled ? 'semi-tabs-tab-disabled' : ''}`}
+                onClick={() => !props.disabled && props.onClick?.(props.id)}
+            >
+                {props.tab}
+            </div>
+        </div>
+    );
+};
+
+// Draggable Tabs Demo
+function DraggableTabsDemo() {
+    const [activeKey, setActiveKey] = useState('1');
+    const [items, setItems] = useState([
+        { itemKey: '1', tab: 'Document', content: 'Document content' },
+        { itemKey: '2', tab: 'Table', content: 'Table content' },
+        { itemKey: '3', tab: 'Slides', content: 'Slides content' },
+        { itemKey: '4', tab: 'Form', content: 'Form content' },
+    ]);
+
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: { distance: 5 },
+        }),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
+
+    const handleDragEnd = (event) => {
+        const { active, over } = event;
+        if (over && active.id !== over.id) {
+            setItems((items) => {
+                const oldIndex = items.findIndex((i) => i.itemKey === active.id);
+                const newIndex = items.findIndex((i) => i.itemKey === over.id);
+                return arrayMove(items, oldIndex, newIndex);
+            });
+        }
+    };
+
+    return (
+        <Tabs
+            activeKey={activeKey}
+            onChange={setActiveKey}
+            renderTabBar={(tabBarProps) => (
+                <DndContext
+                    sensors={sensors}
+                    collisionDetection={closestCenter}
+                    onDragEnd={handleDragEnd}
+                >
+                    <SortableContext
+                        items={items.map((i) => i.itemKey)}
+                        strategy={horizontalListSortingStrategy}
+                    >
+                        <div className="semi-tabs-bar" role="tablist">
+                            {items.map((item) => (
+                                <SortableTabItem
+                                    key={item.itemKey}
+                                    id={item.itemKey}
+                                    tab={item.tab}
+                                    selected={activeKey === item.itemKey}
+                                    onClick={setActiveKey}
+                                />
+                            ))}
+                        </div>
+                    </SortableContext>
+                </DndContext>
+            )}
+        >
+            {items.map((item) => (
+                <TabPane key={item.itemKey} tab={item.tab} itemKey={item.itemKey}>
+                    <div style={{ padding: 20 }}>{item.content}</div>
+                </TabPane>
+            ))}
+        </Tabs>
+    );
+}
+```
+
 ### Dynamic Update
 
 You can add events to update tabBar dynamically.
@@ -748,7 +883,7 @@ class App extends React.Component {
 | keepDOM | Whether to render the DOM structure of the hidden panel when using TabPane writing, **>=1.0.0** | boolean | true |
 | lazyRender | Lazy rendering, only when the panel is activated will it be rendered in the DOM tree, **>=1.0.0** | boolean | false |
 | more | Render a portion of the Tab into a drop-down menu ** >= 2.59.0** | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | - |
-| renderTabBar | Used for secondary packaging tab bar | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | None |
+| renderTabBar | Used for secondary packaging tab bar, can be combined with third-party drag libraries to implement tab reordering | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | None |
 | renderArrow | Customize how overflow items indicator are rendered externally. By default, the overflow items are expanded when the arrow button is hovered. The first three parameters of renderArrow are supported since **>=2.61.0**, defaultNode is supported since **>=2.66.0** | (items: OverflowItem[],pos:"start"\|"end", handleArrowClick:()=>void, defaultNode: ReactNode)=> ReactNode | None |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |
 | showRestInDropdown | Whether to display the collapsed Tab in the drop-down menu (only effective when collapsible is true) **>= 2.61.0** | boolean | true |
