@@ -1425,6 +1425,7 @@ import { Transfer, Button } from '@douyinfe/semi-ui';
 | style | 内联样式 | CSSProperties |  |  |
 | treeProps | 当 type 为`treeList`时，可作为 TreeProps 传入左侧的 Tree 组件 | [TreeProps](/zh-CN/navigation/tree#Tree) | | - |
 | type | Transfer 类型，可选`list`，`groupList`，`treeList` | string | 'list' | - |
+| virtualize | 右侧已选列表虚拟化，仅在默认右侧面板渲染且 `draggable` 为 `false` 时生效 | VirtualizeProps |  | - |
 | value | 已选中值，传入该项时，将作为受控组件使用 | Array<string\|number> |  |  |
 
 ### Item Interface
@@ -1455,6 +1456,14 @@ TreeItem 继承 Item 的所有属性
 | 属性     | 说明   | 类型             | 默认值 |
 | -------- | ------ | ---------------- | ------ |
 | children | 子元素 | Array<TreeItem\> |        |
+
+### VirtualizeProps Interface
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| height | 虚拟列表高度，传入 `number` 则直接生效，传入 `string`（如 `100%`）则根据剩余高度自适应 | number \| string | |
+| width | 虚拟列表宽度 | number \| string | |
+| itemSize | 每行高度（固定） | number | |
 
 ## Methods
 绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
