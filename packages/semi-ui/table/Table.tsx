@@ -483,6 +483,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             const columns = mergeColumns(state.queries, newFlattenColumns, null, false);
             willUpdateStates.flattenColumns = newFlattenColumns;
             willUpdateStates.queries = [...columns];
+            // Note: keep the latest functions/ReactNode from JSX children.
+            // cachedColumns is used as the source of truth for rendering.
             willUpdateStates.cachedColumns = [...newNestedColumns];
             willUpdateStates.cachedChildren = props.children;
         }
@@ -598,7 +600,16 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
          * 1. Cache filtered sorted data and a collection of data rows, stored in this
          * 2. Update pager and group, stored in state
          */
-        if (dataSource !== prevProps.dataSource || stateCachedColumns !== prevState.cachedColumns || stateCachedChildren !== prevState.cachedChildren) {
+        const nextGetCheckboxProps = get(this.props.rowSelection, 'getCheckboxProps');
+        const prevGetCheckboxProps = get(prevProps.rowSelection, 'getCheckboxProps');
+
+        // Recompute filtered/sorted cache when:
+        // - dataSource prop changes
+        // - queries changes (sorting/filtering/columns derived states)
+        // - getCheckboxProps changes (affects disabled row keys)
+        // Avoid using cachedColumns/cachedChildren reference comparison here,
+        // because JSX children can be recreated frequently and cause nested updates.
+        if (dataSource !== prevProps.dataSource || stateQueries !== prevState.queries || nextGetCheckboxProps !== prevGetCheckboxProps) {
             // TODO: foundation.getFilteredSortedDataSource has side effects and will be modified to the dataSource reference
             // Temporarily use _dataSource=[...dataSource] for processing
             const _dataSource = [...dataSource];
