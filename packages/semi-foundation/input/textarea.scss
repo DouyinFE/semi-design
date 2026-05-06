@@ -16,6 +16,21 @@ $module: #{$prefix}-input;
     transition: background-color $transition_duration-input-bg $transition_function-input-bg $transition_delay-input-bg,
     border $transition_duration-input-border $transition_function-input-border $transition_delay-input-border;
 
+    // When native resize changes textarea width, wrapper (border/clear/counter) should follow.
+    // Default wrapper is `width: 100%`, so it won't grow with textarea. Enable shrink-to-fit.
+    &-resizeX {
+        // Keep original textarea wrapper formatting (stacking counter, etc.),
+        // only shrink-to-fit width so border follows horizontal resize.
+        // Using inline-flex here may change internal layout and cause clear/counter misalignment.
+        display: inline-block;
+        width: fit-content;
+        max-width: 100%;
+    }
+
+    &-resizeY {
+        // Keep default width behavior; vertical resize doesn't require wrapper width change.
+    }
+
     &:hover {
         background-color: $color-input_default-bg-hover;
     }
@@ -40,6 +55,10 @@ $module: #{$prefix}-input;
         color: $color-textarea-icon-default;
         right: $spacing-textarea-icon-right;
         height: $height-textarea-default;
+        // Center the icon within the clearbtn area
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         & > svg {
             pointer-events: none;
@@ -130,6 +149,7 @@ $module: #{$prefix}-input;
 
 .#{$module}-textarea {
     position: relative;
+    // resize is now controlled by resize prop, default to none for backward compatibility
     resize: none;
     // min-height: $height-input_default;
     padding: $spacing-textarea-paddingY $spacing-textarea-paddingX;
@@ -177,6 +197,8 @@ $module: #{$prefix}-input;
 
     &-autosize {
         overflow: hidden;
+        // When autosize is enabled, force resize to none to avoid conflicts
+        resize: none;
     }
 
     &-counter {
@@ -193,6 +215,12 @@ $module: #{$prefix}-input;
             color: $color-input_counter_danger-text-default;
         }
     }
+}
+
+.#{$module}-textarea-wrapper-resizeX {
+    // Keep default textarea width behavior to avoid forcing overflow in narrow containers.
+    // When user drags native resize handle, browser will apply an inline width/height,
+    // and wrapper (fit-content) will follow that size.
 }
 
 .#{$module}-textarea-borderless{
@@ -234,6 +262,19 @@ $module: #{$prefix}-input;
     display: flex;
     padding: 0;
     align-items: flex-start;
+
+    &.#{$module}-textarea-wrapper-resizeX {
+        // Keep line number + textarea layout, but let width shrink-to-fit
+        display: inline-flex;
+        width: fit-content;
+        max-width: 100%;
+
+        .#{$module}-textarea-content {
+            flex: 0 0 auto;
+        }
+
+        // Do not force a minimum width here; allow the control to fit narrow containers.
+    }
 
     .#{$module}-textarea-lineNumber {
         flex-shrink: 0;

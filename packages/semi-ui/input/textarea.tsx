@@ -8,7 +8,7 @@ import '@douyinfe/semi-foundation/input/textarea.scss';
 import { noop, omit, isFunction, isUndefined, isObject, throttle } from 'lodash';
 import type { DebouncedFunc } from 'lodash';
 import { IconClear } from '@douyinfe/semi-icons';
-import ResizeObserver from '../resizeObserver';
+import ResizeObserver, { ResizeEntry } from '../resizeObserver';
 import type { CSSProperties } from 'react';
 
 const prefixCls = cssClasses.PREFIX;
@@ -55,13 +55,18 @@ export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
     onKeyPress?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
     onEnterPress?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
     onPressEnter?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
-    onResize?: (data: { height: number }) => void;
+    /**
+     * Callback invoked when textarea size changes.
+     * - In `autosize` mode: triggered when autosize updates height
+     * - In native `resize` mode: triggered when user drags the resize handle
+     */
+    onResize?: (data: { height: number; width?: number }) => void;
     getValueLength?: (value: string) => number;
     forwardRef?: ((instance: HTMLTextAreaElement) => void) | React.MutableRefObject<HTMLTextAreaElement> | null;
     /* Inner params for TextArea, Chat use it, 。
        Used to disable line breaks by pressing the enter key。
        Press enter + shift at the same time can start new line.
-     */
+      */
     disabledEnterStartNewLine?: boolean;
     /** Whether to show line numbers */
     showLineNumber?: boolean;
@@ -75,6 +80,12 @@ export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
     textareaStyle?: CSSProperties;
     /** Whether to enable composition mode. When enabled, onChange will not be triggered during IME composition, and will only be triggered once after composition ends */
     composition?: boolean;
+    /** 
+     * Whether the textarea is resizable, and in which direction. 
+     * When autosize is enabled, this property will be ignored.
+     * Note: this prop only takes effect when explicitly provided.
+     */
+    resize?: 'none' | 'both' | 'horizontal' | 'vertical' | 'block' | 'inline';
 }
 
 export interface TextAreaState {
@@ -117,8 +128,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         lineNumberStart: PropTypes.number,
         lineNumberClassName: PropTypes.string,
         lineNumberStyle: PropTypes.object,
-        // TODO
-        // resize: PropTypes.bool,
+        resize: PropTypes.oneOf(['none', 'both', 'horizontal', 'vertical', 'block', 'inline']),
     };
 
     static defaultProps = {
@@ -141,15 +151,17 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         composition: false,
         showLineNumber: false,
         lineNumberStart: 1,
-        // resize: false,
     };
 
     focusing: boolean;
     libRef: React.RefObject<HTMLInputElement>;
     foundation: TextAreaFoundation;
     throttledResizeTextarea: DebouncedFunc<typeof this.foundation.resizeTextarea>;
+    throttledNotifyNativeResize: DebouncedFunc<(entries: ResizeEntry[]) => void>;
     lineNumberRef: React.RefObject<HTMLDivElement>;
     lineNumberResizeObserver: globalThis.ResizeObserver | null;
+    private nativeResizeObservedOnce: boolean;
+    private lastNativeSize: { width: number; height: number } | null;
 
     constructor(props: TextAreaProps) {
         super(props);
@@ -171,6 +183,9 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         this.libRef = React.createRef<HTMLInputElement>();
         this.lineNumberRef = React.createRef<HTMLDivElement>();
         this.throttledResizeTextarea = throttle(this.foundation.resizeTextarea, 10);
+        this.throttledNotifyNativeResize = throttle(this.handleNativeResize, 10);
+        this.nativeResizeObservedOnce = false;
+        this.lastNativeSize = null;
     }
 
     get adapter() {
@@ -247,11 +262,44 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             this.throttledResizeTextarea?.cancel?.();
             this.throttledResizeTextarea = null;
         }
+        if (this.throttledNotifyNativeResize) {
+            this.throttledNotifyNativeResize?.cancel?.();
+            this.throttledNotifyNativeResize = null;
+        }
         if (this.lineNumberResizeObserver) {
             this.lineNumberResizeObserver.disconnect();
             this.lineNumberResizeObserver = null;
         }
     }
+
+    handleNativeResize = (entries: ResizeEntry[]) => {
+        // Only used for native `resize` (non-autosize). Guard anyway.
+        if (this.props.autosize) {
+            return;
+        }
+        const entry = entries && entries[0];
+        const rect = entry && entry.contentRect;
+        if (!rect) {
+            return;
+        }
+        const width = rect.width;
+        const height = rect.height;
+
+        // ResizeObserver will fire immediately on observe; skip the first one
+        // to avoid triggering `onResize` on initial mount.
+        if (!this.nativeResizeObservedOnce) {
+            this.nativeResizeObservedOnce = true;
+            this.lastNativeSize = { width, height };
+            return;
+        }
+
+        const last = this.lastNativeSize;
+        if (last && last.width === width && last.height === height) {
+            return;
+        }
+        this.lastNativeSize = { width, height };
+        this.props.onResize?.({ height, width });
+    };
 
     componentDidUpdate(prevProps: TextAreaProps, prevState: TextAreaState) {
         if (
@@ -456,7 +504,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             placeholder,
             onEnterPress,
             onResize,
-            // resize,
+            resize,
             disabled,
             readonly,
             className,
@@ -481,6 +529,16 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             ...rest
         } = this.props;
         const { isFocus, value, minLength: stateMinLength } = this.state;
+
+        // Only opt-in to the new resize behavior when `resize` prop is explicitly provided.
+        // This guarantees the default width behavior remains identical to previous versions.
+        const hasResizeProp = !isUndefined(resize);
+
+        // Native CSS resize only changes the textarea box, but wrapper is `width: 100%` by default.
+        // For horizontal resize, we need wrapper to shrink-to-fit so border/clear/counter follow.
+        const isResizableX = !autosize && hasResizeProp && ['horizontal', 'both', 'inline'].includes(resize);
+        const isResizableY = !autosize && hasResizeProp && ['vertical', 'both', 'block'].includes(resize);
+
         const wrapperCls = cls(className, `${prefixCls}-textarea-wrapper`, {
             [`${prefixCls}-textarea-borderless`]: borderless,
             [`${prefixCls}-textarea-wrapper-disabled`]: disabled,
@@ -488,7 +546,8 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             [`${prefixCls}-textarea-wrapper-${validateStatus}`]: Boolean(validateStatus),
             [`${prefixCls}-textarea-wrapper-focus`]: isFocus,
             [`${prefixCls}-textarea-wrapper-withLineNumber`]: showLineNumber,
-            // [`${prefixCls}-textarea-wrapper-resize`]: !autosize && resize,
+            [`${prefixCls}-textarea-wrapper-resizeX`]: isResizableX,
+            [`${prefixCls}-textarea-wrapper-resizeY`]: isResizableY,
         });
         // const ref = this.props.forwardRef || this.textAreaRef;
         const itemCls = cls(`${prefixCls}-textarea`, {
@@ -497,9 +556,25 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             [`${prefixCls}-textarea-autosize`]: isObject(autosize) ? isUndefined(autosize?.maxRows) : autosize,
             [`${prefixCls}-textarea-showClear`]: showClear,
         });
+        
+        // Merge textarea style:
+        // - autosize: force resize to none
+        // - explicit resize prop: apply it
+        // - otherwise: keep old behavior (do not touch `resize` inline style)
+        const mergedTextareaStyle: CSSProperties = {
+            ...(textareaStyle || {}),
+        };
+        if (autosize) {
+            mergedTextareaStyle.resize = 'none';
+        } else if (hasResizeProp) {
+            mergedTextareaStyle.resize = resize;
+        }
+
+        const shouldObserveNativeResize = !autosize && hasResizeProp && resize && resize !== 'none';
+        
         const itemProps = {
             ...omit(rest, 'insetLabel', 'insetLabelId', 'getValueLength', 'onClear', 'showClear', 'disabledEnterStartNewLine', 'composition'),
-            style: textareaStyle,
+            style: mergedTextareaStyle,
             autoFocus: autoFocus || this.props['autofocus'],
             className: itemCls,
             disabled,
@@ -538,11 +613,21 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
                                 <textarea {...itemProps} ref={this.setRef} />
                             </ResizeObserver>
                         ) : (
-                            <textarea {...itemProps} ref={this.setRef} />
+                            shouldObserveNativeResize ? (
+                                <ResizeObserver onResize={this.throttledNotifyNativeResize}>
+                                    <textarea {...itemProps} ref={this.setRef} />
+                                </ResizeObserver>
+                            ) : (
+                                <textarea {...itemProps} ref={this.setRef} />
+                            )
                         )}
                     </div>
                 ) : autosize ? (
                     <ResizeObserver onResize={this.throttledResizeTextarea}>
+                        <textarea {...itemProps} ref={this.setRef} />
+                    </ResizeObserver>
+                ) : shouldObserveNativeResize ? (
+                    <ResizeObserver onResize={this.throttledNotifyNativeResize}>
                         <textarea {...itemProps} ref={this.setRef} />
                     </ResizeObserver>
                 ) : (
