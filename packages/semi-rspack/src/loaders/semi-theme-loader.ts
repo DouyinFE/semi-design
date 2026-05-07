@@ -22,7 +22,7 @@ export default function SemiThemeLoader(this: LoaderContext<SemiThemeLoaderOptio
     let animationStr = `@import "~${theme}/scss/animation.scss";\n`;
 
     try {
-        require.resolve(`${theme}/scss/animation.scss`);
+        resolve.sync(this.context, `${theme}/scss/animation.scss`);
     } catch (e) {
         animationStr = ''; // fallback to empty string
     }
