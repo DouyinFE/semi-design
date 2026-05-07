@@ -14,6 +14,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.96.1 (2026-05-07)
+- 【Fix】
+    - 修正 DragMove 的 `handler` / `constrainer` prop 在 TS 类型声明里被错标为 `() => ReactNode` 的问题，改为正确的 `() => HTMLElement` / `() => HTMLElement | 'parent'`，与底层 foundation 实际消费 DOM 元素的行为对齐 [#3230](https://github.com/DouyinFE/semi-design/pull/3230)
+    - 修复 `@douyinfe/semi-webpack-plugin` / `@douyinfe/semi-rspack-plugin` 在使用 DSM 自定义主题时，未对 VideoPlayer / AudioPlayer / AIChatInput / AIChatDialogue / Chat / ColorPicker / Cropper / FloatButton / HotKeys / JsonViewer / MarkdownRender / PinCode / Resizable / Sidebar / UserGuide 等新组件做 token 兜底导致编译报错的问题
+    - 修复 `@douyinfe/semi-rspack-plugin` 在 pnpm 嵌套 node_modules 场景下 `animation.scss` 解析失败导致动画 token 丢失的问题
+
 #### 🎉 2.96.0 (2026-04-28)
 - 【Feat】
     - Table 组件 onRow 回调新增第三个参数 `rowStatus`，包含当前行的 `disabled` 与 `selected` 状态，方便在行事件中获取行状态 [#2462](https://github.com/DouyinFE/semi-design/issues/2462) [#3217](https://github.com/DouyinFE/semi-design/pull/3217)

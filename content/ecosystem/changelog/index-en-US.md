@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.96.1 (2026-05-07)
+- 【Fix】
+    - Correct DragMove `handler` / `constrainer` prop type from `() => ReactNode` to `() => HTMLElement` / `() => HTMLElement | 'parent'`, matching the foundation that actually consumes them as DOM nodes [#3230](https://github.com/DouyinFE/semi-design/pull/3230)
+    - Fix `@douyinfe/semi-webpack-plugin` / `@douyinfe/semi-rspack-plugin` not providing token fallbacks for recently added components (VideoPlayer / AudioPlayer / AIChatInput / AIChatDialogue / Chat / ColorPicker / Cropper / FloatButton / HotKeys / JsonViewer / MarkdownRender / PinCode / Resizable / Sidebar / UserGuide) when used with a DSM custom theme, which caused compile errors
+    - Fix `@douyinfe/semi-rspack-plugin` failing to resolve `animation.scss` in pnpm nested `node_modules` scenarios, which dropped animation tokens
+
 #### 🎉 2.96.0 (2026-04-28)
 - 【Feat】
     - Table `onRow` callback now receives a third argument `rowStatus` containing the row's `disabled` and `selected` state, making it easier to access row state inside row event handlers [#2462](https://github.com/DouyinFE/semi-design/issues/2462) [#3217](https://github.com/DouyinFE/semi-design/pull/3217)
