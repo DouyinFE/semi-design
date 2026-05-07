@@ -71,6 +71,14 @@ export default class ErrorMessage extends PureComponent<ErrorMessageProps> {
             error: <IconAlertCircle />,
         };
         const text = error ? this.generatorText(error) : this.generatorText(helpText);
+        // Keep backward compatible behavior:
+        // historically, when `error` is a truthy non-renderable type (e.g. number),
+        // ErrorMessage still renders an empty wrapper with `.semi-form-field-error-message`.
+        // Only skip rendering for array errors that have no displayable content (all falsy),
+        // to avoid empty placeholders (e.g. InputGroup collecting [false, false]).
+        if (Array.isArray(error) && !text && !helpText) {
+            return null;
+        }
         const iconCls = `${prefix }-field-validate-status-icon`;
         let icon = null;
         if (isInInputGroup) {
