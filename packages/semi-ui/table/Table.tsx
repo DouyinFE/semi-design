@@ -156,6 +156,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         }),
         groupBy: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.func]),
+        headerStyle: PropTypes.object,
         renderGroupSection: PropTypes.oneOfType([PropTypes.func]),
         onGroupedRow: PropTypes.func,
         clickGroupedRowToExpand: PropTypes.bool,
@@ -1572,6 +1573,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             getVirtualizedListRef,
             setBodyHasScrollbar: this.setBodyHasScrollbar,
             handleRowSelection: this.handleRowClickSelection,
+            headerStyle: props.headerStyle,
         };
 
         const dataAttr = this.getDataAttr(rest);

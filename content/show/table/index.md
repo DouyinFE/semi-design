@@ -5772,6 +5772,7 @@ render(App);
 | footer | 表格尾部                                                                | ReactNode<br/>\|(pageData: object) => ReactNode |  |
 | getVirtualizedListRef | 返回虚拟化表格所用 VariableSizeList 的 ref，仅在配置 virtualized 时有效               | (ref: React.RefObject) => void |  | - |
 | groupBy | 分组依据，一般为 dataSource 元素中某个键名或者返回值为字符串、数字的一个方法                        | string\|number<br/>\|(record: RecordType) => string\|number |  | - |
+| headerStyle | 表头单元格的内联样式（会应用到所有表头 th，包括 fixed 表头） | CSSProperties | - | - |
 | hideExpandedColumn | 当表格可展开时，展开按钮默认会与第一列文案渲染在同一个单元格内，设为 false 时默认将展开按钮单独作为一列渲染           | boolean | true |
 | indentSize | 树形结构 TableCell 的缩进大小                                                | number | 20 |
 | keepDOM | 折叠行时是否不销毁被折叠的 DOM                                                   | boolean | false |
@@ -5798,6 +5799,58 @@ render(App);
 | onGroupedRow | 类似于 onRow，不过这个参数单独用于定义分组表头的行属性                                      | (record: RecordType, index: number) => object |  | - |
 | onHeaderRow | 设置头部行属性，返回的对象会被合并传给表头行                                              | (columns: Column[], index: number) => object |  |
 | onRow | 设置行属性，返回的对象会被合并传给表格行 | (record: RecordType, index: number, rowStatus?: { disabled?: boolean; selected?: boolean }) => object |  | - |
+
+### headerStyle 示例
+
+`headerStyle` 会应用到所有表头 `<th>` 元素，包括 fixed 表头。
+
+```jsx
+import React from 'react';
+import { Table } from '@douyinfe/semi-ui';
+
+const columns = [
+    {
+        title: '姓名',
+        dataIndex: 'name',
+        width: 180,
+        fixed: 'left',
+    },
+    {
+        title: '年龄',
+        dataIndex: 'age',
+        width: 120,
+    },
+    {
+        title: '地址',
+        dataIndex: 'address',
+        width: 280,
+    },
+    {
+        title: '公司',
+        dataIndex: 'company',
+        width: 280,
+    },
+];
+
+const dataSource = Array.from({ length: 6 }).map((_, i) => ({
+    key: i,
+    name: `Edward ${i}`,
+    age: 20 + i,
+    address: '西湖区湖底公园 1 号',
+    company: 'Semi Design',
+}));
+
+export default function Demo() {
+    return (
+        <Table
+            columns={columns}
+            dataSource={dataSource}
+            scroll={{ x: 900 }}
+            headerStyle={{ backgroundColor: '#F5F6F7', fontWeight: 600 }}
+        />
+    );
+}
+```
 
 一些上面用到的类型定义：
 
