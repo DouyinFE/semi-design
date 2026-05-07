@@ -28,20 +28,64 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
 
     getOverflowItem(): Array<Array<Record<string, any>>> {
         const { items } = this.getProps();
-        const { visibleState, overflow } = this.getStates();
+        const { visibleState, overflow, scrollOverflow } = this.getStates();
         if (!this.isScrollMode()) {
             return overflow;
         }
 
+        // Scroll mode relies on IntersectionObserver to compute visibility.
+        // During recalculation (e.g. items changed, or before observer fires),
+        // keep last computed overflow to avoid UI flicker (tabs arrows/menu state).
+        if (!visibleState || visibleState.size === 0) {
+            if (Array.isArray(scrollOverflow) && scrollOverflow.length === 2) {
+                return scrollOverflow;
+            }
+            return [[], []];
+        }
 
         const visibleStateArr = items.map(({ key }: { key: string }) => Boolean(visibleState.get(key)));
         const visibleStart = visibleStateArr.indexOf(true);
         const visibleEnd = visibleStateArr.lastIndexOf(true);
 
+        // If no item is visible (e.g. initial layout not ready or list out of viewport),
+        // treat it as "unknown" and keep last computed overflow to avoid wrong enabling.
+        if (visibleStart < 0 || visibleEnd < 0) {
+            if (Array.isArray(scrollOverflow) && scrollOverflow.length === 2) {
+                return scrollOverflow;
+            }
+            return [[], []];
+        }
+
         const overflowList = [];
         overflowList[0] = visibleStart >= 0 ? items.slice(0, visibleStart) : [];
         overflowList[1] = visibleEnd >= 0 ? items.slice(visibleEnd + 1, items.length) : items.slice();
         return overflowList;
+    }
+
+    private _syncScrollOverflowCache(nextVisibleState: Map<string, boolean>): void {
+        if (!this.isScrollMode()) {
+            return;
+        }
+        const { items } = this.getProps();
+        const visibleStateArr = items.map(({ key }: { key: string }) => Boolean(nextVisibleState.get(key)));
+        const visibleStart = visibleStateArr.indexOf(true);
+        const visibleEnd = visibleStateArr.lastIndexOf(true);
+
+        // No visible items means the result is not reliable; keep cache and stay "calculating"
+        if (visibleStart < 0 || visibleEnd < 0) {
+            this._adapter.updateStates({
+                isScrollOverflowCalculating: true,
+            });
+            return;
+        }
+
+        const overflowList: Array<Array<Record<string, any>>> = [];
+        overflowList[0] = visibleStart >= 0 ? items.slice(0, visibleStart) : [];
+        overflowList[1] = visibleEnd >= 0 ? items.slice(visibleEnd + 1, items.length) : items.slice();
+        this._adapter.updateStates({
+            scrollOverflow: overflowList,
+            isScrollOverflowCalculating: false,
+        });
     }
 
     handleIntersect(entries: Array<IntersectionObserverEntry>): void {
@@ -73,6 +117,8 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
         }
         this.previousY = currentY;
         this._adapter.updateVisibleState(visibleState);
+        // Keep scroll overflow cache in sync for stable UI
+        this._syncScrollOverflowCache(visibleState);
         this._adapter.notifyIntersect(res);
     }
 
