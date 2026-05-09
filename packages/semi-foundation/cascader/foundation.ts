@@ -170,6 +170,7 @@ export interface BasicCascaderProps {
     preventScroll?: boolean;
     virtualizeInSearch?: Virtualize;
     checkRelation?: string;
+    remote?: boolean;
     onClear?: () => void;
     triggerRender?: (props: BasicTriggerRenderProps) => any;
     onListScroll?: (e: any, panel: BasicScrollPanelProps) => void;
@@ -423,6 +424,76 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         } else {
             this._adapter.updateStates({ keyEntities });
         }
+
+        // If options(treeData) updates during searching (e.g. remote search async update),
+        // we need to sync filteredKeys with the latest keyEntities; otherwise the UI may
+        // render empty list ("暂无数据") because filteredKeys are based on stale entities.
+        // NOTE: updateSelectedKey/updateStates are async in React, so we pass keyEntities
+        // explicitly to avoid reading stale state.
+        this.recalculateFilteredKeys(undefined, keyEntities);
+    }
+
+    /**
+     * Calculate filtered keys based on current props.
+     * - In remote mode: do not do local match, treat current treeData nodes as results
+     * - In local mode: perform matching by filterTreeNode
+     */
+    _calcFilteredKeys(sugInput: string, keyEntities?: BasicEntities): string[] {
+        if (!sugInput) {
+            return [];
+        }
+        const { treeNodeFilterProp, filterTreeNode, filterLeafOnly, remote } = this.getProps();
+        const entities = Object.values(keyEntities ?? this.getState('keyEntities')) as BasicEntity[];
+
+        if (remote) {
+            return entities
+                .filter(item => !item._notExist)
+                .filter(item => (filterTreeNode && !filterLeafOnly) || this._isLeaf(item.data))
+                .map(item => item.key);
+        }
+
+        return entities
+            .filter(item => {
+                const { key, _notExist, data } = item;
+                if (_notExist) {
+                    return false;
+                }
+                const filteredPath = this.getItemPropPath(key, treeNodeFilterProp, keyEntities);
+                return filter(sugInput, data, filterTreeNode, filteredPath);
+            })
+            .filter(item => (filterTreeNode && !filterLeafOnly) || this._isLeaf(item.data))
+            .map(item => item.key);
+    }
+
+    /**
+     * Sync filteredKeys with latest options/keyEntities WITHOUT triggering onSearch.
+     * Used when treeData changes asynchronously in searching state.
+     */
+    recalculateFilteredKeys(input?: string, nextKeyEntities?: BasicEntities) {
+        const isFilterable = this._isFilterable();
+        if (!isFilterable) {
+            return;
+        }
+
+        // When input is not explicitly provided, only recalculate in searching state.
+        // Otherwise, treeData updates may incorrectly force component into searching mode
+        // because inputValue can be the selected label text in normal (non-searching) state.
+        const currentIsSearching = this.getState('isSearching');
+        if (isUndefined(input) && !currentIsSearching) {
+            return;
+        }
+
+        const sugInput = isUndefined(input) ? this.getState('inputValue') : input;
+        const filteredKeys = this._calcFilteredKeys(sugInput, nextKeyEntities);
+        const updateStates: Partial<BasicCascaderInnerData> = {
+            isSearching: Boolean(sugInput),
+            filteredKeys: new Set(filteredKeys),
+        };
+        if (nextKeyEntities) {
+            updateStates.keyEntities = nextKeyEntities;
+        }
+        this._adapter.updateStates(updateStates);
+        this._adapter.rePositionDropdown();
     }
 
     // call when props.value change
@@ -970,25 +1041,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
 
     handleInputChange(sugInput: string) {
         this._adapter.updateInputValue(sugInput);
-        const { keyEntities } = this.getStates();
-        const { treeNodeFilterProp, filterTreeNode, filterLeafOnly } = this.getProps();
-        let filteredKeys: string[] = [];
-        if (sugInput) {
-            filteredKeys = (Object.values(keyEntities) as BasicEntity[])
-                .filter(item => {
-                    const { key, _notExist, data } = item;
-                    if (_notExist) {
-                        return false;
-                    }
-                    const filteredPath = this.getItemPropPath(key, treeNodeFilterProp);
-                    return filter(sugInput, data, filterTreeNode, filteredPath);
-                })
-                .filter(
-                    item => (filterTreeNode && !filterLeafOnly) ||
-                    this._isLeaf(item as unknown as BasicCascaderData)
-                )
-                .map(item => item.key);
-        }
+        const filteredKeys = this._calcFilteredKeys(sugInput);
 
         this._adapter.updateStates({
             isSearching: Boolean(sugInput),
@@ -1054,7 +1107,9 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     getRenderData() {
         const { keyEntities, isSearching } = this.getStates();
         const isFilterable = this._isFilterable();
+
         if (isSearching && isFilterable) {
+            // Both local & remote search mode should render flattened search list
             return this.getFilteredData();
         }
         return (Object.values(keyEntities) as BasicEntity[])
