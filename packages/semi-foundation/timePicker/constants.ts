@@ -6,6 +6,8 @@ const TYPE_TIME_RANGE_PICKER = 'timeRange' as const;
 const DEFAULT_RANGE_SEPARATOR = ' ~ ' as const;
 const DEFAULT_MULTIPLE_SEPARATOR = ',' as const;
 
+export type PanelType = 'left' | 'right';
+
 const cssClasses = {
     PREFIX: `${BASE_CLASS_PREFIX}-timepicker`,
     RANGE_PICKER: `${BASE_CLASS_PREFIX}-timepicker-range-panel`,

@@ -18,6 +18,9 @@ export type ComboboxProps = Pick<TimePickerProps, 'format' | 'prefixCls' | 'disa
 'disabledSeconds' |
 'hideDisabledOptions' |
 'use12Hours' |
+'hourStep' |
+'minuteStep' |
+'secondStep' |
 'scrollItemProps' |
 'panelFooter' |
 'panelHeader'> & BaseProps & {
@@ -85,7 +88,18 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
     }
 
     componentDidUpdate(prevProps: ComboboxProps, prevState: ComboboxState) {
-        if (prevProps.timeStampValue !== this.props.timeStampValue || prevProps.format !== this.props.format) {
+        if (
+            prevProps.timeStampValue !== this.props.timeStampValue ||
+            prevProps.format !== this.props.format ||
+            prevProps.hideDisabledOptions !== this.props.hideDisabledOptions ||
+            prevProps.use12Hours !== this.props.use12Hours ||
+            prevProps.hourStep !== this.props.hourStep ||
+            prevProps.minuteStep !== this.props.minuteStep ||
+            prevProps.secondStep !== this.props.secondStep ||
+            prevProps.disabledHours !== this.props.disabledHours ||
+            prevProps.disabledMinutes !== this.props.disabledMinutes ||
+            prevProps.disabledSeconds !== this.props.disabledSeconds
+        ) {
             this.setState({
                 ...this.foundation.initData(),
             });
@@ -243,7 +257,6 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
             return null;
         }
         const value = new Date(timeStampValue);
-
         const disabledOptions = disabledSeconds && disabledSeconds(value.getHours(), value.getMinutes());
 
         const className = `${prefixCls}-list-second`;

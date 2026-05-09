@@ -6,6 +6,7 @@ import { noop, get } from 'lodash';
 import ConfigContext from '../configProvider/context';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/timePicker/constants';
+import type { PanelType } from '@douyinfe/semi-foundation/timePicker/constants';
 import Popover, { PopoverProps } from '../popover';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import TimePickerFoundation, { TimePickerAdapter } from '@douyinfe/semi-foundation/timePicker/foundation';
@@ -52,6 +53,11 @@ export type TimePickerProps = {
     disabledHours?: () => number[];
     disabledMinutes?: (selectedHour: number) => number[];
     disabledSeconds?: (selectedHour: number, selectedMinute: number) => number[];
+    disabledTime?: (value: Date | Date[], panelType: PanelType) => {
+        disabledHours?: () => number[];
+        disabledMinutes?: (selectedHour: number) => number[];
+        disabledSeconds?: (selectedHour: number, selectedMinute: number) => number[];
+    };
     dropdownMargin?: PopoverProps['margin'];
     focusOnOpen?: boolean;
     format?: string;
@@ -141,6 +147,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         disabledHours: PropTypes.func,
         disabledMinutes: PropTypes.func,
         disabledSeconds: PropTypes.func,
+        disabledTime: PropTypes.func,
         dropdownMargin: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         hideDisabledOptions: PropTypes.bool,
         onChange: PropTypes.func,
@@ -343,11 +350,29 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         return panelProps;
     };
 
+    getDisabledTimeOptions(panelType: PanelType) {
+        const { disabledTime } = this.props;
+        const { value } = this.state;
+
+        if (typeof disabledTime !== 'function') {
+            return undefined;
+        }
+
+        // Align with DatePicker disabledTime behavior:
+        // - single: pass Date
+        // - range: pass selected Date[] (length may be 0/1/2)
+        const cbValue = this.adapter.isRangePicker() ? value : value?.[0];
+        return disabledTime(cbValue as any, panelType);
+    }
+
     getPanelElement() {
-        const { prefixCls, type } = this.props;
+        const { prefixCls, type, disabledHours, disabledMinutes, disabledSeconds } = this.props;
         const { isAM, value } = this.state;
 
         const format = this.foundation.getDefaultFormatIfNeed();
+
+        const leftDisabled = this.getDisabledTimeOptions('left') || {};
+        const rightDisabled = this.getDisabledTimeOptions('right') || {};
 
         const timePanels = [
             <Combobox
@@ -359,6 +384,12 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                 prefixCls={`${prefixCls}-panel`}
                 onChange={v => this.handlePanelChange(v, 0)}
                 onCurrentSelectPanelChange={this.onCurrentSelectPanelChange}
+                // For range mode, allow different disabled rules for left/right panel.
+                // We pass the resolved disabled functions down so that ComboboxFoundation
+                // (including hideDisabledOptions logic) can work correctly.
+                disabledHours={leftDisabled.disabledHours || disabledHours}
+                disabledMinutes={leftDisabled.disabledMinutes || disabledMinutes}
+                disabledSeconds={leftDisabled.disabledSeconds || disabledSeconds}
                 {...this.createPanelProps(0)}
             />,
         ];
@@ -374,6 +405,9 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                     prefixCls={`${prefixCls}-panel`}
                     onChange={v => this.handlePanelChange(v, 1)}
                     onCurrentSelectPanelChange={this.onCurrentSelectPanelChange}
+                    disabledHours={rightDisabled.disabledHours || disabledHours}
+                    disabledMinutes={rightDisabled.disabledMinutes || disabledMinutes}
+                    disabledSeconds={rightDisabled.disabledSeconds || disabledSeconds}
                     {...this.createPanelProps(1)}
                 />
             );
