@@ -55,6 +55,15 @@ export interface OverflowListState {
     overflowStatus?: 'calculating' | 'overflowed' | 'normal';
     pivot?: number;
     overflowWidth?: number
+    /**
+     * Cache overflow result for scroll mode.
+     * Used to keep arrow/menu state stable during items changes or before IntersectionObserver updates.
+     */
+    scrollOverflow?: Array<Array<OverflowItem>>;
+    /**
+     * Whether scroll overflow is recalculating (e.g. items changed and visibility not re-computed yet).
+     */
+    isScrollOverflowCalculating?: boolean;
 }
 
 // reference to https://github.com/palantir/blueprint/blob/1aa71605/packages/core/src/components/overflow-list/overflowList.tsx#L34
@@ -105,6 +114,8 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
             pivot: -1,
             overflowWidth: 0,
             maxCount: 0,
+            scrollOverflow: [[], []],
+            isScrollOverflowCalculating: true,
         };
         this.foundation = new OverflowListFoundation(this.adapter);
         this.previousWidths = new Map();
@@ -120,11 +131,40 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         const needUpdate = (name: string): boolean => {
             return (!prevProps && name in props) || (prevProps && !isEqual(prevProps[name], props[name]));
         };
-        if (needUpdate('items') || needUpdate('style')) {
+        const itemsChanged = needUpdate('items');
+        if (itemsChanged || needUpdate('style')) {
             // reset visible state if the above props change.
             newState.direction = OverflowDirection.GROW;
             newState.lastOverflowCount = 0;
             newState.maxCount = 0;
+            // Scroll mode visibility is computed async by IntersectionObserver.
+            // Mark recalculating but keep existing scrollOverflow cache to avoid flicker.
+            newState.isScrollOverflowCalculating = true;
+
+            // When items change in scroll mode, keep the cache but align it to the new items by key.
+            // This avoids briefly rendering removed items in overflow menus.
+            if (itemsChanged && props.renderMode === RenderMode.SCROLL && Array.isArray(prevState.scrollOverflow)) {
+                const getKey = (item: OverflowItem, defaultKey?: Key) => {
+                    const { itemKey } = props;
+                    if (isFunction(itemKey)) {
+                        return itemKey(item);
+                    }
+                    return get(item, itemKey || 'key', defaultKey);
+                };
+
+                const nextItems = props.items || [];
+                const nextItemMap = new Map<Key, OverflowItem>();
+                nextItems.forEach((it, idx) => {
+                    nextItemMap.set(getKey(it, idx), it);
+                });
+
+                const mapList = (list: OverflowItem[] = []) => list
+                    .map((it, idx) => nextItemMap.get(getKey(it, idx)))
+                    .filter(Boolean);
+
+                const [cachedStart, cachedEnd] = prevState.scrollOverflow as any;
+                newState.scrollOverflow = [mapList(cachedStart), mapList(cachedEnd)];
+            }
             if (props.renderMode === RenderMode.SCROLL) {
                 newState.visible = props.items;
                 newState.overflow = [];
@@ -190,7 +230,8 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         if (!isEqual(prevItemsKeys, nowItemsKeys)) {
             this.itemRefs = {};
             this.itemSizeMap = new Map();
-            this.setState({ visibleState: new Map() });
+            // Reset visibleState and mark recalculating, keep last scrollOverflow to avoid flicker
+            this.setState({ visibleState: new Map(), isScrollOverflowCalculating: true });
         }
 
         const { overflow, containerWidth, visible, overflowStatus } = this.state;
