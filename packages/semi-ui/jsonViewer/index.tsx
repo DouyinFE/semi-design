@@ -89,6 +89,9 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
     private searchInputRef: React.RefObject<HTMLInputElement>;
     private replaceInputRef: React.RefObject<HTMLInputElement>;
     private isComposing: boolean = false;
+    private resizeObserver: ResizeObserver | null = null;
+    private resizeRafId: number | null = null;
+    private lastObservedWidth: number | null = null;
 
     foundation: JsonViewerFoundation;
 
@@ -111,12 +114,87 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
 
     componentDidMount() {
         this.foundation.init();
+        this.setupResizeObserver();
+    }
+
+    private teardownResizeObserver() {
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+            this.resizeObserver = null;
+        }
+        if (this.resizeRafId !== null) {
+            cancelAnimationFrame(this.resizeRafId);
+            this.resizeRafId = null;
+        }
+        this.lastObservedWidth = null;
+    }
+
+    private setupResizeObserver() {
+        // Only needed for autoWrap, since line wraps depend on container width.
+        if (!this.props.options?.autoWrap) {
+            this.teardownResizeObserver();
+            return;
+        }
+
+        const el = this.editorRef.current;
+        if (!el || typeof ResizeObserver === 'undefined') {
+            return;
+        }
+
+        // Avoid duplicated observers when re-init.
+        this.teardownResizeObserver();
+
+        this.lastObservedWidth = el.getBoundingClientRect().width;
+        this.resizeObserver = new ResizeObserver((entries) => {
+            const entry = entries && entries[0];
+            if (!entry) {
+                return;
+            }
+            const nextWidth = entry.contentRect?.width;
+            if (typeof nextWidth !== 'number') {
+                return;
+            }
+
+            // Only react to width changes, which affect wrapping.
+            if (this.lastObservedWidth !== null && Math.abs(nextWidth - this.lastObservedWidth) < 0.5) {
+                return;
+            }
+            this.lastObservedWidth = nextWidth;
+
+            // Coalesce multiple resize events.
+            if (this.resizeRafId !== null) {
+                cancelAnimationFrame(this.resizeRafId);
+            }
+            this.resizeRafId = requestAnimationFrame(() => {
+                this.resizeRafId = null;
+
+                // Clear measured heights cache when container size changes.
+                // NOTE: _view and _measuredHeights are internal implementation details.
+                const jsonViewer: any = this.foundation.jsonViewer;
+                if (jsonViewer && jsonViewer._view && jsonViewer._view._measuredHeights) {
+                    jsonViewer._view._measuredHeights = {};
+                }
+                this.foundation.jsonViewer?.layout();
+            });
+        });
+        this.resizeObserver.observe(el);
+    }
+
+    componentWillUnmount() {
+        this.teardownResizeObserver();
     }
 
     componentDidUpdate(prevProps: JsonViewerProps): void {
         if (!isEqual(prevProps.options, this.props.options) || this.props.value !== prevProps.value) {
             this.foundation.jsonViewer.dispose();
             this.foundation.init();
+            this.setupResizeObserver();
+            return;
+        }
+
+        // autoWrap toggle may require attaching/detaching observer.
+        if (prevProps.options?.autoWrap !== this.props.options?.autoWrap) {
+            this.setupResizeObserver();
         }
     }
 
