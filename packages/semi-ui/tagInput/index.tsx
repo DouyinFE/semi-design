@@ -79,6 +79,7 @@ export interface TagInputProps {
 export interface TagInputState {
     tagsArray?: string[];
     inputValue?: string;
+    inputWidth?: number;
     focusing?: boolean;
     hovering?: boolean;
     active?: boolean;
@@ -159,6 +160,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
 
     inputRef: React.RefObject<HTMLInputElement>;
     tagInputRef: React.RefObject<HTMLDivElement>;
+    inputMirrorRef: React.RefObject<HTMLSpanElement>;
     foundation: TagInputFoundation;
     clickOutsideHandler: any;
 
@@ -168,6 +170,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         this.state = {
             tagsArray: props.defaultValue || [],
             inputValue: '',
+            inputWidth: undefined,
             focusing: false,
             hovering: false,
             active: false,
@@ -175,6 +178,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         };
         this.inputRef = React.createRef();
         this.tagInputRef = React.createRef();
+        this.inputMirrorRef = React.createRef();
         this.clickOutsideHandler = null;
     }
 
@@ -276,7 +280,70 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             this.foundation.handleClick();
         }
         this.foundation.init();
+
+        // keep input width synced so that when input text exceeds remaining space,
+        // the whole input can wrap to next line (instead of shrinking and scrolling horizontally)
+        this.updateInputWidth();
     }
+
+    componentDidUpdate(prevProps: TagInputProps, prevState: TagInputState) {
+        if (
+            prevState.inputValue !== this.state.inputValue ||
+            prevProps.size !== this.props.size ||
+            prevProps.placeholder !== this.props.placeholder ||
+            prevState.tagsArray?.length !== this.state.tagsArray?.length
+        ) {
+            this.updateInputWidth();
+        }
+    }
+
+    updateInputWidth = () => {
+        const inputEl = this.inputRef && this.inputRef.current;
+        const mirrorEl = this.inputMirrorRef && this.inputMirrorRef.current;
+        const { inputValue, tagsArray } = this.state;
+        const { placeholder } = this.props;
+
+        if (!inputEl || !mirrorEl) {
+            return;
+        }
+
+        // When there is no input, let it take remaining space (flex-grow)
+        if (!inputValue) {
+            if (this.state.inputWidth !== undefined) {
+                this.setState({ inputWidth: undefined });
+            }
+            return;
+        }
+
+        // Sync mirror styles from real input to get accurate width
+        // (font, letter-spacing, padding, etc.)
+        try {
+            const cs = window.getComputedStyle(inputEl);
+            mirrorEl.style.font = cs.font;
+            mirrorEl.style.letterSpacing = cs.letterSpacing;
+            mirrorEl.style.textTransform = cs.textTransform;
+            mirrorEl.style.paddingLeft = cs.paddingLeft;
+            mirrorEl.style.paddingRight = cs.paddingRight;
+            mirrorEl.style.borderLeftWidth = cs.borderLeftWidth;
+            mirrorEl.style.borderRightWidth = cs.borderRightWidth;
+            mirrorEl.style.boxSizing = cs.boxSizing;
+        } catch (e) {
+            // ignore
+        }
+
+        // Ensure mirror has content to measure
+        const mirrorText = inputValue || (tagsArray?.length === 0 ? (placeholder as any) : '') || ' ';
+        // Use textContent to avoid React re-render lag during typing
+        if (mirrorEl.textContent !== String(mirrorText)) {
+            mirrorEl.textContent = String(mirrorText);
+        }
+
+        // scrollWidth is more stable for hidden elements than getBoundingClientRect in some cases
+        const nextWidth = Math.ceil(mirrorEl.scrollWidth + 2);
+        if (Number.isFinite(nextWidth) && nextWidth > 0 && nextWidth !== this.state.inputWidth) {
+            this.setState({ inputWidth: nextWidth });
+        }
+    };
 
     handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         this.foundation.handleInputChange(e);
@@ -590,6 +657,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             tagsArray,
             inputValue,
             active,
+            inputWidth,
         } = this.state;
 
         const tagInputCls = cls(prefixCls, className, {
@@ -607,6 +675,11 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         const inputCls = cls(`${prefixCls}-wrapper-input`, `${prefixCls}-wrapper-input-${size}`);
 
         const wrapperCls = cls(`${prefixCls}-wrapper`);
+
+        const inputWrapperStyle: React.CSSProperties = {};
+        if (typeof inputWidth === 'number') {
+            inputWrapperStyle.width = inputWidth;
+        }
 
         return (
             // eslint-disable-next-line
@@ -631,10 +704,12 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                 {this.renderPrefix()}
                 <div className={wrapperCls}>
                     {this.renderTags()}
+                    <span ref={this.inputMirrorRef} className={`${prefixCls}-wrapper-inputMirror`} />
                     <Input
                         aria-label='input value'
                         ref={this.inputRef as any}
                         className={inputCls}
+                        style={inputWrapperStyle}
                         disabled={disabled}
                         value={inputValue}
                         size={size}
