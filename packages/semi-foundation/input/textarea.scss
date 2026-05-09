@@ -217,12 +217,6 @@ $module: #{$prefix}-input;
     }
 }
 
-.#{$module}-textarea-wrapper-resizeX {
-    // Keep default textarea width behavior to avoid forcing overflow in narrow containers.
-    // When user drags native resize handle, browser will apply an inline width/height,
-    // and wrapper (fit-content) will follow that size.
-}
-
 .#{$module}-textarea-borderless{
     &:not(:focus-within):not(:hover){
         background-color:transparent;
