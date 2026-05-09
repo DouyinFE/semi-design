@@ -49,6 +49,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         zIndex: PropTypes.number,
         maxZoom: PropTypes.number,
         minZoom: PropTypes.number,
+        initialZoom: PropTypes.number,
         renderHeader: PropTypes.func,
         renderPreviewMenu: PropTypes.func,
         getPopupContainer: PropTypes.func,
@@ -357,6 +358,9 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             visible,
             className,
             style,
+            maxZoom,
+            minZoom,
+            initialZoom,
             infinite,
             zoomStep,
             crossOrigin,
@@ -430,6 +434,9 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                         ratio={ratio}
                         rotation={rotation}
                         crossOrigin={crossOrigin}
+                        initialZoom={initialZoom}
+                        maxZoom={maxZoom}
+                        minZoom={minZoom}
                         onError={this.onImageError}
                         onLoad={this.onImageLoad}
                     />
@@ -461,6 +468,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                         disabledPrev={!showPrev}
                         disabledNext={!showNext}
                         zoom={zoom * 100}
+                        min={minZoom * 100}
+                        max={maxZoom * 100}
                         step={zoomStep * 100}
                         showTooltip={showTooltip}
                         ratio={ratio}
