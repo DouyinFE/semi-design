@@ -278,10 +278,42 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
                 })} ref={this.innerWrapperRef} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
                     {list.map((item, index) => {
                         const isRemoved = removedItems.find(removedItem => removedItem.id === item.id) !== undefined;
-                        return <CSSAnimation key={item.id} motion={item.motion} animationState={isRemoved ? "leave" : "enter"} startClassName={isRemoved ? `${cssClasses.PREFIX}-animation-hide` : `${cssClasses.PREFIX}-animation-show`}>
+                        const animationState = isRemoved ? "leave" : "enter";
+                        return <CSSAnimation
+                            key={item.id}
+                            motion={item.motion}
+                            animationState={animationState}
+                            startClassName={isRemoved ? `${cssClasses.PREFIX}-animation-hide` : `${cssClasses.PREFIX}-animation-show`}
+                            onAnimationEnd={(_stoppedByAnother: boolean) => {
+                                // Only act on the leave animation end.
+                                // Guarding by the animationState captured at render time prevents:
+                                // - enter animation end firing after the toast is later marked removed (would otherwise remove too early)
+                                if (animationState !== 'leave') {
+                                    return;
+                                }
+
+                                // When leave animation ends, remove it from removedItems.
+                                // This ensures:
+                                // 1) No extra re-mount during closing animation
+                                // 2) Toast/content will finally unmount after animation (avoid hidden DOM/memory retention)
+                                // 3) ToastFoundation.destroy() runs to clear timers
+                                this.setState(prev => {
+                                    // If this toast is no longer marked as removed (e.g. updated/reopened), do nothing
+                                    if (!prev.removedItems?.some(removed => removed.id === item.id)) {
+                                        return null;
+                                    }
+                                    return {
+                                        ...prev,
+                                        removedItems: prev.removedItems.filter(removed => removed.id !== item.id),
+                                    };
+                                });
+                            }}
+                        >
                             {
                                 ({ animationClassName, animationEventsNeedBind, isAnimating }) => {
-                                    return (isRemoved && !isAnimating) ? null : <Toast {...item} stack={this.stack} stackExpanded={this.state.mouseInSide} positionInList={{ length: list.length, index }} className={cls({
+                                    // Keep Toast component instance during leave animation to avoid re-mount.
+                                    // Final unmount is triggered by onAnimationEnd above (removing from removedItems).
+                                    return <Toast {...item} stack={this.stack} stackExpanded={this.state.mouseInSide} positionInList={{ length: list.length, index }} className={cls({
                                         [item.className]: Boolean(item.className),
                                         [animationClassName]: true
                                     })} {...animationEventsNeedBind} style={{ ...item.style }} close={id => this.remove(id)} ref={refFn} />;
