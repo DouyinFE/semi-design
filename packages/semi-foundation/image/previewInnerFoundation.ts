@@ -205,12 +205,13 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
 
     handleZoomImage = (newZoom: number, notify: boolean = true, e?: WheelEvent) => {
         const { zoom } = this.getStates();
-        if (zoom !== newZoom) {
-            notify && this._adapter.notifyZoom(newZoom, newZoom > zoom);
+        const nextZoom = this._clampZoom(newZoom);
+        if (zoom !== nextZoom) {
+            notify && this._adapter.notifyZoom(nextZoom, nextZoom > zoom);
             
-            this._adapter.changeImageZoom(newZoom, e);
+            this._adapter.changeImageZoom(nextZoom, e);
             this.setState({
-                zoom: newZoom,
+                zoom: nextZoom,
             } as any);
         }
     }
@@ -316,4 +317,14 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
             this.preloadSingleImage();
         }
     }
+
+    private _clampZoom = (zoom: number) => {
+        const { maxZoom, minZoom } = this.getProps() as any;
+        const max = typeof maxZoom === 'number' ? maxZoom : 5;
+        const min = typeof minZoom === 'number' ? minZoom : 0.1;
+        if (typeof zoom !== 'number' || !Number.isFinite(zoom)) {
+            return min;
+        }
+        return Math.min(max, Math.max(min, zoom));
+    };
 }

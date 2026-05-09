@@ -64,6 +64,7 @@ export interface PreviewProps extends BaseProps {
     minZoom?: number;
     previewCls?: string;
     previewStyle?: React.CSSProperties;
+    initialZoom?: number;
     renderLeftIcon?: React.ReactElement | ((index: number) => ReactNode);
     renderRightIcon?: React.ReactElement | ((index: number) => ReactNode);
     renderCloseIcon?: React.ReactElement | (() => React.ReactElement);
@@ -170,14 +171,14 @@ export interface PreviewImageProps {
     src?: string;
     rotation?: number;
     style?: React.CSSProperties;
-    // maxZoom?: number;
-    // minZoom?: number;
-    // zoomStep?: number;
+    maxZoom?: number;
+    minZoom?: number;
     zoom?: number;
     ratio?: RatioType;
     disableDownload?: boolean;
     clickZoom?: number;
     crossOrigin?: "anonymous" | "use-credentials";
+    initialZoom?: number;
     setRatio?: (type: RatioType) => void;
     onZoom?: (zoom: number) => void;
     onLoad?: (src: string) => void;
@@ -211,4 +212,3 @@ export interface PreviewState {
     currentIndex: number;
     visible: boolean
 }
-
