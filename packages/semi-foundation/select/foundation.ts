@@ -85,15 +85,39 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         }
     }
 
-    focus(optionsForOpen?: BasicOptionProps[]) {
+    focus(optionsForOpen?: BasicOptionProps[], openDropdown?: boolean) {
         const isFilterable = this._isFilterable();
         const isMultiple = this._isMultiple();
         const { isOpen } = this.getStates();
+        const { searchPosition } = this.getProps();
+        // Default to true if not specified (backward compatibility)
+        const shouldOpenDropdown = openDropdown !== false;
 
         this._adapter.updateFocusState(true);
         this._adapter.setIsFocusInContainer(false);
 
         if (isFilterable) {
+            /**
+             * When openDropdown is false, we only want to "refocus" the Select
+             * without changing dropdown visibility.
+             *
+             * NOTE: For searchPosition='dropdown', the search input is rendered in dropdown,
+             * so we should NOT toggle trigger input(showInput) here, otherwise it may affect
+             * tabIndex / focusability unexpectedly.
+             */
+            if (!shouldOpenDropdown) {
+                if (searchPosition === strings.SEARCH_POSITION_TRIGGER) {
+                    if (isMultiple) {
+                        this.focusInput();
+                    } else {
+                        this.toggle2SearchInput(true);
+                    }
+                } else {
+                    this._focusTrigger();
+                }
+                return;
+            }
+
             if (isMultiple) {
                 // when filter and multiple, focus input and open dropdown
                 this.focusInput();
@@ -1077,7 +1101,8 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             this.clearInput(e);
         }
         // after click showClear button, the select need to be focused
-        this.focus();
+        // but don't open dropdown to avoid focus state confusion
+        this.focus(undefined, false);
         this.clearSelected();
         // prevent this click open dropdown
         e.stopPropagation();
