@@ -1420,6 +1420,7 @@ import { Transfer, Button } from '@douyinfe/semi-ui';
 | style | Inline style | CSSProperties | | |
 | treeProps | When the type is `treeList`, it can be passed as TreeProps to the Tree component on the left | [TreeProps](/en-US/navigation/tree#Tree) | | - |
 | type | Transfer type, optional `list`, `groupList`, `treeList` | string |'list' | - |
+| virtualize | Virtualize the selected list on the right. Only works with default right panel rendering and when `draggable` is `false` | VirtualizeProps |  | - |
 | value | The selected value, when the item is passed in, it will be used as a controlled component | Array<string\|number> | | |
 
 ### Item Interface
@@ -1450,6 +1451,14 @@ TreeItem inherits all the properties of Item
 | props    | description    | data type        | default |
 | -------- | -------------- | ---------------- | ------- |
 | children | Children Items | array<TreeItem\> |         |
+
+### VirtualizeProps Interface
+
+| props | description | data type | default |
+| --- | --- | --- | --- |
+| height | Height of the virtualized list. If it is a `number`, it takes effect directly. If it is a `string` (e.g. `100%`), it adapts to remaining height | number \| string | |
+| width | Width of the virtualized list | number \| string | |
+| itemSize | Fixed height of each item row | number | |
 
 ## Methods
 Some internal methods provided by Transfer can be accessed through ref:
