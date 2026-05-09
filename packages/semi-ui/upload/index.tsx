@@ -8,6 +8,8 @@ import FileCard from './fileCard';
 import BaseComponent from '../_base/baseComponent';
 import LocaleConsumer from '../locale/localeConsumer';
 import { IconUpload } from '@douyinfe/semi-icons';
+import Cropper from '../cropper';
+import Modal, { type ModalReactProps } from '../modal';
 import type {
     FileItem,
     RenderFileItemProps,
@@ -20,6 +22,7 @@ import type {
     CustomError,
     RenderPictureCloseProps,
     RenderFileListTitleProps,
+    CropProps,
 } from './interface';
 import { Locale } from '../locale/interface';
 import '@douyinfe/semi-foundation/upload/upload.scss';
@@ -50,6 +53,7 @@ export type {
     BeforeUploadObjectResult,
     AfterUploadResult,
     RenderFileListTitleProps,
+    CropProps,
 };
 
 export interface UploadProps {
@@ -124,7 +128,15 @@ export interface UploadProps {
     validateMessage?: ReactNode;
     validateStatus?: ValidateStatus;
     withCredentials?: boolean;
-    showTooltip?: boolean | ShowTooltip
+    showTooltip?: boolean | ShowTooltip;
+    /** 启用图片裁切功能，可传入裁切配置对象 */
+    crop?: boolean | CropProps;
+    /** 裁切前的回调，返回 false 可阻止裁切 */
+    beforeCrop?: (file: File, fileList: File[]) => boolean | Promise<boolean>;
+    /** 裁切失败的回调 */
+    onCropError?: (error: Error) => void;
+    /** 自定义裁切弹窗属性 */
+    cropModalProps?: ModalReactProps;
 }
 
 export interface UploadState {
@@ -134,7 +146,13 @@ export interface UploadState {
     // Track objectURL created by Upload (legacy, kept for compatibility)
     localUrls: Array<string>;
     replaceIdx: number;
-    replaceInputKey: number
+    replaceInputKey: number;
+    // Cropper state
+    cropperVisible: boolean;
+    cropperFile: File | null;
+    cropperSrc: string;
+    pendingFiles: File[];
+    isReplaceOperation: boolean; // Flag to indicate if this is a replace operation
 }
 
 class Upload extends BaseComponent<UploadProps, UploadState> {
@@ -207,7 +225,11 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         validateMessage: PropTypes.node,
         validateStatus: PropTypes.oneOf<UploadProps['validateStatus']>(strings.VALIDATE_STATUS),
         withCredentials: PropTypes.bool,
-        showTooltip: PropTypes.oneOfType([PropTypes.bool, PropTypes.object])
+        showTooltip: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+        crop: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+        beforeCrop: PropTypes.func,
+        onCropError: PropTypes.func,
+        cropModalProps: PropTypes.object,
     };
 
     static defaultProps: Partial<UploadProps> = {
@@ -255,10 +277,17 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             // Status of the drag zone
             dragAreaStatus: 'default',
             localUrls: [],
+            // Cropper state
+            cropperVisible: false,
+            cropperFile: null,
+            cropperSrc: '',
+            pendingFiles: [],
+            isReplaceOperation: false,
         };
         this.foundation = new UploadFoundation(this.adapter);
         this.inputRef = React.createRef<HTMLInputElement>();
         this.replaceInputRef = React.createRef<HTMLInputElement>();
+        this.cropperRef = React.createRef<Cropper>();
     }
 
     /**
@@ -317,8 +346,71 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                 return navigator.platform.toUpperCase().indexOf('MAC') >= 0;
             },
             registerPastingHandler: (cb?: (e: KeyboardEvent | ClipboardEvent) => void): void => {
-                document.body.addEventListener('keydown', cb);
-                this.pastingCb = cb;
+                // Wrap the callback to intercept cropping
+                const wrappedCb = (e: KeyboardEvent | ClipboardEvent) => {
+                    const { crop } = this.props;
+                    
+                    // Handle keydown event (Ctrl/Cmd+V) with crop interception
+                    if (crop && e.type === 'keydown' && 'code' in e) {
+                        const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+                        const isCombineKeydown = isMac ? e.metaKey : e.ctrlKey;
+                        
+                        if (isCombineKeydown && e.code === 'KeyV') {
+                            // Check if navigator.clipboard is available
+                            if (navigator.clipboard && typeof navigator.clipboard.read === 'function') {
+                                const permissionName = 'clipboard-read' as PermissionName;
+                                navigator.permissions
+                                    .query({ name: permissionName })
+                                    .then(result => {
+                                        if (result.state === 'granted' || result.state === 'prompt') {
+                                            navigator.clipboard.read().then(clipboardItems => {
+                                                const files: File[] = [];
+                                                const processClipboardItems = async () => {
+                                                    for (const clipboardItem of clipboardItems) {
+                                                        for (const type of clipboardItem.types) {
+                                                            if (type.startsWith('image')) {
+                                                                const blob = await clipboardItem.getType(type);
+                                                                const buffer = await blob.arrayBuffer();
+                                                                const format = type.split('/')[1];
+                                                                const file = new File([buffer], `paste.${format}`, { type });
+                                                                files.push(file);
+                                                            }
+                                                        }
+                                                    }
+                                                    
+                                                    if (files.length > 0) {
+                                                        const imageFiles = files.filter(file => this.isImageFile(file));
+                                                        
+                                                        if (imageFiles.length > 0) {
+                                                            // Start cropping
+                                                            this.handleCropFiles(files);
+                                                        } else {
+                                                            // No images, let foundation handle it
+                                                            this.foundation.handleChange(files);
+                                                        }
+                                                    }
+                                                };
+                                                processClipboardItems();
+                                            }).catch(error => {
+                                                this.props.onPastingError(error);
+                                            });
+                                        }
+                                    })
+                                    .catch(error => {
+                                        this.props.onPastingError(error);
+                                    });
+                                // Don't call original callback, we've handled it
+                                return;
+                            }
+                        }
+                    }
+                    
+                    // Otherwise, call original callback
+                    cb?.(e);
+                };
+                
+                document.body.addEventListener('keydown', wrappedCb);
+                this.pastingCb = wrappedCb;
             },
             unRegisterPastingHandler: (): void => {
                 if (this.pastingCb) {
@@ -326,8 +418,43 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                 }
             },
             registerPasteEventHandler: (cb?: (e: ClipboardEvent) => void): void => {
-                document.body.addEventListener('paste', cb);
-                this.pasteEventCb = cb;
+                // Wrap the callback to intercept cropping
+                const wrappedCb = (e: ClipboardEvent) => {
+                    const { crop } = this.props;
+                    
+                    // If crop is enabled and this is a paste event with files
+                    if (crop && e.clipboardData && e.clipboardData.items) {
+                        const items = e.clipboardData.items;
+                        const files: File[] = [];
+                        
+                        for (let i = 0; i < items.length; i++) {
+                            const item = items[i];
+                            if (item.kind === 'file') {
+                                const file = item.getAsFile();
+                                if (file) {
+                                    files.push(file);
+                                }
+                            }
+                        }
+                        
+                        if (files.length > 0) {
+                            const imageFiles = files.filter(file => this.isImageFile(file));
+                            
+                            if (imageFiles.length > 0) {
+                                // Intercept and start cropping
+                                e.preventDefault();
+                                this.handleCropFiles(files);
+                                return;
+                            }
+                        }
+                    }
+                    
+                    // Otherwise, call original callback
+                    cb?.(e);
+                };
+                
+                document.body.addEventListener('paste', wrappedCb);
+                this.pasteEventCb = wrappedCb;
             },
             unRegisterPasteEventHandler: (): void => {
                 if (this.pasteEventCb) {
@@ -351,6 +478,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     foundation: UploadFoundation;
     inputRef: RefObject<HTMLInputElement> = null;
     replaceInputRef: RefObject<HTMLInputElement> = null;
+    cropperRef: RefObject<Cropper> = null;
     pastingCb: null | ((params: any) => void) = null;
     pasteEventCb: null | ((params: any) => void) = null;
 
@@ -377,7 +505,159 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
 
     onChange = (e: ChangeEvent<HTMLInputElement>): void => {
         const { files } = e.target;
+        const { crop } = this.props;
+        
+        if (crop && files && files.length > 0) {
+            // Check if any files are images that need cropping
+            const imageFiles = Array.from(files).filter(file => this.isImageFile(file));
+            
+            if (imageFiles.length > 0) {
+                // Start cropping process
+                this.handleCropFiles(Array.from(files));
+                return;
+            }
+        }
+        
         this.foundation.handleChange(files);
+    };
+
+    /**
+     * Check if file is an image
+     */
+    isImageFile = (file: File): boolean => {
+        return file.type.startsWith('image/');
+    };
+
+    /**
+     * Handle files that may need cropping
+     * Note: Currently only processes the first image file for cropping.
+     * Multiple image cropping can be extended in the future if needed.
+     */
+    handleCropFiles = async (files: File[]): Promise<void> => {
+        const { beforeCrop, onCropError } = this.props;
+        
+        // Filter image files that need cropping
+        const imageFiles = files.filter(file => this.isImageFile(file));
+        const nonImageFiles = files.filter(file => !this.isImageFile(file));
+        
+        // Check beforeCrop hook
+        if (beforeCrop) {
+            try {
+                const shouldCrop = await beforeCrop(imageFiles[0], files);
+                if (shouldCrop === false) {
+                    // Skip cropping, process files directly
+                    this.foundation.handleChange(files);
+                    return;
+                }
+            } catch (error) {
+                // If beforeCrop throws, fallback to normal upload flow to avoid blocking user
+                console.error('beforeCrop error:', error);
+                onCropError?.(error as Error);
+                this.foundation.handleChange(files);
+                return;
+            }
+        }
+        
+        // Store all files for later processing
+        // Currently only the first image is cropped.
+        // Other selected files (including additional images) will be uploaded without cropping.
+        if (imageFiles.length > 0) {
+            const restFiles = [...imageFiles.slice(1), ...nonImageFiles];
+            this.setState({
+                cropperVisible: true,
+                cropperFile: imageFiles[0],
+                cropperSrc: URL.createObjectURL(imageFiles[0]),
+                pendingFiles: restFiles,
+                isReplaceOperation: false,
+            });
+        } else {
+            // No images to crop, process directly
+            this.foundation.handleChange(files);
+        }
+    };
+
+    /**
+     * Handle crop confirmation
+     */
+    handleCropOk = async (): Promise<void> => {
+        const { cropperFile, pendingFiles, isReplaceOperation } = this.state;
+        const { crop, onCropError } = this.props;
+        
+        try {
+            // Get cropped canvas
+            const cropperInstance = this.cropperRef.current;
+            if (!cropperInstance) {
+                throw new Error('Cropper instance not found');
+            }
+            
+            const canvas = cropperInstance.getCropperCanvas();
+            
+            // Convert canvas to blob
+            const cropConfig = typeof crop === 'object' ? crop : {};
+            const quality = cropConfig.quality ?? 0.92;
+            const type = cropperFile?.type || 'image/png';
+            
+            const blob = await new Promise<Blob>((resolve, reject) => {
+                canvas.toBlob(
+                    (b) => {
+                        if (b) {
+                            resolve(b);
+                        } else {
+                            reject(new Error('Failed to create blob'));
+                        }
+                    },
+                    type,
+                    quality
+                );
+            });
+            
+            // Create new File from blob
+            const croppedFile = new File([blob], cropperFile?.name || 'cropped-image.png', {
+                type,
+                lastModified: Date.now(),
+            });
+            
+            // Close cropper and clean up
+            this.handleCropCancel();
+            
+            // Process files based on operation type
+            if (isReplaceOperation) {
+                // For replace operation, only pass the cropped file
+                this.foundation.handleReplaceChange([croppedFile]);
+            } else {
+                // For normal upload, combine cropped file with other pending files
+                const allFiles = [croppedFile, ...pendingFiles];
+                this.foundation.handleChange(allFiles as any);
+            }
+            
+        } catch (error) {
+            console.error('Crop error:', error);
+            if (onCropError) {
+                onCropError(error as Error);
+            }
+        }
+    };
+
+    /**
+     * Handle crop cancellation
+     */
+    handleCropCancel = (): void => {
+        const { cropperSrc } = this.state;
+        
+        // Revoke object URL
+        if (cropperSrc) {
+            URL.revokeObjectURL(cropperSrc);
+        }
+        
+        this.setState({
+            cropperVisible: false,
+            cropperFile: null,
+            cropperSrc: '',
+            pendingFiles: [],
+            isReplaceOperation: false,
+            // Reset input so selecting the same file again can trigger onChange
+            inputKey: Math.random(),
+        });
     };
 
     replace = (index: number): void => {
@@ -388,7 +668,68 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
 
     onReplaceChange = (e: ChangeEvent<HTMLInputElement>): void => {
         const { files } = e.target;
+        const { crop } = this.props;
+
+        if (crop && files && files.length > 0) {
+            const imageFiles = Array.from(files).filter(file => this.isImageFile(file));
+
+            if (imageFiles.length > 0) {
+                // For replace, we need to handle cropping specially
+                // Store the replace context so we can replace after cropping
+                this.setState({
+                    replaceIdx: this.state.replaceIdx,
+                });
+                // Start cropping process - handleCropFiles will eventually call foundation.handleChange
+                // But we need a different flow for replace...
+                // Actually, we should handle replace differently
+                this.handleReplaceCropFiles(Array.from(files));
+                return;
+            }
+        }
+
         this.foundation.handleReplaceChange(files);
+    };
+
+    /**
+     * Handle files that need cropping for replace operation
+     */
+    handleReplaceCropFiles = async (files: File[]): Promise<void> => {
+        const { beforeCrop, onCropError } = this.props;
+        const { replaceIdx } = this.state;
+
+        const imageFiles = files.filter(file => this.isImageFile(file));
+
+        // Check beforeCrop hook
+        if (beforeCrop) {
+            try {
+                const shouldCrop = await beforeCrop(imageFiles[0], files);
+                if (shouldCrop === false) {
+                    // Skip cropping, process replace directly
+                    this.foundation.handleReplaceChange(files);
+                    return;
+                }
+            } catch (error) {
+                // If beforeCrop throws, fallback to normal replace flow
+                console.error('beforeCrop error:', error);
+                onCropError?.(error as Error);
+                this.foundation.handleReplaceChange(files);
+                return;
+            }
+        }
+
+        // For replace, only first image is processed
+        if (imageFiles.length > 0) {
+            this.setState({
+                cropperVisible: true,
+                cropperFile: imageFiles[0],
+                cropperSrc: URL.createObjectURL(imageFiles[0]),
+                pendingFiles: [], // No pending files for replace
+                isReplaceOperation: true,
+            });
+        } else {
+            // No images to crop, process replace directly
+            this.foundation.handleReplaceChange(files);
+        }
     };
 
     clear = (): void => {
@@ -641,6 +982,45 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     };
 
     onDrop = (e: DragEvent<HTMLDivElement>): void => {
+        // Block file opening in browser
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const { crop, directory, disabled } = this.props;
+        const fileList = this.state.fileList.slice();
+        
+        // If disabled, do nothing
+        if (disabled) {
+            return;
+        }
+        
+        // If directory upload, delegate to foundation (folder upload doesn't support cropping)
+        if (directory) {
+            this.foundation.handleDrop(e);
+            return;
+        }
+        
+        const files = Array.from(e.dataTransfer.files);
+        
+        // If crop is enabled and there are image files, intercept for cropping
+        if (crop && files.length > 0) {
+            const imageFiles = files.filter(file => this.isImageFile(file));
+            
+            if (imageFiles.length > 0) {
+                // Update drag area status
+                this.setState({ dragAreaStatus: 'default' as const });
+                // Notify drop callback
+                // Use nativeEvent to match public API typing: onDrop(e: Event, ...)
+                // React DragEvent is not assignable to DOM Event in TS.
+                const eventForCb: Event = (e as any).nativeEvent || (e as any);
+                this.props.onDrop(eventForCb, files, fileList);
+                // Start cropping process
+                this.handleCropFiles(files);
+                return;
+            }
+        }
+        
+        // Fall back to foundation's default handling
         this.foundation.handleDrop(e);
     };
 
@@ -730,6 +1110,56 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         );
     };
 
+    renderCropperModal = (): ReactNode => {
+        const { cropperVisible, cropperSrc } = this.state;
+        const { crop, cropModalProps } = this.props;
+        const cropConfig = typeof crop === 'object' ? crop : {};
+        const {
+            style: modalStyle,
+            bodyStyle: modalBodyStyle,
+            ...restModalProps
+        } = (cropModalProps || {}) as ModalReactProps;
+        
+        return (
+            <LocaleConsumer componentName="Upload">
+                {(locale: Locale['Upload']) => {
+                    const modalTitle = cropConfig.modalTitle || locale.cropTitle || '裁切图片';
+                    const modalOkText = cropConfig.modalOkText || locale.cropOk || '确定';
+                    const modalCancelText = cropConfig.modalCancelText || locale.cropCancel || '取消';
+                    
+                    return (
+                        <Modal
+                            {...restModalProps}
+                            width={600}
+                            title={modalTitle}
+                            visible={cropperVisible}
+                            onOk={this.handleCropOk}
+                            onCancel={this.handleCropCancel}
+                            okText={modalOkText}
+                            cancelText={modalCancelText}
+                            style={{ height: 500, ...(modalStyle || {}) }}
+                            bodyStyle={{ height: 400, ...(modalBodyStyle || {}) }}
+                        >
+                            {cropperSrc && (
+                                <Cropper
+                                    ref={this.cropperRef}
+                                    src={cropperSrc}
+                                    shape={cropConfig.shape || 'rect'}
+                                    aspectRatio={cropConfig.aspectRatio}
+                                    minZoom={cropConfig.minZoom}
+                                    maxZoom={cropConfig.maxZoom}
+                                    zoomStep={cropConfig.zoomStep}
+                                    fill={cropConfig.fill}
+                                    style={{ width: '100%', height: '100%' }}
+                                />
+                            )}
+                        </Modal>
+                    );
+                }}
+            </LocaleConsumer>
+        );
+    };
+
     render(): ReactNode {
         const {
             style,
@@ -806,6 +1236,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                     </div>
                 ) : null}
                 {this.renderFileList()}
+                {this.renderCropperModal()}
             </div>
         );
     }

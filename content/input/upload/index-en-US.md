@@ -1490,6 +1490,205 @@ import { IconUpload } from '@douyinfe/semi-icons';
 };
 ```
 
+### Image Cropping
+
+Enable image cropping functionality through the `crop` property. Supports cropping when clicking to select, dragging, pasting, and replacing files.
+
+#### Basic Usage
+
+Set `crop={true}` to enable default cropping configuration.
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={true}
+            onSuccess={(response, file) => {
+                console.log('Upload success:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                Click to upload (with cropping)
+            </Button>
+        </Upload>
+    );
+};
+```
+
+#### Custom Cropping Configuration
+
+Configure cropping parameters through object form, including aspect ratio, shape, quality, etc.
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={{
+                aspectRatio: 16 / 9,
+                shape: 'rect',
+                quality: 0.8,
+                modalTitle: 'Crop Image',
+                modalOkText: 'Confirm',
+                modalCancelText: 'Cancel',
+            }}
+            onSuccess={(response, file) => {
+                console.log('Upload success:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                Click to upload (16:9 cropping)
+            </Button>
+        </Upload>
+    );
+};
+```
+
+#### Round Cropping
+
+Suitable for avatar upload scenarios, set `shape: 'round'` to enable round cropping.
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={{
+                aspectRatio: 1,
+                shape: 'round',
+                quality: 0.9,
+                modalTitle: 'Crop Avatar',
+            }}
+            listType="picture"
+            onSuccess={(response, file) => {
+                console.log('Upload success:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                Click to upload (round cropping)
+            </Button>
+        </Upload>
+    );
+};
+```
+
+#### Confirm Before Cropping
+
+Use the `beforeCrop` callback to confirm or perform other processing before cropping. Return `false` to skip cropping and upload directly.
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={{
+                aspectRatio: 1,
+                shape: 'round',
+            }}
+            beforeCrop={(file, fileList) => {
+                console.log('beforeCrop:', file, fileList);
+                // Return true to continue cropping, return false to skip cropping and upload directly
+                return window.confirm('Crop the image?');
+            }}
+            onCropError={(error) => {
+                console.error('Crop error:', error);
+            }}
+            onSuccess={(response, file) => {
+                console.log('Upload success:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                Click to upload (confirm before crop)
+            </Button>
+        </Upload>
+    );
+};
+```
+
+#### Drag and Drop Upload with Cropping
+
+Cropping is also triggered when uploading via drag and drop.
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={{
+                aspectRatio: 1,
+                shape: 'rect',
+            }}
+            draggable
+            onDrop={(e, files, fileList) => {
+                console.log('Dropped files:', files);
+            }}
+            onSuccess={(response, file) => {
+                console.log('Upload success:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                Drag to upload (with cropping)
+            </Button>
+        </Upload>
+    );
+};
+```
+
+#### Custom Cropping Modal Style
+
+Customize the style and properties of the cropping modal through `cropModalProps`.
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={{
+                aspectRatio: 1,
+                shape: 'rect',
+            }}
+            cropModalProps={{
+                width: 800,
+                style: { height: 600 },
+                bodyStyle: { height: 500, backgroundColor: '#f5f5f5' },
+            }}
+            onSuccess={(response, file) => {
+                console.log('Upload success:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                Custom Modal Style
+            </Button>
+        </Upload>
+    );
+};
+```
+
 ## API Reference
 
 ---
