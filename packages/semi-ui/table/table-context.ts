@@ -23,6 +23,7 @@ export interface TableContextProps {
     setBodyHasScrollbar?: (bodyHasScrollBar: boolean) => void;
     direction?: ContextValue['direction'];
     handleRowSelection?: (rowKey: BaseRowKeyType, selected: boolean, e: React.MouseEvent) => void;
+    headerStyle?: React.CSSProperties;
 }
 
 const TableContext = React.createContext<TableContextProps>({

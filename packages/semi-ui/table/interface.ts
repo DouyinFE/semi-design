@@ -47,6 +47,7 @@ export interface TableProps<RecordType extends Record<string, any> = any> extend
     footer?: Footer<RecordType>;
     getVirtualizedListRef?: GetVirtualizedListRef;
     groupBy?: GroupBy<RecordType>;
+    headerStyle?: React.CSSProperties;
     hideExpandedColumn?: boolean;
     id?: string;
     indentSize?: number;

@@ -104,7 +104,7 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
 
     render() {
         const { components, row, prefixCls, onHeaderRow, index, style, columns } = this.props;
-        const { getCellWidths, direction } = this.context;
+        const { getCellWidths, direction, headerStyle } = this.context;
         const isRTL = direction === 'rtl';
         const slicedColumns = sliceColumnsByLevel(columns, index);
         const headWidths = getCellWidths(slicedColumns);
@@ -119,7 +119,10 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
             const { column, ...cellProps } = cell;
             const customProps =
                 typeof column.onHeaderCell === 'function' ? column.onHeaderCell(column, cellIndex, index) : {};
-            let cellStyle = { ...customProps.style };
+            // Merge order:
+            // - headerStyle provides a global default for header cells
+            // - column.onHeaderCell().style can override it for a specific column
+            let cellStyle = { ...headerStyle, ...customProps.style };
             if (column.align) {
                 const textAlign = getRTLAlign(column.align, direction);
                 cellStyle = { ...cellStyle, textAlign };

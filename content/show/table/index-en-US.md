@@ -5385,6 +5385,7 @@ render(App);
 | expandRowByClick | Expand row when click row                                                                                                 | boolean | false | - |
 | footer | End of form                                                                                                               | string<br/>\|ReactNode<br/>\|(pageData: object) => string\|ReactNode |  |
 | groupBy | Grouping basis, generally a method of a key name or a return value of a string or number in the dataSource element        | string\|number<br/>\|(record: any) => string\|number |  | - |
+| headerStyle | Style for header cells (applies to all header <th>, including fixed columns) | CSSProperties | - | - |
 | hideExpandedColumn | Whether to hide the expansion button column and turn off the rendering of the expansion button when it is turned on       | boolean | true |
 | indentSize | indent size of TableCell                                                                                                  | number | 20 |
 | keepDOM | Whether to not destroy the collapsed DOM when folding a row                                                               | boolean | false |
@@ -5411,6 +5412,58 @@ render(App);
 | onGroupedRow | Similar to onRow, but this parameter is used to define the row attribute of the grouping header alone                     | (record: RecordType, index: number) => object |  | - |
 | onHeaderRow | Set the header row property, and the returned object is merged to the header line                                         | (columns: Column[], index: number) => object |  |
 | onRow | Set the row property, and the returned object is merged to the table row | (record: RecordType, index: number, rowStatus?: { disabled?: boolean; selected?: boolean }) => object |  | - |
+
+### headerStyle Example
+
+`headerStyle` will be applied to all header `<th>` elements, including fixed columns.
+
+```jsx
+import React from 'react';
+import { Table } from '@douyinfe/semi-ui';
+
+const columns = [
+    {
+        title: 'Name',
+        dataIndex: 'name',
+        width: 180,
+        fixed: 'left',
+    },
+    {
+        title: 'Age',
+        dataIndex: 'age',
+        width: 120,
+    },
+    {
+        title: 'Address',
+        dataIndex: 'address',
+        width: 280,
+    },
+    {
+        title: 'Company',
+        dataIndex: 'company',
+        width: 280,
+    },
+];
+
+const dataSource = Array.from({ length: 6 }).map((_, i) => ({
+    key: i,
+    name: `Edward ${i}`,
+    age: 20 + i,
+    address: 'No. 1, Lake Park',
+    company: 'Semi Design',
+}));
+
+export default function Demo() {
+    return (
+        <Table
+            columns={columns}
+            dataSource={dataSource}
+            scroll={{ x: 900 }}
+            headerStyle={{ backgroundColor: '#F5F6F7', fontWeight: 600 }}
+        />
+    );
+}
+```
 
 Some of the type definitions used above:
 
