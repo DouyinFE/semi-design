@@ -251,11 +251,19 @@ function withField<
                             if (messages.length === 1) {
                                 messages = messages[0];
                             }
-                            updateError(messages, callOpts);
-                            if (!isValid(messages)) {
+                            // NOTE:
+                            // `async-validator` treats `message: ''` as a valid error message (validation fails, but user wants to hide text).
+                            // In that case, `messages` can be an empty string, and `isValid('')` returns true.
+                            // We must still finish the promise and mark field/form as invalid, otherwise submit/validate will hang.
+                            const hasRulesError = Array.isArray(errors) && errors.length > 0;
+                            if (hasRulesError) {
                                 if (!callOpts?.silent) {
                                     setStatus('error');
                                 }
+                                // Use `false` as an internal marker: invalid but no message.
+                                // This keeps ErrorMessage hidden (it won't render for falsy), while Form can still detect invalid.
+                                const finalError = messages === '' ? false : messages;
+                                updateError(finalError, callOpts);
                                 resolve(errors);
                             }
                         } else {
