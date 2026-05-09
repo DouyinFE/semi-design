@@ -1,4 +1,5 @@
 import { strings } from './constants';
+import type { PanelType } from './constants';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     formatToString,
@@ -70,8 +71,32 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         return position || rtlDirection || strings.DEFAULT_POSITION[type];
     }
 
-    isDisabledHMS({ hours, minutes, seconds }: { hours: number; minutes: number; seconds: number }) {
-        const { disabledHours, disabledMinutes, disabledSeconds } = this.getProps();
+    getDisabledTimeFns(panelType: PanelType, dates: Date[]) {
+        const { disabledHours, disabledMinutes, disabledSeconds, disabledTime } = this.getProps() as any;
+
+        if (typeof disabledTime === 'function') {
+            const cbValue = this._adapter.isRangePicker() ? dates : dates?.[0];
+            const disabledObj = disabledTime(cbValue, panelType) || {};
+            return {
+                disabledHours: disabledObj.disabledHours || disabledHours,
+                disabledMinutes: disabledObj.disabledMinutes || disabledMinutes,
+                disabledSeconds: disabledObj.disabledSeconds || disabledSeconds,
+            };
+        }
+
+        return {
+            disabledHours,
+            disabledMinutes,
+            disabledSeconds,
+        };
+    }
+
+    isDisabledHMS(
+        { hours, minutes, seconds }: { hours: number; minutes: number; seconds: number },
+        panelType: PanelType = 'left',
+        dates: Date[] = []
+    ) {
+        const { disabledHours, disabledMinutes, disabledSeconds } = this.getDisabledTimeFns(panelType, dates);
         const hDis = !isNullOrUndefined(hours) && hourIsDisabled(disabledHours, hours);
         const mDis = !isNullOrUndefined(hours) && !isNullOrUndefined(minutes) && minuteIsDisabled(disabledMinutes, hours, minutes);
         const sDis =
@@ -213,9 +238,21 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
                     )
                 );
             }
-            invalid = dates.some(d =>
-                this.isDisabledHMS({ hours: d.getHours(), minutes: d.getMinutes(), seconds: d.getSeconds() })
-            );
+            if (this._adapter.isRangePicker()) {
+                invalid = dates.some((d, idx) => {
+                    const panelType: PanelType = idx === 1 ? 'right' : 'left';
+                    return this.isDisabledHMS(
+                        { hours: d.getHours(), minutes: d.getMinutes(), seconds: d.getSeconds() },
+                        panelType,
+                        dates
+                    );
+                });
+            } else {
+                const d = dates[0];
+                invalid = d
+                    ? this.isDisabledHMS({ hours: d.getHours(), minutes: d.getMinutes(), seconds: d.getSeconds() }, 'left', dates)
+                    : false;
+            }
         }
         const inputValue = this.formatValue(dates);
 
@@ -325,9 +362,21 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         let invalid = dates.some(d => isNaN(Number(d)));
 
         if (!invalid) {
-            invalid = dates.some(d =>
-                this.isDisabledHMS({ hours: d.getHours(), minutes: d.getMinutes(), seconds: d.getSeconds() })
-            );
+            if (this._adapter.isRangePicker()) {
+                invalid = dates.some((d, idx) => {
+                    const panelType: PanelType = idx === 1 ? 'right' : 'left';
+                    return this.isDisabledHMS(
+                        { hours: d.getHours(), minutes: d.getMinutes(), seconds: d.getSeconds() },
+                        panelType,
+                        dates
+                    );
+                });
+            } else {
+                const d = dates[0];
+                invalid = d
+                    ? this.isDisabledHMS({ hours: d.getHours(), minutes: d.getMinutes(), seconds: d.getSeconds() }, 'left', dates)
+                    : false;
+            }
         }
 
         return invalid;

@@ -174,6 +174,40 @@ function Demo() {
 }
 ```
 
+### Range 模式下分别禁用左右面板（disabledTime）
+
+当 `type="timeRange"` 时，你可以通过 `disabledTime(value, panelType)` 对左右面板分别应用不同的禁用规则。
+
+- `value`：单选模式为 `Date`；range 模式为 `Date[]`（可能为空/长度为 1/2）
+- `panelType`：`'left' | 'right'`，分别代表开始/结束面板
+
+下面示例实现：选择开始时间后，右侧结束时间面板会禁用早于开始时间的选项。
+
+```jsx live=true hideInDSM
+import React from 'react';
+import { TimePicker } from '@douyinfe/semi-ui';
+
+function Demo() {
+    return (
+        <TimePicker
+            type="timeRange"
+            disabledTime={(value, panelType) => {
+                const start = Array.isArray(value) ? value[0] : value;
+                if (panelType === 'right' && start instanceof Date) {
+                    const h = start.getHours();
+                    const m = start.getMinutes();
+                    return {
+                        disabledHours: () => Array.from({ length: h }, (_, i) => i),
+                        disabledMinutes: hour => (hour === h ? Array.from({ length: m }, (_, i) => i) : []),
+                    };
+                }
+                return {};
+            }}
+        />
+    );
+}
+```
+
 ### 自定义触发器
 
 默认情况下我们使用 `Input` 组件作为 `TimePicker` 组件的触发器，通过传递 `triggerRender` 方法你可以自定义这个触发器。
@@ -273,6 +307,7 @@ function Demo(props = {}) {
 | disabledHours         | 禁止选择部分小时选项                                                                                                     | Function(): number[]                                                              |                                                                   |            |
 | disabledMinutes       | 禁止选择部分分钟选项                                                                                                     | Function(selectedHour: number): number[]                                          |                                                                   |            |
 | disabledSeconds       | 禁止选择部分秒选项                                                                                                       | Function(selectedHour: number, selectedMinute: number): number[]                  |                                                                   |            |
+| disabledTime          | 时间禁用配置（支持 range 模式左右面板分别应用）。回调参数 value：单选为 Date；range 为 Date[]；panelType：'left'\|'right'。返回值将覆盖对应的 disabledHours/disabledMinutes/disabledSeconds | Function(value: Date \| Date[], panelType: 'left' \| 'right'): { disabledHours?: () => number[]; disabledMinutes?: (selectedHour: number) => number[]; disabledSeconds?: (selectedHour: number, selectedMinute: number) => number[] } |                                                                   |            |
 | dropdownMargin        | 浮层算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin   | object\|number                                                                    |                                                                   | **2.25.0** |
 | focusOnOpen           | 挂载时是否打开面板并focus输入框                                                                                          | boolean                                                                           | false                                                             |            |
 | format                | 展示的时间格式                                                                                                           | string                                                                            | "HH:mm:ss"                                                        |            |

@@ -179,6 +179,40 @@ function Demo() {
 }
 ```
 
+### Disable left/right panels in Range mode (disabledTime)
+
+When `type="timeRange"`, you can use `disabledTime(value, panelType)` to apply different disabled rules for the left/right panel.
+
+- `value`: `Date` in single mode; `Date[]` in range mode (might be empty / length 1 / length 2)
+- `panelType`: `'left' | 'right'`, representing start/end panel
+
+In the following demo, after selecting a start time, the right (end) panel will disable options earlier than the start time.
+
+```jsx live=true hideInDSM
+import React from 'react';
+import { TimePicker } from '@douyinfe/semi-ui';
+
+function Demo() {
+    return (
+        <TimePicker
+            type="timeRange"
+            disabledTime={(value, panelType) => {
+                const start = Array.isArray(value) ? value[0] : value;
+                if (panelType === 'right' && start instanceof Date) {
+                    const h = start.getHours();
+                    const m = start.getMinutes();
+                    return {
+                        disabledHours: () => Array.from({ length: h }, (_, i) => i),
+                        disabledMinutes: hour => (hour === h ? Array.from({ length: m }, (_, i) => i) : []),
+                    };
+                }
+                return {};
+            }}
+        />
+    );
+}
+```
+
 ### Custom Trigger
 
 By default we use the `Input` component as the trigger for the `DatePicker` component. You can customize this trigger by passing the `triggerRender` method.
@@ -282,6 +316,7 @@ function Demo(props = {}) {
 | disabledHours | Prohibited selection of partial hour options                                                                                                                                                                                                  | () => number [] |  |
 | disabledMinutes | Prohibited to select some minute options                                                                                                                                                                                                      | (selectedHour: number) => number[] |  |
 | disabledSeconds | Unable to select partial second option                                                                                                                                                                                                        | (selectedHour: number, selectedMinute: number) => number[] |  |
+| disabledTime | Disabled time configuration (supports applying different rules for left/right panels in range mode). Callback params: value: `Date` in single mode, `Date[]` in range mode; panelType: `'left'\|'right'`. Return value will override corresponding `disabledHours`/`disabledMinutes`/`disabledSeconds`. | (value: Date \| Date[], panelType: 'left' \| 'right') => { disabledHours?: () => number[]; disabledMinutes?: (selectedHour: number) => number[]; disabledSeconds?: (selectedHour: number, selectedMinute: number) => number[] } |  |  |
 | dropdownMargin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin | object\|number |  | **2.25.0** |
 | focusOnOpen     | Whether to open the panel and focus the input box when mounting                                                                                                                                                                               | boolean                                                                            | false                                                     |                    |
 | format | Time format of presentation                                                                                                                                                                                                                   | string | "HH: mm: ss." |  |
