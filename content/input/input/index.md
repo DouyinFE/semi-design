@@ -595,6 +595,7 @@ import { Input, TextArea } from '@douyinfe/semi-ui';
 | maxCount     | 设置字数限制并显示字数统计         | number                          | 无     |
 | placeholder  | 当前的默认值                       | string                          | 无     |
 | readonly     | 只读                               | boolean                         | false  |
+| resize       | 是否允许用户拖拽调整尺寸，及调整方向。可选值：`none` \| `both` \| `horizontal` \| `vertical` \| `block` \| `inline`。当 `autosize` 开启时该属性会被忽略。**仅当显式传入该属性时才会生效**（默认不干预，以保持历史宽度/样式行为；如需仍使用原生方式可通过 `textareaStyle.resize` 控制） | string | - |
 | rows         | 默认行数                           | number                          | 4      |
 | showLineNumber | 是否展示行号 | boolean | false |
 | lineNumberStart | 行号起始值 | number | 1 |
@@ -611,7 +612,7 @@ import { Input, TextArea } from '@douyinfe/semi-ui';
 | onKeyDown    | keydown 回调，html 事件             | (e:event) => void               | -      |
 | onKeyPress   | keypress 回调，html 事件            | (e:event) => void               | -      |
 | onKeyUp      | keyup 回调，html 事件               | (e:event) => void               | -      |
-| onResize     | 触发高度变化时的回调 | ({ height:number }) => void    | -      |
+| onResize     | 尺寸变化回调：`autosize` 导致高度变化时触发；当 `resize` 允许用户拖拽调整尺寸时，也会在尺寸变化时触发（会额外提供 `width`） | ({ height:number, width?: number }) => void    | -      |
 | onCompositionStart | onCompositionStart回调, **>=2.85.0**   | function(e:event) | - |
 | onCompositionEnd | onCompositionEnd回调, **>=2.85.0**  | function(e:event) | - |
 | onCompositionUpdate | onCompositionUpdate回调, **>=2.85.0**  | function(e:event) | - |
