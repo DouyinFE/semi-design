@@ -1832,6 +1832,85 @@ import { Cascader } from '@douyinfe/semi-ui';
 ```
 
 
+### Remote Search
+
+**v>=2.97.0** Cascader supports remote search. With `remote` enabled, search input no longer goes through local filtering — only the `onSearch` callback is fired, and you are responsible for fetching `treeData` asynchronously based on the input. This mirrors Select's `remote` behavior.
+
+<Notice title='Usage notes'>
+You should typically handle the following yourself when using remote search:
+<ul>
+    <li><strong>Debounce</strong>: avoid firing a request on every keystroke; wrapping the search handler with <code>lodash.debounce</code> (e.g. 200~300ms) is the common approach.</li>
+    <li><strong>Race-condition protection</strong>: use an incrementing token or an <code>AbortController</code> to drop stale responses, otherwise an out-of-order earlier response may overwrite the latest one.</li>
+    <li><strong>Loading hint</strong>: show a loading state via an outer <code>Spin</code> or other indicator while the request is in flight, otherwise users may misread an in-flight state as "no data".</li>
+    <li><strong>Empty / cleared input</strong>: when the input is cleared, restore <code>treeData</code> to the initial state instead of querying with an empty keyword.</li>
+</ul>
+</Notice>
+
+```jsx live=true
+import React, { useRef, useState, useCallback } from 'react';
+import { Cascader, Spin } from '@douyinfe/semi-ui';
+import { debounce } from 'lodash';
+
+() => {
+    const [treeData, setTreeData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    // a ref token used to drop stale responses
+    const reqTokenRef = useRef(0);
+
+    // simulated remote API
+    const fetchByKeyword = (keyword) =>
+        new Promise((resolve) => {
+            const delay = 200 + Math.floor(Math.random() * 800);
+            setTimeout(() => {
+                if (!keyword) {
+                    resolve([]);
+                    return;
+                }
+                resolve([
+                    { label: `${keyword} - option A`, value: `${keyword}-a` },
+                    { label: `${keyword} - option B`, value: `${keyword}-b` },
+                    { label: `${keyword} - option C`, value: `${keyword}-c` },
+                ]);
+            }, delay);
+        });
+
+    const handleSearch = useCallback(
+        debounce(async (input) => {
+            if (!input) {
+                setTreeData([]);
+                setLoading(false);
+                return;
+            }
+            const token = ++reqTokenRef.current;
+            setLoading(true);
+            const next = await fetchByKeyword(input);
+            // out-of-order earlier response — drop it
+            if (token !== reqTokenRef.current) {
+                return;
+            }
+            setTreeData(next);
+            setLoading(false);
+        }, 300),
+        []
+    );
+
+    return (
+        <Spin spinning={loading}>
+            <Cascader
+                style={{ width: 300 }}
+                placeholder="Type to search remotely"
+                filterTreeNode
+                remote
+                treeData={treeData}
+                onSearch={handleSearch}
+                onChange={(v) => console.log('selected:', v)}
+            />
+        </Spin>
+    );
+};
+```
+
+
 ### Custom Trigger
 
 If the default trigger style cannot meet your needs, you can use `triggerRender` to customize the display of the select box

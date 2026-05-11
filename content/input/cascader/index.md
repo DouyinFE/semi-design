@@ -1741,6 +1741,85 @@ import { Cascader } from '@douyinfe/semi-ui';
 ```
 
 
+### 远程搜索
+
+**v>=2.97.0** 起 Cascader 支持远程搜索。设置 `remote` 后，搜索输入不再走本地匹配，而是仅触发 `onSearch` 回调，由你根据输入异步拉取 `treeData`。这与 Select 的 `remote` 行为一致。
+
+<Notice title='使用说明'>
+搜索时建议自行处理以下几点：
+<ul>
+    <li><strong>防抖（debounce）</strong>：避免每次按键都打请求，常见做法是用 <code>lodash.debounce</code> 包裹搜索逻辑（如 200~300ms）。</li>
+    <li><strong>竞态保护</strong>：用一个递增 token / AbortController 丢弃过期请求结果，避免后发先到时旧响应覆盖新响应。</li>
+    <li><strong>loading 提示</strong>：在请求期间通过外层 <code>Spin</code> 或简单的提示元素告知用户「加载中」，否则用户会看到「暂无数据」误以为无结果。</li>
+    <li><strong>初始 / 空输入处理</strong>：输入被清空时把 <code>treeData</code> 还原为初始数据，避免空查询拉数据。</li>
+</ul>
+</Notice>
+
+```jsx live=true
+import React, { useRef, useState, useCallback } from 'react';
+import { Cascader, Spin } from '@douyinfe/semi-ui';
+import { debounce } from 'lodash';
+
+() => {
+    const [treeData, setTreeData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    // 用 ref 保存最新一次请求的 token，丢弃过期响应
+    const reqTokenRef = useRef(0);
+
+    // 模拟远程搜索接口
+    const fetchByKeyword = (keyword) =>
+        new Promise((resolve) => {
+            const delay = 200 + Math.floor(Math.random() * 800);
+            setTimeout(() => {
+                if (!keyword) {
+                    resolve([]);
+                    return;
+                }
+                resolve([
+                    { label: `${keyword} - 选项 A`, value: `${keyword}-a` },
+                    { label: `${keyword} - 选项 B`, value: `${keyword}-b` },
+                    { label: `${keyword} - 选项 C`, value: `${keyword}-c` },
+                ]);
+            }, delay);
+        });
+
+    const handleSearch = useCallback(
+        debounce(async (input) => {
+            if (!input) {
+                setTreeData([]);
+                setLoading(false);
+                return;
+            }
+            const token = ++reqTokenRef.current;
+            setLoading(true);
+            const next = await fetchByKeyword(input);
+            // 后发先到时直接丢弃过期结果
+            if (token !== reqTokenRef.current) {
+                return;
+            }
+            setTreeData(next);
+            setLoading(false);
+        }, 300),
+        []
+    );
+
+    return (
+        <Spin spinning={loading}>
+            <Cascader
+                style={{ width: 300 }}
+                placeholder="输入关键词远程搜索"
+                filterTreeNode
+                remote
+                treeData={treeData}
+                onSearch={handleSearch}
+                onChange={(v) => console.log('selected:', v)}
+            />
+        </Spin>
+    );
+};
+```
+
+
 ### 超长列表
 
 当你的数据结构层级特别深时，Cascader下拉菜单可能会超出屏幕，此时我们建议为下拉菜单设置 overflow-x: auto 以及一个合适的 width 宽度（ 建议以N+0.5列的宽度为准，最右侧显示半列，以给用户一种右侧尚有待展开项，可以水平方向滚动的视觉暗示）
