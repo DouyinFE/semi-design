@@ -601,4 +601,133 @@ describe('Form-formApi', () => {
     // it('formApi-submitForm', () => {
     //     // submit should call validate first
     // });
+
+    // fix #2933: Form-level validator/onValidate/validateFields naming aliases
+    it('formApi-validate, form-level validator alias takes precedence over onValidate and validateFields', async () => {
+        const fields = (
+            <>
+                <Form.Input field="name" />
+            </>
+        );
+        const validatorSpy = sinon.spy(() => ({ name: 'from-validator' }));
+        const onValidateSpy = sinon.spy(() => ({ name: 'from-onValidate' }));
+        const validateFieldsSpy = sinon.spy(() => ({ name: 'from-validateFields' }));
+
+        let formApi = null;
+        let formProps = {
+            children: fields,
+            getFormApi: api => { formApi = api; },
+            validator: validatorSpy,
+            onValidate: onValidateSpy,
+            validateFields: validateFieldsSpy,
+        };
+        getForm(formProps);
+        formApi.validate().then(() => {}).catch(() => {});
+        await sleep(300);
+        expect(validatorSpy.called).toBeTruthy();
+        expect(onValidateSpy.called).toBeFalsy();
+        expect(validateFieldsSpy.called).toBeFalsy();
+        expect(formApi.getFormState().errors).toEqual({ name: 'from-validator' });
+    });
+
+    it('formApi-validate, form-level onValidate alias is used when validator is absent (deprecated)', async () => {
+        const fields = (
+            <>
+                <Form.Input field="name" />
+            </>
+        );
+        const onValidateSpy = sinon.spy(() => ({ name: 'from-onValidate' }));
+        const validateFieldsSpy = sinon.spy(() => ({ name: 'from-validateFields' }));
+
+        let formApi = null;
+        let formProps = {
+            children: fields,
+            getFormApi: api => { formApi = api; },
+            onValidate: onValidateSpy,
+            validateFields: validateFieldsSpy,
+        };
+        getForm(formProps);
+        formApi.validate().then(() => {}).catch(() => {});
+        await sleep(300);
+        expect(onValidateSpy.called).toBeTruthy();
+        expect(validateFieldsSpy.called).toBeFalsy();
+        expect(formApi.getFormState().errors).toEqual({ name: 'from-onValidate' });
+    });
+
+    it('formApi-validate, legacy validateFields still works when neither validator nor onValidate is set', async () => {
+        const fields = (
+            <>
+                <Form.Input field="name" />
+            </>
+        );
+        const validateFieldsSpy = sinon.spy(() => ({ name: 'from-validateFields' }));
+
+        let formApi = null;
+        let formProps = {
+            children: fields,
+            getFormApi: api => { formApi = api; },
+            validateFields: validateFieldsSpy,
+        };
+        getForm(formProps);
+        formApi.validate().then(() => {}).catch(() => {});
+        await sleep(300);
+        expect(validateFieldsSpy.called).toBeTruthy();
+        expect(formApi.getFormState().errors).toEqual({ name: 'from-validateFields' });
+    });
+
+    // fix #2933: Field-level validator/onValidate/validate naming aliases
+    it('formApi-validate, field-level validator alias takes precedence over onValidate and validate', async () => {
+        const validatorSpy = sinon.spy(() => 'from-validator');
+        const onValidateSpy = sinon.spy(() => 'from-onValidate');
+        const validateSpy = sinon.spy(() => 'from-validate');
+        const fields = (
+            <>
+                <Form.Input
+                    field="a"
+                    className="ab"
+                    validator={validatorSpy}
+                    onValidate={onValidateSpy}
+                    validate={validateSpy}
+                />
+            </>
+        );
+        let formApi = null;
+        let formProps = {
+            children: fields,
+            getFormApi: api => { formApi = api; },
+        };
+        getForm(formProps);
+        formApi.validate().then(() => {}).catch(() => {});
+        await sleep(300);
+        expect(validatorSpy.called).toBeTruthy();
+        expect(onValidateSpy.called).toBeFalsy();
+        expect(validateSpy.called).toBeFalsy();
+        expect(formApi.getFormState().errors).toEqual({ a: 'from-validator' });
+    });
+
+    it('formApi-validate, field-level onValidate alias is used when validator is absent (deprecated)', async () => {
+        const onValidateSpy = sinon.spy(() => 'from-onValidate');
+        const validateSpy = sinon.spy(() => 'from-validate');
+        const fields = (
+            <>
+                <Form.Input
+                    field="a"
+                    className="ab"
+                    onValidate={onValidateSpy}
+                    validate={validateSpy}
+                />
+            </>
+        );
+        let formApi = null;
+        let formProps = {
+            children: fields,
+            getFormApi: api => { formApi = api; },
+        };
+        getForm(formProps);
+        formApi.validate().then(() => {}).catch(() => {});
+        await sleep(300);
+        expect(onValidateSpy.called).toBeTruthy();
+        expect(validateSpy.called).toBeFalsy();
+        expect(formApi.getFormState().errors).toEqual({ a: 'from-onValidate' });
+    });
 });
