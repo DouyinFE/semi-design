@@ -2,6 +2,7 @@ import { ReactNode, CSSProperties, MouseEvent } from 'react';
 import { BaseFileItem } from '@douyinfe/semi-foundation/upload/foundation';
 import { strings } from '@douyinfe/semi-foundation/upload/constants';
 import { ArrayElement } from '../_base/base';
+// keep imports minimal; Upload crop modal props type is declared in Upload component
 
 export type PromptPositionType = ArrayElement<typeof strings.PROMPT_POSITION>;
 export type UploadListType = ArrayElement<typeof strings.LIST_TYPE>;
@@ -71,5 +72,28 @@ export interface RenderPictureCloseProps {
 export interface RenderFileListTitleProps {
     fileList: Array<FileItem>;
     onClear: () => void;
-    clearText: string;
+    clearText: string
+}
+
+export interface CropProps {
+    /** Crop box aspect ratio (width / height), e.g. 16/9, 1, 4/3 */
+    aspectRatio?: number;
+    /** Crop box shape */
+    shape?: 'rect' | 'round' | 'roundRect';
+    /** Minimum zoom ratio */
+    minZoom?: number;
+    /** Maximum zoom ratio */
+    maxZoom?: number;
+    /** Zoom step size */
+    zoomStep?: number;
+    /** Output image quality, range 0 - 1, defaults to 0.92 */
+    quality?: number;
+    /** Fill color of the area outside the cropped region */
+    fill?: string;
+    /** Title text of the crop modal (overrides locale value) */
+    modalTitle?: string;
+    /** Confirm button text of the crop modal (overrides locale value) */
+    modalOkText?: string;
+    /** Cancel button text of the crop modal (overrides locale value) */
+    modalCancelText?: string
 }

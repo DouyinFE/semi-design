@@ -1490,6 +1490,205 @@ import { IconUpload } from '@douyinfe/semi-icons';
 };
 ```
 
+### Image Cropping
+
+Enable image cropping functionality through the `crop` property. Supports cropping when clicking to select, dragging, pasting, and replacing files.
+
+#### Basic Usage
+
+Set `crop={true}` to enable default cropping configuration.
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={true}
+            onSuccess={(response, file) => {
+                console.log('Upload success:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                Click to upload (with cropping)
+            </Button>
+        </Upload>
+    );
+};
+```
+
+#### Custom Cropping Configuration
+
+Configure cropping parameters through object form, including aspect ratio, shape, quality, etc.
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={{
+                aspectRatio: 16 / 9,
+                shape: 'rect',
+                quality: 0.8,
+                modalTitle: 'Crop Image',
+                modalOkText: 'Confirm',
+                modalCancelText: 'Cancel',
+            }}
+            onSuccess={(response, file) => {
+                console.log('Upload success:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                Click to upload (16:9 cropping)
+            </Button>
+        </Upload>
+    );
+};
+```
+
+#### Round Cropping
+
+Suitable for avatar upload scenarios, set `shape: 'round'` to enable round cropping.
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={{
+                aspectRatio: 1,
+                shape: 'round',
+                quality: 0.9,
+                modalTitle: 'Crop Avatar',
+            }}
+            listType="picture"
+            onSuccess={(response, file) => {
+                console.log('Upload success:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                Click to upload (round cropping)
+            </Button>
+        </Upload>
+    );
+};
+```
+
+#### Confirm Before Cropping
+
+Use the `beforeCrop` callback to confirm or perform other processing before cropping. Return `false` to skip cropping and upload directly.
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={{
+                aspectRatio: 1,
+                shape: 'round',
+            }}
+            beforeCrop={(file, fileList) => {
+                console.log('beforeCrop:', file, fileList);
+                // Return true to continue cropping, return false to skip cropping and upload directly
+                return window.confirm('Crop the image?');
+            }}
+            onCropError={(error) => {
+                console.error('Crop error:', error);
+            }}
+            onSuccess={(response, file) => {
+                console.log('Upload success:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                Click to upload (confirm before crop)
+            </Button>
+        </Upload>
+    );
+};
+```
+
+#### Drag and Drop Upload with Cropping
+
+Cropping is also triggered when uploading via drag and drop.
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={{
+                aspectRatio: 1,
+                shape: 'rect',
+            }}
+            draggable
+            onDrop={(e, files, fileList) => {
+                console.log('Dropped files:', files);
+            }}
+            onSuccess={(response, file) => {
+                console.log('Upload success:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                Drag to upload (with cropping)
+            </Button>
+        </Upload>
+    );
+};
+```
+
+#### Custom Cropping Modal Style
+
+Customize the style and properties of the cropping modal through `cropModalProps`.
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={{
+                aspectRatio: 1,
+                shape: 'rect',
+            }}
+            cropModalProps={{
+                width: 800,
+                style: { height: 600 },
+                bodyStyle: { height: 500, backgroundColor: '#f5f5f5' },
+            }}
+            onSuccess={(response, file) => {
+                console.log('Upload success:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                Custom Modal Style
+            </Button>
+        </Upload>
+    );
+};
+```
+
 ## API Reference
 
 ---
@@ -1500,10 +1699,13 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |action | File upload address, required | string | | |
 |afterUpload | Hook after the file upload, update the file status according to the returned object | function(auProps) => afterUploadResult | | - |
 |beforeClear|Call back before clearing the file, judge whether to continue removing according to the return value, return false, Promise.resolve(false), Promise.reject() will prevent removal|(fileList: Array<FileItem \>) => boolean \| Promise||-|
+|beforeCrop|Callback before opening the crop modal. Returning `false` (or resolving to `false`) skips cropping and uploads directly. Async returns are supported.|(file: File, fileList: File[]) => boolean \| Promise<boolean>||2.97.0|
 |beforeRemove|Callback before removing the file, judge whether to continue removing according to the return value, return false, Promise.resolve(false), Promise.reject() will prevent removal|(file: <FileItem\>, fileList: Array<FileItem \>) => boolean \| Promise||-|
 |beforeUpload | The hook before uploading the file, according to the return object to update the file status, control whether to upload | function(buProps) => beforeUploadResult \| Promise \| boolean | | - |
 |capture | The way of media shooting in the file upload control | boolean \| string \| undefined | | |
 |className | class name | string | | |
+|crop | Enable image cropping. Pass `true` to use defaults, or a `CropProps` object to customize parameters. Works for click / drag-and-drop / paste / replace upload entries. | boolean \| CropProps | | 2.97.0 |
+|cropModalProps | Extra props forwarded to the underlying crop Modal (style, width, etc.) | ModalReactProps | | 2.97.0 |
 |customRequest | Asynchronous request method for custom upload | (object: customRequestArgs) => void | | - |
 |data | Additional parameters attached to the upload or the method to return the uploaded additional parameters| object\|(file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => object | {} | |
 |defaultFileList | List of uploaded files | Array<FileItem\> | [] | |
@@ -1528,6 +1730,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |onAcceptInvalid | Triggered when the received file does not conform to the accept specification (generally because the folder selects all types of files / drags and drops files that do not conform to the format) | (files: File[]) => void | | 1.24 .0 |
 |onChange | Called when the file status changes, including upload success, failure, upload, the callback input parameter is Object, including fileList, currentFile, etc.| ({fileList: Array<FileItem\>, currentFile?: FileItem}) = > void | | - |
 |onClear | Callback when click to clear | () => void | | - |
+|onCropError | Callback when image cropping fails | (error: Error) => void | | 2.97.0 |
 |onDrop | Triggered when the dragged element is released on the drag area | (e, files: Array<File\>, fileList: Array<FileItem\>) => void | | - |
 |onError | Callback when uploading error| (error: Error, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList: Array<FileItem\> , xhr: XMLHttpRequest) => void | | |
 |onExceed | Callback when the total number of uploaded files exceeds `limit` | (fileList:Array<FileItem\>) => void | | |
@@ -1609,6 +1812,25 @@ interface RenderFileListTitleProps {
     fileList: Array<FileItem>;  // Current file list
     onClear: () => void;        // Callback function to clear files
     clearText: string;          // Default text for the clear button (based on current locale)
+}
+```
+
+### CropProps Interface
+
+Configuration object accepted by the `crop` prop:
+
+```ts
+interface CropProps {
+    aspectRatio?: number;           // Crop box aspect ratio, e.g. 16/9, 1, 4/3
+    shape?: 'rect' | 'round' | 'roundRect';  // Crop box shape, default 'rect'
+    minZoom?: number;               // Minimum zoom ratio
+    maxZoom?: number;               // Maximum zoom ratio
+    zoomStep?: number;              // Zoom step size
+    quality?: number;               // Output image quality, range 0 - 1, default 0.92
+    fill?: string;                  // Fill color of the area outside the cropped region, default '#fff'
+    modalTitle?: string;            // Title text of the crop modal
+    modalOkText?: string;           // Confirm button text of the crop modal
+    modalCancelText?: string;       // Cancel button text of the crop modal
 }
 ```
 
