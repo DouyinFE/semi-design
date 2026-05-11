@@ -252,18 +252,23 @@ function withField<
                                 messages = messages[0];
                             }
                             // NOTE:
-                            // `async-validator` treats `message: ''` as a valid error message (validation fails, but user wants to hide text).
-                            // In that case, `messages` can be an empty string, and `isValid('')` returns true.
-                            // We must still finish the promise and mark field/form as invalid, otherwise submit/validate will hang.
+                            // `async-validator` treats `message: ''` as a valid error message (validation fails, but the
+                            // user wants to hide the message text). In that case `messages` becomes the empty string and
+                            // `isValid('')` returns true, so the previous logic accidentally short-circuited and never
+                            // resolved the promise — `submit()` / `validate()` would hang forever.
+                            //
+                            // The presence of an error is decided from `errors.length`, decoupled from whether the
+                            // produced message is renderable. The empty-string is preserved as the field error value so
+                            // that the public `formApi.getError(field)` API stays backward compatible (callers that did
+                            // `getError(field) === ''` to detect "invalid without text" keep working). The corresponding
+                            // render-time fallback (do not display `helpText` when the field is in an error state with an
+                            // empty message) is handled in `ErrorMessage`.
                             const hasRulesError = Array.isArray(errors) && errors.length > 0;
                             if (hasRulesError) {
                                 if (!callOpts?.silent) {
                                     setStatus('error');
                                 }
-                                // Use `false` as an internal marker: invalid but no message.
-                                // This keeps ErrorMessage hidden (it won't render for falsy), while Form can still detect invalid.
-                                const finalError = messages === '' ? false : messages;
-                                updateError(finalError, callOpts);
+                                updateError(messages, callOpts);
                                 resolve(errors);
                             }
                         } else {

@@ -66,6 +66,14 @@ export default class ErrorMessage extends PureComponent<ErrorMessageProps> {
         if (!error && !helpText) {
             return null;
         }
+        // The async-validator `message: ''` convention means "validation failed, but suppress
+        // the message text". Without this guard the field would silently fall back to rendering
+        // `helpText`, which would falsely look like the success/help state. Skip rendering
+        // entirely so that a hidden-text error stays hidden — consistent with the legacy
+        // behavior where an unresolved promise meant nothing was rendered at all.
+        if (error === '' && validateStatus === 'error') {
+            return null;
+        }
         const iconMap = {
             warning: <IconAlertTriangle />,
             error: <IconAlertCircle />,
