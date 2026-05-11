@@ -57,9 +57,9 @@ export interface JsonViewerProps extends BaseProps {
             onPrevSearch: () => void;
             onNextSearch: () => void;
             onReplace: (text: string) => void;
-            onReplaceAll: (text: string) => void;
+            onReplaceAll: (text: string) => void
         }
-    ) => React.ReactNode;
+    ) => React.ReactNode
 }
 
 export interface JsonViewerState {
@@ -182,6 +182,11 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
 
     componentWillUnmount() {
         this.teardownResizeObserver();
+        // Release the underlying editor instance to avoid leaking DOM listeners /
+        // language workers across mount cycles. componentDidUpdate's re-init path
+        // already calls dispose(); the unmount path was missing the symmetric call.
+        this.foundation.jsonViewer?.dispose?.();
+        super.componentWillUnmount();
     }
 
     componentDidUpdate(prevProps: JsonViewerProps): void {
