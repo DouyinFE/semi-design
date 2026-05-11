@@ -1088,8 +1088,8 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
      * @param {*} e
      */
     handleSort(column: { dataIndex?: string; sortOrder?: BaseSortOrder } = {}, e: any, check = false) {
-        // Don't stop propagation to allow onHeaderCell's onClick to be triggered
-        // this.stopPropagation(e);
+        /* Do not call stopPropagation here, otherwise the click event registered via onHeaderCell
+           will be blocked when the click hot area is the whole title (#1861). */
         /* if mouse down to the resizable handle, do not trigger the sorting，fix #2802
             The target of the click event may be different from the target of the mousedown, 
             e.g: Press the mouse, move to another node and then release it，
