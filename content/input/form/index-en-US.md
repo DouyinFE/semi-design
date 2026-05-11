@@ -1219,6 +1219,15 @@ class FormLevelValidateAsync extends React.Component {
 
 You can specify a custom validation function for a single Field. **Recommended:** use `validator` (`validate` is legacy but still compatible). Supports synchronous and asynchronous validation (by returning promises)
 
+<Notice title='Field validator vs rules[].validator'>
+    The Field-level <code>validator</code> prop (introduced in v2.97.0) and the <code>validator</code> field inside <code>rules[]</code> (powered by async-validator) are two different APIs:
+    <ul>
+        <li><strong>Field <code>validator</code></strong>: signature is <code>(fieldValue, values) =&gt; string | Promise&lt;string&gt;</code>; whole-field custom validation that returns the error message directly.</li>
+        <li><strong><code>rules[].validator</code></strong>: signature is <code>(rule, value, callback) =&gt; void | Promise&lt;void&gt;</code>; per-rule validation in the <a href="https://github.com/yiminghe/async-validator">async-validator</a> style, where errors are reported via <code>callback</code> or rejection.</li>
+    </ul>
+    The two are <strong>mutually exclusive</strong>: if a Field <code>validator</code> (or the legacy <code>validate</code>) is set, the <code>rules</code> array will not be evaluated. Use the Field <code>validator</code> for simple whole-field custom checks; use <code>rules</code> when you need multiple rules or want to reuse built-in async-validator rules (required / type / pattern, etc.).
+</Notice>
+
 ```jsx live=true dir="column"
 import React from 'react';
 import { Form, Button } from '@douyinfe/semi-ui';

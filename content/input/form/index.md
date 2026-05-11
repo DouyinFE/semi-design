@@ -1296,6 +1296,15 @@ class FormLevelValidateAsync extends React.Component {
 
 你可以指定单个表单控件的自定义校验函数，推荐使用 `validator`（`validate` 为旧写法，仍保持兼容）。支持同步、异步校验（通过返回 promise）
 
+<Notice title='关于 validator 与 rules[].validator'>
+    Field 上的 <code>validator</code>（本次新增）和 <code>rules[]</code> 数组里的 <code>validator</code>（基于 async-validator）是两个不同的 API：
+    <ul>
+        <li><strong>Field <code>validator</code></strong>：签名为 <code>(fieldValue, values) =&gt; string | Promise&lt;string&gt;</code>，整字段级别的自定义校验，返回错误信息字符串。</li>
+        <li><strong><code>rules[].validator</code></strong>：签名为 <code>(rule, value, callback) =&gt; void | Promise&lt;void&gt;</code>，基于 <a href="https://github.com/yiminghe/async-validator">async-validator</a> 的单条规则级校验，由 callback 或 reject 上报错误。</li>
+    </ul>
+    两者<strong>互斥</strong>：只要设置了 Field 的 <code>validator</code>（或旧的 <code>validate</code>），<code>rules</code> 就不会再被触发。如果只需要简单的整字段自定义判断，建议使用 Field <code>validator</code>；如果需要多条规则、复用 async-validator 内置规则（如 required / type / pattern），请使用 <code>rules</code>。
+</Notice>
+
 ```jsx live=true dir="column" hideInDSM
 import React from 'react';
 import { Form, Button } from '@douyinfe/semi-ui';
