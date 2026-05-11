@@ -1699,7 +1699,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |action | File upload address, required | string | | |
 |afterUpload | Hook after the file upload, update the file status according to the returned object | function(auProps) => afterUploadResult | | - |
 |beforeClear|Call back before clearing the file, judge whether to continue removing according to the return value, return false, Promise.resolve(false), Promise.reject() will prevent removal|(fileList: Array<FileItem \>) => boolean \| Promise||-|
-|beforeCrop|Callback before opening the crop modal. Returning `false` (or resolving to `false`) skips cropping and uploads directly. Async returns are supported.|(file: File, fileList: File[]) => boolean \| Promise<boolean>||2.97.0|
+|beforeCrop|Callback before opening the crop modal. Returning `false` (or resolving to `false`) skips cropping and uploads directly. Async returns are supported.|(file: File, fileList: File[]) => boolean \| Promise\<boolean\>||2.97.0|
 |beforeRemove|Callback before removing the file, judge whether to continue removing according to the return value, return false, Promise.resolve(false), Promise.reject() will prevent removal|(file: <FileItem\>, fileList: Array<FileItem \>) => boolean \| Promise||-|
 |beforeUpload | The hook before uploading the file, according to the return object to update the file status, control whether to upload | function(buProps) => beforeUploadResult \| Promise \| boolean | | - |
 |capture | The way of media shooting in the file upload control | boolean \| string \| undefined | | |

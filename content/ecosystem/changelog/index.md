@@ -14,6 +14,36 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.97.0 (2026-05-11)
+- 【Feat】
+    - Cascader 组件新增 `remote` 属性，开启后输入不再走本地匹配，仅触发 `onSearch` 回调，由用户根据输入异步拉取并填充 `treeData`，与 Select 的 `remote` 行为一致 [#1335](https://github.com/DouyinFE/semi-design/issues/1335) [#3232](https://github.com/DouyinFE/semi-design/pull/3232)
+    - ConfigProvider 新增 `responsiveObserve` 与 `responsiveMap`，支持配置断点查询并通过 context 上的 `onBreakpoint` 订阅断点变化（与 Layout 组件能力对齐）[#1335](https://github.com/DouyinFE/semi-design/issues/1335) [#3253](https://github.com/DouyinFE/semi-design/pull/3253)
+    - Form 组件统一校验 API 命名，新增 `validator` 作为 `validate` 的别名（同时在表单级与字段级），`validator` 优先级高于 `validate`；同时补充 `validator` 与 `rules[].validator` 关系说明（前者用于编程式提交校验，后者用于规则级 UI 反馈，二者可以共存）[#3233](https://github.com/DouyinFE/semi-design/pull/3233)
+    - Image / ImagePreview 新增 `initialZoom`、`maxZoom`、`minZoom` 三个属性，支持自定义预览初始缩放比例与缩放范围限制 [#1368](https://github.com/DouyinFE/semi-design/issues/1368) [#3255](https://github.com/DouyinFE/semi-design/pull/3255)
+    - 新增 SplitTagGroup 组件，将一组 Tag 渲染为视觉上拼接成段的 Tag 组合，自动处理首尾圆角与中间分隔 [#3234](https://github.com/DouyinFE/semi-design/pull/3234)
+    - Table 组件新增 `headerStyle` 属性，可统一设置表头行的内联样式（如背景色、边框等），无需额外通过 className/CSS 选择器覆盖 [#2347](https://github.com/DouyinFE/semi-design/issues/2347) [#3246](https://github.com/DouyinFE/semi-design/pull/3246)
+    - Tabs 组件新增可拖拽 Tab 文档与 demo（基于 `renderTabBar` + `@dnd-kit`）[#2687](https://github.com/DouyinFE/semi-design/issues/2687) [#3238](https://github.com/DouyinFE/semi-design/pull/3238)
+    - TagInput 组件支持标签溢出时自动换到下一行（基于 `flex-wrap`）；输入态下根据文本宽度让输入区域随文本一起换行，避免长文本在窄容器里被压成单行内横向滚动 [#2715](https://github.com/DouyinFE/semi-design/issues/2715) [#3237](https://github.com/DouyinFE/semi-design/pull/3237)
+    - TextArea 组件新增 `resize` 属性，支持原生 CSS resize 行为（`none` / `both` / `horizontal` / `vertical` / `block` / `inline`），`autosize` 开启时自动忽略；同时扩展 `onResize` 回调，原生拖拽时回传 `{ height, width }` [#3243](https://github.com/DouyinFE/semi-design/pull/3243)
+    - TimePicker range 模式下 `disabledTime` 回调新增第二个参数 `panelType`（`'left' | 'right'`），可分别为开始/结束时间面板返回不同的禁用项；`disabledTime` 仅在 range 模式下生效，单选模式下完全不会被调用 [#1443](https://github.com/DouyinFE/semi-design/issues/1443) [#3252](https://github.com/DouyinFE/semi-design/pull/3252)
+    - Transfer 组件 `treeList` 模式 / 单层模式下选中面板（已选项区域）支持虚拟化，新增 `virtualize` 属性以应对大量已选项的渲染性能问题 [#2586](https://github.com/DouyinFE/semi-design/issues/2586) [#3240](https://github.com/DouyinFE/semi-design/pull/3240)
+    - Switch 组件新增 `$switch-bgColor-knob_checked` / `$switch-bgColor-knob_unchecked` 两个独立的 knob 背景色 token，可独立定制选中/未选中状态下的 knob 颜色 [#2635](https://github.com/DouyinFE/semi-design/issues/2635) [#3236](https://github.com/DouyinFE/semi-design/pull/3236)
+    - Upload 组件 `accept` 为 image 时支持图片裁剪，新增 `crop` 与 `cropProps` 配合 Cropper 组件实现裁剪后再上传 [#3256](https://github.com/DouyinFE/semi-design/pull/3256)
+- 【Fix】
+    - 修复 ConfigProvider 在 `responsiveObserve` 模式下，首次订阅 `onBreakpoint` 拿到的 `screens` 是构造函数里的全 false 默认值（stale state）的问题；现在首次订阅会同步通过 `window.matchMedia` 计算真实命中结果再立即回调 [#3253](https://github.com/DouyinFE/semi-design/pull/3253)
+    - 修复 DatePicker `density="compact"` 模式下，遇到较长的 locale 月份名（如俄语等）时面板宽度被撑破的问题 [#2487](https://github.com/DouyinFE/semi-design/issues/2487) [#3244](https://github.com/DouyinFE/semi-design/pull/3244)
+    - 修复 Form Field `rules[].message` 设置为空字符串 `''` 时，`validate()` / `submit()` 永久 hang 不结算的问题；同时保留 `formApi.getError(field) === ''` 的旧 API 语义（公开 API 仍返回原始空字符串），并由 `ErrorMessage` 在「校验失败 + 空消息」状态下跳过渲染，不会再回退到 `helpText` [#2340](https://github.com/DouyinFE/semi-design/issues/2340) [#3245](https://github.com/DouyinFE/semi-design/pull/3245)
+    - 修复 JsonViewer `autoWrap` 模式下，外层容器宽度变化时不重新计算自动换行的问题（基于 `ResizeObserver` + `requestAnimationFrame` 合并）；同时补齐 `componentWillUnmount` 的 `super` 调用与编辑器实例 dispose，避免跨 mount 周期累积 DOM listener [#2837](https://github.com/DouyinFE/semi-design/issues/2837) [#3239](https://github.com/DouyinFE/semi-design/pull/3239)
+    - 修复 JsonViewer 跨多行选区被替换或粘贴后光标落点错误的问题，统一处理 LF / CRLF / CR 换行并按新文本最后一行末尾计算光标位置 [#2908](https://github.com/DouyinFE/semi-design/issues/2908) [#3231](https://github.com/DouyinFE/semi-design/pull/3231)
+    - 修复 Navigation `footer` 图标颜色 token `$nav-footer-color-icon` 不生效的问题 [#1841](https://github.com/DouyinFE/semi-design/issues/1841) [#3250](https://github.com/DouyinFE/semi-design/pull/3250)
+    - 修复 Select 在 `showClear` + `filter` 组合下点击清空后立即失焦时，blur 通知被跳过、Form 校验拿不到「已清空」状态的问题（清空后只 refocus，不再误触发 `open()`，保持 `!isOpen` 让 trigger blur 走 notify 路径）[#1453](https://github.com/DouyinFE/semi-design/issues/1453) [#3254](https://github.com/DouyinFE/semi-design/pull/3254)
+    - 修复 Spin 组件在 Next.js / SSR 场景下因 gradient id 模块级计数器跨 SSR/CSR 不一致导致的水合失败 (`Prop 'id' did not match`)；首屏渲染使用稳定 id，进入客户端 effect 后再切换为唯一 uuid [#2114](https://github.com/DouyinFE/semi-design/issues/2114) [#3249](https://github.com/DouyinFE/semi-design/pull/3249)
+    - 修复 Table 组件以 JSX `<Table.Column>` 子节点定义列时，触发 `componentDidUpdate` 中数据缓存重算条件被列引用抖动持续命中、进而引发 `Maximum update depth exceeded` 的问题 [#2592](https://github.com/DouyinFE/semi-design/issues/2592) [#3241](https://github.com/DouyinFE/semi-design/pull/3241)
+    - 修复 Table 组件 `sorter` 列同时配置 `onHeaderCell.onClick` 时，外层 click 被排序内部 stopPropagation 吃掉的问题 [#3248](https://github.com/DouyinFE/semi-design/pull/3248)
+    - 修复 Tabs `collapsible`（scroll 模式）下，动态增删 tab 时 OverflowList 因 `IntersectionObserver` 与渲染竞态导致折叠区按钮短暂闪烁的问题 [#3247](https://github.com/DouyinFE/semi-design/pull/3247)
+    - 修复 TimePicker 单选模式仍然以 `panelType="left"` 调用 `disabledTime` 的语义错位问题；`disabledTime` 现在仅在 range 模式下被调用，单选模式下回退到顶层的 `disabledHours` / `disabledMinutes` / `disabledSeconds` [#1443](https://github.com/DouyinFE/semi-design/issues/1443) [#3252](https://github.com/DouyinFE/semi-design/pull/3252)
+    - 修复 Toast 在 `Toast.close(id)` 手动关闭时，由于 `(isRemoved && !isAnimating)` 中间态把 `<Toast />` 打成 `null` 引发的 `content` 组件 useEffect 重复执行问题，关闭过程中保持同一实例不重复挂载 [#1483](https://github.com/DouyinFE/semi-design/issues/1483) [#3251](https://github.com/DouyinFE/semi-design/pull/3251)
+
 #### 🎉 2.96.1 (2026-05-07)
 - 【Fix】
     - 修正 DragMove 的 `handler` / `constrainer` prop 在 TS 类型声明里被错标为 `() => ReactNode` 的问题，改为正确的 `() => HTMLElement` / `() => HTMLElement | 'parent'`，与底层 foundation 实际消费 DOM 元素的行为对齐 [#3230](https://github.com/DouyinFE/semi-design/pull/3230)

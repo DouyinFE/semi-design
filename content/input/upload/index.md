@@ -1717,7 +1717,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |addOnPasting | 按下 ctrl/command + v时，是否自动将剪贴板中的文件添加至 fileList，当前仅支持图片类型; 需用户授权同意 | boolean | false | 2.43.0 |
 |afterUpload | 文件上传后的钩子，根据 return 的 object 更新文件状态 | function(auProps) => afterUploadResult |  |  |
 |beforeClear|清空文件前回调，按照返回值来判断是否继续移除，返回false、Promise.resolve(false)、Promise.reject()会阻止移除|(fileList: Array<FileItem \>) => boolean\|Promise|| |
-|beforeCrop|图片裁切前的回调。返回 `false` 可跳过裁切直接上传，返回 `true` 或不返回则继续裁切。支持异步返回|(file: File, fileList: File[]) => boolean \| Promise<boolean> | | 2.97.0 |
+|beforeCrop|图片裁切前的回调。返回 `false` 可跳过裁切直接上传，返回 `true` 或不返回则继续裁切。支持异步返回|(file: File, fileList: File[]) => boolean \| Promise\<boolean\> | | 2.97.0 |
 |beforeRemove|移除文件前的回调，按照返回值来判断是否继续移除，返回false、Promise.resolve(false)、Promise.reject()会阻止移除|(file: <FileItem\>, fileList: Array<FileItem \>) => boolean\|Promise|| |
 |beforeUpload | 上传文件前的钩子，根据 return 的 object 更新文件状态，控制是否上传 | function(buProps) => beforeUploadResult \| Promise \| boolean |  |  |
 |capture | 文件上传控件中媒体拍摄的方式 | boolean\|string\|undefined | | |
