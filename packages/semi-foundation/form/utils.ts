@@ -132,7 +132,6 @@ export function mergeProps(props: any) {
         initValue,
         validate,
         validator,
-        onValidate,
         /**
          * error、warning、default、success
          */
@@ -181,9 +180,9 @@ export function mergeProps(props: any) {
     const required = isRequired(rules);
 
     emptyValue = typeof emptyValue !== 'undefined' ? emptyValue : '';
-    
-    // Support validator/onValidate as alias for validate (validator takes precedence)
-    const finalValidate = validator || onValidate || validate;
+
+    // `validator` is the recommended name; `validate` is kept as a deprecated alias.
+    const finalValidate = validator || validate;
 
     return {
         field,

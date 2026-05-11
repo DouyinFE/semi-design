@@ -1117,7 +1117,7 @@ import { Form, Button } from '@douyinfe/semi-ui';
 
 ### Custom Validate (Form Level)
 
-You can set a custom validation function for the `Form` as a whole. **Recommended:** use `validator` (`validateFields` is legacy but still compatible; `onValidate` is also legacy but still compatible). It will be called on submit or when calling `formApi.validate()`.
+You can set a custom validation function for the `Form` as a whole. **Recommended:** use `validator` (`validateFields` is legacy but still compatible). It will be called on submit or when calling `formApi.validate()`.
 
 #### Synchronous Validate
 
@@ -1217,7 +1217,7 @@ class FormLevelValidateAsync extends React.Component {
 
 ### Custom Validate (Field Level)
 
-You can specify a custom validation function for a single Field. **Recommended:** use `validator` (`validate` is legacy but still compatible; `onValidate` is also legacy but still compatible). Supports synchronous and asynchronous validation (by returning promises)
+You can specify a custom validation function for a single Field. **Recommended:** use `validator` (`validate` is legacy but still compatible). Supports synchronous and asynchronous validation (by returning promises)
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -2144,7 +2144,6 @@ render(WithFieldDemo2);
 | stopPropagation | Whether to prevent submit or reset events from bubbling. This is used in nested Form scenarios to prevent events from propagating outwards when the inner Form submits or resets, triggering events in the outer Form. The default is `{ reset: false, submit: false }`(available after v2.63)                                                                              | object                             |      |
 | trigger  | Apply the trigger uniformly to each Field to control the timing of verification. For detailed instructions, see the API of the same name in Field props.(available after v2.42)                                               | string\|array                            |  'change'  |
 | validator        | Form-level custom validation function (**recommended**, available after v2.97.0). Called at submit or formApi.validate(). <br/>Supports synchronous / asynchronous functions                                                                                                                                       | function (values)                               |            |
-| onValidate        | Form-level custom validation function (introduced in v2.97.0 then immediately marked **deprecated**, kept for backwards compatibility only — use validator instead). Called at submit or formApi.validate(). <br/>Supports synchronous / asynchronous functions                                                     | function (values)                               |            |
 | validateFields    | Form-level custom validation function (**deprecated**, use validator; still compatible). Called at submit or formApi.validate(). <br/>Supports synchronous / asynchronous functions                                                                                                                                | function (values)                               |            |
 | wrapperCol        | Uniformly apply the layout on each Field, with [Col component](/en-US/basic/grid#Col), <br/>set `span`, `span` values, such as {span: 20, offset: 4}                                                                                                                                     | object                                          |
 
@@ -2329,7 +2328,6 @@ import { Form, Button } from '@douyinfe/semi-ui';
 | fieldStyle            | The inline style of the entire fieldWrapper                                                                                                      | object                                 |           |
 | initValue             | The initial value of the field (consumed only once when Field mounted, subsequent updates are invalid), it has higher priority than the values ​​in Form's initValues ​​                                                                 | any(type depends on current component) |           |
 | validator            | The custom validation function for this form control (**recommended**, available after v2.97.0). Supports synchronous and asynchronous validation. <br/>Rules does not take effect when validator is set                                                                                | function(fieldValue, values)           |           | (fieldValue) => fieldValue.length>5? 'error balabala': ''          |
-| onValidate            | The custom validation function for this form control (introduced in v2.97.0 then immediately marked **deprecated**, kept for backwards compatibility only — use validator instead). Supports synchronous and asynchronous validation. <br/>Rules does not take effect when validator/onValidate is set | function(fieldValue, values)           |           | (fieldValue) => fieldValue.length>5? 'error balabala': ''          |
 | validate              | The custom validation function for this form control (**deprecated**, use validator; still compatible). Supports synchronous and asynchronous validation. <br/>Rules does not take effect when validator/validate is set                       | function(fieldValue, values)           |           | (fieldValue) => fieldValue.length>5? 'error balabala': ''          |
 | rules                 | validation rules, validation library based on [async-validator](https://github.com/yiminghe/async-validator)                                                                                                                             | array                                  |           | const rules = \[{type:' string ', message:' invalidate string'} \] |
 | validateStatus        | The validation result status of this form control, optional: `success` / `error` / `warning` / `default`                                                                                                                                 | string                                 | 'default' |

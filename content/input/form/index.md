@@ -1190,10 +1190,10 @@ import { Form, Button } from '@douyinfe/semi-ui';
 
 ### 自定义校验(Form 级别)
 
-你可以给`Form`整体设置自定义校验函数。推荐使用 `validator`（`validateFields` 为旧写法，`onValidate` 也为旧写法，均仍保持兼容）。submit 或调用 formApi.validate() 时会进行调用
+你可以给`Form`整体设置自定义校验函数。推荐使用 `validator`（`validateFields` 为旧写法，仍保持兼容）。submit 或调用 formApi.validate() 时会进行调用
 
 <Notice title='注意'>
-    当配置了 Form 级别校验器（validator / onValidate / validateFields）后，Field 级别的校验器（fieldProps.validator / fieldProps.onValidate / fieldProps.validate、fieldProps.rules 将不再生效）
+    当配置了 Form 级别校验器（validator / validateFields）后，Field 级别的校验器（fieldProps.validator / fieldProps.validate、fieldProps.rules 将不再生效）
 </Notice>
 
 #### 同步校验
@@ -1294,7 +1294,7 @@ class FormLevelValidateAsync extends React.Component {
 
 ### 自定义校验(Field 级别)
 
-你可以指定单个表单控件的自定义校验函数，推荐使用 `validator`（`validate` 为旧写法，`onValidate` 也为旧写法，均仍保持兼容）。支持同步、异步校验（通过返回 promise）
+你可以指定单个表单控件的自定义校验函数，推荐使用 `validator`（`validate` 为旧写法，仍保持兼容）。支持同步、异步校验（通过返回 promise）
 
 ```jsx live=true dir="column" hideInDSM
 import React from 'react';
@@ -2151,7 +2151,6 @@ render(WithFieldDemo2);
 | stopPropagation | 是否阻止 submit或reset事件冒泡，用于嵌套 Form 场景下，内部 Form submit或reset时阻止事件往外传播，触发外部Form的事件。默认为 `{ reset: false, submit: false }`（v2.63后提供）                                                                            | object                             |      |
 | trigger    |  统一应用在每个 Field 的 trigger，使用说明详见 Field props中同名 API（v2.42后提供）                                                        | string\|array                            |  'change'  |
 | validator         | Form 级别的自定义校验函数（推荐，v2.97.0 后提供），submit 时或 formApi.validate 时会被调用（配置 Form 级别校验器后，Field 级别校验器在 submit 或 formApi.validate() 时不会再被触发）。支持同步校验、异步校验                                               | function(values)                              |            |
-| onValidate        | Form 级别的自定义校验函数（v2.97.0 引入后即标记废弃，仅作向后兼容保留）。建议使用 validator 替代。submit 时或 formApi.validate 时会被调用（配置 Form 级别校验器后，Field 级别校验器在 submit 或 formApi.validate() 时不会再被触发）。支持同步校验、异步校验                                               | function(values)                              |            |
 | validateFields    | Form 级别的自定义校验函数（已废弃，建议使用 validator；仍保持兼容）。submit 时或 formApi.validate 时会被调用（配置 Form 级别校验器后，Field 级别校验器在 submit 或 formApi.validate() 时不会再被触发）。支持同步校验、异步校验 | function(values)                              |            |
 | wrapperCol        | 统一应用在每个 Field 上的布局，同[Col 组件](/zh-CN/basic/grid#Col)，设置`span`、`offset`值，如{span: 20, offset: 4}                                 | object                                        |
 
@@ -2338,7 +2337,6 @@ class FormApiDemo extends React.Component {
 | fieldStyle            | 整个 fieldWrapper 的 内联样式                                                                                                                                        | object                                                                                        |
 | initValue             | 该表单控件的初始值（仅在 Field mounted 时消费一次，后续更新无效），相比 Form 的 initValues 中的值，它的优先级更高                                                                                                   | any（类型取决于当前组件，详细见各组件的 api）                                                 |
 | validator             | **推荐**（v2.97.0 后提供）。该表单控件的自定义校验函数。支持同步、异步校验（通过返回 promise）。<br/>设置了 validator 时，rules 不会生效<br/>使用示例：(fieldValue, values) => fieldValue >= 5 ? 'value not valid' : ''                                      | function(fieldValue, values)                                                                  |           |
-| onValidate            | **已废弃（仅作向后兼容保留）**。建议使用 validator 替代。该表单控件的自定义校验函数（v2.97.0 引入后即标记废弃）。支持同步、异步校验（通过返回 promise）。<br/>设置了 onValidate 时，rules 不会生效<br/>使用示例：(fieldValue, values) => fieldValue >= 5 ? 'value not valid' : ''                                      | function(fieldValue, values)                                                                  |           |
 | validate              | **已废弃（仍兼容）**。请使用 validator 替代。该表单控件的自定义校验函数。支持同步、异步校验（通过返回 promise）。<br/>设置了 validate 时，rules 不会生效<br/>使用示例：(fieldValue, values) => fieldValue >= 5 ? 'value not valid' : '' | function(fieldValue, values)                                                                  |           |
 | rules                 | 校验规则，校验库基于[async-validator](https://github.com/yiminghe/async-validator) <br/> 使用示例：const rules=\[{ required: true, message: 'can't be null ' },<br/>{ max: 10, message: 'can't more than 10 word' }\] | array                                                                                         |           |
 | validateStatus        | 该表单控件的校验结果状态（仅影响样式），可选值:`success`/`error`/`warning`/`default`                                                                                                                                | string                                                                                        | 'default' |
