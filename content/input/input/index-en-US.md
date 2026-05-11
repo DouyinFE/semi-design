@@ -582,7 +582,7 @@ import { Input, TextArea } from '@douyinfe/semi-ui';
 | placeholder       | Content to be appear by default                                                                                        | string                          | -       |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | readonly          | Read-only, not editable                                                                                                | boolean                         | false   |
-| resize            | Whether to allow user to resize the textarea and in which direction. Options: `none` \| `both` \| `horizontal` \| `vertical` \| `block` \| `inline`. This prop will be ignored when `autosize` is enabled. **Only takes effect when explicitly provided** (default behavior is unchanged; you may also control native resize via `textareaStyle.resize`) | string | - |
+| resize            | Whether to allow user to resize the textarea and in which direction. Options: `none` \| `both` \| `horizontal` \| `vertical` \| `block` \| `inline`. This prop will be ignored when `autosize` is enabled. **Only takes effect when explicitly provided** (default behavior is unchanged; you may also control native resize via `textareaStyle.resize`), **>=2.97.0** | string | - |
 | rows              | The number of visible text lines for the control.                                                                      | number                          | 4       |
 | showLineNumber     | Whether to display line numbers                                                                                        | boolean                         | false   |
 | lineNumberStart    | Starting line number                                                                                                   | number                          | 1       |
@@ -599,7 +599,7 @@ import { Input, TextArea } from '@douyinfe/semi-ui';
 | onKeyDown         | Callback invoked when keydown, html event                                                                              | (e:event) => void               | -       |
 | onKeyPress        | Callback invoked when keypress, html event                                                                             | (e:event) => void               | -       |
 | onKeyUp           | Callback invoked when keyup, html event                                                                                | (e:event) => void               | -       |
-| onResize          | Callback invoked when size changes: triggered by `autosize` height updates; also triggered when user drags native `resize` (provides extra `width`) | ({ height:number, width?: number }) => void     | -       |
+| onResize          | Callback invoked when size changes: triggered by `autosize` height updates; also triggered when user drags native `resize` (provides extra `width`), **>=2.97.0** | ({ height:number, width?: number }) => void     | -       |
 | onCompositionStart           | Callback invoked when compositionstart **>=2.85.0** | function(e:event)               |           |
 | onCompositionEnd           | Callback invoked when compositionend **>=2.85.0** | function(e:event)               |           |
 | onCompositionUpdate           | Callback invoked when compositionupdate **>=2.85.0**  | function(e:event)               |           |

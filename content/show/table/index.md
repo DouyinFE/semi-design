@@ -5772,7 +5772,7 @@ render(App);
 | footer | 表格尾部                                                                | ReactNode<br/>\|(pageData: object) => ReactNode |  |
 | getVirtualizedListRef | 返回虚拟化表格所用 VariableSizeList 的 ref，仅在配置 virtualized 时有效               | (ref: React.RefObject) => void |  | - |
 | groupBy | 分组依据，一般为 dataSource 元素中某个键名或者返回值为字符串、数字的一个方法                        | string\|number<br/>\|(record: RecordType) => string\|number |  | - |
-| headerStyle | 表头单元格的内联样式（会应用到所有表头 th，包括 fixed 表头） | CSSProperties | - | - |
+| headerStyle | 表头单元格的内联样式（会应用到所有表头 th，包括 fixed 表头） | CSSProperties | - | **2.97.0** |
 | hideExpandedColumn | 当表格可展开时，展开按钮默认会与第一列文案渲染在同一个单元格内，设为 false 时默认将展开按钮单独作为一列渲染           | boolean | true |
 | indentSize | 树形结构 TableCell 的缩进大小                                                | number | 20 |
 | keepDOM | 折叠行时是否不销毁被折叠的 DOM                                                   | boolean | false |

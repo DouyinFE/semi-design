@@ -501,9 +501,9 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | downloadTip       | 下载操作按钮提示                                                                                                                                         | string         | "下载" | |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 container `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                       | () => HTMLElement  | () => document.body | |
 | infinite          | 是否无限循环                                                                                                                                           | boolean       | false | |
-| initialZoom       | 预览图片初始缩放比例，仅在首次打开或切换到该图片时生效一次，会被 minZoom/maxZoom 限制                                                                          | number | - | |
-| maxZoom           | 预览图片最大缩放比例                                                                                                                                       | number | 5 | |
-| minZoom           | 预览图片最小缩放比例                                                                                                                                       | number | 0.1 | |
+| initialZoom       | 预览图片初始缩放比例，仅在首次打开或切换到该图片时生效一次，会被 minZoom/maxZoom 限制                                                                          | number | - | 2.97.0 |
+| maxZoom           | 预览图片最大缩放比例                                                                                                                                       | number | 5 | 2.97.0 |
+| minZoom           | 预览图片最小缩放比例                                                                                                                                       | number | 0.1 | 2.97.0 |
 | lazyLoad          | 是否开启懒加载                                                                                                                                          | boolean      | true | |
 | lazyLoadMargin    | 传给 options 中的rootMargin 参数，参考 [Intersection Observer API](https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API#interfaces) | string | "0px 100px 100px 0px" | |
 | maskClosable      | 点击遮罩是否可关闭                                                                                                                                        | boolean        | true | |

@@ -1420,7 +1420,7 @@ import { Transfer, Button } from '@douyinfe/semi-ui';
 | style | Inline style | CSSProperties | | |
 | treeProps | When the type is `treeList`, it can be passed as TreeProps to the Tree component on the left | [TreeProps](/en-US/navigation/tree#Tree) | | - |
 | type | Transfer type, optional `list`, `groupList`, `treeList` | string |'list' | - |
-| virtualize | Virtualize the selected list on the right. Only works with default right panel rendering and when `draggable` is `false` | VirtualizeProps |  | - |
+| virtualize | Virtualize the selected list on the right. Only works with default right panel rendering and when `draggable` is `false` | VirtualizeProps |  | 2.97.0 |
 | value | The selected value, when the item is passed in, it will be used as a controlled component | Array<string\|number> | | |
 
 ### Item Interface

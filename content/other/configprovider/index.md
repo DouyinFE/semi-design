@@ -508,8 +508,8 @@ function Demo(props = {}) {
 | 属性              | 说明                                                              | 类型                   | 默认值              |
 |-------------------|-----------------------------------------------------------------|------------------------|---------------------|
 | direction         | 设置文本的方向                                                         | `ltr`\| `rtl`          | `ltr`               |
-| responsiveObserve | 是否开启响应式断点监听。默认关闭以避免全局注册 `matchMedia` 带来的性能开销；开启后在首次订阅时懒注册监听，无订阅时会自动注销 | boolean                 | `false`             |
-| responsiveMap     | 自定义断点配置，key 为 `xs/sm/md/lg/xl/xxl`，value 为 media query 字符串；未传入时使用默认断点（可通过 `ConfigProvider.defaultResponsiveMap` 获取） | object                 |                     |
+| responsiveObserve | 是否开启响应式断点监听。默认关闭以避免全局注册 `matchMedia` 带来的性能开销；开启后在首次订阅时懒注册监听，无订阅时会自动注销，**>=2.97.0** | boolean                 | `false`             |
+| responsiveMap     | 自定义断点配置，key 为 `xs/sm/md/lg/xl/xxl`，value 为 media query 字符串；未传入时使用默认断点（可通过 `ConfigProvider.defaultResponsiveMap` 获取），**>=2.97.0** | object                 |                     |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。            | function():HTMLElement | () => document.body |
 | locale            | 多语言配置，同`LocaleProvider`中`locale`参数的[用法](/zh-CN/other/locale#使用)（如果同时在`ConfigProvider`和`LocaleProvider`中配置`locale`，前者优先级高于后者） | object                 |                     |
 | timeZone          | [时区标识](#时区标识)                                                   | string\|number         |                     |

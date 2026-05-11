@@ -5385,7 +5385,7 @@ render(App);
 | expandRowByClick | Expand row when click row                                                                                                 | boolean | false | - |
 | footer | End of form                                                                                                               | string<br/>\|ReactNode<br/>\|(pageData: object) => string\|ReactNode |  |
 | groupBy | Grouping basis, generally a method of a key name or a return value of a string or number in the dataSource element        | string\|number<br/>\|(record: any) => string\|number |  | - |
-| headerStyle | Style for header cells (applies to all header <th>, including fixed columns) | CSSProperties | - | - |
+| headerStyle | Style for header cells (applies to all header <th>, including fixed columns) | CSSProperties | - | **2.97.0** |
 | hideExpandedColumn | Whether to hide the expansion button column and turn off the rendering of the expansion button when it is turned on       | boolean | true |
 | indentSize | indent size of TableCell                                                                                                  | number | 20 |
 | keepDOM | Whether to not destroy the collapsed DOM when folding a row                                                               | boolean | false |
