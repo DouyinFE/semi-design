@@ -1589,7 +1589,6 @@ import { IconUpload } from '@douyinfe/semi-icons';
                 quality: 0.9,
                 modalTitle: '裁切头像',
             }}
-            listType="picture"
             onSuccess={(response, file) => {
                 console.log('上传成功:', response, file);
             }}

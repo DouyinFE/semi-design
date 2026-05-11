@@ -1572,7 +1572,6 @@ import { IconUpload } from '@douyinfe/semi-icons';
                 quality: 0.9,
                 modalTitle: 'Crop Avatar',
             }}
-            listType="picture"
             onSuccess={(response, file) => {
                 console.log('Upload success:', response, file);
             }}
