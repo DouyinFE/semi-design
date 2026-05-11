@@ -472,10 +472,10 @@ import { Tag, SplitTagGroup, Space } from '@douyinfe/semi-ui';
 
 | 属性  | 说明        | 类型   | 默认值 | 版本 |
 |-------|-------------|--------------|----|--------|
-| className | 类名 | string |    | |
-| style | 样式 | CSSProperties |    | |
-| children | 标签组  | ReactNode |     | |
-| aria-label | 无障碍标签 | string | | |
+| className | 类名 | string |    | 2.97.0 |
+| style | 样式 | CSSProperties |    | 2.97.0 |
+| children | 标签组  | ReactNode |     | 2.97.0 |
+| aria-label | 无障碍标签 | string | | 2.97.0 |
 
 ## Accessibility
 

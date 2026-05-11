@@ -448,10 +448,10 @@ import { Tag, SplitTagGroup, Space } from '@douyinfe/semi-ui';
 
 | Property   | Description         | Type            | Default | Version |
 | ---------- | ------------------- | --------------- | ------- | ------- |
-| className  | Class name          | string          |         |         |
-| style      | Inline style        | CSSProperties   |         |         |
-| children   | Tag group content   | ReactNode       |         |         |
-| aria-label | Accessibility label | string          |         |         |
+| className  | Class name          | string          |         | 2.97.0  |
+| style      | Inline style        | CSSProperties   |         | 2.97.0  |
+| children   | Tag group content   | ReactNode       |         | 2.97.0  |
+| aria-label | Accessibility label | string          |         | 2.97.0  |
 
 ## Accessibility
 
