@@ -1699,10 +1699,13 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |action | File upload address, required | string | | |
 |afterUpload | Hook after the file upload, update the file status according to the returned object | function(auProps) => afterUploadResult | | - |
 |beforeClear|Call back before clearing the file, judge whether to continue removing according to the return value, return false, Promise.resolve(false), Promise.reject() will prevent removal|(fileList: Array<FileItem \>) => boolean \| Promise||-|
+|beforeCrop|Callback before opening the crop modal. Returning `false` (or resolving to `false`) skips cropping and uploads directly. Async returns are supported.|(file: File, fileList: File[]) => boolean \| Promise<boolean>||2.97.0|
 |beforeRemove|Callback before removing the file, judge whether to continue removing according to the return value, return false, Promise.resolve(false), Promise.reject() will prevent removal|(file: <FileItem\>, fileList: Array<FileItem \>) => boolean \| Promise||-|
 |beforeUpload | The hook before uploading the file, according to the return object to update the file status, control whether to upload | function(buProps) => beforeUploadResult \| Promise \| boolean | | - |
 |capture | The way of media shooting in the file upload control | boolean \| string \| undefined | | |
 |className | class name | string | | |
+|crop | Enable image cropping. Pass `true` to use defaults, or a `CropProps` object to customize parameters. Works for click / drag-and-drop / paste / replace upload entries. | boolean \| CropProps | | 2.97.0 |
+|cropModalProps | Extra props forwarded to the underlying crop Modal (style, width, etc.) | ModalReactProps | | 2.97.0 |
 |customRequest | Asynchronous request method for custom upload | (object: customRequestArgs) => void | | - |
 |data | Additional parameters attached to the upload or the method to return the uploaded additional parameters| object\|(file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => object | {} | |
 |defaultFileList | List of uploaded files | Array<FileItem\> | [] | |
@@ -1727,6 +1730,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |onAcceptInvalid | Triggered when the received file does not conform to the accept specification (generally because the folder selects all types of files / drags and drops files that do not conform to the format) | (files: File[]) => void | | 1.24 .0 |
 |onChange | Called when the file status changes, including upload success, failure, upload, the callback input parameter is Object, including fileList, currentFile, etc.| ({fileList: Array<FileItem\>, currentFile?: FileItem}) = > void | | - |
 |onClear | Callback when click to clear | () => void | | - |
+|onCropError | Callback when image cropping fails | (error: Error) => void | | 2.97.0 |
 |onDrop | Triggered when the dragged element is released on the drag area | (e, files: Array<File\>, fileList: Array<FileItem\>) => void | | - |
 |onError | Callback when uploading error| (error: Error, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList: Array<FileItem\> , xhr: XMLHttpRequest) => void | | |
 |onExceed | Callback when the total number of uploaded files exceeds `limit` | (fileList:Array<FileItem\>) => void | | |
@@ -1808,6 +1812,25 @@ interface RenderFileListTitleProps {
     fileList: Array<FileItem>;  // Current file list
     onClear: () => void;        // Callback function to clear files
     clearText: string;          // Default text for the clear button (based on current locale)
+}
+```
+
+### CropProps Interface
+
+Configuration object accepted by the `crop` prop:
+
+```ts
+interface CropProps {
+    aspectRatio?: number;           // Crop box aspect ratio, e.g. 16/9, 1, 4/3
+    shape?: 'rect' | 'round' | 'roundRect';  // Crop box shape, default 'rect'
+    minZoom?: number;               // Minimum zoom ratio
+    maxZoom?: number;               // Maximum zoom ratio
+    zoomStep?: number;              // Zoom step size
+    quality?: number;               // Output image quality, range 0 - 1, default 0.92
+    fill?: string;                  // Fill color of the area outside the cropped region, default '#fff'
+    modalTitle?: string;            // Title text of the crop modal
+    modalOkText?: string;           // Confirm button text of the crop modal
+    modalCancelText?: string;       // Cancel button text of the crop modal
 }
 ```
 

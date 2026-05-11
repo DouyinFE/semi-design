@@ -1717,13 +1717,13 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |addOnPasting | 按下 ctrl/command + v时，是否自动将剪贴板中的文件添加至 fileList，当前仅支持图片类型; 需用户授权同意 | boolean | false | 2.43.0 |
 |afterUpload | 文件上传后的钩子，根据 return 的 object 更新文件状态 | function(auProps) => afterUploadResult |  |  |
 |beforeClear|清空文件前回调，按照返回值来判断是否继续移除，返回false、Promise.resolve(false)、Promise.reject()会阻止移除|(fileList: Array<FileItem \>) => boolean\|Promise|| |
-|beforeCrop|图片裁切前的回调。返回 `false` 可跳过裁切直接上传，返回 `true` 或不返回则继续裁切。支持异步返回|(file: File, fileList: File[]) => boolean \| Promise<boolean> | | 2.x |
+|beforeCrop|图片裁切前的回调。返回 `false` 可跳过裁切直接上传，返回 `true` 或不返回则继续裁切。支持异步返回|(file: File, fileList: File[]) => boolean \| Promise<boolean> | | 2.97.0 |
 |beforeRemove|移除文件前的回调，按照返回值来判断是否继续移除，返回false、Promise.resolve(false)、Promise.reject()会阻止移除|(file: <FileItem\>, fileList: Array<FileItem \>) => boolean\|Promise|| |
 |beforeUpload | 上传文件前的钩子，根据 return 的 object 更新文件状态，控制是否上传 | function(buProps) => beforeUploadResult \| Promise \| boolean |  |  |
 |capture | 文件上传控件中媒体拍摄的方式 | boolean\|string\|undefined | | |
 |className | 类名 | string |  |  |
-|crop | 启用图片裁切功能。传入 `true` 使用默认配置，传入对象可自定义裁切参数。支持所有上传入口（点击选择、拖拽、粘贴、替换）的图片裁切 | boolean \| CropProps |  | 2.x |
-|cropModalProps | 自定义裁切弹窗的属性，可配置弹窗的样式、宽度等 | ModalReactProps |  | 2.x |
+|crop | 启用图片裁切功能。传入 `true` 使用默认配置，传入对象可自定义裁切参数。支持所有上传入口（点击选择、拖拽、粘贴、替换）的图片裁切 | boolean \| CropProps |  | 2.97.0 |
+|cropModalProps | 自定义裁切弹窗的属性，可配置弹窗的样式、宽度等 | ModalReactProps |  | 2.97.0 |
 |customRequest | 自定义上传使用的异步请求方法 | (object: customRequestArgs) => void |  |  |
 |data | 上传时附带的额外参数或返回上传额外参数的方法 | object\|(file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => object | {} |  |
 |defaultFileList | 已上传的文件列表 | Array<FileItem\> | [] |  |
@@ -1748,7 +1748,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |onAcceptInvalid | 当接收到的文件不符合accept规范时触发（一般是因为文件夹选择了全部类型文件/拖拽不符合格式的文件时触发） | (files: File[]) => void | |  |
 |onChange | 文件状态发生变化时调用，包括上传成功，失败，上传中，回调入参为 Object，包含 fileList、currentFile 等值 | ({fileList: Array<FileItem\>, currentFile?: FileItem}) => void |  |  |
 |onClear | 点击清空时的回调 | () => void |  |  |
-|onCropError | 图片裁切失败时的回调 | (error: Error) => void |  | 2.x |
+|onCropError | 图片裁切失败时的回调 | (error: Error) => void |  | 2.97.0 |
 |onDrop | 当拖拽的元素在拖拽区上被释放时触发 | (e, files: Array<File\>, fileList: Array<FileItem\>) => void |  |  |
 |onError | 上传错误时的回调 | (error: Error, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList: Array<FileItem\>, xhr: XMLHttpRequest) => void |  |  |
 |onExceed | 上传文件总数超出 `limit` 时的回调 | (fileList:Array<FileItem\>) => void |  |  |
