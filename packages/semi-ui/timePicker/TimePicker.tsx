@@ -53,10 +53,16 @@ export type TimePickerProps = {
     disabledHours?: () => number[];
     disabledMinutes?: (selectedHour: number) => number[];
     disabledSeconds?: (selectedHour: number, selectedMinute: number) => number[];
-    disabledTime?: (value: Date | Date[], panelType: PanelType) => {
+    /**
+     * Range-only callback to derive disabled hours/minutes/seconds for the
+     * left and right panel separately. In single mode this prop is ignored
+     * (the top-level disabledHours / disabledMinutes / disabledSeconds props
+     * are used instead).
+     */
+    disabledTime?: (value: Date[], panelType: PanelType) => {
         disabledHours?: () => number[];
         disabledMinutes?: (selectedHour: number) => number[];
-        disabledSeconds?: (selectedHour: number, selectedMinute: number) => number[];
+        disabledSeconds?: (selectedHour: number, selectedMinute: number) => number[]
     };
     dropdownMargin?: PopoverProps['margin'];
     focusOnOpen?: boolean;
@@ -358,11 +364,15 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
             return undefined;
         }
 
-        // Align with DatePicker disabledTime behavior:
-        // - single: pass Date
-        // - range: pass selected Date[] (length may be 0/1/2)
-        const cbValue = this.adapter.isRangePicker() ? value : value?.[0];
-        return disabledTime(cbValue as any, panelType);
+        // disabledTime exists to express "different disabled rules for the left
+        // and right panel in range mode". In single mode the left/right panel
+        // distinction does not apply, so we deliberately do not invoke it here
+        // and let the panel fall back to the top-level disabledHours /
+        // disabledMinutes / disabledSeconds props.
+        if (!this.adapter.isRangePicker()) {
+            return undefined;
+        }
+        return disabledTime(value, panelType);
     }
 
     getPanelElement() {

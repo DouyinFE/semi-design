@@ -74,9 +74,12 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
     getDisabledTimeFns(panelType: PanelType, dates: Date[]) {
         const { disabledHours, disabledMinutes, disabledSeconds, disabledTime } = this.getProps() as any;
 
-        if (typeof disabledTime === 'function') {
-            const cbValue = this._adapter.isRangePicker() ? dates : dates?.[0];
-            const disabledObj = disabledTime(cbValue, panelType) || {};
+        // disabledTime is range-only: only invoke it when the picker is
+        // actually a range picker. In single mode panelType has no meaning, so
+        // we fall back to the top-level disabledHours / disabledMinutes /
+        // disabledSeconds without invoking disabledTime.
+        if (typeof disabledTime === 'function' && this._adapter.isRangePicker()) {
+            const disabledObj = disabledTime(dates, panelType) || {};
             return {
                 disabledHours: disabledObj.disabledHours || disabledHours,
                 disabledMinutes: disabledObj.disabledMinutes || disabledMinutes,
@@ -148,8 +151,8 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         });
 
         const isAM = [true, false];
-        parsedValues.map((item, idx)=>{
-            isAM[idx]= getHours(item) < 12;
+        parsedValues.map((item, idx) => {
+            isAM[idx] = getHours(item) < 12;
         });
 
         if (parsedValues.length === value.length) {
