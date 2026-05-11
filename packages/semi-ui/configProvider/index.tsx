@@ -26,11 +26,11 @@ export interface ConfigProviderProps extends Omit<ContextValue, 'onBreakpoint' |
      * - When false (default): ConfigProvider will not register any matchMedia listeners.
      * - When true: listeners will be registered lazily on first subscription.
      */
-    responsiveObserve?: boolean;
+    responsiveObserve?: boolean
 }
 
 interface ConfigProviderState {
-    screens: BreakpointScreens;
+    screens: BreakpointScreens
 }
 
 /**
@@ -76,14 +76,20 @@ export default class ConfigProvider extends React.Component<ConfigProviderProps,
     private screensListeners: Set<OnBreakpointScreensCallback> = new Set();
     private changeListeners: Set<{
         breakpoints?: Breakpoint[];
-        callback: OnBreakpointChangeCallback;
+        callback: OnBreakpointChangeCallback
     }> = new Set();
+    /**
+     * Synchronous source of truth for current breakpoint matches.
+     * `setState` is async, so reading `this.state.screens` immediately after
+     * registering listeners returns stale values. Subscriber callbacks read
+     * from this ref to always get the freshest snapshot.
+     */
+    private currentScreensRef: BreakpointScreens | null = null;
 
     constructor(props: ConfigProviderProps) {
         super(props);
         this.state = {
             screens: {
-                // init as false and let matchMedia sync in callInInit
                 xs: false,
                 sm: false,
                 md: false,
@@ -146,7 +152,13 @@ export default class ConfigProvider extends React.Component<ConfigProviderProps,
     };
 
     /**
-     * Register media query listeners
+     * Register media query listeners.
+     *
+     * To avoid stale-state bug in immediate subscriber callbacks, we
+     * synchronously read all `matchMedia(...).matches` once *before* attaching
+     * the change listeners, write the result to both `currentScreensRef` and
+     * `state.screens` in a single batched setState, and only then start
+     * tracking changes (with `callInInit: false` so we don't double-fire).
      */
     private registerMediaQueries = () => {
         if (this.hasRegisteredMediaQueries) {
@@ -155,7 +167,17 @@ export default class ConfigProvider extends React.Component<ConfigProviderProps,
         const responsiveMap = this.props.responsiveMap || defaultResponsiveMap;
         const breakpointKeys = Object.keys(responsiveMap) as Array<keyof ResponsiveMap>;
 
-        this.unRegisters = breakpointKeys.map(screen => 
+        const initialScreens: BreakpointScreens = {
+            xs: false, sm: false, md: false, lg: false, xl: false, xxl: false,
+        };
+        if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+            breakpointKeys.forEach(screen => {
+                initialScreens[screen] = window.matchMedia(responsiveMap[screen]).matches;
+            });
+        }
+        this.currentScreensRef = initialScreens;
+
+        this.unRegisters = breakpointKeys.map(screen =>
             registerMediaQuery(responsiveMap[screen], {
                 match: () => {
                     this.updateScreen(screen, true);
@@ -163,10 +185,12 @@ export default class ConfigProvider extends React.Component<ConfigProviderProps,
                 unmatch: () => {
                     this.updateScreen(screen, false);
                 },
+                callInInit: false,
             })
         );
 
         this.hasRegisteredMediaQueries = true;
+        this.setState({ screens: initialScreens });
     };
 
     /**
@@ -177,12 +201,16 @@ export default class ConfigProvider extends React.Component<ConfigProviderProps,
         this.unRegisters = [];
 
         this.hasRegisteredMediaQueries = false;
+        this.currentScreensRef = null;
     };
 
     /**
      * Update screen state and notify listeners
      */
     private updateScreen = (screen: keyof ResponsiveMap, matches: boolean) => {
+        if (this.currentScreensRef && this.currentScreensRef[screen] !== matches) {
+            this.currentScreensRef = { ...this.currentScreensRef, [screen]: matches };
+        }
         this.setState(prevState => {
             if (prevState.screens[screen] === matches) {
                 return null;
@@ -194,7 +222,6 @@ export default class ConfigProvider extends React.Component<ConfigProviderProps,
                 },
             };
         }, () => {
-            // Notify all listeners after state update
             this.notifyListeners(screen as Breakpoint, matches);
         });
     };
@@ -225,18 +252,20 @@ export default class ConfigProvider extends React.Component<ConfigProviderProps,
      */
     private handleBreakpoint: {
         (callback: OnBreakpointScreensCallback): () => void;
-        (breakpoints: Breakpoint[], callback: OnBreakpointChangeCallback): () => void;
+        (breakpoints: Breakpoint[], callback: OnBreakpointChangeCallback): () => void
     } = (arg1: any, arg2?: any) => {
         // onBreakpoint(callback)
         if (typeof arg1 === 'function') {
             const cb: OnBreakpointScreensCallback = arg1;
             this.screensListeners.add(cb);
             this.ensureMediaQueriesRegistered();
-            // Immediately call with current state
-            cb(this.state.screens);
+            // Read from currentScreensRef so we deliver the freshly-computed
+            // matches (set synchronously inside registerMediaQueries) instead
+            // of the still-async this.state.screens.
+            const initialScreens = this.currentScreensRef ?? this.state.screens;
+            cb(initialScreens);
             return () => {
                 this.screensListeners.delete(cb);
-                // if no subscribers remain, unregister to save resources
                 if (this.props.responsiveObserve && this.screensListeners.size === 0 && this.changeListeners.size === 0) {
                     this.unregisterMediaQueries();
                 }
@@ -251,10 +280,10 @@ export default class ConfigProvider extends React.Component<ConfigProviderProps,
 
         this.ensureMediaQueriesRegistered();
 
-        // Immediately call with current state for specified breakpoints
+        const initialScreens = this.currentScreensRef ?? this.state.screens;
         if (breakpoints && typeof cb === 'function') {
             breakpoints.forEach(bp => {
-                cb(bp, this.state.screens[bp]);
+                cb(bp, initialScreens[bp]);
             });
         }
 

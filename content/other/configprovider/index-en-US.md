@@ -122,6 +122,8 @@ ConfigProvider supports responsive breakpoint configuration and subscriptions to
 
 - For performance reasons, `responsiveObserve` is `false` by default. When disabled, ConfigProvider will not register any `matchMedia` listeners.
 - `onBreakpoint` / `screens` are not ConfigProvider props. Please access them via `ConfigConsumer`.
+- Each subscription **fires the callback once immediately** with the current breakpoint matches, so you don't need to call `window.matchMedia` yourself on mount.
+- `responsiveMap` is compared by reference: passing a fresh object inline on every render will be treated as a change and trigger re-registration of all listeners. Define it outside the component or wrap it with `useMemo` to keep the reference stable.
 
 </Notice>
 
