@@ -129,14 +129,20 @@ export interface UploadProps {
     validateStatus?: ValidateStatus;
     withCredentials?: boolean;
     showTooltip?: boolean | ShowTooltip;
-    /** 启用图片裁切功能，可传入裁切配置对象 */
+    /**
+     * Enable image cropping. Pass `true` to use defaults, or a `CropProps` object
+     * to customize aspect ratio, shape, output quality, etc.
+     */
     crop?: boolean | CropProps;
-    /** 裁切前的回调，返回 false 可阻止裁切 */
+    /**
+     * Callback invoked before opening the crop modal for each image.
+     * Return `false` (or resolve to `false`) to skip cropping and upload directly.
+     */
     beforeCrop?: (file: File, fileList: File[]) => boolean | Promise<boolean>;
-    /** 裁切失败的回调 */
+    /** Callback invoked when cropping fails. */
     onCropError?: (error: Error) => void;
-    /** 自定义裁切弹窗属性 */
-    cropModalProps?: ModalReactProps;
+    /** Extra props forwarded to the underlying crop Modal. */
+    cropModalProps?: ModalReactProps
 }
 
 export interface UploadState {
@@ -149,10 +155,18 @@ export interface UploadState {
     replaceInputKey: number;
     // Cropper state
     cropperVisible: boolean;
+    /** The image file currently being cropped */
     cropperFile: File | null;
+    /** Object URL for the image currently being cropped */
     cropperSrc: string;
-    pendingFiles: File[];
-    isReplaceOperation: boolean; // Flag to indicate if this is a replace operation
+    /** Remaining image files queued for cropping (cropped one at a time) */
+    pendingImageFiles: File[];
+    /** Non-image files that bypass cropping but are uploaded together */
+    nonImageFiles: File[];
+    /** Image files already cropped, accumulated until the queue drains */
+    croppedFiles: File[];
+    /** Flag to indicate this round was triggered by a replace action */
+    isReplaceOperation: boolean
 }
 
 class Upload extends BaseComponent<UploadProps, UploadState> {
@@ -281,7 +295,9 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             cropperVisible: false,
             cropperFile: null,
             cropperSrc: '',
-            pendingFiles: [],
+            pendingImageFiles: [],
+            nonImageFiles: [],
+            croppedFiles: [],
             isReplaceOperation: false,
         };
         this.foundation = new UploadFoundation(this.adapter);
@@ -418,17 +434,14 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                 }
             },
             registerPasteEventHandler: (cb?: (e: ClipboardEvent) => void): void => {
-                // Wrap the callback to intercept cropping
+                // Intercept paste events when crop is enabled and the clipboard contains images;
+                // otherwise pass through to the foundation-supplied handler unchanged.
                 const wrappedCb = (e: ClipboardEvent) => {
                     const { crop } = this.props;
-                    
-                    // If crop is enabled and this is a paste event with files
                     if (crop && e.clipboardData && e.clipboardData.items) {
-                        const items = e.clipboardData.items;
                         const files: File[] = [];
-                        
-                        for (let i = 0; i < items.length; i++) {
-                            const item = items[i];
+                        for (let i = 0; i < e.clipboardData.items.length; i++) {
+                            const item = e.clipboardData.items[i];
                             if (item.kind === 'file') {
                                 const file = item.getAsFile();
                                 if (file) {
@@ -436,23 +449,15 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                                 }
                             }
                         }
-                        
-                        if (files.length > 0) {
-                            const imageFiles = files.filter(file => this.isImageFile(file));
-                            
-                            if (imageFiles.length > 0) {
-                                // Intercept and start cropping
-                                e.preventDefault();
-                                this.handleCropFiles(files);
-                                return;
-                            }
+                        if (files.length > 0 && files.some(file => this.isImageFile(file))) {
+                            e.preventDefault();
+                            this.handleCropFiles(files);
+                            return;
                         }
                     }
-                    
-                    // Otherwise, call original callback
                     cb?.(e);
                 };
-                
+
                 document.body.addEventListener('paste', wrappedCb);
                 this.pasteEventCb = wrappedCb;
             },
@@ -506,18 +511,15 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     onChange = (e: ChangeEvent<HTMLInputElement>): void => {
         const { files } = e.target;
         const { crop } = this.props;
-        
+
         if (crop && files && files.length > 0) {
-            // Check if any files are images that need cropping
-            const imageFiles = Array.from(files).filter(file => this.isImageFile(file));
-            
-            if (imageFiles.length > 0) {
-                // Start cropping process
-                this.handleCropFiles(Array.from(files));
+            const fileArr = Array.from(files);
+            if (fileArr.some(file => this.isImageFile(file))) {
+                this.handleCropFiles(fileArr);
                 return;
             }
         }
-        
+
         this.foundation.handleChange(files);
     };
 
@@ -529,134 +531,152 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     };
 
     /**
-     * Handle files that may need cropping
-     * Note: Currently only processes the first image file for cropping.
-     * Multiple image cropping can be extended in the future if needed.
+     * Entry point that decides whether incoming files need cropping.
+     * Image files are queued for sequential cropping; non-image files are kept aside
+     * and uploaded together with the cropped results once the queue drains.
      */
-    handleCropFiles = async (files: File[]): Promise<void> => {
-        const { beforeCrop, onCropError } = this.props;
-        
-        // Filter image files that need cropping
+    handleCropFiles = async (files: File[], isReplaceOperation = false): Promise<void> => {
         const imageFiles = files.filter(file => this.isImageFile(file));
         const nonImageFiles = files.filter(file => !this.isImageFile(file));
-        
-        // Check beforeCrop hook
-        if (beforeCrop) {
-            try {
-                const shouldCrop = await beforeCrop(imageFiles[0], files);
-                if (shouldCrop === false) {
-                    // Skip cropping, process files directly
-                    this.foundation.handleChange(files);
-                    return;
-                }
-            } catch (error) {
-                // If beforeCrop throws, fallback to normal upload flow to avoid blocking user
-                console.error('beforeCrop error:', error);
-                onCropError?.(error as Error);
-                this.foundation.handleChange(files);
-                return;
-            }
+
+        if (imageFiles.length === 0) {
+            // No images to crop, fall back to the normal upload path
+            this.dispatchUpload(files, isReplaceOperation);
+            return;
         }
-        
-        // Store all files for later processing
-        // Currently only the first image is cropped.
-        // Other selected files (including additional images) will be uploaded without cropping.
-        if (imageFiles.length > 0) {
-            const restFiles = [...imageFiles.slice(1), ...nonImageFiles];
-            this.setState({
-                cropperVisible: true,
-                cropperFile: imageFiles[0],
-                cropperSrc: URL.createObjectURL(imageFiles[0]),
-                pendingFiles: restFiles,
-                isReplaceOperation: false,
-            });
-        } else {
-            // No images to crop, process directly
-            this.foundation.handleChange(files);
+
+        const shouldCrop = await this.shouldCropFile(imageFiles[0], files);
+        if (!shouldCrop) {
+            this.dispatchUpload(files, isReplaceOperation);
+            return;
+        }
+
+        // Replace only ever consumes a single file, ignore extras for safety
+        const queue = isReplaceOperation ? [imageFiles[0]] : imageFiles;
+        const [first, ...rest] = queue;
+        this.setState({
+            cropperVisible: true,
+            cropperFile: first,
+            cropperSrc: URL.createObjectURL(first),
+            pendingImageFiles: rest,
+            nonImageFiles: isReplaceOperation ? [] : nonImageFiles,
+            croppedFiles: [],
+            isReplaceOperation,
+        });
+    };
+
+    /**
+     * Run the user-provided beforeCrop hook (if any) and return whether cropping should proceed.
+     * Errors fall back to skipping cropping so users are never blocked.
+     */
+    shouldCropFile = async (file: File, files: File[]): Promise<boolean> => {
+        const { beforeCrop, onCropError } = this.props;
+        if (!beforeCrop) {
+            return true;
+        }
+        try {
+            const result = await beforeCrop(file, files);
+            return result !== false;
+        } catch (error) {
+            onCropError?.(error as Error);
+            return false;
         }
     };
 
     /**
-     * Handle crop confirmation
+     * Forward files to the appropriate foundation handler based on operation type.
+     */
+    dispatchUpload = (files: File[], isReplaceOperation: boolean): void => {
+        if (isReplaceOperation) {
+            this.foundation.handleReplaceChange(files as any);
+        } else {
+            this.foundation.handleChange(files as any);
+        }
+    };
+
+    /**
+     * Confirm the current crop. If more images are queued, advance to the next one;
+     * otherwise dispatch the accumulated cropped files together with any non-image files.
      */
     handleCropOk = async (): Promise<void> => {
-        const { cropperFile, pendingFiles, isReplaceOperation } = this.state;
+        const { cropperFile, pendingImageFiles, nonImageFiles, croppedFiles, isReplaceOperation } = this.state;
         const { crop, onCropError } = this.props;
-        
+
         try {
-            // Get cropped canvas
             const cropperInstance = this.cropperRef.current;
-            if (!cropperInstance) {
+            if (!cropperInstance || !cropperFile) {
                 throw new Error('Cropper instance not found');
             }
-            
             const canvas = cropperInstance.getCropperCanvas();
-            
-            // Convert canvas to blob
+
             const cropConfig = typeof crop === 'object' ? crop : {};
             const quality = cropConfig.quality ?? 0.92;
-            const type = cropperFile?.type || 'image/png';
-            
+            const type = cropperFile.type || 'image/png';
+
             const blob = await new Promise<Blob>((resolve, reject) => {
                 canvas.toBlob(
-                    (b) => {
-                        if (b) {
-                            resolve(b);
-                        } else {
-                            reject(new Error('Failed to create blob'));
-                        }
-                    },
+                    b => (b ? resolve(b) : reject(new Error('Failed to create blob'))),
                     type,
                     quality
                 );
             });
-            
-            // Create new File from blob
-            const croppedFile = new File([blob], cropperFile?.name || 'cropped-image.png', {
+
+            // Preserve the original filename and lastModified so downstream consumers
+            // can keep meaningful metadata about the user-chosen file.
+            const croppedFile = new File([blob], cropperFile.name, {
                 type,
-                lastModified: Date.now(),
+                lastModified: cropperFile.lastModified,
             });
-            
-            // Close cropper and clean up
-            this.handleCropCancel();
-            
-            // Process files based on operation type
-            if (isReplaceOperation) {
-                // For replace operation, only pass the cropped file
-                this.foundation.handleReplaceChange([croppedFile]);
-            } else {
-                // For normal upload, combine cropped file with other pending files
-                const allFiles = [croppedFile, ...pendingFiles];
-                this.foundation.handleChange(allFiles as any);
+
+            const nextCropped = [...croppedFiles, croppedFile];
+
+            if (pendingImageFiles.length > 0) {
+                // Move on to the next queued image
+                const [next, ...rest] = pendingImageFiles;
+                if (this.state.cropperSrc) {
+                    URL.revokeObjectURL(this.state.cropperSrc);
+                }
+                this.setState({
+                    cropperFile: next,
+                    cropperSrc: URL.createObjectURL(next),
+                    pendingImageFiles: rest,
+                    croppedFiles: nextCropped,
+                });
+                return;
             }
-            
+
+            // Queue exhausted: close cropper and dispatch results
+            this.closeCropperAndReset();
+            this.dispatchUpload([...nextCropped, ...nonImageFiles], isReplaceOperation);
         } catch (error) {
-            console.error('Crop error:', error);
-            if (onCropError) {
-                onCropError(error as Error);
-            }
+            onCropError?.(error as Error);
         }
     };
 
     /**
-     * Handle crop cancellation
+     * Cancel the current crop session, revoke object URLs and reset state.
      */
     handleCropCancel = (): void => {
+        this.closeCropperAndReset();
+    };
+
+    /** Internal helper that tears down crop state and resets the file input. */
+    closeCropperAndReset = (): void => {
         const { cropperSrc } = this.state;
-        
-        // Revoke object URL
         if (cropperSrc) {
             URL.revokeObjectURL(cropperSrc);
         }
-        
         this.setState({
             cropperVisible: false,
             cropperFile: null,
             cropperSrc: '',
-            pendingFiles: [],
+            pendingImageFiles: [],
+            nonImageFiles: [],
+            croppedFiles: [],
             isReplaceOperation: false,
-            // Reset input so selecting the same file again can trigger onChange
+            // Reset input key so picking the same file again re-triggers onChange
             inputKey: Math.random(),
+            replaceInputKey: Math.random(),
         });
     };
 
@@ -671,65 +691,14 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         const { crop } = this.props;
 
         if (crop && files && files.length > 0) {
-            const imageFiles = Array.from(files).filter(file => this.isImageFile(file));
-
-            if (imageFiles.length > 0) {
-                // For replace, we need to handle cropping specially
-                // Store the replace context so we can replace after cropping
-                this.setState({
-                    replaceIdx: this.state.replaceIdx,
-                });
-                // Start cropping process - handleCropFiles will eventually call foundation.handleChange
-                // But we need a different flow for replace...
-                // Actually, we should handle replace differently
-                this.handleReplaceCropFiles(Array.from(files));
+            const fileArr = Array.from(files);
+            if (fileArr.some(file => this.isImageFile(file))) {
+                this.handleCropFiles(fileArr, true);
                 return;
             }
         }
 
         this.foundation.handleReplaceChange(files);
-    };
-
-    /**
-     * Handle files that need cropping for replace operation
-     */
-    handleReplaceCropFiles = async (files: File[]): Promise<void> => {
-        const { beforeCrop, onCropError } = this.props;
-        const { replaceIdx } = this.state;
-
-        const imageFiles = files.filter(file => this.isImageFile(file));
-
-        // Check beforeCrop hook
-        if (beforeCrop) {
-            try {
-                const shouldCrop = await beforeCrop(imageFiles[0], files);
-                if (shouldCrop === false) {
-                    // Skip cropping, process replace directly
-                    this.foundation.handleReplaceChange(files);
-                    return;
-                }
-            } catch (error) {
-                // If beforeCrop throws, fallback to normal replace flow
-                console.error('beforeCrop error:', error);
-                onCropError?.(error as Error);
-                this.foundation.handleReplaceChange(files);
-                return;
-            }
-        }
-
-        // For replace, only first image is processed
-        if (imageFiles.length > 0) {
-            this.setState({
-                cropperVisible: true,
-                cropperFile: imageFiles[0],
-                cropperSrc: URL.createObjectURL(imageFiles[0]),
-                pendingFiles: [], // No pending files for replace
-                isReplaceOperation: true,
-            });
-        } else {
-            // No images to crop, process replace directly
-            this.foundation.handleReplaceChange(files);
-        }
     };
 
     clear = (): void => {
@@ -982,46 +951,31 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     };
 
     onDrop = (e: DragEvent<HTMLDivElement>): void => {
-        // Block file opening in browser
-        e.preventDefault();
-        e.stopPropagation();
-        
         const { crop, directory, disabled } = this.props;
-        const fileList = this.state.fileList.slice();
-        
-        // If disabled, do nothing
-        if (disabled) {
-            return;
-        }
-        
-        // If directory upload, delegate to foundation (folder upload doesn't support cropping)
-        if (directory) {
+
+        // For disabled / directory / no-crop scenarios, defer to the foundation
+        // so existing accept / limit / drag-area-status / notifyDrop logic still applies.
+        if (disabled || directory || !crop) {
             this.foundation.handleDrop(e);
             return;
         }
-        
-        const files = Array.from(e.dataTransfer.files);
-        
-        // If crop is enabled and there are image files, intercept for cropping
-        if (crop && files.length > 0) {
-            const imageFiles = files.filter(file => this.isImageFile(file));
-            
-            if (imageFiles.length > 0) {
-                // Update drag area status
-                this.setState({ dragAreaStatus: 'default' as const });
-                // Notify drop callback
-                // Use nativeEvent to match public API typing: onDrop(e: Event, ...)
-                // React DragEvent is not assignable to DOM Event in TS.
-                const eventForCb: Event = (e as any).nativeEvent || (e as any);
-                this.props.onDrop(eventForCb, files, fileList);
-                // Start cropping process
-                this.handleCropFiles(files);
-                return;
-            }
+
+        const files = e.dataTransfer && e.dataTransfer.files ? Array.from(e.dataTransfer.files) : [];
+        if (files.length === 0 || !files.some(file => this.isImageFile(file))) {
+            this.foundation.handleDrop(e);
+            return;
         }
-        
-        // Fall back to foundation's default handling
-        this.foundation.handleDrop(e);
+
+        // We need to short-circuit the foundation's default handling so the original files
+        // are not uploaded before cropping. Reproduce only the side effects that would
+        // otherwise happen: prevent default browser open, reset drag status, fire onDrop.
+        e.preventDefault();
+        e.stopPropagation();
+        const fileList = this.state.fileList.slice();
+        this.setState({ dragAreaStatus: 'default' as const });
+        const eventForCb: Event = (e as any).nativeEvent || (e as any);
+        this.props.onDrop(eventForCb, files, fileList);
+        this.handleCropFiles(files);
     };
 
     onDragOver = (e: DragEvent<HTMLDivElement>): void => {

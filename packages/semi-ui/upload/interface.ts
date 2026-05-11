@@ -72,28 +72,28 @@ export interface RenderPictureCloseProps {
 export interface RenderFileListTitleProps {
     fileList: Array<FileItem>;
     onClear: () => void;
-    clearText: string;
+    clearText: string
 }
 
 export interface CropProps {
-    /** 裁切框比例 */
+    /** Crop box aspect ratio (width / height), e.g. 16/9, 1, 4/3 */
     aspectRatio?: number;
-    /** 裁切框形状 */
+    /** Crop box shape */
     shape?: 'rect' | 'round' | 'roundRect';
-    /** 最小缩放比例 */
+    /** Minimum zoom ratio */
     minZoom?: number;
-    /** 最大缩放比例 */
+    /** Maximum zoom ratio */
     maxZoom?: number;
-    /** 缩放步长 */
+    /** Zoom step size */
     zoomStep?: number;
-    /** 输出图片质量 0-1 */
+    /** Output image quality, range 0 - 1, defaults to 0.92 */
     quality?: number;
-    /** 填充颜色 */
+    /** Fill color of the area outside the cropped region */
     fill?: string;
-    /** 弹窗标题 */
+    /** Title text of the crop modal (overrides locale value) */
     modalTitle?: string;
-    /** 确认按钮文字 */
+    /** Confirm button text of the crop modal (overrides locale value) */
     modalOkText?: string;
-    /** 取消按钮文字 */
-    modalCancelText?: string;
+    /** Cancel button text of the crop modal (overrides locale value) */
+    modalCancelText?: string
 }
