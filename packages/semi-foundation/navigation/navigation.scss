@@ -569,6 +569,7 @@ $module: #{$prefix}-navigation;
             & > .#{$prefix}-button {
                 padding-left: $spacing-navigation_footer_collapse_btn_inner-paddingX;
                 padding-right: $spacing-navigation_footer_collapse_btn_inner-paddingX;
+                color: $color-navigation_footer_icon-default;
             }
         }
 
