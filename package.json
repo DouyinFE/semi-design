@@ -213,7 +213,7 @@
         "semver": "^7.3.5",
         "sha1": "^1.1.1",
         "sinon": "^6.3.5",
-        "storybook": "future",
+        "storybook": "7.1.0-alpha.29",
         "storybook-addon-turbo-build": "^2.0.0",
         "style-loader": "^0.23.1",
         "stylelint": "^13.13.1",
