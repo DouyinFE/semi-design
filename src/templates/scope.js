@@ -180,6 +180,7 @@ export {
     SortableContext,
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
+    horizontalListSortingStrategy,
     arrayMove,
 } from '@dnd-kit/sortable';
   

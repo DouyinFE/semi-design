@@ -651,64 +651,45 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
     <code>npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities</code>
 </Notice>
 
-```jsx live=true hideInDSM
+```jsx live=true noInline=true hideInDSM
 import React, { useState } from 'react';
 import { Tabs, TabPane } from '@douyinfe/semi-ui';
-import {
-    DndContext,
-    closestCenter,
-    KeyboardSensor,
-    PointerSensor,
-    useSensor,
-    useSensors,
-} from '@dnd-kit/core';
-import {
-    arrayMove,
-    SortableContext,
-    sortableKeyboardCoordinates,
-    horizontalListSortingStrategy,
-    useSortable,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { arrayMove, SortableContext, horizontalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
+import { CSS as cssDndKit } from '@dnd-kit/utilities';
 
-// 可拖拽的 TabItem 组件
-const SortableTabItem = (props) => {
-    const {
-        attributes,
-        listeners,
-        setNodeRef,
-        transform,
-        transition,
-        isDragging,
-    } = useSortable({
-        id: props.id,
-        disabled: props.disabled,
+// 直接复用 Semi 内置的 TabItem，保留官方样式；外层用 useSortable 注入 ref/listeners/transform
+const SortableTabItem = ({ item, selected, size, type, tabPosition, onClick }) => {
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+        id: item.itemKey,
+        disabled: item.disabled,
     });
-
     const style = {
-        transform: CSS.Transform.toString(transform),
+        transform: cssDndKit.Transform.toString(transform),
         transition,
+        cursor: item.disabled ? 'not-allowed' : 'grab',
         opacity: isDragging ? 0.5 : 1,
-        cursor: props.disabled ? 'not-allowed' : 'grab',
-        zIndex: isDragging ? 1 : 0,
-        display: 'inline-block',
+        display: 'inline-flex',
     };
-
     return (
-        <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-            <div
-                role="tab"
-                aria-selected={props.selected}
-                className={`semi-tabs-tab semi-tabs-tab-line ${props.selected ? 'semi-tabs-tab-active' : ''} ${props.disabled ? 'semi-tabs-tab-disabled' : ''}`}
-                onClick={() => !props.disabled && props.onClick?.(props.id)}
-            >
-                {props.tab}
-            </div>
-        </div>
+        <Tabs.TabItem
+            ref={setNodeRef}
+            style={style}
+            itemKey={item.itemKey}
+            tab={item.tab}
+            icon={item.icon}
+            disabled={item.disabled}
+            selected={selected}
+            size={size}
+            type={type}
+            tabPosition={tabPosition}
+            onClick={onClick}
+            {...attributes}
+            {...listeners}
+        />
     );
 };
 
-// 拖拽排序的 Tabs 示例
 function DraggableTabsDemo() {
     const [activeKey, setActiveKey] = useState('1');
     const [items, setItems] = useState([
@@ -718,56 +699,54 @@ function DraggableTabsDemo() {
         { itemKey: '4', tab: '表单', content: '表单内容' },
     ]);
 
-    const sensors = useSensors(
-        useSensor(PointerSensor, {
-            activationConstraint: { distance: 5 },
-        }),
-        useSensor(KeyboardSensor, {
-            coordinateGetter: sortableKeyboardCoordinates,
-        })
-    );
+    const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
 
-    const handleDragEnd = (event) => {
-        const { active, over } = event;
+    const handleDragEnd = ({ active, over }) => {
         if (over && active.id !== over.id) {
-            setItems((items) => {
-                const oldIndex = items.findIndex((i) => i.itemKey === active.id);
-                const newIndex = items.findIndex((i) => i.itemKey === over.id);
-                return arrayMove(items, oldIndex, newIndex);
+            setItems(prev => {
+                const oldIndex = prev.findIndex(i => i.itemKey === active.id);
+                const newIndex = prev.findIndex(i => i.itemKey === over.id);
+                return arrayMove(prev, oldIndex, newIndex);
             });
         }
     };
 
+    // 用 renderTabBar 自定义整条 bar：保持 Semi 原生 .semi-tabs-bar 外壳 + dnd-kit 包裹的 TabItem 列表
+    const renderTabBar = (tabBarProps) => {
+        const { type = 'line', size = 'medium', tabPosition = 'top' } = tabBarProps;
+        const barCls = `semi-tabs-bar semi-tabs-bar-${type} semi-tabs-bar-${tabPosition}`;
+        return (
+            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                <SortableContext
+                    items={items.map(i => i.itemKey)}
+                    strategy={horizontalListSortingStrategy}
+                >
+                    <div className={barCls} role="tablist">
+                        {items.map(item => (
+                            <SortableTabItem
+                                key={item.itemKey}
+                                item={item}
+                                selected={activeKey === item.itemKey}
+                                size={size}
+                                type={type}
+                                tabPosition={tabPosition}
+                                onClick={(key) => setActiveKey(key)}
+                            />
+                        ))}
+                    </div>
+                </SortableContext>
+            </DndContext>
+        );
+    };
+
     return (
         <Tabs
+            type="line"
             activeKey={activeKey}
             onChange={setActiveKey}
-            renderTabBar={(tabBarProps) => (
-                <DndContext
-                    sensors={sensors}
-                    collisionDetection={closestCenter}
-                    onDragEnd={handleDragEnd}
-                >
-                    <SortableContext
-                        items={items.map((i) => i.itemKey)}
-                        strategy={horizontalListSortingStrategy}
-                    >
-                        <div className="semi-tabs-bar" role="tablist">
-                            {items.map((item) => (
-                                <SortableTabItem
-                                    key={item.itemKey}
-                                    id={item.itemKey}
-                                    tab={item.tab}
-                                    selected={activeKey === item.itemKey}
-                                    onClick={setActiveKey}
-                                />
-                            ))}
-                        </div>
-                    </SortableContext>
-                </DndContext>
-            )}
+            renderTabBar={renderTabBar}
         >
-            {items.map((item) => (
+            {items.map(item => (
                 <TabPane key={item.itemKey} tab={item.tab} itemKey={item.itemKey}>
                     <div style={{ padding: 20 }}>{item.content}</div>
                 </TabPane>
@@ -775,6 +754,8 @@ function DraggableTabsDemo() {
         </Tabs>
     );
 }
+
+render(DraggableTabsDemo);
 ```
 
 ### 动态更新
