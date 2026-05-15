@@ -118,6 +118,16 @@ $module: #{$prefix}-transfer;
             flex-grow: 1;
         }
 
+        &-pagination {
+            padding-top: $spacing-base-tight;
+            padding-bottom: $spacing-base-tight;
+            padding-left: $spacing-base-tight;
+            padding-right: $spacing-base-tight;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+        }
+
         &-empty {
             height: $height-transfer_left_empty;
         }

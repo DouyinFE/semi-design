@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { isEqual, noop, omit, isEmpty, isArray, pick } from 'lodash';
 import TransferFoundation, { TransferAdapter, BasicDataItem, OnSortEndProps } from '@douyinfe/semi-foundation/transfer/foundation';
 import { _generateDataByType, _generateSelectedItems } from '@douyinfe/semi-foundation/transfer/transferUtils';
-import { cssClasses, strings } from '@douyinfe/semi-foundation/transfer/constants';
+import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/transfer/constants';
 import '@douyinfe/semi-foundation/transfer/transfer.scss';
 import BaseComponent from '../_base/baseComponent';
 import LocaleConsumer from '../locale/localeConsumer';
@@ -14,6 +14,7 @@ import Input, { InputProps } from '../input/index';
 import Spin from '../spin';
 import Button from '../button';
 import Tree from '../tree';
+import Pagination from '../pagination';
 import { IconClose, IconSearch, IconHandle } from '@douyinfe/semi-icons';
 import { Value as TreeValue, TreeProps } from '../tree/interface';
 import { RenderItemProps, Sortable } from '../_sortable';
@@ -117,6 +118,17 @@ export interface VirtualizeProps {
     itemSize: number
 }
 
+export interface PaginationProps {
+    /** Current page number (controlled) */
+    currentPage?: number;
+    /** Default current page number (uncontrolled) */
+    defaultCurrentPage?: number;
+    /** Number of items per page */
+    pageSize?: number;
+    /** Callback when page changes */
+    onPageChange?: (currentPage: number) => void;
+}
+
 export interface ResolvedDataItem extends DataItem {
     _parent?: {
         title: string
@@ -161,7 +173,8 @@ export interface TransferState {
     data: Array<ResolvedDataItem>;
     selectedItems: Map<number | string, ResolvedDataItem>;
     searchResult: Set<number | string>;
-    inputValue: string
+    inputValue: string;
+    leftCurrentPage: number;
 }
 
 export interface TransferProps {
@@ -180,6 +193,8 @@ export interface TransferProps {
     showPath?: boolean;
     loading?: boolean;
     virtualize?: VirtualizeProps;
+    /** Pagination configuration for left panel */
+    pagination?: PaginationProps;
     onChange?: (values: Array<string | number>, items: Array<DataItem>) => void;
     onSelect?: (item: DataItem) => void;
     onDeselect?: (item: DataItem) => void;
@@ -222,6 +237,12 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         renderSelectedPanel: PropTypes.func,
         draggable: PropTypes.bool,
         virtualize: PropTypes.object,
+        pagination: PropTypes.shape({
+            currentPage: PropTypes.number,
+            defaultCurrentPage: PropTypes.number,
+            pageSize: PropTypes.number,
+            onPageChange: PropTypes.func,
+        }),
     };
 
     static defaultProps = {
@@ -241,13 +262,14 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
     constructor(props: TransferProps) {
         super(props);
-        const { defaultValue = [], dataSource, type } = props;
+        const { defaultValue = [], dataSource, type, pagination } = props;
         this.foundation = new TransferFoundation<TransferProps, TransferState>(this.adapter);
         this.state = {
             data: [],
             selectedItems: new Map(),
             searchResult: new Set(),
             inputValue: '',
+            leftCurrentPage: pagination?.defaultCurrentPage ?? pagination?.currentPage ?? 1,
         };
         if (Boolean(dataSource) && isArray(dataSource)) {
             // @ts-ignore Avoid reporting errors this.state.xxx is read-only
@@ -261,10 +283,11 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         this.onSelectOrRemove = this.onSelectOrRemove.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
         this.onSortEnd = this.onSortEnd.bind(this);
+        this.handleLeftPageChange = this.handleLeftPageChange.bind(this);
     }
 
     static getDerivedStateFromProps(props: TransferProps, state: TransferState) {
-        const { value, dataSource, type, filter } = props;
+        const { value, dataSource, type, filter, pagination } = props;
         const mergedState = {} as TransferState;
         let newData = state.data;
         let newSelectedItems = state.selectedItems;
@@ -285,6 +308,11 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 const searchResult = new Set(searchData.map(item => item.key));
                 mergedState.searchResult = searchResult;
             }
+        }
+
+        // Handle controlled pagination
+        if (pagination && typeof pagination.currentPage === 'number') {
+            mergedState.leftCurrentPage = pagination.currentPage;
         }
 
         return isEmpty(mergedState) ? null : mergedState;
@@ -310,19 +338,30 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 this.props.onDeselect(item);
             },
             updateInput: input => {
-                this.setState({ inputValue: input });
+                // Reset page to 1 when search input changes
+                this.setState({ inputValue: input, leftCurrentPage: 1 });
             },
             updateSearchResult: searchResult => {
                 this.setState({ searchResult });
             },
             searchTree: keyword => {
                 this._treeRef && (this._treeRef as any).search(keyword); // TODO check this._treeRef.current?
-            }
+            },
+            updateCurrentPage: currentPage => {
+                this.setState({ leftCurrentPage: currentPage });
+            },
+            notifyPageChange: currentPage => {
+                this.props.pagination?.onPageChange?.(currentPage);
+            },
         };
     }
 
     onInputChange(value: string) {
         this.foundation.handleInputChange(value, true);
+    }
+
+    handleLeftPageChange(currentPage: number) {
+        this.foundation.handlePageChange(currentPage);
     }
 
     search(value: string) {
@@ -424,8 +463,8 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     }
 
     renderLeft(locale: Locale['Transfer']) {
-        const { data, selectedItems, inputValue, searchResult } = this.state;
-        const { loading, type, emptyContent, renderSourcePanel, dataSource } = this.props;
+        const { data, selectedItems, inputValue, searchResult, leftCurrentPage } = this.state;
+        const { loading, type, emptyContent, renderSourcePanel, dataSource, pagination } = this.props;
         const totalToken = locale.total;
         const inSearchMode = inputValue !== '';
         const showNumber = inSearchMode ? searchResult.size : data.length;
@@ -478,6 +517,15 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
         const loadingCom = <Spin />;
 
+        // Calculate pagination
+        const pageSize = pagination?.pageSize ?? numbers.DEFAULT_PAGE_SIZE;
+        const hasPagination = Boolean(pagination);
+        const currentPage = leftCurrentPage;
+        const totalPage = Math.ceil(filterData.length / pageSize);
+        const startIndex = (currentPage - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const paginatedData = hasPagination ? filterData.slice(startIndex, endIndex) : filterData;
+
         let content: React.ReactNode = null;
         switch (true) {
             case loading:
@@ -501,7 +549,17 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 content = (
                     <>
                         {headerCom}
-                        {this.renderLeftList(filterData)}
+                        {this.renderLeftList(paginatedData)}
+                        {hasPagination && totalPage > 1 && (
+                            <div className={`${prefixCls}-left-pagination`}>
+                                <Pagination
+                                    total={filterData.length}
+                                    currentPage={currentPage}
+                                    pageSize={pageSize}
+                                    onPageChange={this.handleLeftPageChange}
+                                />
+                            </div>
+                        )}
                     </>
                 );
                 break;
