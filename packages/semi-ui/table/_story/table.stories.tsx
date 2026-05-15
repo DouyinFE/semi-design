@@ -6,6 +6,7 @@ import { Fixed, ColumnProps, OnRow, OnHeaderRow, OnGroupedRow, RowKey } from '..
 import JSXColumnsNest from './JSXColumnsNest';
 import DefaultSortOrder from './DefaultSortOrder';
 import BetterScrollbar from './BetterScrollbar';
+import CheckRelationDemo from './v2/CheckRelationDemo';
 import Empty from '../../empty';
 import Table from '../index';
 import FixAllColumnsWithoutWidth from './FixAllColumnsWithoutWidth';
@@ -380,3 +381,5 @@ stories.add('better scrollbar', () => <BetterScrollbar />);
 stories.add('fix all columns without width', () => <FixAllColumnsWithoutWidth />);
 
 stories.add('warn if column without dataIndex', () => <WarnColumnWithoutDataIndex />);
+
+stories.add('checkRelation demo', () => <CheckRelationDemo />);
