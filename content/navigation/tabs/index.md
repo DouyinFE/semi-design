@@ -548,6 +548,75 @@ class App extends React.Component {
 }
 ```
 
+### 自动溢出检测
+
+**v>= 2.97.0**
+
+通过设置 `collapsible="auto"` 可以启用自动溢出检测功能。组件会自动检测 Tab 是否溢出容器：
+- 当 Tab 超出容器宽度或发生换行时，自动启用折叠模式（显示左右箭头）
+- 当容器宽度增加或 Tab 数量减少后，所有 Tab 可以完整显示时，自动退出折叠模式
+
+这个功能避免了开发者需要手动判断是否需要折叠的问题，特别适用于响应式布局场景。
+
+```jsx live=true dir=column
+import React from 'react';
+import { Tabs, TabPane, Button } from '@douyinfe/semi-ui';
+
+class App extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            count: 8,
+        };
+    }
+
+    render() {
+        const tabs = Array.from({ length: this.state.count }, (_, i) => (
+            <TabPane tab={`Tab-${i + 1}`} itemKey={`${i}`} key={i}>
+                Content of Tab {i + 1}
+            </TabPane>
+        ));
+
+        return (
+            <div>
+                <div style={{ marginBottom: 12 }}>
+                    <Button 
+                        onClick={() => this.setState({ count: Math.max(3, this.state.count - 2) })}
+                        style={{ marginRight: 8 }}
+                    >
+                        减少 Tab
+                    </Button>
+                    <Button 
+                        onClick={() => this.setState({ count: Math.min(15, this.state.count + 2) })}
+                    >
+                        增加 Tab
+                    </Button>
+                    <span style={{ marginLeft: 12 }}>当前 Tab 数量: {this.state.count}</span>
+                </div>
+                
+                <div style={{ border: '1px solid var(--semi-color-border)', padding: 12, marginBottom: 16 }}>
+                    <p style={{ marginBottom: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                        collapsible="auto" - 自动检测溢出
+                    </p>
+                    <Tabs type="card" collapsible="auto">
+                        {tabs}
+                    </Tabs>
+                </div>
+                
+                <div style={{ border: '1px solid var(--semi-color-border)', padding: 12, maxWidth: 400 }}>
+                    <p style={{ marginBottom: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                        固定宽度 400px，测试较窄容器
+                    </p>
+                    <Tabs type="card" collapsible="auto">
+                        {tabs}
+                    </Tabs>
+                </div>
+            </div>
+        );
+    }
+}
+```
+
 ### 禁用
 
 禁用标签栏中的某一个标签页。
@@ -873,7 +942,7 @@ class App extends React.Component {
 | activeKey | 当前激活的 tab 页的 itemKey 值 | string | 无 |
 | arrowPosition | 折叠模式下，左右切换箭头渲染位置 **>=2.61.0** | "start" "end" "both" | 无 |
 | className | 类名 | string | 无 |
-| collapsible | 折叠的 Tabs，**>=1.1.0** | boolean | false |
+| collapsible | 折叠的 Tabs，**>=1.1.0**，支持 `auto` 自动判断是否溢出 | boolean \| 'auto' | false |
 | dropdownProps | 用于在折叠模式下透传参数到下拉菜单的 Dropdown 组件 | { start: DropdownProps, end: DropdownProps } | 无 |
 | visibleTabsStyle | 整体滚动区域 Style **>=2.61.0** | style: CSSProperties | 无 |
 | contentStyle | 内容区域外层样式对象 | CSSProperties | 无 |

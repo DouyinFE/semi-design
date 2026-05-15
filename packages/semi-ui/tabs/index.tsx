@@ -33,7 +33,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
     static propTypes = {
         activeKey: PropTypes.string,
         className: PropTypes.string,
-        collapsible: PropTypes.bool,
+        collapsible: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['auto'])]),
         contentStyle: PropTypes.oneOfType([PropTypes.object]),
         defaultActiveKey: PropTypes.string,
         keepDOM: PropTypes.bool,

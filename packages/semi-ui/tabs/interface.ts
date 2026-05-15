@@ -25,7 +25,7 @@ export interface TabsProps {
     activeKey?: string;
     children?: ReactNode | Array<ReactNode>;
     className?: string;
-    collapsible?: boolean;
+    collapsible?: boolean | 'auto';
     contentStyle?: CSSProperties;
     defaultActiveKey?: string;
     keepDOM?: boolean;
@@ -56,7 +56,7 @@ export interface TabsProps {
 export interface TabBarProps {
     activeKey?: string;
     className?: string;
-    collapsible?: boolean;
+    collapsible?: boolean | 'auto';
     list?: Array<PlainTab>;
     onTabClick?: (activeKey: string, event: MouseEvent<Element>) => void;
     showRestInDropdown?: boolean;
