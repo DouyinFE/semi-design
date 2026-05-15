@@ -265,6 +265,13 @@ import { Slider } from '@douyinfe/semi-ui';
 | onChange         | Callback function when slider value changes                                                                                                                                                                                                                                                           | (value: number \| number[]) => void                                            | -       |- |
 | onMouseUp        | Trigged when mouse up on handle                                                                                                                                                                                                                                                                       | (e: React.MouseEvent<HTMLDivElement\>) => void                                 | -       | 2.41.0 |
 | getAriaValueText | Used to provide a user-friendly name for the current value of the slider, important for screen reader users,  The parameters value and index are the current slider value, order                                                                                                                      | (value: number, index?: number) => string                                      | -       |-|
+## RTL/LTR
+
+- Slider supports RTL for horizontal direction. You can enable it by setting `direction="rtl"` via [ConfigProvider](/en-US/other/configprovider).
+- In RTL mode, the minimum value of the horizontal slider is on the right side and the maximum value is on the left side. The drag direction is reversed compared to LTR.
+- Vertical direction (`vertical`) is not affected by RTL.
+- In RTL mode, keyboard arrow keys behavior is mirrored: `Left Arrow`/`Down Arrow` increases the value, `Right Arrow`/`Up Arrow` decreases the value.
+
 ## Accessibility
 
 ### ARIA

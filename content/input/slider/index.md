@@ -253,6 +253,13 @@ import { Slider } from '@douyinfe/semi-ui';
 | onMouseUp        | 鼠标松开滑块时触发                                                                                                                                                          | (e: React.MouseEvent<HTMLDivElement\>) => void                                 | 无      | 2.41.0 |
 | getAriaValueText | 用于给滑块的当前值提供一个用户友好的名称，对屏幕阅读器用户很重要，参数value为当前滑块的值，index为当前滑块的顺序                                                                                                      | (value: number, index?: number) => string                                      | -      | -      |
 
+## RTL/LTR
+
+- Slider 的水平方向支持 RTL，可通过 [ConfigProvider](/zh-CN/other/configprovider) 配置 `direction="rtl"` 启用。
+- RTL 模式下，Slider 水平方向的最小值在右侧，最大值在左侧，滑块拖动方向与 LTR 相反。
+- 垂直方向（`vertical`）不受 RTL 影响。
+- RTL 模式下，键盘方向键的行为会镜像：`左箭头`/`下箭头` 增加值，`右箭头`/`上箭头` 减少值。
+
 ## Accessibility
 
 ### ARIA
