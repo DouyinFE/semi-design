@@ -276,6 +276,84 @@ import { Transfer } from '@douyinfe/semi-ui';
 };
 ```
 
+### Left panel pagination
+
+When there are many options on the left, you can enable pagination through the `pagination` prop. Supported after v2.68.0.
+
+`pagination` accepts an object with the following properties:
+- `pageSize`: Number of items per page, default is 10
+- `currentPage`: Current page number (controlled mode)
+- `defaultCurrentPage`: Default current page number (uncontrolled mode)
+- `onPageChange`: Callback when page changes
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Transfer } from '@douyinfe/semi-ui';
+
+() => {
+    const data = Array.from({ length: 100 }, (v, i) => {
+        return {
+            label: `Item ${i}`,
+            value: i,
+            disabled: false,
+            key: `key-${i}`,
+        };
+    });
+    return (
+        <Transfer
+            style={{ width: 568, height: 416 }}
+            dataSource={data}
+            pagination={{
+                pageSize: 10,
+            }}
+            onChange={(values, items) => console.log(values, items)}
+        />
+    );
+};
+```
+
+### Left panel pagination + controlled page
+
+You can control the current page number through `pagination.currentPage`.
+
+```jsx live=true dir="column"
+import React, { useState } from 'react';
+import { Transfer, ButtonGroup, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const data = Array.from({ length: 100 }, (v, i) => {
+        return {
+            label: `Item ${i}`,
+            value: i,
+            disabled: false,
+            key: `key-${i}`,
+        };
+    });
+    return (
+        <div>
+            <ButtonGroup style={{ marginBottom: 12 }}>
+                <Button onClick={() => setCurrentPage(1)}>Page 1</Button>
+                <Button onClick={() => setCurrentPage(2)}>Page 2</Button>
+                <Button onClick={() => setCurrentPage(5)}>Page 5</Button>
+                <Button onClick={() => setCurrentPage(10)}>Page 10</Button>
+            </ButtonGroup>
+            <div>Current page: {currentPage}</div>
+            <Transfer
+                style={{ width: 568, height: 416 }}
+                dataSource={data}
+                pagination={{
+                    pageSize: 10,
+                    currentPage,
+                    onPageChange: (page) => setCurrentPage(page),
+                }}
+                onChange={(values, items) => console.log(values, items)}
+            />
+        </div>
+    );
+};
+```
+
 ### Drag and drop + custom selected rendering
 
 Set `draggable` to true to enable the drag and drop sorting function; use `renderSelectedItem` to customize the rendering of the selected items on the right;
@@ -1410,6 +1488,7 @@ import { Transfer, Button } from '@douyinfe/semi-ui';
 | onDeselect | Callback when unchecking | (item: Item) => void | | |
 | onSearch | Called when the input content of the search box changes | (inputValue: string) => void | | |
 | onSelect | Callback when checked | (item: Item) => void | | |
+| pagination | Left panel pagination configuration, only valid for `list` and `groupList` types | PaginationProps |  | 2.68.0 |
 | renderSelectedHeader | Customize the rendering of the header information on the right panel | (props: SelectedHeaderProps) => ReactNode |  | 2.29.0 |
 | renderSelectedItem | Customize the rendering of a single selected item on the right. When `type="treeList"` and `showPath` is `true`, the complete path is available through `item.fullPath` | (item: {onRemove, sortableHandle} & Item) => ReactNode | | |
 | renderSelectedPanel | Customize the rendering of the selected panel on the right | (selectedPanelProps) => ReactNode | | - |
@@ -1459,6 +1538,15 @@ TreeItem inherits all the properties of Item
 | height | Height of the virtualized list. If it is a `number`, it takes effect directly. If it is a `string` (e.g. `100%`), it adapts to remaining height | number \| string | |
 | width | Width of the virtualized list | number \| string | |
 | itemSize | Fixed height of each item row | number | |
+
+### PaginationProps Interface
+
+| props | description | data type | default |
+| --- | --- | --- | --- |
+| currentPage | Current page number (controlled mode) | number | |
+| defaultCurrentPage | Default current page number (uncontrolled mode) | number | 1 |
+| pageSize | Number of items per page | number | 10 |
+| onPageChange | Callback when page changes | (currentPage: number) => void | |
 
 ## Methods
 Some internal methods provided by Transfer can be accessed through ref:
