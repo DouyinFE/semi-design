@@ -379,6 +379,48 @@ import { InputNumber } from '@douyinfe/semi-ui';
 };
 ```
 
+### Scientific Notation Display
+
+When the number is long, you can enable scientific notation display via the `scientificNotation` property. It displays in scientific notation when out of focus, and displays the full number when in focus.
+
+```jsx live=true
+import React from 'react';
+import { InputNumber } from '@douyinfe/semi-ui';
+
+() => {
+    return (
+        <div style={{ width: 280 }}>
+            <label>Enable scientific notation (default threshold: 15 digits)</label>
+            <InputNumber scientificNotation defaultValue={123456789012345} />
+            <br /><br />
+
+            <label>Custom threshold (10 digits)</label>
+            <InputNumber 
+                scientificNotation={{ threshold: 10 }} 
+                defaultValue={1234567890} 
+            />
+            <br /><br />
+
+            <label>Very large number</label>
+            <InputNumber scientificNotation defaultValue={9999999999999999} />
+            <br /><br />
+
+            <label>Decimal scenario</label>
+            <InputNumber 
+                scientificNotation 
+                precision={10}
+                defaultValue={0.000000123456789} 
+            />
+            <br /><br />
+        </div>
+    );
+};
+```
+
+<Notice type="info">
+Scientific notation only affects the display format. The values in `onChange` and `onNumberChange` callbacks are still full numbers. This feature is not supported in currency mode (`currency`).
+</Notice>
+
 ## API Reference
 
 | Properties   | Instructions                                                                                    | type                              | Default   | Version    |
@@ -403,6 +445,7 @@ import { InputNumber } from '@douyinfe/semi-ui';
 | pressInterval| How often will the click event be triggered when the button is long pressed, in milliseconds                                   | number                 |   250        |           |
 | pressTimeout | When the button is long pressed, how long will the click event be triggered after the delay, in milliseconds                                               | number                 |     250      |           |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
+| scientificNotation | Enable scientific notation display. Displays in scientific notation when out of focus, and displays the full number when in focus. You can pass an object to configure the `threshold`, which defaults to 15 significant digits. Not supported in currency mode | boolean\|{ threshold?: number } | false | **2.97.0** |
 | shiftStep    | Step size for pressing the shift key, it can be a decimal. The default value was adjusted from 1 to 10 in v2.13                     | number                            | 10         | - |
 | showClear    | Do you show the clear button?                                                                   | boolean                           | false     | - |
 | showCurrencySymbol | Whether to display the currency symbol/code/name, only valid in currency mode | boolean | true | **2.77.0** |
