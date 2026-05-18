@@ -147,6 +147,8 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
     getMinAndMaxPercent = (value: number | number[]) => {
         // debugger
         const { range, min, max } = this._adapter.getProps();
+        // Percent always increases with value, independent of visual direction.
+        // UI layer decides whether to use `left` or `right` to place elements.
         const minPercent = range ? (value[0] - min) / (max - min) : (value as number - min) / (max - min);
         const maxPercent = range ? (value[1] - min) / (max - min) : 1;
         return { min: this._checkValidity(minPercent), max: this._checkValidity(maxPercent) };
@@ -264,6 +266,8 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
 
         // Returns the length of the distance to the left
         const { vertical, verticalReverse, range } = this._adapter.getProps();
+        const direction = this._adapter.getContext('direction');
+        const isRTL = direction === 'rtl' && !vertical;
         const value = this._adapter.getState('currentValue');
         const currentPos = this.transValueToPos(value);
         const { sliderX, sliderY, sliderWidth, sliderHeight } = this._adapter.getSliderLengths();
@@ -272,6 +276,9 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         let startPos;
         if (vertical && verticalReverse) {
             startPos = sliderY + len;
+        } else if (isRTL) {
+            // In RTL mode, start from right (sliderX + sliderWidth)
+            startPos = sliderX + len;
         } else {
             startPos = vertical ? sliderY : sliderX;
         }
@@ -279,13 +286,16 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         let endPos;
         if (vertical && verticalReverse) {
             endPos = sliderY;
+        } else if (isRTL) {
+            // In RTL mode, end at left (sliderX)
+            endPos = sliderX;
         } else {
             endPos = vertical ? sliderY + sliderHeight : sliderX + sliderWidth;
         }
         //   endPos = chooseMovePos === 'min' && isDrag && range ? currentPos[1] : endPos;
 
 
-        if (vertical && verticalReverse) {
+        if ((vertical && verticalReverse) || isRTL) {
             if (position >= startPos) {
                 position = startPos;
             } else if (position <= endPos) {
@@ -310,12 +320,17 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         const pos = this.checkMeetMinMax(mousePos);
         const { min, max, currentValue } = this._adapter.getStates();
         const { range, vertical, step, verticalReverse } = this._adapter.getProps();
+        const direction = this._adapter.getContext('direction');
+        const isRTL = direction === 'rtl' && !vertical;
         const { sliderX, sliderY, sliderWidth, sliderHeight } = this._adapter.getSliderLengths();
         const startPos = vertical ? sliderY : sliderX;
         const len = vertical ? sliderHeight : sliderWidth;
         let stepValue;
         if (vertical && verticalReverse) {
             //isMin = !isMin;
+            stepValue = ((startPos + len - pos) / len) * (max - min) + min;
+        } else if (isRTL) {
+            // In RTL mode, position is calculated from right to left
             stepValue = ((startPos + len - pos) / len) * (max - min) + min;
         } else {
             stepValue = ((pos - startPos) / len) * (max - min) + min;
@@ -347,13 +362,29 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
     transValueToPos = (value: SliderProps['value']) => {
         const { min, max } = this._adapter.getStates();
         const { vertical, range, verticalReverse } = this._adapter.getProps();
+        const direction = this._adapter.getContext('direction');
+        const isRTL = direction === 'rtl' && !vertical;
         const { sliderX, sliderY, sliderWidth, sliderHeight } = this._adapter.getSliderLengths();
+
         const startPos = vertical ? sliderY : sliderX;
         const len = vertical ? sliderHeight : sliderWidth;
+
+        const transSingle = (val: number) => {
+            const percent = (val - min) / (max - min);
+            if (vertical && verticalReverse) {
+                // Reverse direction in vertical mode
+                return startPos + len - percent * len;
+            }
+            if (isRTL) {
+                // Reverse direction in horizontal RTL
+                return startPos + len - percent * len;
+            }
+            return startPos + percent * len;
+        };
         if (range) {
-            return [((value[0] - min) * len) / (max - min) + startPos, ((value[1] - min) * len) / (max - min) + startPos];
+            return [transSingle(value[0]), transSingle(value[1])];
         } else {
-            return ((value as number - min) * len) / (max - min) + startPos;
+            return transSingle(value as number);
         }
     };
 
@@ -649,22 +680,34 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
 
     handleKeyDown = (event: any, handler: 'min'| 'max') => {
         const { min, max, currentValue } = this.getStates();
-        const { step, range } = this.getProps();
+        const { step, range, vertical } = this.getProps();
+        const direction = this._adapter.getContext('direction');
+        const isRTL = direction === 'rtl' && !vertical;
         let outputValue;
         switch (event.key) {
             case "ArrowLeft":
             case "ArrowDown":
-                outputValue = this._handleValueDecreaseWithKeyBoard(step, handler);
+                // In RTL mode, ArrowLeft and ArrowDown should increase value
+                outputValue = isRTL ?
+                    this._handleValueIncreaseWithKeyBoard(step, handler) :
+                    this._handleValueDecreaseWithKeyBoard(step, handler);
                 break;
             case "ArrowRight":
             case "ArrowUp":
-                outputValue = this._handleValueIncreaseWithKeyBoard(step, handler);
+                // In RTL mode, ArrowRight and ArrowUp should decrease value
+                outputValue = isRTL ?
+                    this._handleValueDecreaseWithKeyBoard(step, handler) :
+                    this._handleValueIncreaseWithKeyBoard(step, handler);
                 break;
             case "PageUp":
-                outputValue = this._handleValueIncreaseWithKeyBoard(10 * step, handler);
+                outputValue = isRTL ?
+                    this._handleValueDecreaseWithKeyBoard(10 * step, handler) :
+                    this._handleValueIncreaseWithKeyBoard(10 * step, handler);
                 break;
             case "PageDown":
-                outputValue = this._handleValueDecreaseWithKeyBoard(10 * step, handler);
+                outputValue = isRTL ?
+                    this._handleValueIncreaseWithKeyBoard(10 * step, handler) :
+                    this._handleValueDecreaseWithKeyBoard(10 * step, handler);
                 break;
             case "Home":
                 outputValue = this._handleHomeKey(handler);
@@ -775,13 +818,10 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         const currentPos = this.transValueToPos(currentValue);
         let isMin = true;
         if (Array.isArray(currentPos)) {
-            // Slide on both sides
-            if (
-                pagePos > currentPos[1] ||
-                Math.abs(pagePos - currentPos[0]) > Math.abs(pagePos - currentPos[1])
-            ) {
-                isMin = false;
-            }
+            // Choose the nearest handle regardless of ordering (LTR/RTL/verticalReverse)
+            const distToFirst = Math.abs(pagePos - currentPos[0]);
+            const distToSecond = Math.abs(pagePos - currentPos[1]);
+            isMin = distToFirst <= distToSecond;
         }
         if (vertical && verticalReverse) {
             isMin = !isMin;
