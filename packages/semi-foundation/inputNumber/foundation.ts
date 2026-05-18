@@ -164,8 +164,18 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         const value = this.getState('value');
 
         if (value !== '') {
-            // let parsedStr = this.doParse(this.getState('value'));
-            // this._adapter.setValue(Number(parsedStr));
+            // When scientific notation is enabled, convert to full number on focus
+            if (this._isScientificNotation() && !this._isCurrency()) {
+                const strVal = toString(value);
+                const isScientificStr = /e/i.test(strVal) && /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)[eE][+-]?\d+$/.test(strVal.trim());
+                if (isScientificStr) {
+                    const parsedNum = this.doParse(strVal, false, false, false);
+                    if (this.isValidNumber(parsedNum)) {
+                        const fullNumberStr = this.doFormat(parsedNum, true, false);
+                        this._adapter.setValue(fullNumberStr);
+                    }
+                }
+            }
         }
         this._adapter.recordCursorPosition();
         this._adapter.setFocusing(true, null);
@@ -475,7 +485,11 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
         // console.log('scale: ', scale, 'curNum: ', curNum);
 
-        return this.doFormat(curNum, true, true);
+        // NOTE:
+        // In non-currency mode, `needAdjustCurrency=true` is used by blur/init formatting paths.
+        // Step operations often happen while focused, and should keep full-number display.
+        // Currency mode still needs `needAdjustCurrency=true` to format currency strings.
+        return this.doFormat(curNum, true, this._isCurrency());
     }
 
     minus(step?: number, event?: any): string {
@@ -527,6 +541,54 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     }
 
     /**
+     * Check if scientific notation is enabled
+     */
+    _isScientificNotation() {
+        const { scientificNotation } = this.getProps();
+        return scientificNotation === true || (typeof scientificNotation === 'object' && scientificNotation !== null);
+    }
+
+    /**
+     * Get scientific notation threshold
+     * @returns {number} threshold for digit count
+     */
+    _getScientificNotationThreshold() {
+        const { scientificNotation } = this.getProps();
+        if (typeof scientificNotation === 'object' && scientificNotation !== null) {
+            const t = (scientificNotation as any).threshold;
+            return typeof t === 'number' && Number.isFinite(t) && t >= 1 ? t : 15;
+        }
+        return 15; // Default threshold: 15 digits
+    }
+
+    /**
+     * Convert number to scientific notation if exceeds threshold
+     * @param {number} num 
+     * @returns {string}
+     */
+    _toScientificNotation(num: number): string {
+        const threshold = this._getScientificNotationThreshold();
+        const absNum = Math.abs(num);
+        const numStr = String(absNum);
+        
+        // Count significant digits (excluding decimal point, sign, exponent symbol and leading zeros)
+        // If JS already stringifies it with exponent (contains e/E), it is eligible for scientific notation display.
+        const hasExp = /e/i.test(numStr);
+        const significantDigits = numStr.replace(/[.\-+eE]/g, '').replace(/^0+/, '');
+
+        // Check if number exceeds threshold
+        if ((hasExp || significantDigits.length >= threshold) && absNum !== 0) {
+            // Prefer preserving coefficient digits up to threshold (total significant digits = fractionDigits + 1)
+            const fractionDigits = Math.max(0, Math.min(100, Math.floor(threshold) - 1));
+            const exp = num.toExponential(fractionDigits);
+            // Remove trailing zeros in the coefficient
+            return exp.replace(/(\.\d*?)0+e/, '$1e').replace(/\.e/, 'e');
+        }
+        
+        return String(num);
+    }
+
+    /**
      * format number to string
      * @param {string|number} value
      * @param {boolean} needAdjustPrec
@@ -547,6 +609,16 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         } else {
             str = toString(value);
         }
+        
+        // Apply scientific notation for long numbers in blur state
+        // needAdjustCurrency indicates blur state (when true, we're formatting for display after blur)
+        if (this._isScientificNotation() && needAdjustCurrency && !this._isCurrency()) {
+            const numValue = typeof value === 'number' ? value : parseFloat(str);
+            if (!isNaN(numValue) && isFinite(numValue)) {
+                str = this._toScientificNotation(numValue);
+            }
+        }
+        
         if (typeof formatter === 'function') {
             str = formatter(str);
         }
@@ -614,6 +686,20 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         if (typeof parser === 'function') {
             const parsedValue = parser(value) as unknown;
             value = typeof parsedValue === 'number' ? toString(parsedValue) : parsedValue as string;
+        }
+
+        // Support scientific notation parsing (e.g., "1.23e+15", "1.23E-10", ".5e3", "1.e3")
+        if (typeof value === 'string' && /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)[eE][+-]?\d+$/.test(value.trim())) {
+            const scientificNum = parseFloat(value.trim());
+            if (!isNaN(scientificNum)) {
+                if (needAdjustMaxMin) {
+                    return this.fetchMinOrMax(scientificNum);
+                }
+                if (needAdjustPrec) {
+                    return toNumber(this._adjustPrec(scientificNum));
+                }
+                return scientificNum;
+            }
         }
 
         if (needCheckPrec && typeof value === 'string') {

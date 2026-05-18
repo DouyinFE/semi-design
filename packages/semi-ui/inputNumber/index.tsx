@@ -17,6 +17,11 @@ import { ArrayElement } from '../_base/base';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
 
+export interface ScientificNotationConfig {
+    /** Number of digits threshold to trigger scientific notation display */
+    threshold?: number;
+}
+
 export interface InputNumberProps extends InputProps {
     autofocus?: boolean;
     className?: string;
@@ -51,6 +56,8 @@ export interface InputNumberProps extends InputProps {
     style?: React.CSSProperties;
     suffix?: React.ReactNode;
     value?: number | string;
+    /** Enable scientific notation display for long numbers, display full number when focused */
+    scientificNotation?: boolean | ScientificNotationConfig;
     onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
     onChange?: (value: number | string, e?: React.ChangeEvent) => void;
     onDownClick?: (value: string, e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -96,6 +103,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         style: PropTypes.object,
         suffix: PropTypes.any,
         value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        scientificNotation: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
         onBlur: PropTypes.func,
         onChange: PropTypes.func,
         onDownClick: PropTypes.func,
