@@ -297,4 +297,16 @@ import { Slider } from '@douyinfe/semi-ui';
 
 
 ## Design Tokens
+
+### Focus Style Variables
+
+The Slider component has two focus-related design tokens, each corresponding to different interaction scenarios:
+
+| Token Name | CSS Variable | Trigger Scenario | Description |
+| --- | --- | --- | --- |
+| Handle outline - focus | `--semi-color-primary-light-active` | Keyboard navigation (Tab focus) | Uses `:focus-visible` pseudo-class, displays outline only on keyboard focus |
+| Handle border color - active | `--semi-color-focus-border` | Mouse click/drag | Uses `.semi-slider-handle-clicked` class, displays border during mouse interaction |
+
+If you want to modify the focus style of the handle in theme configuration, please note that these two variables correspond to different interaction scenarios.
+
 <DesignToken/>
