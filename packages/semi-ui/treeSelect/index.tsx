@@ -206,6 +206,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         // Whether to turn on the input box filtering function, when it is a function, it represents a custom filtering function
         filterTreeNode: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
         multiple: PropTypes.bool,
+        remote: PropTypes.bool,
         searchPlaceholder: PropTypes.string,
         searchAutoFocus: PropTypes.bool,
         virtualize: PropTypes.object,
@@ -293,6 +294,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         zIndex: popoverNumbers.DEFAULT_Z_INDEX,
         disableStrictly: false,
         multiple: false,
+        remote: false,
         filterTreeNode: false,
         size: 'default' as const,
         treeNodeFilterProp: 'label' as const,
@@ -388,7 +390,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const needUpdateTreeData = needUpdate('treeData');
         const needUpdateExpandedKeys = needUpdate('expandedKeys');
         const isExpandControlled = 'expandedKeys' in props;
-        const isSearching = Boolean(props.filterTreeNode && prevState.inputValue && prevState.inputValue.length);
+        // In remote mode, skip local filtering in getDerivedStateFromProps
+        const isSearching = Boolean(props.filterTreeNode && !props.remote && prevState.inputValue && prevState.inputValue.length);
         // TreeNode
         if (needUpdateTreeData) {
             treeData = props.treeData;
