@@ -735,15 +735,16 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     renderFooter = (locale: Locale['DatePicker'], localeCode: string) => {
         if (this.adapter.needConfirm()) {
             const { cachedSelectedValue } = this.state;
-            // Disable confirm when range selection is not complete.
-            // For range types, "confirm" should only be available when both start and end are selected.
+            // Disable confirm only when range selection is partially picked.
+            // Treat empty array (e.g. preset clearing the range) as a valid "complete" state,
+            // matching `_isRangeValueComplete` in the foundation.
             const isRangeType = /range/i.test(this.props.type ?? '');
-            const disabledConfirm = isRangeType
-                ? !(Array.isArray(cachedSelectedValue) &&
-                    cachedSelectedValue.length === 2 &&
-                    cachedSelectedValue.every(v => v !== null && v !== undefined))
-                : false;
-            
+            const isRangeComplete = Array.isArray(cachedSelectedValue) &&
+                (cachedSelectedValue.length === 0 ||
+                    (cachedSelectedValue.length === 2 &&
+                        cachedSelectedValue.every(v => v !== null && v !== undefined)));
+            const disabledConfirm = isRangeType ? !isRangeComplete : false;
+
             return (
                 <Footer
                     {...this.props}
