@@ -20,10 +20,12 @@ export interface TableContextProps {
     renderExpandIcon?: (record: Record<string, any>, isNested?: boolean, groupKey?: string | number) => React.ReactNode;
     renderSelection?: (record?: Record<string, any>, isHeader?: boolean) => React.ReactNode;
     getVirtualizedListRef?: GetVirtualizedListRef;
-    setBodyHasScrollbar?: (bodyHasScrollBar: boolean) => void;
+    setBodyHasScrollbar?: (bodyHasScrollbar: boolean) => void;
     direction?: ContextValue['direction'];
     handleRowSelection?: (rowKey: BaseRowKeyType, selected: boolean, e: React.MouseEvent) => void;
     headerStyle?: React.CSSProperties;
+    /** Whether to highlight all related rows when hovering over a rowspan cell */
+    rowSpanHover?: boolean
 }
 
 const TableContext = React.createContext<TableContextProps>({

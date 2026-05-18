@@ -61,6 +61,8 @@ export interface TableProps<RecordType extends Record<string, any> = any> extend
     rowExpandable?: RowExpandable<RecordType>;
     rowKey?: RowKey<RecordType>;
     rowSelection?: RowSelection<RecordType>;
+    /** Whether to highlight all related rows when hovering over a rowspan cell */
+    rowSpanHover?: boolean;
     scroll?: Scroll;
     showHeader?: boolean;
     size?: Size;

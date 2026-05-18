@@ -133,6 +133,8 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     cellWidths: number[];
     flattenedColumns: ColumnProps[];
     context: TableContextProps;
+    /** keep track of highlighted rows for rowSpanHover DOM mode */
+    private hoveredRowKeySet: Set<string>;
     constructor(props: BodyProps, context: BodyContext) {
         super(props);
         this.ref = React.createRef();
@@ -152,6 +154,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         this.flattenedColumns = flattenedColumns;
         this.cellWidths = getCellWidths(flattenedColumns);
         this.observer = null;
+        this.hoveredRowKeySet = new Set();
     }
 
     get adapter(): BodyAdapter<BodyProps, BodyState> {
@@ -226,6 +229,123 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             this.foundation.observeBodyResize(bodyWrapDOM);
         }
     }
+
+    /**
+     * Handle row hover event
+     * When rowSpanHover is enabled, highlight all rows covered by rowSpan cells
+     */
+    onRowHover = (isHover: boolean, rowKey: string | number) => {
+        const { rowSpanHover } = this.context;
+        const rowKeyStr = String(rowKey);
+
+        if (!rowSpanHover) {
+            // default behavior relies on CSS :hover
+            return;
+        }
+
+        if (isHover) {
+            const keysToHighlight = this.getHoveredRowKeysFromDOM(rowKeyStr);
+            this.updateRowHoverClass(keysToHighlight);
+        } else {
+            this.updateRowHoverClass([]);
+        }
+    };
+
+    private updateRowHoverClass = (nextKeys: string[]) => {
+        const bodyNode = this.ref.current;
+        if (!bodyNode) {
+            this.hoveredRowKeySet.clear();
+            return;
+        }
+
+        // Sync hover style across main and fixed tables.
+        // Use the closest table wrapper as the query root.
+        const root: HTMLElement = (bodyNode.closest?.(`.${this.props.prefixCls}-wrapper`) as HTMLElement) || bodyNode;
+
+        const nextSet = new Set(nextKeys);
+
+        // remove old
+        for (const key of this.hoveredRowKeySet) {
+            if (!nextSet.has(key)) {
+                const rows = root.querySelectorAll(`tr[data-row-key="${this.cssEscape(key)}"]`);
+                rows.forEach(r => r.classList.remove(`${this.props.prefixCls}-row-hovered`));
+            }
+        }
+
+        // add new
+        for (const key of nextSet) {
+            if (!this.hoveredRowKeySet.has(key)) {
+                const rows = root.querySelectorAll(`tr[data-row-key="${this.cssEscape(key)}"]`);
+                rows.forEach(r => r.classList.add(`${this.props.prefixCls}-row-hovered`));
+            }
+        }
+
+        this.hoveredRowKeySet = nextSet;
+    };
+
+    /**
+     * Get all row keys that should be highlighted by reading rowSpan from DOM
+     * This is called during hover event, not during render, so it's safe
+     */
+    getHoveredRowKeysFromDOM = (currentRowKey: string): string[] => {
+        const keys = new Set<string>();
+        keys.add(currentRowKey);
+
+        // Find the current row element by data-row-key
+        const tbody = this.ref.current?.querySelector('.semi-table-tbody') || this.ref.current;
+        if (!tbody) {
+            return Array.from(keys);
+        }
+
+        const currentRow = tbody.querySelector(`tr[data-row-key="${this.cssEscape(currentRowKey)}"]`);
+        if (!currentRow) {
+            return Array.from(keys);
+        }
+
+        // Get all rows to calculate indices
+        const allRows = Array.from(tbody.querySelectorAll('tr[data-row-key]'));
+        const currentRowIndex = allRows.indexOf(currentRow);
+
+        if (currentRowIndex === -1) {
+            return Array.from(keys);
+        }
+
+        // Check all rows for cells with rowSpan that might include the current row
+        allRows.forEach((row, rowIndex) => {
+            const cells = row.querySelectorAll('td[rowspan]');
+            cells.forEach((cell) => {
+                const rowSpan = parseInt(cell.getAttribute('rowspan') || '1', 10);
+                if (rowSpan > 1) {
+                    const spanEndIndex = rowIndex + rowSpan - 1;
+                    // Check if current row is within the span
+                    if (currentRowIndex >= rowIndex && currentRowIndex <= spanEndIndex) {
+                        // Add all rows in the span
+                        for (let i = rowIndex; i <= spanEndIndex && i < allRows.length; i++) {
+                            const rowKeyAttr = allRows[i].getAttribute('data-row-key');
+                            if (rowKeyAttr) {
+                                keys.add(rowKeyAttr);
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        return Array.from(keys);
+    };
+
+    /**
+     * Escape a string for safe use in querySelector attribute selector
+     */
+    cssEscape = (value: string) => {
+        // Prefer native CSS.escape when available
+        const cssAny = (globalThis as any).CSS;
+        if (cssAny && typeof cssAny.escape === 'function') {
+            return cssAny.escape(value);
+        }
+        // Fallback: escape quotes and backslashes to avoid selector breakage
+        return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    };
 
     forwardRef = (node: HTMLDivElement) => {
         const { forwardedRef } = this.props;
@@ -583,6 +703,10 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             disabled: isDisabled(disabledRowKeysSet, key),
         };
 
+        // Hover style is handled by CSS :hover by default.
+        // When rowSpanHover is enabled, we toggle a DOM class on related rows.
+        const hovered = false;
+
         const { getCellWidths } = this.context;
         const cellWidths = getCellWidths(columns, null, true);
 
@@ -594,6 +718,8 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 key={key}
                 rowKey={key}
                 cellWidths={cellWidths}
+                hovered={hovered}
+                onHover={this.onRowHover}
             />
         );
     }
@@ -793,6 +919,12 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 className={wrapCls}
                 style={bodyStyle}
                 ref={this.forwardRef}
+                onMouseLeave={() => {
+                    // Ensure programmatic hover state is cleared when mouse leaves the body wrapper
+                    if (this.context.rowSpanHover) {
+                        this.updateRowHoverClass([]);
+                    }
+                }}
                 onWheel={handleWheel}
                 onScroll={handleBodyScroll}
             >
@@ -831,6 +963,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     render() {
         const { virtualized } = this.props;
         const { direction } = this.context;
+
         return virtualized ? this.renderVirtualizedBody(direction) : this.renderBody(direction);
     }
 }

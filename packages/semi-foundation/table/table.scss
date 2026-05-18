@@ -259,6 +259,23 @@ $module: #{$prefix}-table;
             display: table-row;
             background-color: $color-table_body-bg-default;
 
+            // Programmatic hover state (e.g. rowSpanHover feature)
+            // Keep visual effect consistent with native :hover
+            &.#{$module}-row-hovered {
+                & > .#{$module}-row-cell {
+                    background-image: linear-gradient(0deg, $color-table_body-bg-hover, $color-table_body-bg-hover);
+                    background-color: $color-table_cell-bg-hover;
+
+                    &.#{$module}-cell-fixed {
+                        &-left,
+                        &-right {
+                            background-image: linear-gradient(0deg, $color-table_body-bg-hover, $color-table_body-bg-hover);
+                            background-color: $color-table_body-bg-default;
+                        }
+                    }
+                }
+            }
+
             &:hover {
                 & > .#{$module}-row-cell {
                     // $color-table_body-bg-hover has transparency，will reveal the background color $color-table_body-bg-default\
