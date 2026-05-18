@@ -1,7 +1,7 @@
 @import "./_palette.scss";
 
 body, body[theme-mode="dark"] .semi-always-light, :host, :host .semi-always-light {
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     --semi-color-white: rgba(var(--semi-white), 1); // 浅色模式下深色背景内容Inverse
     --semi-color-black: rgba(var(--semi-black), 1); // 深色模式下浅色背景内容Inverse
@@ -144,7 +144,7 @@ body, body[theme-mode="dark"] .semi-always-light, :host, :host .semi-always-ligh
 }
 
 body[theme-mode="dark"], body .semi-always-dark, :host([theme-mode="dark"]), :host .semi-always-dark {
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     --semi-color-white: rgba(228, 231, 245, 1);
     --semi-color-black: rgba(var(--semi-black), 1);
