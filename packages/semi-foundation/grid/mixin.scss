@@ -59,19 +59,19 @@
         .#{$module}-col#{$class}-#{$i} {
             display: block;
             box-sizing: border-box;
-            width: percentage(math.div($i , $width-grid_columns));
+            width: math.percentage(math.div($i , $width-grid_columns));
         }
 
         .#{$module}-col#{$class}-push-#{$i} {
-            left: percentage(math.div($i , $width-grid_columns));
+            left: math.percentage(math.div($i , $width-grid_columns));
         }
 
         .#{$module}-col#{$class}-pull-#{$i} {
-            right: percentage(math.div($i , $width-grid_columns));
+            right: math.percentage(math.div($i , $width-grid_columns));
         }
 
         .#{$module}-col#{$class}-offset-#{$i} {
-            margin-left: percentage(math.div($i , $width-grid_columns));
+            margin-left: math.percentage(math.div($i , $width-grid_columns));
         }
 
         .#{$module}-col#{$class}-order-#{$i} {
@@ -101,7 +101,7 @@
         .#{$module}-col#{$class}-offset-#{$i} {
             .#{$prefix}-rtl & {
                 margin-left: auto;
-                margin-right: percentage(math.div($i , $width-grid_columns));
+                margin-right: math.percentage(math.div($i , $width-grid_columns));
             }
         }
     }
