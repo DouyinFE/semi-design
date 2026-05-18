@@ -286,4 +286,16 @@ import { Slider } from '@douyinfe/semi-ui';
 
 
 ## 设计变量
+
+### 聚焦样式说明
+
+Slider 组件有两个与聚焦相关的设计变量，分别对应不同的交互场景：
+
+| 变量名 | CSS 变量 | 触发场景 | 说明 |
+| --- | --- | --- | --- |
+| 圆形按钮轮廓 - 聚焦 | `--semi-color-primary-light-active` | 键盘导航（Tab 键聚焦） | 使用 `:focus-visible` 伪类，仅在键盘聚焦时显示 outline |
+| 滑动条圆形描边颜色 - 激活态 | `--semi-color-focus-border` | 鼠标点击/拖动 | 使用 `.semi-slider-handle-clicked` 类，在鼠标交互时显示 border |
+
+如果你希望在主题配置中修改圆形按钮的聚焦样式，请注意上述两个变量对应不同的交互场景。
+
 <DesignToken/>

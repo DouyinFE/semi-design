@@ -11,7 +11,8 @@ export interface DescriptionsItemProps {
     children?: React.ReactNode | (() => React.ReactNode);
     style?: React.CSSProperties;
     itemKey?: React.ReactNode;
-    span?: number
+    span?: number;
+    keyStyle?: React.CSSProperties
 }
 
 const prefixCls = cssClasses.PREFIX;
@@ -23,7 +24,8 @@ export default class Item extends PureComponent<DescriptionsItemProps> {
         itemKey: PropTypes.node,
         hidden: PropTypes.bool,
         className: PropTypes.string,
-        style: PropTypes.object
+        style: PropTypes.object,
+        keyStyle: PropTypes.object
     };
 
     static contextType = DescriptionsContext;
@@ -31,13 +33,13 @@ export default class Item extends PureComponent<DescriptionsItemProps> {
     context: DescriptionsContextValue;
 
     render() {
-        const { itemKey, hidden, className, span, style, children, ...rest } = this.props;
+        const { itemKey, hidden, className, span, style, children, keyStyle, ...rest } = this.props;
         const { align, layout } = this.context;
         if (hidden) {
             return null;
         }
         const plainItem = <td className={`${prefixCls}-item`} colSpan={span || 1}>
-            <span className={keyCls}>
+            <span className={keyCls} style={keyStyle}>
                 {itemKey}:
             </span>
             <span className={valCls}>
@@ -46,11 +48,11 @@ export default class Item extends PureComponent<DescriptionsItemProps> {
         </td>;
         const alignItem = <>
             <th className={`${prefixCls}-item ${prefixCls}-item-th`}>
-                <span className={keyCls}>
+                <span className={keyCls} style={keyStyle}>
                     {itemKey}
                 </span>
             </th>
-            <td className={`${prefixCls}-item ${prefixCls}-item-td`} colSpan={span? ((span * 2) - 1) : 1}>
+            <td className={`${prefixCls}-item ${prefixCls}-item-td`} colSpan={span ? ((span * 2) - 1) : 1}>
                 <span className={valCls}>
                     {typeof children === 'function' ? children() : children}
                 </span>
