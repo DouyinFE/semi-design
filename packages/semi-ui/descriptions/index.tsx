@@ -17,7 +17,8 @@ export interface Data {
     key?: React.ReactNode;
     value?: (() => React.ReactNode) | React.ReactNode;
     hidden?: boolean;
-    span?: number
+    span?: number;
+    keyStyle?: React.CSSProperties;
 }
 export interface DescriptionsProps {
     align?: DescriptionsAlign;
@@ -49,7 +50,9 @@ class Descriptions extends BaseComponent<DescriptionsProps> {
             value: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
             hidden: PropTypes.bool,
             className: PropTypes.string,
-            style: PropTypes.object
+            style: PropTypes.object,
+            span: PropTypes.number,
+            keyStyle: PropTypes.object
         })),
         layout: PropTypes.oneOf(strings.LAYOUT_SET),
         column: PropTypes.number,
