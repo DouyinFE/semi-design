@@ -17,7 +17,8 @@ const TableContextProvider = ({
     setBodyHasScrollbar,
     direction,
     handleRowSelection,
-    headerStyle
+    headerStyle,
+    rowSpanHover,
 }: TableContextProps) => {
     const tableContextValue = useMemo(
         () => ({
@@ -35,7 +36,8 @@ const TableContextProvider = ({
             setBodyHasScrollbar,
             direction,
             handleRowSelection,
-            headerStyle
+            headerStyle,
+            rowSpanHover,
         }),
         [
             anyColumnFixed,
@@ -52,7 +54,8 @@ const TableContextProvider = ({
             setBodyHasScrollbar,
             direction,
             handleRowSelection,
-            headerStyle
+            headerStyle,
+            rowSpanHover,
         ]
     );
 

@@ -109,7 +109,7 @@ export interface NormalTableState<RecordType extends Record<string, any> = Data>
     /**
      * Key entities map for tree data structure
      */
-    keyEntities?: Record<string, any>;
+    keyEntities?: Record<string, any>
 }
 
 export type TableStateRowSelection<RecordType extends Record<string, any> = Data> = (RowSelectionProps<RecordType> & { selectedRowKeysSet?: Set<(string | number)> }) | boolean;
@@ -176,6 +176,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         dropdownPrefixCls: PropTypes.string, // TODO: future api
         expandRowByClick: PropTypes.bool, // TODO: future api
         getVirtualizedListRef: PropTypes.func, // TODO: future api
+        rowSpanHover: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -261,6 +262,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             setAllRowKeys: allRowKeys => this.setState({ allRowKeys }),
             setHoveredRowKey: hoveredRowKey => {
                 this.store.setState({ hoveredRowKey });
+            },
+            setHoveredRowKeys: hoveredRowKeys => {
+                this.store.setState({ hoveredRowKeys });
             },
             setCachedFilteredSortedDataSource: filteredSortedDataSource => {
                 this.cachedFilteredSortedDataSource = filteredSortedDataSource;
@@ -492,6 +496,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
         this.store = new Store({
             hoveredRowKey: null,
+            hoveredRowKeys: [],
         });
 
         this.debouncedWindowResize = debounce(this.handleWindowResize, 150);
@@ -1638,6 +1643,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             setBodyHasScrollbar: this.setBodyHasScrollbar,
             handleRowSelection: this.handleRowClickSelection,
             headerStyle: props.headerStyle,
+            rowSpanHover: props.rowSpanHover,
         };
 
         const dataAttr = this.getDataAttr(rest);

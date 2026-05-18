@@ -85,6 +85,7 @@ export interface TableAdapter<RecordType> extends DefaultAdapter {
     setFlattenData: (flattenData: RecordType[]) => void;
     setAllRowKeys: (allRowKeys: BaseRowKeyType[]) => void;
     setHoveredRowKey: (hoveredRowKey: BaseRowKeyType) => void;
+    setHoveredRowKeys: (hoveredRowKeys: BaseRowKeyType[]) => void;
     setCachedFilteredSortedDataSource: (filteredSortedDataSource: RecordType[]) => void;
     setCachedFilteredSortedRowKeys: (filteredSortedRowKeys: BaseRowKeyType[]) => void;
     setHalfCheckedRowKeys: (halfCheckedRowKeys: BaseRowKeyType[]) => void;
@@ -120,7 +121,7 @@ export interface TableAdapter<RecordType> extends DefaultAdapter {
     getMergePagination: () => (pagination: BasePagination) => BasePagination;
     setBodyHasScrollbar: (bodyHasScrollBar: boolean) => void;
     getTableLayout: () => 'fixed' | 'auto';
-    getCheckRelation: () => CheckRelation;
+    getCheckRelation: () => CheckRelation
 }
 
 class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType>> {
@@ -1443,11 +1444,11 @@ export interface BaseEntity {
     children?: BaseEntity[];
     parent?: BaseEntity | null;
     data?: Record<string, any>;
-    [key: string]: any;
+    [key: string]: any
 }
 
 export interface BaseEntitys {
-    [key: string]: BaseEntity;
+    [key: string]: BaseEntity
 }
 
 export default TableFoundation;
