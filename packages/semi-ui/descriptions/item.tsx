@@ -12,7 +12,7 @@ export interface DescriptionsItemProps {
     style?: React.CSSProperties;
     itemKey?: React.ReactNode;
     span?: number;
-    keyStyle?: React.CSSProperties;
+    keyStyle?: React.CSSProperties
 }
 
 const prefixCls = cssClasses.PREFIX;
@@ -52,7 +52,7 @@ export default class Item extends PureComponent<DescriptionsItemProps> {
                     {itemKey}
                 </span>
             </th>
-            <td className={`${prefixCls}-item ${prefixCls}-item-td`} colSpan={span? ((span * 2) - 1) : 1}>
+            <td className={`${prefixCls}-item ${prefixCls}-item-td`} colSpan={span ? ((span * 2) - 1) : 1}>
                 <span className={valCls}>
                     {typeof children === 'function' ? children() : children}
                 </span>
