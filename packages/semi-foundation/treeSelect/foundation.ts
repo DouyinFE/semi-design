@@ -119,6 +119,7 @@ export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
     outerTopSlot?: any;
     placeholder?: string;
     prefix?: any;
+    remote?: boolean;
     searchAutoFocus?: boolean;
     searchPlaceholder?: string;
     showSearchClear?: boolean;
@@ -626,7 +627,15 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         // Input is used as controlled component
         this._adapter.updateInputValue(sugInput);
         const { flattenNodes, expandedKeys, selectedKeys, keyEntities, treeData } = this.getStates();
-        const { showFilteredOnly, filterTreeNode, treeNodeFilterProp, keyMaps } = this.getProps();
+        const { showFilteredOnly, filterTreeNode, treeNodeFilterProp, keyMaps, remote } = this.getProps();
+
+        // When remote is true, skip local filtering, only update inputValue and trigger onSearch callback
+        if (remote) {
+            this._adapter.notifySearch(sugInput, [], []);
+            this._adapter.rePositionDropdown();
+            return;
+        }
+
         const realFilterProp = treeNodeFilterProp !== 'label' ? treeNodeFilterProp : get(keyMaps, 'label', 'label');
         const newExpandedKeys: Set<string> = new Set(expandedKeys);
         let filteredNodes: BasicTreeNodeData[] = [];

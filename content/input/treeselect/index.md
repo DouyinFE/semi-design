@@ -387,6 +387,56 @@ import { TreeSelect, Switch } from '@douyinfe/semi-ui';
 };
 ```
 
+### 远程搜索
+
+通过设置 `remote` 属性可启用远程搜索。开启后，输入时不会执行本地过滤，而是仅触发 `onSearch` 回调，用户可自行处理远程数据获取并更新 `treeData`。
+
+```jsx live=true
+import React, { useState, useCallback } from 'react';
+import { TreeSelect, Toast } from '@douyinfe/semi-ui';
+
+() => {
+    const [value, setValue] = useState();
+    const [treeData, setTreeData] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    // 模拟远程搜索
+    const handleSearch = useCallback((inputValue) => {
+        if (!inputValue) {
+            setTreeData([]);
+            return;
+        }
+
+        setLoading(true);
+        
+        // 模拟网络请求
+        setTimeout(() => {
+            const mockData = [
+                { label: `${inputValue} - 结果1`, value: `${inputValue}-1`, key: `${inputValue}-1` },
+                { label: `${inputValue} - 结果2`, value: `${inputValue}-2`, key: `${inputValue}-2` },
+                { label: `${inputValue} - 结果3`, value: `${inputValue}-3`, key: `${inputValue}-3` },
+            ];
+            setTreeData(mockData);
+            setLoading(false);
+        }, 500);
+    }, []);
+
+    return (
+        <TreeSelect
+            style={{ width: 300 }}
+            placeholder="请输入关键字进行远程搜索"
+            treeData={treeData}
+            filterTreeNode
+            remote
+            loading={loading}
+            value={value}
+            onChange={setValue}
+            onSearch={handleSearch}
+        />
+    );
+};
+```
+
 ### 搜索框位置
 
 可以使用 `searchPosition` 来设置搜索框的位置，可选: `dropdown`(默认)、`trigger`。
@@ -1373,6 +1423,7 @@ function Demo() {
 | expandIcon | 自定义展开图标，使用[示例](/zh-CN/navigation/tree#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%95%E5%BC%80%20Icon) | ReactNode \| (props: expandProps)=>ReactNode | - | 2.75.0 |
 | keyMaps | 自定义节点中 key、label、value 的字段。v2.47.0后提供。如果 keyMaps 中设置 label 的自定义名称并且开启了搜索，为保证搜索正确，需要将 treeNodeFilterProp 设置为 treeData 的键之一或者通过 filterTreeNode 自定义搜索函数                                                                                            | object |  - |
 | filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNodeData` 的属性值, data 参数自 v2.28.0 开始提供                         | boolean\| <ApiType detail='(inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean'>Function</ApiType> | false |
+| remote | 是否启用远程搜索。开启后，输入时跳过本地过滤，仅触发 `onSearch` 回调，用户可自行处理远程数据获取并更新 `treeData` | boolean | false |
 | getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                                                       | function():HTMLElement | - |
 | labelEllipsis | 是否开启label的超出省略，默认虚拟化状态下开启                                                                                                   | boolean | false\|true(虚拟化) | 
 | leafOnly | 多选模式下是否开启 onChange 回调入参及展示标签只有叶子节点                                                                                            | boolean | false |
