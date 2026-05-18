@@ -2866,6 +2866,130 @@ const ChildrenDataSelectedDemo = () => {
 render(ChildrenDataSelectedDemo);
 ```
 
+#### Tree Selection Association (checkRelation)
+
+By setting `rowSelection.checkRelation` to `'related'`, you can enable parent-child node selection association. Selecting a parent node automatically selects all child nodes, and selecting a child node affects the parent node's state (checked/half-checked/unchecked).
+
+```jsx live=true noInline=true dir="column"
+import React, { useMemo, useState } from 'react';
+import { Table } from '@douyinfe/semi-ui';
+
+const TreeSelectionDemo = () => {
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+    const columns = useMemo(
+        () => [
+            {
+                title: 'Key',
+                dataIndex: 'dataKey',
+                key: 'dataKey',
+            },
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                key: 'name',
+                width: 200,
+            },
+            {
+                title: 'Type',
+                dataIndex: 'type',
+                key: 'type',
+                width: 200,
+            },
+            {
+                title: 'Description',
+                dataIndex: 'description',
+                key: 'description',
+            },
+        ],
+        []
+    );
+
+    const data = useMemo(
+        () => [
+            {
+                key: '1',
+                dataKey: 'videos_info',
+                name: 'Video Info',
+                type: 'Object',
+                description: 'Video metadata',
+                children: [
+                    {
+                        key: '1-1',
+                        dataKey: 'status',
+                        name: 'Video Status',
+                        type: 'Enum',
+                        description: 'Video visibility status',
+                    },
+                    {
+                        key: '1-2',
+                        dataKey: 'vid',
+                        name: 'Video ID',
+                        type: 'String',
+                        description: 'Unique video ID',
+                        children: [
+                            {
+                                key: '1-2-1',
+                                dataKey: 'video_url',
+                                name: 'Video URL',
+                                type: 'String',
+                                description: 'Unique video link',
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                key: '2',
+                dataKey: 'text_info',
+                name: 'Text Info',
+                type: 'Object',
+                description: 'Text metadata',
+                children: [
+                    {
+                        key: '2-1',
+                        dataKey: 'title',
+                        name: 'Title',
+                        type: 'String',
+                        description: 'Text title',
+                    },
+                    {
+                        key: '2-2',
+                        dataKey: 'description',
+                        name: 'Description',
+                        type: 'String',
+                        description: 'Text description',
+                    },
+                ],
+            },
+        ],
+        []
+    );
+
+    const rowSelection = useMemo(
+        () => ({
+            selectedRowKeys,
+            onChange: (selectedRowKeys) => {
+                setSelectedRowKeys(selectedRowKeys);
+            },
+            checkRelation: 'related',
+        }),
+        [selectedRowKeys]
+    );
+
+    return (
+        <Table
+            columns={columns}
+            dataSource={data}
+            rowSelection={rowSelection}
+            pagination={false}
+        />
+    );
+};
+
+render(TreeSelectionDemo);
+```
+
 ### Custom Row or Cell Events and Properties
 
 -   The incoming `onRow` / `onHeaderRow` can define the native event or property of a table or table header line.
@@ -5633,6 +5757,7 @@ type Filter = {
 | Parameters | Instructions | Type | Default | Version |
 | --- | --- | --- | --- | --- |
 | className | Style name listed | string |  |
+| checkRelation | Parent-child node selection association mode. When set to `'related'`, selecting a parent node automatically selects all child nodes, and selecting a child node affects the parent node's state (checked/half-checked/unchecked). Default is `'unRelated'`, meaning parent and child node selections are independent. | 'related' \| 'unRelated' | 'unRelated' |  |
 | clickRow | Whether to enable click row to select. When enabled, clicking anywhere on the row will trigger selection/deselection, including fixed columns. Disabled rows (via getCheckboxProps) cannot be selected by clicking. | boolean | false | **2.94.0** |
 | disabled | Disabled `Checkbox` in `Table` header or not. | boolean | false | **0.32.0** |
 | fixed | Secure the selection box column to the left. | boolean | false |

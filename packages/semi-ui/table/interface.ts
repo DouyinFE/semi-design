@@ -257,6 +257,8 @@ export interface RowSelectionProps<RecordType> {
     width?: string | number;
     /** Whether to enable click row to select */
     clickRow?: boolean;
+    /** When set to 'related', parent and child nodes will be associated during selection. Default is 'unRelated' */
+    checkRelation?: CheckRelation;
     onChange?: RowSelectionOnChange<RecordType>;
     onSelect?: RowSelectionOnSelect<RecordType>;
     onSelectAll?: RowSelectionOnSelectAll<RecordType>;
@@ -354,6 +356,8 @@ export type RenderPagination = (paginationProps: TablePaginationProps) => ReactN
 export type RowExpandable<RecordType> = (record?: RecordType) => boolean;
 export type RowKey<RecordType> = BaseRowKeyType | ((record?: RecordType) => string);
 export type RowSelection<RecordType> = RowSelectionProps<RecordType> | boolean;
+
+export type CheckRelation = 'related' | 'unRelated';
 
 export type VirtualizedOnScrollArgs = {
     scrollDirection?: "forward" | "backward";

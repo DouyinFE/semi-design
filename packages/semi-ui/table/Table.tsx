@@ -30,7 +30,7 @@ import {
     shouldShowEllipsisTitle
 } from '@douyinfe/semi-foundation/table/utils';
 import Store from '@douyinfe/semi-foundation/utils/Store';
-import TableFoundation, { TableAdapter, BasePageData, BaseRowKeyType, BaseHeadWidth } from '@douyinfe/semi-foundation/table/foundation';
+import TableFoundation, { TableAdapter, BasePageData, BaseRowKeyType, BaseHeadWidth, BaseEntitys, CheckRelation } from '@douyinfe/semi-foundation/table/foundation';
 import { TableSelectionCellEvent } from '@douyinfe/semi-foundation/table/tableSelectionCellFoundation';
 import { strings, cssClasses, numbers } from '@douyinfe/semi-foundation/table/constants';
 import '@douyinfe/semi-foundation/table/table.scss';
@@ -97,7 +97,19 @@ export interface NormalTableState<RecordType extends Record<string, any> = Data>
     /**
      * Disabled row keys set in sorted and filtered data
      */
-    allDisabledRowKeysSet?: Set<BaseRowKeyType>
+    allDisabledRowKeysSet?: Set<BaseRowKeyType>;
+    /**
+     * Half-checked row keys for tree selection (checkRelation='related')
+     */
+    halfCheckedRowKeys?: BaseRowKeyType[];
+    /**
+     * Half-checked row keys set for tree selection
+     */
+    halfCheckedRowKeysSet?: Set<BaseRowKeyType>;
+    /**
+     * Key entities map for tree data structure
+     */
+    keyEntities?: Record<string, any>;
 }
 
 export type TableStateRowSelection<RecordType extends Record<string, any> = Data> = (RowSelectionProps<RecordType> & { selectedRowKeysSet?: Set<(string | number)> }) | boolean;
@@ -268,6 +280,25 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             getCachedFilteredSortedRowKeysSet: () => this.cachedFilteredSortedRowKeysSet,
             getAllDisabledRowKeys: () => this.state.allDisabledRowKeys,
             getAllDisabledRowKeysSet: () => this.state.allDisabledRowKeysSet,
+            getHalfCheckedRowKeys: () => this.state.halfCheckedRowKeys || [],
+            getHalfCheckedRowKeysSet: () => this.state.halfCheckedRowKeysSet || new Set(),
+            setHalfCheckedRowKeys: halfCheckedRowKeys => {
+                this.setState({
+                    halfCheckedRowKeys,
+                    halfCheckedRowKeysSet: new Set(halfCheckedRowKeys)
+                });
+            },
+            getKeyEntities: () => this.state.keyEntities || {},
+            setKeyEntities: keyEntities => {
+                this.setState({ keyEntities });
+            },
+            getCheckRelation: () => {
+                const { rowSelection } = this.state;
+                if (rowSelection && typeof rowSelection === 'object') {
+                    return get(rowSelection, 'checkRelation', 'unRelated') as CheckRelation;
+                }
+                return 'unRelated' as CheckRelation;
+            },
             notifyFilterDropdownVisibleChange: (visible, dataIndex) =>
                 this._invokeColumnFn(dataIndex, 'onFilterDropdownVisibleChange', visible),
             notifyChange: (...args) => this.props.onChange(...args),
@@ -447,7 +478,10 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             headWidths: [], // header cell width
             bodyHasScrollBar: false,
             prePropRowSelection: undefined,
-            prePagination: undefined
+            prePagination: undefined,
+            halfCheckedRowKeys: [],
+            halfCheckedRowKeysSet: new Set(),
+            keyEntities: {},
         };
 
         this.rootWrapRef = createRef();
@@ -533,6 +567,14 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     componentDidMount() {
         super.componentDidMount();
         this.setScrollPosition('left');
+        
+        // Build keyEntities for tree data
+        const { dataSource, childrenRecordName } = this.props;
+        const checkRelation = get(this.state.rowSelection, 'checkRelation', 'unRelated');
+        if (checkRelation === 'related' && dataSource && dataSource.length) {
+            const keyEntities = this.foundation.buildKeyEntities(dataSource);
+            this.adapter.setKeyEntities(keyEntities);
+        }
 
         if (this.adapter.isAnyColumnFixed() || (this.props.showHeader && this.adapter.useFixedHeader())) {
             this.handleWindowResize();
@@ -619,6 +661,13 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             this.foundation.setCachedFilteredSortedDataSource(filteredSortedDataSource);
             this.foundation.setAllDisabledRowKeys(allDataDisabledRowKeys);
             states.dataSource = filteredSortedDataSource;
+            
+            // Build keyEntities for tree data when checkRelation is 'related'
+            const checkRelation = get(this.state.rowSelection, 'checkRelation', 'unRelated');
+            if (checkRelation === 'related') {
+                const keyEntities = this.foundation.buildKeyEntities(_dataSource);
+                this.adapter.setKeyEntities(keyEntities);
+            }
 
             if (this.props.groupBy) {
                 states.groups = null;
@@ -863,7 +912,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     };
 
     renderSelection = (record = {} as any, inHeader = false, index?: number): React.ReactNode => {
-        const { rowSelection, allDisabledRowKeysSet } = this.state;
+        const { rowSelection, allDisabledRowKeysSet, halfCheckedRowKeysSet, keyEntities } = this.state;
 
         if (rowSelection && typeof rowSelection === 'object') {
             const {
@@ -872,6 +921,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 getCheckboxProps,
                 disabled,
                 renderCell,
+                checkRelation = 'unRelated',
             } = rowSelection;
 
             const allRowKeys = this.cachedFilteredSortedRowKeys;
@@ -913,12 +963,15 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             } else {
                 const key = this.foundation.getRecordKey(record);
                 const selected = selectedRowKeysSet.has(key);
+                // In related mode, check if this row is half-checked
+                const halfChecked = checkRelation === 'related' && halfCheckedRowKeysSet && halfCheckedRowKeysSet.has(key);
                 const checkboxPropsFn = () => (typeof getCheckboxProps === 'function' ? getCheckboxProps(record) : {});
                 const originNode = (
                     <ColumnSelection
                         aria-label={`${selected ? 'Deselect' : 'Select'} this row`}
                         getCheckboxProps={checkboxPropsFn}
                         selected={selected}
+                        indeterminate={halfChecked}
                         onChange={(status, e) => this.toggleSelectRow(status, key, e)}
                     />
                 );
@@ -933,7 +986,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                         originNode,
                         inHeader: false,
                         disabled,
-                        indeterminate,
+                        indeterminate: halfChecked,
                         selectRow,
                     })
                     : originNode;

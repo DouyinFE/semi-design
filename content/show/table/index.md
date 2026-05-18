@@ -2989,6 +2989,130 @@ const ChildrenDataSelectedDemo = () => {
 render(ChildrenDataSelectedDemo);
 ```
 
+#### 树形选择关联（checkRelation）
+
+通过设置 `rowSelection.checkRelation` 为 `'related'`，可以实现父子节点选择关联。选中父节点会自动选中所有子节点，选中子节点会影响父节点的状态（全选/半选/未选）。
+
+```jsx live=true noInline=true dir="column"
+import React, { useMemo, useState } from 'react';
+import { Table } from '@douyinfe/semi-ui';
+
+const TreeSelectionDemo = () => {
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+    const columns = useMemo(
+        () => [
+            {
+                title: 'Key',
+                dataIndex: 'dataKey',
+                key: 'dataKey',
+            },
+            {
+                title: '名称',
+                dataIndex: 'name',
+                key: 'name',
+                width: 200,
+            },
+            {
+                title: '数据类型',
+                dataIndex: 'type',
+                key: 'type',
+                width: 200,
+            },
+            {
+                title: '描述',
+                dataIndex: 'description',
+                key: 'description',
+            },
+        ],
+        []
+    );
+
+    const data = useMemo(
+        () => [
+            {
+                key: '1',
+                dataKey: 'videos_info',
+                name: '视频信息',
+                type: 'Object',
+                description: '视频的元信息',
+                children: [
+                    {
+                        key: '1-1',
+                        dataKey: 'status',
+                        name: '视频状态',
+                        type: 'Enum',
+                        description: '视频的可见状态',
+                    },
+                    {
+                        key: '1-2',
+                        dataKey: 'vid',
+                        name: '视频 ID',
+                        type: 'String',
+                        description: '标识视频的唯一 ID',
+                        children: [
+                            {
+                                key: '1-2-1',
+                                dataKey: 'video_url',
+                                name: '视频地址',
+                                type: 'String',
+                                description: '视频的唯一链接',
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                key: '2',
+                dataKey: 'text_info',
+                name: '文本信息',
+                type: 'Object',
+                description: '文本的元信息',
+                children: [
+                    {
+                        key: '2-1',
+                        dataKey: 'title',
+                        name: '标题',
+                        type: 'String',
+                        description: '文本标题',
+                    },
+                    {
+                        key: '2-2',
+                        dataKey: 'description',
+                        name: '描述',
+                        type: 'String',
+                        description: '文本描述',
+                    },
+                ],
+            },
+        ],
+        []
+    );
+
+    const rowSelection = useMemo(
+        () => ({
+            selectedRowKeys,
+            onChange: (selectedRowKeys) => {
+                setSelectedRowKeys(selectedRowKeys);
+            },
+            checkRelation: 'related',
+        }),
+        [selectedRowKeys]
+    );
+
+    return (
+        <Table
+            columns={columns}
+            dataSource={data}
+            rowSelection={rowSelection}
+            pagination={false}
+        />
+    );
+};
+
+render(TreeSelectionDemo);
+```
+
 ### 自定义行或单元格事件以及属性
 
 -   传入 `onRow`/`onHeaderRow` 可以定义表格或表头行的原生事件或属性。
@@ -6027,6 +6151,7 @@ type Filter = {
 | 属性             | 说明                                                                                                                                                                           | 类型                                                                                                                                                                                                                                                                  | 默认值 | 版本       |
 |------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|------------|
 | className        | 所处列样式名                                                                                                                                                                   | string                                                                                                                                                                                                                                                                |        |            |
+| checkRelation    | 父子节点选择关联模式。设置为 `'related'` 时，选中父节点会自动选中所有子节点，选中子节点会影响父节点的状态（全选/半选/未选）；默认为 `'unRelated'` 即父子节点选择互不影响 | 'related' \| 'unRelated'                                                                                                                                                                                                                                              | 'unRelated' |        |
 | clickRow         | 是否启用点击行选择功能。开启后，点击行任意位置（包括固定列）都会触发行选择/取消选择。被禁用的行（通过 getCheckboxProps 设置）无法通过点击选中。 | boolean                                                                                                                                                                                                                                                               | false  | **2.94.0** |
 | disabled         | 表头的 `Checkbox` 是否禁用                                                                                                                                                     | boolean                                                                                                                                                                                                                                                               | false  | - |
 | fixed            | 把选择框列固定在左边                                                                                                                                                           | boolean                                                                                                                                                                                                                                                               | false  |            |
