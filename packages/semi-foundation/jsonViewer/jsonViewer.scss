@@ -64,7 +64,7 @@ $module: #{$prefix}-json-viewer;
     }
 
     &-view-line {
-        font-family: Menlo, Firecode, Monaco, 'Courier New', monospace;
+        font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, 'Fira Code', Consolas, 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
         font-weight: normal;
         font-size: 12px;
         font-feature-settings: 'liga' 0, 'calt' 0;
@@ -76,7 +76,7 @@ $module: #{$prefix}-json-viewer;
     }
 
     &-line-number {
-        font-family: Menlo, Firecode, Monaco, 'Courier New', monospace;
+        font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, 'Fira Code', Consolas, 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
         font-weight: normal;
         font-size: 12px;
         font-feature-settings: 'liga' 0, 'calt' 0;
