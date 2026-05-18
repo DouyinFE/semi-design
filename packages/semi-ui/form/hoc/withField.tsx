@@ -16,6 +16,45 @@ import type { CallOpts, WithFieldOption } from '@douyinfe/semi-foundation/form/i
 import type { CommonFieldProps, CommonexcludeType } from '../interface';
 import { noop } from "lodash";
 
+function shallowEqualArray(a: any[] | undefined, b: any[] | undefined): boolean {
+    if (a === b) {
+        return true;
+    }
+    if (!a || !b || a.length !== b.length) {
+        return false;
+    }
+    for (let i = 0; i < a.length; i++) {
+        if (!Object.is(a[i], b[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * Keep a stable array reference when items are shallow-equal.
+ *
+ * Why do we need this?
+ * - In this file we memoize the rendered Field subtree for performance.
+ * - We need to make the `useMemo` dependency list have a CONSTANT length between renders.
+ *   React will warn if the deps array size changes:
+ *   "The final argument passed to useMemo changed size between renders"
+ * - Some wrappers (Tooltip/Popover) inject event handlers into children via `cloneElement`.
+ *   That can ADD/REMOVE props keys (e.g. onMouseEnter/onMouseLeave) and therefore change
+ *   the length of something like `Object.values(props)`.
+ *
+ * So we represent `props` as two arrays (sorted keys + values in that key order), and then
+ * stabilize those arrays by shallow-equality so we don't trigger memo recalculation when
+ * nothing actually changed.
+ */
+function useShallowStableArray<T extends any[]>(next: T): T {
+    const ref = useRef<T>(next);
+    if (!shallowEqualArray(ref.current, next)) {
+        ref.current = next;
+    }
+    return ref.current;
+}
+
 const prefix = cssClasses.PREFIX;
 
 // To avoid useLayoutEffect warning when ssr, refer: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
@@ -651,9 +690,32 @@ function withField<
         };
 
         // !important optimization
+        // IMPORTANT: do NOT use `...Object.values(props)` as `useMemo` deps.
+        //
+        // Background
+        // - Tooltip/Popover (and similar wrappers) may inject props into their child via
+        //   `React.cloneElement`, typically event handlers like `onMouseEnter` / `onMouseLeave`.
+        // - When those injected props appear/disappear, the number of keys in `props` changes.
+        // - If we spread `Object.values(props)` into the deps list, the deps array length changes
+        //   between renders and React will warn:
+        //   "The final argument passed to useMemo changed size between renders".
+        //
+        // Solution
+        // Represent `props` with a FIXED-LENGTH deps list:
+        // - `stablePropKeys`: sorted list of prop keys (stable reference when unchanged)
+        // - `stablePropValues`: values in the same key order (stable reference when unchanged)
+        // This keeps the deps list length constant while still re-running memo when:
+        // - injected handler props change
+        // - any prop value changes
+        // - prop keys are added/removed
+        const sortedPropKeys = Object.keys(props).sort();
+        const stablePropKeys = useShallowStableArray(sortedPropKeys);
+        const stablePropValues = useShallowStableArray(stablePropKeys.map(key => props[key]) as any[]);
+
         const shouldUpdate = [
             ...Object.values(fieldState),
-            ...Object.values(props),
+            stablePropKeys,
+            stablePropValues,
             field,
             mergeLabelPos,
             mergeLabelAlign,
