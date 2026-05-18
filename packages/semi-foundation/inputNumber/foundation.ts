@@ -284,6 +284,36 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
                 numHasChanged = true;
             }
 
+            // Fix issue #38: When input contains non-numeric characters (e.g., "1000CNY"),
+            // doParse returns NaN, but we should still apply max/min limit if a number
+            // can be extracted from the input or if currentNumber is out of range.
+            if (!this.isValidNumber(parsedNum)) {
+                // Try to extract a number from the input using parseFloat
+                // (parseFloat can extract numbers from strings like "1000CNY" -> 1000)
+                const extractedNum = parseFloat(currentValue);
+                if (!isNaN(extractedNum)) {
+                    const limitedNum = this.fetchMinOrMax(extractedNum);
+                    if (limitedNum !== currentNumber) {
+                        willSetNum = limitedNum;
+                        if (!this.isControlled()) {
+                            currentNumber = willSetNum;
+                        }
+                        numHasChanged = true;
+                    }
+                } else if (typeof currentNumber === 'number' && !isNaN(currentNumber)) {
+                    // If we can't extract a number but currentNumber exists and is out of range,
+                    // apply the max/min limit to currentNumber
+                    const limitedNum = this.fetchMinOrMax(currentNumber);
+                    if (limitedNum !== currentNumber) {
+                        willSetNum = limitedNum;
+                        if (!this.isControlled()) {
+                            currentNumber = willSetNum;
+                        }
+                        numHasChanged = true;
+                    }
+                }
+            }
+
             const currentFormattedNum = this.doFormat(currentNumber, true, true);
 
             if (currentFormattedNum !== currentValue) {
