@@ -1,0 +1,5 @@
+/node_modules
+/lib
+/test/dist
+/test/fixture/node_modules
+/test/fixture/src/local.scss
