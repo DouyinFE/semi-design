@@ -252,3 +252,5 @@ $module: #{$prefix}-slider;
 .#{$module}-reverse {
     transform: rotate(180deg);
 }
+
+@import "./rtl.scss";

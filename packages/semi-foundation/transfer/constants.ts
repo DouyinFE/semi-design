@@ -10,6 +10,8 @@ const strings = {
     TYPE_TREE_TO_LIST: 'treeList',
 };
 
-const numbers = {};
+const numbers = {
+    DEFAULT_PAGE_SIZE: 10,
+};
 
 export { cssClasses, strings, numbers };

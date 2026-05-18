@@ -214,18 +214,93 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             return firstInProps || nameHasChange;
         };
 
-        // Determine whether treeData has changed
-        const needUpdateData = () => {
+        /**
+         * Compare treeData structure (key/value) to determine if expandedKeys needs recalculation.
+         * When label is ReactNode, isEqual would return false due to new ReactElement references,
+         * causing unnecessary expandedKeys recalculation that breaks user's expand state.
+         * We only care about structural changes (key/value/children), not label/icon/disabled etc.
+         */
+        const isTreeDataStructureEqual = (prevTreeData: any[], nextTreeData: any[]): boolean => {
+            if (prevTreeData === nextTreeData) {
+                return true;
+            }
+            if (!prevTreeData || !nextTreeData) {
+                return prevTreeData === nextTreeData;
+            }
+            if (prevTreeData.length !== nextTreeData.length) {
+                return false;
+            }
+
+            const realKeyName = get(keyMaps, 'key', 'key');
+            const realValueName = get(keyMaps, 'value', 'value');
+            const realChildrenName = get(keyMaps, 'children', 'children');
+
+            const compareNodes = (nodesA: any[], nodesB: any[]): boolean => {
+                if (nodesA.length !== nodesB.length) {
+                    return false;
+                }
+                for (let i = 0; i < nodesA.length; i++) {
+                    const nodeA = nodesA[i];
+                    const nodeB = nodesB[i];
+                    // Compare key and value (structure only, not label/icon/disabled)
+                    if (nodeA[realKeyName] !== nodeB[realKeyName] || nodeA[realValueName] !== nodeB[realValueName]) {
+                        return false;
+                    }
+                    // Recursively compare children
+                    const childrenA = nodeA[realChildrenName] || [];
+                    const childrenB = nodeB[realChildrenName] || [];
+                    if (childrenA.length !== childrenB.length) {
+                        return false;
+                    }
+                    if (childrenA.length > 0 && !compareNodes(childrenA, childrenB)) {
+                        return false;
+                    }
+                }
+                return true;
+            };
+
+            return compareNodes(prevTreeData, nextTreeData);
+        };
+
+        // Determine whether treeData reference has changed (for UI update and draggable mode)
+        const needUpdateTreeDataRef = () => {
             const firstInProps = !prevProps && 'treeData' in props;
             const treeDataHasChange = prevProps && prevProps.treeData !== props.treeData;
             return firstInProps || treeDataHasChange;
         };
 
-        const needUpdateTreeData = needUpdate('treeData');
+        /**
+         * Determine whether treeData structure has changed (key/value/children).
+         * This is used to decide if expandedKeys needs recalculation.
+         * When label is ReactNode, we use structure comparison instead of isEqual
+         * to avoid false positives that would break user's expand state.
+         */
+        const needUpdateTreeDataStructure = () => {
+            const firstInProps = !prevProps && 'treeData' in props;
+            if (firstInProps) {
+                return true;
+            }
+            if (prevProps) {
+                const prevTreeData = prevProps.treeData;
+                const nextTreeData = props.treeData;
+                // Use structure comparison instead of isEqual for treeData
+                return !isTreeDataStructureEqual(prevTreeData, nextTreeData);
+            }
+            return false;
+        };
+
         const needUpdateSimpleJson = needUpdate('treeDataSimpleJson');
+        const treeDataRefUpdated = needUpdateTreeDataRef();
+        const treeDataStructureUpdated = needUpdateTreeDataStructure();
 
         // Update the data of tree in state
-        if (needUpdateTreeData || (props.draggable && needUpdateData())) {
+        // - treeData ref change: always update treeData in state (so UI like label/icon/disabled can update)
+        // - treeData structure change: expandedKeys may need recalculation (handled below)
+        // - entities should be rebuilt whenever treeData ref changes, otherwise derived logic that relies on entity.data
+        //   (e.g. disableStrictly/calcDisabledKeys, filterTreeData) may use stale disabled/label/etc
+        // Note: This is more aggressive than original (which used isEqual deep comparison for non-draggable mode),
+        // but necessary to fix ReactNode label false positive issue. Users can use useMemo to stabilize treeData if needed.
+        if (treeDataRefUpdated) {
             treeData = props.treeData;
             newState.treeData = treeData;
             const entitiesMap = convertDataToEntities(treeData, keyMaps);
@@ -248,14 +323,16 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             valueEntities = newState.cachedKeyValuePairs;
         }
 
-        // If treeData keys changes, we won't show animation
-        if (treeData && props.motion) {
+        // If treeData structure changes, we won't show animation
+        // (treeData may change by reference only (e.g. label ReactNode), which shouldn't force-disable motion)
+        const dataStructureUpdated = needUpdateSimpleJson || treeDataStructureUpdated;
+        if (dataStructureUpdated && props.motion) {
             if (prevProps && props.motion) {
                 newState.motionKeys = new Set([]);
                 newState.motionType = null;
             }
         }
-        const dataUpdated = needUpdateSimpleJson || needUpdateTreeData;
+        const dataUpdated = dataStructureUpdated;
         const expandAllWhenDataChange = dataUpdated && props.expandAll;
         if (!isSeaching) {
             // Update expandedKeys

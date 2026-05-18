@@ -40,7 +40,9 @@ export interface TransferAdapter<P = Record<string, any>, S = Record<string, any
     notifyDeselect: (items: BasicDataItem) => void;
     updateInput: (input: string) => void;
     updateSearchResult: (searchResult: Set<number | string>) => void;
-    searchTree: (keyword: string) => void
+    searchTree: (keyword: string) => void;
+    updateCurrentPage: (currentPage: number) => void;
+    notifyPageChange: (currentPage: number) => void;
 }
 
 export default class TransferFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TransferAdapter<P, S>> {
@@ -251,6 +253,11 @@ export default class TransferFoundation<P = Record<string, any>, S = Record<stri
         });
         this._adapter.updateSelected(newSelectedItems);
         this._notifyChange(newSelectedItems);
+    }
+
+    handlePageChange(currentPage: number) {
+        this._adapter.updateCurrentPage(currentPage);
+        this._adapter.notifyPageChange(currentPage);
     }
 
 }

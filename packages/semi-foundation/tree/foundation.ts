@@ -3,7 +3,7 @@
  * https://github.com/react-component/tree
  */
 
-import { isUndefined, difference, pick, get } from 'lodash';
+import { isUndefined, difference, pick, get, throttle } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     flattenTreeData,
@@ -322,11 +322,35 @@ export interface TreeAdapter extends DefaultAdapter<BasicTreeProps, BasicTreeInn
 
 export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTreeProps, BasicTreeInnerData> {
     delayedDragEnterLogic: any;
+    throttledDragOverUpdate: ReturnType<typeof throttle>;
 
     constructor(adapter: TreeAdapter) {
         super({
             ...adapter,
         });
+        // Throttle drag over state updates to improve performance during fast dragging
+        // 16ms ≈ 60fps, ensuring smooth updates without excessive re-renders
+        this.throttledDragOverUpdate = throttle((dropPosition: number) => {
+            this._adapter.updateState({
+                dropPosition,
+            });
+        }, 16);
+    }
+
+    destroy() {
+        super.destroy();
+        // Cancel any pending throttled updates
+        if (this.throttledDragOverUpdate) {
+            this.throttledDragOverUpdate.cancel();
+        }
+
+        // Clear pending delayed drag enter timers to avoid updates after unmount
+        if (this.delayedDragEnterLogic) {
+            Object.keys(this.delayedDragEnterLogic).forEach(key => {
+                clearTimeout(this.delayedDragEnterLogic[key]);
+            });
+            this.delayedDragEnterLogic = null;
+        }
     }
 
     _isMultiple() {
@@ -863,21 +887,22 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
             return;
         }
 
-        // Update the drag position
+        // Update the drag position with throttle to improve performance
         if (dragNode && eventKey === dragOverNodeKey) {
             const newPos = calcDropRelativePosition(e, treeNode);
             if (dropPosition === newPos) {
                 return;
             }
-            this._adapter.updateState({
-                dropPosition: newPos,
-            });
+            // Use throttled update to reduce re-renders during fast dragging
+            this.throttledDragOverUpdate(newPos);
         }
 
         this.triggerDragEvent('onDragOver', e, treeNode);
     }
 
     handleNodeDragLeave(e: any, treeNode: BasicTreeNodeData) {
+        // Cancel pending throttled updates when leaving a node
+        this.throttledDragOverUpdate.cancel();
         this._adapter.updateState({
             dragOverNodeKey: '',
         });
@@ -885,12 +910,16 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
     }
 
     handleNodeDragEnd(e: any, treeNode: BasicTreeNodeData) {
+        // Flush any pending throttled updates before clearing drag state
+        this.throttledDragOverUpdate.flush();
         this.clearDragState();
         this.triggerDragEvent('onDragEnd', e, treeNode);
         this._adapter.setDragNode(null);
     }
 
     handleNodeDrop(e: any, treeNode: BasicTreeNodeData, dragNode: any) {
+        // Flush any pending throttled updates to ensure accurate drop position
+        this.throttledDragOverUpdate.flush();
         const { dropPosition, dragNodesKeys } = this.getStates();
         const { eventKey, pos } = treeNode;
         this.clearDragState();

@@ -1265,6 +1265,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     _isRangeValueComplete = (value: Date[] | Date) => {
         let result = false;
         if (Array.isArray(value)) {
+            // Note: empty array should be treated as "complete" (not partially selected)
+            // to keep behaviors such as clear/confirm/change consistent.
             result = !value.some(date => isNullOrUndefined(date));
         }
         return result;

@@ -265,6 +265,13 @@ import { Slider } from '@douyinfe/semi-ui';
 | onChange         | Callback function when slider value changes                                                                                                                                                                                                                                                           | (value: number \| number[]) => void                                            | -       |- |
 | onMouseUp        | Trigged when mouse up on handle                                                                                                                                                                                                                                                                       | (e: React.MouseEvent<HTMLDivElement\>) => void                                 | -       | 2.41.0 |
 | getAriaValueText | Used to provide a user-friendly name for the current value of the slider, important for screen reader users,  The parameters value and index are the current slider value, order                                                                                                                      | (value: number, index?: number) => string                                      | -       |-|
+## RTL/LTR
+
+- Slider supports RTL for horizontal direction. You can enable it by setting `direction="rtl"` via [ConfigProvider](/en-US/other/configprovider).
+- In RTL mode, the minimum value of the horizontal slider is on the right side and the maximum value is on the left side. The drag direction is reversed compared to LTR.
+- Vertical direction (`vertical`) is not affected by RTL.
+- In RTL mode, keyboard arrow keys behavior is mirrored: `Left Arrow`/`Down Arrow` increases the value, `Right Arrow`/`Up Arrow` decreases the value.
+
 ## Accessibility
 
 ### ARIA
@@ -297,4 +304,16 @@ import { Slider } from '@douyinfe/semi-ui';
 
 
 ## Design Tokens
+
+### Focus Style Variables
+
+The Slider component has two focus-related design tokens, each corresponding to different interaction scenarios:
+
+| Token Name | CSS Variable | Trigger Scenario | Description |
+| --- | --- | --- | --- |
+| Handle outline - focus | `--semi-color-primary-light-active` | Keyboard navigation (Tab focus) | Uses `:focus-visible` pseudo-class, displays outline only on keyboard focus |
+| Handle border color - active | `--semi-color-focus-border` | Mouse click/drag | Uses `.semi-slider-handle-clicked` class, displays border during mouse interaction |
+
+If you want to modify the focus style of the handle in theme configuration, please note that these two variables correspond to different interaction scenarios.
+
 <DesignToken/>

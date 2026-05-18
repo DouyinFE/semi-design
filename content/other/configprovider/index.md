@@ -200,7 +200,7 @@ function Demo() {
 特殊组件：
 - Modal，Notification，Toast 的命令式调用需要通过 prop 传 `direction`。
 - 如果你想对有方向性的 Icon 做 RTL 国际化，需要自己单独进行处理。我们认为对 Icon 进行 RTL 会让它变得难以理解和维护。其他组件内的 icon Semi 已经做了 RTL 适配。
-- Table 的树形数据暂不支持 RTL（[Chrome、Safari 浏览器表现与 Firefox 表现不同](https://codesandbox.io/s/table-rtl-treedata-uy7gzl?file=/src/App.jsx)），固定列在 v2.32 版本支持 RTL，Slider 暂不支持 RTL。
+- Table 的树形数据暂不支持 RTL（[Chrome、Safari 浏览器表现与 Firefox 表现不同](https://codesandbox.io/s/table-rtl-treedata-uy7gzl?file=/src/App.jsx)），固定列在 v2.32 版本支持 RTL。
 
 
 ```jsx live=true dir="column" hideInDSM

@@ -192,7 +192,7 @@ Global configuration `direction` can change the text direction of components。`
 Special components:
 - Command call of Modal, Notification and Toast needs to be passed to 'direction' through prop.
 - If you want to internationalize the directional icon, you need to handle it on your own. We think RTL for icon will make it difficult to understand and maintain. Semi has adapted the icons in other components.
-- The tree data of Table does not support RTL ([Chrome, Safari have different behave with Firefox](https://codesandbox.io/s/table-rtl-treedata-uy7gzl?file=/src/App.jsx)), and fixed column supports RTL in v2.32 version, Slider does not support RTL yet.
+- The tree data of Table does not support RTL ([Chrome, Safari have different behave with Firefox](https://codesandbox.io/s/table-rtl-treedata-uy7gzl?file=/src/App.jsx)), and fixed column supports RTL in v2.32 version.
 
 ```jsx live=true dir="column" hideInDSM
 import React, { useState } from 'react';

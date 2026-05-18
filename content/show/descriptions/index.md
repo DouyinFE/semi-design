@@ -204,6 +204,48 @@ import { IconArrowUp } from '@douyinfe/semi-icons';
 };
 ```
 
+### 自定义 Key 样式
+
+可以通过 `keyStyle` 属性自定义 key 的样式，例如设置固定宽度实现对齐效果。该属性支持所有 CSS 样式，如 `width`、`maxWidth`、`textAlign`、`color` 等。
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Descriptions } from '@douyinfe/semi-ui';
+
+() => {
+    const data = [
+        { key: '用户名', value: '张三', keyStyle: { width: 100, textAlign: 'right' } },
+        { key: '电子邮箱', value: 'zhangsan@example.com', keyStyle: { width: 100, textAlign: 'right' } },
+        { key: '联系电话', value: '138-0000-0000', keyStyle: { width: 100, textAlign: 'right' } },
+        { key: '地址', value: '北京市朝阳区', keyStyle: { width: 100, textAlign: 'right' } },
+    ];
+    return <Descriptions data={data} align="center" />;
+};
+```
+
+也可以配合 JSX 写法使用：
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Descriptions } from '@douyinfe/semi-ui';
+
+() => {
+    return (
+        <Descriptions align="center">
+            <Descriptions.Item itemKey="姓名" keyStyle={{ width: 120, color: 'var(--semi-color-primary)' }}>
+                李四
+            </Descriptions.Item>
+            <Descriptions.Item itemKey="年龄" keyStyle={{ width: 120, color: 'var(--semi-color-primary)' }}>
+                28
+            </Descriptions.Item>
+            <Descriptions.Item itemKey="职业" keyStyle={{ width: 120, color: 'var(--semi-color-primary)' }}>
+                前端工程师
+            </Descriptions.Item>
+        </Descriptions>
+    );
+};
+```
+
 ## API 参考
 
 ### Descriptions
@@ -227,6 +269,7 @@ import { IconArrowUp } from '@douyinfe/semi-icons';
 | value  | 属性值                           | ReactNode \| (() => ReactNode) | -      |
 | hidden | 该数据是否需要展示 | boolean                     | -      |
 | span   | 单元格应跨越的列数 **v>=2.54.0** | number      | 1                 |
+| keyStyle | key 的自定义样式，可用于设置宽度、对齐方式等 | CSSProperties | -      |
 
 ### DescriptionItem
 
@@ -237,6 +280,7 @@ import { IconArrowUp } from '@douyinfe/semi-icons';
 | className | Item 外部wrapper: tr 的类名                      | string            | -     |
 | style     | Item 外部wrapper: tr 的内联样式                | CSSProperties            | -     |
 | span   | 单元格应跨越的列数 **v>=2.54.0**  | number      | 1                 |
+| keyStyle  | key 的自定义样式，可用于设置宽度、对齐方式等 | CSSProperties | -      |
 
 
 

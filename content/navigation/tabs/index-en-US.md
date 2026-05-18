@@ -525,6 +525,75 @@ class App extends React.Component {
 }
 ```
 
+### Auto Overflow Detection
+
+**v>= 2.97.0**
+
+Set `collapsible="auto"` to enable automatic overflow detection. The component will automatically detect whether tabs overflow the container:
+- When tabs exceed the container width or wrap to multiple lines, it automatically enables collapse mode (shows left/right arrows)
+- When the container width increases or tab count decreases and all tabs can be fully displayed, it automatically exits collapse mode
+
+This feature eliminates the need for developers to manually determine whether folding is needed, making it especially suitable for responsive layouts.
+
+```jsx live=true dir=column
+import React from 'react';
+import { Tabs, TabPane, Button } from '@douyinfe/semi-ui';
+
+class App extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            count: 8,
+        };
+    }
+
+    render() {
+        const tabs = Array.from({ length: this.state.count }, (_, i) => (
+            <TabPane tab={`Tab-${i + 1}`} itemKey={`${i}`} key={i}>
+                Content of Tab {i + 1}
+            </TabPane>
+        ));
+
+        return (
+            <div>
+                <div style={{ marginBottom: 12 }}>
+                    <Button 
+                        onClick={() => this.setState({ count: Math.max(3, this.state.count - 2) })}
+                        style={{ marginRight: 8 }}
+                    >
+                        Reduce Tabs
+                    </Button>
+                    <Button 
+                        onClick={() => this.setState({ count: Math.min(15, this.state.count + 2) })}
+                    >
+                        Increase Tabs
+                    </Button>
+                    <span style={{ marginLeft: 12 }}>Current tab count: {this.state.count}</span>
+                </div>
+                
+                <div style={{ border: '1px solid var(--semi-color-border)', padding: 12, marginBottom: 16 }}>
+                    <p style={{ marginBottom: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                        collapsible="auto" - Auto detect overflow
+                    </p>
+                    <Tabs type="card" collapsible="auto">
+                        {tabs}
+                    </Tabs>
+                </div>
+                
+                <div style={{ border: '1px solid var(--semi-color-border)', padding: 12, maxWidth: 400 }}>
+                    <p style={{ marginBottom: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                        Fixed width 400px, test with narrow container
+                    </p>
+                    <Tabs type="card" collapsible="auto">
+                        {tabs}
+                    </Tabs>
+                </div>
+            </div>
+        );
+    }
+}
+```
+
 ### Disable
 
 Disable one tab.
@@ -855,7 +924,7 @@ class App extends React.Component {
 | --- | --- | --- | --- |
 | activeKey | The itemKey value of the currently active tab page | string | None |
 | className | class name | string | None |
-| collapsible | collapsed Tabs, **>=1.1.0** | boolean | false |
+| collapsible | collapsed Tabs, **>=1.1.0**, supports `auto` overflow detection | boolean \| 'auto' | false |
 | dropdownProps | In collapsible mode, It is used to transparently transmit parameters to the Dropdown component of the drop-down menu, support since 2.66.0 | DropDownProps | { start: DropdownProps, end: DropdownProps } |
 | visibleTabsStyle | Overall scrolling area style **>=2.61.0** | style: CSSProperties | None |
 | contentStyle | The outer style object of the content area | CSSProperties | None |

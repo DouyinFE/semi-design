@@ -1,0 +1,62 @@
+$module: #{$prefix}-slider;
+
+// RTL support (horizontal)
+// Slider uses `left` positioning in LTR. In RTL we switch to `right` positioning
+// in the component logic, so centering transforms must be mirrored.
+.#{$prefix}-rtl,
+.#{$prefix}-portal-rtl {
+    .#{$module} {
+        direction: rtl;
+
+        &-handle {
+            transform: $transform_scale-slider_handle translateX(50%) translateY($spacing-slider_handle-translateY);
+        }
+
+        &-mark {
+            transform: translate(50%, 0);
+        }
+
+        &-mark-reverse {
+            transform: translate(50%, 0) rotate(-180deg);
+        }
+
+        // Boundary text should match RTL direction: min on the right, max on the left
+
+        &-boundary-min {
+            left: auto;
+            right: $spacing-slider_boundary_min-left;
+        }
+
+        &-boundary-max {
+            right: auto;
+            left: $spacing-slider_boundary_max-right;
+        }
+    }
+}
+
+// Backward/explicit support: the component may add `semi-slider-rtl` on wrapper.
+// Keep these rules so RTL transforms still apply even without `.semi-rtl` container.
+
+.#{$module}-rtl {
+    .#{$module}-handle {
+        transform: $transform_scale-slider_handle translateX(50%) translateY($spacing-slider_handle-translateY);
+    }
+
+    .#{$module}-mark {
+        transform: translate(50%, 0);
+    }
+
+    .#{$module}-mark-reverse {
+        transform: translate(50%, 0) rotate(-180deg);
+    }
+
+    .#{$module}-boundary-min {
+        left: auto;
+        right: $spacing-slider_boundary_min-left;
+    }
+
+    .#{$module}-boundary-max {
+        right: auto;
+        left: $spacing-slider_boundary_max-right;
+    }
+}
