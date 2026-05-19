@@ -451,6 +451,14 @@ render(App);
 
 用户可以使用 `Column.render` 来自定义某一列单元格的渲染，该功能适用于需要渲染较为复杂的单元格内容时。
 
+`render` 函数的第四个参数 `options` 是一个对象，包含以下属性：
+- `expandIcon`: 展开图标（当使用树形数据或可展开行时）
+- `selection`: 选择框（当开启行选择时）
+- `indentText`: 缩进内容（当使用树形数据时）
+- `isHovering`: 当前行是否处于悬停状态（v2.98.0 支持）
+
+通过 `isHovering` 参数，可以实现鼠标悬停时显示操作按钮等交互效果。
+
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
 import { Table, Avatar, Button, Empty, Typography, Tag } from '@douyinfe/semi-ui';
@@ -5579,6 +5587,7 @@ type Render = (text: string, record: Object, index: number, options?: RenderOpti
 
 interface RenderOptions {
     expandIcon?: React.ReactNode;
+    isHovering?: boolean;
 }
 ```
 
@@ -5990,7 +5999,7 @@ import { Table } from '@douyinfe/semi-ui';
 | filters | 表头的筛选菜单项。 | Filter[] |  |
 | fixed | 列是否固定，可选 true(等效于 left) 'left' 'right'，在 RTL 时会自动切换 | boolean\|string | false |
 | key | React 需要的 key，如果已经设置了唯一的 dataIndex，可以忽略这个属性 | string |  |
-| render | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return 里面可以设置表格行/列合并 | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode }) => object\|ReactNode |  |
+| render | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return 里面可以设置表格行/列合并 | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode, isHovering?: boolean }) => object\|ReactNode |  |
 | renderFilterDropdown | 自定义筛选器 dropdown 面板，用法详见[自定义筛选器](#自定义筛选器) | (props?: RenderFilterDropdownProps) => React.ReactNode; | - | **2.52.0** |
 | renderFilterDropdownItem | 自定义每个筛选项渲染方式，用法详见[自定义筛选项渲染](#自定义筛选项渲染) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | - |
 | resize | 是否开启 resize 模式，只有 Table resizable 开启后此属性才会生效 | boolean |  | **2.42.0** |

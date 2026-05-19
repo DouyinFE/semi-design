@@ -84,7 +84,8 @@ export interface BodyState {
         virtualizedScrollLeft?: number
     };
     cachedExpandBtnShouldInRow?: boolean;
-    cachedExpandRelatedProps?: any[]
+    cachedExpandRelatedProps?: any[];
+    hoveredRowKey?: string | number;
 }
 
 export interface BodyContext {
@@ -133,6 +134,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     cellWidths: number[];
     flattenedColumns: ColumnProps[];
     context: TableContextProps;
+    unsubscribe: () => void;
     constructor(props: BodyProps, context: BodyContext) {
         super(props);
         this.ref = React.createRef();
@@ -144,6 +146,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             },
             cachedExpandBtnShouldInRow: null,
             cachedExpandRelatedProps: [],
+            hoveredRowKey: null,
         };
 
         this.listRef = React.createRef();
@@ -153,6 +156,33 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         this.cellWidths = getCellWidths(flattenedColumns);
         this.observer = null;
     }
+
+    componentDidMount() {
+        const { store } = this.props;
+        if (store) {
+            this.unsubscribe = store.subscribe((state: { hoveredRowKey?: string | number }) => {
+                const { hoveredRowKey } = state;
+                if (hoveredRowKey !== this.state.hoveredRowKey) {
+                    this.setState({ hoveredRowKey });
+                }
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.unsubscribe) {
+            this.unsubscribe();
+            this.unsubscribe = null;
+        }
+    }
+
+    onRowHover = (isHover: boolean, rowKey: string | number) => {
+        const { store } = this.props;
+        if (store) {
+            const hoveredRowKey = isHover ? rowKey : null;
+            store.setState({ hoveredRowKey });
+        }
+    };
 
     get adapter(): BodyAdapter<BodyProps, BodyState> {
         return {
@@ -586,6 +616,10 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const { getCellWidths } = this.context;
         const cellWidths = getCellWidths(columns, null, true);
 
+        // Calculate hovered state based on current hoveredRowKey
+        const { hoveredRowKey } = this.state;
+        const hovered = hoveredRowKey === key;
+
         return (
             <BaseRow
                 {...baseRowProps}
@@ -594,6 +628,8 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 key={key}
                 rowKey={key}
                 cellWidths={cellWidths}
+                hovered={hovered}
+                onHover={this.onRowHover}
             />
         );
     }

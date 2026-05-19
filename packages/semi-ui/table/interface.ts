@@ -175,7 +175,8 @@ export interface FilterDropdownItem {
 export interface RenderOptions {
     expandIcon?: React.ReactNode;
     selection?: React.ReactNode;
-    indentText?: React.ReactNode
+    indentText?: React.ReactNode;
+    isHovering?: boolean;
 }
 export interface OnCellReturnObject extends React.TdHTMLAttributes<HTMLElement> {
     [x: string]: any;
