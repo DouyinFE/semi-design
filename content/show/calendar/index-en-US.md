@@ -350,6 +350,7 @@ import { Avatar, Calendar } from '@douyinfe/semi-ui';
 | mode         | Mode, one of `day`, `week`, `month`, `range`                                         | "day" \| "week" \| "month" \| "range" | `week` |
 | onClick      | Callback invoked when clicking on date, basic unit for day and week mode is 0.5h, for month mode is 1d | function(e: Event, date: Date） | -            |
 | onClose | Callback invoked when event display card close in the month mode | function(e: Event） | - |
+| onMoreClick | Callback invoked when clicking "more items" in month mode | function(e: Event, date: Date, remaining: number） | - |
 | renderTimeDisplay | Customize the display of time in day/week mode | function(time: number): ReactNode | - |
 | renderDateDisplay | Customize the display of date | function(date: Date): ReactNode | - |
 | range | Date range to display in range mode, left-closed and right-open | Date[] | - |

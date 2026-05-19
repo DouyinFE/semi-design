@@ -14,6 +14,7 @@ export interface CalendarProps extends BaseProps {
     scrollTop?: number;
     onClick?: (e: React.MouseEvent, value: Date) => void;
     onClose?: (e: React.MouseEvent) => void;
+    onMoreClick?: (e: React.MouseEvent, date: Date, remaining: number) => void;
     renderTimeDisplay?: (time: number) => React.ReactNode;
     markWeekend?: boolean;
     minEventHeight?: number;
