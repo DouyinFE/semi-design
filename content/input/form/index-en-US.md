@@ -1521,6 +1521,10 @@ In the example above:
 - The field with `keepState` will retain its previously entered value, validation state, etc. after being hidden and then shown again
 - The field without `keepState` will have its state reset after being hidden and then shown again
 
+<Notice type="primary" title="Notes">
+<div>`keepState` is designed for the "conditional unmount/remount" scenario and restores state by the field path. Fields inside an <code>ArrayField</code> do NOT support <code>keepState</code>: calling <code>remove(i)</code> shifts the positional field paths of the following rows (for example <code>people[1].name</code> becomes <code>people[0].name</code>), so "restore by path" no longer matches the user intent and easily revives state of removed rows. Passing <code>keepState</code> on a Field inside an <code>ArrayField</code> will be ignored and a warning will be printed. Manage array items via the <code>ArrayField</code>'s own <code>add</code> / <code>remove</code> / <code>addWithInitValue</code> instead.</div>
+</Notice>
+
 ### ArrayField Usage
 
 For array items that are dynamically added or deleted, we provide the `ArrayField` component to simplify the operation of add / remove

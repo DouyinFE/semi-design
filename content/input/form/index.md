@@ -1590,6 +1590,10 @@ import { Form, Switch, Button } from '@douyinfe/semi-ui';
 - 设置了 `keepState` 的字段在隐藏再显示后，之前输入的值、校验状态等会被保留
 - 未设置 `keepState` 的字段在隐藏再显示后，状态会被重置
 
+<Notice type="primary" title="注意事项">
+<div>`keepState` 仅适用于「条件渲染卸载/重挂」的场景，并以 field 字段路径作为恢复依据。在 <code>ArrayField</code> 内部的 Field 不支持 <code>keepState</code>：调用 <code>remove(i)</code> 会让后续行的字段路径整体前移（例如 <code>people[1].name</code> 变为 <code>people[0].name</code>），按路径恢复的语义不再匹配，容易出现已被删除的状态被"复活"等问题。在 <code>ArrayField</code> 中传入 <code>keepState</code> 将被忽略并打印 warning，请通过 <code>ArrayField</code> 自身的 <code>add</code> / <code>remove</code> / <code>addWithInitValue</code> 管理数组项。</div>
+</Notice>
+
 ### 使用 ArrayField
 
 针对动态增删的数组类表单项，我们提供了 ArrayField 作用域来简化 add/remove 的操作  
