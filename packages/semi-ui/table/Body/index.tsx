@@ -179,11 +179,33 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         }
     }
 
+    /**
+     * Handle row hover event
+     * Updates hoveredRowKey for isHovering API
+     * When rowSpanHover is enabled, also highlights all rows covered by rowSpan cells
+     */
     onRowHover = (isHover: boolean, rowKey: string | number) => {
         const { store } = this.props;
+        const { rowSpanHover } = this.context;
+
+        // Update hoveredRowKey in store for isHovering API
         if (store) {
             const hoveredRowKey = isHover ? rowKey : null;
-            store.setState({ hoveredRowKey });
+            const prevHoveredRowKey = get(store.getState(), 'hoveredRowKey');
+            if (prevHoveredRowKey !== hoveredRowKey) {
+                store.setState({ hoveredRowKey });
+            }
+        }
+
+        // When rowSpanHover is enabled, handle DOM class for related rows
+        if (rowSpanHover) {
+            const rowKeyStr = String(rowKey);
+            if (isHover) {
+                const keysToHighlight = this.getHoveredRowKeysFromDOM(rowKeyStr);
+                this.updateRowHoverClass(keysToHighlight);
+            } else {
+                this.updateRowHoverClass([]);
+            }
         }
     };
 
@@ -259,27 +281,6 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             this.foundation.observeBodyResize(bodyWrapDOM);
         }
     }
-
-    /**
-     * Handle row hover event
-     * When rowSpanHover is enabled, highlight all rows covered by rowSpan cells
-     */
-    onRowHover = (isHover: boolean, rowKey: string | number) => {
-        const { rowSpanHover } = this.context;
-        const rowKeyStr = String(rowKey);
-
-        if (!rowSpanHover) {
-            // default behavior relies on CSS :hover
-            return;
-        }
-
-        if (isHover) {
-            const keysToHighlight = this.getHoveredRowKeysFromDOM(rowKeyStr);
-            this.updateRowHoverClass(keysToHighlight);
-        } else {
-            this.updateRowHoverClass([]);
-        }
-    };
 
     private updateRowHoverClass = (nextKeys: string[]) => {
         const bodyNode = this.ref.current;
@@ -729,14 +730,10 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             disabled: isDisabled(disabledRowKeysSet, key),
         };
 
-        // Hover style is handled by CSS :hover by default.
-        // When rowSpanHover is enabled, we toggle a DOM class on related rows.
-        const hovered = false;
-
         const { getCellWidths } = this.context;
         const cellWidths = getCellWidths(columns, null, true);
 
-        // Calculate hovered state based on current hoveredRowKey
+        // Calculate hovered state based on current hoveredRowKey from store
         const { hoveredRowKey } = this.state;
         const hovered = hoveredRowKey === key;
 

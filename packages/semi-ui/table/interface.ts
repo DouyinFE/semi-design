@@ -178,6 +178,7 @@ export interface RenderOptions {
     expandIcon?: React.ReactNode;
     selection?: React.ReactNode;
     indentText?: React.ReactNode;
+    /** Whether the current row is being hovered */
     isHovering?: boolean;
 }
 export interface OnCellReturnObject extends React.TdHTMLAttributes<HTMLElement> {

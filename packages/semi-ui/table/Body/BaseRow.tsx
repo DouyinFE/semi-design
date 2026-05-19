@@ -148,7 +148,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
             notifyDoubleClick: (...args) => this.props.onRowDoubleClick(...args),
             notifyMouseLeave: (...args) => {
                 this.props.onHover(false, this.props.rowKey);
-                this.props.onRowMouseEnter(...args);
+                this.props.onRowMouseLeave(...args);
             },
             notifyMouseEnter: (...args) => {
                 this.props.onHover(true, this.props.rowKey);
