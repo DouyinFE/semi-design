@@ -157,6 +157,11 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     onVisibleChange?: (isVisible: boolean) => void;
     onClear?: (e: React.MouseEvent | React.KeyboardEvent<HTMLDivElement>) => void;
     autoMergeValue?: boolean
+    /**
+     * Whether to allow selected tags to wrap to multiple lines in trigger (multiple + searchPosition="trigger").
+     * When enabled, TreeSelect will constrain trigger width and allow TagInput to wrap.
+     */
+    triggerTagWrap?: boolean;
 }
 
 export type OverrideCommonState =
@@ -279,6 +284,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         preventScroll: PropTypes.bool,
         clickTriggerToHide: PropTypes.bool,
         autoMergeValue: PropTypes.bool,
+        triggerTagWrap: PropTypes.bool,
     };
 
     static defaultProps: Partial<TreeSelectProps> = {
@@ -314,6 +320,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         restTagsPopoverProps: {},
         clickTriggerToHide: true,
         autoMergeValue: true,
+        triggerTagWrap: false,
     };
     inputRef: React.RefObject<typeof Input>;
     tagInputRef: React.RefObject<TagInput>;
@@ -1070,6 +1077,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             borderless,
             autoMergeValue,
             checkRelation,
+            triggerTagWrap,
             ...rest
         } = this.props;
         const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus, realCheckedKeys } = this.state;
@@ -1104,6 +1112,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     [`${prefixcls}-with-prefix`]: prefix || insetLabel,
                     [`${prefixcls}-with-suffix`]: suffix,
                     [`${prefixcls}-with-suffix`]: suffix,
+                    [`${prefixcls}-triggerTagWrap`]: Boolean(triggerTagWrap) && multiple && isTriggerPositionSearch,
                 },
                 className
             );

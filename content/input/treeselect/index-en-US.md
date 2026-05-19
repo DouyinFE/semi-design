@@ -552,6 +552,99 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 };
 ```
 
+### Wrap tags in trigger (triggerTagWrap)
+
+In **multiple + searchable + searchPosition="trigger"** mode, if there are many selected items or the input is long, the trigger may prefer to keep a single-line layout by default.
+
+Set `triggerTagWrap={true}` to allow selected tags to wrap into multiple lines within the trigger.
+
+```jsx live=true
+import React from 'react';
+import { TreeSelect } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                        {
+                            label: 'Shenzhen',
+                            value: 'Shenzhen',
+                            key: '0-0-2',
+                        },
+                        {
+                            label: 'Guangzhou',
+                            value: 'Guangzhou',
+                            key: '0-0-3',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+
+    return (
+        <TreeSelect
+            searchPosition="trigger"
+            triggerTagWrap
+            style={{ width: 260 }}
+            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+            treeData={treeData}
+            multiple
+            filterTreeNode
+            placeholder="Select multiple items or input long text"
+            defaultValue={['Beijing', 'Shanghai', 'Shenzhen', 'Guangzhou']}
+        />
+    );
+};
+```
+
 ### Size
 
 You can set the size by `size`, one of: 'small'、'default'、'large'
@@ -1504,6 +1597,7 @@ function Demo() {
 | searchAutoFocus        | Whether autofocus for search box           | boolean      | false           |-|
 | searchPlaceholder        | Placeholder for search box                                                          | string                                                            | -           | -       |
 | searchPosition | Set the position of the search box, one of: `dropdown`、`trigger` | string | `dropdown` | - |
+| triggerTagWrap | Whether to allow selected tags to wrap into multiple lines within the trigger. Only works when `multiple` and `filterTreeNode` are enabled, and `searchPosition="trigger"` | boolean | false | - |
 | showClear | When the value is not empty, whether the trigger displays the clear button | boolean | false |  |
 | showFilteredOnly | Toggle whether to displayed filtered result only in search mode | boolean | false | - |
 | showLine | The option in the options panel shows connecting lines | boolean | false | 2.50.0 |
