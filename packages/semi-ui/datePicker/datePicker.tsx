@@ -49,6 +49,11 @@ export interface DatePickerProps extends DatePickerFoundationProps {
     renderFullDate?: (dayNumber?: number, fullDate?: string, dayStatus?: DayStatusType) => React.ReactNode;
     triggerRender?: (props: DatePickerProps) => React.ReactNode;
     /**
+     * Only affects rendering of the separator between range inputs.
+     * String parsing / formatting still relies on `rangeSeparator`.
+     */
+    rangeSeparatorNode?: React.ReactNode;
+    /**
      * There are multiple input boxes when selecting a range, and the input boxes will be out of focus multiple times.
      *
      * Use `onOpenChange` or `onClickOutSide` instead
@@ -153,6 +158,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         // Callback function for panel date switching
         onPanelChange: PropTypes.func,
         rangeSeparator: PropTypes.string,
+        rangeSeparatorNode: PropTypes.node,
         preventScroll: PropTypes.bool,
         yearAndMonthOpts: PropTypes.object,
         onClickOutSide: PropTypes.func,
@@ -566,7 +572,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     }
 
     renderDateInput() {
-        const { insetInput, dateFnsLocale, density, type, format, rangeSeparator, defaultPickerValue } = this.props;
+        const { insetInput, dateFnsLocale, density, type, format, rangeSeparator, rangeSeparatorNode, defaultPickerValue } = this.props;
         const { insetInputValue, value } = this.state;
 
         const props = {
@@ -574,6 +580,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             format,
             insetInputValue,
             rangeSeparator,
+            rangeSeparatorNode,
             type,
             value: value as Date[],
             handleInsetDateFocus: this.handleInsetDateFocus,
@@ -647,6 +654,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             size,
             inputReadOnly,
             rangeSeparator,
+            rangeSeparatorNode,
             insetInput,
             defaultPickerValue,
             borderless
@@ -697,6 +705,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             dateFnsLocale,
             rangeInputFocus,
             rangeSeparator,
+            rangeSeparatorNode,
             onRangeBlur: this.handleRangeInputBlur,
             onRangeClear: this.handleRangeInputClear,
             onRangeEndTabPress: this.handleRangeEndTabPress,

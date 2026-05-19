@@ -168,6 +168,11 @@ export interface DatePickerFoundationProps extends ElementProps, RenderProps, Ev
     dateFnsLocale?: any;
     localeCode?: string;
     rangeSeparator?: string;
+    /**
+     * Only for UI render. Keep `semi-foundation` framework-agnostic (no React types).
+     * `semi-ui` layer should declare this as `React.ReactNode`.
+     */
+    rangeSeparatorNode?: any;
     insetInput?: DateInputFoundationProps['insetInput'];
     preventScroll?: boolean
 }
