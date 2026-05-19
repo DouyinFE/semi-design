@@ -14,6 +14,37 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.98.0 (2026-05-19)
+- 【Feat】
+    - 新增 `@douyinfe/semi-vite-plugin` 包，提供 Vite 构建场景下的主题定制、CSS 类名前缀替换、SCSS 变量覆盖、`@layer` 包裹、Semi 包 CSS import 剔除等能力，与 `@douyinfe/semi-webpack-plugin` 特性对齐 [#2390](https://github.com/DouyinFE/semi-design/issues/2390) [#3242](https://github.com/DouyinFE/semi-design/issues/3242) [#3275](https://github.com/DouyinFE/semi-design/pull/3275)
+    - Calendar 组件新增 `onMoreClick` prop，支持自定义月视图下"还有几项"的点击事件 [#764](https://github.com/DouyinFE/semi-design/issues/764) [#3283](https://github.com/DouyinFE/semi-design/pull/3283)
+    - DatePicker 组件新增 `rangeSeparatorNode` prop，支持传入 ReactNode 类型的范围分隔符 [#244](https://github.com/DouyinFE/semi-design/issues/244) [#3281](https://github.com/DouyinFE/semi-design/pull/3281)
+    - DatePicker 组件范围选择未完成时确认按钮禁用：当 `type` 为 range 类型且 `needConfirm` 为 true 时，如果日期范围未选完（只选了开始或结束），确认按钮将被禁用 [#552](https://github.com/DouyinFE/semi-design/issues/552) [#3269](https://github.com/DouyinFE/semi-design/pull/3269)
+    - Descriptions 组件新增 `keyStyle` prop，支持自定义 key 的宽度、对齐方式、颜色等样式 [#458](https://github.com/DouyinFE/semi-design/issues/458) [#3268](https://github.com/DouyinFE/semi-design/pull/3268)
+    - Form 组件的 Field 新增 `keepState` 属性，支持在 Field 卸载后保留其状态（value、error、touched），重新挂载时自动恢复 [#186](https://github.com/DouyinFE/semi-design/issues/186) [#3279](https://github.com/DouyinFE/semi-design/pull/3279)
+    - InputNumber 组件新增 `scientificNotation` prop，支持长数字的科学计数法显示，失焦时显示科学计数法，聚焦时显示完整数字，可通过 `threshold` 配置阈值 [#146](https://github.com/DouyinFE/semi-design/issues/146) [#3277](https://github.com/DouyinFE/semi-design/pull/3277)
+    - Slider 组件支持 RTL 布局，当 ConfigProvider 的 `direction` 为 `rtl` 时，横向 Slider 自动调整为从右向左的交互方式 [#759](https://github.com/DouyinFE/semi-design/issues/759) [#3265](https://github.com/DouyinFE/semi-design/pull/3265)
+    - Table 组件 `columns.render` 新增 `isHovering` 参数，用于判断当前行是否处于悬停状态 [#669](https://github.com/DouyinFE/semi-design/issues/669) [#3287](https://github.com/DouyinFE/semi-design/pull/3287)
+    - Table 组件支持鼠标 hover 到 rowspan 单元格时高亮所有相关行 [#1177](https://github.com/DouyinFE/semi-design/issues/1177) [#3262](https://github.com/DouyinFE/semi-design/pull/3262)
+    - Table 组件新增 `rowSelection.checkRelation` prop，支持树形表格父子节点选择关联。设置为 `'related'` 时，选中父节点自动选中所有子节点，选中子节点影响父节点状态（全选/半选/未选）[#2864](https://github.com/DouyinFE/semi-design/issues/2864) [#3264](https://github.com/DouyinFE/semi-design/pull/3264)
+    - Tabs 组件新增 `collapsible="auto"` 选项，支持自动检测溢出并启用折叠功能 [#1596](https://github.com/DouyinFE/semi-design/issues/1596) [#3259](https://github.com/DouyinFE/semi-design/pull/3259)
+    - Tooltip 和 Popover 组件新增 `condition` 属性，用于控制是否允许触发显示。当 `condition` 为 false 时，hover/click/focus 等触发行为不生效（trigger='custom' 场景不受影响）[#1648](https://github.com/DouyinFE/semi-design/issues/1648) [#3286](https://github.com/DouyinFE/semi-design/pull/3286)
+    - Transfer 组件新增 `pagination` prop，支持左侧面板分页功能，包含 `pageSize`、`currentPage`、`defaultCurrentPage`、`onPageChange` 属性 [#480](https://github.com/DouyinFE/semi-design/issues/480) [#3266](https://github.com/DouyinFE/semi-design/pull/3266)
+    - TreeSelect 组件新增 `triggerTagWrap` prop，支持在 trigger 内多行换行展示已选标签 [#1709](https://github.com/DouyinFE/semi-design/issues/1709) [#3285](https://github.com/DouyinFE/semi-design/pull/3285)
+    - TreeSelect 组件新增 `remote` prop，支持远程搜索功能 [#1190](https://github.com/DouyinFE/semi-design/issues/1190) [#3258](https://github.com/DouyinFE/semi-design/pull/3258)
+- 【Fix】
+    - 修复 AIChatInput 组件 input-slot 在 IME 输入时 placeholder 遮挡未上屏文字的问题 [#3261](https://github.com/DouyinFE/semi-design/issues/3261) [#3263](https://github.com/DouyinFE/semi-design/pull/3263)
+    - 修复 DatePicker 在 `needConfirm` 模式下无法通过预设清空（`{ start: null, end: null }`）后确认空范围的问题，将 UI 端的"完成"判定与 foundation `_isRangeValueComplete` 对齐，空数组也视为完整状态，仅部分选择（长度为 2 且包含 null）禁用确认
+    - 修复 Form 组件的 `withField` HOC 在被 Tooltip/Popover 等组件包裹时，因动态注入 props 导致 `useMemo` 依赖数组长度变化而触发 React 警告的问题 [#1017](https://github.com/DouyinFE/semi-design/issues/1017) [#3267](https://github.com/DouyinFE/semi-design/pull/3267)
+    - 修复 InputNumber 组件在输入包含非数字字符的字符串（如 "1000CNY"）时 `max` 和 `min` 限制不生效的问题 [#38](https://github.com/DouyinFE/semi-design/issues/38) [#3273](https://github.com/DouyinFE/semi-design/pull/3273)
+    - 修复 Tree 组件在 TreeNode 的 `label` 为 ReactNode 时，受控 `value` 改变选中项的展开行为异常问题，通过结构比较替代深度比较避免 ReactNode 对象引用变化导致的误判 [#1132](https://github.com/DouyinFE/semi-design/issues/1132) [#3260](https://github.com/DouyinFE/semi-design/pull/3260)
+    - 修复 Tree 组件在展开节点较多（300+）时快速拖拽发生卡顿的问题，通过节流（16ms / 60fps）拖拽状态更新来优化性能 [#558](https://github.com/DouyinFE/semi-design/issues/558) [#3271](https://github.com/DouyinFE/semi-design/pull/3271)
+    - 调整默认 font-family 顺序，将 Segoe UI 移到 PingFang SC / Microsoft YaHei 之后，修复 Windows 下中文字符相对英文基线向下偏移的问题 [#2369](https://github.com/DouyinFE/semi-design/issues/2369) [#3276](https://github.com/DouyinFE/semi-design/pull/3276)
+    - 统一 CodeHighlight / JsonViewer / 文档站点的 monospace 字体栈：补齐 `ui-monospace`、`Consolas`、`Liberation Mono`、`DejaVu Sans Mono` 等系统兜底，修复 Windows / Linux 下未安装 Menlo / SF Mono / Fira Code 时回落到 Courier New 字重过细的问题 [#2729](https://github.com/DouyinFE/semi-design/issues/2729) [#3274](https://github.com/DouyinFE/semi-design/pull/3274)
+- 【Docs】
+    - 补充 Slider 组件聚焦样式说明文档，澄清"圆形按钮轮廓 - 聚焦"（`--semi-color-primary-light-active`，键盘 Tab 聚焦时生效）和"滑动条圆形描边颜色 - 激活态"（`--semi-color-focus-border`，鼠标点击/拖动时生效）两个设计变量的不同触发场景 [#2614](https://github.com/DouyinFE/semi-design/issues/2614) [#3257](https://github.com/DouyinFE/semi-design/pull/3257)
+    - 修复 Tabs 组件 `renderTabBar` 拖拽排序 demo：将 dnd-kit 示例改为 `noInline` 模式以支持真实 import 语句，并复用 Semi 导出的 `Tabs.TabItem`，保持各类型/尺寸/位置下的原生样式
+
 #### 🎉 2.97.0 (2026-05-11)
 - 【Feat】
     - Cascader 组件新增 `remote` 属性，支持远程搜索功能 [#2956](https://github.com/DouyinFE/semi-design/issues/2956) [#3232](https://github.com/DouyinFE/semi-design/pull/3232)
