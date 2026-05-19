@@ -38,7 +38,8 @@ export interface BaseRowProps {
     fixed?: Fixed;
     height?: string | number;
     hideExpandedColumn?: boolean;
-    hovered: boolean; // required
+    /** Whether the current row is hovered */
+    hovered?: boolean;
     indent?: number;
     indentSize?: number;
     index?: number;
@@ -84,7 +85,7 @@ export const baseRowPropTypes = {
     fixed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     hideExpandedColumn: PropTypes.bool,
-    hovered: PropTypes.bool.isRequired,
+    hovered: PropTypes.bool,
     indent: PropTypes.number,
     indentSize: PropTypes.number,
     index: PropTypes.number,
@@ -147,7 +148,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
             notifyDoubleClick: (...args) => this.props.onRowDoubleClick(...args),
             notifyMouseLeave: (...args) => {
                 this.props.onHover(false, this.props.rowKey);
-                this.props.onRowMouseEnter(...args);
+                this.props.onRowMouseLeave(...args);
             },
             notifyMouseEnter: (...args) => {
                 this.props.onHover(true, this.props.rowKey);
@@ -222,6 +223,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
             expanded,
             disabled,
             onDidUpdate,
+            hovered,
         } = this.props;
 
         const BodyCell = get(components, 'body.cell', strings.DEFAULT_COMPONENTS.body.cell);
@@ -292,6 +294,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
                         expanded={expanded}
                         disabled={disabled}
                         onDidUpdate={onDidUpdate}
+                        hovered={hovered}
                     />
                 );
             }

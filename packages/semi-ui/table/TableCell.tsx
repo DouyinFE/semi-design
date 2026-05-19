@@ -40,7 +40,8 @@ export interface TableCellProps extends BaseProps {
     selected?: boolean; // Whether the current row is selected
     expanded?: boolean; // Whether the current line is expanded
     disabled?: boolean;
-    colIndex?: number
+    colIndex?: number;
+    hovered?: boolean; // Whether the current row is hovered
 }
 
 function isInvalidRenderCellText(text: any) {
@@ -82,6 +83,7 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
         selected: PropTypes.bool,
         expanded: PropTypes.bool,
         colIndex: PropTypes.number,
+        hovered: PropTypes.bool,
     };
 
     get adapter(): TableCellAdapter {
@@ -228,6 +230,7 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
             expandIcon,
             renderExpandIcon,
             column = {},
+            hovered,
         } = this.props;
         const { dataIndex, render, useFullRender } = column;
 
@@ -255,6 +258,7 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
         if (render) {
             const renderOptions = {
                 expandIcon: realExpandIcon,
+                isHovering: hovered,
             };
 
             // column.useFullRender
