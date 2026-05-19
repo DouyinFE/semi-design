@@ -257,6 +257,35 @@ function Demo() {
 }
 ```
 
+### Conditional trigger (condition)
+
+When `condition={false}`, Tooltip will not respond to hover/click/focus triggers (does not affect `trigger='custom'`).
+
+```jsx live=true dir="column"
+import React, { useMemo, useState } from 'react';
+import { Tooltip, Button, Switch, Space, Typography } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const [enabled, setEnabled] = useState(true);
+    const content = useMemo(() => `condition is ${enabled ? 'true' : 'false'}`, [enabled]);
+
+    return (
+        <Space align="center">
+            <Typography.Text>condition</Typography.Text>
+            <Switch checked={enabled} onChange={(v) => setEnabled(v)} />
+            <Tooltip content={content} trigger="hover" condition={enabled}>
+                <Button>Hover me</Button>
+            </Tooltip>
+            <Tooltip content={content} trigger="click" condition={enabled}>
+                <Button>Click me</Button>
+            </Tooltip>
+        </Space>
+    );
+}
+
+render(Demo);
+```
+
 ### Override Style
 
 Configure specific styles for the pop-up layer through the `className` and `style` API, such as overriding the default maxWidth (240px)
@@ -334,6 +363,7 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 | --- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
 | autoAdjustOverflow | Whether the floating layer automatically adjusts its direction when it is blocked                                                                                                                                           | boolean | true |  |
 | arrowPointAtCenter | Whether the "small triangle" points to the center of the element, you need to pass in "showArrow = true" at the same time                                                                                                   | boolean | true | - |
+| condition | Whether to allow Tooltip to be triggered. Only when explicitly set to false, hover/click/focus triggers will not take effect (does not affect trigger='custom') | boolean | true | |
 | className | Pop-up layer classname                                                                                                                                                                                                      | string |  |  |
 | content | Pop-up layer content                                                                                                                                                                                                        | string | ReactNode |  |
 | clickToHide | Whether to automatically close the elastic layer when clicking on the floating layer and any element inside                                                                                                                 | boolean | false | - |

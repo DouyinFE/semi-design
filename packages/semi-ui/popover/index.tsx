@@ -50,7 +50,13 @@ export interface PopoverProps extends BaseProps {
     clickToHide?: TooltipProps['clickToHide'];
     disableFocusListener?: boolean;
     afterClose?: () => void;
-    keepDOM?: boolean
+    keepDOM?: boolean;
+    /**
+     * Whether to allow the popover to show
+     * When set to false, the popover will not show when triggered
+     * @default true
+     */
+    condition?: boolean;
 }
 
 export interface PopoverState {
@@ -90,6 +96,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         prefixCls: PropTypes.string,
         guardFocus: PropTypes.bool,
         disableArrowKeyDown: PropTypes.bool,
+        condition: PropTypes.bool,
     };
     static __SemiComponentName__ = "Popover";
 
