@@ -408,6 +408,14 @@ render(App);
 
 Users can use Column.render to customize the rendering of a column of cells, which is suitable for rendering more complex cell content.
 
+The fourth parameter `options` of the `render` function is an object containing the following properties:
+- `expandIcon`: Expand icon (when using tree data or expandable rows)
+- `selection`: Selection checkbox (when row selection is enabled)
+- `indentText`: Indent content (when using tree data)
+- `isHovering`: Whether the current row is in hover state (supported in v2.98.0)
+
+With the `isHovering` parameter, you can implement interaction effects such as displaying action buttons on mouse hover.
+
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
 import { Table, Avatar, Button, Empty, Typography } from '@douyinfe/semi-ui';
@@ -5321,6 +5329,7 @@ type Render = (
 
 interface RenderOptions {
     expandIcon?: React.ReactNode;
+    isHovering?: boolean;
 }
 ```
 
@@ -5722,7 +5731,7 @@ import { Table } from '@douyinfe/semi-ui';
 | filters | Filter menu items for the header | Filter[] |  |
 | fixed | Whether the column is fixed, optional true (equivalent to left) 'left' 'right' | boolean\|string | false |
 | key | The key required by React, if a unique dataIndex has been set, can ignore this property | string |  |
-| render | A rendering function that generates complex data, the parameters are the value of the current row, the current row data, the row index, and the table row / column merge can be set in return object | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode }) => React\|object |  |
+| render | A rendering function that generates complex data, the parameters are the value of the current row, the current row data, the row index, and the table row / column merge can be set in return object | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode, isHovering?: boolean }) => React\|object |  |
 | renderFilterDropdown | Custom filter dropdown panel, for usage details, see [Custom Filter Rendering](#Custom-Filter-Rendering) | (props?: RenderFilterDropdownProps) => React.ReactNode; | - | **2.52.0** |
 | renderFilterDropdownItem | Customize the rendering method of each filter item. For usage details, see [Custom Filter Item Rendering](#Custom-Filter-Item-Rendering) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | - |
 | resize | Whether to enable resize mode, this property will take effect only after Table resizable is enabled | boolean |  | **2.42.0** |
