@@ -291,8 +291,8 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const keys = new Set<string>();
         keys.add(currentRowKey);
 
-        // Find the current row element by data-row-key
-        const tbody = this.ref.current?.querySelector('.semi-table-tbody') || this.ref.current;
+        const root = this.ref.current as Element | null;
+        const tbody: Element | null = root?.querySelector('.semi-table-tbody') ?? root;
         if (!tbody) {
             return Array.from(keys);
         }
@@ -302,7 +302,6 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             return Array.from(keys);
         }
 
-        // Get all rows to calculate indices
         const allRows = Array.from(tbody.querySelectorAll('tr[data-row-key]'));
         const currentRowIndex = allRows.indexOf(currentRow);
 
@@ -310,16 +309,13 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             return Array.from(keys);
         }
 
-        // Check all rows for cells with rowSpan that might include the current row
         allRows.forEach((row, rowIndex) => {
             const cells = row.querySelectorAll('td[rowspan]');
             cells.forEach((cell) => {
                 const rowSpan = parseInt(cell.getAttribute('rowspan') || '1', 10);
                 if (rowSpan > 1) {
                     const spanEndIndex = rowIndex + rowSpan - 1;
-                    // Check if current row is within the span
                     if (currentRowIndex >= rowIndex && currentRowIndex <= spanEndIndex) {
-                        // Add all rows in the span
                         for (let i = rowIndex; i <= spanEndIndex && i < allRows.length; i++) {
                             const rowKeyAttr = allRows[i].getAttribute('data-row-key');
                             if (rowKeyAttr) {

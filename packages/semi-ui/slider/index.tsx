@@ -6,7 +6,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/slider/constants';
 import BaseComponent from '../_base/baseComponent';
 import SliderFoundation, { SliderAdapter, SliderProps as BasicSliceProps, SliderState, tipFormatterBasicType } from '@douyinfe/semi-foundation/slider/foundation';
 import Tooltip from '../tooltip/index';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import '@douyinfe/semi-foundation/slider/slider.scss';
 import { isEqual, noop } from 'lodash';
 
@@ -99,6 +99,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
     private eventListenerSet: Set<() => void>;
     private handleDownEventListenerSet: Set<() => void>;
     foundation: SliderFoundation;
+    context: ContextValue;
 
     constructor(props: SliderProps) {
         super(props);
@@ -194,7 +195,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 this.setState(stateObj, callback);
             },
             notifyChange: (cbValue: number | number[]) => {
-                this.props.onChange(Array.isArray(cbValue) ? [...cbValue].sort((a, b)=>a - b) : cbValue);
+                this.props.onChange(Array.isArray(cbValue) ? [...cbValue].sort((a, b) => a - b) : cbValue);
             },
             setDragging: (value: boolean[]) => {
                 this.dragging = value;
