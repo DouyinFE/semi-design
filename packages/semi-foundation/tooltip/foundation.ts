@@ -210,7 +210,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         switch (types) {
             case 'focus':
                 triggerEventSet[eventNames.focus] = () => {
-                    this.delayShow();
+                    this.getProp('condition') !== false && this.delayShow();
                 };
                 triggerEventSet[eventNames.blur] = () => {
                     this.delayHide();
@@ -220,7 +220,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             case 'click':
                 triggerEventSet[eventNames.click] = () => {
                     // this.delayShow();
-                    this.show();
+                    this.getProp('condition') !== false && this.show();
                 };
                 portalEventSet = {};
                 // Click outside needs special treatment, can not be directly tied to the trigger Element, need to be bound to the document
@@ -229,7 +229,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 triggerEventSet[eventNames.mouseEnter] = () => {
                     // console.log(e);
                     this.setCache('isClickToHide', false);
-                    this.delayShow();
+                    this.getProp('condition') !== false && this.delayShow();
                     // this.show('trigger');
                 };
                 triggerEventSet[eventNames.mouseLeave] = () => {
@@ -240,7 +240,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // bind focus to hover trigger for a11y
                 triggerEventSet[eventNames.focus] = () => {
                     const { disableFocusListener } = this.getProps();
-                    !disableFocusListener && this.delayShow();
+                    this.getProp('condition') !== false && !disableFocusListener && this.delayShow();
                 };
                 triggerEventSet[eventNames.blur] = () => {
                     const { disableFocusListener } = this.getProps();
@@ -259,7 +259,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                             return;
                         }
 
-                        this.delayShow();
+                        this.getProp('condition') !== false && this.delayShow();
                     };
                 }
                 break;
@@ -269,6 +269,9 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 break;
             case 'contextMenu':
                 triggerEventSet[eventNames.contextMenu] = (e) => {
+                    if (this.getProp('condition') === false) {
+                        return;
+                    }
                     e.preventDefault();
                     this.show();
                 };

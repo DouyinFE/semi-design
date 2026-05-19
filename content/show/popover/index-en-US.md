@@ -228,6 +228,35 @@ import { Popover, Button } from '@douyinfe/semi-ui';
 };
 ```
 
+### Conditional trigger (condition)
+
+When `condition={false}`, Popover will not respond to hover/click/focus triggers (does not affect `trigger='custom'`).
+
+```jsx live=true dir="column"
+import React, { useMemo, useState } from 'react';
+import { Popover, Button, Switch, Space, Typography } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const [enabled, setEnabled] = useState(true);
+    const content = useMemo(() => `condition is ${enabled ? 'true' : 'false'}`, [enabled]);
+
+    return (
+        <Space align="center">
+            <Typography.Text>condition</Typography.Text>
+            <Switch checked={enabled} onChange={(v) => setEnabled(v)} />
+            <Popover content={content} condition={enabled}>
+                <Button>Hover me</Button>
+            </Popover>
+            <Popover content={content} trigger="click" condition={enabled}>
+                <Button>Click me</Button>
+            </Popover>
+        </Space>
+    );
+}
+
+render(Demo);
+```
+
 ### Show Small Triangle
 
 Popover also supports the display of a small triangle.
@@ -526,6 +555,7 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | arrowPointAtCenter | Whether the "small triangle" points to the center of the element, you need to pass in "showArrow = true" at the same time                                                                                                                     | boolean | true | - |
 | className | Pop-up layer classname                                                                                                                                                                                                      | string |  |  |
 | closeOnEsc | Whether to close the panel by pressing the Esc key in the trigger or popup layer. It does not take effect when visible is under controlled                                                                                                    | boolean | true | **2.8.0** |
+| condition | Whether to allow Popover to be triggered. Only when explicitly set to false, hover/click/focus triggers will not take effect (does not affect trigger='custom') | boolean | true | |
 | content | Content displayed                                                                                                                                                                                                                             | string \| ReactNode |  |
 | clickToHide | Whether to automatically close the elastic layer when clicking on the floating layer and any element inside                                                                                                                                   | boolean | false | - |
 | disableFocusListener | When trigger is `hover`, does not respond to the keyboard focus popup event, see details at [issue#977](https://github.com/DouyinFE/semi-design/issues/977)                                                                                   | boolean | true | **2.17.0** |

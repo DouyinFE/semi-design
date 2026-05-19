@@ -89,7 +89,13 @@ export interface TooltipProps extends BaseProps {
     preventScroll?: boolean;
     disableFocusListener?: boolean;
     afterClose?: () => void;
-    keepDOM?: boolean
+    keepDOM?: boolean;
+    /**
+     * Whether to allow the tooltip to show
+     * When set to false, the tooltip will not show when triggered
+     * @default true
+     */
+    condition?: boolean;
 }
 
 interface TooltipState {
@@ -155,6 +161,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         returnFocusOnClose: PropTypes.bool,
         preventScroll: PropTypes.bool,
         keepDOM: PropTypes.bool,
+        condition: PropTypes.bool,
     };
     static __SemiComponentName__ = "Tooltip";
     static defaultProps = getDefaultPropsFromGlobalConfig(Tooltip.__SemiComponentName__, {
@@ -182,7 +189,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         onEscKeyDown: noop,
         disableFocusListener: false,
         disableArrowKeyDown: false,
-        keepDOM: false
+        keepDOM: false,
+        condition: true,
     });
 
     eventManager: Event;

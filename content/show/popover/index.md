@@ -231,6 +231,35 @@ import { IllustrationSuccess, IllustrationSuccessDark } from '@douyinfe/semi-ill
 }
 ```
 
+### condition 条件触发
+
+当 `condition={false}` 时，Popover 不响应 hover/click/focus 等触发行为（`trigger='custom'` 不受影响）。
+
+```jsx live=true dir="column"
+import React, { useMemo, useState } from 'react';
+import { Popover, Button, Switch, Space, Typography } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const [enabled, setEnabled] = useState(true);
+    const content = useMemo(() => `condition is ${enabled ? 'true' : 'false'}`, [enabled]);
+
+    return (
+        <Space align="center">
+            <Typography.Text>condition</Typography.Text>
+            <Switch checked={enabled} onChange={(v) => setEnabled(v)} />
+            <Popover content={content} condition={enabled}>
+                <Button>Hover me</Button>
+            </Popover>
+            <Popover content={content} trigger="click" condition={enabled}>
+                <Button>Click me</Button>
+            </Popover>
+        </Space>
+    );
+}
+
+render(Demo);
+```
+
 ### 显示小三角
 
 通过设置`showArrow`, Popover 同样也支持展示一个小三角。
@@ -532,6 +561,7 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
 | arrowPointAtCenter | "小三角"是否指向元素中心，需要同时传入"showArrow=true"                                                                                      | boolean                    | true                                        | - |
 | className | 弹出层的样式名                                                                                                                                              | string |  |  |
 | closeOnEsc         | 在 trigger 或 弹出层按 Esc 键是否关闭面板，受控时不生效 | boolean | true | **2.8.0**  |
+| condition | 是否允许 Popover 触发显示。仅当显式设置为 false 时，hover/click/focus 等触发行为不生效（trigger='custom' 场景不受影响） | boolean | true | |
 | content            | 显示的内容（函数类型，2.8.0 版本支持）                                                                                                                                  | ReactNode \| ({ initialFocusRef }) => ReactNode          |            |            |
 | clickToHide        | 点击弹出层及内部任一元素时是否自动关闭弹层                                                                                                  | boolean                    | false                                       | - |
 | disableFocusListener | trigger为`hover`时，不响应键盘聚焦弹出浮层事件，详见[issue#977](https://github.com/DouyinFE/semi-design/issues/977) | boolean | true | **2.17.0** |
