@@ -61,6 +61,11 @@ export interface DateInputFoundationProps extends DateInputElementProps, DateInp
     validateStatus?: ValidateStatus;
     prefixCls?: string;
     rangeSeparator?: string;
+    /**
+     * Only for UI render. Keep `semi-foundation` framework-agnostic (no React types).
+     * `semi-ui` layer should declare this as `React.ReactNode`.
+     */
+    rangeSeparatorNode?: any;
     panelType?: PanelType;
     insetInput?: boolean | InsetInputProps;
     insetInputValue?: InsetInputValue;

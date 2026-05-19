@@ -38,6 +38,8 @@ export interface DateInputProps extends DateInputFoundationProps, BaseProps {
     rangeInputStartRef?: React.RefObject<HTMLInputElement>;
     rangeInputEndRef?: React.RefObject<HTMLInputElement>;
     showClearIgnoreDisabled?: boolean
+    /** Only affects rendering of the separator between range inputs */
+    rangeSeparatorNode?: React.ReactNode;
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -67,6 +69,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         rangeInputStartRef: PropTypes.object,
         rangeInputEndRef: PropTypes.object,
         rangeSeparator: PropTypes.string,
+        rangeSeparatorNode: PropTypes.node,
         insetInput: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
         insetInputValue: PropTypes.object,
         defaultPickerValue: PropTypes.oneOfType([
@@ -185,14 +188,14 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
     }
 
     renderRangeSeparator(rangeStart: string, rangeEnd: string) {
-        const { disabled, rangeSeparator } = this.props;
+        const { disabled, rangeSeparator, rangeSeparatorNode } = this.props;
         const separatorCls = cls({
             [`${cssClasses.PREFIX}-range-input-separator`]: true,
             [`${cssClasses.PREFIX}-range-input-separator-active`]: (rangeStart || rangeEnd) && !disabled,
         });
         return (
             <span onClick={e => !disabled && this.handleRangeStartFocus(e)} className={separatorCls}>
-                {rangeSeparator}
+                {rangeSeparatorNode ?? rangeSeparator}
             </span>
         );
     }
