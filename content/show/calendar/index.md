@@ -327,6 +327,7 @@ import { Avatar, Calendar } from '@douyinfe/semi-ui';
 | mode | 初始模式，`day`, `week`, `month`, `range` | "day" \| "week" \| "month" \| "range" | `week` |
 | onClick | 单击日期格的回调，日视图和周视图以半小时为单位，月视图以日为单位 | function(e: Event, date: Date） | - |
 | onClose | 月视图下，展示所有 event 的卡片关闭时的回调 | function(e: Event） | - |
+| onMoreClick | 月视图下，点击"还有几项"时的回调 | function(e: Event, date: Date, remaining: number） | - |
 | range | 多日视图模式下展示的日期范围，左闭右开 | Date[] | - |
 | renderTimeDisplay | 自定义日/周视图下的时间文案 | function(time: number): ReactNode | - |
 | renderDateDisplay | 自定义日期文案 | function(date: Date): ReactNode | - |
