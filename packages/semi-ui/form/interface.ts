@@ -60,7 +60,9 @@ export type CommonFieldProps = {
     /** These declaration just hack for Omit, not valid props in CommonFieldProps */
     defaultValue?: any;
     /** Whether to take over only the data stream, when true, it will not automatically insert modules such as ErrorMessage, Label, extraText, etc. The style and DOM structure are consistent with the original component */
-    pure?: boolean
+    pure?: boolean;
+    /** Whether to retain field state (value, error, touched) after the field is unmounted. When the field remounts, the saved state will be restored */
+    keepState?: boolean;
 };
 
 export type CommonexcludeType = {

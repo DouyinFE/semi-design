@@ -94,14 +94,58 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         const registered = this.registered[field];
         this.registered[field] = true;
         this.fields.set(field, fieldStuff);
-        if (fieldStuff.keepState) {
-            // TODO support keepState
-        } else {
+        if (fieldStuff.keepState && registered) {
+            // When keepState is true and the field was previously registered (remounting),
+            // restore the saved state from formState instead of using the initial value
+            const hasSavedValue = ObjectUtil.has(this.data.values, field);
+            const savedValue = ObjectUtil.get(this.data.values, field);
+            const hasSavedError = ObjectUtil.has(this.data.errors, field);
+            const savedError = ObjectUtil.get(this.data.errors, field);
+            const hasSavedTouched = ObjectUtil.has(this.data.touched, field);
+            const savedTouched = ObjectUtil.get(this.data.touched, field);
+
             const allowEmpty = fieldStuff.allowEmpty || false;
-            const opts = {
+            const opts: CallOpts = {
                 notNotify: true,
                 notUpdate: false,
-                allowEmpty,
+                // updateStateValue reads `fieldAllowEmpty` (field-level override)
+                fieldAllowEmpty: allowEmpty,
+            };
+
+            // Restore value from formState if it exists
+            if (hasSavedValue) {
+                // Keep formState as source of truth; still trigger a forceUpdate so that
+                // consumers of formState can get the latest snapshot when field remounts.
+                this.updateStateValue(field, savedValue, opts);
+                // Sync the restored value back to the field component's local state.
+                // Avoid a second forceUpdate/notify from FieldApi.
+                fieldStuff.fieldApi.setValue(savedValue, { ...opts, notUpdate: true });
+            } else {
+                // No saved value, use initial value
+                let fieldValue = fieldState.value;
+                if (!allowEmpty && fieldValue === '') {
+                    fieldValue = undefined;
+                }
+                this.updateStateValue(field, fieldValue, opts);
+            }
+
+            // Restore error from formState if it exists
+            if (hasSavedError) {
+                this.updateStateError(field, savedError, opts);
+                fieldStuff.fieldApi.setError(savedError, { ...opts, notUpdate: true });
+            }
+
+            // Restore touched from formState if it exists
+            if (hasSavedTouched) {
+                this.updateStateTouched(field, savedTouched, opts);
+                fieldStuff.fieldApi.setTouched(savedTouched, { ...opts, notUpdate: true });
+            }
+        } else {
+            const allowEmpty = fieldStuff.allowEmpty || false;
+            const opts: CallOpts = {
+                notNotify: true,
+                notUpdate: false,
+                fieldAllowEmpty: allowEmpty,
             };
             let fieldValue = fieldState.value;
             // When allowEmpty is false, 'is equivalent to undefined, and the key of the field does not need to be reflected on values

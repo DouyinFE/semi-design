@@ -1489,6 +1489,42 @@ import { Form, Button } from '@douyinfe/semi-ui';
 );
 ```
 
+#### Keep field state on unmount (keepState)
+
+By default, when a Field component is unmounted, its value, error, and touched state are all reset. If you want to preserve these states after the field is unmounted (for example, in conditional rendering scenarios), you can use the `keepState` property.
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Form, Switch, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const [show, setShow] = React.useState(true);
+
+    return (
+        <Form style={{ width: 450 }}>
+            <Form.Switch field="alwaysShow" label='Always visible field' />
+            <Switch checked={show} onChange={setShow} style={{ marginBottom: 12 }} />
+            <span style={{ marginLeft: 8, color: 'var(--semi-color-text-2)' }}>Show conditional fields</span>
+            {show ? (
+                <Form.Input field="conditionalField" label='Conditional field (keepState)' keepState />
+            ) : null}
+            {show ? (
+                <Form.Input field="noKeepState" label='Conditional field (no keepState)' />
+            ) : null}
+            <Button htmlType="submit">Submit</Button>
+        </Form>
+    );
+};
+```
+
+In the example above:
+- The field with `keepState` will retain its previously entered value, validation state, etc. after being hidden and then shown again
+- The field without `keepState` will have its state reset after being hidden and then shown again
+
+<Notice type="primary" title="Notes">
+<div>`keepState` is designed for the "conditional unmount/remount" scenario and restores state by the field path. Fields inside an <code>ArrayField</code> do NOT support <code>keepState</code>: calling <code>remove(i)</code> shifts the positional field paths of the following rows (for example <code>people[1].name</code> becomes <code>people[0].name</code>), so "restore by path" no longer matches the user intent and easily revives state of removed rows. Passing <code>keepState</code> on a Field inside an <code>ArrayField</code> will be ignored and a warning will be printed. Manage array items via the <code>ArrayField</code>'s own <code>add</code> / <code>remove</code> / <code>addWithInitValue</code> instead.</div>
+</Notice>
+
 ### ArrayField Usage
 
 For array items that are dynamically added or deleted, we provide the `ArrayField` component to simplify the operation of add / remove
@@ -2344,6 +2380,7 @@ import { Form, Button } from '@douyinfe/semi-ui';
 | onChange              | Callback invoked when this field value changes                                                                                                                                                                                           |
 | transform             | transform field values before validation                                                                                                                                                                                                 | function(fieldValue)                   |           | (value) => Number(value)                                           |
 | allowEmptyString      | Whether to allow values to be empty strings. <br/>When the value is '' by default, the key corresponding to this field will be removed from `values`. <br/>If you want to keep the key, you need to set allowEmptyString to true           | boolean                                |           | false                                                              |
+| keepState             | Whether to retain the field state (value, error, touched) after the field is unmounted. When true, the field's value, validation message, and interaction state are preserved after unmounting, and will be automatically restored upon remounting           | boolean                                |           | false                                                              |
 | convert               | After the field value changes, before rerender, update the value of filed                                                                                                                                                                | function(fieldValue)                   |           | (value) => newValue                                        |
 | stopValidateWithError | When it is true, the rules check is used. After encountering the first rule that fails the check, it will no longer trigger the check of subsequent rules                                                          | boolean                                |           | false                                                              |
 | helpText              | Custom prompt information, which is displayed in the same block as the verification information. When both have values, the verification information is displayed first                                             | ReactNode                              |           |                                                                    |

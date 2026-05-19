@@ -221,6 +221,7 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         const { addWithInitValue } = this;
         const contextVal = {
             shouldUseInitValue: this.shouldUseInitValue,
+            inArrayField: true,
         };
         return (
             <ArrayFieldContext.Provider value={contextVal}>

@@ -1558,6 +1558,42 @@ import { Form, Button } from '@douyinfe/semi-ui';
 );
 ```
 
+#### 动态表单保留状态（keepState）
+
+默认情况下，当 Field 组件卸载后，其对应的值（value）、校验信息（error）、交互状态（touched）都会被重置。如果你希望 Field 卸载后保留这些状态（例如在条件渲染的场景中），可以使用 `keepState` 属性。
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Form, Switch, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const [show, setShow] = React.useState(true);
+
+    return (
+        <Form style={{ width: 450 }}>
+            <Form.Switch field="alwaysShow" label='始终显示的字段' />
+            <Switch checked={show} onChange={setShow} style={{ marginBottom: 12 }} />
+            <span style={{ marginLeft: 8, color: 'var(--semi-color-text-2)' }}>显示条件字段</span>
+            {show ? (
+                <Form.Input field="conditionalField" label='条件字段（keepState）' keepState />
+            ) : null}
+            {show ? (
+                <Form.Input field="noKeepState" label='条件字段（无 keepState）' />
+            ) : null}
+            <Button htmlType="submit">提交</Button>
+        </Form>
+    );
+};
+```
+
+在上面的示例中：
+- 设置了 `keepState` 的字段在隐藏再显示后，之前输入的值、校验状态等会被保留
+- 未设置 `keepState` 的字段在隐藏再显示后，状态会被重置
+
+<Notice type="primary" title="注意事项">
+<div>`keepState` 仅适用于「条件渲染卸载/重挂」的场景，并以 field 字段路径作为恢复依据。在 <code>ArrayField</code> 内部的 Field 不支持 <code>keepState</code>：调用 <code>remove(i)</code> 会让后续行的字段路径整体前移（例如 <code>people[1].name</code> 变为 <code>people[0].name</code>），按路径恢复的语义不再匹配，容易出现已被删除的状态被"复活"等问题。在 <code>ArrayField</code> 中传入 <code>keepState</code> 将被忽略并打印 warning，请通过 <code>ArrayField</code> 自身的 <code>add</code> / <code>remove</code> / <code>addWithInitValue</code> 管理数组项。</div>
+</Notice>
+
 ### 使用 ArrayField
 
 针对动态增删的数组类表单项，我们提供了 ArrayField 作用域来简化 add/remove 的操作  
@@ -2354,6 +2390,7 @@ class FormApiDemo extends React.Component {
 | onBlur                | 失去焦点时触发的回调                                                                                                                                                                                                | function() （具体参见各组件的 onBlur 方法）                                                   |
 | transform             | 校验前转换字段值，转换后的值仅会在校验时被消费，对 formState 无影响<br/> 使用示例: (value) => Number                                                                                                                 | function(fieldValue)                                                                          |           |
 | allowEmptyString      | 是否允许值为空字符串。默认情况下值为''时，该 field 对应的 key 会从 values 中移除，如果你希望保留该 key，那么需要将 allowEmptyString 设为 true                                                                       | boolean                                                                                       | false     |
+| keepState             | 是否在 Field 卸载后保留其状态（value、error、touched）。为 true 时，Field 卸载后其值、校验信息、交互状态不会丢失，再次挂载时会自动恢复                                                                                       | boolean                                                                                       | false     |
 | stopValidateWithError | 为 true 时，使用 rules 校验，碰到第一个检验不通过的 rules 后，将不再触发后续 rules 的校验                                                                                                  | boolean                                                                                       | false     |
 | helpText              | 自定义提示信息，与校验信息公用同一区块展示，两者均有值时，优先展示校验信息                                                                                                                | ReactNode                                                                                     |           |
 | extraText             | 额外的提示信息，当需要错误信息和提示文案同时出现时，可以使用这个，位于 helpText/errorMessage 后                                                                                           | ReactNode                                                                                     |           |

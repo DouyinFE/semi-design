@@ -163,9 +163,11 @@ function withField<
 
         // use arrayFieldState to fix issue 615
         let arrayFieldState;
+        let inArrayField = false;
         try {
             arrayFieldState = useArrayFieldState();
             if (arrayFieldState) {
+                inArrayField = Boolean(arrayFieldState.inArrayField);
                 /**
                  * In ArrayField, when setValues causes ArrayField re-render, ArrayField will set shouldUseInitValue to false.
                  * But Field may be conditionally unmounted/remounted later. In that case, if the value in form state is
@@ -191,6 +193,20 @@ function withField<
         const validateOnMount = mergeTrigger.includes('mount');
 
         allowEmpty = allowEmpty || updater.getFormProps().allowEmpty;
+
+        // `keepState` semantically preserves a field's state when the component unmounts and
+        // restores it on remount, keyed by the field path. Inside an <ArrayField>, removing a
+        // row shifts the subsequent rows' positional field paths (e.g. people[1].name becomes
+        // people[0].name), so "restore by path" no longer matches the user's intent and easily
+        // surfaces stale state (touched flags, registered markers, etc.). To avoid that
+        // ambiguity, ignore `keepState` for fields rendered inside an ArrayField and warn once.
+        if (keepState && inArrayField) {
+            warning(
+                true,
+                `[Semi Form]: 'keepState' is not supported on Field "${field}" inside <ArrayField/>. It will be ignored. Use add/remove on the ArrayField to manage array items instead.`
+            );
+            keepState = false;
+        }
 
         // Error information: Array, String, undefined
         const [error, setError, getError] = useStateWithGetter();
