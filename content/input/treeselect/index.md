@@ -482,6 +482,99 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 };
 ```
 
+### Trigger 内多行换行（triggerTagWrap）
+
+当你在 **多选 + 搜索框位于 trigger** 的场景下，选择了较多项或输入较长文本时，默认 trigger 可能会更倾向于保持单行展示。
+
+通过设置 `triggerTagWrap={true}`，可以让 trigger 内的已选标签支持自动换行（多行展示）。
+
+```jsx live=true
+import React from 'react';
+import { TreeSelect } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                        {
+                            label: 'Shenzhen',
+                            value: 'Shenzhen',
+                            key: '0-0-2',
+                        },
+                        {
+                            label: 'Guangzhou',
+                            value: 'Guangzhou',
+                            key: '0-0-3',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+
+    return (
+        <TreeSelect
+            searchPosition="trigger"
+            triggerTagWrap
+            style={{ width: 260 }}
+            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+            treeData={treeData}
+            multiple
+            filterTreeNode
+            placeholder="请选择多个选项或输入长文本"
+            defaultValue={['Beijing', 'Shanghai', 'Shenzhen', 'Guangzhou']}
+        />
+    );
+};
+```
+
 ### 尺寸大小
 
 可以通过 `size` 设置尺寸大小，可选: 'small'、'default'、'large'
@@ -1395,6 +1488,7 @@ function Demo() {
 | searchAutoFocus | 搜索框自动聚焦                                                                                                                              | boolean | false |
 | searchPlaceholder | 搜索框默认文字                                                                                                                            | string | - | 
 | searchPosition | 设置搜索框的位置，可选: `dropdown`、`trigger`                                                                                                  | string | `dropdown` |
+| triggerTagWrap | 是否允许在 trigger 内将多选标签换行展示。仅在 `multiple` 且 `filterTreeNode` 开启、并且 `searchPosition="trigger"` 时生效 | boolean | false |
 | showClear | 当值不为空时，trigger 是否展示清除按钮                                                                                                               | boolean | false | 
 | showFilteredOnly | 搜索状态下是否只展示过滤后的结果                                                                                                               | boolean | false | 
 | showLine | 选项面板中选项显示连接线。v2.50.0后提供                                                                                                                | boolean | false |

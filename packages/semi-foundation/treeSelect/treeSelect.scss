@@ -258,13 +258,61 @@ $module: #{$prefix}-tree-select;
 
     &-multiple {
         display: inline-flex;
-
         .#{$module}-selection {
             padding-left: $spacing-treeSelect_selection_multiple-paddingLeft;
             padding-right: 0;
 
             &-placeholder {
                 padding-left: $spacing-treeSelect_placeholder_multiple-paddingLeft;
+            }
+        }
+    }
+
+    /**
+     * Enable wrapping selected tags in trigger.
+     * Only takes effect in multiple + searchPosition="trigger" mode (class added by component).
+     */
+    &-triggerTagWrap {
+        // Prevent trigger from expanding beyond its container
+        max-width: 100%;
+
+        .#{$module}-selection {
+            // Allow selection area to shrink so inner TagInput can wrap
+            min-width: 0;
+        }
+
+        &.#{$module}-multiple {
+            // multiple tags may wrap to multiple lines
+            height: auto;
+
+            .#{$module}-selection {
+                // allow height to grow when wrapping
+                height: auto;
+                min-height: $height-treeSelect_default - 2 * $width-treeSelect-border;
+                overflow: visible;
+            }
+
+            &.#{$module}-small {
+                .#{$module}-selection {
+                    min-height: $height-treeSelect_small - 2 * $width-treeSelect-border;
+                }
+            }
+
+            &.#{$module}-large {
+                .#{$module}-selection {
+                    min-height: $height-treeSelect_large - 2 * $width-treeSelect-border;
+                }
+            }
+        }
+
+        // Make TagInput shrinkable as a flex item, and constrain measured input width
+        .#{$prefix}-tagInput {
+            min-width: 0;
+            max-width: 100%;
+            flex: 1 1 auto;
+
+            .#{$prefix}-tagInput-wrapper-input {
+                max-width: 100%;
             }
         }
     }
