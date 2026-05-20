@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-vite-plugin",
-    "version": "2.97.0",
+    "version": "2.98.0",
     "description": "A vite plugin for Semi Design to custom theme, replace prefix and so on.",
     "homepage": "",
     "license": "MIT",
