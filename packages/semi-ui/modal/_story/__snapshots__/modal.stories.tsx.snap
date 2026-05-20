@@ -1,203 +1,239 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`模态框-点击遮罩层不可关闭 1`] = `
-<DialogComponent
-  maskClosable={false}
->
-  <Button
-    onClick={[Function]}
-  >
-    <Button
-      block={false}
-      disabled={false}
-      htmlType="button"
-      onClick={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      prefixCls="semi-button"
-      size="default"
-      theme="light"
-      type="primary"
-    >
-      <button
-        aria-disabled={false}
-        className="semi-button semi-button-primary semi-button-light"
-        disabled={false}
-        onClick={[Function]}
-        onMouseDown={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        type="button"
-      >
-        <span
-          className="semi-button-content"
-          onClick={[Function]}
-          x-semi-prop="children"
-        >
-          show dialog
-        </span>
-      </button>
-    </Button>
-  </Button>
-  <Button
-    onClick={[Function]}
-  >
-    <Button
-      block={false}
-      disabled={false}
-      htmlType="button"
-      onClick={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      prefixCls="semi-button"
-      size="default"
-      theme="light"
-      type="primary"
-    >
-      <button
-        aria-disabled={false}
-        className="semi-button semi-button-primary semi-button-light"
-        disabled={false}
-        onClick={[Function]}
-        onMouseDown={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        type="button"
-      >
-        <span
-          className="semi-button-content"
-          onClick={[Function]}
-          x-semi-prop="children"
-        >
-          静态调用
-        </span>
-      </button>
-    </Button>
-  </Button>
-  <Modal
-    afterClose={[Function]}
-    cancelLoading={false}
-    centered={false}
-    closable={true}
-    closeOnEsc={true}
-    confirmLoading={false}
-    fullScreen={false}
-    hasCancel={true}
-    keepDOM={false}
-    lazyRender={true}
-    mask={true}
+<Component>
+  <DialogComponent
     maskClosable={false}
-    maskFixed={false}
-    motion={true}
-    okType="primary"
-    onCancel={[Function]}
-    onOk={[Function]}
-    size="small"
-    title="对话框标题"
-    visible={false}
-    zIndex={1000}
-  />
-</DialogComponent>
+  >
+    <Button
+      onClick={[Function]}
+    >
+      <Button
+        block={false}
+        colorful={false}
+        disabled={false}
+        htmlType="button"
+        onClick={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        prefixCls="semi-button"
+        size="default"
+        theme="light"
+        type="primary"
+      >
+        <button
+          aria-disabled={false}
+          className="semi-button semi-button-primary semi-button-light"
+          disabled={false}
+          onClick={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          type="button"
+        >
+          <span
+            className="semi-button-content"
+            onClick={[Function]}
+            x-semi-prop="children"
+          >
+            show dialog
+          </span>
+        </button>
+      </Button>
+    </Button>
+    <Button
+      onClick={[Function]}
+    >
+      <Button
+        block={false}
+        colorful={false}
+        disabled={false}
+        htmlType="button"
+        onClick={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        prefixCls="semi-button"
+        size="default"
+        theme="light"
+        type="primary"
+      >
+        <button
+          aria-disabled={false}
+          className="semi-button semi-button-primary semi-button-light"
+          disabled={false}
+          onClick={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          type="button"
+        >
+          <span
+            className="semi-button-content"
+            onClick={[Function]}
+            x-semi-prop="children"
+          >
+            静态调用
+          </span>
+        </button>
+      </Button>
+    </Button>
+    <Modal
+      afterClose={[Function]}
+      centered={false}
+      closable={true}
+      closeOnEsc={true}
+      fullScreen={false}
+      hasCancel={true}
+      keepDOM={false}
+      lazyRender={true}
+      mask={true}
+      maskClosable={false}
+      maskFixed={false}
+      motion={true}
+      okType="primary"
+      onCancel={[Function]}
+      onOk={[Function]}
+      size="small"
+      title="对话框标题"
+      visible={false}
+      zIndex={1000}
+    >
+      <CSSAnimation
+        animationState="leave"
+        motion={true}
+        onAnimationEnd={[Function]}
+        replayKey=""
+        startClassName="semi-modal-content-animate-hide"
+      >
+        <CSSAnimation
+          animationState="leave"
+          motion={true}
+          onAnimationEnd={[Function]}
+          replayKey=""
+          startClassName="semi-modal-mask-animate-hide"
+        />
+      </CSSAnimation>
+    </Modal>
+  </DialogComponent>
+</Component>
 `;
 
 exports[`模态框默认 1`] = `
-<DialogComponent>
-  <Button
-    onClick={[Function]}
-  >
+<Component>
+  <DialogComponent>
     <Button
-      block={false}
-      disabled={false}
-      htmlType="button"
       onClick={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      prefixCls="semi-button"
-      size="default"
-      theme="light"
-      type="primary"
     >
-      <button
-        aria-disabled={false}
-        className="semi-button semi-button-primary semi-button-light"
+      <Button
+        block={false}
+        colorful={false}
         disabled={false}
+        htmlType="button"
         onClick={[Function]}
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        type="button"
+        prefixCls="semi-button"
+        size="default"
+        theme="light"
+        type="primary"
       >
-        <span
-          className="semi-button-content"
+        <button
+          aria-disabled={false}
+          className="semi-button semi-button-primary semi-button-light"
+          disabled={false}
           onClick={[Function]}
-          x-semi-prop="children"
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          type="button"
         >
-          show dialog
-        </span>
-      </button>
+          <span
+            className="semi-button-content"
+            onClick={[Function]}
+            x-semi-prop="children"
+          >
+            show dialog
+          </span>
+        </button>
+      </Button>
     </Button>
-  </Button>
-  <Button
-    onClick={[Function]}
-  >
     <Button
-      block={false}
-      disabled={false}
-      htmlType="button"
       onClick={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      prefixCls="semi-button"
-      size="default"
-      theme="light"
-      type="primary"
     >
-      <button
-        aria-disabled={false}
-        className="semi-button semi-button-primary semi-button-light"
+      <Button
+        block={false}
+        colorful={false}
         disabled={false}
+        htmlType="button"
         onClick={[Function]}
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        type="button"
+        prefixCls="semi-button"
+        size="default"
+        theme="light"
+        type="primary"
       >
-        <span
-          className="semi-button-content"
+        <button
+          aria-disabled={false}
+          className="semi-button semi-button-primary semi-button-light"
+          disabled={false}
           onClick={[Function]}
-          x-semi-prop="children"
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          type="button"
         >
-          静态调用
-        </span>
-      </button>
+          <span
+            className="semi-button-content"
+            onClick={[Function]}
+            x-semi-prop="children"
+          >
+            静态调用
+          </span>
+        </button>
+      </Button>
     </Button>
-  </Button>
-  <Modal
-    afterClose={[Function]}
-    cancelLoading={false}
-    centered={false}
-    closable={true}
-    closeOnEsc={true}
-    confirmLoading={false}
-    fullScreen={false}
-    hasCancel={true}
-    keepDOM={false}
-    lazyRender={true}
-    mask={true}
-    maskClosable={true}
-    maskFixed={false}
-    motion={true}
-    okType="primary"
-    onCancel={[Function]}
-    onOk={[Function]}
-    size="small"
-    title="对话框标题"
-    visible={false}
-    zIndex={1000}
-  />
-</DialogComponent>
+    <Modal
+      afterClose={[Function]}
+      centered={false}
+      closable={true}
+      closeOnEsc={true}
+      fullScreen={false}
+      hasCancel={true}
+      keepDOM={false}
+      lazyRender={true}
+      mask={true}
+      maskClosable={true}
+      maskFixed={false}
+      motion={true}
+      okType="primary"
+      onCancel={[Function]}
+      onOk={[Function]}
+      size="small"
+      title="对话框标题"
+      visible={false}
+      zIndex={1000}
+    >
+      <CSSAnimation
+        animationState="leave"
+        motion={true}
+        onAnimationEnd={[Function]}
+        replayKey=""
+        startClassName="semi-modal-content-animate-hide"
+      >
+        <CSSAnimation
+          animationState="leave"
+          motion={true}
+          onAnimationEnd={[Function]}
+          replayKey=""
+          startClassName="semi-modal-mask-animate-hide"
+        />
+      </CSSAnimation>
+    </Modal>
+  </DialogComponent>
+</Component>
 `;

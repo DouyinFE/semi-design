@@ -1,71 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Collapsible 1`] = `
-<Demo>
-  <div>
-    <Button
-      block={false}
-      disabled={false}
-      htmlType="button"
-      onClick={[Function]}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      prefixCls="semi-button"
-      size="default"
-      theme="light"
-      type="primary"
-    >
-      <button
-        aria-disabled={false}
-        className="semi-button semi-button-primary semi-button-light"
+<Component>
+  <Demo>
+    <div>
+      <Button
+        block={false}
+        colorful={false}
         disabled={false}
+        htmlType="button"
         onClick={[Function]}
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        type="button"
+        prefixCls="semi-button"
+        size="default"
+        theme="light"
+        type="primary"
       >
-        <span
-          className="semi-button-content"
+        <button
+          aria-disabled={false}
+          className="semi-button semi-button-primary semi-button-light"
+          disabled={false}
           onClick={[Function]}
-          x-semi-prop="children"
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          type="button"
         >
-          显示更多
-        </span>
-      </button>
-    </Button>
-    <Collapsible
-      collapseHeight={0}
-      duration={250}
-      fade={false}
-      isOpen={false}
-      keepDOM={false}
-      lazyRender={false}
-      motion={true}
-    >
-      <div
-        className="semi-collapsible-wrapper"
-        onTransitionEnd={[Function]}
-        style={
-          Object {
-            "height": 0,
-            "opacity": 1,
-            "overflow": "hidden",
-            "transitionDuration": "0ms",
-          }
-        }
+          <span
+            className="semi-button-content"
+            onClick={[Function]}
+            x-semi-prop="children"
+          >
+            显示更多
+          </span>
+        </button>
+      </Button>
+      <Collapsible
+        collapseHeight={0}
+        collapseHeightAdaptive={false}
+        duration={250}
+        fade={false}
+        isOpen={false}
+        keepDOM={false}
+        lazyRender={false}
+        motion={true}
       >
         <div
+          className="semi-collapsible-wrapper"
+          onTransitionEnd={[Function]}
           style={
             Object {
+              "height": 0,
+              "opacity": 1,
               "overflow": "hidden",
+              "transitionDuration": "0ms",
             }
           }
-          x-semi-prop="children"
-        />
-      </div>
-    </Collapsible>
-  </div>
-</Demo>
+        >
+          <div
+            style={
+              Object {
+                "overflow": "hidden",
+              }
+            }
+            x-semi-prop="children"
+          />
+        </div>
+      </Collapsible>
+    </div>
+  </Demo>
+</Component>
 `;

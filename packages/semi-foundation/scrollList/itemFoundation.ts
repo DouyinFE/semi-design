@@ -91,6 +91,12 @@ export default class ItemFoundation<P = Record<string, any>, S = Record<string, 
                 const lastRect = lastNode.getBoundingClientRect();
 
                 const listHeight = lastRect.height * list.length;
+                // Guard against environments where layout is not computed
+                // (e.g. jsdom returns all-zero rects), which would otherwise
+                // make `baseTop += listHeight` a no-op and loop forever.
+                if (listHeight <= 0) {
+                    return 0;
+                }
                 let baseTop = lastRect.top;
                 let count = 0;
 
@@ -127,6 +133,12 @@ export default class ItemFoundation<P = Record<string, any>, S = Record<string, 
                 const firstRect = firstNode.getBoundingClientRect();
 
                 const listHeight = firstRect.height * list.length;
+                // Guard against environments where layout is not computed
+                // (e.g. jsdom returns all-zero rects), which would otherwise
+                // make `baseTop -= listHeight` a no-op and loop forever.
+                if (listHeight <= 0) {
+                    return 0;
+                }
 
                 let baseTop = firstRect.top;
                 let count = 0;
