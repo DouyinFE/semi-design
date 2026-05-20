@@ -13,6 +13,10 @@
         "lib",
         "README.md"
     ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org"
+    },
     "scripts": {
         "build:lib": "rimraf lib && tsc",
         "dev": "tsc -w --sourceMap",
