@@ -330,7 +330,7 @@ export default class ConfigProvider extends React.Component<ConfigProviderProps,
 }
 
 // Export types for external use
-export {
+export type {
     ResponsiveMap,
     BreakpointScreens,
     Breakpoint,
