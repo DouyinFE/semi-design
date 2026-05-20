@@ -534,6 +534,14 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         super.componentDidMount();
         this.setScrollPosition('left');
 
+        // Recompute scroll position based on actual DOM sizes after first paint,
+        // so `scroll-position-*` classNames are correct even before the user scrolls.
+        if (typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
+            window.requestAnimationFrame(() => this.setScrollPositionClassName());
+        } else {
+            setTimeout(() => this.setScrollPositionClassName(), 0);
+        }
+
         if (this.adapter.isAnyColumnFixed() || (this.props.showHeader && this.adapter.useFixedHeader())) {
             this.handleWindowResize();
             window.addEventListener('resize', this.debouncedWindowResize);
@@ -821,6 +829,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             `${prefixCls}-scroll-position-left`,
             `${prefixCls}-scroll-position-right`,
         ];
+        // `render()` uses `this.position` to calculate wrapper classNames.
+        // Keep it in sync with the DOM classList updates to avoid losing classes after re-render.
+        this.position = position;
         this.scrollPosition = position;
         const tableNode = this.wrapRef.current;
         if (tableNode && tableNode.nodeType) {

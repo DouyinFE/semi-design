@@ -538,6 +538,35 @@ $module: #{$prefix}-table;
             }
         }
 
+        // Fix #441: when horizontal scroll is enabled (e.g. scroll.x='101%') and table is NOT scrolled to the far right,
+        // the outer right border can be outside of viewport because the real right border is rendered by the
+        // last column cell border (which is scrollable). Draw an overlay right border on the container to keep it visible.
+        // When scrolled to the far right, `.semi-table-scroll-position-right` exists and we should not draw it to avoid
+        // double borders.
+        &:not(.#{$module}-scroll-position-right) {
+            & > .#{$module}-container {
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    width: $width-table_base_border;
+                    background-color: $color-table-border-default;
+                    display: block;
+                    // Make sure the overlay border stays above table content/fixed columns
+                    z-index: $z-table_fixed_column + 2;
+                    pointer-events: none;
+                }
+
+                // Ensure header shows a visible right border even when the container overlay
+                // is covered by native scrollbars in some browsers.
+                & > .#{$module}-header {
+                    box-shadow: inset -$width-table_base_border 0 0 0 $color-table-border-default;
+                }
+            }
+        }
+
         :where(& > .#{$module}-container) {
             & > .#{$module}-body > .#{$module}-placeholder {
                 border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
@@ -572,6 +601,9 @@ $module: #{$prefix}-table;
         position: sticky;
         left: 0px;
         z-index: 1;
+        // In bordered mode, placeholder may receive an extra side border to complete the outer frame.
+        // Use border-box to avoid 1px horizontal overflow (and unwanted horizontal scrollbar) in empty data + scroll.y cases.
+        box-sizing: border-box;
         padding: #{$spacing-table-paddingY} #{$spacing-table-paddingX};
         color: $color-table_placeholder-text-default;
         font-size: #{$font-table_base-fontSize};
