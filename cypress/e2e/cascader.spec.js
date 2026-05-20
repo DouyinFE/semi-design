@@ -73,9 +73,18 @@ describe('cascader', () => {
 
     it('on exceed', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--cascader-with-max-on-exceed&args=&viewMode=story');
-        
-        // when autoMergeValue is true
-        cy.get('.semi-cascader-selection').eq(1).click();
+
+        // Wait for all three Cascaders' defaultValue tags to settle before
+        // clicking the trigger, otherwise re-render during mount can swallow
+        // the open click.
+        cy.get('.semi-cascader-selection').eq(1)
+            .find('.semi-tag-content').should('have.length', 2);
+
+        // when autoMergeValue is true.
+        // NOTE: clicking the selection center hits the inner Tag element
+        // (which stops propagation); click the right-side suffix area so the
+        // open handler on the selection wrapper fires.
+        cy.get('.semi-cascader-selection').eq(1).click('right');
         cy.contains('浙江省').click();
         cy.contains('杭州市').click();
         cy.get('input').eq(4).click({ force: true });
@@ -84,8 +93,8 @@ describe('cascader', () => {
 
         cy.get('body').click('right');
 
-        // when autoMergeValue is false
-        cy.get('.semi-cascader-selection').eq(2).click();
+        // when autoMergeValue is false (same: click suffix to avoid hitting Tag)
+        cy.get('.semi-cascader-selection').eq(2).click('right');
         cy.contains('浙江省').click();
         cy.get('input').eq(2).click({ force: true });
         cy.get('.semi-cascader-selection').eq(2).contains('海曙区');

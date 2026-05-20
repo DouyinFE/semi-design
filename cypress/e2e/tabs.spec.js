@@ -27,7 +27,11 @@ describe('tabs', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tabs--collapse-tabs&args=&viewMode=story');
         cy.viewport(800, 1600);
         cy.get('.semi-tabs-content').eq(0).contains('Content of card tab 0');
-        cy.get('.semi-button').eq(1).trigger('mouseover', { force: true });
+        // semi Dropdown trigger="hover" listens to native mouseenter, which
+        // cypress's `.trigger('mouseover')` does not reliably synthesize on
+        // React 16 (relatedTarget is missing, so onMouseEnter never fires).
+        // Use cypress-real-events' realHover() to dispatch real pointer events.
+        cy.get('.semi-button').eq(1).realHover();
         cy.get('.semi-dropdown').contains('Tab-6').click({ force: true });
         cy.get('.semi-tabs-content').eq(0).contains('Content of card tab 6');
 
