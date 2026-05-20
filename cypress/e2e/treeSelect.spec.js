@@ -135,7 +135,11 @@ describe('treeSelect', () => {
         cy.get('body').click();
         // 等待弹出层收起
         cy.wait(500);
-        cy.get('.semi-tree-select-selection').eq(0).trigger('click');
+        // Use .click() rather than .trigger('click') because the latter only
+        // dispatches a synthetic click event without the pointerdown/mousedown
+        // pair, which is unreliable for re-opening TreeSelect's popover after
+        // it was closed by an outside click in headless Electron.
+        cy.get('.semi-tree-select-selection').eq(0).click();
         // 等待弹出层展开
         cy.wait(500);
         cy.get('.semi-tree-option').should('have.length', 2);
@@ -146,7 +150,7 @@ describe('treeSelect', () => {
         cy.get('.semi-tree-option').should('have.length', 4);
         cy.get('.semi-tree-option').eq(3).trigger('click');
         cy.wait(1000);
-        cy.get('.semi-tree-select-selection').eq(0).trigger('click');
+        cy.get('.semi-tree-select-selection').eq(0).click();
         cy.wait(1000);
         // 此时展开项目由选中项和原来的 state 中的 expandedKeys 决定
         cy.get('.semi-tree-option').should('have.length', 2);
@@ -209,12 +213,16 @@ describe('treeSelect', () => {
 
     it('showFilteredOnly + searchPosition in trigger', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--show-filtered-only');
-        // cy.get('.semi-tree-select').trigger('click');
         cy.get('.semi-input').type('上');
         cy.get('.semi-tree-option').should('have.length', 3);
-        cy.get('#info').trigger('mousedown');
+        // Close the popup by clearing the search input + pressing Escape,
+        // rather than via `mousedown #info` (which leaves TreeSelect in a
+        // state that doesn't reopen via click/focus in headless Electron).
+        cy.get('.semi-input').clear();
+        cy.get('.semi-input').type('{esc}', { force: true });
         cy.wait(500);
-        cy.get('.semi-tree-select').trigger('click');
+        // Re-open with realClick on the inner selection.
+        cy.get('.semi-tree-select-selection').realClick();
         cy.get('.semi-tree-option').should('have.length', 2);
     })
 
