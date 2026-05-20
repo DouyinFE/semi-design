@@ -674,11 +674,89 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             }
         }
 
+        // Handle arrowPointAtCenter for center positions (top/bottom/left/right)
+        // For center positions, the arrow needs to point at trigger center, not Popover center
+        let cssArrowOffsetX: string | undefined;
+        let cssArrowOffsetY: string | undefined;
+        
+        if (showArrow) {
+            const isCenterPosition = ['top', 'bottom', 'left', 'right'].includes(position);
+            
+            if (isCenterPosition) {
+                if (arrowPointAtCenter) {
+                    // arrowPointAtCenter=true: arrow should point at trigger center
+                    // Calculate arrow position relative to Popover left/top edge
+                    
+                    if ((position === 'top' || position === 'bottom') && wrapperRect.width > 0) {
+                        // Popover center is at `left`, trigger center is at `middleX`
+                        // Arrow position from Popover left edge:
+                        // = middleX - (left - wrapperRect.width/2)
+                        // = middleX - left + wrapperRect.width/2
+                        // Percentage: (middleX - left) / wrapperRect.width + 0.5
+                        const arrowOffsetPercent = (middleX - left) / wrapperRect.width + 0.5;
+                        
+                        // Clamp to valid range to prevent arrow going outside Popover
+                        const minOffset = (horizontalArrowWidth / 2 + positionOffsetX) / wrapperRect.width;
+                        const maxOffset = 1 - minOffset;
+                        const clampedOffset = Math.max(minOffset, Math.min(maxOffset, arrowOffsetPercent));
+                        
+                        // Only set CSS variable if different from default 50%
+                        if (Math.abs(clampedOffset - 0.5) > 0.01) {
+                            cssArrowOffsetX = `${clampedOffset * 100}%`;
+                        }
+                    }
+                    
+                    if ((position === 'left' || position === 'right') && wrapperRect.height > 0) {
+                        const arrowOffsetPercent = (middleY - top) / wrapperRect.height + 0.5;
+                        
+                        const minOffset = (verticalArrowHeight / 2 + positionOffsetY) / wrapperRect.height;
+                        const maxOffset = 1 - minOffset;
+                        const clampedOffset = Math.max(minOffset, Math.min(maxOffset, arrowOffsetPercent));
+                        
+                        if (Math.abs(clampedOffset - 0.5) > 0.01) {
+                            cssArrowOffsetY = `${clampedOffset * 100}%`;
+                        }
+                    }
+                } else {
+                    // arrowPointAtCenter=false: arrow should be at Popover edge
+                    // Determine which edge based on trigger position in viewport
+                    
+                    if ((position === 'top' || position === 'bottom') && wrapperRect.width > 0) {
+                        const offsetXWithArrow = positionOffsetX + horizontalArrowWidth / 2;
+                        
+                        if (isTriggerNearLeft) {
+                            cssArrowOffsetX = `${(offsetXWithArrow / wrapperRect.width) * 100}%`;
+                        } else {
+                            cssArrowOffsetX = `${((wrapperRect.width - offsetXWithArrow) / wrapperRect.width) * 100}%`;
+                        }
+                    }
+                    
+                    if ((position === 'left' || position === 'right') && wrapperRect.height > 0) {
+                        const offsetYWithArrow = positionOffsetY + verticalArrowHeight / 2;
+                        
+                        if (isTriggerNearTop) {
+                            cssArrowOffsetY = `${(offsetYWithArrow / wrapperRect.height) * 100}%`;
+                        } else {
+                            cssArrowOffsetY = `${((wrapperRect.height - offsetYWithArrow) / wrapperRect.height) * 100}%`;
+                        }
+                    }
+                }
+            }
+        }
+
         // The left/top value here must be rounded, otherwise it will cause the small triangle to shake
         const style: Record<string, string | number> = {
             left: this._roundPixel(left),
             top: this._roundPixel(top),
         };
+
+        // Add CSS variables for arrow positioning
+        if (cssArrowOffsetX) {
+            style['--semi-tooltip-arrow-offset-x'] = cssArrowOffsetX;
+        }
+        if (cssArrowOffsetY) {
+            style['--semi-tooltip-arrow-offset-y'] = cssArrowOffsetY;
+        }
 
         let transform = '';
 
