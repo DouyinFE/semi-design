@@ -412,11 +412,6 @@ function withField<
          *
          */
         const handleChange = (newValue: any, e: any, ...other: any[]) => {
-            let fnKey = options.onKeyChangeFnName;
-            if (fnKey in props && typeof props[options.onKeyChangeFnName] === 'function') {
-                props[options.onKeyChangeFnName](newValue, e, ...other);
-            }
-
             // support various type component
             let val;
             if (!options.valuePath) {
@@ -461,6 +456,14 @@ function withField<
             // only validate when trigger includes change
             if (mergeTrigger.includes('change')) {
                 fieldValidate(val);
+            }
+
+            // Call user's onChange callback after value is updated, with latest values as additional parameter
+            let fnKey = options.onKeyChangeFnName;
+            if (fnKey in props && typeof props[options.onKeyChangeFnName] === 'function') {
+                // Get the latest values from foundation (already updated above)
+                const latestValues = updater.getValue();
+                props[options.onKeyChangeFnName](newValue, e, ...other, latestValues);
             }
         };
 
