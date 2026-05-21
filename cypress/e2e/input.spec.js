@@ -68,12 +68,11 @@ describe('input', () => {
 
     it('input autofocus should focus to text end', () => {
         cy.visit('http://localhost:6006/iframe.html?args=&id=input--fix-input-auto-focus&viewMode=story');
-        cy.wait(300);
-        cy.window().then(window => {
-            const inputStr = window.document.body.querySelector('.semi-input').value.length;
-            const count = inputStr.length;
-            cy.get('div[data-cy=start]').should('contain.text', inputStr);
-            cy.get('div[data-cy=end]').should('contain.text', inputStr);
+        cy.get('.semi-input').should('be.focused');
+        cy.get('.semi-input').then($input => {
+            const length = $input.val().length;
+            cy.get('div[data-cy=start]').should('contain.text', length);
+            cy.get('div[data-cy=end]').should('contain.text', length);
         });
     });
 });
