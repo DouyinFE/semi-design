@@ -251,8 +251,8 @@ function withField<
             setValue(val);
             let newOpts = {
                 ...callOpts,
-                // Field-level allowEmpty override for foundation.updateStateValue
-                fieldAllowEmpty: allowEmpty,
+                // Keep legacy key to avoid implicit allowEmpty behavior change
+                allowEmpty,
             };
             updater.updateStateValue(field, val, newOpts);
         };
@@ -452,21 +452,44 @@ function withField<
                 }
             } catch (err) {}
 
-            updateTouched(true, { notNotify: true, notUpdate: true });
-            updateValue(val);
+            /**
+             * Two-phase commit to balance:
+             * - Fix #579: allow user to read latest values in onChange (including via render-prop closure)
+             * - Keep legacy semantics when user's onChange throws: do NOT commit value into form state
+             *
+             * Phase 1 (prepare): write value into foundation silently (no notify / no forceUpdate)
+             * Phase 2 (commit): after user's onChange succeeds, update touched silently and then commit value with notify/forceUpdate
+             */
+            const prevLocalVal = getVal();
+            const prevFormVal = updater.getValue(field, { needClone: true });
+            const fnKey = options.onKeyChangeFnName;
+            try {
+                // prepare: update local controlled value + foundation value silently
+                setValue(val);
+                updater.updateStateValue(field, val, { notNotify: true, notUpdate: true, allowEmpty });
 
-            // Call user's onChange callback after value is updated, with latest values as additional parameter.
-            // Put it BEFORE validate to keep the timing closer to legacy behavior.
-            let fnKey = options.onKeyChangeFnName;
-            if (fnKey in props && typeof props[options.onKeyChangeFnName] === 'function') {
-                // Get the latest values from foundation (already updated above)
-                const latestValues = updater.getValue();
-                props[options.onKeyChangeFnName](newValue, e, ...other, latestValues);
-            }
+                // call user's onChange with latest values as additional parameter (last arg)
+                if (fnKey in props && typeof props[fnKey] === 'function') {
+                    const latestValues = updater.getValue();
+                    (props[fnKey] as any)(newValue, e, ...other, latestValues);
+                }
 
-            // only validate when trigger includes change
-            if (mergeTrigger.includes('change')) {
-                fieldValidate(val);
+                // prepare touched AFTER user's onChange to keep timing closer to legacy
+                setTouched(true);
+                updater.updateStateTouched(field, true, { notNotify: true, notUpdate: true });
+
+                // commit: trigger notify + forceUpdate once
+                updater.updateStateValue(field, val, { allowEmpty });
+
+                // validate when trigger includes change
+                if (mergeTrigger.includes('change')) {
+                    fieldValidate(val);
+                }
+            } catch (err) {
+                // rollback silent writes to keep legacy "throw => no commit" behavior
+                setValue(prevLocalVal);
+                updater.updateStateValue(field, prevFormVal, { notNotify: true, notUpdate: true, allowEmpty });
+                throw err;
             }
         };
 
