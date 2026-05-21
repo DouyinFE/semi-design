@@ -46,7 +46,14 @@ $module: #{$prefix}-modal;
         outline: 0;
         &-center{
             display: flex;
-            align-items: center;
+            // Use flex-start + auto margin instead of `align-items: center`.
+            // When content fits the viewport, `margin: auto` on the modal
+            // centers it vertically. When content exceeds the viewport, auto
+            // margins collapse to 0 per the flexbox spec, so the modal aligns
+            // to the top of the wrap and the wrap's `overflow: auto` can scroll
+            // to both the top and the bottom of the modal. This prevents the
+            // "centered modal becomes unreachable" bug when content overflows.
+            align-items: flex-start;
         }
     }
 
@@ -194,7 +201,10 @@ $module: #{$prefix}-modal;
 }
 
 .#{$module}-centered {
-    margin: 0 auto;
+    // `margin: auto` (instead of `0 auto`) lets the wrap's `display: flex;
+    // align-items: flex-start` produce visual vertical centering when content
+    // fits, while degrading to top-aligned + scrollable when content overflows.
+    margin: auto;
 }
 
 .#{$module}-popup {
