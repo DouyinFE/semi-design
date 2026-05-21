@@ -520,6 +520,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         const formAllowEmpty = this.getProp('allowEmpty');
 
         // priority at Field level
+        // NOTE: Keep legacy semantics here to avoid implicit breaking changes.
+        // (Field-level allowEmpty overriding behavior is handled during register/restore paths.)
         const allowEmpty = fieldAllowEmpty ? fieldAllowEmpty : formAllowEmpty;
 
         ObjectUtil.set(this.data.values, field, value, allowEmpty);
