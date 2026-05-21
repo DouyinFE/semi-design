@@ -673,6 +673,13 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const icon = this.renderIcon();
         const portalInnerStyle = omit(containerStyle, motion ? ['transformOrigin'] : undefined);
         const transformOrigin = get(containerStyle, 'transformOrigin');
+        // Extract CSS variables for arrow positioning and apply to wrapper element
+        const arrowOffsetX = get(containerStyle, '--semi-tooltip-arrow-offset-x');
+        const arrowOffsetY = get(containerStyle, '--semi-tooltip-arrow-offset-y');
+        const wrapperArrowStyle = {
+            ...(arrowOffsetX ? { '--semi-tooltip-arrow-offset-x': arrowOffsetX } : {}),
+            ...(arrowOffsetY ? { '--semi-tooltip-arrow-offset-y': arrowOffsetY } : {}),
+        } as React.CSSProperties;
         const userOpacity: CSSProperties['opacity'] | null = get(style, 'opacity', null);
         const opacity = userOpacity ? userOpacity : 1;
         const inner =
@@ -698,6 +705,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                                 ...(displayNone ? { display: "none" } : {}),
                                 transformOrigin,
                                 ...style,
+                                ...wrapperArrowStyle,
                                 ...(userOpacity ? { opacity: isPositionUpdated ? opacity : "0" } : {})
                             }}
                             {...portalEventSet}

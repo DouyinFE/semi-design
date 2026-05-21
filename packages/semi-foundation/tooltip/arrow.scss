@@ -23,7 +23,7 @@
 
         &[x-placement='top'] {
             .#{$module-icon} {
-                left: 50%;
+                left: var(--semi-tooltip-arrow-offset-x, 50%);
                 transform: translateX(-50%);
                 bottom: (-$height-tooltip_arrow + $spacing-tooltip_arrow_offset-y);
             }
@@ -61,7 +61,7 @@
                 width: $width-tooltip_arrow_vertical;
                 height: $height-tooltip_arrow_vertical;
                 right: (-$width-tooltip_arrow_vertical + $spacing-tooltip_arrow_offset-x);
-                top: 50%;
+                top: var(--semi-tooltip-arrow-offset-y, 50%);
                 transform: translateY(-50%);
             }
 
@@ -93,7 +93,7 @@
                 width: $width-tooltip_arrow_vertical;
                 height: $height-tooltip_arrow_vertical;
                 left: -$width-tooltip_arrow_vertical + $spacing-tooltip_arrow_offset-x;
-                top: 50%;
+                top: var(--semi-tooltip-arrow-offset-y, 50%);
                 transform: translateY(-50%) rotate(180deg);
             }
 
@@ -122,7 +122,7 @@
         &[x-placement='bottom'] {
             .#{$module-icon} {
                 top: (-$height-tooltip_arrow + $spacing-tooltip_arrow_offset-y);
-                left: 50%;
+                left: var(--semi-tooltip-arrow-offset-x, 50%);
                 transform: translateX(-50%) rotate(180deg);
             }
 
