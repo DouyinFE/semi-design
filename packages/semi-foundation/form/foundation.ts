@@ -520,7 +520,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         const formAllowEmpty = this.getProp('allowEmpty');
 
         // priority at Field level
-        const allowEmpty = fieldAllowEmpty ? fieldAllowEmpty : formAllowEmpty;
+        // NOTE: fieldAllowEmpty can be boolean false, which should still override formAllowEmpty.
+        const allowEmpty = typeof fieldAllowEmpty === 'boolean' ? fieldAllowEmpty : formAllowEmpty;
 
         ObjectUtil.set(this.data.values, field, value, allowEmpty);
         /**

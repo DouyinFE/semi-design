@@ -251,7 +251,8 @@ function withField<
             setValue(val);
             let newOpts = {
                 ...callOpts,
-                allowEmpty,
+                // Field-level allowEmpty override for foundation.updateStateValue
+                fieldAllowEmpty: allowEmpty,
             };
             updater.updateStateValue(field, val, newOpts);
         };
@@ -453,17 +454,19 @@ function withField<
 
             updateTouched(true, { notNotify: true, notUpdate: true });
             updateValue(val);
-            // only validate when trigger includes change
-            if (mergeTrigger.includes('change')) {
-                fieldValidate(val);
-            }
 
-            // Call user's onChange callback after value is updated, with latest values as additional parameter
+            // Call user's onChange callback after value is updated, with latest values as additional parameter.
+            // Put it BEFORE validate to keep the timing closer to legacy behavior.
             let fnKey = options.onKeyChangeFnName;
             if (fnKey in props && typeof props[options.onKeyChangeFnName] === 'function') {
                 // Get the latest values from foundation (already updated above)
                 const latestValues = updater.getValue();
                 props[options.onKeyChangeFnName](newValue, e, ...other, latestValues);
+            }
+
+            // only validate when trigger includes change
+            if (mergeTrigger.includes('change')) {
+                fieldValidate(val);
             }
         };
 
