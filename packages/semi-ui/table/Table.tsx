@@ -442,6 +442,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     position!: BodyScrollPosition;
     foundation: TableFoundation<RecordType>;
     context: TableContextProps;
+    resizeObserver: ResizeObserver | null;
+    hasBindWindowResize: boolean;
     constructor(props: NormalTableProps<RecordType>, context: TableContextProps) {
         super(props);
         this.foundation = new TableFoundation<RecordType>(this.adapter);
@@ -504,6 +506,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         this.cachedFilteredSortedDataSource = [];
         this.cachedFilteredSortedRowKeys = [];
         this.cachedFilteredSortedRowKeysSet = new Set();
+        this.resizeObserver = null;
+        this.hasBindWindowResize = false;
     }
 
     static getDerivedStateFromProps(props: NormalTableProps, state: NormalTableState) {
@@ -589,10 +593,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             setTimeout(() => this.setScrollPositionClassName(), 0);
         }
 
-        if (this.adapter.isAnyColumnFixed() || (this.props.showHeader && this.adapter.useFixedHeader())) {
-            this.handleWindowResize();
-            window.addEventListener('resize', this.debouncedWindowResize);
-        }
+        this.syncResizeListeners();
     }
 
     // TODO: Extract the setState operation to the adapter or getDerivedStateFromProps function
@@ -724,20 +725,23 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             }
         }
 
-        if (this.adapter.isAnyColumnFixed() || (this.props.showHeader && this.adapter.useFixedHeader())) {
-            if (!this.debouncedWindowResize) {
-                window.addEventListener('resize', this.debouncedWindowResize);
-            }
-        }
+        // Keep resize listeners in sync with current render mode.
+        // Must run on every update to correctly unbind when fixed mode is turned off.
+        this.syncResizeListeners();
     }
 
     componentWillUnmount() {
         super.componentWillUnmount();
 
+        this.unbindWindowResize();
         if (this.debouncedWindowResize) {
-            window.removeEventListener('resize', this.debouncedWindowResize);
             (this.debouncedWindowResize as any).cancel();
             this.debouncedWindowResize = null;
+        }
+
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+            this.resizeObserver = null;
         }
     }
 
@@ -922,8 +926,102 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     };
 
     syncTableWidth = () => {
-        if (this.rootWrapRef && this.rootWrapRef.current) {
-            this.setState({ tableWidth: this.rootWrapRef.current.getBoundingClientRect().width });
+        const wrapper = this.rootWrapRef?.current;
+        if (!wrapper) {
+            return;
+        }
+        const nextWidth = wrapper.getBoundingClientRect().width;
+        const prevWidth = this.state.tableWidth;
+        // Avoid unnecessary re-render when width hasn't changed.
+        if (typeof prevWidth === 'number' && Math.abs(prevWidth - nextWidth) < 0.5) {
+            return;
+        }
+        this.setState({ tableWidth: nextWidth });
+    };
+
+    /**
+     * Use ResizeObserver to monitor table wrapper width changes
+     * This handles cases where the container width changes but window size doesn't
+     * (e.g., sidebar collapse/expand, tab switch, modal appear/disappear)
+     */
+    observeTableWrapperResize = () => {
+        const tableWrapperDOM = this.rootWrapRef.current;
+        if (!tableWrapperDOM) {
+            return;
+        }
+
+        // Clean up existing observer if any
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+            this.resizeObserver = null;
+        }
+
+        // Check if ResizeObserver is supported
+        const RO = get(window, 'ResizeObserver');
+        if (!RO) {
+            return;
+        }
+
+        this.resizeObserver = new RO((_entries: ResizeObserverEntry[]) => {
+            // Use requestAnimationFrame to ensure we get accurate dimensions
+            // and avoid layout thrashing.
+            // NOTE: rAF/setTimeout must be invoked with `window` as `this` (Safari
+            // throws "Illegal invocation" otherwise), so call them as methods on
+            // `window` instead of caching them as bare function references.
+            const cb = () => {
+                this.syncTableWidth();
+                this.setScrollPositionClassName();
+            };
+            if (typeof window.requestAnimationFrame === 'function') {
+                window.requestAnimationFrame(cb);
+            } else {
+                window.setTimeout(cb, 0);
+            }
+        });
+
+        this.resizeObserver.observe(tableWrapperDOM);
+    };
+
+    needSyncTableWidth = () => this.adapter.isAnyColumnFixed() || (this.props.showHeader && this.adapter.useFixedHeader());
+
+    bindWindowResize = () => {
+        if (this.hasBindWindowResize) {
+            return;
+        }
+        if (this.debouncedWindowResize) {
+            window.addEventListener('resize', this.debouncedWindowResize);
+            this.hasBindWindowResize = true;
+        }
+    };
+
+    unbindWindowResize = () => {
+        if (!this.hasBindWindowResize) {
+            return;
+        }
+        if (this.debouncedWindowResize) {
+            window.removeEventListener('resize', this.debouncedWindowResize);
+        }
+        this.hasBindWindowResize = false;
+    };
+
+    syncResizeListeners = () => {
+        const needSync = this.needSyncTableWidth();
+        if (needSync) {
+            // Only sync immediately when we are enabling the listeners.
+            const wasBound = this.hasBindWindowResize;
+            this.bindWindowResize();
+            if (!this.resizeObserver) {
+                this.observeTableWrapperResize();
+            }
+            if (!wasBound) {
+                this.handleWindowResize();
+            }
+        } else {
+            this.unbindWindowResize();
+            if (this.resizeObserver) {
+                this.resizeObserver.disconnect();
+                this.resizeObserver = null;
+            }
         }
     };
 
