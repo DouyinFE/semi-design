@@ -964,12 +964,19 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
         this.resizeObserver = new RO((_entries: ResizeObserverEntry[]) => {
             // Use requestAnimationFrame to ensure we get accurate dimensions
-            // and avoid layout thrashing
-            const requestAnimationFrame = window.requestAnimationFrame || window.setTimeout;
-            requestAnimationFrame(() => {
+            // and avoid layout thrashing.
+            // NOTE: rAF/setTimeout must be invoked with `window` as `this` (Safari
+            // throws "Illegal invocation" otherwise), so call them as methods on
+            // `window` instead of caching them as bare function references.
+            const cb = () => {
                 this.syncTableWidth();
                 this.setScrollPositionClassName();
-            });
+            };
+            if (typeof window.requestAnimationFrame === 'function') {
+                window.requestAnimationFrame(cb);
+            } else {
+                window.setTimeout(cb, 0);
+            }
         });
 
         this.resizeObserver.observe(tableWrapperDOM);
