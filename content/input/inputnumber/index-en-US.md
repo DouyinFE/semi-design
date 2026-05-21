@@ -418,7 +418,9 @@ import { InputNumber } from '@douyinfe/semi-ui';
 ```
 
 <Notice type="info">
+
 Scientific notation only affects the display format. The values in `onChange` and `onNumberChange` callbacks are still full numbers. This feature is not supported in currency mode (`currency`).
+
 </Notice>
 
 ## API Reference

@@ -412,8 +412,11 @@ function Demo() {
 ### 组合组件 基本使用
 
 <Notice type='primary' title='注意事项'>
-`ResizeGroup`的父元素需要具有主轴方向上的尺寸 
-最好不要为`ResizeItem`设置`padding`，会导致最小尺寸不符合预期，可以为子元素设置`padding`
+
+`ResizeGroup` 的父元素需要具有主轴方向上的尺寸。
+
+最好不要为 `ResizeItem` 设置 `padding`，会导致最小尺寸不符合预期，可以为子元素设置 `padding`。
+
 </Notice>
 
 通过`direction`设置伸缩方向，可选值为`horizontal`和`vertical` 支持`onResizeStart`、`onChange`、`onResizeEnd`回调，支持`min`、`max`设置最大最小宽高

@@ -26,8 +26,10 @@ Tabs supports two declare ways, and the rendering process of the two is differen
 -   Or use `<TabPane>` to explicitly pass in item by item. When using `<TabPane>`, all panels will be rendered by default. You can set `keepDOM={false}` to only render the current panel, and there will be no animation effect at this time .
 
 <Notice title='Notice'>
-    1. When tabList and TabPane Children are used at the same time, the data passed in through tabList will be rendered first. It is not recommended to configure both <br/>
-    2. When using TabPane Children, TabPane must be a direct child element of Tabs, otherwise Tabs will not be able to correctly collect related attributes such as itemKey and other subcomponents
+
+1. When tabList and TabPane Children are used at the same time, the data passed in through tabList will be rendered first. It is not recommended to configure both
+2. When using TabPane Children, TabPane must be a direct child element of Tabs, otherwise Tabs will not be able to correctly collect related attributes such as itemKey and other subcomponents
+
 </Notice>
 
 ```jsx live=true
@@ -701,8 +703,13 @@ class App extends React.Component {
 You can implement drag-and-drop tab reordering using `renderTabBar` API combined with third-party drag libraries like [@dnd-kit](https://docs.dndkit.com/).
 
 <Notice title='Prerequisites'>
-    Install dnd-kit dependencies first:<br/>
-    <code>npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities</code>
+
+Install dnd-kit dependencies first:
+
+```bash
+npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities
+```
+
 </Notice>
 
 ```jsx live=true noInline=true hideInDSM

@@ -42,9 +42,11 @@ The Field level component provided by Form, its `value` (or other properties spe
 Properties are hijacked by Form, so
 
 <Notice type="primary" title="Notice">
-    <div>1. No longer need to manually bind the onChange event and update the value as controled component. But you can continue to listen onChange events for the latest values if you want</div>
-    <div>2. You cannot set the state of component with attributes such as `value`, `defaultValue`, `checked`, `defaultChecked`, etc. The default value can be set by Field's `initValue` or Form's `unitValues`</div>
-    <div>3. You should not modify the value of Form State directly, all changes to the data in the Form should be done by providing `formApi`, `fieldApi`</div>
+
+1. No longer need to manually bind the onChange event and update the value as controled component. But you can continue to listen onChange events for the latest values if you want
+2. You cannot set the state of component with attributes such as `value`, `defaultValue`, `checked`, `defaultChecked`, etc. The default value can be set by Field's `initValue` or Form's `unitValues`
+3. You should not modify the value of Form State directly, all changes to the data in the Form should be done by providing `formApi`, `fieldApi`
+
 </Notice>
 
 ## Demos
@@ -1220,12 +1222,14 @@ class FormLevelValidateAsync extends React.Component {
 You can specify a custom validation function for a single Field. **Recommended:** use `validator` (`validate` is legacy but still compatible). Supports synchronous and asynchronous validation (by returning promises)
 
 <Notice title='Field validator vs rules[].validator'>
-    The Field-level <code>validator</code> prop (introduced in v2.97.0) and the <code>validator</code> field inside <code>rules[]</code> (powered by async-validator) are two different APIs:
-    <ul>
-        <li><strong>Field <code>validator</code></strong>: signature is <code>(fieldValue, values) =&gt; string | Promise&lt;string&gt;</code>; whole-field custom validation that returns the error message directly.</li>
-        <li><strong><code>rules[].validator</code></strong>: signature is <code>(rule, value, callback) =&gt; void | Promise&lt;void&gt;</code>; per-rule validation in the <a href="https://github.com/yiminghe/async-validator">async-validator</a> style, where errors are reported via <code>callback</code> or rejection.</li>
-    </ul>
-    The two are <strong>mutually exclusive</strong>: if a Field <code>validator</code> (or the legacy <code>validate</code>) is set, the <code>rules</code> array will not be evaluated. Use the Field <code>validator</code> for simple whole-field custom checks; use <code>rules</code> when you need multiple rules or want to reuse built-in async-validator rules (required / type / pattern, etc.).
+
+The Field-level `validator` prop (introduced in v2.97.0) and the `validator` field inside `rules[]` (powered by async-validator) are two different APIs:
+
+- Field `validator`: signature is `(fieldValue, values) => string | Promise<string>`; whole-field custom validation that returns the error message directly.
+- `rules[].validator`: signature is `(rule, value, callback) => void | Promise<void>`; per-rule validation in the [async-validator](https://github.com/yiminghe/async-validator) style, where errors are reported via `callback` or rejection.
+
+The two are **mutually exclusive**: if a Field `validator` (or the legacy `validate`) is set, the `rules` array will not be evaluated. Use the Field `validator` for simple whole-field custom checks; use `rules` when you need multiple rules or want to reuse built-in async-validator rules (required / type / pattern, etc.).
+
 </Notice>
 
 ```jsx live=true dir="column"
@@ -1522,7 +1526,11 @@ In the example above:
 - The field without `keepState` will have its state reset after being hidden and then shown again
 
 <Notice type="primary" title="Notes">
-<div>`keepState` is designed for the "conditional unmount/remount" scenario and restores state by the field path. Fields inside an <code>ArrayField</code> do NOT support <code>keepState</code>: calling <code>remove(i)</code> shifts the positional field paths of the following rows (for example <code>people[1].name</code> becomes <code>people[0].name</code>), so "restore by path" no longer matches the user intent and easily revives state of removed rows. Passing <code>keepState</code> on a Field inside an <code>ArrayField</code> will be ignored and a warning will be printed. Manage array items via the <code>ArrayField</code>'s own <code>add</code> / <code>remove</code> / <code>addWithInitValue</code> instead.</div>
+
+- `keepState` is designed for the "conditional unmount/remount" scenario and restores state by the field path.
+- Fields inside an `ArrayField` do NOT support `keepState`: calling `remove(i)` shifts the positional field paths of the following rows (for example `people[1].name` becomes `people[0].name`), so "restore by path" no longer matches the user intent and easily revives state of removed rows.
+- Passing `keepState` on a Field inside an `ArrayField` will be ignored and a warning will be printed. Manage array items via the `ArrayField`'s own `add`, `remove`, `addWithInitValue` instead.
+
 </Notice>
 
 ### ArrayField Usage
@@ -2217,8 +2225,11 @@ The table below describes the features available in the formApi.
 
 
 <Notice title='About scope isolation'>
- In order to prevent the user from accidentally modifying the internal state of the Form component after reading the internal state of formState, values  
- Semi will automatically execute deepClone once for  input parameters of `formApi.setValue` and `setValues` and the return results of `formApi.getFormState`, `getValue` and `getValues ` 
+
+In order to prevent the user from accidentally modifying the internal state of the Form component after reading the internal state of formState, values.
+
+Semi will automatically execute deepClone once for input parameters of `formApi.setValue` and `setValues` and the return results of `formApi.getFormState`, `getValue` and `getValues`.
+
 </Notice>
 
 
@@ -2257,8 +2268,10 @@ The table below describes the features available in the formApi.
 `Form.useForm()` is used to **create** a formApi instance **outside** the Form component, suitable for scenarios where you need to control the form before it renders. It returns an array `[formApi, formState, formValues]`. **>=2.94.0**
 
 <Notice type="primary" title="Difference between Form.useForm() and useFormApi">
-<div><strong>Form.useForm()</strong>: Creates formApi <strong>outside</strong> Form, needs to be passed to Form via props.form. Used for parent components controlling child Form.</div>
-<div><strong>useFormApi</strong>: Gets formApi <strong>inside</strong> Form, used for child components of Form to access the parent Form. See [useFormApi](#useFormApi).</div>
+
+- **Form.useForm()**: Creates formApi **outside** Form, needs to be passed to Form via props.form. Used for parent components controlling child Form.
+- **useFormApi**: Gets formApi **inside** Form, used for child components of Form to access the parent Form. See [useFormApi](#useFormApi).
+
 </Notice>
 
 Usage example:
@@ -2298,7 +2311,9 @@ import { Form, Button } from '@douyinfe/semi-ui';
 ```
 
 <Notice type="primary" title="Notice">
+
 When using formApi created by `Form.useForm()` before the Form component mounts, a warning will be logged in the console. It is recommended to call formApi methods after the Form has mounted.
+
 </Notice>
 
 ```jsx

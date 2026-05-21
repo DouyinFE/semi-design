@@ -253,8 +253,6 @@ function Demo() {
         </Space>
     );
 }
-
-render(Demo);
 ```
 
 ### Show Small Triangle

@@ -16,6 +16,20 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.99.0 (2026-05-21)
+- 【Fix】
+    - Fixed Cascader component not highlighting matched text when search keyword case differs from option label case with filterTreeNode enabled [#3296](https://github.com/DouyinFE/semi-design/issues/3296) [#3297](https://github.com/DouyinFE/semi-design/pull/3297)
+    - Fixed Cascader keyword highlight lost after selecting search result [#3295](https://github.com/DouyinFE/semi-design/issues/3295) [#3299](https://github.com/DouyinFE/semi-design/pull/3299)
+    - Fixed Cascader separator whitespace missing in search results [#3295](https://github.com/DouyinFE/semi-design/issues/3295) [#3299](https://github.com/DouyinFE/semi-design/pull/3299)
+    - Fixed Form Field onChange callback unable to get latest values in render props pattern. The onChange callback now receives an additional parameter (last argument) containing the latest form values [#579](https://github.com/DouyinFE/semi-design/issues/579) [#3294](https://github.com/DouyinFE/semi-design/pull/3294)
+    - Fixed Table right border not being visible before scrolling to the right edge in horizontal scroll mode [#441](https://github.com/DouyinFE/semi-design/issues/441) [#3291](https://github.com/DouyinFE/semi-design/pull/3291)
+    - Fixed Table expanded row width not updating when container width changes dynamically [#659](https://github.com/DouyinFE/semi-design/issues/659) [#3292](https://github.com/DouyinFE/semi-design/pull/3292)
+    - Fixed Tooltip / Popover arrowPointAtCenter prop not working for center positions (top/bottom/left/right). The arrow position now adjusts dynamically based on actual scenario [#1822](https://github.com/DouyinFE/semi-design/issues/1822) [#3290](https://github.com/DouyinFE/semi-design/pull/3290)
+- 【Docs】
+    - Fixed Notice formatting in multiple component docs (Form / Cascader / Tabs / Typography / MarkdownRender, etc.) by using consistent Markdown syntax to avoid backticks and raw HTML being rendered literally
+    - Fixed Cascader remote search demo where `async/await` caused a react-live compile error
+    - Fixed Tooltip / Popover condition demo incorrectly calling `render()` in inline live mode, which caused a SyntaxError
+
 #### 🎉 2.98.0 (2026-05-19)
 - 【Feat】
     - Added `@douyinfe/semi-vite-plugin`, an official Vite plugin for Semi Design that mirrors `@douyinfe/semi-webpack-plugin`. Supports theme customization, CSS class prefix replacement, SCSS variable overrides, `@layer` wrapping, and stripping CSS imports inside Semi packages [#2390](https://github.com/DouyinFE/semi-design/issues/2390) [#3242](https://github.com/DouyinFE/semi-design/issues/3242) [#3275](https://github.com/DouyinFE/semi-design/pull/3275)

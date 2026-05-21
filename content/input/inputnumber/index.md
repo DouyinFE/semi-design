@@ -395,7 +395,9 @@ import { InputNumber } from '@douyinfe/semi-ui';
 ```
 
 <Notice type="info">
+
 科学计数法仅影响显示格式，`onChange` 和 `onNumberChange` 回调中的值仍为完整数字。该功能不支持货币模式（`currency`）。
+
 </Notice>
 
 ## API 参考

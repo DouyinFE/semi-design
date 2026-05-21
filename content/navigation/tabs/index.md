@@ -24,8 +24,10 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
 -   或使用 `<TabPane>` 逐项显式传入，使用 `<TabPane>` 时默认会渲染所有面板，可以通过设置 `keepDOM={false}` 只渲染当前面板，此时不会有动画效果。
 
 <Notice title='注意事项'>
-    1. tabList 与 TabPane Children 同时使用时，会优先渲染通过 tabList 传入的数据。不建议同时配置 <br/>
-    2. 使用 TabPane Children 时， TabPane 必须为 Tabs 的直接子元素，否则 Tabs 将无法正确收集子组件如 itemKey 等相关属性
+
+1. tabList 与 TabPane Children 同时使用时，会优先渲染通过 tabList 传入的数据。不建议同时配置
+2. 使用 TabPane Children 时，TabPane 必须为 Tabs 的直接子元素，否则 Tabs 将无法正确收集子组件如 itemKey 等相关属性
+
 </Notice>
 
 ```jsx live=true
@@ -716,8 +718,13 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
 通过 `renderTabBar` API 结合第三方拖拽库（如 [@dnd-kit](https://docs.dndkit.com/)）可以实现标签栏的拖拽排序功能。
 
 <Notice title='使用前提'>
-    需要先安装 dnd-kit 相关依赖：<br/>
-    <code>npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities</code>
+
+需要先安装 dnd-kit 相关依赖：
+
+```bash
+npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities
+```
+
 </Notice>
 
 ```jsx live=true noInline=true hideInDSM

@@ -128,10 +128,13 @@ After `insetInput` is turned on, it includes the following functions:
 - Consistent with the external input box, if an illegal date is entered, the date will return to the previous legal date after the panel is closed
 
 <Notice type="primary" title="Notes">
-     <div>Note that some adjustments and restrictions will be made to the components after opening insetInput:</div>
-     <div>1. Trigger style: the trigger is read-only when the panel is not open, and the trigger is disabled when it is open</div>
-     <div>2. Panel style: when type includes time, hide the toggle button at the bottom</div>
-     <div>3. After insetInput is enabled, the `format` API only supports the `dateFormat[ timeFormat]` format. Using other formats will affect the display of the inset input box placeholder and trigger text</div>
+
+Note that some adjustments and restrictions will be made to the components after opening insetInput:
+
+1. Trigger style: the trigger is read-only when the panel is not open, and the trigger is disabled when it is open
+2. Panel style: when type includes time, hide the toggle button at the bottom
+3. After insetInput is enabled, the `format` API only supports the `dateFormat[ timeFormat]` format. Using other formats will affect the display of the inset input box placeholder and trigger text
+
 </Notice>
 
 ```jsx live=true

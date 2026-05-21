@@ -284,8 +284,6 @@ function Demo() {
         </Space>
     );
 }
-
-render(Demo);
 ```
 
 ### 覆盖特定样式

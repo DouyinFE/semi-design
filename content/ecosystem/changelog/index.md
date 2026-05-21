@@ -14,6 +14,20 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.99.0 (2026-05-21)
+- 【Fix】
+    - 修复 Cascader 组件在开启 filterTreeNode 时，搜索关键词与选项 label 大小写不一致导致匹配结果无法高亮的问题 [#3296](https://github.com/DouyinFE/semi-design/issues/3296) [#3297](https://github.com/DouyinFE/semi-design/pull/3297)
+    - 修复 Cascader 组件搜索选中后关键词高亮丢失的问题 [#3295](https://github.com/DouyinFE/semi-design/issues/3295) [#3299](https://github.com/DouyinFE/semi-design/pull/3299)
+    - 修复 Cascader 组件搜索结果中路径分隔符空格丢失的问题 [#3295](https://github.com/DouyinFE/semi-design/issues/3295) [#3299](https://github.com/DouyinFE/semi-design/pull/3299)
+    - 修复 Form Field 组件的 onChange 回调在 render props 模式下无法获取最新 values 的问题。现在 onChange 回调会接收一个额外的参数（最后一个参数），包含更新后的最新 form values [#579](https://github.com/DouyinFE/semi-design/issues/579) [#3294](https://github.com/DouyinFE/semi-design/pull/3294)
+    - 修复 Table 组件在水平滚动模式下右侧边框未滚动时不显示的问题 [#441](https://github.com/DouyinFE/semi-design/issues/441) [#3291](https://github.com/DouyinFE/semi-design/pull/3291)
+    - 修复 Table 组件在容器宽度动态变化时展开行宽度不同步更新的问题 [#659](https://github.com/DouyinFE/semi-design/issues/659) [#3292](https://github.com/DouyinFE/semi-design/pull/3292)
+    - 修复 Tooltip / Popover 组件的 arrowPointAtCenter prop 在 position 为 top/bottom/left/right 时不起作用的问题，箭头位置现在可以根据实际场景动态调整 [#1822](https://github.com/DouyinFE/semi-design/issues/1822) [#3290](https://github.com/DouyinFE/semi-design/pull/3290)
+- 【Docs】
+    - 修复多个组件文档 Notice 格式问题（Form / Cascader / Tabs / Typography / MarkdownRender 等），统一使用 Markdown 语法，避免反引号、HTML 标签被字面渲染
+    - 修复 Cascader 远程搜索 demo 中 async/await 语法导致 react-live 编译报错的问题
+    - 修复 Tooltip / Popover 的 condition demo 在 inline live 模式下错误调用 render() 导致 SyntaxError 的问题
+
 #### 🎉 2.98.0 (2026-05-19)
 - 【Feat】
     - 新增 `@douyinfe/semi-vite-plugin` 包，提供 Vite 构建场景下的主题定制、CSS 类名前缀替换、SCSS 变量覆盖、`@layer` 包裹、Semi 包 CSS import 剔除等能力，与 `@douyinfe/semi-webpack-plugin` 特性对齐 [#2390](https://github.com/DouyinFE/semi-design/issues/2390) [#3242](https://github.com/DouyinFE/semi-design/issues/3242) [#3275](https://github.com/DouyinFE/semi-design/pull/3275)

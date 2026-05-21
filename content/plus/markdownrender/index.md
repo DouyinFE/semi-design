@@ -144,8 +144,11 @@ function Demo() {
 ```
 
 <Notice type="primary" title="format='md' 模式下 HTML 标签的处理">
-  <div>在 format="md" 模式下，Markdown 中嵌入的 raw HTML（如 {'`<div>`'}、{'`<span style="color:red">`'} 等）会被底层编译器移除，不会渲染到页面上。这是 @mdx-js/mdx 在 md 模式下的默认行为。</div>
-  <div>如果你需要在 format="md" 模式下保留 HTML 标签的渲染，可以通过 rehypePlugins 传入 rehype-raw 插件：</div>
+
+在 `format="md"` 模式下，Markdown 中嵌入的 raw HTML（如 `<div>`、`<span style="color:red">` 等）会被底层编译器移除，不会渲染到页面上。这是 @mdx-js/mdx 在 md 模式下的默认行为。
+
+如果你需要在 `format="md"` 模式下保留 HTML 标签的渲染，可以通过 rehypePlugins 传入 rehype-raw 插件：
+
 </Notice>
 
 ```jsx

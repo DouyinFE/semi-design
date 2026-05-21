@@ -125,8 +125,11 @@ function Demo() {
 ```
 
 <Notice type="primary" title="HTML tags handling in format='md' mode">
-  <div>In format="md" mode, raw HTML embedded in Markdown (such as {'`<div>`'}, {'`<span style="color:red">`'}, etc.) will be removed by the underlying compiler and will not be rendered on the page. This is the default behavior of @mdx-js/mdx in md mode.</div>
-  <div>If you need to preserve HTML tag rendering in format="md" mode, you can pass the rehype-raw plugin via rehypePlugins:</div>
+
+In `format="md"` mode, raw HTML embedded in Markdown (such as `<div>`, `<span style="color:red">`, etc.) will be removed by the underlying compiler and will not be rendered on the page. This is the default behavior of @mdx-js/mdx in md mode.
+
+If you need to preserve HTML tag rendering in `format="md"` mode, you can pass the rehype-raw plugin via rehypePlugins:
+
 </Notice>
 
 ```jsx

@@ -258,8 +258,10 @@ This feature can be turned on by passing in `rowSelection`.
 -   Clicking on the row selection box will select the current row. Its callback function is `onSelect`;
 
 <Notice title='注意事项'>
-    <div>1. Be sure to provide a "key" for each row of data that is different from other row values, or use the rowKey parameter to specify a property name as the primary key.</div>
-    <div>2. If you encounter the problem of returning to the first page after clicking a row selection on the second page, please check whether component rendering triggers "dataSource" update (shallow equal). After the "dataSource" is updated, the uncontrolled page turner will return to the first page. Please put "dataSource" inside state. </div>
+
+1. Be sure to provide a "key" for each row of data that is different from other row values, or use the rowKey parameter to specify a property name as the primary key.
+2. If you encounter the problem of returning to the first page after clicking a row selection on the second page, please check whether component rendering triggers "dataSource" update (shallow equal). After the "dataSource" is updated, the uncontrolled page turner will return to the first page. Please put "dataSource" inside state.
+
 </Notice>
 
 ```jsx live=true noInline=true dir="column"
@@ -1885,8 +1887,10 @@ render(App);
 ### A Table That Can Be Expanded
 
 <Notice type="primary" title="Note">
-    <div>1. The unfold button will be rendered in the same cell as the first column, and you can open a separate column of rendering by passing in `hideExpandedColumn = {false}`.</div>
-    <div>2. Be sure to provide a "key" for each row of data that is different from the other row values, or use the rowKey parameter to specify an attribute name as the primary key.</div>
+
+1. The unfold button will be rendered in the same cell as the first column, and you can open a separate column of rendering by passing in `hideExpandedColumn = {false}`.
+2. Be sure to provide a "key" for each row of data that is different from the other row values, or use the rowKey parameter to specify an attribute name as the primary key.
+
 </Notice>
 
 #### A Common Table That Can Be Expanded

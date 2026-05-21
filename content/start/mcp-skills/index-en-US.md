@@ -52,16 +52,19 @@ Through Semi Skills, AI assistants can think and code like professional Semi Des
 ## Installation Guide
 
 <Notice type="warning" title='⚠️ Version Recommendations'>
+
 Before starting the installation, it is recommended that your environment meets the following version requirements:
 
 - **Node.js**: Recommended version greater than 20.19.0
 - **npm**: Recommended version greater than 11.3.0
 
 If the versions do not meet the requirements, MCP may not run properly. You can check your current versions with the following commands:
+
 ```bash
 node -v
 npm -v
 ```
+
 </Notice>
 
 ### Install MCP
@@ -69,7 +72,9 @@ npm -v
 Installation methods vary by client. Here are the configuration methods for common clients:
 
 <Notice title='💡 ByteDance Intranet Users'>
+
 Public network MCP cannot be used within the intranet. If you are a ByteDance intranet user, please change the package name to `@ies/semi-mcp-bytedance`, or search for "Semi" in the ByteDance Cloud MCP Marketplace to add with one click.
+
 </Notice>
 
 #### Claude Desktop
@@ -114,7 +119,9 @@ claude mcp add semi-mcp -- npx -y @douyinfe/semi-mcp
 #### Troubleshooting
 
 <Notice type="warning" title='⚠️ oxc-parser Related Errors'>
+
 If you encounter `oxc-parser` or similar dependency resolution errors when running MCP, this is a known npm bug. Please follow these steps to resolve: First, upgrade npm to the latest version `npm install -g npm@latest`, then manually install globally in the terminal `npm i -g @douyinfe/semi-mcp` (ByteDance intranet users should replace the package name), and finally try configuring MCP again.
+
 </Notice>
 
 ### Install Skills

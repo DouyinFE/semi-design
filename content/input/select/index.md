@@ -161,8 +161,10 @@ import { Select } from '@douyinfe/semi-ui';
 用 OptGroup 进行分组（分组功能仅支持通过 jsx 方式声明 children 使用，不支持 optionList 方式传入）
 
 <Notice title='注意'>
-  1. OptGroup必须为Select的直接子元素，不允许有Fragment或DIV等其他元素阻隔 <br/>
-  2. 若Select的children需要动态更新，OptGroup上的key也需要进行更新，否则Select无法识别  
+
+1. OptGroup 必须为 Select 的直接子元素，不允许有 Fragment 或 DIV 等其他元素阻隔
+2. 若 Select 的 children 需要动态更新，OptGroup 上的 key 也需要进行更新，否则 Select 无法识别
+
 </Notice>
 
 ```jsx live=true
@@ -915,7 +917,9 @@ import { Select } from '@douyinfe/semi-ui';
 此时`onChange`函数的入参将会是 object，包含 option 的各种属性，例如 `onChange({ value, label, ...rest })`
 
 <Notice title='注意'>
-  当 onChangeWithObject 置为 true 时，`defaultValue`/`Value`也应为 object，且须带有`value`、`label` key
+
+当 onChangeWithObject 置为 true 时，`defaultValue` / `Value` 也应为 object，且须带有 `value`、`label` key
+
 </Notice>
 
 ```jsx live=true hideInDSM
@@ -1033,9 +1037,11 @@ virtualize 是一个包含下列值的对象：
 -   itemSize: 每行 Option 的高度，必传
 
 <Notice title='注意事项'>
-    Semi Select virtualize 功能是基于 react-window 的封装，虚拟化列表默认会被包裹在 `will-change: transform` 的 div 内部。
-    在某些浏览器（例如 Chrome），某些特定的屏幕尺寸下，屏幕物理像素尺寸与浏览器处理的像素无法对齐时，会自动开启抗锯齿。从而导致虚拟列表中的文本字体可能会在特定场景下存在模糊的情况。
-    will-change 对于复杂元素的渲染会有性能改善，所以我们默认不会对 react-window的样式进行覆盖。如果你希望关闭这个效果，可以通过自行覆盖 CSS，将 will-change 设置为 unset 解决
+
+Semi Select virtualize 功能是基于 react-window 的封装，虚拟化列表默认会被包裹在 `will-change: transform` 的 div 内部。
+在某些浏览器（例如 Chrome），某些特定的屏幕尺寸下，屏幕物理像素尺寸与浏览器处理的像素无法对齐时，会自动开启抗锯齿。从而导致虚拟列表中的文本字体可能会在特定场景下存在模糊的情况。
+will-change 对于复杂元素的渲染会有性能改善，所以我们默认不会对 react-window 的样式进行覆盖。如果你希望关闭这个效果，可以通过自行覆盖 CSS，将 will-change 设置为 unset 解决
+
 </Notice>
 
 <Notice title='关于高度设置'>

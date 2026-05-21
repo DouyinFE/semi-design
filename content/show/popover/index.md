@@ -256,8 +256,6 @@ function Demo() {
         </Space>
     );
 }
-
-render(Demo);
 ```
 
 ### 显示小三角

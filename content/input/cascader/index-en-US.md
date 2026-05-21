@@ -1837,13 +1837,14 @@ import { Cascader } from '@douyinfe/semi-ui';
 **v>=2.97.0** Cascader supports remote search. With `remote` enabled, search input no longer goes through local filtering — only the `onSearch` callback is fired, and you are responsible for fetching `treeData` asynchronously based on the input. This mirrors Select's `remote` behavior.
 
 <Notice title='Usage notes'>
+
 You should typically handle the following yourself when using remote search:
-<ul>
-    <li><strong>Debounce</strong>: avoid firing a request on every keystroke; wrapping the search handler with <code>lodash.debounce</code> (e.g. 200~300ms) is the common approach.</li>
-    <li><strong>Race-condition protection</strong>: use an incrementing token or an <code>AbortController</code> to drop stale responses, otherwise an out-of-order earlier response may overwrite the latest one.</li>
-    <li><strong>Loading hint</strong>: show a loading state via an outer <code>Spin</code> or other indicator while the request is in flight, otherwise users may misread an in-flight state as "no data".</li>
-    <li><strong>Empty / cleared input</strong>: when the input is cleared, restore <code>treeData</code> to the initial state instead of querying with an empty keyword.</li>
-</ul>
+
+- **Debounce**: avoid firing a request on every keystroke; wrapping the search handler with `lodash.debounce` (e.g. 200~300ms) is the common approach.
+- **Race-condition protection**: use an incrementing token or an `AbortController` to drop stale responses, otherwise an out-of-order earlier response may overwrite the latest one.
+- **Loading hint**: show a loading state via an outer `Spin` or other indicator while the request is in flight, otherwise users may misread an in-flight state as "no data".
+- **Empty / cleared input**: when the input is cleared, restore `treeData` to the initial state instead of querying with an empty keyword.
+
 </Notice>
 
 ```jsx live=true
@@ -1875,7 +1876,7 @@ import { debounce } from 'lodash';
         });
 
     const handleSearch = useCallback(
-        debounce(async (input) => {
+        debounce((input) => {
             if (!input) {
                 setTreeData([]);
                 setLoading(false);
@@ -1883,13 +1884,14 @@ import { debounce } from 'lodash';
             }
             const token = ++reqTokenRef.current;
             setLoading(true);
-            const next = await fetchByKeyword(input);
-            // out-of-order earlier response — drop it
-            if (token !== reqTokenRef.current) {
-                return;
-            }
-            setTreeData(next);
-            setLoading(false);
+            fetchByKeyword(input).then((next) => {
+                // out-of-order earlier response — drop it
+                if (token !== reqTokenRef.current) {
+                    return;
+                }
+                setTreeData(next);
+                setLoading(false);
+            });
         }, 300),
         []
     );

@@ -1746,13 +1746,14 @@ import { Cascader } from '@douyinfe/semi-ui';
 **v>=2.97.0** 起 Cascader 支持远程搜索。设置 `remote` 后，搜索输入不再走本地匹配，而是仅触发 `onSearch` 回调，由你根据输入异步拉取 `treeData`。这与 Select 的 `remote` 行为一致。
 
 <Notice title='使用说明'>
+
 搜索时建议自行处理以下几点：
-<ul>
-    <li><strong>防抖（debounce）</strong>：避免每次按键都打请求，常见做法是用 <code>lodash.debounce</code> 包裹搜索逻辑（如 200~300ms）。</li>
-    <li><strong>竞态保护</strong>：用一个递增 token / AbortController 丢弃过期请求结果，避免后发先到时旧响应覆盖新响应。</li>
-    <li><strong>loading 提示</strong>：在请求期间通过外层 <code>Spin</code> 或简单的提示元素告知用户「加载中」，否则用户会看到「暂无数据」误以为无结果。</li>
-    <li><strong>初始 / 空输入处理</strong>：输入被清空时把 <code>treeData</code> 还原为初始数据，避免空查询拉数据。</li>
-</ul>
+
+- **防抖（debounce）**：避免每次按键都打请求，常见做法是用 `lodash.debounce` 包裹搜索逻辑（如 200~300ms）。
+- **竞态保护**：用一个递增 token 或 `AbortController` 丢弃过期请求结果，避免后发先到时旧响应覆盖新响应。
+- **loading 提示**：在请求期间通过外层 `Spin` 或简单的提示元素告知用户「加载中」，否则用户会看到「暂无数据」误以为无结果。
+- **初始 / 空输入处理**：输入被清空时把 `treeData` 还原为初始数据，避免空查询拉数据。
+
 </Notice>
 
 ```jsx live=true
@@ -1784,7 +1785,7 @@ import { debounce } from 'lodash';
         });
 
     const handleSearch = useCallback(
-        debounce(async (input) => {
+        debounce((input) => {
             if (!input) {
                 setTreeData([]);
                 setLoading(false);
@@ -1792,13 +1793,14 @@ import { debounce } from 'lodash';
             }
             const token = ++reqTokenRef.current;
             setLoading(true);
-            const next = await fetchByKeyword(input);
-            // 后发先到时直接丢弃过期结果
-            if (token !== reqTokenRef.current) {
-                return;
-            }
-            setTreeData(next);
-            setLoading(false);
+            fetchByKeyword(input).then((next) => {
+                // 后发先到时直接丢弃过期结果
+                if (token !== reqTokenRef.current) {
+                    return;
+                }
+                setTreeData(next);
+                setLoading(false);
+            });
         }, 300),
         []
     );

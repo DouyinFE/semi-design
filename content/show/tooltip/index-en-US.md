@@ -282,8 +282,6 @@ function Demo() {
         </Space>
     );
 }
-
-render(Demo);
 ```
 
 ### Override Style
