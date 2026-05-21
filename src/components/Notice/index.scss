@@ -43,5 +43,19 @@
     &-body {
         line-height: 1.8;
         color: var(--semi-color-text-1);
+
+        // MDX 将段落映射为 div.gatsby-p（块级），与 <code> 交错时会导致每个 code 单独换行
+        .gatsby-p {
+            display: inline;
+            margin: 0;
+        }
+
+        code {
+            display: inline;
+        }
+
+        > div + div {
+            margin-top: $bf * 0.5;
+        }
     }
 }
