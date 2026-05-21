@@ -650,7 +650,9 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             } else if (selectedKeys.size && !multiple) {
                 inputValue = this.renderDisplayText([...selectedKeys][0]);
             }
-            this._adapter.updateStates({ inputValue });
+            // Reset isSearching immediately in close() instead of relying on afterClose callback
+            // This prevents timing issues where open() clears inputValue but isSearching is still true
+            this._adapter.updateStates({ inputValue, isSearching: false });
             !multiple && this.toggle2SearchInput(false);
             !multiple && this._adapter.updateFocusState(false);
         }

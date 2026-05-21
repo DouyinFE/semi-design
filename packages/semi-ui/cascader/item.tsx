@@ -196,13 +196,23 @@ export default class Item extends PureComponent<CascaderItemProps> {
                             </span>
                         );
                     }
-                    content.push(node);
+                    // Only push non-empty strings to avoid React merging adjacent text nodes
+                    // which would cause separator spaces to be lost
+                    if (node !== '') {
+                        content.push(node);
+                    }
                 });
             } else {
                 content.push(item);
             }
             if (idx !== searchText.length - 1) {
-                content.push(separator);
+                // Use a span wrapper for separator to prevent React from merging
+                // it with adjacent empty strings, which would lose spaces in " / "
+                content.push(
+                    <span className={`${prefixcls}-label-separator`} key={`sep-${idx}`}>
+                        {separator}
+                    </span>
+                );
             }
         });
         return content;
