@@ -1529,10 +1529,11 @@ render(StreamingResponseToMessageDemo);
 | chats | Controlled conversation messages | Message[] | - |
 | className | Custom class name | string | - |
 | disabledFileItemClick | Disable file click | boolean | false |
+| escapeHtml | Whether to escape HTML tags in user messages to prevent them from being treated as HTML by the Markdown parser, which would cause content loss | boolean | true |
 | hintCls | Hint area outer wrapper class name | string | - |
 | hints | Hint texts | string[] | - |
 | hintStyle | Hint area outer wrapper style | CSSProperties | - |
-| markdownRenderProps | Props passed to the MarkdownRender used by the dialogue. See [MarkdownRenderProps](/zh-CN/plus/markdownrender#API) | MarkdownRenderProps | - |
+| markdownRenderProps | Props passed to the MarkdownRender used by the dialogue. See [MarkdownRenderProps](/zh-CN/plus/markdownrender#API). Note: When customizing `markdownRenderProps.components`, if a `code` component is included, it will override the default code block renderer. To preserve default functionality while customizing, use `AIChatDialogue.defaultComponents.code` to get the default component for extension. | MarkdownRenderProps | - |
 | messageEditRender | Custom message edit renderer | (props: MessageContent) => React.ReactNode | - |
 | mode | Conversation mode | 'bubble' \| 'noBubble' \| 'userBubble' | 'bubble' |
 | onAnnotationClick | Annotation click callback | (annotation?: Annotation) => void | - |
@@ -1598,6 +1599,39 @@ render(StreamingResponseToMessageDemo);
 | selectAll | Select all messages |
 | deselectAll | Deselect all messages |
 | scrollToBottom(animation: boolean) | Scroll to bottom; if `true`, animate; otherwise no animation |
+| scrollToTop(animation: boolean) | Scroll to top; if `true`, animate; otherwise no animation |
+
+### Static Properties
+| Property  | Description   | Type |
+|------|--------|------|
+| defaultComponents | Default Markdown rendering components, including an enhanced Code component with language identifier and copy functionality. Can be used for extending `markdownRenderProps.components` **>=2.94.0** | { code: React.ComponentType } |
+
+**Usage Example:**
+
+To preserve default functionality while customizing code block rendering, access the default component via `AIChatDialogue.defaultComponents.code`:
+
+```jsx
+import { AIChatDialogue } from '@douyinfe/semi-ui';
+
+function CustomCodeDemo() {
+    return (
+        <AIChatDialogue
+            chats={messages}
+            roleConfig={roleConfig}
+            markdownRenderProps={{
+                components: {
+                    code: (props) => {
+                        // Get the default Code component
+                        const DefaultCode = AIChatDialogue.defaultComponents.code;
+                        // Add custom logic here
+                        return <DefaultCode {...props} />;
+                    }
+                }
+            }}
+        />
+    );
+}
+```
 
 ### ContentItem
 `ContentItem` supports all OpenAI Response [InputItem](https://platform.openai.com/docs/api-reference/responses/create#responses-create-input) and [OutputItem](https://platform.openai.com/docs/api-reference/responses/object#responses/object-output) types. Definitions:

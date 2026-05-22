@@ -419,8 +419,11 @@ function Demo() {
 
 ### Group Component 
 <Notice type='primary' title='notice'>
+
 The parent element of `ResizeGroup` needs to have a size in the main axis direction.
+
 It's best not to set padding for ResizeItem, as it may cause the minimum size to not match the expected value. You can set padding for child elements instead.
+
 </Notice>
 
 

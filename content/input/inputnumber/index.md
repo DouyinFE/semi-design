@@ -118,6 +118,13 @@ import { InputNumber } from '@douyinfe/semi-ui';
 
 > formatter 和 parser 一对方法，一般需要同时设置，否则无法正确解析值
 
+<Notice type="info" title="2.95.0 行为调整">
+
+- **2.94.0 及之前**：当 InputNumber 处于**受控模式**（传入 `value`）且 `value` 为 **number** 时，首次渲染阶段输入框的展示值可能不会先经过 `formatter` 处理，组件会在 mount 后（或后续更新）再应用 `formatter/parser`，从而出现首帧展示与后续不一致的现象。
+- **2.95.0 及之后**：受控模式下当 `value` 为 **number** 时，首次渲染也会应用 `formatter`（并与 `parser` 配合得到内部数值），保证首帧展示与后续一致。例如百分比场景：`value=1` 且 `formatter/parser` 使展示乘以 100 时，首帧将直接展示 `100`。
+
+</Notice>
+
 ```jsx live=true
 import React from 'react';
 import { InputNumber } from '@douyinfe/semi-ui';
@@ -349,6 +356,50 @@ import { InputNumber } from '@douyinfe/semi-ui';
 };
 ```
 
+### 科学计数法显示
+
+当数字较长时，可以通过 `scientificNotation` 属性启用科学计数法显示。失去焦点时显示科学计数法，获得焦点时显示完整数字。
+
+```jsx live=true
+import React from 'react';
+import { InputNumber } from '@douyinfe/semi-ui';
+
+() => {
+    return (
+        <div style={{ width: 280 }}>
+            <label>启用科学计数法（默认阈值 15 位）</label>
+            <InputNumber scientificNotation defaultValue={123456789012345} />
+            <br /><br />
+
+            <label>自定义阈值（10 位）</label>
+            <InputNumber 
+                scientificNotation={{ threshold: 10 }} 
+                defaultValue={1234567890} 
+            />
+            <br /><br />
+
+            <label>超大数字</label>
+            <InputNumber scientificNotation defaultValue={9999999999999999} />
+            <br /><br />
+
+            <label>小数场景</label>
+            <InputNumber 
+                scientificNotation 
+                precision={10}
+                defaultValue={0.000000123456789} 
+            />
+            <br /><br />
+        </div>
+    );
+};
+```
+
+<Notice type="info">
+
+科学计数法仅影响显示格式，`onChange` 和 `onNumberChange` 回调中的值仍为完整数字。该功能不支持货币模式（`currency`）。
+
+</Notice>
+
 ## API 参考
 
 | 属性         | 说明                                                           | 类型                              | 默认值    | 版本      |
@@ -361,8 +412,8 @@ import { InputNumber } from '@douyinfe/semi-ui';
 | defaultValue | 默认值                                                         | number                            |           |           |
 | disabled     | 禁用                                                           | boolean                           | false     |           |
 | formatter    | 指定输入框展示值的格式                                         | (value: number\|string) => string | -         |           |
-| hideButtons  | 为 `true` 时隐藏 “上/下” 按钮                                  | boolean                           | false     | - |
-| innerButtons | 为 `true` 时 “上/下” 按钮显示在输入框内部                                  | boolean                           | false     | - |
+| hideButtons  | 为 `true` 时隐藏 "上/下" 按钮                                  | boolean                           | false     | - |
+| innerButtons | 为 `true` 时 "上/下" 按钮显示在输入框内部                                  | boolean                           | false     | - |
 | keepFocus    | 点击按钮时保持输入框聚焦                                        | boolean                 |     false      |   -        |
 |  localeCode    | 货币模式下用于指定国家地区代码，可选值有 `zh-CN`, `en-US`, `en-GB`, `ja-JP`, `ko-KR`, `ar`, `vi-VN`, `ru-RU`, `id-ID`, `ms-MY`, `th-TH`, `tr-TR`, `pt-BR`, `zh-TW`, `es`, `de`, `it`, `fr`, `ro`, `sv-SE`, `pl-PL`, `nl-NL`等 | string                 |     -      |   **2.77.0**  |
 | max          | 限定最大值                                                     | number                            | Infinity  |           |
@@ -373,6 +424,7 @@ import { InputNumber } from '@douyinfe/semi-ui';
 | pressInterval| 长按按钮时，多久触发一次点击事件，单位毫秒                                   | number                 |   250        |           |
 | pressTimeout | 长按按钮时，延迟多久后触发点击事件，单位毫秒                                                      | number                 |     250      |           |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
+| scientificNotation | 启用科学计数法显示，失去焦点时显示科学计数法，获得焦点时显示完整数字。可传入对象配置阈值 `threshold`，默认为 15 位有效数字。不支持货币模式 | boolean\|{ threshold?: number } | false | **2.97.0** |
 | shiftStep    | 按住 shift 键每次改变步数，可以为小数，v2.13 默认值由 1 调整为 10                           | number                            | 10         | - |
 | showClear    | 是否显示清除按钮                                               | boolean                           | false     | -   |
 | showCurrencySymbol | 是否显示货币符号/代码/名称，仅货币模式下生效 | boolean | true | **2.77.0** |

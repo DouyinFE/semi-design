@@ -276,6 +276,84 @@ import { Transfer } from '@douyinfe/semi-ui';
 };
 ```
 
+### Left panel pagination
+
+When there are many options on the left, you can enable pagination through the `pagination` prop. Supported after v2.68.0.
+
+`pagination` accepts an object with the following properties:
+- `pageSize`: Number of items per page, default is 10
+- `currentPage`: Current page number (controlled mode)
+- `defaultCurrentPage`: Default current page number (uncontrolled mode)
+- `onPageChange`: Callback when page changes
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Transfer } from '@douyinfe/semi-ui';
+
+() => {
+    const data = Array.from({ length: 100 }, (v, i) => {
+        return {
+            label: `Item ${i}`,
+            value: i,
+            disabled: false,
+            key: `key-${i}`,
+        };
+    });
+    return (
+        <Transfer
+            style={{ width: 568, height: 416 }}
+            dataSource={data}
+            pagination={{
+                pageSize: 10,
+            }}
+            onChange={(values, items) => console.log(values, items)}
+        />
+    );
+};
+```
+
+### Left panel pagination + controlled page
+
+You can control the current page number through `pagination.currentPage`.
+
+```jsx live=true dir="column"
+import React, { useState } from 'react';
+import { Transfer, ButtonGroup, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const data = Array.from({ length: 100 }, (v, i) => {
+        return {
+            label: `Item ${i}`,
+            value: i,
+            disabled: false,
+            key: `key-${i}`,
+        };
+    });
+    return (
+        <div>
+            <ButtonGroup style={{ marginBottom: 12 }}>
+                <Button onClick={() => setCurrentPage(1)}>Page 1</Button>
+                <Button onClick={() => setCurrentPage(2)}>Page 2</Button>
+                <Button onClick={() => setCurrentPage(5)}>Page 5</Button>
+                <Button onClick={() => setCurrentPage(10)}>Page 10</Button>
+            </ButtonGroup>
+            <div>Current page: {currentPage}</div>
+            <Transfer
+                style={{ width: 568, height: 416 }}
+                dataSource={data}
+                pagination={{
+                    pageSize: 10,
+                    currentPage,
+                    onPageChange: (page) => setCurrentPage(page),
+                }}
+                onChange={(values, items) => console.log(values, items)}
+            />
+        </div>
+    );
+};
+```
+
 ### Drag and drop + custom selected rendering
 
 Set `draggable` to true to enable the drag and drop sorting function; use `renderSelectedItem` to customize the rendering of the selected items on the right;
@@ -369,7 +447,8 @@ type SourceHeaderProps = {
     num: number; // The total number of data or the number of filtered results
     showButton: boolean; // Whether to show select all/unselect all buttons
     allChecked: boolean; // Whether the current data has been selected
-    onAllClick: () => void // Function that should be called after clicking the select/unselect all button
+    onAllClick: () => void; // Function that should be called after clicking the select/unselect all button
+    leafOnlyNum?: number; // Only valid when type is treeList, represents the number of leaf nodes >=2.94.0
 }
 
 type SelectedHeaderProps = {
@@ -1266,6 +1345,123 @@ import { Transfer } from '@douyinfe/semi-ui';
 };
 ```
 
+### Tree Transfer with Custom Header Showing Leaf Node Count
+
+When type is `treeList`, the `SourceHeaderProps` parameter of `renderSourceHeader` provides an additional `leafOnlyNum` field, which represents the number of leaf nodes. This is useful in scenarios like file selection, where you can display only the file count instead of the total including folders.
+
+```jsx live=true dir="column"
+import React, { useState } from 'react';
+import { Transfer, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Folder 1',
+            value: 'folder1',
+            key: 'folder1',
+            children: [
+                {
+                    label: 'File 1-1',
+                    value: 'file1-1',
+                    key: 'file1-1',
+                },
+                {
+                    label: 'File 1-2',
+                    value: 'file1-2',
+                    key: 'file1-2',
+                },
+                {
+                    label: 'Subfolder 1',
+                    value: 'subfolder1',
+                    key: 'subfolder1',
+                    children: [
+                        {
+                            label: 'File 1-1-1',
+                            value: 'file1-1-1',
+                            key: 'file1-1-1',
+                        },
+                        {
+                            label: 'File 1-1-2',
+                            value: 'file1-1-2',
+                            key: 'file1-1-2',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: 'Folder 2',
+            value: 'folder2',
+            key: 'folder2',
+            children: [
+                {
+                    label: 'File 2-1',
+                    value: 'file2-1',
+                    key: 'file2-1',
+                },
+                {
+                    label: 'File 2-2',
+                    value: 'file2-2',
+                    key: 'file2-2',
+                },
+            ],
+        },
+        {
+            label: 'Standalone File',
+            value: 'file3',
+            key: 'file3',
+        },
+    ];
+
+    const [value, setValue] = useState([]);
+
+    const renderSourceHeader = (props) => {
+        const { num, leafOnlyNum, showButton, allChecked, onAllClick } = props;
+        
+        return (
+            <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                padding: '8px 12px',
+                borderBottom: '1px solid var(--semi-color-border)'
+            }}>
+                <span>
+                    <strong>Total Files:</strong>
+                    {leafOnlyNum !== undefined ? leafOnlyNum : num} files
+                    {leafOnlyNum !== undefined && (
+                        <span style={{ color: 'var(--semi-color-text-2)', marginLeft: 8, fontSize: 12 }}>
+                            (Total nodes: {num})
+                        </span>
+                    )}
+                </span>
+                {showButton && (
+                    <Button
+                        theme="borderless"
+                        type="tertiary"
+                        size="small"
+                        onClick={onAllClick}
+                    >
+                        {allChecked ? 'Unselect all' : 'Select all'}
+                    </Button>
+                )}
+            </div>
+        );
+    };
+
+    return (
+        <Transfer
+            style={{ width: 600 }}
+            dataSource={treeData}
+            type="treeList"
+            value={value}
+            onChange={setValue}
+            renderSourceHeader={renderSourceHeader}
+        />
+    );
+};
+```
+
 ## Accessibility
 
 ### ARIA
@@ -1292,8 +1488,9 @@ import { Transfer } from '@douyinfe/semi-ui';
 | onDeselect | Callback when unchecking | (item: Item) => void | | |
 | onSearch | Called when the input content of the search box changes | (inputValue: string) => void | | |
 | onSelect | Callback when checked | (item: Item) => void | | |
+| pagination | Left panel pagination configuration, only valid for `list` and `groupList` types | PaginationProps |  | 2.68.0 |
 | renderSelectedHeader | Customize the rendering of the header information on the right panel | (props: SelectedHeaderProps) => ReactNode |  | 2.29.0 |
-| renderSelectedItem | Customize the rendering of a single selected item on the right | (item: {onRemove, sortableHandle} & Item) => ReactNode | | |
+| renderSelectedItem | Customize the rendering of a single selected item on the right. When `type="treeList"` and `showPath` is `true`, the complete path is available through `item.fullPath` | (item: {onRemove, sortableHandle} & Item) => ReactNode | | |
 | renderSelectedPanel | Customize the rendering of the selected panel on the right | (selectedPanelProps) => ReactNode | | - |
 | renderSourceHeader | Customize the rendering of the header information on the left panel | (props: SourceHeaderProps) => ReactNode |  | 2.29.0 |
 | renderSourceItem | Customize the rendering of a single candidate item on the left | (item: {onChange, checked} & Item) => ReactNode | | |
@@ -1302,6 +1499,7 @@ import { Transfer } from '@douyinfe/semi-ui';
 | style | Inline style | CSSProperties | | |
 | treeProps | When the type is `treeList`, it can be passed as TreeProps to the Tree component on the left | [TreeProps](/en-US/navigation/tree#Tree) | | - |
 | type | Transfer type, optional `list`, `groupList`, `treeList` | string |'list' | - |
+| virtualize | Virtualize the selected list on the right. Only works with default right panel rendering and when `draggable` is `false` | VirtualizeProps |  | 2.97.0 |
 | value | The selected value, when the item is passed in, it will be used as a controlled component | Array<string\|number> | | |
 
 ### Item Interface
@@ -1312,6 +1510,7 @@ import { Transfer } from '@douyinfe/semi-ui';
 | disabled | Whether to disable | boolean | false |
 | key | Required, unique identification of each option, no repetition is allowed | string \| number | |
 | label | Options display content | ReactNode | |
+| fullPath | When `type="treeList"` and `showPath` is `true`, returns the full path node array from the root node to the current node | Array<Item\> | |
 | style | Inline style | CSSProperties | |
 | value | The value represented by the option | string \| number | |
 
@@ -1331,6 +1530,23 @@ TreeItem inherits all the properties of Item
 | props    | description    | data type        | default |
 | -------- | -------------- | ---------------- | ------- |
 | children | Children Items | array<TreeItem\> |         |
+
+### VirtualizeProps Interface
+
+| props | description | data type | default |
+| --- | --- | --- | --- |
+| height | Height of the virtualized list. If it is a `number`, it takes effect directly. If it is a `string` (e.g. `100%`), it adapts to remaining height | number \| string | |
+| width | Width of the virtualized list | number \| string | |
+| itemSize | Fixed height of each item row | number | |
+
+### PaginationProps Interface
+
+| props | description | data type | default |
+| --- | --- | --- | --- |
+| currentPage | Current page number (controlled mode) | number | |
+| defaultCurrentPage | Default current page number (uncontrolled mode) | number | 1 |
+| pageSize | Number of items per page | number | 10 |
+| onPageChange | Callback when page changes | (currentPage: number) => void | |
 
 ## Methods
 Some internal methods provided by Transfer can be accessed through ref:

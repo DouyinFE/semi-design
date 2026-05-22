@@ -84,7 +84,8 @@ export interface BodyState {
         virtualizedScrollLeft?: number
     };
     cachedExpandBtnShouldInRow?: boolean;
-    cachedExpandRelatedProps?: any[]
+    cachedExpandRelatedProps?: any[];
+    hoveredRowKey?: string | number;
 }
 
 export interface BodyContext {
@@ -133,6 +134,9 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     cellWidths: number[];
     flattenedColumns: ColumnProps[];
     context: TableContextProps;
+    /** keep track of highlighted rows for rowSpanHover DOM mode */
+    private hoveredRowKeySet: Set<string>;
+    unsubscribe: () => void;
     constructor(props: BodyProps, context: BodyContext) {
         super(props);
         this.ref = React.createRef();
@@ -144,6 +148,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             },
             cachedExpandBtnShouldInRow: null,
             cachedExpandRelatedProps: [],
+            hoveredRowKey: null,
         };
 
         this.listRef = React.createRef();
@@ -152,7 +157,57 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         this.flattenedColumns = flattenedColumns;
         this.cellWidths = getCellWidths(flattenedColumns);
         this.observer = null;
+        this.hoveredRowKeySet = new Set();
     }
+
+    componentDidMount() {
+        const { store } = this.props;
+        if (store) {
+            this.unsubscribe = store.subscribe((state: { hoveredRowKey?: string | number }) => {
+                const { hoveredRowKey } = state;
+                if (hoveredRowKey !== this.state.hoveredRowKey) {
+                    this.setState({ hoveredRowKey });
+                }
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.unsubscribe) {
+            this.unsubscribe();
+            this.unsubscribe = null;
+        }
+    }
+
+    /**
+     * Handle row hover event
+     * Updates hoveredRowKey for isHovering API
+     * When rowSpanHover is enabled, also highlights all rows covered by rowSpan cells
+     */
+    onRowHover = (isHover: boolean, rowKey: string | number) => {
+        const { store } = this.props;
+        const { rowSpanHover } = this.context;
+
+        // Update hoveredRowKey in store for isHovering API
+        if (store) {
+            const hoveredRowKey = isHover ? rowKey : null;
+            const prevHoveredRowKey = get(store.getState(), 'hoveredRowKey');
+            if (prevHoveredRowKey !== hoveredRowKey) {
+                store.setState({ hoveredRowKey });
+            }
+        }
+
+        // When rowSpanHover is enabled, handle DOM class for related rows
+        if (rowSpanHover) {
+            const rowKeyStr = String(rowKey);
+            if (isHover) {
+                const keysToHighlight = this.getHoveredRowKeysFromDOM(rowKeyStr);
+                this.updateRowHoverClass(keysToHighlight);
+            } else {
+                this.updateRowHoverClass([]);
+            }
+        }
+    };
 
     get adapter(): BodyAdapter<BodyProps, BodyState> {
         return {
@@ -226,6 +281,98 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             this.foundation.observeBodyResize(bodyWrapDOM);
         }
     }
+
+    private updateRowHoverClass = (nextKeys: string[]) => {
+        const bodyNode = this.ref.current;
+        if (!bodyNode) {
+            this.hoveredRowKeySet.clear();
+            return;
+        }
+
+        // Sync hover style across main and fixed tables.
+        // Use the closest table wrapper as the query root.
+        const root: HTMLElement = (bodyNode.closest?.(`.${this.props.prefixCls}-wrapper`) as HTMLElement) || bodyNode;
+
+        const nextSet = new Set(nextKeys);
+
+        // remove old
+        for (const key of this.hoveredRowKeySet) {
+            if (!nextSet.has(key)) {
+                const rows = root.querySelectorAll(`tr[data-row-key="${this.cssEscape(key)}"]`);
+                rows.forEach(r => r.classList.remove(`${this.props.prefixCls}-row-hovered`));
+            }
+        }
+
+        // add new
+        for (const key of nextSet) {
+            if (!this.hoveredRowKeySet.has(key)) {
+                const rows = root.querySelectorAll(`tr[data-row-key="${this.cssEscape(key)}"]`);
+                rows.forEach(r => r.classList.add(`${this.props.prefixCls}-row-hovered`));
+            }
+        }
+
+        this.hoveredRowKeySet = nextSet;
+    };
+
+    /**
+     * Get all row keys that should be highlighted by reading rowSpan from DOM
+     * This is called during hover event, not during render, so it's safe
+     */
+    getHoveredRowKeysFromDOM = (currentRowKey: string): string[] => {
+        const keys = new Set<string>();
+        keys.add(currentRowKey);
+
+        const root = this.ref.current as Element | null;
+        const tbody: Element | null = root?.querySelector('.semi-table-tbody') ?? root;
+        if (!tbody) {
+            return Array.from(keys);
+        }
+
+        const currentRow = tbody.querySelector(`tr[data-row-key="${this.cssEscape(currentRowKey)}"]`);
+        if (!currentRow) {
+            return Array.from(keys);
+        }
+
+        const allRows = Array.from(tbody.querySelectorAll('tr[data-row-key]'));
+        const currentRowIndex = allRows.indexOf(currentRow);
+
+        if (currentRowIndex === -1) {
+            return Array.from(keys);
+        }
+
+        allRows.forEach((row, rowIndex) => {
+            const cells = row.querySelectorAll('td[rowspan]');
+            cells.forEach((cell) => {
+                const rowSpan = parseInt(cell.getAttribute('rowspan') || '1', 10);
+                if (rowSpan > 1) {
+                    const spanEndIndex = rowIndex + rowSpan - 1;
+                    if (currentRowIndex >= rowIndex && currentRowIndex <= spanEndIndex) {
+                        for (let i = rowIndex; i <= spanEndIndex && i < allRows.length; i++) {
+                            const rowKeyAttr = allRows[i].getAttribute('data-row-key');
+                            if (rowKeyAttr) {
+                                keys.add(rowKeyAttr);
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        return Array.from(keys);
+    };
+
+    /**
+     * Escape a string for safe use in querySelector attribute selector
+     */
+    cssEscape = (value: string) => {
+        // Prefer native CSS.escape when available
+        const cssAny = (globalThis as any).CSS;
+        if (cssAny && typeof cssAny.escape === 'function') {
+            return cssAny.escape(value);
+        }
+        // Fallback: escape quotes and backslashes to avoid selector breakage
+        return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    };
 
     forwardRef = (node: HTMLDivElement) => {
         const { forwardedRef } = this.props;
@@ -586,6 +733,10 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const { getCellWidths } = this.context;
         const cellWidths = getCellWidths(columns, null, true);
 
+        // Calculate hovered state based on current hoveredRowKey from store
+        const { hoveredRowKey } = this.state;
+        const hovered = hoveredRowKey === key;
+
         return (
             <BaseRow
                 {...baseRowProps}
@@ -594,6 +745,8 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 key={key}
                 rowKey={key}
                 cellWidths={cellWidths}
+                hovered={hovered}
+                onHover={this.onRowHover}
             />
         );
     }
@@ -793,6 +946,12 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 className={wrapCls}
                 style={bodyStyle}
                 ref={this.forwardRef}
+                onMouseLeave={() => {
+                    // Ensure programmatic hover state is cleared when mouse leaves the body wrapper
+                    if (this.context.rowSpanHover) {
+                        this.updateRowHoverClass([]);
+                    }
+                }}
                 onWheel={handleWheel}
                 onScroll={handleBodyScroll}
             >
@@ -831,6 +990,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     render() {
         const { virtualized } = this.props;
         const { direction } = this.context;
+
         return virtualized ? this.renderVirtualizedBody(direction) : this.renderBody(direction);
     }
 }

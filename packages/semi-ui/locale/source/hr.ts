@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Klikni za silazno',
         ascend: 'Klikni za uzlazno',
         cancelSort: 'Otkaži sortiranje',
+        confirmFilter: 'OK',
+        resetFilter: 'Resetiraj',
     },
     Select: {
         emptyText: 'Nema rezultata',

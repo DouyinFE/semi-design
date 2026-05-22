@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Klikšķini, lai skatītu dilstošā secībā',
         ascend: 'Klikšķini, lai skatītu augošā secībā',
         cancelSort: 'Atcelt kārtošanu',
+        confirmFilter: 'OK',
+        resetFilter: 'Atiestatīt',
     },
     Select: {
         emptyText: 'Nav rezultāta',

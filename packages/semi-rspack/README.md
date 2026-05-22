@@ -5,6 +5,9 @@ The plugin is designed for Semi Design, support rspack, provides two major abili
 - Custom theme
 - Replace prefix of CSS selector 
 
+> Note: The plugin detects Semi related dependencies by package path. It supports both
+> `@douyinfe/semi-ui` and version-suffixed packages like `@douyinfe/semi-ui-19` (also for `semi-icons`).
+
 ## Usage 
 
 ### Install 

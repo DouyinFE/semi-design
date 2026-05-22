@@ -13,6 +13,7 @@ export interface BasicDataItem {
     value?: string | number;
     disabled?: boolean;
     style?: any;
+    fullPath?: Array<BasicDataItem>;
     className?: string
 }
 
@@ -39,7 +40,9 @@ export interface TransferAdapter<P = Record<string, any>, S = Record<string, any
     notifyDeselect: (items: BasicDataItem) => void;
     updateInput: (input: string) => void;
     updateSearchResult: (searchResult: Set<number | string>) => void;
-    searchTree: (keyword: string) => void
+    searchTree: (keyword: string) => void;
+    updateCurrentPage: (currentPage: number) => void;
+    notifyPageChange: (currentPage: number) => void;
 }
 
 export default class TransferFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TransferAdapter<P, S>> {
@@ -58,6 +61,29 @@ export default class TransferFoundation<P = Record<string, any>, S = Record<stri
     _generatePath(item: BasicResolvedDataItem) {
         const { path = [] } = item;
         return path.map((p: any) => p.label).join(' > ');
+    }
+
+    _getFullPath(item: BasicResolvedDataItem) {
+        const { type, showPath } = this.getProps() as { type?: string; showPath?: boolean };
+
+        if (type !== strings.TYPE_TREE_TO_LIST || showPath !== true || !Array.isArray(item.path)) {
+            return undefined;
+        }
+
+        return item.path.map((pathItem: BasicDataItem) => ({ ...pathItem }));
+    }
+
+    _injectFullPath(item: BasicResolvedDataItem) {
+        const fullPath = this._getFullPath(item);
+
+        if (!fullPath) {
+            return item;
+        }
+
+        return {
+            ...item,
+            fullPath,
+        };
     }
 
     handleInputChange(inputVal: string, notify: boolean) {
@@ -148,15 +174,16 @@ export default class TransferFoundation<P = Record<string, any>, S = Record<stri
     handleSelectOrRemove(item: BasicResolvedDataItem) {
         const { disabled } = this.getProps();
         const selectedItems = this._adapter.getSelected();
+        const changedItem = this._injectFullPath(item);
         if (disabled || item.disabled) {
             return;
         }
         if (selectedItems.has(item.key)) {
             selectedItems.delete(item.key);
-            this._adapter.notifyDeselect(item);
+            this._adapter.notifyDeselect(changedItem);
         } else {
             selectedItems.set(item.key, item);
-            this._adapter.notifySelect(item);
+            this._adapter.notifySelect(changedItem);
         }
         if (!this._isControlledComponent()) {
             this._adapter.updateSelected(selectedItems);
@@ -201,7 +228,9 @@ export default class TransferFoundation<P = Record<string, any>, S = Record<stri
         const items = [];
         const values = [];
         for (const item of selectedItems) {
-            const obj = (type === strings.TYPE_GROUP_LIST ? omit(item[1], '_parent') : item[1]) as BasicDataItem;
+            let obj = (type === strings.TYPE_GROUP_LIST ? omit(item[1], '_parent') : item[1]) as BasicResolvedDataItem;
+            obj = this._injectFullPath(obj);
+
             items.push(obj);
             values.push(obj.value);
         }
@@ -224,6 +253,11 @@ export default class TransferFoundation<P = Record<string, any>, S = Record<stri
         });
         this._adapter.updateSelected(newSelectedItems);
         this._notifyChange(newSelectedItems);
+    }
+
+    handlePageChange(currentPage: number) {
+        this._adapter.updateCurrentPage(currentPage);
+        this._adapter.notifyPageChange(currentPage);
     }
 
 }

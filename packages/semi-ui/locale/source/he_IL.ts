@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'לחיצה למיון בסדר יורד',
         ascend: 'לחיצה למיון בסדר עולה',
         cancelSort: 'ביטול המיון',
+        confirmFilter: 'אישור',
+        resetFilter: 'איפוס',
     },
     Select: {
         emptyText: 'אין תוצאה',

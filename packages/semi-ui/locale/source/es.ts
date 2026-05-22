@@ -110,6 +110,8 @@ const locale: Locale = {
         descend: 'Hacer clic para descender',
         ascend: 'Hacer clic para ascender',
         cancelSort: 'Cancelar ordenación',
+        confirmFilter: 'Aceptar',
+        resetFilter: 'Restablecer',
     },
     Select: {
         emptyText: 'Sin resultados',

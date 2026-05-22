@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Spustelėk, jei nori rikiuoti mažėjimo tvarka',
         ascend: 'Spustelėk, jei nori rikiuoti didėjimo tvarka',
         cancelSort: 'Atšaukti rikiavimą',
+        confirmFilter: 'OK',
+        resetFilter: 'Atkurti',
     },
     Select: {
         emptyText: 'Rezultatų nėra',

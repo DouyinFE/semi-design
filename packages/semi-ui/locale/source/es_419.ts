@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Haz clic para bajar',
         ascend: 'Haz clic para subir',
         cancelSort: 'Cancelar clasificación',
+        confirmFilter: 'Aceptar',
+        resetFilter: 'Restablecer',
     },
     Select: {
         emptyText: 'No hay resultados',

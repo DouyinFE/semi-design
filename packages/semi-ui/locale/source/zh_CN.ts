@@ -106,6 +106,8 @@ const local: Locale = {
         descend: '点击降序',
         ascend: '点击升序',
         cancelSort: '取消排序',
+        confirmFilter: '确定',
+        resetFilter: '重置',
     },
     Select: {
         emptyText: '暂无数据',
@@ -138,6 +140,9 @@ const local: Locale = {
         selectedFiles: '已选择文件',
         illegalSize: '文件尺寸不合法',
         fail: '上传失败',
+        cropTitle: '裁切图片',
+        cropOk: '确定',
+        cropCancel: '取消',
     },
     TreeSelect: {
         searchPlaceholder: '搜索',

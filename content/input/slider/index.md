@@ -253,6 +253,13 @@ import { Slider } from '@douyinfe/semi-ui';
 | onMouseUp        | 鼠标松开滑块时触发                                                                                                                                                          | (e: React.MouseEvent<HTMLDivElement\>) => void                                 | 无      | 2.41.0 |
 | getAriaValueText | 用于给滑块的当前值提供一个用户友好的名称，对屏幕阅读器用户很重要，参数value为当前滑块的值，index为当前滑块的顺序                                                                                                      | (value: number, index?: number) => string                                      | -      | -      |
 
+## RTL/LTR
+
+- Slider 的水平方向支持 RTL，可通过 [ConfigProvider](/zh-CN/other/configprovider) 配置 `direction="rtl"` 启用。
+- RTL 模式下，Slider 水平方向的最小值在右侧，最大值在左侧，滑块拖动方向与 LTR 相反。
+- 垂直方向（`vertical`）不受 RTL 影响。
+- RTL 模式下，键盘方向键的行为会镜像：`左箭头`/`下箭头` 增加值，`右箭头`/`上箭头` 减少值。
+
 ## Accessibility
 
 ### ARIA
@@ -286,4 +293,16 @@ import { Slider } from '@douyinfe/semi-ui';
 
 
 ## 设计变量
+
+### 聚焦样式说明
+
+Slider 组件有两个与聚焦相关的设计变量，分别对应不同的交互场景：
+
+| 变量名 | CSS 变量 | 触发场景 | 说明 |
+| --- | --- | --- | --- |
+| 圆形按钮轮廓 - 聚焦 | `--semi-color-primary-light-active` | 键盘导航（Tab 键聚焦） | 使用 `:focus-visible` 伪类，仅在键盘聚焦时显示 outline |
+| 滑动条圆形描边颜色 - 激活态 | `--semi-color-focus-border` | 鼠标点击/拖动 | 使用 `.semi-slider-handle-clicked` 类，在鼠标交互时显示 border |
+
+如果你希望在主题配置中修改圆形按钮的聚焦样式，请注意上述两个变量对应不同的交互场景。
+
 <DesignToken/>

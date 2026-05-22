@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Klõpsa laskumiseks',
         ascend: 'Klõpsake tõusmiseks',
         cancelSort: 'Tühista sorteerimine',
+        confirmFilter: 'OK',
+        resetFilter: 'Lähtesta',
     },
     Select: {
         emptyText: 'Tulemid puuduvad',

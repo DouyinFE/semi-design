@@ -52,6 +52,7 @@ Semi Skills 是一套预配置的 Semi Design 专家知识库，它帮助 AI 助
 ## 安装指南
 
 <Notice type="warning" title='⚠️ 版本建议'>
+
 在开始安装之前，建议你的环境满足以下版本要求：
 
 - **Node.js**: 建议版本大于 20.19.0
@@ -63,6 +64,7 @@ Semi Skills 是一套预配置的 Semi Design 专家知识库，它帮助 AI 助
 node -v
 npm -v
 ```
+
 </Notice>
 
 ### 安装 MCP
@@ -70,7 +72,9 @@ npm -v
 MCP 的安装方式因客户端而异，以下是常见客户端的配置方法：
 
 <Notice title='💡 字节跳动内网用户'>
+
 外网 MCP 在内网无法使用。如果你是字节跳动内网用户，请将包名修改为 `@ies/semi-mcp-bytedance`，或在字节云 MCP 市场搜索 "Semi" 一键添加。
+
 </Notice>
 
 #### Claude Desktop
@@ -115,7 +119,9 @@ claude mcp add semi-mcp -- npx -y @douyinfe/semi-mcp
 #### 故障排除
 
 <Notice type="warning" title='⚠️ oxc-parser 相关错误'>
+
 如果运行 MCP 时遇到 `oxc-parser` 或类似的依赖解析错误，这是 npm 的已知 bug。请按以下步骤解决：首先升级 npm 到最新版本 `npm install -g npm@latest`，然后在终端中手动全局安装 `npm i -g @douyinfe/semi-mcp`（字节跳动内网用户注意替换包名），最后重新尝试配置 MCP 即可。
+
 </Notice>
 
 ### 安装 Skills

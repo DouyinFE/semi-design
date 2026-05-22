@@ -1,5 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import isPromise from "../utils/isPromise";
+import { debounce } from 'lodash';
 
 export type OKType = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger';
 export type Size = 'small' | 'medium' | 'large' | 'full-width';
@@ -67,6 +68,17 @@ export interface ModalState {
 
 export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
 
+    private _debouncedOk = debounce((e: any) => {
+        this._invokeOk(e);
+    }, 100, { leading: true, trailing: false });
+
+    private _debouncedCancel = debounce((e: any) => {
+        this._invokeCancel(e);
+    }, 100, { leading: true, trailing: false });
+
+    private _lastCancelTarget: EventTarget | null = null;
+    private _lastOkTarget: EventTarget | null = null;
+
     constructor(adapter: ModalAdapter) {
         super({
             ...adapter,
@@ -74,10 +86,30 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
     }
 
     destroy() {
+        this._debouncedOk.cancel();
+        this._debouncedCancel.cancel();
         this.afterHide();
     }
 
     handleCancel(e: any) {
+        const target = e?.currentTarget ?? e?.target ?? null;
+        if (target !== this._lastCancelTarget) {
+            this._debouncedCancel.cancel();
+        }
+        this._lastCancelTarget = target;
+        this._debouncedCancel(e);
+    }
+
+    handleOk(e: any) {
+        const target = e?.currentTarget ?? e?.target ?? null;
+        if (target !== this._lastOkTarget) {
+            this._debouncedOk.cancel();
+        }
+        this._lastOkTarget = target;
+        this._debouncedOk(e);
+    }
+
+    private _invokeCancel(e: any) {
         const result = this._adapter.notifyCancel(e);
         if (isPromise(result)) {
             this._adapter.setState({ onCancelReturnPromiseStatus: "pending" });
@@ -90,7 +122,7 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
         }
     }
 
-    handleOk(e: any) {
+    private _invokeOk(e: any) {
         const result = this._adapter.notifyOk(e);
         if (isPromise(result)) {
             this._adapter.setState({ onOKReturnPromiseStatus: "pending" });
@@ -116,38 +148,7 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
         this._adapter.enabledBodyScroll();
     }
 
-    // afterClose() {
-    //     this._adapter.notifyClose();
-    // }
-
-
     toggleDisplayNone = (displayNone: boolean, callback?: (displayNone: boolean) => void) => {
         this._adapter.toggleDisplayNone(displayNone, callback);
     };
-
-
-    // mergeMotionProp = (motion: Motion, prop: string, cb: () => void) => {
-    //     const mergedMotion = typeof (motion) === 'undefined' || motion ? {
-    //         ...(motion as { [key: string]: (() => void) | boolean }),
-    //         [prop]: (...args: any) => {
-    //             const curr = get(motion, prop);
-    //             if (typeof curr === 'function') {
-    //                 curr(...args);
-    //             }
-    //             cb();
-    //         }
-    //     } : false;
-    //     return mergedMotion;
-    // };
-    //
-    // getMergedMotion() {
-    //     let { motion } = this._adapter.getProps();
-    //     const { keepDOM } = this._adapter.getProps();
-    //     motion = this.mergeMotionProp(motion, 'didLeave', this.afterClose.bind(this));
-    //     if (!keepDOM) {
-    //         return motion;
-    //     }
-    //     const mergedMotion = this.mergeMotionProp(motion, 'didLeave', this.toggleHidden.bind(this, true));
-    //     return mergedMotion;
-    // }
 }

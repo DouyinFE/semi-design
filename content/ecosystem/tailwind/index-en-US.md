@@ -108,7 +108,9 @@ import { Button } from '@douyinfe/semi-ui';
 ```
 
 <Notice type="warning" title="Important">
+
 `semi-layer.css` must be imported before any CSS file containing `@import "tailwindcss";` and before any Semi component imports, otherwise the CSS Layer order will be incorrect. It is recommended to place it on the first line of the entry file.
+
 </Notice>
 
 ---

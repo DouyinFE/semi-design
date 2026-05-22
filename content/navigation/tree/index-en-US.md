@@ -1815,7 +1815,9 @@ type RenderFullLabelProps = {
 ```
 
 <Notice type="primary" title="Important">
-<div>If virtualized is set to true, be sure to apply `style` to targeted ReactNode to correctly render virtualized list.</div>
+
+If virtualized is set to true, be sure to apply `style` to targeted ReactNode to correctly render virtualized list.
+
 </Notice>
 
 Here are some demos.

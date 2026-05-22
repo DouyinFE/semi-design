@@ -1,10 +1,5 @@
 import React, { CSSProperties } from 'react';
-/* REACT_18_START */
-import ReactDOM from 'react-dom';
-/* REACT_18_END */
-/* REACT_19_START */
-// import { createRoot } from 'react-dom/client';
-/* REACT_19_END */
+import { render as reactRender, unmount as reactUnmount } from '../_utils/reactRender';
 import PropTypes from 'prop-types';
 import ToastListFoundation, {
     ToastListAdapter,
@@ -20,6 +15,7 @@ import useToast from './useToast';
 import { ConfigProps, ToastInstance, ToastProps, ToastState } from '@douyinfe/semi-foundation/toast/toastFoundation';
 import CSSAnimation from '../_cssAnimation';
 import cls from 'classnames';
+import semiGlobal from '../_utils/semi-global';
 
 
 export interface ToastReactProps extends ToastProps{
@@ -45,10 +41,6 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         content: '',
     };
 
-    /* REACT_19_START */
-    // static toastQueue: Array<{ opts: ToastReactProps, id: string }> = [];
-    /* REACT_19_END */
-
     static propTypes = {
         content: PropTypes.node,
         duration: PropTypes.number,
@@ -60,9 +52,6 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
 
     static defaultProps = {};
     static wrapperId: null | string;
-    /* REACT_19_START */
-    // static root: any = null;
-    /* REACT_19_END */
     stack: boolean = false;
 
     innerWrapperRef: React.RefObject<HTMLDivElement> = React.createRef();
@@ -111,6 +100,13 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
     static create(opts: ToastReactProps) {
         const id = opts.id ?? getUuid('toast');
         // this.id = id;
+        
+        // Get global config for Toast
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Toast || {};
+        
+        // Merge configs with priority: opts > globalConfig > defaultOpts
+        const mergedOpts = { ...ToastList.defaultOpts, ...globalConfig, ...opts };
+        
         if (!ToastList.ref) {
             const div = document.createElement('div');
             if (!this.wrapperId) {
@@ -119,70 +115,44 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             div.className = cssClasses.WRAPPER;
             div.id = this.wrapperId;
             div.style.zIndex = String(typeof opts.zIndex === 'number' ?
-                opts.zIndex : ToastList.defaultOpts.zIndex);
+                opts.zIndex : mergedOpts.zIndex);
             ['top', 'left', 'bottom', 'right'].map(pos => {
-                if (pos in ToastList.defaultOpts || pos in opts) {
-                    const val = opts[pos] ? opts[pos] : ToastList.defaultOpts[pos];
+                if (pos in mergedOpts) {
+                    const val = mergedOpts[pos];
                     div.style[pos] = typeof val === 'number' ? `${val}px` : val;
                 }
             });
             // document.body.appendChild(div);
-            if (ToastList.defaultOpts.getPopupContainer) {
-                const container = ToastList.defaultOpts.getPopupContainer();
+            if (mergedOpts.getPopupContainer) {
+                const container = mergedOpts.getPopupContainer();
                 container.appendChild(div);
             } else {
                 document.body.appendChild(div);
             }
-            /* REACT_18_START */
-            ReactDOM.render(React.createElement( 
+            reactRender(React.createElement(
                 ToastList,
-                { ref: instance => (ToastList.ref = instance) }
-            ),
-            div,
-            () => {
-                ToastList.ref.add({ ...opts, id });
-                ToastList.ref.stack = Boolean(opts.stack);
-            });
-            /* REACT_18_END */
-            
-            /* REACT_19_START */
-            // if (!this.root) {
-            //     this.root = createRoot(div);
-            // }
-            // this.root.render(React.createElement( 
-            //     ToastList,
-            //     { ref: instance => {
-            //         ToastList.ref = instance;
-            //         // New: flush toast queue after ref ready
-            //         while (ToastList.toastQueue.length && ToastList.ref && typeof ToastList.ref.add === 'function') {
-            //             const { opts: queuedOpts, id: queuedId } = ToastList.toastQueue.shift();
-            //             ToastList.ref.add({ ...queuedOpts, id: queuedId });
-            //             ToastList.ref.stack = Boolean(queuedOpts.stack);
-            //         }
-            //     } }
-            // ));
-            // // 在 React 19 中，render 是同步的，确保 ref 已赋值后再执行add方法
-            // if (ToastList.ref && typeof ToastList.ref.add === 'function') {
-            //     ToastList.ref.add({ ...opts, id });
-            //     ToastList.ref.stack = Boolean(opts.stack);
-            // } else {
-            //     ToastList.toastQueue.push({ opts, id });
-            // }
-            /* REACT_19_END */
+                { ref: (instance: ToastList) => {
+                    if (instance) {
+                        ToastList.ref = instance;
+                        instance.add({ ...mergedOpts, id });
+                        instance.stack = Boolean(mergedOpts.stack);
+                    }
+                } }
+            ), div);
         } else {
             const node = document.querySelector(`#${this.wrapperId}`) as HTMLElement;
             ['top', 'left', 'bottom', 'right'].map(pos => {
-                if (pos in opts) {
-                    node.style[pos] = typeof opts[pos] === 'number' ? `${opts[pos]}px` : opts[pos];
+                if (pos in mergedOpts) {
+                    node.style[pos] = typeof mergedOpts[pos] === 'number' ? `${mergedOpts[pos]}px` : mergedOpts[pos];
                 }
             });
-            if (Boolean(opts.stack) !== ToastList.ref.stack) {
-                ToastList.ref.stack = Boolean(opts.stack);
+            if (Boolean(mergedOpts.stack) !== ToastList.ref.stack) {
+                ToastList.ref.stack = Boolean(mergedOpts.stack);
             }
             if (ToastList.ref.has(id)) {
-                ToastList.ref.update(id, { ...opts, id });
+                ToastList.ref.update(id, { ...mergedOpts, id });
             } else {
-                ToastList.ref.add({ ...opts, id });
+                ToastList.ref.add({ ...mergedOpts, id });
             }
         }
         return id;
@@ -199,18 +169,10 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             ToastList.ref.destroyAll();
             const wrapper = document.querySelector(`#${this.wrapperId}`);
             
-            /* REACT_18_START */
-            ReactDOM.unmountComponentAtNode(wrapper);
-            wrapper && wrapper.parentNode.removeChild(wrapper);
-            /* REACT_18_END */
-            
-            /* REACT_19_START */
-            // if (this.root) {
-            //     this.root.unmount();
-            //     this.root = null;
-            // }
-            // wrapper && wrapper.parentNode.removeChild(wrapper);
-            /* REACT_19_END */
+            if (wrapper) {
+                reactUnmount(wrapper);
+                wrapper.parentNode?.removeChild(wrapper);
+            }
             
             ToastList.ref = null;
             this.wrapperId = null;
@@ -223,28 +185,36 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
-        return this.create({ ...ToastList.defaultOpts, ...opts, type: 'info' });
+        // Merge with global config
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Toast || {};
+        return this.create({ ...ToastList.defaultOpts, ...globalConfig, ...opts, type: 'info' });
     }
 
     static warning(opts: Omit<ToastReactProps, 'type'> | string) {
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
-        return this.create({ ...ToastList.defaultOpts, ...opts, type: 'warning' });
+        // Merge with global config
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Toast || {};
+        return this.create({ ...ToastList.defaultOpts, ...globalConfig, ...opts, type: 'warning' });
     }
 
     static error(opts: Omit<ToastReactProps, 'type'> | string) {
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
-        return this.create({ ...ToastList.defaultOpts, ...opts, type: 'error' });
+        // Merge with global config
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Toast || {};
+        return this.create({ ...ToastList.defaultOpts, ...globalConfig, ...opts, type: 'error' });
     }
 
     static success(opts: Omit<ToastReactProps, 'type'> | string) {
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
-        return this.create({ ...ToastList.defaultOpts, ...opts, type: 'success' });
+        // Merge with global config
+        const globalConfig = semiGlobal?.config?.overrideDefaultProps?.Toast || {};
+        return this.create({ ...ToastList.defaultOpts, ...globalConfig, ...opts, type: 'success' });
     }
 
     static config(opts: ConfigProps) {
@@ -308,10 +278,42 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
                 })} ref={this.innerWrapperRef} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
                     {list.map((item, index) => {
                         const isRemoved = removedItems.find(removedItem => removedItem.id === item.id) !== undefined;
-                        return <CSSAnimation key={item.id} motion={item.motion} animationState={isRemoved ? "leave" : "enter"} startClassName={isRemoved ? `${cssClasses.PREFIX}-animation-hide` : `${cssClasses.PREFIX}-animation-show`}>
+                        const animationState = isRemoved ? "leave" : "enter";
+                        return <CSSAnimation
+                            key={item.id}
+                            motion={item.motion}
+                            animationState={animationState}
+                            startClassName={isRemoved ? `${cssClasses.PREFIX}-animation-hide` : `${cssClasses.PREFIX}-animation-show`}
+                            onAnimationEnd={(_stoppedByAnother: boolean) => {
+                                // Only act on the leave animation end.
+                                // Guarding by the animationState captured at render time prevents:
+                                // - enter animation end firing after the toast is later marked removed (would otherwise remove too early)
+                                if (animationState !== 'leave') {
+                                    return;
+                                }
+
+                                // When leave animation ends, remove it from removedItems.
+                                // This ensures:
+                                // 1) No extra re-mount during closing animation
+                                // 2) Toast/content will finally unmount after animation (avoid hidden DOM/memory retention)
+                                // 3) ToastFoundation.destroy() runs to clear timers
+                                this.setState(prev => {
+                                    // If this toast is no longer marked as removed (e.g. updated/reopened), do nothing
+                                    if (!prev.removedItems?.some(removed => removed.id === item.id)) {
+                                        return null;
+                                    }
+                                    return {
+                                        ...prev,
+                                        removedItems: prev.removedItems.filter(removed => removed.id !== item.id),
+                                    };
+                                });
+                            }}
+                        >
                             {
                                 ({ animationClassName, animationEventsNeedBind, isAnimating }) => {
-                                    return (isRemoved && !isAnimating) ? null : <Toast {...item} stack={this.stack} stackExpanded={this.state.mouseInSide} positionInList={{ length: list.length, index }} className={cls({
+                                    // Keep Toast component instance during leave animation to avoid re-mount.
+                                    // Final unmount is triggered by onAnimationEnd above (removing from removedItems).
+                                    return <Toast {...item} stack={this.stack} stackExpanded={this.state.mouseInSide} positionInList={{ length: list.length, index }} className={cls({
                                         [item.className]: Boolean(item.className),
                                         [animationClassName]: true
                                     })} {...animationEventsNeedBind} style={{ ...item.style }} close={id => this.remove(id)} ref={refFn} />;

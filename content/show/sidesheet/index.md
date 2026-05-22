@@ -152,7 +152,9 @@ import { SideSheet, TextArea, Button } from '@douyinfe/semi-ui';
 可以通过 `getPopupContainer` 指定父级 DOM，弹层将会渲染至该 DOM 中。
 
 <Notice title='注意'>
-  容器需要手动设置样式 `overflow: hidden`，否则会导致动画溢出
+
+容器需要手动设置样式 `overflow: hidden`，否则会导致动画溢出
+
 </Notice>
 
 ```jsx live=true

@@ -98,6 +98,16 @@ const ResizableTable = (props: TableProps = {}, ref: React.MutableRefObject<Tabl
     };
 
     const handleResizeStart = (column: ColumnProps<any>) => (e: React.MouseEvent) => {
+        // Fix: Clear text selection to prevent drag issues on Windows Chrome/Edge
+        // Related issue: https://github.com/DouyinFE/semi-design/issues/2962
+        // Reference: https://github.com/ant-design/ant-design/issues/56356
+        if (typeof window !== 'undefined') {
+            const selection = window.getSelection();
+            if (selection) {
+                selection.removeAllRanges();
+            }
+        }
+
         const nextColumns = cloneDeep(columns);
 
         const curColumn: ColumnProps = findColumn(nextColumns, column, childrenColumnName);

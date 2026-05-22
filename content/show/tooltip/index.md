@@ -259,6 +259,33 @@ function Demo() {
 }
 ```
 
+### condition 条件触发
+
+当 `condition={false}` 时，Tooltip 不响应 hover/click/focus 等触发行为（`trigger='custom'` 不受影响）。
+
+```jsx live=true dir="column"
+import React, { useMemo, useState } from 'react';
+import { Tooltip, Button, Switch, Space, Typography } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const [enabled, setEnabled] = useState(true);
+    const content = useMemo(() => `condition is ${enabled ? 'true' : 'false'}`, [enabled]);
+
+    return (
+        <Space align="center">
+            <Typography.Text>condition</Typography.Text>
+            <Switch checked={enabled} onChange={(v) => setEnabled(v)} />
+            <Tooltip content={content} trigger="hover" condition={enabled}>
+                <Button>Hover me</Button>
+            </Tooltip>
+            <Tooltip content={content} trigger="click" condition={enabled}>
+                <Button>Click me</Button>
+            </Tooltip>
+        </Space>
+    );
+}
+```
+
 ### 覆盖特定样式
 
 你可以通过 className、style 为弹出层配置特定样式，例如覆盖默认的 maxWidth （240px）
@@ -371,6 +398,7 @@ function Demo() {
 | --- |------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
 | autoAdjustOverflow | 弹出层被遮挡时是否自动调整方向                                                                                                                                      | boolean | true |  |
 | arrowPointAtCenter | “小三角”是否指向元素中心，需要同时传入"showArrow=true"                                                                                                                 | boolean | true |  |
+| condition | 是否允许 Tooltip 触发显示。仅当显式设置为 false 时，hover/click/focus 等触发行为不生效（trigger='custom' 场景不受影响） | boolean | true | |
 | content | 弹出层内容                                                                                                                                                | string\|ReactNode |  |  |
 | className | 弹出层的样式名                                                                                                                                              | string |  |  |
 | clickToHide | 点击弹出层及内部任一元素时是否自动关闭弹层                                                                                                                                | boolean | false |  |

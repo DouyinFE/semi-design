@@ -5,7 +5,7 @@ export interface PinCodeBaseProps {
     disabled?: boolean;
     value?: string;
     format?: "number" | "mixed" | RegExp | ((value: string) => boolean);
-    onChange: (value: string) => void;
+    onChange?: (value: string) => void;
     defaultValue?: string;
     count?: number;
     autoFocus?: boolean;
@@ -83,6 +83,10 @@ class PinCodeFoundation<P = Record<string, any>, S = Record<string, any>> extend
     }
 
     handlePaste = async (e: ClipboardEvent, startInputIndex: number)=>{
+        // 在 Firefox 中，需要在函数开始时立即阻止默认粘贴行为
+        // 否则 Firefox 可能在 preventDefault 调用前就执行默认粘贴，导致双重写入
+        e.preventDefault();
+
         const textWillPaste = e.clipboardData.getData("text");
         const count = this.getProp("count");
         for (let i = startInputIndex, charIndex = 0;i < count && charIndex < textWillPaste.length;i++, charIndex++) {
@@ -93,7 +97,6 @@ class PinCodeFoundation<P = Record<string, any>, S = Record<string, any>> extend
                 break;
             }
         }
-        e.preventDefault();
     }
 
     handleKeyDownOnSingleInput = (e: KeyboardEvent, index: number)=>{

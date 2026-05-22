@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Kliknutím sniž',
         ascend: 'Kliknutím zvyš',
         cancelSort: 'Zrušit řazení',
+        confirmFilter: 'OK',
+        resetFilter: 'Resetovat',
     },
     Select: {
         emptyText: 'Žádný výsledek',

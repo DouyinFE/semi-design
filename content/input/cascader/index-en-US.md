@@ -1251,6 +1251,62 @@ import { Cascader } from '@douyinfe/semi-ui';
 };
 ```
 
+### Click to Select
+
+In multiple mode, clicking on non-leaf nodes does not trigger selection by default. You can use `clickToSelect` to enable selecting any node on click.
+
+This API is especially useful when combined with `showNext="hover"`: hovering expands the submenu, while clicking selects the current node.
+
+```jsx live=true
+import React from 'react';
+import { Cascader } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Impressionism',
+            value: 'impressionism',
+            children: [
+                {
+                    label: 'Visual Arts',
+                    value: 'visualArts',
+                    children: [
+                        {
+                            label: 'Claude Monet',
+                            value: 'Monet',
+                        },
+                        {
+                            label: 'Pierre-Auguste Renoir',
+                            value: 'Renoir',
+                        },
+                    ],
+                },
+                {
+                    label: 'Music',
+                    value: 'music',
+                    children: [
+                        {
+                            label: 'Claude Debussy',
+                            value: 'Debussy',
+                        },
+                    ],
+                },
+            ],
+        }
+    ];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            multiple
+            placeholder="Please select"
+            showNext="hover"
+            clickToSelect
+        />
+    );
+};
+```
+
 ### Additional items
 
 We have reserved slots at the top and bottom of the cascade selector. You can set them through bottomSlot or topSlot.
@@ -1776,6 +1832,87 @@ import { Cascader } from '@douyinfe/semi-ui';
 ```
 
 
+### Remote Search
+
+**v>=2.97.0** Cascader supports remote search. With `remote` enabled, search input no longer goes through local filtering — only the `onSearch` callback is fired, and you are responsible for fetching `treeData` asynchronously based on the input. This mirrors Select's `remote` behavior.
+
+<Notice title='Usage notes'>
+
+You should typically handle the following yourself when using remote search:
+
+- **Debounce**: avoid firing a request on every keystroke; wrapping the search handler with `lodash.debounce` (e.g. 200~300ms) is the common approach.
+- **Race-condition protection**: use an incrementing token or an `AbortController` to drop stale responses, otherwise an out-of-order earlier response may overwrite the latest one.
+- **Loading hint**: show a loading state via an outer `Spin` or other indicator while the request is in flight, otherwise users may misread an in-flight state as "no data".
+- **Empty / cleared input**: when the input is cleared, restore `treeData` to the initial state instead of querying with an empty keyword.
+
+</Notice>
+
+```jsx live=true
+import React, { useRef, useState, useCallback } from 'react';
+import { Cascader, Spin } from '@douyinfe/semi-ui';
+import { debounce } from 'lodash';
+
+() => {
+    const [treeData, setTreeData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    // a ref token used to drop stale responses
+    const reqTokenRef = useRef(0);
+
+    // simulated remote API
+    const fetchByKeyword = (keyword) =>
+        new Promise((resolve) => {
+            const delay = 200 + Math.floor(Math.random() * 800);
+            setTimeout(() => {
+                if (!keyword) {
+                    resolve([]);
+                    return;
+                }
+                resolve([
+                    { label: `${keyword} - option A`, value: `${keyword}-a` },
+                    { label: `${keyword} - option B`, value: `${keyword}-b` },
+                    { label: `${keyword} - option C`, value: `${keyword}-c` },
+                ]);
+            }, delay);
+        });
+
+    const handleSearch = useCallback(
+        debounce((input) => {
+            if (!input) {
+                setTreeData([]);
+                setLoading(false);
+                return;
+            }
+            const token = ++reqTokenRef.current;
+            setLoading(true);
+            fetchByKeyword(input).then((next) => {
+                // out-of-order earlier response — drop it
+                if (token !== reqTokenRef.current) {
+                    return;
+                }
+                setTreeData(next);
+                setLoading(false);
+            });
+        }, 300),
+        []
+    );
+
+    return (
+        <Spin spinning={loading}>
+            <Cascader
+                style={{ width: 300 }}
+                placeholder="Type to search remotely"
+                filterTreeNode
+                remote
+                treeData={treeData}
+                onSearch={handleSearch}
+                onChange={(v) => console.log('selected:', v)}
+            />
+        </Spin>
+    );
+};
+```
+
+
 ### Custom Trigger
 
 If the default trigger style cannot meet your needs, you can use `triggerRender` to customize the display of the select box
@@ -1964,6 +2101,7 @@ function Demo() {
 | placeholder | Placeholder                                                                                                                                                                                                                                   | string | - | - |
 | prefix | Prefix label                                                                                                                                                                                                                                  | ReactNode | - | - |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user                                                 | boolean | - | 2.15.0 |
+| remote | Whether to enable remote search. When enabled, local filtering is skipped on input change; only the `onSearch` callback is fired so that the consumer can update `treeData` asynchronously to render remote search results, mirroring Select's `remote` behavior | boolean | false | 2.97.0 |
 |restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)                                                                                                                                                            |PopoverProps   | {}  | -|
 | searchPlaceholder  | Placeholder for search input                                                                                                                                                                                                                  | string | - | -  |
 | searchPosition | Set the position of the search box,  `trigger` or `custom` | string| `trigger` | 2.54.0 |
@@ -1984,6 +2122,7 @@ function Demo() {
 | validateStatus | The validation status of the trigger only affects the display style. Optional: default、error、warning                                                                                                                                          | string | `default` | - |
 | virtualizeInSearch  | Search result list virtualization, used when there are a large number of tree nodes, composed of height, width,itemSize  | Object | -  | -  | - |
 | zIndex | zIndex for dropdown menu                                                                                                                                                                                                                      | number | 1030 | - |
+| clickToSelect | Multiple mode, clicking any node triggers selection. Useful with showNext="hover": hover expands submenu, click selects current node                                                                                                        | boolean | false | - |
 | enableLeafClick | Multiple mode, click the leaf option enable trigger check                                                                                                                                                                                     | boolean | false | 2.2.0 |
 | onBlur | Out of focus Cascader's callback                                                                                                                                                                                                              | (e: MouseEvent) => void | - | - |
 | onChange | Callback function when the tree node is selected                                                                                                                                                                                              | (value: string\|number\|CascaderData\|(string\|number\|CascaderData)[]) => void | - | - |

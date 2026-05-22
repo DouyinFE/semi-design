@@ -937,11 +937,11 @@ $module-list: #{$prefix}-scrolllist;
                     height: fit-content;
                     border: none;
 
-                    &:active  {
+                    &:active:not(#neverExistElement) {
                         background-color: transparent;
                     }
 
-                    &:hover {
+                    &:hover:not(#neverExistElement) {
                         background-color: transparent;
                     }
                 }
@@ -1129,7 +1129,44 @@ $module-list: #{$prefix}-scrolllist;
     @include font-size-small;
     line-height: $lineHeight-datepicker_compact;
 
+    // Max width constraint for compact panels
+    $compact-max-width: calc(100vw - 32px);
+
+    // Make the compact panel shrink-to-fit its contents.
+    // This ensures the popover background/container expands together with
+    // long locale texts instead of letting inner buttons visually overflow.
+    display: inline-block;
+    max-width: $compact-max-width;
+
+    // Ensure the popover expands to fit this compact datepicker
+    &:not(&-insetInput) {
+        width: max-content;
+    }
+
+    .#{$module}-container {
+        // Keep flex layout but allow the container to size by content.
+        width: max-content;
+    }
+
     .#{$module}-month-grid {
+        // Let the month grid contribute its intrinsic width to the popover.
+        width: max-content;
+
+        .#{$module}-month-grid-left,
+        .#{$module}-month-grid-right {
+            min-width: $width-datepicker_month_compact;
+            // Keep the current compact width as the baseline,
+            // but allow the panel to grow to fit long locale texts.
+            // When reaching viewport limit, month title will ellipsis.
+            max-width: $compact-max-width;
+        }
+
+        // Keep calendar body centered when panel grows
+        // without breaking navigation layout in range mode.
+        .#{$module}-month {
+            margin-left: auto;
+            margin-right: auto;
+        }
 
         &[x-type="dateTime"],
         &[x-type="dateTimeRange"] {
@@ -1137,6 +1174,18 @@ $module-list: #{$prefix}-scrolllist;
                 // 减去底部switch高度
                 height: calc(100% - #{$height-datepicker_switch_compact});
             }
+        }
+
+        // Allow yam (year-month scrolllist) panel to expand with content in compact mode
+        .#{$module}-yam {
+            // Use relative positioning so parent can expand to fit content width
+            // Height is constrained to prevent scrolllist from expanding too much
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            max-height: $height-datepicker_yam_panel_compact;
+            overflow-x: auto;
+            overflow-y: hidden;
         }
 
         &[x-type="dateRange"],
@@ -1169,6 +1218,18 @@ $module-list: #{$prefix}-scrolllist;
             box-sizing: border-box;
             height: $height-datepicker_yam_panel_header_compact;
             padding: $spacing-datepicker_yam_panel_header_compact-padding;
+            width: 100%;
+            max-width: 100%;
+
+            // Constrain the back button to prevent overflow
+            button,
+            .#{$prefix}-button {
+                width: 100%;
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
         }
 
         .#{$module}-yearmonth-body {
@@ -1265,9 +1326,14 @@ $module-list: #{$prefix}-scrolllist;
     }
 
     .#{$module}-navigation {
+        box-sizing: border-box;
         height: $width-datepicker_nav_compact;
         padding: $spacing-datepicker_nav_compact-padding;
         padding-bottom: 0;
+        // In compact mode, keep navigation constrained within each panel
+        // (especially important for dateRange two-column layout).
+        width: 100%;
+        max-width: 100%;
 
         &-left,
         &-right {
@@ -1281,10 +1347,21 @@ $module-list: #{$prefix}-scrolllist;
         }
 
         &-month {
+            min-width: 0;
+            overflow: hidden;
+
             .#{$prefix}-button {
                 // 覆盖样式，否则会从button继承
                 @include font-size-small;
                 line-height: $lineHeight-datepicker_compact;
+                max-width: 100%;
+
+                > span {
+                    display: block;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
             }
         }
     }
@@ -1498,7 +1575,10 @@ $module-list: #{$prefix}-scrolllist;
         }
 
         &-month {
-            max-width: $width-datepicker_panel_compact;
+            // Keep compact baseline width, but allow growing to fit long locale texts.
+            min-width: $width-datepicker_panel_compact;
+            width: max-content;
+            max-width: $compact-max-width;
 
             &[x-insetinput=true] {
                 .#{$module}-quick-control-right-content-wrapper,
@@ -1514,7 +1594,10 @@ $module-list: #{$prefix}-scrolllist;
         }
 
         &-date {
-            max-width: $width-datepicker_panel_compact;
+            // Keep compact baseline width, but allow growing to fit long locale texts.
+            min-width: $width-datepicker_panel_compact;
+            width: max-content;
+            max-width: $compact-max-width;
 
             &[x-insetinput=true] {
                 .#{$module}-quick-control-right-content-wrapper,
@@ -1530,7 +1613,10 @@ $module-list: #{$prefix}-scrolllist;
         }
 
         &-dateTime {
-            max-width: $width-datepicker_panel_compact;
+            // Keep compact baseline width, but allow growing to fit long locale texts.
+            min-width: $width-datepicker_panel_compact;
+            width: max-content;
+            max-width: $compact-max-width;
 
             &[x-insetinput=true] {
                 .#{$module}-quick-control-right-content-wrapper,
@@ -1546,7 +1632,12 @@ $module-list: #{$prefix}-scrolllist;
         }
 
         &-dateRange {
-            max-width: $width-datepicker_panel_compact * 2;
+            // Keep compact baseline width, but allow growing to fit long locale texts.
+            // Avoid min-width > max-width on small viewports (which would force overflow).
+            // Keep the 2-panel baseline when possible, but cap it to the compact viewport limit.
+            min-width: min(#{$width-datepicker_panel_compact * 2}, #{$compact-max-width});
+            width: max-content;
+            max-width: $compact-max-width;
 
             &[x-insetinput=true] {
                 .#{$module}-quick-control-right-content-wrapper,
@@ -1562,7 +1653,11 @@ $module-list: #{$prefix}-scrolllist;
         }
 
         &-dateTimeRange {
-            max-width: $width-datepicker_panel_compact * 2;
+            // Keep compact baseline width, but allow growing to fit long locale texts.
+            // Avoid min-width > max-width on small viewports (which would force overflow).
+            min-width: min(#{$width-datepicker_panel_compact * 2}, #{$compact-max-width});
+            width: max-content;
+            max-width: $compact-max-width;
 
             &[x-insetinput=true] {
                 .#{$module}-quick-control-right-content-wrapper,

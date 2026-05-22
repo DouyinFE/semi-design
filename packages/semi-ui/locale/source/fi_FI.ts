@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Muuta laskevaksi napsauttamalla',
         ascend: 'Muuta nousevaksi napsauttamalla',
         cancelSort: 'Peruuta lajittelu',
+        confirmFilter: 'OK',
+        resetFilter: 'Tyhjennä',
     },
     Select: {
         emptyText: 'Ei tuloksia',

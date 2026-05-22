@@ -229,7 +229,7 @@ fastlane/readme.md
 tmp
 
 # test
-/__snapshots__/
+**/__snapshots__/
 
 
 .vscode

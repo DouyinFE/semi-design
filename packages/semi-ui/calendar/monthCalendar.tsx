@@ -48,6 +48,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
         dateGridRender: PropTypes.func,
         onClick: PropTypes.func,
         onClose: PropTypes.func,
+        onMoreClick: PropTypes.func,
     };
 
     static defaultProps = {
@@ -180,6 +181,13 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
         this.foundation.showCard(e, key);
     };
 
+    handleMoreClick = (e: React.MouseEvent, key: string, date: Date, remaining: number) => {
+        e.stopPropagation();
+        const { onMoreClick } = this.props;
+        this.showCard(e, key);
+        onMoreClick && onMoreClick(e, date, remaining);
+    };
+
     renderHeader = (dateFnsLocale: Locale['dateFnsLocale']) => {
         const { markWeekend, displayValue } = this.props;
         this.monthlyData = this.foundation.getMonthlyData(displayValue, dateFnsLocale);
@@ -279,7 +287,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
                     <div
                         className={`${cardCls}-wrapper`}
                         style={{ bottom: 0 }}
-                        onClick={e => this.showCard(e, key)}
+                        onClick={e => this.handleMoreClick(e, key, date, remained)}
                     >
                         {locale.remaining.replace('${remained}', String(remained))}
                     </div>

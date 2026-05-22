@@ -180,14 +180,35 @@ describe('Select', () => {
 
     it('Controled mode, same label text in reactNode', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--controled-same-label-in-node');
+        // This spec verifies that when two Select.Options share the same
+        // ReactNode label (`<div>China</div>`), the controlled value still
+        // picks the correct one as selected.
+        //
+        // The previous spec re-opened the dropdown after every selection and
+        // re-asserted `.semi-select-option-selected`, but cypress's synthetic
+        // click pipeline cannot reliably reopen the already-focused Select
+        // trigger in headless Electron (the second mousedown fires Select's
+        // outside-click handler before the click toggles back open). We now
+        // assert each open+select+verify cycle starting from a clean state by
+        // explicitly blurring (Escape closes the popup AND removes focus)
+        // before clicking the trigger again.
         cy.get('[data-cy=singleControl]').click();
         cy.get('[data-cy=a-1]').click();
         cy.wait(300);
-        cy.get('[data-cy=singleControl]').click(); // show optionList again
+        cy.get('[data-cy=singleControl]').should('contain.text', 'China');
+
+        // Blur via tab/escape so the next click is treated as a fresh open.
+        cy.get('body').click(0, 0);
+        cy.wait(200);
+        cy.get('[data-cy=singleControl]').click();
         cy.wait(300);
         cy.get('[data-cy=a-1]').should('have.class', 'semi-select-option-selected');
         cy.get('[data-cy=a-2]').click();
-        cy.wait(500);
+        cy.wait(300);
+        cy.get('[data-cy=singleControl]').should('contain.text', 'China');
+
+        cy.get('body').click(0, 0);
+        cy.wait(200);
         cy.get('[data-cy=singleControl]').click();
         cy.wait(300);
         cy.get('[data-cy=a-2]').should('have.class', 'semi-select-option-selected');

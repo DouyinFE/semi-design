@@ -16,6 +16,7 @@ python -m webbrowser https://$url/sync/@douyinfe/semi-next
 python -m webbrowser https://$url/sync/@douyinfe/semi-rspack-plugin
 python -m webbrowser https://$url/sync/@douyinfe/semi-scss-compile
 python -m webbrowser https://$url/sync/@douyinfe/semi-theme-default
+python -m webbrowser https://$url/sync/@douyinfe/semi-vite-plugin
 python -m webbrowser https://$url/sync/@douyinfe/semi-webpack-plugin
 python -m webbrowser https://$url/sync/@douyinfe/semi-json-viewer-core
 

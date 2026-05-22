@@ -157,6 +157,11 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     onVisibleChange?: (isVisible: boolean) => void;
     onClear?: (e: React.MouseEvent | React.KeyboardEvent<HTMLDivElement>) => void;
     autoMergeValue?: boolean
+    /**
+     * Whether to allow selected tags to wrap to multiple lines in trigger (multiple + searchPosition="trigger").
+     * When enabled, TreeSelect will constrain trigger width and allow TagInput to wrap.
+     */
+    triggerTagWrap?: boolean;
 }
 
 export type OverrideCommonState =
@@ -206,6 +211,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         // Whether to turn on the input box filtering function, when it is a function, it represents a custom filtering function
         filterTreeNode: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
         multiple: PropTypes.bool,
+        remote: PropTypes.bool,
         searchPlaceholder: PropTypes.string,
         searchAutoFocus: PropTypes.bool,
         virtualize: PropTypes.object,
@@ -278,6 +284,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         preventScroll: PropTypes.bool,
         clickTriggerToHide: PropTypes.bool,
         autoMergeValue: PropTypes.bool,
+        triggerTagWrap: PropTypes.bool,
     };
 
     static defaultProps: Partial<TreeSelectProps> = {
@@ -293,6 +300,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         zIndex: popoverNumbers.DEFAULT_Z_INDEX,
         disableStrictly: false,
         multiple: false,
+        remote: false,
         filterTreeNode: false,
         size: 'default' as const,
         treeNodeFilterProp: 'label' as const,
@@ -312,6 +320,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         restTagsPopoverProps: {},
         clickTriggerToHide: true,
         autoMergeValue: true,
+        triggerTagWrap: false,
     };
     inputRef: React.RefObject<typeof Input>;
     tagInputRef: React.RefObject<TagInput>;
@@ -388,7 +397,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const needUpdateTreeData = needUpdate('treeData');
         const needUpdateExpandedKeys = needUpdate('expandedKeys');
         const isExpandControlled = 'expandedKeys' in props;
-        const isSearching = Boolean(props.filterTreeNode && prevState.inputValue && prevState.inputValue.length);
+        // In remote mode, skip local filtering in getDerivedStateFromProps
+        const isSearching = Boolean(props.filterTreeNode && !props.remote && prevState.inputValue && prevState.inputValue.length);
         // TreeNode
         if (needUpdateTreeData) {
             treeData = props.treeData;
@@ -1067,6 +1077,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             borderless,
             autoMergeValue,
             checkRelation,
+            triggerTagWrap,
             ...rest
         } = this.props;
         const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus, realCheckedKeys } = this.state;
@@ -1101,6 +1112,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     [`${prefixcls}-with-prefix`]: prefix || insetLabel,
                     [`${prefixcls}-with-suffix`]: suffix,
                     [`${prefixcls}-with-suffix`]: suffix,
+                    [`${prefixcls}-triggerTagWrap`]: Boolean(triggerTagWrap) && multiple && isTriggerPositionSearch,
                 },
                 className
             );

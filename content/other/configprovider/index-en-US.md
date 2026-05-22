@@ -113,13 +113,86 @@ function Demo(props = {}) {
 
 ```
 
+
+### Responsive breakpoints
+
+ConfigProvider supports responsive breakpoint configuration and subscriptions to breakpoint changes.
+
+<Notice title={"Notes"}>
+
+- For performance reasons, `responsiveObserve` is `false` by default. When disabled, ConfigProvider will not register any `matchMedia` listeners.
+- `onBreakpoint` / `screens` are not ConfigProvider props. Please access them via `ConfigConsumer`.
+- Each subscription **fires the callback once immediately** with the current breakpoint matches, so you don't need to call `window.matchMedia` yourself on mount.
+- `responsiveMap` is compared by reference: passing a fresh object inline on every render will be treated as a change and trigger re-registration of all listeners. Define it outside the component or wrap it with `useMemo` to keep the reference stable.
+
+</Notice>
+
+#### Enable observing & custom breakpoints
+
+- Use `responsiveObserve` to enable breakpoint observing (recommended only when you really need subscriptions)
+- Use `responsiveMap` to customize breakpoints (falls back to default map when not provided)
+
+```jsx
+import React, { useEffect, useState } from 'react';
+import { ConfigProvider, ConfigConsumer, Typography } from '@douyinfe/semi-ui';
+
+function BreakpointSubscriber({ onBreakpoint, screens }) {
+    const [subscribedScreens, setSubscribedScreens] = useState(screens);
+
+    useEffect(() => {
+        if (!onBreakpoint) {
+            return;
+        }
+        const unsubscribe = onBreakpoint(next => {
+            setSubscribedScreens(next);
+        });
+        return unsubscribe;
+    }, [onBreakpoint]);
+
+    return (
+        <Typography.Text>
+            {JSON.stringify(subscribedScreens || screens)}
+        </Typography.Text>
+    );
+}
+
+function Demo() {
+    return (
+        <ConfigProvider
+            responsiveObserve
+            responsiveMap={{
+                xs: '(max-width: 575px)',
+                sm: '(min-width: 576px)',
+                md: '(min-width: 768px)',
+                lg: '(min-width: 992px)',
+                xl: '(min-width: 1200px)',
+                xxl: '(min-width: 1600px)',
+            }}
+        >
+            <ConfigConsumer>
+                {({ onBreakpoint, screens }) => (
+                    <BreakpointSubscriber onBreakpoint={onBreakpoint} screens={screens} />
+                )}
+            </ConfigConsumer>
+        </ConfigProvider>
+    );
+}
+```
+
+#### Subscription API
+
+`onBreakpoint` supports two overloads (both return an unsubscribe function):
+
+- `onBreakpoint((screens) => void)`: callback receives the full screens map
+- `onBreakpoint(['md', 'lg'], (screen, match) => void)`: listen to specific breakpoints only
+
 ### RTL/LTR
 Global configuration `direction` can change the text direction of components。`rtl` means right to left (similar to Hebrew or Arabic), `ltr` means left to right (similar to most languages such as English)
 
 Special components:
 - Command call of Modal, Notification and Toast needs to be passed to 'direction' through prop.
 - If you want to internationalize the directional icon, you need to handle it on your own. We think RTL for icon will make it difficult to understand and maintain. Semi has adapted the icons in other components.
-- The tree data of Table does not support RTL ([Chrome, Safari have different behave with Firefox](https://codesandbox.io/s/table-rtl-treedata-uy7gzl?file=/src/App.jsx)), and fixed column supports RTL in v2.32 version, Slider does not support RTL yet.
+- The tree data of Table does not support RTL ([Chrome, Safari have different behave with Firefox](https://codesandbox.io/s/table-rtl-treedata-uy7gzl?file=/src/App.jsx)), and fixed column supports RTL in v2.32 version.
 
 ```jsx live=true dir="column" hideInDSM
 import React, { useState } from 'react';
@@ -430,6 +503,8 @@ function Demo(props = {}) {
 | Properties | Instructions                                                                                                      | type          | Default |
 |------------|-------------------------------------------------------------------------------------------------------------------|---------------|---------|
 | direction  | Sets the direction of the text                                                                                    | `ltr`\| `rtl` | `ltr`   |
+| responsiveObserve | Whether to enable responsive breakpoint observing. Disabled by default to avoid global `matchMedia` overhead; when enabled, listeners are registered lazily on first subscription and unregistered when no subscribers remain, **>=2.97.0** | boolean | `false` |
+| responsiveMap | Custom breakpoint map. Keys: `xs/sm/md/lg/xl/xxl`, values: media query strings. Falls back to default map (also available via `ConfigProvider.defaultResponsiveMap`), **>=2.97.0** | object |         |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.  | function():HTMLElement | () => document.body    |
 | locale     | Multi-language configuration, same as the [usage](/en-US/other/locale) of `locale` parameter in `LocaleProvider`(If `locale` is configured in `ConfigProvider` and `LocaleProvider` at the same time, the former has higher priority than the latter)  | object         |         |
 | timeZone   | [Time zone identifier](#Time_Zone_Identifier)                                                                     | string\|number |         |

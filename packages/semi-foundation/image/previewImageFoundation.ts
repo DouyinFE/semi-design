@@ -51,6 +51,28 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     containerWidth = 0; 
     containerHeight = 0;
 
+    // initialZoom should only be applied once per image src (first initialization)
+    private _initialZoomApplied = false;
+    private _initialZoomAppliedSrc: any = undefined;
+
+    private _syncInitialZoomFlagWithSrc = () => {
+        const src = this.getProp("src");
+        if (src !== this._initialZoomAppliedSrc) {
+            this._initialZoomAppliedSrc = src;
+            this._initialZoomApplied = false;
+        }
+    };
+
+    private _clampZoom = (zoom: number) => {
+        const { maxZoom, minZoom } = this.getProps() as any;
+        const max = typeof maxZoom === 'number' ? maxZoom : 5;
+        const min = typeof minZoom === 'number' ? minZoom : 0.1;
+        if (typeof zoom !== 'number' || !Number.isFinite(zoom)) {
+            return min;
+        }
+        return Math.min(max, Math.max(min, zoom));
+    };
+
     init() {
         this._getContainerBoundingRectSize();
     }
@@ -84,14 +106,21 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     }
 
     _getInitialZoom = () => {
-        const { ratio } = this.getProps();
+        const { ratio, initialZoom } = this.getProps() as any;
         let _zoom = 1;
+
+        // initialZoom is only used for the first initialization of each src
+        this._syncInitialZoomFlagWithSrc();
+        if (!this._initialZoomApplied && typeof initialZoom === 'number' && Number.isFinite(initialZoom) && initialZoom > 0) {
+            this._initialZoomApplied = true;
+            return this._clampZoom(initialZoom);
+        }
 
         if (ratio === 'adaptation') {
             _zoom = this._getAdaptationZoom();
         }
 
-        return _zoom;
+        return this._clampZoom(_zoom);
     }
 
     setLoading = (loading: boolean) => {
@@ -108,6 +137,8 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
             const { naturalWidth: w, naturalHeight: h } = e.target as any;
             this.originImageHeight = h;
             this.originImageWidth = w;
+            // New image is loaded; allow initialZoom to be applied once for this src
+            this._syncInitialZoomFlagWithSrc();
             this.setState({
                 loading: false,
             } as any);

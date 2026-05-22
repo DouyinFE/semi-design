@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Azalan şəkildə etmək üçün klikləyin',
         ascend: 'Artan şəkildə etmək üçün klikləyin',
         cancelSort: 'Çeşidləməni ləğv edin',
+        confirmFilter: 'OK',
+        resetFilter: 'Sıfırla',
     },
     Select: {
         emptyText: 'Nəticə yoxdur',

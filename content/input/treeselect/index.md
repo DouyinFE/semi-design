@@ -387,6 +387,56 @@ import { TreeSelect, Switch } from '@douyinfe/semi-ui';
 };
 ```
 
+### 远程搜索
+
+通过设置 `remote` 属性可启用远程搜索。开启后，输入时不会执行本地过滤，而是仅触发 `onSearch` 回调，用户可自行处理远程数据获取并更新 `treeData`。
+
+```jsx live=true
+import React, { useState, useCallback } from 'react';
+import { TreeSelect, Toast } from '@douyinfe/semi-ui';
+
+() => {
+    const [value, setValue] = useState();
+    const [treeData, setTreeData] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    // 模拟远程搜索
+    const handleSearch = useCallback((inputValue) => {
+        if (!inputValue) {
+            setTreeData([]);
+            return;
+        }
+
+        setLoading(true);
+        
+        // 模拟网络请求
+        setTimeout(() => {
+            const mockData = [
+                { label: `${inputValue} - 结果1`, value: `${inputValue}-1`, key: `${inputValue}-1` },
+                { label: `${inputValue} - 结果2`, value: `${inputValue}-2`, key: `${inputValue}-2` },
+                { label: `${inputValue} - 结果3`, value: `${inputValue}-3`, key: `${inputValue}-3` },
+            ];
+            setTreeData(mockData);
+            setLoading(false);
+        }, 500);
+    }, []);
+
+    return (
+        <TreeSelect
+            style={{ width: 300 }}
+            placeholder="请输入关键字进行远程搜索"
+            treeData={treeData}
+            filterTreeNode
+            remote
+            loading={loading}
+            value={value}
+            onChange={setValue}
+            onSearch={handleSearch}
+        />
+    );
+};
+```
+
 ### 搜索框位置
 
 可以使用 `searchPosition` 来设置搜索框的位置，可选: `dropdown`(默认)、`trigger`。
@@ -478,6 +528,99 @@ import { TreeSelect } from '@douyinfe/semi-ui';
                 placeholder="多选"
             />
         </>
+    );
+};
+```
+
+### Trigger 内多行换行（triggerTagWrap）
+
+当你在 **多选 + 搜索框位于 trigger** 的场景下，选择了较多项或输入较长文本时，默认 trigger 可能会更倾向于保持单行展示。
+
+通过设置 `triggerTagWrap={true}`，可以让 trigger 内的已选标签支持自动换行（多行展示）。
+
+```jsx live=true
+import React from 'react';
+import { TreeSelect } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                        {
+                            label: 'Shenzhen',
+                            value: 'Shenzhen',
+                            key: '0-0-2',
+                        },
+                        {
+                            label: 'Guangzhou',
+                            value: 'Guangzhou',
+                            key: '0-0-3',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+
+    return (
+        <TreeSelect
+            searchPosition="trigger"
+            triggerTagWrap
+            style={{ width: 260 }}
+            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+            treeData={treeData}
+            multiple
+            filterTreeNode
+            placeholder="请选择多个选项或输入长文本"
+            defaultValue={['Beijing', 'Shanghai', 'Shenzhen', 'Guangzhou']}
+        />
     );
 };
 ```
@@ -1373,6 +1516,7 @@ function Demo() {
 | expandIcon | 自定义展开图标，使用[示例](/zh-CN/navigation/tree#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%95%E5%BC%80%20Icon) | ReactNode \| (props: expandProps)=>ReactNode | - | 2.75.0 |
 | keyMaps | 自定义节点中 key、label、value 的字段。v2.47.0后提供。如果 keyMaps 中设置 label 的自定义名称并且开启了搜索，为保证搜索正确，需要将 treeNodeFilterProp 设置为 treeData 的键之一或者通过 filterTreeNode 自定义搜索函数                                                                                            | object |  - |
 | filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNodeData` 的属性值, data 参数自 v2.28.0 开始提供                         | boolean\| <ApiType detail='(inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean'>Function</ApiType> | false |
+| remote | 是否启用远程搜索。开启后，输入时跳过本地过滤，仅触发 `onSearch` 回调，用户可自行处理远程数据获取并更新 `treeData` | boolean | false |
 | getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                                                       | function():HTMLElement | - |
 | labelEllipsis | 是否开启label的超出省略，默认虚拟化状态下开启                                                                                                   | boolean | false\|true(虚拟化) | 
 | leafOnly | 多选模式下是否开启 onChange 回调入参及展示标签只有叶子节点                                                                                            | boolean | false |
@@ -1395,6 +1539,7 @@ function Demo() {
 | searchAutoFocus | 搜索框自动聚焦                                                                                                                              | boolean | false |
 | searchPlaceholder | 搜索框默认文字                                                                                                                            | string | - | 
 | searchPosition | 设置搜索框的位置，可选: `dropdown`、`trigger`                                                                                                  | string | `dropdown` |
+| triggerTagWrap | 是否允许在 trigger 内将多选标签换行展示。仅在 `multiple` 且 `filterTreeNode` 开启、并且 `searchPosition="trigger"` 时生效 | boolean | false |
 | showClear | 当值不为空时，trigger 是否展示清除按钮                                                                                                               | boolean | false | 
 | showFilteredOnly | 搜索状态下是否只展示过滤后的结果                                                                                                               | boolean | false | 
 | showLine | 选项面板中选项显示连接线。v2.50.0后提供                                                                                                                | boolean | false |

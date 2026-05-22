@@ -21,6 +21,7 @@ import { BaseRowKeyType } from '@douyinfe/semi-foundation/table/foundation';
 
 import BaseComponent from '../../_base/baseComponent';
 import TableCell from '../TableCell';
+import TableContext, { TableContextProps } from '../table-context';
 import { ColumnProps, Fixed, TableComponents, Virtualized, ExpandIcon, OnRow, RowExpandable } from '../interface';
 
 export interface BaseRowProps {
@@ -37,7 +38,8 @@ export interface BaseRowProps {
     fixed?: Fixed;
     height?: string | number;
     hideExpandedColumn?: boolean;
-    hovered: boolean; // required
+    /** Whether the current row is hovered */
+    hovered?: boolean;
     indent?: number;
     indentSize?: number;
     index?: number;
@@ -83,7 +85,7 @@ export const baseRowPropTypes = {
     fixed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     hideExpandedColumn: PropTypes.bool,
-    hovered: PropTypes.bool.isRequired,
+    hovered: PropTypes.bool,
     indent: PropTypes.number,
     indentSize: PropTypes.number,
     index: PropTypes.number,
@@ -112,6 +114,7 @@ export const baseRowPropTypes = {
 
 export default class TableRow extends BaseComponent<BaseRowProps, Record<string, any>> {
     static propTypes = baseRowPropTypes;
+    static contextType = TableContext;
 
     static defaultProps = {
         columns: [] as [],
@@ -136,6 +139,8 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
         disabled: false,
     };
 
+    context: TableContextProps;
+
     get adapter(): TableRowAdapter<BaseRowProps> {
         return {
             ...super.adapter,
@@ -143,7 +148,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
             notifyDoubleClick: (...args) => this.props.onRowDoubleClick(...args),
             notifyMouseLeave: (...args) => {
                 this.props.onHover(false, this.props.rowKey);
-                this.props.onRowMouseEnter(...args);
+                this.props.onRowMouseLeave(...args);
             },
             notifyMouseEnter: (...args) => {
                 this.props.onHover(true, this.props.rowKey);
@@ -164,10 +169,12 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
             onRow,
             index,
             record,
+            disabled,
+            selected,
         } = this.props;
         const customRowProps = this.adapter.getCache('customRowProps');
         if (typeof customRowProps === 'undefined') {
-            const { className: customClassName, style: customStyle, ...rowProps } = onRow(record, index) || {};
+            const { className: customClassName, style: customStyle, ...rowProps } = onRow(record, index, { disabled, selected }) || {};
             this.adapter.setCache('customRowProps', { ...rowProps });
         }
     }
@@ -216,6 +223,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
             expanded,
             disabled,
             onDidUpdate,
+            hovered,
         } = this.props;
 
         const BodyCell = get(components, 'body.cell', strings.DEFAULT_COMPONENTS.body.cell);
@@ -286,6 +294,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
                         expanded={expanded}
                         disabled={disabled}
                         onDidUpdate={onDidUpdate}
+                        hovered={hovered}
                     />
                 );
             }
@@ -322,6 +331,14 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
         if (customRowProps && typeof customRowProps.onClick === 'function') {
             customRowProps.onClick(e);
         }
+
+        // Handle clickRow selection
+        const { handleRowSelection } = this.context;
+        const { rowKey, selected, disabled, record } = this.props;
+        
+        if (typeof handleRowSelection === 'function' && !disabled) {
+            handleRowSelection(rowKey, !selected, e);
+        }
     };
 
     render() {
@@ -330,6 +347,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
             components,
             prefixCls,
             selected,
+            disabled,
             onRow,
             index,
             className,
@@ -347,7 +365,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
 
         const BodyRow = components.body.row;
 
-        const { className: customClassName, style: customStyle, ...rowProps } = onRow(record, index) || {};
+        const { className: customClassName, style: customStyle, ...rowProps } = onRow(record, index, { disabled, selected }) || {};
 
         this.adapter.setCache('customRowProps', { ...rowProps });
 

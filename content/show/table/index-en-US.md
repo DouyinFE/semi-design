@@ -258,8 +258,10 @@ This feature can be turned on by passing in `rowSelection`.
 -   Clicking on the row selection box will select the current row. Its callback function is `onSelect`;
 
 <Notice title='注意事项'>
-    <div>1. Be sure to provide a "key" for each row of data that is different from other row values, or use the rowKey parameter to specify a property name as the primary key.</div>
-    <div>2. If you encounter the problem of returning to the first page after clicking a row selection on the second page, please check whether component rendering triggers "dataSource" update (shallow equal). After the "dataSource" is updated, the uncontrolled page turner will return to the first page. Please put "dataSource" inside state. </div>
+
+1. Be sure to provide a "key" for each row of data that is different from other row values, or use the rowKey parameter to specify a property name as the primary key.
+2. If you encounter the problem of returning to the first page after clicking a row selection on the second page, please check whether component rendering triggers "dataSource" update (shallow equal). After the "dataSource" is updated, the uncontrolled page turner will return to the first page. Please put "dataSource" inside state.
+
 </Notice>
 
 ```jsx live=true noInline=true dir="column"
@@ -407,6 +409,14 @@ render(App);
 ### Custom Rendering
 
 Users can use Column.render to customize the rendering of a column of cells, which is suitable for rendering more complex cell content.
+
+The fourth parameter `options` of the `render` function is an object containing the following properties:
+- `expandIcon`: Expand icon (when using tree data or expandable rows)
+- `selection`: Selection checkbox (when row selection is enabled)
+- `indentText`: Indent content (when using tree data)
+- `isHovering`: Whether the current row is in hover state (supported in v2.98.0)
+
+With the `isHovering` parameter, you can implement interaction effects such as displaying action buttons on mouse hover.
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
@@ -1621,6 +1631,128 @@ function App() {
 render(App);
 ```
 
+### Filter Confirm Mode
+
+By setting `filterConfirmMode='confirm'`, the filter dropdown panel can support confirm mode. In this mode:
+
+-   Clicking filter items will not take effect immediately, but will be temporarily stored
+-   The bottom of the dropdown panel will show "Confirm" and "Reset" buttons
+-   Clicking the "Confirm" button will apply the filter conditions and close the dropdown panel
+-   Clicking the "Reset" button will restore to the initial state when the dropdown was opened (will not close the panel)
+
+This feature is suitable for scenarios where multiple filter conditions need to be selected before applying them at once, avoiding triggering filtering on every click.
+
+```jsx live=true noInline=true dir="column"
+import React, { useState, useEffect } from 'react';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
+
+function App() {
+    const [dataSource, setData] = useState([]);
+
+    const DAY = 24 * 60 * 60 * 1000;
+    const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'name',
+            width: 300,
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                        {text}
+                    </div>
+                );
+            },
+            filters: [
+                {
+                    text: 'Semi Design',
+                    value: 'Semi Design',
+                },
+                {
+                    text: 'Semi Pro',
+                    value: 'Semi Pro',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            filterMultiple: true,
+            // Enable filter confirm mode
+            filterConfirmMode: 'confirm',
+        },
+        {
+            title: 'Size',
+            dataIndex: 'size',
+            sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+            render: text => `${text} KB`,
+        },
+        {
+            title: 'Owner',
+            dataIndex: 'owner',
+            filters: [
+                {
+                    text: 'Jiang Pengzhi',
+                    value: 'Jiang Pengzhi',
+                },
+                {
+                    text: 'Hao Xuan',
+                    value: 'Hao Xuan',
+                },
+            ],
+            onFilter: (value, record) => record.owner.includes(value),
+            filterMultiple: true,
+            // Enable filter confirm mode
+            filterConfirmMode: 'confirm',
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                            {typeof text === 'string' && text.slice(0, 1)}
+                        </Avatar>
+                        {text}
+                    </div>
+                );
+            },
+        },
+        {
+            title: 'Update Date',
+            dataIndex: 'updateTime',
+            sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+            render: value => {
+                return dateFns.format(new Date(value), 'yyyy-MM-dd');
+            },
+        },
+    ];
+
+    const getData = () => {
+        const data = [];
+        for (let i = 0; i < 20; i++) {
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            data.push({
+                key: '' + i,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro homepage${i}.fig`,
+                owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+                size: randomNumber,
+                updateTime: new Date('2024-01-25').valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red',
+            });
+        }
+        return data;
+    };
+
+    useEffect(() => {
+        const data = getData();
+        setData(data);
+    }, []);
+
+    return <Table columns={columns} dataSource={dataSource} />;
+}
+
+render(App);
+```
+
 ### Custom Filter Item Rendering
 
 It is supported to pass in `renderFilterDropdownItem` to customize the rendering method of each filter item.
@@ -1755,8 +1887,10 @@ render(App);
 ### A Table That Can Be Expanded
 
 <Notice type="primary" title="Note">
-    <div>1. The unfold button will be rendered in the same cell as the first column, and you can open a separate column of rendering by passing in `hideExpandedColumn = {false}`.</div>
-    <div>2. Be sure to provide a "key" for each row of data that is different from the other row values, or use the rowKey parameter to specify an attribute name as the primary key.</div>
+
+1. The unfold button will be rendered in the same cell as the first column, and you can open a separate column of rendering by passing in `hideExpandedColumn = {false}`.
+2. Be sure to provide a "key" for each row of data that is different from the other row values, or use the rowKey parameter to specify an attribute name as the primary key.
+
 </Notice>
 
 #### A Common Table That Can Be Expanded
@@ -2742,6 +2876,130 @@ const ChildrenDataSelectedDemo = () => {
 };
 
 render(ChildrenDataSelectedDemo);
+```
+
+#### Tree Selection Association (checkRelation)
+
+By setting `rowSelection.checkRelation` to `'related'`, you can enable parent-child node selection association. Selecting a parent node automatically selects all child nodes, and selecting a child node affects the parent node's state (checked/half-checked/unchecked).
+
+```jsx live=true noInline=true dir="column"
+import React, { useMemo, useState } from 'react';
+import { Table } from '@douyinfe/semi-ui';
+
+const TreeSelectionDemo = () => {
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+    const columns = useMemo(
+        () => [
+            {
+                title: 'Key',
+                dataIndex: 'dataKey',
+                key: 'dataKey',
+            },
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                key: 'name',
+                width: 200,
+            },
+            {
+                title: 'Type',
+                dataIndex: 'type',
+                key: 'type',
+                width: 200,
+            },
+            {
+                title: 'Description',
+                dataIndex: 'description',
+                key: 'description',
+            },
+        ],
+        []
+    );
+
+    const data = useMemo(
+        () => [
+            {
+                key: '1',
+                dataKey: 'videos_info',
+                name: 'Video Info',
+                type: 'Object',
+                description: 'Video metadata',
+                children: [
+                    {
+                        key: '1-1',
+                        dataKey: 'status',
+                        name: 'Video Status',
+                        type: 'Enum',
+                        description: 'Video visibility status',
+                    },
+                    {
+                        key: '1-2',
+                        dataKey: 'vid',
+                        name: 'Video ID',
+                        type: 'String',
+                        description: 'Unique video ID',
+                        children: [
+                            {
+                                key: '1-2-1',
+                                dataKey: 'video_url',
+                                name: 'Video URL',
+                                type: 'String',
+                                description: 'Unique video link',
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                key: '2',
+                dataKey: 'text_info',
+                name: 'Text Info',
+                type: 'Object',
+                description: 'Text metadata',
+                children: [
+                    {
+                        key: '2-1',
+                        dataKey: 'title',
+                        name: 'Title',
+                        type: 'String',
+                        description: 'Text title',
+                    },
+                    {
+                        key: '2-2',
+                        dataKey: 'description',
+                        name: 'Description',
+                        type: 'String',
+                        description: 'Text description',
+                    },
+                ],
+            },
+        ],
+        []
+    );
+
+    const rowSelection = useMemo(
+        () => ({
+            selectedRowKeys,
+            onChange: (selectedRowKeys) => {
+                setSelectedRowKeys(selectedRowKeys);
+            },
+            checkRelation: 'related',
+        }),
+        [selectedRowKeys]
+    );
+
+    return (
+        <Table
+            columns={columns}
+            dataSource={data}
+            rowSelection={rowSelection}
+            pagination={false}
+        />
+    );
+};
+
+render(TreeSelectionDemo);
 ```
 
 ### Custom Row or Cell Events and Properties
@@ -5075,6 +5333,7 @@ type Render = (
 
 interface RenderOptions {
     expandIcon?: React.ReactNode;
+    isHovering?: boolean;
 }
 ```
 
@@ -5263,6 +5522,7 @@ render(App);
 | expandRowByClick | Expand row when click row                                                                                                 | boolean | false | - |
 | footer | End of form                                                                                                               | string<br/>\|ReactNode<br/>\|(pageData: object) => string\|ReactNode |  |
 | groupBy | Grouping basis, generally a method of a key name or a return value of a string or number in the dataSource element        | string\|number<br/>\|(record: any) => string\|number |  | - |
+| headerStyle | Style for header cells (applies to all header `<th>`, including fixed columns) | CSSProperties | - | **2.97.0** |
 | hideExpandedColumn | Whether to hide the expansion button column and turn off the rendering of the expansion button when it is turned on       | boolean | true |
 | indentSize | indent size of TableCell                                                                                                  | number | 20 |
 | keepDOM | Whether to not destroy the collapsed DOM when folding a row                                                               | boolean | false |
@@ -5288,7 +5548,59 @@ render(App);
 | onExpandedRowsChange | Triggers when unfolding row changes                                                                                       | (rows: RecordType[]) => void |  |
 | onGroupedRow | Similar to onRow, but this parameter is used to define the row attribute of the grouping header alone                     | (record: RecordType, index: number) => object |  | - |
 | onHeaderRow | Set the header row property, and the returned object is merged to the header line                                         | (columns: Column[], index: number) => object |  |
-| onRow | Set the row property, and the returned object is merged to the table row                                                  | (record: RecordType, index: number) => object |  |
+| onRow | Set the row property, and the returned object is merged to the table row | (record: RecordType, index: number, rowStatus?: { disabled?: boolean; selected?: boolean }) => object |  | - |
+
+### headerStyle Example
+
+`headerStyle` will be applied to all header `<th>` elements, including fixed columns.
+
+```jsx
+import React from 'react';
+import { Table } from '@douyinfe/semi-ui';
+
+const columns = [
+    {
+        title: 'Name',
+        dataIndex: 'name',
+        width: 180,
+        fixed: 'left',
+    },
+    {
+        title: 'Age',
+        dataIndex: 'age',
+        width: 120,
+    },
+    {
+        title: 'Address',
+        dataIndex: 'address',
+        width: 280,
+    },
+    {
+        title: 'Company',
+        dataIndex: 'company',
+        width: 280,
+    },
+];
+
+const dataSource = Array.from({ length: 6 }).map((_, i) => ({
+    key: i,
+    name: `Edward ${i}`,
+    age: 20 + i,
+    address: 'No. 1, Lake Park',
+    company: 'Semi Design',
+}));
+
+export default function Demo() {
+    return (
+        <Table
+            columns={columns}
+            dataSource={dataSource}
+            scroll={{ x: 900 }}
+            headerStyle={{ backgroundColor: '#F5F6F7', fontWeight: 600 }}
+        />
+    );
+}
+```
 
 Some of the type definitions used above:
 
@@ -5359,15 +5671,25 @@ function App() {
 
 > Also in `column.onCell` `column.onHeaderCell` Properties or events supported by td / th can also be returned.
 
+The third parameter `rowStatus` of `onRow` can get the current row's status information, including `disabled` and `selected` properties (supported in v2.61.0). This is useful when you need to execute different logic based on the row's selected or disabled state, for example, determining whether to allow selection when clicking a row.
+
 ```jsx noInline=true
 import React from 'react';
 import { Table } from '@douyinfe/semi-ui';
 
 () => (
     <Table
-        onRow={(record, index) => {
+        onRow={(record, index, rowStatus) => {
             return {
-                onClick: event => {},
+                onClick: event => {
+                    // rowStatus.disabled indicates whether the current row is disabled
+                    // rowStatus.selected indicates whether the current row is selected
+                    if (rowStatus?.disabled) {
+                        console.log('This row is disabled');
+                        return;
+                    }
+                    console.log('Clicked row', index, rowStatus);
+                },
                 onMouseEnter: event => {},
                 onMouseLeave: event => {},
                 className: '',
@@ -5408,11 +5730,12 @@ import { Table } from '@douyinfe/semi-ui';
 | filterDropdownVisible | Visible of Dropdown, see more in [Dropdown API](/en-US/show/dropdown#Dropdown) | boolean |  |
 | filterIcon | Custom filter icon | boolean\|ReactNode\|(filtered: boolean) => ReactNode |  |
 | filterMultiple | Whether to choose more | boolean | true |
+| filterConfirmMode | Filter confirm mode. `immediate` means filter immediately when clicking option; `confirm` means filter after clicking confirm button, and the dropdown panel will show confirm and reset buttons at the bottom | 'immediate' \| 'confirm' | 'immediate' |
 | filteredValue | Controlled property of the filter, the filter state of the external control column with a value of the screened value array | any[] |  |
 | filters | Filter menu items for the header | Filter[] |  |
 | fixed | Whether the column is fixed, optional true (equivalent to left) 'left' 'right' | boolean\|string | false |
 | key | The key required by React, if a unique dataIndex has been set, can ignore this property | string |  |
-| render | A rendering function that generates complex data, the parameters are the value of the current row, the current row data, the row index, and the table row / column merge can be set in return object | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode }) => React\|object |  |
+| render | A rendering function that generates complex data, the parameters are the value of the current row, the current row data, the row index, and the table row / column merge can be set in return object | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode, isHovering?: boolean }) => React\|object |  |
 | renderFilterDropdown | Custom filter dropdown panel, for usage details, see [Custom Filter Rendering](#Custom-Filter-Rendering) | (props?: RenderFilterDropdownProps) => React.ReactNode; | - | **2.52.0** |
 | renderFilterDropdownItem | Customize the rendering method of each filter item. For usage details, see [Custom Filter Item Rendering](#Custom-Filter-Item-Rendering) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | - |
 | resize | Whether to enable resize mode, this property will take effect only after Table resizable is enabled | boolean |  | **2.42.0** |
@@ -5447,6 +5770,8 @@ type Filter = {
 | Parameters | Instructions | Type | Default | Version |
 | --- | --- | --- | --- | --- |
 | className | Style name listed | string |  |
+| checkRelation | Parent-child node selection association mode. When set to `'related'`, selecting a parent node automatically selects all child nodes, and selecting a child node affects the parent node's state (checked/half-checked/unchecked). Default is `'unRelated'`, meaning parent and child node selections are independent. | 'related' \| 'unRelated' | 'unRelated' |  |
+| clickRow | Whether to enable click row to select. When enabled, clicking anywhere on the row will trigger selection/deselection, including fixed columns. Disabled rows (via getCheckboxProps) cannot be selected by clicking. | boolean | false | **2.94.0** |
 | disabled | Disabled `Checkbox` in `Table` header or not. | boolean | false | **0.32.0** |
 | fixed | Secure the selection box column to the left. | boolean | false |
 | getCheckboxProps | Default property configuration for the selection box | (record: RecordType) => object |  |  |
@@ -5464,7 +5789,7 @@ type Filter = {
 
 | Parameters               | Instructions                                                                                         | Type           | Default | Version |
 |--------------------------|------------------------------------------------------------------------------------------------------|----------------|---------|---------|
-| scrollToFirstRowOnChange | Whether to automatically scroll to the top of the table after paging, sorting, and filtering changes | boolean        | false   | -   |
+| scrollToFirstRowOnChange | Whether to automatically scroll to the top of the table after paging, sorting, and filtering changes. When `scroll.y` is set, it scrolls the table body to the top; when `scroll.y` is not set, it scrolls the page to the table header position | boolean        | false   | -   |
 | x                        | Set the width of the horizontal scroll area, which can be pixel value, percentage, or 'max-content'  | string\|number |         |         |
 | y                        | Set the height of the vertical scroll area, which can be a pixel value                               | number         |         |         |
 
@@ -5482,6 +5807,7 @@ Note: After pagination.onChange is set, Table onChange no longer responds to pag
 | pageSize           | Number of entries per page                                                                                                                                                                                                                                  | number                                                                                       | 10      |             |
 | position | Location | 'bottom '\|'top '\|'both' | 'bottom' |
 | total | Total number of entries | number | 0 | - |
+| preventPageChangeOnPageSizeChange | Whether to prevent automatic adjustment of currentPage when pageSize changes. By default, when pageSize changes, the component automatically calculates the new currentPage to maintain the current data position. When set to true, the user controls the page change | boolean | false | - |
 
 For other configurations, see [Pagination](/en-US/navigation/pagination#API-Reference)
 

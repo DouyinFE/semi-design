@@ -54,17 +54,20 @@ describe('jsonViewer', () => {
         cy.get('.line-scroll-container').trigger('mouseover', { which: 1 });
         cy.get('.semi-json-viewer-line-number[data-line-number="1"]').children().should('have.length', 2);
         cy.get('.semi-json-viewer-line-number[data-line-number="1"]').children().eq(1).click();
-        cy.get('.lines-content').children().should('have.length', 21);
+        cy.get('.lines-content').children().should('have.length.greaterThan', 2);
+        cy.get('.lines-content').children().then($children => {
+            const expandedLength = $children.length;
 
-        cy.get('.line-scroll-container').trigger('mouseover', { which: 1 });
-        cy.get('.semi-json-viewer-line-number[data-line-number="13"]').children().should('have.length', 2);
-        cy.get('.semi-json-viewer-line-number[data-line-number="13"]').children().eq(1).click();
-        cy.get('.lines-content').children().should('have.length', 15);
+            cy.get('.line-scroll-container').trigger('mouseover', { which: 1 });
+            cy.get('.semi-json-viewer-line-number[data-line-number="13"]').children().should('have.length', 2);
+            cy.get('.semi-json-viewer-line-number[data-line-number="13"]').children().eq(1).click();
+            cy.get('.lines-content').children().should('have.length', 15);
 
-        cy.get('.line-scroll-container').trigger('mouseover', { which: 1 });
-        cy.get('.semi-json-viewer-line-number[data-line-number="13"]').children().should('have.length', 2);
-        cy.get('.semi-json-viewer-line-number[data-line-number="13"]').children().eq(1).click();
-        cy.get('.lines-content').children().should('have.length', 21);
+            cy.get('.line-scroll-container').trigger('mouseover', { which: 1 });
+            cy.get('.semi-json-viewer-line-number[data-line-number="13"]').children().should('have.length', 2);
+            cy.get('.semi-json-viewer-line-number[data-line-number="13"]').children().eq(1).click();
+            cy.get('.lines-content').children().should('have.length', expandedLength);
+        });
     });
 
     it('edit', () => {

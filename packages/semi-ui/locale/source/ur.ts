@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'نیچے جانے کے لیے کلک کریں',
         ascend: 'اوپر جانے کے لیے کلک کریں',
         cancelSort: 'ترتیب سازی منسوخ کریں',
+        confirmFilter: 'ٹھیک ہے',
+        resetFilter: 'ری سیٹ',
     },
     Select: {
         emptyText: 'کوئی نتیجہ نہیں',

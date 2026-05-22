@@ -33,7 +33,7 @@ body[theme-mode="dark"] {
 }
 
 pre,code:not(.semi-codeHighlight *) {
-    font-family: Inconsolata, monospace;
+    font-family: Inconsolata, ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace;
     background-color: var(--semi-color-fill-1);
     margin-left: 4px;
     margin-right: 4px;

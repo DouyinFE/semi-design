@@ -6,6 +6,7 @@ import "@douyinfe/semi-foundation/aiChatDialogue/aiChatDialogue.scss";
 import { ReasoningWidget } from './widgets/contentItem/reasoning';
 import { DialogueStepWidget } from './widgets/contentItem/dialogueStep';
 import { AnnotationWidget } from './widgets/contentItem/annotation';
+import Code from './widgets/contentItem/code';
 import DialogueItem from './Dialogue';
 import DialogueFoundation, { DialogueAdapter, Message } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
 import { AIChatDialogueProps } from './interface';
@@ -36,6 +37,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
     static Reasoning = ReasoningWidget;
     static Step = DialogueStepWidget;
     static Annotation = AnnotationWidget;
+    static defaultComponents = { code: Code };
 
     foundation: DialogueFoundation;
     containerRef: React.RefObject<HTMLDivElement>;
@@ -45,19 +47,35 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
 
     static propTypes = {
         align: PropTypes.oneOf(['leftRight', 'leftAlign']),
-        chats: PropTypes.array,
+        chats: PropTypes.arrayOf(PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            content: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+            output_text: PropTypes.string,
+            role: PropTypes.string.isRequired,
+            name: PropTypes.string,
+            createdAt: PropTypes.number,
+            updatedAt: PropTypes.number,
+            model: PropTypes.string,
+            status: PropTypes.string,
+        })),
         className: PropTypes.string,
         disabledFileItemClick: PropTypes.bool,
-        hints: PropTypes.array,
+        hints: PropTypes.arrayOf(PropTypes.string),
         hintCls: PropTypes.string,
         hintStyle: PropTypes.object,
         selecting: PropTypes.bool,
         markdownRenderProps: PropTypes.object,
         messageEditRender: PropTypes.func,
-        mode: PropTypes.string,
+        mode: PropTypes.oneOf(['bubble', 'noBubble', 'userBubble']),
         roleConfig: PropTypes.object,
         style: PropTypes.object,
-        dialogueRenderConfig: PropTypes.object,
+        dialogueRenderConfig: PropTypes.shape({
+            renderDialogueAction: PropTypes.func,
+            renderDialogueAvatar: PropTypes.func,
+            renderDialogueContent: PropTypes.func,
+            renderDialogueTitle: PropTypes.func,
+            renderFullDialogue: PropTypes.func,
+        }),
         renderHintBox: PropTypes.func,
         renderDialogueContentItem: PropTypes.object,
         onAnnotationClick: PropTypes.func,
@@ -72,9 +90,11 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         onMessageGoodFeedback: PropTypes.func,
         onMessageReset: PropTypes.func,
         onMessageShare: PropTypes.func,
+        onReferenceClick: PropTypes.func,
         onSelect: PropTypes.func,
         showReset: PropTypes.bool,
         showReference: PropTypes.bool,
+        escapeHtml: PropTypes.bool,
     };
 
     static defaultProps = getDefaultPropsFromGlobalConfig(AIChatDialogue.__SemiComponentName__, {
@@ -84,6 +104,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         disabledFileItemClick: false,
         showReset: true,
         showReference: false,
+        escapeHtml: true,
     })
 
     constructor(props: AIChatDialogueProps) {
@@ -269,6 +290,14 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
             this.foundation.scrollToBottomWithAnimation();
         } else {
             this.foundation.scrollToBottomImmediately();
+        }
+    }
+
+    scrollToTop = (animation: boolean) => {
+        if (animation) {
+            this.foundation.scrollToTopWithAnimation();
+        } else {
+            this.foundation.scrollToTopImmediately();
         }
     }
 

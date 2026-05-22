@@ -28,7 +28,9 @@ export interface TextAreaAdapter extends Partial<DefaultAdapter>, Partial<TextAr
     setMinLength(length: number): void;
     notifyPressEnter(e: any): void;
     getRef(): HTMLInputElement;
-    notifyHeightUpdate(e: any): void
+    notifyHeightUpdate(e: any): void;
+    focusInput(): void;
+    isEventTarget(e: any): boolean
 }
 
 export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> {
@@ -61,8 +63,15 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
     }
 
     handleChange(value: string, e: any) {
-        const { maxLength, minLength, getValueLength } = this._adapter.getProps();
+        const { composition } = this._adapter.getProps();
         let nextValue = value;
+        // When composition is enabled and in IME composing, only update internal state without triggering onChange
+        // We still need to update internal state for both controlled and uncontrolled components,
+        // so that the textarea can correctly display the composing text
+        if (composition && this.compositionEnter) {
+            this._adapter.setValue(nextValue);
+            return;
+        }
         if (!this.compositionEnter) {
             nextValue = this.getNextValue(nextValue);
         }
@@ -98,20 +107,27 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
     }
 
     handleCompositionEnd = (e: any) => {
+        const { composition } = this._adapter.getProps();
+        const value = e.target.value;
         this.compositionEnter = false;
-        this._adapter.notifyCompositionEnd(e); 
+        this._adapter.notifyCompositionEnd(e);
+        // When composition is enabled, trigger onChange after IME composition ends
+        if (composition) {
+            const nextValue = this.getNextValue(value);
+            this._changeValue(nextValue, e);
+            return;
+        }
         const { getValueLength, maxLength, minLength } = this.getProps();
         if (!isFunction(getValueLength)) {
             return;
         }
-        const value = e.target.value;
         if (maxLength) {
             const nextValue = this.handleVisibleMaxLength(value);
             nextValue !== value && this._changeValue(nextValue, e);
         }
         if (minLength) {
             this.handleVisibleMinLength(value);
-        } 
+        }
     }
     
     handleCompositionUpdate = (e) => {
@@ -280,5 +296,36 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
         this._adapter.notifyChange('', e);
         this._adapter.notifyClear(e);
         this.stopPropagation(e);
+    }
+
+    /**
+     * trigger when click textarea wrapper
+     * @param {Event} e
+     */
+    handleClick(e: any) {
+        const { disabled, readonly } = this._adapter.getProps();
+        const { isFocus } = this._adapter.getStates();
+        if (disabled || readonly || isFocus) {
+            return;
+        }
+        // do not handle bubbling up events
+        if (this._adapter.isEventTarget(e)) {
+            this._adapter.focusInput();
+            this._adapter.toggleFocusing(true);
+        }
+    }
+
+    /**
+     * trigger when click textarea counter
+     * @param {Event} e
+     */
+    handleCounterClick(e: any) {
+        const { disabled, readonly } = this._adapter.getProps();
+        const { isFocus } = this._adapter.getStates();
+        if (disabled || readonly || isFocus) {
+            return;
+        }
+        this._adapter.focusInput();
+        this._adapter.toggleFocusing(true);
     }
 }

@@ -16,7 +16,8 @@ const ChatContent = React.memo((props: ChatContentProps) => {
     const { chats, onMessageBadFeedback, onMessageCopy, mode,
         onChatsChange, onMessageDelete, onMessageGoodFeedback,
         onMessageReset, roleConfig, chatBoxRenderConfig, align,
-        customMarkDownComponents, renderDivider, markdownRenderProps
+        customMarkDownComponents, renderDivider, markdownRenderProps,
+        escapeHtml
     } = props;
 
     const [toast, contextHolder] = Toast.useToast();
@@ -39,6 +40,7 @@ const ChatContent = React.memo((props: ChatContentProps) => {
                         mode={mode}
                         key={item.id} 
                         message={item}
+                        escapeHtml={escapeHtml}
                         roleConfig={roleConfig}
                         onMessageBadFeedback={onMessageBadFeedback}
                         onMessageCopy={onMessageCopy}

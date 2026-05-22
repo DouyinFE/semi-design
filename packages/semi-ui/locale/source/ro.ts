@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Faceți clic pentru a coborî',
         ascend: 'Faceți clic pentru a urca',
         cancelSort: 'Anulați sortarea',
+        confirmFilter: 'OK',
+        resetFilter: 'Resetare',
     },
     Select: {
         emptyText: 'Nici un rezultat',

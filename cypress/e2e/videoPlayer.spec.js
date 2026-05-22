@@ -25,7 +25,11 @@ describe('videoPlayer', () => {
     it('set seek time', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=videoplayer--set-seek-time');
         cy.wait(500);
-        cy.get('body').type('{rightArrow}');
+        // VideoPlayer only responds to keydown when focus is within itself (#3210).
+        // Focus a focusable element inside the player (the play button), and use
+        // `realPress` so the key event is dispatched to the actually focused element.
+        cy.get('.semi-videoPlayer .semi-videoPlayer-controls-menu-button').first().focus();
+        cy.realPress('ArrowRight');
         cy.get('.semi-videoPlayer-controls-time').contains('00:05').should('exist');
     });
 

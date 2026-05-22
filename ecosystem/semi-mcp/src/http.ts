@@ -13,11 +13,13 @@
  */
 
 import { createServer, IncomingMessage, ServerResponse } from 'http';
+import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { createMCPServer, getPackageVersion } from './server.js';
 
-// 会话存储：sessionId -> transport
+// 会话存储：sessionId -> session info
 interface SessionInfo {
+  server: Server;  // 每个会话独立的 server 实例
   transport: StreamableHTTPServerTransport;
   lastActivity: number;
   requestQueue: Array<() => Promise<void>>;
@@ -142,9 +144,6 @@ async function main() {
     processedHosts = ['::'];
   }
 
-  // 创建 MCP 服务器
-  const server = createMCPServer();
-
   console.log(`[${new Date().toISOString()}] MCP 服务器已启动`);
   console.log(`[${new Date().toISOString()}] 模式: ${stateless ? '无状态 (Stateless)' : '有状态 (Stateful)'}`);
 
@@ -194,24 +193,33 @@ async function main() {
         req.on('end', async () => {
           try {
             let transport: StreamableHTTPServerTransport;
+            let mcpServer: Server;
 
             if (stateless) {
+              // 无状态模式：每个请求创建独立的 server 和 transport
+              mcpServer = createMCPServer();
               transport = new StreamableHTTPServerTransport({
                 sessionIdGenerator: undefined,
               });
-              await server.connect(transport);
+              await mcpServer.connect(transport);
             } else {
               if (sessionId && sessions.has(sessionId)) {
-                transport = sessions.get(sessionId)!.transport;
-                sessions.get(sessionId)!.lastActivity = Date.now();
+                // 复用已有会话
+                const session = sessions.get(sessionId)!;
+                transport = session.transport;
+                mcpServer = session.server;
+                session.lastActivity = Date.now();
               } else {
+                // 创建新会话：每个会话独立的 server 实例
                 const newSessionId = sessionId || crypto.randomUUID();
+                mcpServer = createMCPServer();
                 transport = new StreamableHTTPServerTransport({
                   sessionIdGenerator: () => newSessionId,
                 });
-                await server.connect(transport);
+                await mcpServer.connect(transport);
                 
                 sessions.set(newSessionId, {
+                  server: mcpServer,
                   transport,
                   lastActivity: Date.now(),
                   requestQueue: [],
@@ -340,6 +348,7 @@ async function main() {
     for (const [sessionId, info] of sessions) {
       try {
         await info.transport.close();
+        await info.server.close();
       } catch {
         // 忽略关闭错误
       }

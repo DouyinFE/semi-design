@@ -108,6 +108,8 @@ const local: Locale = {
         descend: 'Щелкните, чтобы упорядочить по убыванию',
         ascend: 'Щелкните, чтобы упорядочить по возрастанию',
         cancelSort: 'Отменить сортировку',
+        confirmFilter: 'ОК',
+        resetFilter: 'Сбросить',
     },
     Select: {
         emptyText: 'Нет результата',

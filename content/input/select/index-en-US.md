@@ -1009,6 +1009,11 @@ Turn on list virtualization when passing in `virtualize` to optimize performance
 -   width: Option list width value, default 100%
 -   itemSize: The height of each line of Option, must be passed
 
+<Notice title='Note'>
+    When virtualize.height is greater than the default value of 270px, to avoid the double scrollbar issue, you need to set the maxHeight property to the same value as virtualize.height.
+    For example: when setting virtualize.height to 400px, you should also set maxHeight={400}.
+</Notice>
+
 ```jsx live=true hideInDSM
 import React, { useMemo } from 'react';
 import { Select } from '@douyinfe/semi-ui';
@@ -1382,13 +1387,14 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | loading | Does the drop-down list show the loading animation                                                                                                                                                                                                                                                                                                                 | boolean | false |
 | max | Maximum number of choices, effective only in multi-selection mode                                                                                                                                                                                                                                                                                                  | number |  |
 | maxTagCount | In multi-selection mode, when the option is beyond maxTag Count, the subsequent option is rendered in the form of + N                                                                                                                                                                                                                                              | number |  |
-| maxHeight | Maximum height of `optionList` in the pop-up layer                                                                                                                                                                                                                                                                                                                 | string \| number | 270 |
+| maxHeight | Maximum height of `optionList` in the pop-up layer. **Note: When using virtualization with virtualize.height greater than the default 270px, you need to set maxHeight to the same value as virtualize.height to avoid the double scrollbar issue** | string \| number | 270 |
 | multiple | Whether allow multiple selection                                                                                                                                                                                                                                                                                                                                   | boolean | false |
 | outerBottomSlot | Rendered at the bottom of the popup layer, custom slot level with optionList                                                                                                                                                                                                                                                                                       | ReactNode |  |
 | outerTopSlot | Rendered at the top of the pop-up layer, custom slot level with optionList                                                                                                                                                                                                                                                                                         | ReactNode | | |
 | optionList | You can pass Option through this property, make sure that each element in the array has `label`, `value` properties                                                                                                                                                                                                                                                | Array (\[{value, label}\]) |  |
 | placeholder | placeholder                                                                                                                                                                                                                                                                                                                                                        | ReactNode |  |
 | position | Pop-up layer position, refer to [Popover·API reference·position](/en-US/show/popover#API%20Reference)                                                                                                                                                                                                                                                              | string | 'bottomLeft' |
+| rePosKey | You can update the value of this item to manually trigger the repositioning of the pop-up layer                                                                                                                                                                                                                                                                    | string\|number |  |  |
 | prefix | An input helper rendered before                                                                                                                                                                                                                                                                                                                                    | ReactNode |  |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user                                                                                                                                                                      | boolean |  |  |
 | remote | Whether to turn on remote search, when remote is true, the input content will not be locally filtered and matched                                                                                                                                                                                                                                                  | boolean | false |
@@ -1405,7 +1411,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | style | Inline Style                                                                                                                                                                                                                                                                                                                                                       | object |  |
 | suffix | An input helper rendered after                                                                                                                                                                                                                                                                                                                                     | ReactNode |  |
 | triggerRender | Custom DOM of trigger                                                                                                                                                                                                                                                                                                                                              | function |  |
-| virtualize | List virtualization, used to optimize performance in the case of a large number of nodes, composed of height, width, and itemSize                                                                                                                                                                                                                                  | object |  |  |
+| virtualize | List virtualization, used to optimize performance in the case of a large number of nodes, composed of height, width, and itemSize. **Note: When height is greater than the default 270px, you need to set maxHeight to the same value** | object |  |  |
 | validateStatus | Verification result, optional `warning`, `error`, `default` (only affect the style background color)                                                                                                                                                                                                                                                               | string | 'default' |
 | value | The currently selected value is passed as a controlled component, used in conjunction with `onchange`                                                                                                                                                                                                                                                              | string\|number\|array |  |
 | zIndex | Popup layer z-index                                                                                                                                                                                                                                                                                                                                                | number | 1030 |
@@ -1454,6 +1460,7 @@ Some internal methods provided by Select can be accessed through ref:
 | open        | Manually open dropdown list     |  |
 | selectAll   | Manually select all options     |  |
 | search(value: string, event: event)  | You can call this method through ref to search, and the search value will be set to Input          | v2.35.0 |
+| rePosition | Manually trigger the repositioning of the dropdown layer |  |
 
 ## Accessibility
 
@@ -1506,6 +1513,41 @@ Some internal methods provided by Select can be accessed through ref:
 
 ## Related Material
 <semi-material-list code="3, 4, 58, 62, 696"></semi-material-list>
+
+## TypeScript Generic Support
+
+The `Select` component supports constraining the `value` type through a generic parameter, providing better type inference.
+
+```jsx
+import { Select } from '@douyinfe/semi-ui';
+
+// Specify value as string type
+<Select<string>
+    value={selectedValue}
+    onChange={(value) => {
+        // value type is string | string[] | undefined
+        setSelectedValue(value);
+    }}
+>
+    <Select.Option value="option1">Option 1</Select.Option>
+    <Select.Option value="option2">Option 2</Select.Option>
+</Select>
+
+// In multiple mode, value type is string[]
+<Select<string>
+    multiple
+    value={selectedValues}
+    onChange={(value) => {
+        // value type is string | string[] | undefined, since multiple is true, it's actually string[]
+        setSelectedValues(value as string[]);
+    }}
+>
+    <Select.Option value="option1">Option 1</Select.Option>
+    <Select.Option value="option2">Option 2</Select.Option>
+</Select>
+```
+
+With the generic parameter, you can get more precise type inference without manual type conversion.
 
 ## FAQ
 

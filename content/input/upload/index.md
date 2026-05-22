@@ -541,6 +541,141 @@ import { IconUpload, IconDownload, IconEyeOpened, IconDelete } from '@douyinfe/s
 };
 ```
 
+### 自定义文件列表标题
+
+`listType` 为 `list` 时，可以通过 `fileListTitle` 自定义文件列表顶部的标题区域。支持两种形式：
+
+#### 字符串或 ReactNode 形式
+
+当传入字符串或 ReactNode 时，仅替换标题文字，清空按钮保持默认样式：
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://api.semi.design/upload';
+
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'document.pdf',
+            status: 'success',
+            size: '130KB',
+        },
+        {
+            uid: '2',
+            name: 'report.xlsx',
+            status: 'success',
+            size: '222KB',
+        },
+    ];
+
+    return (
+        <>
+            <Upload 
+                action={action} 
+                defaultFileList={defaultFileList} 
+                fileListTitle="已上传文件"
+                style={{ marginBottom: 20 }}
+            >
+                <Button icon={<IconUpload />} theme="light">自定义标题文字</Button>
+            </Upload>
+            <Upload 
+                action={action} 
+                defaultFileList={defaultFileList} 
+                fileListTitle={<span style={{ color: 'var(--semi-color-primary)', fontWeight: 600 }}>📁 重要文件</span>}
+            >
+                <Button icon={<IconUpload />} theme="light">带样式的标题</Button>
+            </Upload>
+        </>
+    );
+};
+```
+
+#### 函数形式
+
+当传入函数时，可以完全自定义标题区域，包括清空按钮。函数会接收以下参数：
+- `fileList`: 当前文件列表
+- `onClear`: 清空文件的回调函数
+- `clearText`: 清空按钮的默认文案（根据当前语言环境）
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload, IconClose } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://api.semi.design/upload';
+
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'document.pdf',
+            status: 'success',
+            size: '130KB',
+        },
+        {
+            uid: '2',
+            name: 'report.xlsx',
+            status: 'success',
+            size: '222KB',
+        },
+    ];
+
+    return (
+        <>
+            <Upload 
+                action={action} 
+                defaultFileList={defaultFileList} 
+                style={{ marginBottom: 20 }}
+                fileListTitle={({ fileList, onClear, clearText }) => (
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                        <span style={{ color: 'var(--semi-color-primary)' }}>
+                            📂 共 {fileList.length} 个文件
+                        </span>
+                        <Button 
+                            size="small" 
+                            type="danger" 
+                            icon={<IconClose />}
+                            onClick={onClear}
+                        >
+                            {clearText}
+                        </Button>
+                    </div>
+                )}
+            >
+                <Button icon={<IconUpload />} theme="light">自定义清空按钮样式</Button>
+            </Upload>
+            <Upload 
+                action={action} 
+                defaultFileList={defaultFileList} 
+                fileListTitle={({ fileList, onClear }) => (
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                        <span>
+                            已选择 <strong style={{ color: 'var(--semi-color-danger)' }}>{fileList.length}</strong> 个文件
+                        </span>
+                        <span 
+                            onClick={onClear}
+                            style={{ 
+                                cursor: 'pointer', 
+                                color: 'var(--semi-color-link)',
+                                fontSize: 12
+                            }}
+                        >
+                            全部移除
+                        </span>
+                    </div>
+                )}
+            >
+                <Button icon={<IconUpload />} theme="light">完全自定义标题区域</Button>
+            </Upload>
+        </>
+    );
+};
+```
+
 ### 自定义预览逻辑
 
 `listType` 为 `list` 时，可以通过传入 `previewFile` 览逻辑  
@@ -1372,6 +1507,204 @@ import { IconUpload } from '@douyinfe/semi-icons';
 };
 ```
 
+### 图片裁切
+
+通过 `crop` 属性启用图片裁切功能。支持点击选择、拖拽、粘贴、替换文件时进行裁切。
+
+#### 基本用法
+
+设置 `crop={true}` 启用默认裁切配置。
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={true}
+            onSuccess={(response, file) => {
+                console.log('上传成功:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                点击上传（启用裁切）
+            </Button>
+        </Upload>
+    );
+};
+```
+
+#### 自定义裁切配置
+
+通过对象形式配置裁切参数，包括宽高比、形状、质量等。
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={{
+                aspectRatio: 16 / 9,
+                shape: 'rect',
+                quality: 0.8,
+                modalTitle: '裁切图片',
+                modalOkText: '确认裁切',
+                modalCancelText: '取消',
+            }}
+            onSuccess={(response, file) => {
+                console.log('上传成功:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                点击上传（16:9 裁切）
+            </Button>
+        </Upload>
+    );
+};
+```
+
+#### 圆形裁切
+
+适用于头像上传场景，设置 `shape: 'round'` 启用圆形裁切。
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={{
+                aspectRatio: 1,
+                shape: 'round',
+                quality: 0.9,
+                modalTitle: '裁切头像',
+            }}
+            onSuccess={(response, file) => {
+                console.log('上传成功:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                点击上传（圆形裁切）
+            </Button>
+        </Upload>
+    );
+};
+```
+
+#### 裁切前确认
+
+通过 `beforeCrop` 回调，在裁切前进行确认或其他处理。返回 `false` 可跳过裁切直接上传。
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={{
+                aspectRatio: 1,
+                shape: 'round',
+            }}
+            beforeCrop={(file, fileList) => {
+                console.log('beforeCrop:', file, fileList);
+                // 返回 true 继续裁切，返回 false 跳过裁切直接上传
+                return window.confirm('是否裁切图片？');
+            }}
+            onCropError={(error) => {
+                console.error('裁切失败:', error);
+            }}
+            onSuccess={(response, file) => {
+                console.log('上传成功:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                点击上传（裁切前确认）
+            </Button>
+        </Upload>
+    );
+};
+```
+
+#### 拖拽上传裁切
+
+拖拽上传时也会触发裁切功能。
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={{
+                aspectRatio: 1,
+                shape: 'rect',
+            }}
+            draggable
+            onDrop={(e, files, fileList) => {
+                console.log('拖拽文件:', files);
+            }}
+            onSuccess={(response, file) => {
+                console.log('上传成功:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                拖拽上传（启用裁切）
+            </Button>
+        </Upload>
+    );
+};
+```
+
+#### 自定义裁切弹窗样式
+
+通过 `cropModalProps` 自定义裁切弹窗的样式和属性。
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
+() => {
+    return (
+        <Upload
+            action="https://api.semi.design/upload"
+            crop={{
+                aspectRatio: 1,
+                shape: 'rect',
+            }}
+            cropModalProps={{
+                width: 800,
+                style: { height: 600 },
+                bodyStyle: { height: 500, backgroundColor: '#f5f5f5' },
+            }}
+            onSuccess={(response, file) => {
+                console.log('上传成功:', response, file);
+            }}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                自定义弹窗样式
+            </Button>
+        </Upload>
+    );
+};
+```
+
 ## API 参考
 
 ---
@@ -1383,10 +1716,13 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |addOnPasting | 按下 ctrl/command + v时，是否自动将剪贴板中的文件添加至 fileList，当前仅支持图片类型; 需用户授权同意 | boolean | false | 2.43.0 |
 |afterUpload | 文件上传后的钩子，根据 return 的 object 更新文件状态 | function(auProps) => afterUploadResult |  |  |
 |beforeClear|清空文件前回调，按照返回值来判断是否继续移除，返回false、Promise.resolve(false)、Promise.reject()会阻止移除|(fileList: Array<FileItem \>) => boolean\|Promise|| |
+|beforeCrop|图片裁切前的回调。返回 `false` 可跳过裁切直接上传，返回 `true` 或不返回则继续裁切。支持异步返回|(file: File, fileList: File[]) => boolean \| Promise\<boolean\> | | 2.97.0 |
 |beforeRemove|移除文件前的回调，按照返回值来判断是否继续移除，返回false、Promise.resolve(false)、Promise.reject()会阻止移除|(file: <FileItem\>, fileList: Array<FileItem \>) => boolean\|Promise|| |
 |beforeUpload | 上传文件前的钩子，根据 return 的 object 更新文件状态，控制是否上传 | function(buProps) => beforeUploadResult \| Promise \| boolean |  |  |
 |capture | 文件上传控件中媒体拍摄的方式 | boolean\|string\|undefined | | |
 |className | 类名 | string |  |  |
+|crop | 启用图片裁切功能。传入 `true` 使用默认配置，传入对象可自定义裁切参数。支持所有上传入口（点击选择、拖拽、粘贴、替换）的图片裁切 | boolean \| CropProps |  | 2.97.0 |
+|cropModalProps | 自定义裁切弹窗的属性，可配置弹窗的样式、宽度等 | ModalReactProps |  | 2.97.0 |
 |customRequest | 自定义上传使用的异步请求方法 | (object: customRequestArgs) => void |  |  |
 |data | 上传时附带的额外参数或返回上传额外参数的方法 | object\|(file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => object | {} |  |
 |defaultFileList | 已上传的文件列表 | Array<FileItem\> | [] |  |
@@ -1397,6 +1733,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |dragSubText | 拖拽区帮助文本 | ReactNode | '' |  |
 |draggable | 是否支持拖拽上传 | boolean | false |  |
 |fileList | 已上传的文件列表，传入该值时，upload 即为受控组件 | Array<FileItem\> |  |  |
+|fileListTitle | 自定义文件列表标题区域。支持两种形式：<br/>1. 传入 ReactNode 时，仅替换标题文字，清空按钮保持默认样式<br/>2. 传入函数时，可完全自定义标题区域（包括清空按钮），函数参数为 `{ fileList, onClear, clearText }` | ReactNode \| (props: RenderFileListTitleProps) => ReactNode | | 2.75.0 |
 |fileName | 作用与 name 相同，主要在 Form.Upload 中使用，为了避免与 Field 的 props.name 冲突，此处另外提供一个重命名的 props | string |  | |
 |headers | 上传时附带的 headers 或返回上传额外 headers 的方法 | object\|(file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => object | {} |  |
 |hotSpotLocation | 照片墙点击热区的放置位置，可选值 `start`, `end` | string | 'end' | 2.5.0 |
@@ -1410,6 +1747,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |onAcceptInvalid | 当接收到的文件不符合accept规范时触发（一般是因为文件夹选择了全部类型文件/拖拽不符合格式的文件时触发） | (files: File[]) => void | |  |
 |onChange | 文件状态发生变化时调用，包括上传成功，失败，上传中，回调入参为 Object，包含 fileList、currentFile 等值 | ({fileList: Array<FileItem\>, currentFile?: FileItem}) => void |  |  |
 |onClear | 点击清空时的回调 | () => void |  |  |
+|onCropError | 图片裁切失败时的回调 | (error: Error) => void |  | 2.97.0 |
 |onDrop | 当拖拽的元素在拖拽区上被释放时触发 | (e, files: Array<File\>, fileList: Array<FileItem\>) => void |  |  |
 |onError | 上传错误时的回调 | (error: Error, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList: Array<FileItem\>, xhr: XMLHttpRequest) => void |  |  |
 |onExceed | 上传文件总数超出 `limit` 时的回调 | (fileList:Array<FileItem\>) => void |  |  |
@@ -1471,6 +1809,37 @@ interface FileItem {
     uid: string, // 文件唯一标识符，如果当前文件是通过upload选中添加的，会自动生成uid。如果是defaultFileList, 需要自行保证不会重复
     url: string,
     validateMessage?: ReactNode | string,
+}
+```
+
+### RenderFileListTitleProps Interface
+
+`fileListTitle` 传入函数时的参数类型：
+
+```ts
+interface RenderFileListTitleProps {
+    fileList: Array<FileItem>;  // 当前文件列表
+    onClear: () => void;        // 清空文件的回调函数
+    clearText: string;          // 清空按钮的默认文案（根据当前语言环境）
+}
+```
+
+### CropProps Interface
+
+`crop` 属性传入对象时的配置项：
+
+```ts
+interface CropProps {
+    aspectRatio?: number;           // 裁切框宽高比，例如 16/9, 1, 4/3
+    shape?: 'rect' | 'round' | 'roundRect';  // 裁切框形状，默认 'rect'
+    minZoom?: number;               // 最小缩放比例
+    maxZoom?: number;               // 最大缩放比例
+    zoomStep?: number;              // 缩放步长
+    quality?: number;               // 输出图片质量 0-1，默认 0.92
+    fill?: string;                  // 填充颜色，默认 '#fff'
+    modalTitle?: string;            // 裁切弹窗标题
+    modalOkText?: string;           // 确认按钮文字
+    modalCancelText?: string;       // 取消按钮文字
 }
 ```
 

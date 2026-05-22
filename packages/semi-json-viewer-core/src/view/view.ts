@@ -11,7 +11,7 @@ import {
 } from '../tokens/tokenize';
 import { Emitter, getEmitter } from '../common/emitter';
 import { SelectionModel } from '../model/selectionModel';
-import { CustomRenderRule, JsonViewerOptions } from '../json-viewer/jsonViewer';
+import { CustomRenderRule, JsonViewerOptions, TokenRenderType } from '../json-viewer/jsonViewer';
 import { getJsonWorkerManager, JsonWorkerManager } from '../worker/jsonWorkerManager';
 import { FoldingModel } from '../model/foldingModel';
 import { SearchWidget } from './search/searchWidget';
@@ -25,7 +25,7 @@ import { HoverWidget } from './hover/hoverWidget';
 import { GlobalEvents } from '../common/emitterEvents';
 import { ErrorWidget } from './error/errorWidget';
 import { ViewDOMBuilder } from './viewDOMBuilder';
-import { getNodePath, getPathChain, JsonDocument, parseJson } from '../service/parse';
+import { getNodePath, getPathChain, getNodeValue, JsonDocument, parseJson } from '../service/parse';
 //TODO 实现ViewModel抽离代码
 
 /**
@@ -402,11 +402,14 @@ export class View {
                 container.appendChild(highlightedSpan);
             } else {
                 if (this._options?.readOnly && this._tryApplyCustomRender(token.scopes, content)) {
-                    const offset = this._jsonModel.getOffsetAt(lineNumber, (start + end) / 2);
+                    // Use token start column to locate the correct AST node.
+                    // Using a middle position may hit whitespace or ':' and resolve to a 'property' node,
+                    // which would produce an empty path.
+                    const offset = this._jsonModel.getOffsetAt(lineNumber, start + 1);
                     const node = this._root?.getNodeFromOffset(offset);
-                    const path = getNodePath(node);
+                    const path = node ? getNodePath(node) : [];
                     const pathChain = getPathChain(path);
-                    const customElement = this._renderCustomToken(content, this._customRenderRule, token, pathChain);
+                    const customElement = this._renderCustomToken(content, this._customRenderRule, token, pathChain, node);
                     if (customElement instanceof HTMLElement) {
                         container.appendChild(customElement);
                         continue;
@@ -496,10 +499,16 @@ export class View {
         return false;
     }
 
-    private isMatch(content: string, pathChain: string, rule: CustomRenderRule) {
+    private isMatch(
+        content: string,
+        typedValue: string | number | boolean | null,
+        pathChain: string,
+        tokenType: TokenRenderType,
+        rule: CustomRenderRule
+    ) {
         const match = rule.match;
         if (typeof match === 'function') {
-            return match(content, pathChain);
+            return match(typedValue, pathChain, tokenType);
         } else if (typeof match === 'string') {
             return match === content;
         } else if (match instanceof RegExp) {
@@ -508,10 +517,31 @@ export class View {
         return false;
     }
 
-    private _renderCustomToken(content: string, rule: CustomRenderRule[], token: Token, pathChain: string): HTMLElement | null {
+    private _renderCustomToken(
+        content: string,
+        rule: CustomRenderRule[],
+        token: Token,
+        pathChain: string,
+        node: any
+    ): HTMLElement | null {
+        // For string tokens we strip quotes for matching convenience.
         const realContent = content.replace(/^"|"$/g, '');
+
+        // Determine token type: 'key' for property names, 'value' for value tokens
+        const tokenType: TokenRenderType = token.scopes === TOKEN_PROPERTY_NAME ? 'key' : 'value';
+
+        // For function match, pass the parsed primitive value when possible.
+        // - For number/boolean/null tokens, we can reliably read from AST.
+        // - For string tokens and property names, realContent already equals the actual value.
+        let typedValue: string | number | boolean | null = realContent;
+        if (token.scopes === TOKEN_VALUE_NUMBER || token.scopes === TOKEN_VALUE_BOOLEAN || token.scopes === TOKEN_VALUE_NULL) {
+            if (node) {
+                typedValue = getNodeValue(node);
+            }
+        }
+
         for (const item of rule) {
-            if (this.isMatch(realContent, pathChain, item)) {
+            if (this.isMatch(realContent, typedValue, pathChain, tokenType, item)) {
                 const element = item.render(content);
                 return element;
             }

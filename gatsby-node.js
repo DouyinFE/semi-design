@@ -72,6 +72,15 @@ const getLocale = path => {
 
 exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) => {
     const isSSR = stage.includes('html');
+    if (isSSR) {
+        actions.setWebpackConfig({
+            resolve: {
+                alias: {
+                    'lottie-web': resolve('scripts/lottie-web-ssr-stub.js'),
+                },
+            },
+        });
+    }
     const sassLoader = () => 'sass-loader';
     const miniCssExtract = (...args) => loaders.miniCssExtract(...args);
     const cssLoader = (options = {}) => ({

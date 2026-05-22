@@ -117,6 +117,79 @@ function Demo(props = {}) {
 ```
 
 
+### 响应式断点监听
+
+ConfigProvider 支持配置响应式断点，并在断点变化时进行订阅回调。
+
+<Notice title={"注意事项"}>
+
+- 由于性能考虑，`responsiveObserve` 默认值为 `false`，不开启时不会注册任何 `matchMedia` 监听。
+- `onBreakpoint` / `screens` 不属于 ConfigProvider 的 props，需要通过 `ConfigConsumer` 获取。
+- 订阅时回调会**立即执行一次**，传入的就是当前各断点的命中情况，因此你不需要在初始挂载时再单独调用一次 `window.matchMedia`。
+- `responsiveMap` 是引用比较：如果直接 inline 写对象（每次 render 引用都不同），会被识别为发生变化并重新注册全部监听。建议把它定义在组件外，或使用 `useMemo` 保证引用稳定。
+
+</Notice>
+
+#### 开启监听与自定义断点
+
+- 通过 `responsiveObserve` 开启断点监听（建议只在确实需要订阅的场景开启）
+- 通过 `responsiveMap` 自定义断点（未传入时使用默认断点）
+
+```jsx
+import React, { useEffect, useState } from 'react';
+import { ConfigProvider, ConfigConsumer, Typography } from '@douyinfe/semi-ui';
+
+function BreakpointSubscriber({ onBreakpoint, screens }) {
+    const [subscribedScreens, setSubscribedScreens] = useState(screens);
+
+    useEffect(() => {
+        if (!onBreakpoint) {
+            return;
+        }
+        const unsubscribe = onBreakpoint(next => {
+            setSubscribedScreens(next);
+        });
+        return unsubscribe;
+    }, [onBreakpoint]);
+
+    return (
+        <Typography.Text>
+            {JSON.stringify(subscribedScreens || screens)}
+        </Typography.Text>
+    );
+}
+
+function Demo() {
+    return (
+        <ConfigProvider
+            responsiveObserve
+            responsiveMap={{
+                xs: '(max-width: 575px)',
+                sm: '(min-width: 576px)',
+                md: '(min-width: 768px)',
+                lg: '(min-width: 992px)',
+                xl: '(min-width: 1200px)',
+                xxl: '(min-width: 1600px)',
+            }}
+        >
+            <ConfigConsumer>
+                {({ onBreakpoint, screens }) => (
+                    <BreakpointSubscriber onBreakpoint={onBreakpoint} screens={screens} />
+                )}
+            </ConfigConsumer>
+        </ConfigProvider>
+    );
+}
+```
+
+#### 订阅 API
+
+`onBreakpoint` 支持两种签名，均会返回取消订阅函数：
+
+- `onBreakpoint((screens) => void)`：回调拿到完整的 screens 映射
+- `onBreakpoint(['md', 'lg'], (screen, match) => void)`：只监听指定断点，回调拿到单个断点变化
+
+
 
 
 ### RTL/LTR
@@ -127,7 +200,7 @@ function Demo(props = {}) {
 特殊组件：
 - Modal，Notification，Toast 的命令式调用需要通过 prop 传 `direction`。
 - 如果你想对有方向性的 Icon 做 RTL 国际化，需要自己单独进行处理。我们认为对 Icon 进行 RTL 会让它变得难以理解和维护。其他组件内的 icon Semi 已经做了 RTL 适配。
-- Table 的树形数据暂不支持 RTL（[Chrome、Safari 浏览器表现与 Firefox 表现不同](https://codesandbox.io/s/table-rtl-treedata-uy7gzl?file=/src/App.jsx)），固定列在 v2.32 版本支持 RTL，Slider 暂不支持 RTL。
+- Table 的树形数据暂不支持 RTL（[Chrome、Safari 浏览器表现与 Firefox 表现不同](https://codesandbox.io/s/table-rtl-treedata-uy7gzl?file=/src/App.jsx)），固定列在 v2.32 版本支持 RTL。
 
 
 ```jsx live=true dir="column" hideInDSM
@@ -437,6 +510,8 @@ function Demo(props = {}) {
 | 属性              | 说明                                                              | 类型                   | 默认值              |
 |-------------------|-----------------------------------------------------------------|------------------------|---------------------|
 | direction         | 设置文本的方向                                                         | `ltr`\| `rtl`          | `ltr`               |
+| responsiveObserve | 是否开启响应式断点监听。默认关闭以避免全局注册 `matchMedia` 带来的性能开销；开启后在首次订阅时懒注册监听，无订阅时会自动注销，**>=2.97.0** | boolean                 | `false`             |
+| responsiveMap     | 自定义断点配置，key 为 `xs/sm/md/lg/xl/xxl`，value 为 media query 字符串；未传入时使用默认断点（可通过 `ConfigProvider.defaultResponsiveMap` 获取），**>=2.97.0** | object                 |                     |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。            | function():HTMLElement | () => document.body |
 | locale            | 多语言配置，同`LocaleProvider`中`locale`参数的[用法](/zh-CN/other/locale#使用)（如果同时在`ConfigProvider`和`LocaleProvider`中配置`locale`，前者优先级高于后者） | object                 |                     |
 | timeZone          | [时区标识](#时区标识)                                                   | string\|number         |                     |
@@ -497,4 +572,3 @@ semiGlobal.config.overrideDefaultProps = {
 };
 
 ```
-

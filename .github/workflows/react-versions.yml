@@ -143,6 +143,18 @@ jobs:
             echo "$RELEASE_VERSION"
             echo "$DIST_TAG"
             lerna version $RELEASE_VERSION --exact --force-publish --yes --no-push
+            # Pre-build all packages so that already-published packages (whose
+            # prepublishOnly will be skipped by lerna publish from-package) still
+            # have their lib/ output ready for downstream webpack alias resolution.
+            lerna run prepublishOnly --concurrency=1
+            # prepublishOnly mutates some tracked files (package.json via
+            # generate:exports / generate:typesVersions) and produces untracked
+            # content/ folders. lib/ output is gitignored so it stays intact.
+            # Reset those changes so lerna publish's git-clean check passes;
+            # un-published packages will regenerate them via their own
+            # prepublishOnly during publish.
+            git checkout -- packages/
+            git clean -fd packages/semi-ui/content packages/semi-ui-19/content || true
             lerna publish from-package --dist-tag $DIST_TAG --yes
             git tag -d "v${{env.RELEASE_VERSION}}"
             git reset HEAD~2

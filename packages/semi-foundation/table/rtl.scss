@@ -144,6 +144,27 @@ $module: #{$prefix}-table;
                     border-left: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
                 }
             }
+
+            // Fix #441 (RTL): when horizontal scroll is enabled and table is NOT scrolled to the far left,
+            // the outer left border can be outside of viewport (the real border is rendered by the last column cell).
+            // Draw an overlay left border on the container to keep it visible.
+            // When scrolled to the far left, `.semi-table-scroll-position-left` exists and we should not draw it.
+            &:not(.#{$module}-scroll-position-left) {
+                & > .#{$module}-container {
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        bottom: 0;
+                        width: $width-table_base_border;
+                        background-color: $color-table-border-default;
+                        display: block;
+                        z-index: $z-table_fixed_column + 2;
+                        pointer-events: none;
+                    }
+                }
+            }
         }
 
         &-fixed {

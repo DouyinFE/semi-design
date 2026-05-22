@@ -13,7 +13,7 @@ brief: Tag component is used to display a collection of concise information for 
 ### How to import
 
 ```jsx import
-import { Tag } from '@douyinfe/semi-ui';
+import { Tag, TagGroup, SplitTagGroup } from '@douyinfe/semi-ui';
 ```
 
 ### Basic usage
@@ -366,6 +366,46 @@ import { TagGroup } from '@douyinfe/semi-ui';
 }
 ```
 
+### SplitTagGroup
+
+Use `SplitTagGroup` to combine multiple tags into a single connected group. The first and last tags keep their rounded corners while the middle tags are rendered with a square edge, producing a continuous visual unit.
+
+```jsx live=true
+import React from 'react';
+import { Tag, SplitTagGroup, Space } from '@douyinfe/semi-ui';
+
+() => {
+    return (
+        <Space vertical align="start">
+            <SplitTagGroup>
+                <Tag color="blue" type="solid">Tag One</Tag>
+                <Tag color="cyan" type="solid">Tag Two</Tag>
+                <Tag color="teal" type="solid">Tag Three</Tag>
+            </SplitTagGroup>
+
+            <SplitTagGroup>
+                <Tag color="violet" shape="circle">Grouped</Tag>
+                <Tag color="purple" shape="circle">Tags</Tag>
+                <Tag color="pink" shape="circle">Example</Tag>
+                <Tag color="red" shape="circle">Effect</Tag>
+            </SplitTagGroup>
+
+            <SplitTagGroup>
+                <Tag color="amber" type="light">Light</Tag>
+                <Tag color="orange" type="light">Grouped</Tag>
+                <Tag color="yellow" type="light">Tags</Tag>
+            </SplitTagGroup>
+
+            <SplitTagGroup>
+                <Tag color="green" type="ghost">Ghost</Tag>
+                <Tag color="light-green" type="ghost">Style</Tag>
+                <Tag color="lime" type="ghost">Group</Tag>
+            </SplitTagGroup>
+        </Space>
+    );
+};
+```
+
 ## API Reference
 
 ### Tag
@@ -403,6 +443,15 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | style | Inline style | CSSProperties |  |  |
 | tagList | Label Group data | (TagProps)[] |  |  |
 | onTagClose | The callback function when deleting the Tag in the TagGroup | (tagChildren: ReactNode, e: MouseEvent, tagKey: string \| number ) => void | - |  2.18.0 |
+
+### SplitTagGroup
+
+| Property   | Description         | Type            | Default | Version |
+| ---------- | ------------------- | --------------- | ------- | ------- |
+| className  | Class name          | string          |         | 2.97.0  |
+| style      | Inline style        | CSSProperties   |         | 2.97.0  |
+| children   | Tag group content   | ReactNode       |         | 2.97.0  |
+| aria-label | Accessibility label | string          |         | 2.97.0  |
 
 ## Accessibility
 

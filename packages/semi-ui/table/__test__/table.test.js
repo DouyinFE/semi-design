@@ -1231,6 +1231,30 @@ describe(`Table`, () => {
         tableHeaderRows.at(0).simulate('click');
         expect(onHeaderRowClick.called).toBeTruthy();
     });
+    // fix #1861: onHeaderCell.onClick should still be triggered on a sorter column
+    it(`test onHeaderCell.onClick is triggered when clicking title on sorter column`, async () => {
+        const onHeaderCellClick = sinon.spy(() => {});
+        const sortColumns = [
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                width: 150,
+            },
+            {
+                title: 'Age',
+                dataIndex: 'age',
+                width: 150,
+                sorter: (a, b) => a.age - b.age,
+                onHeaderCell: () => ({
+                    onClick: onHeaderCellClick,
+                }),
+            },
+        ];
+        const demo = mount(<Table dataSource={data} columns={sortColumns} pagination={false} />);
+        const headerCells = demo.find('.semi-table-thead .semi-table-row-head');
+        headerCells.at(1).simulate('click');
+        expect(onHeaderCellClick.called).toBeTruthy();
+    });
     it('test header merge', async () => {
         // 测试头部合并
         function testHeaderMerge(demo, params) {

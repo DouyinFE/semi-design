@@ -1614,6 +1614,7 @@ render(DefaultChat);
 | chats | 受控对话列表 | Message | - |
 | className | 自定义类名 | string | - |
 | customMarkDownComponents | 自定义 markdown render， 透传给对话内容渲染的 MarkdownRender | MDXProps\['components'\]| - |
+| escapeHtml | 是否对用户消息中的 HTML 标签进行转义，防止被 Markdown 解析器当作 HTML 处理导致内容丢失 | boolean | true |
 | enableUpload | 是否启用上传, 自 v2.76.0 支持，支持 boolean 类型及对象类型，传入 boolean 类型将同时控制拖拽，点击上传按钮，在输入框中粘贴的上传行为，传入对象可分别设置，传入对象类型时未设置的项默认为 true | boolean \| { pasteUpload: boolean, clickUpload: boolean, dragUpload: boolean } | true |
 | hints | 提示信息 | string | - |
 | hintCls | 提示区最外层样式类名 | string | - |
@@ -1659,7 +1660,7 @@ render(DefaultChat);
 | 属性  | 说明   | 类型   | 默认值 |
 |------|--------|-------|-------|
 | name | 名称 | string | - |
-| avatar | 头像 | string | - |
+| avatar | 头像，支持图片 URL 或 ReactNode（如 Semi 图标） **>=2.94.0** | ReactNode \| string | - |
 | color | 头像背景色，同 Avatar 组件的 color 参数, 支持 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow` | string | `grey` |
 
 #### Message

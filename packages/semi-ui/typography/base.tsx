@@ -278,13 +278,26 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
      * By giving the content to the Range object, get the exact width of the content with the help of Range's getBoundingClientRect
      * Not affected by css ellipsis or not
      * https://github.com/DouyinFE/semi-design/issues/1731
+     * https://github.com/DouyinFE/semi-design/issues/2350
      */
     compareSingleRow = () => {
         if (!(document && document.createRange)) {
             return false;
         }
         const containerNode = this.wrapperRef.current;
-        const containerWidth = containerNode.getBoundingClientRect().width;
+        // NOTE:
+        // - For CSS ellipsis, truncation happens in the content box (excluding padding).
+        // - clientWidth excludes border/scrollbar, but includes padding.
+        //   So we use: contentBoxWidth = clientWidth - paddingLeft - paddingRight
+        const containerClientWidth = containerNode.clientWidth;
+        // Get computed style to account for padding
+        // CSS text-overflow: ellipsis truncates text in the content area (excluding padding)
+        // So we need to compare contentWidth with the actual content area width
+        const computedStyle = window.getComputedStyle(containerNode);
+        const paddingLeft = parseFloat(computedStyle.paddingLeft) || 0;
+        const paddingRight = parseFloat(computedStyle.paddingRight) || 0;
+        const contentAreaWidth = Math.max(0, containerClientWidth - paddingLeft - paddingRight);
+        
         const childNodes = Array.from(containerNode.childNodes) as Node[];
         const range = document.createRange();
         const contentWidth = childNodes.reduce((acc: number, node: Node) => {
@@ -292,7 +305,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             return acc + (range.getBoundingClientRect().width ?? 0);
         }, 0);
         range.detach();
-        return contentWidth > containerWidth;
+        return contentWidth > contentAreaWidth;
     }
 
     showTooltip = () => {
@@ -350,7 +363,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
     }
 
     getEllipsisState = async () => {
-        const { rows, suffix, pos } = this.getEllipsisOpt();
+        const { rows, suffix, pos, showTooltip } = this.getEllipsisOpt();
         const { children, strong } = this.props;
         // wait until element mounted
         if (!this.wrapperRef || !this.wrapperRef.current) {
@@ -360,14 +373,25 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const { expanded } = this.state;
         const canUseCSSEllipsis = this.canUseCSSEllipsis();
         if (canUseCSSEllipsis) {
-            // const updateOverflow = this.shouldTruncated(rows);
-            // // isOverflowed needs to be updated to show tooltip when using css ellipsis
-            // this.setState({
-            //     isOverflowed: updateOverflow,
-            //     isTruncated: false
-            // });
+            // When using CSS ellipsis, Tooltip wrapper rendering depends on isOverflowed.
+            // If we only update isOverflowed on hover, Tooltip may not be mounted at the
+            // time of the first hover, causing tooltip never to show.
+            //
+            // To avoid the timing issue, proactively compute overflow when showTooltip is enabled.
+            if (showTooltip) {
+                const updateOverflow = this.shouldTruncated(rows);
+                return new Promise<void>(resolve => {
+                    this.setState(
+                        {
+                            isOverflowed: updateOverflow,
+                            isTruncated: false,
+                        },
+                        resolve
+                    );
+                });
+            }
 
-            return ;
+            return;
         }
 
         // If children is null, css/js truncated flag isTruncate is false

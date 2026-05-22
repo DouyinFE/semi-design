@@ -131,6 +131,7 @@ export function mergeProps(props: any) {
         wrapperCol,
         initValue,
         validate,
+        validator,
         /**
          * error、warning、default、success
          */
@@ -179,6 +180,10 @@ export function mergeProps(props: any) {
     const required = isRequired(rules);
 
     emptyValue = typeof emptyValue !== 'undefined' ? emptyValue : '';
+
+    // `validator` is the recommended name; `validate` is kept as a deprecated alias.
+    const finalValidate = validator || validate;
+
     return {
         field,
         label,
@@ -191,7 +196,7 @@ export function mergeProps(props: any) {
         noErrorMessage,
         isInInputGroup,
         initValue,
-        validate,
+        validate: finalValidate,
         validateStatus,
         trigger,
         allowEmptyString,

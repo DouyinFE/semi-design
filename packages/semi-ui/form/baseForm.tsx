@@ -35,13 +35,15 @@ import {
     FormRating,
     FormAutoComplete,
     FormUpload,
-    FormTagInput } from './field';
+    FormTagInput,
+    FormPinCode } from './field';
 import {
     BaseFormProps,
     FormState,
     FormApi,
     ErrorMsg
 } from './interface';
+import useForm from './hooks/useForm';
 const prefix = cssClasses.PREFIX;
 
 interface BaseFormState {
@@ -66,6 +68,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
         getFormApi: PropTypes.func,
         initValues: PropTypes.object,
         validateFields: PropTypes.func,
+        validator: PropTypes.func,
         layout: PropTypes.oneOf(strings.LAYOUT),
         labelPosition: PropTypes.oneOf(strings.LABEL_POS),
         labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -84,7 +87,8 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
         trigger: PropTypes.oneOfType([
             PropTypes.oneOf(['blur', 'change', 'custom', 'mount']),
             PropTypes.arrayOf(PropTypes.oneOf(['blur', 'change', 'custom', 'mount'])),
-        ])
+        ]),
+        form: PropTypes.object, // External formApi created by Form.useForm()
     };
 
     static defaultProps = {
@@ -119,12 +123,14 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
     static AutoComplete = FormAutoComplete;
     static Upload = FormUpload;
     static TagInput = FormTagInput;
+    static PinCode = FormPinCode;
 
     static Slot = Slot;
     static ErrorMessage = ErrorMessage;
     static InputGroup = FormInputGroup;
     static Label = Label;
     static Section = Section;
+    static useForm = useForm;
 
     formApi: FormApi<Values>;
 
@@ -149,6 +155,12 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
         this.reset = this.reset.bind(this);
         this.foundation = new FormFoundation(this.adapter);
         this.formApi = this.foundation.getFormApi();
+        
+        // 如果传入了外部 formApi，绑定真实的 FormApi
+        if (this.props.form && typeof this.props.form.__bind === 'function') {
+            this.props.form.__bind(this.formApi);
+        }
+        
         if (this.props.getFormApi) {
             this.props.getFormApi(this.formApi);
         }
@@ -160,6 +172,11 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
 
     componentWillUnmount() {
         this.foundation.destroy();
+        
+        // 如果传入了外部 formApi，解绑
+        if (this.props.form && typeof this.props.form.__unbind === 'function') {
+            this.props.form.__unbind();
+        }
     }
 
     get adapter(): BaseFormAdapter<BaseFormProps<Values>, BaseFormState, Values> {
@@ -174,6 +191,12 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
             },
             forceUpdate: (callback?: () => void) => {
                 this.forceUpdate(callback);
+                
+                // 同步状态到外部 formApi
+                if (this.props.form && typeof this.props.form.__updateState === 'function') {
+                    const state = this.foundation.getFormState() as FormState<Values>;
+                    this.props.form.__updateState(state);
+                }
             },
             notifyChange: (formState: FormState) => {
                 this.props.onChange(formState);
@@ -273,6 +296,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
         const { formId } = this.state;
         const {
             children,
+            form,
             getFormApi,
             onChange,
             onSubmit,
@@ -282,6 +306,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
             component,
             render,
             validateFields,
+            validator,
             initValues,
             layout,
             style,

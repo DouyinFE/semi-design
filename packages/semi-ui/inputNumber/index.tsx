@@ -17,6 +17,11 @@ import { ArrayElement } from '../_base/base';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
 
+export interface ScientificNotationConfig {
+    /** Number of digits threshold to trigger scientific notation display */
+    threshold?: number;
+}
+
 export interface InputNumberProps extends InputProps {
     autofocus?: boolean;
     className?: string;
@@ -51,6 +56,8 @@ export interface InputNumberProps extends InputProps {
     style?: React.CSSProperties;
     suffix?: React.ReactNode;
     value?: number | string;
+    /** Enable scientific notation display for long numbers, display full number when focused */
+    scientificNotation?: boolean | ScientificNotationConfig;
     onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
     onChange?: (value: number | string, e?: React.ChangeEvent) => void;
     onDownClick?: (value: string, e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -96,6 +103,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         style: PropTypes.object,
         suffix: PropTypes.any,
         value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        scientificNotation: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
         onBlur: PropTypes.func,
         onChange: PropTypes.func,
         onDownClick: PropTypes.func,
@@ -246,15 +254,64 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
     foundation: InputNumberFoundation;
     constructor(props: InputNumberProps) {
         super(props);
+        this.foundation = new InputNumberFoundation(this.adapter);
+        this.inputNode = null;
+        this.clickUpOrDown = false;
+
+        // Initialize state with formatted value to ensure formatter is applied on first render.
+        // Fix issue #2548: [InputNumber] 受控模式下，默认第一次的 value 不会被 formatter 转换
+        const initValue = this._getInitState(props);
         this.state = {
-            value: '',
-            number: null, // Current parsed numbers
+            value: initValue.value,
+            number: initValue.number, // Current parsed numbers
             focusing: Boolean(props.autofocus) || false,
             hovering: false,
         };
-        this.inputNode = null;
-        this.foundation = new InputNumberFoundation(this.adapter);
-        this.clickUpOrDown = false;
+    }
+
+    /**
+     * Calculate initial state for first render.
+     * Keep logic aligned with componentDidUpdate (non-focusing branch).
+     */
+    _getInitState(props: InputNumberProps): { value: string; number: number | null } {
+        const propsValue = this.isControlled('value') ? props.value : props.defaultValue;
+
+        if (isNullOrUndefined(propsValue) || propsValue === '') {
+            return { value: '', number: null };
+        }
+
+        // In currency mode, foundation relies on init() to compute locale currency symbols.
+        // Avoid parsing currency strings during constructor to prevent incorrect initial state.
+        const isCurrency = props.currency === true || (typeof props.currency === 'string' && props.currency.trim() !== '');
+        if (isCurrency) {
+            if (typeof propsValue === 'number') {
+                const parsedNum = this.foundation.doParse(propsValue, false, true, true);
+                if (this.foundation.isValidNumber(parsedNum)) {
+                    // Do not adjust currency here (symbols not ready before init). Init() will re-format.
+                    const formatted = this.foundation.doFormat(parsedNum, true, false);
+                    return { value: formatted, number: parsedNum };
+                }
+                return { value: '', number: null };
+            }
+
+            // String currency value: keep as-is for first render; init() will normalize.
+            return { value: String(propsValue), number: null };
+        }
+
+        let valueStr: any = propsValue;
+        // Same as componentDidUpdate: if incoming is number, format first
+        if (typeof propsValue === 'number') {
+            valueStr = this.foundation.doFormat(propsValue);
+        }
+
+        const parsedNum = this.foundation.doParse(valueStr, false, true, true);
+        if (this.foundation.isValidNumber(parsedNum)) {
+            const formatted = this.foundation.doFormat(parsedNum, true, true);
+            return { value: formatted, number: parsedNum };
+        }
+
+        // Invalid number -> empty (consistent with blur-like behavior)
+        return { value: '', number: null };
     }
 
     componentDidUpdate(prevProps: InputNumberProps) {

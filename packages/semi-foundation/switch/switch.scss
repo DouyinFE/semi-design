@@ -43,6 +43,7 @@ $module: #{$prefix}-switch;
 
         .#{$module}-knob {
             transform: translateX($spacing-switch_checked-translateX);
+            background-color: $color-switch_knob-bg-checked;
         }
 
         &:active {

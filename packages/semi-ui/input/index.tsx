@@ -67,7 +67,9 @@ export interface InputProps extends
     preventScroll?: boolean;
     /** internal prop, DatePicker use it */
     showClearIgnoreDisabled?: boolean;
-    onlyBorder?: number
+    onlyBorder?: number;
+    /** Whether to enable composition mode. When enabled, onChange will not be triggered during IME composition, and will only be triggered once after composition ends */
+    composition?: boolean;
 }
 
 export interface InputState {
@@ -126,6 +128,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         getValueLength: PropTypes.func,
         preventScroll: PropTypes.bool,
         borderless: PropTypes.bool,
+        composition: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -154,6 +157,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         onCompositionUpdate: noop,
         validateStatus: 'default',
         borderless: false,
+        composition: false,
     };
 
     inputRef!: React.RefObject<HTMLInputElement>;
@@ -462,6 +466,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             borderless,
             showClearIgnoreDisabled,
             onlyBorder,
+            composition,
             ...rest
         } = this.props;
         const { value, isFocus, minLength: stateMinLength } = this.state;

@@ -108,6 +108,8 @@ const local: Locale = {
         descend: 'Nhấp để sắp xếp giảm dần',
         ascend: 'Nhấp để sắp xếp tăng dần',
         cancelSort: 'Hủy sắp xếp',
+        confirmFilter: 'OK',
+        resetFilter: 'Đặt lại',
     },
     Select: {
         emptyText: 'Không kết quả',

@@ -13,6 +13,7 @@ export interface AIChatDialogueProps {
     chats?: Message[];
     className?: string;
     disabledFileItemClick?: boolean;
+    escapeHtml?: boolean;
     hintCls?: string;
     hints?: string[];
     hintStyle?: React.CSSProperties;
@@ -55,6 +56,7 @@ export interface AIChatDialogueItemProps extends AIChatDialogueProps {
 export interface DialogueContentProps {
     mode?: 'bubble' | 'noBubble' | 'userBubble';
     children?: string;
+    escapeHtml?: boolean;
     role?: Metadata;
     message?: Message;
     customRenderFunc?: (props: RenderContentProps) => ReactNode;

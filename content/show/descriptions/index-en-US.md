@@ -167,6 +167,48 @@ import { Descriptions, Space, Tag } from '@douyinfe/semi-ui';
 
 ```
 
+### Custom Key Style
+
+You can customize the style of key through `keyStyle` property, such as setting a fixed width to achieve alignment. This property supports all CSS styles, such as `width`, `maxWidth`, `textAlign`, `color`, etc.
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Descriptions } from '@douyinfe/semi-ui';
+
+() => {
+    const data = [
+        { key: 'Username', value: 'John', keyStyle: { width: 100, textAlign: 'right' } },
+        { key: 'Email', value: 'john@example.com', keyStyle: { width: 100, textAlign: 'right' } },
+        { key: 'Phone', value: '138-0000-0000', keyStyle: { width: 100, textAlign: 'right' } },
+        { key: 'Address', value: 'Beijing', keyStyle: { width: 100, textAlign: 'right' } },
+    ];
+    return <Descriptions data={data} align="center" />;
+};
+```
+
+You can also use it with JSX syntax:
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Descriptions } from '@douyinfe/semi-ui';
+
+() => {
+    return (
+        <Descriptions align="center">
+            <Descriptions.Item itemKey="Name" keyStyle={{ width: 120, color: 'var(--semi-color-primary)' }}>
+                John
+            </Descriptions.Item>
+            <Descriptions.Item itemKey="Age" keyStyle={{ width: 120, color: 'var(--semi-color-primary)' }}>
+                28
+            </Descriptions.Item>
+            <Descriptions.Item itemKey="Job" keyStyle={{ width: 120, color: 'var(--semi-color-primary)' }}>
+                Frontend Engineer
+            </Descriptions.Item>
+        </Descriptions>
+    );
+};
+```
+
 ## API Reference
 
 ### Descriptions
@@ -190,6 +232,7 @@ import { Descriptions, Space, Tag } from '@douyinfe/semi-ui';
 | value  | Data value                                                | ReactNode \| (() => ReactNode) | -      |
 | hidden | Toggle whether the data should be displayed | boolean                     | -      |
 | span   | The number of columns the cell should span **v>=2.54.0**               | number      | 1                 |
+| keyStyle | Custom style for key, can be used to set width, alignment, etc. | CSSProperties | -      |
 
 ### Descriptions.Item
 
@@ -200,6 +243,7 @@ import { Descriptions, Space, Tag } from '@douyinfe/semi-ui';
 | className  | Item external wrapper: class name of tr DOM element    | string            | -       |
 | style      | Item external wrapper: inline style of tr DOM element  | CSSProperties     | -       |
 | span   | The number of columns the cell should span **v>=2.54.0**                | number      | 1                 |
+| keyStyle   | Custom style for key, can be used to set width, alignment, etc. | CSSProperties | -      |
 
 ## Content Guidelines
 

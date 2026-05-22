@@ -100,7 +100,9 @@ mql.addListener(matchMode);
 Semi 2.0 原生支持局部暗色/亮色模式。使用时，在顶级元素上添加 `.semi-always-dark` 或 `.semi-always-light` 类，这个类下的组件会使用对应模式的颜色变量。
 
 <Notice>
-    注意：由于弹出层默认是插入到 body 中，局部暗色/亮色对弹出层元素不生效。若你希望对弹出层也生效，应当使用 getPopupContainer 将弹出层插入节点置于你挂载 `.semi-always-dark` 或 `.semi-always-light`类名的元素内部
+
+注意：由于弹出层默认是插入到 body 中，局部暗色/亮色对弹出层元素不生效。若你希望对弹出层也生效，应当使用 getPopupContainer 将弹出层插入节点置于你挂载 `.semi-always-dark` 或 `.semi-always-light` 类名的元素内部
+
 </Notice>
 
 ```jsx live=true dir="column" hideInDSM

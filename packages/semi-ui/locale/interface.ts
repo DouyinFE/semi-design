@@ -103,7 +103,9 @@ export interface Locale {
         pageText: string;
         descend: string;
         ascend: string;
-        cancelSort: string
+        cancelSort: string;
+        confirmFilter: string;
+        resetFilter: string;
     };
     Select: {
         emptyText: string;
@@ -135,7 +137,10 @@ export interface Locale {
         selectedFiles: string;
         replace: string;
         illegalSize: string;
-        fail: string
+        fail: string;
+        cropTitle?: string;
+        cropOk?: string;
+        cropCancel?: string;
     };
     TreeSelect: {
         searchPlaceholder: string

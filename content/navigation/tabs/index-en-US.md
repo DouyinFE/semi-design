@@ -26,8 +26,10 @@ Tabs supports two declare ways, and the rendering process of the two is differen
 -   Or use `<TabPane>` to explicitly pass in item by item. When using `<TabPane>`, all panels will be rendered by default. You can set `keepDOM={false}` to only render the current panel, and there will be no animation effect at this time .
 
 <Notice title='Notice'>
-    1. When tabList and TabPane Children are used at the same time, the data passed in through tabList will be rendered first. It is not recommended to configure both <br/>
-    2. When using TabPane Children, TabPane must be a direct child element of Tabs, otherwise Tabs will not be able to correctly collect related attributes such as itemKey and other subcomponents
+
+1. When tabList and TabPane Children are used at the same time, the data passed in through tabList will be rendered first. It is not recommended to configure both
+2. When using TabPane Children, TabPane must be a direct child element of Tabs, otherwise Tabs will not be able to correctly collect related attributes such as itemKey and other subcomponents
+
 </Notice>
 
 ```jsx live=true
@@ -525,6 +527,75 @@ class App extends React.Component {
 }
 ```
 
+### Auto Overflow Detection
+
+**v>= 2.97.0**
+
+Set `collapsible="auto"` to enable automatic overflow detection. The component will automatically detect whether tabs overflow the container:
+- When tabs exceed the container width or wrap to multiple lines, it automatically enables collapse mode (shows left/right arrows)
+- When the container width increases or tab count decreases and all tabs can be fully displayed, it automatically exits collapse mode
+
+This feature eliminates the need for developers to manually determine whether folding is needed, making it especially suitable for responsive layouts.
+
+```jsx live=true dir=column
+import React from 'react';
+import { Tabs, TabPane, Button } from '@douyinfe/semi-ui';
+
+class App extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            count: 8,
+        };
+    }
+
+    render() {
+        const tabs = Array.from({ length: this.state.count }, (_, i) => (
+            <TabPane tab={`Tab-${i + 1}`} itemKey={`${i}`} key={i}>
+                Content of Tab {i + 1}
+            </TabPane>
+        ));
+
+        return (
+            <div>
+                <div style={{ marginBottom: 12 }}>
+                    <Button 
+                        onClick={() => this.setState({ count: Math.max(3, this.state.count - 2) })}
+                        style={{ marginRight: 8 }}
+                    >
+                        Reduce Tabs
+                    </Button>
+                    <Button 
+                        onClick={() => this.setState({ count: Math.min(15, this.state.count + 2) })}
+                    >
+                        Increase Tabs
+                    </Button>
+                    <span style={{ marginLeft: 12 }}>Current tab count: {this.state.count}</span>
+                </div>
+                
+                <div style={{ border: '1px solid var(--semi-color-border)', padding: 12, marginBottom: 16 }}>
+                    <p style={{ marginBottom: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                        collapsible="auto" - Auto detect overflow
+                    </p>
+                    <Tabs type="card" collapsible="auto">
+                        {tabs}
+                    </Tabs>
+                </div>
+                
+                <div style={{ border: '1px solid var(--semi-color-border)', padding: 12, maxWidth: 400 }}>
+                    <p style={{ marginBottom: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                        Fixed width 400px, test with narrow container
+                    </p>
+                    <Tabs type="card" collapsible="auto">
+                        {tabs}
+                    </Tabs>
+                </div>
+            </div>
+        );
+    }
+}
+```
+
 ### Disable
 
 Disable one tab.
@@ -625,6 +696,126 @@ class App extends React.Component {
         );
     }
 }
+```
+
+### Drag and Drop Reordering
+
+You can implement drag-and-drop tab reordering using `renderTabBar` API combined with third-party drag libraries like [@dnd-kit](https://docs.dndkit.com/).
+
+<Notice title='Prerequisites'>
+
+Install dnd-kit dependencies first:
+
+```bash
+npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities
+```
+
+</Notice>
+
+```jsx live=true noInline=true hideInDSM
+import React, { useState } from 'react';
+import { Tabs, TabPane } from '@douyinfe/semi-ui';
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { arrayMove, SortableContext, horizontalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
+import { CSS as cssDndKit } from '@dnd-kit/utilities';
+
+// Reuse Semi's built-in TabItem for native styling; wrap with useSortable to inject ref/listeners/transform
+const SortableTabItem = ({ item, selected, size, type, tabPosition, onClick }) => {
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+        id: item.itemKey,
+        disabled: item.disabled,
+    });
+    const style = {
+        transform: cssDndKit.Transform.toString(transform),
+        transition,
+        cursor: item.disabled ? 'not-allowed' : 'grab',
+        opacity: isDragging ? 0.5 : 1,
+        display: 'inline-flex',
+    };
+    return (
+        <Tabs.TabItem
+            ref={setNodeRef}
+            style={style}
+            itemKey={item.itemKey}
+            tab={item.tab}
+            icon={item.icon}
+            disabled={item.disabled}
+            selected={selected}
+            size={size}
+            type={type}
+            tabPosition={tabPosition}
+            onClick={onClick}
+            {...attributes}
+            {...listeners}
+        />
+    );
+};
+
+function DraggableTabsDemo() {
+    const [activeKey, setActiveKey] = useState('1');
+    const [items, setItems] = useState([
+        { itemKey: '1', tab: 'Document', content: 'Document content' },
+        { itemKey: '2', tab: 'Table', content: 'Table content' },
+        { itemKey: '3', tab: 'Slides', content: 'Slides content' },
+        { itemKey: '4', tab: 'Form', content: 'Form content' },
+    ]);
+
+    const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
+
+    const handleDragEnd = ({ active, over }) => {
+        if (over && active.id !== over.id) {
+            setItems(prev => {
+                const oldIndex = prev.findIndex(i => i.itemKey === active.id);
+                const newIndex = prev.findIndex(i => i.itemKey === over.id);
+                return arrayMove(prev, oldIndex, newIndex);
+            });
+        }
+    };
+
+    const renderTabBar = (tabBarProps) => {
+        const { type = 'line', size = 'medium', tabPosition = 'top' } = tabBarProps;
+        const barCls = `semi-tabs-bar semi-tabs-bar-${type} semi-tabs-bar-${tabPosition}`;
+        return (
+            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                <SortableContext
+                    items={items.map(i => i.itemKey)}
+                    strategy={horizontalListSortingStrategy}
+                >
+                    <div className={barCls} role="tablist">
+                        {items.map(item => (
+                            <SortableTabItem
+                                key={item.itemKey}
+                                item={item}
+                                selected={activeKey === item.itemKey}
+                                size={size}
+                                type={type}
+                                tabPosition={tabPosition}
+                                onClick={(key) => setActiveKey(key)}
+                            />
+                        ))}
+                    </div>
+                </SortableContext>
+            </DndContext>
+        );
+    };
+
+    return (
+        <Tabs
+            type="line"
+            activeKey={activeKey}
+            onChange={setActiveKey}
+            renderTabBar={renderTabBar}
+        >
+            {items.map(item => (
+                <TabPane key={item.itemKey} tab={item.tab} itemKey={item.itemKey}>
+                    <div style={{ padding: 20 }}>{item.content}</div>
+                </TabPane>
+            ))}
+        </Tabs>
+    );
+}
+
+render(DraggableTabsDemo);
 ```
 
 ### Dynamic Update
@@ -740,7 +931,7 @@ class App extends React.Component {
 | --- | --- | --- | --- |
 | activeKey | The itemKey value of the currently active tab page | string | None |
 | className | class name | string | None |
-| collapsible | collapsed Tabs, **>=1.1.0** | boolean | false |
+| collapsible | collapsed Tabs, **>=1.1.0**, supports `auto` overflow detection | boolean \| 'auto' | false |
 | dropdownProps | In collapsible mode, It is used to transparently transmit parameters to the Dropdown component of the drop-down menu, support since 2.66.0 | DropDownProps | { start: DropdownProps, end: DropdownProps } |
 | visibleTabsStyle | Overall scrolling area style **>=2.61.0** | style: CSSProperties | None |
 | contentStyle | The outer style object of the content area | CSSProperties | None |
@@ -748,7 +939,7 @@ class App extends React.Component {
 | keepDOM | Whether to render the DOM structure of the hidden panel when using TabPane writing, **>=1.0.0** | boolean | true |
 | lazyRender | Lazy rendering, only when the panel is activated will it be rendered in the DOM tree, **>=1.0.0** | boolean | false |
 | more | Render a portion of the Tab into a drop-down menu ** >= 2.59.0** | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | - |
-| renderTabBar | Used for secondary packaging tab bar | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | None |
+| renderTabBar | Used for secondary packaging tab bar, can be combined with third-party drag libraries to implement tab reordering | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | None |
 | renderArrow | Customize how overflow items indicator are rendered externally. By default, the overflow items are expanded when the arrow button is hovered. The first three parameters of renderArrow are supported since **>=2.61.0**, defaultNode is supported since **>=2.66.0** | (items: OverflowItem[],pos:"start"\|"end", handleArrowClick:()=>void, defaultNode: ReactNode)=> ReactNode | None |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |
 | showRestInDropdown | Whether to display the collapsed Tab in the drop-down menu (only effective when collapsible is true) **>= 2.61.0** | boolean | true |

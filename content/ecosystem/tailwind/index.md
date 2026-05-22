@@ -111,7 +111,9 @@ import { Button } from '@douyinfe/semi-ui';
 ```
 
 <Notice type="warning" title="重要">
+
 `semi-layer.css` 必须在任何包含 `@import "tailwindcss";` 的 CSS 文件和任何 Semi 组件的 import 之前引入，否则 CSS Layer 顺序将不正确。建议将其放在入口文件的第一行。
+
 </Notice>
 
 ---

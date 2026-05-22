@@ -42,9 +42,11 @@ The Field level component provided by Form, its `value` (or other properties spe
 Properties are hijacked by Form, so
 
 <Notice type="primary" title="Notice">
-    <div>1. No longer need to manually bind the onChange event and update the value as controled component. But you can continue to listen onChange events for the latest values if you want</div>
-    <div>2. You cannot set the state of component with attributes such as `value`, `defaultValue`, `checked`, `defaultChecked`, etc. The default value can be set by Field's `initValue` or Form's `unitValues`</div>
-    <div>3. You should not modify the value of Form State directly, all changes to the data in the Form should be done by providing `formApi`, `fieldApi`</div>
+
+1. No longer need to manually bind the onChange event and update the value as controled component. But you can continue to listen onChange events for the latest values if you want
+2. You cannot set the state of component with attributes such as `value`, `defaultValue`, `checked`, `defaultChecked`, etc. The default value can be set by Field's `initValue` or Form's `unitValues`
+3. You should not modify the value of Form State directly, all changes to the data in the Form should be done by providing `formApi`, `fieldApi`
+
 </Notice>
 
 ## Demos
@@ -728,7 +730,7 @@ import { Form } from '@douyinfe/semi-ui';
             trigger='blur'
             noLabel={true}
             style={{ width: 250 }}
-            validate={val => val !== 'semi' ? 'not semi' : '' }
+            validator={val => val !== 'semi' ? 'not semi' : '' }
             placeholder='Type your name'
         />
         <Form.Input field='purename' pure placeholder='DOM same as origin Input component'/>
@@ -823,7 +825,7 @@ import { Form } from '@douyinfe/semi-ui';
     const [validateStatus, setValidateStatus] = useState('default');
     const formRef = useRef();
 
-    const validate = (val, values) => {
+    const validator = (val, values) => {
         if (!val) {
             setValidateStatus('error');
             return <span>Password can not be blank</span>;
@@ -854,7 +856,7 @@ import { Form } from '@douyinfe/semi-ui';
             onSubmitFail={(errors) => console.log(errors)}
         >
             <Form.Input
-                validate={validate}
+                validator={validator}
                 field="Password"
                 validateStatus={validateStatus}
                 helpText={helpText}
@@ -1117,7 +1119,7 @@ import { Form, Button } from '@douyinfe/semi-ui';
 
 ### Custom Validate (Form Level)
 
-You can set a custom validation function validateFields for the `form` as a whole, which will be called when submit
+You can set a custom validation function for the `Form` as a whole. **Recommended:** use `validator` (`validateFields` is legacy but still compatible). It will be called on submit or when calling `formApi.validate()`.
 
 #### Synchronous Validate
 
@@ -1151,7 +1153,7 @@ class FormLevelValidateSync extends React.Component {
 
     render() {
         return (
-            <Form validateFields={this.syncValidate} layout='horizontal'>
+            <Form validator={this.syncValidate} layout='horizontal'>
                 <Form.Input field='name' trigger='blur'></Form.Input>
                 <Form.Input field='familyName[0].before' trigger='blur'></Form.Input>
                 <Form.Input field='familyName[0].after' trigger='blur'></Form.Input>
@@ -1198,7 +1200,7 @@ class FormLevelValidateAsync extends React.Component {
 
     render() {
         return (
-            <Form validateFields={this.asyncValidate} layout='horizontal'>
+            <Form validator={this.asyncValidate} layout='horizontal'>
                 <Form.Input field='name' trigger='blur'></Form.Input>
                 <Form.Input field='familyName[0].before' trigger='blur'></Form.Input>
                 <Form.Input field='familyName[1]' trigger='blur'></Form.Input>
@@ -1217,7 +1219,18 @@ class FormLevelValidateAsync extends React.Component {
 
 ### Custom Validate (Field Level)
 
-You can specify a custom validation function for field. Supports synchronous and asynchronous validation (by returning promises)
+You can specify a custom validation function for a single Field. **Recommended:** use `validator` (`validate` is legacy but still compatible). Supports synchronous and asynchronous validation (by returning promises)
+
+<Notice title='Field validator vs rules[].validator'>
+
+The Field-level `validator` prop (introduced in v2.97.0) and the `validator` field inside `rules[]` (powered by async-validator) are two different APIs:
+
+- Field `validator`: signature is `(fieldValue, values) => string | Promise<string>`; whole-field custom validation that returns the error message directly.
+- `rules[].validator`: signature is `(rule, value, callback) => void | Promise<void>`; per-rule validation in the [async-validator](https://github.com/yiminghe/async-validator) style, where errors are reported via `callback` or rejection.
+
+The two are **mutually exclusive**: if a Field `validator` (or the legacy `validate`) is set, the `rules` array will not be evaluated. Use the Field `validator` for simple whole-field custom checks; use `rules` when you need multiple rules or want to reuse built-in async-validator rules (required / type / pattern, etc.).
+
+</Notice>
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -1255,8 +1268,8 @@ class FieldLevelValidateDemo extends React.Component {
     render() {
         return (
             <Form>
-                <Form.Input field='name' label='【name】asyncValidate after 2s' validate={this.asyncValidate} trigger='blur'></Form.Input>
-                <Form.Input field='familyName' label='【familyName】syncValidate' validate={this.validateName} trigger='blur'></Form.Input>
+                <Form.Input field='name' label='【name】asyncValidate after 2s' validator={this.asyncValidate} trigger='blur'></Form.Input>
+                <Form.Input field='familyName' label='【familyName】syncValidate' validator={this.validateName} trigger='blur'></Form.Input>
                 <Button htmlType="reset">reset</Button>
             </Form >
         );
@@ -1266,8 +1279,71 @@ class FieldLevelValidateDemo extends React.Component {
 
 ### Manually Trigger specified validation
 When you want to manually trigger the validation of some specific Field, you can do it through `formApi.validate`.  
- When no parameters are passed in, all Fields are checked by default. When parameters are passed in, the parameters specified shall prevail  
+ When no parameters are passed in, all Fields are checked by default. When parameters are passed in, the parameters specified shall prevail
 
+### Silent Validation
+When you need to get the validation result without triggering UI updates (no error messages shown, no touched state set), you can use `formApi.validate({ silent: true })`. This is useful in scenarios where you want to decide whether to make a backend request based on the validation result.
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Form, Button, Toast } from '@douyinfe/semi-ui';
+
+class SilentValidationDemo extends React.Component {
+    constructor() {
+        super();
+        this.getFormApi = this.getFormApi.bind(this);
+        this.handleSilentValidate = this.handleSilentValidate.bind(this);
+        this.handleNormalValidate = this.handleNormalValidate.bind(this);
+    }
+
+    getFormApi(formApi) {
+        this.formApi = formApi;
+    }
+
+    handleSilentValidate() {
+        this.formApi.validate({ silent: true })
+            .then(values => {
+                Toast.success('Validation passed, ready to send request');
+                console.log('Sending backend request:', values);
+            })
+            .catch(errors => {
+                Toast.error('Validation failed, but no error UI shown');
+                console.log('Validation errors:', errors);
+            });
+    }
+
+    handleNormalValidate() {
+        this.formApi.validate()
+            .then(values => {
+                Toast.success('Validation passed');
+            })
+            .catch(errors => {
+                Toast.error('Validation failed, showing error UI');
+            });
+    }
+
+    render() {
+        return (
+            <Form getFormApi={this.getFormApi} layout='horizontal'>
+                <Form.Input
+                    field="username"
+                    label="Username"
+                    rules={[{ required: true, message: 'Username is required' }, { min: 3, message: 'Username must be at least 3 characters' }]}
+                />
+                <Form.Input
+                    field="email"
+                    label="Email"
+                    rules={[{ required: true, message: 'Email is required' }, { type: 'email', message: 'Invalid email format' }]}
+                />
+                <div style={{ display: 'flex', gap: 12, marginTop: 12 }}>
+                    <Button onClick={this.handleSilentValidate} type="primary">Silent Validate (no error UI)</Button>
+                    <Button onClick={this.handleNormalValidate}>Normal Validate (shows error UI)</Button>
+                </div>
+            </Form>
+        );
+    }
+}
+```
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -1321,13 +1397,13 @@ class PartValidAndResetDemo extends React.Component {
                     ({ formState, values, formApi }) => (
                         <>
                             <div>
-                                <Form.Input field="a[1]" validate={this.validate} trigger="blur" />
-                                <Form.Input field="a[0]" validate={this.validate} trigger="blur" />
-                                <Form.Input field="b.name[0]" validate={this.validate} trigger="blur" />
-                                <Form.Input field="b.name[1]" validate={this.validate} trigger="blur" />
-                                <Form.Input field="b.type" validate={this.validate} trigger="blur" />
-                                <Form.Input field="c" validate={this.validate} trigger="blur" />
-                                <Form.Input field="d" validate={this.validate} trigger="blur" />
+                                <Form.Input field="a[1]" validator={this.validate} trigger="blur" />
+                                <Form.Input field="a[0]" validator={this.validate} trigger="blur" />
+                                <Form.Input field="b.name[0]" validator={this.validate} trigger="blur" />
+                                <Form.Input field="b.name[1]" validator={this.validate} trigger="blur" />
+                                <Form.Input field="b.type" validator={this.validate} trigger="blur" />
+                                <Form.Input field="c" validator={this.validate} trigger="blur" />
+                                <Form.Input field="d" validator={this.validate} trigger="blur" />
                             </div>
                             <div>
                                 <Form.CheckboxGroup options={options} field="validateScope" label="The Field you want to validate currently" initValue={['a', 'b']} direction="horizontal" />
@@ -1416,6 +1492,46 @@ import { Form, Button } from '@douyinfe/semi-ui';
     </Form>
 );
 ```
+
+#### Keep field state on unmount (keepState)
+
+By default, when a Field component is unmounted, its value, error, and touched state are all reset. If you want to preserve these states after the field is unmounted (for example, in conditional rendering scenarios), you can use the `keepState` property.
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Form, Switch, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const [show, setShow] = React.useState(true);
+
+    return (
+        <Form style={{ width: 450 }}>
+            <Form.Switch field="alwaysShow" label='Always visible field' />
+            <Switch checked={show} onChange={setShow} style={{ marginBottom: 12 }} />
+            <span style={{ marginLeft: 8, color: 'var(--semi-color-text-2)' }}>Show conditional fields</span>
+            {show ? (
+                <Form.Input field="conditionalField" label='Conditional field (keepState)' keepState />
+            ) : null}
+            {show ? (
+                <Form.Input field="noKeepState" label='Conditional field (no keepState)' />
+            ) : null}
+            <Button htmlType="submit">Submit</Button>
+        </Form>
+    );
+};
+```
+
+In the example above:
+- The field with `keepState` will retain its previously entered value, validation state, etc. after being hidden and then shown again
+- The field without `keepState` will have its state reset after being hidden and then shown again
+
+<Notice type="primary" title="Notes">
+
+- `keepState` is designed for the "conditional unmount/remount" scenario and restores state by the field path.
+- Fields inside an `ArrayField` do NOT support `keepState`: calling `remove(i)` shifts the positional field paths of the following rows (for example `people[1].name` becomes `people[0].name`), so "restore by path" no longer matches the user intent and easily revives state of removed rows.
+- Passing `keepState` on a Field inside an `ArrayField` will be ignored and a warning will be printed. Manage array items via the `ArrayField`'s own `add`, `remove`, `addWithInitValue` instead.
+
+</Notice>
 
 ### ArrayField Usage
 
@@ -2061,6 +2177,7 @@ render(WithFieldDemo2);
 | disabled          | If true, all fields inside the form structure will automatically inherit the disabled attribute                                                                                                                                                                                                                     | boolean                                         | false      |
 | extraTextPosition | The extraTextPosition property applied to each Field uniformly controls the display position of extraText. Middle (the vertical direction is displayed in the order of Label, extraText, and Field), bottom (the vertical direction is displayed in the order of Label, Field, and extraText) | string                                          | 'bottom'   |
 | getFormApi        | This function will be executed once when the form is mounted and returns formApi. <br/>formApi can be used to modify the internal state of the form (value, touched, error)                                                                                                                                         | function (formApi: object)                      |            |
+| form              | External formApi instance created by `Form.useForm()`. Used to control form state from outside the Form component. **>=2.94.0**                                                                                                                                                                                                  | object                                          |            |
 | initValues        | Used to uniformly set the initial value of the form <br/>(will be consumed only once when form is mount)                                                                                                                                                                                                            | object                                          |            |
 | layout            | The layout of fields, optional `horizontal` or `vertical`                                                                                                                                                                                                                                                           | string                                          | 'vertical' |
 | labelCol          | Uniformly applied to the label label layout of each Field, with [Col Component](/en-US/basic/grid#Col), <br/>set `span`, `span` values, such as {span: 6, selected: 2}                                                                                                                     | object                                          |
@@ -2079,7 +2196,8 @@ render(WithFieldDemo2);
 | stopValidateWithError | Apply stopValidateWithError to each Field uniformly. For usage instructions, see the API of the same name in Field props (available after v2.42)                                                                            | boolean                             | false     |
 | stopPropagation | Whether to prevent submit or reset events from bubbling. This is used in nested Form scenarios to prevent events from propagating outwards when the inner Form submits or resets, triggering events in the outer Form. The default is `{ reset: false, submit: false }`(available after v2.63)                                                                              | object                             |      |
 | trigger  | Apply the trigger uniformly to each Field to control the timing of verification. For detailed instructions, see the API of the same name in Field props.(available after v2.42)                                               | string\|array                            |  'change'  |
-| validateFields    | Form-level custom validate functions are called at submit or formApi.validate(). <br/>Supported synchronous / asynchronous function                                                                                                                                                                                 | function (values)                               |            |
+| validator        | Form-level custom validation function (**recommended**, available after v2.97.0). Called at submit or formApi.validate(). <br/>Supports synchronous / asynchronous functions                                                                                                                                       | function (values)                               |            |
+| validateFields    | Form-level custom validation function (**deprecated**, use validator; still compatible). Called at submit or formApi.validate(). <br/>Supports synchronous / asynchronous functions                                                                                                                                | function (values)                               |            |
 | wrapperCol        | Uniformly apply the layout on each Field, with [Col component](/en-US/basic/grid#Col), <br/>set `span`, `span` values, such as {span: 20, offset: 4}                                                                                                                                     | object                                          |
 
 ## FormState
@@ -2107,8 +2225,11 @@ The table below describes the features available in the formApi.
 
 
 <Notice title='About scope isolation'>
- In order to prevent the user from accidentally modifying the internal state of the Form component after reading the internal state of formState, values  
- Semi will automatically execute deepClone once for  input parameters of `formApi.setValue` and `setValues` and the return results of `formApi.getFormState`, `getValue` and `getValues ` 
+
+In order to prevent the user from accidentally modifying the internal state of the Form component after reading the internal state of formState, values.
+
+Semi will automatically execute deepClone once for input parameters of `formApi.setValue` and `setValues` and the return results of `formApi.getFormState`, `getValue` and `getValues`.
+
 </Notice>
 
 
@@ -2118,8 +2239,8 @@ The table below describes the features available in the formApi.
 | getFormState  | Get FormState                                                                                                                                                                                                                                                                                                                      | formApi.getFormState()                                                                                                        |
 | submitForm    | Manually submit form operation                                                                                                                                                                                                                                                                                               | formApi.submitForm()                                                                                                          |
 | reset         | Reset the form manually                                                                                                                                                                                                                                                                                                            | formApi.reset(fields?: Array <string\>)                                                                                      |
-| validate      | Manually trigger validation of the entire form. the verification of the entire Field will be triggered by default when no parameters are passed , if you want to trigger the verification of some fields, pass in the target field array <br/><br/> After the Form level validator is configured, the Field level validator will not be triggered again when submit or formApi.validate()  | formApi.validate() <br/>.then(values ​​=> {})<br/>.catch(errors => {})<br/>OR formApi.validate(['fieldA','fieldB'])           |
-| setValues ​​  | Set the values ​​of the entire form. The isOverride in the second parameter is false by default. <br/> By default, only the values ​​of the existing field in the Form are updated from `newValues` to`formState.values`. <br/> When isOverride is `true`, the newValues ​​will be overwritten and assigned to formState.values ​​ | formApi.setValues(newValues: object, {isOverride: boolean})                                                                   |
+| validate      | Manually trigger validation of the entire form. the verification of the entire Field will be triggered by default when no parameters are passed , if you want to trigger the verification of some fields, pass in the target field array <br/><br/> After the Form level validator is configured, the Field level validator will not be triggered again when submit or formApi.validate()<br/><br/>**Supported since v2.94.0**: Pass `{ silent: true }` to get validation results without triggering UI updates (no error messages shown, no touched state set). You can also use `{ fields: ['fieldA'], silent: true }` to perform silent validation on specific fields. | formApi.validate() <br/>.then(values ​​=> {})<br/>.catch(errors => {})<br/>OR formApi.validate(['fieldA','fieldB'])<br/>OR formApi.validate({ silent: true })<br/>OR formApi.validate({ fields: ['fieldA'], silent: true })<br/> |
+| setValues ​​  | Set the values ​​of the entire form. The isOverride in the second parameter is false by default. <br/> **When isOverride is false**: Iterate through all registered fields in the Form, and update the values from `newValues` to `formState.values`. If a registered field is not included in `newValues`, that field will be set to undefined. <br/> **When isOverride is true**: Directly replace `formState.values` with `newValues`, including extra keys in `newValues` that don't have corresponding fields in the form. <br/><br/> **Recommended usage**: If you only need to update some fields, it's recommended to use `formApi.setValue(field, value)` for individual updates, or get current values first then merge: `formApi.setValues({ ...formApi.getValues(), name: newValue })` | formApi.setValues(newValues: object, {isOverride: boolean})                                                                   |
 | getValues ​​  | Get the values of all Field                                                                                                                                                                                                                                                                                                        | formApi.getValues()                                                                                                           |
 | setValue      | provides direct modification of formState.values ​​method.<br/>The difference from `setValues` ​​is that it only modifies a single field.                                                                                                                                                                                          | formApi.setValue(field: string, newFieldValue: any)                                                                           |
 | getValue      | Get the value of all / single Field                                                                                                                                                                                                                                                                                                | formApi.getValue()<br/>formApi.getValue(field: string)                                                                        |
@@ -2133,13 +2254,67 @@ The table below describes the features available in the formApi.
 
 ### How to access formApi
 
+-   Use `Form.useForm()` to create formApi outside Form, then pass it via props.form to the Form component. This allows you to get formApi before Form renders, suitable for scenarios where you need to control the form from outside the component.
 -   The Form component in the `ComponentDidMount` phase will execute the `getFormApi` callback passed in by props. You can save a reference to formApi in the callback function for subsequent calls (example code below)
-    In addition, we provide other ways to get formApi, and you can choose different ways of calling according to your preference.
+     In addition, we provide other ways to get formApi, and you can choose different ways of calling according to your preference.
 -   Use reference to get form instance，you can access form instance & its formApi
 -   By declaring fields through "child render function", formApi will injected as a parameter
 -   By declaring fields through "render props", formApi will injected as a parameter
 -   Via [useFormApi](#useFormApi) hook for children component of Form
 -   Via [withFormApi](#withFormApi) HOC for children component of Form
+
+#### Using Form.useForm()
+
+`Form.useForm()` is used to **create** a formApi instance **outside** the Form component, suitable for scenarios where you need to control the form before it renders. It returns an array `[formApi, formState, formValues]`. **>=2.94.0**
+
+<Notice type="primary" title="Difference between Form.useForm() and useFormApi">
+
+- **Form.useForm()**: Creates formApi **outside** Form, needs to be passed to Form via props.form. Used for parent components controlling child Form.
+- **useFormApi**: Gets formApi **inside** Form, used for child components of Form to access the parent Form. See [useFormApi](#useFormApi).
+
+</Notice>
+
+Usage example:
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Form, Button } from '@douyinfe/semi-ui';
+
+() => {
+    // Create formApi outside Form
+    const [formApi, formState, formValues] = Form.useForm();
+
+    const handleClick = () => {
+        // Call formApi outside Form
+        formApi.setValue('username', 'semi');
+        console.log('Current form values:', formValues);
+    };
+
+    return (
+        <>
+            <Button onClick={handleClick}>Set Value Externally</Button>
+            <Button onClick={() => formApi.reset()}>Reset Form</Button>
+            
+            {/* Pass formApi to Form component */}
+            <Form form={formApi}>
+                <Form.Input field='username' label='Username' />
+                <Form.Input field='email' label='Email' />
+            </Form>
+            
+            <div style={{ marginTop: 16 }}>
+                <div>Form Values: {JSON.stringify(formValues)}</div>
+                <div>Touched Status: {JSON.stringify(formState.touched)}</div>
+            </div>
+        </>
+    );
+};
+```
+
+<Notice type="primary" title="Notice">
+
+When using formApi created by `Form.useForm()` before the Form component mounts, a warning will be logged in the console. It is recommended to call formApi methods after the Form has mounted.
+
+</Notice>
 
 ```jsx
 import React from 'react';
@@ -2212,13 +2387,15 @@ import { Form, Button } from '@douyinfe/semi-ui';
 | fieldClassName        | The className of the entire fieldWrapper is the same as the name parameter, except that the prefix is ​​not automatically appended                                                                                                       | string                                 |           |
 | fieldStyle            | The inline style of the entire fieldWrapper                                                                                                      | object                                 |           |
 | initValue             | The initial value of the field (consumed only once when Field mounted, subsequent updates are invalid), it has higher priority than the values ​​in Form's initValues ​​                                                                 | any(type depends on current component) |           |
-| validate              | The custom validation function for this form control. Supports synchronous and asynchronous verification. <br/> Rules does not take effect when validate is set                                                                           | function(fieldValue, values)           |           | (fieldValue) => fieldValue.length>5? 'error balabala': ''          |
+| validator            | The custom validation function for this form control (**recommended**, available after v2.97.0). Supports synchronous and asynchronous validation. <br/>Rules does not take effect when validator is set                                                                                | function(fieldValue, values)           |           | (fieldValue) => fieldValue.length>5? 'error balabala': ''          |
+| validate              | The custom validation function for this form control (**deprecated**, use validator; still compatible). Supports synchronous and asynchronous validation. <br/>Rules does not take effect when validator/validate is set                       | function(fieldValue, values)           |           | (fieldValue) => fieldValue.length>5? 'error balabala': ''          |
 | rules                 | validation rules, validation library based on [async-validator](https://github.com/yiminghe/async-validator)                                                                                                                             | array                                  |           | const rules = \[{type:' string ', message:' invalidate string'} \] |
 | validateStatus        | The validation result status of this form control, optional: `success` / `error` / `warning` / `default`                                                                                                                                 | string                                 | 'default' |
 | trigger               | The timing of triggering the verification, optional: `blur` / `change` / `custom` / `mount` <br/> 1. When set to custom, only formApi will trigger the verification <br/> 2.mount (triggered once when mounting)                          | string                                 | 'change'  |
-| onChange              | Callback invoked when this field value changes                                                                                                                                                                                           |
+| onChange              | Callback invoked when this field value changes. **v2.99.0+**: The last parameter of the callback is the latest form values `latestValues`, which can be used to solve the React closure trap problem.<br/>Usage example: `onChange={(value, e, ...other) => { const latestValues = other[other.length - 1]; }}` | function(fieldValue: any \| ev: { target: { value: any }}, ...args: any[], latestValues?: object) <br/>(see each component's onChange method) |
 | transform             | transform field values before validation                                                                                                                                                                                                 | function(fieldValue)                   |           | (value) => Number(value)                                           |
 | allowEmptyString      | Whether to allow values to be empty strings. <br/>When the value is '' by default, the key corresponding to this field will be removed from `values`. <br/>If you want to keep the key, you need to set allowEmptyString to true           | boolean                                |           | false                                                              |
+| keepState             | Whether to retain the field state (value, error, touched) after the field is unmounted. When true, the field's value, validation message, and interaction state are preserved after unmounting, and will be automatically restored upon remounting           | boolean                                |           | false                                                              |
 | convert               | After the field value changes, before rerender, update the value of filed                                                                                                                                                                | function(fieldValue)                   |           | (value) => newValue                                        |
 | stopValidateWithError | When it is true, the rules check is used. After encountering the first rule that fails the check, it will no longer trigger the check of subsequent rules                                                          | boolean                                |           | false                                                              |
 | helpText              | Custom prompt information, which is displayed in the same block as the verification information. When both have values, the verification information is displayed first                                             | ReactNode                              |           |                                                                    |

@@ -3,7 +3,6 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/cascader/constants';
 import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
-import { includes } from 'lodash';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
 import { IconChevronRight, IconTick } from '@douyinfe/semi-icons';
@@ -187,17 +186,40 @@ export default class Item extends PureComponent<CascaderItemProps> {
         const content: React.ReactNode[] = [];
         const { keyword, separator } = this.props;
         searchText.forEach((item, idx) => {
-            if (typeof item === 'string' && includes(item, keyword)) {
-                item.split(keyword).forEach((node, index) => {
-                    if (index > 0) {
-                        content.push(
-                            <span className={`${prefixcls}-label-highlight`} key={`${index}-${idx}`}>
-                                {keyword}
-                            </span>
-                        );
+            if (typeof item === 'string' && keyword) {
+                // Keep historical DOM structure (span) and only make match case-insensitive.
+                const lowerItem = item.toLowerCase();
+                const lowerKeyword = keyword.toLowerCase();
+                let searchFrom = 0;
+                let keyIndex = 0;
+
+                while (true) {
+                    const matchIndex = lowerItem.indexOf(lowerKeyword, searchFrom);
+                    if (matchIndex === -1) {
+                        const rest = item.slice(searchFrom);
+                        if (rest) {
+                            content.push(rest);
+                        }
+                        break;
                     }
-                    content.push(node);
-                });
+
+                    const before = item.slice(searchFrom, matchIndex);
+                    if (before) {
+                        content.push(before);
+                    }
+
+                    content.push(
+                        <span
+                            className={`${prefixcls}-label-highlight`}
+                            key={`${idx}-${matchIndex}-${keyIndex}`}
+                        >
+                            {item.slice(matchIndex, matchIndex + keyword.length)}
+                        </span>
+                    );
+
+                    searchFrom = matchIndex + keyword.length;
+                    keyIndex++;
+                }
             } else {
                 content.push(item);
             }
@@ -407,4 +429,3 @@ export default class Item extends PureComponent<CascaderItemProps> {
         );
     }
 }
-

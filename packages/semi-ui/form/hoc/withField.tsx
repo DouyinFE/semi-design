@@ -14,8 +14,46 @@ import Label from '../label';
 import { Col } from '../../grid';
 import type { CallOpts, WithFieldOption } from '@douyinfe/semi-foundation/form/interface';
 import type { CommonFieldProps, CommonexcludeType } from '../interface';
-import type { Subtract } from 'utility-types';
 import { noop } from "lodash";
+
+function shallowEqualArray(a: any[] | undefined, b: any[] | undefined): boolean {
+    if (a === b) {
+        return true;
+    }
+    if (!a || !b || a.length !== b.length) {
+        return false;
+    }
+    for (let i = 0; i < a.length; i++) {
+        if (!Object.is(a[i], b[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * Keep a stable array reference when items are shallow-equal.
+ *
+ * Why do we need this?
+ * - In this file we memoize the rendered Field subtree for performance.
+ * - We need to make the `useMemo` dependency list have a CONSTANT length between renders.
+ *   React will warn if the deps array size changes:
+ *   "The final argument passed to useMemo changed size between renders"
+ * - Some wrappers (Tooltip/Popover) inject event handlers into children via `cloneElement`.
+ *   That can ADD/REMOVE props keys (e.g. onMouseEnter/onMouseLeave) and therefore change
+ *   the length of something like `Object.values(props)`.
+ *
+ * So we represent `props` as two arrays (sorted keys + values in that key order), and then
+ * stabilize those arrays by shallow-equality so we don't trigger memo recalculation when
+ * nothing actually changed.
+ */
+function useShallowStableArray<T extends any[]>(next: T): T {
+    const ref = useRef<T>(next);
+    if (!shallowEqualArray(ref.current, next)) {
+        ref.current = next;
+    }
+    return ref.current;
+}
 
 const prefix = cssClasses.PREFIX;
 
@@ -32,7 +70,7 @@ const useIsomorphicEffect = typeof window !== 'undefined' ? useLayoutEffect : us
 
 function withField<
     C extends React.ElementType,
-    T extends Subtract<React.ComponentProps<C>, CommonexcludeType> & CommonFieldProps & React.RefAttributes<any>,
+    T extends Omit<React.ComponentProps<C>, keyof CommonexcludeType> & CommonFieldProps & React.RefAttributes<any>,
     R extends React.ComponentType<T>
 >(Component: C, opts?: WithFieldOption): R {
     let SemiField = (props: any, ref: React.MutableRefObject<any> | ((instance: any) => void)) => {
@@ -125,13 +163,28 @@ function withField<
 
         // use arrayFieldState to fix issue 615
         let arrayFieldState;
+        let inArrayField = false;
         try {
             arrayFieldState = useArrayFieldState();
             if (arrayFieldState) {
-                initVal =
-                    arrayFieldState.shouldUseInitValue && typeof initValue !== 'undefined'
-                        ? initValue
-                        : initValueInFormOpts;
+                inArrayField = Boolean(arrayFieldState.inArrayField);
+                /**
+                 * In ArrayField, when setValues causes ArrayField re-render, ArrayField will set shouldUseInitValue to false.
+                 * But Field may be conditionally unmounted/remounted later. In that case, if the value in form state is
+                 * still undefined (e.g. API data doesn't provide that key), we should still fall back to initValue.
+                 *
+                 * This keeps behavior consistent with fields outside ArrayField and avoids overriding values
+                 * that were already provided by setValues.
+                 */
+                if (typeof initValue !== 'undefined') {
+                    if (arrayFieldState.shouldUseInitValue) {
+                        initVal = initValue;
+                    } else {
+                        initVal = typeof initValueInFormOpts !== 'undefined' ? initValueInFormOpts : initValue;
+                    }
+                } else {
+                    initVal = initValueInFormOpts;
+                }
             }
         } catch (err) {}
 
@@ -140,6 +193,20 @@ function withField<
         const validateOnMount = mergeTrigger.includes('mount');
 
         allowEmpty = allowEmpty || updater.getFormProps().allowEmpty;
+
+        // `keepState` semantically preserves a field's state when the component unmounts and
+        // restores it on remount, keyed by the field path. Inside an <ArrayField>, removing a
+        // row shifts the subsequent rows' positional field paths (e.g. people[1].name becomes
+        // people[0].name), so "restore by path" no longer matches the user's intent and easily
+        // surfaces stale state (touched flags, registered markers, etc.). To avoid that
+        // ambiguity, ignore `keepState` for fields rendered inside an ArrayField and warn once.
+        if (keepState && inArrayField) {
+            warning(
+                true,
+                `[Semi Form]: 'keepState' is not supported on Field "${field}" inside <ArrayField/>. It will be ignored. Use add/remove on the ArrayField to manage array items instead.`
+            );
+            keepState = false;
+        }
 
         // Error information: Array, String, undefined
         const [error, setError, getError] = useStateWithGetter();
@@ -166,23 +233,25 @@ function withField<
             if (errors === getError()) {
                 // When the inspection result is unchanged, no need to update, saving a forceUpdate overhead
                 // When errors is an array, deepEqual is not used, and it is always treated as a need to update
-                // 检验结果不变时，无需更新，节省一次forceUpdate开销
-                // errors为数组时，不做deepEqual，始终当做需要更新处理
                 return;
             }
-            setError(errors);
-            updater.updateStateError(field, errors, callOpts);
-            if (!isValid(errors)) {
-                setStatus('error');
-            } else {
-                setStatus('success');
+            const isSilent = callOpts && callOpts.silent;
+            if (!isSilent) {
+                setError(errors);
+                if (!isValid(errors)) {
+                    setStatus('error');
+                } else {
+                    setStatus('success');
+                }
             }
+            updater.updateStateError(field, errors, callOpts);
         };
 
         const updateValue = (val: any, callOpts?: CallOpts) => {
             setValue(val);
             let newOpts = {
                 ...callOpts,
+                // Keep legacy key to avoid implicit allowEmpty behavior change
                 allowEmpty,
             };
             updater.updateStateValue(field, val, newOpts);
@@ -238,14 +307,31 @@ function withField<
                             if (messages.length === 1) {
                                 messages = messages[0];
                             }
-                            updateError(messages, callOpts);
-                            if (!isValid(messages)) {
-                                setStatus('error');
+                            // NOTE:
+                            // `async-validator` treats `message: ''` as a valid error message (validation fails, but the
+                            // user wants to hide the message text). In that case `messages` becomes the empty string and
+                            // `isValid('')` returns true, so the previous logic accidentally short-circuited and never
+                            // resolved the promise — `submit()` / `validate()` would hang forever.
+                            //
+                            // The presence of an error is decided from `errors.length`, decoupled from whether the
+                            // produced message is renderable. The empty-string is preserved as the field error value so
+                            // that the public `formApi.getError(field)` API stays backward compatible (callers that did
+                            // `getError(field) === ''` to detect "invalid without text" keep working). The corresponding
+                            // render-time fallback (do not display `helpText` when the field is in an error state with an
+                            // empty message) is handled in `ErrorMessage`.
+                            const hasRulesError = Array.isArray(errors) && errors.length > 0;
+                            if (hasRulesError) {
+                                if (!callOpts?.silent) {
+                                    setStatus('error');
+                                }
+                                updateError(messages, callOpts);
                                 resolve(errors);
                             }
                         } else {
                             // Some grammatical errors in rules
-                            setStatus('error');
+                            if (!callOpts?.silent) {
+                                setStatus('error');
+                            }
                             updateError(err.message, callOpts);
                             resolve(err.message);
                             throw err;
@@ -327,11 +413,6 @@ function withField<
          *
          */
         const handleChange = (newValue: any, e: any, ...other: any[]) => {
-            let fnKey = options.onKeyChangeFnName;
-            if (fnKey in props && typeof props[options.onKeyChangeFnName] === 'function') {
-                props[options.onKeyChangeFnName](newValue, e, ...other);
-            }
-
             // support various type component
             let val;
             if (!options.valuePath) {
@@ -371,11 +452,44 @@ function withField<
                 }
             } catch (err) {}
 
-            updateTouched(true, { notNotify: true, notUpdate: true });
-            updateValue(val);
-            // only validate when trigger includes change
-            if (mergeTrigger.includes('change')) {
-                fieldValidate(val);
+            /**
+             * Two-phase commit to balance:
+             * - Fix #579: allow user to read latest values in onChange (including via render-prop closure)
+             * - Keep legacy semantics when user's onChange throws: do NOT commit value into form state
+             *
+             * Phase 1 (prepare): write value into foundation silently (no notify / no forceUpdate)
+             * Phase 2 (commit): after user's onChange succeeds, update touched silently and then commit value with notify/forceUpdate
+             */
+            const prevLocalVal = getVal();
+            const prevFormVal = updater.getValue(field, { needClone: true });
+            const fnKey = options.onKeyChangeFnName;
+            try {
+                // prepare: update local controlled value + foundation value silently
+                setValue(val);
+                updater.updateStateValue(field, val, { notNotify: true, notUpdate: true, allowEmpty });
+
+                // call user's onChange with latest values as additional parameter (last arg)
+                if (fnKey in props && typeof props[fnKey] === 'function') {
+                    const latestValues = updater.getValue();
+                    (props[fnKey] as any)(newValue, e, ...other, latestValues);
+                }
+
+                // prepare touched AFTER user's onChange to keep timing closer to legacy
+                setTouched(true);
+                updater.updateStateTouched(field, true, { notNotify: true, notUpdate: true });
+
+                // commit: trigger notify + forceUpdate once
+                updater.updateStateValue(field, val, { allowEmpty });
+
+                // validate when trigger includes change
+                if (mergeTrigger.includes('change')) {
+                    fieldValidate(val);
+                }
+            } catch (err) {
+                // rollback silent writes to keep legacy "throw => no commit" behavior
+                setValue(prevLocalVal);
+                updater.updateStateValue(field, prevFormVal, { notNotify: true, notUpdate: true, allowEmpty });
+                throw err;
             }
         };
 
@@ -621,9 +735,32 @@ function withField<
         };
 
         // !important optimization
+        // IMPORTANT: do NOT use `...Object.values(props)` as `useMemo` deps.
+        //
+        // Background
+        // - Tooltip/Popover (and similar wrappers) may inject props into their child via
+        //   `React.cloneElement`, typically event handlers like `onMouseEnter` / `onMouseLeave`.
+        // - When those injected props appear/disappear, the number of keys in `props` changes.
+        // - If we spread `Object.values(props)` into the deps list, the deps array length changes
+        //   between renders and React will warn:
+        //   "The final argument passed to useMemo changed size between renders".
+        //
+        // Solution
+        // Represent `props` with a FIXED-LENGTH deps list:
+        // - `stablePropKeys`: sorted list of prop keys (stable reference when unchanged)
+        // - `stablePropValues`: values in the same key order (stable reference when unchanged)
+        // This keeps the deps list length constant while still re-running memo when:
+        // - injected handler props change
+        // - any prop value changes
+        // - prop keys are added/removed
+        const sortedPropKeys = Object.keys(props).sort();
+        const stablePropKeys = useShallowStableArray(sortedPropKeys);
+        const stablePropValues = useShallowStableArray(stablePropKeys.map(key => props[key]) as any[]);
+
         const shouldUpdate = [
             ...Object.values(fieldState),
-            ...Object.values(props),
+            stablePropKeys,
+            stablePropValues,
             field,
             mergeLabelPos,
             mergeLabelAlign,

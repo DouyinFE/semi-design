@@ -601,4 +601,77 @@ describe('Form-formApi', () => {
     // it('formApi-submitForm', () => {
     //     // submit should call validate first
     // });
+
+    // fix #2933: Form-level validator is the recommended alias for legacy validateFields
+    it('formApi-validate, form-level validator alias takes precedence over validateFields', async () => {
+        const fields = (
+            <>
+                <Form.Input field="name" />
+            </>
+        );
+        const validatorSpy = sinon.spy(() => ({ name: 'from-validator' }));
+        const validateFieldsSpy = sinon.spy(() => ({ name: 'from-validateFields' }));
+
+        let formApi = null;
+        let formProps = {
+            children: fields,
+            getFormApi: api => { formApi = api; },
+            validator: validatorSpy,
+            validateFields: validateFieldsSpy,
+        };
+        getForm(formProps);
+        formApi.validate().then(() => {}).catch(() => {});
+        await sleep(300);
+        expect(validatorSpy.called).toBeTruthy();
+        expect(validateFieldsSpy.called).toBeFalsy();
+        expect(formApi.getFormState().errors).toEqual({ name: 'from-validator' });
+    });
+
+    it('formApi-validate, legacy validateFields still works when validator is absent', async () => {
+        const fields = (
+            <>
+                <Form.Input field="name" />
+            </>
+        );
+        const validateFieldsSpy = sinon.spy(() => ({ name: 'from-validateFields' }));
+
+        let formApi = null;
+        let formProps = {
+            children: fields,
+            getFormApi: api => { formApi = api; },
+            validateFields: validateFieldsSpy,
+        };
+        getForm(formProps);
+        formApi.validate().then(() => {}).catch(() => {});
+        await sleep(300);
+        expect(validateFieldsSpy.called).toBeTruthy();
+        expect(formApi.getFormState().errors).toEqual({ name: 'from-validateFields' });
+    });
+
+    // fix #2933: Field-level validator is the recommended alias for legacy validate
+    it('formApi-validate, field-level validator alias takes precedence over validate', async () => {
+        const validatorSpy = sinon.spy(() => 'from-validator');
+        const validateSpy = sinon.spy(() => 'from-validate');
+        const fields = (
+            <>
+                <Form.Input
+                    field="a"
+                    className="ab"
+                    validator={validatorSpy}
+                    validate={validateSpy}
+                />
+            </>
+        );
+        let formApi = null;
+        let formProps = {
+            children: fields,
+            getFormApi: api => { formApi = api; },
+        };
+        getForm(formProps);
+        formApi.validate().then(() => {}).catch(() => {});
+        await sleep(300);
+        expect(validatorSpy.called).toBeTruthy();
+        expect(validateSpy.called).toBeFalsy();
+        expect(formApi.getFormState().errors).toEqual({ a: 'from-validator' });
+    });
 });

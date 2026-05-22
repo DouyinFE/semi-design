@@ -407,6 +407,55 @@ class Demo extends React.Component {
 }
 ```
 
+### Remote Search
+
+By setting the `remote` property, you can enable remote search. When enabled, local filtering is skipped on input, only the `onSearch` callback is triggered, allowing users to handle remote data fetching and update `treeData`.
+
+```jsx live=true
+import React, { useState, useCallback } from 'react';
+import { TreeSelect, Toast } from '@douyinfe/semi-ui';
+
+() => {
+    const [value, setValue] = useState();
+    const [treeData, setTreeData] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    // Simulate remote search
+    const handleSearch = useCallback((inputValue) => {
+        if (!inputValue) {
+            setTreeData([]);
+            return;
+        }
+
+        setLoading(true);
+        
+        // Simulate network request
+        setTimeout(() => {
+            const mockData = [
+                { label: `${inputValue} - Result 1`, value: `${inputValue}-1`, key: `${inputValue}-1` },
+                { label: `${inputValue} - Result 2`, value: `${inputValue}-2`, key: `${inputValue}-2` },
+                { label: `${inputValue} - Result 3`, value: `${inputValue}-3`, key: `${inputValue}-3` },
+            ];
+            setTreeData(mockData);
+            setLoading(false);
+        }, 500);
+    }, []);
+
+    return (
+        <TreeSelect
+            style={{ width: 300 }}
+            placeholder="Enter keyword for remote search"
+            treeData={treeData}
+            filterTreeNode
+            remote
+            loading={loading}
+            value={value}
+            onChange={setValue}
+            onSearch={handleSearch}
+        />
+    );
+};
+```
 
 ### Search Box Position
 
@@ -499,6 +548,99 @@ import { TreeSelect } from '@douyinfe/semi-ui';
                 placeholder="Multiple selection"
             />
         </>
+    );
+};
+```
+
+### Wrap tags in trigger (triggerTagWrap)
+
+In **multiple + searchable + searchPosition="trigger"** mode, if there are many selected items or the input is long, the trigger may prefer to keep a single-line layout by default.
+
+Set `triggerTagWrap={true}` to allow selected tags to wrap into multiple lines within the trigger.
+
+```jsx live=true
+import React from 'react';
+import { TreeSelect } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                        {
+                            label: 'Shenzhen',
+                            value: 'Shenzhen',
+                            key: '0-0-2',
+                        },
+                        {
+                            label: 'Guangzhou',
+                            value: 'Guangzhou',
+                            key: '0-0-3',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+
+    return (
+        <TreeSelect
+            searchPosition="trigger"
+            triggerTagWrap
+            style={{ width: 260 }}
+            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+            treeData={treeData}
+            multiple
+            filterTreeNode
+            placeholder="Select multiple items or input long text"
+            defaultValue={['Beijing', 'Shanghai', 'Shenzhen', 'Guangzhou']}
+        />
     );
 };
 ```
@@ -1432,6 +1574,7 @@ function Demo() {
 | expandIcon | Custom expand icon, [example](/en-US/navigation/tree#Custom%20expansion%20icon) | ReactNode \| (props: expandProps)=>ReactNode | - | 2.75.0 |
 | keyMaps | Customize the key, label, and value fields in the node. If you set a custom name for the label in keyMaps and enable search, to ensure correct search, you need to set treeNodeFilterProp to one of the keys of treeData or use a custom search function through filterTreeNode. | object |  - | 2.47.0 |
 | filterTreeNode           | Toggle whether searchable or pass in a function to customize search behavior, data parameter provided since v2.28.0 | boolean\| <ApiType detail='(inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean'>Function</ApiType> | false       | -       |
+| remote | Enable remote search. When enabled, local filtering is skipped on input, only `onSearch` callback is triggered, allowing users to handle remote data fetching and update `treeData` | boolean | false | - |
 | getPopupContainer        | Container to render pop-up, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.                                                    | function():HTMLElement                                            | -           | -       |
 | labelEllipsis | Toggle whether to ellipsis label when overflow | boolean | false\|true(virtualized) | - |  
 | leafOnly | Toggle whether to display tags for leaf nodes only and for onChange callback params in multiple mode | boolean | false | - |
@@ -1454,6 +1597,7 @@ function Demo() {
 | searchAutoFocus        | Whether autofocus for search box           | boolean      | false           |-|
 | searchPlaceholder        | Placeholder for search box                                                          | string                                                            | -           | -       |
 | searchPosition | Set the position of the search box, one of: `dropdown`、`trigger` | string | `dropdown` | - |
+| triggerTagWrap | Whether to allow selected tags to wrap into multiple lines within the trigger. Only works when `multiple` and `filterTreeNode` are enabled, and `searchPosition="trigger"` | boolean | false | - |
 | showClear | When the value is not empty, whether the trigger displays the clear button | boolean | false |  |
 | showFilteredOnly | Toggle whether to displayed filtered result only in search mode | boolean | false | - |
 | showLine | The option in the options panel shows connecting lines | boolean | false | 2.50.0 |

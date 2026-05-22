@@ -67,6 +67,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         uploadTipProps: PropTypes.object,
         mode: PropTypes.string,
         markdownRenderProps: PropTypes.object,
+        escapeHtml: PropTypes.bool,
     };
 
     static defaultProps = getDefaultPropsFromGlobalConfig(Chat.__SemiComponentName__, {
@@ -75,6 +76,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         mode: MODE.BUBBLE,
         showClearContext: false,
         sendHotKey: SEND_HOT_KEY.ENTER,
+        escapeHtml: true,
     })
 
     constructor(props: ChatProps) {
@@ -292,7 +294,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             placeholder, inputBoxCls, inputBoxStyle,
             hintStyle, hintCls, uploadProps, uploadTipProps,
             sendHotKey, renderDivider, markdownRenderProps, enableUpload,
-            canSend,
+            canSend, escapeHtml,
         } = this.props;
         const { backBottomVisible, chats, wheelScroll, uploadAreaVisible } = this.state;
         let showStopGenerateFlag = false;
@@ -345,6 +347,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                                     align={align}
                                     mode={mode}
                                     chats={chats}
+                                    escapeHtml={escapeHtml}
                                     roleConfig={roleConfig}
                                     customMarkDownComponents={customMarkDownComponents}
                                     onMessageDelete={this.foundation.deleteMessage}

@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Click to descend',
         ascend: 'Click to ascend',
         cancelSort: 'Cancel sorting',
+        confirmFilter: 'OK',
+        resetFilter: 'Reset',
     },
     Select: {
         emptyText: 'No Result',
@@ -137,6 +139,9 @@ const local: Locale = {
         selectedFiles: 'Selected Files',
         illegalSize: 'Illegal file size',
         fail: 'Upload fail',
+        cropTitle: 'Crop Image',
+        cropOk: 'OK',
+        cropCancel: 'Cancel',
     },
     TreeSelect: {
         searchPlaceholder: 'Search',

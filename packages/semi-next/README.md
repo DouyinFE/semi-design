@@ -26,6 +26,9 @@ module.exports = semi({
 
 ## Options
 
+`@douyinfe/semi-next` passes its options through to `@douyinfe/semi-webpack-plugin`.
+So you can use all options supported by `SemiWebpackPluginOptions`.
+
 ### options.omitCss
 
 Type: `Boolean`

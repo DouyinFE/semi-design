@@ -133,10 +133,13 @@ insetInput 开启后包括以下功能：
 - 和外部的输入框一致，如果输入了非法日期，面板关闭后日期会回到之前的合法日期
 
 <Notice type="primary" title="注意事项">
-    <div>注意，开启后会对组件做一些调整和限制：</div>
-    <div>1. 触发器样式：未打开面板时触发器只读，打开时触发器禁用</div>
-    <div>2. 面板样式：type 包括 time 时，隐藏底部的切换按钮</div>
-    <div>3. 开启 insetInput 后 format 只支持 `dateFormat[ timeFormat]` 格式，使用其他格式会影响内嵌输入框 placeholder 和触发器文本的展示</div>
+
+注意，开启后会对组件做一些调整和限制：
+
+1. 触发器样式：未打开面板时触发器只读，打开时触发器禁用
+2. 面板样式：type 包括 time 时，隐藏底部的切换按钮
+3. 开启 insetInput 后 format 只支持 `dateFormat[ timeFormat]` 格式，使用其他格式会影响内嵌输入框 placeholder 和触发器文本的展示
+
 </Notice>
 
 ```jsx live=true
@@ -854,6 +857,7 @@ function Demo() {
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                               | boolean |  |  |
 | presetPosition | 日期时间快捷方式面板位置, 可选值'left', 'right', 'top', 'bottom'                                                    | string |  'bottom' | **2.18.0** |
 | rangeSeparator | 自定义范围类型输入框的日期分隔符                                                                                     | string | '~' | |
+| rangeSeparatorNode | 自定义范围类型输入框分隔符的渲染节点（仅影响 UI 渲染，字符串解析仍使用 rangeSeparator）                                              | ReactNode | - | |
 | renderDate | 自定义日期显示内容                                                                                            | (dayNumber, fullDate) => ReactNode | - |  |
 | renderFullDate | 自定义显示日期格子内容                                                                                          | (dayNumber, fullDate, dayStatus) => ReactNode | - |  |
 | rightSlot         | 渲染右侧额外区域                                                                                             | ReactNode |         | **2.65.0** |

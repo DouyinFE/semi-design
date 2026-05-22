@@ -29,6 +29,11 @@ export interface SemiThemeOptions {
     name?: string
 }
 
+// Support packages like @douyinfe/semi-ui-19, @douyinfe/semi-icons-19
+// Only allow numeric suffix to avoid over-matching non-Semi packages.
+const SEMI_LIB_JS_RE = /@douyinfe\/semi-(ui|icons)(-\d+)?\/lib\/.+\.js$/;
+const SEMI_LIB_SCSS_RE = /@douyinfe\/semi-(ui|icons|foundation)(-\d+)?\/lib\/.+\.scss$/;
+
 export default class SemiWebpackPlugin {
 
     options: SemiWebpackPluginOptions;
@@ -92,7 +97,7 @@ export default class SemiWebpackPlugin {
 
     omitCss(module: any) {
         const compatiblePath = transformPath(module.resource);
-        if (/@douyinfe\/semi-(ui|icons)\/lib\/.+\.js$/.test(compatiblePath)) {
+        if (SEMI_LIB_JS_RE.test(compatiblePath)) {
             module.loaders = module.loaders || [];
             module.loaders.push({
                 loader: path.join(__dirname, 'semi-omit-css-loader')
@@ -102,13 +107,13 @@ export default class SemiWebpackPlugin {
 
     customTheme(module: any) {
         const compatiblePath = transformPath(module.resource);
-        if (/@douyinfe\/semi-(ui|icons)\/lib\/.+\.js$/.test(compatiblePath)) {
+        if (SEMI_LIB_JS_RE.test(compatiblePath)) {
             module.loaders = module.loaders || [];
             module.loaders.push({
                 loader: path.join(__dirname, 'semi-source-suffix-loader')
             });
         }
-        if (/@douyinfe\/semi-(ui|icons|foundation)\/lib\/.+\.scss$/.test(compatiblePath)) {
+        if (SEMI_LIB_SCSS_RE.test(compatiblePath)) {
             const scssLoader = require.resolve('sass-loader');
             const cssLoader = require.resolve('css-loader');
             const styleLoader = require.resolve('style-loader');
@@ -199,4 +204,3 @@ export default class SemiWebpackPlugin {
         }, '');
     }
 }
-

@@ -132,54 +132,193 @@ export class SelectionModel {
     public toViewPosition() {
         const selection = window.getSelection();
         if (!selection) return;
-        const range = new Range();
 
         if (this.isSelectedAll) {
-            range.setStartBefore(this._view.scrollDom.firstChild!);
-            range.setEndAfter(this._view.scrollDom.lastChild!);
+            const firstChild = this._view.scrollDom.firstChild;
+            const lastChild = this._view.scrollDom.lastChild;
+
+            if (!firstChild || !lastChild) {
+                selection.removeAllRanges();
+                return;
+            }
+
+            const range = new Range();
+            range.setStartBefore(firstChild);
+            range.setEndAfter(lastChild);
             selection.removeAllRanges();
             selection.addRange(range);
             return;
         }
 
+        // Handle multi-selection (non-collapsed selection)
+        if (!this.isCollapsed) {
+            this._restoreMultiSelection(selection);
+            return;
+        }
+
         const row = this._jsonModel.lastChangeBufferPos.lineNumber;
         const col = this._jsonModel.lastChangeBufferPos.column - 1;
+        const firstVisibleLineElement = this._view.scrollDom.firstElementChild as HTMLElement | null;
+        const lastVisibleLineElement = this._view.scrollDom.lastElementChild as HTMLElement | null;
 
-        if (this.isSelecting) {
-            
+        if (!firstVisibleLineElement || !lastVisibleLineElement) {
+            selection.removeAllRanges();
+            return;
         }
 
         const lineElement = this._view.getLineElement(row);
-        
-        if (!lineElement) return;
-        
-        if (col === 0) {
-            range.setStart(lineElement, 0);
-            range.setEnd(lineElement, 0);
-        } else {
-            const walker = document.createTreeWalker(
-                lineElement,
-                NodeFilter.SHOW_TEXT,
-                null
-            );
 
-            let node: Text | null = walker.nextNode() as Text;
-            let currentOffset = 0;
-            
-            while (node) {
-                const nodeLength = node.length;
-                if (currentOffset + nodeLength >= col) {
-                    range.setStart(node, col - currentOffset);
-                    range.setEnd(node, col - currentOffset);
-                    break;
-                }
-                currentOffset += nodeLength;
-                node = walker.nextNode() as Text;
+        const range = new Range();
+
+        if (!lineElement) {
+            const firstVisibleLineNumber = Number(firstVisibleLineElement.dataset.lineNumber || 0);
+            const lastVisibleLineNumber = Number(lastVisibleLineElement.dataset.lineNumber || 0);
+
+            if (row < firstVisibleLineNumber) {
+                range.setStartBefore(firstVisibleLineElement);
+                range.setEndBefore(firstVisibleLineElement);
+            } else if (row > lastVisibleLineNumber) {
+                range.setStartAfter(lastVisibleLineElement);
+                range.setEndAfter(lastVisibleLineElement);
+            } else {
+                selection.removeAllRanges();
+                return;
+            }
+        } else {
+            const position = this._findPositionInLine(lineElement, col);
+
+            if (position) {
+                range.setStart(position.node, position.offset);
+                range.setEnd(position.node, position.offset);
+            } else {
+                range.setStart(lineElement, 0);
+                range.setEnd(lineElement, 0);
             }
         }
 
         selection.removeAllRanges();
         selection.addRange(range);
+    }
+
+    /**
+     * Restore multi-selection (non-collapsed selection) after DOM re-render
+     */
+    private _restoreMultiSelection(selection: Selection) {
+        const firstVisibleLineElement = this._view.scrollDom.firstElementChild as HTMLElement | null;
+        const lastVisibleLineElement = this._view.scrollDom.lastElementChild as HTMLElement | null;
+
+        if (!firstVisibleLineElement || !lastVisibleLineElement) {
+            selection.removeAllRanges();
+            return;
+        }
+
+        const startLineElement = this._view.getLineElement(this.startRow);
+        const endLineElement = this._view.getLineElement(this.endRow);
+        const firstVisibleLineNumber = Number(firstVisibleLineElement.dataset.lineNumber || 0);
+        const lastVisibleLineNumber = Number(lastVisibleLineElement.dataset.lineNumber || 0);
+
+        const isSelectionAboveViewport = this.endRow < firstVisibleLineNumber;
+        const isSelectionBelowViewport = this.startRow > lastVisibleLineNumber;
+
+        // Entire selection is above the viewport, keep browser selection constrained inside JsonViewer.
+        if (isSelectionAboveViewport) {
+            const range = new Range();
+            range.setStartBefore(firstVisibleLineElement);
+            range.setEndBefore(firstVisibleLineElement);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            return;
+        }
+
+        // Entire selection is below the viewport, keep browser selection constrained inside JsonViewer.
+        if (isSelectionBelowViewport) {
+            const range = new Range();
+            range.setStartAfter(lastVisibleLineElement);
+            range.setEndAfter(lastVisibleLineElement);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            return;
+        }
+
+        const range = new Range();
+
+        // Set start position
+        if (startLineElement) {
+            const startPos = this._findPositionInLine(startLineElement, this.startCol - 1);
+            if (startPos) {
+                range.setStart(startPos.node, startPos.offset);
+            } else {
+                // Fallback: set to start of line
+                range.setStart(startLineElement, 0);
+            }
+        } else {
+            // Start line is not visible (scrolled above), extend selection to the beginning of scrollDom
+            range.setStartBefore(firstVisibleLineElement);
+        }
+
+        // Set end position
+        if (endLineElement) {
+            const endPos = this._findPositionInLine(endLineElement, this.endCol - 1);
+            if (endPos) {
+                range.setEnd(endPos.node, endPos.offset);
+            } else {
+                // Fallback: set to end of line
+                const lastChild = endLineElement.lastChild;
+                if (lastChild) {
+                    if (lastChild.nodeType === Node.TEXT_NODE) {
+                        range.setEnd(lastChild, lastChild.textContent?.length || 0);
+                    } else {
+                        range.setEnd(endLineElement, endLineElement.childNodes.length);
+                    }
+                }
+            }
+        } else {
+            // End line is not visible (scrolled below), extend selection to the end of scrollDom
+            range.setEndAfter(lastVisibleLineElement);
+        }
+
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+
+    /**
+     * Find the text node and offset for a given column position in a line element
+     */
+    private _findPositionInLine(lineElement: HTMLElement, col: number): { node: Text; offset: number } | null {
+        if (col === 0) {
+            // Find the first text node
+            const walker = document.createTreeWalker(lineElement, NodeFilter.SHOW_TEXT, null);
+            const firstNode = walker.nextNode() as Text;
+            if (firstNode) {
+                return { node: firstNode, offset: 0 };
+            }
+            return null;
+        }
+
+        const walker = document.createTreeWalker(lineElement, NodeFilter.SHOW_TEXT, null);
+        let node: Text | null = walker.nextNode() as Text;
+        let currentOffset = 0;
+
+        while (node) {
+            const nodeLength = node.length;
+            if (currentOffset + nodeLength >= col) {
+                return { node, offset: col - currentOffset };
+            }
+            currentOffset += nodeLength;
+            node = walker.nextNode() as Text;
+        }
+
+        // If col is beyond the line, return the end of the last text node
+        walker.currentNode = lineElement;
+        let lastNode: Text | null = null;
+        while (walker.nextNode()) {
+            lastNode = walker.currentNode as Text;
+        }
+        if (lastNode) {
+            return { node: lastNode, offset: lastNode.length };
+        }
+
+        return null;
     }
 
     public toLastPosition() {
@@ -262,4 +401,3 @@ export class SelectionModel {
     }
     
 }
-

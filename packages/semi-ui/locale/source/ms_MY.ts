@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Klik untuk menurun',
         ascend: 'Klik untuk menaik',
         cancelSort: 'Batal mengurutkan',
+        confirmFilter: 'OK',
+        resetFilter: 'Set Semula',
     },
     Select: {
         emptyText: 'Tiada kandungan',

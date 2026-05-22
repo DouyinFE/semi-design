@@ -30,7 +30,7 @@ import {
     shouldShowEllipsisTitle
 } from '@douyinfe/semi-foundation/table/utils';
 import Store from '@douyinfe/semi-foundation/utils/Store';
-import TableFoundation, { TableAdapter, BasePageData, BaseRowKeyType, BaseHeadWidth } from '@douyinfe/semi-foundation/table/foundation';
+import TableFoundation, { TableAdapter, BasePageData, BaseRowKeyType, BaseHeadWidth, BaseEntitys, CheckRelation } from '@douyinfe/semi-foundation/table/foundation';
 import { TableSelectionCellEvent } from '@douyinfe/semi-foundation/table/tableSelectionCellFoundation';
 import { strings, cssClasses, numbers } from '@douyinfe/semi-foundation/table/constants';
 import '@douyinfe/semi-foundation/table/table.scss';
@@ -97,7 +97,19 @@ export interface NormalTableState<RecordType extends Record<string, any> = Data>
     /**
      * Disabled row keys set in sorted and filtered data
      */
-    allDisabledRowKeysSet?: Set<BaseRowKeyType>
+    allDisabledRowKeysSet?: Set<BaseRowKeyType>;
+    /**
+     * Half-checked row keys for tree selection (checkRelation='related')
+     */
+    halfCheckedRowKeys?: BaseRowKeyType[];
+    /**
+     * Half-checked row keys set for tree selection
+     */
+    halfCheckedRowKeysSet?: Set<BaseRowKeyType>;
+    /**
+     * Key entities map for tree data structure
+     */
+    keyEntities?: Record<string, any>
 }
 
 export type TableStateRowSelection<RecordType extends Record<string, any> = Data> = (RowSelectionProps<RecordType> & { selectedRowKeysSet?: Set<(string | number)> }) | boolean;
@@ -156,6 +168,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         }),
         groupBy: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.func]),
+        headerStyle: PropTypes.object,
         renderGroupSection: PropTypes.oneOfType([PropTypes.func]),
         onGroupedRow: PropTypes.func,
         clickGroupedRowToExpand: PropTypes.bool,
@@ -163,6 +176,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         dropdownPrefixCls: PropTypes.string, // TODO: future api
         expandRowByClick: PropTypes.bool, // TODO: future api
         getVirtualizedListRef: PropTypes.func, // TODO: future api
+        rowSpanHover: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -198,8 +212,19 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         return {
             ...super.adapter,
             resetScrollY: () => {
-                if (this.bodyWrapRef.current) {
-                    this.bodyWrapRef.current.scrollTop = 0;
+                const { scroll = {} } = this.props;
+                const hasScrollY = Boolean(get(scroll, 'y'));
+
+                if (hasScrollY) {
+                    // When scroll.y is set, scroll the table body container to top
+                    if (this.bodyWrapRef.current) {
+                        this.bodyWrapRef.current.scrollTop = 0;
+                    }
+                } else {
+                    // When scroll.y is not set, scroll the page to the table header
+                    if (this.wrapRef.current) {
+                        this.wrapRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 }
             },
             setSelectedRowKeys: selectedRowKeys => {
@@ -238,6 +263,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             setHoveredRowKey: hoveredRowKey => {
                 this.store.setState({ hoveredRowKey });
             },
+            setHoveredRowKeys: hoveredRowKeys => {
+                this.store.setState({ hoveredRowKeys });
+            },
             setCachedFilteredSortedDataSource: filteredSortedDataSource => {
                 this.cachedFilteredSortedDataSource = filteredSortedDataSource;
             },
@@ -256,6 +284,25 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             getCachedFilteredSortedRowKeysSet: () => this.cachedFilteredSortedRowKeysSet,
             getAllDisabledRowKeys: () => this.state.allDisabledRowKeys,
             getAllDisabledRowKeysSet: () => this.state.allDisabledRowKeysSet,
+            getHalfCheckedRowKeys: () => this.state.halfCheckedRowKeys || [],
+            getHalfCheckedRowKeysSet: () => this.state.halfCheckedRowKeysSet || new Set(),
+            setHalfCheckedRowKeys: halfCheckedRowKeys => {
+                this.setState({
+                    halfCheckedRowKeys,
+                    halfCheckedRowKeysSet: new Set(halfCheckedRowKeys)
+                });
+            },
+            getKeyEntities: () => this.state.keyEntities || {},
+            setKeyEntities: keyEntities => {
+                this.setState({ keyEntities });
+            },
+            getCheckRelation: () => {
+                const { rowSelection } = this.state;
+                if (rowSelection && typeof rowSelection === 'object') {
+                    return get(rowSelection, 'checkRelation', 'unRelated') as CheckRelation;
+                }
+                return 'unRelated' as CheckRelation;
+            },
             notifyFilterDropdownVisibleChange: (visible, dataIndex) =>
                 this._invokeColumnFn(dataIndex, 'onFilterDropdownVisibleChange', visible),
             notifyChange: (...args) => this.props.onChange(...args),
@@ -395,6 +442,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     position!: BodyScrollPosition;
     foundation: TableFoundation<RecordType>;
     context: TableContextProps;
+    resizeObserver: ResizeObserver | null;
+    hasBindWindowResize: boolean;
     constructor(props: NormalTableProps<RecordType>, context: TableContextProps) {
         super(props);
         this.foundation = new TableFoundation<RecordType>(this.adapter);
@@ -435,7 +484,10 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             headWidths: [], // header cell width
             bodyHasScrollBar: false,
             prePropRowSelection: undefined,
-            prePagination: undefined
+            prePagination: undefined,
+            halfCheckedRowKeys: [],
+            halfCheckedRowKeysSet: new Set(),
+            keyEntities: {},
         };
 
         this.rootWrapRef = createRef();
@@ -446,6 +498,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
         this.store = new Store({
             hoveredRowKey: null,
+            hoveredRowKeys: [],
         });
 
         this.debouncedWindowResize = debounce(this.handleWindowResize, 150);
@@ -453,6 +506,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         this.cachedFilteredSortedDataSource = [];
         this.cachedFilteredSortedRowKeys = [];
         this.cachedFilteredSortedRowKeysSet = new Set();
+        this.resizeObserver = null;
+        this.hasBindWindowResize = false;
     }
 
     static getDerivedStateFromProps(props: NormalTableProps, state: NormalTableState) {
@@ -472,6 +527,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             const columns = mergeColumns(state.queries, newFlattenColumns, null, false);
             willUpdateStates.flattenColumns = newFlattenColumns;
             willUpdateStates.queries = [...columns];
+            // Note: keep the latest functions/ReactNode from JSX children.
+            // cachedColumns is used as the source of truth for rendering.
             willUpdateStates.cachedColumns = [...newNestedColumns];
             willUpdateStates.cachedChildren = props.children;
         }
@@ -519,11 +576,24 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     componentDidMount() {
         super.componentDidMount();
         this.setScrollPosition('left');
-
-        if (this.adapter.isAnyColumnFixed() || (this.props.showHeader && this.adapter.useFixedHeader())) {
-            this.handleWindowResize();
-            window.addEventListener('resize', this.debouncedWindowResize);
+        
+        // Build keyEntities for tree data
+        const { dataSource, childrenRecordName } = this.props;
+        const checkRelation = get(this.state.rowSelection, 'checkRelation', 'unRelated');
+        if (checkRelation === 'related' && dataSource && dataSource.length) {
+            const keyEntities = this.foundation.buildKeyEntities(dataSource);
+            this.adapter.setKeyEntities(keyEntities);
         }
+
+        // Recompute scroll position based on actual DOM sizes after first paint,
+        // so `scroll-position-*` classNames are correct even before the user scrolls.
+        if (typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
+            window.requestAnimationFrame(() => this.setScrollPositionClassName());
+        } else {
+            setTimeout(() => this.setScrollPositionClassName(), 0);
+        }
+
+        this.syncResizeListeners();
     }
 
     // TODO: Extract the setState operation to the adapter or getDerivedStateFromProps function
@@ -587,7 +657,16 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
          * 1. Cache filtered sorted data and a collection of data rows, stored in this
          * 2. Update pager and group, stored in state
          */
-        if (dataSource !== prevProps.dataSource || stateCachedColumns !== prevState.cachedColumns || stateCachedChildren !== prevState.cachedChildren) {
+        const nextGetCheckboxProps = get(this.props.rowSelection, 'getCheckboxProps');
+        const prevGetCheckboxProps = get(prevProps.rowSelection, 'getCheckboxProps');
+
+        // Recompute filtered/sorted cache when:
+        // - dataSource prop changes
+        // - queries changes (sorting/filtering/columns derived states)
+        // - getCheckboxProps changes (affects disabled row keys)
+        // Avoid using cachedColumns/cachedChildren reference comparison here,
+        // because JSX children can be recreated frequently and cause nested updates.
+        if (dataSource !== prevProps.dataSource || stateQueries !== prevState.queries || nextGetCheckboxProps !== prevGetCheckboxProps) {
             // TODO: foundation.getFilteredSortedDataSource has side effects and will be modified to the dataSource reference
             // Temporarily use _dataSource=[...dataSource] for processing
             const _dataSource = [...dataSource];
@@ -596,6 +675,13 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             this.foundation.setCachedFilteredSortedDataSource(filteredSortedDataSource);
             this.foundation.setAllDisabledRowKeys(allDataDisabledRowKeys);
             states.dataSource = filteredSortedDataSource;
+            
+            // Build keyEntities for tree data when checkRelation is 'related'
+            const checkRelation = get(this.state.rowSelection, 'checkRelation', 'unRelated');
+            if (checkRelation === 'related') {
+                const keyEntities = this.foundation.buildKeyEntities(_dataSource);
+                this.adapter.setKeyEntities(keyEntities);
+            }
 
             if (this.props.groupBy) {
                 states.groups = null;
@@ -639,20 +725,23 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             }
         }
 
-        if (this.adapter.isAnyColumnFixed() || (this.props.showHeader && this.adapter.useFixedHeader())) {
-            if (!this.debouncedWindowResize) {
-                window.addEventListener('resize', this.debouncedWindowResize);
-            }
-        }
+        // Keep resize listeners in sync with current render mode.
+        // Must run on every update to correctly unbind when fixed mode is turned off.
+        this.syncResizeListeners();
     }
 
     componentWillUnmount() {
         super.componentWillUnmount();
 
+        this.unbindWindowResize();
         if (this.debouncedWindowResize) {
-            window.removeEventListener('resize', this.debouncedWindowResize);
             (this.debouncedWindowResize as any).cancel();
             this.debouncedWindowResize = null;
+        }
+
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+            this.resizeObserver = null;
         }
     }
 
@@ -798,6 +887,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             `${prefixCls}-scroll-position-left`,
             `${prefixCls}-scroll-position-right`,
         ];
+        // `render()` uses `this.position` to calculate wrapper classNames.
+        // Keep it in sync with the DOM classList updates to avoid losing classes after re-render.
+        this.position = position;
         this.scrollPosition = position;
         const tableNode = this.wrapRef.current;
         if (tableNode && tableNode.nodeType) {
@@ -834,13 +926,107 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     };
 
     syncTableWidth = () => {
-        if (this.rootWrapRef && this.rootWrapRef.current) {
-            this.setState({ tableWidth: this.rootWrapRef.current.getBoundingClientRect().width });
+        const wrapper = this.rootWrapRef?.current;
+        if (!wrapper) {
+            return;
+        }
+        const nextWidth = wrapper.getBoundingClientRect().width;
+        const prevWidth = this.state.tableWidth;
+        // Avoid unnecessary re-render when width hasn't changed.
+        if (typeof prevWidth === 'number' && Math.abs(prevWidth - nextWidth) < 0.5) {
+            return;
+        }
+        this.setState({ tableWidth: nextWidth });
+    };
+
+    /**
+     * Use ResizeObserver to monitor table wrapper width changes
+     * This handles cases where the container width changes but window size doesn't
+     * (e.g., sidebar collapse/expand, tab switch, modal appear/disappear)
+     */
+    observeTableWrapperResize = () => {
+        const tableWrapperDOM = this.rootWrapRef.current;
+        if (!tableWrapperDOM) {
+            return;
+        }
+
+        // Clean up existing observer if any
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+            this.resizeObserver = null;
+        }
+
+        // Check if ResizeObserver is supported
+        const RO = get(window, 'ResizeObserver');
+        if (!RO) {
+            return;
+        }
+
+        this.resizeObserver = new RO((_entries: ResizeObserverEntry[]) => {
+            // Use requestAnimationFrame to ensure we get accurate dimensions
+            // and avoid layout thrashing.
+            // NOTE: rAF/setTimeout must be invoked with `window` as `this` (Safari
+            // throws "Illegal invocation" otherwise), so call them as methods on
+            // `window` instead of caching them as bare function references.
+            const cb = () => {
+                this.syncTableWidth();
+                this.setScrollPositionClassName();
+            };
+            if (typeof window.requestAnimationFrame === 'function') {
+                window.requestAnimationFrame(cb);
+            } else {
+                window.setTimeout(cb, 0);
+            }
+        });
+
+        this.resizeObserver.observe(tableWrapperDOM);
+    };
+
+    needSyncTableWidth = () => this.adapter.isAnyColumnFixed() || (this.props.showHeader && this.adapter.useFixedHeader());
+
+    bindWindowResize = () => {
+        if (this.hasBindWindowResize) {
+            return;
+        }
+        if (this.debouncedWindowResize) {
+            window.addEventListener('resize', this.debouncedWindowResize);
+            this.hasBindWindowResize = true;
+        }
+    };
+
+    unbindWindowResize = () => {
+        if (!this.hasBindWindowResize) {
+            return;
+        }
+        if (this.debouncedWindowResize) {
+            window.removeEventListener('resize', this.debouncedWindowResize);
+        }
+        this.hasBindWindowResize = false;
+    };
+
+    syncResizeListeners = () => {
+        const needSync = this.needSyncTableWidth();
+        if (needSync) {
+            // Only sync immediately when we are enabling the listeners.
+            const wasBound = this.hasBindWindowResize;
+            this.bindWindowResize();
+            if (!this.resizeObserver) {
+                this.observeTableWrapperResize();
+            }
+            if (!wasBound) {
+                this.handleWindowResize();
+            }
+        } else {
+            this.unbindWindowResize();
+            if (this.resizeObserver) {
+                this.resizeObserver.disconnect();
+                this.resizeObserver = null;
+            }
         }
     };
 
     renderSelection = (record = {} as any, inHeader = false, index?: number): React.ReactNode => {
-        const { rowSelection, allDisabledRowKeysSet } = this.state;
+        const { rowSelection, allDisabledRowKeysSet, halfCheckedRowKeysSet, keyEntities } = this.state;
 
         if (rowSelection && typeof rowSelection === 'object') {
             const {
@@ -849,6 +1035,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 getCheckboxProps,
                 disabled,
                 renderCell,
+                checkRelation = 'unRelated',
             } = rowSelection;
 
             const allRowKeys = this.cachedFilteredSortedRowKeys;
@@ -890,12 +1077,15 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             } else {
                 const key = this.foundation.getRecordKey(record);
                 const selected = selectedRowKeysSet.has(key);
+                // In related mode, check if this row is half-checked
+                const halfChecked = checkRelation === 'related' && halfCheckedRowKeysSet && halfCheckedRowKeysSet.has(key);
                 const checkboxPropsFn = () => (typeof getCheckboxProps === 'function' ? getCheckboxProps(record) : {});
                 const originNode = (
                     <ColumnSelection
                         aria-label={`${selected ? 'Deselect' : 'Select'} this row`}
                         getCheckboxProps={checkboxPropsFn}
                         selected={selected}
+                        indeterminate={halfChecked}
                         onChange={(status, e) => this.toggleSelectRow(status, key, e)}
                     />
                 );
@@ -910,7 +1100,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                         originNode,
                         inHeader: false,
                         disabled,
-                        indeterminate,
+                        indeterminate: halfChecked,
                         selectRow,
                     })
                     : originNode;
@@ -1105,6 +1295,35 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
     toggleSelectRow = (selected: boolean, realKey: string | number, e: TableSelectionCellEvent) => {
         this.foundation.handleSelectRow(realKey, selected, e);
+    };
+
+    handleRowClickSelection = (rowKey: BaseRowKeyType, selected: boolean, e: React.MouseEvent) => {
+        const { rowSelection } = this.state;
+        const clickRowEnabled = get(rowSelection, 'clickRow', false);
+        
+        if (clickRowEnabled && rowSelection) {
+            const disabled = get(rowSelection, 'disabled', false);
+            const getCheckboxProps = get(rowSelection, 'getCheckboxProps');
+            
+            // Check if the row is disabled
+            if (disabled) {
+                return;
+            }
+            
+            // Get record to check getCheckboxProps
+            const record = this.cachedFilteredSortedDataSource.find(
+                (r: RecordType) => this.foundation.getRecordKey(r) === rowKey
+            );
+            
+            if (record && typeof getCheckboxProps === 'function') {
+                const checkboxProps = getCheckboxProps(record);
+                if (checkboxProps.disabled) {
+                    return;
+                }
+            }
+            
+            this.foundation.handleSelectRow(rowKey, selected, e);
+        }
     };
 
     toggleSelectAllRow = (selected: boolean, e: TableSelectionCellEvent) => {
@@ -1364,6 +1583,28 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
      * Combine pagination and table paging processing functions
      */
     mergePagination = (pagination: TablePaginationProps) => {
+        const userOnChange = pagination?.onChange;
+        const { scroll } = this.props;
+        const scrollToFirstRowOnChange = get(scroll, 'scrollToFirstRowOnChange');
+        
+        // If scrollToFirstRowOnChange is true, we need to call internal setPage to trigger resetScrollY
+        // Otherwise, use the original behavior (user's onChange may override internal setPage)
+        if (scrollToFirstRowOnChange) {
+            const newPagination = {
+                ...pagination,
+                onChange: (currentPage: number, pageSize: number) => {
+                    // Call internal setPage to ensure resetScrollY is called
+                    this.foundation.setPage(currentPage, pageSize);
+                    // Then call user's onChange if provided
+                    if (typeof userOnChange === 'function') {
+                        userOnChange(currentPage, pageSize);
+                    }
+                },
+            };
+            return newPagination;
+        }
+        
+        // Original behavior: user's onChange may override internal setPage
         const newPagination = { onChange: this.foundation.setPage, ...pagination };
         return newPagination;
     };
@@ -1509,6 +1750,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             handleRowExpanded: this.handleRowExpanded,
             getVirtualizedListRef,
             setBodyHasScrollbar: this.setBodyHasScrollbar,
+            handleRowSelection: this.handleRowClickSelection,
+            headerStyle: props.headerStyle,
+            rowSpanHover: props.rowSpanHover,
         };
 
         const dataAttr = this.getDataAttr(rest);

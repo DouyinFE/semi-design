@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Cliceáil chun tuirlingt',
         ascend: 'Cliceáil chun dreapadh',
         cancelSort: 'Cealaigh sórtáil',
+        confirmFilter: 'OK',
+        resetFilter: 'Athshocraigh',
     },
     Select: {
         emptyText: 'Gan Toradh',

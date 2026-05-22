@@ -32,8 +32,6 @@ import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import '@douyinfe/semi-foundation/select/select.scss';
 import type { Locale } from '../locale/interface';
 import type { Position, TooltipProps } from '../tooltip';
-import type { Subtract } from 'utility-types';
-
 export type { OptionProps } from './option';
 export type { OptionGroupProps } from './optionGroup';
 export type { VirtualRowProps } from './virtualRow';
@@ -49,6 +47,23 @@ type ExcludeInputType = {
 }
 
 type OnChangeValueType = string | number | Record<string, any>;
+
+// Base option value type for Select (keeping backward compatibility)
+export type BasicSelectValue = string | number | Record<string, any>;
+
+type IsDefaultSelectGeneric<T> = [T] extends [BasicSelectValue]
+    ? ([BasicSelectValue] extends [T] ? true : false)
+    : false;
+
+/**
+ * Select's value type.
+ * - If user does NOT provide a generic parameter, keep legacy behavior: `string | number | any[] | Record | undefined`
+ * - If user provides a generic parameter `T`, use `T | T[] | undefined`
+ */
+export type SelectValue<T = BasicSelectValue> = IsDefaultSelectGeneric<T> extends true
+    ? (BasicSelectValue | any[] | undefined)
+    : (T | T[] | undefined);
+
 export interface optionRenderProps {
     key?: any;
     label?: React.ReactNode;
@@ -89,7 +104,8 @@ export interface selectMethod {
     deselectAll?: () => void;
     focus?: () => void;
     close?: () => void;
-    open?: () => void
+    open?: () => void;
+    rePosition?: () => void;
 }
 export type SelectSize = 'small' | 'large' | 'default';
 
@@ -104,7 +120,7 @@ export type RenderMultipleSelectedItemFn = (optionNode: Record<string, any>, mul
 
 export type RenderSelectedItemFn = RenderSingleSelectedItemFn | RenderMultipleSelectedItemFn;
 
-export type SelectProps = {
+export type SelectProps<T = BasicSelectValue> = {
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
     'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
     'aria-invalid'?: React.AriaAttributes['aria-invalid'];
@@ -116,10 +132,10 @@ export type SelectProps = {
     arrowIcon?: React.ReactNode;
     borderless?: boolean;
     clearIcon?: React.ReactNode;
-    defaultValue?: string | number | any[] | Record<string, any>;
-    value?: string | number | any[] | Record<string, any>;
+    defaultValue?: SelectValue<T>;
+    value?: SelectValue<T>;
     placeholder?: React.ReactNode;
-    onChange?: (value: SelectProps['value']) => void;
+    onChange?: (value: SelectValue<T>) => void;
     multiple?: boolean;
     filter?: boolean | ((inpueValue: string, option: OptionProps) => boolean);
     max?: number;
@@ -156,7 +172,7 @@ export type SelectProps = {
     prefix?: React.ReactNode;
     insetLabel?: React.ReactNode;
     insetLabelId?: string;
-    inputProps?: Subtract<InputProps, ExcludeInputType>;
+    inputProps?: Omit<InputProps, keyof ExcludeInputType>;
     showClear?: boolean;
     showArrow?: boolean;
     renderSelectedItem?: RenderSelectedItemFn;
@@ -168,8 +184,8 @@ export type SelectProps = {
     onExceed?: (option: OptionProps) => void;
     onCreate?: (option: OptionProps) => void;
     remote?: boolean;
-    onDeselect?: (value: SelectProps['value'], option: Record<string, any>) => void;
-    onSelect?: (value: SelectProps['value'], option: Record<string, any>) => void;
+    onDeselect?: (value: SelectValue<T>, option: Record<string, any>) => void;
+    onSelect?: (value: SelectValue<T>, option: Record<string, any>) => void;
     allowCreate?: boolean;
     triggerRender?: (props: TriggerRenderProps) => React.ReactNode;
     onClear?: () => void;
@@ -182,15 +198,16 @@ export type SelectProps = {
     showRestTagsPopover?: boolean;
     restTagsPopoverProps?: PopoverProps
 } & Pick<
-TooltipProps,
-| 'spacing'
-| 'getPopupContainer'
-| 'motion'
-| 'autoAdjustOverflow'
-| 'mouseLeaveDelay'
-| 'mouseEnterDelay'
-| 'stopPropagation'
-> & React.RefAttributes<any>;
+    TooltipProps,
+    | 'spacing'
+    | 'getPopupContainer'
+    | 'motion'
+    | 'autoAdjustOverflow'
+    | 'mouseLeaveDelay'
+    | 'mouseEnterDelay'
+    | 'stopPropagation'
+    | 'rePosKey'
+>;
 
 export interface SelectState {
     isOpen: boolean;
@@ -213,7 +230,7 @@ export interface SelectState {
 
 // Notes: Use the label of the option as the identifier, that is, the option in Select, the value is allowed to be the same, but the label must be unique
 
-class Select extends BaseComponent<SelectProps, SelectState> {
+class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectState> {
     static contextType = ConfigContext;
 
     static Option = Option;
@@ -302,6 +319,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         mouseEnterDelay: PropTypes.number,
         mouseLeaveDelay: PropTypes.number,
         spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+        rePosKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         onBlur: PropTypes.func,
         onFocus: PropTypes.func,
         onClear: PropTypes.func,
@@ -376,7 +394,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     context: ContextValue;
     eventManager: Event;
 
-    constructor(props: SelectProps) {
+    constructor(props: SelectProps<T>) {
         super(props);
         this.state = {
             isOpen: false,
@@ -418,7 +436,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
     setOptionContainerEl = (node: HTMLDivElement) => (this.optionContainerEl = { current: node });
 
-    get adapter(): SelectAdapter<SelectProps, SelectState> {
+    get adapter(): SelectAdapter<SelectProps<T>, SelectState> {
         const keyboardAdapter = {
             registerKeyDown: (cb: () => void) => {
                 const keyboardEventSet = {
@@ -491,7 +509,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             },
             notifyDeselect: (value: OptionProps['value'], option: OptionProps) => {
                 delete option._parentGroup;
-                this.props.onDeselect(value, option);
+                this.props.onDeselect(value as SelectValue<T>, option);
             },
         };
         return {
@@ -548,12 +566,12 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             // clone Map, important!!!, prevent unexpected modify on state
             getSelections: () => new Map(this.state.selections),
 
-            notifyChange: (value: OnChangeValueType | OnChangeValueType[]) => {
-                this.props.onChange(value);
+            notifyChange: (value: OnChangeValueType | OnChangeValueType[] | undefined) => {
+                this.props.onChange(value as SelectValue<T>);
             },
             notifySelect: (value: OptionProps['value'], option: OptionProps) => {
                 delete option._parentGroup;
-                this.props.onSelect(value, option);
+                this.props.onSelect(value as SelectValue<T>, option);
             },
             notifyDropdownVisibleChange: (visible: boolean) => {
                 this.props.onDropdownVisibleChange(visible);
@@ -658,7 +676,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.foundation.destroy();
     }
 
-    componentDidUpdate(prevProps: SelectProps, prevState: SelectState) {
+    componentDidUpdate(prevProps: SelectProps<T>, prevState: SelectState) {
         const prevChildrenKeys = React.Children.toArray(prevProps.children).map((child: any) => child.key);
         const nowChildrenKeys = React.Children.toArray(this.props.children).map((child: any) => child.key);
 
@@ -789,6 +807,12 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
     focus() {
         this.foundation.focus();
+    }
+
+    rePosition() {
+        let { optionKey } = this.state;
+        optionKey = optionKey + 1;
+        this.setState({ optionKey });
     }
 
     onSelect(option: OptionProps, optionIndex: number, e: any) {
@@ -1181,7 +1205,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             <div className={`${prefixcls}-content-wrapper-collapse`}>
                 <OverflowList
                     items={normalTags}
-                    key={String(selections.length)}
+                    itemKey={item => item?.[1]?.value}
                     overflowRenderer={overflowItems => this.renderOverflow(overflowItems as [React.ReactNode, any][], length - 1)}
                     onOverflow={overflowItems => this.handleOverflow(overflowItems as [React.ReactNode, any][])}
                     visibleItemRenderer={(item, index) => this.renderTag(item as [React.ReactNode, any], index)}
@@ -1509,9 +1533,13 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             spacing,
             stopPropagation,
             dropdownMargin,
+            rePosKey,
         } = this.props;
         const { isOpen, optionKey } = this.state;
         const selection = this.renderSelection();
+        // Combine internal optionKey with user-provided rePosKey
+        // When either changes, the dropdown will reposition
+        const popoverRePosKey = rePosKey !== undefined ? `${optionKey}-${rePosKey}` : optionKey;
         return (
             <Popover
                 getPopupContainer={getPopupContainer}
@@ -1525,7 +1553,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 content={() => this.renderOptions(children)}
                 visible={isOpen}
                 trigger="custom"
-                rePosKey={optionKey}
+                rePosKey={popoverRePosKey}
                 position={position}
                 spacing={spacing}
                 stopPropagation={stopPropagation}

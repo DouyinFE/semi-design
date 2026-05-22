@@ -141,9 +141,11 @@ function Demo() {
 
 Numeral 组件在Text组件的基础上，添加了属性: `rule`, `precision`, `truncate`, `parser`, 以提供需要单独处理文本中数值的能力。
 <Notice title='注意'>
-    Numeral 组件会递归遍历 Children 检测其中所有的数字文本进行转换展示，请注意控制渲染结构层级；
-    <br />
-    对于 rule 为 percentage 的 Numeral 组件，数据处理规则有变化。在 <strong>v2.22.0-v2.29.0</strong> 中，对于绝对值大于等于 1 的 num，结果为 num%； 对于绝对值小于等于 1 的 num，结果为 (num*100)%。在 <strong>v2.30.0</strong> 版本及之后统一为 (num*100)%。
+
+Numeral 组件会递归遍历 Children 检测其中所有的数字文本进行转换展示，请注意控制渲染结构层级；
+
+对于 rule 为 percentage 的 Numeral 组件，数据处理规则有变化。在 **v2.22.0-v2.29.0** 中，对于绝对值大于等于 1 的 num，结果为 num%； 对于绝对值小于等于 1 的 num，结果为 (num\*100)%。在 **v2.30.0** 版本及之后统一为 (num\*100)%。
+
 </Notice>
 
 `precision` 可以设置小数点后保留位数, 用于设置精度  
@@ -323,10 +325,12 @@ function Demo() {
 支持文本的省略，可以通过 `ellipsis` 配置相关参数，具体参考 [Ellipsis Config](#Ellipsis-Config)。
 
 <Notice title='注意事项'>
-    1. ellipsis 仅支持纯文本的截断，不支持 reactNode 等复杂类型，请确保 children 传入内容类型为 string <br/>
-    2. ellipsis 要实现缩略，需要有明确的 width或 maxWidth 宽度限制做对比判断。若自身未设置宽度（例如纯依靠 flex 属性撑开），或 width为 100% 等不定数值，那么父级需要有明确的 width或 maxWidth <br/>
-    3. ellipsis 需要获取 DOM 的宽高度等信息用以做基本判断，若自身或父级存在 display:none 样式会导致取值不正确，此时缩略会失效<br/>
-    4. 省略文本的计算，分为CSS 截断和 JS 截断，强依赖 DOM 元素的相关状态获取。在结构复杂的页面，大量使用 Typography 可能会导致过多的 reflow 重排，建议选择合适的省略方式避免造成性能负担。更多信息见 <a href="#faq">FAQ</a> 
+
+1. ellipsis 仅支持纯文本的截断，不支持 reactNode 等复杂类型，请确保 children 传入内容类型为 string
+2. ellipsis 要实现缩略，需要有明确的 width 或 maxWidth 宽度限制做对比判断。若自身未设置宽度（例如纯依靠 flex 属性撑开），或 width 为 100% 等不定数值，那么父级需要有明确的 width 或 maxWidth
+3. ellipsis 需要获取 DOM 的宽高度等信息用以做基本判断，若自身或父级存在 display:none 样式会导致取值不正确，此时缩略会失效
+4. 省略文本的计算，分为 CSS 截断和 JS 截断，强依赖 DOM 元素的相关状态获取。在结构复杂的页面，大量使用 Typography 可能会导致过多的 reflow 重排，建议选择合适的省略方式避免造成性能负担。更多信息见 [FAQ](#faq)
+
 </Notice>
 
 

@@ -289,6 +289,49 @@ import { TextArea } from '@douyinfe/semi-ui';
 );
 ```
 
+### Setting TextArea Height
+
+You can set the style of the internal textarea element through `textareaStyle`, such as height, background color, etc.
+
+```jsx live=true
+import React from 'react';
+import { TextArea } from '@douyinfe/semi-ui';
+
+() => (
+    <div>
+        <TextArea textareaStyle={{ height: 120 }} placeholder="Height 120px" />
+        <br/><br/>
+        <TextArea textareaStyle={{ height: 200, backgroundColor: '#f9f9f9' }} placeholder="Height 200px with gray background" />
+        <br/><br/>
+        <TextArea 
+            style={{ border: '2px solid var(--semi-color-primary)' }} 
+            textareaStyle={{ height: 150 }} 
+            placeholder="style controls outer container, textareaStyle controls textarea" 
+        />
+    </div>
+);
+```
+
+### Line Numbers
+
+Set `showLineNumber` to display line numbers. You can use `lineNumberStart` to set the starting line number, and customize the line number area via `lineNumberStyle`/`lineNumberClassName`.
+
+```jsx live=true
+import React from 'react';
+import { TextArea } from '@douyinfe/semi-ui';
+
+() => (
+    <TextArea
+        showLineNumber
+        lineNumberStart={1}
+        defaultValue={'Line 1\nLine 2\nThis is a long line to demonstrate soft wrap alignment with line numbers.\nLine 4\nLine 5'}
+        rows={12}
+        style={{ width: 420 }}
+        lineNumberStyle={{ color: 'var(--semi-color-text-2)' }}
+    />
+);
+```
+
 ### Line break by Shift + Enter
 By default, in a TextArea, both `Enter` and `Shift` + `Enter` can achieve line breaks.
 Through appropriate event listening and disabling the default behavior, you can achieve disabling line breaks with Enter and only allowing line breaks with Shift + Enter.
@@ -414,6 +457,62 @@ Answers to some questions:
 
 > Why not modify maxLength dynamically? Modify maxLength dynamically after the input operation is completed, calculate the remaining character length that can be entered. If the maxLength is set to 1, you want to enter a '💖' with a length of 2, but due to the limitation of input maxLength, you can't enter it at all here, and you can't update maxLength.
 
+### IME Input Mode
+
+By setting the `composition` property to `true`, you can enable IME input mode. In this mode, when using an IME (e.g., Chinese pinyin input), `onChange` will not be triggered during IME confirmation (e.g., while pinyin is being typed), and will only be triggered once after the IME confirms the input. This is useful for real-time search scenarios to avoid unnecessary requests during pinyin input.
+
+Both Input and TextArea support this property.
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Input, TextArea } from '@douyinfe/semi-ui';
+
+() => {
+    const [inputValue, setInputValue] = useState('');
+    const [textAreaValue, setTextAreaValue] = useState('');
+    const [inputLogs, setInputLogs] = useState([]);
+    const [textAreaLogs, setTextAreaLogs] = useState([]);
+
+    const handleInputChange = (value) => {
+        setInputValue(value);
+        setInputLogs(prev => [...prev, value]);
+    };
+
+    const handleTextAreaChange = (value) => {
+        setTextAreaValue(value);
+        setTextAreaLogs(prev => [...prev, value]);
+    };
+
+    return (
+        <div>
+            <h4>Input with composition</h4>
+            <Input
+                composition
+                value={inputValue}
+                onChange={handleInputChange}
+                placeholder="With composition, onChange is not triggered during IME input"
+                style={{ width: 300 }}
+            />
+            <div style={{ marginTop: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                onChange trigger count: {inputLogs.length}
+            </div>
+            <br/><br/>
+            <h4>TextArea with composition</h4>
+            <TextArea
+                composition
+                value={textAreaValue}
+                onChange={handleTextAreaChange}
+                placeholder="With composition, onChange is not triggered during IME input"
+                style={{ width: 300 }}
+            />
+            <div style={{ marginTop: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                onChange trigger count: {textAreaLogs.length}
+            </div>
+        </div>
+    );
+};
+```
+
 
 ## API Reference
 
@@ -434,6 +533,7 @@ Answers to some questions:
 | borderless        | borderless mode  >=2.33.0                                                                                                                                                                     | boolean                         |           |
 | className         | Class name                                                                                                                                                                                    | string                          |           |
 | clearIcon         | Can be used to customize the clear button, valid when showClear is true  **>=2.25**                                                                                                           | ReactNode                       |           |
+| composition       | Whether to enable IME composition input mode. When enabled, `onChange` will not be triggered during IME composition (e.g., Chinese pinyin input), and will only be triggered once after composition ends | boolean                         | false     |
 | defaultValue      | Default value                                                                                                                                                                                 | ReactText                       |           |
 | disabled          | Toggle whether to disable input                                                                                                                                                               | boolean                         | false     |
 | getValueLength    | Custom calculated character string length                                                                                                                                                     | (value: string) => number       |           |
@@ -475,15 +575,22 @@ Answers to some questions:
 | borderless        | borderless mode  >=2.33.0                                                                                                                                                                     | boolean                         |           |
 | className         | Class name                                                                                                             | string                          | -       |
 | cols              | The visible width of the text control, in average character widths. If it is specified, it must be a positive integer. | number                          | -       |
+| composition       | Whether to enable IME composition input mode. When enabled, `onChange` will not be triggered during IME composition (e.g., Chinese pinyin input), and will only be triggered once after composition ends | boolean                         | false     |
 | disabled          | Disabled                                                                                                               | boolean                         | false   |
 | getValueLength    | Custom calculated character string length                                                                              | (value: string) => number       |         |
 | maxCount          | The maximum number of characters and display count                                                                     | number                          | -       |
 | placeholder       | Content to be appear by default                                                                                        | string                          | -       |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | readonly          | Read-only, not editable                                                                                                | boolean                         | false   |
+| resize            | Whether to allow user to resize the textarea and in which direction. Options: `none` \| `both` \| `horizontal` \| `vertical` \| `block` \| `inline`. This prop will be ignored when `autosize` is enabled. **Only takes effect when explicitly provided** (default behavior is unchanged; you may also control native resize via `textareaStyle.resize`), **>=2.97.0** | string | - |
 | rows              | The number of visible text lines for the control.                                                                      | number                          | 4       |
+| showLineNumber     | Whether to display line numbers                                                                                        | boolean                         | false   |
+| lineNumberStart    | Starting line number                                                                                                   | number                          | 1       |
+| lineNumberClassName | ClassName for line number area                                                                                        | string                          | -       |
+| lineNumberStyle    | Style for line number area                                                                                              | CSSProperties                   | -       |
 | showClear         | Display the clear button when the input box has content and hover or focus                                                                                         | boolean                         | false   |
-| style             | Inline style                                                                                                           | CSSProperties                   | -       |
+| style             | Inline style for the outer container                                                                                                           | CSSProperties                   | -       |
+| textareaStyle     | Style for the textarea element, can be used to set height, background color, etc. **>=2.94.0** | CSSProperties | - |
 | onBlur            | Callback invoked when input loses focus                                                                                | (e:event) => void               | -       |
 | onChange          | Callback invoked when input value changes                                                                              | (value:string, e:event) => void |         |
 | onClear           | Callback invoked when clicking clear icon                                                                | (e:event) => void               |         |
@@ -492,7 +599,7 @@ Answers to some questions:
 | onKeyDown         | Callback invoked when keydown, html event                                                                              | (e:event) => void               | -       |
 | onKeyPress        | Callback invoked when keypress, html event                                                                             | (e:event) => void               | -       |
 | onKeyUp           | Callback invoked when keyup, html event                                                                                | (e:event) => void               | -       |
-| onResize          | Callback invoked when height changes in autosize mode                                                    | ({ height:number }) => void     | -       |
+| onResize          | Callback invoked when size changes: triggered by `autosize` height updates; also triggered when user drags native `resize` (provides extra `width`), **>=2.97.0** | ({ height:number, width?: number }) => void     | -       |
 | onCompositionStart           | Callback invoked when compositionstart **>=2.85.0** | function(e:event)               |           |
 | onCompositionEnd           | Callback invoked when compositionend **>=2.85.0** | function(e:event)               |           |
 | onCompositionUpdate           | Callback invoked when compositionupdate **>=2.85.0**  | function(e:event)               |           |

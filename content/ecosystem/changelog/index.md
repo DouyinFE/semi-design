@@ -14,6 +14,207 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.99.0 (2026-05-21)
+- 【Fix】
+    - 修复 Cascader 组件在开启 filterTreeNode 时，搜索关键词与选项 label 大小写不一致导致匹配结果无法高亮的问题 [#3296](https://github.com/DouyinFE/semi-design/issues/3296) [#3297](https://github.com/DouyinFE/semi-design/pull/3297)
+    - 修复 Cascader 组件搜索选中后关键词高亮丢失的问题 [#3295](https://github.com/DouyinFE/semi-design/issues/3295) [#3299](https://github.com/DouyinFE/semi-design/pull/3299)
+    - 修复 Cascader 组件搜索结果中路径分隔符空格丢失的问题 [#3295](https://github.com/DouyinFE/semi-design/issues/3295) [#3299](https://github.com/DouyinFE/semi-design/pull/3299)
+    - 修复 Form Field 组件的 onChange 回调在 render props 模式下无法获取最新 values 的问题。现在 onChange 回调会接收一个额外的参数（最后一个参数），包含更新后的最新 form values [#579](https://github.com/DouyinFE/semi-design/issues/579) [#3294](https://github.com/DouyinFE/semi-design/pull/3294)
+    - 修复 Table 组件在水平滚动模式下右侧边框未滚动时不显示的问题 [#441](https://github.com/DouyinFE/semi-design/issues/441) [#3291](https://github.com/DouyinFE/semi-design/pull/3291)
+    - 修复 Table 组件在容器宽度动态变化时展开行宽度不同步更新的问题 [#659](https://github.com/DouyinFE/semi-design/issues/659) [#3292](https://github.com/DouyinFE/semi-design/pull/3292)
+    - 修复 Tooltip / Popover 组件的 arrowPointAtCenter prop 在 position 为 top/bottom/left/right 时不起作用的问题，箭头位置现在可以根据实际场景动态调整 [#1822](https://github.com/DouyinFE/semi-design/issues/1822) [#3290](https://github.com/DouyinFE/semi-design/pull/3290)
+- 【Docs】
+    - 修复多个组件文档 Notice 格式问题（Form / Cascader / Tabs / Typography / MarkdownRender 等），统一使用 Markdown 语法，避免反引号、HTML 标签被字面渲染
+    - 修复 Cascader 远程搜索 demo 中 async/await 语法导致 react-live 编译报错的问题
+    - 修复 Tooltip / Popover 的 condition demo 在 inline live 模式下错误调用 render() 导致 SyntaxError 的问题
+
+#### 🎉 2.98.0 (2026-05-19)
+- 【Feat】
+    - 新增 `@douyinfe/semi-vite-plugin` 包，提供 Vite 构建场景下的主题定制、CSS 类名前缀替换、SCSS 变量覆盖、`@layer` 包裹、Semi 包 CSS import 剔除等能力，与 `@douyinfe/semi-webpack-plugin` 特性对齐 [#2390](https://github.com/DouyinFE/semi-design/issues/2390) [#3242](https://github.com/DouyinFE/semi-design/issues/3242) [#3275](https://github.com/DouyinFE/semi-design/pull/3275)
+    - Calendar 组件新增 `onMoreClick` prop，支持自定义月视图下"还有几项"的点击事件 [#764](https://github.com/DouyinFE/semi-design/issues/764) [#3283](https://github.com/DouyinFE/semi-design/pull/3283)
+    - DatePicker 组件新增 `rangeSeparatorNode` prop，支持传入 ReactNode 类型的范围分隔符 [#244](https://github.com/DouyinFE/semi-design/issues/244) [#3281](https://github.com/DouyinFE/semi-design/pull/3281)
+    - DatePicker 组件范围选择未完成时确认按钮禁用：当 `type` 为 range 类型且 `needConfirm` 为 true 时，如果日期范围未选完（只选了开始或结束），确认按钮将被禁用 [#552](https://github.com/DouyinFE/semi-design/issues/552) [#3269](https://github.com/DouyinFE/semi-design/pull/3269)
+    - Descriptions 组件新增 `keyStyle` prop，支持自定义 key 的宽度、对齐方式、颜色等样式 [#458](https://github.com/DouyinFE/semi-design/issues/458) [#3268](https://github.com/DouyinFE/semi-design/pull/3268)
+    - Form 组件的 Field 新增 `keepState` 属性，支持在 Field 卸载后保留其状态（value、error、touched），重新挂载时自动恢复 [#186](https://github.com/DouyinFE/semi-design/issues/186) [#3279](https://github.com/DouyinFE/semi-design/pull/3279)
+    - InputNumber 组件新增 `scientificNotation` prop，支持长数字的科学计数法显示，失焦时显示科学计数法，聚焦时显示完整数字，可通过 `threshold` 配置阈值 [#146](https://github.com/DouyinFE/semi-design/issues/146) [#3277](https://github.com/DouyinFE/semi-design/pull/3277)
+    - Slider 组件支持 RTL 布局，当 ConfigProvider 的 `direction` 为 `rtl` 时，横向 Slider 自动调整为从右向左的交互方式 [#759](https://github.com/DouyinFE/semi-design/issues/759) [#3265](https://github.com/DouyinFE/semi-design/pull/3265)
+    - Table 组件 `columns.render` 新增 `isHovering` 参数，用于判断当前行是否处于悬停状态 [#669](https://github.com/DouyinFE/semi-design/issues/669) [#3287](https://github.com/DouyinFE/semi-design/pull/3287)
+    - Table 组件支持鼠标 hover 到 rowspan 单元格时高亮所有相关行 [#1177](https://github.com/DouyinFE/semi-design/issues/1177) [#3262](https://github.com/DouyinFE/semi-design/pull/3262)
+    - Table 组件新增 `rowSelection.checkRelation` prop，支持树形表格父子节点选择关联。设置为 `'related'` 时，选中父节点自动选中所有子节点，选中子节点影响父节点状态（全选/半选/未选）[#2864](https://github.com/DouyinFE/semi-design/issues/2864) [#3264](https://github.com/DouyinFE/semi-design/pull/3264)
+    - Tabs 组件新增 `collapsible="auto"` 选项，支持自动检测溢出并启用折叠功能 [#1596](https://github.com/DouyinFE/semi-design/issues/1596) [#3259](https://github.com/DouyinFE/semi-design/pull/3259)
+    - Tooltip 和 Popover 组件新增 `condition` 属性，用于控制是否允许触发显示。当 `condition` 为 false 时，hover/click/focus 等触发行为不生效（trigger='custom' 场景不受影响）[#1648](https://github.com/DouyinFE/semi-design/issues/1648) [#3286](https://github.com/DouyinFE/semi-design/pull/3286)
+    - Transfer 组件新增 `pagination` prop，支持左侧面板分页功能，包含 `pageSize`、`currentPage`、`defaultCurrentPage`、`onPageChange` 属性 [#480](https://github.com/DouyinFE/semi-design/issues/480) [#3266](https://github.com/DouyinFE/semi-design/pull/3266)
+    - TreeSelect 组件新增 `triggerTagWrap` prop，支持在 trigger 内多行换行展示已选标签 [#1709](https://github.com/DouyinFE/semi-design/issues/1709) [#3285](https://github.com/DouyinFE/semi-design/pull/3285)
+    - TreeSelect 组件新增 `remote` prop，支持远程搜索功能 [#1190](https://github.com/DouyinFE/semi-design/issues/1190) [#3258](https://github.com/DouyinFE/semi-design/pull/3258)
+- 【Fix】
+    - 修复 AIChatInput 组件 input-slot 在 IME 输入时 placeholder 遮挡未上屏文字的问题 [#3261](https://github.com/DouyinFE/semi-design/issues/3261) [#3263](https://github.com/DouyinFE/semi-design/pull/3263)
+    - 修复 DatePicker 在 `needConfirm` 模式下无法通过预设清空（`{ start: null, end: null }`）后确认空范围的问题，将 UI 端的"完成"判定与 foundation `_isRangeValueComplete` 对齐，空数组也视为完整状态，仅部分选择（长度为 2 且包含 null）禁用确认
+    - 修复 Form 组件的 `withField` HOC 在被 Tooltip/Popover 等组件包裹时，因动态注入 props 导致 `useMemo` 依赖数组长度变化而触发 React 警告的问题 [#1017](https://github.com/DouyinFE/semi-design/issues/1017) [#3267](https://github.com/DouyinFE/semi-design/pull/3267)
+    - 修复 InputNumber 组件在输入包含非数字字符的字符串（如 "1000CNY"）时 `max` 和 `min` 限制不生效的问题 [#38](https://github.com/DouyinFE/semi-design/issues/38) [#3273](https://github.com/DouyinFE/semi-design/pull/3273)
+    - 修复 Tree 组件在 TreeNode 的 `label` 为 ReactNode 时，受控 `value` 改变选中项的展开行为异常问题，通过结构比较替代深度比较避免 ReactNode 对象引用变化导致的误判 [#1132](https://github.com/DouyinFE/semi-design/issues/1132) [#3260](https://github.com/DouyinFE/semi-design/pull/3260)
+    - 修复 Tree 组件在展开节点较多（300+）时快速拖拽发生卡顿的问题，通过节流（16ms / 60fps）拖拽状态更新来优化性能 [#558](https://github.com/DouyinFE/semi-design/issues/558) [#3271](https://github.com/DouyinFE/semi-design/pull/3271)
+    - 调整默认 font-family 顺序，将 Segoe UI 移到 PingFang SC / Microsoft YaHei 之后，修复 Windows 下中文字符相对英文基线向下偏移的问题 [#2369](https://github.com/DouyinFE/semi-design/issues/2369) [#3276](https://github.com/DouyinFE/semi-design/pull/3276)
+    - 统一 CodeHighlight / JsonViewer / 文档站点的 monospace 字体栈：补齐 `ui-monospace`、`Consolas`、`Liberation Mono`、`DejaVu Sans Mono` 等系统兜底，修复 Windows / Linux 下未安装 Menlo / SF Mono / Fira Code 时回落到 Courier New 字重过细的问题 [#2729](https://github.com/DouyinFE/semi-design/issues/2729) [#3274](https://github.com/DouyinFE/semi-design/pull/3274)
+- 【Docs】
+    - 补充 Slider 组件聚焦样式说明文档，澄清"圆形按钮轮廓 - 聚焦"（`--semi-color-primary-light-active`，键盘 Tab 聚焦时生效）和"滑动条圆形描边颜色 - 激活态"（`--semi-color-focus-border`，鼠标点击/拖动时生效）两个设计变量的不同触发场景 [#2614](https://github.com/DouyinFE/semi-design/issues/2614) [#3257](https://github.com/DouyinFE/semi-design/pull/3257)
+    - 修复 Tabs 组件 `renderTabBar` 拖拽排序 demo：将 dnd-kit 示例改为 `noInline` 模式以支持真实 import 语句，并复用 Semi 导出的 `Tabs.TabItem`，保持各类型/尺寸/位置下的原生样式
+
+#### 🎉 2.97.0 (2026-05-11)
+- 【Feat】
+    - Cascader 组件新增 `remote` 属性，支持远程搜索功能 [#2956](https://github.com/DouyinFE/semi-design/issues/2956) [#3232](https://github.com/DouyinFE/semi-design/pull/3232)
+    - ConfigProvider 组件新增 `responsiveMap` prop，支持自定义响应式断点配置 [#1335](https://github.com/DouyinFE/semi-design/issues/1335) [#3253](https://github.com/DouyinFE/semi-design/pull/3253)
+    - ConfigProvider 组件新增 `responsiveObserve` prop，支持全局响应式断点监听（默认关闭，按需开启）[#1335](https://github.com/DouyinFE/semi-design/issues/1335) [#3253](https://github.com/DouyinFE/semi-design/pull/3253)
+    - ConfigConsumer 新增 `onBreakpoint` 方法，支持订阅断点变化 [#1335](https://github.com/DouyinFE/semi-design/issues/1335) [#3253](https://github.com/DouyinFE/semi-design/pull/3253)
+    - ConfigConsumer 新增 `screens` 属性，提供当前断点匹配状态 [#1335](https://github.com/DouyinFE/semi-design/issues/1335) [#3253](https://github.com/DouyinFE/semi-design/pull/3253)
+    - Form 组件统一校验函数命名为 `validator`。Field 新增 `validator` prop（替代 `validate`），Form 新增 `validator` prop（替代 `validateFields`），旧属性名保留但标记 deprecated [#2933](https://github.com/DouyinFE/semi-design/issues/2933) [#3233](https://github.com/DouyinFE/semi-design/pull/3233)
+    - Image 和 ImagePreview 组件新增 `initialZoom` 属性，支持设置预览图片初始缩放比例 [#1368](https://github.com/DouyinFE/semi-design/issues/1368) [#3255](https://github.com/DouyinFE/semi-design/pull/3255)
+    - Image 和 ImagePreview 组件新增 `maxZoom` 属性，支持设置预览图片最大缩放比例 [#1368](https://github.com/DouyinFE/semi-design/issues/1368) [#3255](https://github.com/DouyinFE/semi-design/pull/3255)
+    - Image 和 ImagePreview 组件新增 `minZoom` 属性，支持设置预览图片最小缩放比例 [#1368](https://github.com/DouyinFE/semi-design/issues/1368) [#3255](https://github.com/DouyinFE/semi-design/pull/3255)
+    - Tag 组件新增 SplitTagGroup 子组件，支持将多个标签组合成连续的视觉整体 [#2891](https://github.com/DouyinFE/semi-design/issues/2891) [#3234](https://github.com/DouyinFE/semi-design/pull/3234)
+    - Switch 组件新增 `$color-switch_knob-bg-checked` CSS 变量，支持独立控制开关按钮在开启和关闭状态下的背景颜色 [#2635](https://github.com/DouyinFE/semi-design/issues/2635) [#3236](https://github.com/DouyinFE/semi-design/pull/3236)
+    - Table 组件新增 `headerStyle` prop，支持统一设置所有表头单元格样式（包括 fixed 列）[#2347](https://github.com/DouyinFE/semi-design/issues/2347) [#3246](https://github.com/DouyinFE/semi-design/pull/3246)
+    - TagInput 组件支持标签溢出时自动换行显示 [#2715](https://github.com/DouyinFE/semi-design/issues/2715) [#3237](https://github.com/DouyinFE/semi-design/pull/3237)
+    - TextArea 组件新增 `resize` 属性，支持用户通过拖动调整文本域尺寸。当 `autosize` 启用时，`resize` 将被强制设为 `'none'`。水平方向 resize 时，组件边框和附属元素会跟随文本域宽度自适应 [#2441](https://github.com/DouyinFE/semi-design/issues/2441) [#3243](https://github.com/DouyinFE/semi-design/pull/3243)
+    - TimePicker 组件新增 `disabledTime` prop，支持在 range 模式下对左右面板分别应用不同的禁用规则 [#1443](https://github.com/DouyinFE/semi-design/issues/1443) [#3252](https://github.com/DouyinFE/semi-design/pull/3252)
+    - Transfer 组件新增 `virtualize` prop，支持右侧已选择面板的虚拟化渲染，解决大数据量场景下的性能问题 [#2586](https://github.com/DouyinFE/semi-design/issues/2586) [#3240](https://github.com/DouyinFE/semi-design/pull/3240)
+    - Upload 组件新增 `crop` prop，支持图片上传前裁切，可配置裁切框比例、形状等参数 [#2889](https://github.com/DouyinFE/semi-design/issues/2889) [#3256](https://github.com/DouyinFE/semi-design/pull/3256)
+    - Upload 组件新增 `beforeCrop` prop，支持裁切前拦截 [#2889](https://github.com/DouyinFE/semi-design/issues/2889) [#3256](https://github.com/DouyinFE/semi-design/pull/3256)
+    - Upload 组件新增 `onCropError` prop，支持裁切失败回调 [#2889](https://github.com/DouyinFE/semi-design/issues/2889) [#3256](https://github.com/DouyinFE/semi-design/pull/3256)
+    - Upload 组件新增 `cropModalProps` prop，支持自定义裁切弹窗 [#2889](https://github.com/DouyinFE/semi-design/issues/2889) [#3256](https://github.com/DouyinFE/semi-design/pull/3256)
+- 【Fix】
+    - 修复 DatePicker 组件 compact 模式下长月份名称导致面板宽度溢出的问题 [#2487](https://github.com/DouyinFE/semi-design/issues/2487) [#3244](https://github.com/DouyinFE/semi-design/pull/3244)
+    - 修复 Form 组件 Field 在使用 rules 校验且 message 为空字符串时无法触发 onSubmit/onSubmitFail 的问题 [#2340](https://github.com/DouyinFE/semi-design/issues/2340) [#3245](https://github.com/DouyinFE/semi-design/pull/3245)
+    - 修复 JsonViewer 组件在 `options.autoWrap` 为 `true` 时，容器尺寸变化后内容显示不正确的问题 [#2837](https://github.com/DouyinFE/semi-design/issues/2837) [#3239](https://github.com/DouyinFE/semi-design/pull/3239)
+    - 修复 JsonViewer 组件多行替换/插入操作时光标位置计算不正确的问题 [#2908](https://github.com/DouyinFE/semi-design/issues/2908) [#3231](https://github.com/DouyinFE/semi-design/pull/3231)
+    - 修复 Navigation 组件 Footer 内折叠按钮颜色 token 不生效的问题，确保按钮图标使用 Navigation 定义的颜色变量而非 Button 的默认颜色 [#1841](https://github.com/DouyinFE/semi-design/issues/1841) [#3250](https://github.com/DouyinFE/semi-design/pull/3250)
+    - 修复 Select 组件通过 showClear 清空后，blur 失焦触发校验失效的问题 [#1453](https://github.com/DouyinFE/semi-design/issues/1453) [#3254](https://github.com/DouyinFE/semi-design/pull/3254)
+    - 修复 Spin 组件在 Next.js SSR 环境下因 ID 生成方式导致的 hydration mismatch 错误 [#2114](https://github.com/DouyinFE/semi-design/issues/2114) [#3249](https://github.com/DouyinFE/semi-design/pull/3249)
+    - 修复 Table 组件在 virtualized 模式下，使用 JSX children 方式定义 columns 时，快速切换数据源触发无限更新循环的问题 [#2592](https://github.com/DouyinFE/semi-design/issues/2592) [#3241](https://github.com/DouyinFE/semi-design/pull/3241)
+    - 修复 Table 组件在设置了 sorter 的列上，onHeaderCell 的 onClick 回调在点击 title 部分时不触发的问题 [#1861](https://github.com/DouyinFE/semi-design/issues/1861) [#3248](https://github.com/DouyinFE/semi-design/pull/3248)
+    - 修复 Tabs 组件在 scroll 模式下新增或删除 tab 时折叠按钮出现闪烁的问题 [#2145](https://github.com/DouyinFE/semi-design/issues/2145) [#3247](https://github.com/DouyinFE/semi-design/pull/3247)
+    - 修复 Toast 组件手动关闭时导致 content 副作用重复执行的问题 [#1483](https://github.com/DouyinFE/semi-design/issues/1483) [#3251](https://github.com/DouyinFE/semi-design/pull/3251)
+- 【Docs】
+    - Tabs 组件新增拖拽排序使用示例，展示如何使用 renderTabBar API 配合 @dnd-kit 实现标签页拖拽排序 [#2687](https://github.com/DouyinFE/semi-design/issues/2687) [#3238](https://github.com/DouyinFE/semi-design/pull/3238)
+
+#### 🎉 2.96.1 (2026-05-07)
+- 【Fix】
+    - 修正 DragMove 的 `handler` / `constrainer` prop 在 TS 类型声明里被错标为 `() => ReactNode` 的问题，改为正确的 `() => HTMLElement` / `() => HTMLElement | 'parent'`，与底层 foundation 实际消费 DOM 元素的行为对齐 [#3230](https://github.com/DouyinFE/semi-design/pull/3230)
+    - 修复 `@douyinfe/semi-webpack-plugin` / `@douyinfe/semi-rspack-plugin` 在使用 DSM 自定义主题时，未对 VideoPlayer / AudioPlayer / AIChatInput / AIChatDialogue / Chat / ColorPicker / Cropper / FloatButton / HotKeys / JsonViewer / MarkdownRender / PinCode / Resizable / Sidebar / UserGuide 等新组件做 token 兜底导致编译报错的问题
+    - 修复 `@douyinfe/semi-rspack-plugin` 在 pnpm 嵌套 node_modules 场景下 `animation.scss` 解析失败导致动画 token 丢失的问题
+
+#### 🎉 2.96.0 (2026-04-28)
+- 【Feat】
+    - Table 组件 onRow 回调新增第三个参数 `rowStatus`，包含当前行的 `disabled` 与 `selected` 状态，方便在行事件中获取行状态 [#2462](https://github.com/DouyinFE/semi-design/issues/2462) [#3217](https://github.com/DouyinFE/semi-design/pull/3217)
+    - JsonViewer `customRenderRule.match` 支持传入解析后的原始类型（`string | number | boolean | null`），可使用 `===` 严格匹配；同时新增第三个参数 `tokenType: 'key' | 'value'`，用于区分当前匹配的是 key 还是 value [#2995](https://github.com/DouyinFE/semi-design/issues/2995) [#3218](https://github.com/DouyinFE/semi-design/pull/3218)
+- 【Fix】
+    - 修复 AIChatInput 在 `onContentChange` / `onMessageSend.inputContents` 中丢失 `hardBreak` 软换行符的问题，使输出在多段落（`<p>...</p><p>...</p>`）与单段落软换行（`<p>...<br>...</p>`）粘贴场景下保持一致 [#3228](https://github.com/DouyinFE/semi-design/pull/3228)
+    - 修复 Typography 组件 `ellipsis.showTooltip` 在设置 `padding` 时无法正常显示 tooltip 的问题；同时在使用 CSS ellipsis 且开启 showTooltip 时主动计算溢出状态，避免首次 hover 时 tooltip 未挂载 [#2350](https://github.com/DouyinFE/semi-design/issues/2350) [#3226](https://github.com/DouyinFE/semi-design/pull/3226)
+    - 修复 Toast 和 Notification 组件 `bottom`、`top` 等位置属性通过 `semiGlobal.config.overrideDefaultProps` 配置后不生效的问题 [#2549](https://github.com/DouyinFE/semi-design/issues/2549) [#3220](https://github.com/DouyinFE/semi-design/pull/3220)
+    - 修复 Anchor 组件初始使用 `display: none` 隐藏、后续显示出来时左侧灰色滑轨不展示的问题 [#2398](https://github.com/DouyinFE/semi-design/issues/2398) [#3221](https://github.com/DouyinFE/semi-design/pull/3221)
+    - 修复 Popover 组件在使用自定义 `getPopupContainer` 时，浏览器窗口缩小导致弹层超出容器消失的问题；现在弹层在容器溢出时会贴住容器边缘并保持可见，覆盖全部 12 个常规位置与 4 个 *Over 系列位置 [#2220](https://github.com/DouyinFE/semi-design/issues/2220) [#3222](https://github.com/DouyinFE/semi-design/pull/3222)
+    - 修复 PinCode 组件在 Firefox 浏览器下粘贴字符错位的问题（将 `e.preventDefault()` 提到 async handler 起始位置以避免双重写入）[#2903](https://github.com/DouyinFE/semi-design/issues/2903) [#3223](https://github.com/DouyinFE/semi-design/pull/3223)
+    - 修复 InputNumber 组件 `formatter` 在受控模式下输入非法字符时通知给 onChange 的值未经过 formatter 处理，导致与非受控模式行为不一致的问题 [#2396](https://github.com/DouyinFE/semi-design/issues/2396) [#3224](https://github.com/DouyinFE/semi-design/pull/3224)
+    - 优化 Form 组件类型推导性能，将 `utility-types` 的 `Subtract` 替换为内置 `Omit`，缓解 VSCode 下类型提示卡顿的问题 [#2175](https://github.com/DouyinFE/semi-design/issues/2175) [#3225](https://github.com/DouyinFE/semi-design/pull/3225)
+    - 修复 ArrayField 内部 Field 在条件显隐重新挂载后 `initValue` 未生效的问题，使其与 ArrayField 外部的 Field 行为保持一致 [#1849](https://github.com/DouyinFE/semi-design/issues/1849) [#3227](https://github.com/DouyinFE/semi-design/pull/3227)
+    - 修复 JsonViewer 组件滚动时多选区域丢失的问题；同时修复 AST offset 定位不稳定导致 pathChain 为空/错误的问题，提升复杂条件匹配可靠性 [#2976](https://github.com/DouyinFE/semi-design/issues/2976) [#3216](https://github.com/DouyinFE/semi-design/pull/3216) [#3218](https://github.com/DouyinFE/semi-design/pull/3218)
+    - 修复 TagInput 组件 `renderTagItem` 回调参数 `onClose` 在透传给 Tag 组件时被自动 hook 进而阻止 Tag 内部默认 onClose 的问题 [#3212](https://github.com/DouyinFE/semi-design/issues/3212) [#3215](https://github.com/DouyinFE/semi-design/pull/3215)
+    - 修复 VideoPlayer 组件未获焦时按空格键也会触发播放/暂停的问题，现在仅在播放器获得焦点后响应 [#3210](https://github.com/DouyinFE/semi-design/issues/3210) [#3214](https://github.com/DouyinFE/semi-design/pull/3214)
+    - 修复 Table 组件 `resizable` 在 Windows Chrome/Edge 浏览器上拖动异常的问题，拖动开始时清除文本选择以避免事件冲突 [#2962](https://github.com/DouyinFE/semi-design/issues/2962) [#3213](https://github.com/DouyinFE/semi-design/pull/3213)
+    - 修复 Select 组件在 React 18 下首次测量后由于 OverflowList 重渲染导致 ellipsisTrigger 闪烁的问题；OverflowList 改用稳定 item key 跟踪变化，不再在选中长度变化时重新挂载 [@LiuHuaize](https://github.com/LiuHuaize) [#3004](https://github.com/DouyinFE/semi-design/issues/3004) [#3201](https://github.com/DouyinFE/semi-design/pull/3201)
+- 【Breaking Change】
+    - **JsonViewer `customRenderRule` 的 `path` 计算更精确：同一键值对的 key 与 value token 现在共享同一个 `path`，因此仅依赖 `path` 的规则可能同时命中 key 与 value，进而改变原有规则的命中与覆盖顺序。如需仅匹配 key 或仅匹配 value，请使用函数 match 的第三个参数 `tokenType`（`'key' | 'value'`）进行区分** [#2995](https://github.com/DouyinFE/semi-design/issues/2995) [#3218](https://github.com/DouyinFE/semi-design/pull/3218)
+
+#### 🎉 2.95.1 (2026-04-21)
+- 【Fix】
+    - 修复 React 19 下嵌套 Dropdown 子菜单定位异常（在左上角闪烁后消失）的问题，原因是 React 19 移除了 `ReactDOM.findDOMNode`，导致 Tooltip 无法从类组件实例获取 DOM 节点进行弹出层定位 [#3219](https://github.com/DouyinFE/semi-design/pull/3219)
+    - DropdownItem 使用 `React.forwardRef` 包裹，使标准 ref 直接指向 `<li>` DOM 节点，符合 React 19 推荐做法 [#3219](https://github.com/DouyinFE/semi-design/pull/3219)
+
+#### 🎉 2.95.0 (2026-04-17)
+- 【Feat】
+    - Input 和 TextArea 组件新增 `composition` prop，开启后输入法未确认期间不触发 onChange，确认后触发一次，适用于实时搜索等场景 [#2134](https://github.com/DouyinFE/semi-design/issues/2134) [#3211](https://github.com/DouyinFE/semi-design/pull/3211)
+    - Select 组件新增 `rePosKey` prop 和 `rePosition()` 实例方法，支持手动触发下拉菜单重新定位 [#2648](https://github.com/DouyinFE/semi-design/issues/2648) [#3209](https://github.com/DouyinFE/semi-design/pull/3209)
+    - Transfer 组件 renderSelectedItem 回调新增 `fullPath` 参数，在 treeList 模式下开启 showPath 时可获取节点的完整路径信息 [#2588](https://github.com/DouyinFE/semi-design/issues/2588) [#3207](https://github.com/DouyinFE/semi-design/pull/3207)
+- 【Fix】
+    - 修复 InputNumber 组件 formatter 在受控模式下首次渲染时未应用到初始 value 的问题 [#2548](https://github.com/DouyinFE/semi-design/issues/2548) [#3205](https://github.com/DouyinFE/semi-design/pull/3205)
+    - 修复 InputNumber 组件 parser 返回数字类型时行为异常的问题，增强鲁棒性 [#1114](https://github.com/DouyinFE/semi-design/issues/1114) [#3208](https://github.com/DouyinFE/semi-design/pull/3208)
+    - 修复 DatePicker 组件 disabledDate 在 dateTimeRange 类型下调整时间时错误判断日期禁用状态的问题 [#2875](https://github.com/DouyinFE/semi-design/issues/2875) [#3204](https://github.com/DouyinFE/semi-design/pull/3204)
+
+#### 🎉 2.94.1 (2026-04-13)
+- 【Feat】
+    - JsonViewer 支持通过 renderSearchButton 自定义搜索按钮渲染 [#2838](https://github.com/DouyinFE/semi-design/issues/2838) [#3199](https://github.com/DouyinFE/semi-design/pull/3199)
+- 【Fix】
+    - 修复 Select 在 Safari 中的闪烁问题 [@nekocode](https://github.com/nekocode) [#1961](https://github.com/DouyinFE/semi-design/pull/1961)
+    - 修复 SelectProps 类型实例化过深导致 TS2589 错误，将 Subtract 替换为内置 Omit 并移除冗余的 RefAttributes [#2426](https://github.com/DouyinFE/semi-design/issues/2426)
+- 【Docs】
+    - 补充 Select virtualize.height 使用指引 [#2646](https://github.com/DouyinFE/semi-design/issues/2646) [#3198](https://github.com/DouyinFE/semi-design/pull/3198)
+    - 修正 Form setValues API 文档描述与实际行为不一致的问题 [#885](https://github.com/DouyinFE/semi-design/issues/885) [#3197](https://github.com/DouyinFE/semi-design/pull/3197)
+
+#### 🎉 2.94.0 (2026-04-09)
+- 【Feat】
+    - Form 组件新增静默校验功能，validate 方法支持传入 silent 参数，校验不触发 UI 错误展示 [#2724](https://github.com/DouyinFE/semi-design/issues/2724) [#3195](https://github.com/DouyinFE/semi-design/pull/3195)
+    - Form 组件新增 useForm hook 和 form prop，支持外部初始化 FormApi [#2947](https://github.com/DouyinFE/semi-design/issues/2947) [#3183](https://github.com/DouyinFE/semi-design/pull/3183)
+    - Form 组件新增 Form.PinCode，支持在表单中使用 PinCode 组件 [#2965](https://github.com/DouyinFE/semi-design/issues/2965) [#3155](https://github.com/DouyinFE/semi-design/pull/3155)
+    - Table 组件新增 filterConfirmMode 属性，支持筛选确认模式，包含确认和重置按钮 [#2892](https://github.com/DouyinFE/semi-design/issues/2892) [#3160](https://github.com/DouyinFE/semi-design/pull/3160)
+    - Table scroll.scrollToFirstRowOnChange 现在无需设置 scroll.y 也能生效 [#3088](https://github.com/DouyinFE/semi-design/issues/3088) [#3149](https://github.com/DouyinFE/semi-design/pull/3149)
+    - AIChatInput 组件新增 clearContentOnGenerating 属性，支持生成时自动清空输入内容 [#3166](https://github.com/DouyinFE/semi-design/issues/3166) [#3170](https://github.com/DouyinFE/semi-design/pull/3170)
+    - AIChatDialogue 组件新增 escapeHtml 属性，防止用户 HTML 输入被静默移除 [#3163](https://github.com/DouyinFE/semi-design/pull/3163)
+    - Chat 组件 avatar 属性支持传入 ReactNode（如矢量图标） [#3152](https://github.com/DouyinFE/semi-design/issues/3152) [#3171](https://github.com/DouyinFE/semi-design/pull/3171)
+    - Upload 组件支持自定义文件列表标题区域 [#3001](https://github.com/DouyinFE/semi-design/issues/3001) [#3154](https://github.com/DouyinFE/semi-design/pull/3154)
+    - Upload addOnPasting 增强，支持原生 paste 事件以获得更好的剪贴板兼容性 [#2768](https://github.com/DouyinFE/semi-design/issues/2768) [#3193](https://github.com/DouyinFE/semi-design/pull/3193)
+    - Cascader 多选模式支持 clickToSelect 属性 [#3008](https://github.com/DouyinFE/semi-design/issues/3008) [#3153](https://github.com/DouyinFE/semi-design/pull/3153)
+    - Collapsible 支持自适应高度，当内容小于 collapseHeight 时自动适配 [#2843](https://github.com/DouyinFE/semi-design/issues/2843) [#3164](https://github.com/DouyinFE/semi-design/pull/3164)
+    - VideoPlayer 组件支持 forwardRef 属性，可暴露原生 video 元素 [#2836](https://github.com/DouyinFE/semi-design/issues/2836) [#3165](https://github.com/DouyinFE/semi-design/pull/3165)
+    - Transfer 组件 treeList 模式下 SourceHeaderProps 新增 leafOnlyNum 字段 [#2581](https://github.com/DouyinFE/semi-design/issues/2581) [#3187](https://github.com/DouyinFE/semi-design/pull/3187)
+    - Pagination 新增 preventPageChangeOnPageSizeChange 属性，切换 pageSize 时可阻止页码变化 [#3012](https://github.com/DouyinFE/semi-design/issues/3012) [#3150](https://github.com/DouyinFE/semi-design/pull/3150)
+    - TextArea 新增 textareaStyle 属性，支持样式化内部 textarea 元素 [#965](https://github.com/DouyinFE/semi-design/issues/965) [#3181](https://github.com/DouyinFE/semi-design/pull/3181)
+    - Select 组件新增泛型类型支持，可约束 value 类型 [#2426](https://github.com/DouyinFE/semi-design/issues/2426) [#3182](https://github.com/DouyinFE/semi-design/pull/3182)
+    - 新增 IconMaximize2 和 IconRestore 图标 [@zdpcdt](https://github.com/zdpcdt) [#3172](https://github.com/DouyinFE/semi-design/pull/3172)
+- 【Fix】
+    - 修复 Modal onOk 在点击和 Enter 同时触发时被执行两次的问题 [#2915](https://github.com/DouyinFE/semi-design/issues/2915) [#3185](https://github.com/DouyinFE/semi-design/pull/3185)
+    - 修复 Select autoFocus 配合 filter 使用时，键盘输入不展开下拉列表的问题 [#2686](https://github.com/DouyinFE/semi-design/issues/2686) [#3192](https://github.com/DouyinFE/semi-design/pull/3192)
+    - 修复 DatePicker 时间范围类型 Input 的 hover/active 状态背景色样式优先级问题 [#2863](https://github.com/DouyinFE/semi-design/issues/2863) [#3162](https://github.com/DouyinFE/semi-design/pull/3162)
+    - 修复 Steps 组件 basic 类型水平线在 title 为空时位置错误的问题 [#2777](https://github.com/DouyinFE/semi-design/issues/2777) [#3191](https://github.com/DouyinFE/semi-design/pull/3191)
+    - 修复 Descriptions 组件水平布局下隐藏 item 产生空 tr 的问题 [#2810](https://github.com/DouyinFE/semi-design/issues/2810) [#3167](https://github.com/DouyinFE/semi-design/pull/3167)
+    - 修复 ArrayField 删除最后一项时未保留空数组的问题 [#2834](https://github.com/DouyinFE/semi-design/issues/2834) [#3190](https://github.com/DouyinFE/semi-design/pull/3190)
+    - 修复 AutoComplete renderItem 覆盖原始 label 值的问题 [#2957](https://github.com/DouyinFE/semi-design/issues/2957) [#3156](https://github.com/DouyinFE/semi-design/pull/3156)
+    - 修复 Textarea 设置 maxCount 时点击计数区域未聚焦的问题 [#2898](https://github.com/DouyinFE/semi-design/issues/2898) [#3157](https://github.com/DouyinFE/semi-design/pull/3157)
+    - 修复 Table fixed 列在行选中时背景色不显示的问题 [#3084](https://github.com/DouyinFE/semi-design/issues/3084) [#3188](https://github.com/DouyinFE/semi-design/pull/3188)
+    - 修复 JsonViewer 搜索按钮拖拽范围未限制在容器内的问题 [#2993](https://github.com/DouyinFE/semi-design/issues/2993) [#3189](https://github.com/DouyinFE/semi-design/pull/3189)
+    - 修复 Resizable handler z-index 过高遮挡 Modal 等弹出组件的问题 [#2801](https://github.com/DouyinFE/semi-design/issues/2801) [#3169](https://github.com/DouyinFE/semi-design/pull/3169)
+    - 修复 AiChatInput input-slot Backspace 事件干扰输入法组合的问题 [#3174](https://github.com/DouyinFE/semi-design/issues/3174) [#3186](https://github.com/DouyinFE/semi-design/pull/3186)
+    - 修复 AIChatDialogue markdownRenderProps.components 覆盖默认 code 组件的问题 [#3179](https://github.com/DouyinFE/semi-design/issues/3179) [#3180](https://github.com/DouyinFE/semi-design/pull/3180)
+    - 修复 PinCode 中文输入法输入问题 [@zongxi1115](https://github.com/zongxi1115) [#3148](https://github.com/DouyinFE/semi-design/pull/3148)
+    - 修复 Pagination 在 React 18 并发模式下不必要的 setState 调用 [@Cody2333](https://github.com/Cody2333) [#3161](https://github.com/DouyinFE/semi-design/pull/3161)
+    - 升级 lottie-web 到 ^5.13.0 修复 SSR 崩溃问题 [#3177](https://github.com/DouyinFE/semi-design/pull/3177)
+
+#### 🎉 2.93.0 (2026-03-16)
+- 【Feat】
+    - TextArea 组件新增行号支持，通过 showLineNumber 属性开启 [#2890](https://github.com/DouyinFE/semi-design/issues/2890) [#3146](https://github.com/DouyinFE/semi-design/pull/3146)
+    - AIChatDialogue 组件新增 scrollToTop 方法，支持滚动回到顶部 [#3021](https://github.com/DouyinFE/semi-design/issues/3021) [#3145](https://github.com/DouyinFE/semi-design/pull/3145)
+    - AIChatInput 组件新增 showPlaceholderWhenSkillOnly 属性，支持当仅有技能时展示 placeholder [#3086](https://github.com/DouyinFE/semi-design/issues/3086) [#3144](https://github.com/DouyinFE/semi-design/pull/3144)
+- 【Chore】
+    - semi-foundation package.json exports 新增 lib/cjs 路径映射，支持通过 lib/cjs 路径直接导入
+
+#### 🎉 2.92.2 (2026-03-04)
+- 【Fix】
+    - 修复 `@douyinfe/semi-ui/react19-adapter` 因 package.json exports 缺少声明导致无法导入的问题
+    - 修复 `packages/semi-ui/tsconfig.json` 缺少 `@douyinfe/semi-illustrations` 路径映射导致编译失败的问题
+
+#### 🎉 2.92.1 (2026-03-04)
+- 【Fix】
+    - 修复 AIChatDialogue PropTypes 与 TypeScript 类型定义不一致的问题 [#3141](https://github.com/DouyinFE/semi-design/pull/3141)
+
+#### 🎉 2.92.0 (2026-03-03)
+- 【Feat】
+    - 统一 React 19 支持方案，使用 adapter 模式替代双包方案，React 19 用户只需导入 `@douyinfe/semi-ui/react19-adapter` [#3140](https://github.com/DouyinFE/semi-design/pull/3140)
+    - AIChatInput 支持通过 renderUploadButton 自定义上传按钮 UI [#3087](https://github.com/DouyinFE/semi-design/issues/3087) [#3139](https://github.com/DouyinFE/semi-design/pull/3139)
+    - AIChatInput 支持 onPaste 回调监听输入框粘贴事件 [#3132](https://github.com/DouyinFE/semi-design/issues/3132) [#3137](https://github.com/DouyinFE/semi-design/pull/3137)
+    - @douyinfe/semi-next 支持透传 @douyinfe/semi-webpack-plugin 全量 options [#3115](https://github.com/DouyinFE/semi-design/issues/3115) [#3128](https://github.com/DouyinFE/semi-design/pull/3128)
+- 【Fix】
+    - 修复 AIChatInput 删除附件时未触发 uploadProps.onRemove，且 beforeRemove 无法阻断的问题 [#3100](https://github.com/DouyinFE/semi-design/issues/3100) [#3138](https://github.com/DouyinFE/semi-design/pull/3138)
+    - 修复 Upload 组件在受控 fileList 模式下，toggle visible 导致 blob URL 失效的问题 [#3122](https://github.com/DouyinFE/semi-design/issues/3122) [#3130](https://github.com/DouyinFE/semi-design/pull/3130)
+    - 修复 MarkdownRender 组件渲染 GFM 单列表格时内容丢失的问题 [#3077](https://github.com/DouyinFE/semi-design/issues/3077) [#3129](https://github.com/DouyinFE/semi-design/pull/3129)
+
 #### 🎉 2.91.0 (2026-02-06)
 - 【Fix】
     - 修复 semi-webpack/semi-rspack 正则匹配问题，支持匹配 @douyinfe/semi-ui-19 等带数字后缀包名 [#3127](https://github.com/DouyinFE/semi-design/pull/3127)

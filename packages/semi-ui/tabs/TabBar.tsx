@@ -1,4 +1,4 @@
-import React, { MouseEvent, ReactElement, ReactNode } from 'react';
+import React, { MouseEvent, ReactElement, ReactNode, RefObject, createRef } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tabs/constants';
@@ -13,13 +13,15 @@ import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 import TabItem from './TabItem';
 import { Locale } from "../locale/interface";
 import LocaleConsumer from "../locale/localeConsumer";
+import ResizeObserver from '../resizeObserver';
 
 export interface TabBarState {
     endInd: number;
     rePosKey: number;
     startInd: number;
     uuid: string;
-    currentVisibleItems: string[]
+    currentVisibleItems: string[];
+    shouldCollapse: boolean;
 }
 
 export interface OverflowItem extends PlainTab {
@@ -31,7 +33,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     static propTypes = {
         activeKey: PropTypes.string,
         className: PropTypes.string,
-        collapsible: PropTypes.bool,
+        collapsible: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['auto'])]),
         list: PropTypes.array,
         onTabClick: PropTypes.func,
         size: PropTypes.oneOf(strings.SIZE),
@@ -45,6 +47,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     };
 
     private isFirstShowInViewport: boolean;
+    private tabBarRef: RefObject<HTMLDivElement>;
 
     constructor(props: TabBarProps) {
         super(props);
@@ -54,23 +57,89 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             startInd: 0,
             uuid: '',
             currentVisibleItems: [],
+            shouldCollapse: false,
         };
         this.isFirstShowInViewport = true;
+        this.tabBarRef = createRef();
     }
 
     componentDidMount() {
         this.setState({
             uuid: getUuidv4(),
         });
+        // Auto detect overflow when collapsible is 'auto'
+        // Note: ResizeObserver will trigger handleResize automatically after mount
+        // But we also call checkOverflow here as a fallback in case ResizeObserver doesn't fire
+        if (this.props.collapsible === 'auto') {
+            // Use requestAnimationFrame to ensure DOM is ready
+            requestAnimationFrame(() => this.checkOverflow());
+        }
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.activeKey !== this.props.activeKey) {
-            if (this.props.collapsible) {
+            const effectiveCollapsible = this.getEffectiveCollapsible();
+            if (effectiveCollapsible) {
                 this.scrollActiveTabItemIntoView();
             }
         }
+        // Re-check overflow when list changes in auto mode
+        if (this.props.collapsible === 'auto' && prevProps.list !== this.props.list) {
+            this.checkOverflow();
+        }
     }
+
+    getEffectiveCollapsible = (): boolean => {
+        const { collapsible } = this.props;
+        if (collapsible === 'auto') {
+            return this.state.shouldCollapse;
+        }
+        return collapsible || false;
+    };
+
+    checkOverflow = () => {
+        // In auto mode:
+        // - when not collapsed yet, detect overflow by checking if tabs have wrapped into multiple rows
+        // - when collapsed, rely on OverflowList visible state callback to decide whether to exit collapse
+        if (this.props.collapsible !== 'auto') {
+            return;
+        }
+        if (this.state.shouldCollapse) {
+            return;
+        }
+
+        const tabBarEl = this.tabBarRef.current;
+        if (!tabBarEl) {
+            return;
+        }
+
+        const hasOverflow = this.isTabsWrapped(tabBarEl) || tabBarEl.scrollWidth > tabBarEl.clientWidth + 1;
+        if (hasOverflow !== this.state.shouldCollapse) {
+            this.setState({ shouldCollapse: hasOverflow });
+        }
+    };
+
+    isTabsWrapped = (tabBarEl: HTMLDivElement): boolean => {
+        // Only meaningful in horizontal mode
+        if (this.props.tabPosition === 'left') {
+            return false;
+        }
+        const tabNodes = Array.from(tabBarEl.querySelectorAll(`.${cssClasses.TABS_TAB}`)) as HTMLElement[];
+        if (tabNodes.length <= 1) {
+            return false;
+        }
+        const firstTop = tabNodes[0]?.offsetTop;
+        if (typeof firstTop !== 'number') {
+            return false;
+        }
+        return tabNodes.some(node => node.offsetTop !== firstTop);
+    };
+
+    handleResize = () => {
+        if (this.props.collapsible === 'auto') {
+            this.checkOverflow();
+        }
+    };
 
     renderIcon(icon: ReactNode): ReactNode {
         return (
@@ -258,11 +327,23 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                     });
                     // only when the tabs component appears in the viewport for the first time triggered scrollActiveTabItemIntoView
                     // refer to issue 2917 https://github.com/DouyinFE/semi-design/issues/2917
-                    if (this.isFirstShowInViewport) {
-                        const isShowInViewport = Array.from(visibleMapWithItemKey.values()).some(item => item);
+                     if (this.isFirstShowInViewport) {
+                         const isShowInViewport = Array.from(visibleMapWithItemKey.values()).some(item => item);
+                         if (isShowInViewport) {
+                             this.scrollActiveTabItemIntoView('nearest', 'auto');
+                             this.isFirstShowInViewport = false;
+                         }
+                     }
+
+                    // Auto mode: if everything is visible, exit collapse; if something is hidden, keep collapse.
+                    // Avoid toggling when component is not in viewport (all false).
+                    if (this.props.collapsible === 'auto') {
+                        const isShowInViewport = Array.from(visibleMapWithItemKey.values()).some(v => v);
                         if (isShowInViewport) {
-                            this.scrollActiveTabItemIntoView('nearest', 'auto');
-                            this.isFirstShowInViewport = false;
+                            const hasOverflow = Array.from(visibleMapWithItemKey.values()).some(v => !v);
+                            if (hasOverflow !== this.state.shouldCollapse) {
+                                this.setState({ shouldCollapse: hasOverflow });
+                            }
                         }
                     }
                     this.props.onVisibleTabsChange?.(visibleMapWithItemKey);
@@ -329,6 +410,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
 
     render(): ReactNode {
         const { type, style, className, list, tabPosition, more, collapsible, ...restProps } = this.props;
+        const effectiveCollapsible = this.getEffectiveCollapsible();
         const classNames = cls(className, {
             [cssClasses.TABS_BAR]: true,
             [cssClasses.TABS_BAR_LINE]: type === 'line',
@@ -336,19 +418,30 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             [cssClasses.TABS_BAR_BUTTON]: type === 'button',
             [cssClasses.TABS_BAR_SLASH]: type === 'slash',
             [`${cssClasses.TABS_BAR}-${tabPosition}`]: tabPosition,
-            [`${cssClasses.TABS_BAR}-collapse`]: collapsible,
+            [`${cssClasses.TABS_BAR}-collapse`]: effectiveCollapsible,
         });
 
         const extra = this.renderExtra();
-        const contents = collapsible ? this.renderCollapsedTab() : (more ? this.renderWithMoreTrigger() : this.renderTabComponents(list));
+        const contents = effectiveCollapsible ? this.renderCollapsedTab() : (more ? this.renderWithMoreTrigger() : this.renderTabComponents(list));
 
-        return (
+        const tabBarContent = (
             <div role="tablist" aria-orientation={tabPosition === "left" ? "vertical" : "horizontal"}
-                className={classNames} style={style} {...getDataAttr(restProps)} data-uuid={this.state.uuid}>
+                className={classNames} style={style} {...getDataAttr(restProps)} data-uuid={this.state.uuid} ref={this.tabBarRef}>
                 {contents}
                 {extra}
             </div>
         );
+
+        // Wrap with ResizeObserver for auto mode
+        if (collapsible === 'auto') {
+            return (
+                <ResizeObserver onResize={this.handleResize}>
+                    {tabBarContent}
+                </ResizeObserver>
+            );
+        }
+
+        return tabBarContent;
     }
 
     private _isActive = (key: string): boolean => key === this.props.activeKey;

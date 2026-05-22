@@ -20,6 +20,7 @@ import Rating from '../rating/index';
 import AutoComplete from '../autoComplete/index';
 import Upload from '../upload/index';
 import TagInput from '../tagInput/index';
+import PinCode from '../pincode/index';
 import { FormCheckboxType, FormRadioType, FormSelectType } from './interface';
 
 const FormInput = withField(Input, { maintainCursor: true });
@@ -54,6 +55,7 @@ const FormRating = withField(Rating);
 const FormAutoComplete = withField(AutoComplete, { valueKey: 'value', onKeyChangeFnName: 'onChange' });
 const FormUpload = withField(Upload, { valueKey: 'fileList', valuePath: 'fileList', onKeyChangeFnName: 'onChange' });
 const FormTagInput = withField(TagInput);
+const FormPinCode = withField(PinCode);
 
 export {
     FormInput,
@@ -73,5 +75,6 @@ export {
     FormRating,
     FormAutoComplete,
     FormUpload,
-    FormTagInput
+    FormTagInput,
+    FormPinCode
 };

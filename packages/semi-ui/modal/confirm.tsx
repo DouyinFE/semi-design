@@ -1,10 +1,5 @@
 import React from 'react';
-/* REACT_18_START */
-import ReactDOM from 'react-dom';
-/* REACT_18_END */
-/* REACT_19_START */
-// import { createRoot } from 'react-dom/client';
-/* REACT_19_END */
+import { render as reactRender, unmount as reactUnmount } from '../_utils/reactRender';
 import { destroyFns, ModalReactProps } from './Modal';
 import ConfirmModal from './ConfirmModal';
 
@@ -22,28 +17,13 @@ export default function confirm<T>(props: ConfirmProps) {
     const div = document.createElement('div');
     document.body.appendChild(div);
 
-    /* REACT_19_START */
-    // let root: any = null;
-    /* REACT_19_END */
-
     let currentConfig = { ...props };
 
     const destroy = () => {
-        /* REACT_18_START */
-        const unmountResult = ReactDOM.unmountComponentAtNode(div);
-        if (unmountResult && div.parentNode) {
+        reactUnmount(div);
+        if (div.parentNode) {
             div.parentNode.removeChild(div);
         }
-        /* REACT_18_END */
-        
-        /* REACT_19_START */
-        // if (root) {
-        //     root.unmount();
-        //     if (div.parentNode) {
-        //         div.parentNode.removeChild(div);
-        //     }
-        // }
-        /* REACT_19_END */
 
         for (let i = 0; i < destroyFns.length; i++) {
             const fn = destroyFns[i];
@@ -58,26 +38,10 @@ export default function confirm<T>(props: ConfirmProps) {
 
     function render(renderProps: ConfirmProps) {
         const { afterClose } = renderProps;
-        
-        /* REACT_18_START */
-        //@ts-ignore
-        ReactDOM.render(<ConfirmModal {...renderProps} afterClose={(...args: any) => {
-            //@ts-ignore
-            afterClose?.(...args);
+        reactRender(<ConfirmModal {...renderProps} afterClose={() => {
+            afterClose?.();
             destroy();
         }} motion={props.motion}/>, div);
-        /* REACT_18_END */
-        
-        /* REACT_19_START */
-        // if (!root) {
-        //     root = createRoot(div);
-        // }
-        // root.render(<ConfirmModal {...renderProps} afterClose={(...args: any) => {
-        //     //@ts-ignore
-        //     afterClose?.(...args);
-        //     destroy();
-        // }} motion={props.motion}/>);
-        /* REACT_19_END */
     }
 
     function close() {

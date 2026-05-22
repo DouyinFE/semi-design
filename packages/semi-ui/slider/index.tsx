@@ -6,6 +6,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/slider/constants';
 import BaseComponent from '../_base/baseComponent';
 import SliderFoundation, { SliderAdapter, SliderProps as BasicSliceProps, SliderState, tipFormatterBasicType } from '@douyinfe/semi-foundation/slider/foundation';
 import Tooltip from '../tooltip/index';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import '@douyinfe/semi-foundation/slider/slider.scss';
 import { isEqual, noop } from 'lodash';
 
@@ -28,6 +29,7 @@ function domIsInRenderTree(e: HTMLElement) {
 }
 
 export default class Slider extends BaseComponent<SliderProps, SliderState> {
+    static contextType = ConfigContext;
     static propTypes = {
         // allowClear: PropTypes.bool,
         defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.array]),
@@ -97,6 +99,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
     private eventListenerSet: Set<() => void>;
     private handleDownEventListenerSet: Set<() => void>;
     foundation: SliderFoundation;
+    context: ContextValue;
 
     constructor(props: SliderProps) {
         super(props);
@@ -192,7 +195,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 this.setState(stateObj, callback);
             },
             notifyChange: (cbValue: number | number[]) => {
-                this.props.onChange(Array.isArray(cbValue) ? [...cbValue].sort((a, b)=>a - b) : cbValue);
+                this.props.onChange(Array.isArray(cbValue) ? [...cbValue].sort((a, b) => a - b) : cbValue);
             },
             setDragging: (value: boolean[]) => {
                 this.dragging = value;
@@ -309,7 +312,9 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
     renderHandle = () => {
         const { vertical, range, tooltipVisible, tipFormatter, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-valuetext': ariaValueText, getAriaValueText, disabled } = this.props;
         const { chooseMovePos, isDrag, isInRenderTree, firstDotFocusVisible, secondDotFocusVisible } = this.state;
-        const stylePos = vertical ? 'top' : 'left';
+        const direction = this.context.direction;
+        const isRTL = direction === 'rtl' && !vertical;
+        const stylePos = vertical ? 'top' : (isRTL ? 'right' : 'left');
         const percentInfo = this.foundation.getMinAndMaxPercent(this.state.currentValue);
         const minPercent = percentInfo.min;
         const maxPercent = percentInfo.max;
@@ -519,18 +524,33 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
 
     renderTrack = () => {
         const { range, included, vertical } = this.props;
+        const direction = this.context.direction;
+        const isRTL = direction === 'rtl' && !vertical;
         const percentInfo = this.foundation.getMinAndMaxPercent(this.state.currentValue);
         const minPercent = percentInfo.min;
         const maxPercent = percentInfo.max;
-        let trackStyle: CSSProperties = !vertical ?
-            {
-                width: range ? `${Math.abs(maxPercent - minPercent) * 100}%` : `${minPercent * 100}%`,
-                left: range ? `${Math.min(minPercent, maxPercent) * 100}%` : 0,
-            } :
-            {
+        let trackStyle: CSSProperties;
+        if (!vertical) {
+            // Horizontal slider
+            if (isRTL) {
+                // In RTL mode, track position is from right
+                trackStyle = {
+                    width: range ? `${Math.abs(maxPercent - minPercent) * 100}%` : `${minPercent * 100}%`,
+                    right: range ? `${Math.min(minPercent, maxPercent) * 100}%` : 0,
+                };
+            } else {
+                trackStyle = {
+                    width: range ? `${Math.abs(maxPercent - minPercent) * 100}%` : `${minPercent * 100}%`,
+                    left: range ? `${Math.min(minPercent, maxPercent) * 100}%` : 0,
+                };
+            }
+        } else {
+            // Vertical slider
+            trackStyle = {
                 height: range ? `${Math.abs(maxPercent - minPercent) * 100}%` : `${minPercent * 100}%`,
                 top: range ? `${Math.min(minPercent, maxPercent) * 100}%` : 0,
             };
+        }
         trackStyle = included ? trackStyle : {};
         return (// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
             <div className={cssClasses.TRACK} style={trackStyle} onClick={this.foundation.handleWrapClick}>
@@ -541,7 +561,9 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
 
     renderStepDot = () => {
         const { min, max, vertical, marks } = this.props;
-        const stylePos = vertical ? 'top' : 'left';
+        const direction = this.context.direction;
+        const isRTL = direction === 'rtl' && !vertical;
+        const stylePos = vertical ? 'top' : (isRTL ? 'right' : 'left');
         const labelContent =
             marks && Object.keys(marks).length > 0 ? (
                 <div className={cssClasses.DOTS}>
@@ -572,7 +594,9 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             return null;
         }
         const { min, max, vertical, marks, verticalReverse } = this.props;
-        const stylePos = vertical ? 'top' : 'left';
+        const direction = this.context.direction;
+        const isRTL = direction === 'rtl' && !vertical;
+        const stylePos = vertical ? 'top' : (isRTL ? 'right' : 'left');
         const labelContent =
             marks && Object.keys(marks).length > 0 ? (
                 <div className={cssClasses.MARKS + ((vertical && verticalReverse) ? '-reverse' : '')}>
@@ -610,7 +634,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             {
                 [`${prefixCls}-disabled`]: disabled,
                 [`${cssClasses.VERTICAL}-wrapper`]: vertical,
-                [`${prefixCls}-reverse`]: vertical && verticalReverse
+                [`${prefixCls}-reverse`]: vertical && verticalReverse,
             },
             className
         );

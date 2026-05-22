@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Subtract } from 'utility-types';
 import type { RuleItem } from 'async-validator';
 import type { Options as ScrollIntoViewOptions } from 'scroll-into-view-if-needed';
 
@@ -29,7 +28,18 @@ export type CommonFieldProps = {
     fieldClassName?: string;
     fieldStyle?: React.CSSProperties;
     initValue?: any;
+    /**
+     * Custom field validation function
+     * @deprecated Use `validator` instead. This alias will be maintained for backward compatibility.
+     */
     validate?: (fieldValue: any, values: Record<string, any>) => string | Promise<string>;
+    /**
+     * Custom field validation function (**recommended**)
+     * @param fieldValue - The current field value
+     * @param values - All form values
+     * @returns Error message string, empty string for valid, or Promise that resolves to error message
+     */
+    validator?: (fieldValue: any, values: Record<string, any>) => string | Promise<string>;
     /** Check rules, check library based on async-validator */
     rules?: Array<RuleItem>;
     /** Check trigger timing */
@@ -47,10 +57,12 @@ export type CommonFieldProps = {
     /* Extra message, you can use this when you need an error message and the prompt text to appear at the same time, after helpText/errorMessage */
     extraText?: React.ReactNode;
     extraTextPosition?: 'middle' | 'bottom';
-    /** These declaration just hack for Subtract, not valid props in CommonFieldProps */
+    /** These declaration just hack for Omit, not valid props in CommonFieldProps */
     defaultValue?: any;
     /** Whether to take over only the data stream, when true, it will not automatically insert modules such as ErrorMessage, Label, extraText, etc. The style and DOM structure are consistent with the original component */
-    pure?: boolean
+    pure?: boolean;
+    /** Whether to retain field state (value, error, touched) after the field is unmounted. When the field remounts, the saved state will be restored */
+    keepState?: boolean;
 };
 
 export type CommonexcludeType = {
@@ -72,7 +84,7 @@ export type RCIncludeType = {
     field?: string
 };
 
-export class FormSelect extends React.Component<Subtract<SelectProps & CommonFieldProps, CommonexcludeType>> {
+export class FormSelect extends React.Component<Omit<SelectProps & CommonFieldProps, keyof CommonexcludeType>> {
     static Option: typeof Option;
     static OptGroup: typeof OptGroup;
 }
@@ -82,10 +94,10 @@ export interface SelectStatic {
     OptGroup: typeof OptGroup
 }
 
-export class Field<P> extends React.Component<Subtract<P & CommonFieldProps, CommonexcludeType> & React.RefAttributes<any>> {}
-export let FormSelectType: React.ComponentType<Subtract<SelectProps & CommonFieldProps, CommonexcludeType>> & SelectStatic;
-export let FormCheckboxType: React.ComponentType<Subtract<CommonFieldProps, RadioCheckboxExcludeProps> & CheckboxProps & RCIncludeType>;
-export let FormRadioType: React.ComponentType<Subtract<CommonFieldProps, RadioCheckboxExcludeProps> & RadioProps & RCIncludeType>;
+export class Field<P> extends React.Component<Omit<P & CommonFieldProps, keyof CommonexcludeType> & React.RefAttributes<any>> {}
+export let FormSelectType: React.ComponentType<Omit<SelectProps & CommonFieldProps, keyof CommonexcludeType>> & SelectStatic;
+export let FormCheckboxType: React.ComponentType<Omit<CommonFieldProps, keyof RadioCheckboxExcludeProps> & CheckboxProps & RCIncludeType>;
+export let FormRadioType: React.ComponentType<Omit<CommonFieldProps, keyof RadioCheckboxExcludeProps> & RadioProps & RCIncludeType>;
 
 export interface ErrorMsg {
     [optionalKey: string]: FieldError
@@ -108,12 +120,24 @@ export interface BaseFormProps <Values extends Record<string, any> = any> extend
     onErrorChange?: (errors: Record<keyof Values, FieldError>, changedError?: Partial<Record<keyof Values, FieldError>>) => void;
     onChange?: (formState: FormState<Values>) => void;
     allowEmpty?: boolean;
+    /**
+     * Custom form-level validation function
+     * @deprecated Use `validator` instead. This alias will be maintained for backward compatibility.
+     */
     validateFields?: (values: Values) => BatchValidateResult<Values> | Promise<BatchValidateResult<Values>>;
+    /**
+     * Custom form-level validation function (**recommended**)
+     * @param values - All form values
+     * @returns Errors object with field names as keys, empty string for valid, or Promise that resolves to errors
+     */
+    validator?: (values: Values) => BatchValidateResult<Values> | Promise<BatchValidateResult<Values>>;
     /** Use this if you want to populate the form with initial values. */
     initValues?: Values;
     id?: string;
     /** getFormApi will be call once when Form mounted, u can save formApi reference in your component  */
     getFormApi?: (formApi: FormApi<Values>) => void;
+    /** External formApi created by Form.useForm() */
+    form?: any; // 使用 any 类型以兼容代理对象
     style?: React.CSSProperties;
     className?: string;
     extraTextPosition?: 'middle' | 'bottom';

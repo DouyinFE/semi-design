@@ -113,6 +113,8 @@ const local: Locale = {
         descend: 'Clique para descrescer',
         ascend: 'Clique para crescer',
         cancelSort: 'Cancelar classificação',
+        confirmFilter: 'OK',
+        resetFilter: 'Redefinir',
     },
     Select: {
         emptyText: 'Não há dados',

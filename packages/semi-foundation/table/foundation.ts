@@ -21,6 +21,13 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { strings, numbers } from './constants';
 import { mergeQueries, flattenColumns, filterColumns } from './utils';
 import { pullAll, withOrderSort } from '../utils/array';
+import {
+    convertDataToEntities,
+    calcCheckedKeys,
+    calcCheckedKeysForChecked,
+    calcCheckedKeysForUnchecked,
+    findDescendantKeys,
+} from '../tree/treeUtil';
 
 export interface BaseColumnProps<RecordType> {
     align?: BaseAlign;
@@ -78,8 +85,11 @@ export interface TableAdapter<RecordType> extends DefaultAdapter {
     setFlattenData: (flattenData: RecordType[]) => void;
     setAllRowKeys: (allRowKeys: BaseRowKeyType[]) => void;
     setHoveredRowKey: (hoveredRowKey: BaseRowKeyType) => void;
+    setHoveredRowKeys: (hoveredRowKeys: BaseRowKeyType[]) => void;
     setCachedFilteredSortedDataSource: (filteredSortedDataSource: RecordType[]) => void;
     setCachedFilteredSortedRowKeys: (filteredSortedRowKeys: BaseRowKeyType[]) => void;
+    setHalfCheckedRowKeys: (halfCheckedRowKeys: BaseRowKeyType[]) => void;
+    setKeyEntities: (keyEntities: BaseEntitys) => void;
     getCurrentPage: () => number;
     getCurrentPageSize: () => number;
     getCachedFilteredSortedDataSource: () => RecordType[];
@@ -88,6 +98,9 @@ export interface TableAdapter<RecordType> extends DefaultAdapter {
     setAllDisabledRowKeys: (allDisabledRowKeys: BaseRowKeyType[]) => void;
     getAllDisabledRowKeys: () => BaseRowKeyType[];
     getAllDisabledRowKeysSet: () => Set<BaseRowKeyType>;
+    getHalfCheckedRowKeys: () => BaseRowKeyType[];
+    getHalfCheckedRowKeysSet: () => Set<BaseRowKeyType>;
+    getKeyEntities: () => BaseEntitys;
     notifyFilterDropdownVisibleChange: (visible: boolean, dataIndex: string) => void;
     notifyChange: (changeInfo: { pagination: BasePagination; filters: BaseChangeInfoFilter<RecordType>[]; sorter: BaseChangeInfoSorter<RecordType>; extra: OnChangeExtra }) => void;
     notifyExpand: (expanded?: boolean, record?: BaseIncludeGroupRecord<RecordType>, mouseEvent?: any) => void;
@@ -107,7 +120,8 @@ export interface TableAdapter<RecordType> extends DefaultAdapter {
     getHandleColumns: () => (queries: BaseColumnProps<RecordType>[], cachedColumns: BaseColumnProps<RecordType>[]) => BaseColumnProps<RecordType>[];
     getMergePagination: () => (pagination: BasePagination) => BasePagination;
     setBodyHasScrollbar: (bodyHasScrollBar: boolean) => void;
-    getTableLayout: () => 'fixed' | 'auto'
+    getTableLayout: () => 'fixed' | 'auto';
+    getCheckRelation: () => CheckRelation
 }
 
 class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType>> {
@@ -756,30 +770,118 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         return !(Array.isArray(dataSource) && dataSource.length > 0);
     }
 
+    /**
+     * Build tree data entities for checkRelation
+     * @param dataSource 
+     * @returns keyEntities map
+     */
+    buildKeyEntities(dataSource?: RecordType[]): BaseEntitys {
+        dataSource = dataSource == null ? this._getDataSource() : dataSource;
+        const childrenRecordName = this.getProp('childrenRecordName');
+        const rowKey = this.getProp('rowKey');
+        
+        // Convert table data to tree data format
+        const convertToTreeData = (data: RecordType[]): any[] => {
+            return data.map(record => {
+                const key = typeof rowKey === 'function' ? rowKey(record) : get(record, rowKey);
+                const children = get(record, childrenRecordName);
+                const node: any = { key, ...record };
+                if (Array.isArray(children) && children.length) {
+                    node.children = convertToTreeData(children);
+                }
+                return node;
+            });
+        };
+
+        const treeData = convertToTreeData(dataSource);
+        const { keyEntities } = convertDataToEntities(treeData, { key: 'key', children: 'children' });
+        return keyEntities;
+    }
+
+    /**
+     * Calculate checked keys when checkRelation is 'related'
+     * @param realKey 
+     * @param selected 
+     * @param checkedKeys 
+     * @param halfCheckedKeys 
+     */
+    calcCheckedKeysForSelect(realKey: BaseRowKeyType, selected: boolean, checkedKeys: Set<string>, halfCheckedKeys: Set<string>) {
+        const keyEntities = this._adapter.getKeyEntities();
+        const keyStr = String(realKey);
+        
+        // If keyEntities doesn't contain this key, handle it as a simple add/remove
+        if (!keyEntities || !keyEntities[keyStr]) {
+            if (selected) {
+                checkedKeys.add(keyStr);
+            } else {
+                checkedKeys.delete(keyStr);
+            }
+            return { checkedKeys, halfCheckedKeys };
+        }
+        
+        if (selected) {
+            return calcCheckedKeysForChecked(keyStr, keyEntities, checkedKeys, halfCheckedKeys);
+        } else {
+            return calcCheckedKeysForUnchecked(keyStr, keyEntities, checkedKeys, halfCheckedKeys);
+        }
+    }
+
     handleSelectRow(realKey: BaseRowKeyType, selected: boolean, e: any) {
         this.stopPropagation(e);
         if (typeof selected === 'boolean' && realKey != null) {
+            const checkRelation = this._adapter.getCheckRelation();
             const selectedRowKeys = this._getSelectedRowKeys();
+            const halfCheckedRowKeys = [...(this._adapter.getHalfCheckedRowKeys() || [])];
             let foundIdx = -1;
             const selectedRow = this.getSelectedRows(null, [realKey])[0];
             let selectedRows: BaseIncludeGroupRecord<RecordType>[];
 
-            if ((foundIdx = selectedRowKeys.indexOf(realKey)) > -1 && selected === false) {
-                selectedRowKeys.splice(foundIdx, 1);
-                selectedRows = this.getSelectedRows(null, selectedRowKeys);
+            if (checkRelation === 'related') {
+                // When checkRelation is 'related', use tree selection logic
+                const keyEntities = this._adapter.getKeyEntities();
+                // Convert keys to strings for tree utility functions
+                const checkedKeysSet = new Set(selectedRowKeys.map(key => String(key)));
+                const halfCheckedKeysSet = new Set(halfCheckedRowKeys.map(key => String(key)));
+                
+                const { checkedKeys, halfCheckedKeys } = this.calcCheckedKeysForSelect(
+                    String(realKey), 
+                    selected, 
+                    checkedKeysSet, 
+                    halfCheckedKeysSet
+                );
+                
+                const newSelectedRowKeys = [...checkedKeys];
+                const newHalfCheckedRowKeys = [...halfCheckedKeys];
+                selectedRows = this.getSelectedRows(null, newSelectedRowKeys);
+                
+                // Always update halfCheckedRowKeys state for checkRelation='related' mode
+                // This is needed for rendering the half-checked state in the UI
+                this._adapter.setHalfCheckedRowKeys(newHalfCheckedRowKeys);
+                
                 if (!this._selectionIsControlled()) {
-                    this._adapter.setSelectedRowKeys(selectedRowKeys);
+                    this._adapter.setSelectedRowKeys(newSelectedRowKeys);
                 }
                 this._adapter.notifySelect(selectedRow, selected, selectedRows, e);
-                this._adapter.notifySelectionChange(selectedRowKeys, selectedRows);
-            } else if (selectedRowKeys.indexOf(realKey) === -1 && selected === true) {
-                selectedRowKeys.push(realKey);
-                selectedRows = this.getSelectedRows(null, selectedRowKeys);
-                if (!this._selectionIsControlled()) {
-                    this._adapter.setSelectedRowKeys(selectedRowKeys);
+                this._adapter.notifySelectionChange(newSelectedRowKeys, selectedRows);
+            } else {
+                // Original logic for unRelated mode
+                if ((foundIdx = selectedRowKeys.indexOf(realKey)) > -1 && selected === false) {
+                    selectedRowKeys.splice(foundIdx, 1);
+                    selectedRows = this.getSelectedRows(null, selectedRowKeys);
+                    if (!this._selectionIsControlled()) {
+                        this._adapter.setSelectedRowKeys(selectedRowKeys);
+                    }
+                    this._adapter.notifySelect(selectedRow, selected, selectedRows, e);
+                    this._adapter.notifySelectionChange(selectedRowKeys, selectedRows);
+                } else if (selectedRowKeys.indexOf(realKey) === -1 && selected === true) {
+                    selectedRowKeys.push(realKey);
+                    selectedRows = this.getSelectedRows(null, selectedRowKeys);
+                    if (!this._selectionIsControlled()) {
+                        this._adapter.setSelectedRowKeys(selectedRowKeys);
+                    }
+                    this._adapter.notifySelect(selectedRow, selected, selectedRows, e);
+                    this._adapter.notifySelectionChange(selectedRowKeys, selectedRows);
                 }
-                this._adapter.notifySelect(selectedRow, selected, selectedRows, e);
-                this._adapter.notifySelectionChange(selectedRowKeys, selectedRows);
             }
         }
     }
@@ -792,6 +894,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
     handleSelectAllRow(selected: boolean, e: any) {
         this.stopPropagation(e);
         if (typeof selected === 'boolean') {
+            const checkRelation = this._adapter.getCheckRelation();
             const curSelectedRowKeys = this._getSelectedRowKeys();
             let selectedRowKeys = [...curSelectedRowKeys];
             const selectedRowKeysSet = this._getSelectedRowKeysSet();
@@ -800,28 +903,78 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
             const disabledRowKeysSet = this._adapter.getAllDisabledRowKeysSet();
             let changedRowKeys;
 
-            // Select all, if not disabled && not in selectedRowKeys
-            if (selected) {
-                for (const key of allRowKeys) {
-                    if (!disabledRowKeysSet.has(key) && !selectedRowKeysSet.has(key)) {
-                        selectedRowKeys.push(key);
+            if (checkRelation === 'related') {
+                // When checkRelation is 'related', use tree selection logic
+                const keyEntities = this._adapter.getKeyEntities();
+                const halfCheckedRowKeys = [...(this._adapter.getHalfCheckedRowKeys() || [])];
+                // Convert keys to strings for tree utility functions
+                let checkedKeysSet = new Set(selectedRowKeys.map(key => String(key)));
+                let halfCheckedKeysSet = new Set(halfCheckedRowKeys.map(key => String(key)));
+                
+                if (selected) {
+                    // Select all: add all non-disabled keys
+                    const keysToAdd = allRowKeys.filter(key => !disabledRowKeysSet.has(key));
+                    for (const key of keysToAdd) {
+                        const keyStr = String(key);
+                        if (!checkedKeysSet.has(keyStr) && keyEntities && keyEntities[keyStr]) {
+                            const result = calcCheckedKeysForChecked(keyStr, keyEntities, checkedKeysSet, halfCheckedKeysSet);
+                            checkedKeysSet = result.checkedKeys;
+                            halfCheckedKeysSet = result.halfCheckedKeys;
+                        }
                     }
+                    changedRowKeys = keysToAdd;
+                } else {
+                    // Deselect all: remove all keys
+                    const keysToRemove = [...checkedKeysSet];
+                    for (const key of keysToRemove) {
+                        if (keyEntities && keyEntities[key]) {
+                            const result = calcCheckedKeysForUnchecked(key, keyEntities, checkedKeysSet, halfCheckedKeysSet);
+                            checkedKeysSet = result.checkedKeys;
+                            halfCheckedKeysSet = result.halfCheckedKeys;
+                        }
+                    }
+                    changedRowKeys = [...curSelectedRowKeys];
                 }
-                allRowKeys = pullAll(allRowKeys, [...disabledRowKeys, ...curSelectedRowKeys]);
-                changedRowKeys = [...allRowKeys];
+                
+                selectedRowKeys = [...checkedKeysSet];
+                const newHalfCheckedRowKeys = [...halfCheckedKeysSet];
+                const changedRows = this.getSelectedRows(null, changedRowKeys || []);
+                const selectedRows = this.getSelectedRows(null, selectedRowKeys || []);
+
+                // Always update halfCheckedRowKeys state for checkRelation='related' mode
+                // This is needed for rendering the half-checked state in the UI
+                this._adapter.setHalfCheckedRowKeys(newHalfCheckedRowKeys);
+                
+                if (!this._selectionIsControlled()) {
+                    this._adapter.setSelectedRowKeys(selectedRowKeys);
+                }
+                this._adapter.notifySelectAll(selected, selectedRows, changedRows, e);
+                this._adapter.notifySelectionChange(selectedRowKeys, selectedRows);
             } else {
-                selectedRowKeys = pullAll(selectedRowKeys, allRowKeys);
-                changedRowKeys = [...curSelectedRowKeys];
-            }
+                // Original logic for unRelated mode
+                // Select all, if not disabled && not in selectedRowKeys
+                if (selected) {
+                    for (const key of allRowKeys) {
+                        if (!disabledRowKeysSet.has(key) && !selectedRowKeysSet.has(key)) {
+                            selectedRowKeys.push(key);
+                        }
+                    }
+                    allRowKeys = pullAll(allRowKeys, [...disabledRowKeys, ...curSelectedRowKeys]);
+                    changedRowKeys = [...allRowKeys];
+                } else {
+                    selectedRowKeys = pullAll(selectedRowKeys, allRowKeys);
+                    changedRowKeys = [...curSelectedRowKeys];
+                }
 
-            const changedRows = this.getSelectedRows(null, changedRowKeys || []);
-            const selectedRows = this.getSelectedRows(null, selectedRowKeys || []);
+                const changedRows = this.getSelectedRows(null, changedRowKeys || []);
+                const selectedRows = this.getSelectedRows(null, selectedRowKeys || []);
 
-            if (!this._selectionIsControlled()) {
-                this._adapter.setSelectedRowKeys(selectedRowKeys);
+                if (!this._selectionIsControlled()) {
+                    this._adapter.setSelectedRowKeys(selectedRowKeys);
+                }
+                this._adapter.notifySelectAll(selected, selectedRows, changedRows, e);
+                this._adapter.notifySelectionChange(selectedRowKeys, selectedRows);
             }
-            this._adapter.notifySelectAll(selected, selectedRows, changedRows, e);
-            this._adapter.notifySelectionChange(selectedRowKeys, selectedRows);
         }
     }
 
@@ -1088,7 +1241,8 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
      * @param {*} e
      */
     handleSort(column: { dataIndex?: string; sortOrder?: BaseSortOrder } = {}, e: any, check = false) {
-        this.stopPropagation(e);
+        /* Do not call stopPropagation here, otherwise the click event registered via onHeaderCell
+           will be blocked when the click hot area is the whole title (#1861). */
         /* if mouse down to the resizable handle, do not trigger the sorting，fix #2802
             The target of the click event may be different from the target of the mousedown, 
             e.g: Press the mouse, move to another node and then release it，
@@ -1281,5 +1435,20 @@ export interface BaseChangeInfoSorter<RecordType> {
 export type BaseIncludeGroupRecord<RecordType> = RecordType | { groupKey: string };
 
 export type BaseEllipsis = boolean | { showTitle: boolean };
+
+export type CheckRelation = 'related' | 'unRelated';
+
+export interface BaseEntity {
+    key?: string | number;
+    level?: number;
+    children?: BaseEntity[];
+    parent?: BaseEntity | null;
+    data?: Record<string, any>;
+    [key: string]: any
+}
+
+export interface BaseEntitys {
+    [key: string]: BaseEntity
+}
 
 export default TableFoundation;

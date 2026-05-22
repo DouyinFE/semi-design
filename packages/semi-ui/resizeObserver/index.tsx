@@ -1,7 +1,7 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
+import { resolveDOM, getRef } from '../_utils/reactRender';
 
 /** A parallel type to `ResizeObserverEntry` (from resize-observer-polyfill). */
 export interface ResizeEntry {
@@ -69,18 +69,9 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
 
     getElement = () => {
         try {
-            // using findDOMNode for two reasons:
-            // 1. cloning to insert a ref is unwieldy and not performant.
-            // 2. ensure that we resolve to an actual DOM node (instead of any JSX ref instance).
-            
-            /* REACT_18_START */
-            return findDOMNode(this.childNode || this);
-            /* REACT_18_END */
-            /* REACT_19_START */
-            // return this.childNode || null;
-            /* REACT_19_END */
+            const node = this.childNode || this;
+            return resolveDOM(node) || (node instanceof Element ? node : null);
         } catch (error) {
-            // swallow error if findDOMNode is run on unmounted component.
             return null;
         }
     };
@@ -155,12 +146,7 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
 
     render() {
         const child = React.Children.only(this.props.children);
-        /* REACT_18_START */
-        const { ref } = child as any;
-        /* REACT_18_END */
-        /* REACT_19_START */
-        // const { ref } = (child as any).props;
-        /* REACT_19_END */
+        const ref = getRef(child);
         return React.cloneElement(child as React.ReactElement<any>, {
             ref: (node: HTMLDivElement) => this.mergeRef(ref, node),
         });

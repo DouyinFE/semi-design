@@ -47,6 +47,7 @@ export interface TableProps<RecordType extends Record<string, any> = any> extend
     footer?: Footer<RecordType>;
     getVirtualizedListRef?: GetVirtualizedListRef;
     groupBy?: GroupBy<RecordType>;
+    headerStyle?: React.CSSProperties;
     hideExpandedColumn?: boolean;
     id?: string;
     indentSize?: number;
@@ -60,6 +61,8 @@ export interface TableProps<RecordType extends Record<string, any> = any> extend
     rowExpandable?: RowExpandable<RecordType>;
     rowKey?: RowKey<RecordType>;
     rowSelection?: RowSelection<RecordType>;
+    /** Whether to highlight all related rows when hovering over a rowspan cell */
+    rowSpanHover?: boolean;
     scroll?: Scroll;
     showHeader?: boolean;
     size?: Size;
@@ -95,6 +98,8 @@ export interface ColumnProps<RecordType extends Record<string, any> = any> {
     filterDropdownVisible?: boolean;
     filterIcon?: FilterIcon;
     filterMultiple?: boolean;
+    /** filter confirm mode, 'immediate' means filter immediately when clicking option, 'confirm' means filter after clicking confirm button */
+    filterConfirmMode?: FilterConfirmMode;
     filteredValue?: any[];
     /** `filters` is not required if you use `renderFilterDropdown`  */
     filters?: Filter[];
@@ -129,6 +134,7 @@ export type Align = BaseAlign;
 export type SortOrder = BaseSortOrder;
 export type SortIcon = (props: { sortOrder: SortOrder }) => ReactNode;
 export type FilterIcon = boolean | React.ReactNode | FilterIconRenderFunction;
+export type FilterConfirmMode = 'immediate' | 'confirm';
 export interface Filter extends BaseFilter {
     value?: any;
     text?: React.ReactNode;
@@ -171,7 +177,9 @@ export interface FilterDropdownItem {
 export interface RenderOptions {
     expandIcon?: React.ReactNode;
     selection?: React.ReactNode;
-    indentText?: React.ReactNode
+    indentText?: React.ReactNode;
+    /** Whether the current row is being hovered */
+    isHovering?: boolean;
 }
 export interface OnCellReturnObject extends React.TdHTMLAttributes<HTMLElement> {
     [x: string]: any;
@@ -251,6 +259,10 @@ export interface RowSelectionProps<RecordType> {
     selectedRowKeys?: (string | number)[];
     title?: ReactNode;
     width?: string | number;
+    /** Whether to enable click row to select */
+    clickRow?: boolean;
+    /** When set to 'related', parent and child nodes will be associated during selection. Default is 'unRelated' */
+    checkRelation?: CheckRelation;
     onChange?: RowSelectionOnChange<RecordType>;
     onSelect?: RowSelectionOnSelect<RecordType>;
     onSelectAll?: RowSelectionOnSelectAll<RecordType>;
@@ -335,7 +347,7 @@ export interface ChangeInfo<RecordType> {
     extra?: OnChangeExtra
 }
 export type OnChange<RecordType> = (changeInfo: ChangeInfo<RecordType>) => void;
-export type OnRow<RecordType> = (record?: RecordType, index?: number) => OnRowReturnObject;
+export type OnRow<RecordType> = (record?: RecordType, index?: number, rowStatus?: { disabled?: boolean; selected?: boolean }) => OnRowReturnObject;
 export type OnGroupedRow<RecordType> = (record?: RecordType, index?: number) => OnGroupedRowReturnObject;
 export type OnHeaderRow<RecordType> = (columns?: ColumnProps<RecordType>[], index?: number) => OnHeaderRowReturnObject;
 export type OnExpandedRowsChange<RecordType> = (expandedRows?: IncludeGroupRecord<RecordType>[]) => void;
@@ -348,6 +360,8 @@ export type RenderPagination = (paginationProps: TablePaginationProps) => ReactN
 export type RowExpandable<RecordType> = (record?: RecordType) => boolean;
 export type RowKey<RecordType> = BaseRowKeyType | ((record?: RecordType) => string);
 export type RowSelection<RecordType> = RowSelectionProps<RecordType> | boolean;
+
+export type CheckRelation = 'related' | 'unRelated';
 
 export type VirtualizedOnScrollArgs = {
     scrollDirection?: "forward" | "backward";

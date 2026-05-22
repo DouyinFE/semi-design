@@ -161,6 +161,8 @@ module.exports = (env, argv) => {
             "@douyinfe/semi-json-viewer-core": path.join(packagesDir, "semi-json-viewer-core/src"),
             "@douyinfe/semi-theme-default": path.join(packagesDir, "semi-theme-default"),
             "react/jsx-runtime": path.join(require.resolve("react"), "..", "jsx-runtime.js"),
+            "react": path.join(__dirname, "node_modules/react"),
+            "react-dom": path.join(__dirname, "node_modules/react-dom"),
         },
     },
 

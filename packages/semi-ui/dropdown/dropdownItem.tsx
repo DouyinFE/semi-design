@@ -31,7 +31,7 @@ export interface DropdownItemProps extends BaseProps {
 
 const prefixCls = css.PREFIX;
 
-class DropdownItem extends BaseComponent<DropdownItemProps> {
+class DropdownItemInner extends BaseComponent<DropdownItemProps & { innerRef?: React.Ref<HTMLLIElement> }> {
 
     static propTypes = {
         children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
@@ -77,7 +77,8 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
             icon,
             onKeyDown,
             showTick,
-            hover
+            hover,
+            innerRef,
         } = this.props;
         const { showTick: contextShowTick } = this.context;
         const realShowTick = contextShowTick ?? showTick;
@@ -127,7 +128,14 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
         }
         return (
             <li role="menuitem" tabIndex={-1} aria-disabled={disabled} {...events} onKeyDown={onKeyDown}
-                ref={ref => forwardRef(ref)} className={itemclass} style={style} {...this.getDataAttr(this.props)}>
+                ref={(node: HTMLLIElement) => {
+                    forwardRef(node);
+                    if (typeof innerRef === 'function') {
+                        innerRef(node);
+                    } else if (innerRef && typeof innerRef === 'object') {
+                        (innerRef as React.MutableRefObject<HTMLLIElement>).current = node;
+                    }
+                }} className={itemclass} style={style} {...this.getDataAttr(this.props)}>
                 {tick}
                 {iconContent}
                 {children}
@@ -135,6 +143,12 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
         );
     }
 }
+
+const DropdownItem = React.forwardRef<HTMLLIElement, DropdownItemProps>((props, ref) => {
+    return <DropdownItemInner {...props} innerRef={ref} />;
+}) as React.ForwardRefExoticComponent<DropdownItemProps & React.RefAttributes<HTMLLIElement>> & {
+    elementType?: string;
+};
 
 DropdownItem.elementType = 'Dropdown.Item';
 

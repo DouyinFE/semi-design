@@ -34,9 +34,13 @@ function scanDirectory(dir, basePath = '') {
                     require: `./${cjsPath}`
                 };
 
+                const exportKeyCjs = `./lib/cjs/${relativePath}`;
+
                 // 添加带 lib/es 前缀的键
                 exports[exportKey] = exportValue;
-                // 添加不带 lib/es 前缀的键
+                // 添加带 lib/cjs 前缀的键
+                exports[exportKeyCjs] = exportValue;
+                // 添加不带 lib 前缀的键
                 exports[exportKeyNoLib] = exportValue;
             }
             // 递归扫描子目录
@@ -63,21 +67,30 @@ function scanDirectory(dir, basePath = '') {
                     require: `./${cjsPath}`
                 };
 
+                const exportKeyCjsWithExt = `./lib/cjs/${relativePath}`;
+                const exportKeyCjsWithoutExt = `./lib/cjs/${pathWithoutExt}`;
+
                 // 添加带扩展名的键（带 lib/es）
                 exports[exportKeyWithExt] = exportValue;
                 // 添加不带扩展名的键（带 lib/es，如果不同）
                 if (exportKeyWithExt !== exportKeyWithoutExt) {
                     exports[exportKeyWithoutExt] = exportValue;
                 }
-                // 添加不带 lib/es 前缀的键（带扩展名）
+                // 添加带扩展名的键（带 lib/cjs）
+                exports[exportKeyCjsWithExt] = exportValue;
+                // 添加不带扩展名的键（带 lib/cjs，如果不同）
+                if (exportKeyCjsWithExt !== exportKeyCjsWithoutExt) {
+                    exports[exportKeyCjsWithoutExt] = exportValue;
+                }
+                // 添加不带 lib 前缀的键（带扩展名）
                 exports[exportKeyWithExtNoLib] = exportValue;
-                // 添加不带 lib/es 前缀的键（不带扩展名，如果不同）
+                // 添加不带 lib 前缀的键（不带扩展名，如果不同）
                 if (exportKeyWithExtNoLib !== exportKeyWithoutExtNoLib) {
                     exports[exportKeyWithoutExtNoLib] = exportValue;
                 }
             } else if (entry.name.endsWith('.css')) {
-                // 找到 .css 文件，生成导出映射
                 const exportKey = `./lib/es/${relativePath}`;
+                const exportKeyCjs = `./lib/cjs/${relativePath}`;
                 const exportKeyNoLib = `./${relativePath}`;
                 const esPath = `lib/es/${relativePath}`;
                 const cjsPath = `lib/cjs/${relativePath}`;
@@ -88,13 +101,12 @@ function scanDirectory(dir, basePath = '') {
                     default: `./${esPath}`
                 };
 
-                // 添加带 lib/es 前缀的键
                 exports[exportKey] = exportValue;
-                // 添加不带 lib/es 前缀的键
+                exports[exportKeyCjs] = exportValue;
                 exports[exportKeyNoLib] = exportValue;
             } else if (entry.name.endsWith('.scss')) {
-                // 找到 .scss 文件，生成导出映射
                 const exportKey = `./lib/es/${relativePath}`;
+                const exportKeyCjs = `./lib/cjs/${relativePath}`;
                 const exportKeyNoLib = `./${relativePath}`;
                 const esPath = `lib/es/${relativePath}`;
                 const cjsPath = `lib/cjs/${relativePath}`;
@@ -105,9 +117,8 @@ function scanDirectory(dir, basePath = '') {
                     default: `./${esPath}`
                 };
 
-                // 添加带 lib/es 前缀的键
                 exports[exportKey] = exportValue;
-                // 添加不带 lib/es 前缀的键
+                exports[exportKeyCjs] = exportValue;
                 exports[exportKeyNoLib] = exportValue;
             }
         }

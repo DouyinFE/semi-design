@@ -118,7 +118,9 @@ import { SideSheet, RadioGroup, Radio, Button } from '@douyinfe/semi-ui';
 You could set `mask={false}` to continue working on the area outside SideSheet.
 
 <Notice title='Tips'>
-  By default, if you are not setting `getPopupContainer`, SideSheet is rendered inside body. If you want body element to be able to scroll, you could set disableScroll to false and the component will not add `overflow: hidden` to it.
+
+By default, if you are not setting `getPopupContainer`, SideSheet is rendered inside body. If you want body element to be able to scroll, you could set disableScroll to false and the component will not add `overflow: hidden` to it.
+
 </Notice>
 
 ```jsx live=true
@@ -146,7 +148,9 @@ import { SideSheet, Button, TextArea } from '@douyinfe/semi-ui';
 You could use `getPopupContainer` to render SideSheet in targeted DOM. 
 
 <Notice title='Tips'>
-  The container must have `overflow: hidden` to avoid animated SideSheet overflows.
+
+The container must have `overflow: hidden` to avoid animated SideSheet overflows.
+
 </Notice>
 
 ```jsx live=true

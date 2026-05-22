@@ -23,6 +23,7 @@ export interface CollapsibleProps extends CollapsibleFoundationProps {
     className?: string;
     style?: React.CSSProperties;
     collapseHeight?: number;
+    collapseHeightAdaptive?: boolean;
     reCalcKey?: number | string;
     id?: string;
     onMotionEnd?: () => void
@@ -46,6 +47,7 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
         keepDOM: false,
         lazyRender: false,
         collapseHeight: 0,
+        collapseHeightAdaptive: false,
         fade: false
     }) 
     public foundation: CollapsibleFoundation;
@@ -173,10 +175,14 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
     }
 
     render() {
+        const { isOpen, collapseHeight, collapseHeightAdaptive } = this.props;
+        const collapsedHeight = collapseHeightAdaptive 
+            ? Math.min(this.state.domHeight, collapseHeight) 
+            : collapseHeight;
         const wrapperStyle: React.CSSProperties = {
             overflow: 'hidden',
-            height: this.props.isOpen ? this.state.domHeight : this.props.collapseHeight,
-            opacity: (this.props.isOpen || !this.props.fade || this.props.collapseHeight !== 0) ? 1 : 0,
+            height: isOpen ? this.state.domHeight : collapsedHeight,
+            opacity: (isOpen || !this.props.fade || collapseHeight !== 0) ? 1 : 0,
             transitionDuration: `${this.props.motion && this.state.isTransitioning ? this.props.duration : 0}ms`,
             ...this.props.style
         };

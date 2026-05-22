@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Bofya ili ushuke chini',
         ascend: 'Bofya ili upande juu',
         cancelSort: 'Ghairi upangaji',
+        confirmFilter: 'Sawa',
+        resetFilter: 'Weka upya',
     },
     Select: {
         emptyText: 'Hakuna Matokeo',

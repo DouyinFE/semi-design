@@ -7,7 +7,8 @@ class Store<T = Record<string, any>> {
         this._listeners = [];
     }
 
-    subscribe(listener: (state: T) => () => void) {
+    // Listener return value is ignored, but keep type compatible with older signature
+    subscribe(listener: (state: T) => void | (() => void)) {
         this._listeners.push(listener);
         const unsubscribe = () => {
             const index = this._listeners.indexOf(listener);

@@ -105,6 +105,8 @@ const local: Locale = {
         descend: 'Натисни, щоб опуститися',
         ascend: 'Натисни, щоб піднятися',
         cancelSort: 'Скасувати сортування',
+        confirmFilter: 'OK',
+        resetFilter: 'Скинути',
     },
     Select: {
         emptyText: 'Без результату',

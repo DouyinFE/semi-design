@@ -276,6 +276,60 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 };
 ```
 
+### 使用 ref 控制
+通过 `ref` 获取原生 video 元素，可以实现更灵活的控制，例如多个视频同步播放/暂停
+
+```jsx live=true dir="column"
+import React, { useRef } from 'react';
+import { VideoPlayer, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const videoRef1 = useRef();
+    const videoRef2 = useRef();
+    const src = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/landingPage/vchart-show-video.mp4";
+    const poster = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/poster2.jpeg";
+    
+    const handlePlayAll = () => {
+        const v1 = videoRef1.current;
+        const v2 = videoRef2.current;
+        if (v1) v1.play();
+        if (v2) v2.play();
+    };
+    
+    const handlePauseAll = () => {
+        const v1 = videoRef1.current;
+        const v2 = videoRef2.current;
+        if (v1) v1.pause();
+        if (v2) v2.pause();
+    };
+    
+    return (
+        <div>
+            <div style={{ marginBottom: 12 }}>
+                <Button onClick={handlePlayAll} style={{ marginRight: 8 }}>同时播放</Button>
+                <Button onClick={handlePauseAll}>同时暂停</Button>
+            </div>
+            <div style={{ display: 'flex', gap: 12 }}>
+                <VideoPlayer 
+                    ref={videoRef1}
+                    src={src}
+                    poster={poster}
+                    height={315}
+                    width="50%"
+                />
+                <VideoPlayer 
+                    ref={videoRef2}
+                    src={src}
+                    poster={poster}
+                    height={315}
+                    width="50%"
+                />
+            </div>
+        </div>
+    );
+};
+```
+
 ### API
 
 | 属性        | 说明                                        | 类型                                  | 默认值   |
@@ -289,6 +343,7 @@ import { VideoPlayer } from '@douyinfe/semi-ui';
 | defaultPlaybackRate | 默认倍率                            | number                              | 1   |
 | defaultPlaybackRate | 默认视频清晰度                       | string                              | -   |
 | defaultRoute | 默认线路                       | string                              | -   |
+| forwardRef | 传递原生 video 元素的 ref，用于获取原生 video 元素进行更灵活的控制 | React.Ref&lt;HTMLVideoElement&gt; | - |
 | height | 高度                       | string \| number                                    | -   |
 | loop | 是否启用循环播放                                   | boolean                              | false   |
 | markers | 节点标记                                 | Marker[]                              | -   |

@@ -12,6 +12,11 @@ FormUpdaterContext.displayName = 'FormUpdater';
 
 const ArrayFieldContext = React.createContext({
     shouldUseInitValue: true,
+    // Whether the current subtree is rendered inside an <ArrayField/>.
+    // Used by withField to disable `keepState` semantics inside an ArrayField,
+    // because positional field paths (e.g. people[0].name) shift on remove,
+    // which conflicts with the "preserve unmounted state by path" model.
+    inArrayField: false,
 });
 
 export { FormStateContext, FormApiContext, FormUpdaterContext, ArrayFieldContext };

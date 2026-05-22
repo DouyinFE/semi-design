@@ -49,7 +49,14 @@ export interface PaginationProps {
     className?: string;
     hideOnSinglePage?: boolean;
     hoverShowPageSelect?: boolean;
-    disabled?: boolean
+    disabled?: boolean;
+    /**
+     * Whether to prevent automatic adjustment of currentPage when pageSize changes.
+     * When true, changing pageSize will not automatically recalculate the currentPage,
+     * allowing users to handle page changes themselves in onPageSizeChange callback.
+     * @default false
+     */
+    preventPageChangeOnPageSizeChange?: boolean;
 }
 
 export interface PaginationState {
@@ -95,6 +102,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         hoverShowPageSelect: PropTypes.bool,
         showQuickJumper: PropTypes.bool,
         disabled: PropTypes.bool,
+        preventPageChangeOnPageSizeChange: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -113,6 +121,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         hideOnSinglePage: false,
         showQuickJumper: false,
         disabled: false,
+        preventPageChangeOnPageSizeChange: false,
     };
 
     constructor(props: PaginationProps) {

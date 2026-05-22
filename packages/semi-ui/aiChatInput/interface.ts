@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode, ClipboardEvent as ReactClipboardEvent } from "react";
 import { OnChangeProps, UploadProps } from "../upload";
 import { TooltipProps } from "../tooltip";
 import { BaseSkill, Reference, Suggestion, Attachment, Content, Setup, LeftMenuChangeProps, RichTextJSON, MessageContent } from "@douyinfe/semi-foundation/aiChatInput/interface";
@@ -31,11 +31,22 @@ export interface AIChatInputProps {
     style?: React.CSSProperties;
     // Rich text editor related
     placeholder?: PlaceholderProps;
+    /**
+     * Whether to show placeholder when only skill is selected (no other content)
+     * @default false
+     */
+    showPlaceholderWhenSkillOnly?: boolean;
     extensions?: Extensions;
     onContentChange?: (contents: Content[]) => void;
     defaultContent?: TiptapContent;
     onFocus?: (event: React.FocusEvent) => void;
     onBlur?: (event: React.FocusEvent) => void;
+    /**
+     * Listen to paste event on input editor
+     *
+     * Note: This is a clipboard event callback and does not change default paste behavior.
+     */
+    onPaste?: (event: ReactClipboardEvent<HTMLDivElement>) => void;
     // Reference related
     references?: Reference[];
     renderReference?: (reference: Reference) => ReactNode;
@@ -44,6 +55,11 @@ export interface AIChatInputProps {
     // Upload related
     uploadProps?: UploadProps;
     onUploadChange?: (props: OnChangeProps) => void;
+    /**
+     * Customize upload button UI in footer action area,
+     * while keeping built-in upload / paste-upload logic.
+     */
+    renderUploadButton?: (props: RenderUploadButtonProps) => ReactNode;
     // TopSlot related
     renderTopSlot?: (props: RenderTopSlotProps) => ReactNode;
     topSlotPosition?: 'top' | 'middle' | 'bottom';
@@ -82,7 +98,28 @@ export interface AIChatInputProps {
     // Popover related
     popoverProps?: PopoverProps;
     sendHotKey?: 'enter' | 'shift+enter';
-    immediatelyRender?: boolean
+    immediatelyRender?: boolean;
+    /**
+     * Whether to clear input content when generating state changes from false to true
+     * @default true
+     */
+    clearContentOnGenerating?: boolean;
+}
+
+export interface RenderUploadButtonProps {
+    /**
+     * Default upload button node rendered by AIChatInput.
+     * You can wrap/clone it or return a completely custom node.
+     */
+    defaultNode: ReactNode;
+    /**
+     * Open file selector dialog.
+     * Note: Upload wrapper will also open dialog on click by default,
+     * but you can use this when you stop propagation in your custom node.
+     */
+    openFileDialog: () => void;
+    disabled: boolean;
+    attachments: Attachment[];
 }
 
 export interface RenderSuggestionItemProps {

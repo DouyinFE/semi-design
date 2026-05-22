@@ -14,7 +14,8 @@
             "@douyinfe/semi-foundation/*": ["../semi-foundation/*"],
             "@douyinfe/semi-ui/*": ["../semi-ui/*"],
             "@douyinfe/semi-theme-default/*": ["../semi-theme-default/*"],
-            "@douyinfe/semi-icons": ["../semi-icons/src"]
+            "@douyinfe/semi-icons": ["../semi-icons/src"],
+            "@douyinfe/semi-illustrations": ["../semi-illustrations/src"]
         },
         "forceConsistentCasingInFileNames": true,
         "allowSyntheticDefaultImports": true,

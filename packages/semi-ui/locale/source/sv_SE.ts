@@ -110,6 +110,8 @@ const local: Locale = {
         descend: 'Klicka för att sortera fallande',
         ascend: 'Klicka för att sortera stigande',
         cancelSort: 'Avbryt sortering',
+        confirmFilter: 'OK',
+        resetFilter: 'Återställ',
     },
     Select: {
         emptyText: 'Inga resultat hittades',

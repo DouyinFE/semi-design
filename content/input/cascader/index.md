@@ -1229,6 +1229,62 @@ import { Cascader } from '@douyinfe/semi-ui';
 };
 ```
 
+### 点击选中
+
+在多选模式下，默认情况下点击非叶子节点不会触发选中。你可以通过 `clickToSelect` 开启点击任意节点即选中的功能。
+
+这个 API 在配合 `showNext="hover"` 使用时特别有用：鼠标悬浮展开子菜单，点击则选中当前节点。
+
+```jsx live=true
+import React from 'react';
+import { Cascader } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                    ],
+                },
+            ],
+        }
+    ];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            multiple
+            placeholder="请选择所在地区"
+            showNext="hover"
+            clickToSelect
+        />
+    );
+};
+```
+
 ### 在顶部/底部渲染附加项
 
 我们在级联选择器的顶部、底部分别预留了插槽，你可以通过 `topSlot` 或 `bottomSlot` 来设置。
@@ -1685,6 +1741,87 @@ import { Cascader } from '@douyinfe/semi-ui';
 ```
 
 
+### 远程搜索
+
+**v>=2.97.0** 起 Cascader 支持远程搜索。设置 `remote` 后，搜索输入不再走本地匹配，而是仅触发 `onSearch` 回调，由你根据输入异步拉取 `treeData`。这与 Select 的 `remote` 行为一致。
+
+<Notice title='使用说明'>
+
+搜索时建议自行处理以下几点：
+
+- **防抖（debounce）**：避免每次按键都打请求，常见做法是用 `lodash.debounce` 包裹搜索逻辑（如 200~300ms）。
+- **竞态保护**：用一个递增 token 或 `AbortController` 丢弃过期请求结果，避免后发先到时旧响应覆盖新响应。
+- **loading 提示**：在请求期间通过外层 `Spin` 或简单的提示元素告知用户「加载中」，否则用户会看到「暂无数据」误以为无结果。
+- **初始 / 空输入处理**：输入被清空时把 `treeData` 还原为初始数据，避免空查询拉数据。
+
+</Notice>
+
+```jsx live=true
+import React, { useRef, useState, useCallback } from 'react';
+import { Cascader, Spin } from '@douyinfe/semi-ui';
+import { debounce } from 'lodash';
+
+() => {
+    const [treeData, setTreeData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    // 用 ref 保存最新一次请求的 token，丢弃过期响应
+    const reqTokenRef = useRef(0);
+
+    // 模拟远程搜索接口
+    const fetchByKeyword = (keyword) =>
+        new Promise((resolve) => {
+            const delay = 200 + Math.floor(Math.random() * 800);
+            setTimeout(() => {
+                if (!keyword) {
+                    resolve([]);
+                    return;
+                }
+                resolve([
+                    { label: `${keyword} - 选项 A`, value: `${keyword}-a` },
+                    { label: `${keyword} - 选项 B`, value: `${keyword}-b` },
+                    { label: `${keyword} - 选项 C`, value: `${keyword}-c` },
+                ]);
+            }, delay);
+        });
+
+    const handleSearch = useCallback(
+        debounce((input) => {
+            if (!input) {
+                setTreeData([]);
+                setLoading(false);
+                return;
+            }
+            const token = ++reqTokenRef.current;
+            setLoading(true);
+            fetchByKeyword(input).then((next) => {
+                // 后发先到时直接丢弃过期结果
+                if (token !== reqTokenRef.current) {
+                    return;
+                }
+                setTreeData(next);
+                setLoading(false);
+            });
+        }, 300),
+        []
+    );
+
+    return (
+        <Spin spinning={loading}>
+            <Cascader
+                style={{ width: 300 }}
+                placeholder="输入关键词远程搜索"
+                filterTreeNode
+                remote
+                treeData={treeData}
+                onSearch={handleSearch}
+                onChange={(v) => console.log('selected:', v)}
+            />
+        </Spin>
+    );
+};
+```
+
+
 ### 超长列表
 
 当你的数据结构层级特别深时，Cascader下拉菜单可能会超出屏幕，此时我们建议为下拉菜单设置 overflow-x: auto 以及一个合适的 width 宽度（ 建议以N+0.5列的宽度为准，最右侧显示半列，以给用户一种右侧尚有待展开项，可以水平方向滚动的视觉暗示）
@@ -1935,6 +2072,7 @@ function Demo() {
 | position             | 方向，可选值：`top`,`topLeft`,`topRight`,`left`,`leftTop`,`leftBottom`,`right`,`rightTop`,`rightBottom`,`bottom`,`bottomLeft`,`bottomRight`                | string                                                                                    | `bottom`                       | 2.16.0 |
 | prefix               | 前缀标签                                                                                                                                                | ReactNode                                                                                 | -                              | - |
 | preventScroll        | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                                                                              | boolean                                                                                   | -                              | 2.15.0 |
+| remote               | 是否开启远程搜索。开启后，搜索输入时不再做本地过滤，仅触发 `onSearch` 回调，由用户根据输入异步更新 `treeData` 来展示远程搜索结果，行为与 Select 的 remote 一致                                       | boolean                                                                                   | false                          | 2.97.0 |
 | restTagsPopoverProps | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83)                                            | PopoverProps                                                                              | {}                             | - |
 | searchPlaceholder    | 搜索框默认文字                                                                                                                                             | string                                                                                    | -                              | -      |
 | searchPosition | 设置搜索框的位置，可选: `trigger`、`custom` | string| `trigger` | 2.54.0 |
@@ -1955,6 +2093,7 @@ function Demo() {
 | value                | （受控）选中的条目                                                                                                                                           | string\|number\|CascaderData\|(string\|number\|CascaderData)[]                            | -                              | -      |
 | virtualizeInSearch   | 搜索列表虚拟化，用于大量树节点的情况，由 height, width, itemSize 组成 | Object | - | - | - |
 | zIndex               | 下拉菜单的 zIndex                                                                                                                                        | number                                                                                    | 1030                           | -      |
+| clickToSelect        | 多选时，点击任意节点即可触发选中，常配合 showNext="hover" 使用，悬浮展开子菜单，点击选中当前节点                                                                              | boolean                                                                                   | false                          | -      |
 | enableLeafClick      | 多选时，是否启动点击叶子节点选项触发勾选                                                                                                                                | boolean                                                                                   | false                          | 2.2.0  |
 | onBlur               | 失焦 Cascader 的回调                                                                                                                                     | (e: MouseEvent) => void                                                                   | -                              | -      |
 | onChange | 选中树节点时调用此函数，默认返回选中项 path 的 value 数组                                                                                                                 | (value: string\|number\| CascaderData |(string\|number\|CascaderData)[]) => void | - | - |

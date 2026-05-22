@@ -112,6 +112,8 @@ const local: Locale = {
         descend: 'Klik om af te dalen',
         ascend: 'Klik om op te stijgen',
         cancelSort: 'Sorteren annuleren',
+        confirmFilter: 'OK',
+        resetFilter: 'Resetten',
     },
     Select: {
         emptyText: 'Geen resultaten gevonden',

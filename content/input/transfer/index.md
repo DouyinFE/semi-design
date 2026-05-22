@@ -279,6 +279,84 @@ import { Transfer } from '@douyinfe/semi-ui';
 };
 ```
 
+### 左侧分页
+
+当左侧选项较多时，可以通过 `pagination` 属性开启分页功能。v2.68.0 后支持。
+
+`pagination` 接收一个对象，包含以下属性：
+- `pageSize`: 每页显示的条数，默认为 10
+- `currentPage`: 当前页码（受控模式）
+- `defaultCurrentPage`: 默认当前页码（非受控模式）
+- `onPageChange`: 页码变化时的回调
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Transfer } from '@douyinfe/semi-ui';
+
+() => {
+    const data = Array.from({ length: 100 }, (v, i) => {
+        return {
+            label: `选项名称 ${i}`,
+            value: i,
+            disabled: false,
+            key: `key-${i}`,
+        };
+    });
+    return (
+        <Transfer
+            style={{ width: 568, height: 416 }}
+            dataSource={data}
+            pagination={{
+                pageSize: 10,
+            }}
+            onChange={(values, items) => console.log(values, items)}
+        />
+    );
+};
+```
+
+### 左侧分页 + 受控页码
+
+通过 `pagination.currentPage` 可以受控地设置当前页码。
+
+```jsx live=true dir="column"
+import React, { useState } from 'react';
+import { Transfer, ButtonGroup, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const data = Array.from({ length: 100 }, (v, i) => {
+        return {
+            label: `选项名称 ${i}`,
+            value: i,
+            disabled: false,
+            key: `key-${i}`,
+        };
+    });
+    return (
+        <div>
+            <ButtonGroup style={{ marginBottom: 12 }}>
+                <Button onClick={() => setCurrentPage(1)}>第1页</Button>
+                <Button onClick={() => setCurrentPage(2)}>第2页</Button>
+                <Button onClick={() => setCurrentPage(5)}>第5页</Button>
+                <Button onClick={() => setCurrentPage(10)}>第10页</Button>
+            </ButtonGroup>
+            <div>当前页码: {currentPage}</div>
+            <Transfer
+                style={{ width: 568, height: 416 }}
+                dataSource={data}
+                pagination={{
+                    pageSize: 10,
+                    currentPage,
+                    onPageChange: (page) => setCurrentPage(page),
+                }}
+                onChange={(values, items) => console.log(values, items)}
+            />
+        </div>
+    );
+};
+```
+
 ### 拖拽 + 自定义已选项渲染
 
 将 `draggable`设为 true，开启拖拽排序功能;使用 `renderSelectedItem` 自定义右侧已选项渲染；   
@@ -372,7 +450,8 @@ type SourceHeaderProps = {
     num: number; // 数据总数或筛选结果数目
     showButton: boolean; // 是否展示全选/取消全选按钮
     allChecked: boolean; // 当前数据是否已全选
-    onAllClick: () => void // 点击全选/取消全选按钮后应调用的函数
+    onAllClick: () => void; // 点击全选/取消全选按钮后应调用的函数
+    leafOnlyNum?: number; // 仅在 type 为 treeList 时有效，表示叶子节点数量 >=2.94.0
 }
 
 type SelectedHeaderProps = {
@@ -1271,6 +1350,123 @@ import { Transfer } from '@douyinfe/semi-ui';
 };
 ```
 
+### 树穿梭框自定义头部显示叶子节点数量
+
+当 type 为 `treeList` 时，`renderSourceHeader` 的 `SourceHeaderProps` 参数中会额外提供 `leafOnlyNum` 字段，表示叶子节点的数量。这在文件选择等场景中非常有用，可以在头部只显示文件数量而不是包含文件夹的总数。
+
+```jsx live=true dir="column"
+import React, { useState } from 'react';
+import { Transfer, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: '文件夹 1',
+            value: 'folder1',
+            key: 'folder1',
+            children: [
+                {
+                    label: '文件 1-1',
+                    value: 'file1-1',
+                    key: 'file1-1',
+                },
+                {
+                    label: '文件 1-2',
+                    value: 'file1-2',
+                    key: 'file1-2',
+                },
+                {
+                    label: '子文件夹 1',
+                    value: 'subfolder1',
+                    key: 'subfolder1',
+                    children: [
+                        {
+                            label: '文件 1-1-1',
+                            value: 'file1-1-1',
+                            key: 'file1-1-1',
+                        },
+                        {
+                            label: '文件 1-1-2',
+                            value: 'file1-1-2',
+                            key: 'file1-1-2',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: '文件夹 2',
+            value: 'folder2',
+            key: 'folder2',
+            children: [
+                {
+                    label: '文件 2-1',
+                    value: 'file2-1',
+                    key: 'file2-1',
+                },
+                {
+                    label: '文件 2-2',
+                    value: 'file2-2',
+                    key: 'file2-2',
+                },
+            ],
+        },
+        {
+            label: '独立文件',
+            value: 'file3',
+            key: 'file3',
+        },
+    ];
+
+    const [value, setValue] = useState([]);
+
+    const renderSourceHeader = (props) => {
+        const { num, leafOnlyNum, showButton, allChecked, onAllClick } = props;
+        
+        return (
+            <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                padding: '8px 12px',
+                borderBottom: '1px solid var(--semi-color-border)'
+            }}>
+                <span>
+                    <strong>文件总数：</strong>
+                    {leafOnlyNum !== undefined ? leafOnlyNum : num} 个文件
+                    {leafOnlyNum !== undefined && (
+                        <span style={{ color: 'var(--semi-color-text-2)', marginLeft: 8, fontSize: 12 }}>
+                            （总节点数：{num}）
+                        </span>
+                    )}
+                </span>
+                {showButton && (
+                    <Button
+                        theme="borderless"
+                        type="tertiary"
+                        size="small"
+                        onClick={onAllClick}
+                    >
+                        {allChecked ? '取消全选' : '全选'}
+                    </Button>
+                )}
+            </div>
+        );
+    };
+
+    return (
+        <Transfer
+            style={{ width: 600 }}
+            dataSource={treeData}
+            type="treeList"
+            value={value}
+            onChange={setValue}
+            renderSourceHeader={renderSourceHeader}
+        />
+    );
+};
+```
+
 ## Accessibility
 
 ### ARIA
@@ -1295,10 +1491,11 @@ import { Transfer } from '@douyinfe/semi-ui';
 | loading | 是否正在加载左侧选项 | boolean | - |  |
 | onChange | 选中值发生变化时触发的回调, 拖拽排序变化后也会触发该回调 | (values: Array<string\|number>, items: Array<Item\>) => void |  |  |
 | onDeselect | 取消勾选时的回调 | (item: Item) => void | |  |
-| onSearch | 搜索框输入内容变化时调用 | (inputValue: string) => void | |  |
-| onSelect | 勾选时的回调 | (item: Item) => void | |  |
+| onSearch | 搜索框输入内容变化时调用 | (inputValue: string) => void | | |
+| onSelect | 勾选时的回调 | (item: Item) => void | | |
+| pagination | 左侧面板分页配置，仅对 `list` 和 `groupList` 类型生效 | PaginationProps |  | 2.68.0 |
 | renderSelectedHeader | 自定义右侧面板头部信息的渲染 | (props: SelectedHeaderProps) => ReactNode |  | 2.29.0 |
-| renderSelectedItem | 自定义右侧单个已选项的渲染 | (item: { onRemove, sortableHandle } & Item) => ReactNode |  |  |
+| renderSelectedItem | 自定义右侧单个已选项的渲染；当 `type="treeList"` 且 `showPath` 为 `true` 时，可通过 `item.fullPath` 获取完整路径 | (item: { onRemove, sortableHandle } & Item) => ReactNode |  |  |
 | renderSelectedPanel | 自定义右侧已选面板的渲染 | (selectedPanelProps) => ReactNode |  | - |
 | renderSourceHeader | 自定义左侧面板头部信息的渲染 | (props: SourceHeaderProps) => ReactNode |  | 2.29.0 |
 | renderSourceItem | 自定义左侧单个候选项的渲染 | (item: { onChange, checked } & Item) => ReactNode |  |  |
@@ -1307,6 +1504,7 @@ import { Transfer } from '@douyinfe/semi-ui';
 | style | 内联样式 | CSSProperties |  |  |
 | treeProps | 当 type 为`treeList`时，可作为 TreeProps 传入左侧的 Tree 组件 | [TreeProps](/zh-CN/navigation/tree#Tree) | | - |
 | type | Transfer 类型，可选`list`，`groupList`，`treeList` | string | 'list' | - |
+| virtualize | 右侧已选列表虚拟化，仅在默认右侧面板渲染且 `draggable` 为 `false` 时生效 | VirtualizeProps |  | 2.97.0 |
 | value | 已选中值，传入该项时，将作为受控组件使用 | Array<string\|number> |  |  |
 
 ### Item Interface
@@ -1317,6 +1515,7 @@ import { Transfer } from '@douyinfe/semi-ui';
 | disabled  | 是否禁用                             | boolean          | false  |
 | key       | 必填，每个选项的唯一标识，不允许重复 | string \| number          |        |
 | label     | 选项展示内容                         | ReactNode        |        |
+| fullPath  | 当 `type="treeList"` 且 `showPath` 为 `true` 时，返回当前节点从根节点到自身的完整路径节点数组 | Array<Item\> |        |
 | style     | 内联样式                             | CSSProperties           |        |
 | value     | 选项代表的值                         | string \| number |        |
 
@@ -1336,6 +1535,23 @@ TreeItem 继承 Item 的所有属性
 | 属性     | 说明   | 类型             | 默认值 |
 | -------- | ------ | ---------------- | ------ |
 | children | 子元素 | Array<TreeItem\> |        |
+
+### VirtualizeProps Interface
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| height | 虚拟列表高度，传入 `number` 则直接生效，传入 `string`（如 `100%`）则根据剩余高度自适应 | number \| string | |
+| width | 虚拟列表宽度 | number \| string | |
+| itemSize | 每行高度（固定） | number | |
+
+### PaginationProps Interface
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| currentPage | 当前页码（受控模式） | number | |
+| defaultCurrentPage | 默认当前页码（非受控模式） | number | 1 |
+| pageSize | 每页显示条数 | number | 10 |
+| onPageChange | 页码变化时的回调 | (currentPage: number) => void | |
 
 ## Methods
 绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互

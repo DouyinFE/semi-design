@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { isEqual, noop, omit, isEmpty, isArray, pick } from 'lodash';
 import TransferFoundation, { TransferAdapter, BasicDataItem, OnSortEndProps } from '@douyinfe/semi-foundation/transfer/foundation';
 import { _generateDataByType, _generateSelectedItems } from '@douyinfe/semi-foundation/transfer/transferUtils';
-import { cssClasses, strings } from '@douyinfe/semi-foundation/transfer/constants';
+import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/transfer/constants';
 import '@douyinfe/semi-foundation/transfer/transfer.scss';
 import BaseComponent from '../_base/baseComponent';
 import LocaleConsumer from '../locale/localeConsumer';
@@ -14,12 +14,21 @@ import Input, { InputProps } from '../input/index';
 import Spin from '../spin';
 import Button from '../button';
 import Tree from '../tree';
+import Pagination from '../pagination';
 import { IconClose, IconSearch, IconHandle } from '@douyinfe/semi-icons';
 import { Value as TreeValue, TreeProps } from '../tree/interface';
 import { RenderItemProps, Sortable } from '../_sortable';
 import { verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { FixedSizeList as VirtualList } from 'react-window';
+import AutoSizer from '../tree/autoSizer';
 
 export interface DataItem extends BasicDataItem {
+    label?: React.ReactNode;
+    style?: React.CSSProperties;
+    fullPath?: Array<FullPathItem>
+}
+
+export interface FullPathItem extends BasicDataItem {
     label?: React.ReactNode;
     style?: React.CSSProperties
 }
@@ -40,7 +49,11 @@ export interface RenderSourceItemProps extends DataItem {
 
 export interface RenderSelectedItemProps extends DataItem {
     onRemove?: () => void;
-    sortableHandle?: any
+    sortableHandle?: any;
+    /**
+     * The full path of the node in treeList mode (only available when showPath is true)
+     */
+    fullPath?: Array<FullPathItem>;
 }
 
 export interface EmptyContent {
@@ -96,6 +109,26 @@ export interface SelectedPanelProps {
     onSortEnd: OnSortEnd
 }
 
+export interface VirtualizeProps {
+    /* Height of virtualized list */
+    height?: number | string;
+    /* Width of virtualized list */
+    width?: number | string;
+    /* Size of each item in the virtualized list */
+    itemSize: number
+}
+
+export interface PaginationProps {
+    /** Current page number (controlled) */
+    currentPage?: number;
+    /** Default current page number (uncontrolled) */
+    defaultCurrentPage?: number;
+    /** Number of items per page */
+    pageSize?: number;
+    /** Callback when page changes */
+    onPageChange?: (currentPage: number) => void;
+}
+
 export interface ResolvedDataItem extends DataItem {
     _parent?: {
         title: string
@@ -118,14 +151,16 @@ interface HeaderConfig {
     type: string;
     showButton: boolean;
     num: number;
-    allChecked?: boolean
+    allChecked?: boolean;
+    leafOnlyNum?: number;
 }
 
 type SourceHeaderProps = {
     num: number;
     showButton: boolean;
     allChecked: boolean;
-    onAllClick: () => void
+    onAllClick: () => void;
+    leafOnlyNum?: number;
 }
 
 type SelectedHeaderProps = {
@@ -138,7 +173,8 @@ export interface TransferState {
     data: Array<ResolvedDataItem>;
     selectedItems: Map<number | string, ResolvedDataItem>;
     searchResult: Set<number | string>;
-    inputValue: string
+    inputValue: string;
+    leftCurrentPage: number;
 }
 
 export interface TransferProps {
@@ -156,6 +192,9 @@ export interface TransferProps {
     treeProps?: Omit<TreeProps, 'value' | 'ref' | 'onChange'>;
     showPath?: boolean;
     loading?: boolean;
+    virtualize?: VirtualizeProps;
+    /** Pagination configuration for left panel */
+    pagination?: PaginationProps;
     onChange?: (values: Array<string | number>, items: Array<DataItem>) => void;
     onSelect?: (item: DataItem) => void;
     onDeselect?: (item: DataItem) => void;
@@ -197,6 +236,13 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         renderSourcePanel: PropTypes.func,
         renderSelectedPanel: PropTypes.func,
         draggable: PropTypes.bool,
+        virtualize: PropTypes.object,
+        pagination: PropTypes.shape({
+            currentPage: PropTypes.number,
+            defaultCurrentPage: PropTypes.number,
+            pageSize: PropTypes.number,
+            onPageChange: PropTypes.func,
+        }),
     };
 
     static defaultProps = {
@@ -216,13 +262,14 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
     constructor(props: TransferProps) {
         super(props);
-        const { defaultValue = [], dataSource, type } = props;
+        const { defaultValue = [], dataSource, type, pagination } = props;
         this.foundation = new TransferFoundation<TransferProps, TransferState>(this.adapter);
         this.state = {
             data: [],
             selectedItems: new Map(),
             searchResult: new Set(),
             inputValue: '',
+            leftCurrentPage: pagination?.defaultCurrentPage ?? pagination?.currentPage ?? 1,
         };
         if (Boolean(dataSource) && isArray(dataSource)) {
             // @ts-ignore Avoid reporting errors this.state.xxx is read-only
@@ -236,10 +283,11 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         this.onSelectOrRemove = this.onSelectOrRemove.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
         this.onSortEnd = this.onSortEnd.bind(this);
+        this.handleLeftPageChange = this.handleLeftPageChange.bind(this);
     }
 
     static getDerivedStateFromProps(props: TransferProps, state: TransferState) {
-        const { value, dataSource, type, filter } = props;
+        const { value, dataSource, type, filter, pagination } = props;
         const mergedState = {} as TransferState;
         let newData = state.data;
         let newSelectedItems = state.selectedItems;
@@ -260,6 +308,11 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 const searchResult = new Set(searchData.map(item => item.key));
                 mergedState.searchResult = searchResult;
             }
+        }
+
+        // Handle controlled pagination
+        if (pagination && typeof pagination.currentPage === 'number') {
+            mergedState.leftCurrentPage = pagination.currentPage;
         }
 
         return isEmpty(mergedState) ? null : mergedState;
@@ -285,19 +338,30 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 this.props.onDeselect(item);
             },
             updateInput: input => {
-                this.setState({ inputValue: input });
+                // Reset page to 1 when search input changes
+                this.setState({ inputValue: input, leftCurrentPage: 1 });
             },
             updateSearchResult: searchResult => {
                 this.setState({ searchResult });
             },
             searchTree: keyword => {
                 this._treeRef && (this._treeRef as any).search(keyword); // TODO check this._treeRef.current?
-            }
+            },
+            updateCurrentPage: currentPage => {
+                this.setState({ leftCurrentPage: currentPage });
+            },
+            notifyPageChange: currentPage => {
+                this.props.pagination?.onPageChange?.(currentPage);
+            },
         };
     }
 
     onInputChange(value: string) {
         this.foundation.handleInputChange(value, true);
+    }
+
+    handleLeftPageChange(currentPage: number) {
+        this.foundation.handlePageChange(currentPage);
     }
 
     search(value: string) {
@@ -344,8 +408,8 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         });
 
         if (type === 'left' && typeof renderSourceHeader === 'function') {
-            const { num, showButton, allChecked, onAllClick } = headerConfig;
-            return renderSourceHeader({ num, showButton, allChecked, onAllClick });
+            const { num, showButton, allChecked, onAllClick, leafOnlyNum } = headerConfig;
+            return renderSourceHeader({ num, showButton, allChecked, onAllClick, leafOnlyNum });
         }
         
         if (type === 'right' && typeof renderSelectedHeader === 'function') {
@@ -399,12 +463,22 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     }
 
     renderLeft(locale: Locale['Transfer']) {
-        const { data, selectedItems, inputValue, searchResult } = this.state;
-        const { loading, type, emptyContent, renderSourcePanel, dataSource } = this.props;
+        const { data, selectedItems, inputValue, searchResult, leftCurrentPage } = this.state;
+        const { loading, type, emptyContent, renderSourcePanel, dataSource, pagination } = this.props;
         const totalToken = locale.total;
         const inSearchMode = inputValue !== '';
         const showNumber = inSearchMode ? searchResult.size : data.length;
         const filterData = inSearchMode ? data.filter(item => searchResult.has(item.key)) : data;
+        
+        // Calculate leaf node count for treeList mode
+        let leafOnlyNum: number | undefined;
+        if (type === strings.TYPE_TREE_TO_LIST) {
+            const leafData = inSearchMode 
+                ? filterData.filter((item: any) => item.isLeaf) 
+                : data.filter((item: any) => item.isLeaf);
+            leafOnlyNum = leafData.length;
+        }
+        
         // Whether to select all should be a judgment, whether the filtered data on the left is a subset of the selected items
         // For example, the filtered data on the left is 1, 3, 4;
         // The selected option is 1,2,3,4, it is true
@@ -430,7 +504,8 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             type: 'left',
             showButton: type !== strings.TYPE_TREE_TO_LIST && !filterDataAllDisabled,
             num: showNumber,
-            allChecked: !leftContainsNotInSelected
+            allChecked: !leftContainsNotInSelected,
+            leafOnlyNum
         };
         const inputCom = this.renderFilter(locale);
         const headerCom = this.renderHeader(headerConfig);
@@ -441,6 +516,15 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         const emptySearchCom = this.renderEmpty('left', emptySearch);
 
         const loadingCom = <Spin />;
+
+        // Calculate pagination
+        const pageSize = pagination?.pageSize ?? numbers.DEFAULT_PAGE_SIZE;
+        const hasPagination = Boolean(pagination);
+        const currentPage = leftCurrentPage;
+        const totalPage = Math.ceil(filterData.length / pageSize);
+        const startIndex = (currentPage - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const paginatedData = hasPagination ? filterData.slice(startIndex, endIndex) : filterData;
 
         let content: React.ReactNode = null;
         switch (true) {
@@ -465,7 +549,17 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 content = (
                     <>
                         {headerCom}
-                        {this.renderLeftList(filterData)}
+                        {this.renderLeftList(paginatedData)}
+                        {hasPagination && totalPage > 1 && (
+                            <div className={`${prefixCls}-left-pagination`}>
+                                <Pagination
+                                    total={filterData.length}
+                                    currentPage={currentPage}
+                                    pageSize={pageSize}
+                                    onPageChange={this.handleLeftPageChange}
+                                />
+                            </div>
+                        )}
                     </>
                 );
                 break;
@@ -564,6 +658,17 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         return <div className={`${prefixCls}-left-list`} role="list" aria-label="Option list">{content}</div>;
     }
 
+    getFullPath(item: ResolvedDataItem): Array<FullPathItem> | undefined {
+        const { type, showPath } = this.props;
+        const shouldShowPath = type === strings.TYPE_TREE_TO_LIST && showPath === true;
+
+        if (!shouldShowPath || !Array.isArray(item.path)) {
+            return undefined;
+        }
+
+        return item.path.map((pathItem: FullPathItem) => ({ ...pathItem }));
+    }
+
     renderRightItem = (item: ResolvedDataItem, sortableHandle?: any): React.ReactNode => {
         const { renderSelectedItem, draggable, type, showPath } = this.props;
         const onRemove = () => this.foundation.handleSelectOrRemove(item);
@@ -573,11 +678,12 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             [`${prefixCls}-right-item-draggable`]: draggable
         });
         const shouldShowPath = type === strings.TYPE_TREE_TO_LIST && showPath === true;
+        const fullPath = this.getFullPath(item);
 
         const label = shouldShowPath ? this.foundation._generatePath(item) : item.label;
 
         if (renderSelectedItem) {
-            return renderSelectedItem({ ...item, onRemove, sortableHandle });
+            return renderSelectedItem({ ...item, fullPath, onRemove, sortableHandle });
         }
 
         const DragHandle = sortableHandle && sortableHandle(() => (
@@ -630,10 +736,87 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         return sortList;
     }
 
+    renderVirtualizedSelectedList(selectedData: Array<ResolvedDataItem>) {
+        const { virtualize } = this.props;
+        if (!virtualize || isEmpty(virtualize)) {
+            return null;
+        }
+        const { height, width, itemSize } = virtualize;
+
+        // Keep item identity stable when removing/inserting items.
+        // Otherwise react-window may reuse DOM nodes by index and cause visual glitches.
+        const itemKey = (index: number) => {
+            const item = selectedData[index];
+            return item?.key ?? index;
+        };
+
+        // Add semantics back to the scroll container (react-window renders divs by default).
+        const OuterElement = React.forwardRef<HTMLDivElement, any>((props: any, ref) => (
+            <div {...props} ref={ref} role="list" aria-label="Selected list" />
+        ));
+
+        const listCls = `${prefixCls}-right-list ${prefixCls}-right-virtual-list`;
+
+        // Virtual list item renderer
+        const VirtualizedItem = ({ index, style }: { index: number; style: React.CSSProperties }) => {
+            const item = selectedData[index];
+            return (
+                <div role="presentation" style={style}>
+                    {this.renderRightItem(item)}
+                </div>
+            );
+        };
+
+        // Use AutoSizer to automatically calculate height if height is not specified or is percentage
+        if (typeof height !== 'number') {
+            return (
+                <div style={{ flexGrow: 1, minHeight: 0 }}>
+                    <AutoSizer defaultHeight={height} defaultWidth={width}>
+                        {({ height: autoHeight, width: autoWidth }: { height: string | number; width: string | number }) => (
+                            <VirtualList
+                                height={autoHeight}
+                                // Keep consistent with existing TreeSelect usage: AutoSizer width may be string (e.g. '100%').
+                                // @ts-ignore react-window typing expects number but runtime can handle CSS width strings.
+                                width={autoWidth}
+                                itemCount={selectedData.length}
+                                itemSize={itemSize}
+                                itemKey={itemKey}
+                                className={listCls}
+                                // @ts-ignore react-window typing is too strict for custom outer element
+                                outerElementType={OuterElement}
+                            >
+                                {VirtualizedItem}
+                            </VirtualList>
+                        )}
+                    </AutoSizer>
+                </div>
+            );
+        }
+
+        // Directly use VirtualList with specified height
+        return (
+            <VirtualList
+                height={height}
+                width={width || '100%'}
+                itemCount={selectedData.length}
+                itemSize={itemSize}
+                itemKey={itemKey}
+                className={listCls}
+                // @ts-ignore react-window typing is too strict for custom outer element
+                outerElementType={OuterElement}
+            >
+                {VirtualizedItem}
+            </VirtualList>
+        );
+    }
+
     renderRight(locale: Locale['Transfer']) {
         const { selectedItems } = this.state;
-        const { emptyContent, renderSelectedPanel, draggable } = this.props;
-        const selectedData = [...selectedItems.values()];
+        const { emptyContent, renderSelectedPanel, draggable, virtualize } = this.props;
+        const selectedData = [...selectedItems.values()].map(item => ({
+            ...item,
+            fullPath: this.getFullPath(item)
+        }));
 
         // when custom render panel
         const renderProps: SelectedPanelProps = {
@@ -663,12 +846,20 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
         let content = null;
 
+        // Check if virtualization should be used
+        const shouldVirtualize = virtualize && !isEmpty(virtualize);
+
         switch (true) {
             // when empty
             case !selectedData.length:
                 content = emptyCom;
                 break;
-            case selectedData.length && !draggable:
+            // Use virtualized list when virtualize prop is provided
+            case shouldVirtualize && selectedData.length && !draggable:
+                content = this.renderVirtualizedSelectedList(selectedData);
+                break;
+            // Use normal list
+            case !shouldVirtualize && selectedData.length && !draggable:
                 const list = (
                     <div className={`${prefixCls}-right-list`} role="list" aria-label="Selected list">
                         {selectedData.map(item => this.renderRightItem({ ...item }))}
@@ -676,6 +867,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 );
                 content = list;
                 break;
+            // Use sortable list when draggable is true
             case selectedData.length && draggable:
                 content = this.renderRightSortableList(selectedData);
                 break;

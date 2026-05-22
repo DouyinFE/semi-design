@@ -300,6 +300,49 @@ import { TextArea } from '@douyinfe/semi-ui';
 );
 ```
 
+### 设置 TextArea 高度
+
+通过 `textareaStyle` 可以设置内部 textarea 元素的样式，如高度、背景色等。
+
+```jsx live=true
+import React from 'react';
+import { TextArea } from '@douyinfe/semi-ui';
+
+() => (
+    <div>
+        <TextArea textareaStyle={{ height: 120 }} placeholder="高度 120px" />
+        <br/><br/>
+        <TextArea textareaStyle={{ height: 200, backgroundColor: '#f9f9f9' }} placeholder="高度 200px，灰色背景" />
+        <br/><br/>
+        <TextArea 
+            style={{ border: '2px solid var(--semi-color-primary)' }} 
+            textareaStyle={{ height: 150 }} 
+            placeholder="style 控制外层容器，textareaStyle 控制 textarea" 
+        />
+    </div>
+);
+```
+
+### 行号
+
+通过设置 `showLineNumber` 展示行号。可用 `lineNumberStart` 设置起始行号，或通过 `lineNumberStyle`/`lineNumberClassName` 自定义行号区样式。
+
+```jsx live=true
+import React from 'react';
+import { TextArea } from '@douyinfe/semi-ui';
+
+() => (
+    <TextArea
+        showLineNumber
+        lineNumberStart={1}
+        defaultValue={'Line 1\nLine 2\n这是一行较长的文本，用来演示软换行时的行号对齐效果。\nLine 4\nLine 5'}
+        rows={12}
+        style={{ width: 420 }}
+        lineNumberStyle={{ color: 'var(--semi-color-text-2)' }}
+    />
+);
+```
+
 ### 使用 Shift + Enter 换行的多行输入框
 TextArea 默认情况下 Enter 回车与 Shift + Enter 均可实现换行  
 通过适当的事件监听与禁用默认行为，你可以实现禁用 Enter 换行，仅 Shift + Enter 才能换行
@@ -429,6 +472,62 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 
 > 为何不动态修改 maxLength？动态修改 maxLength 在输入操作完成以后，计算剩余可以输入的字符长度。 如 maxLength 设置为 1，想输入一个 length 为 2 的 '💖'，但是由于 input maxLength 的限制，这里根本就输入不进去，也就无法更新 maxLength。
 
+### 输入法模式
+
+通过设置 `composition` 属性为 `true`，可以开启输入法模式。在该模式下，使用输入法（如中文拼音）输入时，`onChange` 不会在输入法未确认（如拼音过程中）触发，而是在输入法确认后触发一次。适用于实时搜索等场景，避免在拼音输入过程中触发不必要的请求。
+
+Input 和 TextArea 均支持该属性。
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Input, TextArea } from '@douyinfe/semi-ui';
+
+() => {
+    const [inputValue, setInputValue] = useState('');
+    const [textAreaValue, setTextAreaValue] = useState('');
+    const [inputLogs, setInputLogs] = useState([]);
+    const [textAreaLogs, setTextAreaLogs] = useState([]);
+
+    const handleInputChange = (value) => {
+        setInputValue(value);
+        setInputLogs(prev => [...prev, value]);
+    };
+
+    const handleTextAreaChange = (value) => {
+        setTextAreaValue(value);
+        setTextAreaLogs(prev => [...prev, value]);
+    };
+
+    return (
+        <div>
+            <h4>Input with composition</h4>
+            <Input
+                composition
+                value={inputValue}
+                onChange={handleInputChange}
+                placeholder="开启 composition，拼音输入时不会触发 onChange"
+                style={{ width: 300 }}
+            />
+            <div style={{ marginTop: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                onChange 触发次数: {inputLogs.length}
+            </div>
+            <br/><br/>
+            <h4>TextArea with composition</h4>
+            <TextArea
+                composition
+                value={textAreaValue}
+                onChange={handleTextAreaChange}
+                placeholder="开启 composition，拼音输入时不会触发 onChange"
+                style={{ width: 300 }}
+            />
+            <div style={{ marginTop: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                onChange 触发次数: {textAreaLogs.length}
+            </div>
+        </div>
+    );
+};
+```
+
 ## API 参考
 
 ### Input
@@ -447,6 +546,7 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | borderless        | 无边框模式  >=2.33.0                                | boolean                         |           |
 | className         | 类名                                             | string                          |           |
 | clearIcon         | 可用于自定义清除按钮, showClear为true时有效 **>=2.25.0**     | ReactNode                       |  |
+| composition       | 是否开启输入法模式，开启后输入法未确认期间不会触发 onChange，输入法确认后触发一次 onChange | boolean                         | false     |
 | defaultValue      | 输入框内容默认值                                       | ReactText                       |           |
 | disabled          | 是否禁用，默认为false                                  | boolean                         | false     |
 | getValueLength    | 自定义计算字符串长度                                     | (value: string) => number       |      |
@@ -489,14 +589,21 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | borderless        | 无边框模式  >=2.33.0                                 | boolean                         |           |
 | className    | 类名                               | string                          | -      |
 | cols         | 默认列数                           | number                          | 无     |
+| composition  | 是否开启输入法模式，开启后输入法未确认期间不会触发 onChange，输入法确认后触发一次 onChange | boolean                         | false     |
 | disabled     | 禁用状态                           | boolean                         | false  |
 | getValueLength| 自定义计算字符串长度                                            | (value: string) => number        |      |
 | maxCount     | 设置字数限制并显示字数统计         | number                          | 无     |
 | placeholder  | 当前的默认值                       | string                          | 无     |
 | readonly     | 只读                               | boolean                         | false  |
+| resize       | 是否允许用户拖拽调整尺寸，及调整方向。可选值：`none` \| `both` \| `horizontal` \| `vertical` \| `block` \| `inline`。当 `autosize` 开启时该属性会被忽略。**仅当显式传入该属性时才会生效**（默认不干预，以保持历史宽度/样式行为；如需仍使用原生方式可通过 `textareaStyle.resize` 控制），**>=2.97.0** | string | - |
 | rows         | 默认行数                           | number                          | 4      |
+| showLineNumber | 是否展示行号 | boolean | false |
+| lineNumberStart | 行号起始值 | number | 1 |
+| lineNumberClassName | 行号区域 className | string | - |
+| lineNumberStyle | 行号区域样式 | CSSProperties | - |
 | showClear    | 支持清除               | boolean                         | false     |
-| style        | 样式                               | CSSProperties                   | -      |
+| style        | 外层容器样式                               | CSSProperties                   | -      |
+| textareaStyle | textarea 元素的样式，可用于设置 textarea 的高度等样式 **>=2.94.0** | CSSProperties | - |
 | onBlur       | 输入框失去焦点时的回调             |(e:event) => void               | -      |
 | onChange     | 输入框内容变化时的回调             | (value:string, e:event) => void |        |
 | onClear      | 点击清除按钮时的回调 | (e:event) => void                         | -       |
@@ -505,7 +612,7 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | onKeyDown    | keydown 回调，html 事件             | (e:event) => void               | -      |
 | onKeyPress   | keypress 回调，html 事件            | (e:event) => void               | -      |
 | onKeyUp      | keyup 回调，html 事件               | (e:event) => void               | -      |
-| onResize     | 触发高度变化时的回调 | ({ height:number }) => void    | -      |
+| onResize     | 尺寸变化回调：`autosize` 导致高度变化时触发；当 `resize` 允许用户拖拽调整尺寸时，也会在尺寸变化时触发（会额外提供 `width`），**>=2.97.0** | ({ height:number, width?: number }) => void    | -      |
 | onCompositionStart | onCompositionStart回调, **>=2.85.0**   | function(e:event) | - |
 | onCompositionEnd | onCompositionEnd回调, **>=2.85.0**  | function(e:event) | - |
 | onCompositionUpdate | onCompositionUpdate回调, **>=2.85.0**  | function(e:event) | - |
@@ -558,4 +665,3 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 
 ## 相关物料
 <semi-material-list code="46"></semi-material-list>
-

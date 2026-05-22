@@ -211,7 +211,11 @@ describe('table', () => {
         cy.visit('http://localhost:6006/iframe.html?id=table--fixed-pagination&viewMode=story');
         cy.get('.semi-page-switch').eq(0).click();
         cy.get('.semi-select-option').eq(0).click();
-        cy.wait(500);
+        // Wait for the page-size Select dropdown to fully close AND the table
+        // to re-render at the new page size before clicking page numbers,
+        // otherwise .semi-page-item.eq(N) may resolve against stale DOM.
+        cy.get('.semi-select-option').should('not.exist');
+        cy.get('.semi-table-pagination-info').should('contain.text', '显示第 1 条-第 10 条，共 46 条');
         cy.get('.semi-page-item').eq(4).click();
         cy.get('.semi-table-pagination-info').should('contain.text', '显示第 31 条-第 40 条，共 46 条')
         cy.get('.semi-page-item-active').eq(0).should('contain.text', '4');
@@ -258,31 +262,41 @@ describe('table', () => {
     it('test renderFilterDropdown', () => {
         cy.visit('http://localhost:6006/iframe.html?args=&id=table--feat-render-filter-dropdown&viewMode=story');
 
-        // 测试第一个筛选器
-        cy.get('.semi-table-column-filter').eq(0).click();
+        // 测试第一个筛选器.
+        // Reopening Table column-filter Popover via cypress's synthetic
+        // .click() after it was just closed by clicking an inner button is
+        // unreliable in headless Electron (mousedown from the next click is
+        // treated as outside-click before the click toggles back open).
+        // realClick() emits real native pointer events so the popover reopens
+        // consistently.
+        cy.get('.semi-table-column-filter').eq(0).realClick();
         cy.get('.semi-input').should('be.focused');
         cy.get('.semi-input').type('12');
         cy.get('.semi-button').contains('筛选+关闭').click();
         cy.get('.semi-table-tbody .semi-table-row').should('have.length', 1);
-        cy.wait(200);
-        cy.get('.semi-table-column-filter').eq(0).click();
+        // The Popover's exit motion + state update needs a moment to settle
+        // before it can be reopened reliably in headless Electron.
+        cy.get('.semi-dropdown').should('not.exist');
+        cy.wait(500);
+        cy.get('.semi-table-column-filter').eq(0).realClick();
         cy.get('.semi-input').should('be.focused');
         cy.get('.semi-button').contains('清除+关闭').click();
         cy.get('.semi-table-tbody .semi-table-row').should('have.length', 10);
-        cy.wait(200);
-        cy.get('.semi-table-column-filter').eq(0).click();
+        cy.get('.semi-dropdown').should('not.exist');
+        cy.wait(500);
+        cy.get('.semi-table-column-filter').eq(0).realClick();
         cy.get('.semi-input').should('be.focused');
         cy.get('.semi-button').contains('直接关闭').click();
         cy.get('.semi-dropdown').should('not.exist');
         cy.wait(300);
         // 测试第二个筛选器
-        cy.get('.semi-table-column-filter').eq(1).click();
+        cy.get('.semi-table-column-filter').eq(1).realClick();
         cy.get('.semi-input').should('have.value', '姜鹏志');
         cy.get('.semi-button').contains('清除后不关闭').click();
         cy.get('.semi-table-pagination-info').should('contain', '显示第 1 条-第 10 条，共 46 条');
         cy.get('.semi-dropdown').should('exist');
-        cy.wait(200);
-        cy.get('.semi-table-column-filter').eq(1).click();
+        cy.wait(500);
+        cy.get('.semi-table-column-filter').eq(1).realClick();
         cy.get('.semi-input').type('郝宣');
         cy.get('.semi-button').contains('筛选后不关闭').click();
         cy.get('.semi-table-pagination-info').should('contain', '显示第 1 条-第 10 条，共 23 条');

@@ -181,6 +181,7 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
 | --- |------------------------------------------------------------------------------------------------------------| --- |---------|---------|
 | className | Class name                                                                                                 | string | -       | 0.34.0  |
 | collapseHeight | Collapse height                                                                                            | number | 0       | 1.0.0   |
+| collapseHeightAdaptive | Whether to adapt to content height when content height is less than collapseHeight. When true, the collapsed height is Math.min(content height, collapseHeight) | boolean | false   | 2.77.0  |
 | duration | Time of animation execution                                                                                | number | 250     | -       |
 | isOpen | Toggle whether to expand the content area                                                                  | boolean | `false` | -       |
 | keepDOM | Whether to keep the hidden panel in DOM tree, destroyed by default                                         | boolean | `false` | 0.25.0  |

@@ -64,7 +64,10 @@ class PaginationFoundation<P = Record<string, any>, S = Record<string, any>> ext
             prevIsDisabled = false;
             nextIsDisabled = true;
         }
-        this._adapter.setDisabled(prevIsDisabled, nextIsDisabled);
+        const { prevDisabled: currentPrevDisabled, nextDisabled: currentNextDisabled } = this.getStates();
+        if (prevIsDisabled !== currentPrevDisabled || nextIsDisabled !== currentNextDisabled) {
+            this._adapter.setDisabled(prevIsDisabled, nextIsDisabled);
+        }
     }
 
     goPage(targetPageIndex: number | '...') {
@@ -98,9 +101,17 @@ class PaginationFoundation<P = Record<string, any>, S = Record<string, any>> ext
         }
         this._updateDisabled({ currentPage: targetPageIndex, total, pageSize });
         this._updatePageList({ currentPage: targetPageIndex, total, pageSize });
-        this._adapter.updateTotal(total);
-        this._adapter.setCurrentPage(targetPageIndex);
-        this._adapter.updatePageSize(pageSize);
+        // Only call setState when value actually changed to avoid unnecessary re-renders
+        // that can cause infinite loops in React 18's concurrent batching
+        if (total !== this.getState('total')) {
+            this._adapter.updateTotal(total);
+        }
+        if (targetPageIndex !== this.getState('currentPage')) {
+            this._adapter.setCurrentPage(targetPageIndex);
+        }
+        if (pageSize !== this.getState('pageSize')) {
+            this._adapter.updatePageSize(pageSize);
+        }
     }
 
     updateAllPageNumbers(total: number, pageSize: number) {
@@ -203,9 +214,16 @@ class PaginationFoundation<P = Record<string, any>, S = Record<string, any>> ext
         this._adapter.notifyPageSizeChange(newPageSize);
         const { total, currentPage } = this.getStates();
 
-        // After converting the switching page capacity, which page is the current page
-        const currentPageFirstItemIndex = (currentPage - 1) * pageSize + 1;
-        const newCurrentPage = Math.ceil(currentPageFirstItemIndex / newPageSize);
+        // Check if we should prevent page change when pageSize changes
+        const { preventPageChangeOnPageSizeChange } = this.getProps();
+        
+        let newCurrentPage = currentPage;
+        if (!preventPageChangeOnPageSizeChange) {
+            // After converting the switching page capacity, which page is the current page
+            const currentPageFirstItemIndex = (currentPage - 1) * pageSize + 1;
+            newCurrentPage = Math.ceil(currentPageFirstItemIndex / newPageSize);
+        }
+        
         this.updatePage(newCurrentPage, total, newPageSize);
         if (currentPage !== newCurrentPage) {
             this._adapter.notifyPageChange(newCurrentPage);

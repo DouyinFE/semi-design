@@ -24,8 +24,10 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
 -   或使用 `<TabPane>` 逐项显式传入，使用 `<TabPane>` 时默认会渲染所有面板，可以通过设置 `keepDOM={false}` 只渲染当前面板，此时不会有动画效果。
 
 <Notice title='注意事项'>
-    1. tabList 与 TabPane Children 同时使用时，会优先渲染通过 tabList 传入的数据。不建议同时配置 <br/>
-    2. 使用 TabPane Children 时， TabPane 必须为 Tabs 的直接子元素，否则 Tabs 将无法正确收集子组件如 itemKey 等相关属性
+
+1. tabList 与 TabPane Children 同时使用时，会优先渲染通过 tabList 传入的数据。不建议同时配置
+2. 使用 TabPane Children 时，TabPane 必须为 Tabs 的直接子元素，否则 Tabs 将无法正确收集子组件如 itemKey 等相关属性
+
 </Notice>
 
 ```jsx live=true
@@ -548,6 +550,75 @@ class App extends React.Component {
 }
 ```
 
+### 自动溢出检测
+
+**v>= 2.97.0**
+
+通过设置 `collapsible="auto"` 可以启用自动溢出检测功能。组件会自动检测 Tab 是否溢出容器：
+- 当 Tab 超出容器宽度或发生换行时，自动启用折叠模式（显示左右箭头）
+- 当容器宽度增加或 Tab 数量减少后，所有 Tab 可以完整显示时，自动退出折叠模式
+
+这个功能避免了开发者需要手动判断是否需要折叠的问题，特别适用于响应式布局场景。
+
+```jsx live=true dir=column
+import React from 'react';
+import { Tabs, TabPane, Button } from '@douyinfe/semi-ui';
+
+class App extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            count: 8,
+        };
+    }
+
+    render() {
+        const tabs = Array.from({ length: this.state.count }, (_, i) => (
+            <TabPane tab={`Tab-${i + 1}`} itemKey={`${i}`} key={i}>
+                Content of Tab {i + 1}
+            </TabPane>
+        ));
+
+        return (
+            <div>
+                <div style={{ marginBottom: 12 }}>
+                    <Button 
+                        onClick={() => this.setState({ count: Math.max(3, this.state.count - 2) })}
+                        style={{ marginRight: 8 }}
+                    >
+                        减少 Tab
+                    </Button>
+                    <Button 
+                        onClick={() => this.setState({ count: Math.min(15, this.state.count + 2) })}
+                    >
+                        增加 Tab
+                    </Button>
+                    <span style={{ marginLeft: 12 }}>当前 Tab 数量: {this.state.count}</span>
+                </div>
+                
+                <div style={{ border: '1px solid var(--semi-color-border)', padding: 12, marginBottom: 16 }}>
+                    <p style={{ marginBottom: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                        collapsible="auto" - 自动检测溢出
+                    </p>
+                    <Tabs type="card" collapsible="auto">
+                        {tabs}
+                    </Tabs>
+                </div>
+                
+                <div style={{ border: '1px solid var(--semi-color-border)', padding: 12, maxWidth: 400 }}>
+                    <p style={{ marginBottom: 8, color: 'var(--semi-color-text-2)', fontSize: 12 }}>
+                        固定宽度 400px，测试较窄容器
+                    </p>
+                    <Tabs type="card" collapsible="auto">
+                        {tabs}
+                    </Tabs>
+                </div>
+            </div>
+        );
+    }
+}
+```
+
 ### 禁用
 
 禁用标签栏中的某一个标签页。
@@ -640,6 +711,127 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
         </TabPane>
     </Tabs>
 );
+```
+
+### 拖拽排序
+
+通过 `renderTabBar` API 结合第三方拖拽库（如 [@dnd-kit](https://docs.dndkit.com/)）可以实现标签栏的拖拽排序功能。
+
+<Notice title='使用前提'>
+
+需要先安装 dnd-kit 相关依赖：
+
+```bash
+npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities
+```
+
+</Notice>
+
+```jsx live=true noInline=true hideInDSM
+import React, { useState } from 'react';
+import { Tabs, TabPane } from '@douyinfe/semi-ui';
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { arrayMove, SortableContext, horizontalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
+import { CSS as cssDndKit } from '@dnd-kit/utilities';
+
+// 直接复用 Semi 内置的 TabItem，保留官方样式；外层用 useSortable 注入 ref/listeners/transform
+const SortableTabItem = ({ item, selected, size, type, tabPosition, onClick }) => {
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+        id: item.itemKey,
+        disabled: item.disabled,
+    });
+    const style = {
+        transform: cssDndKit.Transform.toString(transform),
+        transition,
+        cursor: item.disabled ? 'not-allowed' : 'grab',
+        opacity: isDragging ? 0.5 : 1,
+        display: 'inline-flex',
+    };
+    return (
+        <Tabs.TabItem
+            ref={setNodeRef}
+            style={style}
+            itemKey={item.itemKey}
+            tab={item.tab}
+            icon={item.icon}
+            disabled={item.disabled}
+            selected={selected}
+            size={size}
+            type={type}
+            tabPosition={tabPosition}
+            onClick={onClick}
+            {...attributes}
+            {...listeners}
+        />
+    );
+};
+
+function DraggableTabsDemo() {
+    const [activeKey, setActiveKey] = useState('1');
+    const [items, setItems] = useState([
+        { itemKey: '1', tab: '文档', content: '文档内容' },
+        { itemKey: '2', tab: '表格', content: '表格内容' },
+        { itemKey: '3', tab: '幻灯片', content: '幻灯片内容' },
+        { itemKey: '4', tab: '表单', content: '表单内容' },
+    ]);
+
+    const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
+
+    const handleDragEnd = ({ active, over }) => {
+        if (over && active.id !== over.id) {
+            setItems(prev => {
+                const oldIndex = prev.findIndex(i => i.itemKey === active.id);
+                const newIndex = prev.findIndex(i => i.itemKey === over.id);
+                return arrayMove(prev, oldIndex, newIndex);
+            });
+        }
+    };
+
+    // 用 renderTabBar 自定义整条 bar：保持 Semi 原生 .semi-tabs-bar 外壳 + dnd-kit 包裹的 TabItem 列表
+    const renderTabBar = (tabBarProps) => {
+        const { type = 'line', size = 'medium', tabPosition = 'top' } = tabBarProps;
+        const barCls = `semi-tabs-bar semi-tabs-bar-${type} semi-tabs-bar-${tabPosition}`;
+        return (
+            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                <SortableContext
+                    items={items.map(i => i.itemKey)}
+                    strategy={horizontalListSortingStrategy}
+                >
+                    <div className={barCls} role="tablist">
+                        {items.map(item => (
+                            <SortableTabItem
+                                key={item.itemKey}
+                                item={item}
+                                selected={activeKey === item.itemKey}
+                                size={size}
+                                type={type}
+                                tabPosition={tabPosition}
+                                onClick={(key) => setActiveKey(key)}
+                            />
+                        ))}
+                    </div>
+                </SortableContext>
+            </DndContext>
+        );
+    };
+
+    return (
+        <Tabs
+            type="line"
+            activeKey={activeKey}
+            onChange={setActiveKey}
+            renderTabBar={renderTabBar}
+        >
+            {items.map(item => (
+                <TabPane key={item.itemKey} tab={item.tab} itemKey={item.itemKey}>
+                    <div style={{ padding: 20 }}>{item.content}</div>
+                </TabPane>
+            ))}
+        </Tabs>
+    );
+}
+
+render(DraggableTabsDemo);
 ```
 
 ### 动态更新
@@ -757,7 +949,7 @@ class App extends React.Component {
 | activeKey | 当前激活的 tab 页的 itemKey 值 | string | 无 |
 | arrowPosition | 折叠模式下，左右切换箭头渲染位置 **>=2.61.0** | "start" "end" "both" | 无 |
 | className | 类名 | string | 无 |
-| collapsible | 折叠的 Tabs，**>=1.1.0** | boolean | false |
+| collapsible | 折叠的 Tabs，**>=1.1.0**，支持 `auto` 自动判断是否溢出 | boolean \| 'auto' | false |
 | dropdownProps | 用于在折叠模式下透传参数到下拉菜单的 Dropdown 组件 | { start: DropdownProps, end: DropdownProps } | 无 |
 | visibleTabsStyle | 整体滚动区域 Style **>=2.61.0** | style: CSSProperties | 无 |
 | contentStyle | 内容区域外层样式对象 | CSSProperties | 无 |
@@ -765,7 +957,7 @@ class App extends React.Component {
 | keepDOM | 使用 TabPane 写法时是否渲染隐藏面板的 DOM 结构 | boolean | true |
 | lazyRender | 懒渲染，仅当面板激活过才被渲染在 DOM 树中  | boolean | false |
 | more | 将一部分 Tab 渲染到下拉菜单中 ** >= 2.59.0** | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | - |
-| renderTabBar | 用于二次封装标签栏 | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | 无 |
+| renderTabBar | 用于二次封装标签栏，可配合第三方拖拽库实现标签排序功能 | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | 无 |
 | renderArrow | 折叠滚动模式下，自定义左右切换箭头如何渲染，默认为箭头按钮 hover 时展开溢出项。前三个参数自 **>=2.61.0** 支持，defaultNode 参数自 **>=2.66.0** 支持| (items: OverflowItem[],pos:"start"\|"end", handleArrowClick:()=>void, defaultNode: ReactNode)=> ReactNode | 无 |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | showRestInDropdown | 是否将收起的 Tab 展示在下拉菜单中（仅当 collapsible 为 true 时生效） **>= 2.61.0** | boolean | true |

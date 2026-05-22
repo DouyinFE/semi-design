@@ -14,7 +14,7 @@ function SelectSlotComponent(props: NodeViewProps) {
         map((option: string) => ({ value: option, label: option }));
 
     const handleChange = useCallback(
-        (val: string | number | any[] | Record<string, any> | undefined) => {
+        (val: string | number | Record<string, any> | (string | number | Record<string, any>)[]) => {
             if (typeof val === 'string') {
                 updateAttributes({ value: val });
             }

@@ -1611,6 +1611,7 @@ render(DefaultChat);
 | chats | Controlled conversation list | Message | - |
 | className | Custom class name | string | - |
 | customMarkDownComponents | custom markdown render, transparently passed to MarkdownRender for conversation content rendering | MDXProps\['components'\]| - |
+| escapeHtml | Whether to escape HTML tags in user messages to prevent them from being treated as HTML by the Markdown parser, which would cause content loss | boolean | true |
 | enableUpload | Whether to enable uploading, supported since v2.76.0, supports boolean type and object type. When the boolean type is passed in, the upload behavior of dragging, clicking the upload button, and pasting in the input box will be controlled at the same time. When the object is passed in, it can be set separately. When the object type is passed in, the unset items default to true. | boolean \| { pasteUpload: boolean, clickUpload: boolean, dragUpload: boolean } | true |
 | hints | prompt information | string | - |
 | hintCls | hint style | string | - |
@@ -1656,7 +1657,7 @@ render(DefaultChat);
 | PROPERTIES | INSTRUCTIONS | TYPE | DEFAULT |
 |------|--------|-------|-------|
 | name | name | string | - |
-| avatar | avatar | string | - |
+| avatar | avatar, supports image URL or ReactNode (such as Semi icons) **>=2.94.0** | ReactNode \| string | - |
 | color | Avatar background color, same as the color parameter of Avatar component, support `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow` | string | `grey` |
 
 #### Message

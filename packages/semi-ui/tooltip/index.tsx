@@ -1,5 +1,4 @@
-import React, { isValidElement, cloneElement, CSSProperties, ReactInstance } from 'react';
-import ReactDOM, { findDOMNode } from 'react-dom';
+import React, { isValidElement, cloneElement, CSSProperties } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { throttle, noop, get, omit, each, isEmpty, isFunction, isEqual } from 'lodash';
@@ -27,6 +26,7 @@ import {
     runAfterTicks,
     stopPropagation,
 } from '../_utils';
+import { resolveDOM, getRef } from '../_utils/reactRender';
 import Portal from '../_portal/index';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import TriangleArrow from './TriangleArrow';
@@ -89,7 +89,13 @@ export interface TooltipProps extends BaseProps {
     preventScroll?: boolean;
     disableFocusListener?: boolean;
     afterClose?: () => void;
-    keepDOM?: boolean
+    keepDOM?: boolean;
+    /**
+     * Whether to allow the tooltip to show
+     * When set to false, the tooltip will not show when triggered
+     * @default true
+     */
+    condition?: boolean;
 }
 
 interface TooltipState {
@@ -155,6 +161,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         returnFocusOnClose: PropTypes.bool,
         preventScroll: PropTypes.bool,
         keepDOM: PropTypes.bool,
+        condition: PropTypes.bool,
     };
     static __SemiComponentName__ = "Tooltip";
     static defaultProps = getDefaultPropsFromGlobalConfig(Tooltip.__SemiComponentName__, {
@@ -182,7 +189,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         onEscKeyDown: noop,
         disableFocusListener: false,
         disableArrowKeyDown: false,
-        keepDOM: false
+        keepDOM: false,
+        condition: true,
     });
 
     eventManager: Event;
@@ -249,6 +257,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         isInsert: true,
                         transitionState: 'enter',
                         containerStyle: { ...this.state.containerStyle, ...containerStyle },
+                        isPositionUpdated: false,
                     },
                     () => {
                         setTimeout(() => {
@@ -359,15 +368,10 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     if (!this.mounted) {
                         return false;
                     }
-                    let el = this.triggerEl && this.triggerEl.current;
+                    let el: any = this.triggerEl && this.triggerEl.current;
                     let popupEl = (this.containerEl && this.containerEl.current) as HTMLDivElement;
 
-                    /* REACT_18_START */
-                    el = ReactDOM.findDOMNode(el as React.ReactInstance);
-                    /* REACT_18_END */
-                    /* REACT_19_START */
-                    // el = el as HTMLElement;
-                    /* REACT_19_END */
+                    el = resolveDOM(el) ?? el;
                     const target = e.target as Element;
                     const path = (e as any).composedPath && (e as any).composedPath() || [target];
                     const isClickTriggerToHide = this.props.clickTriggerToHide ? el && (el as any).contains(target) || path.includes(el) : false;
@@ -455,14 +459,16 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             getContainer: () => this.containerEl && this.containerEl.current,
             getTriggerNode: () => {
                 let triggerDOM = this.triggerEl.current;
-                if (!isHTMLElement(this.triggerEl.current)) {
-                    /* REACT_18_START */
-                    triggerDOM = ReactDOM.findDOMNode(this.triggerEl.current as React.ReactInstance);
-                    /* REACT_18_END */
-                    /* REACT_19_START */
-                    // console.warn(`[Semi Tooltip] triggerDOM should be a valid DOM element. The trigger element's ref is not returning a DOM node. This may cause tooltip positioning issues. Please ensure the trigger element has a proper ref that returns a DOM node.`);
-                    // triggerDOM = this.triggerEl.current;
-                    /* REACT_19_END */
+                if (!isHTMLElement(triggerDOM)) {
+                    const resolved = resolveDOM(triggerDOM);
+                    if (resolved) {
+                        triggerDOM = resolved;
+                    } else {
+                        if (triggerDOM) {
+                            warning(true, '[Semi Tooltip] The trigger element\'s ref did not return a DOM node. Please ensure the trigger component forwards ref correctly.');
+                        }
+                        return null;
+                    }
                 }
                 return triggerDOM as Element;
             },
@@ -487,16 +493,9 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             },
             getTriggerDOM: () => {
                 if (this.triggerEl.current) {
-                    /* REACT_18_START */
-                    return ReactDOM.findDOMNode(this.triggerEl.current as ReactInstance) as HTMLElement;
-                    /* REACT_18_END */
-                    /* REACT_19_START */
-                    // return this.triggerEl.current as HTMLElement;
-                    /* REACT_19_END */
-                } else {
-                    return null;
+                    return resolveDOM(this.triggerEl.current) as HTMLElement | null;
                 }
-
+                return null;
             }
         };
     }
@@ -507,16 +506,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         this.foundation.init();
         runAfterTicks(() => {
             let triggerEle = this.triggerEl.current;
-            if (triggerEle) {
-                if (!(triggerEle instanceof HTMLElement)) {
-                    /* REACT_18_START */
-                    triggerEle = findDOMNode(triggerEle as ReactInstance);
-                    /* REACT_18_END */
-                    /* REACT_19_START */
-                    // console.warn(`[Semi Tooltip] triggerEle should be a valid DOM element. The trigger element's ref is not returning a DOM node. This may cause tooltip positioning issues. Please ensure the trigger element has a proper ref that returns a DOM node.`);
-                    // triggerEle = triggerEle as HTMLElement;
-                    /* REACT_19_END */
-                }
+            if (triggerEle && !(triggerEle instanceof HTMLElement)) {
+                triggerEle = resolveDOM(triggerEle);
             }
             this.foundation.updateStateIfCursorOnTrigger(triggerEle as HTMLElement);
         }, 1);
@@ -682,6 +673,13 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const icon = this.renderIcon();
         const portalInnerStyle = omit(containerStyle, motion ? ['transformOrigin'] : undefined);
         const transformOrigin = get(containerStyle, 'transformOrigin');
+        // Extract CSS variables for arrow positioning and apply to wrapper element
+        const arrowOffsetX = get(containerStyle, '--semi-tooltip-arrow-offset-x');
+        const arrowOffsetY = get(containerStyle, '--semi-tooltip-arrow-offset-y');
+        const wrapperArrowStyle = {
+            ...(arrowOffsetX ? { '--semi-tooltip-arrow-offset-x': arrowOffsetX } : {}),
+            ...(arrowOffsetY ? { '--semi-tooltip-arrow-offset-y': arrowOffsetY } : {}),
+        } as React.CSSProperties;
         const userOpacity: CSSProperties['opacity'] | null = get(style, 'opacity', null);
         const opacity = userOpacity ? userOpacity : 1;
         const inner =
@@ -707,6 +705,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                                 ...(displayNone ? { display: "none" } : {}),
                                 transformOrigin,
                                 ...style,
+                                ...wrapperArrowStyle,
                                 ...(userOpacity ? { opacity: isPositionUpdated ? opacity : "0" } : {})
                             }}
                             {...portalEventSet}
@@ -846,18 +845,11 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     // Keep your own reference
                     (this.triggerEl as any).current = node;
                 }
-                // Call the original ref, if any
-                /* REACT_18_START */
-                const { ref } = children as any;
-                /* REACT_18_END */
-                /* REACT_19_START */
-                // const { ref } = (children as any).props;
-                /* REACT_19_END */
-                // this.log('tooltip render() - get ref', ref);
+                const ref = getRef(children);
                 if (typeof ref === 'function') {
                     ref(node);
                 } else if (ref && typeof ref === 'object') {
-                    ref.current = node;
+                    (ref as React.MutableRefObject<any>).current = node;
                 }
             },
             tabIndex: (children as React.ReactElement<any>).props.tabIndex || 0, // a11y keyboard, in some condition select's tabindex need to -1 or 0

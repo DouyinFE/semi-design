@@ -36,29 +36,180 @@ Semi 提供完整的主题配置流程，既保持颜色、字体、圆角、阴
 
 ## 接入主题
 
-创建完成主题下载后，使用 Semi 插件可以快速地接入选择的主题。
+创建完成主题下载后，使用 Semi 插件可以快速地接入选择的主题。每种构建工具都可以通过下面三种方式自定义主题，**优先级由低到高**：
+
+1. 通过 DSM 生成的 npm 主题包
+2. 通过项目内本地的 Scss 文件
+3. 通过插件参数传入键值对覆盖
 
 ### 使用 Webpack 作为构建工具时
 
-对于使用 Webpack 的用户，在 SemiWebpackPlugin 加入 `theme` 参数即可。
+对于使用 Webpack 的用户，可以使用 SemiWebpackPlugin 来接入定制主题。
 
-SemiWebpackPlugin  `yarn add -D @douyinfe/semi-webpack-plugin` or `npm i -D @douyinfe/semi-webpack-plugin`
+安装：`yarn add -D @douyinfe/semi-webpack-plugin` 或 `npm i -D @douyinfe/semi-webpack-plugin`
 
-```jsx
-new SemiWebpackPlugin({
-    theme: {
-        name: '你的主题npm包名称'
-    }
-    /* ...options */
+#### 通过 npm 包接入
+
+```js
+// webpack.config.js
+const SemiWebpackPlugin = require('@douyinfe/semi-webpack-plugin').default;
+
+module.exports = {
+    // ...
+    plugins: [
+        new SemiWebpackPlugin({
+            theme: '你的主题npm包名称'
+        })
+    ]
+};
+```
+
+#### 通过本地 Scss 文件
+
+```scss
+// local.scss
+$font-size-small: 16px;
+```
+
+```js
+// webpack.config.js
+const path = require('path');
+const SemiWebpackPlugin = require('@douyinfe/semi-webpack-plugin').default;
+
+module.exports = {
+    plugins: [
+        new SemiWebpackPlugin({
+            include: path.join(__dirname, 'local.scss')
+        })
+    ]
+};
+```
+
+#### 通过参数覆盖变量
+
+```js
+// webpack.config.js
+const SemiWebpackPlugin = require('@douyinfe/semi-webpack-plugin').default;
+
+module.exports = {
+    plugins: [
+        new SemiWebpackPlugin({
+            variables: {
+                '$font-size-small': '16px'
+            }
+        })
+    ]
+};
+```
+
+#### 替换 CSS 选择器前缀
+
+Semi Design 的 CSS 选择器默认以 `semi` 作为前缀（如 `.semi-button`），可以通过 `prefixCls` 替换：
+
+```js
+// webpack.config.js
+const SemiWebpackPlugin = require('@douyinfe/semi-webpack-plugin').default;
+
+module.exports = {
+    plugins: [
+        new SemiWebpackPlugin({
+            prefixCls: 'custom'
+        })
+    ]
+};
+```
+
+替换后选择器将变为 `.custom-button`。
+
+### 使用 Vite 作为构建工具时
+
+对于使用 Vite 的用户，可以使用 SemiVitePlugin 来接入定制主题。
+
+安装：`yarn add -D @douyinfe/semi-vite-plugin` 或 `npm i -D @douyinfe/semi-vite-plugin`
+
+#### 通过 npm 包接入
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite';
+import semiTheming from '@douyinfe/semi-vite-plugin';
+
+export default defineConfig({
+    plugins: [
+        semiTheming({
+            theme: '你的主题npm包名称'
+        })
+    ]
 });
 ```
 
-更多工程化方案（如Vite、NextJs）的主题接入，可参考 [DSM 文档](https://semi.design/dsm_manual/zh-CN/web/use#dsm_%E5%A6%82%E4%BD%95%E6%B6%88%E8%B4%B9%E4%B8%BB%E9%A2%98)
+#### 通过本地 Scss 文件
+
+```scss
+// local.scss
+$font-size-small: 16px;
+```
+
+```ts
+// vite.config.ts
+import path from 'path';
+import { defineConfig } from 'vite';
+import semiTheming from '@douyinfe/semi-vite-plugin';
+
+export default defineConfig({
+    plugins: [
+        semiTheming({
+            include: path.resolve(__dirname, 'local.scss')
+        })
+    ]
+});
+```
+
+#### 通过参数覆盖变量
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite';
+import semiTheming from '@douyinfe/semi-vite-plugin';
+
+export default defineConfig({
+    plugins: [
+        semiTheming({
+            variables: {
+                '$font-size-small': '16px'
+            }
+        })
+    ]
+});
+```
+
+#### 替换 CSS 选择器前缀
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite';
+import semiTheming from '@douyinfe/semi-vite-plugin';
+
+export default defineConfig({
+    plugins: [
+        semiTheming({
+            prefixCls: 'custom'
+        })
+    ]
+});
+```
+
+替换后选择器将变为 `.custom-button`。
+
+> 同时支持 `cssLayer: true`（将编译产物包裹在 `@layer semi { ... }` 中）和 `omitCss: true`（注释掉 semi 包内的 `.css` 引入，适用于 Next.js 等不允许从 `node_modules` 引入全局 CSS 的场景）。
+
+更多工程化方案（如 Next.js）的主题接入，可参考 [DSM 文档](https://semi.design/dsm_manual/zh-CN/web/use#dsm_%E5%A6%82%E4%BD%95%E6%B6%88%E8%B4%B9%E4%B8%BB%E9%A2%98)
 
 ### 使组件级变量的改动生效
 
 如果在定制主题的过程中你修改了组件级别的变量，`theme` 字段需要用如下配置使改动生效：
-```javascript
+
+```js
 {
     theme: {
         name: '你的主题npm包名称',

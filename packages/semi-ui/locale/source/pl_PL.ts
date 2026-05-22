@@ -113,6 +113,8 @@ const local: Locale = {
         descend: 'Kliknij, aby sortować malejąco',
         ascend: 'Kliknij, aby sortować rosnąco',
         cancelSort: 'Anuluj sortowanie',
+        confirmFilter: 'OK',
+        resetFilter: 'Resetuj',
     },
     Select: {
         emptyText: 'Nie znaleziono żadnych wyników',

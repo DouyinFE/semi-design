@@ -146,13 +146,30 @@ render(FormatJsonComponent);
 
 通过配置 `options.customRenderRule` 参数，你可以自定义 JSON 内容的渲染方式（注意：仅在只读模式下生效）。
 
+> **2.96.0 行为变更说明**
+>
+> 从 2.96.0 起，`customRenderRule` 在计算 `path` 时会更精确：**同一条键值对的 key token 与 value token 会拥有相同的 `path`**（即都对应到该属性所在的路径，例如 `root.<key>`）。
+>
+> 因此，像 `path === 'root.<key>'` 这类仅依赖 `path` 的规则，可能同时命中 key 和 value，导致与后续 value 匹配规则产生“覆盖/优先级”差异。
+>
+> 若你希望只匹配 key 或只匹配 value，请使用函数匹配的第三个参数 `tokenType`：
+>
+> ```ts
+> const targetPath = 'root.<key>';
+> // 仅匹配 key
+> match: (_value, path, tokenType) => tokenType === 'key' && path === targetPath
+> // 仅匹配 value
+> match: (value, path, tokenType) => tokenType === 'value' && path === targetPath
+> ```
+
 `customRenderRule` 是一个规则数组，每条规则包含两个属性：
 - `match`: 匹配条件，可以是以下三种类型之一：
   - 字符串：精确匹配
   - 正则表达式：按正则匹配
-  - 函数：自定义匹配逻辑，函数签名为 `(value: string, path: string) => boolean`
-    - `value`: 待匹配的值（为Json字符串的键值对的键或者值，由于内部处理注入时仅过滤引号，因此类型全部为string）
+  - 函数：自定义匹配逻辑，函数签名为 `(value: string | number | boolean | null, path: string, tokenType: 'key' | 'value') => boolean`
+    - `value`: 待匹配的值（JSON 键或值）。当 `match` 为函数时，`value` 会尽量传入解析后的原始类型（number / boolean / null / string），因此可以使用 `===` 进行严格匹配；当 `match` 为字符串或正则时，仍基于文本内容匹配（字符串类型会去除两侧引号）
     - `path`: 当前匹配到的路径，格式为 `root.key1.key2.key3[0].key4`
+    - `tokenType`: 当前 token 的类型，`'key'` 表示 JSON 键名，`'value'` 表示 JSON 值。可用于区分同名键和值的匹配
 - `render`: 自定义渲染函数，函数签名为 `(content: string) => React.ReactNode`
   - `content`: 匹配到的内容。如果是字符串类型的值，将包含双引号（如 `"name"`，`"Semi"`）
 
@@ -214,6 +231,46 @@ function CustomRenderJsonComponent() {
 render(CustomRenderJsonComponent);
 ```
 
+### 自定义搜索按钮
+
+通过 `renderSearchButton` 属性，你可以自定义搜索按钮的渲染方式，实现固定位置、自定义样式等需求。
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import { JsonViewer, Button } from '@douyinfe/semi-ui';
+import { IconSearch } from '@douyinfe/semi-icons';
+
+const data = `{
+    "name": "Semi",
+    "version": "0.0.0"
+}`;
+
+function CustomSearchButtonDemo() {
+    return (
+        <div style={{ marginBottom: 16 }}>
+            <JsonViewer 
+                height={200} 
+                width={700} 
+                value={data}
+                renderSearchButton={(defaultButton, controls) => (
+                    <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 10 }}>
+                        {!controls.showSearchBar ? (
+                            <Button icon={<IconSearch />} onClick={controls.onToggleSearchBar}>
+                                搜索
+                            </Button>
+                        ) : (
+                            defaultButton
+                        )}
+                    </div>
+                )}
+            />
+        </div>
+    );
+}
+
+render(CustomSearchButtonDemo);
+```
+
 
 ## API 参考
 
@@ -227,6 +284,8 @@ render(CustomRenderJsonComponent);
 | className         | 类名                           | string                                  | -   |
 | style             | 内联样式                           | object                                  | -   |
 | showSearch        | 是否显示搜索Icon                           | boolean                                  | true   |
+| limitSearchButtonBounds | 是否限制搜索按钮拖动范围在容器内 **>=2.94.0**                          | boolean                                  | false   |
+| renderSearchButton | 自定义渲染搜索按钮 **>=2.95.0** | (defaultButton: ReactNode, controls: SearchControls) => ReactNode | - |
 | options           | 编辑器配置                                | JsonViewerOptions                       | -   |
 | onChange          | 内容变化回调                           | (value: string) => void                  | -   |
 
@@ -243,7 +302,7 @@ render(CustomRenderJsonComponent);
 ### CustomRenderRule
 | 属性                | 说明                                          | 类型                              | 默认值    |
 |-------------------|------------------------------------------------|---------------------------------|-----------|
-| match             | 匹配规则                                   | string \| RegExp \| (value: string, path: string) => boolean | -  |
+| match             | 匹配规则                                   | string \| RegExp \| (value: string \| number \| boolean \| null, path: string, tokenType: 'key' \| 'value') => boolean | -  |
 | render            | 渲染函数                                   | (content: string) => React.ReactNode | -  |
 
 ### FormattingOptions
@@ -253,6 +312,20 @@ render(CustomRenderJsonComponent);
 | tabSize           | 缩进大小                                 | number                          | 4  |
 | insertSpaces      | 是否使用空格进行缩进                       | boolean                         | true  |
 | eol               | 换行符                                   | string                          | '\n'  |
+
+### SearchControls
+
+当使用 `renderSearchButton` 时，第二个参数 `controls` 包含以下属性：
+
+| 属性                | 说明                                          | 类型                              |
+|-------------------|------------------------------------------------|---------------------------------|
+| showSearchBar     | 当前是否显示搜索栏                            | boolean                         |
+| onToggleSearchBar | 切换搜索栏显示/隐藏                           | () => void                      |
+| onSearch          | 执行搜索                                      | (text: string, caseSensitive?: boolean, wholeWord?: boolean, regex?: boolean) => void |
+| onPrevSearch      | 跳转到上一个搜索结果                          | () => void                      |
+| onNextSearch      | 跳转到下一个搜索结果                          | () => void                      |
+| onReplace         | 替换当前搜索结果                              | (text: string) => void          |
+| onReplaceAll      | 替换所有搜索结果                              | (text: string) => void          |
 
 ## Methods
 

@@ -505,6 +505,20 @@ $module: #{$prefix}-aiChatInput;
                 height: 0;
                 pointer-events: none;
             }
+
+            // 当段落包含 skillSlot 时，用 ::after 让 placeholder 显示在 skill 后方
+            p.has-skill-slot.is-editor-empty:first-child::before {
+                content: none;
+            }
+            
+            p.has-skill-slot.is-editor-empty:first-child::after {
+                color: var(--semi-color-text-2);
+                content: attr(data-placeholder);
+                display: inline;
+                height: 0;
+                margin-left: $spacing-aiChatInput_skill_item-columnGap;
+                pointer-events: none;
+            }
     
             p {
                 margin: 0px;

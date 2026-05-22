@@ -183,9 +183,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         disableStrictly: PropTypes.bool,
         leafOnly: PropTypes.bool,
         enableLeafClick: PropTypes.bool,
+        clickToSelect: PropTypes.bool,
         preventScroll: PropTypes.bool,
         position: PropTypes.string,
         searchPosition: PropTypes.string,
+        remote: PropTypes.bool,
     };
 
     static defaultProps = getDefaultPropsFromGlobalConfig(Cascader.__SemiComponentName__, {
@@ -217,9 +219,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         onDropdownVisibleChange: noop,
         onListScroll: noop,
         enableLeafClick: false,
+        clickToSelect: false,
         'aria-label': 'Cascader',
         searchPosition: strings.SEARCH_POSITION_TRIGGER,
         checkRelation: strings.RELATED,
+        remote: false,
     })
 
     options: any;
@@ -543,7 +547,12 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     }
 
     componentDidUpdate(prevProps: CascaderProps) {
+        // multiple mode uses getDerivedStateFromProps to sync keyEntities,
+        // so we also need to sync filteredKeys when treeData updates during searching.
         if (this.props.multiple) {
+            if (!isEqual(prevProps.treeData, this.props.treeData)) {
+                this.foundation.recalculateFilteredKeys();
+            }
             return;
         }
         let isOptionsChanged = false;

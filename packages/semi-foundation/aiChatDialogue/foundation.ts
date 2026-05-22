@@ -185,6 +185,39 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
         this.animation.start();
     }
 
+    scrollToTopImmediately = () => {
+        const element = this._adapter.getContainerRef();
+        if (element) {
+            element.scrollTop = 0;
+        }
+    }
+
+    scrollToTopWithAnimation = () => {
+        const duration = strings.SCROLL_ANIMATION_TIME;
+        const element = this._adapter.getContainerRef();
+        if (!element) {
+            return;
+        }
+        const from = element.scrollTop;
+        const to = 0;
+        this.animation = new Animation(
+            {
+                from: { scrollTop: from },
+                to: { scrollTop: to },
+            },
+            {
+                duration,
+                easing: 'easeInOutCubic'
+            }
+        );
+
+        this.animation.on('frame', ({ scrollTop }: { scrollTop: number }) => {
+            element.scrollTop = scrollTop;
+        });
+
+        this.animation.start();
+    }
+
     containerScroll = (e: any) => {
         this._persistEvent(e);
         const update = () => {

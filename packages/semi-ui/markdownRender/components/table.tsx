@@ -9,22 +9,34 @@ import { omit } from 'lodash';
 const table = (props: PropsWithChildren<TableProps>) => {
 
     const { children } = props;
-    const toArray = value => Array.isArray(value) ? value : [value];
-    const columnsFiber = toArray(get(children[0], 'props.children.props.children'));
-    const dataFiber = toArray(get(children[1], 'props.children'));
 
-    const titlesColumns = columnsFiber.map((column, i) => {
+    // In MDX/React, `children` could be a single element, an array, or contain whitespace text nodes.
+    // Also, when a row has only one column, `tr.props.children` is usually a single ReactElement
+    // instead of an array. We normalize everything via `React.Children.toArray` to avoid losing data.
+    const elementChildren = React.Children.toArray(children).filter(React.isValidElement) as React.ReactElement[];
+
+    const thead = elementChildren.find(node => node.type === 'thead') ?? elementChildren[0];
+    const tbody = elementChildren.find(node => node.type === 'tbody') ?? elementChildren[1];
+
+    const headTr = React.Children.toArray(get(thead, 'props.children')).find(React.isValidElement) as React.ReactElement | undefined;
+    const columnsFiber = React.Children.toArray(get(headTr, 'props.children'));
+
+    const dataFiber = React.Children.toArray(get(tbody, 'props.children'));
+
+    const titlesColumns = columnsFiber.map((column: any, i) => {
         return {
             dataIndex: String(i),
-            title: column?.props?.children || ""
+            title: column?.props?.children ?? ""
         };
     });
     const tableDataSource: any[] = [];
     for (let i = 0;i < dataFiber.length;i++) {
-        let item: Record<string, string> = {
+        let item: Record<string, React.ReactNode> = {
             key: String(i)
         };
-        dataFiber[i]?.props.children?.forEach?.((child, index) => {
+
+        const rowCells = React.Children.toArray((dataFiber[i] as any)?.props?.children);
+        rowCells.forEach((child: any, index: number) => {
             item[String(index)] = child?.props?.children ?? "";
         });
         tableDataSource.push(item);

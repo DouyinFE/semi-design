@@ -161,8 +161,10 @@ import { Select } from '@douyinfe/semi-ui';
 用 OptGroup 进行分组（分组功能仅支持通过 jsx 方式声明 children 使用，不支持 optionList 方式传入）
 
 <Notice title='注意'>
-  1. OptGroup必须为Select的直接子元素，不允许有Fragment或DIV等其他元素阻隔 <br/>
-  2. 若Select的children需要动态更新，OptGroup上的key也需要进行更新，否则Select无法识别  
+
+1. OptGroup 必须为 Select 的直接子元素，不允许有 Fragment 或 DIV 等其他元素阻隔
+2. 若 Select 的 children 需要动态更新，OptGroup 上的 key 也需要进行更新，否则 Select 无法识别
+
 </Notice>
 
 ```jsx live=true
@@ -915,7 +917,9 @@ import { Select } from '@douyinfe/semi-ui';
 此时`onChange`函数的入参将会是 object，包含 option 的各种属性，例如 `onChange({ value, label, ...rest })`
 
 <Notice title='注意'>
-  当 onChangeWithObject 置为 true 时，`defaultValue`/`Value`也应为 object，且须带有`value`、`label` key
+
+当 onChangeWithObject 置为 true 时，`defaultValue` / `Value` 也应为 object，且须带有 `value`、`label` key
+
 </Notice>
 
 ```jsx live=true hideInDSM
@@ -1033,9 +1037,16 @@ virtualize 是一个包含下列值的对象：
 -   itemSize: 每行 Option 的高度，必传
 
 <Notice title='注意事项'>
-    Semi Select virtualize 功能是基于 react-window 的封装，虚拟化列表默认会被包裹在 `will-change: transform` 的 div 内部。
-    在某些浏览器（例如 Chrome），某些特定的屏幕尺寸下，屏幕物理像素尺寸与浏览器处理的像素无法对齐时，会自动开启抗锯齿。从而导致虚拟列表中的文本字体可能会在特定场景下存在模糊的情况。
-    will-change 对于复杂元素的渲染会有性能改善，所以我们默认不会对 react-window的样式进行覆盖。如果你希望关闭这个效果，可以通过自行覆盖 CSS，将 will-change 设置为 unset 解决
+
+Semi Select virtualize 功能是基于 react-window 的封装，虚拟化列表默认会被包裹在 `will-change: transform` 的 div 内部。
+在某些浏览器（例如 Chrome），某些特定的屏幕尺寸下，屏幕物理像素尺寸与浏览器处理的像素无法对齐时，会自动开启抗锯齿。从而导致虚拟列表中的文本字体可能会在特定场景下存在模糊的情况。
+will-change 对于复杂元素的渲染会有性能改善，所以我们默认不会对 react-window 的样式进行覆盖。如果你希望关闭这个效果，可以通过自行覆盖 CSS，将 will-change 设置为 unset 解决
+
+</Notice>
+
+<Notice title='关于高度设置'>
+    当 virtualize.height 大于默认值 270px 时，为了避免出现双滚动条问题，需要将 maxHeight 属性设置为与 virtualize.height 相同的值。
+    例如：当设置 virtualize.height 为 400px 时，应同时设置 maxHeight={400}。
 </Notice>
 
 ```css
@@ -1418,13 +1429,14 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | loading | 下拉列表是否展示加载动画                                                                                                                          | boolean | false |
 | maxTagCount | 多选模式下，已选项超出 maxTagCount 时，后续选项会被渲染成+N 的形式                                                                                             | number |  |
 | max | 最多可选几项，仅在多选模式下生效                                                                                                                      | number |  |
-| maxHeight | 下拉菜单中 `optionList` 的最大高度                                                                                                              | string\|number | 270 |
+| maxHeight | 下拉菜单中 `optionList` 的最大高度。**注意：当使用虚拟化列表且 virtualize.height 大于默认值 270px 时，需要将 maxHeight 设置为与 virtualize.height 相同的值，以避免出现双滚动条问题** | string\|number | 270 |
 | multiple | 是否多选                                                                                                                                  | boolean | false |
 | outerTopSlot | 渲染在弹出层顶部，与 optionList 平级的自定义 slot                                                                                                     | ReactNode |  |
 | outerBottomSlot | 渲染在弹出层底部，与 optionList 平级的自定义 slot                                                                                                     | ReactNode |  |
 | optionList | 可以通过该属性传入 Option,请确保数组内每个元素都具备 label、value 属性                                                                                         | array(\[{value, label}\]) |  |
 | placeholder | 选择框默认文字                                                                                                                               | ReactNode |  |
 | position | 菜单展开的位置，可选项同 Tooltip position                                                                                                         | string | 'bottomLeft' |
+| rePosKey | 可以更新该项值手动触发弹出层的重新定位                                                                                                          | string\|number |  |  |
 | prefix | 选择框的前缀标签                                                                                                                              | ReactNode |  |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                                                                | boolean |  |  |
 | renderCreateItem | allowCreate 为 true 时，可自定义创建标签的渲染。与虚拟化结合使用时，必须将第三个参数style传入自定义DOM中消费(v2.44.1后提供)                                                                                                | function(inputValue:string, isFocus: boolean, style: object) | inputValue => '创建' + inputValue |
@@ -1444,7 +1456,7 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | triggerRender | 自定义触发器渲染                                                                                                                              | function |  |
 | value | 当前选中的的值,传入该值时将作为受控组件，配合 `onChange` 使用                                                                                                 | string\|number\|array |  |
 | validateStatus | 校验结果，可选`warning`、`error`、 `default`（只影响样式背景色）                                                                                         | string | 'default' |
-| virtualize | 列表虚拟化，用于大量节点的情况优化性能表现，由 height, width, itemSize 组成                                                                                    | object |  |
+| virtualize | 列表虚拟化，用于大量节点的情况优化性能表现，由 height, width, itemSize 组成。**注意：当 height 大于默认值 270px 时，需同时设置 maxHeight 为相同值** | object |  |
 | zIndex | 弹层的 zIndex                                                                                                                            | number | 1030 |
 | onBlur | 失去焦点时的回调                                                                                                                              | function(event) |  |
 | onChange | 变化时回调函数                                                                                                                               | function(value:string\|number\|array) |  |
@@ -1497,6 +1509,7 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | deselectAll | 调用时可以手动清空所有已选项        |  |
 | selectAll   | 调用时可以选中所有 Option           |  |
 | search(value: string, event: event)| 可通过 ref 调用该方法进行搜索，该搜索值会被置给 Input   | v2.35.0 |
+| rePosition | 调用时可以手动触发下拉层重新定位 |  |
 
 ## Accessibility
 
@@ -1546,6 +1559,41 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 ## 设计变量
 
 <DesignToken/>
+
+## TypeScript 泛型支持
+
+`Select` 组件支持通过泛型参数来约束 `value` 的类型，从而提供更好的类型推断。
+
+```jsx
+import { Select } from '@douyinfe/semi-ui';
+
+// 指定 value 为 string 类型
+<Select<string>
+    value={selectedValue}
+    onChange={(value) => {
+        // value 类型为 string | string[] | undefined
+        setSelectedValue(value);
+    }}
+>
+    <Select.Option value="option1">选项 1</Select.Option>
+    <Select.Option value="option2">选项 2</Select.Option>
+</Select>
+
+// 多选模式下，value 类型为 string[]
+<Select<string>
+    multiple
+    value={selectedValues}
+    onChange={(value) => {
+        // value 类型为 string | string[] | undefined，由于 multiple 为 true，实际为 string[]
+        setSelectedValues(value as string[]);
+    }}
+>
+    <Select.Option value="option1">选项 1</Select.Option>
+    <Select.Option value="option2">选项 2</Select.Option>
+</Select>
+```
+
+使用泛型参数后，你可以获得更精确的类型推断，无需再手动进行类型转换。
 
 ## FAQ
 
