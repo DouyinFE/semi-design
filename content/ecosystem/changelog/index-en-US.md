@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.99.2 (2026-05-22)
+- 【Fix】
+    - Fixed Table header right border being broken on Sass 1.55+. The original `box-shadow: inset -$width-table_base_border 0 0 0 ...` was parsed as a binary subtraction under the strict-unary rule and compiled to `inset-1px 0 0 0 ...` (no space between `inset` and the offset), making the whole box-shadow invalid and the header's right border invisible in horizontal-scroll scenarios. Rewrote it as `$width-table_base_border * -1` to avoid the ambiguity
+
 #### 🎉 2.99.1 (2026-05-22)
 - 【Fix】
     - Fixed Modal component being unreachable when `centered` is true and content height exceeds the viewport — title / close button / footer buttons were clipped and could not be reached by scrolling. Switched to the safe-centering pattern (`align-items: flex-start` + `margin: auto`): the modal stays visually centered when content fits, and degrades to top-aligned + scrollable when content overflows [@Cody2333](https://github.com/Cody2333) [#3300](https://github.com/DouyinFE/semi-design/issues/3300) [#3301](https://github.com/DouyinFE/semi-design/pull/3301)

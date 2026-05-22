@@ -14,6 +14,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.99.2 (2026-05-22)
+- 【Fix】
+    - 修复 Table 组件 header 右侧边框样式 `box-shadow: inset -$width-table_base_border 0 0 0 ...` 在 Sass 1.55+ 下因 strict-unary 解析规则被编译为 `inset-1px 0 0 0 ...`（中间无空格、box-shadow 失效）的问题，导致水平滚动场景下 header 右侧边框丢失。改用 `$width-table_base_border * -1` 写法规避歧义
+
 #### 🎉 2.99.1 (2026-05-22)
 - 【Fix】
     - 修复 Modal 组件在 `centered` 为 true 且内容高度超过视口时，title、关闭按钮与底部按钮被裁切且无法通过滚动到达的问题。改用 `align-items: flex-start` + `margin: auto` 的安全居中方案：内容能放下时仍视觉居中，溢出时退化为顶部对齐并可正常滚动 [@Cody2333](https://github.com/Cody2333) [#3300](https://github.com/DouyinFE/semi-design/issues/3300) [#3301](https://github.com/DouyinFE/semi-design/pull/3301)

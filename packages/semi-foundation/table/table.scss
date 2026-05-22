@@ -579,7 +579,11 @@ $module: #{$prefix}-table;
                 // Ensure header shows a visible right border even when the container overlay
                 // is covered by native scrollbars in some browsers.
                 & > .#{$module}-header {
-                    box-shadow: inset -$width-table_base_border 0 0 0 $color-table-border-default;
+                    // NOTE: write the negative width as `$var * -1` instead of `-$var` here.
+                    // Sass >=1.55 treats `inset -$width-...` as the binary expression
+                    // `inset - $width-...` (strict-unary deprecation), which compiles to the
+                    // broken value `inset-1px` (no space) and breaks the box-shadow.
+                    box-shadow: inset $width-table_base_border * -1 0 0 0 $color-table-border-default;
                 }
             }
         }
