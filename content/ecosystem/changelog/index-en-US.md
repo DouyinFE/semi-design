@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.99.1 (2026-05-22)
+- 【Fix】
+    - Fixed Modal component being unreachable when `centered` is true and content height exceeds the viewport — title / close button / footer buttons were clipped and could not be reached by scrolling. Switched to the safe-centering pattern (`align-items: flex-start` + `margin: auto`): the modal stays visually centered when content fits, and degrades to top-aligned + scrollable when content overflows [@Cody2333](https://github.com/Cody2333) [#3300](https://github.com/DouyinFE/semi-design/issues/3300) [#3301](https://github.com/DouyinFE/semi-design/pull/3301)
+
 #### 🎉 2.99.0 (2026-05-21)
 - 【Fix】
     - Fixed Cascader component not highlighting matched text when search keyword case differs from option label case with filterTreeNode enabled [#3296](https://github.com/DouyinFE/semi-design/issues/3296) [#3297](https://github.com/DouyinFE/semi-design/pull/3297)
