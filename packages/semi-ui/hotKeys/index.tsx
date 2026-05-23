@@ -1,16 +1,17 @@
 import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import HotKeysFoudation, { HotKeysAdapter } from '@douyinfe/semi-foundation/hotKeys/foundation';
+import HotKeysFoundation, { HotKeysAdapter } from '@douyinfe/semi-foundation/hotKeys/foundation';
 import { cssClasses, Keys } from '@douyinfe/semi-foundation/hotKeys/constants';
 import BaseComponent from '../_base/baseComponent';
-import { noop } from 'lodash';
+import { noop, isEqual } from 'lodash';
 import '@douyinfe/semi-foundation/hotKeys/hotKeys.scss';
 const prefixCls = cssClasses.PREFIX;
 
 export interface HotKeysProps {
     preventDefault?: boolean;
     hotKeys?: KeyboardEvent["key"][];
+    children?: ReactNode;
     content?: string[];
     onClick?: () => void;
     onHotKey?: (e: KeyboardEvent) => void;
@@ -18,7 +19,8 @@ export interface HotKeysProps {
     render?: () => ReactNode | ReactNode;
     getListenerTarget?: () => HTMLElement;
     className?: string;
-    style?: React.CSSProperties
+    style?: React.CSSProperties;
+    listenerOptions?: AddEventListenerOptions
 }
 
 export interface HotKeysState {
@@ -49,6 +51,8 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
         getListenerTarget: () => document.body,
         className: '',
         style: null,
+        listenerOptions: {
+        }
     };
 
     static Keys = Keys
@@ -57,21 +61,30 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
         super(props);
         this.state = {
         };
-        this.foundation = new HotKeysFoudation(this.adapter);
+        this.foundation = new HotKeysFoundation(this.adapter);
     }
 
     componentDidMount() {
         this.foundation.init();
     }
 
-    componentDidUpdate(_prevProps: HotKeysProps) {
+    componentDidUpdate(prevProps: HotKeysProps) {
+        const prevTarget = prevProps.getListenerTarget?.() ?? document.body;
+        const target = this.props.getListenerTarget?.() ?? document.body;
+        const prevListenerOptions = prevProps.listenerOptions;
+        const listenerOptions = this.props.listenerOptions;
+        const changeFlag = prevTarget !== target || !isEqual(prevListenerOptions, listenerOptions);
+        if (changeFlag) {
+            prevTarget.removeEventListener('keydown', this.foundation.handleKeyDown, prevListenerOptions);
+            target.addEventListener('keydown', this.foundation.handleKeyDown, listenerOptions);
+        }
     }
 
     componentWillUnmount() {
         this.foundation.destroy();
     }
 
-    foundation: HotKeysFoudation;
+    foundation: HotKeysFoundation;
 
     get adapter(): HotKeysAdapter<HotKeysProps, HotKeysState> {
         return {
@@ -79,21 +92,38 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
             notifyHotKey: (e: KeyboardEvent) => {
                 this.props.onHotKey?.(e);
             },
-            registerEvent: () => {
-                let target = this.props.getListenerTarget?.() ?? document.body;
-                target.addEventListener('keydown', this.foundation.handleKeyDown);
-            },
-            unregisterEvent: () => {
-                let target = this.props.getListenerTarget?.() ?? document.body;
-                target.removeEventListener('keydown', this.foundation.handleKeyDown);
-            }
+            registerEvent: this.registerEvent,
+            unregisterEvent: this.unregisterEvent,
         };
+    }
+
+    registerEvent = () => {
+        let target = this.props.getListenerTarget?.() ?? document.body;
+        target.addEventListener('keydown', this.foundation.handleKeyDown, this.props.listenerOptions);
+    }
+
+    unregisterEvent = () => {
+        let target = this.props.getListenerTarget?.() ?? document.body;
+        target.removeEventListener('keydown', this.foundation.handleKeyDown, this.props.listenerOptions);
     }
 
 
     render() {
-        const { hotKeys, content, onClick, render, getListenerTarget, className, style, ...rest } = this.props;
+        const { children, hotKeys, content, onClick, render, getListenerTarget, className, style, ...rest } = this.props;
  
+        if (children) {
+            return (
+                <div
+                    onClick={onClick}
+                    className={classNames(prefixCls, className)}
+                    style={style}
+                    {...this.getDataAttr(rest)}
+                >
+                    {children}
+                </div>
+            );
+        }
+
         if (typeof render !== 'undefined') {
             if (render === null || (typeof render === 'function' && render() === null)) {
                 return null;

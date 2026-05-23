@@ -70,6 +70,76 @@ function Demo() {
 ```
 
 ### 自定义内容
+优先级顺序为：`children` > `render` > `content` 
+通过`render`或`children`代替渲染的元素
+
+```jsx live=true
+import React, { useState } from 'react';
+import { HotKeys, Modal, Tag } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const [visible, setVisible] = useState(false);
+    const showDialog = () => {
+        setVisible(true);
+    };
+    const handleOk = () => {
+        setVisible(false);
+    };
+    const handleCancel = () => {
+        setVisible(false);
+    };
+    const hotKeys = [HotKeys.Keys.Control, HotKeys.Keys.T];
+  
+    const newHotKeys = <Tag>Press Ctrl+T to Open Modal</Tag>;
+    return (
+        <div>
+            <HotKeys hotKeys={hotKeys} onHotKey={showDialog}>{newHotKeys}</HotKeys>
+            <Modal
+                title="Dialog"
+                visible={visible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                This is the Modal opened by hotkey: {hotKeys.join('+')}.
+            </Modal>
+        </div>
+    );
+}
+```
+
+```jsx live=true
+import React, { useState } from 'react';
+import { HotKeys, Modal, Tag } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const [visible, setVisible] = useState(false);
+    const showDialog = () => {
+        setVisible(true);
+    };
+    const handleOk = () => {
+        setVisible(false);
+    };
+    const handleCancel = () => {
+        setVisible(false);
+    };
+    const hotKeys = [HotKeys.Keys.Control, HotKeys.Keys.R];
+  
+    const newHotKeys = <Tag>Press Ctrl+R to Open Modal</Tag>;
+    return (
+        <div>
+            <HotKeys hotKeys={hotKeys} onHotKey={showDialog} render={newHotKeys}></HotKeys>
+            <Modal
+                title="Dialog"
+                visible={visible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                This is the Modal opened by hotkey: {hotKeys.join('+')}.
+            </Modal>
+        </div>
+    );
+}
+```
 
 通过`content`传入渲染的字符
 
@@ -93,42 +163,6 @@ function Demo() {
     return (
         <div>
             <HotKeys hotKeys={hotKeys} onHotKey={showDialog} content={['Ctrl', 'Shift', 'B']}></HotKeys>
-            <Modal
-                title="Dialog"
-                visible={visible}
-                onOk={handleOk}
-                onCancel={handleCancel}
-            >
-                This is the Modal opened by hotkey: {hotKeys.join('+')}.
-            </Modal>
-        </div>
-    );
-}
-```
-
-通过`render`传入代替渲染的元素
-
-```jsx live=true
-import React, { useState } from 'react';
-import { HotKeys, Modal, Tag } from '@douyinfe/semi-ui';
-
-function Demo() {
-    const [visible, setVisible] = useState(false);
-    const showDialog = () => {
-        setVisible(true);
-    };
-    const handleOk = () => {
-        setVisible(false);
-    };
-    const handleCancel = () => {
-        setVisible(false);
-    };
-    const hotKeys = [HotKeys.Keys.Control, HotKeys.Keys.R];
-  
-    const newHotKeys = <Tag>Press Ctrl+R to Open Modal</Tag>;
-    return (
-        <div>
-            <HotKeys hotKeys={hotKeys} onHotKey={showDialog} render={newHotKeys}></HotKeys>
             <Modal
                 title="Dialog"
                 visible={visible}
@@ -219,21 +253,68 @@ function Demo() {
 }
 ```
 
+### 修改监听器参数
+通过`listenerOptions`修改快捷键监听器的参数
+```jsx live=true
+import React, { useState, useRef } from 'react';
+import { HotKeys, Input, Modal } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const hotKeys = ["m"];
+    const [visible, setVisible] = useState(false);
+    const [triggered, setTriggered] = useState(false);
+    const showDialog = () => {
+        setVisible(true);
+        setTriggered(true);
+    };
+    const handleOk = () => {
+        setVisible(false);
+    };
+    const handleCancel = () => {
+        setVisible(false);
+    };
+
+    const options = {
+        once: true,
+    }
+    return (
+        <div>
+            <HotKeys hotKeys={hotKeys} onHotKey={showDialog} listenerOptions={options}>
+            </HotKeys>
+            <br/>
+            <span>
+                {triggered? '已触发' : '未触发'}
+            </span>
+            <Modal
+                title="Dialog"
+                visible={visible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                This is the Modal opened by hotkey: {hotKeys.join('+')}.
+            </Modal>
+        </div>
+    );
+}
+```
+
 ## API 参考
 
 ### HotKeys
 
-| 属性              | 说明                                                                  | 类型                            | 默认值    |
-| ----------------- | --------------------------------------------------------------------- | ------------------------------- | --------- |
-| className         | 类名                                                                  | string                          |           |
-| content | 设置显示内容                                          | string[]                          | -         |
-| getListenerTarget         | 用于设置监听器挂载的DOM            | () => HTMLElement                       |  document.body         |
-| hotKeys  | 设置快捷键组合，[取值参考](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values)                                          | KeyboardEvent.key[]                          | -         |
-| onClick        | 点击回调函数                                                              |   () => void                      |    -       |
-| onHotKey        | 快捷键回调函数                                                              |   (e: KeyboardEvent) => void                      |    -       |
-| preventDefault        | 是否阻止快捷键默认行为                                                                  | boolean                          | false          |
-| render        |    覆盖组件渲染                                               | () => ReactNode \| ReactNode                       |           |
-| style             | 样式                                                                  | CSSProperties                   |           |
+| 属性              | 说明                                                                                                             | 类型                         | 默认值        |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------- | ------------- |
+| className         | 类名                                                                                                             | string                       |               |
+| content           | 设置显示内容                                                                                                     | string[]                     | -             |
+| children          | 覆盖组件默认渲染                                                                                                 | ReactNode                    |               |
+| getListenerTarget | 用于设置监听器挂载的DOM                                                                                          | () => HTMLElement            | document.body |
+| hotKeys           | 设置快捷键组合，[取值参考](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values) | KeyboardEvent.key[]          | -             |
+| listenerOptions   | [参考](https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/addEventListener#options)                    | AddEventListenerOptions      | -             |
+| onClick           | 点击回调函数                                                                                                     | () => void                   | -             |
+| onHotKey          | 快捷键回调函数                                                                                                   | (e: KeyboardEvent) => void   | -             |
+| preventDefault    | 是否阻止快捷键默认行为                                                                                           | boolean                      | false         |
+| render            | 覆盖组件渲染                                                                                                     | () => ReactNode \| ReactNode |               |
+| style             | 样式                                                                                                             | CSSProperties                |               |
 
 
 ## 设计变量
