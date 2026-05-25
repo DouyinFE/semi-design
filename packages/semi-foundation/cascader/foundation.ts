@@ -447,7 +447,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         if (!sugInput) {
             return [];
         }
-        const { treeNodeFilterProp, filterTreeNode, filterLeafOnly, remote } = this.getProps();
+        const { treeNodeFilterProp, filterTreeNode, filterLeafOnly, remote, keyMaps } = this.getProps();
+        const realFilterProp = treeNodeFilterProp !== 'label' ? treeNodeFilterProp : get(keyMaps, 'label', 'label');
         const entities = Object.values(keyEntities ?? this.getState('keyEntities')) as BasicEntity[];
 
         if (remote) {
@@ -463,7 +464,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
                 if (_notExist) {
                     return false;
                 }
-                const filteredPath = this.getItemPropPath(key, treeNodeFilterProp, keyEntities);
+                const filteredPath = this.getItemPropPath(key, realFilterProp, keyEntities);
                 return filter(sugInput, data, filterTreeNode, filteredPath);
             })
             .filter(item => (filterTreeNode && !filterLeafOnly) || this._isLeaf(item.data))
@@ -1127,7 +1128,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     }
 
     getFilteredData() {
-        const { treeNodeFilterProp, filterSorter } = this.getProps();
+        const { treeNodeFilterProp, filterSorter, keyMaps } = this.getProps();
+        const realFilterProp = treeNodeFilterProp !== 'label' ? treeNodeFilterProp : get(keyMaps, 'label', 'label');
         const { filteredKeys, keyEntities, inputValue } = this.getStates();
         const filteredList: BasicData[] = [];
         const filteredKeyArr = [...filteredKeys];
@@ -1137,7 +1139,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
                 return;
             }
             const pathData = this.getItemPropPath(key, []);
-            const itemSearchPath = pathData.map(item => item[treeNodeFilterProp]);
+            const itemSearchPath = pathData.map(item => item[realFilterProp]);
             const isDisabled = this._isOptionDisabled(key, keyEntities);
             filteredList.push({
                 data: item.data,
