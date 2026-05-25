@@ -17,7 +17,8 @@ import {
     calcMergeType,
     getKeysByValuePath,
     getKeyByPos,
-    KeyMapProps
+    KeyMapProps,
+    getValueOrKey
 } from './util';
 import { strings } from './constants';
 
@@ -535,7 +536,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const filterable = this._isFilterable();
         const loadingActive = [...activeKeys].filter(i => loadingKeys.has(i));
         const normalizedValue = normalizedArr(value);
-        const valuePath = onChangeWithObject && isObject(normalizedValue[0]) ? normalizedValue.map(i => i.value) : normalizedValue;
+        const keyMaps = this.getProp('keyMaps');
+        const valuePath = onChangeWithObject && isObject(normalizedValue[0]) ? getValueOrKey(normalizedValue, keyMaps) : normalizedValue;
         const selectedKeys = getKeysByValuePath(valuePath);
         let updateStates: Partial<BasicCascaderInnerData> = {};
 

@@ -163,6 +163,20 @@ export function convertDataToEntities(dataNodes: any, keyMaps?: KeyMapProps) {
     return keyEntities;
 }
 
+/**
+ * Get the value from data item using keyMaps mapping.
+ * Similar to Tree/TreeSelect's getValueOrKey.
+ * When keyMaps maps value to a custom field (e.g., 'id'), use that field;
+ * otherwise fall back to 'value'.
+ */
+export function getValueOrKey(data: any, keyMaps?: KeyMapProps) {
+    const valueName = get(keyMaps, 'value', 'value');
+    if (Array.isArray(data)) {
+        return data.map(item => get(item, valueName));
+    }
+    return get(data, valueName);
+}
+
 export function calcMergeType(autoMergeValue: boolean, leafOnly: boolean): string {
     let mergeType: string;
     if (leafOnly) {

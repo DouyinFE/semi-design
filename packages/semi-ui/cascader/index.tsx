@@ -18,7 +18,7 @@ import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/con
 import { isSet, isEqual, isString, isEmpty, isFunction, isNumber, noop, flatten, isObject, get } from 'lodash';
 import '@douyinfe/semi-foundation/cascader/cascader.scss';
 import { IconClear, IconChevronDown } from '@douyinfe/semi-icons';
-import { convertDataToEntities, calcMergeType, getKeyByValuePath, getKeyByPos } from '@douyinfe/semi-foundation/cascader/util';
+import { convertDataToEntities, calcMergeType, getKeyByValuePath, getKeyByPos, getValueOrKey } from '@douyinfe/semi-foundation/cascader/util';
 import { calcCheckedKeys, normalizeKeyList, calcDisabledKeys } from '@douyinfe/semi-foundation/tree/treeUtil';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
@@ -480,7 +480,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             const formatValuePath: (string | number)[][] = [];
             normalizedValue.forEach((valueItem: SimpleValueType[]) => {
                 const formatItem: (string | number)[] = onChangeWithObject && isObject(valueItem[0]) ?
-                    (valueItem as CascaderData[]).map(i => i?.value) :
+                    getValueOrKey(valueItem, keyMaps) as (string | number)[] :
                     valueItem as (string | number)[];
                 formatItem.length > 0 && (formatValuePath.push(formatItem));
             });
