@@ -16,9 +16,13 @@ import {
     isValid,
     calcMergeType,
     getKeysByValuePath,
-    getKeyByPos
+    getKeyByPos,
+    KeyMapProps,
+    getValueOrKey
 } from './util';
 import { strings } from './constants';
+
+export type { KeyMapProps };
 import isEnterPress from '../utils/isEnterPress';
 import { ESC_KEY } from '../utils/keyCode';
 
@@ -171,6 +175,7 @@ export interface BasicCascaderProps {
     virtualizeInSearch?: Virtualize;
     checkRelation?: string;
     remote?: boolean;
+    keyMaps?: KeyMapProps;
     onClear?: () => void;
     triggerRender?: (props: BasicTriggerRenderProps) => any;
     onListScroll?: (e: any, panel: BasicScrollPanelProps) => void;
@@ -407,8 +412,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     }
 
     collectOptions(init = false) {
-        const { treeData, value, defaultValue } = this.getProps();
-        const keyEntities = convertDataToEntities(treeData);
+        const { treeData, value, defaultValue, keyMaps } = this.getProps();
+        const keyEntities = convertDataToEntities(treeData, keyMaps);
         this._adapter.rePositionDropdown();
         let cacheValue;
         /* when mount */
@@ -442,7 +447,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         if (!sugInput) {
             return [];
         }
-        const { treeNodeFilterProp, filterTreeNode, filterLeafOnly, remote } = this.getProps();
+        const { treeNodeFilterProp, filterTreeNode, filterLeafOnly, remote, keyMaps } = this.getProps();
+        const realFilterProp = treeNodeFilterProp !== 'label' ? treeNodeFilterProp : get(keyMaps, 'label', 'label');
         const entities = Object.values(keyEntities ?? this.getState('keyEntities')) as BasicEntity[];
 
         if (remote) {
@@ -458,7 +464,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
                 if (_notExist) {
                     return false;
                 }
-                const filteredPath = this.getItemPropPath(key, treeNodeFilterProp, keyEntities);
+                const filteredPath = this.getItemPropPath(key, realFilterProp, keyEntities);
                 return filter(sugInput, data, filterTreeNode, filteredPath);
             })
             .filter(item => (filterTreeNode && !filterLeafOnly) || this._isLeaf(item.data))
@@ -531,7 +537,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const filterable = this._isFilterable();
         const loadingActive = [...activeKeys].filter(i => loadingKeys.has(i));
         const normalizedValue = normalizedArr(value);
-        const valuePath = onChangeWithObject && isObject(normalizedValue[0]) ? normalizedValue.map(i => i.value) : normalizedValue;
+        const keyMaps = this.getProp('keyMaps');
+        const valuePath = onChangeWithObject && isObject(normalizedValue[0]) ? getValueOrKey(normalizedValue, keyMaps) : normalizedValue;
         const selectedKeys = getKeysByValuePath(valuePath);
         let updateStates: Partial<BasicCascaderInnerData> = {};
 
@@ -1121,7 +1128,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     }
 
     getFilteredData() {
-        const { treeNodeFilterProp, filterSorter } = this.getProps();
+        const { treeNodeFilterProp, filterSorter, keyMaps } = this.getProps();
+        const realFilterProp = treeNodeFilterProp !== 'label' ? treeNodeFilterProp : get(keyMaps, 'label', 'label');
         const { filteredKeys, keyEntities, inputValue } = this.getStates();
         const filteredList: BasicData[] = [];
         const filteredKeyArr = [...filteredKeys];
@@ -1131,7 +1139,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
                 return;
             }
             const pathData = this.getItemPropPath(key, []);
-            const itemSearchPath = pathData.map(item => item[treeNodeFilterProp]);
+            const itemSearchPath = pathData.map(item => item[realFilterProp]);
             const isDisabled = this._isOptionDisabled(key, keyEntities);
             filteredList.push({
                 data: item.data,
@@ -1171,7 +1179,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
 
     handleTagRemoveInTrigger = (pos: string) => {
         const { treeData } = this.getStates();
-        const key = getKeyByPos(pos, treeData);
+        const { keyMaps } = this.getProps();
+        const key = getKeyByPos(pos, treeData, keyMaps);
         this.handleTagRemoveByKey(key);
     }
 }
