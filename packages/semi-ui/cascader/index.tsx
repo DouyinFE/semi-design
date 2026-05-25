@@ -10,11 +10,12 @@ import CascaderFoundation, {
     BasicTriggerRenderProps,
     BasicScrollPanelProps,
     CascaderAdapter,
-    CascaderType
+    CascaderType,
+    KeyMapProps
 } from '@douyinfe/semi-foundation/cascader/foundation';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/cascader/constants';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
-import { isSet, isEqual, isString, isEmpty, isFunction, isNumber, noop, flatten, isObject } from 'lodash';
+import { isSet, isEqual, isString, isEmpty, isFunction, isNumber, noop, flatten, isObject, get } from 'lodash';
 import '@douyinfe/semi-foundation/cascader/cascader.scss';
 import { IconClear, IconChevronDown } from '@douyinfe/semi-icons';
 import { convertDataToEntities, calcMergeType, getKeyByValuePath, getKeyByPos } from '@douyinfe/semi-foundation/cascader/util';
@@ -30,7 +31,7 @@ import TagInput from '../tagInput';
 import { getDefaultPropsFromGlobalConfig, isSemiIcon } from '../_utils';
 import { Position } from '../tooltip/index';
 
-export type { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/cascader/foundation';
+export type { CascaderType, ShowNextType, KeyMapProps } from '@douyinfe/semi-foundation/cascader/foundation';
 export type { CascaderData, Entity, Data, CascaderItemProps, FilterRenderProps } from './item';
 
 export interface ScrollPanelProps extends BasicScrollPanelProps {
@@ -188,6 +189,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         position: PropTypes.string,
         searchPosition: PropTypes.string,
         remote: PropTypes.bool,
+        keyMaps: PropTypes.object,
     };
 
     static defaultProps = getDefaultPropsFromGlobalConfig(Cascader.__SemiComponentName__, {
@@ -443,7 +445,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     }
 
     static getDerivedStateFromProps(props: CascaderProps, prevState: CascaderState) {
-        const { multiple, value, defaultValue, onChangeWithObject, leafOnly, autoMergeValue, checkRelation, searchPlaceholder, placeholder } = props;
+        const { multiple, value, defaultValue, onChangeWithObject, leafOnly, autoMergeValue, checkRelation, searchPlaceholder, placeholder, keyMaps } = props;
         const { prevProps } = prevState;
         let keyEntities = prevState.keyEntities || {};
         const newState: Partial<CascaderState> = {};
@@ -491,14 +493,14 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             return formatKeys;
         };
         if (multiple) {
-            const needUpdateTreeData = needUpdate('treeData') || needUpdateData();
+            const needUpdateTreeData = needUpdate('treeData') || needUpdateData() || needUpdate('keyMaps');
             const needUpdateValue = needUpdate('value') || (isEmpty(prevProps) && defaultValue);
             // when value and treedata need updated
             if (needUpdateTreeData || needUpdateValue) {
                 // update state.keyEntities
                 if (needUpdateTreeData) {
                     newState.treeData = props.treeData;
-                    keyEntities = convertDataToEntities(props.treeData);
+                    keyEntities = convertDataToEntities(props.treeData, keyMaps);
                     newState.keyEntities = keyEntities;
                 }
                 let realKeys: Array<string> | Set<string> = prevState.checkedKeys;
@@ -523,7 +525,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     const halfCheckedKeys = new Set(calRes.halfCheckedKeys);
                     // disableStrictly
                     if (props.disableStrictly) {
-                        newState.disabledKeys = calcDisabledKeys(keyEntities);
+                        newState.disabledKeys = calcDisabledKeys(keyEntities, keyMaps);
                     }
                     const isLeafOnlyMerge = calcMergeType(autoMergeValue, leafOnly) === strings.LEAF_ONLY_MERGE_TYPE;
                     newState.checkedKeys = checkedKeys;
@@ -549,14 +551,16 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     componentDidUpdate(prevProps: CascaderProps) {
         // multiple mode uses getDerivedStateFromProps to sync keyEntities,
         // so we also need to sync filteredKeys when treeData updates during searching.
+        const treeDataChanged = !isEqual(prevProps.treeData, this.props.treeData);
+        const keyMapsChanged = !isEqual(prevProps.keyMaps, this.props.keyMaps);
         if (this.props.multiple) {
-            if (!isEqual(prevProps.treeData, this.props.treeData)) {
+            if (treeDataChanged || keyMapsChanged) {
                 this.foundation.recalculateFilteredKeys();
             }
             return;
         }
         let isOptionsChanged = false;
-        if (!isEqual(prevProps.treeData, this.props.treeData)) {
+        if (treeDataChanged || keyMapsChanged) {
             isOptionsChanged = true;
             this.foundation.collectOptions();
         }

@@ -16,9 +16,12 @@ import {
     isValid,
     calcMergeType,
     getKeysByValuePath,
-    getKeyByPos
+    getKeyByPos,
+    KeyMapProps
 } from './util';
 import { strings } from './constants';
+
+export type { KeyMapProps };
 import isEnterPress from '../utils/isEnterPress';
 import { ESC_KEY } from '../utils/keyCode';
 
@@ -171,6 +174,7 @@ export interface BasicCascaderProps {
     virtualizeInSearch?: Virtualize;
     checkRelation?: string;
     remote?: boolean;
+    keyMaps?: KeyMapProps;
     onClear?: () => void;
     triggerRender?: (props: BasicTriggerRenderProps) => any;
     onListScroll?: (e: any, panel: BasicScrollPanelProps) => void;
@@ -407,8 +411,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     }
 
     collectOptions(init = false) {
-        const { treeData, value, defaultValue } = this.getProps();
-        const keyEntities = convertDataToEntities(treeData);
+        const { treeData, value, defaultValue, keyMaps } = this.getProps();
+        const keyEntities = convertDataToEntities(treeData, keyMaps);
         this._adapter.rePositionDropdown();
         let cacheValue;
         /* when mount */
@@ -1171,7 +1175,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
 
     handleTagRemoveInTrigger = (pos: string) => {
         const { treeData } = this.getStates();
-        const key = getKeyByPos(pos, treeData);
+        const { keyMaps } = this.getProps();
+        const key = getKeyByPos(pos, treeData, keyMaps);
         this.handleTagRemoveByKey(key);
     }
 }
