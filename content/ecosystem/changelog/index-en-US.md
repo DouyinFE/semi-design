@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.99.3 (2026-06-01)
+- 【Feat】
+    - Added `keyMaps` prop to Cascader for custom field mapping of `value`, `label`, `children`, `disabled`, and `isLeaf`, making it easier to adapt data sources with non-standard field names [#3302](https://github.com/DouyinFE/semi-design/issues/3302) [#3304](https://github.com/DouyinFE/semi-design/pull/3304)
+- 【Fix】
+    - Fixed compilation failure when using DSM-exported custom themes by adding the arrow offset variable required by Popover and adjusting component variable import order in theme build plugins [#3306](https://github.com/DouyinFE/semi-design/issues/3306) [#3307](https://github.com/DouyinFE/semi-design/pull/3307)
+
 #### 🎉 2.99.2 (2026-05-22)
 - 【Fix】
     - Fixed Table header right border being broken on Sass 1.55+. The original `box-shadow: inset -$width-table_base_border 0 0 0 ...` was parsed as a binary subtraction under the strict-unary rule and compiled to `inset-1px 0 0 0 ...` (no space between `inset` and the offset), making the whole box-shadow invalid and the header's right border invisible in horizontal-scroll scenarios. Rewrote it as `$width-table_base_border * -1` to avoid the ambiguity

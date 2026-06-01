@@ -14,6 +14,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.99.3 (2026-06-01)
+- 【Feat】
+    - Cascader 组件新增 `keyMaps` prop，支持自定义 `value`、`label`、`children`、`disabled`、`isLeaf` 字段映射，便于适配非标准字段名的数据源 [#3302](https://github.com/DouyinFE/semi-design/issues/3302) [#3304](https://github.com/DouyinFE/semi-design/pull/3304)
+- 【Fix】
+    - 修复使用 DSM 导出的自定义主题时编译失败的问题，补齐 Popover 依赖的箭头偏移变量，并调整主题构建插件中的组件变量导入顺序 [#3306](https://github.com/DouyinFE/semi-design/issues/3306) [#3307](https://github.com/DouyinFE/semi-design/pull/3307)
+
 #### 🎉 2.99.2 (2026-05-22)
 - 【Fix】
     - 修复 Table 组件 header 右侧边框样式 `box-shadow: inset -$width-table_base_border 0 0 0 ...` 在 Sass 1.55+ 下因 strict-unary 解析规则被编译为 `inset-1px 0 0 0 ...`（中间无空格、box-shadow 失效）的问题，导致水平滚动场景下 header 右侧边框丢失。改用 `$width-table_base_border * -1` 写法规避歧义
