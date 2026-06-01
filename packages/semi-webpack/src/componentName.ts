@@ -1,8 +1,15 @@
 const componentVariablePathList: string[] = [
-    '@douyinfe/semi-foundation/aiChatDialogue/variables.scss',
-    '@douyinfe/semi-foundation/aiChatInput/variables.scss',
+    // 注意：此列表的 import 顺序【非常重要】，组件之间存在 SCSS 变量依赖。
+    // 例如 popover/variables.scss 会引用 tooltip/variables.scss 中定义的 $horizontal-rate。
+    // 因此 tooltip 必须在 popover（以及其它依赖它的组件）之前被导入。
+    //
+    // 维护规则：
+    // 1) 请勿重排下方“基准列表”（即该文件历史上既有的顺序），否则可能导致自定义主题（DSM 导出）编译失败。
+    // 2) 新增组件变量（variables.scss）请【只追加到列表末尾】（建议按字母排序追加），不要插入到基准列表中间。
+    '@douyinfe/semi-foundation/tooltip/variables.scss',
+
+    // ===== Baseline list (do not reorder) =====
     '@douyinfe/semi-foundation/anchor/variables.scss',
-    '@douyinfe/semi-foundation/audioPlayer/variables.scss',
     '@douyinfe/semi-foundation/autoComplete/variables.scss',
     '@douyinfe/semi-foundation/avatar/variables.scss',
     '@douyinfe/semi-foundation/backtop/variables.scss',
@@ -14,41 +21,32 @@ const componentVariablePathList: string[] = [
     '@douyinfe/semi-foundation/card/variables.scss',
     '@douyinfe/semi-foundation/carousel/variables.scss',
     '@douyinfe/semi-foundation/cascader/variables.scss',
-    '@douyinfe/semi-foundation/chat/variables.scss',
     '@douyinfe/semi-foundation/checkbox/variables.scss',
     '@douyinfe/semi-foundation/collapse/variables.scss',
-    '@douyinfe/semi-foundation/colorPicker/variables.scss',
-    '@douyinfe/semi-foundation/cropper/variables.scss',
+    '@douyinfe/semi-foundation/collapsible/variables.scss',
     '@douyinfe/semi-foundation/datePicker/variables.scss',
     '@douyinfe/semi-foundation/descriptions/variables.scss',
     '@douyinfe/semi-foundation/divider/variables.scss',
     '@douyinfe/semi-foundation/dropdown/variables.scss',
     '@douyinfe/semi-foundation/empty/variables.scss',
-    '@douyinfe/semi-foundation/floatButton/variables.scss',
     '@douyinfe/semi-foundation/form/variables.scss',
     '@douyinfe/semi-foundation/grid/variables.scss',
     '@douyinfe/semi-foundation/highlight/variables.scss',
-    '@douyinfe/semi-foundation/hotKeys/variables.scss',
     '@douyinfe/semi-foundation/image/variables.scss',
     '@douyinfe/semi-foundation/input/variables.scss',
     '@douyinfe/semi-foundation/inputNumber/variables.scss',
-    '@douyinfe/semi-foundation/jsonViewer/variables.scss',
     '@douyinfe/semi-foundation/list/variables.scss',
-    '@douyinfe/semi-foundation/markdownRender/variables.scss',
     '@douyinfe/semi-foundation/modal/variables.scss',
     '@douyinfe/semi-foundation/navigation/variables.scss',
     '@douyinfe/semi-foundation/notification/variables.scss',
     '@douyinfe/semi-foundation/pagination/variables.scss',
-    '@douyinfe/semi-foundation/pincode/variables.scss',
     '@douyinfe/semi-foundation/popconfirm/variables.scss',
     '@douyinfe/semi-foundation/popover/variables.scss',
     '@douyinfe/semi-foundation/progress/variables.scss',
     '@douyinfe/semi-foundation/radio/variables.scss',
     '@douyinfe/semi-foundation/rating/variables.scss',
-    '@douyinfe/semi-foundation/resizable/variables.scss',
     '@douyinfe/semi-foundation/scrollList/variables.scss',
     '@douyinfe/semi-foundation/select/variables.scss',
-    '@douyinfe/semi-foundation/sidebar/variables.scss',
     '@douyinfe/semi-foundation/sideSheet/variables.scss',
     '@douyinfe/semi-foundation/skeleton/variables.scss',
     '@douyinfe/semi-foundation/slider/variables.scss',
@@ -63,15 +61,28 @@ const componentVariablePathList: string[] = [
     '@douyinfe/semi-foundation/timePicker/variables.scss',
     '@douyinfe/semi-foundation/timeline/variables.scss',
     '@douyinfe/semi-foundation/toast/variables.scss',
-    '@douyinfe/semi-foundation/tooltip/variables.scss',
     '@douyinfe/semi-foundation/transfer/variables.scss',
     '@douyinfe/semi-foundation/tree/variables.scss',
     '@douyinfe/semi-foundation/treeSelect/variables.scss',
     '@douyinfe/semi-foundation/typography/variables.scss',
     '@douyinfe/semi-foundation/upload/variables.scss',
+
+    // ===== New components (append only) =====
+    '@douyinfe/semi-foundation/aiChatDialogue/variables.scss',
+    '@douyinfe/semi-foundation/aiChatInput/variables.scss',
+    '@douyinfe/semi-foundation/audioPlayer/variables.scss',
+    '@douyinfe/semi-foundation/chat/variables.scss',
+    '@douyinfe/semi-foundation/colorPicker/variables.scss',
+    '@douyinfe/semi-foundation/cropper/variables.scss',
+    '@douyinfe/semi-foundation/floatButton/variables.scss',
+    '@douyinfe/semi-foundation/hotKeys/variables.scss',
+    '@douyinfe/semi-foundation/jsonViewer/variables.scss',
+    '@douyinfe/semi-foundation/markdownRender/variables.scss',
+    '@douyinfe/semi-foundation/pincode/variables.scss',
+    '@douyinfe/semi-foundation/resizable/variables.scss',
+    '@douyinfe/semi-foundation/sidebar/variables.scss',
     '@douyinfe/semi-foundation/userGuide/variables.scss',
     '@douyinfe/semi-foundation/videoPlayer/variables.scss'
 ];
-
 
 export default componentVariablePathList;
