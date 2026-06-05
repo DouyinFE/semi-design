@@ -260,13 +260,49 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         isPositionUpdated: false,
                     },
                     () => {
-                        setTimeout(() => {
-                            if ( this.cachedLatestTransitionState === 'enter' ) {
+                        // Wait for portal-inner to be actually laid out before emitting
+                        // 'portalInserted' (which triggers calcPosition). The previous
+                        // setTimeout(0) assumed React commit + DOM layout would finish
+                        // within one macrotask, which fails in large React apps + StrictMode
+                        // where commit can take 50+ms. The early emit causes calcPosition
+                        // to read a 0x0 wrapperRect, and the adjustPosIfNeed if-guard
+                        // (foundation.ts: `wrapperRect.width > 0 && wrapperRect.height > 0`)
+                        // silently skips the flip logic, leaving placement at default.
+                        const emit = () => {
+                            if (this.cachedLatestTransitionState === 'enter') {
                                 this.eventManager.emit('portalInserted');
                             }
-                            // waiting child component mounted
-
-                        }, 0);
+                        };
+                        const el = this.containerEl?.current;
+                        // Fast path: DOM already laid out — preserves prior behavior on simple apps
+                        if (el && (el.offsetWidth > 0 || el.offsetHeight > 0)) {
+                            emit();
+                            return;
+                        }
+                        // Slow path: observe portal-inner until it gets real dimensions
+                        if (el && typeof ResizeObserver !== 'undefined') {
+                            let emitted = false;
+                            const ro = new ResizeObserver(() => {
+                                if (!emitted && el.offsetWidth > 0 && el.offsetHeight > 0) {
+                                    emitted = true;
+                                    ro.disconnect();
+                                    emit();
+                                }
+                            });
+                            ro.observe(el);
+                            // Safety net: bail out after 50ms even if RO never fires
+                            setTimeout(() => {
+                                if (!emitted) {
+                                    emitted = true;
+                                    ro.disconnect();
+                                    emit();
+                                }
+                            }, 50);
+                            return;
+                        }
+                        // Final fallback (no containerEl yet, or no ResizeObserver):
+                        // preserve original setTimeout(0) behavior
+                        setTimeout(emit, 0);
                     }
                 );
             },
