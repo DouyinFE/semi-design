@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.100.0 (2026-06-09)
+- 【Fix】
+    - Fixed InputNumber not responding to +/- buttons when the absolute value of `step` is smaller than `1e-6` (e.g. `1e-8`). `_getPrecLen` did not recognize the scientific-notation string (`String(1e-8) === "1e-8"`) and returned 0 precision, which froze the step calculation [@kwokhoho](https://github.com/kwokhoho) [#3308](https://github.com/DouyinFE/semi-design/issues/3308) [#3305](https://github.com/DouyinFE/semi-design/pull/3305)
+    - Fixed Tooltip-based popups (Popover / Select / TreeSelect / Cascader / DatePicker, etc.) failing to flip according to viewport space on mount in large React apps / StrictMode, where positioning ran before the portal finished layout and read a 0×0 wrapper. Now it waits for real dimensions via ResizeObserver before positioning [@kwokhoho](https://github.com/kwokhoho) [#3310](https://github.com/DouyinFE/semi-design/issues/3310) [#3309](https://github.com/DouyinFE/semi-design/pull/3309)
+
 #### 🎉 2.99.3 (2026-06-01)
 - 【Feat】
     - Added `keyMaps` prop to Cascader for custom field mapping of `value`, `label`, `children`, `disabled`, and `isLeaf`, making it easier to adapt data sources with non-standard field names [#3302](https://github.com/DouyinFE/semi-design/issues/3302) [#3304](https://github.com/DouyinFE/semi-design/pull/3304)

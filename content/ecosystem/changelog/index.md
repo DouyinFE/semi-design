@@ -14,6 +14,11 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.100.0 (2026-06-09)
+- 【Fix】
+    - 修复 InputNumber 组件在 `step` 绝对值小于 `1e-6`（如 `1e-8`）时，因 `_getPrecLen` 未识别科学计数法字符串（`String(1e-8) === "1e-8"`）导致步进精度计算为 0、点击 +/- 按钮无响应的问题 [@kwokhoho](https://github.com/kwokhoho) [#3308](https://github.com/DouyinFE/semi-design/issues/3308) [#3305](https://github.com/DouyinFE/semi-design/pull/3305)
+    - 修复 Tooltip 及其衍生组件（Popover / Select / TreeSelect / Cascader / DatePicker 等）在 React 大型应用 / StrictMode 下，浮层 mount 时因定位时机早于 portal 布局完成、读取到 0×0 尺寸而无法根据视口空间正确翻转（flip）的问题，改用 ResizeObserver 等待真实尺寸后再定位 [@kwokhoho](https://github.com/kwokhoho) [#3310](https://github.com/DouyinFE/semi-design/issues/3310) [#3309](https://github.com/DouyinFE/semi-design/pull/3309)
+
 #### 🎉 2.99.3 (2026-06-01)
 - 【Feat】
     - Cascader 组件新增 `keyMaps` prop，支持自定义 `value`、`label`、`children`、`disabled`、`isLeaf` 字段映射，便于适配非标准字段名的数据源 [#3302](https://github.com/DouyinFE/semi-design/issues/3302) [#3304](https://github.com/DouyinFE/semi-design/pull/3304)
