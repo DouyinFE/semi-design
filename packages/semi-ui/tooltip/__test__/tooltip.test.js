@@ -335,6 +335,57 @@ describe(`Tooltip`, () => {
     await sleep(100);
     expect(toolTipElem.state('visible')).toBe(false);
   });
+
+  // https://github.com/DouyinFE/semi-design/issues/3310
+  // When portal-inner is not laid out yet at mount time (0x0), positioning must wait
+  // for ResizeObserver to report real dimensions before emitting 'portalInserted',
+  // otherwise calcPosition reads a 0x0 wrapper and the flip logic is silently skipped.
+  it(`waits for ResizeObserver layout before positioning the popup`, async () => {
+    const realResizeObserver = global.ResizeObserver;
+    const offsetWidthDesc = Object.getOwnPropertyDescriptor(global.HTMLElement.prototype, 'offsetWidth');
+    const offsetHeightDesc = Object.getOwnPropertyDescriptor(global.HTMLElement.prototype, 'offsetHeight');
+
+    const observers = [];
+    let laidOut = false;
+    global.ResizeObserver = class {
+      constructor(cb) { this.cb = cb; observers.push(this); }
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    };
+    // Simulate "portal-inner is 0x0 until the browser lays it out, then has real size"
+    Object.defineProperty(global.HTMLElement.prototype, 'offsetWidth', { configurable: true, get() { return laidOut ? 120 : 0; } });
+    Object.defineProperty(global.HTMLElement.prototype, 'offsetHeight', { configurable: true, get() { return laidOut ? 32 : 0; } });
+
+    try {
+      const demo = mount(
+        <Tooltip motion={false} content={'Content'} visible={true} trigger={'custom'} position="top">
+          <Button>trigger</Button>
+        </Tooltip>
+      );
+      await sleep(10);
+
+      // Because the portal was 0x0 at mount, the slow path must have registered a ResizeObserver
+      expect(observers.length).toBeGreaterThan(0);
+
+      const instance = demo.find(Tooltip).instance();
+      const calcSpy = sinon.spy(instance.foundation, 'calcPosition');
+
+      // Browser lays out portal-inner, then ResizeObserver fires
+      laidOut = true;
+      observers.forEach(o => o.cb && o.cb());
+      await sleep(10);
+
+      // The layout-driven ResizeObserver callback should have triggered positioning
+      expect(calcSpy.called).toBe(true);
+      calcSpy.restore();
+      demo.unmount();
+    } finally {
+      global.ResizeObserver = realResizeObserver;
+      Object.defineProperty(global.HTMLElement.prototype, 'offsetWidth', offsetWidthDesc);
+      Object.defineProperty(global.HTMLElement.prototype, 'offsetHeight', offsetHeightDesc);
+    }
+  });
 });
 
 it('wrapperClassName', () => {

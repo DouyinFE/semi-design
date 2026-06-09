@@ -619,6 +619,20 @@ describe(`InputNumber`, () => {
         expect(inputNumber.find('input').instance().value).toBe('15');
     });
 
+    // https://github.com/DouyinFE/semi-design/issues/3308
+    // step whose abs value < 1e-6 is stringified in scientific notation (e.g. (1e-8).toString() === "1e-8"),
+    // which previously made _getPrecLen return 0 and froze the +/- buttons.
+    it('step smaller than 1e-6 (scientific notation) increments/decrements correctly', () => {
+        const inputNumber = mount(<InputNumber defaultValue={0} step={1e-8} precision={8} />);
+        const btns = inputNumber.find(`.${BASE_CLASS_PREFIX}-input-number-suffix-btns .${BASE_CLASS_PREFIX}-input-number-button`);
+        const addBtn = btns.first();
+        const minusBtn = btns.last();
+        addBtn.simulate('mousedown', { button: numbers.MOUSE_BUTTON_LEFT });
+        expect(inputNumber.find('input').instance().value).toBe('0.00000001');
+        minusBtn.simulate('mousedown', { button: numbers.MOUSE_BUTTON_LEFT });
+        expect(inputNumber.find('input').instance().value).toBe('0.00000000');
+    });
+
     it('validateStatus warning', () => {
         const inputNumber = mount(<InputNumber validateStatus="warning" />);
         expect(inputNumber.exists(`.${BASE_CLASS_PREFIX}-input-wrapper-warning`)).toBe(true);
