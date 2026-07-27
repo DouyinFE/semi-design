@@ -3,6 +3,9 @@ import BaseComponent from '../_base/baseComponent';
 import cls from "classnames";
 import PropTypes from 'prop-types';
 import type { ChatProps, ChatState, Message } from './interface';
+
+export type { ChatProps, ChatState, Message } from './interface';
+
 import InputBox from './inputBox';
 import "@douyinfe/semi-foundation/chat/chat.scss";
 import Hint from './hint';

@@ -3,7 +3,7 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import InputFoundation from '@douyinfe/semi-foundation/input/foundation';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/input/constants';
-import { isSemiIcon } from '../_utils';
+import { isSemiIcon, getDefaultPropsFromGlobalConfig } from '../_utils';
 import BaseComponent from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/input/input.scss';
 import { isString, noop, isFunction, isUndefined } from 'lodash';
@@ -84,6 +84,8 @@ export interface InputState {
 }
 
 class Input extends BaseComponent<InputProps, InputState> {
+    static __SemiComponentName__ = "Input";
+    
     static propTypes = {
         'aria-label': PropTypes.string,
         'aria-labelledby': PropTypes.string,
@@ -131,7 +133,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         composition: PropTypes.bool,
     };
 
-    static defaultProps = {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Input.__SemiComponentName__, {
         addonBefore: '',
         addonAfter: '',
         prefix: '',
@@ -158,7 +160,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         validateStatus: 'default',
         borderless: false,
         composition: false,
-    };
+    });
 
     inputRef!: React.RefObject<HTMLInputElement>;
     prefixRef!: React.RefObject<React.ReactNode>;
