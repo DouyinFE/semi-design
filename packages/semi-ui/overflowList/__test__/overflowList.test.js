@@ -28,4 +28,28 @@ describe('OverflowList', () => {
         expect(node.find(`.${BASE_CLASS_PREFIX}-overflow-list-scroll-wrapper`).exists()).toEqual(true);
         node.unmount();
     });
+
+    it('keeps the last valid scroll overflow when visibility is unknown', () => {
+        const items = [
+            { key: 'alarm' },
+            { key: 'bookmark' },
+            { key: 'camera' },
+        ];
+        const node = mount(
+            <OverflowList
+                items={items}
+                visibleItemRenderer={item => <div>{item.key}</div>}
+                overflowRenderer={() => [null, null]}
+                renderMode="scroll"
+            />
+        );
+        const cachedOverflow = [[items[0]], [items[2]]];
+        node.setState({
+            visibleState: new Map(items.map(item => [item.key, false])),
+            scrollOverflow: cachedOverflow,
+        });
+
+        expect(node.instance().foundation.getOverflowItem()).toEqual(cachedOverflow);
+        node.unmount();
+    });
 });
