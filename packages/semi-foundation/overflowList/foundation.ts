@@ -11,18 +11,7 @@ export interface OverflowListAdapter extends DefaultAdapter {
     getItemSizeMap: () => Map<string, number>
 }
 
-// 防抖稳定性检测的时间阈值（毫秒）
-const STABILITY_THRESHOLD_MS = 150;
-
 class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
-    // 记录上次的 overflow 结果，用于稳定性检测
-    previousOverflowResult: Array<Array<Record<string, any>>> = [[], []];
-    
-    // 记录每个 item 的状态变化历史（时间戳）
-    stateChangeHistory: Map<string, number[]> = new Map();
-    
-    // 最后一次稳定更新的时间戳
-    lastStableUpdateTimestamp: number = 0;
 
     constructor(adapter: OverflowListAdapter) {
         super({ ...adapter });
@@ -37,59 +26,60 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
 
     getOverflowItem(): Array<Array<Record<string, any>>> {
         const { items } = this.getProps();
-        const { visibleState, overflow } = this.getStates();
+        const { visibleState, overflow, scrollOverflow } = this.getStates();
         if (!this.isScrollMode()) {
             return overflow;
+        }
+
+        // IntersectionObserver updates asynchronously. Keep the last valid result
+        // while visibility is unknown so collapse controls do not flicker.
+        if (!visibleState || visibleState.size === 0) {
+            if (Array.isArray(scrollOverflow) && scrollOverflow.length === 2) {
+                return scrollOverflow;
+            }
+            return [[], []];
         }
 
         const visibleStateArr = items.map(({ key }: { key: string }) => Boolean(visibleState.get(key)));
         const visibleStart = visibleStateArr.indexOf(true);
         const visibleEnd = visibleStateArr.lastIndexOf(true);
 
-        const overflowList: Array<Array<Record<string, any>>> = [];
-        overflowList[0] = visibleStart >= 0 ? items.slice(0, visibleStart) : [];
-        overflowList[1] = visibleEnd >= 0 ? items.slice(visibleEnd + 1, items.length) : items;
-        
-        // 稳定性检测：比较新旧 overflow 结果
-        const isResultChanged = this.isOverflowResultChanged(overflowList);
-        
-        if (isResultChanged) {
-            const now = Date.now();
-            const timeSinceLastUpdate = now - this.lastStableUpdateTimestamp;
-            
-            // 如果距离上次稳定更新时间太短，说明可能在抖动，返回上次稳定结果
-            if (timeSinceLastUpdate < STABILITY_THRESHOLD_MS && this.previousOverflowResult[0].length + this.previousOverflowResult[1].length > 0) {
-                return this.previousOverflowResult;
+        if (visibleStart < 0 || visibleEnd < 0) {
+            if (Array.isArray(scrollOverflow) && scrollOverflow.length === 2) {
+                return scrollOverflow;
             }
-            
-            // 更新稳定状态
-            this.lastStableUpdateTimestamp = now;
-            this.previousOverflowResult = overflowList;
+            return [[], []];
         }
-        
+
+        const overflowList = [];
+        overflowList[0] = visibleStart >= 0 ? items.slice(0, visibleStart) : [];
+        overflowList[1] = visibleEnd >= 0 ? items.slice(visibleEnd + 1, items.length) : items.slice();
         return overflowList;
     }
-    
-    /**
-     * 检查 overflow 结果是否发生变化
-     */
-    isOverflowResultChanged(newResult: Array<Array<Record<string, any>>>): boolean {
-        const prevLeft = this.previousOverflowResult[0];
-        const prevRight = this.previousOverflowResult[1];
-        const newLeft = newResult[0];
-        const newRight = newResult[1];
-        
-        if (prevLeft.length !== newLeft.length || prevRight.length !== newRight.length) {
-            return true;
+
+    private _syncScrollOverflowCache(nextVisibleState: Map<string, boolean>): void {
+        if (!this.isScrollMode()) {
+            return;
         }
-        
-        // 比较 key 是否一致
-        const prevLeftKeys = prevLeft.map(item => item.key).join(',');
-        const prevRightKeys = prevRight.map(item => item.key).join(',');
-        const newLeftKeys = newLeft.map(item => item.key).join(',');
-        const newRightKeys = newRight.map(item => item.key).join(',');
-        
-        return prevLeftKeys !== newLeftKeys || prevRightKeys !== newRightKeys;
+        const { items } = this.getProps();
+        const visibleStateArr = items.map(({ key }: { key: string }) => Boolean(nextVisibleState.get(key)));
+        const visibleStart = visibleStateArr.indexOf(true);
+        const visibleEnd = visibleStateArr.lastIndexOf(true);
+
+        if (visibleStart < 0 || visibleEnd < 0) {
+            this._adapter.updateStates({
+                isScrollOverflowCalculating: true,
+            });
+            return;
+        }
+
+        const overflowList: Array<Array<Record<string, any>>> = [];
+        overflowList[0] = items.slice(0, visibleStart);
+        overflowList[1] = items.slice(visibleEnd + 1, items.length);
+        this._adapter.updateStates({
+            scrollOverflow: overflowList,
+            isScrollOverflowCalculating: false,
+        });
     }
 
     handleIntersect(entries: Array<IntersectionObserverEntry>): void {
@@ -111,7 +101,7 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
         }
         // Any item is visible, indicating that the List is visible
         const wholeListVisible = someItemVisible;
-        // If scrolling in the vertical direction makes the List invisible, no processing is required. 
+        // If scrolling in the vertical direction makes the List invisible, no processing is required.
         // If this.previousY is undefined, it means that the List is mounted for the first time and will not be processed.
         const [entry1] = entries;
         const currentY = entry1.boundingClientRect.y;
@@ -121,6 +111,7 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
         }
         this.previousY = currentY;
         this._adapter.updateVisibleState(visibleState);
+        this._syncScrollOverflowCache(visibleState);
         this._adapter.notifyIntersect(res);
     }
 

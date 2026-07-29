@@ -50,7 +50,9 @@ export interface OverflowListState {
     maxCount?: number;
     overflowStatus?: 'calculating' | 'overflowed' | 'normal';
     pivot?: number;
-    overflowWidth?: number
+    overflowWidth?: number;
+    scrollOverflow?: Array<Array<OverflowItem>>;
+    isScrollOverflowCalculating?: boolean
 }
 
 // reference to https://github.com/palantir/blueprint/blob/1aa71605/packages/core/src/components/overflow-list/overflowList.tsx#L34
@@ -96,6 +98,8 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
             pivot: -1,
             overflowWidth: 0,
             maxCount: 0,
+            scrollOverflow: [[], []],
+            isScrollOverflowCalculating: true,
         };
         this.foundation = new OverflowListFoundation(this.adapter);
         this.previousWidths = new Map();
@@ -111,11 +115,32 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         const needUpdate = (name: string): boolean => {
             return (!prevProps && name in props) || (prevProps && !isEqual(prevProps[name], props[name]));
         };
-        if (needUpdate('items') || needUpdate('style')) {
+        const itemsChanged = needUpdate('items');
+        if (itemsChanged || needUpdate('style')) {
             // reset visible state if the above props change.
             newState.direction = OverflowDirection.GROW;
             newState.lastOverflowCount = 0;
             newState.maxCount = 0;
+            newState.isScrollOverflowCalculating = true;
+
+            if (itemsChanged && props.renderMode === RenderMode.SCROLL && Array.isArray(prevState.scrollOverflow)) {
+                const getKey = (item: OverflowItem, defaultKey?: Key): Key => {
+                    const { itemKey } = props;
+                    if (isFunction(itemKey)) {
+                        return itemKey(item);
+                    }
+                    return get(item, itemKey || 'key', defaultKey);
+                };
+                const nextItemMap = new Map<Key, OverflowItem>();
+                (props.items || []).forEach((item, index) => {
+                    nextItemMap.set(getKey(item, index), item);
+                });
+                const mapList = (list: Array<OverflowItem> = []): Array<OverflowItem> => list
+                    .map((item, index) => nextItemMap.get(getKey(item, index)))
+                    .filter((item): item is OverflowItem => Boolean(item));
+                const [cachedStart, cachedEnd] = prevState.scrollOverflow;
+                newState.scrollOverflow = [mapList(cachedStart), mapList(cachedEnd)];
+            }
             if (props.renderMode === RenderMode.SCROLL) {
                 newState.visible = props.items;
                 newState.overflow = [];
@@ -180,7 +205,11 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         // Determine whether to update by comparing key values
         if (!isEqual(prevItemsKeys, nowItemsKeys)) {
             this.itemRefs = {};
-            this.setState({ visibleState: new Map() });
+            this.itemSizeMap = new Map();
+            this.setState({
+                visibleState: new Map(),
+                isScrollOverflowCalculating: true,
+            });
         }
 
         const { overflow, containerWidth, visible, overflowStatus } = this.state;
