@@ -630,6 +630,26 @@ describe('Tree', () => {
         expect(tree.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).length).toEqual(2);
     });
 
+    it('filterTreeNode + showFilteredOnly only animates visible descendants', () => {
+        const tree = getTree({
+            filterTreeNode: true,
+            showFilteredOnly: true,
+        });
+        const searchWrapper = tree.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`);
+        searchWrapper.find('input').simulate('change', { target: { value: '北' } });
+
+        const chinaNode = tree.find(
+            `.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`
+        ).at(0);
+        const expandIcon = chinaNode.find(`.${BASE_CLASS_PREFIX}-tree-option-expand-icon`).at(0);
+        expandIcon.simulate('click', { nativeEvent: { stopImmediatePropagation: () => { } } });
+
+        // "上海" is a descendant of 中国 but is hidden by the active filter.
+        // Including it in motionKeys inserts the transition wrapper at the wrong
+        // list position and makes the visible result flicker.
+        expect(tree.state().motionKeys).toEqual(new Set(['beijing']));
+    });
+
     it('filterTreeNode as a func', () => {
         let tree = getTree({
             filterTreeNode: (inputValue, treeNode) => treeNode === inputValue,

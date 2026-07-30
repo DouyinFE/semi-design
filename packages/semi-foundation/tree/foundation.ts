@@ -711,7 +711,10 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
                 keyMaps,
                 isSearching && showFilteredOnly && filteredShownKeys
             );
-            const motionKeys = this._isAnimated() ? getMotionKeys(eventKey, expandedKeys, keyEntities) : [];
+            let motionKeys = this._isAnimated() ? getMotionKeys(eventKey, expandedKeys, keyEntities) : [];
+            if (isSearching && showFilteredOnly) {
+                motionKeys = motionKeys.filter(key => filteredShownKeys.has(key));
+            }
             const newState = {
                 [expandedStateKey]: expandedKeys,
                 flattenNodes,
