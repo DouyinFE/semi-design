@@ -28,7 +28,7 @@ Elements wrapped by `DragMove` will be able to change their position by dragging
 
 ***Notice***
 
-1. DragMove will set the draggable element to absolute positioning
+1. DragMove uses absolute positioning by default. Set `positionStrategy="relative"` when the element should keep its original layout position, such as a centered Modal
 2. DragMove needs to apply DOM event listeners to children. If the child element is a custom component, you need to ensure that it can pass properties to the underlying DOM element. The following types of children are supported:
     1. Class Component, it is not mandatory to bind ref, but you need to ensure that props can be transparently transmitted to the real DOM node 
     2. Use the functional component wrapped by forwardRef to transparently transmit props and ref to the real DOM node in children 
@@ -226,6 +226,7 @@ function CustomMove() {
 | constrainer | Returns the element that limits the draggable range. | () => HTMLElement \| 'parent' | - |
 | customMove | Customize position processing after dragging| (element: HTMLElement, top: number, left: number) => void | -|
 | handler | Returns the element that triggers dragging. | () => HTMLElement | - |
+| positionStrategy | Positioning strategy for the draggable element. Relative preserves its original layout position. | 'absolute' \| 'relative' | 'absolute' |
 | onMouseDown | Callback when mouse is pressed | (e: MouseEvent) => void | - |
 | onMouseMove | Callback when mouse moves | (e: MouseEvent) => void | - |
 | onMouseUp | Callback when mouse is raised | (e: MouseEvent) => void | - |
