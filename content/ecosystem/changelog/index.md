@@ -14,6 +14,15 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.102.0 (2026-07-31)
+- 【Feat】
+    - DragMove 组件新增 `positionStrategy="relative"` 定位策略，在保留元素原有布局位置的同时通过相对偏移实现拖动，修复 `centered` 可拖拽 Modal 向下偏移的问题；默认 `absolute` 策略保持不变 [@SudoUserReal](https://github.com/SudoUserReal) [#3323](https://github.com/DouyinFE/semi-design/issues/3323) [#3333](https://github.com/DouyinFE/semi-design/pull/3333)
+- 【Fix】
+    - 修复 DatePicker 等动态尺寸浮层在初次展示后内容尺寸发生变化时未重新计算位置，导致浮层被视口裁剪或在后续页面尺寸变化时跳动的问题 [@SudoUserReal](https://github.com/SudoUserReal) [#3329](https://github.com/DouyinFE/semi-design/issues/3329) [#3331](https://github.com/DouyinFE/semi-design/pull/3331)
+    - 修复 Tree 开启 `filterTreeNode` 与 `showFilteredOnly` 后，搜索态下展开或折叠节点时动画范围包含已过滤隐藏节点，导致可见列表闪烁的问题 [@SudoUserReal](https://github.com/SudoUserReal) [#3325](https://github.com/DouyinFE/semi-design/issues/3325) [#3332](https://github.com/DouyinFE/semi-design/pull/3332)
+    - 修复 DatePicker 的 `rangeSeparatorNode` 属性被意外传递到原生 DOM 元素，导致 React 输出未知属性警告的问题 [@holdxen](https://github.com/holdxen) [#3327](https://github.com/DouyinFE/semi-design/pull/3327)
+    - 修复 Button 未继承应用配置字体、回退使用浏览器默认字体的问题 [@teiron-jueyue](https://github.com/teiron-jueyue) [#3324](https://github.com/DouyinFE/semi-design/pull/3324)
+
 #### 🎉 2.101.1 (2026-07-20)
 - 【Fix】
     - 修复 Portal 在 React 18+ StrictMode 模拟重新挂载时重建容器节点，导致浮层子树被卸载并重新挂载、子组件副作用重复执行及数据请求重复发送的问题 [@kwokhoho](https://github.com/kwokhoho) [#3315](https://github.com/DouyinFE/semi-design/issues/3315) [#3316](https://github.com/DouyinFE/semi-design/pull/3316)

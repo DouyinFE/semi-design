@@ -16,6 +16,15 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.102.0 (2026-07-31)
+- 【Feat】
+    - Added `positionStrategy="relative"` to DragMove, allowing an element to remain in its original layout position while being dragged with relative offsets. This fixes downward displacement of draggable Modals with `centered` enabled, while preserving `absolute` as the default strategy [@SudoUserReal](https://github.com/SudoUserReal) [#3323](https://github.com/DouyinFE/semi-design/issues/3323) [#3333](https://github.com/DouyinFE/semi-design/pull/3333)
+- 【Fix】
+    - Fixed dynamically sized popups such as DatePicker not recalculating their placement when content dimensions changed after the initial display, which could cause viewport clipping or a later jump after the page was resized [@SudoUserReal](https://github.com/SudoUserReal) [#3329](https://github.com/DouyinFE/semi-design/issues/3329) [#3331](https://github.com/DouyinFE/semi-design/pull/3331)
+    - Fixed visible-list flicker when expanding or collapsing Tree nodes during search with both `filterTreeNode` and `showFilteredOnly` enabled, where the animation range incorrectly included filtered-out hidden nodes [@SudoUserReal](https://github.com/SudoUserReal) [#3325](https://github.com/DouyinFE/semi-design/issues/3325) [#3332](https://github.com/DouyinFE/semi-design/pull/3332)
+    - Fixed DatePicker spreading the `rangeSeparatorNode` prop onto a native DOM element and causing a React unknown-prop warning [@holdxen](https://github.com/holdxen) [#3327](https://github.com/DouyinFE/semi-design/pull/3327)
+    - Fixed Button not inheriting the application-configured font family and falling back to the browser's default button font [@teiron-jueyue](https://github.com/teiron-jueyue) [#3324](https://github.com/DouyinFE/semi-design/pull/3324)
+
 #### 🎉 2.101.1 (2026-07-20)
 - 【Fix】
     - Fixed Portal recreating its container element during React 18+ StrictMode simulated remounts, which caused popup subtrees to unmount and remount, reran child effects, and sent duplicate data requests [@kwokhoho](https://github.com/kwokhoho) [#3315](https://github.com/DouyinFE/semi-design/issues/3315) [#3316](https://github.com/DouyinFE/semi-design/pull/3316)
