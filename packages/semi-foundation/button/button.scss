@@ -19,6 +19,7 @@ $module: #{$prefix}-button;
     padding-right: $spacing-button_default-paddingRight;
     padding-top: $spacing-button_default-paddingTop;
     padding-bottom: $spacing-button_default-paddingTop;
+    font-family: inherit;
     font-size: $font-button-fontSize;
     line-height: $font-button-lineHeight;
     font-weight: $font-button-fontWeight;
