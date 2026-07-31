@@ -95,7 +95,7 @@ export interface TooltipProps extends BaseProps {
      * When set to false, the tooltip will not show when triggered
      * @default true
      */
-    condition?: boolean;
+    condition?: boolean
 }
 
 interface TooltipState {
@@ -202,6 +202,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     isWrapped: boolean;
     mounted: any;
     scrollHandler: any;
+    popupResizeObserver: ResizeObserver;
+    popupResizeTimer: ReturnType<typeof setTimeout>;
     getPopupContainer: () => HTMLElement;
     containerPosition: string;
     foundation: TooltipFoundation;
@@ -252,6 +254,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             getAnimatingState: () => this.isAnimating,
             insertPortal: (content: TooltipProps['content'], { position, ...containerStyle }: { position: Position }) => {
                 this.cachedLatestTransitionState = "enter";
+                this.disconnectPopupResizeObserver();
                 this.setState(
                     {
                         isInsert: true,
@@ -274,39 +277,64 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                             }
                         };
                         const el = this.containerEl?.current;
-                        // Fast path: DOM already laid out — preserves prior behavior on simple apps
-                        if (el && (el.offsetWidth > 0 || el.offsetHeight > 0)) {
-                            emit();
-                            return;
-                        }
-                        // Slow path: observe portal-inner until it gets real dimensions
+                        // Keep observing while the popup is visible. Some popup content
+                        // (for example DatePicker) first lays out at a small non-zero size,
+                        // then expands after its child state commits. Positioning only at
+                        // the first non-zero size leaves the final popup overflowing.
                         if (el && typeof ResizeObserver !== 'undefined') {
                             let emitted = false;
-                            const ro = new ResizeObserver(() => {
-                                if (!emitted && el.offsetWidth > 0 && el.offsetHeight > 0) {
+                            let lastWidth = el.offsetWidth;
+                            let lastHeight = el.offsetHeight;
+                            const emitOnce = () => {
+                                if (!emitted) {
                                     emitted = true;
-                                    ro.disconnect();
                                     emit();
                                 }
+                            };
+                            const ro = new ResizeObserver(() => {
+                                const width = el.offsetWidth;
+                                const height = el.offsetHeight;
+                                if (width <= 0 || height <= 0) {
+                                    return;
+                                }
+                                const sizeChanged = width !== lastWidth || height !== lastHeight;
+                                lastWidth = width;
+                                lastHeight = height;
+                                if (!emitted) {
+                                    emitOnce();
+                                } else if (sizeChanged && this.cachedLatestTransitionState === 'enter') {
+                                    clearTimeout(this.popupResizeTimer);
+                                    this.popupResizeTimer = setTimeout(() => {
+                                        if (this.cachedLatestTransitionState === 'enter') {
+                                            this.foundation.calcPosition();
+                                        }
+                                    }, 0);
+                                }
                             });
+                            this.popupResizeObserver = ro;
                             ro.observe(el);
+                            if (lastWidth > 0 && lastHeight > 0) {
+                                emitOnce();
+                            }
                             // Safety net: bail out after 50ms even if RO never fires
                             setTimeout(() => {
                                 if (!emitted) {
-                                    emitted = true;
-                                    ro.disconnect();
-                                    emit();
+                                    emitOnce();
                                 }
                             }, 50);
                             return;
                         }
-                        // Final fallback (no containerEl yet, or no ResizeObserver):
-                        // preserve original setTimeout(0) behavior
-                        setTimeout(emit, 0);
+                        // Fallback for browsers without ResizeObserver.
+                        if (el && el.offsetWidth > 0 && el.offsetHeight > 0) {
+                            emit();
+                        } else {
+                            setTimeout(emit, 0);
+                        }
                     }
                 );
             },
             removePortal: () => {
+                this.disconnectPopupResizeObserver();
                 this.setState({ isInsert: false, isPositionUpdated: false });
             },
             getEventName: () => ({
@@ -552,8 +580,15 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
     componentWillUnmount() {
         this.mounted = false;
+        this.disconnectPopupResizeObserver();
         this.foundation.destroy();
     }
+
+    disconnectPopupResizeObserver = () => {
+        clearTimeout(this.popupResizeTimer);
+        this.popupResizeObserver?.disconnect();
+        this.popupResizeObserver = null;
+    };
 
     /**
      * focus on tooltip trigger
@@ -592,6 +627,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     // };
 
     didLeave = () => {
+        this.disconnectPopupResizeObserver();
         if (this.props.keepDOM) {
             this.foundation.setDisplayNone(true);
         } else {
