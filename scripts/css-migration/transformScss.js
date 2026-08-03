@@ -53,6 +53,35 @@ function splitSelectors(sel) {
     return parts.map((p) => p.trim()).filter(Boolean);
 }
 
+// 判断节点是否在 @mixin 定义体内（模板代码，不能独立展开——只在 mixin 被调用时展开）
+function isInMixinDef(node) {
+    let p = node.parent;
+    while (p) {
+        if (p.type === 'atrule' && p.name === 'mixin') return true;
+        p = p.parent;
+    }
+    return false;
+}
+
+// token 值表：--semi-cssvar-x → 值（用于 sass 函数求值时代入，如 percentage(math.div($i, $width-grid_columns))）
+let tokenValuesCache = null;
+function getTokenValues() {
+    if (tokenValuesCache) return tokenValuesCache;
+    tokenValuesCache = new Map();
+    try {
+        const css = fs.readFileSync(path.join(ROOT, 'packages/semi-theme-default/css/token.css'), 'utf-8');
+        const re = /--semi-cssvar-([A-Za-z_][A-Za-z0-9_-]*)\s*:\s*([^;]+);/g;
+        let m;
+        while ((m = re.exec(css))) {
+            // sass 变量名 -/_ 等价：登记归一化键
+            tokenValuesCache.set(m[1].replace(/-/g, '_'), m[2].trim());
+        }
+    } catch (e) {
+        // token.css 不存在时静默（函数求值会失败保留）
+    }
+    return tokenValuesCache;
+}
+
 // ============ 上下文 ============
 class Ctx {
     constructor(componentDir, filePath) {
@@ -160,18 +189,31 @@ function loadThemeMixins(ctx) {
 // 参数绑定：mixin 体内 $param 替换为实参（始终返回深拷贝，避免 replaceWith 移动原节点）
 function bindParams(nodes, paramDef, argStr, ctx) {
     if (!paramDef) return nodes.map((n) => n.clone());
-    // 解析参数名
-    const paramNames = (paramDef.match(/\$[A-Za-z_][A-Za-z0-9_-]*/g) || []).map((p) => p.slice(1));
+    // 解析参数名与默认值：$gutter: $width-grid_gutter、$class: '' 等
+    const paramList = paramDef.match(/\$[A-Za-z_][A-Za-z0-9_-]*(?:\s*:\s*[^,)]*)?/g) || [];
+    const paramNames = [];
+    const defaults = [];
+    for (const p of paramList) {
+        const mm = p.match(/^\$([A-Za-z_][A-Za-z0-9_-]*)(?:\s*:\s*(.*))?$/);
+        if (mm) {
+            paramNames.push(mm[1]);
+            defaults.push(mm[2] !== undefined ? mm[2].trim() : undefined);
+        }
+    }
     if (!paramNames.length) return nodes.map((n) => n.clone());
-    // 解析实参（按逗号分隔，简单处理）
-    const args = (argStr || '').split(',').map((s) => s.trim());
+    // 解析实参（无实参时为空数组，避免 [''] 被当作实参替换成空字符串）
+    const args = argStr ? argStr.split(',').map((s) => s.trim()) : [];
     const replaceIn = (text) => {
         let t = text;
         paramNames.forEach((name, i) => {
-            if (args[i] !== undefined) {
-                // 同时替换 #{$name} 插值形式和裸 $name（sass 变量引用两种写法）
-                t = t.replace(new RegExp(`#\{\\$${name}\\}`, 'g'), args[i]);
-                t = t.replace(new RegExp(`\\$${name}(?![A-Za-z0-9_-])`, 'g'), args[i]);
+            // 实参优先，缺省用默认值
+            const val = args[i] !== undefined ? args[i] : defaults[i];
+            if (val !== undefined) {
+                // 插值 #{$name}：sass 插值语义去引号（$class: '' → #{$class} 输出空）
+                // 裸 $name：保留原值（带引号字符串）
+                const unquoted = val.replace(/^['"]|['"]$/g, '');
+                t = t.replace(new RegExp(`#\{\\$${name}\\}`, 'g'), unquoted);
+                t = t.replace(new RegExp(`\\$${name}(?![A-Za-z0-9_-])`, 'g'), val);
             }
         });
         return t;
@@ -207,7 +249,9 @@ function expandIncludes(root, ctx) {
     let pass = 0;
     while (pass++ < 20) {
         const includes = [];
-        root.walkAtRules('include', (at) => { includes.push(at); });
+        root.walkAtRules('include', (at) => {
+            if (!isInMixinDef(at)) includes.push(at);
+        });
         if (!includes.length) break;
         for (const at of includes) {
             const parts = at.params.trim().split(/\s*\(\s*/);
@@ -232,6 +276,8 @@ function expandIncludes(root, ctx) {
 function resolveLoopVars(nodes, ctx, inheritedDefs = '') {
     for (const n of nodes) {
         if (n.type === 'rule' || n.type === 'atrule') {
+            // 跳过 mixin 定义体内的变量（模板代码）
+            if (n.type === 'atrule' && n.name === 'mixin') continue;
             const resolvedDefs = resolveScope(n, ctx, inheritedDefs);
             if (n.nodes) resolveLoopVars(n.nodes, ctx, inheritedDefs + resolvedDefs);
         }
@@ -295,8 +341,14 @@ function resolveScope(scopeNode, ctx, inheritedDefs) {
     replaceIn(scopeNode.nodes || []);
     let inherited = '';
     for (const d of defs) {
-        if (resolved.has(d.name) && d.node.parent) {
-            d.node.remove();
+        if (resolved.has(d.name)) {
+            if (d.node.parent) {
+                d.node.remove();
+            } else if (scopeNode.nodes && Array.isArray(scopeNode.nodes)) {
+                // 无 parent（clone 的节点数组，如 @for 展开产物）→ splice 移除
+                const idx = scopeNode.nodes.indexOf(d.node);
+                if (idx > -1) scopeNode.nodes.splice(idx, 1);
+            }
             inherited += `$${d.name}: ${d.raw};\n`;
         }
     }
@@ -306,23 +358,56 @@ function resolveScope(scopeNode, ctx, inheritedDefs) {
 function expandLoops(root, ctx) {
     // 先解析体内的变量赋值（$index: 1 等，@for 边界可能引用）
     resolveLoopVars(root.nodes, ctx);
-    // 快照收集（walkAtRules 回调中 replaceWith 会跳过后续节点）
+    // 快照收集（walkAtRules 回调中 replaceWith 会跳过后续节点；跳过 mixin 定义体内的模板）
     const collect = (re) => {
         const list = [];
-        root.walkAtRules(re, (at) => { list.push(at); });
+        root.walkAtRules(re, (at) => {
+            if (!isInMixinDef(at)) list.push(at);
+        });
         return list;
     };
     const ats = collect(/for|each|if|else/);
     for (const at of ats) {
         if (at.name === 'for') {
+            // 解析 @for 的兄弟变量声明（$index: 1 在 @for 前，sass 作用域可见；
+            // 这些 decl 不在 rule/atrule 内，resolveLoopVars 按节点作用域处理不到）
+            const parent = at.parent;
+            if (parent && parent.nodes) {
+                const siblingDefs = [];
+                for (const n of parent.nodes) {
+                    if (n.type === 'decl' && isStructuralDecl(n)) siblingDefs.push({ name: n.prop.slice(1), raw: n.value.trim() });
+                }
+                if (siblingDefs.length) {
+                    let localDefs = ctx.varDefs;
+                    const resolved = new Map();
+                    for (let pass = 0; pass < 6; pass++) {
+                        for (const d of siblingDefs) {
+                            if (resolved.has(d.name)) continue;
+                            const r = evalExprs(localDefs + `$${d.name}: ${d.raw};`, [`$${d.name}`], ctx.extraImports).get(`$${d.name}`);
+                            if (r !== undefined) {
+                                resolved.set(d.name, r);
+                                localDefs += `$${d.name}: ${d.raw};\n`;
+                            }
+                        }
+                    }
+                    if (resolved.size) {
+                        at.params = at.params.replace(/\$([A-Za-z_][A-Za-z0-9_-]*)/g, (m, name) => {
+                            return resolved.get(name) !== undefined ? resolved.get(name) : m;
+                        });
+                        // 不删除兄弟 decl：多个 @for 共享同一批 $index（不同 mixin 展开产物），
+                        // 删除会让后续 @for 失去变量；统一由步骤 6 的 walkDecls 清理
+                    }
+                }
+            }
             const m = at.params.match(/^\$(\w+)\s+from\s+(.+?)\s+through\s+(.+)$/);
-            if (!m) { at.remove(); return; }
+            if (!m) { at.remove(); continue; }
             const [, varName, fromExpr, toExpr] = m;
             const values = evalExprs(ctx.varDefs, [fromExpr, toExpr], ctx.extraImports);
             const from = parseFloat(values.get(fromExpr));
             const to = parseFloat(values.get(toExpr));
-            if (Number.isNaN(from) || Number.isNaN(to)) { at.remove(); return; }
+            if (Number.isNaN(from) || Number.isNaN(to)) { at.remove(); continue; }
             const expanded = [];
+            let allResolved = true;
             for (let i = from; i <= to; i++) {
                 const cloneNodes = at.nodes.map((n) => n.clone());
                 // $i 替换为数值（含 #{$i} 插值形式）
@@ -335,23 +420,27 @@ function expandLoops(root, ctx) {
                     }
                 };
                 replaceI(cloneNodes);
+                // 每份独立解析体内变量（$item 与 #{$item} 同作用域；同名不同值各自绑定，
+                // 不能整体 resolveScope——同名 Map 会只保留第一个值）
+                const pending = cloneNodes.filter((n) => n.type === 'decl' && isStructuralDecl(n)).length;
+                if (pending > 0) {
+                    resolveScope({ nodes: cloneNodes }, ctx, '');
+                    const remaining = cloneNodes.filter((n) => n.type === 'decl' && isStructuralDecl(n)).length;
+                    if (remaining > 0) {
+                        allResolved = false;
+                        break;
+                    }
+                }
                 expanded.push(...cloneNodes);
             }
-            // 展开前预解析：体内有变量赋值（$item）时先尝试解析，
-            // 解析不完整（依赖 mixin 参数等未满足）→ 保留 @for 下一轮重试
-            const pendingDefs = expanded.filter((n) => n.type === 'decl' && isStructuralDecl(n)).length;
-            if (pendingDefs > 0) {
-                resolveScope({ nodes: expanded }, ctx, '');
-                const remaining = expanded.filter((n) => n.type === 'decl' && isStructuralDecl(n)).length;
-                if (remaining > 0) {
-                    continue; // 依赖未满足，跳过替换（下一轮 mixin 参数替换后重试）
-                }
+            if (!allResolved) {
+                continue; // 依赖未满足（如 mixin 参数），保留 @for 下一轮重试
             }
             at.replaceWith(...expanded);
         } else if (at.name === 'each') {
             // @each $c in $colors { ... } —— 列表求值交给 sass 输出逗号分隔
             const m = at.params.match(/^\$(\w+)\s+in\s+(.+)$/);
-            if (!m) { at.remove(); return; }
+            if (!m) { at.remove(); continue; }
             const [, varName, listExpr] = m;
             const values = evalExprs(ctx.varDefs, [listExpr], ctx.extraImports);
             const listRaw = values.get(listExpr);
@@ -535,10 +624,11 @@ function processNestedRule(rule, parentFlat, ctx) {
         return flattenRule(rule, flatSel, ctx);
     }
 
-    // 保持嵌套：裸选择器 & 前缀化（消除 CSS 嵌套的 :is 语义差异）
+    // 保持嵌套：裸选择器 & 前缀化（消除 CSS 嵌套的 :is 语义差异）；
+    // 已含 & 的（&:hover、.semi-rtl & 等）保留原样（postcss-nested 支持 & 在末尾）
     rule.selector = splitSelectors(rawSel).map((part) => {
         const p = part.trim();
-        if (p.startsWith('&')) return p;
+        if (p.startsWith('&') || p.includes('&')) return p;
         return `& ${p}`;
     }).join(', ');
     // 记录平面展开（子规则平面化时使用完整祖先链）
@@ -652,9 +742,57 @@ function transformDeclValue(value, ctx, prop) {
     }
     // 1. 值上下文变量替换（剩余 $var / #{$var} → token）
     v = replaceVarRefs(v);
+    // 1.5 sass 函数（percentage/math.div）→ evalExprs 整体求值写死
+    // （token 化后 math.div 等无法用 var 表达，必须编译期求值；sass 一次编译保留精度）
+    v = evalSassFunctions(v, ctx);
     // 2. calc 包裹
     if (needsCalc(v, prop)) {
         v = `calc(${v})`;
+    }
+    return v;
+}
+
+// 平衡括号提取函数调用（支持嵌套），返回 [{start, end, fn, args}]
+function extractFnCalls(value, fnRe) {
+    const calls = [];
+    const re = new RegExp(`\\b(${fnRe})\\s*\\(`, 'g');
+    let m;
+    while ((m = re.exec(value))) {
+        let depth = 1;
+        let i = m.index + m[0].length;
+        let j = i;
+        while (j < value.length && depth > 0) {
+            if (value[j] === '(') depth++;
+            else if (value[j] === ')') depth--;
+            j++;
+        }
+        if (depth === 0) {
+            calls.push({ start: m.index, end: j, fn: m[1], args: value.slice(i, j - 1) });
+        }
+    }
+    return calls;
+}
+
+// sass 函数求值：最外层整体求值（sass 处理嵌套调用，保留内部精度）
+// 只处理 sass 特有函数（percentage/math.div），避免误伤 CSS 同名函数
+function evalSassFunctions(value, ctx) {
+    const tokenValues = getTokenValues();
+    const fnRe = 'percentage|math\\.div';
+    let v = value;
+    for (let pass = 0; pass < 6; pass++) {
+        const calls = extractFnCalls(v, fnRe);
+        if (!calls.length) break;
+        // 最外层调用：整体 evalExprs（percentage(math.div(1, 24)) → 4.1666666667%）
+        const target = calls.find((c) => !calls.some((o) => o.start < c.start && o.end > c.end)) || calls[0];
+        const substituted = target.args.replace(/var\(--semi-cssvar-([A-Za-z_][A-Za-z0-9_-]*)\)/g, (mm, name) => {
+            const tv = tokenValues.get(name.replace(/-/g, '_'));
+            return tv !== undefined ? tv : mm;
+        });
+        if (/\$|#\{|var\(/.test(substituted)) break;
+        const expr = `${target.fn}(${substituted})`;
+        const r = evalExprs(ctx.varDefs, [expr], ctx.extraImports).get(expr);
+        if (r === undefined) break;
+        v = v.slice(0, target.start) + r + v.slice(target.end);
     }
     return v;
 }
@@ -713,6 +851,7 @@ async function processFile(root, ctx) {
     }
     removeMixinDefs(root, ctx);
     // 6. decl 值变换 + atrule params 处理（@media/@keyframes 等值上下文）
+    root.walkAtRules('use', (at) => at.remove()); // @use 是 sass 模块指令，css 无此语法
     root.walkDecls((decl) => {
         if (isStructuralDecl(decl)) { decl.remove(); return; }
         decl.value = transformDeclValue(decl.value, ctx, decl.prop);

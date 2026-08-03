@@ -3,6 +3,7 @@
  * 归一化：移除注释、空白折叠、值格式统一——消除"已知无害差异"，暴露真实语义差异
  */
 const postcss = require('postcss');
+const { evalExprs } = require('./sassEval');
 
 /**
  * 值归一化：trim + 空白折叠
@@ -12,6 +13,18 @@ const postcss = require('postcss');
 function normalizeValue(value, prop) {
     let v = (value || '').trim();
     v = v.replace(/\s+/g, ' ');
+    // sass 函数求值（token 代入后参数为纯数值）：percentage(math.div(3, 24)) → 12.5%
+    for (let i = 0; i < 5; i++) {
+        const next = v.replace(/\b(percentage|math\.div|round|ceil|floor|abs)\s*\(([^()]*)\)/g, (m, fn, args) => {
+            // 参数含字母（单位/其他函数）→ 无法静态求值
+            if (/[a-zA-Z]/.test(args.replace(/[\d.,\s-]/g, ''))) return m;
+            const expr = `${fn}(${args})`;
+            const r = evalExprs('', [expr], []).get(expr);
+            return r !== undefined ? r : m;
+        });
+        if (next === v) break;
+        v = next;
+    }
     // Lightning CSS 把 0px 序列化为 0（长度 0 等价）
     if (v === '0px') return '0';
     // 值末尾逗号（scss 跨行 transition 值解析残留）→ 删除

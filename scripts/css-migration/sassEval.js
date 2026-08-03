@@ -19,7 +19,7 @@ const THEME = path.join(ROOT, 'packages/semi-theme-default');
 function evalExprs(varDefs, exprs, extraImports = []) {
     if (!exprs.length) return new Map();
     const results = new Map();
-    const lines = [`@use "sass:meta";`, `@import "${THEME}/scss/index.scss";`];
+    const lines = [`@use "sass:meta";`, `@use "sass:math";`, `@import "${THEME}/scss/index.scss";`];
     for (const imp of extraImports) {
         lines.push(`@import "${imp}";`);
     }
