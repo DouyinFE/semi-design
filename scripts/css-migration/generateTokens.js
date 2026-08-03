@@ -1,0 +1,217 @@
+/**
+ * token 生成器：扫描全部 variables.scss / animation.scss，生成
+ * 1) 导出 scss（body { --semi-cssvar-x: #{$x}; }）→ sass 编译 → token.css
+ * 2) 变量映射表（$x → --semi-cssvar-x）JSON，供改写工具使用
+ *
+ * 命名规则：$<name> → --semi-cssvar-<name>（变量名原样保留，下划线/连字符不转换）
+ */
+const path = require('path');
+const fs = require('fs');
+const sass = require('sass');
+
+const ROOT = path.resolve(__dirname, '../..');
+const FOUNDATION = path.join(ROOT, 'packages/semi-foundation');
+const THEME = path.join(ROOT, 'packages/semi-theme-default');
+
+// 组件变量文件的依赖顺序（参考 semi-webpack/src/componentName.ts 的注释：popover 依赖 tooltip 等）
+// 为保证变量定义先于引用，按此顺序导入；新组件追加
+const COMPONENT_ORDER = [
+    'tooltip', 'anchor', 'autoComplete', 'avatar', 'backtop', 'badge', 'banner', 'breadcrumb',
+    'button', 'calendar', 'card', 'carousel', 'cascader', 'checkbox', 'collapse', 'collapsible',
+    'datePicker', 'descriptions', 'divider', 'dropdown', 'empty', 'form', 'grid', 'highlight',
+    'image', 'input', 'inputNumber', 'list', 'modal', 'navigation', 'notification', 'pagination',
+    'popconfirm', 'popover', 'progress', 'radio', 'rating', 'scrollList', 'select', 'sideSheet',
+    'skeleton', 'slider', 'space', 'spin', 'steps', 'switch', 'table', 'tabs', 'tag', 'tagInput',
+    'timePicker', 'timeline', 'toast', 'transfer', 'tree', 'treeSelect', 'typography', 'upload',
+    'aiChatDialogue', 'aiChatInput', 'audioPlayer', 'chat', 'colorPicker', 'cropper', 'floatButton',
+    'hotKeys', 'jsonViewer', 'markdownRender', 'pincode', 'resizable', 'sidebar', 'userGuide',
+    'videoPlayer', 'lottie', 'iconButton',
+];
+
+/**
+ * 扫描一个目录下的变量定义（$name: ...;），返回变量名列表
+ */
+function scanVariables(dir) {
+    const names = new Set();
+    const files = ['variables.scss', 'animation.scss'];
+    for (const file of files) {
+        const p = path.join(dir, file);
+        if (!fs.existsSync(p)) continue;
+        const content = fs.readFileSync(p, 'utf-8');
+        const re = /^\s*\$([A-Za-z_][A-Za-z0-9_-]*)\s*:/gm;
+        let m;
+        while ((m = re.exec(content))) {
+            names.add(m[1]);
+        }
+    }
+    return [...names];
+}
+
+/**
+ * 生成导出 scss：body { --semi-cssvar-x: #{$x}; }
+ */
+function buildExportScss() {
+    const lines = [];
+    lines.push(`@use "sass:meta";`);
+    lines.push(`@import "${THEME}/scss/index.scss";`);
+    // 按依赖顺序导入各组件变量文件
+    const importedDirs = new Set();
+    for (const comp of COMPONENT_ORDER) {
+        const dir = path.join(FOUNDATION, comp);
+        if (!fs.existsSync(dir)) continue;
+        const hasVars = ['variables.scss', 'animation.scss'].some((f) => fs.existsSync(path.join(dir, f)));
+        if (hasVars) {
+            for (const f of ['variables.scss', 'animation.scss']) {
+                if (fs.existsSync(path.join(dir, f))) {
+                    lines.push(`@import "${path.join(dir, f)}";`);
+                }
+            }
+            importedDirs.add(comp);
+        }
+    }
+    // 兜底：扫描目录中所有含变量的组件（防止 COMPONENT_ORDER 遗漏）
+    for (const entry of fs.readdirSync(FOUNDATION)) {
+        const dir = path.join(FOUNDATION, entry);
+        if (!fs.statSync(dir).isDirectory()) continue;
+        if (importedDirs.has(entry)) continue;
+        if (['node_modules', 'lib', 'keyframes', 'scripts', 'base', '_portal', '_utils'].includes(entry)) continue;
+        const hasVars = ['variables.scss', 'animation.scss'].some((f) => fs.existsSync(path.join(dir, f)));
+        if (hasVars) {
+            for (const f of ['variables.scss', 'animation.scss']) {
+                if (fs.existsSync(path.join(dir, f))) {
+                    lines.push(`@import "${path.join(dir, f)}";`);
+                }
+            }
+        }
+    }
+    // 变量声明
+    lines.push('');
+    lines.push('body {');
+    const allVars = [];
+    for (const comp of fs.readdirSync(FOUNDATION)) {
+        const dir = path.join(FOUNDATION, comp);
+        if (!fs.statSync(dir).isDirectory()) continue;
+        if (['node_modules', 'lib', 'keyframes', 'scripts', 'base', '_portal', '_utils'].includes(comp)) continue;
+        allVars.push(...scanVariables(dir).map((v) => ({ v, comp })));
+    }
+    // theme 变量（index.scss 已导入）
+    const themeVars = scanVariables(THEME + '/scss').map((v) => ({ v, comp: '__theme__' }));
+    const merged = new Map();
+    for (const { v, comp } of [...themeVars, ...allVars]) {
+        if (!merged.has(v)) merged.set(v, comp);
+    }
+    for (const [v, comp] of merged) {
+        // 用 meta.inspect 保留字符串引号（#{} 插值会去引号，inspect 保留）
+        // font-family 等变量值必须保留引号（与 sass 变量引用语义一致）
+        lines.push(`    --semi-cssvar-${v}: #{meta.inspect($${v})};`);
+    }
+    lines.push('}');
+    return lines.join('\n');
+}
+
+/**
+ * 生成 token.css + 映射表
+ * @returns {{ tokenCss: string, map: Object<string, string> }}
+ */
+function generateTokens() {
+    const exportScss = buildExportScss();
+    const result = sass.compileString(exportScss, {
+        style: 'expanded',
+        charset: false,
+        importers: [
+            {
+                findFileUrl(url) {
+                    if (url.startsWith('/') || url.startsWith('file:')) {
+                        return new URL(url.startsWith('file:') ? url : `file://${url}`);
+                    }
+                    const resolved = path.resolve(FOUNDATION, url);
+                    if (fs.existsSync(resolved)) return new URL(`file://${resolved}`);
+                    return null;
+                },
+            },
+        ],
+    });
+    // 映射表：$name → --semi-cssvar-name
+    const map = {};
+    const re = /--semi-cssvar-([A-Za-z_][A-Za-z0-9_-]*)/g;
+    let m;
+    while ((m = re.exec(result.css))) {
+        map[m[1]] = `--semi-cssvar-${m[1]}`;
+    }
+    return { tokenCss: result.css, map };
+}
+
+/**
+ * 检测同名变量冲突：多个文件定义同名变量且值不同 → 不能全局 token 化
+ * （如 tooltip $height-tooltip_arrow: 7px vs popover $height-tooltip_arrow: 8px）
+ * 返回冲突变量名数组
+ */
+function detectConflicts() {
+    const defs = new Map(); // name -> [{file, comp}]
+    for (const comp of fs.readdirSync(FOUNDATION)) {
+        const dir = path.join(FOUNDATION, comp);
+        if (!fs.statSync(dir).isDirectory()) continue;
+        if (['node_modules', 'lib', 'keyframes', 'scripts', 'base', '_portal', '_utils'].includes(comp)) continue;
+        for (const f of ['variables.scss', 'animation.scss']) {
+            const p = path.join(dir, f);
+            if (!fs.existsSync(p)) continue;
+            const content = fs.readFileSync(p, 'utf-8');
+            const re = /^\s*\$([A-Za-z_][A-Za-z0-9_-]*)\s*:/gm;
+            let m;
+            while ((m = re.exec(content))) {
+                if (!defs.has(m[1])) defs.set(m[1], []);
+                defs.get(m[1]).push({ file: p, comp });
+            }
+        }
+    }
+    const conflicts = [];
+    for (const [name, defsList] of defs) {
+        if (defsList.length < 2) continue;
+        // 逐定义求值（导入 theme + 对应组件目录的全部变量文件）
+        const values = new Set();
+        for (const d of defsList) {
+            const compDir = path.join(FOUNDATION, d.comp);
+            const imports = [];
+            for (const f of ['variables.scss', 'animation.scss']) {
+                const fp = path.join(compDir, f);
+                if (fs.existsSync(fp)) imports.push(`@import "${fp}";`);
+            }
+            const src = `@import "${THEME}/scss/index.scss";\n${imports.join('\n')}\nbody { --__v: #{$${name}}; }`;
+            const result = sass.compileString(src, {
+                style: 'expanded',
+                charset: false,
+                importers: [
+                    {
+                        findFileUrl(url) {
+                            if (url.startsWith('/') || url.startsWith('file:')) {
+                                return new URL(url.startsWith('file:') ? url : `file://${url}`);
+                            }
+                            const resolved = path.resolve(compDir, url);
+                            if (fs.existsSync(resolved)) return new URL(`file://${resolved}`);
+                            return null;
+                        },
+                    },
+                ],
+            }).css;
+            const vm = result.match(/--__v:\s*([^;]+);/);
+            if (vm) values.add(vm[1].trim());
+        }
+        if (values.size > 1) conflicts.push(name);
+    }
+    return conflicts;
+}
+
+module.exports = { generateTokens, buildExportScss, scanVariables, COMPONENT_ORDER, detectConflicts };
+
+// CLI: node generateTokens.js [outputDir]
+if (require.main === module) {
+    const outputDir = process.argv[2] || path.join(ROOT, 'packages/semi-theme-default/css');
+    const { tokenCss, map } = generateTokens();
+    fs.mkdirSync(outputDir, { recursive: true });
+    fs.writeFileSync(path.join(outputDir, 'token.css'), tokenCss);
+    fs.writeFileSync(path.join(__dirname, 'varMap.json'), JSON.stringify(map, null, 0));
+    const conflicts = detectConflicts();
+    fs.writeFileSync(path.join(__dirname, 'conflictVars.json'), JSON.stringify(conflicts, null, 0));
+    console.log(`token.css 生成: ${outputDir}/token.css (${tokenCss.length} bytes, ${Object.keys(map).length} 个变量)`);
+    console.log(`同名冲突变量 ${conflicts.length} 个: ${conflicts.join(', ')}`);
+}

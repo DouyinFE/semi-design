@@ -1,0 +1,20 @@
+{
+  "name": "css-migration",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "lightningcss": "^1.33.0",
+    "postcss": "^8.5.25",
+    "postcss-nested": "^6.2.0",
+    "postcss-scss": "^4.0.9",
+    "postcss-value-parser": "^4.2.0",
+    "sass": "^1.54.9"
+  }
+}
