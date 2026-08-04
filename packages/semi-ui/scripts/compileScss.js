@@ -1,11 +1,11 @@
-const { compile } = require('@douyinfe/semi-scss-compile');
+const { compileCss } = require('@douyinfe/semi-scss-compile');
 const path = require('path');
 
 function resolve(dir) {
     return path.join(__dirname, '../..', dir);
 }
 
-compile({
+compileCss({
     foundationPath: resolve('semi-foundation/'),
     themePath: resolve('semi-theme-default/'),
     iconPath: resolve('semi-icons/'),
@@ -18,7 +18,7 @@ compile({
     isMin: true
 });
 
-compile({
+compileCss({
     foundationPath: resolve('semi-foundation/'),
     themePath: resolve('semi-theme-default/'),
     iconPath: resolve('semi-icons/'),
