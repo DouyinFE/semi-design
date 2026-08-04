@@ -1,0 +1,463 @@
+
+.semi-carousel {
+    position: relative;
+    overflow: hidden
+}
+
+    .semi-carousel-content {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: relative
+    }
+
+        .semi-carousel-content-item {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden
+        }
+
+            .semi-carousel-content-item-current {
+                z-index: 1;
+            }
+
+        .semi-carousel-content-fade {
+        }
+            .semi-carousel-content-fade > * {
+                opacity: 0;
+            }
+
+            .semi-carousel-content-fade .semi-carousel-content-item-current {
+                opacity: 1;
+            }
+
+        .semi-carousel-content-slide {
+        }
+            .semi-carousel-content-slide > *:not(.semi-carousel-content-item-current) {
+                visibility: hidden;
+            }
+
+            .semi-carousel-content-slide .semi-carousel-content-item-slide-out {
+                display: block;
+                animation: semi-carousel-content-item-keyframe-slide-out;
+                animation-fill-mode: forwards;
+            }
+
+            .semi-carousel-content-slide .semi-carousel-content-item-slide-in {
+                display: block;
+                animation: semi-carousel-content-item-keyframe-slide-in;
+                animation-fill-mode: forwards;
+            }
+
+        .semi-carousel-content-reverse {
+        }
+            .semi-carousel-content-reverse .semi-carousel-content-item-slide-out {
+                animation: semi-carousel-content-item-keyframe-slide-out-reverse;
+                animation-fill-mode: forwards;
+            }
+
+            .semi-carousel-content-reverse .semi-carousel-content-item-slide-in {
+                animation: semi-carousel-content-item-keyframe-slide-in-reverse;
+                animation-fill-mode: forwards;
+            }
+
+    .semi-carousel-indicator {
+        display: flex;
+        align-items: flex-end;
+        z-index: 2
+    }
+
+        .semi-carousel-indicator-left {
+            position: absolute;
+            left: var(--semi-cssvar-spacing-carousel_indicator-padding);
+            bottom: var(--semi-cssvar-spacing-carousel_indicator-padding);
+        }
+
+        .semi-carousel-indicator-center {
+            position: absolute;
+            left: 50%;
+            bottom: var(--semi-cssvar-spacing-carousel_indicator-padding);
+            transform: translate(-50%);
+        }
+
+        .semi-carousel-indicator-right {
+            position: absolute;
+            right: var(--semi-cssvar-spacing-carousel_indicator-padding);
+            bottom: var(--semi-cssvar-spacing-carousel_indicator-padding);
+        }
+
+        .semi-carousel-indicator-dot {
+        }
+            .semi-carousel-indicator-dot .semi-carousel-indicator-item {
+                border-radius: var(--semi-cssvar-radius-carousel_indicator_dot);
+                cursor: pointer
+            }
+
+                .semi-carousel-indicator-dot .semi-carousel-indicator-item:not(:last-child) {
+                    margin-right: var(--semi-cssvar-spacing-carousel_indicator_dot-marginX);
+                }
+
+                .semi-carousel-indicator-dot .semi-carousel-indicator-item-small {
+                    width: var(--semi-cssvar-width-carousel_indicator_dot_small);
+                    height: var(--semi-cssvar-width-carousel_indicator_dot_small);
+                }
+
+                .semi-carousel-indicator-dot .semi-carousel-indicator-item-medium {
+                    width: var(--semi-cssvar-width-carousel_indicator_dot_medium);
+                    height: var(--semi-cssvar-width-carousel_indicator_dot_medium);
+                }
+
+                .semi-carousel-indicator-dot .semi-carousel-indicator-item-primary {
+                    background-color: var(--semi-cssvar-color-carousel_indicator_theme_primary-bg-default);
+                    transition: background-color var(--semi-cssvar-transition_duration-carousel_indicator-bg)
+                        var(--semi-cssvar-transition_function-carousel_indicator-bg) var(--semi-cssvar-transition_delay-carousel_indicator-bg)
+                }
+
+                    .semi-carousel-indicator-dot .semi-carousel-indicator-item-primary.semi-carousel-indicator-item-active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_primary-bg-active);
+                    }
+
+                    .semi-carousel-indicator-dot .semi-carousel-indicator-item-primary:hover {
+                        background-color: var(--semi-cssvar-color-carousel_indicator_theme_primary-bg-hover);
+                    }
+
+                    .semi-carousel-indicator-dot .semi-carousel-indicator-item-primary:active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_primary-bg-active);
+                    }
+
+                .semi-carousel-indicator-dot .semi-carousel-indicator-item-light {
+                    background-color: var(--semi-cssvar-color-carousel_indicator_theme_light-bg-default);
+                    transition: background-color var(--semi-cssvar-transition_duration-carousel_indicator-bg)
+                        var(--semi-cssvar-transition_function-carousel_indicator-bg) var(--semi-cssvar-transition_delay-carousel_indicator-bg)
+                }
+
+                    .semi-carousel-indicator-dot .semi-carousel-indicator-item-light.semi-carousel-indicator-item-active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_light-bg-active);
+                    }
+
+                    .semi-carousel-indicator-dot .semi-carousel-indicator-item-light:hover {
+                        background-color: var(--semi-cssvar-color-carousel_indicator_theme_light-bg-hover);
+                    }
+
+                    .semi-carousel-indicator-dot .semi-carousel-indicator-item-light:active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_light-bg-active);
+                    }
+
+                .semi-carousel-indicator-dot .semi-carousel-indicator-item-dark {
+                    background-color: var(--semi-cssvar-color-carousel_indicator_theme_dark-bg-default);
+                    transition: background-color var(--semi-cssvar-transition_duration-carousel_indicator-bg)
+                        var(--semi-cssvar-transition_function-carousel_indicator-bg) var(--semi-cssvar-transition_delay-carousel_indicator-bg)
+                }
+
+                    .semi-carousel-indicator-dot .semi-carousel-indicator-item-dark.semi-carousel-indicator-item-active {
+                        background-color: var(--semi-cssvar-color-carousel_indicator_theme_dark-bg-active);
+                    }
+
+                    .semi-carousel-indicator-dot .semi-carousel-indicator-item-dark:hover {
+                        background-color: var(--semi-cssvar-color-carousel_indicator_theme_dark-bg-hover);
+                    }
+
+                    .semi-carousel-indicator-dot .semi-carousel-indicator-item-dark:active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_dark-bg-active);
+                    }
+
+        .semi-carousel-indicator-line {
+            width: var(--semi-cssvar-width-carousel_indicator_line)
+        }
+
+            .semi-carousel-indicator-line .semi-carousel-indicator-item {
+                flex: 1;
+                cursor: pointer
+            }
+
+                .semi-carousel-indicator-line .semi-carousel-indicator-item:not(:last-child) {
+                    margin-right: var(--semi-cssvar-spacing-carousel_indicator_line-marginX);
+                }
+
+                .semi-carousel-indicator-line .semi-carousel-indicator-item-small {
+                    height: var(--semi-cssvar-height-carousel_indicator_line_small);
+                }
+
+                .semi-carousel-indicator-line .semi-carousel-indicator-item-medium {
+                    height: var(--semi-cssvar-height-carousel_indicator_line_medium);
+                }
+
+                .semi-carousel-indicator-line .semi-carousel-indicator-item-primary {
+                    background-color: var(--semi-cssvar-color-carousel_indicator_theme_primary-bg-default)
+                }
+
+                    .semi-carousel-indicator-line .semi-carousel-indicator-item-primary.semi-carousel-indicator-item-active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_primary-bg-active);
+                    }
+
+                    .semi-carousel-indicator-line .semi-carousel-indicator-item-primary:hover {
+                        background-color: var(--semi-cssvar-color-carousel_indicator_theme_primary-bg-hover);
+                    }
+
+                    .semi-carousel-indicator-line .semi-carousel-indicator-item-primary:active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_primary-bg-active);
+                    }
+
+                .semi-carousel-indicator-line .semi-carousel-indicator-item-light {
+                    background-color: var(--semi-cssvar-color-carousel_indicator_theme_light-bg-default)
+                }
+
+                    .semi-carousel-indicator-line .semi-carousel-indicator-item-light.semi-carousel-indicator-item-active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_light-bg-active);
+                    }
+
+                    .semi-carousel-indicator-line .semi-carousel-indicator-item-light:hover {
+                        background-color: var(--semi-cssvar-color-carousel_indicator_theme_light-bg-hover);
+                    }
+
+                    .semi-carousel-indicator-line .semi-carousel-indicator-item-light:active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_light-bg-active);
+                    }
+
+                .semi-carousel-indicator-line .semi-carousel-indicator-item-dark {
+                    background-color: var(--semi-cssvar-color-carousel_indicator_theme_dark-bg-default)
+                }
+
+                    .semi-carousel-indicator-line .semi-carousel-indicator-item-dark.semi-carousel-indicator-item-active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_dark-bg-active);
+                    }
+
+                    .semi-carousel-indicator-line .semi-carousel-indicator-item-dark:hover {
+                        background-color: var(--semi-cssvar-color-carousel_indicator_theme_dark-bg-hover);
+                    }
+
+                    .semi-carousel-indicator-line .semi-carousel-indicator-item-dark:active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_dark-bg-active);
+                    }
+
+        .semi-carousel-indicator-columnar {
+        }
+            .semi-carousel-indicator-columnar .semi-carousel-indicator-item {
+                cursor: pointer
+            }
+
+                .semi-carousel-indicator-columnar .semi-carousel-indicator-item:not(:last-child) {
+                    margin-right: var(--semi-cssvar-spacing-carousel_indicator_columnar-marginX);
+                }
+
+                .semi-carousel-indicator-columnar .semi-carousel-indicator-item-small {
+                    width: var(--semi-cssvar-width-carousel_indicator_columnar_small);
+                    height: var(--semi-cssvar-height-carousel_indicator_columnar_small_default)
+                }
+
+                    .semi-carousel-indicator-columnar .semi-carousel-indicator-item-small.semi-carousel-indicator-item-active {
+                        height: var(--semi-cssvar-height-carousel_indicator_columnar_small_active);
+                    }
+
+                .semi-carousel-indicator-columnar .semi-carousel-indicator-item-medium {
+                    width: var(--semi-cssvar-width-carousel_indicator_columnar_medium);
+                    height: var(--semi-cssvar-height-carousel_indicator_columnar_medium_default)
+                }
+
+                    .semi-carousel-indicator-columnar .semi-carousel-indicator-item-medium.semi-carousel-indicator-item-active {
+                        height: var(--semi-cssvar-height-carousel_indicator_columnar_medium_active);
+                    }
+
+                .semi-carousel-indicator-columnar .semi-carousel-indicator-item-primary {
+                    background-color: var(--semi-cssvar-color-carousel_indicator_theme_primary-bg-default)
+                }
+
+                    .semi-carousel-indicator-columnar .semi-carousel-indicator-item-primary.semi-carousel-indicator-item-active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_primary-bg-active);
+                    }
+
+                    .semi-carousel-indicator-columnar .semi-carousel-indicator-item-primary:hover {
+                        background-color: var(--semi-cssvar-color-carousel_indicator_theme_primary-bg-hover);
+                    }
+
+                    .semi-carousel-indicator-columnar .semi-carousel-indicator-item-primary:active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_primary-bg-active);
+                    }
+
+                .semi-carousel-indicator-columnar .semi-carousel-indicator-item-light {
+                    background-color: var(--semi-cssvar-color-carousel_indicator_theme_light-bg-default)
+                }
+
+                    .semi-carousel-indicator-columnar .semi-carousel-indicator-item-light.semi-carousel-indicator-item-active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_light-bg-active);
+                    }
+
+                    .semi-carousel-indicator-columnar .semi-carousel-indicator-item-light:hover {
+                        background-color: var(--semi-cssvar-color-carousel_indicator_theme_light-bg-hover);
+                    }
+
+                    .semi-carousel-indicator-columnar .semi-carousel-indicator-item-light:active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_light-bg-active);
+                    }
+
+                .semi-carousel-indicator-columnar .semi-carousel-indicator-item-dark {
+                    background-color: var(--semi-cssvar-color-carousel_indicator_theme_dark-bg-default)
+                }
+
+                    .semi-carousel-indicator-columnar .semi-carousel-indicator-item-dark.semi-carousel-indicator-item-active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_dark-bg-active);
+                    }
+
+                    .semi-carousel-indicator-columnar .semi-carousel-indicator-item-dark:hover {
+                        background-color: var(--semi-cssvar-color-carousel_indicator_theme_dark-bg-hover);
+                    }
+
+                    .semi-carousel-indicator-columnar .semi-carousel-indicator-item-dark:active {
+                        background: var(--semi-cssvar-color-carousel_indicator_theme_dark-bg-active);
+                    }
+
+    .semi-carousel-arrow {
+        display: flex;
+        font-size: var(--semi-cssvar-width-carousel_arrow);
+        cursor: pointer
+    }
+
+        .semi-carousel-arrow-prev {
+            position: absolute;
+            top: 50%;
+            left: var(--semi-cssvar-spacing-carousel_arrow-left);
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .semi-carousel-arrow-next {
+            position: absolute;
+            top: 50%;
+            right: var(--semi-cssvar-spacing-carousel_arrow-right);
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .semi-carousel-arrow-light {
+            color: var(--semi-cssvar-color-carousel_arrow_theme_light-bg-default);
+            transition: color var(--semi-cssvar-transition_duration-carousel_arrow-bg) var(--semi-cssvar-transition_funciton_carousel_arrow-bg)
+                var(--semi-cssvar-transition_delay-carousel_arrow-bg)
+        }
+
+            .semi-carousel-arrow-light:hover {
+                color: var(--semi-cssvar-color-carousel_arrow_theme_light-bg-hover);
+            }
+
+        .semi-carousel-arrow-primary {
+            color: var(--semi-cssvar-color-carousel_arrow_theme_primary-bg-default);
+            transition: color var(--semi-cssvar-transition_duration-carousel_arrow-bg) var(--semi-cssvar-transition_funciton_carousel_arrow-bg)
+                var(--semi-cssvar-transition_delay-carousel_arrow-bg)
+        }
+
+            .semi-carousel-arrow-primary:hover {
+                color: var(--semi-cssvar-color-carousel_arrow_theme_primary-bg-hover);
+            }
+
+        .semi-carousel-arrow-dark {
+            color: var(--semi-cssvar-color-carousel_arrow_theme_dark-bg-default);
+            transition: color var(--semi-cssvar-transition_duration-carousel_arrow-bg) var(--semi-cssvar-transition_funciton_carousel_arrow-bg)
+                var(--semi-cssvar-transition_delay-carousel_arrow-bg)
+        }
+
+            .semi-carousel-arrow-dark:hover {
+                color: var(--semi-cssvar-color-carousel_arrow_theme_dark-bg-hover);
+            }
+
+    .semi-carousel-arrow-hover div {
+        z-index: 2;
+        opacity: 0;
+    }
+
+    .semi-carousel:hover {
+    }
+        .semi-carousel:hover .semi-carousel-arrow-hover div {
+            opacity: 1;
+        }
+
+@keyframes semi-carousel-content-item-keyframe-slide-in {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes semi-carousel-content-item-keyframe-slide-out {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes semi-carousel-content-item-keyframe-slide-in-reverse {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes semi-carousel-content-item-keyframe-slide-out-reverse {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-carousel, .semi-portal-rtl .semi-carousel {
+        direction: rtl
+    }
+        
+        .semi-rtl .semi-carousel-indicator, .semi-portal-rtl .semi-carousel-indicator {
+            display: flex
+        }
+
+            .semi-rtl .semi-carousel-indicator-dot, .semi-portal-rtl .semi-carousel-indicator-dot {
+            }
+                .semi-rtl .semi-carousel-indicator-dot .semi-carousel-indicator-item, .semi-portal-rtl .semi-carousel-indicator-dot .semi-carousel-indicator-item {
+                }
+                    .semi-rtl .semi-carousel-indicator-dot .semi-carousel-indicator-item:not(:last-child), .semi-portal-rtl .semi-carousel-indicator-dot .semi-carousel-indicator-item:not(:last-child) {
+                        margin-right: 0;
+                        margin-left: var(--semi-cssvar-spacing-carousel_indicator_dot-marginX);
+                    }
+
+            .semi-rtl .semi-carousel-indicator-columnar, .semi-portal-rtl .semi-carousel-indicator-columnar {
+            }
+                .semi-rtl .semi-carousel-indicator-columnar .semi-carousel-indicator-item, .semi-portal-rtl .semi-carousel-indicator-columnar .semi-carousel-indicator-item {
+                }
+                    .semi-rtl .semi-carousel-indicator-columnar .semi-carousel-indicator-item:not(:last-child), .semi-portal-rtl .semi-carousel-indicator-columnar .semi-carousel-indicator-item:not(:last-child) {
+                        margin-right: 0;
+                        margin-left: var(--semi-cssvar-spacing-carousel_indicator_columnar-marginX);
+                    }
+
+        .semi-rtl .semi-carousel-arrow, .semi-portal-rtl .semi-carousel-arrow {
+            flex-direction: row-reverse
+        }
+
+            .semi-rtl .semi-carousel-arrow-prev, .semi-portal-rtl .semi-carousel-arrow-prev {
+                left: auto;
+                right: var(--semi-cssvar-spacing-carousel_arrow-right);
+                transform: scaleX(-1) translateY(-50%);
+                z-index: 2;
+            }
+            
+            .semi-rtl .semi-carousel-arrow-next, .semi-portal-rtl .semi-carousel-arrow-next {
+                left: var(--semi-cssvar-spacing-carousel_arrow-left);
+                transform: scaleX(-1) translateY(-50%);
+                right: auto;
+                z-index: 2;
+            }

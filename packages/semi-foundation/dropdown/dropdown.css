@@ -1,0 +1,148 @@
+
+.semi-dropdown {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular)
+}
+    .semi-dropdown-wrapper {
+        overflow-y:auto;
+    box-shadow: var(--semi-shadow-elevated);
+        position: relative;
+        z-index: var(--semi-cssvar-z-dropdown);
+        border-radius: var(--semi-cssvar-radius-dropdown);
+        background: var(--semi-cssvar-color-dropdown-bg-default);
+        backdrop-filter: var(--semi-cssvar-filter-dropdown-bg);
+        opacity: 0
+    } /* prevent flow out of the radius limit area*/
+        /* min-width: 150px;*/
+        .semi-dropdown-wrapper-show {
+            opacity: 1;
+        }
+    .semi-dropdown-trigger {
+        display: inline-block;
+    }
+    .semi-dropdown-menu {
+        list-style: none;
+        padding: var(--semi-cssvar-spacing-dropdown_menu-paddingY) var(--semi-cssvar-spacing-dropdown_menu-paddingX);
+        margin: 0;
+    }
+    .semi-dropdown-title {
+        color: var(--semi-cssvar-color-dropdown_title-text-default);
+        padding-top: var(--semi-cssvar-spacing-dropdown_title-paddingTop);
+        padding-bottom: var(--semi-cssvar-spacing-dropdown_title-paddingBottom);
+        padding-left: var(--semi-cssvar-spacing-dropdown_title-paddingLeft);
+        padding-right: var(--semi-cssvar-spacing-dropdown_title-paddingRight);
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        cursor: default
+    }
+        
+        .semi-dropdown-title-withTick {
+            padding-left: var(--semi-cssvar-spacing-dropdown_title_withTick-paddingLeft);
+        }
+    .semi-dropdown-item {
+        padding: var(--semi-cssvar-spacing-dropdown_item-paddingY) var(--semi-cssvar-spacing-dropdown_item-paddingX);
+        color: var(--semi-cssvar-color-dropdown_item-text-default);
+        max-width: var(--semi-cssvar-width-dropdown);
+        display: flex;
+        align-items: center;
+        transition: background-color var(--semi-cssvar-transition_duration-dropdown_item-bg) var(--semi-cssvar-transition_function-dropdown_item-bg)
+            var(--semi-cssvar-transition_delay-dropdown_item-bg);
+        border-radius: var(--semi-cssvar-radius-dropdown_item)
+    }
+
+        .semi-dropdown-item-hover {
+            background-color: var(--semi-cssvar-color-dropdown_item-bg-hover);
+        }
+
+        .semi-dropdown-item:not(.semi-dropdown-item-active):hover {
+            background-color: var(--semi-cssvar-color-dropdown_item-bg-hover);
+            cursor: pointer;
+        }
+        .semi-dropdown-item:not(.semi-dropdown-item-active):active {
+            background-color: var(--semi-cssvar-color-dropdown_item-bg-active);
+        }
+        .semi-dropdown-item:focus-visible {
+            background-color: var(--semi-cssvar-color-dropdown_item-bg-hover);
+            outline: 0;
+        }
+        .semi-dropdown-item-icon {
+            display: inline-flex;
+            align-items: center;
+            margin-right: var(--semi-cssvar-spacing-tight);
+        }
+            /* margin-left: $spacing-tight;*/
+        .semi-dropdown-item-danger {
+            color: var(--semi-cssvar-color-dropdown_item_danger-text-default);
+        }
+        .semi-dropdown-item-secondary {
+            color: var(--semi-cssvar-color-dropdown_item_secondary-text-default);
+        }
+        .semi-dropdown-item-warning {
+            color: var(--semi-cssvar-color-dropdown_item_warning-text-default);
+        }
+        .semi-dropdown-item-tertiary {
+            color: var(--semi-cssvar-color-dropdown_item_tertiary-text-default);
+        }
+        .semi-dropdown-item-primary {
+            color: var(--semi-cssvar-color-dropdown_item_primary-text-default);
+        }
+        .semi-dropdown-item-withTick {
+            padding-left: var(--semi-cssvar-spacing-dropdown_item_withTick-paddingLeft);
+        }
+        .semi-dropdown-item > .semi-icon {
+            flex-shrink: 0;
+            margin-right: var(--semi-cssvar-spacing-dropdown_icon-marginRight);
+            font-size: var(--semi-cssvar-size-dropdown-icon-width);
+        }
+        .semi-dropdown-item-active {
+            font-weight: var(--semi-cssvar-font-dropdown_item_active-fontWeight);
+        }
+    .semi-dropdown-item.semi-dropdown-item-disabled {
+        color: var(--semi-cssvar-color-dropdown_item_disabled-text-default);
+        cursor: not-allowed
+    }
+        .semi-dropdown-item.semi-dropdown-item-disabled:hover, .semi-dropdown-item.semi-dropdown-item-disabled:active {
+            cursor: not-allowed;
+            background-color: var(--semi-cssvar-color-dropdown_item_disabled-bg-default);
+        }
+    .semi-dropdown-divider {
+        display: block;
+        height: var(--semi-cssvar-height-dropdown_seperator);
+        width: 100%;
+        min-width: 100%;
+        clear: both;
+        background: var(--semi-cssvar-color-dropdown_seperator-bg-default);
+        margin: var(--semi-cssvar-spacing-dropdown_seperator-marginY) var(--semi-cssvar-spacing-dropdown_seperator-marginX);
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-dropdown, .semi-portal-rtl .semi-dropdown {
+    }
+        .semi-rtl .semi-dropdown-wrapper, .semi-portal-rtl .semi-dropdown-wrapper {
+            direction: rtl;
+        }
+
+        .semi-rtl .semi-dropdown-title, .semi-portal-rtl .semi-dropdown-title {
+        }
+            .semi-rtl .semi-dropdown-title-withTick, .semi-portal-rtl .semi-dropdown-title-withTick {
+                padding-left: 0;
+                padding-right: var(--semi-cssvar-spacing-dropdown_title_withTick-paddingLeft);
+            }
+        .semi-rtl .semi-dropdown-item, .semi-portal-rtl .semi-dropdown-item {
+        }
+            .semi-rtl .semi-dropdown-item-withTick, .semi-portal-rtl .semi-dropdown-item-withTick {
+                padding-left: auto;
+                padding-right: var(--semi-cssvar-spacing-dropdown_item_withTick-paddingLeft);
+            }
+            .semi-rtl .semi-dropdown-item > .semi-icon, .semi-portal-rtl .semi-dropdown-item > .semi-icon {
+                margin-right: 0;
+                margin-left: var(--semi-cssvar-spacing-dropdown_icon-marginRight);
+            }

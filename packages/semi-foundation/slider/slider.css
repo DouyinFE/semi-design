@@ -1,0 +1,312 @@
+
+.semi-slider {
+    padding: var(--semi-cssvar-spacing-slider-paddingY) var(--semi-cssvar-spacing-slider-paddingX);
+    margin: var(--semi-cssvar-spacing-slider-margin)
+}
+
+    .semi-slider-wrapper {
+        box-sizing: border-box;
+        position: relative;
+        height: var(--semi-cssvar-height-slider_wrapper);
+        width: 100%;
+        display: inline-block;
+        vertical-align: bottom;
+    }
+        /* margin: 15px 0px 15px 0px;*/
+        /*padding-top: 12px;*/
+        /* min-width: 500px;*/
+        /* vertical-align 默认值 baseline 会导致父级元素高度比子元素高 https://codepen.io/shijiame/pen/rNeraYg*/
+
+    .semi-slider-rail {
+        box-sizing: border-box;
+        margin: var(--semi-cssvar-spacing-slider_rail-margin);
+        padding: var(--semi-cssvar-spacing-slider_rail-padding);
+        color: var(--semi-cssvar-color-slider_rail);
+        font-size: var(--semi-cssvar-font-slider_rail-fontSize);
+        font-variant: tabular-nums;
+        line-height: var(--semi-cssvar-font-slider_rail-lineHeight);
+        list-style: none;
+        font-feature-settings: 'tnum';
+        position: absolute;
+        height: var(--semi-cssvar-height-slider_rail);
+        cursor: pointer;
+        touch-action: none;
+        background-color: var(--semi-cssvar-color-slider_rail-bg-default);
+        width: 100%;
+        border-radius: var(--semi-cssvar-radius-slider_rail);
+        top: var(--semi-cssvar-spacing-slider_rail-top);
+    }
+
+    .semi-slider-handle {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.3);
+        box-sizing: border-box;
+        touch-action: none;
+        position: absolute;
+        width: var(--semi-cssvar-width-slider_handle);
+        height: var(--semi-cssvar-width-slider_handle);
+        margin-top: var(--semi-cssvar-spacing-slider_handle-marginTop);
+        background-color: var(--semi-cssvar-color-slider_handle-bg-default);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color var(--semi-cssvar-transition_duration_slider_handle-bg) var(--semi-cssvar-transition_function-slider-handle-bg) var(--semi-cssvar-transition_delay-slider_handle-bg);
+        transform: var(--semi-cssvar-transform_scale-slider_handle) translateX(-50%) translateY(var(--semi-cssvar-spacing-slider_handle-translateY));
+        display: inline-flex;
+        justify-content: center;
+        align-items: center
+    }
+        /* 不设置border-box会在点击时border向下偏移1px*/
+        /* margin-left: -11px;*/ /*$color-white;*/
+        .semi-slider-handle:focus-visible {
+            outline: var(--semi-cssvar-width-slider_handle-focus) solid var(--semi-cssvar-color-slider_handle-focus);
+        }
+
+        .semi-slider-handle-dot{
+            background:var(--semi-cssvar-color-slider_handle_dot);
+            width:var(--semi-cssvar-width-slider_handle_dot);
+            height: var(--semi-cssvar-width-slider_handle_dot);
+            border-radius: var(--semi-border-radius-circle);
+        }
+
+    .semi-slider-handle:hover {
+        background-color: var(--semi-cssvar-color-slider_handle-bg-hover);
+    }
+
+    .semi-slider-handle-clicked {
+        border: solid var(--semi-cssvar-width-slider_handle_clicked) var(--semi-cssvar-color-slider_handle-border-focus);
+        cursor: grabbing;
+    }
+
+    .semi-slider-track {
+        height: var(--semi-cssvar-height-slider_track);
+        background: var(--semi-cssvar-color-slider_track-bg-default);
+        border-radius: var(--semi-cssvar-radius-slider_track);
+        position: absolute;
+        cursor: pointer;
+        top: var(--semi-cssvar-spacing-slider_track-top);
+    }
+
+    .semi-slider-tooltip {
+        position: absolute;
+        top: var(--semi-cssvar-spacing-slider_tooltip-top);
+    }
+        /* margin-left: -15px;*/
+
+    .semi-slider-dots {
+        width: 100%;
+        background: transparent;
+    }
+
+    .semi-slider-dot {
+        position: absolute;
+        top: var(--semi-cssvar-spacing-slider_dot-top);
+        width: var(--semi-cssvar-width-slider_dot);
+        height: var(--semi-cssvar-width-slider_dot);
+        background-color: var(--semi-cssvar-color-slider_dot-bg-default);
+        border-radius: 50%;
+        cursor: pointer;
+        transform: translateX(var(--semi-cssvar-spacing-slider_dot-translateX));
+    }
+        /*border: 1px solid $color-control-bg-default;*/
+
+    .semi-slider-dot-active {
+        background-color: var(--semi-cssvar-color-slider_dot-border-active);
+    }
+
+    .semi-slider-marks {
+        position: absolute;
+        top: var(--semi-cssvar-spacing-slider_marks-top);
+        left: var(--semi-cssvar-spacing-slider_marks-left);
+        width: 100%;
+        font-size: var(--semi-cssvar-font-slider_marks-fontSize);
+    }
+
+    .semi-slider-mark {
+        position: absolute;
+        display: inline-block;
+        color: var(--semi-cssvar-color-slider_mark-text-default);
+        text-align: center;
+        cursor: pointer;
+        transform: translate(-50%, 0);
+    }
+
+    .semi-slider-marks-reverse {
+        position: absolute;
+        top: var(--semi-cssvar-spacing-slider_marks-top);
+        left: var(--semi-cssvar-spacing-slider_marks-left);
+        width: 100%;
+        font-size: var(--semi-cssvar-font-slider_marks-fontSize);
+    }
+
+    .semi-slider-mark-reverse {
+        position: absolute;
+        display: inline-block;
+        color: var(--semi-cssvar-color-slider_mark-text-default);
+        text-align: center;
+        cursor: pointer;
+        transform: translate(-50%, 0) rotate(-180deg);
+    }
+
+    .semi-slider-boundary {
+        position: relative;
+        font-size: var(--semi-cssvar-font-size-small);
+        color: var(--semi-cssvar-color-slider-text-default);
+        visibility: hidden;
+        top: var(--semi-cssvar-spacing-slider_boundary-top)
+    }
+
+        .semi-slider-boundary span {
+            position: absolute;
+            display: inline-block;
+        }
+
+    .semi-slider-boundary-min {
+        left: var(--semi-cssvar-spacing-slider_boundary_min-left);
+    }
+
+    .semi-slider-boundary-max {
+        right: var(--semi-cssvar-spacing-slider_boundary_max-right);
+    }
+
+    .semi-slider-boundary-show {
+        visibility: visible;
+    }
+
+.semi-slider-vertical-wrapper {
+    width: var(--semi-cssvar-height-slider_vertical_wrapper);
+    height: 100%;
+
+    & .semi-slider-track {
+        width: var(--semi-cssvar-height-slider_track);
+    }
+
+    & .semi-slider-marks {
+        height: 100%;
+        margin-top: var(--semi-cssvar-spacing-slider_vertical_marks-marginTop);
+        margin-left: var(--semi-cssvar-spacing-slider_vertical_marks-marginLeft);
+    }
+
+    & .semi-slider-marks-reverse {
+        height: 100%;
+        margin-top: var(--semi-cssvar-spacing-slider_vertical_marks-marginTop);
+        margin-left: var(--semi-cssvar-spacing-slider_vertical_marks-reverse-marginLeft);
+    }
+
+    & .semi-slider-rail {
+        width: var(--semi-cssvar-height-slider_rail);
+        height: 100%;
+        top: var(--semi-cssvar-spacing-slider_vertical_rail-top);
+    }
+
+    & .semi-slider-handle {
+        margin-top: var(--semi-cssvar-spacing-slider_vertical_handle-marginTop);
+        margin-left: var(--semi-cssvar-spacing-slider_vertical_handle-marginLeft);
+        transform: var(--semi-cssvar-transform_scale-slider_handle) translateY(-50%) translateX(var(--semi-cssvar-spacing-slider_vertical_handle-translateX));
+    }
+    & .semi-slider-dot{
+        transform: translateY(var(--semi-cssvar-spacing-slider_vertical_dot-translateY));
+    }
+}
+
+.semi-slider-disabled {
+    cursor: not-allowed;
+
+    & .semi-slider-handle {
+        cursor: not-allowed;
+    box-shadow: none;
+        border: var(--semi-cssvar-width-slider_handle_border_disabled) var(--semi-cssvar-color-slider_handle_disabled-border) solid;
+
+        &:hover {
+            background-color: var(--semi-cssvar-color-slider_handle_disabled-border-hover);
+        }
+    }
+
+    & .semi-slider-rail {
+        cursor: not-allowed;
+    }
+
+    & .semi-slider-track {
+        cursor: not-allowed;
+        background-color: var(--semi-cssvar-color-slider_track_disabled-bg);
+    }
+
+    & .semi-slider-dot {
+        cursor: not-allowed;
+        background-color: var(--semi-cssvar-color-slider_dot-bg-default);
+        border-color: var(--semi-cssvar-color-slider_dot-border);
+        box-shadow: none;
+    }
+}
+
+.semi-slider-handle-tooltip {
+    text-align: center;
+}
+
+.semi-slider-reverse {
+    transform: rotate(180deg);
+}/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+/* RTL support (horizontal)*/
+/* Slider uses `left` positioning in LTR. In RTL we switch to `right` positioning*/
+/* in the component logic, so centering transforms must be mirrored.*/
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-slider, .semi-portal-rtl .semi-slider {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-slider-handle, .semi-portal-rtl .semi-slider-handle {
+            transform: var(--semi-cssvar-transform_scale-slider_handle) translateX(50%) translateY(var(--semi-cssvar-spacing-slider_handle-translateY));
+        }
+
+        .semi-rtl .semi-slider-mark, .semi-portal-rtl .semi-slider-mark {
+            transform: translate(50%, 0);
+        }
+
+        .semi-rtl .semi-slider-mark-reverse, .semi-portal-rtl .semi-slider-mark-reverse {
+            transform: translate(50%, 0) rotate(-180deg);
+        }
+
+        /* Boundary text should match RTL direction: min on the right, max on the left*/
+
+        .semi-rtl .semi-slider-boundary-min, .semi-portal-rtl .semi-slider-boundary-min {
+            left: auto;
+            right: var(--semi-cssvar-spacing-slider_boundary_min-left);
+        }
+
+        .semi-rtl .semi-slider-boundary-max, .semi-portal-rtl .semi-slider-boundary-max {
+            right: auto;
+            left: var(--semi-cssvar-spacing-slider_boundary_max-right);
+        }
+
+/* Backward/explicit support: the component may add `semi-slider-rtl` on wrapper.*/
+/* Keep these rules so RTL transforms still apply even without `.semi-rtl` container.*/
+
+.semi-slider-rtl {
+    & .semi-slider-handle {
+        transform: var(--semi-cssvar-transform_scale-slider_handle) translateX(50%) translateY(var(--semi-cssvar-spacing-slider_handle-translateY));
+    }
+
+    & .semi-slider-mark {
+        transform: translate(50%, 0);
+    }
+
+    & .semi-slider-mark-reverse {
+        transform: translate(50%, 0) rotate(-180deg);
+    }
+
+    & .semi-slider-boundary-min {
+        left: auto;
+        right: var(--semi-cssvar-spacing-slider_boundary_min-left);
+    }
+
+    & .semi-slider-boundary-max {
+        right: auto;
+        left: var(--semi-cssvar-spacing-slider_boundary_max-right);
+    }
+}

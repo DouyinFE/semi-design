@@ -1,0 +1,264 @@
+
+@keyframes semi-tooltip-zoomIn {
+    from {
+        opacity: var(--semi-cssvar-motion-zoom_opacity-from);
+        transform: scale(var(--semi-cssvar-motion-zoom_scale-from), var(--semi-cssvar-motion-zoom_scale-from));
+    }
+
+    50% {
+        opacity: var(--semi-cssvar-motion-zoom_opacity-to);
+    }
+}
+
+@keyframes semi-tooltip-bounceIn {
+    from {
+        opacity: 0;
+        transform: scale(0.6, 0.6);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1.01, 1.01);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1, 1);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+}
+
+@keyframes semi-tooltip-zoomOut {
+    from {
+        opacity: var(--semi-cssvar-motion-zoom_opacity-to);
+    }
+
+    60% {
+        opacity: var(--semi-cssvar-motion-zoom_opacity-from);
+        transform: scale(var(--semi-cssvar-motion-zoom_scale-from), var(--semi-cssvar-motion-zoom_scale-from));
+    }
+
+    to {
+        opacity: var(--semi-cssvar-motion-zoom_opacity-from);
+    }
+}
+
+
+
+.semi-tooltip {
+
+}
+    .semi-tooltip-wrapper {
+        position: relative;
+        background-color: var(--semi-cssvar-color-tooltip-bg-default);
+        backdrop-filter: var(--semi-cssvar-filter-tooltip-bg);
+        color: var(--semi-cssvar-color-tooltip-text-default);
+        border-radius: var(--semi-cssvar-radius-tooltip);
+        padding-top: var(--semi-cssvar-spacing-tooltip_content-paddingTop);
+        padding-right: var(--semi-cssvar-spacing-tooltip_content-paddingRight);
+        padding-bottom: var(--semi-cssvar-spacing-tooltip_content-paddingBottom);
+        padding-left: var(--semi-cssvar-spacing-tooltip_content-paddingLeft);
+        font-size: var(--semi-cssvar-font-tooltip-fontSize);
+        left: 0;
+        top: 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        opacity: 0;
+        max-width: var(--semi-cssvar-width-tooltip)
+    }
+        /* z-index: $z-tooltip; // TODO z-index定义需要收敛*/
+        /* word-wrap is an alias of overflow-wrap, word-wrap can take effect on more browsers, in order to prevent future changes, use both  */
+
+        .semi-tooltip-wrapper-show {
+            opacity: 1;
+        }
+
+    .semi-tooltip-content {
+        min-width: 0;
+    }
+
+    .semi-tooltip-trigger {
+        display: inline-block;
+        width: auto;
+        height: auto;
+    }
+
+    .semi-tooltip-with-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+        /* padding: 12px;*/
+
+    .semi-tooltip-animation-show{
+        animation: semi-tooltip-zoomIn var(--semi-cssvar-animation_duration-tooltip_in) var(--semi-cssvar-animation_function-tooltip_in);
+        animation-fill-mode: forwards;
+    }
+
+    .semi-tooltip-animation-hide{
+        animation: semi-tooltip-zoomOut var(--semi-cssvar-animation_duration-tooltip_out) var(--semi-cssvar-animation_function-tooltip_out);
+        animation-fill-mode: forwards;
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-tooltip {
+}
+    .semi-tooltip-wrapper {
+    }
+        .semi-tooltip-wrapper .semi-tooltip-icon-arrow {
+            height: 7px;
+            width: var(--semi-cssvar-width-tooltip_arrow);
+            position: absolute;
+            color:rgba(var(--semi-grey-7), 1);
+        }
+
+        .semi-tooltip-wrapper[x-placement='top'] {
+        }
+            .semi-tooltip-wrapper[x-placement='top'] .semi-tooltip-icon-arrow {
+                left: var(--semi-tooltip-arrow-offset-x, 50%);
+                transform: translateX(-50%);
+                bottom: (-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
+            }
+    .semi-tooltip-wrapper[x-placement='top'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='top'] .semi-tooltip-with-arrow {
+        min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
+    }
+        .semi-tooltip-wrapper[x-placement='topLeft'] {
+        }
+            .semi-tooltip-wrapper[x-placement='topLeft'] .semi-tooltip-icon-arrow {
+                bottom: (-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
+                left: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
+            }
+    .semi-tooltip-wrapper[x-placement='topLeft'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='topLeft'] .semi-tooltip-with-arrow {
+        min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
+    }
+        .semi-tooltip-wrapper[x-placement='topRight'] {
+        }
+            .semi-tooltip-wrapper[x-placement='topRight'] .semi-tooltip-icon-arrow {
+                bottom: (-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
+                right: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
+            }
+    .semi-tooltip-wrapper[x-placement='topRight'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='topRight'] .semi-tooltip-with-arrow {
+        min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
+    }
+        .semi-tooltip-wrapper[x-placement='leftTop'] {
+        }
+            .semi-tooltip-wrapper[x-placement='leftTop'] .semi-tooltip-icon-arrow {
+                width: 7px;
+                height: var(--semi-cssvar-height-tooltip_arrow_vertical);
+                right: (-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-x));
+                top: calc(var(--semi-cssvar-vertical-rate) * var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px);
+            }
+    .semi-tooltip-wrapper[x-placement='leftTop'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='leftTop'] .semi-tooltip-with-arrow {
+        min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px * 2);
+    }
+        .semi-tooltip-wrapper[x-placement='left'] {
+        }
+            .semi-tooltip-wrapper[x-placement='left'] .semi-tooltip-icon-arrow {
+                width: 7px;
+                height: var(--semi-cssvar-height-tooltip_arrow_vertical);
+                right: (-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-x));
+                top: var(--semi-tooltip-arrow-offset-y, 50%);
+                transform: translateY(-50%);
+            }
+    .semi-tooltip-wrapper[x-placement='left'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='left'] .semi-tooltip-with-arrow {
+        min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px * 2);
+    }
+        .semi-tooltip-wrapper[x-placement='leftBottom'] {
+        }
+            .semi-tooltip-wrapper[x-placement='leftBottom'] .semi-tooltip-icon-arrow {
+                width: 7px;
+                height: var(--semi-cssvar-height-tooltip_arrow_vertical);
+                right: (-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-x));
+                bottom: calc(var(--semi-cssvar-vertical-rate) * var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px);
+            }
+    .semi-tooltip-wrapper[x-placement='leftBottom'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='leftBottom'] .semi-tooltip-with-arrow {
+        min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px * 2);
+    }
+        .semi-tooltip-wrapper[x-placement='rightTop'] {
+        }
+            .semi-tooltip-wrapper[x-placement='rightTop'] .semi-tooltip-icon-arrow {
+                width: 7px;
+                height: var(--semi-cssvar-height-tooltip_arrow_vertical);
+                left: calc(-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-x));
+                top: calc(var(--semi-cssvar-vertical-rate) * var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px);
+                transform: rotate(180deg);
+            }
+    .semi-tooltip-wrapper[x-placement='rightTop'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='rightTop'] .semi-tooltip-with-arrow {
+        min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px * 2);
+    }
+        .semi-tooltip-wrapper[x-placement='right'] {
+        }
+            .semi-tooltip-wrapper[x-placement='right'] .semi-tooltip-icon-arrow {
+                width: 7px;
+                height: var(--semi-cssvar-height-tooltip_arrow_vertical);
+                left: calc(-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-x));
+                top: var(--semi-tooltip-arrow-offset-y, 50%);
+                transform: translateY(-50%) rotate(180deg);
+            }
+    .semi-tooltip-wrapper[x-placement='right'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='right'] .semi-tooltip-with-arrow {
+        min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px * 2);
+    }
+        .semi-tooltip-wrapper[x-placement='rightBottom'] {
+        }
+            .semi-tooltip-wrapper[x-placement='rightBottom'] .semi-tooltip-icon-arrow {
+                width: 7px;
+                height: var(--semi-cssvar-height-tooltip_arrow_vertical);
+                left: calc(-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-x));
+                bottom: calc(var(--semi-cssvar-vertical-rate) * var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px);
+                transform: rotate(180deg);
+            }
+    .semi-tooltip-wrapper[x-placement='rightBottom'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='rightBottom'] .semi-tooltip-with-arrow {
+        min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px * 2);
+    }
+        .semi-tooltip-wrapper[x-placement='bottomLeft'] {
+        }
+            .semi-tooltip-wrapper[x-placement='bottomLeft'] .semi-tooltip-icon-arrow {
+                top: (-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
+                left: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
+                transform: rotate(180deg);
+            }
+    .semi-tooltip-wrapper[x-placement='bottomLeft'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='bottomLeft'] .semi-tooltip-with-arrow {
+        min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
+    }
+        .semi-tooltip-wrapper[x-placement='bottom'] {
+        }
+            .semi-tooltip-wrapper[x-placement='bottom'] .semi-tooltip-icon-arrow {
+                top: (-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
+                left: var(--semi-tooltip-arrow-offset-x, 50%);
+                transform: translateX(-50%) rotate(180deg);
+            }
+    .semi-tooltip-wrapper[x-placement='bottom'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='bottom'] .semi-tooltip-with-arrow {
+        min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
+    }
+        .semi-tooltip-wrapper[x-placement='bottomRight'] {
+        }
+            .semi-tooltip-wrapper[x-placement='bottomRight'] .semi-tooltip-icon-arrow {
+                right: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
+                top: (-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
+                transform: rotate(180deg);
+            }
+    .semi-tooltip-wrapper[x-placement='bottomRight'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='bottomRight'] .semi-tooltip-with-arrow {
+        min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+    & .semi-tooltip-wrapper {
+        direction: rtl;
+        padding-right: var(--semi-cssvar-spacing-tooltip_content-paddingLeft);
+        padding-left: var(--semi-cssvar-spacing-tooltip_content-paddingRight);
+        left: auto;
+        right: 0;
+    }
+}

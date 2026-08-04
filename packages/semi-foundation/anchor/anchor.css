@@ -1,0 +1,153 @@
+
+.semi-anchor {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative
+}
+
+    .semi-anchor-size-small {
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    }
+
+    .semi-anchor-slide {
+        position: absolute;
+        left: var(--semi-cssvar-spacing-anchor_slide-left);
+        top: var(--semi-cssvar-spacing-anchor_slide-top);
+        height: 100%
+    }
+
+        .semi-anchor-slide-muted {
+            display: none;
+        }
+
+        .semi-anchor-slide-bar {
+            display: none;
+            position: absolute;
+            top: 0;
+            width: var(--semi-cssvar-width-anchor_slide_default);
+            border-radius: var(--semi-cssvar-radius-anchor_slide)
+        }
+
+            .semi-anchor-slide-bar-active {
+                display: inline-block;
+            }
+
+            .semi-anchor-slide-bar-default {
+                height: calc(var(--semi-cssvar-height-anchor_slide_default) + 2 * var(--semi-cssvar-spacing-anchor_slide_default-Y));
+            }
+
+            .semi-anchor-slide-bar-small {
+                height: calc(var(--semi-cssvar-height-anchor_slide_small) + 2 * var(--semi-cssvar-spacing-anchor_slide_small-Y));
+            }
+
+            .semi-anchor-slide-bar-primary {
+                background-color: var(--semi-cssvar-color-anchor_slide_primary-bg-active);
+            }
+
+            .semi-anchor-slide-bar-tertiary {
+                background-color: var(--semi-cssvar-color-anchor_slide_tertiary-bg-active);
+            }
+
+        .semi-anchor-slide::before {
+            position: absolute;
+            display: block;
+            width: var(--semi-cssvar-width-anchor_slide_default);
+            height: 100%;
+            background-color: var(--semi-cssvar-color-anchor_slide_default-bg-default);
+            border-radius: var(--semi-cssvar-radius-anchor_slide);
+            content: ' ';
+        }
+
+    .semi-anchor-link {
+    }
+
+        .semi-anchor-link-title {
+            cursor: pointer;
+            color: var(--semi-cssvar-color-anchor_title-text-default);
+            padding-top: var(--semi-cssvar-spacing-anchor_link_title-paddingTop);
+            padding-bottom: var(--semi-cssvar-spacing-anchor_link_title-paddingBottom);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            border-radius: var(--semi-cssvar-width-anchor-outline_border_radius);
+            transition: color var(--semi-cssvar-transition_duration-anchor_title-text) var(--semi-cssvar-transition_function-anchor_title-text) var(--semi-cssvar-transition_delay-anchor_title-text);
+            transform: scale(var(--semi-cssvar-transform_scale-anchor_title-text));
+            background: var(--semi-cssvar-color-anchor_title-bg-default)
+        }/*锚点选项文字的动效*/
+            .semi-anchor-link-title:hover {
+                color: var(--semi-cssvar-color-anchor_title-text-hover);
+            }
+
+            .semi-anchor-link-title-active {
+                color: var(--semi-cssvar-color-anchor_title-text-active);
+                background: var(--semi-cssvar-color-anchor_title-bg-active)
+
+            }
+                .semi-anchor-link-title-active:hover{
+                    color: var(--semi-cssvar-color-anchor_title_active-text-hover);
+                }
+
+            .semi-anchor-link-title:focus-visible {
+                outline: var(--semi-cssvar-width-anchor-outline) solid var(--semi-cssvar-color-anchor_title-outline-focus);
+                outline-offset: var(--semi-cssvar-width-anchor-outlineOffset);
+            }
+
+            .semi-anchor-link-title-disabled {
+                color: var(--semi-cssvar-color-anchor_title-text-disabled);
+                cursor: not-allowed
+            }
+                .semi-anchor-link-title-disabled:hover {
+                    color: var(--semi-cssvar-color-anchor_title-text-disabled);
+                }
+
+        .semi-anchor-link-tooltip {
+            cursor: pointer;
+            color: var(--semi-cssvar-color-anchor_title-text-default) !important
+        }
+
+            .semi-anchor-link-tooltip-small {
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+            }
+
+            .semi-anchor-link-tooltip:hover {
+                color: var(--semi-cssvar-color-anchor_title-text-hover) !important;
+            }
+
+            .semi-anchor-link-tooltip-active {
+                color: var(--semi-cssvar-color-anchor_title-text-active) !important;
+            }
+
+            .semi-anchor-link-tooltip-disabled {
+                color: var(--semi-cssvar-color-anchor_title-text-disabled) !important;
+                cursor: not-allowed
+            }
+                .semi-anchor-link-tooltip-disabled:hover {
+                    color: var(--semi-cssvar-color-anchor_title-text-disabled) !important;
+                }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-anchor, .semi-portal-rtl .semi-anchor {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-anchor-slide, .semi-portal-rtl .semi-anchor-slide {
+            right: var(--semi-cssvar-spacing-anchor_slide-left);
+            left: auto;
+        }
+
+        .semi-rtl .semi-anchor-link, .semi-portal-rtl .semi-anchor-link {
+            padding-left: auto;
+        }

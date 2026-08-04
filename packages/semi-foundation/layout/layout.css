@@ -1,0 +1,50 @@
+
+.semi-layout {
+  
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    min-height: auto
+}
+
+    .semi-layout, .semi-layout-header, .semi-layout-footer, .semi-layout-content, .semi-layout-sider, .semi-layout-sider-children {
+        box-sizing: border-box;
+    }
+
+    .semi-layout-header, .semi-layout-footer {
+        flex: 0 0 auto;
+    }
+
+    .semi-layout-content {
+        flex: auto;
+        min-height: auto;
+    }
+
+    .semi-layout-sider {
+        position: relative;
+        min-width: auto
+    }
+    
+        .semi-layout-sider-children {
+            height: 100%;
+            margin-top: -.1px;
+            padding-top: .1px;
+        }
+
+.semi-layout-has-sider {
+    flex-direction: row;
+    & > .semi-layout, & > .semi-layout-content {
+        overflow-x: hidden;
+    }
+}/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+    & .semi-layout {
+        direction: rtl;
+    }
+}

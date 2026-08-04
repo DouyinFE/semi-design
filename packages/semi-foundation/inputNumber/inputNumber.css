@@ -1,0 +1,146 @@
+
+.semi-input-number {
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    transition: background-color var(--semi-cssvar-transition_duration-inputNumber-bg) var(--semi-cssvar-transition_function-inputNumber-bg) var(--semi-cssvar-transition_delay-inputNumber-bg),
+    border var(--semi-cssvar-transition_duration-inputNumber-border) var(--semi-cssvar-transition_function-inputNumber-border) var(--semi-cssvar-transition_delay-inputNumber-border);
+    transform: scale(var(--semi-cssvar-transform_scale-inputNumber))
+}
+
+    .semi-input-number-suffix-btns {
+        display: inline-flex;
+        flex-direction: column;
+        margin-left: var(--semi-cssvar-spacing-inputNumber_button-marginLeft);
+        border: var(--semi-cssvar-width-inputNumber_button-border) solid var(--semi-cssvar-color-inputNumber_button-border-default);
+        border-radius: var(--semi-cssvar-radius-inputNumber);
+        background-color: var(--semi-cssvar-color-inputNumber_button-bg-default);
+        box-sizing: border-box
+    }
+
+        .semi-input-number-suffix-btns > .semi-input-number-button {
+            height: 50%;
+            width: var(--semi-cssvar-width-inputNumber_button);
+            padding: 0;
+            margin: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            border-radius: 0;
+            color: var(--semi-cssvar-color-inputNumber_button-text-default);
+        }
+
+        .semi-input-number-suffix-btns > .semi-input-number-button-up:not(.semi-input-number-button-up-not-allowed), .semi-input-number-suffix-btns > .semi-input-number-button-down:not(.semi-input-number-button-down-not-allowed) {
+        }
+
+            .semi-input-number-suffix-btns > .semi-input-number-button-up:not(.semi-input-number-button-up-not-allowed):hover, .semi-input-number-suffix-btns > .semi-input-number-button-down:not(.semi-input-number-button-down-not-allowed):hover {
+                cursor: pointer;
+                background-color: var(--semi-cssvar-color-inputNumber_button-bg-hover);
+            }
+
+            .semi-input-number-suffix-btns > .semi-input-number-button-up:not(.semi-input-number-button-up-not-allowed):active, .semi-input-number-suffix-btns > .semi-input-number-button-down:not(.semi-input-number-button-down-not-allowed):active {
+                cursor: pointer;
+                background-color: var(--semi-cssvar-color-inputNumber_button-bg-active);
+            }
+
+        .semi-input-number-suffix-btns > .semi-input-number-button-up.semi-input-number-button-up-disabled, .semi-input-number-suffix-btns > .semi-input-number-button-down.semi-input-number-button-down-disabled {
+            background-color: var(--semi-cssvar-color-inputNumber_button-bg-disabled);
+            color: var(--semi-cssvar-color-inputNumber_button-text-disabled);
+        }
+
+        .semi-input-number-suffix-btns > .semi-input-number-button-up.semi-input-number-button-up-not-allowed, .semi-input-number-suffix-btns > .semi-input-number-button-down.semi-input-number-button-down-not-allowed {
+            cursor: not-allowed;
+        }
+
+        .semi-input-number-suffix-btns-inner-hover {
+            border-color: var(--semi-cssvar-color-inputNumber_button-border-hover);
+        }
+
+    .semi-input-number-suffix-btns-inner {
+        margin-left: var(--semi-cssvar-spacing-inputNumber_button_inner-marginLeft);
+        border-radius: var(--semi-cssvar-radius-inputNumber_inner);
+        overflow: hidden
+    }
+
+    .semi-input-number .semi-input-clearbtn {
+    }
+        .semi-input-number .semi-input-clearbtn + .semi-input-suffix {
+            margin-left: var(--semi-cssvar-spacing-inputNumber_clearbtn_suffix-marginLeft)
+        }
+
+            .semi-input-number .semi-input-clearbtn + .semi-input-suffix .semi-input-number-suffix-btns-inner {
+                margin-left: 0;
+            }
+
+    .semi-input-number-size {
+    }
+
+        .semi-input-number-size-default {
+        }
+            .semi-input-number-size-default .semi-input-number-suffix-btns {
+                height: var(--semi-cssvar-height-inputNumber_button_default);
+            }
+            .semi-input-number-size-default .semi-input-number-suffix-btns-inner {
+                height: var(--semi-cssvar-height-inputNumber_button_inner_default);
+            }
+
+        .semi-input-number-size-large {
+        }
+            .semi-input-number-size-large .semi-input-number-suffix-btns {
+                height: var(--semi-cssvar-height-inputNumber_button_large);
+            }
+            .semi-input-number-size-large .semi-input-number-suffix-btns-inner {
+                height: var(--semi-cssvar-height-inputNumber_button_inner_large);
+            }
+
+        .semi-input-number-size-small {
+        }
+            .semi-input-number-size-small .semi-input-number-suffix-btns {
+                height: var(--semi-cssvar-height-inputNumber_button_small);
+            }
+            .semi-input-number-size-small .semi-input-number-suffix-btns-inner {
+                height: var(--semi-cssvar-height-inputNumber_button_inner_small);
+            }
+
+
+.semi-input-number:not(:focus-within):not(:hover){
+    & .semi-input-borderless{
+        & + .semi-input-number-suffix-btns{
+            opacity: 0;
+        }
+    }
+}/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-input-number, .semi-portal-rtl .semi-input-number {
+        direction: rtl
+    }
+        
+        .semi-rtl .semi-input-number-suffix-btns, .semi-portal-rtl .semi-input-number-suffix-btns {
+            margin-left: auto;
+            margin-right: var(--semi-cssvar-spacing-inputNumber_button-marginLeft);
+        }
+
+        .semi-rtl .semi-input-number-suffix-btns-inner, .semi-portal-rtl .semi-input-number-suffix-btns-inner {
+            margin-left: auto;
+            margin-right: var(--semi-cssvar-spacing-inputNumber_button_inner-marginLeft);
+        }
+
+        .semi-rtl .semi-input-number .semi-input-clearbtn, .semi-portal-rtl .semi-input-number .semi-input-clearbtn {
+        }
+            .semi-rtl .semi-input-number .semi-input-clearbtn + .semi-input-suffix, .semi-portal-rtl .semi-input-number .semi-input-clearbtn + .semi-input-suffix {
+                margin-left: auto;
+                margin-right: var(--semi-cssvar-spacing-inputNumber_clearbtn_suffix-marginLeft)
+            }
+
+                .semi-rtl .semi-input-number .semi-input-clearbtn + .semi-input-suffix .semi-input-number-suffix-btns-inner, .semi-portal-rtl .semi-input-number .semi-input-clearbtn + .semi-input-suffix .semi-input-number-suffix-btns-inner {
+                    margin-left: auto;
+                    margin-right: 0;
+                }

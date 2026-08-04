@@ -1,0 +1,399 @@
+
+.semi-notification-wrapper {
+    position: fixed;
+}
+
+.semi-notification-list {
+    position: fixed;
+    box-sizing: border-box;
+    margin: var(--semi-cssvar-spacing-notification_list-margin);
+    padding: var(--semi-cssvar-spacing-notification_list-padding);
+    z-index: var(--semi-cssvar-z-notification);
+    pointer-events: none;
+
+    &[placement='topRight'] {
+        right: 0;
+        top: 0;
+    }
+
+    &[placement='top'] {
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &[placement='topLeft'] {
+        left: 0;
+        top: 0;
+    }
+
+    &[placement='bottom'] {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &[placement='bottomRight'] {
+        bottom: 0;
+        right: 0;
+    }
+
+    &[placement='bottomLeft'] {
+        bottom: 0;
+        left: 0;
+    }
+
+}
+
+.semi-notification {
+}
+    .semi-notification-notice {
+    box-shadow: var(--semi-shadow-elevated);
+        border-radius: var(--semi-cssvar-radius-notification_notice);
+        padding-top: var(--semi-cssvar-spacing-notification_notice-paddingTop);
+        padding-right: var(--semi-cssvar-spacing-notification_notice-paddingRight);
+        padding-bottom: var(--semi-cssvar-spacing-notification_notice-paddingBottom);
+        padding-left: var(--semi-cssvar-spacing-notification_notice-paddingLeft);
+        margin: var(--semi-cssvar-spacing-notification_notice-margin);
+        width: var(--semi-cssvar-width-notification_notice);
+        min-width: var(--semi-cssvar-width-notification_notice_minWidth);
+        background-color: var(--semi-cssvar-color-notification-bg-default);
+        position: relative;
+        display: flex;
+        pointer-events: auto
+    }
+
+        .semi-notification-notice-icon {
+            width: var(--semi-cssvar-width-notification_notice-icon);
+    font-size: var(--semi-cssvar-font-size-header-6);
+    line-height: 22px;
+    font-family: var(--semi-cssvar-font-family-regular);
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            height: 100%;
+            margin-right: var(--semi-cssvar-spacing-notification_notice_icon-marginRight);
+        }
+
+        .semi-notification-notice-info {
+            color: var(--semi-cssvar-color-notification_info-icon);
+        }
+
+        .semi-notification-notice-warning {
+            color: var(--semi-cssvar-color-notification_warning-icon);
+        }
+
+        .semi-notification-notice-error {
+            color: var(--semi-cssvar-color-notification_danger-icon);
+        }
+
+        .semi-notification-notice-success {
+            color: var(--semi-cssvar-color-notification_success-icon);
+        }
+
+        .semi-notification-notice-light {
+        }
+            .semi-notification-notice-light.semi-notification-notice-warning {
+                background-image: linear-gradient(0deg, var(--semi-cssvar-color-notification_warning_light-bg), var(--semi-cssvar-color-notification_warning_light-bg));
+                background-color: var(--semi-cssvar-color-notification_ambient-bg);
+                border: var(--semi-cssvar-width-notification_notice-border) solid var(--semi-cssvar-color-notification_warning_light-border);
+            }
+
+            .semi-notification-notice-light.semi-notification-notice-success {
+                background-image: linear-gradient(0deg, var(--semi-cssvar-color-notification_success_light-bg), var(--semi-cssvar-color-notification_success_light-bg));
+                background-color: var(--semi-cssvar-color-notification_ambient-bg);
+                border: var(--semi-cssvar-width-notification_notice-border) solid var(--semi-cssvar-color-notification_success_light-border);
+            }
+
+            .semi-notification-notice-light.semi-notification-notice-info, .semi-notification-notice-light.semi-notification-notice-default {
+                background-image: linear-gradient(0deg, var(--semi-cssvar-color-notification_info_light-bg), var(--semi-cssvar-color-notification_info_light-bg));
+                background-color: var(--semi-cssvar-color-notification_ambient-bg);
+                border: var(--semi-cssvar-width-notification_notice-border) solid var(--semi-cssvar-color-notification_info_light-border);
+            }
+
+            .semi-notification-notice-light.semi-notification-notice-error {
+                background-image: linear-gradient(0deg, var(--semi-cssvar-color-notification_danger_light-bg), var(--semi-cssvar-color-notification_danger_light-bg));
+                background-color: var(--semi-cssvar-color-notification_ambient-bg);
+                border: var(--semi-cssvar-width-notification_notice-border) solid var(--semi-cssvar-color-notification_danger_light-border);
+            }
+
+        .semi-notification-notice-title {
+    font-size: var(--semi-cssvar-font-size-header-6);
+    line-height: 22px;
+    font-family: var(--semi-cssvar-font-family-regular);
+            font-weight: var(--semi-cssvar-font-notification_notice_title-fontWeight);
+            color: var(--semi-cssvar-color-notification_title-text);
+            margin-bottom: var(--semi-cssvar-spacing-notification_notice_title-marginBottom);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+            /* word-wrap is an alias of overflow-wrap, word-wrap can take effect on more browsers, in order to prevent future changes, use both  */
+
+        .semi-notification-notice-inner {
+            display: flex;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .semi-notification-notice-content-wrapper {
+            flex: 1 1 auto;
+            margin-right: var(--semi-cssvar-spacing-notification_notice_content_wrapper-marginRight);
+            min-width: 0;
+        }
+
+        .semi-notification-notice-content {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+            font-weight: var(--semi-cssvar-font-notification_notice_content-fontWeight);
+            color: var(--semi-cssvar-color-notification_content-text);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+            /* padding-top: $spacing-extra-tight;*/
+            /* word-wrap is an alias of overflow-wrap, word-wrap can take effect on more browsers, in order to prevent future changes, use both  */
+
+        .semi-notification-notice-icon-close {
+            height: var(--semi-cssvar-width-icon-extra-large)
+        }
+
+            .semi-notification-notice-icon-close .semi-icon-close {
+                color: var(--semi-cssvar-color-notification_closeBtn-icon);
+            }
+
+        .semi-notification-notice-controls {
+            display: flex;
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+            cursor: pointer;
+        }
+
+        .semi-notification-notice-detail {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .semi-notification-notice-later {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        @keyframes semi-notification-slideShow_top {
+            from {
+                opacity: var(--semi-cssvar-animation_opacity-notification-show);
+                transform: translateY(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes semi-notification-slideHide_top {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: var(--semi-cssvar-animation_opacity-notification-hide);
+                transform: translateY(-100%);
+            }
+        }
+
+        @keyframes semi-notification-slideShow_topLeft {
+            from {
+                opacity: var(--semi-cssvar-animation_opacity-notification-show);
+                transform: translateX(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes semi-notification-slideHide_topLeft {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: var(--semi-cssvar-animation_opacity-notification-hide);
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes semi-notification-slideShow_topRight {
+            from {
+                opacity: var(--semi-cssvar-animation_opacity-notification-show);
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes semi-notification-slideHide_topRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: var(--semi-cssvar-animation_opacity-notification-hide);
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes semi-notification-slideShow_bottom {
+            from {
+                opacity: var(--semi-cssvar-animation_opacity-notification-show);
+                transform: translateY(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes semi-notification-slideHide_bottom {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: var(--semi-cssvar-animation_opacity-notification-hide);
+                transform: translateY(100%);
+            }
+        }
+
+        @keyframes semi-notification-slideShow_bottomLeft {
+            from {
+                opacity: var(--semi-cssvar-animation_opacity-notification-show);
+                transform: translateX(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes semi-notification-slideHide_bottomLeft {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: var(--semi-cssvar-animation_opacity-notification-hide);
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes semi-notification-slideShow_bottomRight {
+            from {
+                opacity: var(--semi-cssvar-animation_opacity-notification-show);
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes semi-notification-slideHide_bottomRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: var(--semi-cssvar-animation_opacity-notification-hide);
+                transform: translateX(100%);
+            }
+        }
+
+
+
+        .semi-notification-notice-animation-show_top{
+            animation: semi-notification-slideShow_top var(--semi-cssvar-animation_duration-notification-show) var(--semi-cssvar-animation_function-notification-show) var(--semi-cssvar-animation_delay-notification-show);
+            animation-fill-mode: forwards;
+        }
+
+        .semi-notification-notice-animation-hide_top{
+            animation: semi-notification-slideHide_top var(--semi-cssvar-animation_duration-notification-hide) var(--semi-cssvar-animation_function-notification-hide) var(--semi-cssvar-animation_delay-notification-hide);
+            animation-fill-mode: forwards;
+        }
+
+        .semi-notification-notice-animation-show_topLeft{
+            animation: semi-notification-slideShow_topLeft var(--semi-cssvar-animation_duration-notification-show) var(--semi-cssvar-animation_function-notification-show) var(--semi-cssvar-animation_delay-notification-show);
+            animation-fill-mode: forwards;
+        }
+
+        .semi-notification-notice-animation-hide_topLeft{
+            animation: semi-notification-slideHide_topLeft var(--semi-cssvar-animation_duration-notification-hide) var(--semi-cssvar-animation_function-notification-hide) var(--semi-cssvar-animation_delay-notification-hide);
+            animation-fill-mode: forwards;
+        }
+
+        .semi-notification-notice-animation-show_topRight{
+            animation: semi-notification-slideShow_topRight var(--semi-cssvar-animation_duration-notification-show) var(--semi-cssvar-animation_function-notification-show) var(--semi-cssvar-animation_delay-notification-show);
+            animation-fill-mode: forwards;
+        }
+
+        .semi-notification-notice-animation-hide_topRight{
+            animation: semi-notification-slideHide_topRight var(--semi-cssvar-animation_duration-notification-hide) var(--semi-cssvar-animation_function-notification-hide) var(--semi-cssvar-animation_delay-notification-hide);
+            animation-fill-mode: forwards;
+        }
+
+        .semi-notification-notice-animation-show_bottom{
+            animation: semi-notification-slideShow_bottom var(--semi-cssvar-animation_duration-notification-show) var(--semi-cssvar-animation_function-notification-show) var(--semi-cssvar-animation_delay-notification-show);
+            animation-fill-mode: forwards;
+        }
+
+        .semi-notification-notice-animation-hide_bottom{
+            animation: semi-notification-slideHide_bottom var(--semi-cssvar-animation_duration-notification-hide) var(--semi-cssvar-animation_function-notification-hide) var(--semi-cssvar-animation_delay-notification-hide);
+            animation-fill-mode: forwards;
+        }
+
+        .semi-notification-notice-animation-show_bottomLeft{
+            animation: semi-notification-slideShow_bottomLeft var(--semi-cssvar-animation_duration-notification-show) var(--semi-cssvar-animation_function-notification-show) var(--semi-cssvar-animation_delay-notification-show);
+            animation-fill-mode: forwards;
+        }
+
+        .semi-notification-notice-animation-hide_bottomLeft{
+            animation: semi-notification-slideHide_bottomLeft var(--semi-cssvar-animation_duration-notification-hide) var(--semi-cssvar-animation_function-notification-hide) var(--semi-cssvar-animation_delay-notification-hide);
+            animation-fill-mode: forwards;
+        }
+        .semi-notification-notice-animation-show_bottomRight{
+            animation: semi-notification-slideShow_bottomRight var(--semi-cssvar-animation_duration-notification-show) var(--semi-cssvar-animation_function-notification-show) var(--semi-cssvar-animation_delay-notification-show);
+            animation-fill-mode: forwards;
+        }
+
+        .semi-notification-notice-animation-hide_bottomRight{
+            animation: semi-notification-slideHide_bottomRight var(--semi-cssvar-animation_duration-notification-hide) var(--semi-cssvar-animation_function-notification-hide) var(--semi-cssvar-animation_delay-notification-hide);
+            animation-fill-mode: forwards;
+        }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-notification {
+}
+
+    .semi-notification-notice {
+    }
+        .semi-notification-notice.semi-notification-notice-rtl {
+            padding-right: var(--semi-cssvar-spacing-notification_notice-paddingLeft);
+            padding-left: var(--semi-cssvar-spacing-notification_notice-paddingRight);
+        }
+
+        .semi-notification-notice-rtl {
+            direction: rtl;
+        }
+
+        .semi-notification-notice-rtl .semi-notification-notice-icon {
+            margin-right: var(--semi-cssvar-spacing-notification_notice_icon-marginRight);
+        }
+
+        .semi-notification-notice-rtl .semi-notification-notice-content-wrapper {
+            margin-right: var(--semi-cssvar-spacing-notification_notice_content_wrapper-marginRight);
+        }

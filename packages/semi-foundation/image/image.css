@@ -1,0 +1,298 @@
+
+.semi-image {
+
+    border-radius: var(--semi-cssvar-radius-image);
+    position: relative;
+    display: inline-block;
+    overflow: hidden
+}
+
+    .semi-image img { 
+        max-width: none;
+    }
+        /**
+            * In tailwind, the max-width of img/video is set to 100%, 
+            * which will affect the amplification effect of the picture.
+            * So we need to set max-width to none.
+        */
+
+    .semi-image-tooltip-children-wrapper {
+        display: inline-flex;
+        width: fit-content;
+        height: fit-content;
+        vertical-align: middle;
+    }
+
+    .semi-image-img {
+        vertical-align: top;
+        border-radius: inherit;
+        user-select: none
+    }
+
+        .semi-image-img-preview {
+            cursor: zoom-in;
+        }
+
+        .semi-image-img-error {
+            opacity: 0;
+        }
+
+    .semi-image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+.semi-image-status {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--semi-cssvar-radius-image);
+    background-color: var(--semi-cssvar-color-image_status-bg);
+    color: var(--semi-cssvar-color-image_status);
+}
+
+.semi-image-preview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: var(--semi-cssvar-z-image_preview);
+    background-color: var(--semi-color-overlay-bg);
+    transition: opacity var(--semi-cssvar-transition_duration-image_preview);
+    overflow: hidden
+}
+
+    .semi-image-preview-popup {
+        position: absolute;
+    }
+
+    .semi-image-preview .semi-image-preview-hide {
+        opacity: 0;
+    }
+
+    .semi-image-preview-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: var(--semi-cssvar-width-image_preview_icon);
+        height: var(--semi-cssvar-height-image_preview_icon);
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--semi-cssvar-color-image_preview_icon-bg);
+        cursor: pointer;
+        color: var(--semi-cssvar-color-image_preview_icon);
+    }
+
+    .semi-image-preview-prev {
+        left: var(--semi-cssvar-spacing-image_preview_icon-x);
+    }
+
+    .semi-image-preview-next {
+        right: var(--semi-cssvar-spacing-image_preview_icon-x);
+    }
+
+    .semi-image-preview-header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        font-weight: normal;
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        color: var(--semi-cssvar-color-image_preview_header);
+        height: var(--semi-cssvar-height-image_preview_header);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--semi-cssvar-spacing-image_preview_header-paddingY) var(--semi-cssvar-spacing-image_preview_header-paddingX);
+        z-index: var(--semi-cssvar-z-image_preview_header);
+        pointer-events: none
+    }
+
+        .semi-image-preview-header-title {
+            flex: 1;
+        }
+
+        .semi-image-preview-header-close {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            width: var(--semi-cssvar-width-image_preview_header_close);
+            height: var(--semi-cssvar-height-image_preview_header_close);
+            border-radius: 50%;
+            pointer-events: auto
+        }
+
+            .semi-image-preview-header-close:hover {
+                background-color: var(--semi-cssvar-color-image_header_close-bg);
+            }
+
+    .semi-image-preview-footer {
+        display: flex;
+        align-items: center
+
+    }
+
+        .semi-image-preview-footer-content {
+            padding: var(--semi-cssvar-spacing-image_preview_footer-paddingY) var(--semi-cssvar-spacing-image_preview_footer-paddingX);
+            background: var(--semi-cssvar-color-image_preview_footer-bg);
+            border-radius: var(--semi-cssvar-radius-image_preview_footer);
+            height: var(--semi-cssvar-height-image_preview_footer);
+        }
+        
+
+        .semi-image-preview-footer-wrapper {
+            position: absolute;
+            left: 50%;
+            bottom: 16px;
+            transform: translateX(-50%);
+        }
+
+        .semi-image-preview-footer-page {
+            user-select: none;
+            color: var(--semi-cssvar-color-image_preview_footer_icon);
+    font-size: var(--semi-cssvar-font-size-header-6);
+    line-height: 22px;
+    font-family: var(--semi-cssvar-font-family-regular);
+            margin: var(--semi-cssvar-spacing-image_preview_footer_page-marginY) var(--semi-cssvar-spacing-image_preview_footer_page-marginX);
+        }
+
+        .semi-image-preview-footer .semi-icon {
+            color: var(--semi-cssvar-color-image_preview_footer_icon);
+            cursor: pointer;
+        }
+
+        .semi-image-preview-footer-gap {
+            margin-left: var(--semi-cssvar-spacing-image_preview_footer_gap-marginLeft);
+        }
+    
+        .semi-image-preview-footer .semi-slider {
+            width: var(--semi-cssvar-width-image_preview_footer_slider);
+            padding: var(--semi-cssvar-spacing-image_preview_footer_slider-paddingY) var(--semi-cssvar-spacing-image_preview_footer_slider-paddingX)
+        }
+    
+            .semi-image-preview-footer .semi-slider .semi-slider-rail {
+                color: var(--semi-cssvar-color-image_preview_footer_slider_rail);
+                height: var(--semi-cssvar-height-image_preview_footer_slider);
+            }
+    
+            .semi-image-preview-footer .semi-slider .semi-slider-track {
+                height: var(--semi-cssvar-height-image_preview_footer_slider);
+            }
+    
+            .semi-image-preview-footer .semi-slider .semi-slider-handle {
+                width: var(--semi-cssvar-width-image_preview_footer_slider_handle);
+                height: var(--semi-cssvar-height-image_preview_footer_slider_handle);
+                margin-top: var(--semi-cssvar-spacing-image_preview_footer_slider_handle-marginTop);
+                box-sizing: border-box;
+            }
+
+        .semi-image-preview-footer .semi-divider {
+            background: var(--semi-cssvar-color-image-preview_divider-bg);
+            margin: var(--semi-cssvar-spacing-image_preview_footer_divider-marginY) var(--semi-cssvar-spacing-image_preview_footer_divider-marginX);
+        }
+        
+        .semi-image-preview-footer .semi-image-preview-footer-disabled {
+            color: var(--semi-cssvar-color-image_preview_disabled);
+            cursor: default;
+            pointer-events: none;
+        }
+
+    .semi-image-preview-image {
+        position: relative;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+
+        .semi-image-preview-image-img {
+            position: absolute;
+            transform: scale3d(var(--semi-cssvar-transform_scale3d-image_preview_image_img)) var(--semi-cssvar-transform_rotate-image_preview_image_img);
+            z-index: 0;
+            user-select: none;
+        }
+            /* transition: transform $transition_duration-image_preview_image_img  $transition_delay-image_preview_image_img;*/
+
+        .semi-image-preview-image-spin {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%)
+        }
+
+            .semi-image-preview-image-spin .semi-spin-wrapper {
+                color: var(--semi-cssvar-color-image_preview_image_spin);
+            }
+    
+    @keyframes spinner {
+        to {
+            transform: var(--semi-cssvar-transform_rotate-image_preview_spinner);
+        }
+    }
+
+/* Remove the default border of img when src is empty or src is invalid*/
+img[src=""], img:not([src]) {
+    opacity: 0;
+}/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+
+    .semi-rtl .semi-image-preview, .semi-portal-rtl .semi-image-preview {
+
+        direction: rtl
+
+    }
+
+        .semi-rtl .semi-image-preview-group, .semi-portal-rtl .semi-image-preview-group {
+            direction: rtl;
+        }
+        
+        .semi-rtl .semi-image-preview-prev, .semi-portal-rtl .semi-image-preview-prev {
+            right: var(--semi-cssvar-spacing-image_preview_icon-x);
+            left: auto;
+            transform: var(--semi-cssvar-transform_rotate-image_preview_icon-rtl);
+        }
+    
+        .semi-rtl .semi-image-preview-next, .semi-portal-rtl .semi-image-preview-next {
+            left: var(--semi-cssvar-spacing-image_preview_icon-x);
+            right: auto;
+            transform: var(--semi-cssvar-transform_rotate-image_preview_icon-rtl);
+        }
+
+        .semi-rtl .semi-image-preview-footer, .semi-portal-rtl .semi-image-preview-footer {
+        }
+
+            .semi-rtl .semi-image-preview-footer-page, .semi-portal-rtl .semi-image-preview-footer-page {
+                display: flex;
+                direction: rtl;
+            }
+
+            .semi-rtl .semi-image-preview-footer-gap, .semi-portal-rtl .semi-image-preview-footer-gap {
+                margin-right: var(--semi-cssvar-spacing-image_preview_footer_gap-marginLeft);
+                margin-left: var(--semi-cssvar-spacing-image_preview_footer_gap_rtl-marginLeft);
+            }
+
+            .semi-rtl .semi-image-preview-footer .semi-icon-chevron_left, .semi-portal-rtl .semi-image-preview-footer .semi-icon-chevron_left {
+                transform: var(--semi-cssvar-transform_rotate-image_preview_icon_rtl);
+            }
+
+            .semi-rtl .semi-image-preview-footer .semi-icon-chevron_right, .semi-portal-rtl .semi-image-preview-footer .semi-icon-chevron_right {
+                transform: var(--semi-cssvar-transform_rotate-image_preview_icon_rtl);
+            }

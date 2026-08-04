@@ -1,0 +1,385 @@
+
+.semi-form {
+}
+    .semi-form .semi-form-field {
+        box-sizing: border-box;
+    }
+
+    .semi-form-horizontal {
+        display: flex;
+        flex-wrap: wrap
+    }
+
+        .semi-form-horizontal .semi-form-field {
+            margin-left: 0;
+            padding-right: var(--semi-cssvar-spacing-form_field_horizontal-paddingRight)
+        }
+
+            .semi-form-horizontal .semi-form-field:last-child {
+                margin-right: var(--semi-cssvar-spacing-form_field_horizontal-paddingRight);
+            }
+
+        .semi-form-horizontal .semi-form-field-group {
+            padding-right: var(--semi-cssvar-spacing-form_field_group_horizontal-paddingRight);
+        }
+
+        .semi-form-horizontal .semi-row {
+            display: block;
+        }
+
+    .semi-form-vertical {
+    }
+        .semi-form-vertical .semi-form-field {
+            margin: 0;
+            padding-top: var(--semi-cssvar-spacing-form_field_vertical-paddingTop);
+            padding-bottom: var(--semi-cssvar-spacing-form_field_vertical-paddingBottom);
+            overflow: hidden
+        }
+
+            .semi-form-vertical .semi-form-field[x-label-pos="top"] {
+            }
+                /* .#{$col}-right,*/
+                /* .#{$col}-left {*/
+                /*     width: 100%;*/
+                /* }*/
+            .semi-form-vertical .semi-form-field .semi-form-col {
+            }
+
+                .semi-form-vertical .semi-form-field .semi-form-col-right {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+
+                .semi-form-vertical .semi-form-field .semi-form-col-left {
+                    display: flex;
+                    justify-content: flex-start;
+                }
+
+        .semi-form-vertical .semi-form-field-group {
+        }
+            .semi-form-vertical .semi-form-field-group .semi-form-col {
+            }
+                .semi-form-vertical .semi-form-field-group .semi-form-col-right {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+                .semi-form-vertical .semi-form-field-group .semi-form-col-left {
+                    display: flex;
+                    justify-content: flex-start;
+                }
+
+        .semi-form-vertical .semi-form-field-pure {
+        }
+            /* padding-top: 0;*/
+            /* padding-bottom: 0;*/
+            /* overflow: inherit;*/
+
+    .semi-form-field-label {
+        box-sizing: border-box;
+        font-weight: var(--semi-cssvar-font-form_label-fontWeight);
+        color: var(--semi-cssvar-color-form_label-text-default);
+        margin-bottom: var(--semi-cssvar-spacing-form_label-marginBottom);
+        margin-top: var(--semi-cssvar-spacing-form_label-marginTop);
+        padding-right: var(--semi-cssvar-spacing-form_label-paddingRight);
+        display: inline-block;
+        vertical-align: middle;
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        flex-shrink: 0
+    }
+
+        .semi-form-field-label-disabled {
+            color: var(--semi-cssvar-color-form_label_disabled-text-default);
+        }
+
+        .semi-form-field-label-with-extra {
+        }
+            .semi-form-field-label-with-extra .semi-form-field-label-text {
+                display: inline-block;
+            }
+            .semi-form-field-label-with-extra .semi-form-field-label-extra {
+                display: flex;
+                align-items: center;
+                margin-left: var(--semi-cssvar-spacing-form_label_extra-marginLeft);
+            }
+
+        .semi-form-field-label-required {
+        }
+            .semi-form-field-label-required .semi-form-field-label-text {
+            }
+                .semi-form-field-label-required .semi-form-field-label-text::after {
+                    content: "*";
+                    margin-left: var(--semi-cssvar-spacing-form_label_required-marginLeft);
+                    color: var(--semi-cssvar-color-form_requiredMark-text-default);
+                    font-weight: var(--semi-cssvar-font-form_requiredMark-fontWeight);
+                }
+            .semi-form-field-label-required-disabled {
+                color: var(--semi-cssvar-color-form_requiredMark_disabled-text-default);
+            }
+
+        .semi-form-field-label-optional-text {
+            color: var(--semi-cssvar-color-form_label_optional-text-default);
+        }
+
+        .semi-form-field-label-left {
+            text-align: left;
+        }
+
+        .semi-form-field-label-right {
+            text-align: right;
+        }
+
+    .semi-form-field-error-message, .semi-form-field-help-text {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        display: flex;
+        align-items: center;
+        margin-top: var(--semi-cssvar-spacing-form_message-marginTop)
+    }
+        /* TODO help text margin token?*/
+        .semi-form-field-error-message .semi-icon-alert_triangle, .semi-form-field-help-text .semi-icon-alert_triangle {
+            color: var(--semi-cssvar-color-form_alertIcon-icon-default);
+        }
+
+    .semi-form-field-error-message {
+        color: var(--semi-cssvar-color-form_message_error-text-default);
+    }
+
+.semi-form-field {
+}
+
+    .semi-form-field[x-label-pos="top"] {
+    }
+        /* display:*/
+        .semi-form-field[x-label-pos="top"] .semi-form-field-label {
+            display: block;
+        }
+            /* make sure label height is correct*/
+        .semi-form-field[x-label-pos="top"] .semi-checkboxGroup, .semi-form-field[x-label-pos="top"] .semi-radioGroup {
+            padding-top: var(--semi-cssvar-spacing-form_label_posTop-paddingTop);
+            padding-bottom: var(--semi-cssvar-spacing-form_label_posTop-paddingBottom);
+        }
+        /* no need to adjust height for button radio & card radio*/
+        .semi-form-field[x-label-pos="top"] .semi-radioGroup-buttonRadio, .semi-form-field[x-label-pos="top"] .semi-radioGroup-horizontal-card, .semi-form-field[x-label-pos="top"] .semi-radioGroup-vertical-card {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .semi-form-field[x-label-pos="top"] .semi-form-field-label-with-extra {
+            display: flex;
+            align-items: center;
+        }
+
+    .semi-form-field[x-label-pos="left"] {
+        display: flex
+    }
+
+        .semi-form-field[x-label-pos="left"] .semi-form-field-label {
+            margin-bottom: var(--semi-cssvar-spacing-form_label_posLeft-marginBottom);
+            margin-right: var(--semi-cssvar-spacing-form_label_posLeft-marginRight);
+            padding-top: var(--semi-cssvar-spacing-form_label-paddingTop);
+            padding-bottom: var(--semi-cssvar-spacing-form_label-paddingTop);
+        }
+            /* 增加padding-top：6px以达到与组件的第一行文本水平对齐*/
+        .semi-form-field[x-label-pos="left"] .semi-form-field-label-with-extra {
+            display: flex;
+            align-items: center;
+        }
+        /* labelAlign = right*/
+        .semi-form-field[x-label-pos="left"] .semi-form-field-label-with-extra.semi-form-field-label-right{
+            justify-content: flex-end;
+        }
+        .semi-form-field[x-label-pos="left"] .semi-checkboxGroup, .semi-form-field[x-label-pos="left"] .semi-radioGroup {
+            padding-top: var(--semi-cssvar-spacing-form_label-paddingTop);
+            padding-bottom: var(--semi-cssvar-spacing-form_label-paddingTop);
+        }
+        /* no need to adjust height for button radio, already 32px, no need to consider height of card radio*/
+        .semi-form-field[x-label-pos="left"] .semi-radioGroup-buttonRadio, .semi-form-field[x-label-pos="left"] .semi-radioGroup-horizontal-card, .semi-form-field[x-label-pos="left"] .semi-radioGroup-vertical-card {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .semi-form-field[x-label-pos="left"] .semi-switch, .semi-form-field[x-label-pos="left"] .semi-rating {
+            vertical-align: middle;
+            margin-top: var(--semi-cssvar-spacing-form_switch_rating_marginY);
+            margin-bottom: var(--semi-cssvar-spacing-form_switch_rating_marginY);
+        }
+
+    .semi-form-field[x-extra-pos="middle"] {
+    }
+        .semi-form-field[x-extra-pos="middle"] .semi-form-field-extra {
+            margin-top: var(--semi-cssvar-spacing-form_extra_posMid-marginTop);
+            margin-bottom: var(--semi-cssvar-spacing-form_extra_posMid-marginBottom);
+        }
+
+    .semi-form-field[x-extra-pos="bottom"] {
+    }
+        .semi-form-field[x-extra-pos="bottom"] .semi-form-field-extra {
+            margin-top: var(--semi-cssvar-spacing-form_extra_posBottom-marginTop);
+        }
+
+    .semi-form-field-main {
+        width: 100%;
+    }
+
+    .semi-form-field-validate-status-icon {
+        margin-right: var(--semi-cssvar-spacing-form_statusIcon-marginRight);
+        flex-shrink: 0;
+        align-self: flex-start;
+        position: relative;
+        top: 2px;
+    }
+
+    .semi-form-field-extra {
+        color: var(--semi-cssvar-color-form_label_extra-text-default);
+    }
+
+    .semi-form-field-extra-string {
+        color: var(--semi-cssvar-color-form_label_extra-text-default);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    }
+
+/* group*/
+
+.semi-form-vertical {
+    & .semi-form-field-group {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: var(--semi-cssvar-spacing-form_field_group_vertical-paddingTop);
+        padding-bottom: var(--semi-cssvar-spacing-form_field_group_vertical-paddingBottom);
+        overflow: hidden;
+        
+        & .semi-form-field {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+}
+
+.semi-form-field-group {
+    &[x-label-pos="top"] {
+    }
+
+    &[x-label-pos="left"] {
+        display: flex;
+        & .semi-form-field-label {
+            margin-bottom: var(--semi-cssvar-spacing-form_label_posLeft-marginBottom);
+            margin-right: var(--semi-cssvar-spacing-form_label_posLeft-marginRight);
+            /* add padding-top to align first line text in component*/
+            padding-top: var(--semi-cssvar-spacing-form_label-paddingTop);
+            padding-bottom: var(--semi-cssvar-spacing-form_label-paddingTop);
+        }
+    }
+}
+
+/* section*/
+.semi-form-section {
+    width: 100%;
+    margin-top: var(--semi-cssvar-spacing-form_section-marginTop)
+}
+
+    .semi-form-section-text {
+        margin-block-start: 0;
+        margin-block-end: 0;
+    font-size: var(--semi-cssvar-font-size-header-5);
+    line-height: 24px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        font-weight: var(--semi-cssvar-font-weight-bold);
+        width: 100%;
+        padding-bottom: var(--semi-cssvar-spacing-form_section_text-paddingBottom);
+        padding-top: var(--semi-cssvar-spacing-form_section_text-paddingTop);
+        border-bottom: var(--semi-cssvar-width-form_section-border) solid var(--semi-cssvar-color-form_section-border-default);
+        margin-bottom: var(--semi-cssvar-spacing-form_section_text-marginBottom);
+        margin-top: var(--semi-cssvar-spacing-form_section_text-marginTop);
+        color: var(--semi-cssvar-color-form_section-text-default);
+    }
+
+    .semi-form-section:nth-of-type(1) {
+        margin-top: 0;
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-form, .semi-portal-rtl .semi-form {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-form-horizontal, .semi-portal-rtl .semi-form-horizontal {
+        }
+            .semi-rtl .semi-form-horizontal .semi-form-field, .semi-portal-rtl .semi-form-horizontal .semi-form-field {
+                margin-left: 0;
+                margin-right: 0;
+                padding-right: 0;
+                padding-left: var(--semi-cssvar-spacing-form_field_horizontal-paddingRight)
+            }
+    
+                .semi-rtl .semi-form-horizontal .semi-form-field:last-child, .semi-portal-rtl .semi-form-horizontal .semi-form-field:last-child {
+                    margin-left: var(--semi-cssvar-spacing-form_field_horizontal-paddingRight);
+                }
+    
+            .semi-rtl .semi-form-horizontal .semi-form-field-group, .semi-portal-rtl .semi-form-horizontal .semi-form-field-group {
+                padding-right: 0;
+                padding-left: var(--semi-cssvar-spacing-form_field_group_horizontal-paddingRight);
+            }
+    
+        .semi-rtl .semi-form-field-label, .semi-portal-rtl .semi-form-field-label {
+            padding-right: 0;
+            padding-left: var(--semi-cssvar-spacing-form_label-paddingRight)
+        }
+    
+            .semi-rtl .semi-form-field-label-with-extra, .semi-portal-rtl .semi-form-field-label-with-extra {
+            }
+                .semi-rtl .semi-form-field-label-with-extra .semi-form-field-label-extra, .semi-portal-rtl .semi-form-field-label-with-extra .semi-form-field-label-extra {
+                    margin-left: 0;
+                    margin-right: var(--semi-cssvar-spacing-form_label_extra-marginLeft);
+                }
+    
+            .semi-rtl .semi-form-field-label-required, .semi-portal-rtl .semi-form-field-label-required {
+            }
+                .semi-rtl .semi-form-field-label-required .semi-form-field-label-text, .semi-portal-rtl .semi-form-field-label-required .semi-form-field-label-text {
+                }
+
+                    .semi-rtl .semi-form-field-label-required .semi-form-field-label-text::after, .semi-portal-rtl .semi-form-field-label-required .semi-form-field-label-text::after {
+                        content: "*";
+                        margin-left: 0;
+                        margin-right: var(--semi-cssvar-spacing-form_label_required-marginLeft);
+                    }
+    
+            .semi-rtl .semi-form-field-label-left, .semi-portal-rtl .semi-form-field-label-left {
+                text-align: right;
+            }
+    
+            .semi-rtl .semi-form-field-label-right, .semi-portal-rtl .semi-form-field-label-right {
+                text-align: left;
+            }
+    
+    .semi-rtl .semi-form-field, .semi-portal-rtl .semi-form-field {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-form-field[x-label-pos="left"], .semi-portal-rtl .semi-form-field[x-label-pos="left"] {
+        }
+            .semi-rtl .semi-form-field[x-label-pos="left"] .semi-form-field-label, .semi-portal-rtl .semi-form-field[x-label-pos="left"] .semi-form-field-label {
+                margin-right: 0;
+                margin-left: var(--semi-cssvar-spacing-form_label_posLeft-marginRight);
+            }
+    
+    .semi-rtl .semi-form-field, .semi-portal-rtl .semi-form-field {
+    }
+
+        .semi-rtl .semi-form-field-validate-status-icon, .semi-portal-rtl .semi-form-field-validate-status-icon {
+            margin-right: 0;
+            margin-left: var(--semi-cssvar-spacing-form_statusIcon-marginRight);
+        }
+    
+    /* section*/
+    .semi-rtl .semi-form-section, .semi-portal-rtl .semi-form-section {
+        direction: rtl;
+    }

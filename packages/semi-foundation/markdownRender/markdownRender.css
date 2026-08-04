@@ -1,0 +1,60 @@
+
+.semi-markdownRender {
+
+
+
+
+}
+
+    .semi-markdownRender-simple-code{
+        background: var(--semi-cssvar-color-markdownRender_simpleCode-bg);
+        color:var(--semi-cssvar-color-markdownRender_simpleCode-text);
+    }
+
+    .semi-markdownRender ul, .semi-markdownRender li {
+        color: var(--semi-cssvar-color-markdownRender_component_list)
+    }
+
+    .semi-markdownRender-component-image {
+        margin: var(--semi-cssvar-spacing-markdownRender_component_image-marginTop) var(--semi-cssvar-spacing-markdownRender_component_image-marginRight) var(--semi-cssvar-spacing-markdownRender_component_image-marginBottom) var(--semi-cssvar-spacing-markdownRender_component_image-marginLeft);
+        max-width: var(--semi-cssvar-width-markdownRender_component_image-maxWidth);
+        max-height: var(--semi-cssvar-width-markdownRender_component_image-maxHeight);
+        display: flex;
+        flex-direction: column;
+        justify-content: center
+    }
+
+        .semi-markdownRender-component-image-alt {
+            margin-top: var(--semi-cssvar-spacing-markdownRender_component_image_alt-marginTop);
+            text-align: center;
+            color: var(--semi-cssvar-color-markdownRender_component_image_alt);
+        }
+
+    .semi-markdownRender-component-header.semi-typography{
+    }
+        .semi-markdownRender-component-header.semi-typography.semi-typography-h1 {
+            margin-top: var(--semi-cssvar-spacing-markdownRender_component_header1-marginTop);
+            margin-bottom: var(--semi-cssvar-spacing-markdownRender_component_header1-marginBottom);
+        }
+        .semi-markdownRender-component-header.semi-typography.semi-typography-h2 {
+            margin-top: var(--semi-cssvar-spacing-markdownRender_component_header2-marginTop);
+            margin-bottom: var(--semi-cssvar-spacing-markdownRender_component_header2-marginBottom);
+        }
+        .semi-markdownRender-component-header.semi-typography.semi-typography-h3 {
+            margin-top: var(--semi-cssvar-spacing-markdownRender_component_header3-marginTop);
+            margin-bottom: var(--semi-cssvar-spacing-markdownRender_component_header3-marginBottom);
+        }
+        .semi-markdownRender-component-header.semi-typography.semi-typography-h4 {
+            margin-top: var(--semi-cssvar-spacing-markdownRender_component_header4-marginTop);
+            margin-bottom: var(--semi-cssvar-spacing-markdownRender_component_header4-marginBottom);
+        }
+        .semi-markdownRender-component-header.semi-typography.semi-typography-h5 {
+            margin-top: var(--semi-cssvar-spacing-markdownRender_component_header5-marginTop);
+            margin-bottom: var(--semi-cssvar-spacing-markdownRender_component_header5-marginBottom);
+        }
+
+    .semi-markdownRender-component-p {
+    }
+        .semi-markdownRender-component-p strong {
+            font-weight: var(--semi-cssvar-font-weight-bold);
+        }

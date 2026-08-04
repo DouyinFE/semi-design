@@ -1,0 +1,28 @@
+
+.semi-overflow-list {
+    display: flex;
+    flex-wrap: nowrap;
+    min-width: 0
+}
+    .semi-overflow-list-spacer {
+        flex-shrink: 1;
+        width: 1px;
+    }
+
+    .semi-overflow-list-scroll-wrapper {
+        display: flex;
+        flex: 1;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+    & .semi-overflow-list {
+        direction: rtl;
+    }
+}

@@ -1,0 +1,113 @@
+
+
+
+.semi-collapse {
+}
+    .semi-collapse-item {
+        border-bottom: var(--semi-cssvar-width-collapse_item-border) solid var(--semi-cssvar-color-collapse_item-border-default);
+    }
+
+    .semi-collapse-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: var(--semi-cssvar-spacing-collapse_header-marginY) var(--semi-cssvar-spacing-collapse_header-marginX);
+        padding: var(--semi-cssvar-spacing-collapse_header-padding);
+        border-radius: var(--semi-cssvar-radius-collapse_header);
+        outline: none;
+        cursor: pointer;
+        color: var(--semi-cssvar-color-collapse_header-text-default);
+        font-weight: var(--semi-cssvar-font-collapse_header-fontWeight);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular)
+
+    }
+
+        .semi-collapse-header-right {
+            display: flex;
+            align-items: center
+        }
+
+            .semi-collapse-header-right span {
+                display: flex;
+                padding-right: var(--semi-cssvar-spacing-collapse_right-paddingRight)
+            }
+
+                .semi-collapse-header-right span:last-child {
+                    padding-right: 0;
+                }
+
+        .semi-collapse-header-icon {
+            width: var(--semi-cssvar-size-collapse_icon-default);
+            height: var(--semi-cssvar-size-collapse_icon-default);
+            color: var(--semi-cssvar-color-collapse_header-icon-default);
+        }
+
+        .semi-collapse-header-iconLeft {
+            justify-content: flex-start
+        }
+            .semi-collapse-header-iconLeft .semi-collapse-header-icon {
+                margin-right: var(--semi-cssvar-spacing-collapse_header_iconLeft-marginRight);
+            }
+
+        .semi-collapse-header-iconDisabled {
+            color: var(--semi-color-disabled-text);
+        }
+
+        .semi-collapse-header:hover {
+            background-color: var(--semi-cssvar-color-collapse_header-bg-hover);
+        }
+
+        .semi-collapse-header:active {
+            background-color: var(--semi-cssvar-color-collapse_header-bg-active);
+        }
+
+        .semi-collapse-header-disabled {
+            color: var(--semi-cssvar-color-collapse_header-text-disabled)
+        }
+
+            .semi-collapse-header-disabled:hover {
+                background-color: transparent;
+            }
+
+    .semi-collapse-content {
+        padding: var(--semi-cssvar-spacing-collapse_content-paddingTop) var(--semi-cssvar-spacing-collapse_content-paddingRight) var(--semi-cssvar-spacing-collapse_content-paddingBottom) var(--semi-cssvar-spacing-collapse_content-paddingLeft);
+        color: var(--semi-cssvar-color-collapse_content-text-default);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular)
+    }
+
+        .semi-collapse-content p {
+            margin: 0;
+        }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+
+    .semi-rtl .semi-collapse, .semi-portal-rtl .semi-collapse {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-collapse-header, .semi-portal-rtl .semi-collapse-header {
+        }
+
+            .semi-rtl .semi-collapse-header-right, .semi-portal-rtl .semi-collapse-header-right {
+            }
+
+                .semi-rtl .semi-collapse-header-right span, .semi-portal-rtl .semi-collapse-header-right span {
+                    display: flex;
+                    padding-right: 0;
+                    padding-left: var(--semi-cssvar-spacing-collapse_right-paddingRight)
+                }
+
+                    .semi-rtl .semi-collapse-header-right span:last-child, .semi-portal-rtl .semi-collapse-header-right span:last-child {
+                        padding-right: 0;
+                        padding-left: 0;
+                    }

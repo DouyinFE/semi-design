@@ -1,0 +1,455 @@
+
+.semi-radio {
+    box-sizing: border-box;
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    position: relative;
+    display: inline-flex;
+    column-gap: var(--semi-cssvar-spacing-radio_addon-paddingLeft);
+    transition: background-color var(--semi-cssvar-transition_duration-radio-bg) var(--semi-cssvar-transition_function-radio-bg) var(--semi-cssvar-transition_delay-radio-bg),
+    border var(--semi-cssvar-transition_duration-radio-border) var(--semi-cssvar-transition_function-radio-border) var(--semi-cssvar-transition_delay-radio-border);
+    min-height: var(--semi-cssvar-height-radio_inner_min);
+    min-width: var(--semi-cssvar-width-radio_inner);
+    cursor: pointer;
+    vertical-align: bottom;
+    text-align: left
+}
+
+    .semi-radio.semi-radio-vertical {
+        display: block;
+    }
+
+    .semi-radio input[type="checkbox"], .semi-radio input[type="radio"] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        cursor: pointer;
+    }
+
+    .semi-radio:hover {
+    }
+        .semi-radio:hover .semi-radio-inner-display {
+            background: var(--semi-cssvar-color-radio_default-bg-hover);
+            border: solid var(--semi-cssvar-width-radio_hover-border) var(--semi-cssvar-color-radio_default-border-hover);
+        }
+
+        .semi-radio:hover.semi-radio-cardRadioGroup {
+        }
+            .semi-radio:hover.semi-radio-cardRadioGroup .semi-radio-inner-display {
+                background: var(--semi-cssvar-color-radio_card-bg-hover);
+            }
+
+        .semi-radio:hover .semi-radio-inner-checked {
+        }
+            .semi-radio:hover .semi-radio-inner-checked .semi-radio-inner-display {
+                background: var(--semi-cssvar-color-radio_primary-bg-hover);
+                border-color: var(--semi-cssvar-color-radio_checked-border-hover);
+            }
+
+    .semi-radio:active {
+    }
+        .semi-radio:active .semi-radio-inner-display {
+            background: var(--semi-cssvar-color-radio_default-bg-active);
+        }
+
+        .semi-radio:active.semi-radio-cardRadioGroup {
+        }
+            .semi-radio:active.semi-radio-cardRadioGroup .semi-radio-inner-display {
+                background: var(--semi-cssvar-color-radio_card-bg-active);
+            }
+
+        .semi-radio:active .semi-radio-inner-checked {
+        }
+            .semi-radio:active .semi-radio-inner-checked .semi-radio-inner-display {
+                background: var(--semi-cssvar-color-radio_primary-bg-active);
+                border-color: var(--semi-cssvar-color-radio_checked-border-active);
+            }
+
+    .semi-radio-buttonRadioComponent {
+        padding: var(--semi-cssvar-spacing-radio_buttonRadio-padding);
+        background: var(--semi-cssvar-color-radio_buttonRadio-bg-default);
+        border-radius: var(--semi-cssvar-radius-radio_buttonRadio);
+    }
+
+    .semi-radio-buttonRadioGroup {
+        position: relative;
+        padding: var(--semi-cssvar-spacing-radio_buttonRadioGroup_middle-padding);
+        border-radius: var(--semi-cssvar-radius-radio_buttonRadio);
+        line-height: var(--semi-cssvar-font-radio_buttonRadioGroup_middle-lineHeight)
+    }
+        /* Button needs to be positioned relative to parent*/
+
+        .semi-radio-buttonRadioGroup:not(:last-child) {
+            padding-right: var(--semi-cssvar-spacing-radio_buttonRadioGroup-paddingRight);
+        }
+
+        .semi-radio-buttonRadioGroup-small {
+            padding: var(--semi-cssvar-spacing-radio_buttonRadioGroup_small-paddingX) var(--semi-cssvar-spacing-radio_buttonRadioGroup_small-paddingY);
+            line-height: var(--semi-cssvar-font-radio_buttonRadioGroup_small-lineHeight);
+        }
+
+
+        .semi-radio-buttonRadioGroup-large {
+            padding: var(--semi-cssvar-spacing-radio_buttonRadioGroup_large-padding);
+            line-height: var(--semi-cssvar-font-radio_buttonRadioGroup_large-lineHeight);
+        }
+
+    .semi-radio-cardRadioGroup {
+        flex-wrap: nowrap;
+        border-radius: var(--semi-cssvar-radius-radio_cardRadioGroup);
+        padding: var(--semi-cssvar-spacing-radio_cardRadioGroup-paddingY) var(--semi-cssvar-spacing-radio_cardRadioGroup-paddingX);
+        background: var(--semi-cssvar-color-radio_cardRadioGroup-bg-default);
+        border: var(--semi-cssvar-width-radio_cardRadioGroup_checked-border) solid var(--semi-cssvar-color-radio_cardRadioGroup_border-default);
+        transition: background-color var(--semi-cssvar-transition_duration_radio-bg) var(--semi-cssvar-transition_function-radio-bg) var(--semi-cssvar-transition_delay-radio-bg),
+        border var(--semi-cssvar-transition_duration-radio-border) var(--semi-cssvar-transition_function-radio-border) var(--semi-cssvar-transition_delay-radio-border)
+    }
+
+        .semi-radio-cardRadioGroup .semi-radio-inner {
+            flex-shrink: 0
+        }
+
+            .semi-radio-cardRadioGroup .semi-radio-inner-display {
+                background: var(--semi-cssvar-color-radio_card-bg-default);
+            }
+
+        .semi-radio-cardRadioGroup .semi-radio-addon {
+            font-weight: var(--semi-cssvar-font-radio_cardRadioGroup_addon-fontWeight);
+            font-size: var(--semi-cssvar-font-radio_cardRadioGroup_addon-size);
+            line-height: var(--semi-cssvar-font-radio_cardRadioGroup_addon-lineHeight);
+            color: var(--semi-cssvar-color-radio_cardRadioGroup_addon-text-default);
+        }
+
+        .semi-radio-cardRadioGroup .semi-radio-extra {
+            font-weight: var(--semi-cssvar-font-radio_cardRadioGroup_extra-fontWeight);
+            font-size: var(--semi-cssvar-font-radio_cardRadioGroup_extra-size);
+            line-height: var(--semi-cssvar-font-radio_cardRadioGroup_extra-lineHeight);
+            color: var(--semi-cssvar-color-radio_cardRadioGroup_extra-text-default);
+            padding-left: 0;
+        }
+
+        .semi-radio-cardRadioGroup:active {
+            background: var(--semi-cssvar-color-radio_cardRadioGroup-bg-active);
+        }
+
+        .semi-radio-cardRadioGroup_checked {
+            background: var(--semi-cssvar-color-radio_cardRadioGroup-bg-checked);
+            border: var(--semi-cssvar-width-radio_cardRadioGroup_checked-border) solid var(--semi-cssvar-color-radio_cardRadioGroup_border-active)
+        }
+
+            .semi-radio-cardRadioGroup_checked:hover {
+                border: var(--semi-cssvar-width-radio_cardRadioGroup_checked-border) solid var(--semi-cssvar-color-radio_cardRadioGroup_checked_border-hover)
+            }
+
+                .semi-radio-cardRadioGroup_checked:hover .semi-radio-inner-checked .semi-radio-inner-display {
+                    border-color: var(--semi-cssvar-color-radio_cardRadioGroup_checked_border-hover);
+                }
+
+            .semi-radio-cardRadioGroup_checked:active {
+                background: var(--semi-cssvar-color-radio_cardRadioGroup-bg-checked);
+                border: var(--semi-cssvar-width-radio_cardRadioGroup_checked-border) solid var(--semi-cssvar-color-radio_cardRadioGroup_checked_border-active)
+            }
+
+                .semi-radio-cardRadioGroup_checked:active .semi-radio-inner-checked {
+                }
+                    .semi-radio-cardRadioGroup_checked:active .semi-radio-inner-checked .semi-radio-inner-display {
+                        border-color: var(--semi-cssvar-color-radio_cardRadioGroup_checked_border-active);
+                    }
+
+                    .semi-radio-cardRadioGroup_checked:active .semi-radio-inner-checked:hover .semi-radio-inner-display {
+                        background: var(--semi-cssvar-color-radio_primary-bg-active);
+                    }
+
+        .semi-radio-cardRadioGroup_hover {
+            background: var(--semi-cssvar-color-radio_cardRadioGroup-bg-hover);
+        }
+
+        .semi-radio-cardRadioGroup_disabled {
+        }
+            .semi-radio-cardRadioGroup_disabled:active {
+                background: var(--semi-cssvar-color-radio_cardRadioGroup_disabled-bg-active);
+            }
+
+        .semi-radio-cardRadioGroup_checked_disabled.semi-radio-cardRadioGroup  {
+            background: var(--semi-cssvar-color-radio_cardRadioGroup_disabled-bg-checked);
+            border: var(--semi-cssvar-width-radio_cardRadioGroup_checked_disabled-border) solid var(--semi-cssvar-color-radio_cardRadioGroup_border_disabled-active)
+        }
+
+            .semi-radio-cardRadioGroup_checked_disabled.semi-radio-cardRadioGroup .semi-radio-inner-checked .semi-radio-inner-display {
+                border-color: var(--semi-cssvar-color-radio_cardRadioGroup_checked_disabled-border-default);
+            }
+
+            .semi-radio-cardRadioGroup_checked_disabled.semi-radio-cardRadioGroup:hover {
+            }
+                .semi-radio-cardRadioGroup_checked_disabled.semi-radio-cardRadioGroup:hover .semi-radio-inner-checked .semi-radio-inner-display {
+                    border-color: var(--semi-cssvar-color-radio_cardRadioGroup_checked_disabled-border-hover);
+                }
+
+    .semi-radio.semi-radio-disabled:hover, .semi-radio.semi-radio-disabled:active {
+    }
+        .semi-radio.semi-radio-disabled:hover .semi-radio-inner-display, .semi-radio.semi-radio-disabled:active .semi-radio-inner-display {
+            background: var(--semi-cssvar-color-radio_disabled-bg-default);
+            border: solid var(--semi-cssvar-width-radio_disabled-border) var(--semi-cssvar-color-radio_disabled-border-default);
+        }
+
+        .semi-radio.semi-radio-disabled:hover .semi-radio-inner-checked, .semi-radio.semi-radio-disabled:active .semi-radio-inner-checked {
+        }
+            .semi-radio.semi-radio-disabled:hover .semi-radio-inner-checked .semi-radio-inner-display, .semi-radio.semi-radio-disabled:active .semi-radio-inner-checked .semi-radio-inner-display {
+                color: var(--semi-cssvar-color-radio_checked-icon-disabled);
+                background: var(--semi-cssvar-color-radio_checked-bg-disabled);
+                border-color: var(--semi-cssvar-color-radio_checked-border-disabled);
+            }
+
+    .semi-radio-inner {
+        display: inline-flex;
+        margin-top: 2px;
+        position: relative;
+        width: var(--semi-cssvar-width-radio_inner);
+        height: var(--semi-cssvar-width-radio_inner);
+        vertical-align: sub;
+        user-select: none
+    }
+        /* WARN: The absolute positioning used by the input does not occupy space, and relative cannot be removed here.*/ /* prevent text under it will be selected when double click*/
+
+        .semi-radio-inner-display {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+    box-sizing: border-box;
+            width: var(--semi-cssvar-width-radio_inner);
+            height: var(--semi-cssvar-width-radio_inner);
+            border: solid var(--semi-cssvar-width-radio_innder-border) var(--semi-cssvar-color-radio_default-border-default);
+            border-radius: var(--semi-cssvar-width-radio_inner);
+            background: var(--semi-cssvar-color-radio_default-bg-default);
+            transition: background-color var(--semi-cssvar-transition_duration-radio-bg) var(--semi-cssvar-transition_function-radio-bg) var(--semi-cssvar-transition_delay-radio-bg),
+            border var(--semi-cssvar-transition_duration-radio-border) var(--semi-cssvar-transition_function-radio-border) var(--semi-cssvar-transition_delay-radio-border)
+        }
+
+            .semi-radio-inner-display .semi-icon {
+                width: 100%;
+                height: 100%;
+                font-size: 14px;
+            }
+
+    .semi-radio-content {
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--semi-cssvar-spacing-radio_content-rowGap);
+    }
+
+    .semi-radio:hover {
+    }
+        .semi-radio:hover .semi-radio-inner-display {
+            background: var(--semi-cssvar-color-radio_default-bg-hover);
+        }
+
+    .semi-radio:active {
+    }
+        .semi-radio:active .semi-radio-inner-display {
+            background: var(--semi-cssvar-color-radio_default-bg-active);
+        }
+
+    .semi-radio-addon {
+        user-select: none;
+        color: var(--semi-cssvar-color-radio_default-text-default);
+        display: inline-flex;
+        align-items: center
+    }
+
+        .semi-radio-addon-buttonRadio {
+            text-align: center;
+            border-radius: var(--semi-cssvar-radius-radio_addon_buttonRadio);
+            font-weight: var(--semi-cssvar-font-radio_buttonRadio-default-fontWeight);
+            color: var(--semi-cssvar-color-radio_buttonRadio-text-default);
+            font-size: var(--semi-cssvar-font-radio_buttonRadio_middle-default-size);
+            padding: var(--semi-cssvar-spacing-radio_addon_buttonRadio_middle-paddingY) var(--semi-cssvar-spacing-radio_addon_buttonRadio_middle-paddingX);
+            transition: background-color var(--semi-cssvar-transition_duration-radio-bg) var(--semi-cssvar-transition_function-radio-bg) var(--semi-cssvar-transition_delay-radio-bg),
+            border var(--semi-cssvar-transition_duration-radio-border) var(--semi-cssvar-transition_function-radio-border) var(--semi-cssvar-transition_delay-radio-border)
+        }
+
+            .semi-radio-addon-buttonRadio-hover {
+                font-weight: var(--semi-cssvar-font-radio_buttonRadio-hover-fontWeight);
+                background: var(--semi-cssvar-color-radio_addon_buttonRadio-bg-hover);
+            }
+
+            .semi-radio-addon-buttonRadio-checked {
+                font-weight: var(--semi-cssvar-font-radio_buttonRadio-checked-fontWeight);
+                background: var(--semi-cssvar-color-radio_addon_buttonRadio-bg-checked);
+                color: var(--semi-cssvar-color-radio_addon_buttonRadio-text-checked);
+            }
+
+            .semi-radio-addon-buttonRadio-disabled {
+                cursor: not-allowed;
+                color: var(--semi-cssvar-color-radio_buttonRadio-text-disabled);
+            }
+
+            .semi-radio-addon-buttonRadio-small {
+                font-size: var(--semi-cssvar-font-radio_buttonRadio_small-default-size);
+                padding: var(--semi-cssvar-spacing-radio_addon_buttonRadio_small-paddingY) var(--semi-cssvar-spacing-radio_addon_buttonRadio_small-paddingX);
+            }
+
+            .semi-radio-addon-buttonRadio-large {
+                font-size: var(--semi-cssvar-font-radio_buttonRadio_large-default-size);
+                padding: var(--semi-cssvar-spacing-radio_addon_buttonRadio_large-paddingY) var(--semi-cssvar-spacing-radio_addon_buttonRadio_large-paddingX);
+            }
+
+    .semi-radio .semi-radio-inner-checked {
+    }
+
+        .semi-radio .semi-radio-inner-checked:hover {
+        }
+            .semi-radio .semi-radio-inner-checked:hover .semi-radio-inner-display {
+                background: var(--semi-cssvar-color-radio_primary-bg-hover);
+            }
+
+        .semi-radio .semi-radio-inner-checked:active {
+        }
+            .semi-radio .semi-radio-inner-checked:active .semi-radio-inner-display {
+                background: var(--semi-cssvar-color-radio_primary-bg-active);
+            }
+
+        .semi-radio .semi-radio-inner-checked .semi-radio-inner-display {
+            border: solid var(--semi-cssvar-width-radio_innder-border) var(--semi-cssvar-color-radio_primary-border-default);
+            background: var(--semi-cssvar-color-radio_primary-bg-default);
+            color: var(--semi-cssvar-color-radio_primary-text-default);
+            border-radius: var(--semi-cssvar-width-radio_inner);
+        }
+
+        .semi-radio .semi-radio-inner-checked >.semi-radio-addon {
+            color: var(--semi-cssvar-color-radio_default-text-default);
+        }
+
+    /* A11y: arrow keyboard control*/
+    .semi-radio .semi-radio-inner-buttonRadio, .semi-radio .semi-radio-inner-pureCardRadio  {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin-top: 0;
+        z-index: -1;
+        opacity: 0;
+    } /* when type= button/card/pureCard, reset margin*/
+
+    .semi-radio-disabled {
+    }
+
+        .semi-radio-disabled, .semi-radio-disabled:hover {
+            cursor: not-allowed;
+        }
+
+        .semi-radio-disabled .semi-radio-inner {
+            cursor: not-allowed
+        }
+
+            .semi-radio-disabled .semi-radio-inner-display {
+                opacity: 0.75;
+                background: var(--semi-cssvar-color-radio_disabled-bg-default);
+                border-color: var(--semi-cssvar-color-radio_default-border-disabled)
+            }
+
+                .semi-radio-disabled .semi-radio-inner-display:hover {
+                    background: var(--semi-cssvar-color-radio_disabled-bg-hover);
+                }
+
+        .semi-radio-disabled .semi-radio-inner-checked {
+        }
+            .semi-radio-disabled .semi-radio-inner-checked .semi-radio-inner-display {
+                color: var(--semi-cssvar-color-radio_checked-icon-disabled);
+                background: var(--semi-cssvar-color-radio_checked-bg-disabled);
+                border-color: var(--semi-cssvar-color-radio_checked-border-disabled)
+            }
+
+                .semi-radio-disabled .semi-radio-inner-checked .semi-radio-inner-display:hover {
+                    color: var(--semi-cssvar-color-radio_checked-icon-disabled);
+                    background: var(--semi-cssvar-color-radio_checked-bg-disabled);
+                    border-color: var(--semi-cssvar-color-radio_checked-border-disabled);
+                }
+
+        .semi-radio-disabled .semi-radio-addon {
+            color: var(--semi-cssvar-color-radio_disabled-text-default);
+        }
+
+        .semi-radio-disabled .semi-radio-extra {
+            color: var(--semi-cssvar-color-radio_disabled-text-default);
+        }
+
+    .semi-radio-extra {
+        color: var(--semi-cssvar-color-radio_extra-text-default);
+        box-sizing: border-box;
+    }
+
+    .semi-radio-focus {
+        outline: var(--semi-cssvar-width-radio-outline) solid var(--semi-cssvar-color-radio_primary-outline-focus)
+    }
+
+        .semi-radio-focus-border {
+            border: solid var(--semi-cssvar-width-radio_hover-border) var(--semi-cssvar-color-radio_default-border-hover);
+        }
+
+.semi-radioGroup {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular)
+}
+
+    .semi-radioGroup-vertical {
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--semi-cssvar-spacing-radio_group_vertical-marginBottom)
+    }
+
+        .semi-radioGroup-vertical-default {
+        }
+            .semi-radioGroup-vertical-default .semi-radio {
+                display: flex;
+            }
+        .semi-radioGroup-vertical-card {
+        }
+            .semi-radioGroup-vertical-card .semi-radio {
+                display: flex;
+            }
+
+    .semi-radioGroup-horizontal {
+        display: inline-flex;
+        flex-wrap: wrap;
+        vertical-align: bottom;
+        gap: var(--semi-cssvar-spacing-radio_group_horizontal-marginRight);
+    } /* Fix 1573*/
+
+    .semi-radioGroup-buttonRadio {
+        display: inline-block;
+        background: var(--semi-cssvar-color-radio_buttonRadio-bg-default);
+        border-radius: var(--semi-cssvar-radius-radio_buttonRadio);
+        vertical-align: middle;
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-radio, .semi-portal-rtl .semi-radio {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-radio input[type="checkbox"], .semi-portal-rtl .semi-radio input[type="checkbox"], .semi-rtl .semi-radio input[type="radio"], .semi-portal-rtl .semi-radio input[type="radio"] {
+            left: auto;
+            right: 0;
+        }
+
+        .semi-rtl .semi-radio-buttonRadioGroup, .semi-portal-rtl .semi-radio-buttonRadioGroup {
+        }
+            .semi-rtl .semi-radio-buttonRadioGroup:not(:last-child), .semi-portal-rtl .semi-radio-buttonRadioGroup:not(:last-child) {
+                padding-left: var(--semi-cssvar-spacing-radio_buttonRadioGroup-paddingRight);
+            }
+
+    .semi-rtl .semi-radioGroup, .semi-portal-rtl .semi-radioGroup {
+        direction: rtl;
+    }

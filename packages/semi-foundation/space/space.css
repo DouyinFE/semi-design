@@ -1,0 +1,64 @@
+
+.semi-space {
+    display: inline-flex
+}
+    
+    .semi-space-vertical {
+        flex-direction: column;
+    }
+    .semi-space-horizontal {
+        flex-direction: row;
+    }
+    .semi-space-align {
+    }
+        .semi-space-align-center {
+            align-items: center;
+        }
+        .semi-space-align-end {
+            align-items: flex-end;
+        }
+        .semi-space-align-start {
+            align-items: flex-start;
+        }
+        .semi-space-align-baseline {
+            align-items: baseline;
+        }
+    .semi-space-wrap {
+        flex-wrap: wrap;
+    }
+    
+    .semi-space-tight-horizontal {
+        column-gap: var(--semi-cssvar-spacing-space-tight)
+    }
+
+    .semi-space-tight-vertical {
+        row-gap: var(--semi-cssvar-spacing-space-tight);
+    }
+    
+    .semi-space-medium-horizontal {
+        column-gap: var(--semi-cssvar-spacing-space-medium)
+    }
+
+    .semi-space-medium-vertical {
+        row-gap: var(--semi-cssvar-spacing-space-medium);
+    }
+    
+    .semi-space-loose-horizontal {
+        column-gap: var(--semi-cssvar-spacing-space-loose)
+    }
+
+    .semi-space-loose-vertical {
+        row-gap: var(--semi-cssvar-spacing-space-loose);
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+    & .semi-space {
+        direction: rtl;
+    }
+}
+

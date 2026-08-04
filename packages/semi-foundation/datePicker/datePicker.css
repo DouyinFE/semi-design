@@ -1,0 +1,1915 @@
+
+.semi-datepicker {
+    box-sizing: border-box;
+    display: inline-block
+}
+
+    .semi-datepicker-container {
+        display: flex;
+    }
+
+    .semi-datepicker .semi-scrolllist-body {
+    }
+        .semi-datepicker .semi-scrolllist-body .semi-scrolllist-item {
+            -ms-overflow-style: none;
+            scrollbar-width: none
+        } /* Internet Explorer 10+ */ /* Firefox */
+
+            .semi-datepicker .semi-scrolllist-body .semi-scrolllist-item::-webkit-scrollbar {
+                display: none;
+                width: 0;
+                height: 0;
+            }
+
+        .semi-datepicker .semi-scrolllist-body .semi-scrolllist-list-outer {
+            -ms-overflow-style: none;
+            scrollbar-width: none
+        } /* Internet Explorer 10+ */ /* Firefox */
+
+            .semi-datepicker .semi-scrolllist-body .semi-scrolllist-list-outer::-webkit-scrollbar {
+                display: none;
+                width: 0;
+                height: 0;
+            }
+
+    /* 双月网格*/
+
+    .semi-datepicker-month-grid {
+        user-select: none;
+        display: flex
+    }
+
+        .semi-datepicker-month-grid-left, .semi-datepicker-month-grid-right {
+            position: relative;
+            padding: 0;
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .semi-datepicker-month-grid[x-type="date"], .semi-datepicker-month-grid[x-type="dateRange"] {
+        }
+            .semi-datepicker-month-grid[x-type="date"] .semi-datepicker-yam, .semi-datepicker-month-grid[x-type="dateRange"] .semi-datepicker-yam {
+                height: 100%;
+            }
+
+        .semi-datepicker-month-grid[x-type="dateTime"], .semi-datepicker-month-grid[x-type="dateTimeRange"] {
+        }
+            .semi-datepicker-month-grid[x-type="dateTime"] .semi-datepicker-yam, .semi-datepicker-month-grid[x-type="dateTimeRange"] .semi-datepicker-yam {
+                height: var(--semi-cssvar-height-datepicker_timeType_yam);
+            }
+
+        .semi-datepicker-month-grid .semi-datepicker-yam-showing {
+            min-height: var(--semi-cssvar-height-datepicker_yamShowing_min);
+            min-width: var(--semi-cssvar-width-datepicker_yamShowing_min);
+        }
+
+        .semi-datepicker-month-grid[x-type='date'] .semi-datepicker-yam-showing {
+            min-height: var(--semi-cssvar-height-datepicker_dateType_yamShowing_min);
+        }
+
+        .semi-datepicker-month-grid[x-insetinput=true] {
+        }
+            .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-month-grid-left, .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-month-grid-right {
+            }
+                .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-month-grid-left[x-open-type=year], .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-month-grid-right[x-open-type=year] {
+                    min-height: var(--semi-cssvar-height-datepicker_month_grid_yearType_insetInput);
+                }
+
+                .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-month-grid-left[x-open-type=time], .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-month-grid-right[x-open-type=time] {
+                    min-height: var(--semi-cssvar-height-datepicker_month_grid_timeType_insetInput);
+                }
+
+            .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-navigation {
+                padding-top: var(--semi-cssvar-spacing-datepicker_navigation_insetInput-paddingY);
+                padding-bottom: var(--semi-cssvar-spacing-datepicker_navigation_insetInput-paddingY);
+            }
+
+            .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-tpk {
+                min-height: var(--semi-cssvar-height-datepicker_timeType_insetInput_tpk);
+            }
+
+            .semi-datepicker-month-grid[x-insetinput=true][x-type=dateTime], .semi-datepicker-month-grid[x-insetinput=true][x-type=dateTimeRange] {
+            }
+                .semi-datepicker-month-grid[x-insetinput=true][x-type=dateTime] .semi-datepicker-yam, .semi-datepicker-month-grid[x-insetinput=true][x-type=dateTimeRange] .semi-datepicker-yam {
+                    height: var(--semi-cssvar-height-datepicker_timeType_insetInput_yam);
+                }
+
+        /* when preset postion is left or right, and insetinput is false, let the month panel get the fixed height*/
+        .semi-datepicker-month-grid[x-preset-position=left][x-insetinput=false], .semi-datepicker-month-grid[x-preset-position=right][x-insetinput=false] {
+        }
+            .semi-datepicker-month-grid[x-preset-position=left][x-insetinput=false] .semi-datepicker-month, .semi-datepicker-month-grid[x-preset-position=right][x-insetinput=false] .semi-datepicker-month {
+                height: var(--semi-cssvar-height-datepicker_month_max);
+            }
+
+        /* 年月选择返回主面板*/
+        .semi-datepicker-month-grid .semi-datepicker-yearmonth-header {
+            background: var(--semi-cssvar-color-datepicker_header-bg-default);
+            padding: var(--semi-cssvar-spacing-datepicker_yam_header-paddingY) var(--semi-cssvar-spacing-datepicker_yam_header-paddingX);
+            border-bottom: var(--semi-cssvar-width-datepicker-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+            border-radius: var(--semi-cssvar-width-datepicker_yam_header-borderRadius) var(--semi-cssvar-width-datepicker_yam_header-borderRadius) 0 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .semi-datepicker-month-grid .semi-scrolllist {
+            background: var(--semi-cssvar-color-datepicker_list-bg-default);
+            position: relative;
+            box-shadow: none;
+            height: auto;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            flex: 1
+        }
+
+            .semi-datepicker-month-grid .semi-scrolllist-header, .semi-datepicker-month-grid .semi-scrolllist-body {
+                box-sizing: border-box;
+                width: 100%;
+            }
+
+            .semi-datepicker-month-grid .semi-scrolllist-header {
+                border-bottom: var(--semi-cssvar-width-datepicker-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+                padding: var(--semi-cssvar-spacing-datepicker_scrolllist_header-padding);
+            }
+
+            .semi-datepicker-month-grid .semi-scrolllist-body {
+                height: 100%;
+                overflow: hidden;
+                padding: var(--semi-cssvar-spacing-datepicker_scrolllist_body-padding);
+                flex: 1;
+            }
+
+            .semi-datepicker-month-grid .semi-scrolllist-line {
+                display: none;
+            }
+
+            .semi-datepicker-month-grid .semi-scrolllist-header-title {
+                padding: 0;
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+                min-height: var(--semi-cssvar-height-datepicker_timepicker_header_min);
+                line-height: var(--semi-cssvar-height-datepicker_timepicker_header_min);
+            }
+
+        /* 为了防止 scrollList 因为 weeks 变化高度发生变化导致年月可能发生滚动*/
+        /* In order to prevent scrollList from scrolling due to changes in the height of weeks, the year and month may be scrolled*/
+        .semi-datepicker-month-grid[x-panel-yearandmonth-open-type="left"], .semi-datepicker-month-grid[x-panel-yearandmonth-open-type="right"] {
+        }
+            .semi-datepicker-month-grid[x-panel-yearandmonth-open-type="left"] .semi-datepicker-weeks, .semi-datepicker-month-grid[x-panel-yearandmonth-open-type="right"] .semi-datepicker-weeks {
+                min-height: calc(6 * var(--semi-cssvar-width-datepicker_day));
+            }
+
+    /* 年月选择器*/
+    .semi-datepicker-panel-yam {
+        max-width: calc(var(--semi-cssvar-width-datepicker_monthPanel_max) + var(--semi-cssvar-width-datepicker_presetPanel_left_and_right))
+    }
+        /* add left or right preset panel to panel yam, max-width will be bigger*/
+
+        .semi-datepicker-panel-yam[x-type="monthRange"] {
+            max-width: calc(var(--semi-cssvar-width-datepicker_monthRangePanel_max) + var(--semi-cssvar-width-datepicker_presetPanel_left_and_right));
+        }
+
+        .semi-datepicker-panel-yam .semi-datepicker-yearmonth-body {
+            display: flex
+        }
+
+            .semi-datepicker-panel-yam .semi-datepicker-yearmonth-body .semi-scrolllist:nth-child(2) {
+                border-left: 1px solid var(--semi-color-border);
+
+            }
+
+        .semi-datepicker-panel-yam .semi-scrolllist {
+            box-shadow: none;
+            height: var(--semi-cssvar-height-datepicker_panel_yam_scrolllist)
+        }
+
+            .semi-datepicker-panel-yam .semi-scrolllist-list-outer {
+            }
+
+                .semi-datepicker-panel-yam .semi-scrolllist-list-outer > ul > li {
+                    min-width: var(--semi-cssvar-width-datepicker_panel_yam_scrolllist_li_min);
+                }
+
+            .semi-datepicker-panel-yam .semi-scrolllist-item {
+            }
+                .semi-datepicker-panel-yam .semi-scrolllist-item > ul > li {
+                    min-width: calc(var(--semi-cssvar-width-datepicker_panel_yam_scrolllist_li_min) + var(--semi-cssvar-spacing-scrollList_item_wheel_list_outer-paddingRight));
+                }
+                    /* add paddingRight to make the same width under wheel and normal mode*/
+
+            .semi-datepicker-panel-yam .semi-scrolllist-body {
+                padding: 0;
+                overflow: hidden
+            }
+
+                .semi-datepicker-panel-yam .semi-scrolllist-body .semi-scrolllist-item-wheel:not(#neverExistElement) {
+                    border: none;
+                }
+                    /* equal to #{$prefix}-scrolllist-item-wheel, add [:not] selector only to increase selector priority*/
+
+                /* .#{$prefix}-scrolllist-item {*/
+                /*     border: none;*/
+                /* }*/
+
+    /* needConfirm*/
+
+    .semi-datepicker-footer {
+        padding-top: var(--semi-cssvar-spacing-datepicker_footer-paddingTop);
+        padding-right: var(--semi-cssvar-spacing-datepicker_footer-paddingRight);
+        padding-bottom: var(--semi-cssvar-spacing-datepicker_footer-paddingBottom);
+        text-align: right;
+        background-color: var(--semi-cssvar-color-datepicker_footer-bg-default)
+    }
+
+        .semi-datepicker-footer .semi-button {
+        }
+            /* cancel button*/
+            .semi-datepicker-footer .semi-button:first-of-type {
+                margin-right: var(--semi-cssvar-spacing-datepicker_footer_cancel_button-marginRight);
+            }
+
+            /* confirm button*/
+            .semi-datepicker-footer .semi-button:nth-of-type(2) {
+                margin-right: var(--semi-cssvar-spacing-datepicker_footer_confirm_button-marginRight);
+            }
+
+    /* 年月选择*/
+
+    .semi-datepicker-yam {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+    }
+
+    /* 时间选择*/
+
+    .semi-datepicker-tpk {
+        position: absolute;
+        top: 0;
+        height: var(--semi-cssvar-height-datepicker_timeType_tpk);
+        width: 100%;
+        display: flex;
+        flex-direction: column
+    }
+
+        .semi-datepicker-tpk .semi-datepicker-time {
+            height: 100%;
+        }
+
+    /* 当前年月、切换年月按钮*/
+
+    .semi-datepicker-navigation {
+        display: flex;
+        align-items: center;
+        box-sizing: content-box;
+        height: var(--semi-cssvar-width-datepicker_nav);
+        padding: var(--semi-cssvar-spacing-datepicker_navigation-paddingY) var(--semi-cssvar-spacing-datepicker_navigation-paddingX)
+    }
+
+        .semi-datepicker-navigation-left, .semi-datepicker-navigation-right {
+            width: var(--semi-cssvar-width-datepicker_nav);
+            height: var(--semi-cssvar-width-datepicker_nav);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .semi-datepicker-navigation .semi-button {
+            color: var(--semi-cssvar-color-datepicker_navIcon-text-default);
+            min-width: var(--semi-cssvar-width-datepicker_navigation_button_min);
+        }
+
+        .semi-datepicker-navigation-month {
+    font-size: var(--semi-cssvar-font-size-header-6);
+    line-height: 22px;
+    font-family: var(--semi-cssvar-font-family-regular);
+            flex-grow: 1;
+            text-align: center;
+            font-weight: var(--semi-cssvar-font-weight-bold);
+            color: var(--semi-cssvar-color-datepicker_nav_monthIcon-text-default)
+        }
+
+            .semi-datepicker-navigation-month .semi-button {
+                color: var(--semi-cssvar-color-datepicker_nav_monthIcon-text-default);
+            }
+
+    /* 月面板*/
+
+    .semi-datepicker-month {
+        width: var(--semi-cssvar-width-datepicker_month);
+        box-sizing: content-box;
+        padding: var(--semi-cssvar-spacing-datepicker_month-padding);
+        padding-top: 0;
+    }
+
+    /* 月面板-星期*/
+
+    .semi-datepicker-weekday {
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        font-weight: var(--semi-cssvar-font-weight-bold);
+        color: var(--semi-cssvar-color-datepicker_day-text-default);
+        border-bottom: var(--semi-cssvar-width-datepicker-border) solid var(--semi-cssvar-color-datepicker_border-bg-default)
+    }
+
+        .semi-datepicker-weekday-item {
+            width: var(--semi-cssvar-width-datepicker_day);
+            height: var(--semi-cssvar-width-datepicker_day);
+            line-height: var(--semi-cssvar-width-datepicker_day);
+            text-align: center;
+            display: inline-block;
+        }
+
+    /* 月面板-月周*/
+
+    .semi-datepicker-weeks {
+        color: var(--semi-cssvar-color-datepicker_date-text-default);
+    }
+
+    /* 月面板-周*/
+
+    .semi-datepicker-week {
+        display: flex;
+        align-items: center;
+    }
+
+    /* 月面板-周天*/
+
+    .semi-datepicker-day {
+        box-sizing: border-box;
+        display: inline-block;
+        width: var(--semi-cssvar-width-datepicker_day);
+        height: var(--semi-cssvar-width-datepicker_day);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        cursor: pointer
+    }
+
+        /* 周天-内部*/
+
+        .semi-datepicker-day-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+            width: var(--semi-cssvar-width-datepicker_day_main);
+            height: var(--semi-cssvar-width-datepicker_day_main);
+            margin: 0 auto;
+            box-sizing: border-box;
+            border-radius: var(--semi-cssvar-width-datepicker_day_main-borderRadius)
+        }
+
+            .semi-datepicker-day-main:hover {
+                background-color: var(--semi-cssvar-color-datepicker_date-bg-hover);
+            }
+
+            .semi-datepicker-day-main:active {
+                background-color: var(--semi-cssvar-color-datepicker_date-bg-active);
+            }
+
+        /* 以下是天状态*/
+
+        .semi-datepicker-day-today {
+        }
+            .semi-datepicker-day-today .semi-datepicker-day-main {
+                color: var(--semi-cssvar-color-datepicker_date_today-text-default);
+                background-color: var(--semi-cssvar-color-datepicker_date-bg-default);
+                font-weight: var(--semi-cssvar-font-weight-bold);
+            }
+
+            .semi-datepicker-day-today.semi-datepicker-day-disabled {
+            }
+                .semi-datepicker-day-today.semi-datepicker-day-disabled .semi-datepicker-day-main {
+                    color: var(--semi-cssvar-color-datepicker_date_today_disabled-text-default);
+                }
+
+        .semi-datepicker-day-inrange, .semi-datepicker-day-inhover, .semi-datepicker-day-inoffsetrange, .semi-datepicker-day-hoverday, .semi-datepicker-day-selectedrange-hover, .semi-datepicker-day-hoverday-around-singleselected {
+        }
+            .semi-datepicker-day-inrange .semi-datepicker-day-main, .semi-datepicker-day-inhover .semi-datepicker-day-main, .semi-datepicker-day-inoffsetrange .semi-datepicker-day-main, .semi-datepicker-day-hoverday .semi-datepicker-day-main, .semi-datepicker-day-selectedrange-hover .semi-datepicker-day-main, .semi-datepicker-day-hoverday-around-singleselected .semi-datepicker-day-main {
+                border-radius: 0;
+                margin-left: 0;
+                margin-right: 0;
+                width: var(--semi-cssvar-width-datepicker_day);
+            }
+
+        .semi-datepicker-day-selected {
+        }
+            .semi-datepicker-day-selected .semi-datepicker-day-main {
+                border-radius: var(--semi-cssvar-width-datepicker_day_main-borderRadius);
+            }
+
+        /* one date is both start and end*/
+        .semi-datepicker-day-selected-start.semi-datepicker-day-selected-end, .semi-datepicker-day-offsetrange-start.semi-datepicker-day-offsetrange-end {
+        }
+            .semi-datepicker-day-selected-start.semi-datepicker-day-selected-end .semi-datepicker-day-main, .semi-datepicker-day-offsetrange-start.semi-datepicker-day-offsetrange-end .semi-datepicker-day-main {
+                border-radius: var(--semi-cssvar-width-datepicker_day_main-borderRadius);
+            }
+
+        .semi-datepicker-day-offsetrange-start {
+        }
+            .semi-datepicker-day-offsetrange-start .semi-datepicker-day-main {
+                border-radius: var(--semi-cssvar-width-datepicker_day_main-borderRadius) 0 0 var(--semi-cssvar-width-datepicker_day_main-borderRadius);
+            }
+
+        .semi-datepicker-day-offsetrange-end {
+        }
+            .semi-datepicker-day-offsetrange-end .semi-datepicker-day-main {
+                border-radius: 0 var(--semi-cssvar-width-datepicker_day_main-borderRadius) var(--semi-cssvar-width-datepicker_day_main-borderRadius) 0;
+            }
+
+        .semi-datepicker-day-hoverday-beforerange {
+        }
+            .semi-datepicker-day-hoverday-beforerange .semi-datepicker-day-main {
+                border-radius: var(--semi-cssvar-width-datepicker_day_main-borderRadius) 0 0 var(--semi-cssvar-width-datepicker_day_main-borderRadius);
+            }
+
+        .semi-datepicker-day-hoverday-afterrange {
+        }
+            .semi-datepicker-day-hoverday-afterrange .semi-datepicker-day-main {
+                border-radius: 0 var(--semi-cssvar-width-datepicker_day_main-borderRadius) var(--semi-cssvar-width-datepicker_day_main-borderRadius) 0;
+            }
+
+        .semi-datepicker-day-selected-start, .semi-datepicker-day-offsetrange-start {
+        }
+            .semi-datepicker-day-selected-start .semi-datepicker-day-main, .semi-datepicker-day-offsetrange-start .semi-datepicker-day-main {
+                width: calc(var(--semi-cssvar-width-datepicker_day) - var(--semi-cssvar-spacing-datepicker_day-marginX));
+                margin-left: var(--semi-cssvar-spacing-datepicker_day-marginX);
+                margin-right: 0;
+                border-radius: var(--semi-cssvar-width-datepicker_day_main-borderRadius) 0 0 var(--semi-cssvar-width-datepicker_day_main-borderRadius);
+            }
+
+        .semi-datepicker-day-selected-end, .semi-datepicker-day-offsetrange-end {
+        }
+            .semi-datepicker-day-selected-end .semi-datepicker-day-main, .semi-datepicker-day-offsetrange-end .semi-datepicker-day-main {
+                width: calc(var(--semi-cssvar-width-datepicker_day) - var(--semi-cssvar-spacing-datepicker_day-marginX));
+                margin-right: var(--semi-cssvar-spacing-datepicker_day-marginX);
+                margin-left: 0;
+                border-radius: 0 var(--semi-cssvar-width-datepicker_day_main-borderRadius) var(--semi-cssvar-width-datepicker_day_main-borderRadius) 0;
+            }
+
+        .semi-datepicker-day-hoverday-inrange {
+        }
+            .semi-datepicker-day-hoverday-inrange .semi-datepicker-day-main {
+                border-radius: 0;
+            }
+
+        .semi-datepicker-day-inoffsetrange, .semi-datepicker-day-offsetrange-start, .semi-datepicker-day-offsetrange-end {
+        }
+            .semi-datepicker-day-inoffsetrange .semi-datepicker-day-main, .semi-datepicker-day-offsetrange-start .semi-datepicker-day-main, .semi-datepicker-day-offsetrange-end .semi-datepicker-day-main {
+                background-color: var(--semi-cssvar-color-datepicker_date_inRangeHover-bg-default);
+            }
+
+        .semi-datepicker-day-hoverday, .semi-datepicker-day-hoverday-offset {
+        }
+            .semi-datepicker-day-hoverday .semi-datepicker-day-main, .semi-datepicker-day-hoverday-offset .semi-datepicker-day-main {
+                background-color: var(--semi-cssvar-color-datepicker_date_hoverDay-bg-default);
+            }
+
+        .semi-datepicker-day-inrange, .semi-datepicker-day-inhover {
+        }
+            .semi-datepicker-day-inrange .semi-datepicker-day-main, .semi-datepicker-day-inhover .semi-datepicker-day-main {
+                background-color: var(--semi-cssvar-color-datepicker_date_inHover-bg-default);
+            }
+
+        .semi-datepicker-day-hoverday-inrange, .semi-datepicker-day-hoverday-beforerange, .semi-datepicker-day-hoverday-afterrange {
+        }
+            .semi-datepicker-day-hoverday-inrange .semi-datepicker-day-main, .semi-datepicker-day-hoverday-beforerange .semi-datepicker-day-main, .semi-datepicker-day-hoverday-afterrange .semi-datepicker-day-main {
+                background-color: var(--semi-cssvar-color-datepicker_date_hoverday_range-bg-default);
+            }
+
+        .semi-datepicker-day-hoverday-around-singleselected {
+        }
+            .semi-datepicker-day-hoverday-around-singleselected .semi-datepicker-day-main {
+                background-color: var(--semi-cssvar-color-datepicker_date_hoverday_around_single_selected-bg-default);
+            }
+
+        .semi-datepicker-day-selected, .semi-datepicker-day-selected-start, .semi-datepicker-day-selected-end {
+        }
+            .semi-datepicker-day-selected .semi-datepicker-day-main, .semi-datepicker-day-selected-start .semi-datepicker-day-main, .semi-datepicker-day-selected-end .semi-datepicker-day-main {
+                background-color: var(--semi-cssvar-color-datepicker_date_selected-bg-default);
+                color: var(--semi-cssvar-color-datepicker_date_selected-text-default)
+            }
+
+                .semi-datepicker-day-selected .semi-datepicker-day-main:hover, .semi-datepicker-day-selected-start .semi-datepicker-day-main:hover, .semi-datepicker-day-selected-end .semi-datepicker-day-main:hover {
+                    background-color: var(--semi-cssvar-color-datepicker_date_selected-bg-default);
+                }
+
+        .semi-datepicker-day-selectedrange-hover {
+        }
+            .semi-datepicker-day-selectedrange-hover .semi-datepicker-day-main {
+                background-color: var(--semi-cssvar-color-datepicker_date_selectedRange-bg-hover);
+            }
+
+        .semi-datepicker-day-selected-start-afterhover, .semi-datepicker-day-selected-end-beforehover {
+        }
+            .semi-datepicker-day-selected-start-afterhover .semi-datepicker-day-main, .semi-datepicker-day-selected-end-beforehover .semi-datepicker-day-main {
+                border: var(--semi-cssvar-width-datepicker_day_main-border) solid var(--semi-cssvar-color-datepicker_day_main-border);
+            }
+
+        .semi-datepicker-day-disabled {
+            cursor: not-allowed;
+            color: var(--semi-cssvar-color-datepicker_date_disabled-text-default)
+        }
+
+            .semi-datepicker-day-disabled .semi-datepicker-day-main {
+            }
+
+                .semi-datepicker-day-disabled .semi-datepicker-day-main:hover {
+                    background-color: transparent;
+                }
+
+                .semi-datepicker-day-disabled .semi-datepicker-day-main:active {
+                    background-color: transparent;
+                }
+
+            .semi-datepicker-day-disabled.semi-datepicker-day {
+            }
+
+                .semi-datepicker-day-disabled.semi-datepicker-day-selected, .semi-datepicker-day-disabled.semi-datepicker-day-selected-start, .semi-datepicker-day-disabled.semi-datepicker-day-selected-end, .semi-datepicker-day-disabled.semi-datepicker-day-inhover, .semi-datepicker-day-disabled.semi-datepicker-day-inrange, .semi-datepicker-day-disabled.semi-datepicker-day-inoffsetrange, .semi-datepicker-day-disabled.semi-datepicker-day-hoverday, .semi-datepicker-day-disabled.semi-datepicker-day-hoverday-offset, .semi-datepicker-day-disabled.semi-datepicker-day-offsetrange-start, .semi-datepicker-day-disabled.semi-datepicker-day-offsetrange-end, .semi-datepicker-day-disabled.semi-datepicker-day-selectedrange-hover {
+                }
+                    .semi-datepicker-day-disabled.semi-datepicker-day-selected .semi-datepicker-day-main, .semi-datepicker-day-disabled.semi-datepicker-day-selected-start .semi-datepicker-day-main, .semi-datepicker-day-disabled.semi-datepicker-day-selected-end .semi-datepicker-day-main, .semi-datepicker-day-disabled.semi-datepicker-day-inhover .semi-datepicker-day-main, .semi-datepicker-day-disabled.semi-datepicker-day-inrange .semi-datepicker-day-main, .semi-datepicker-day-disabled.semi-datepicker-day-inoffsetrange .semi-datepicker-day-main, .semi-datepicker-day-disabled.semi-datepicker-day-hoverday .semi-datepicker-day-main, .semi-datepicker-day-disabled.semi-datepicker-day-hoverday-offset .semi-datepicker-day-main, .semi-datepicker-day-disabled.semi-datepicker-day-offsetrange-start .semi-datepicker-day-main, .semi-datepicker-day-disabled.semi-datepicker-day-offsetrange-end .semi-datepicker-day-main, .semi-datepicker-day-disabled.semi-datepicker-day-selectedrange-hover .semi-datepicker-day-main {
+                        background-color: var(--semi-cssvar-color-datepicker_date_disabled-bg-default);
+                        color: var(--semi-cssvar-color-datepicker_date_disabled-text-default);
+                    }
+
+        /* 以上是天状态*/
+
+    /* 切换日期和时间选择*/
+
+    .semi-datepicker-switch {
+        text-align: center;
+        display: flex;
+        border-top: var(--semi-cssvar-width-datepicker-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+        margin-top: auto
+    }
+
+        .semi-datepicker-switch-date, .semi-datepicker-switch-time {
+            width: 50%;
+            cursor: pointer;
+            padding-top: var(--semi-cssvar-spacing-datepicker_switch_datetime-paddingTop);
+            padding-bottom: var(--semi-cssvar-spacing-datepicker_switch_datetime-paddingBottom);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+            color: var(--semi-cssvar-color-datepicker_day-text-default)
+        }
+            /* flex-grow: 1;*/
+
+            .semi-datepicker-switch-date:not(.semi-datepicker-switch-time-disabled):hover, .semi-datepicker-switch-time:not(.semi-datepicker-switch-time-disabled):hover {
+                background-color: var(--semi-cssvar-color-datepicker_date-bg-hover);
+            }
+
+            .semi-datepicker-switch-date-active, .semi-datepicker-switch-time-active {
+                color: var(--semi-cssvar-color-datepicker_day-text-active);
+                font-weight: var(--semi-cssvar-font-weight-bold);
+                cursor: auto
+            }
+
+                .semi-datepicker-switch-date-active:hover, .semi-datepicker-switch-time-active:hover {
+                    background-color: inherit;
+                }
+
+            .semi-datepicker-switch-date-disabled, .semi-datepicker-switch-time-disabled {
+                cursor: not-allowed;
+            }
+
+        .semi-datepicker-switch-text {
+            padding-left: var(--semi-cssvar-spacing-datepicker_switch_text-paddingLeft);
+        }
+
+    .semi-datepicker-time {
+    }
+        .semi-datepicker-time .semi-jumperlist {
+    box-shadow: none;
+            border-radius: 0;
+        }
+
+    /* 预设*/
+    .semi-datepicker-quick-control {
+        box-sizing: border-box;
+        background-color: var(--semi-cssvar-color-datepicker_quick-bg-default)
+    }
+
+        .semi-datepicker-quick-control-header {
+            padding: var(--semi-cssvar-spacing-datepicker_quick_control_header-paddingTop) var(--semi-cssvar-spacing-datepicker_quick_control_content-paddingX) 0;
+            font-weight: var(--semi-cssvar-font-datepicker_preset_header-fontWeight);
+        }
+
+        .semi-datepicker-quick-control-left {
+            border-right: var(--semi-cssvar-width-datepicker-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+        }
+
+        .semi-datepicker-quick-control-right {
+            border-left: var(--semi-cssvar-width-datepicker-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+        }
+
+        .semi-datepicker-quick-control-top {
+            border-bottom: var(--semi-cssvar-width-datepicker-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+        }
+
+        .semi-datepicker-quick-control-bottom {
+            border-top: var(--semi-cssvar-width-datepicker-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+        }
+
+        .semi-datepicker-quick-control-left-content-wrapper, .semi-datepicker-quick-control-right-content-wrapper {
+            max-width: var(--semi-cssvar-width-datepicker_presetPanel_left_and_right);
+            margin-top: var(--semi-cssvar-spacing-datepicker_quick_control_content-marginTop);
+            overflow-y: auto;
+        }
+
+        .semi-datepicker-quick-control-top-content-wrapper, .semi-datepicker-quick-control-bottom-content-wrapper {
+            overflow-y: auto;
+            max-height: var(--semi-cssvar-height-datepicker_presetPanel_top_and_bottom_max);
+        }
+
+        .semi-datepicker-quick-control-left-content, .semi-datepicker-quick-control-right-content {
+            box-sizing: border-box;
+            display: grid;
+            align-content: flex-start;
+            grid-gap: var(--semi-cssvar-spacing-datepicker_quick_control_item-margin);
+            grid-template-columns: repeat(2, minmax(var(--semi-cssvar-width-datepicker_presetPanel_left_and_right_two_col_button) - var(--semi-cssvar-width-datepicker_presetPanel_scroll_bar) * 0.5, var(--semi-cssvar-width-datepicker_presetPanel_left_and_right_two_col_button)));
+            padding: 0 var(--semi-cssvar-spacing-datepicker_quick_control_content-paddingX) var(--semi-cssvar-spacing-datepicker_quick_control_content-paddingX)
+        }
+
+            .semi-datepicker-quick-control-left-content-item, .semi-datepicker-quick-control-right-content-item {
+                max-width: var(--semi-cssvar-width-datepicker_presetPanel_left_and_right_two_col_button)
+            }
+
+                .semi-datepicker-quick-control-left-content-item-ellipsis, .semi-datepicker-quick-control-right-content-item-ellipsis {
+                    width: calc(var(--semi-cssvar-width-datepicker_presetPanel_left_and_right_two_col_button) - (var(--semi-cssvar-spacing-datepicker_quick_control_item-margin) * 2));
+                    color: var(--semi-cssvar-color-datepicker_quick_button-text-default);
+                }
+                    /* ellipsis text content, $spacing-datepicker_quick_control_item-margin（default 8px）space left and right*/
+
+        .semi-datepicker-quick-control-top-content, .semi-datepicker-quick-control-bottom-content {
+            display: grid;
+            grid-gap: var(--semi-cssvar-spacing-datepicker_quick_control_item-margin);
+            grid-template-columns: repeat(3, minmax(var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_three_col_button) - 5px, var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_three_col_button)));
+            align-content: flex-start;
+            padding: var(--semi-cssvar-spacing-datepicker_quick_control_item-margin) var(--semi-cssvar-spacing-datepicker_quick_control_top_and_bottom_content-paddingX)
+        }
+            /* 5px = $width-datepicker_presetPanel_scroll_bar / 3*/
+
+            .semi-datepicker-quick-control-top-content-item, .semi-datepicker-quick-control-bottom-content-item {
+                max-width: var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_three_col_button)
+            }
+
+                .semi-datepicker-quick-control-top-content-item-ellipsis, .semi-datepicker-quick-control-bottom-content-item-ellipsis {
+                    width: calc(var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_three_col_button) - (var(--semi-cssvar-spacing-datepicker_quick_control_item-margin) * 2));
+                    color: var(--semi-cssvar-color-datepicker_quick_button-text-default);
+                }
+
+        .semi-datepicker-quick-control-top-range-content, .semi-datepicker-quick-control-bottom-range-content {
+            box-sizing: border-box;
+            display: grid;
+            align-content: flex-start;
+            grid-template-columns: repeat(5, minmax(var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_five_col_button) - 3px, var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_five_col_button)));
+            grid-gap: var(--semi-cssvar-spacing-datepicker_quick_control_item-margin);
+            padding: var(--semi-cssvar-spacing-datepicker_quick_control_item-margin) var(--semi-cssvar-spacing-datepicker_quick_control_top_and_bottom_content-paddingX)
+        }
+            /* 3px = $width-datepicker_presetPanel_scroll_bar / 5*/
+
+            .semi-datepicker-quick-control-top-range-content-item, .semi-datepicker-quick-control-bottom-range-content-item {
+                max-width: var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_five_col_button)
+            }
+
+                .semi-datepicker-quick-control-top-range-content-item-ellipsis, .semi-datepicker-quick-control-bottom-range-content-item-ellipsis {
+                    width: calc(var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_five_col_button) - (var(--semi-cssvar-spacing-datepicker_quick_control_item-margin) * 2));
+                    color: var(--semi-cssvar-color-datepicker_quick_button-text-default);
+                }
+
+        .semi-datepicker-quick-control-top-month-content, .semi-datepicker-quick-control-bottom-month-content {
+            box-sizing: border-box;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_two_col_button) - var(--semi-cssvar-width-datepicker_presetPanel_scroll_bar) * 0.5, var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_two_col_button)));
+            grid-gap: var(--semi-cssvar-spacing-datepicker_quick_control_item-margin);
+            align-content: flex-start;
+            padding: var(--semi-cssvar-spacing-datepicker_quick_control_item-margin) var(--semi-cssvar-spacing-datepicker_quick_control_top_and_bottom_content-paddingX)
+        }
+
+            .semi-datepicker-quick-control-top-month-content-item, .semi-datepicker-quick-control-bottom-month-content-item {
+                max-width: var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_two_col_button)
+            }
+
+                .semi-datepicker-quick-control-top-month-content-item-ellipsis, .semi-datepicker-quick-control-bottom-month-content-item-ellipsis {
+                    max-width: calc(var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_two_col_button) - (var(--semi-cssvar-spacing-datepicker_quick_control_item-margin) * 2));
+                    color: var(--semi-cssvar-color-datepicker_quick_button-text-default);
+                }
+
+
+        .semi-datepicker-quick-control-month {
+            max-width: var(--semi-cssvar-width-datepicker_monthPanel_max)
+        }
+
+            .semi-datepicker-quick-control-month[x-insetinput=true] {
+            }
+                .semi-datepicker-quick-control-month[x-insetinput=true] .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-quick-control-month[x-insetinput=true] .semi-datepicker-quick-control-left-content-wrapper {
+                    max-height: calc(var(--semi-cssvar-height-datepicker_panel_yam_scrolllist) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content) + var(--semi-cssvar-height-datepicker_inset_input));
+                }
+
+            .semi-datepicker-quick-control-month .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-quick-control-month .semi-datepicker-quick-control-left-content-wrapper {
+                max-height: calc(var(--semi-cssvar-height-datepicker_panel_yam_scrolllist) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content));
+            }
+
+        .semi-datepicker-quick-control-date {
+            max-width: var(--semi-cssvar-width-datepicker_monthPanel_max)
+        }
+
+            .semi-datepicker-quick-control-date[x-insetinput=true] {
+            }
+                .semi-datepicker-quick-control-date[x-insetinput=true] .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-quick-control-date[x-insetinput=true] .semi-datepicker-quick-control-left-content-wrapper {
+                    max-height: calc(var(--semi-cssvar-height-datepicker_preset_panel_inset_input) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content));
+                }
+
+            .semi-datepicker-quick-control-date .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-quick-control-date .semi-datepicker-quick-control-left-content-wrapper {
+                max-height: calc(var(--semi-cssvar-height-datepicker_date_panel) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content));
+            }
+
+        .semi-datepicker-quick-control-dateTime {
+            max-width: var(--semi-cssvar-width-datepicker_monthPanel_max)
+        }
+
+            .semi-datepicker-quick-control-dateTime[x-insetinput=true] {
+            }
+                .semi-datepicker-quick-control-dateTime[x-insetinput=true] .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-quick-control-dateTime[x-insetinput=true] .semi-datepicker-quick-control-left-content-wrapper {
+                    max-height: calc(var(--semi-cssvar-height-datepicker_preset_panel_inset_input) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content));
+                }
+
+            .semi-datepicker-quick-control-dateTime .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-quick-control-dateTime .semi-datepicker-quick-control-left-content-wrapper {
+                max-height: calc(var(--semi-cssvar-height-datepicker_date_time_panel) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content));
+            }
+
+        .semi-datepicker-quick-control-dateRange {
+            max-width: calc(var(--semi-cssvar-width-datepicker_monthPanel_max) * 2)
+        }
+
+            .semi-datepicker-quick-control-dateRange[x-insetinput=true] {
+            }
+                .semi-datepicker-quick-control-dateRange[x-insetinput=true] .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-quick-control-dateRange[x-insetinput=true] .semi-datepicker-quick-control-left-content-wrapper {
+                    max-height: calc(var(--semi-cssvar-height-datepicker_preset_panel_inset_input) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content));
+                }
+
+            .semi-datepicker-quick-control-dateRange .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-quick-control-dateRange .semi-datepicker-quick-control-left-content-wrapper {
+                max-height: calc(var(--semi-cssvar-height-datepicker_date_panel) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content));
+            }
+
+        .semi-datepicker-quick-control-dateTimeRange {
+            max-width: calc(var(--semi-cssvar-width-datepicker_monthPanel_max) * 2)
+        }
+
+            .semi-datepicker-quick-control-dateTimeRange[x-insetinput=true] {
+            }
+                .semi-datepicker-quick-control-dateTimeRange[x-insetinput=true] .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-quick-control-dateTimeRange[x-insetinput=true] .semi-datepicker-quick-control-left-content-wrapper {
+                    max-height: calc(var(--semi-cssvar-height-datepicker_preset_panel_inset_input) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content));
+                }
+
+            .semi-datepicker-quick-control-dateTimeRange .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-quick-control-dateTimeRange .semi-datepicker-quick-control-left-content-wrapper {
+                max-height: calc(var(--semi-cssvar-height-datepicker_date_time_panel) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content));
+            }
+
+    .semi-datepicker-topSlot {
+        border-bottom: var(--semi-cssvar-width-datepicker_slot-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+    }
+    
+    .semi-datepicker-leftSlot {
+        border-right: var(--semi-cssvar-width-datepicker_slot-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+    }
+
+    .semi-datepicker-rightSlot {
+        border-left: var(--semi-cssvar-width-datepicker_slot-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+    }
+
+    .semi-datepicker-bottomSlot {
+        border-top: var(--semi-cssvar-width-datepicker_slot-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+    }
+
+    .semi-datepicker .semi-popover-trigger {
+        width: 100%
+    }
+
+        .semi-datepicker .semi-popover-trigger .semi-input-wrapper {
+            font-size: 13px;
+        }
+
+        .semi-datepicker .semi-popover-trigger .semi-input-suffix {
+            color: var(--semi-cssvar-color-datepicker_input_primary-text-default);
+        }
+
+    .semi-datepicker .semi-datepicker-input-readonly {
+        cursor: pointer;
+    }
+
+    .semi-datepicker-inset-input {
+    }
+        .semi-datepicker-inset-input-wrapper {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            box-sizing: border-box;
+            column-gap: var(--semi-cssvar-spacing-datepicker_insetInput_wrapper-margin);
+            padding: var(--semi-cssvar-spacing-datepicker_insetInput_wrapper-paddingY) var(--semi-cssvar-spacing-datepicker_insetInput_wrapper-paddingX);
+            padding-bottom: var(--semi-cssvar-spacing-datepicker_insetInput_wrapper-paddingBottom);
+
+            width: var(--semi-cssvar-width-datepicker_insetInput_date_type_wrapper)
+        }
+
+            .semi-datepicker-inset-input-wrapper[x-type=dateRange], .semi-datepicker-inset-input-wrapper[x-type=dateTimeRange] {
+                width: var(--semi-cssvar-width-datepicker_insetInput_date_range_type_wrapper);
+            }
+
+            .semi-datepicker-inset-input-wrapper[x-type=month] {
+                width: var(--semi-cssvar-width-datepicker_insetInput_month_type_wrapper);
+            }
+            .semi-datepicker-inset-input-wrapper[x-type=monthRange] {
+                width: var(--semi-cssvar-width-datepicker_insetInput_month_range_type_wrapper);
+            }
+
+            .semi-datepicker-inset-input-wrapper .semi-input-wrapper {
+                flex: 1;
+                flex-shrink: 0;
+            }
+
+        .semi-datepicker-inset-input-separator {
+            flex-grow: 0;
+            flex-shrink: 0;
+            height: var(--semi-cssvar-height-datepicker_insetInput_separator);
+            line-height: var(--semi-cssvar-height-datepicker_insetInput_separator);
+            padding: var(--semi-cssvar-spacing-datepicker_insetInput_separator-paddingY) var(--semi-cssvar-spacing-datepicker_insetInput_separator-paddingX);
+            color: var(--semi-cssvar-color-datepicker_insetInput_separator);
+        }
+
+    .semi-datepicker-range {
+    }
+
+        .semi-datepicker-range-input {
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+            border-radius: var(--semi-cssvar-radius-datepicker_range_input);
+            height: var(--semi-cssvar-height-datepicker_range_input-default);
+            color: var(--semi-cssvar-color-datepicker_range_input-text-default);
+            background-color: var(--semi-cssvar-color-datepicker_range_input-bg-default);
+            border: var(--semi-cssvar-width-datepicker_range_trigger-border) solid var(--semi-cssvar-color-datepicker_range_trigger-border)
+        }
+
+            .semi-datepicker-range-input:hover {
+                border-color: var(--semi-cssvar-color-datepicker_range_trigger-border-hover);
+            }
+
+            .semi-datepicker-range-input:active {
+                border-color: var(--semi-cssvar-color-datepicker_range_trigger-border-active);
+            }
+
+            .semi-datepicker-range-input:focus-within{
+                border-color: var(--semi-cssvar-color-datepicker_range_trigger-border-focus);
+            }
+
+            .semi-datepicker-range-input .semi-datepicker-monthRange-input {
+                background-color: transparent;
+            }
+
+            .semi-datepicker-range-input-wrapper {
+                box-sizing: border-box;
+                background-color: var(--semi-cssvar-color-datepicker_range_input_inputWrapper-bg-default);
+                padding: 0 var(--semi-cssvar-spacing-datepicker_range_input-paddingX);
+                height: 100%;
+                width: 100%;
+                border: var(--semi-cssvar-width-datepicker_range_input-border) solid var(--semi-cssvar-color-datepicker_range_input-border-default);
+                border-radius: var(--semi-cssvar-radius-datepicker_range_input);
+                display: flex;
+                align-items: center
+            }
+
+                .semi-datepicker-range-input-wrapper .semi-input-wrapper {
+                    background-color: transparent;
+                    height: fit-content;
+                    border: none
+                }
+
+                    .semi-datepicker-range-input-wrapper .semi-input-wrapper:active:not(#neverExistElement) {
+                        background-color: transparent;
+                    }
+
+                    .semi-datepicker-range-input-wrapper .semi-input-wrapper:hover:not(#neverExistElement) {
+                        background-color: transparent;
+                    }
+
+                .semi-datepicker-range-input-wrapper-focus {
+                    border-color: var(--semi-cssvar-color-datepicker_range_input_inputWrapper-border-default);
+                    background-color: var(--semi-cssvar-color-datepicker_range_input_inputWrapper-bg-focus);
+                    border-radius: var(--semi-cssvar-radius-datepicker_range_input_inputWrapper);
+                    transition: var(--semi-cssvar-transition-datepicker_range_input)
+                }
+
+                    .semi-datepicker-range-input-wrapper-focus ~ .semi-datepicker-range-input-clearbtn {
+                        display: flex;
+                    }
+
+                    .semi-datepicker-range-input-wrapper-focus ~ .semi-datepicker-range-input-clearbtn ~ .semi-datepicker-range-input-suffix {
+                        display: none;
+                    }
+
+                .semi-datepicker-range-input-wrapper .semi-input {
+                    padding: var(--semi-cssvar-spacing-datepicker_range_input_inputWrapper_input-paddingY) var(--semi-cssvar-spacing-datepicker_range_input_inputWrapper_input-paddingX);
+                }
+
+                .semi-datepicker-range-input-wrapper-icon {
+                    flex-shrink: 0;
+                }
+
+                .semi-datepicker-range-input-wrapper:hover {
+                    background-color: var(--semi-cssvar-color-datepicker_range_input-bg-hover);
+                }
+
+                .semi-datepicker-range-input-wrapper-start {
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+
+                .semi-datepicker-range-input-wrapper-start-with-prefix {
+                    border-radius: 0;
+                }
+
+                .semi-datepicker-range-input-wrapper-end {
+                    border-radius: 0;
+                }
+
+                .semi-datepicker-range-input-wrapper-active {
+                    border-color: var(--semi-cssvar-color-datepicker_range_input-border-active);
+                    background-color: var(--semi-cssvar-color-datepicker_range_input-bg-hover);
+                }
+
+            .semi-datepicker-range-input-separator {
+                display: flex;
+                align-items: center
+            }
+
+                .semi-datepicker-range-input-separator-active {
+                    color: var(--semi-cssvar-color-datepicker_range_input_separator-text-active);
+                }
+
+            .semi-datepicker-range-input-small {
+                height: var(--semi-cssvar-height-datepicker_range_input-small);
+            }
+
+            .semi-datepicker-range-input-large {
+                height: var(--semi-cssvar-height-datepicker_range_input-large)
+            }
+
+                .semi-datepicker-range-input-large .semi-input-default {
+                    font-size: var(--semi-cssvar-font-datepicker_range_input_large-fontSize);
+                }
+
+            .semi-datepicker-range-input:hover {
+            }
+                .semi-datepicker-range-input:hover .semi-datepicker-range-input-clearbtn {
+                    display: flex;
+                    cursor: pointer;
+                }
+
+                .semi-datepicker-range-input:hover .semi-datepicker-range-input-clearbtn ~ .semi-datepicker-range-input-suffix {
+                    display: none;
+                }
+
+                .semi-datepicker-range-input:hover .semi-datepicker-range-input-clearbtn:hover {
+                    color: var(--semi-cssvar-color-datepicker_range_input_clearbtn-icon-hover);
+                }
+
+            .semi-datepicker-range-input-disabled {
+                cursor: not-allowed;
+                color: var(--semi-cssvar-color-datepicker_range_input_disabled-text-default);
+                background-color: var(--semi-cssvar-color-datepicker_range_input_disabled-bg-default)
+            }
+
+                .semi-datepicker-range-input-disabled .semi-datepicker-range-input-wrapper {
+                }
+                    .semi-datepicker-range-input-disabled .semi-datepicker-range-input-wrapper:hover {
+                        background-color: var(--semi-cssvar-color-datepicker_range_input_inputWrapper-bg-default);
+                    }
+
+                .semi-datepicker-range-input-disabled:hover {
+                    background-color: var(--semi-cssvar-color-datepicker_range_input_disabled-bg-hover);
+                }
+
+                .semi-datepicker-range-input-disabled .semi-datepicker-range-input-prefix, .semi-datepicker-range-input-disabled .semi-datepicker-range-input-suffix, .semi-datepicker-range-input-disabled .semi-datepicker-range-input-clearbtn {
+                    color: var(--semi-cssvar-color-datepicker_range_input_disabled-text-default);
+                }
+
+            .semi-datepicker-range-input-warning {
+                background-color: var(--semi-cssvar-color-datepicker_range_input_warning-bg-default)
+
+            }
+
+                .semi-datepicker-range-input-warning .semi-datepicker-range-input-wrapper {
+                }
+                    .semi-datepicker-range-input-warning .semi-datepicker-range-input-wrapper:hover {
+                        background-color: var(--semi-cssvar-color-datepicker_range_input_warning-bg-hover);
+                    }
+
+                    .semi-datepicker-range-input-warning .semi-datepicker-range-input-wrapper-active {
+                        border-color: var(--semi-cssvar-color-datepicker_range_input_warning-border-active);
+                        background-color: var(--semi-cssvar-color-datepicker_range_input_warning-bg-active);
+                    }
+
+            .semi-datepicker-range-input-error {
+                background-color: var(--semi-cssvar-color-datepicker_range_input_error-border-default)
+
+            }
+
+                .semi-datepicker-range-input-error .semi-datepicker-range-input-wrapper {
+                }
+                    .semi-datepicker-range-input-error .semi-datepicker-range-input-wrapper:hover {
+                        background-color: var(--semi-cssvar-color-datepicker_range_input_error-bg-hover);
+                    }
+
+                    .semi-datepicker-range-input-error .semi-datepicker-range-input-wrapper-active {
+                        border-color: var(--semi-cssvar-color-datepicker_range_input_error-border-active);
+                        background-color: var(--semi-cssvar-color-datepicker_range_input_error-bg-active);
+                    }
+
+            .semi-datepicker-range-input .semi-datepicker-range-input-clearbtn {
+                display: none;
+            }
+
+            .semi-datepicker-range-input-prefix, .semi-datepicker-range-input-suffix, .semi-datepicker-range-input-clearbtn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: var(--semi-cssvar-font-datepicker_range_input_prefix_suffix_clearbtn-fontWeight);
+                font-size: var(--semi-cssvar-font-datepicker_range_input_prefix_suffix_clearbtn-fontSize);
+                line-height: var(--semi-cssvar-font-datepicker_range_input_prefix_suffix_clearbtn-lineHeight);
+                font-family: var(--semi-cssvar-font-family-regular);
+                white-space: nowrap;
+                color: var(--semi-cssvar-color-datepicker_range_input-text-default);
+            }
+
+            .semi-datepicker-range-input-prefix {
+                padding-left: var(--semi-cssvar-spacing-datepicker_range_input_prefix-paddingLeft);
+                padding-right: var(--semi-cssvar-spacing-datepicker_range_input_prefix-paddingRight);
+            }
+
+            .semi-datepicker-range-input-suffix {
+                padding-left: var(--semi-cssvar-spacing-datepicker_range_input_suffix-paddingLeft);
+                padding-right: var(--semi-cssvar-spacing-datepicker_range_input_suffix-paddingRight)
+            }
+
+                .semi-datepicker-range-input-suffix-hidden {
+                    display: none;
+                }
+
+            .semi-datepicker-range-input-clearbtn {
+                padding-left: var(--semi-cssvar-spacing-datepicker_range_input_clearbtn-paddingLeft);
+                padding-right: var(--semi-cssvar-spacing-datepicker_range_input_clearbtn-paddingRight);
+            }
+
+/*
+* 小尺寸 DatePicker
+*/
+.semi-datepicker-compact {
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    line-height: var(--semi-cssvar-lineHeight-datepicker_compact);
+    display: inline-block;
+    max-width: calc(100vw - 32px)
+}
+
+    /* Max width constraint for compact panels*/
+
+    /* Make the compact panel shrink-to-fit its contents.*/
+    /* This ensures the popover background/container expands together with*/
+    /* long locale texts instead of letting inner buttons visually overflow.*/
+
+    /* Ensure the popover expands to fit this compact datepicker*/
+    .semi-datepicker-compact:not(.semi-datepicker-compact-insetInput) {
+        width: max-content;
+    }
+
+    .semi-datepicker-compact .semi-datepicker-container {
+        width: max-content;
+    }
+        /* Keep flex layout but allow the container to size by content.*/
+
+    .semi-datepicker-compact .semi-datepicker-month-grid {
+        width: max-content
+    }
+        /* Let the month grid contribute its intrinsic width to the popover.*/
+
+        .semi-datepicker-compact .semi-datepicker-month-grid .semi-datepicker-month-grid-left, .semi-datepicker-compact .semi-datepicker-month-grid .semi-datepicker-month-grid-right {
+            min-width: var(--semi-cssvar-width-datepicker_month_compact);
+            max-width: calc(100vw - 32px);
+        }
+            /* Keep the current compact width as the baseline,*/
+            /* but allow the panel to grow to fit long locale texts.*/
+            /* When reaching viewport limit, month title will ellipsis.*/
+
+        /* Keep calendar body centered when panel grows*/
+        /* without breaking navigation layout in range mode.*/
+        .semi-datepicker-compact .semi-datepicker-month-grid .semi-datepicker-month {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateTime"], .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateTimeRange"] {
+        }
+            .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateTime"] .semi-datepicker-yam, .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateTimeRange"] .semi-datepicker-yam {
+                height: calc(100% - var(--semi-cssvar-height-datepicker_switch_compact));
+            }
+                /* 减去底部switch高度*/
+
+        /* Allow yam (year-month scrolllist) panel to expand with content in compact mode*/
+        .semi-datepicker-compact .semi-datepicker-month-grid .semi-datepicker-yam {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            max-height: var(--semi-cssvar-height-datepicker_yam_panel_compact);
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+            /* Use relative positioning so parent can expand to fit content width*/
+            /* Height is constrained to prevent scrolllist from expanding too much*/
+
+        .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateRange"], .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateTimeRange"] {
+        }
+            .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateRange"] .semi-datepicker-month-grid-left, .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateTimeRange"] .semi-datepicker-month-grid-left {
+                border-right: var(--semi-cssvar-width-datepicker-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+            }
+
+
+        .semi-datepicker-compact .semi-datepicker-month-grid .semi-datepicker-yam-showing {
+            min-height: calc(var(--semi-cssvar-height-datepicker_tpk_compact) + var(--semi-cssvar-height-datepicker_switch_compact));
+            min-width: var(--semi-cssvar-width-datepicker_panel_compact);
+        }
+
+        .semi-datepicker-compact .semi-datepicker-month-grid[x-type='date'] .semi-datepicker-yam-showing {
+            min-height: var(--semi-cssvar-height-datepicker_yam_panel_compact);
+        }
+
+        /* when preset postion is left or right, and insetinput is false, let the month panel get the fixed height*/
+        .semi-datepicker-compact .semi-datepicker-month-grid[x-preset-position=left][x-insetinput=false], .semi-datepicker-compact .semi-datepicker-month-grid[x-preset-position=right][x-insetinput=false] {
+        }
+
+            .semi-datepicker-compact .semi-datepicker-month-grid[x-preset-position=left][x-insetinput=false] .semi-datepicker-month, .semi-datepicker-compact .semi-datepicker-month-grid[x-preset-position=right][x-insetinput=false] .semi-datepicker-month {
+                height: var(--semi-cssvar-height-datepicker_month_max_compact);
+            }
+
+        .semi-datepicker-compact .semi-datepicker-month-grid .semi-datepicker-yearmonth-header {
+            box-sizing: border-box;
+            height: var(--semi-cssvar-height-datepicker_yam_panel_header_compact);
+            padding: var(--semi-cssvar-spacing-datepicker_yam_panel_header_compact-padding);
+            width: 100%;
+            max-width: 100%
+        }
+
+            /* Constrain the back button to prevent overflow*/
+            .semi-datepicker-compact .semi-datepicker-month-grid .semi-datepicker-yearmonth-header button, .semi-datepicker-compact .semi-datepicker-month-grid .semi-datepicker-yearmonth-header .semi-button {
+                width: 100%;
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+        .semi-datepicker-compact .semi-datepicker-month-grid .semi-datepicker-yearmonth-body {
+            display: flex
+        }
+
+            .semi-datepicker-compact .semi-datepicker-month-grid .semi-datepicker-yearmonth-body .semi-scrolllist:nth-child(2){
+                border: 1px solid var(--semi-color-border);
+
+            }
+
+        .semi-datepicker-compact .semi-datepicker-month-grid .semi-scrolllist {
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+            line-height: var(--semi-cssvar-lineHeight-datepicker_compact)
+        }
+
+            .semi-datepicker-compact .semi-datepicker-month-grid .semi-scrolllist-header {
+                display: none;
+            }
+                /* 小尺寸空间较小，不显示scrolllist header*/
+
+            .semi-datepicker-compact .semi-datepicker-month-grid .semi-scrolllist-list-outer {
+            }
+
+                .semi-datepicker-compact .semi-datepicker-month-grid .semi-scrolllist-list-outer > ul > li {
+                    height: var(--semi-cssvar-height-datepicker_yam_li_compact);
+                }
+
+            .semi-datepicker-compact .semi-datepicker-month-grid .semi-scrolllist-item-wheel {
+                border-right: 0
+            }
+                /* 去除中间分割线*/
+
+                .semi-datepicker-compact .semi-datepicker-month-grid .semi-scrolllist-item-wheel .semi-scrolllist-selector {
+                    height: var(--semi-cssvar-height-datepicker_yam_li_compact);
+                }
+
+                .semi-datepicker-compact .semi-datepicker-month-grid .semi-scrolllist-item-wheel .semi-scrolllist-shade-pre {
+                    margin-top: var(--semi-cssvar-spacing-datepicker_scrolllist_shade_pre_compact-marginTop);
+                }
+
+                .semi-datepicker-compact .semi-datepicker-month-grid .semi-scrolllist-item-wheel .semi-scrolllist-shade-post {
+                    margin-top: var(--semi-cssvar-spacing-datepicker_scrolllist_shade_post_compact-marginTop);
+                }
+
+        /* 为了防止 scrollList 因为 weeks 变化高度发生变化导致年月可能发生滚动*/
+        /* In order to prevent scrollList from scrolling due to changes in the height of weeks, the year and month may be scrolled*/
+        .semi-datepicker-compact .semi-datepicker-month-grid[x-panel-yearandmonth-open-type="left"], .semi-datepicker-compact .semi-datepicker-month-grid[x-panel-yearandmonth-open-type="right"] {
+        }
+            .semi-datepicker-compact .semi-datepicker-month-grid[x-panel-yearandmonth-open-type="left"] .semi-datepicker-weeks, .semi-datepicker-compact .semi-datepicker-month-grid[x-panel-yearandmonth-open-type="right"] .semi-datepicker-weeks {
+                min-height: calc(6 * var(--semi-cssvar-width-datepicker_day_compact));
+            }
+
+        .semi-datepicker-compact .semi-datepicker-month-grid[x-insetinput=true] {
+        }
+            .semi-datepicker-compact .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-month-grid-left, .semi-datepicker-compact .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-month-grid-right {
+            }
+                .semi-datepicker-compact .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-month-grid-left[x-open-type=year], .semi-datepicker-compact .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-month-grid-right[x-open-type=year] {
+                    min-height: var(--semi-cssvar-height-datepicker_tpk_compact);
+                }
+
+                .semi-datepicker-compact .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-month-grid-left[x-open-type=time], .semi-datepicker-compact .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-month-grid-right[x-open-type=time] {
+                    min-height: var(--semi-cssvar-height-datepicker_tpk_compact);
+                }
+
+            .semi-datepicker-compact .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-yam-showing {
+                min-height: var(--semi-cssvar-height-datepicker_tpk_compact);
+            }
+
+            .semi-datepicker-compact .semi-datepicker-month-grid[x-insetinput=true] .semi-datepicker-tpk {
+                min-height: var(--semi-cssvar-height-datepicker_insetInput_tpk_compact);
+            }
+
+            .semi-datepicker-compact .semi-datepicker-month-grid[x-insetinput=true][x-type=dateTime], .semi-datepicker-compact .semi-datepicker-month-grid[x-insetinput=true][x-type=dateTimeRange] {
+            }
+                .semi-datepicker-compact .semi-datepicker-month-grid[x-insetinput=true][x-type=dateTime] .semi-datepicker-yam, .semi-datepicker-compact .semi-datepicker-month-grid[x-insetinput=true][x-type=dateTimeRange] .semi-datepicker-yam {
+                    height: var(--semi-cssvar-height-datepicker_timeType_insetInput_yam_compact);
+                }
+
+    /* 年月选择器*/
+    .semi-datepicker-compact.semi-datepicker-panel-yam {
+    }
+        .semi-datepicker-compact.semi-datepicker-panel-yam .semi-scrolllist {
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+            line-height: var(--semi-cssvar-lineHeight-datepicker_compact);
+        }
+
+    .semi-datepicker-compact .semi-datepicker-tpk {
+        height: calc(100% - var(--semi-cssvar-height-datepicker_switch_compact));
+    }
+
+    .semi-datepicker-compact .semi-datepicker-navigation {
+        box-sizing: border-box;
+        height: var(--semi-cssvar-width-datepicker_nav_compact);
+        padding: var(--semi-cssvar-spacing-datepicker_nav_compact-padding);
+        padding-bottom: 0;
+        width: 100%;
+        max-width: 100%
+    }
+        /* In compact mode, keep navigation constrained within each panel*/
+        /* (especially important for dateRange two-column layout).*/
+
+        .semi-datepicker-compact .semi-datepicker-navigation-left, .semi-datepicker-compact .semi-datepicker-navigation-right {
+            width: var(--semi-cssvar-width-datepicker_nav_compact);
+            height: var(--semi-cssvar-width-datepicker_nav_compact);
+        }
+
+        .semi-datepicker-compact .semi-datepicker-navigation .semi-button {
+            min-width: var(--semi-cssvar-width-datepicker_nav_compact);
+            min-height: var(--semi-cssvar-width-datepicker_nav_compact);
+        }
+
+        .semi-datepicker-compact .semi-datepicker-navigation-month {
+            min-width: 0;
+            overflow: hidden
+        }
+
+            .semi-datepicker-compact .semi-datepicker-navigation-month .semi-button {
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+                line-height: var(--semi-cssvar-lineHeight-datepicker_compact);
+                max-width: 100%
+            }
+                /* 覆盖样式，否则会从button继承*/
+
+                .semi-datepicker-compact .semi-datepicker-navigation-month .semi-button > span {
+                    display: block;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+    .semi-datepicker-compact .semi-datepicker-month {
+        width: var(--semi-cssvar-width-datepicker_month_compact);
+        padding: 0;
+    }
+
+    .semi-datepicker-compact .semi-datepicker-weeks {
+        padding: var(--semi-cssvar-spacing-datepicker_weeks_compact-padding);
+        padding-top: var(--semi-cssvar-spacing-datepicker_weeks_compact-paddingTop);
+    }
+
+    .semi-datepicker-compact .semi-datepicker-weekday {
+        box-sizing: border-box;
+        height: calc(var(--semi-cssvar-spacing-tight) + var(--semi-cssvar-width-datepicker_day_compact));
+        padding-left: var(--semi-cssvar-spacing-datepicker_weekday_compact-paddingLeft);
+        padding-right: var(--semi-cssvar-spacing-datepicker_weekday_compact-paddingRight);
+        padding-bottom: var(--semi-cssvar-spacing-datepicker_weekday_compact-paddingBottom);
+        border-bottom: var(--semi-cssvar-width-datepicker-border) solid var(--semi-cssvar-color-datepicker_border-bg-default)
+    }
+
+        .semi-datepicker-compact .semi-datepicker-weekday-item {
+            width: var(--semi-cssvar-width-datepicker_day_compact);
+            height: var(--semi-cssvar-width-datepicker_day_compact);
+            line-height: var(--semi-cssvar-lineHeight-datepicker_weekday_item_compact);
+        }
+            /* 保持垂直居中*/
+
+    .semi-datepicker-compact .semi-datepicker-day {
+        width: var(--semi-cssvar-width-datepicker_day_compact);
+        height: var(--semi-cssvar-width-datepicker_day_compact)
+    }
+
+        .semi-datepicker-compact .semi-datepicker-day-main {
+            width: var(--semi-cssvar-width-datepicker_day_main_compact);
+            height: var(--semi-cssvar-width-datepicker_day_main_compact);
+        }
+
+        .semi-datepicker-compact .semi-datepicker-day-inrange, .semi-datepicker-compact .semi-datepicker-day-inhover, .semi-datepicker-compact .semi-datepicker-day-inoffsetrange, .semi-datepicker-compact .semi-datepicker-day-hoverday, .semi-datepicker-compact .semi-datepicker-day-selectedrange-hover {
+        }
+            .semi-datepicker-compact .semi-datepicker-day-inrange .semi-datepicker-day-main, .semi-datepicker-compact .semi-datepicker-day-inhover .semi-datepicker-day-main, .semi-datepicker-compact .semi-datepicker-day-inoffsetrange .semi-datepicker-day-main, .semi-datepicker-compact .semi-datepicker-day-hoverday .semi-datepicker-day-main, .semi-datepicker-compact .semi-datepicker-day-selectedrange-hover .semi-datepicker-day-main {
+                width: var(--semi-cssvar-width-datepicker_day_compact);
+            }
+
+        /* one date is both start and end*/
+        .semi-datepicker-compact .semi-datepicker-day-selected-start.semi-datepicker-day-selected-end, .semi-datepicker-compact .semi-datepicker-day-offsetrange-start.semi-datepicker-day-offsetrange-end {
+        }
+            .semi-datepicker-compact .semi-datepicker-day-selected-start.semi-datepicker-day-selected-end .semi-datepicker-day-main, .semi-datepicker-compact .semi-datepicker-day-offsetrange-start.semi-datepicker-day-offsetrange-end .semi-datepicker-day-main {
+                border-radius: var(--semi-cssvar-width-datepicker_day_compact-borderRadius);
+            }
+
+        .semi-datepicker-compact .semi-datepicker-day-offsetrange-start {
+        }
+            .semi-datepicker-compact .semi-datepicker-day-offsetrange-start .semi-datepicker-day-main {
+                border-radius: var(--semi-cssvar-width-datepicker_day_compact-borderRadius) 0 0 var(--semi-cssvar-width-datepicker_day_compact-borderRadius);
+            }
+
+        .semi-datepicker-compact .semi-datepicker-day-offsetrange-end {
+        }
+            .semi-datepicker-compact .semi-datepicker-day-offsetrange-end .semi-datepicker-day-main {
+                border-radius: 0 var(--semi-cssvar-width-datepicker_day_compact-borderRadius) var(--semi-cssvar-width-datepicker_day_compact-borderRadius) 0;
+            }
+
+        .semi-datepicker-compact .semi-datepicker-day-hoverday-beforerange {
+        }
+            .semi-datepicker-compact .semi-datepicker-day-hoverday-beforerange .semi-datepicker-day-main {
+                border-radius: var(--semi-cssvar-width-datepicker_day_compact-borderRadius) 0 0 var(--semi-cssvar-width-datepicker_day_compact-borderRadius);
+            }
+
+        .semi-datepicker-compact .semi-datepicker-day-hoverday-afterrange {
+        }
+            .semi-datepicker-compact .semi-datepicker-day-hoverday-afterrange .semi-datepicker-day-main {
+                border-radius: 0 var(--semi-cssvar-width-datepicker_day_compact-borderRadius) var(--semi-cssvar-width-datepicker_day_compact-borderRadius) 0;
+            }
+
+        .semi-datepicker-compact .semi-datepicker-day-selected-start, .semi-datepicker-compact .semi-datepicker-day-offsetrange-start {
+        }
+            .semi-datepicker-compact .semi-datepicker-day-selected-start .semi-datepicker-day-main, .semi-datepicker-compact .semi-datepicker-day-offsetrange-start .semi-datepicker-day-main {
+                width: calc(var(--semi-cssvar-width-datepicker_day) - var(--semi-cssvar-spacing-datepicker_day_compact-margin));
+                margin-left: var(--semi-cssvar-spacing-datepicker_day_compact-margin);
+                margin-right: 0;
+                border-radius: var(--semi-cssvar-width-datepicker_day_compact-borderRadius) 0 0 var(--semi-cssvar-width-datepicker_day_compact-borderRadius);
+            }
+
+        .semi-datepicker-compact .semi-datepicker-day-selected-end, .semi-datepicker-compact .semi-datepicker-day-offsetrange-end {
+        }
+            .semi-datepicker-compact .semi-datepicker-day-selected-end .semi-datepicker-day-main, .semi-datepicker-compact .semi-datepicker-day-offsetrange-end .semi-datepicker-day-main {
+                width: calc(var(--semi-cssvar-width-datepicker_day) - var(--semi-cssvar-spacing-datepicker_day_compact-margin));
+                margin-right: var(--semi-cssvar-spacing-datepicker_day_compact-margin);
+                margin-left: 0;
+                border-radius: 0 var(--semi-cssvar-width-datepicker_day_compact-borderRadius) var(--semi-cssvar-width-datepicker_day_compact-borderRadius) 0;
+            }
+
+    .semi-datepicker-compact .semi-datepicker-switch {
+        box-sizing: border-box;
+        height: var(--semi-cssvar-height-datepicker_switch_compact)
+    }
+
+        .semi-datepicker-compact .semi-datepicker-switch-date, .semi-datepicker-compact .semi-datepicker-switch-time {
+            padding-top: var(--semi-cssvar-spacing-datepicker_switch_compact-padding);
+            padding-bottom: var(--semi-cssvar-spacing-datepicker_switch_compact-padding);
+        }
+
+        .semi-datepicker-compact .semi-datepicker-switch-date {
+            border-right: var(--semi-cssvar-width-datepicker-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+        }
+
+        .semi-datepicker-compact .semi-datepicker-switch-text {
+            padding-left: 0;
+        }
+            /* 去掉icon后不需要pl*/
+
+    .semi-datepicker-compact .semi-datepicker-quick-control {
+    }
+
+        .semi-datepicker-compact .semi-datepicker-quick-control-header {
+            padding: var(--semi-cssvar-spacing-datepicker_quick_control_header_compact-paddingTop) var(--semi-cssvar-spacing-datepicker_quick_control_left_and_right_content_compact-paddingX) 0;
+            font-weight: var(--semi-cssvar-font-datepicker_preset_header-fontWeight);
+        }
+
+        .semi-datepicker-compact .semi-datepicker-quick-control-left-content-wrapper, .semi-datepicker-compact .semi-datepicker-quick-control-right-content-wrapper {
+            margin-top: var(--semi-cssvar-spacing-datepicker_quick_control_content_compact-marginTop);
+        }
+
+        .semi-datepicker-compact .semi-datepicker-quick-control-left-content, .semi-datepicker-compact .semi-datepicker-quick-control-right-content {
+            box-sizing: border-box;
+            display: grid;
+            align-content: flex-start;
+            grid-gap: var(--semi-cssvar-spacing-datepicker_quick_control_item-margin);
+            grid-template-columns: repeat(2, minmax(var(--semi-cssvar-width-datepicker_presetPanel_left_and_right_two_col_button) - var(--semi-cssvar-width-datepicker_presetPanel_scroll_bar) * 0.5, var(--semi-cssvar-width-datepicker_presetPanel_left_and_right_two_col_button)));
+            padding: 0 var(--semi-cssvar-spacing-datepicker_quick_control_left_and_right_content_compact-paddingX) var(--semi-cssvar-spacing-datepicker_quick_control_left_and_right_content_compact-paddingX)
+        }
+
+            .semi-datepicker-compact .semi-datepicker-quick-control-left-content-item, .semi-datepicker-compact .semi-datepicker-quick-control-right-content-item {
+                max-width: var(--semi-cssvar-width-datepicker_presetPanel_left_and_right_two_col_button)
+            }
+
+                .semi-datepicker-compact .semi-datepicker-quick-control-left-content-item-ellipsis, .semi-datepicker-compact .semi-datepicker-quick-control-right-content-item-ellipsis {
+                    width: calc(var(--semi-cssvar-width-datepicker_presetPanel_left_and_right_two_col_button) - (var(--semi-cssvar-spacing-datepicker_quick_control_item-margin) * 2));
+                    font-size: var(--semi-cssvar-fontSize-datepicker_insetInput_compact-fontSize);
+                    color: var(--semi-cssvar-color-datepicker_quick_button-text-default);
+                }
+
+        .semi-datepicker-compact .semi-datepicker-quick-control-top-content, .semi-datepicker-compact .semi-datepicker-quick-control-bottom-content {
+            box-sizing: border-box;
+            display: grid;
+            grid-gap: var(--semi-cssvar-spacing-datepicker_quick_control_item-margin);
+            grid-template-columns: repeat(3, minmax(var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_three_col_button_compact) - 5px, var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_three_col_button_compact)));
+            align-content: flex-start;
+            padding: var(--semi-cssvar-spacing-datepicker_quick_control_item-margin) var(--semi-cssvar-spacing-datepicker_quick_control_top_and_bottom_content_compact-paddingX)
+        }
+
+            .semi-datepicker-compact .semi-datepicker-quick-control-top-content-item, .semi-datepicker-compact .semi-datepicker-quick-control-bottom-content-item {
+                max-width: var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_three_col_button_compact)
+            }
+
+                .semi-datepicker-compact .semi-datepicker-quick-control-top-content-item-ellipsis, .semi-datepicker-compact .semi-datepicker-quick-control-bottom-content-item-ellipsis {
+                    width: calc(var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_three_col_button_compact) - (var(--semi-cssvar-spacing-datepicker_quick_control_item-margin) * 2));
+                    font-size: var(--semi-cssvar-fontSize-datepicker_insetInput_compact-fontSize);
+                    color: var(--semi-cssvar-color-datepicker_quick_button-text-default);
+                }
+
+        .semi-datepicker-compact .semi-datepicker-quick-control-top-range-content, .semi-datepicker-compact .semi-datepicker-quick-control-bottom-range-content {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_five_col_button_compact) - 3px, var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_five_col_button_compact)));
+            grid-gap: var(--semi-cssvar-spacing-datepicker_quick_control_item-margin);
+            align-content: flex-start;
+            padding: var(--semi-cssvar-spacing-datepicker_quick_control_item-margin) var(--semi-cssvar-spacing-datepicker_quick_control_top_and_bottom_content_compact-paddingX)
+        }
+
+            .semi-datepicker-compact .semi-datepicker-quick-control-top-range-content-item, .semi-datepicker-compact .semi-datepicker-quick-control-bottom-range-content-item {
+                max-width: var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_five_col_button_compact)
+            }
+
+                .semi-datepicker-compact .semi-datepicker-quick-control-top-range-content-item-ellipsis, .semi-datepicker-compact .semi-datepicker-quick-control-bottom-range-content-item-ellipsis {
+                    width: calc(var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_five_col_button_compact) - (var(--semi-cssvar-spacing-datepicker_quick_control_item-margin) * 2));
+                    font-size: var(--semi-cssvar-fontSize-datepicker_insetInput_compact-fontSize);
+                    color: var(--semi-cssvar-color-datepicker_quick_button-text-default);
+                }
+
+        .semi-datepicker-compact .semi-datepicker-quick-control-top-month-content, .semi-datepicker-compact .semi-datepicker-quick-control-bottom-month-content {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_two_col_button_compact) -  var(--semi-cssvar-width-datepicker_presetPanel_scroll_bar) * 0.5, var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_two_col_button_compact)));
+            grid-gap: var(--semi-cssvar-spacing-datepicker_quick_control_item-margin);
+            align-content: flex-start;
+            padding: var(--semi-cssvar-spacing-datepicker_quick_control_item-margin) var(--semi-cssvar-spacing-datepicker_quick_control_top_and_bottom_content_compact-paddingX)
+        }
+
+            .semi-datepicker-compact .semi-datepicker-quick-control-top-month-content-item, .semi-datepicker-compact .semi-datepicker-quick-control-bottom-month-content-item {
+                max-width: var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_two_col_button_compact)
+            }
+
+                .semi-datepicker-compact .semi-datepicker-quick-control-top-month-content-item-ellipsis, .semi-datepicker-compact .semi-datepicker-quick-control-bottom-month-content-item-ellipsis {
+                    max-width: calc(var(--semi-cssvar-width-datepicker_presetPanel_top_and_bottom_two_col_button_compact) - (var(--semi-cssvar-spacing-datepicker_quick_control_item-margin) * 2));
+                    font-size: var(--semi-cssvar-fontSize-datepicker_insetInput_compact-fontSize);
+                    color: var(--semi-cssvar-color-datepicker_quick_button-text-default);
+                }
+
+        .semi-datepicker-compact .semi-datepicker-quick-control-month {
+            min-width: var(--semi-cssvar-width-datepicker_panel_compact);
+            width: max-content;
+            max-width: calc(100vw - 32px)
+        }
+            /* Keep compact baseline width, but allow growing to fit long locale texts.*/
+
+            .semi-datepicker-compact .semi-datepicker-quick-control-month[x-insetinput=true] {
+            }
+                .semi-datepicker-compact .semi-datepicker-quick-control-month[x-insetinput=true] .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-compact .semi-datepicker-quick-control-month[x-insetinput=true] .semi-datepicker-quick-control-left-content-wrapper {
+                    max-height: calc(var(--semi-cssvar-height-datepicker_panel_yam_scrolllist) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content_compact) + var(--semi-cssvar-height-datepicker_inset_input_compact));
+                }
+
+            .semi-datepicker-compact .semi-datepicker-quick-control-month .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-compact .semi-datepicker-quick-control-month .semi-datepicker-quick-control-left-content-wrapper {
+                max-height: calc(var(--semi-cssvar-height-datepicker_panel_yam_scrolllist) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content_compact));
+            }
+
+        .semi-datepicker-compact .semi-datepicker-quick-control-date {
+            min-width: var(--semi-cssvar-width-datepicker_panel_compact);
+            width: max-content;
+            max-width: calc(100vw - 32px)
+        }
+            /* Keep compact baseline width, but allow growing to fit long locale texts.*/
+
+            .semi-datepicker-compact .semi-datepicker-quick-control-date[x-insetinput=true] {
+            }
+                .semi-datepicker-compact .semi-datepicker-quick-control-date[x-insetinput=true] .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-compact .semi-datepicker-quick-control-date[x-insetinput=true] .semi-datepicker-quick-control-left-content-wrapper {
+                    max-height: calc(var(--semi-cssvar-height-datepicker_preset_panel_inset_input_compact) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content_compact));
+                }
+
+            .semi-datepicker-compact .semi-datepicker-quick-control-date .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-compact .semi-datepicker-quick-control-date .semi-datepicker-quick-control-left-content-wrapper {
+                max-height: calc(var(--semi-cssvar-height-datepicker_date_panel_compact) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content_compact));
+            }
+
+        .semi-datepicker-compact .semi-datepicker-quick-control-dateTime {
+            min-width: var(--semi-cssvar-width-datepicker_panel_compact);
+            width: max-content;
+            max-width: calc(100vw - 32px)
+        }
+            /* Keep compact baseline width, but allow growing to fit long locale texts.*/
+
+            .semi-datepicker-compact .semi-datepicker-quick-control-dateTime[x-insetinput=true] {
+            }
+                .semi-datepicker-compact .semi-datepicker-quick-control-dateTime[x-insetinput=true] .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-compact .semi-datepicker-quick-control-dateTime[x-insetinput=true] .semi-datepicker-quick-control-left-content-wrapper {
+                    max-height: calc(var(--semi-cssvar-height-datepicker_preset_panel_inset_input_compact) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content_compact));
+                }
+
+            .semi-datepicker-compact .semi-datepicker-quick-control-dateTime .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-compact .semi-datepicker-quick-control-dateTime .semi-datepicker-quick-control-left-content-wrapper {
+                max-height: calc(var(--semi-cssvar-height-datepicker_date_time_panel_compact) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content_compact));
+            }
+
+        .semi-datepicker-compact .semi-datepicker-quick-control-dateRange {
+            min-width: min(432px, calc(100vw - 32px));
+            width: max-content;
+            max-width: calc(100vw - 32px)
+        }
+            /* Keep compact baseline width, but allow growing to fit long locale texts.*/
+            /* Avoid min-width > max-width on small viewports (which would force overflow).*/
+            /* Keep the 2-panel baseline when possible, but cap it to the compact viewport limit.*/
+
+            .semi-datepicker-compact .semi-datepicker-quick-control-dateRange[x-insetinput=true] {
+            }
+                .semi-datepicker-compact .semi-datepicker-quick-control-dateRange[x-insetinput=true] .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-compact .semi-datepicker-quick-control-dateRange[x-insetinput=true] .semi-datepicker-quick-control-left-content-wrapper {
+                    max-height: calc(var(--semi-cssvar-height-datepicker_preset_panel_inset_input_compact) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content_compact));
+                }
+
+            .semi-datepicker-compact .semi-datepicker-quick-control-dateRange .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-compact .semi-datepicker-quick-control-dateRange .semi-datepicker-quick-control-left-content-wrapper {
+                max-height: calc(var(--semi-cssvar-height-datepicker_date_panel_compact) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content_compact));
+            }
+
+        .semi-datepicker-compact .semi-datepicker-quick-control-dateTimeRange {
+            min-width: min(432px, calc(100vw - 32px));
+            width: max-content;
+            max-width: calc(100vw - 32px)
+        }
+            /* Keep compact baseline width, but allow growing to fit long locale texts.*/
+            /* Avoid min-width > max-width on small viewports (which would force overflow).*/
+
+            .semi-datepicker-compact .semi-datepicker-quick-control-dateTimeRange[x-insetinput=true] {
+            }
+                .semi-datepicker-compact .semi-datepicker-quick-control-dateTimeRange[x-insetinput=true] .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-compact .semi-datepicker-quick-control-dateTimeRange[x-insetinput=true] .semi-datepicker-quick-control-left-content-wrapper {
+                    max-height: calc(var(--semi-cssvar-height-datepicker_preset_panel_inset_input_compact) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content_compact));
+                }
+
+            .semi-datepicker-compact .semi-datepicker-quick-control-dateTimeRange .semi-datepicker-quick-control-right-content-wrapper, .semi-datepicker-compact .semi-datepicker-quick-control-dateTimeRange .semi-datepicker-quick-control-left-content-wrapper {
+                max-height: calc(var(--semi-cssvar-height-datepicker_date_time_panel_compact) - var(--semi-cssvar-height-datepicker_presetPanel_left_and_right_except_content_compact));
+            }
+
+    .semi-datepicker-compact .semi-datepicker-footer {
+        padding-top: var(--semi-cssvar-spacing-datepicker_footer_compact-paddintTop);
+        padding-right: var(--semi-cssvar-spacing-datepicker_footer_compact-paddintRight);
+        padding-bottom: var(--semi-cssvar-spacing-datepicker_footer_compact-paddintBottom);
+    }
+
+    .semi-datepicker-compact .semi-datepicker-inset-input {
+    }
+        .semi-datepicker-compact .semi-datepicker-inset-input-wrapper {
+            column-gap: var(--semi-cssvar-spacing-datepicker_insetInput_wrapper_compact-margin);
+            padding: var(--semi-cssvar-spacing-datepicker_insetInput_wrapper_compact-paddingY) var(--semi-cssvar-spacing-datepicker_insetInput_wrapper_compact-paddingX);
+            padding-bottom: var(--semi-cssvar-spacing-datepicker_insetInput_wrapper_compact-paddingBottom);
+
+            width: var(--semi-cssvar-width-datepicker_insetInput_date_type_wrapper_compact)
+        }
+
+            .semi-datepicker-compact .semi-datepicker-inset-input-wrapper[x-type=dateRange], .semi-datepicker-compact .semi-datepicker-inset-input-wrapper[x-type=dateTimeRange] {
+                width: var(--semi-cssvar-width-datepicker_insetInput_date_range_type_wrapper_compact);
+                padding-top: var(--semi-cssvar-spacing-datepicker_insetInput_wrapper_rangeType_compact-paddingTop)
+            }
+
+                .semi-datepicker-compact .semi-datepicker-inset-input-wrapper[x-type=dateRange] .semi-input-wrapper, .semi-datepicker-compact .semi-datepicker-inset-input-wrapper[x-type=dateTimeRange] .semi-input-wrapper {
+                    margin-top: var(--semi-cssvar-spacing-datepicker_insetInput_wrapper_compact-paddingY);
+                }
+
+            .semi-datepicker-compact .semi-datepicker-inset-input-wrapper[x-type=month] {
+                width: var(--semi-cssvar-width-datepicker_insetInput_month_type_wrapper_compact);
+            }
+
+            .semi-datepicker-compact .semi-datepicker-inset-input-wrapper .semi-input-wrapper {
+                height: var(--semi-cssvar-height-datepicker_insetInput_wrapper_compact);
+                box-sizing: border-box
+            }
+
+                .semi-datepicker-compact .semi-datepicker-inset-input-wrapper .semi-input-wrapper .semi-input {
+                    font-size: var(--semi-cssvar-fontSize-datepicker_insetInput_compact-fontSize);
+                    line-height: var(--semi-cssvar-height-datepicker_insetInput_compact);
+                    height: var(--semi-cssvar-height-datepicker_insetInput_compact);
+                    vertical-align: top;
+                }
+
+        .semi-datepicker-compact .semi-datepicker-inset-input-separator {
+            border-left: var(--semi-cssvar-width-datepicker-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+            transform: translateX(50%);
+            height: auto;
+        }
+
+/* 向上弹出时固定高度为6周 #1042*/
+.semi-popover {
+}
+
+    .semi-popover-wrapper {
+    }
+
+        .semi-popover-wrapper[x-placement^="top"], .semi-popover-wrapper[x-placement="leftTop"], .semi-popover-wrapper[x-placement="rightTop"], .semi-popover-wrapper[x-placement*="BottomOver"] {
+        }
+            .semi-popover-wrapper[x-placement^="top"] .semi-datepicker .semi-datepicker-weeks, .semi-popover-wrapper[x-placement="leftTop"] .semi-datepicker .semi-datepicker-weeks, .semi-popover-wrapper[x-placement="rightTop"] .semi-datepicker .semi-datepicker-weeks, .semi-popover-wrapper[x-placement*="BottomOver"] .semi-datepicker .semi-datepicker-weeks {
+                min-height: calc(6 * var(--semi-cssvar-width-datepicker_day));
+            }
+
+            .semi-popover-wrapper[x-placement^="top"] .semi-datepicker-compact .semi-datepicker-weeks, .semi-popover-wrapper[x-placement="leftTop"] .semi-datepicker-compact .semi-datepicker-weeks, .semi-popover-wrapper[x-placement="rightTop"] .semi-datepicker-compact .semi-datepicker-weeks, .semi-popover-wrapper[x-placement*="BottomOver"] .semi-datepicker-compact .semi-datepicker-weeks {
+                min-height: calc(6 * var(--semi-cssvar-width-datepicker_day_compact));
+            }
+
+.semi-datepicker-borderless {
+
+}
+
+    .semi-datepicker-borderless:not(:focus-within):not(:hover){
+        background-color: transparent;
+        border-color: transparent
+    }
+
+        .semi-datepicker-borderless:not(:focus-within):not(:hover) .semi-input-suffix, .semi-datepicker-borderless:not(:focus-within):not(:hover) .semi-datepicker-range-input-suffix {
+            opacity: 0;
+        }
+
+    .semi-datepicker-borderless:focus-within:not(:active) {
+        background-color: transparent;
+    }
+
+
+    .semi-datepicker-borderless.semi-datepicker-range-input-error {
+    }
+
+        .semi-datepicker-borderless.semi-datepicker-range-input-error .semi-datepicker-range-input-wrapper {
+        }
+            .semi-datepicker-borderless.semi-datepicker-range-input-error .semi-datepicker-range-input-wrapper-active {
+                border-color: transparent;
+            }
+        .semi-datepicker-borderless.semi-datepicker-range-input-error:hover {
+            background-color: var(--semi-cssvar-color-datepicker_range_input_error-border-default);
+        }
+
+        .semi-datepicker-borderless.semi-datepicker-range-input-error:focus-within {
+            background-color: var(--semi-cssvar-color-datepicker_range_input_error-border-default);
+        }
+    .semi-datepicker-borderless.semi-datepicker-range-input-error:not(:focus-within){
+        border-width: var(--semi-cssvar-width-datepicker_range_input-border);
+        border-color: var(--semi-cssvar-color-datepicker_range_input_error-border-active);
+    }
+    .semi-datepicker-borderless.semi-datepicker-range-input-error:focus-within {
+        border-width: var(--semi-cssvar-width-datepicker_range_input-border);
+        border-color: var(--semi-cssvar-color-datepicker_range_input_error-border-active);
+    }
+
+    /* split style into not and normal to avoid style override*/
+    .semi-datepicker-borderless.semi-datepicker-range-input-warning {
+    }
+
+        .semi-datepicker-borderless.semi-datepicker-range-input-warning .semi-datepicker-range-input-wrapper {
+        }
+            .semi-datepicker-borderless.semi-datepicker-range-input-warning .semi-datepicker-range-input-wrapper-active {
+                border-color: transparent;
+            }
+        .semi-datepicker-borderless.semi-datepicker-range-input-warning:hover {
+            background-color: var(--semi-cssvar-color-datepicker_range_input_warning-border-default);
+        }
+
+        .semi-datepicker-borderless.semi-datepicker-range-input-warning:focus-within {
+            background-color: var(--semi-cssvar-color-datepicker_range_input_warning-border-default);
+        }
+
+    .semi-datepicker-borderless.semi-datepicker-range-input-warning:not(:focus-within){
+        border-width: var(--semi-cssvar-width-datepicker_range_input-border);
+        border-color: var(--semi-cssvar-color-datepicker_range_input_warning-border-active);
+    }
+    .semi-datepicker-borderless.semi-datepicker-range-input-warning:focus-within {
+        border-width: var(--semi-cssvar-width-datepicker_range_input-border);
+        border-color: var(--semi-cssvar-color-datepicker_range_input_warning-border-active);
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-datepicker, .semi-portal-rtl .semi-datepicker {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-datepicker-footer, .semi-portal-rtl .semi-datepicker-footer {
+            padding-right: 0;
+            padding-left: var(--semi-cssvar-spacing-datepicker_footer-paddingRight);
+            text-align: left
+        }
+
+            .semi-rtl .semi-datepicker-footer .semi-button, .semi-portal-rtl .semi-datepicker-footer .semi-button {
+            }
+                .semi-rtl .semi-datepicker-footer .semi-button:first-of-type, .semi-portal-rtl .semi-datepicker-footer .semi-button:first-of-type {
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+                /* confirm button*/
+                .semi-rtl .semi-datepicker-footer .semi-button:nth-of-type(2), .semi-portal-rtl .semi-datepicker-footer .semi-button:nth-of-type(2) {
+                    margin-right: var(--semi-cssvar-spacing-datepicker_footer_cancel_button-marginRight);
+                    margin-left: 0;
+                }
+
+        .semi-rtl .semi-datepicker-day, .semi-portal-rtl .semi-datepicker-day {
+        }
+
+            .semi-rtl .semi-datepicker-day-offsetrange-start, .semi-portal-rtl .semi-datepicker-day-offsetrange-start {
+            }
+                .semi-rtl .semi-datepicker-day-offsetrange-start .semi-datepicker-day-main, .semi-portal-rtl .semi-datepicker-day-offsetrange-start .semi-datepicker-day-main {
+                    border-radius: 0 var(--semi-cssvar-width-datepicker_day_main-borderRadius) var(--semi-cssvar-width-datepicker_day_main-borderRadius) 0;
+                }
+
+            .semi-rtl .semi-datepicker-day-offsetrange-end, .semi-portal-rtl .semi-datepicker-day-offsetrange-end {
+            }
+                .semi-rtl .semi-datepicker-day-offsetrange-end .semi-datepicker-day-main, .semi-portal-rtl .semi-datepicker-day-offsetrange-end .semi-datepicker-day-main {
+                    border-radius: var(--semi-cssvar-width-datepicker_day_main-borderRadius) 0 0 var(--semi-cssvar-width-datepicker_day_main-borderRadius);
+                }
+
+            .semi-rtl .semi-datepicker-day-selected-start, .semi-portal-rtl .semi-datepicker-day-selected-start, .semi-rtl .semi-datepicker-day-hoverday-before-selectedrange, .semi-portal-rtl .semi-datepicker-day-hoverday-before-selectedrange, .semi-rtl .semi-datepicker-day-offsetrange-start, .semi-portal-rtl .semi-datepicker-day-offsetrange-start {
+            }
+                .semi-rtl .semi-datepicker-day-selected-start .semi-datepicker-day-main, .semi-portal-rtl .semi-datepicker-day-selected-start .semi-datepicker-day-main, .semi-rtl .semi-datepicker-day-hoverday-before-selectedrange .semi-datepicker-day-main, .semi-portal-rtl .semi-datepicker-day-hoverday-before-selectedrange .semi-datepicker-day-main, .semi-rtl .semi-datepicker-day-offsetrange-start .semi-datepicker-day-main, .semi-portal-rtl .semi-datepicker-day-offsetrange-start .semi-datepicker-day-main {
+                    margin-right: var(--semi-cssvar-spacing-datepicker_day-marginX);
+                    margin-left: auto;
+                    border-radius: 0 var(--semi-cssvar-width-datepicker_day_main-borderRadius) var(--semi-cssvar-width-datepicker_day_main-borderRadius) 0;
+                }
+
+            .semi-rtl .semi-datepicker-day-selected-end, .semi-portal-rtl .semi-datepicker-day-selected-end, .semi-rtl .semi-datepicker-day-hoverday-after-selectedrange, .semi-portal-rtl .semi-datepicker-day-hoverday-after-selectedrange, .semi-rtl .semi-datepicker-day-offsetrange-end, .semi-portal-rtl .semi-datepicker-day-offsetrange-end {
+            }
+                .semi-rtl .semi-datepicker-day-selected-end .semi-datepicker-day-main, .semi-portal-rtl .semi-datepicker-day-selected-end .semi-datepicker-day-main, .semi-rtl .semi-datepicker-day-hoverday-after-selectedrange .semi-datepicker-day-main, .semi-portal-rtl .semi-datepicker-day-hoverday-after-selectedrange .semi-datepicker-day-main, .semi-rtl .semi-datepicker-day-offsetrange-end .semi-datepicker-day-main, .semi-portal-rtl .semi-datepicker-day-offsetrange-end .semi-datepicker-day-main {
+                    margin-left: var(--semi-cssvar-spacing-datepicker_day-marginX);
+                    margin-right: auto;
+                    border-radius: var(--semi-cssvar-width-datepicker_day_main-borderRadius) 0 0 var(--semi-cssvar-width-datepicker_day_main-borderRadius);
+                }
+
+        .semi-rtl .semi-datepicker-switch, .semi-portal-rtl .semi-datepicker-switch {
+        }
+
+            .semi-rtl .semi-datepicker-switch-text, .semi-portal-rtl .semi-datepicker-switch-text {
+                padding-left: 0;
+                padding-right: var(--semi-cssvar-spacing-datepicker_switch_text-paddingLeft);
+            }
+
+        /* &-quick-control {*/
+
+        /*     &-item {*/
+        /*         margin-left: 0;*/
+        /*         margin-right: $spacing-datepicker_quick_control_item-marginRight;*/
+        /*     }*/
+        /* }*/
+
+        .semi-rtl .semi-datepicker-navigation, .semi-portal-rtl .semi-datepicker-navigation, .semi-rtl .semi-datepicker-yam, .semi-portal-rtl .semi-datepicker-yam {
+        }
+            /* rtl 对箭头进行翻转*/
+            .semi-rtl .semi-datepicker-navigation .semi-icon-chevron_left, .semi-portal-rtl .semi-datepicker-navigation .semi-icon-chevron_left, .semi-rtl .semi-datepicker-yam .semi-icon-chevron_left, .semi-portal-rtl .semi-datepicker-yam .semi-icon-chevron_left, .semi-rtl .semi-datepicker-navigation .semi-icon-chevron_right, .semi-portal-rtl .semi-datepicker-navigation .semi-icon-chevron_right, .semi-rtl .semi-datepicker-yam .semi-icon-chevron_right, .semi-portal-rtl .semi-datepicker-yam .semi-icon-chevron_right, .semi-rtl .semi-datepicker-navigation .semi-icon-double_chevron_left, .semi-portal-rtl .semi-datepicker-navigation .semi-icon-double_chevron_left, .semi-rtl .semi-datepicker-yam .semi-icon-double_chevron_left, .semi-portal-rtl .semi-datepicker-yam .semi-icon-double_chevron_left, .semi-rtl .semi-datepicker-navigation .semi-icon-double_chevron_right, .semi-portal-rtl .semi-datepicker-navigation .semi-icon-double_chevron_right, .semi-rtl .semi-datepicker-yam .semi-icon-double_chevron_right, .semi-portal-rtl .semi-datepicker-yam .semi-icon-double_chevron_right {
+                transform: scaleX(-1);
+            }
+
+        .semi-rtl .semi-datepicker-range, .semi-portal-rtl .semi-datepicker-range {
+        }
+
+            .semi-rtl .semi-datepicker-range-input, .semi-portal-rtl .semi-datepicker-range-input {
+            }
+
+                .semi-rtl .semi-datepicker-range-input-prefix, .semi-portal-rtl .semi-datepicker-range-input-prefix {
+                    padding-left: var(--semi-cssvar-spacing-datepicker_range_input_prefix-paddingRight);
+                    padding-right: var(--semi-cssvar-spacing-datepicker_range_input_prefix-paddingLeft);
+                }
+    
+                .semi-rtl .semi-datepicker-range-input-suffix, .semi-portal-rtl .semi-datepicker-range-input-suffix {
+                    padding-left: var(--semi-cssvar-spacing-datepicker_range_input_suffix-paddingRight);
+                    padding-right: var(--semi-cssvar-spacing-datepicker_range_input_suffix-paddingLeft)
+                }
+                    
+                    .semi-rtl .semi-datepicker-range-input-suffix-hidden, .semi-portal-rtl .semi-datepicker-range-input-suffix-hidden {
+                        display: none;
+                    }
+    
+                .semi-rtl .semi-datepicker-range-input-clearbtn, .semi-portal-rtl .semi-datepicker-range-input-clearbtn {
+                    padding-left: var(--semi-cssvar-spacing-datepicker_range_input_clearbtn-paddingRight);
+                    padding-right: var(--semi-cssvar-spacing-datepicker_range_input_clearbtn-paddingLeft);
+                }
+
+    /*
+    * 小尺寸 DatePicker
+    */
+    .semi-rtl .semi-datepicker-compact, .semi-portal-rtl .semi-datepicker-compact {
+    }
+        .semi-rtl .semi-datepicker-compact .semi-datepicker-month-grid, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-month-grid {
+        }
+
+            .semi-rtl .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateRange"], .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateRange"], .semi-rtl .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateTimeRange"], .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateTimeRange"] {
+            }
+                .semi-rtl .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateRange"] .semi-datepicker-month-grid-left, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateRange"] .semi-datepicker-month-grid-left, .semi-rtl .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateTimeRange"] .semi-datepicker-month-grid-left, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-month-grid[x-type="dateTimeRange"] .semi-datepicker-month-grid-left {
+                    border-left: var(--semi-cssvar-width-datepicker-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+                    border-right: 0;
+                }
+
+            .semi-rtl .semi-datepicker-compact .semi-datepicker-month-grid .semi-scrolllist, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-month-grid .semi-scrolllist {
+            }
+                .semi-rtl .semi-datepicker-compact .semi-datepicker-month-grid .semi-scrolllist-item-wheel, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-month-grid .semi-scrolllist-item-wheel {
+                    border-left: 0;
+                    border-right: 0;
+                }
+                    /* 去除中间分割线*/
+
+        .semi-rtl .semi-datepicker-compact .semi-datepicker-day, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-day {
+        }
+            .semi-rtl .semi-datepicker-compact .semi-datepicker-day-offsetrange-start, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-day-offsetrange-start {
+            }
+                .semi-rtl .semi-datepicker-compact .semi-datepicker-day-offsetrange-start .semi-datepicker-day-main, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-day-offsetrange-start .semi-datepicker-day-main {
+                    border-radius: 0 var(--semi-cssvar-width-datepicker_day_compact-borderRadius) var(--semi-cssvar-width-datepicker_day_compact-borderRadius) 0;
+                }
+
+            .semi-rtl .semi-datepicker-compact .semi-datepicker-day-offsetrange-end, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-day-offsetrange-end {
+            }
+                .semi-rtl .semi-datepicker-compact .semi-datepicker-day-offsetrange-end .semi-datepicker-day-main, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-day-offsetrange-end .semi-datepicker-day-main {
+                    border-radius: var(--semi-cssvar-width-datepicker_day_compact-borderRadius) 0 0 var(--semi-cssvar-width-datepicker_day_compact-borderRadius);
+                }
+
+            .semi-rtl .semi-datepicker-compact .semi-datepicker-day-selected-start, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-day-selected-start {
+            }
+                .semi-rtl .semi-datepicker-compact .semi-datepicker-day-selected-start .semi-datepicker-day-main, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-day-selected-start .semi-datepicker-day-main {
+                    margin-left: 0;
+                    margin-right: var(--semi-cssvar-spacing-datepicker_day_compact-margin);
+                    border-radius: 0 var(--semi-cssvar-width-datepicker_day_compact-borderRadius) var(--semi-cssvar-width-datepicker_day_compact-borderRadius) 0;
+                }
+
+            .semi-rtl .semi-datepicker-compact .semi-datepicker-day-selected-end, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-day-selected-end {
+            }
+                .semi-rtl .semi-datepicker-compact .semi-datepicker-day-selected-end .semi-datepicker-day-main, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-day-selected-end .semi-datepicker-day-main {
+                    margin-right: 0;
+                    margin-left: var(--semi-cssvar-spacing-datepicker_day_compact-margin);
+                    border-radius: var(--semi-cssvar-width-datepicker_day_compact-borderRadius) 0 0 var(--semi-cssvar-width-datepicker_day_compact-borderRadius);
+                }
+
+        .semi-rtl .semi-datepicker-compact .semi-datepicker-switch, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-switch {
+        }
+            .semi-rtl .semi-datepicker-compact .semi-datepicker-switch-date, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-switch-date {
+                border-left: var(--semi-cssvar-width-datepicker-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+                border-right: 0;
+            }
+
+            .semi-rtl .semi-datepicker-compact .semi-datepicker-switch-text, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-switch-text {
+                padding-left: auto;
+                padding-right: 0;
+            }
+                /* 去掉icon后不需要pl*/
+
+        .semi-rtl .semi-datepicker-compact .semi-datepicker-footer, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-footer {
+            padding-left: var(--semi-cssvar-spacing-datepicker_footer_compact-paddintRight);
+            padding-right: auto;
+        }
+
+        .semi-rtl .semi-datepicker-compact .semi-datepicker-inset-input, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-inset-input {
+        }
+            .semi-rtl .semi-datepicker-compact .semi-datepicker-inset-input-separator, .semi-portal-rtl .semi-datepicker-compact .semi-datepicker-inset-input-separator {
+                border-right: var(--semi-cssvar-width-datepicker-border) solid var(--semi-cssvar-color-datepicker_border-bg-default);
+                border-left: 0;
+                transform: translateX(-50%);
+            }

@@ -1,0 +1,139 @@
+
+.semi-resizable {
+}
+    .semi-resizable-resizable {
+        position: relative;
+        box-sizing: border-box;
+        flex-shrink: 0;
+    }
+
+    .semi-resizable-resizableHandler {
+        position: absolute;
+        user-select: none;
+        z-index: var(--semi-cssvar-z-resizable_handler)
+    }
+
+        /* 基础样式*/
+
+        /* 方向样式*/
+        .semi-resizable-resizableHandler-top {
+            width: 100%;
+            height: var(--semi-cssvar-height-row-handler);
+            top: 0;
+            left: 0;
+            cursor: row-resize;
+            top: calc(-1 * var(--semi-cssvar-height-row-handler) / 2);
+        }
+
+        .semi-resizable-resizableHandler-right {
+            width: var(--semi-cssvar-width-col-handler);
+            height: 100%;
+            top: 0;
+            left: 0;
+            cursor: col-resize;
+            left: auto;
+            right: calc(-1 * var(--semi-cssvar-width-col-handler) / 2);
+        }
+
+        .semi-resizable-resizableHandler-bottom {
+            width: 100%;
+            height: var(--semi-cssvar-height-row-handler);
+            top: 0;
+            left: 0;
+            cursor: row-resize;
+            top: auto;
+            bottom: calc(-1 * var(--semi-cssvar-height-row-handler) / 2);
+        }
+
+        .semi-resizable-resizableHandler-left {
+            width: var(--semi-cssvar-width-col-handler);
+            height: 100%;
+            top: 0;
+            left: 0;
+            cursor: col-resize;
+            left: calc(-1 * var(--semi-cssvar-width-col-handler) / 2);
+        }
+
+        /* 边角样式*/
+        .semi-resizable-resizableHandler-topRight {
+            width: var(--semi-cssvar-width-edge-handler);
+            height: var(--semi-cssvar-height-edge-handler);
+            position: absolute;
+            right: calc(-1 * var(--semi-cssvar-width-edge-handler) / 2);
+            top: calc(-1 * var(--semi-cssvar-height-edge-handler) / 2);
+            cursor: ne-resize;
+        }
+
+        .semi-resizable-resizableHandler-bottomRight {
+            width: var(--semi-cssvar-width-edge-handler);
+            height: var(--semi-cssvar-height-edge-handler);
+            position: absolute;
+            right: calc(-1 * var(--semi-cssvar-width-edge-handler) / 2);
+            bottom: calc(-1 * var(--semi-cssvar-height-edge-handler) / 2);
+            cursor: se-resize;
+        }
+
+        .semi-resizable-resizableHandler-bottomLeft {
+            width: var(--semi-cssvar-width-edge-handler);
+            height: var(--semi-cssvar-height-edge-handler);
+            position: absolute;
+            left: calc(-1 * var(--semi-cssvar-width-edge-handler) / 2);
+            bottom: calc(-1 * var(--semi-cssvar-height-edge-handler) / 2);
+            cursor: sw-resize;
+        }
+
+        .semi-resizable-resizableHandler-topLeft {
+            width: var(--semi-cssvar-width-edge-handler);
+            height: var(--semi-cssvar-height-edge-handler);
+            position: absolute;
+            left: calc(-1 * var(--semi-cssvar-width-edge-handler) / 2);
+            top: calc(-1 * var(--semi-cssvar-height-edge-handler) / 2);
+            cursor: nw-resize;
+        }
+
+    .semi-resizable-group {
+        display: flex;
+        position: relative;
+        box-sizing: border-box;
+        height: 100%;
+        width: 100%;
+    }
+
+    .semi-resizable-item {
+        position: relative;
+        box-sizing: border-box;
+        flex-shrink: 0;
+    }
+
+    .semi-resizable-handler {
+        user-select: none;
+        z-index: var(--semi-cssvar-z-resizable_handler);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--semi-color-fill-0);
+        opacity: 1
+    }
+
+        .semi-resizable-handler-vertical {
+            width: 100%;
+            height: var(--semi-cssvar-height-vertical-handler);
+            flex-shrink: 0;
+            cursor: row-resize;
+        }
+
+        .semi-resizable-handler-horizontal {
+            height: 100%;
+            width: var(--semi-cssvar-width-horizontal-handler);
+            flex-shrink: 0;
+            cursor: col-resize;
+        }
+
+    .semi-resizable-background {
+        height: 100%;
+        width: 100%;
+        inset: 0;
+        z-index: var(--semi-cssvar-z-resizable_background);
+        opacity: 0;
+        position: fixed;
+    }

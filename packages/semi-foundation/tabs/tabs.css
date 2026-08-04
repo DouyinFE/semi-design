@@ -1,0 +1,1054 @@
+
+.semi-tabs {
+    box-sizing: border-box;
+    position: relative
+}
+
+
+    .semi-tabs-left {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .semi-tabs-bar {
+        position: relative;
+        white-space: nowrap;
+        outline: none
+    }
+
+        .semi-tabs-bar-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .semi-tabs-bar-extra {
+            padding: var(--semi-cssvar-spacing-tabs_bar_extra-paddingY) var(--semi-cssvar-spacing-tabs_bar_extra-paddingX);
+        }
+
+        .semi-tabs-bar-more-trigger{
+            display: inline-block;
+            cursor: pointer;
+            color: var(--semi-color-text-2)
+        }
+
+            .semi-tabs-bar-more-trigger-content{
+                display: flex;
+                align-content: center
+            }
+
+                .semi-tabs-bar-more-trigger-content-icon:not(:not(.semi-tabs-bar-more-trigger-content-icon)){
+                    margin-top: var(--semi-cssvar-spacing-tabs_tab-more_trigger_icon-marginTop);
+                    margin-bottom: var(--semi-cssvar-spacing-tabs_tab-more_trigger_icon-marginBottom);
+                    margin-left: var(--semi-cssvar-spacing-tabs_tab-more_trigger_icon-marginLeft);
+                    margin-right: var(--semi-cssvar-spacing-tabs_tab-more_trigger_icon-marginRight);
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                } /* increase priority*/
+
+            .semi-tabs-bar-more-trigger-line{
+                padding: var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingTop) var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingRight) var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingBottom) var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingLeft);
+            }
+
+            .semi-tabs-bar-more-trigger-card{
+                padding: var(--semi-cssvar-spacing-tabs_bar_card_tab-paddingY) var(--semi-cssvar-spacing-tabs_bar_card_tab-paddingX);
+            }
+
+            .semi-tabs-bar-more-trigger-button{
+                padding: var(--semi-cssvar-spacing-tabs_bar_button_tab-paddingY) var(--semi-cssvar-spacing-tabs_bar_button_tab-paddingX);
+            }
+
+        .semi-tabs-bar .semi-tabs-tab {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+            cursor: pointer;
+            box-sizing: border-box;
+            position: relative;
+            display: block;
+            float: left;
+
+            font-weight: var(--semi-cssvar-font-tabs_tab-fontWeight);
+            color: var(--semi-cssvar-color-tabs_tab_line_default-text-default);
+
+            user-select: none
+        }
+
+            .semi-tabs-bar .semi-tabs-tab .semi-icon:not(.semi-icon-checkbox_tick, .semi-icon-radio, .semi-icon-checkbox_indeterminate) {
+                position: relative;
+                margin-right: var(--semi-cssvar-spacing-tabs_tab_icon-marginRight);
+                top: var(--semi-cssvar-spacing-tabs_tab_icon-top);
+                color: var(--semi-cssvar-color-tabs_tab-icon-default);
+                transition: color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text);
+
+            } /*线条式tabs的 color的transition*/
+
+            .semi-tabs-bar .semi-tabs-tab .semi-icon.semi-tabs-tab-icon-close {
+                margin-right: 0;
+                font-size: 14px;
+                color: var(--semi-color-text-2);
+                margin-left: 10px;
+                cursor: pointer;
+            }
+
+            .semi-tabs-bar .semi-tabs-tab:hover {
+                color: var(--semi-cssvar-color-tabs_tab_line_default-text-hover)
+            }
+
+                .semi-tabs-bar .semi-tabs-tab:hover .semi-icon:not(.semi-icon-checkbox_tick, .semi-icon-radio, .semi-icon-checkbox_indeterminate) {
+                    color: var(--semi-cssvar-color-tabs_tab-icon-hover);
+                }
+
+            .semi-tabs-bar .semi-tabs-tab:active {
+                color: var(--semi-cssvar-color-tabs_tab_line_default-text-active)
+            }
+
+                .semi-tabs-bar .semi-tabs-tab:active .semi-icon:not(.semi-icon-checkbox_tick, .semi-icon-radio, .semi-icon-checkbox_indeterminate) {
+                    color: var(--semi-cssvar-color-tabs_tab-icon-active);
+                }
+
+        .semi-tabs-bar .semi-tabs-tab-active {
+        }
+
+            .semi-tabs-bar .semi-tabs-tab-active, .semi-tabs-bar .semi-tabs-tab-active:hover {
+                cursor: default;
+                font-weight: var(--semi-cssvar-font-tabs_tab_active-fontWeight);
+                color: var(--semi-cssvar-color-tabs_tab_line_selected-text-default)
+            }
+                /* border-bottom: 2px solid $color-tabs_tab_line_indicator_selected-icon-default;*/
+
+                .semi-tabs-bar .semi-tabs-tab-active .semi-icon:not(.semi-icon-checkbox_tick, .semi-icon-radio, .semi-icon-checkbox_indeterminate), .semi-tabs-bar .semi-tabs-tab-active:hover .semi-icon:not(.semi-icon-checkbox_tick, .semi-icon-radio, .semi-icon-checkbox_indeterminate) {
+                    color: var(--semi-cssvar-color-tabs_tab_selected-icon-default);
+                }
+
+                .semi-tabs-bar .semi-tabs-tab-active .semi-icon.semi-tabs-tab-icon-close, .semi-tabs-bar .semi-tabs-tab-active:hover .semi-icon.semi-tabs-tab-icon-close {
+                    color: var(--semi-color-text-2);
+                }
+
+            .semi-tabs-bar .semi-tabs-tab-active .semi-icon.semi-tabs-tab-icon-close:hover {
+                color: var(--semi-color-text-1);
+            }
+
+        .semi-tabs-bar .semi-tabs-tab-disabled {
+            cursor: not-allowed;
+            color: var(--semi-cssvar-color-tabs_tab_line_disabled-text-default)
+        }
+
+            .semi-tabs-bar .semi-tabs-tab-disabled:hover {
+                color: var(--semi-cssvar-color-tabs_tab_line_disabled-text-hover);
+                border-bottom: none;
+            }
+
+    .semi-tabs-tab-single {
+    }
+        .semi-tabs-tab-single.semi-tabs-tab {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+            cursor: pointer;
+            box-sizing: border-box;
+            position: relative;
+            display: inline-block;
+
+            font-weight: var(--semi-cssvar-font-tabs_tab-fontWeight);
+            color: var(--semi-cssvar-color-tabs_tab_line_default-text-default);
+
+            user-select: none
+        }
+            /* float: left;*/
+
+            .semi-tabs-tab-single.semi-tabs-tab .semi-icon:not(.semi-icon-checkbox_tick, .semi-icon-radio, .semi-icon-checkbox_indeterminate) {
+                position: relative;
+                margin-right: var(--semi-cssvar-spacing-tabs_tab_icon-marginRight);
+                top: var(--semi-cssvar-spacing-tabs_tab_icon-top);
+                color: var(--semi-cssvar-color-tabs_tab-icon-default);
+                transition: color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text);
+
+            }/*线条式tabs的 color的transition*/
+
+            .semi-tabs-tab-single.semi-tabs-tab .semi-icon.semi-tabs-tab-icon-close {
+                margin-right: 0;
+                font-size: 14px;
+                color: var(--semi-color-text-2);
+                margin-left: 10px;
+                cursor: pointer
+            }
+
+                .semi-tabs-tab-single.semi-tabs-tab .semi-icon.semi-tabs-tab-icon-close.semi-icon-close:hover {
+                    color: var(--semi-color-text-0);
+                }
+
+            .semi-tabs-tab-single.semi-tabs-tab:hover {
+                color: var(--semi-cssvar-color-tabs_tab_line_default-text-hover)
+            }
+
+                .semi-tabs-tab-single.semi-tabs-tab:hover .semi-icon:not(.semi-icon-checkbox_tick, .semi-icon-radio, .semi-icon-checkbox_indeterminate) {
+                    color: var(--semi-cssvar-color-tabs_tab-icon-hover);
+                }
+
+                .semi-tabs-tab-single.semi-tabs-tab:hover .semi-icon.semi-tabs-tab-icon-close {
+                    color: var(--semi-color-text-2);
+                }
+
+            .semi-tabs-tab-single.semi-tabs-tab:active {
+                color: var(--semi-cssvar-color-tabs_tab_line_default-text-active)
+            }
+
+                .semi-tabs-tab-single.semi-tabs-tab:active .semi-icon:not(.semi-icon-checkbox_tick, .semi-icon-radio, .semi-icon-checkbox_indeterminate) {
+                    color: var(--semi-cssvar-color-tabs_tab-icon-active);
+                }
+
+                .semi-tabs-tab-single.semi-tabs-tab:active .semi-icon.semi-tabs-tab-icon-close {
+                    color: var(--semi-color-text-2);
+                }
+
+        .semi-tabs-tab-single.semi-tabs-tab-active {
+        }
+
+            .semi-tabs-tab-single.semi-tabs-tab-active, .semi-tabs-tab-single.semi-tabs-tab-active:hover {
+                cursor: default;
+                font-weight: var(--semi-cssvar-font-tabs_tab_active-fontWeight);
+                color: var(--semi-cssvar-color-tabs_tab_line_selected-text-default)
+            }
+                /* border-bottom: 2px solid $color-tabs_tab_line_indicator_selected-icon-default;*/
+
+                .semi-tabs-tab-single.semi-tabs-tab-active .semi-icon:not(.semi-icon-checkbox_tick, .semi-icon-radio, .semi-icon-checkbox_indeterminate), .semi-tabs-tab-single.semi-tabs-tab-active:hover .semi-icon:not(.semi-icon-checkbox_tick, .semi-icon-radio, .semi-icon-checkbox_indeterminate) {
+                    color: var(--semi-cssvar-color-tabs_tab_selected-icon-default);
+                }
+
+                .semi-tabs-tab-single.semi-tabs-tab-active .semi-icon.semi-tabs-tab-icon-close, .semi-tabs-tab-single.semi-tabs-tab-active:hover .semi-icon.semi-tabs-tab-icon-close {
+                    color: var(--semi-color-text-2);
+                }
+
+            .semi-tabs-tab-single.semi-tabs-tab-active .semi-icon.semi-tabs-tab-icon-close:hover {
+                color: var(--semi-color-text-1);
+            }
+
+        .semi-tabs-tab-single.semi-tabs-tab-disabled {
+            cursor: not-allowed;
+            color: var(--semi-cssvar-color-tabs_tab_line_disabled-text-default)
+        }
+
+            .semi-tabs-tab-single.semi-tabs-tab-disabled:hover {
+                color: var(--semi-cssvar-color-tabs_tab_line_disabled-text-hover);
+                border-bottom: none;
+            }
+
+    .semi-tabs-bar-collapse {
+    }
+        .semi-tabs-bar-collapse, .semi-tabs-bar-collapse .semi-tabs-bar-overflow-list {
+            display: flex;
+            align-items: center;
+        }
+
+        .semi-tabs-bar-collapse .semi-overflow-list {
+            flex: 1
+        }
+
+            .semi-tabs-bar-collapse .semi-overflow-list .semi-overflow-list-scroll-wrapper {
+                -ms-overflow-style: none;
+                scrollbar-width: none
+            } /* Internet Explorer 10+ */ /* Firefox */
+
+                .semi-tabs-bar-collapse .semi-overflow-list .semi-overflow-list-scroll-wrapper::-webkit-scrollbar {
+                    display: none;
+                    width: 0;
+                    height: 0;
+                } /* Safari and Chrome */
+
+                .semi-tabs-bar-collapse .semi-overflow-list .semi-overflow-list-scroll-wrapper:focus-visible {
+                    outline: var(--semi-cssvar-width-tabs-outline) solid var(--semi-cssvar-color-tabs_tab-outline-focus);
+                    outline-offset: var(--semi-cssvar-width-tabs-outline-offset);
+                }
+            .semi-tabs-bar-collapse .semi-overflow-list > .semi-button-disabled {
+                color: var(--semi-cssvar-color-tabs_tab-pane_arrow_disabled-text-default);
+                background-color: var(--semi-cssvar-color-tabs_tab-pane_arrow_disabled-bg-default)
+            }
+                .semi-tabs-bar-collapse .semi-overflow-list > .semi-button-disabled:hover {
+                    color: var(--semi-cssvar-color-tabs_tab-pane_arrow_disabled-text-hover);
+                    background-color: var(--semi-cssvar-color-tabs_tab-pane_arrow_disabled-bg-hover);
+                }
+
+        .semi-tabs-bar-collapse .semi-tabs-bar-arrow-start {
+            margin-right: var(--semi-cssvar-spacing-tabs_overflow_icon-marginRight)
+
+        }
+            .semi-tabs-bar-collapse .semi-tabs-bar-arrow-start > .semi-button[aria-disabled=false] {
+                color: var(--semi-cssvar-color-tabs_tab-pane_arrow-text-default);
+                padding: var(--semi-cssvar-spacing-tabs_tab-pane_arrow);
+                border: var(--semi-cssvar-width-tabs_tab-pane_arrow-border) solid var(--semi-cssvar-color-tabs_tab-pane_arrow-border-default);
+                background-color: var(--semi-cssvar-color-tabs_tab-pane_arrow-bg-default)
+            }
+                .semi-tabs-bar-collapse .semi-tabs-bar-arrow-start > .semi-button[aria-disabled=false]:hover {
+                    background-color: var(--semi-color-fill-0);
+                    color: var(--semi-cssvar-color-tabs_tab-pane_arrow-text-hover);
+                    border-color: var(--semi-cssvar-color-tabs_tab-pane_arrow-border-hover);
+                }
+                .semi-tabs-bar-collapse .semi-tabs-bar-arrow-start > .semi-button[aria-disabled=false]:active{
+                    background-color: var(--semi-color-fill-1);
+                    color: var(--semi-cssvar-color-tabs_tab-pane_arrow-text-active);
+                    border-color: var(--semi-cssvar-color-tabs_tab-pane_arrow-border-active);
+                }
+
+        .semi-tabs-bar-collapse .semi-tabs-bar-arrow-end {
+            margin-left: var(--semi-cssvar-spacing-tabs_overflow_icon-marginLeft)
+        }
+            .semi-tabs-bar-collapse .semi-tabs-bar-arrow-end > .semi-button[aria-disabled=false] {
+                color: var(--semi-cssvar-color-tabs_tab-pane_arrow-text-default);
+                padding: var(--semi-cssvar-spacing-tabs_tab-pane_arrow);
+                border: var(--semi-cssvar-width-tabs_tab-pane_arrow-border) solid var(--semi-cssvar-color-tabs_tab-pane_arrow-border-default);
+                background-color: var(--semi-cssvar-color-tabs_tab-pane_arrow-bg-default)
+            }
+                .semi-tabs-bar-collapse .semi-tabs-bar-arrow-end > .semi-button[aria-disabled=false]:hover {
+                    background-color: var(--semi-color-fill-0);
+                    color: var(--semi-cssvar-color-tabs_tab-pane_arrow-text-hover);
+                    border-color: var(--semi-cssvar-color-tabs_tab-pane_arrow-border-hover);
+                }
+                .semi-tabs-bar-collapse .semi-tabs-bar-arrow-end > .semi-button[aria-disabled=false]:active {
+                    background-color: var(--semi-color-fill-1);
+                    color: var(--semi-cssvar-color-tabs_tab-pane_arrow-text-active);
+                    border-color: var(--semi-cssvar-color-tabs_tab-pane_arrow-border-active);
+                }
+
+    .semi-tabs-bar-dropdown {
+        max-height: var(--semi-cssvar-height-tabs_overflow_list);
+        overflow-y: auto;
+    }
+
+    .semi-tabs-bar:after {
+        content: "";
+        height: 0;
+        display: block;
+        clear: both;
+    }
+
+    .semi-tabs-bar-line {
+    }
+        .semi-tabs-bar-line.semi-tabs-bar-top {
+            border-bottom: var(--semi-cssvar-width-tabs_bar_line-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-default);
+            transition: color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text);
+            transform: scale(var(--semi-cssvar-transform_scale-tabs_tab_line-item))
+        } /*线条式tabs的 color的transition*/
+
+            .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab {
+                padding: var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingTop) var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingRight) var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingBottom) var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingLeft);
+                transition: border-bottom-color var(--semi-cssvar-transition_duration-tabs_tab_line-border) var(--semi-cssvar-transition_function-tabs_tab_line-border) var(--semi-cssvar-transition_delay-tabs_tab_line-border),
+                    color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text);
+                border-bottom: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid transparent
+            } /*线条式tabs的border-color 的 transition*/
+
+                .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab:nth-of-type(1) {
+                    padding-left: 0;
+                }
+
+                .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab:hover {
+                    border-bottom: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-hover);
+                }
+
+                .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab:focus-visible {
+                    outline: var(--semi-cssvar-width-tabs-outline) solid var(--semi-cssvar-color-tabs_tab-outline-focus);
+                    outline-offset: var(--semi-cssvar-width-tabs_bar_line-outline-offset);
+                }
+
+                .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab:active {
+                    border-bottom: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-active);
+                }
+
+                .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type) {
+                    margin-right: var(--semi-cssvar-spacing-tabs_bar_line_tab-marginRight);
+                }
+
+                .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab-small {
+                    padding: var(--semi-cssvar-spacing-tabs_bar_line_tab_small-paddingTop) var(--semi-cssvar-spacing-tabs_bar_line_tab_small-paddingRight) var(--semi-cssvar-spacing-tabs_bar_line_tab_small-paddingBottom) var(--semi-cssvar-spacing-tabs_bar_line_tab_small-paddingLeft);
+                }
+
+                .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab-medium {
+                    padding: var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingTop) var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingRight) var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingBottom) var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingLeft);
+                }
+
+            .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab-active {
+            }
+
+                .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab-active, .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab-active:hover {
+                    border-bottom: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_indicator_selected-icon-default);
+                }
+
+        .semi-tabs-bar-line.semi-tabs-bar-left {
+            border-right: var(--semi-cssvar-width-tabs_bar_line-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-default)
+        }
+
+            .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab {
+                padding: var(--semi-cssvar-spacing-tabs_bar_line_tab_left-padding);
+                border-left: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid transparent;
+                transition: background-color var(--semi-cssvar-transition_duration-tabs-tab_button-bg) var(--semi-cssvar-transition_function-tabs_tab_button-bg) var(--semi-cssvar-transition_delay-tabs_tab_button-bg),
+                color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text)
+            }/*按钮式tabs的 color的transition*/
+
+                .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab:hover {
+                    border-left: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-hover);
+                    background-color: var(--semi-cssvar-color-tabs_tab_line_vertical-bg-hover);
+                }
+
+                .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab:focus-visible {
+                    outline: var(--semi-cssvar-width-tabs-outline) solid var(--semi-cssvar-color-tabs_tab-outline-focus);
+                    outline-offset: var(--semi-cssvar-width-tabs-outline-offset);
+                }
+
+                .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab:active {
+                    border-left: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-active);
+                    background-color: var(--semi-cssvar-color-tabs_tab_line_vertical-bg-active);
+                }
+
+                .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-small {
+                    padding: var(--semi-cssvar-spacing-tabs_bar_line_tab_left_small-padding);
+                }
+
+                .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-medium {
+                    padding: var(--semi-cssvar-spacing-tabs_bar_line_tab_left_medium-padding);
+                }
+
+            .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-active {
+                background-color: var(--semi-cssvar-color-tabs_tab_line_vertical_selected-bg-default)
+            }
+
+                .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-active, .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-active:hover {
+                    border-left: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_indicator_selected-icon-default);
+                    background-color: var(--semi-cssvar-color-tabs_tab_line_vertical_selected-bg-default);
+                }
+
+        /* type='bar' extar need specific*/
+        .semi-tabs-bar-line .semi-tabs-bar-extra {
+            height: var(--semi-cssvar-height-tabs_bar_extra_large);
+            line-height: var(--semi-cssvar-font-tabs_bar_extra_large-lineHeight);
+        }
+
+        .semi-tabs-bar-line .semi-tabs-bar-line-extra-small {
+            height: var(--semi-cssvar-height-tabs_bar_extra_small);
+            line-height: var(--semi-cssvar-font-tabs_bar_extra_small-lineHeight);
+        }
+
+    .semi-tabs-bar-card {
+    }
+        .semi-tabs-bar-card.semi-tabs-bar-top {
+        }
+
+            .semi-tabs-bar-card.semi-tabs-bar-top::before {
+                position: absolute;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                border-bottom: var(--semi-cssvar-width-tabs_bar_card-border) solid var(--semi-cssvar-color-tabs_tab_card_default-border-default);
+                content: "";
+            }
+
+            /* border-bottom: $border-thickness-control solid $color-tabs_tab_line_default-border-default;*/
+
+            .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab {
+                border: var(--semi-cssvar-width-tabs_bar_card-border) solid transparent;
+                border-bottom: none;
+                border-radius: var(--semi-cssvar-radius-tabs_tab_card)
+            }
+
+                .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab:hover {
+                    border-bottom: none;
+                }
+
+                .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type) {
+                    margin-right: var(--semi-cssvar-spacing-tabs_bar_card_tab-marginRight);
+                }
+
+            .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab-active {
+            }
+
+                .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab-active, .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab-active:hover {
+                    padding: var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingTop) var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingRight) var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingBottom) var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingLeft);
+                    border: var(--semi-cssvar-width-tabs_bar_card-border) solid var(--semi-cssvar-color-tabs_tab_card_indicator_selected-icon-default);
+                    border-bottom: var(--semi-cssvar-width-tabs_bar_card-border) solid var(--semi-cssvar-color-tabs_tab_card_selected-bg-default);
+                    background: transparent;
+                }
+                    /* padding-bottom: $spacing-tight + 1;*/
+
+        .semi-tabs-bar-card.semi-tabs-bar-left {
+            border-right: var(--semi-cssvar-width-tabs_bar_card-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-default)
+        }
+
+            .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab {
+                border: var(--semi-cssvar-width-tabs_bar_card-border) solid transparent;
+                border-right: none;
+                border-radius: var(--semi-cssvar-radius-tabs_tab_card_left)
+            }
+
+                .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab:hover {
+                    border-right: none;
+                }
+
+                .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab:not(:last-of-type) {
+                    margin-bottom: var(--semi-cssvar-spacing-tabs_bar_card_tab_left-marginBottom);
+                }
+
+            .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab-active {
+            }
+
+                .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab-active:after {
+                    content: " ";
+                    width: 1px;
+                    position: absolute;
+                    right: -1px;
+                    top: 0;
+                    bottom: 0;
+                    background: var(--semi-cssvar-color-tabs_tab_card_selected-bg-default);
+                }
+
+                .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab-active, .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab-active:hover {
+                    padding: var(--semi-cssvar-spacing-tabs_bar_card_tab_left_active-paddingY) var(--semi-cssvar-spacing-tabs_bar_card_tab_left_active-paddingX);
+                    border: var(--semi-cssvar-width-tabs_bar_card-border) solid var(--semi-cssvar-color-tabs_tab_card_indicator_selected-icon-default);
+                    border-right: none;
+                    background: transparent;
+                }
+                    /* padding-bottom: $spacing-tight + 1;*/
+
+        .semi-tabs-bar-card .semi-tabs-tab {
+            padding: var(--semi-cssvar-spacing-tabs_bar_card_tab-paddingY) var(--semi-cssvar-spacing-tabs_bar_card_tab-paddingX);
+            transition: background-color var(--semi-cssvar-transition_duration-tabs_tab_card-bg) var(--semi-cssvar-transition_function-tabs_tab_card-bg) var(--semi-cssvar-transition_delay-tabs_tab_card-bg), 
+            color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text);
+
+            transform: scale(var(--semi-cssvar-transform_scale-tabs_tab_card-item))
+        }/*卡片式tabs的 color的transition*/
+
+            .semi-tabs-bar-card .semi-tabs-tab:hover {
+                background: var(--semi-cssvar-color-tabs_tab_card-bg-hover);
+            }
+
+            .semi-tabs-bar-card .semi-tabs-tab:focus-visible {
+                outline: var(--semi-cssvar-width-tabs-outline) solid var(--semi-cssvar-color-tabs_tab-outline-focus);
+                outline-offset: var(--semi-cssvar-width-tabs-outline-offset);
+            }
+
+            .semi-tabs-bar-card .semi-tabs-tab:active {
+                background: var(--semi-cssvar-color-tabs_tab_card-bg-active);
+            }
+
+    .semi-tabs-bar-button {
+        border: none
+    }
+
+        .semi-tabs-bar-button.semi-tabs-bar-left {
+        }
+            .semi-tabs-bar-button.semi-tabs-bar-left .semi-tabs-tab {
+            }
+
+                .semi-tabs-bar-button.semi-tabs-bar-left .semi-tabs-tab:not(:last-of-type) {
+                    margin-bottom: var(--semi-cssvar-spacing-tabs_bar_button_tab_left-marginBottom);
+                }
+
+        .semi-tabs-bar-button.semi-tabs-bar-top {
+        }
+            .semi-tabs-bar-button.semi-tabs-bar-top .semi-tabs-tab {
+            }
+
+                .semi-tabs-bar-button.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type) {
+                    margin-right: var(--semi-cssvar-spacing-tabs_bar_button_tab-marginRight);
+                }
+
+        .semi-tabs-bar-button .semi-tabs-tab {
+            padding: var(--semi-cssvar-spacing-tabs_bar_button_tab-paddingY) var(--semi-cssvar-spacing-tabs_bar_button_tab-paddingX);
+            border-radius: var(--semi-cssvar-radius-tabs_tab_button);
+            color: var(--semi-cssvar-color-tabs_tab_button-text-default);
+            border: none;
+            transition: background-color var(--semi-cssvar-transition_duration-tabs-tab_button-bg) var(--semi-cssvar-transition_function-tabs_tab_button-bg) var(--semi-cssvar-transition_delay-tabs_tab_button-bg),
+                color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text);
+
+            transform: scale(var(--semi-cssvar-transform_scale-tabs_tab_button-item))
+        }/*按钮式tabs的 color的transition*/
+
+            .semi-tabs-bar-button .semi-tabs-tab:hover {
+                border: none;
+                background-color: var(--semi-cssvar-color-tabs_tab_button-bg-hover);
+            }
+
+            .semi-tabs-bar-button .semi-tabs-tab:focus-visible {
+                outline: var(--semi-cssvar-width-tabs-outline) solid var(--semi-cssvar-color-tabs_tab-outline-focus);
+                outline-offset: var(--semi-cssvar-width-tabs-outline-offset);
+            }
+
+            .semi-tabs-bar-button .semi-tabs-tab:active {
+                background-color: var(--semi-cssvar-color-tabs_tab_button-bg-active);
+            }
+
+        .semi-tabs-bar-button .semi-tabs-tab-active {
+        }
+
+            .semi-tabs-bar-button .semi-tabs-tab-active, .semi-tabs-bar-button .semi-tabs-tab-active:hover {
+                color: var(--semi-cssvar-color-tabs_tab_button_selected-text-default);
+                border: none;
+                background-color: var(--semi-cssvar-color-tabs_tab_button_selected-bg-default);
+            }
+
+    .semi-tabs-bar-slash {
+    }
+
+        .semi-tabs-bar-slash .semi-tabs-tab {
+            padding: var(--semi-cssvar-spacing-tabs_bar_slash_tab-paddingY) var(--semi-cssvar-spacing-tabs_bar_slash_tab-paddingX)
+        }
+
+            .semi-tabs-bar-slash .semi-tabs-tab:nth-of-type(1) {
+                padding-left: 0;
+            }  
+
+            .semi-tabs-bar-slash .semi-tabs-tab:not(:last-of-type) {
+                margin-right: var(--semi-cssvar-spacing-tabs_bar_slash-marginRight)
+            }
+
+                .semi-tabs-bar-slash .semi-tabs-tab:not(:last-of-type):after {  
+                    content: "";
+                    margin-left: var(--semi-cssvar-spacing-tabs_bar_slash_line_marginLeft);
+                    display: inline-block;
+                    height: var(--semi-cssvar-height-tabs_tab_slash_line);
+                    width: var(--semi-cssvar-width-tabs_tab_slash_line);
+                    margin-top: var(--semi-cssvar-spacing-tabs_bar_slash_line_marginTop);
+                    margin-bottom: var(--semi-cssvar-spacing-tabs_bar_slash_line_marginBottom);
+                    vertical-align: bottom;
+                    background: linear-gradient(to bottom right, transparent 0%, 
+                        transparent calc(50% - 1px), var(--semi-cssvar-color-tabs_tab_slash_line) 50%,
+                        transparent calc(50% + 1px), transparent 100%);
+                }
+                    /* Get diagonal slash*/
+
+    .semi-tabs-content {
+        width: 100%;
+        padding: var(--semi-cssvar-spacing-tabs_content-paddingY) var(--semi-cssvar-spacing-tabs_content-paddingX);
+    }
+        /* overflow: hidden;*/
+        /* display: flex;*/
+
+    .semi-tabs-content-left {
+        height: 100%;
+        padding: var(--semi-cssvar-spacing-tabs_content_left-paddingY) var(--semi-cssvar-spacing-tabs_content_left-paddingX);
+    }
+
+    .semi-tabs-pane {
+        width: 100%;
+        overflow: hidden;
+        color: var(--semi-cssvar-color-tabs_tab-pane-text-default)
+    }
+        /* position: absolute;*/
+        /* flex-shrink: 0;*/
+        /* position: absolute;*/
+        .semi-tabs-pane:focus-visible {
+            outline: var(--semi-cssvar-width-tabs-outline) solid var(--semi-cssvar-color-tabs_tab-outline-focus);
+        }
+
+    .semi-tabs-pane-inactive, .semi-tabs-content-no-animated .semi-tabs-pane-inactive {
+        display: none;
+    }
+
+
+    @keyframes semi-tabs-panel-keyframe-leftShow {
+
+        0% {
+            transform: translateX(var(--semi-cssvar-animation_transform_translateX-tabs_tabPanel-leftShow));
+            opacity: var(--semi-cssvar-animation_opacity-tabs_tabPanel_show);
+        }
+
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+    }
+    @keyframes semi-tabs-panel-keyframe-rightShow {
+
+        0% {
+            transform: translateX(var(--semi-cssvar-animation_transform_translateX-tabs_tabPanel-rightShow));
+            opacity: var(--semi-cssvar-animation_opacity-tabs_tabPanel_show);
+        }
+
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes semi-tabs-panel-keyframe-topShow {
+        
+        0% {
+            transform: translateY(var(--semi-cssvar-animation_transform_translateX-tabs_tabPanel-leftShow));
+            opacity: var(--semi-cssvar-animation_opacity-tabs_tabPanel_show);
+        }
+        
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+    }
+    @keyframes semi-tabs-panel-keyframe-bottomShow {
+        
+        0% {
+            transform: translateY(var(--semi-cssvar-animation_transform_translateX-tabs_tabPanel-rightShow));
+            opacity: var(--semi-cssvar-animation_opacity-tabs_tabPanel_show);
+        }
+         
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+
+    .semi-tabs-pane-animate-leftShow {
+        animation: var(--semi-cssvar-animation_duration-tabs_tabPanel-show) semi-tabs-panel-keyframe-leftShow var(--semi-cssvar-animation_function-tabs_tabPanel-show) var(--semi-cssvar-animation_delay-tabs_tabPanel-show);
+        animation-fill-mode: forwards;
+    }
+    .semi-tabs-pane-animate-rightShow {
+        animation: var(--semi-cssvar-animation_duration-tabs_tabPanel-show) semi-tabs-panel-keyframe-rightShow var(--semi-cssvar-animation_function-tabs_tabPanel-show) var(--semi-cssvar-animation_delay-tabs_tabPanel-show);
+        animation-fill-mode: forwards;
+    }
+
+    .semi-tabs-pane-animate-topShow {
+        animation: var(--semi-cssvar-animation_duration-tabs_tabPanel-show) semi-tabs-panel-keyframe-topShow var(--semi-cssvar-animation_function-tabs_tabPanel-show) var(--semi-cssvar-animation_delay-tabs_tabPanel-show);
+        animation-fill-mode: forwards;
+    }
+
+    .semi-tabs-pane-animate-bottomShow {
+        animation: var(--semi-cssvar-animation_duration-tabs_tabPanel-show) semi-tabs-panel-keyframe-bottomShow var(--semi-cssvar-animation_function-tabs_tabPanel-show) var(--semi-cssvar-animation_delay-tabs_tabPanel-show);
+        animation-fill-mode: forwards;
+    }
+
+    .semi-tabs-tab-line {
+    }
+        .semi-tabs-tab-line.semi-tabs-tab-top {
+        }
+
+            .semi-tabs-tab-line.semi-tabs-tab-top.semi-tabs-tab {
+                font-size: var(--semi-cssvar-font-tabs_bar_large-fontSize);
+                padding: var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingTop) var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingRight) var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingBottom) var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingLeft);
+                transition: border-bottom-color var(--semi-cssvar-transition_duration-tabs_tab_line-border) var(--semi-cssvar-transition_function-tabs_tab_line-border) var(--semi-cssvar-transition_delay-tabs_tab_line-border),
+                    color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text);
+                border-bottom: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid transparent
+            } /*线条式tabs的border-color 的 transition*/
+                
+                .semi-tabs-tab-line.semi-tabs-tab-top.semi-tabs-tab:nth-of-type(1) {
+                    padding-left: 0;
+                }
+
+                .semi-tabs-tab-line.semi-tabs-tab-top.semi-tabs-tab:hover {
+                    border-bottom: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-hover);
+                }
+
+                .semi-tabs-tab-line.semi-tabs-tab-top.semi-tabs-tab:focus-visible {
+                    outline: var(--semi-cssvar-width-tabs-outline) solid var(--semi-cssvar-color-tabs_tab-outline-focus);
+                    outline-offset: var(--semi-cssvar-width-tabs_bar_line-outline-offset);
+                }
+
+                .semi-tabs-tab-line.semi-tabs-tab-top.semi-tabs-tab:active {
+                    border-bottom: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-active);
+                }
+
+                /* &:not(:last-of-type) {*/
+                /*     margin-right: $spacing-tabs_bar_line_tab-marginRight;*/
+                /* }*/
+
+                .semi-tabs-tab-line.semi-tabs-tab-top.semi-tabs-tab-small {
+                    font-size: var(--semi-cssvar-font-tabs_bar_small-fontSize);
+                    padding: var(--semi-cssvar-spacing-tabs_bar_line_tab_small-paddingTop) var(--semi-cssvar-spacing-tabs_bar_line_tab_small-paddingRight) var(--semi-cssvar-spacing-tabs_bar_line_tab_small-paddingBottom) var(--semi-cssvar-spacing-tabs_bar_line_tab_small-paddingLeft);
+                }
+
+                .semi-tabs-tab-line.semi-tabs-tab-top.semi-tabs-tab-medium {
+                    font-size: var(--semi-cssvar-font-tabs_bar_medium-fontSize);
+                    padding: var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingTop) var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingRight) var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingBottom) var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingLeft);
+                }
+
+            .semi-tabs-tab-line.semi-tabs-tab-top.semi-tabs-tab-active {
+            }
+
+                .semi-tabs-tab-line.semi-tabs-tab-top.semi-tabs-tab-active, .semi-tabs-tab-line.semi-tabs-tab-top.semi-tabs-tab-active:hover {
+                    border-bottom: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_indicator_selected-icon-default);
+                }
+
+        .semi-tabs-tab-line.semi-tabs-tab-left {
+        }
+
+            .semi-tabs-tab-line.semi-tabs-tab-left.semi-tabs-tab {
+                padding: var(--semi-cssvar-spacing-tabs_bar_line_tab_left-padding);
+                border-left: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid transparent;
+                transition: background-color var(--semi-cssvar-transition_duration-tabs-tab_button-bg) var(--semi-cssvar-transition_function-tabs_tab_button-bg) var(--semi-cssvar-transition_delay-tabs_tab_button-bg),
+                color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text)
+            }/*按钮式tabs的 color的transition*/
+
+                .semi-tabs-tab-line.semi-tabs-tab-left.semi-tabs-tab:hover {
+                    border-left: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-hover);
+                    background-color: var(--semi-cssvar-color-tabs_tab_line_vertical-bg-hover);
+                }
+
+                .semi-tabs-tab-line.semi-tabs-tab-left.semi-tabs-tab:focus-visible {
+                    outline: var(--semi-cssvar-width-tabs-outline) solid var(--semi-cssvar-color-tabs_tab-outline-focus);
+                    outline-offset: var(--semi-cssvar-width-tabs-outline-offset);
+                }
+
+                .semi-tabs-tab-line.semi-tabs-tab-left.semi-tabs-tab:active {
+                    border-left: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-active);
+                    background-color: var(--semi-cssvar-color-tabs_tab_line_vertical-bg-active);
+                }
+
+                .semi-tabs-tab-line.semi-tabs-tab-left.semi-tabs-tab-small {
+                    padding: var(--semi-cssvar-spacing-tabs_bar_line_tab_left_small-padding);
+                }
+
+                .semi-tabs-tab-line.semi-tabs-tab-left.semi-tabs-tab-medium {
+                    padding: var(--semi-cssvar-spacing-tabs_bar_line_tab_left_medium-padding);
+                }
+
+            .semi-tabs-tab-line.semi-tabs-tab-left.semi-tabs-tab-active {
+                background-color: var(--semi-cssvar-color-tabs_tab_line_vertical_selected-bg-default)
+            }
+
+                .semi-tabs-tab-line.semi-tabs-tab-left.semi-tabs-tab-active, .semi-tabs-tab-line.semi-tabs-tab-left.semi-tabs-tab-active:hover {
+                    border-left: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_indicator_selected-icon-default);
+                    background-color: var(--semi-cssvar-color-tabs_tab_line_vertical_selected-bg-default);
+                }
+
+    .semi-tabs-tab-card {
+    }
+        .semi-tabs-tab-card.semi-tabs-tab-top {
+        }
+
+            .semi-tabs-tab-card.semi-tabs-tab-top.semi-tabs-tab {
+                border: var(--semi-cssvar-width-tabs_bar_card-border) solid transparent;
+                border-bottom: none;
+                border-radius: var(--semi-cssvar-radius-tabs_tab_card)
+
+            }
+
+                .semi-tabs-tab-card.semi-tabs-tab-top.semi-tabs-tab:hover {
+                    border-bottom: none;
+                }
+
+            .semi-tabs-tab-card.semi-tabs-tab-top.semi-tabs-tab-active {
+            }
+
+                .semi-tabs-tab-card.semi-tabs-tab-top.semi-tabs-tab-active, .semi-tabs-tab-card.semi-tabs-tab-top.semi-tabs-tab-active:hover {
+                    padding: var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingTop) var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingRight) var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingBottom) var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingLeft);
+                    border: var(--semi-cssvar-width-tabs_bar_card-border) solid var(--semi-cssvar-color-tabs_tab_card_indicator_selected-icon-default);
+                    border-bottom: var(--semi-cssvar-width-tabs_bar_card-border) solid var(--semi-cssvar-color-tabs_tab_card_selected-bg-default);
+                    background: transparent;
+                }
+                    /* padding-bottom: $spacing-tight + 1;*/
+
+        .semi-tabs-tab-card.semi-tabs-tab-left {
+        }
+
+            .semi-tabs-tab-card.semi-tabs-tab-left.semi-tabs-tab {
+                border: var(--semi-cssvar-width-tabs_bar_card-border) solid transparent;
+                border-right: none;
+                border-radius: var(--semi-cssvar-radius-tabs_tab_card_left)
+
+            }
+
+                .semi-tabs-tab-card.semi-tabs-tab-left.semi-tabs-tab:hover {
+                    border-right: none;
+                }
+
+            .semi-tabs-tab-card.semi-tabs-tab-left.semi-tabs-tab-active {
+            }
+
+                .semi-tabs-tab-card.semi-tabs-tab-left.semi-tabs-tab-active:after {
+                    content: " ";
+                    width: 1px;
+                    position: absolute;
+                    right: -1px;
+                    top: 0;
+                    bottom: 0;
+                    background: var(--semi-cssvar-color-tabs_tab_card_selected-bg-default);
+                }
+
+                .semi-tabs-tab-card.semi-tabs-tab-left.semi-tabs-tab-active, .semi-tabs-tab-card.semi-tabs-tab-left.semi-tabs-tab-active:hover {
+                    padding: var(--semi-cssvar-spacing-tabs_bar_card_tab_left_active-paddingY) var(--semi-cssvar-spacing-tabs_bar_card_tab_left_active-paddingX);
+                    border: var(--semi-cssvar-width-tabs_bar_card-border) solid var(--semi-cssvar-color-tabs_tab_card_indicator_selected-icon-default);
+                    border-right: none;
+                    background: transparent;
+                }
+                    /* padding-bottom: $spacing-tight + 1;*/
+
+        .semi-tabs-tab-card.semi-tabs-tab {
+            padding: var(--semi-cssvar-spacing-tabs_bar_card_tab-paddingY) var(--semi-cssvar-spacing-tabs_bar_card_tab-paddingX);
+            transition: background-color var(--semi-cssvar-transition_duration-tabs_tab_card-bg) var(--semi-cssvar-transition_function-tabs_tab_card-bg) var(--semi-cssvar-transition_delay-tabs_tab_card-bg), 
+            color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text);
+
+            transform: scale(var(--semi-cssvar-transform_scale-tabs_tab_card-item))
+        }/*卡片式tabs的 color的transition*/
+
+            .semi-tabs-tab-card.semi-tabs-tab:hover {
+                background: var(--semi-cssvar-color-tabs_tab_card-bg-hover);
+            }
+
+            .semi-tabs-tab-card.semi-tabs-tab:focus-visible {
+                outline: var(--semi-cssvar-width-tabs-outline) solid var(--semi-cssvar-color-tabs_tab-outline-focus);
+                outline-offset: var(--semi-cssvar-width-tabs-outline-offset);
+            }
+
+            .semi-tabs-tab-card.semi-tabs-tab:active {
+                background: var(--semi-cssvar-color-tabs_tab_card-bg-active);
+            }
+
+    .semi-tabs-tab-button {
+        border: none
+    }
+
+        .semi-tabs-tab-button.semi-tabs-tab {
+            padding: var(--semi-cssvar-spacing-tabs_bar_button_tab-paddingY) var(--semi-cssvar-spacing-tabs_bar_button_tab-paddingX);
+            border-radius: var(--semi-cssvar-radius-tabs_tab_button);
+            color: var(--semi-cssvar-color-tabs_tab_button-text-default);
+            border: none;
+            transition: background-color var(--semi-cssvar-transition_duration-tabs-tab_button-bg) var(--semi-cssvar-transition_function-tabs_tab_button-bg) var(--semi-cssvar-transition_delay-tabs_tab_button-bg),
+            color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text);
+
+            transform: scale(var(--semi-cssvar-transform_scale-tabs_tab_button-item))
+        }/*按钮式tabs的 color的transition*/
+
+            .semi-tabs-tab-button.semi-tabs-tab:hover {
+                border: none;
+                background-color: var(--semi-cssvar-color-tabs_tab_button-bg-hover);
+            }
+
+            .semi-tabs-tab-button.semi-tabs-tab:focus-visible {
+                outline: var(--semi-cssvar-width-tabs-outline) solid var(--semi-cssvar-color-tabs_tab-outline-focus);
+                outline-offset: var(--semi-cssvar-width-tabs-outline-offset);
+            }
+
+            .semi-tabs-tab-button.semi-tabs-tab:active {
+                background-color: var(--semi-cssvar-color-tabs_tab_button-bg-active);
+            }
+
+        .semi-tabs-tab-button.semi-tabs-tab-active {
+        }
+
+            .semi-tabs-tab-button.semi-tabs-tab-active, .semi-tabs-tab-button.semi-tabs-tab-active:hover {
+                color: var(--semi-cssvar-color-tabs_tab_button_selected-text-default);
+                border: none;
+                background-color: var(--semi-cssvar-color-tabs_tab_button_selected-bg-default);
+            }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-tabs, .semi-portal-rtl .semi-tabs {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-tabs-bar, .semi-portal-rtl .semi-tabs-bar {
+        }
+            .semi-rtl .semi-tabs-bar .semi-tabs-tab, .semi-portal-rtl .semi-tabs-bar .semi-tabs-tab {
+                float: right
+            }
+
+                .semi-rtl .semi-tabs-bar .semi-tabs-tab .semi-icon, .semi-portal-rtl .semi-tabs-bar .semi-tabs-tab .semi-icon {
+                    margin-right: 0;
+                    margin-left: var(--semi-cssvar-spacing-tabs_tab_icon-marginRight);
+                }
+
+        .semi-rtl .semi-tabs-bar-collapse, .semi-portal-rtl .semi-tabs-bar-collapse {
+        }
+            .semi-rtl .semi-tabs-bar-collapse .semi-tabs-bar-arrow-start, .semi-portal-rtl .semi-tabs-bar-collapse .semi-tabs-bar-arrow-start {
+                margin-right: 0;
+                margin-left: var(--semi-cssvar-spacing-tabs_overflow_icon-marginRight);
+            }
+
+            .semi-rtl .semi-tabs-bar-collapse .semi-tabs-bar-arrow-end, .semi-portal-rtl .semi-tabs-bar-collapse .semi-tabs-bar-arrow-end {
+                margin-left: 0;
+                margin-right: var(--semi-cssvar-spacing-tabs_overflow_icon-marginLeft);
+            }
+
+            .semi-rtl .semi-tabs-bar-collapse .semi-icon-chevron_right, .semi-portal-rtl .semi-tabs-bar-collapse .semi-icon-chevron_right, .semi-rtl .semi-tabs-bar-collapse .semi-icon-chevron_left, .semi-portal-rtl .semi-tabs-bar-collapse .semi-icon-chevron_left {
+                transform: scaleX(-1);
+            }
+
+        .semi-rtl .semi-tabs-bar-line, .semi-portal-rtl .semi-tabs-bar-line {
+        }
+            .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-top, .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-top {
+            }
+                .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab, .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab {
+                }
+
+                    .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type), .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type) {
+                        margin-right: 0;
+                        margin-left: var(--semi-cssvar-spacing-tabs_bar_line_tab-marginRight);
+                    }
+
+            .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-left, .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-left {
+                border-right: 0;
+                border-left: var(--semi-cssvar-width-tabs_bar_line-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-default)
+            }
+
+                .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab, .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab {
+                    border-left: 0;
+                    border-right: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid transparent
+                }
+
+                    .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab:hover, .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab:hover {
+                        border-left: 0;
+                        border-right: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-hover);
+                    }
+
+                    .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab:active, .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab:active {
+                        border-left: 0;
+                        border-right: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-active);
+                    }
+
+                .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-active, .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-active {
+                }
+
+                    .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-active, .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-active, .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-active:hover, .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-active:hover {
+                        border-left: 0;
+                        border-right: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_indicator_selected-icon-default);
+                    }
+
+        .semi-rtl .semi-tabs-bar-card, .semi-portal-rtl .semi-tabs-bar-card {
+        }
+            .semi-rtl .semi-tabs-bar-card.semi-tabs-bar-top, .semi-portal-rtl .semi-tabs-bar-card.semi-tabs-bar-top {
+            }
+                .semi-rtl .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab, .semi-portal-rtl .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab {
+                }
+
+                    .semi-rtl .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type), .semi-portal-rtl .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type) {
+                        margin-left: 0;
+                        margin-right: var(--semi-cssvar-spacing-tabs_bar_card_tab-marginRight);
+                    }
+
+            .semi-rtl .semi-tabs-bar-card.semi-tabs-bar-left, .semi-portal-rtl .semi-tabs-bar-card.semi-tabs-bar-left {
+                border-right: 0;
+                border-left: var(--semi-cssvar-width-tabs_bar_card-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-default)
+            }
+
+                .semi-rtl .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab, .semi-portal-rtl .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab {
+                    border: var(--semi-cssvar-width-tabs_bar_card-border) solid transparent;
+                    border-left: none
+                }
+
+                    .semi-rtl .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab:hover, .semi-portal-rtl .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab:hover {
+                        border-left: none;
+                    }
+
+                .semi-rtl .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab-active, .semi-portal-rtl .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab-active {
+                }
+
+                    .semi-rtl .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab-active:after, .semi-portal-rtl .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab-active:after {
+                        right: auto;
+                        left: -1px;
+                    }
+
+        .semi-rtl .semi-tabs-bar-button, .semi-portal-rtl .semi-tabs-bar-button {
+        }
+            .semi-rtl .semi-tabs-bar-button.semi-tabs-bar-top, .semi-portal-rtl .semi-tabs-bar-button.semi-tabs-bar-top {
+            }
+                .semi-rtl .semi-tabs-bar-button.semi-tabs-bar-top .semi-tabs-tab, .semi-portal-rtl .semi-tabs-bar-button.semi-tabs-bar-top .semi-tabs-tab {
+                }
+
+                    .semi-rtl .semi-tabs-bar-button.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type), .semi-portal-rtl .semi-tabs-bar-button.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type) {
+                        margin-right: auto;
+                        margin-left: var(--semi-cssvar-spacing-tabs_bar_button_tab-marginRight);
+                    }

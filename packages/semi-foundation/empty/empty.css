@@ -1,0 +1,66 @@
+
+.semi-empty {
+    display: flex
+}
+
+    .semi-empty-image {
+        display: flex;
+        justify-content: center;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
+    }
+
+    .semi-empty-vertical {
+        align-items: center;
+        flex-direction: column
+    }
+
+        .semi-empty-vertical .semi-empty-content {
+            margin-top: var(--semi-cssvar-spacing-empty_content_vertical-marginTop);
+        }
+
+        .semi-empty-vertical .semi-empty-title, .semi-empty-vertical .semi-empty-description {
+            text-align: center;
+        }
+
+    .semi-empty-horizontal {
+    }
+        .semi-empty-horizontal .semi-empty-content {
+            margin-left: var(--semi-cssvar-spacing-empty_content_horizontal-marginLeft);
+        }
+
+    .semi-empty-title.semi-typography {
+        display: block;
+        font-weight: var(--semi-cssvar-font-empty_title-fontWeight);
+    }
+
+    .semi-empty-title+.semi-empty-description {
+        margin-top: var(--semi-cssvar-spacing-empty_title-marginTop);
+    }
+
+    .semi-empty-description {
+        color: var(--semi-cssvar-color-empty_description-text-default);
+    }
+
+    .semi-empty-footer {
+        margin-top: var(--semi-cssvar-spacing-empty_footer-marginTop);
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-empty, .semi-portal-rtl .semi-empty {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-empty-horizontal, .semi-portal-rtl .semi-empty-horizontal {
+        }
+            .semi-rtl .semi-empty-horizontal .semi-empty-content, .semi-portal-rtl .semi-empty-horizontal .semi-empty-content {
+                margin-left: auto;
+                margin-right: var(--semi-cssvar-spacing-empty_content_horizontal-marginLeft);
+            }

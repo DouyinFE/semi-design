@@ -1,0 +1,754 @@
+
+.semi-select-option {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    word-break: break-all;
+    padding-left: var(--semi-cssvar-spacing-select_option-paddingLeft);
+    padding-right: var(--semi-cssvar-spacing-select_option-paddingRight);
+    padding-top: var(--semi-cssvar-spacing-select_option-paddingTop);
+    padding-bottom: var(--semi-cssvar-spacing-select_option-paddingBottom);
+    color: var(--semi-cssvar-color-select_option_main-text);
+    border-radius: var(--semi-cssvar-radius-select_option);
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color var(--semi-cssvar-transition_duration-select_option-bg) var(--semi-cssvar-transition_function-select_option-bg) var(--semi-cssvar-transition_delay-select_option-bg)
+}
+
+    .semi-select-option-icon {
+        width: var(--semi-cssvar-width-select_option_tick);
+        color: var(--semi-cssvar-color-select_option-icon-default);
+        margin-right: var(--semi-cssvar-spacing-select_option_tick-marginRight);
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .semi-select-option-text {
+        display: flex;
+        flex-wrap: wrap;
+        white-space: pre;
+    }
+
+    .semi-select-option-keyword {
+        color: var(--semi-cssvar-color-select_option_keyword-text);
+        background-color: inherit;
+        font-weight: var(--semi-cssvar-font-select_keyword-fontWeight);
+    }
+    /* &:hover {*/
+    /*     background-color: $color-select_option-bg-hover;*/
+    /* }*/
+
+    .semi-select-option:active {
+        background-color: var(--semi-cssvar-color-select_option-bg-active);
+    }
+
+    .semi-select-option-empty {
+        cursor: not-allowed;
+        color: var(--semi-cssvar-color-select_option_disabled-text);
+        justify-content: center
+    }
+
+        .semi-select-option-empty:hover {
+            background-color: inherit;
+        }
+
+        .semi-select-option-empty:active {
+            background-color: inherit;
+        }
+
+    .semi-select-option-disabled {
+        color: var(--semi-cssvar-color-select_option_disabled-text);
+        cursor: not-allowed
+    }
+
+        .semi-select-option-disabled:hover {
+            background-color: var(--semi-cssvar-color-select_option-bg-hover);
+        }
+
+    .semi-select-option-selected {
+        font-weight: var(--semi-cssvar-font-weight-bold);
+        background: var(--semi-cssvar-color-select-option-bg-selected)
+    }
+        .semi-select-option-selected .semi-select-option-icon {
+            color: var(--semi-cssvar-color-select_option-icon-active);
+        }
+
+    .semi-select-option-focused {
+        background-color: var(--semi-cssvar-color-select_option-bg-hover);
+    }
+
+    /* &:first-of-type {*/
+    /* margin-top: $spacing-select_option_first-marginTop;*/
+    /* }*/
+
+    /* &:last-of-type {*/
+    /* margin-bottom: $spacing-select_option_last-marginBottom;*/
+    /* }*//* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+/* Mixin*/
+
+.semi-select {
+    box-sizing: border-box;
+    border-radius: var(--semi-cssvar-radius-select);
+    border: var(--semi-cssvar-width-select-border) solid var(--semi-cssvar-color-select-border-default);
+    height: var(--semi-cssvar-height-select_default);
+    font-weight: var(--semi-cssvar-font-select-fontWeight);
+    background-color: var(--semi-cssvar-color-select-bg-default);
+    display: inline-flex;
+    vertical-align: middle;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    transition: background-color var(--semi-cssvar-transition_duration-select-bg) var(--semi-cssvar-transition_function-select-bg) var(--semi-cssvar-transition_delay-select-bg), border var(--semi-cssvar-transition_duration-select-border) var(--semi-cssvar-transition_function-select-border) var(--semi-cssvar-transition_delay-select-border);
+    transform: scale(var(--semi-cssvar-transform_scale-select));
+
+    max-height: 300px;
+    overflow-y: auto
+}
+    /* display: inline-block;*/
+
+    .semi-select:hover {
+        background-color: var(--semi-cssvar-color-select-bg-hover);
+        border: var(--semi-cssvar-width-select-border-hover) solid var(--semi-cssvar-color-select-border-hover);
+    }
+
+    .semi-select:focus {
+        border: var(--semi-cssvar-width-select-border-focus) solid var(--semi-cssvar-color-select-border-focus);
+        background-color: var(--semi-cssvar-color-select-bg-focus);
+        outline: 0;
+    }
+        /* background-color: plum;*/
+
+    .semi-select:active{
+        background-color: var(--semi-cssvar-color-select-bg-active);
+    }
+
+    .semi-select-small {
+        height: var(--semi-cssvar-height-select_small);
+        line-height: var(--semi-cssvar-height-select_small);
+    }
+
+    .semi-select-large {
+        min-height: var(--semi-cssvar-height-select_large);
+        line-height: var(--semi-cssvar-height-select_large)
+    }
+        .semi-select-large .semi-select-selection {
+    font-size: var(--semi-cssvar-font-size-header-6);
+    line-height: 22px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        }
+
+    .semi-select-open, .semi-select-focus {
+        border: var(--semi-cssvar-width-select-border-focus) solid var(--semi-cssvar-color-select_default-border-focus);
+        outline: 0
+    }
+
+        .semi-select-open:hover, .semi-select-focus:hover {
+            background-color: var(--semi-cssvar-color-select-bg-default);
+            border: var(--semi-cssvar-width-select-border-hover) solid var(--semi-cssvar-color-select_default-border-focus);
+        }
+
+        /* when click the trigger, trigger get the focus state, active style should take effect*/
+        .semi-select-open:active, .semi-select-focus:active {
+            background-color: var(--semi-cssvar-color-select-bg-active);
+            border: var(--semi-cssvar-width-select-border-active) solid var(--semi-cssvar-color-select-border-active);
+        }
+
+    .semi-select-warning {
+        background-color: var(--semi-cssvar-color-select_warning-bg-default);
+        border-color: var(--semi-cssvar-color-select_warning-border-default)
+    }
+
+        .semi-select-warning:hover {
+            background-color: var(--semi-cssvar-color-select_warning-bg-hover);
+            border-color: var(--semi-cssvar-color-select_warning-border-hover);
+        }
+
+        .semi-select-warning:focus {
+            background-color: var(--semi-cssvar-color-select_warning-bg-focus);
+            border-color: var(--semi-cssvar-color-select_warning-border-focus);
+        }
+
+        .semi-select-warning:active {
+            background-color: var(--semi-cssvar-color-select_warning-bg-active);
+            border-color: var(--semi-cssvar-color-select_warning-border-active);
+        }
+
+    .semi-select-error {
+        background-color: var(--semi-cssvar-color-select_danger-bg-default);
+        border-color: var(--semi-cssvar-color-select_danger-border-default)
+    }
+
+        .semi-select-error:hover {
+            background-color: var(--semi-cssvar-color-select_danger-bg-hover);
+            border-color: var(--semi-cssvar-color-select_danger-border-hover);
+        }
+
+        .semi-select-error:focus {
+            background-color: var(--semi-cssvar-color-select_danger-bg-focus);
+            border-color: var(--semi-cssvar-color-select_danger-border-focus);
+        }
+
+        .semi-select-error:active {
+            background-color: var(--semi-cssvar-color-select_danger-bg-active);
+            border-color: var(--semi-cssvar-color-select_danger-border-active);
+        }
+
+    .semi-select-disabled {
+        cursor: not-allowed;
+        background-color: var(--semi-cssvar-color-select_input_disabled-bg)
+    }
+        /* border: 1px solid $color-select_input_disabled-border;*/
+
+        .semi-select-disabled:hover {
+            background-color: var(--semi-cssvar-color-select_input_disabled-bg-hover);
+        }
+
+        .semi-select-disabled:focus {
+            border: var(--semi-cssvar-width-select-border-focus) solid var(--semi-cssvar-color-select_input_disabled-border-focus);
+            background-color: var(--semi-cssvar-color-select_input_disabled-bg-focus);
+        }
+            /* when select is disabled, the border should not have active color*/
+
+        .semi-select-disabled .semi-select-selection, .semi-select-disabled .semi-select-selection-placeholder {
+            color: var(--semi-cssvar-color-select_input_disabled-text);
+            cursor: not-allowed;
+        }
+
+        .semi-select-disabled .semi-select-arrow, .semi-select-disabled .semi-select-prefix, .semi-select-disabled .semi-select-suffix {
+            color: var(--semi-cssvar-color-select_input_disabled-text);
+        }
+
+        .semi-select-disabled .semi-tag {
+            color: var(--semi-cssvar-color-select_input_disabled-text);
+            background-color: transparent;
+        }
+
+    .semi-select-selection {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+
+        height: 100%;
+
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        overflow: hidden;
+
+        margin-left: var(--semi-cssvar-spacing-select_selection-marginLeft);
+
+        cursor: pointer;
+        color: var(--semi-cssvar-color-select_main-text-default)
+    }
+        /* margin-right: $width-select_icon_right;*/
+
+        .semi-select-selection-text {
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+            /* display: inline-flex;*/
+            /* align-items: center;*/
+            /* height: 100%;*/
+
+            .semi-select-selection-text-inactive {
+                display: flex;
+                opacity: var(--semi-cssvar-opacity-select_selection_text_inactive);
+            }
+
+            .semi-select-selection-text-hide {
+                display: none;
+            }
+
+        .semi-select-selection-placeholder {
+            color: var(--semi-cssvar-color-select_input_placeholder-text);
+        }
+
+        .semi-select-selection .semi-tag {
+    margin-top: var(--semi-cssvar-spacing-select_tag-marginTop);
+    margin-right: var(--semi-cssvar-spacing-select_tag-marginRight);
+    margin-bottom: var(--semi-cssvar-spacing-select_tag-marginBottom)
+        }
+
+            .semi-select-selection .semi-tag:nth-of-type(1) {
+                margin-left: 0;
+            }
+
+        .semi-select-selection .semi-tag-group {
+            height: inherit
+        }
+            .semi-select-selection .semi-tag-group .semi-tag {
+    margin-top: var(--semi-cssvar-spacing-select_tag-marginTop);
+    margin-right: var(--semi-cssvar-spacing-select_tag-marginRight);
+    margin-bottom: var(--semi-cssvar-spacing-select_tag-marginBottom);
+            }
+
+    .semi-select-content-wrapper {
+        white-space: nowrap;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        height: 100%
+    }
+
+        .semi-select-content-wrapper-collapse {
+            display: inline-flex;
+            flex-shrink: 0;
+            width: 100%
+        }
+
+            .semi-select-content-wrapper-collapse .semi-overflow-list-overflow {
+                max-width: 100%;
+                min-width: 50px;
+            } /* when one tag exceed the max width*/
+
+            .semi-select-content-wrapper-collapse>.semi-select-content-wrapper-collapse-tag {
+                background-color: transparent;
+            }
+
+            .semi-select-content-wrapper-collapse>.semi-select-content-wrapper-collapse-N {
+                background-color: transparent;
+                padding: 4px;
+                color: var(--semi-color-text-0);
+                font-size: 12px;
+            }
+
+    .semi-select-multiple {
+        height: auto
+    }
+        /* 这里要设置为 auto，可能存在换行*/
+
+        .semi-select-multiple .semi-select-selection {
+            margin-left: var(--semi-cssvar-spacing-select_multiple_selection-marginLeft);
+        }
+            /* &-placeholder {*/
+            /*     padding-left: $spacing-base-tight - $spacing-extra-tight;*/
+            /* }*/
+
+        .semi-select-multiple .semi-select-content-wrapper {
+            width: 100%;
+            min-height: calc(var(--semi-cssvar-height-select_default) - 2 * var(--semi-cssvar-width-select-border));
+            flex-wrap: wrap
+        }
+
+            .semi-select-multiple .semi-select-content-wrapper-empty {
+                margin-left: var(--semi-cssvar-spacing-select_multiple_content_wrapper_empty-marginLeft);
+            }
+
+            .semi-select-multiple .semi-select-content-wrapper .semi-tag-group {
+                display: flex;
+                align-items: center;
+            }
+
+            .semi-select-multiple .semi-select-content-wrapper-one-line {
+                flex-wrap: nowrap
+            }
+
+                .semi-select-multiple .semi-select-content-wrapper-one-line .semi-tag-group {
+                    flex-wrap: nowrap;
+                    justify-content: flex-start;
+                    overflow: hidden;
+                    flex-shrink: 0;
+                }
+
+        .semi-select-multiple .semi-select-inline-label-wrapper {
+            flex-shrink: 0;
+        }
+
+    .semi-select-multiple.semi-select-large {
+    }
+        .semi-select-multiple.semi-select-large .semi-select-content-wrapper {
+            min-height: calc(var(--semi-cssvar-height-select_large) - 2 * var(--semi-cssvar-width-select-border));
+        }
+
+    .semi-select-multiple.semi-select-small {
+    }
+        .semi-select-multiple.semi-select-small .semi-select-content-wrapper {
+            min-height: calc(var(--semi-cssvar-height-select_small) - 2 * var(--semi-cssvar-width-select-border));
+        }
+
+    .semi-select-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--semi-cssvar-width-select_arrow);
+        color: var(--semi-cssvar-color-select-icon-default);
+        flex-shrink: 0;
+        transform: rotate(var(--semi-cssvar-transform_rotate-select-arrow))
+    }
+
+
+        .semi-select-arrow-empty {
+            display: flex;
+            width: var(--semi-cssvar-width-select_arrow_empty);
+        }
+            /* 不显示arrow时，右侧留出12px空白*/
+
+    .semi-select-prefix, .semi-select-suffix {
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }
+
+        .semi-select-prefix-text, .semi-select-suffix-text {
+            margin: var(--semi-cssvar-spacing-select_prefix_suffix_text-marginY) var(--semi-cssvar-spacing-select_prefix_suffix_text-marginX);
+            color: var(--semi-cssvar-color-select_prefix_suffix_text-default);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+            font-weight: var(--semi-cssvar-font-select_prefix_suffix-fontWeight);
+        }
+
+        .semi-select-prefix-icon, .semi-select-suffix-icon {
+            color: var(--semi-cssvar-color-select-icon-default);
+            margin: var(--semi-cssvar-spacing-select_prefix_suffix_icon-marginY) var(--semi-cssvar-spacing-select_prefix_suffix_icon-marginX);
+        }
+
+    .semi-select-suffix {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    .semi-select-clear {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        width: var(--semi-cssvar-width-select_clear-icon);
+        color: var(--semi-cssvar-color-select_clearBtn-text-default);
+        flex-shrink: 0
+    }
+        .semi-select-clear:hover {
+            color: var(--semi-cssvar-color-select_clearBtn-text-hover);
+        }
+
+    .semi-select-inset-label-wrapper {
+        display: inline;
+    }
+
+    .semi-select-inset-label {
+        margin: var(--semi-cssvar-spacing-select_prefix_suffix_text-marginY) var(--semi-cssvar-spacing-select_prefix_suffix_text-marginX);
+        font-weight: var(--semi-cssvar-font-select_prefix_suffix-fontWeight);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        color: var(--semi-cssvar-color-select_prefix_suffix_text-default);
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    .semi-select-create-tips {
+        color: var(--semi-cssvar-color-select_create_tips-text);
+        margin-right: var(--semi-cssvar-spacing-select_create_tips-marginRight);
+    }
+
+.semi-select-with-prefix {
+    & .semi-select-selection {
+        margin-left: 0;
+    }
+}
+
+/* 单选且可输入*/
+.semi-select-single.semi-select-filterable {
+    & .semi-select-content-wrapper {
+        flex-grow: 1;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    & .semi-input-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        border: none;
+        background-color: transparent;
+    }
+
+    & .semi-input-wrapper-focus {
+        border: none;
+    }
+
+    & .semi-input {
+        padding-left: 0;
+        padding-right: 0;
+        height: 100%; /* 自定义renderSelectedItem时，Select的整体高度可能不是默认的32px*/
+    }
+}
+
+/* 多选且可输入*/
+.semi-select-multiple.semi-select-filterable {
+}
+    .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper {
+        flex-grow: 1;
+        height: 100%;
+        overflow: hidden;
+        position: relative
+    }
+
+        .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper:not(.semi-select-content-wrapper-empty) {
+        }
+            .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper:not(.semi-select-content-wrapper-empty) .semi-input-wrapper {
+                height: var(--semi-cssvar-height-select_multiple_input_default);
+                line-height: var(--semi-cssvar-height-select_multiple_input_default)
+            }
+                .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper:not(.semi-select-content-wrapper-empty) .semi-input-wrapper .semi-input-default {
+                    height: var(--semi-cssvar-height-select_multiple_input_default);
+                }
+
+        .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper-empty {
+        }
+            .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper-empty .semi-input-wrapper {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%
+            }
+                .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper-empty .semi-input-wrapper .semi-input-default {
+                    height: 100%;
+                }
+                /* width: 100%; // no need to set width here, will calcuate inline style by js*/
+    .semi-select-multiple.semi-select-filterable .semi-input-wrapper {
+        height: 100%;
+        width: 100%;
+        border: none;
+        background-color: transparent;
+    }
+        /* position: absolute;*/
+        /* top: 0;*/
+        /* left: 0;*/
+
+    .semi-select-multiple.semi-select-filterable .semi-input-wrapper-focus {
+        border: none;
+    }
+
+    .semi-select-multiple.semi-select-filterable .semi-input {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+.semi-select-multiple.semi-select-filterable.semi-select-large {
+    & .semi-select-content-wrapper {
+        &:not(.semi-select-content-wrapper-empty) {
+            & .semi-input-wrapper-large {
+                height: var(--semi-cssvar-height-select_multiple_input_large);
+                line-height: var(--semi-cssvar-height-select_multiple_input_large);
+                & .semi-input-large {
+                    height: var(--semi-cssvar-height-select_multiple_input_large)
+                }
+            }
+        }
+    }
+}
+
+.semi-select-multiple.semi-select-filterable.semi-select-small {
+    & .semi-select-content-wrapper {
+        &:not(.semi-select-content-wrapper-empty) {
+            & .semi-input-wrapper {
+                height: var(--semi-cssvar-height-select_multiple_input_small);
+                line-height: var(--semi-cssvar-height-select_multiple_input_small);
+                & .semi-input-small {
+                    height: var(--semi-cssvar-height-select_multiple_input_small);
+                }
+            }
+        }
+    }
+}
+
+
+.semi-select-option-list-wrapper {
+    padding-top: var(--semi-cssvar-spacing-select_option_list-paddingTop);
+    padding-bottom: var(--semi-cssvar-spacing-select_option_list-paddingBottom);
+    padding-left: var(--semi-cssvar-spacing-select_option_list-paddingLeft);
+    padding-right: var(--semi-cssvar-spacing-select_option_list-paddingRight);
+}
+
+.semi-select-option-list {
+    overflow-x: hidden;
+    overflow-y: auto
+}
+    .semi-select-option-list-chosen {
+    }
+        .semi-select-option-list-chosen .semi-select-option-icon {
+            display: flex;
+        }
+
+.semi-select-group {
+    color: var(--semi-cssvar-color-select_group-text);
+    padding-top: var(--semi-cssvar-spacing-select_group-paddingTop);
+    margin-top: var(--semi-cssvar-spacing-select_group-marginTop);
+    padding-bottom: var(--semi-cssvar-spacing-select_group-paddingBottom);
+    padding-left: var(--semi-cssvar-spacing-select_group-paddingLeft);
+    padding-right: var(--semi-cssvar-spacing-select_group-paddingRight);
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    cursor: default;
+
+    /* &:nth-of-type(1) {*/
+    /*     margin-top: $spacing-extra-tight;*/
+    /* }*/
+
+    &:not(:nth-of-type(1)) {
+        border-top: var(--semi-cssvar-width-select_group_top-border) solid var(--semi-cssvar-color-select_option-border-default);
+    }
+}
+
+
+.semi-select-loading-wrapper {
+    padding-left: var(--semi-cssvar-spacing-select_loading_wrapper-paddingLeft);
+    padding-right: var(--semi-cssvar-spacing-select_loading_wrapper-paddingRight);
+    padding-top: var(--semi-cssvar-spacing-select_loading_wrapper-paddingTop);
+    padding-bottom: var(--semi-cssvar-spacing-select_loading_wrapper-paddingBottom);
+    cursor: not-allowed;
+    /* make sure that spin align vertical, no need to make 20px as a spacing token here*/
+    height: 20px;
+    box-sizing: content-box;
+}
+
+
+.semi-select-borderless {
+
+    &:not(:focus-within):not(:hover){
+        background-color:transparent;
+        border-color: transparent;
+        & .semi-select-arrow {
+            opacity: 0;
+        }
+    }
+
+    &:focus-within:not(:active){
+        background-color:transparent;
+    }
+
+    /* split style into not and normal to avoid style override*/
+    &.semi-select-error:not(:focus-within){
+        border-color: var(--semi-cssvar-color-select_danger-border-focus);
+    }
+
+    &.semi-select-warning:not(:focus-within){
+        border-color: var(--semi-cssvar-color-select_warning-border-focus);
+    }
+
+    &.semi-select-error:focus-within{
+        border-color: var(--semi-cssvar-color-select_danger-border-focus);
+    }
+
+    &.semi-select-warning:focus-within{
+        border-color: var(--semi-cssvar-color-select_warning-border-focus);
+    }
+
+}
+
+
+.semi-select-dropdown-search-wrapper {
+    padding-top: var(--semi-cssvar-spacing-select_dropdown_input_paddingTop);
+    padding-right: var(--semi-cssvar-spacing-select_dropdown_input_paddingRight);
+    padding-bottom: var(--semi-cssvar-spacing-select_dropdown_input_paddingBottom);
+    padding-top: var(--semi-cssvar-spacing-select_dropdown_input_paddingTop);
+    padding-left: var(--semi-cssvar-spacing-select_dropdown_input_paddingLeft);
+    border-bottom: 1px solid var(--semi-cssvar-color-select_dropdown_input-border);
+}/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-select, .semi-portal-rtl .semi-select {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-select-selection, .semi-portal-rtl .semi-select-selection {
+            margin-left: 0;
+            margin-right: var(--semi-cssvar-spacing-select_selection-marginLeft)
+        }
+
+            .semi-rtl .semi-select-selection .semi-tag, .semi-portal-rtl .semi-select-selection .semi-tag {
+            }
+
+                .semi-rtl .semi-select-selection .semi-tag:nth-of-type(1), .semi-portal-rtl .semi-select-selection .semi-tag:nth-of-type(1) {
+                    margin-right: 0;
+                }
+
+            .semi-rtl .semi-select-selection .semi-tag-group, .semi-portal-rtl .semi-select-selection .semi-tag-group {
+            }
+                .semi-rtl .semi-select-selection .semi-tag-group .semi-tag, .semi-portal-rtl .semi-select-selection .semi-tag-group .semi-tag {
+                    margin-left: var(--semi-cssvar-spacing-select_tag-marginRight);
+                    margin-right: 0;
+                }
+                    /* rtl override mixin*/
+
+        .semi-rtl .semi-select-multiple, .semi-portal-rtl .semi-select-multiple {
+        }
+            .semi-rtl .semi-select-multiple .semi-select-selection, .semi-portal-rtl .semi-select-multiple .semi-select-selection {
+                margin-left: 0;
+                margin-right: var(--semi-cssvar-spacing-select_multiple_selection-marginLeft);
+            }
+
+            .semi-rtl .semi-select-multiple .semi-select-content-wrapper, .semi-portal-rtl .semi-select-multiple .semi-select-content-wrapper {
+            }
+
+                .semi-rtl .semi-select-multiple .semi-select-content-wrapper-empty, .semi-portal-rtl .semi-select-multiple .semi-select-content-wrapper-empty {
+                    margin-left: 0;
+                    margin-right: var(--semi-cssvar-spacing-select_multiple_content_wrapper_empty-marginLeft);
+                }
+
+        .semi-rtl .semi-select-create-tips, .semi-portal-rtl .semi-select-create-tips {
+            margin-right: 0;
+            margin-left: var(--semi-cssvar-spacing-select_create_tips-marginRight);
+        }
+
+    .semi-rtl .semi-select-with-prefix, .semi-portal-rtl .semi-select-with-prefix {
+    }
+        .semi-rtl .semi-select-with-prefix .semi-select-selection, .semi-portal-rtl .semi-select-with-prefix .semi-select-selection {
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+    /* 单选且可输入*/
+    .semi-rtl .semi-select-single.semi-select-filterable, .semi-portal-rtl .semi-select-single.semi-select-filterable {
+    }
+        .semi-rtl .semi-select-single.semi-select-filterable .semi-input-wrapper, .semi-portal-rtl .semi-select-single.semi-select-filterable .semi-input-wrapper {
+            left: auto;
+            right: 0;
+        }
+
+    /* 多选且可输入*/
+    .semi-rtl .semi-select-multiple.semi-select-filterable, .semi-portal-rtl .semi-select-multiple.semi-select-filterable {
+    }
+        .semi-rtl .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper, .semi-portal-rtl .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper {
+        }
+
+            .semi-rtl .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper-empty, .semi-portal-rtl .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper-empty {
+            }
+                .semi-rtl .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper-empty .semi-input-wrapper, .semi-portal-rtl .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper-empty .semi-input-wrapper {
+                    left: auto;
+                    right: 0;
+                }
+
+    .semi-rtl .semi-select-group, .semi-portal-rtl .semi-select-group {
+        padding-left: var(--semi-cssvar-spacing-select_group-paddingLeft);
+        padding-right: var(--semi-cssvar-spacing-select_group-paddingRight);
+    }
+
+    .semi-rtl .semi-select-option, .semi-portal-rtl .semi-select-option {
+    }
+
+        .semi-rtl .semi-select-option-icon, .semi-portal-rtl .semi-select-option-icon {
+            margin-right: 0;
+            margin-left: var(--semi-cssvar-spacing-select_option_tick-marginRight);
+        }

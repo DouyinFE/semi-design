@@ -1,0 +1,138 @@
+
+.semi-autocomplete-option {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    word-break: break-all;
+    padding-left: var(--semi-cssvar-spacing-autoComplete_option-paddingLeft);
+    padding-right: var(--semi-cssvar-spacing-autoComplete_option-paddingRight);
+    padding-top: var(--semi-cssvar-spacing-autoComplete_option-paddingTop);
+    padding-bottom: var(--semi-cssvar-spacing-autoComplete_option-paddingBottom);
+    color: var(--semi-cssvar-color-autoComplete_option_main-text);
+    border-radius: var(--semi-cssvar-radius-autoComplete_option);
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color var(--semi-cssvar-transition_duration-autoComplete_option-bg) var(--semi-cssvar-transition_function-autoComplete_option-bg) var(--semi-cssvar-transition_delay-autoComplete_option-bg)
+}
+
+    .semi-autocomplete-option-icon {
+        width: var(--semi-cssvar-width-autoComplete_option_tick);
+        color: var(--semi-cssvar-color-autoComplete_option-icon-default);
+        visibility: hidden;
+        margin-right: var(--semi-cssvar-spacing-autoComplete_option_tick-marginRight);
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .semi-autocomplete-option-text {
+        display: flex;
+        flex-wrap: wrap;
+        white-space: pre;
+    }
+
+    .semi-autocomplete-option-keyword {
+        color: var(--semi-cssvar-color-autoComplete_option_keyword-text);
+        background-color: inherit;
+        font-weight: var(--semi-cssvar-font-autoComplete_keyword-fontWeight);
+    }
+    /* &:hover {*/
+    /*     background-color: $color-autoComplete_option-bg-hover;*/
+    /* }*/
+
+    .semi-autocomplete-option:active {
+        background-color: var(--semi-cssvar-color-autoComplete_option-bg-active);
+    }
+
+    .semi-autocomplete-option-empty {
+        cursor: not-allowed;
+        color: var(--semi-cssvar-color-autoComplete_option_disabled-text);
+        justify-content: center
+    }
+
+        .semi-autocomplete-option-empty:hover {
+            background-color: inherit;
+        }
+
+        .semi-autocomplete-option-empty:active {
+            background-color: inherit;
+        }
+
+    .semi-autocomplete-option-disabled {
+        color: var(--semi-cssvar-color-autoComplete_option_disabled-text);
+        cursor: not-allowed
+    }
+
+        .semi-autocomplete-option-disabled:hover {
+            background-color: var(--semi-cssvar-color-autoComplete_option-bg-hover);
+        }
+
+    .semi-autocomplete-option-selected {
+        font-weight: var(--semi-cssvar-font-weight-bold)
+    }
+
+        .semi-autocomplete-option-selected .semi-autocomplete-option-icon {
+            visibility: visible;
+            color: var(--semi-cssvar-color-autoComplete_option-icon-active);
+        }
+
+    .semi-autocomplete-option-focused {
+        background-color: var(--semi-cssvar-color-autoComplete_option-bg-hover);
+    }
+
+    .semi-autocomplete-option:first-of-type {
+        margin-top: var(--semi-cssvar-spacing-autoComplete_option_first-marginTop);
+    }
+
+    .semi-autocomplete-option:last-of-type {
+        margin-bottom: var(--semi-cssvar-spacing-autoComplete_option_last-marginBottom);
+    }
+
+.semi-autocomplete {
+    cursor: text;
+    display: inline-flex;
+    vertical-align: middle;
+    box-sizing: border-box
+
+}
+
+    .semi-autocomplete-option-list {
+        overflow-x: hidden;
+        overflow-y: auto
+    }
+
+        .semi-autocomplete-option-list-chosen {
+        }
+            .semi-autocomplete-option-list-chosen .semi-autocomplete-option-icon {
+                display: flex;
+            }
+
+    .semi-autocomplete-loading-wrapper {
+        padding-top: var(--semi-cssvar-spacing-autoComplete_loading_wrapper-paddingTop);
+        padding-bottom: var(--semi-cssvar-spacing-autoComplete_loading_wrapper-paddingBottom);
+        cursor: not-allowed;
+        height: 20px
+    }
+        /* padding-left: $spacing-base;*/
+        /* padding-right: $spacing-base;*/
+        /* make sure that spin align vertical, no need to make 20px as a spacing token here*/
+        /* height: $spacing-extra-loose;*/
+        /* @include all-center;*/
+        .semi-autocomplete-loading-wrapper .semi-spin {
+            width: 100%;
+        }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl, 
+.semi-portal-rtl {
+    & .semi-autocomplete {
+        direction: rtl;
+    }
+}

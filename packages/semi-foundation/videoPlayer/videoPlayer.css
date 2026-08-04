@@ -1,0 +1,326 @@
+
+.semi-videoPlayer {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%
+}
+
+    /* Hide native controls*/
+    .semi-videoPlayer ::-webkit-media-controls {
+        display: none;
+    }
+    
+    .semi-videoPlayer-wrapper {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        line-height: 0
+    
+    }
+
+        .semi-videoPlayer-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .semi-videoPlayer-wrapper-dark {
+            background-color: var(--semi-cssvar-color-videoPlayer_theme_dark-bg);
+            color: var(--semi-cssvar-color-videoPlayer_theme_dark-text);
+        }
+
+        .semi-videoPlayer-wrapper-light {
+            background-color: var(--semi-cssvar-color-videoPlayer_theme_light-bg);
+            color: var(--semi-cssvar-color-videoPlayer_theme_light-text);
+        }
+
+    .semi-videoPlayer-pause {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        pointer-events: none
+    }
+
+        .semi-videoPlayer-pause svg {
+            font-size: 88px;
+            color: var(--semi-cssvar-color-videoPlayer_pause-bg);
+            pointer-events: none;
+        }
+
+    .semi-videoPlayer-error {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        flex-direction: column;
+        font-weight: var(--semi-cssvar-font-videoPlayer_error-fontWeight);
+        font-size: var(--semi-cssvar-font-videoPlayer_error-fontSize)
+    }
+
+        .semi-videoPlayer-error-svg {
+            margin-bottom: var(--semi-cssvar-spacing-videoPlayer_error_svg-marginBottom);
+        }
+
+        .semi-videoPlayer-error-dark {
+            background-color: var(--semi-cssvar-color-videoPlayer_theme_dark-bg);
+            color: var(--semi-cssvar-color-videoPlayer_theme_dark-text)
+            
+        }
+
+            .semi-videoPlayer-error-dark path {
+                fill: var(--semi-cssvar-color-videoPlayer_theme_dark-text);
+            }
+
+        .semi-videoPlayer-error-light {
+            background-color: var(--semi-cssvar-color-videoPlayer_theme_light-bg);
+            color: var(--semi-cssvar-color-videoPlayer_theme_light-text)
+        }
+
+            .semi-videoPlayer-error-light path {
+                fill: var(--semi-cssvar-color-videoPlayer_theme_light-text);
+            }
+
+    .semi-videoPlayer-poster {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none
+    }
+
+        .semi-videoPlayer-poster-hide {
+            opacity: 0;
+        }
+
+    .semi-videoPlayer-notification {
+        position: absolute;
+        bottom: calc(var(--semi-cssvar-height-videoPlayer_controls_menu-default) + var(--semi-cssvar-spacing-videoPlayer_notification-bottom));
+        left: var(--semi-cssvar-spacing-videoPlayer_notification-left);
+        text-align: center;
+        background-color: var(--semi-cssvar-color-videoPlayer_notification-bg);
+        color: var(--semi-cssvar-color-videoPlayer_notification-text);
+        padding: var(--semi-cssvar-spacing-videoPlayer_notification_text-paddingY) var(--semi-cssvar-spacing-videoPlayer_notification_text-paddingX);
+        line-height: var(--semi-cssvar-font-videoPlayer_notification-lineHeight);
+        border-radius: var(--semi-cssvar-radius-videoPlayer_notification);
+        font-size: var(--semi-cssvar-font-videoPlayer_notification-fontSize);
+    }
+
+    .semi-videoPlayer-mirror {
+    }
+        .semi-videoPlayer-mirror video {
+            transform: rotateX(0deg) rotateY(180deg);
+        }
+
+    .semi-videoPlayer-controls {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: fit-content;
+        opacity: 1;
+        transition: opacity var(--semi-cssvar-animation_duration-videoPlayer_controls-show) ease-in-out;
+        z-index: 1
+
+    }
+
+        .semi-videoPlayer-controls-hide {
+            opacity: 0;
+        }
+
+        .semi-videoPlayer-controls-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            height: var(--semi-cssvar-height-videoPlayer_controls_menu-default);
+            background-color: var(--semi-cssvar-color-videoPlayer_controls-bg);
+            padding: var(--semi-cssvar-spacing-videoPlayer-controls-padding)
+        }
+
+            .semi-videoPlayer-controls-menu-left, .semi-videoPlayer-controls-menu-right {
+                display: flex;
+                align-items: center;
+            }
+
+            .semi-videoPlayer-controls-menu-item {
+                margin-right: var(--semi-cssvar-spacing-videoPlayer-controls_item-gap);
+            }
+
+            .semi-videoPlayer-controls-menu-button {
+            }
+                .semi-videoPlayer-controls-menu-button svg {
+                    color: var(--semi-cssvar-color-videoPlayer_controls-text);
+                }
+
+        .semi-videoPlayer-controls-time {
+            color: var(--semi-cssvar-color-videoPlayer_controls-text);
+            font-size: var(--semi-cssvar-font-videoPlayer_controls_time_text-fontSize);
+            margin-right: var(--semi-cssvar-spacing-videoPlayer-controls_item-gap);
+            padding: 0 var(--semi-cssvar-spacing-videoPlayer-controls_time-paddingX);
+            font-variant-numeric: tabular-nums; 
+        }
+
+        .semi-videoPlayer-controls-popover {
+            background-color: transparent;
+        }
+
+        .semi-videoPlayer-controls-volume {
+            box-sizing: border-box;
+            width: var(--semi-cssvar-width-videoPlayer_controls_volume-default);
+            height: var(--semi-cssvar-height-videoPlayer_controls_volume-default);
+            background-color: var(--semi-cssvar-color-videoPlayer_controls_item-bg);
+            color: var(--semi-cssvar-color-videoPlayer_controls_popup_item-text-default);
+            border-radius: var(--semi-cssvar-radius-videoPlayer_controls_popup);
+            padding: var(--semi-cssvar-spacing-videoPlayer-controls_volume_popup-paddingY) var(--semi-cssvar-spacing-videoPlayer-controls_volume_popup-paddingX);
+            line-height: var(--semi-cssvar-font-videoPlayer_controls_popup_item-lineHeight);
+            font-size: var(--semi-cssvar-font-videoPlayer_controls_item-fontSize);
+            user-select: none
+        }
+
+            .semi-videoPlayer-controls-volume-title {
+                padding: var(--semi-cssvar-spacing-videoPlayer-controls_volume_title-paddingX) var(--semi-cssvar-spacing-videoPlayer-controls_volume_title-paddingY);
+                text-align: center;
+            }
+
+        .semi-videoPlayer-controls-popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+            width: var(--semi-cssvar-width-videoPlayer_controls_popup_item-default);
+            height: var(--semi-cssvar-height-videoPlayer_controls_popup-default);
+            background-color: var(--semi-cssvar-color-videoPlayer_controls_item_popup-bg-default);
+            color: var(--semi-cssvar-color-videoPlayer_controls-text);
+            font-weight: var(--semi-cssvar-font-videoPlayer_controls_popup_item-fontWeight);
+            font-size: var(--semi-cssvar-font-videoPlayer_controls_item-fontSize);
+            line-height: var(--semi-cssvar-font-videoPlayer_controls_popup_item-lineHeight);
+            border-radius: var(--semi-cssvar-radius-videoPlayer_controls_item);
+            cursor: pointer
+        }
+
+            .semi-videoPlayer-controls-popup-menu {
+                width: var(--semi-cssvar-width-videoPlayer_controls_popup-default);
+                background-color: var(--semi-cssvar-color-videoPlayer_controls_item_popup-bg-default);
+                border-radius: var(--semi-cssvar-radius-videoPlayer_controls_popup)
+            }
+
+                .semi-videoPlayer-controls-popup-menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+                    padding: var(--semi-cssvar-spacing-videoPlayer-controls_popup-paddingY) var(--semi-cssvar-spacing-videoPlayer-controls_popup-paddingX);
+                    height: var(--semi-cssvar-height-videoPlayer_controls_popup_item-default);
+                    color: var(--semi-cssvar-color-videoPlayer_controls-text);
+                    font-size: var(--semi-cssvar-font-videoPlayer_controls_item-fontSize)
+                }
+
+                    .semi-videoPlayer-controls-popup-menu-item:hover {
+                        background-color: var(--semi-cssvar-color-videoPlayer_controls_item_popup-bg-hover) !important;
+                    }
+
+                .semi-videoPlayer-controls-popup-menu .semi-dropdown-item-active {
+                    color: var(--semi-cssvar-color-videoPlayer_controls_popup_item-text-active);
+                    font-weight: var(--semi-cssvar-font-videoPlayer_controls_popup_item-fontWeight);
+                    cursor: pointer;
+                }
+
+    .semi-videoPlayer-progress {
+        position: relative;
+        height: var(--semi-cssvar-height-videoPlayer_progress_bar_hotSpot-default);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin: var(--semi-cssvar-spacing-videoPlayer-progress_bar_wrapper-marginY) var(--semi-cssvar-spacing-videoPlayer-progress_bar_wrapper-marginX)
+        
+    }
+
+        .semi-videoPlayer-progress-markers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .semi-videoPlayer-progress-tooltip {
+            top: var(--semi-cssvar-spacing-videoPlayer-progress_bar_tooltip-top)
+        }
+
+            .semi-videoPlayer-progress-tooltip-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+            }
+
+        .semi-videoPlayer-progress-slider {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            bottom: 0;
+            border-radius: var(--semi-cssvar-radius-videoPlayer_progress_bar)
+        }
+
+            .semi-videoPlayer-progress-slider-active, .semi-videoPlayer-progress-slider:hover {
+            }
+                .semi-videoPlayer-progress-slider-active .semi-videoPlayer-progress-slider-list, .semi-videoPlayer-progress-slider:hover .semi-videoPlayer-progress-slider-list, .semi-videoPlayer-progress-slider-active .semi-videoPlayer-progress-slider-played, .semi-videoPlayer-progress-slider:hover .semi-videoPlayer-progress-slider-played, .semi-videoPlayer-progress-slider-active .semi-videoPlayer-progress-slider-buffered, .semi-videoPlayer-progress-slider:hover .semi-videoPlayer-progress-slider-buffered {
+                    height: var(--semi-cssvar-height-videoPlayer_progress_bar-hover);
+                    transition: transform var(--semi-cssvar-animation_duration-videoPlayer_slider-in);
+                    transition-timing-function: var(--semi-cssvar-animation_function-videoPlayer_slider-in);
+                }
+
+            .semi-videoPlayer-progress-slider-list {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                background-color: var(--semi-cssvar-color-videoPlayer_progress_bar-bg-unplayed);
+                height: var(--semi-cssvar-height-videoPlayer_progress_bar-default);
+                width: calc(100% - var(--semi-cssvar-spacing-videoPlayer-progress_bar_chapter-marginRight));
+                margin-right: var(--semi-cssvar-spacing-videoPlayer-progress_bar_chapter-marginRight);
+                border-radius: var(--semi-cssvar-radius-videoPlayer_progress_bar);
+                transition: transform var(--semi-cssvar-animation_duration-videoPlayer_slider-in);
+                transition-timing-function: var(--semi-cssvar-animation_function-videoPlayer_slider-out);
+            }
+
+            .semi-videoPlayer-progress-slider-played {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                background-color: var(--semi-cssvar-color-videoPlayer_progress_bar-bg-played);
+                height: var(--semi-cssvar-height-videoPlayer_progress_bar-default);
+                border-radius: var(--semi-cssvar-radius-videoPlayer_progress_bar);
+                transition: transform var(--semi-cssvar-animation_duration-videoPlayer_slider-in);
+                transition-timing-function: var(--semi-cssvar-animation_function-videoPlayer_slider-out);
+            }
+
+            .semi-videoPlayer-progress-slider-buffered {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                background-color: var(--semi-cssvar-color-videoPlayer_progress_bar-bg-loaded);
+                height: var(--semi-cssvar-height-videoPlayer_progress_bar-default);
+                border-radius: var(--semi-cssvar-radius-videoPlayer_progress_bar);
+                transition: transform var(--semi-cssvar-animation_duration-videoPlayer_slider-in);
+                transition-timing-function: var(--semi-cssvar-animation_function-videoPlayer_slider-out);
+            }
+
+        .semi-videoPlayer-progress-handle {
+            box-sizing: border-box;
+            position: absolute;
+            width: var(--semi-cssvar-height-videoPlayer_progress_bar_handle);
+            height: var(--semi-cssvar-height-videoPlayer_progress_bar_handle);
+            background-color: var(--semi-cssvar-color-videoPlayer_progress_bar_handle-bg);
+            border: 1px solid var(--semi-cssvar-color-videoPlayer_progress_bar_handle-border);
+            box-shadow: 0px 0px 4px 0px var(--semi-cssvar-color-videoPlayer_progress_bar_handle-shadow);
+            border-radius: var(--semi-cssvar-radius-videoPlayer_progress_bar_handle);
+            top: var(--semi-cssvar-spacing-videoPlayer_progress_bar_handle-top);
+        } 

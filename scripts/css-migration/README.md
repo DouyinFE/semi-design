@@ -31,6 +31,21 @@ done
 
 ## 现状
 
-- 75/80 有样式组件三向验证零差异（dragMove/icons/lottie/utils 无 scss）
-- grid 已知边界：@for + mixin 参数链（`loop-grid-columns-rtl($index)` 实参为外层局部变量）未解决
+- **76/80 有样式组件三向验证零差异**（dragMove/icons/lottie/utils 无 scss）
+- **阶段 2 完成：78 个组件 css 真源已落库**（`packages/semi-foundation/<组件>/<组件>.css`，子文件 rtl/variables 等已内联）
+- 277 个 scss 文件已加 FROZEN 冻结标记（仅保留用于旧版构建链路兼容）
 - token 命名规则：`$name` → `--semi-cssvar-<name>`（下划线/连字符原样保留）
+
+## 阶段 2 工具
+
+```bash
+# 批量转换并落库 css 真源（读冻结后的 scss，剔除冻结 banner）
+node batchConvert.js
+
+# 验证落库的 css 文件（读文件而非重新转换）
+node verifyFiles.js            # 全部 78 个
+node verifyFiles.js button     # 单个
+
+# scss 冻结标记（幂等）
+node freezeScss.js
+```

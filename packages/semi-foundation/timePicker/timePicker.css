@@ -1,0 +1,167 @@
+
+.semi-timepicker {
+    display: inline-block
+}
+
+    .semi-timepicker-panel {
+    }
+        .semi-timepicker-panel .semi-scrolllist-body {
+            height: var(--semi-cssvar-height-timePicker_panel_body)
+
+        }
+
+            .semi-timepicker-panel .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer-nocycle, .semi-timepicker-panel .semi-scrolllist-body .semi-scrolllist-item {
+            }
+                .semi-timepicker-panel .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer-nocycle > ul, .semi-timepicker-panel .semi-scrolllist-body .semi-scrolllist-item > ul {
+                }
+                    .semi-timepicker-panel .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer-nocycle > ul:before, .semi-timepicker-panel .semi-scrolllist-body .semi-scrolllist-item > ul:before {
+                        height: calc((var(--semi-cssvar-height-timePicker_panel_body) - var(--semi-cssvar-height-scrollList_item)) * 0.5);
+                    }
+
+            .semi-timepicker-panel .semi-scrolllist-body .semi-scrolllist-item, .semi-timepicker-panel .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer {
+                -ms-overflow-style: none;
+                scrollbar-width: none
+            } /* Internet Explorer 10+ */ /* Firefox */
+
+                .semi-timepicker-panel .semi-scrolllist-body .semi-scrolllist-item::-webkit-scrollbar, .semi-timepicker-panel .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer::-webkit-scrollbar {
+                    display: none;
+                    width: 0;
+                    height: 0;
+                }
+
+                .semi-timepicker-panel .semi-scrolllist-body .semi-scrolllist-item > ul, .semi-timepicker-panel .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul {
+                    padding-bottom: calc((var(--semi-cssvar-height-timePicker_panel_body) - var(--semi-cssvar-height-scrollList_item)) * 0.5);
+                }
+
+            .semi-timepicker-panel .semi-scrolllist-body .semi-scrolllist-item {
+                -ms-overflow-style: none;
+                scrollbar-width: none
+            } /* Internet Explorer 10+ */ /* Firefox */
+
+                .semi-timepicker-panel .semi-scrolllist-body .semi-scrolllist-item::-webkit-scrollbar {
+                    display: none;
+                    width: 0;
+                    height: 0;
+                }
+
+        .semi-timepicker-panel .semi-scrolllist-item, .semi-timepicker-panel .semi-scrolllist-item-wheel {
+            flex: none;
+        }
+        .semi-timepicker-panel .semi-scrolllist-item-wheel, .semi-timepicker-panel .semi-scrolllist-item-wheel:not(:last-child) {
+            border: none;
+        }
+
+        .semi-timepicker-panel-list {
+        }
+
+            .semi-timepicker-panel-list-ampm {
+                width: var(--semi-cssvar-width-timePicker_panel_list_ampm);
+            }
+
+            .semi-timepicker-panel-list-hour {
+                width: var(--semi-cssvar-width-timePicker_panel_list_hour);
+            }
+
+            .semi-timepicker-panel-list-minute {
+                width: var(--semi-cssvar-width-timePicker_panel_list_minute);
+            }
+
+            .semi-timepicker-panel-list-second {
+                width: var(--semi-cssvar-width-timePicker_panel_list_second);
+            }
+
+    .semi-timepicker-range {
+    }
+
+        .semi-timepicker-range-panel {
+        }
+            .semi-timepicker-range-panel .semi-timepicker-lists {
+                display: flex;
+                box-shadow: var(--semi-cssvar-shadow-timePicker_range_panel);
+                border: var(--semi-cssvar-width-timePicker_range_panel-border) solid var(--semi-cssvar-color-timePicker_range_panel-border);
+                border-radius: var(--semi-cssvar-radius-timePicker_range_panel)
+            }
+
+                /* left*/
+                .semi-timepicker-range-panel .semi-timepicker-lists .semi-scrolllist:first-of-type {
+                    border-radius: var(--semi-cssvar-radius-timePicker_range_panel) 0 0 var(--semi-cssvar-radius-timePicker_range_panel);
+                }
+                /* right*/
+                .semi-timepicker-range-panel .semi-timepicker-lists .semi-scrolllist:last-of-type {
+                    border-radius: 0 var(--semi-cssvar-radius-timePicker_range_panel) var(--semi-cssvar-radius-timePicker_range_panel) 0;
+                }
+
+                .semi-timepicker-range-panel .semi-timepicker-lists > .semi-scrolllist:not(:last-child) {
+                }
+                    .semi-timepicker-range-panel .semi-timepicker-lists > .semi-scrolllist:not(:last-child) .semi-scrolllist {
+                    }
+                        .semi-timepicker-range-panel .semi-timepicker-lists > .semi-scrolllist:not(:last-child) .semi-scrolllist-body {
+                            border-right: var(--semi-cssvar-width-timePicker_range_panel_scrolllist_body-border) solid var(--semi-cssvar-color-timePicker_range_picker_panel_split-border);
+                        }
+
+                .semi-timepicker-range-panel .semi-timepicker-lists > .semi-scrolllist {
+                    box-shadow: none
+                }
+
+                    .semi-timepicker-range-panel .semi-timepicker-lists > .semi-scrolllist .semi-scrolllist {
+                    }
+
+                        .semi-timepicker-range-panel .semi-timepicker-lists > .semi-scrolllist .semi-scrolllist-body, .semi-timepicker-range-panel .semi-timepicker-lists > .semi-scrolllist .semi-scrolllist-header {
+                            padding: var(--semi-cssvar-spacing-timePicker_range_panel_scrolllist_header_body-padding);
+                        }
+
+    .semi-timepicker .semi-timepicker-input {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        border-radius: var(--semi-cssvar-radius-timePicker_input);
+        align-items: center;
+    }
+
+    .semi-timepicker .semi-input-readonly {
+        cursor: pointer;
+    }
+
+.semi-timepicker {
+
+}
+    .semi-timepicker .semi-input-borderless:not(:focus-within):not(:hover){
+    }
+        .semi-timepicker .semi-input-borderless:not(:focus-within):not(:hover) .semi-input {
+        }
+            .semi-timepicker .semi-input-borderless:not(:focus-within):not(:hover) .semi-input-suffix {
+                opacity: 0;
+            }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-timepicker, .semi-portal-rtl .semi-timepicker {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-timepicker-panel, .semi-portal-rtl .semi-timepicker-panel {
+            direction: rtl;
+        }
+
+        .semi-rtl .semi-timepicker-range, .semi-portal-rtl .semi-timepicker-range {
+            direction: rtl
+        }
+
+            .semi-rtl .semi-timepicker-range-panel, .semi-portal-rtl .semi-timepicker-range-panel {
+            }
+                .semi-rtl .semi-timepicker-range-panel .semi-timepicker-lists, .semi-portal-rtl .semi-timepicker-range-panel .semi-timepicker-lists {
+                }
+                    .semi-rtl .semi-timepicker-range-panel .semi-timepicker-lists > .semi-scrolllist:not(:last-child), .semi-portal-rtl .semi-timepicker-range-panel .semi-timepicker-lists > .semi-scrolllist:not(:last-child) {
+                    }
+                        .semi-rtl .semi-timepicker-range-panel .semi-timepicker-lists > .semi-scrolllist:not(:last-child) .semi-scrolllist, .semi-portal-rtl .semi-timepicker-range-panel .semi-timepicker-lists > .semi-scrolllist:not(:last-child) .semi-scrolllist {
+                        }
+
+                            .semi-rtl .semi-timepicker-range-panel .semi-timepicker-lists > .semi-scrolllist:not(:last-child) .semi-scrolllist-body, .semi-portal-rtl .semi-timepicker-range-panel .semi-timepicker-lists > .semi-scrolllist:not(:last-child) .semi-scrolllist-body {
+                                border-right: 0;
+                                border-left: var(--semi-cssvar-width-timePicker_range_panel_scrolllist_body-border) solid var(--semi-cssvar-color-timePicker_range_picker_panel_split-border);
+                            }

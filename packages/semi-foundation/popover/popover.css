@@ -1,0 +1,249 @@
+
+
+@keyframes semi-popover-zoomIn {
+    from {
+        opacity: var(--semi-cssvar-motion-zoom_opacity-from);
+        transform: scale(var(--semi-cssvar-motion-zoom_scale-from), var(--semi-cssvar-motion-zoom_scale-from));
+    }
+
+    50% {
+        opacity: var(--semi-cssvar-motion-zoom_opacity-to);
+    }
+}
+
+@keyframes semi-popover-zoomOut {
+    from {
+        opacity: var(--semi-cssvar-motion-zoom_opacity-to);
+    }
+
+    60% {
+        opacity: var(--semi-cssvar-motion-zoom_opacity-from);
+        transform: scale(var(--semi-cssvar-motion-zoom_scale-from), var(--semi-cssvar-motion-zoom_scale-from));
+    }
+
+    to {
+        opacity: var(--semi-cssvar-motion-zoom_opacity-from);
+    }
+}
+
+
+.semi-popover {
+}
+
+    .semi-popover-wrapper {
+        position: relative;
+        background-color: var(--semi-cssvar-color-popover-bg-default);
+        backdrop-filter: var(--semi-cssvar-filter-popover-bg);
+    box-shadow: var(--semi-shadow-elevated);
+        z-index: var(--semi-cssvar-z-popover);
+        border-radius: var(--semi-cssvar-radius-popover);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        opacity: 0
+    }
+        /* position: absolute;*/
+        /* background-color: transparent;*/
+        /* box-shadow: 0 0 1px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.1);*/
+        /* padding: $spacing-extra-tight $spacing-tight;*/
+
+        .semi-popover-wrapper-show {
+            opacity: 1;
+        }
+
+    .semi-popover-trigger {
+        display: inline-block;
+        width: auto;
+        height: auto;
+    }
+
+    .semi-popover-title {
+        padding: var(--semi-cssvar-spacing-popover_title-padding);
+        border-bottom: var(--semi-cssvar-width-popover_title-border) solid var(--semi-cssvar-color-popover-border-default);
+    }
+
+    /* &-content {*/
+    /*     padding: 20px;*/
+    /* }*/
+
+    .semi-popover-confirm {
+        position: absolute;
+    }
+
+    .semi-popover-with-arrow {
+        padding: var(--semi-cssvar-spacing-popover_withArrow-padding);
+        box-sizing: border-box;
+    }
+    .semi-popover-animation-show{
+        animation: semi-popover-zoomIn var(--semi-cssvar-animation_duration-popover-in) var(--semi-cssvar-animation_function-popover-in);
+        animation-fill-mode: forwards;
+    }
+
+    .semi-popover-animation-hide{
+        animation: semi-popover-zoomOut var(--semi-cssvar-animation_duration-popover-out) var(--semi-cssvar-animation_function-popover-out);
+        animation-fill-mode: forwards;
+    }
+
+.semi-popover-icon-arrow {
+    & path:nth-child(1) {
+        fill: var(--semi-cssvar-color-popover-arrow-border);
+    }
+  
+    & path:nth-child(2) {
+        fill: var(--semi-cssvar-color-popover-arrow-bg);
+    }
+}/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-popover {
+}
+    .semi-popover-wrapper {
+    }
+        .semi-popover-wrapper .semi-popover-icon-arrow {
+            height: 8px;
+            width: var(--semi-cssvar-width-tooltip_arrow);
+            position: absolute;
+            color:unset;
+        }
+
+        .semi-popover-wrapper[x-placement='top'] {
+        }
+            .semi-popover-wrapper[x-placement='top'] .semi-popover-icon-arrow {
+                left: var(--semi-tooltip-arrow-offset-x, 50%);
+                transform: translateX(-50%);
+                bottom: (-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
+            }
+    .semi-popover-wrapper[x-placement='top'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='top'] .semi-popover-with-arrow {
+        min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
+    }
+        .semi-popover-wrapper[x-placement='topLeft'] {
+        }
+            .semi-popover-wrapper[x-placement='topLeft'] .semi-popover-icon-arrow {
+                bottom: (-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
+                left: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
+            }
+    .semi-popover-wrapper[x-placement='topLeft'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='topLeft'] .semi-popover-with-arrow {
+        min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
+    }
+        .semi-popover-wrapper[x-placement='topRight'] {
+        }
+            .semi-popover-wrapper[x-placement='topRight'] .semi-popover-icon-arrow {
+                bottom: (-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
+                right: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
+            }
+    .semi-popover-wrapper[x-placement='topRight'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='topRight'] .semi-popover-with-arrow {
+        min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
+    }
+        .semi-popover-wrapper[x-placement='leftTop'] {
+        }
+            .semi-popover-wrapper[x-placement='leftTop'] .semi-popover-icon-arrow {
+                width: 8px;
+                height: var(--semi-cssvar-height-tooltip_arrow_vertical);
+                right: (-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-x));
+                top: calc(var(--semi-cssvar-vertical-rate) * var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px);
+            }
+    .semi-popover-wrapper[x-placement='leftTop'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='leftTop'] .semi-popover-with-arrow {
+        min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px * 2);
+    }
+        .semi-popover-wrapper[x-placement='left'] {
+        }
+            .semi-popover-wrapper[x-placement='left'] .semi-popover-icon-arrow {
+                width: 8px;
+                height: var(--semi-cssvar-height-tooltip_arrow_vertical);
+                right: (-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-x));
+                top: var(--semi-tooltip-arrow-offset-y, 50%);
+                transform: translateY(-50%);
+            }
+    .semi-popover-wrapper[x-placement='left'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='left'] .semi-popover-with-arrow {
+        min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px * 2);
+    }
+        .semi-popover-wrapper[x-placement='leftBottom'] {
+        }
+            .semi-popover-wrapper[x-placement='leftBottom'] .semi-popover-icon-arrow {
+                width: 8px;
+                height: var(--semi-cssvar-height-tooltip_arrow_vertical);
+                right: (-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-x));
+                bottom: calc(var(--semi-cssvar-vertical-rate) * var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px);
+            }
+    .semi-popover-wrapper[x-placement='leftBottom'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='leftBottom'] .semi-popover-with-arrow {
+        min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px * 2);
+    }
+        .semi-popover-wrapper[x-placement='rightTop'] {
+        }
+            .semi-popover-wrapper[x-placement='rightTop'] .semi-popover-icon-arrow {
+                width: 8px;
+                height: var(--semi-cssvar-height-tooltip_arrow_vertical);
+                left: calc(-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-x));
+                top: calc(var(--semi-cssvar-vertical-rate) * var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px);
+                transform: rotate(180deg);
+            }
+    .semi-popover-wrapper[x-placement='rightTop'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='rightTop'] .semi-popover-with-arrow {
+        min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px * 2);
+    }
+        .semi-popover-wrapper[x-placement='right'] {
+        }
+            .semi-popover-wrapper[x-placement='right'] .semi-popover-icon-arrow {
+                width: 8px;
+                height: var(--semi-cssvar-height-tooltip_arrow_vertical);
+                left: calc(-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-x));
+                top: var(--semi-tooltip-arrow-offset-y, 50%);
+                transform: translateY(-50%) rotate(180deg);
+            }
+    .semi-popover-wrapper[x-placement='right'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='right'] .semi-popover-with-arrow {
+        min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px * 2);
+    }
+        .semi-popover-wrapper[x-placement='rightBottom'] {
+        }
+            .semi-popover-wrapper[x-placement='rightBottom'] .semi-popover-icon-arrow {
+                width: 8px;
+                height: var(--semi-cssvar-height-tooltip_arrow_vertical);
+                left: calc(-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-x));
+                bottom: calc(var(--semi-cssvar-vertical-rate) * var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px);
+                transform: rotate(180deg);
+            }
+    .semi-popover-wrapper[x-placement='rightBottom'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='rightBottom'] .semi-popover-with-arrow {
+        min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px * 2);
+    }
+        .semi-popover-wrapper[x-placement='bottomLeft'] {
+        }
+            .semi-popover-wrapper[x-placement='bottomLeft'] .semi-popover-icon-arrow {
+                top: (-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
+                left: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
+                transform: rotate(180deg);
+            }
+    .semi-popover-wrapper[x-placement='bottomLeft'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='bottomLeft'] .semi-popover-with-arrow {
+        min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
+    }
+        .semi-popover-wrapper[x-placement='bottom'] {
+        }
+            .semi-popover-wrapper[x-placement='bottom'] .semi-popover-icon-arrow {
+                top: (-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
+                left: var(--semi-tooltip-arrow-offset-x, 50%);
+                transform: translateX(-50%) rotate(180deg);
+            }
+    .semi-popover-wrapper[x-placement='bottom'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='bottom'] .semi-popover-with-arrow {
+        min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
+    }
+        .semi-popover-wrapper[x-placement='bottomRight'] {
+        }
+            .semi-popover-wrapper[x-placement='bottomRight'] .semi-popover-icon-arrow {
+                right: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
+                top: (-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
+                transform: rotate(180deg);
+            }
+    .semi-popover-wrapper[x-placement='bottomRight'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='bottomRight'] .semi-popover-with-arrow {
+        min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-popover {
+    &.semi-popover-rtl {
+        direction: rtl;
+    }
+}

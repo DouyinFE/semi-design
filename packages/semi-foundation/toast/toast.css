@@ -1,0 +1,176 @@
+
+.semi-toast {
+    pointer-events: none
+
+}
+
+    .semi-toast-wrapper {
+        position: fixed;
+        height: 0;
+        top: var(--semi-cssvar-spacing-toast_wrapper-top);
+        width: var(--semi-cssvar-width-toast_wrapper);
+        display: flex;
+        justify-content: center;
+        z-index: var(--semi-cssvar-z-toast)
+
+
+    }
+        .semi-toast-wrapper .semi-toast-innerWrapper{
+            width: fit-content;
+            height: fit-content;
+            text-align: center
+        }
+            .semi-toast-wrapper .semi-toast-innerWrapper-hover{
+            }
+                .semi-toast-wrapper .semi-toast-innerWrapper-hover .semi-toast-zero-height-wrapper{
+                    perspective: unset;
+                    perspective-origin: center center;
+                }
+
+
+    .semi-toast-zero-height-wrapper{
+        transition: all var(--semi-cssvar-animation_duration-toast-stack) var(--semi-cssvar-animation_function-toast-stack);
+        perspective-origin: center var(--semi-cssvar-spacing-toast-perspective-originY); ;
+        perspective: var(--semi-cssvar-spacing-toast-perspective);
+        height: 0;
+        overflow: visible;
+    }
+
+
+    .semi-toast-content {
+        pointer-events: all;
+    box-shadow: var(--semi-shadow-elevated);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        background-color: var(--semi-cssvar-color-toast-bg-default);
+        border-radius: var(--semi-cssvar-radius-toast_content);
+        padding: var(--semi-cssvar-spacing-toast_content-paddingTop) var(--semi-cssvar-spacing-toast_content-paddingRight) var(--semi-cssvar-spacing-toast_content-paddingBottom) var(--semi-cssvar-spacing-toast_content-paddingLeft);
+        display: inline-flex;
+        align-items: flex-start;
+        justify-content: center;
+        margin: var(--semi-cssvar-spacing-toast_content-margin);
+        font-weight: var(--semi-cssvar-font-toast_content-fontWeight);
+        color: var(--semi-cssvar-color-toast-text-default)
+    }
+
+        .semi-toast-content .semi-toast-close-button {
+            margin-top: var(--semi-cssvar-spacing-toast_content_close_btn-marginTop);
+            height: var(--semi-cssvar-width-icon-large);
+        }
+
+        .semi-toast-content .semi-toast-content-text {
+            margin-left: var(--semi-cssvar-spacing-toast_content_text-marginLeft);
+            margin-right: var(--semi-cssvar-spacing-toast_content_text-marginRight);
+            text-align: left;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+            /* word-wrap is an alias of overflow-wrap, word-wrap can take effect on more browsers, in order to prevent future changes, use both  */
+
+    .semi-toast-light {
+    }
+        .semi-toast-light.semi-toast-warning {
+        }
+            .semi-toast-light.semi-toast-warning .semi-toast-content {
+                background-color: var(--semi-cssvar-color-toast_warning_light-bg);
+                border: var(--semi-cssvar-width-toast_light-border) solid var(--semi-cssvar-color-toast_warning_light-border);
+            }
+            .semi-toast-light.semi-toast-warning .semi-toast-icon-warning {
+                color: var(--semi-cssvar-color-toast_warning_light-icon);
+            }
+
+        .semi-toast-light.semi-toast-success {
+        }
+            .semi-toast-light.semi-toast-success .semi-toast-content {
+                background-color: var(--semi-cssvar-color-toast_success_light-bg);
+                border: var(--semi-cssvar-width-toast_light-border) solid var(--semi-cssvar-color-toast_success_light-border);
+            }
+            .semi-toast-light.semi-toast-success .semi-toast-icon-success {
+                color: var(--semi-cssvar-color-toast_success_light-icon);
+            }
+
+        .semi-toast-light.semi-toast-info {
+        }
+            .semi-toast-light.semi-toast-info .semi-toast-content {
+                background-color: var(--semi-cssvar-color-toast_info_light-bg);
+                border: var(--semi-cssvar-width-toast_light-border) solid var(--semi-cssvar-color-toast_info_light-border);
+            }
+            .semi-toast-light.semi-toast-info .semi-toast-icon-info {
+                color: var(--semi-cssvar-color-toast_info_light-icon);
+            }
+
+        .semi-toast-light.semi-toast-error {
+        }
+            .semi-toast-light.semi-toast-error .semi-toast-content {
+                background-color: var(--semi-cssvar-color-toast_danger_light-bg);
+                border: var(--semi-cssvar-width-toast_light-border) solid var(--semi-cssvar-color-toast_danger_light-border);
+            }
+            .semi-toast-light.semi-toast-error .semi-toast-icon-error {
+                color: var(--semi-cssvar-color-toast_danger_light-icon);
+            }
+
+    .semi-toast .semi-toast-icon-warning {
+        color: var(--semi-cssvar-color-toast_warning-icon);
+    }
+
+    .semi-toast .semi-toast-icon-success {
+        color: var(--semi-cssvar-color-toast_success-icon);
+    }
+
+    .semi-toast .semi-toast-icon-info {
+        color: var(--semi-cssvar-color-toast_info-icon);
+    }
+
+    .semi-toast .semi-toast-icon-error {
+        color: var(--semi-cssvar-color-toast_danger-icon);
+    }
+
+    .semi-toast-animation-show{
+        animation: var(--semi-cssvar-animation_duration-toast-show) semi-toast-keyframe-toast-show var(--semi-cssvar-animation_function-toast-show) var(--semi-cssvar-animation_delay-toast-show);
+        animation-fill-mode: forwards;
+    }
+
+    .semi-toast-animation-hide{
+        animation: var(--semi-cssvar-animation_duration-toast-hide) semi-toast-keyframe-toast-hide var(--semi-cssvar-animation_function-toast-hide) var(--semi-cssvar-animation_delay-toast-hide);
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes semi-toast-keyframe-toast-show{
+        0%{
+            opacity: var(--semi-cssvar-animation_opacity-toast-show);
+            transform: translateY(var(--semi-cssvar-animation_transform_translateY-toast-show));
+        }
+        100%{
+            opacity: 1;
+        }
+    }
+
+    @keyframes semi-toast-keyframe-toast-hide{
+        0%{
+            opacity: 1;
+        }
+        100%{
+            opacity: var(--semi-cssvar-animation_opacity-toast-hide);
+            transform: translateY(var(--semi-cssvar-animation_transform_translateY-toast-hide));
+        }
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-toast {
+}
+
+    .semi-toast-rtl {
+        direction: rtl;
+    }
+
+    .semi-toast-rtl .semi-toast-content {
+    }
+        .semi-toast-rtl .semi-toast-content .semi-toast-content-text {
+            text-align: right;
+            margin-left: var(--semi-cssvar-spacing-toast_content_text-marginRight);
+            margin-right: var(--semi-cssvar-spacing-toast_content_text-marginLeft);
+        }

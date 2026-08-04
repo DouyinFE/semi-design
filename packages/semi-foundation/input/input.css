@@ -1,0 +1,796 @@
+
+@keyframes semi-input-active {
+    from {
+        transform: scale(var(--semi-cssvar-motion-scale_size-inactive));
+    }
+
+    to {
+        transform: scale(var(--semi-cssvar-motion-scale_size-active));
+    }
+}
+
+@keyframes semi-input-inactive {
+    from {
+        transform: scale(var(--semi-cssvar-motion-scale_size-active));
+    }
+
+    to {
+        transform: scale(var(--semi-cssvar-motion-scale_size-inactive));
+    }
+}
+
+.semi-input{
+    transition: background-color var(--semi-cssvar-transition_duration-input-bg) var(--semi-cssvar-transition_function-input-bg) var(--semi-cssvar-transition_delay-input-bg),
+    border var(--semi-cssvar-transition_duration-input-border) var(--semi-cssvar-transition_function-input-border) var(--semi-cssvar-transition_delay-input-border);
+    transform: scale(var(--semi-cssvar-transform_scale-input));
+}
+
+
+.semi-input-wrapper {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    box-shadow: none;
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    background-color: var(--semi-cssvar-color-input_default-bg-default);
+    border: var(--semi-cssvar-width-input_wrapper-border) var(--semi-cssvar-color-input_default-border-default) solid;
+    border-radius: var(--semi-cssvar-radius-input_wrapper);
+
+    width: 100%;
+    outline: none;
+    cursor: text;
+    box-sizing: border-box;
+    color: var(--semi-cssvar-color-input_default-text-default);
+
+    transition: background-color var(--semi-cssvar-transition_duration-input-bg) var(--semi-cssvar-transition_function-input-bg) var(--semi-cssvar-transition_delay-input-bg),
+     border var(--semi-cssvar-transition_duration-input-border) var(--semi-cssvar-transition_function-input-border) var(--semi-cssvar-transition_delay-input-border);
+
+    transform: scale(var(--semi-cssvar-transform_scale-input))
+}
+
+    .semi-input-wrapper-default {
+        height: var(--semi-cssvar-height-input_wrapper_default);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        line-height: var(--semi-cssvar-height-input_default);
+    }
+
+    .semi-input-wrapper-small {
+        height: var(--semi-cssvar-height-input_wrapper_small);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        line-height: var(--semi-cssvar-height-input_small);
+    }
+
+    .semi-input-wrapper-large {
+        height: var(--semi-cssvar-height-input_wrapper_large);
+    font-size: var(--semi-cssvar-font-size-header-6);
+    line-height: 22px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        line-height: var(--semi-cssvar-height-input_large);
+    }
+
+    .semi-input-wrapper:hover {
+        background-color: var(--semi-cssvar-color-input_default-bg-hover);
+        border-color: var(--semi-cssvar-color-input_default-border-hover);
+    }
+
+    /* &:active {*/
+    /*     background-color: $color-input_default-bg-active;*/
+    /* }*/
+
+    .semi-input-wrapper-focus {
+        background-color: var(--semi-cssvar-color-input_default-bg-focus);
+        border: var(--semi-cssvar-color-input_default-border-focus) solid var(--semi-cssvar-width-input_wrapper_focus-border)
+    }
+
+        .semi-input-wrapper-focus:hover {
+            background-color: var(--semi-cssvar-color-input_default-bg-focus-hover);
+            border-color: var(--semi-cssvar-color-input_default-border-focus);
+        }
+
+        .semi-input-wrapper-focus:active {
+            background-color: var(--semi-cssvar-color-input_default-bg-active);
+            border-color: var(--semi-cssvar-color-input_default-border-focus);
+        }
+
+    .semi-input-wrapper.semi-input-readonly {
+        cursor: default;
+    }
+
+    .semi-input-wrapper-error {
+        background-color: var(--semi-cssvar-color-input_danger-bg-default);
+        border-color: var(--semi-cssvar-color-input_danger-border-default)
+    }
+
+        .semi-input-wrapper-error:hover {
+            background-color: var(--semi-cssvar-color-input_danger-bg-hover);
+            border-color: var(--semi-cssvar-color-input_danger-border-hover);
+        }
+
+        .semi-input-wrapper-error.semi-input-wrapper-focus {
+            background-color: var(--semi-cssvar-color-input_danger-bg-focus);
+            border-color: var(--semi-cssvar-color-input_danger-border-focus);
+        }
+
+        .semi-input-wrapper-error:active {
+            background-color: var(--semi-cssvar-color-input_danger-bg-active);
+            border-color: var(--semi-cssvar-color-input_danger-border-focus);
+        }
+
+    .semi-input-wrapper-warning {
+        background-color: var(--semi-cssvar-color-input_warning-bg-default);
+        border-color: var(--semi-cssvar-color-input_warning-border-default)
+    }
+
+        .semi-input-wrapper-warning:hover {
+            background-color: var(--semi-cssvar-color-input_warning-bg-hover);
+            border-color: var(--semi-cssvar-color-input_warning-border-hover);
+        }
+
+        .semi-input-wrapper-warning.semi-input-wrapper-focus {
+            background-color: var(--semi-cssvar-color-input_warning-bg-focus);
+            border-color: var(--semi-cssvar-color-input_warning-border-focus);
+        }
+
+        .semi-input-wrapper-warning:active {
+            background-color: var(--semi-cssvar-color-input_warning-bg-active);
+            border-color: var(--semi-cssvar-color-input_warning-border-focus);
+        }
+
+    .semi-input-wrapper__with-prefix {
+        display: inline-flex;
+        align-items: center
+    }
+
+        .semi-input-wrapper__with-prefix .semi-input {
+            padding-left: 0;
+        }
+
+    .semi-input-wrapper__with-suffix {
+        display: inline-flex;
+        align-items: center
+    }
+
+        .semi-input-wrapper__with-suffix .semi-input {
+            padding-right: 0;
+        }
+
+    .semi-input-wrapper-clearable, .semi-input-wrapper-modebtn {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .semi-input-wrapper-hidden {
+        border: none;
+    }
+
+    .semi-input-wrapper .semi-icon {
+        color: var(--semi-cssvar-color-input-icon-default);
+    }
+
+    .semi-input-wrapper .semi-input-clearbtn, .semi-input-wrapper .semi-input-modebtn {
+        color: var(--semi-cssvar-color-input-icon-hover)
+    }
+
+        .semi-input-wrapper .semi-input-clearbtn > svg, .semi-input-wrapper .semi-input-modebtn > svg {
+            pointer-events: none;
+        }
+
+        .semi-input-wrapper .semi-input-clearbtn:hover, .semi-input-wrapper .semi-input-modebtn:hover {
+            cursor: pointer
+        }
+
+            .semi-input-wrapper .semi-input-clearbtn:hover .semi-icon, .semi-input-wrapper .semi-input-modebtn:hover .semi-icon {
+                color: var(--semi-cssvar-color-input-icon-hover);
+            }
+
+        .semi-input-wrapper .semi-input-clearbtn:focus-visible, .semi-input-wrapper .semi-input-modebtn:focus-visible {
+            border-radius: var(--semi-cssvar-radius-input_wrapper);
+            outline: var(--semi-cssvar-width-input_icon-outline) solid var(--semi-cssvar-color-input_icon-outline);
+            outline-offset: var(--semi-cssvar-width-input_icon-outlineOffset);
+        }
+
+    .semi-input-wrapper__with-suffix-icon.semi-input-wrapper-clearable:not(.semi-input-wrapper__with-suffix-hidden) {
+    }
+        .semi-input-wrapper__with-suffix-icon.semi-input-wrapper-clearable:not(.semi-input-wrapper__with-suffix-hidden) .semi-input-clearbtn {
+            min-width: var(--semi-cssvar-width-input-icon_clear_before_suffix);
+            justify-content: flex-end;
+        }
+
+    .semi-input-wrapper-modebtn.semi-input-wrapper-clearable {
+    }
+        .semi-input-wrapper-modebtn.semi-input-wrapper-clearable .semi-input-clearbtn {
+            min-width: var(--semi-cssvar-width-input-icon_clear_before_modebtn);
+            justify-content: center;
+        }
+
+    .semi-input-wrapper.semi-input-wrapper__with-append-only {
+    }
+        .semi-input-wrapper.semi-input-wrapper__with-append-only .semi-input {
+            border-radius: 0 var(--semi-cssvar-radius-input_wrapper) var(--semi-cssvar-radius-input_wrapper) 0
+        }
+
+            .semi-input-wrapper.semi-input-wrapper__with-append-only .semi-input:not(:last-child) {
+                border-right-style: none;
+                border-radius: 0;
+            }
+
+    .semi-input-wrapper.semi-input-wrapper__with-prepend-only {
+    }
+        .semi-input-wrapper.semi-input-wrapper__with-prepend-only .semi-input {
+            border-radius: var(--semi-cssvar-radius-input_wrapper) 0 0 var(--semi-cssvar-radius-input_wrapper)
+        }
+
+            .semi-input-wrapper.semi-input-wrapper__with-prepend-only .semi-input:not(:last-child) {
+                border-right-style: none;
+            }
+
+    .semi-input-wrapper.semi-input-wrapper__with-prepend, .semi-input-wrapper.semi-input-wrapper__with-append {
+        display: inline-flex;
+        align-items: center;
+        background-color: transparent
+    }
+
+        .semi-input-wrapper.semi-input-wrapper__with-prepend:hover, .semi-input-wrapper.semi-input-wrapper__with-append:hover {
+            background-color: transparent;
+        }
+
+        .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-focus, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-focus {
+            border: var(--semi-cssvar-width-input_wrapper_focus-border) var(--semi-cssvar-color-input_default-border-default) solid;
+            background-color: transparent;
+        }
+
+        .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input {
+            background-color: var(--semi-cssvar-color-input_default-bg-default);
+            border: var(--semi-cssvar-width-input_wrapper_focus-border) transparent solid
+        }
+
+            .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:hover, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:hover {
+                background-color: var(--semi-cssvar-color-input_default-bg-hover)
+            }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:hover + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:hover + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:hover ~ .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:hover ~ .semi-input-modebtn {
+                    background-color: var(--semi-cssvar-color-input_default-bg-hover);
+                }
+
+            .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:focus, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:focus {
+                border: var(--semi-cssvar-width-input_wrapper_focus-border) var(--semi-cssvar-color-input_default-border-focus) solid;
+                background-color: var(--semi-cssvar-color-input_default-bg-focus)
+            }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:focus.semi-input-sibling-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:focus.semi-input-sibling-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:focus.semi-input-sibling-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:focus.semi-input-sibling-modebtn {
+                    border-right-style: none;
+                }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:focus.semi-input-sibling-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:focus.semi-input-sibling-modebtn {
+                }
+
+                    .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:focus.semi-input-sibling-modebtn + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:focus.semi-input-sibling-modebtn + .semi-input-clearbtn {
+                        border-right-style: none;
+                    }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:focus + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:focus + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:focus ~ .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:focus ~ .semi-input-modebtn {
+                    box-sizing: border-box;
+                    background-color: var(--semi-cssvar-color-input_default-bg-focus);
+                }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:focus + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:focus + .semi-input-clearbtn {
+                    border: var(--semi-cssvar-width-input_wrapper_focus-border) var(--semi-cssvar-color-input_default-border-focus) solid;
+                    border-radius: 0 var(--semi-cssvar-radius-input_wrapper) var(--semi-cssvar-radius-input_wrapper) 0;
+                    border-left-style: none
+                }
+
+                    .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:focus + .semi-input-clearbtn:not(:last-child), .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:focus + .semi-input-clearbtn:not(:last-child) {
+                        border-radius: 0;
+                    }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:focus ~ .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:focus ~ .semi-input-modebtn {
+                    border: var(--semi-cssvar-width-input_wrapper_focus-border) var(--semi-cssvar-color-input_default-border-focus) solid;
+                    border-radius: 0 var(--semi-cssvar-radius-input_wrapper) var(--semi-cssvar-radius-input_wrapper) 0;
+                    border-left-style: none
+                }
+
+                    .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:focus ~ .semi-input-modebtn:not(:last-child), .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:focus ~ .semi-input-modebtn:not(:last-child) {
+                        border-radius: 0;
+                    }
+
+            /* when have prepend and append, only make the input have active bg color*/
+            .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:active, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:active {
+                background-color: var(--semi-cssvar-color-input_default-bg-active)
+            }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:active + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:active + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:active ~ .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:active ~ .semi-input-modebtn {
+                    background-color: var(--semi-cssvar-color-input_default-bg-active);
+                }
+
+            .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input-clearbtn:hover, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input-clearbtn:hover, .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input-modebtn:hover, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input-modebtn:hover {
+                background-color: var(--semi-cssvar-color-input_default-bg-default)
+            }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input-clearbtn:last-child, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input-clearbtn:last-child, .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input-modebtn:last-child, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input-modebtn:last-child, .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input-clearbtn:hover:last-child, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input-clearbtn:hover:last-child, .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input-modebtn:hover:last-child, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input-modebtn:hover:last-child {
+                    border-radius: 0 var(--semi-cssvar-radius-input_wrapper) var(--semi-cssvar-radius-input_wrapper) 0;
+                }
+
+        .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error {
+            border-color: transparent
+        }
+
+            .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input {
+                background-color: var(--semi-cssvar-color-input_danger-bg-default);
+                border-color: var(--semi-cssvar-color-input_danger-border-default)
+            }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input:hover, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input:hover {
+                    background-color: var(--semi-cssvar-color-input_danger-bg-hover);
+                    border-color: var(--semi-cssvar-color-input_danger-border-hover)
+                }
+
+                    .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input:hover + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input:hover + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input:hover + .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input:hover + .semi-input-modebtn {
+                        background-color: var(--semi-cssvar-color-input_danger-bg-hover);
+                    }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input:focus, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input:focus {
+                    background-color: var(--semi-cssvar-color-input_danger-bg-focus);
+                    border-color: var(--semi-cssvar-color-input_danger-border-focus)
+                }
+
+                    .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input:focus + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input:focus + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input:focus + .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input:focus + .semi-input-modebtn {
+                        background-color: var(--semi-cssvar-color-input_danger-bg-focus);
+                        border-color: var(--semi-cssvar-color-input_danger-border-focus);
+                    }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input:active, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input:active {
+                    background-color:  var(--semi-cssvar-color-input_danger-bg-active)
+                }
+
+                    .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input:active + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input:active + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input:active + .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input:active + .semi-input-modebtn {
+                        background-color: var(--semi-cssvar-color-input_danger-bg-active);
+                        border-color: var(--semi-cssvar-color-input_danger-border-focus);
+                    }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input-clearbtn:hover, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input-clearbtn:hover, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input-modebtn:hover, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input-modebtn:hover {
+                    background-color: var(--semi-cssvar-color-input_danger-bg-default)
+                }
+
+                    .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input-clearbtn:last-child, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input-clearbtn:last-child, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input-modebtn:last-child, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input-modebtn:last-child, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input-clearbtn:hover:last-child, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input-clearbtn:hover:last-child, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-error .semi-input-modebtn:hover:last-child, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-error .semi-input-modebtn:hover:last-child {
+                        border-radius: 0 var(--semi-cssvar-radius-input_wrapper) var(--semi-cssvar-radius-input_wrapper) 0;
+                    }
+
+        .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning {
+            border-color: transparent
+        }
+
+            .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input {
+                background-color: var(--semi-cssvar-color-input_warning-bg-default);
+                border-color: var(--semi-cssvar-color-input_warning-border-default)
+            }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input:hover, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input:hover {
+                    background-color: var(--semi-cssvar-color-input_warning-bg-hover);
+                    border-color: var(--semi-cssvar-color-input_warning-border-hover)
+                }
+
+                    .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input:hover + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input:hover + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input:hover + .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input:hover + .semi-input-modebtn {
+                        background-color: var(--semi-cssvar-color-input_warning-bg-hover);
+                    }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input:focus, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input:focus {
+                    background-color: var(--semi-cssvar-color-input_warning-bg-focus);
+                    border-color: var(--semi-cssvar-color-input_warning-border-focus)
+                }
+
+                    .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input:focus + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input:focus + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input:focus + .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input:focus + .semi-input-modebtn {
+                        background-color: var(--semi-cssvar-color-input_warning-bg-focus);
+                        border-color: var(--semi-cssvar-color-input_warning-border-focus);
+                    }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input:active, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input:active {
+                    background-color:  var(--semi-cssvar-color-input_warning-bg-active)
+                }
+
+                    .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input:active + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input:active + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input:active + .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input:active + .semi-input-modebtn {
+                        background-color: var(--semi-cssvar-color-input_warning-bg-active);
+                        border-color: var(--semi-cssvar-color-input_warning-border-focus);
+                    }
+
+                .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input-modebtn, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input-clearbtn:hover, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input-clearbtn:hover, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input-modebtn:hover, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input-modebtn:hover {
+                    background-color: var(--semi-cssvar-color-input_warning-bg-default)
+                }
+
+                    .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input-clearbtn:last-child, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input-clearbtn:last-child, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input-modebtn:last-child, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input-modebtn:last-child, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input-clearbtn:hover:last-child, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input-clearbtn:hover:last-child, .semi-input-wrapper.semi-input-wrapper__with-prepend.semi-input-wrapper-warning .semi-input-modebtn:hover:last-child, .semi-input-wrapper.semi-input-wrapper__with-append.semi-input-wrapper-warning .semi-input-modebtn:hover:last-child {
+                        border-radius: 0 var(--semi-cssvar-radius-input_wrapper) var(--semi-cssvar-radius-input_wrapper) 0;
+                    }
+
+    .semi-input-wrapper-disabled {
+        cursor: not-allowed;
+        color: var(--semi-cssvar-color-input_disabled-text-default);
+        background-color: var(--semi-cssvar-color-input_disabled-bg-default);
+        -webkit-text-fill-color: var(--semi-cssvar-color-input_disabled-text-default)
+    }
+        /* border: $border-thickness-control $color-input_disabled-border-default solid;*/
+        /* fix issue 670 in safari*/
+        .semi-input-wrapper-disabled:hover {
+            background-color: var(--semi-cssvar-color-input_disabled-bg-default);
+        }
+
+        .semi-input-wrapper-disabled .semi-input-append, .semi-input-wrapper-disabled .semi-input-prepend, .semi-input-wrapper-disabled .semi-input-suffix, .semi-input-wrapper-disabled .semi-input-prefix, .semi-input-wrapper-disabled .semi-icon {
+            color: var(--semi-cssvar-color-input_disabled-text-default);
+        }
+
+.semi-input {
+    border: none;
+    outline: none;
+    width: 100%;
+    color: inherit;
+    padding-left: var(--semi-cssvar-spacing-input-paddingLeft);
+    padding-right: var(--semi-cssvar-spacing-input-paddingRight);
+
+    background-color: transparent;
+    box-sizing: border-box
+}
+
+    .semi-input:placeholder-shown {
+        text-overflow: ellipsis;
+    }
+
+    .semi-input[type="password"]::-ms-reveal, .semi-input[type="password"]::-ms-clear {
+        display: none;
+    }
+    .semi-input[type="search"]::-webkit-search-cancel-button {
+        display: none;
+    }
+
+    .semi-input::placeholder {
+        color: var(--semi-cssvar-color-input_placeholder-text-default);
+    }
+
+    .semi-input-large {
+        height: var(--semi-cssvar-height-input_large);
+    font-size: var(--semi-cssvar-font-size-header-6);
+    line-height: 22px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        line-height: var(--semi-cssvar-height-input_large);
+    }
+
+    .semi-input-small {
+        height: var(--semi-cssvar-height-input_small);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        line-height: var(--semi-cssvar-height-input_small);
+    }
+
+    .semi-input-default {
+        height: var(--semi-cssvar-height-input_default);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        line-height: var(--semi-cssvar-height-input_default);
+    }
+
+    .semi-input-disabled {
+        cursor: not-allowed;
+        color: inherit;
+    }
+
+    /* &-prefix {*/
+    /*     padding: 0 $spacing-tight;*/
+    /*     display: flex;*/
+    /*     align-items: center;*/
+    /*     height: 100%;*/
+    /*     width: auto;*/
+    /*     white-space: nowrap;*/
+    /* }*/
+
+    .semi-input-inset-label {
+        margin: 0 var(--semi-cssvar-spacing-input_prefix_suffix-marginX);
+        font-weight: var(--semi-cssvar-font-input_prefix_suffix-fontWeight);
+        color: var(--semi-cssvar-color-input_prefix-text-default);
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    .semi-input-prefix, .semi-input-suffix {
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }
+
+        .semi-input-prefix-text, .semi-input-suffix-text {
+            margin: 0 var(--semi-cssvar-spacing-input_prefix_suffix-marginX);
+            color: var(--semi-cssvar-color-input_prefix-text-default);
+            font-weight: var(--semi-cssvar-font-input_prefix_suffix-fontWeight);
+            white-space: nowrap;
+        }
+
+        .semi-input-prefix-icon, .semi-input-suffix-icon {
+            color: var(--semi-cssvar-color-input-icon-default);
+            margin: var(--semi-cssvar-spacing-input_prefix_icon-marginY) var(--semi-cssvar-spacing-input_prefix_icon-marginX);
+        }
+
+    .semi-input-suffix {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    .semi-input-clearbtn, .semi-input-modebtn {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        justify-content: center;
+        min-width: var(--semi-cssvar-width-input-icon);
+    }
+
+    .semi-input-clearbtn + .semi-input-suffix {
+    }
+        .semi-input-clearbtn + .semi-input-suffix + .semi-input-suffix-text {
+            margin-left: 0;
+        }
+
+        .semi-input-clearbtn + .semi-input-suffix + .semi-input-suffix-icon {
+            margin-left: 0;
+        }
+
+    .semi-input-suffix-hidden {
+        display: none;
+    }
+
+    .semi-input-prepend, .semi-input-append {
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        background-color: var(--semi-cssvar-color-input_default-bg-default);
+        color: var(--semi-cssvar-color-input_prefix-text-default);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        flex-shrink: 0
+    }
+
+        .semi-input-prepend-icon, .semi-input-append-icon, .semi-input-prepend-text, .semi-input-append-text {
+            padding: var(--semi-cssvar-spacing-input_prepend-paddingY) var(--semi-cssvar-spacing-input_prepend-paddingX);
+        }
+
+    .semi-input-append {
+        border-radius: 0 var(--semi-cssvar-radius-input_wrapper) var(--semi-cssvar-radius-input_wrapper) 0;
+        border-left: var(--semi-cssvar-width-input_append-border) var(--semi-cssvar-color-input_default-border-default) solid;
+    }
+
+    .semi-input-prepend {
+        border-radius: var(--semi-cssvar-radius-input_wrapper) 0 0 var(--semi-cssvar-radius-input_wrapper);
+        border-right: var(--semi-cssvar-width-input_prepend-border) var(--semi-cssvar-color-input_default-border-default) solid;
+    }
+
+    .semi-input-disabled {
+    }
+        .semi-input-disabled::placeholder {
+            color: var(--semi-cssvar-color-input_disabled-text-default);
+        }
+
+    .semi-input-group {
+        display: inline-flex;
+        align-items: center;
+        align-content: center;
+        flex-wrap: wrap
+    }
+
+        .semi-input-group .semi-select, .semi-input-group .semi-tagInput, .semi-input-group .semi-cascader, .semi-input-group .semi-tree-select, .semi-input-group > .semi-input-wrapper {
+            border-radius: 0
+        }
+
+            .semi-input-group .semi-select:first-child, .semi-input-group .semi-tagInput:first-child, .semi-input-group .semi-cascader:first-child, .semi-input-group .semi-tree-select:first-child, .semi-input-group > .semi-input-wrapper:first-child {
+                border-radius: var(--semi-cssvar-radius-input_wrapper) 0 0 var(--semi-cssvar-radius-input_wrapper);
+            }
+
+            .semi-input-group .semi-select:last-child, .semi-input-group .semi-tagInput:last-child, .semi-input-group .semi-cascader:last-child, .semi-input-group .semi-tree-select:last-child, .semi-input-group > .semi-input-wrapper:last-child {
+                border-radius: 0 var(--semi-cssvar-radius-input_wrapper) var(--semi-cssvar-radius-input_wrapper) 0;
+            }
+
+            .semi-input-group .semi-select:not(:last-child), .semi-input-group .semi-tagInput:not(:last-child), .semi-input-group .semi-cascader:not(:last-child), .semi-input-group .semi-tree-select:not(:last-child), .semi-input-group > .semi-input-wrapper:not(:last-child) {
+                position: relative
+            }
+
+                .semi-input-group .semi-select:not(:last-child)::after, .semi-input-group .semi-tagInput:not(:last-child)::after, .semi-input-group .semi-cascader:not(:last-child)::after, .semi-input-group .semi-tree-select:not(:last-child)::after, .semi-input-group > .semi-input-wrapper:not(:last-child)::after {
+                    content: '';
+                    background-color: var(--semi-cssvar-color-input_group-border-default);
+                    width: var(--semi-cssvar-width-input_group_pseudo-border);
+                    position: absolute;
+                    right: -1px;
+                    top: 1px;
+                    bottom: 1px;
+                }
+                    /* height: $inputGroup-border-height;*/
+
+        .semi-input-group .semi-select{
+            overflow-y: visible;
+        }
+        
+        .semi-input-group .semi-input-number, .semi-input-group .semi-datepicker, .semi-input-group .semi-timepicker, .semi-input-group .semi-autocomplete {
+        }
+            
+            .semi-input-group .semi-input-number .semi-input-wrapper, .semi-input-group .semi-datepicker .semi-input-wrapper, .semi-input-group .semi-timepicker .semi-input-wrapper, .semi-input-group .semi-autocomplete .semi-input-wrapper, .semi-input-group .semi-input-number .semi-datepicker-range-input, .semi-input-group .semi-datepicker .semi-datepicker-range-input, .semi-input-group .semi-timepicker .semi-datepicker-range-input, .semi-input-group .semi-autocomplete .semi-datepicker-range-input {
+                border-radius: 0;
+            }
+
+            .semi-input-group .semi-input-number:first-child, .semi-input-group .semi-datepicker:first-child, .semi-input-group .semi-timepicker:first-child, .semi-input-group .semi-autocomplete:first-child {
+            }
+                .semi-input-group .semi-input-number:first-child .semi-input-wrapper, .semi-input-group .semi-datepicker:first-child .semi-input-wrapper, .semi-input-group .semi-timepicker:first-child .semi-input-wrapper, .semi-input-group .semi-autocomplete:first-child .semi-input-wrapper, .semi-input-group .semi-input-number:first-child .semi-datepicker-range-input, .semi-input-group .semi-datepicker:first-child .semi-datepicker-range-input, .semi-input-group .semi-timepicker:first-child .semi-datepicker-range-input, .semi-input-group .semi-autocomplete:first-child .semi-datepicker-range-input {
+                    border-radius: var(--semi-cssvar-radius-input_wrapper) 0 0 var(--semi-cssvar-radius-input_wrapper);
+                }
+
+            .semi-input-group .semi-input-number:last-child, .semi-input-group .semi-datepicker:last-child, .semi-input-group .semi-timepicker:last-child, .semi-input-group .semi-autocomplete:last-child {
+            }
+                .semi-input-group .semi-input-number:last-child .semi-input-wrapper, .semi-input-group .semi-datepicker:last-child .semi-input-wrapper, .semi-input-group .semi-timepicker:last-child .semi-input-wrapper, .semi-input-group .semi-autocomplete:last-child .semi-input-wrapper, .semi-input-group .semi-input-number:last-child .semi-datepicker-range-input, .semi-input-group .semi-datepicker:last-child .semi-datepicker-range-input, .semi-input-group .semi-timepicker:last-child .semi-datepicker-range-input, .semi-input-group .semi-autocomplete:last-child .semi-datepicker-range-input {
+                    border-radius: 0 var(--semi-cssvar-radius-input_wrapper) var(--semi-cssvar-radius-input_wrapper) 0;
+                }
+
+            .semi-input-group .semi-input-number:not(:last-child), .semi-input-group .semi-datepicker:not(:last-child), .semi-input-group .semi-timepicker:not(:last-child), .semi-input-group .semi-autocomplete:not(:last-child) {
+                position: relative
+            }
+
+                .semi-input-group .semi-input-number:not(:last-child)::after, .semi-input-group .semi-datepicker:not(:last-child)::after, .semi-input-group .semi-timepicker:not(:last-child)::after, .semi-input-group .semi-autocomplete:not(:last-child)::after {
+                    content: '';
+                    background-color: var(--semi-cssvar-color-input_group-border-default);
+                    width: var(--semi-cssvar-width-input_group_pseudo-border);
+                    position: absolute;
+                    right: -1px;
+                    top: 1px;
+                    bottom: 1px;
+                }
+                    /* height: $inputGroup-border-height;*/
+
+    .semi-input-group-wrapper {
+    }
+        .semi-input-group-wrapper-with-top-label {
+            margin-top: var(--semi-cssvar-spacing-input_group_withTopLabel-marginTop);
+            margin-bottom: var(--semi-cssvar-spacing-input_group_withTopLabel-marginBottom)
+        }
+
+            .semi-input-group-wrapper-with-top-label .semi-input-group {
+                display: flex;
+            }
+
+            .semi-input-group-wrapper-with-top-label .semi-input-group {
+            }
+                .semi-input-group-wrapper-with-top-label .semi-input-group .semi-form-field {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                }
+
+.semi-input-only_border{
+    background: transparent;
+    border-color: var(--semi-cssvar-color_input-default-border-only_border-default);
+    
+    &:hover{
+        background: transparent;
+        border-color: var(--semi-cssvar-color_input-default-border-only_border-hover);
+    }
+    &:focus-within{
+        background: transparent;
+    }
+
+}
+
+.semi-input-borderless{
+
+    &:not(:focus-within):not(:hover){
+        background-color:transparent;
+        border-color: transparent;
+    }
+
+    &:focus-within:not(:active){
+        background-color:transparent;
+    }
+
+
+    &.semi-input-wrapper-error:not(:focus-within){
+        border-color: var(--semi-cssvar-color-input_danger-border-focus);
+    }
+
+    &.semi-input-wrapper-warning:not(:focus-within){
+        border-color: var(--semi-cssvar-color-input_warning-border-focus);
+    }
+
+
+}/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+/*@import '../theme/variables.scss';*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-input-wrapper, .semi-portal-rtl .semi-input-wrapper {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-input-wrapper__with-prefix, .semi-portal-rtl .semi-input-wrapper__with-prefix {
+        }
+            .semi-rtl .semi-input-wrapper__with-prefix .semi-input, .semi-portal-rtl .semi-input-wrapper__with-prefix .semi-input {
+                padding-left: auto;
+                padding-right: 0;
+            }
+
+        .semi-rtl .semi-input-wrapper__with-suffix, .semi-portal-rtl .semi-input-wrapper__with-suffix {
+        }
+            .semi-rtl .semi-input-wrapper__with-suffix .semi-input, .semi-portal-rtl .semi-input-wrapper__with-suffix .semi-input {
+                padding-right: auto;
+                padding-left: 0;
+            }
+
+    .semi-rtl .semi-input, .semi-portal-rtl .semi-input {
+        padding-left: var(--semi-cssvar-spacing-input-paddingRight);
+        padding-right: var(--semi-cssvar-spacing-input-paddingLeft)
+    }
+
+
+        .semi-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix, .semi-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix, .semi-portal-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix, .semi-portal-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix {
+        }
+            .semi-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix + .semi-input-suffix-text, .semi-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix + .semi-input-suffix-text, .semi-portal-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix + .semi-input-suffix-text, .semi-portal-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix + .semi-input-suffix-text {
+                margin-left: auto;
+                margin-right: 0;
+            }
+
+            .semi-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix + .semi-input-suffix-icon, .semi-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix + .semi-input-suffix-icon, .semi-portal-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix + .semi-input-suffix-icon, .semi-portal-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix + .semi-input-suffix-icon {
+                margin-left: auto;
+                margin-right: 0;
+            }
+
+        .semi-rtl .semi-input-append, .semi-portal-rtl .semi-input-append {
+            border-left: 0;
+            border-right: var(--semi-cssvar-width-input_append-border) var(--semi-cssvar-color-input_default-border-default) solid;
+        }
+
+        .semi-rtl .semi-input-prepend, .semi-portal-rtl .semi-input-prepend {
+            border-right: 0;
+            border-left: var(--semi-cssvar-width-input_prepend-border) var(--semi-cssvar-color-input_default-border-default) solid;
+        }
+
+        .semi-rtl .semi-input-group, .semi-portal-rtl .semi-input-group {
+        }
+            .semi-rtl .semi-input-group .semi-select, .semi-portal-rtl .semi-input-group .semi-select, .semi-rtl .semi-input-group .semi-cascader, .semi-portal-rtl .semi-input-group .semi-cascader, .semi-rtl .semi-input-group .semi-tree-select, .semi-portal-rtl .semi-input-group .semi-tree-select, .semi-rtl .semi-input-group > .semi-input-wrapper, .semi-portal-rtl .semi-input-group > .semi-input-wrapper {
+            }
+
+                .semi-rtl .semi-input-group .semi-select:not(:last-child), .semi-portal-rtl .semi-input-group .semi-select:not(:last-child), .semi-rtl .semi-input-group .semi-cascader:not(:last-child), .semi-portal-rtl .semi-input-group .semi-cascader:not(:last-child), .semi-rtl .semi-input-group .semi-tree-select:not(:last-child), .semi-portal-rtl .semi-input-group .semi-tree-select:not(:last-child), .semi-rtl .semi-input-group > .semi-input-wrapper:not(:last-child), .semi-portal-rtl .semi-input-group > .semi-input-wrapper:not(:last-child) {
+                }
+
+                    .semi-rtl .semi-input-group .semi-select:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-select:not(:last-child)::after, .semi-rtl .semi-input-group .semi-cascader:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-cascader:not(:last-child)::after, .semi-rtl .semi-input-group .semi-tree-select:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-tree-select:not(:last-child)::after, .semi-rtl .semi-input-group > .semi-input-wrapper:not(:last-child)::after, .semi-portal-rtl .semi-input-group > .semi-input-wrapper:not(:last-child)::after {
+                        right: auto;
+                        left: -1px;
+                    }
+
+            .semi-rtl .semi-input-group .semi-input-number, .semi-portal-rtl .semi-input-group .semi-input-number {
+            }
+
+                .semi-rtl .semi-input-group .semi-input-number:not(:last-child), .semi-portal-rtl .semi-input-group .semi-input-number:not(:last-child) {
+                }
+
+                    .semi-rtl .semi-input-group .semi-input-number:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-input-number:not(:last-child)::after {
+                        right: auto;
+                        left: -1px;
+                    }
+
+    .semi-rtl .semi-input-textarea-wrapper, .semi-portal-rtl .semi-input-textarea-wrapper {
+        direction: rtl;
+    }
+
+    .semi-rtl .semi-input-textarea, .semi-portal-rtl .semi-input-textarea {
+    }
+
+        .semi-rtl .semi-input-textarea-counter, .semi-portal-rtl .semi-input-textarea-counter {
+            text-align: left;
+        }
+
+        .semi-rtl .semi-input-textarea-showClear, .semi-portal-rtl .semi-input-textarea-showClear {
+            padding-right: 0;
+            padding-left: var(--semi-cssvar-spacing-textarea_withShowClear-paddingRight);
+        }

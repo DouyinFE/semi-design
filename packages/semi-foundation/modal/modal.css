@@ -1,0 +1,344 @@
+
+.semi-modal {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    position: relative;
+    margin: var(--semi-cssvar-spacing-modal-marginY) var(--semi-cssvar-spacing-modal-marginX);
+    color: var(--semi-cssvar-color-modal_main-text)
+}
+    /* width: 600px;*/
+
+    .semi-modal-mask {
+        position: fixed;
+        top: var(--semi-cssvar-spacing-modal_mask-top);
+        right: var(--semi-cssvar-spacing-modal_mask-right);
+        left: var(--semi-cssvar-spacing-modal_mask-left);
+        bottom: var(--semi-cssvar-spacing-modal_mask-bottom);
+        background-color: var(--semi-cssvar-color-modal_mask-bg);
+        backdrop-filter: var(--semi-cssvar-filter-modal_mask-bg);
+        height: 100%;
+        z-index: var(--semi-cssvar-z-modal-mask)
+    }
+        /* filter: alpha(opacity=50);*/
+
+        .semi-modal-mask-hidden {
+            display: none;
+        }
+
+    .semi-modal-icon-wrapper {
+        display: inline-flex;
+        margin-right: var(--semi-cssvar-spacing-modal_icon_wrapper-marginRight);
+        width: var(--semi-cssvar-width-icon-extra-large);
+    }
+
+    .semi-modal-wrap {
+        position: fixed;
+        overflow: auto;
+        top: var(--semi-cssvar-spacing-modal_wrap-top);
+        right: var(--semi-cssvar-spacing-modal_wrap-right);
+        bottom: var(--semi-cssvar-spacing-modal_wrap-bottom);
+        left: var(--semi-cssvar-spacing-modal_wrap-left);
+        z-index: var(--semi-cssvar-z-modal);
+        -webkit-overflow-scrolling: touch;
+        outline: 0
+    }
+        .semi-modal-wrap-center{
+            display: flex;
+            align-items: flex-start;
+        }
+            /* Use flex-start + auto margin instead of `align-items: center`.*/
+            /* When content fits the viewport, `margin: auto` on the modal*/
+            /* centers it vertically. When content exceeds the viewport, auto*/
+            /* margins collapse to 0 per the flexbox spec, so the modal aligns*/
+            /* to the top of the wrap and the wrap's `overflow: auto` can scroll*/
+            /* to both the top and the bottom of the modal. This prevents the*/
+            /* "centered modal becomes unreachable" bug when content overflows.*/
+
+    .semi-modal-title {
+        display: inline-flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: var(--semi-cssvar-width-modal_title);
+        margin: var(--semi-cssvar-spacing-modal_title-margin);
+    }
+
+    .semi-modal-content {
+        position: relative;
+        display: flex;
+        height: var(--semi-cssvar-height-modal_content);
+        width: var(--semi-cssvar-width-modal_content);
+        box-sizing: border-box;
+        flex-direction: column;
+        background-color: var(--semi-cssvar-color-modal-bg);
+        backdrop-filter: var(--semi-cssvar-filter-modal_content-bg);
+        border: var(--semi-cssvar-width-modal_content-border) solid var(--semi-cssvar-color-modal_content-border);
+        border-radius: var(--semi-cssvar-radius-modal_content);
+        padding: var(--semi-cssvar-spacing-modal_content-paddingY) var(--semi-cssvar-spacing-modal_content-paddingX);
+        background-clip: padding-box;
+        overflow: hidden;
+        box-shadow: var(--semi-cssvar-shadow-modal_content);
+    }
+
+    .semi-modal-footerfill{
+        display: flex;
+    }
+
+    .semi-modal-content-height-set {
+        height: 100%;
+    }
+
+    .semi-modal-content-fullScreen {
+        border-radius: var(--semi-cssvar-radius-modal_content_fullscreen);
+        border: none;
+        height: 100%;
+        top: var(--semi-cssvar-spacing-modal_content_fullscreen-top);
+    }
+
+    /* &-close {*/
+    /* position: absolute;*/
+    /* right: 15px;*/
+    /* }*/
+
+    .semi-modal-header {
+        display: flex;
+        align-items: flex-start;
+        margin: var(--semi-cssvar-spacing-modal_header-marginY) var(--semi-cssvar-spacing-modal_header-marginX);
+        padding: var(--semi-cssvar-spacing-modal_header-paddingY) var(--semi-cssvar-spacing-modal_header-paddingX);
+        font-size: var(--semi-cssvar-font-modal_header-fontSize);
+        font-weight: var(--semi-cssvar-font-modal_header-fontWeight);
+        background-color: var(--semi-cssvar-color-modal_header-bg);
+        color: var(--semi-cssvar-color-modal_main-text);
+        border-bottom: var(--semi-cssvar-width-modal_header-border) solid var(--semi-cssvar-color-modal_header-border);
+    }
+
+    .semi-modal-body-wrapper {
+        display: flex;
+        align-items: flex-start;
+        margin: var(--semi-cssvar-spacing-modal_body_wrapper-marginY) var(--semi-cssvar-spacing-modal_body_wrapper-marginX);
+    }
+
+    .semi-modal-body {
+        flex: 1 1 auto;
+        margin: var(--semi-cssvar-spacing-modal_body-margin);
+        padding: var(--semi-cssvar-spacing-modal_body-padding);
+    }
+        /* padding: $spacing-loose;*/
+
+    .semi-modal-withIcon {
+        margin-left: var(--semi-cssvar-spacing-modal_content_withicon-marginLeft);
+    }
+
+    .semi-modal-footer {
+        margin: var(--semi-cssvar-spacing-modal_footer-marginY) var(--semi-cssvar-spacing-modal_footer-marginX);
+        padding: var(--semi-cssvar-spacing-modal_footer-paddingY) var(--semi-cssvar-spacing-modal_footer-paddingX);
+        text-align: right;
+        border-radius: var(--semi-cssvar-radius-modal_footer);
+        border-top: var(--semi-cssvar-width-modal_footer-border) solid var(--semi-cssvar-color-modal_footer-border);
+        background-color: var(--semi-cssvar-color-modal_footer-bg)
+    }
+        /* padding: $spacing-loose;*/
+
+        .semi-modal-footer .semi-button {
+            margin-left: var(--semi-cssvar-spacing-modal_footer_button-marginLeft);
+            margin-right: 0;
+        }
+
+    .semi-modal-confirm {
+    }
+        .semi-modal-confirm .semi-modal-header {
+            margin-bottom: var(--semi-cssvar-spacing-modal_confirm_header-marginBottom);
+        }
+
+        /* &-content-withIcon {*/
+        /* margin-left: 36px;*/
+        /* }*/
+
+        .semi-modal-confirm-icon-wrapper {
+            display: inline-flex;
+            margin-right: var(--semi-cssvar-spacing-modal_confirm_icon_wrapper-marginRight);
+            width: var(--semi-cssvar-width-icon-extra-large);
+        }
+
+        .semi-modal-confirm-icon {
+            display: inline-flex;
+            color: var(--semi-cssvar-color-modal_primary-icon);
+        }
+
+    .semi-modal-info-icon {
+        color: var(--semi-cssvar-color-modal_info-icon);
+    }
+
+    .semi-modal-success-icon {
+        color: var(--semi-cssvar-color-modal_success-icon);
+    }
+
+    .semi-modal-error-icon {
+        color: var(--semi-cssvar-color-modal_danger-icon);
+    }
+
+    .semi-modal-warning-icon {
+        color: var(--semi-cssvar-color-modal_warning-icon);
+    }
+
+    .semi-modal-small {
+        width: var(--semi-cssvar-width-modal_small);
+    }
+
+    .semi-modal-medium {
+        width: var(--semi-cssvar-width-modal_medium);
+    }
+
+    .semi-modal-large {
+        width: var(--semi-cssvar-width-modal_large);
+    }
+
+    .semi-modal-full-width {
+        width: var(--semi-cssvar-width-modal_full_width);
+    }
+
+.semi-modal-centered {
+    /* `margin: auto` (instead of `0 auto`) lets the wrap's `display: flex;*/
+    /* align-items: flex-start` produce visual vertical centering when content*/
+    /* fits, while degrading to top-aligned + scrollable when content overflows.*/
+    margin: auto;
+}
+
+.semi-modal-popup {
+    & .semi-modal-mask, & .semi-modal-wrap {
+        position: absolute;
+        overflow: hidden;
+    }
+}
+
+.semi-modal-fixed {
+    & .semi-modal-mask, & .semi-modal-wrap {
+        position: fixed;
+        overflow: hidden;
+    }
+}
+
+.semi-modal-displayNone {
+    display: none;
+}
+
+
+
+.semi-modal-content-animate-show {
+    animation: var(--semi-cssvar-animation_duration-modal-show) semi-modal-content-keyframe-show var(--semi-cssvar-animation_function-modal-show) var(--semi-cssvar-animation_delay-modal-show) forwards;
+    animation-fill-mode: forwards;
+}
+
+.semi-modal-content-animate-hide {
+    animation: var(--semi-cssvar-animation_duration-modal-hide) semi-modal-content-keyframe-hide var(--semi-cssvar-animation_function-modal-hide) var(--semi-cssvar-animation_delay-modal-hide) forwards;
+    animation-fill-mode: forwards;
+}
+
+.semi-modal-mask-animate-show {
+    animation: var(--semi-cssvar-animation_duration-modal_mask-show) semi-modal-mask-keyframe-show var(--semi-cssvar-animation_function-modal_mask-show) var(--semi-cssvar-animation_delay-modal_mask-show) forwards;
+    animation-fill-mode: forwards;
+}
+
+.semi-modal-mask-animate-hide {
+    animation: var(--semi-cssvar-animation_duration-modal_mask-hide) semi-modal-mask-keyframe-hide var(--semi-cssvar-animation_function-modal_mask-hide) var(--semi-cssvar-animation_delay-modal_mask-hide) forwards;
+    animation-fill-mode: forwards;
+}
+
+
+
+@keyframes semi-modal-content-keyframe-show {
+
+    0% {
+        opacity: var(--semi-cssvar-animation_opacity-modal_content_open);
+        transform: scale(var(--semi-cssvar-animation_transform_scale-modal_content-open));
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes semi-modal-content-keyframe-hide {
+
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: var(--semi-cssvar-animation_opacity-modal_content-close);
+        transform: scale(var(--semi-cssvar-animation_transform_scale-modal_content-close));
+    }
+}
+
+
+@keyframes semi-modal-mask-keyframe-show {
+
+    0% {
+        opacity: var(--semi-cssvar-animation_opacity-modal_mask-open);
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes semi-modal-mask-keyframe-hide {
+
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: var(--semi-cssvar-animation_opacity-modal_mask-close);
+    }
+}/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-modal {
+}
+
+    .semi-modal-rtl {
+        direction: rtl;
+    }
+
+    .semi-modal-icon-wrapper {
+
+    }
+        .semi-modal-rtl .semi-modal-icon-wrapper, .semi-modal-confirm-rtl .semi-modal-icon-wrapper {
+            margin-right: 0;
+            margin-left: var(--semi-cssvar-spacing-modal_confirm_icon_wrapper-marginRight);
+        }
+
+    .semi-modal-withIcon {
+    }
+        .semi-modal-rtl .semi-modal-withIcon, .semi-modal-confirm-rtl .semi-modal-withIcon {
+            margin-left: 0;
+            margin-right: var(--semi-cssvar-spacing-modal_content_withicon-marginLeft);
+        }
+
+    .semi-modal-footer {
+    }
+        .semi-modal-rtl .semi-modal-footer, .semi-modal-confirm-rtl .semi-modal-footer {
+            text-align: left
+        }
+            .semi-modal-rtl .semi-modal-footer .semi-button, .semi-modal-confirm-rtl .semi-modal-footer .semi-button {
+                margin-left: var(--semi-cssvar-spacing-modal_footer_button-marginRight);
+                margin-right: var(--semi-cssvar-spacing-modal_footer_button-marginLeft);
+            }
+
+    .semi-modal-confirm {
+    }
+
+        .semi-modal-confirm-rtl {
+            direction: rtl;
+        }
+
+        .semi-modal-confirm .semi-modal-confirm-rtl .semi-button {
+            margin-left: var(--semi-cssvar-spacing-modal_footer_button-marginRight);
+            margin-right: var(--semi-cssvar-spacing-modal_footer_button-marginLeft);
+        }

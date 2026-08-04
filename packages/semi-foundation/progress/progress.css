@@ -1,0 +1,138 @@
+
+.semi-progress {
+    display: flex;
+    align-items: center
+}
+
+    .semi-progress-track {
+        background-color: var(--semi-cssvar-color-progress_default-bg);
+        border-radius: var(--semi-cssvar-radius-progress_track);
+    }
+
+    .semi-progress-horizontal {
+        height: var(--semi-cssvar-height-progress_horizontal);
+        margin-top: var(--semi-cssvar-spacing-progress_horizontal-marginY);
+        margin-bottom: var(--semi-cssvar-spacing-progress_horizontal-marginY)
+    }
+
+        .semi-progress-horizontal.semi-progress-large {
+            height: var(--semi-cssvar-height-progress_horizontal_large);
+        }
+
+        .semi-progress-horizontal .semi-progress-track {
+            height: 100%;
+            width: 100%;
+        }
+
+        .semi-progress-horizontal .semi-progress-track-inner {
+            height: 100%;
+            background-color: var(--semi-cssvar-color-progress_track_inner-bg);
+            border-radius: var(--semi-cssvar-radius-progress_track_inner);
+            transition: width var(--semi-cssvar-motion-progress-transition_duration);
+            transition-timing-function: var(--semi-cssvar-motion-progress-transition_timing_function);
+        }
+
+        .semi-progress-horizontal .semi-progress-line-text {
+            min-width: var(--semi-cssvar-width-progress_line_text);
+            font-weight: var(--semi-cssvar-font-progress_line_text-fontWeight);
+            margin-left: var(--semi-cssvar-spacing-progress_line_text-marginLeft);
+            color: var(--semi-cssvar-color-progress_line_text-text);
+        }
+            /* margin-left: $spacing-tight;*/
+
+    .semi-progress-vertical {
+        width: var(--semi-cssvar-width-progress_vertical);
+        display: inline-flex;
+        height: 100%;
+        margin-left: var(--semi-cssvar-spacing-progress_vertical-marginX);
+        margin-right: var(--semi-cssvar-spacing-progress_vertical-marginX);
+        flex-direction: column
+    }
+
+        .semi-progress-vertical.semi-progress-large {
+            width: var(--semi-cssvar-width-progress_vertical_large);
+        }
+
+        .semi-progress-vertical .semi-progress-track {
+            height: 100%;
+            width: 100%;
+        }
+
+        .semi-progress-vertical .semi-progress-track-inner {
+            background-color: var(--semi-cssvar-color-progress_track_inner-bg);
+            border-radius: var(--semi-cssvar-radius-progress_track_inner);
+            width: 100%;
+            transition: height var(--semi-cssvar-motion-progress-transition_duration);
+            transition-timing-function: var(--semi-cssvar-motion-progress-transition_timing_function);
+        }
+
+        .semi-progress-vertical .semi-progress-line-text {
+            font-weight: var(--semi-cssvar-font-progress_line_text-fontWeight);
+            margin-top: var(--semi-cssvar-spacing-progress_vertical_line_text-marginTop);
+        }
+
+    .semi-progress-circle {
+        position: relative;
+        display: inline-block
+    }
+
+        .semi-progress-circle-ring {
+            display: block;
+        }
+
+        .semi-progress-circle-ring-track {
+            stroke: var(--semi-cssvar-color-progress_default-bg);
+        }
+
+        .semi-progress-circle-ring-inner {
+            transition: stroke-dashoffset var(--semi-cssvar-motion-progress-transition_duration);
+            transition-timing-function: var(--semi-cssvar-motion-progress-transition_timing_function);
+
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+
+            stroke: var(--semi-cssvar-color-progress_track_inner-bg);
+        }
+
+        .semi-progress-circle-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            text-align: center;
+            transform: translate(-50%, -50%);
+            user-select: none;
+            color: var(--semi-cssvar-color-progress_circle-text);
+        }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-progress, .semi-portal-rtl .semi-progress {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-progress-horizontal, .semi-portal-rtl .semi-progress-horizontal {
+        }
+            .semi-rtl .semi-progress-horizontal .semi-progress-line-text, .semi-portal-rtl .semi-progress-horizontal .semi-progress-line-text {
+                margin-left: 0;
+                margin-right: var(--semi-cssvar-spacing-progress_line_text-marginRight);
+            }
+
+        .semi-rtl .semi-progress-circle, .semi-portal-rtl .semi-progress-circle {
+        }
+
+            .semi-rtl .semi-progress-circle-ring-inner, .semi-portal-rtl .semi-progress-circle-ring-inner {
+                transform: rotate(-90deg);
+                transform-origin: 50% 50%;
+            }
+
+            .semi-rtl .semi-progress-circle-text, .semi-portal-rtl .semi-progress-circle-text {
+                left: auto;
+                right: 50%;
+                transform: translate(50%, -50%);
+            }

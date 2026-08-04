@@ -1,0 +1,408 @@
+
+.semi-typography {
+    color: var(--semi-cssvar-color-typography_default-text-default);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular)
+
+}
+
+    .semi-typography.semi-typography-secondary {
+        color: var(--semi-cssvar-color-typography_secondary-text-default);
+    }
+
+    .semi-typography.semi-typography-tertiary {
+        color: var(--semi-cssvar-color-typography_tertiary-text-default);
+    }
+
+    .semi-typography.semi-typography-quaternary {
+        color: var(--semi-cssvar-color-typography_quaternary-text-default);
+    }
+
+    .semi-typography.semi-typography-warning {
+        color: var(--semi-cssvar-color-typography_warning-text-default);
+    }
+
+    .semi-typography.semi-typography-success {
+        color: var(--semi-cssvar-color-typography_success-text-default);
+    }
+
+    .semi-typography.semi-typography-danger {
+        color: var(--semi-cssvar-color-typography_danger-text-default);
+    }
+
+    .semi-typography.semi-typography-link {
+        color: var(--semi-cssvar-color-typography_link-text-default);
+        font-weight: var(--semi-cssvar-font-typography_link-fontWeight);
+    }
+
+    .semi-typography.semi-typography-disabled {
+        color: var(--semi-cssvar-color-typography_disabled-text-default);
+        cursor: not-allowed;
+        user-select: none
+    }
+        .semi-typography.semi-typography-disabled.semi-typography-link {
+            color: var(--semi-cssvar-color-typography_link-text-disabled);
+        }
+
+    .semi-typography-icon {
+        margin-right: var(--semi-cssvar-spacing-typography_iconPrefix-marginRight);
+        vertical-align: middle;
+        color: inherit;
+    }
+        /* display: inline-flex;*/
+
+    .semi-typography-small {
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        font-weight: var(--semi-cssvar-font-typography_smallText-regular-fontWeight)
+    }
+        .semi-typography-small.semi-typography-paragraph{
+            font-weight: var(--semi-cssvar-font-typography_smallParagraph-regular-fontWeight);
+        }
+
+    .semi-typography code {
+        border: var(--semi-cssvar-width-typography_code-border) solid var(--semi-cssvar-color-typography_code-border-default);
+        border-radius: var(--semi-cssvar-radius-typography_code);
+        color: var(--semi-cssvar-color-typography_code-text-default);
+        background-color: var(--semi-cssvar-color-typography_code-bg-default);
+        padding: var(--semi-cssvar-spacing-super-tight) var(--semi-cssvar-spacing-extra-tight);
+    }
+
+    .semi-typography mark {
+        background-color: var(--semi-cssvar-color-typography_mark-bg-default);
+    }
+
+    .semi-typography u {
+        text-decoration: underline;
+        text-decoration-skip-ink: auto;
+    }
+
+    .semi-typography del {
+        text-decoration: line-through;
+    }
+
+    .semi-typography strong {
+        font-weight: var(--semi-cssvar-font-typography_strong-fontWeight);
+    }
+
+    .semi-typography a {
+        display: inline;
+        color: var(--semi-cssvar-color-typography_link-text-default);
+        cursor: pointer;
+        text-decoration: none
+    }
+
+        .semi-typography a:visited {
+            color: var(--semi-cssvar-color-typography_link-text-visited);
+        }
+
+        .semi-typography a:hover {
+            color: var(--semi-cssvar-color-typography_link-text-hover);
+        }
+
+        .semi-typography a:active {
+            color: var(--semi-cssvar-color-typography_link-text-active);
+        }
+
+        .semi-typography a .semi-typography-link-underline:hover {
+            border-bottom: var(--semi-cssvar-width-typography_link-border) solid var(--semi-cssvar-color-typography_link-text-hover);
+            margin-bottom: -var(--semi-cssvar-width-typography_link-border);
+        }
+
+        .semi-typography a .semi-typography-link-underline:active {
+            border-bottom: var(--semi-cssvar-width-typography_link-border) solid var(--semi-cssvar-color-typography_link-text-active);
+            margin-bottom: -var(--semi-cssvar-width-typography_link-border);
+        }
+
+    /* ============ Ellipsis ============*/
+    /* &-ellipsis {*/
+    /*   display: block;*/
+    /* }*/
+
+    .semi-typography-ellipsis-single-line {
+        overflow: hidden;
+    }
+        /* display: block;*/
+
+    .semi-typography-ellipsis-multiple-line {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden
+    }
+
+        .semi-typography-ellipsis-multiple-line.semi-typography-ellipsis-multiple-line-text {
+            display: -webkit-inline-box;
+        }
+            /* inline-block only works in the Text component, keeping the original external inline performance*/
+
+    .semi-typography-ellipsis-overflow-ellipsis {
+        display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis
+    }
+
+        .semi-typography-ellipsis-overflow-ellipsis.semi-typography-ellipsis-overflow-ellipsis-text {
+            display: inline-block;
+            max-width: 100%;
+            vertical-align: top;
+        }
+            /* inline-block only works in the Text component, keeping the original external inline performance*/
+            /* Ensure that Text component can be limited by the parent's width when no specific width is set*/
+
+    .semi-typography-ellipsis-expand {
+        display: inline;
+        margin-left: var(--semi-cssvar-spacing-typography_expandText-marginLeft);
+    }
+
+    /* ============ Copyable ============*/
+
+    .semi-typography-action-copy {
+        display: inline-flex;
+        vertical-align: middle;
+        padding: var(--semi-cssvar-spacing-typography_copyIcon-padding);
+        margin-left: var(--semi-cssvar-spacing-typography_copyIcon-marginLeft);
+    }
+
+    .semi-typography a.semi-typography-action-copy-icon {
+        display: inline-flex;
+    }
+
+    .semi-typography-action-copied {
+        display: inline-flex;
+        padding: var(--semi-cssvar-spacing-typography_copyIcon-padding);
+        margin-left: var(--semi-cssvar-spacing-typography_copyIcon-marginLeft);
+        color: var(--semi-cssvar-color-typography_copied-text-success)
+    }
+
+        .semi-typography-action-copied .semi-icon {
+            vertical-align: middle;
+            color: var(--semi-cssvar-color-typography_copied-icon-success);
+        }
+
+    .semi-typography-paragraph {
+        margin: var(--semi-cssvar-spacing-typography_title_paragraph-margin);
+    }
+
+/* ============ Title ============*/
+h1.semi-typography,
+.semi-typography-h1.semi-typography {
+    font-size: var(--semi-cssvar-font-size-header-1);
+    line-height: 44px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    font-weight: var(--semi-cssvar-font-typography_title1-fontWeight);
+    margin: var(--semi-cssvar-spacing-typography_title_h1-margin);
+
+    &.semi-typography-h1-weight-light {
+        font-weight: var(--semi-cssvar-font-typography_title1-light-fontWeight);
+    }
+
+    &.semi-typography-h1-weight-regular {
+        font-weight: var(--semi-cssvar-font-typography_title1-regular-fontWeight);
+    }
+
+    &.semi-typography-h1-weight-medium {
+        font-weight: var(--semi-cssvar-font-typography_title1-medium-fontWeight);
+    }
+
+    &.semi-typography-h1-weight-semibold {
+        font-weight: var(--semi-cssvar-font-typography_title1-semibold-fontWeight);
+    }
+
+    &.semi-typography-h1-weight-bold {
+        font-weight: var(--semi-cssvar-font-typography_title1-bold-fontWeight);
+    }
+
+}
+
+h2.semi-typography,
+.semi-typography-h2.semi-typography {
+    font-size: var(--semi-cssvar-font-size-header-2);
+    line-height: 40px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    font-weight: var(--semi-cssvar-font-typography_title2-fontWeight);
+    margin: var(--semi-cssvar-spacing-typography_title_h2-margin);
+
+    &.semi-typography-h2-weight-light {
+        font-weight: var(--semi-cssvar-font-typography_title2-light-fontWeight);
+    }
+
+    &.semi-typography-h2-weight-regular {
+        font-weight: var(--semi-cssvar-font-typography_title2-regular-fontWeight);
+    }
+
+    &.semi-typography-h2-weight-medium {
+        font-weight: var(--semi-cssvar-font-typography_title2-medium-fontWeight);
+    }
+
+    &.semi-typography-h2-weight-semibold {
+        font-weight: var(--semi-cssvar-font-typography_title2-semibold-fontWeight);
+    }
+
+    &.semi-typography-h2-weight-bold {
+        font-weight: var(--semi-cssvar-font-typography_title2-bold-fontWeight);
+    }
+
+}
+
+h3.semi-typography,
+.semi-typography-h3.semi-typography {
+    font-size: var(--semi-cssvar-font-size-header-3);
+    line-height: 32px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    font-weight: var(--semi-cssvar-font-typography_title3-fontWeight);
+    margin: var(--semi-cssvar-spacing-typography_title_h3-margin);
+
+    &.semi-typography-h3-weight-light {
+        font-weight: var(--semi-cssvar-font-typography_title3-light-fontWeight);
+    }
+
+    &.semi-typography-h3-weight-regular {
+        font-weight: var(--semi-cssvar-font-typography_title3-regular-fontWeight);
+    }
+
+    &.semi-typography-h3-weight-medium {
+        font-weight: var(--semi-cssvar-font-typography_title3-medium-fontWeight);
+    }
+
+    &.semi-typography-h3-weight-semibold {
+        font-weight: var(--semi-cssvar-font-typography_title3-semibold-fontWeight);
+    }
+
+    &.semi-typography-h3-weight-bold {
+        font-weight: var(--semi-cssvar-font-typography_title3-bold-fontWeight);
+    }
+
+}
+
+h4.semi-typography,
+.semi-typography-h4.semi-typography {
+    font-size: var(--semi-cssvar-font-size-header-4);
+    line-height: 28px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    font-weight: var(--semi-cssvar-font-typography_title4-fontWeight);
+    margin: var(--semi-cssvar-spacing-typography_title_h4-margin);
+
+    &.semi-typography-h4-weight-light {
+        font-weight: var(--semi-cssvar-font-typography_title4-light-fontWeight);
+    }
+
+    &.semi-typography-h4-weight-regular {
+        font-weight: var(--semi-cssvar-font-typography_title4-regular-fontWeight);
+    }
+
+    &.semi-typography-h4-weight-medium {
+        font-weight: var(--semi-cssvar-font-typography_title4-medium-fontWeight);
+    }
+
+    &.semi-typography-h4-weight-semibold {
+        font-weight: var(--semi-cssvar-font-typography_title4-semibold-fontWeight);
+    }
+
+    &.semi-typography-h4-weight-bold {
+        font-weight: var(--semi-cssvar-font-typography_title4-bold-fontWeight);
+    }
+}
+
+h5.semi-typography,
+.semi-typography-h5.semi-typography {
+    font-size: var(--semi-cssvar-font-size-header-5);
+    line-height: 24px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    font-weight: var(--semi-cssvar-font-typography_title5-fontWeight);
+    margin: var(--semi-cssvar-spacing-typography_title_h5-margin);
+
+    &.semi-typography-h5-weight-light {
+        font-weight: var(--semi-cssvar-font-typography_title5-light-fontWeight);
+    }
+
+    &.semi-typography-h5-weight-regular {
+        font-weight: var(--semi-cssvar-font-typography_title5-regular-fontWeight);
+    }
+
+    &.semi-typography-h5-weight-medium {
+        font-weight: var(--semi-cssvar-font-typography_title5-medium-fontWeight);
+    }
+
+    &.semi-typography-h5-weight-semibold {
+        font-weight: var(--semi-cssvar-font-typography_title5-semibold-fontWeight);
+    }
+
+    &.semi-typography-h5-weight-bold {
+        font-weight: var(--semi-cssvar-font-typography_title5-bold-fontWeight);
+    }
+}
+
+h6.semi-typography,
+.semi-typography-h6.semi-typography {
+    font-size: var(--semi-cssvar-font-size-header-6);
+    line-height: 22px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    font-weight: var(--semi-cssvar-font-typography_title6-fontWeight);
+    margin: var(--semi-cssvar-spacing-typography_title_h6-margin);
+
+    &.semi-typography-h6-weight-light {
+        font-weight: var(--semi-cssvar-font-typography_title6-light-fontWeight);
+    }
+
+    &.semi-typography-h6-weight-regular {
+        font-weight: var(--semi-cssvar-font-typography_title6-regular-fontWeight);
+    }
+
+    &.semi-typography-h6-weight-medium {
+        font-weight: var(--semi-cssvar-font-typography_title6-medium-fontWeight);
+    }
+
+    &.semi-typography-h6-weight-semibold {
+        font-weight: var(--semi-cssvar-font-typography_title6-semibold-fontWeight);
+    }
+
+    &.semi-typography-h6-weight-bold {
+        font-weight: var(--semi-cssvar-font-typography_title6-bold-fontWeight);
+    }
+
+}
+
+/* ============ Paragraph ============*/
+p.semi-typography-extended,
+.semi-typography-paragraph.semi-typography-extended {
+    line-height: var(--semi-cssvar-font-typography_paragraph_extended-lineHeight);
+    font-weight: var(--semi-cssvar-font-typography_normalParagraph-regular-fontWeight);
+}/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-typography, .semi-portal-rtl .semi-typography {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-typography-link a, .semi-portal-rtl .semi-typography-link a, .semi-rtl .semi-typography a, .semi-portal-rtl .semi-typography a {
+            display: inline-block;
+        }
+
+        .semi-rtl .semi-typography-icon, .semi-portal-rtl .semi-typography-icon {
+            margin-right: auto;
+            margin-left: var(--semi-cssvar-spacing-typography_iconPrefix-marginRight);
+        }
+
+        .semi-rtl .semi-typography-ellipsis-expand, .semi-portal-rtl .semi-typography-ellipsis-expand {
+            margin-left: auto;
+        }
+            /* 这里先注释掉*/
+            /* margin-right: 8px; */
+
+        .semi-rtl .semi-typography-action-copy, .semi-portal-rtl .semi-typography-action-copy {
+            margin-left: auto;
+            margin-right: var(--semi-cssvar-spacing-typography_copyIcon-marginLeft);
+        }
+
+        .semi-rtl .semi-typography-action-copied, .semi-portal-rtl .semi-typography-action-copied {
+            margin-left: auto;
+            margin-right: var(--semi-cssvar-spacing-typography_copyIcon-marginLeft);
+        }

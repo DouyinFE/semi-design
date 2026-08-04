@@ -1,0 +1,213 @@
+
+.semi-page {
+    display: flex;
+    list-style: none;
+    padding: var(--semi-cssvar-spacing-pagination-padding);
+    align-items: center;
+    font-family: var(--semi-cssvar-font-family-regular);
+    margin-block-start: 0;
+    margin-block-end: 0
+}
+
+    .semi-page-small {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        font-weight: var(--semi-cssvar-font-pagination_small-fontWeight);
+        color: var(--semi-cssvar-color-pagination-text-default);
+        padding: var(--semi-cssvar-spacing-pagination_small-paddingY) var(--semi-cssvar-spacing-pagination_small-paddingX);
+    }
+
+    .semi-page-disabled {
+        cursor: not-allowed
+    }
+
+        .semi-page-disabled .semi-page-total {
+            color: var(--semi-cssvar-color-pagination_item-text-disabled);
+        }
+
+    .semi-page-item {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        min-width: var(--semi-cssvar-width-pagination_item-minWidth);
+        border: var(--semi-cssvar-width-pagination_item_border) solid var(--semi-cssvar-color-pagination_item-border-default);
+        cursor: pointer;
+        user-select: none;
+        height: var(--semi-cssvar-height-pagination_item);
+        margin-left: var(--semi-cssvar-spacing-pagination_item-marginLeft);
+        margin-right: var(--semi-cssvar-spacing-pagination_item-marginRight);
+        font-weight: var(--semi-cssvar-font-pagination_item-fontWeight);
+        color: var(--semi-cssvar-color-pagination_item-text-default);
+        border-radius: var(--semi-cssvar-radius-pagination_item);
+        text-align: center;
+        line-height: var(--semi-cssvar-height-pagination_item);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color var(--semi-cssvar-transition_duration-pagination_item-bg) var(--semi-cssvar-transition_function-pagination_item-bg) var(--semi-cssvar-transition_delay-pagination_item-bg),
+        color var(--semi-cssvar-transition_duration-pagination_item-text) var(--semi-cssvar-transition_function-pagination_item-text) var(--semi-cssvar-transition_delay-pagination_item-text);
+        transform:scale(var(--semi-cssvar-transform_scale-pagination_item))
+    }
+
+        .semi-page-item:hover {
+            border-color: var(--semi-cssvar-color-pagination_item-border-hover);
+            background-color: var(--semi-cssvar-color-pagination_item-bg-hover);
+            color: var(--semi-cssvar-color-pagination_item-text-hover);
+        }
+
+        .semi-page-item-rest-opening {
+            background-color: var(--semi-cssvar-color-pagination_item-bg-hover);
+            color: var(--semi-cssvar-color-pagination_item-text-hover);
+        }
+
+        .semi-page-item:active {
+            border-color: var(--semi-cssvar-color-pagination_item-border-active);
+            background-color: var(--semi-cssvar-color-pagination_item-bg-active);
+            color: var(--semi-cssvar-color-pagination_item-text-active);
+        }
+
+        .semi-page-item-active {
+            border-color: var(--semi-cssvar-color-pagination_item-border-selected);
+            color: var(--semi-cssvar-color-pagination_item-text-selected);
+            font-weight: var(--semi-cssvar-font-pagination_item_active-fontWeight);
+            background-color: var(--semi-cssvar-color-pagination_item-bg-selected)
+        }
+
+            .semi-page-item-active:hover {
+                border-color: var(--semi-cssvar-color-pagination_item-border-selected);
+                color: var(--semi-cssvar-color-pagination_item-text-selected);
+                background-color: var(--semi-cssvar-color-pagination_item-bg-selected);
+            }
+
+        .semi-page-item-disabled {
+            border-color: var(--semi-cssvar-color-pagination_item-border-disabled);
+            color: var(--semi-cssvar-color-pagination_item-text-disabled);
+            background-color: var(--semi-cssvar-color-pagination_item-bg-disabled);
+            cursor: not-allowed
+        }
+
+            .semi-page-item-disabled:hover {
+                background-color: transparent;
+            }
+
+        .semi-page-item-small {
+            min-width: var(--semi-cssvar-width-pagination_item_small-minWidth);
+            margin: var(--semi-cssvar-spacing-pagination_item_small-margin);
+        }
+
+        .semi-page-item-all-disabled {
+            border-color: var(--semi-cssvar-color-pagination_item-border-disabled);
+            color: var(--semi-cssvar-color-pagination_item-text-disabled);
+            background-color: var(--semi-cssvar-color-pagination_item-bg-disabled);
+            cursor: not-allowed
+        }
+    
+            .semi-page-item-all-disabled:hover {
+                background-color: transparent;
+                color: var(--semi-cssvar-color-pagination_item-text-disabled);
+            }
+
+            .semi-page-item-all-disabled-active {
+                background-color: var(--semi-cssvar-color-pagination_item-bg-selected-disabled);
+                font-weight: var(--semi-cssvar-font-pagination_item_active-fontWeight)
+            }
+
+                .semi-page-item-all-disabled-active:hover {
+                    background-color: var(--semi-cssvar-color-pagination_item-bg-selected-disabled);
+                }
+
+    .semi-page-total {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        color: var(--semi-cssvar-color-pagination-text-default);
+    }
+
+    .semi-page-prev, .semi-page-next {
+        color: var(--semi-cssvar-color-pagination_item-icon-default);
+        cursor: pointer
+    }
+
+        .semi-page-prev.semi-page-item-disabled, .semi-page-next.semi-page-item-disabled {
+            color: var(--semi-cssvar-color-pagination_item-icon-disabled);
+            cursor: not-allowed;
+        }
+
+    .semi-page-quickjump {
+        margin-left: var(--semi-cssvar-spacing-pagination_quickjump_marginLeft);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        flex-shrink: 0;
+        color: var(--semi-cssvar-color-pagination_item-text-default)
+    }
+        .semi-page-quickjump-input-number {
+            max-width: var(--semi-cssvar-width-pagination_quickjump_input_width);
+            margin-left: var(--semi-cssvar-spacing-pagination_quickjump_input_marginLeft);
+            margin-right: var(--semi-cssvar-spacing-pagination_quickjump_input_marginRight);
+        }
+        .semi-page-quickjump-disabled {
+            color: var(--semi-cssvar-color-pagination_quickjump_text-disabled);
+        }
+
+    .semi-page .semi-select {
+        user-select: none;
+    }
+
+.semi-select-dropdown {
+    user-select: none;
+}
+
+.semi-page-rest {
+}
+
+    .semi-page-rest-list {
+        padding-top: var(--semi-cssvar-spacing-pagination_reset_list-paddingTop);
+        padding-bottom: var(--semi-cssvar-spacing-pagination_reset_list-paddingBottom)
+    }
+
+        .semi-page-rest-list > div {
+            position: relative;
+        }
+
+    .semi-page-rest-item {
+        height: var(--semi-cssvar-height-pagination_item);
+        line-height: var(--semi-cssvar-height-pagination_item);
+        display: flex;
+        justify-content: center;
+        box-sizing: border-box;
+        cursor: pointer
+    }
+        /* padding-left: $spacing-base;*/
+
+        .semi-page-rest-item:hover {
+            background-color: var(--semi-cssvar-color-pagination_item-bg-hover);
+        }
+
+        .semi-page-rest-item:active {
+            background-color: var(--semi-cssvar-color-pagination_item-bg-active);
+        }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-page, .semi-portal-rtl .semi-page {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-page-item, .semi-portal-rtl .semi-page-item {
+            margin-right: var(--semi-cssvar-spacing-pagination_item-marginLeft);
+            margin-left: var(--semi-cssvar-spacing-pagination_item-marginRight);
+        }
+
+        .semi-rtl .semi-page-prev, .semi-portal-rtl .semi-page-prev, .semi-rtl .semi-page-next, .semi-portal-rtl .semi-page-next {
+            transform: scaleX(-1);
+        }

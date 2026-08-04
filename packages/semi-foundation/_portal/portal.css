@@ -1,0 +1,14 @@
+
+.semi-portal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: var(--semi-cssvar-z-portal)
+}
+
+    .semi-portal-inner {
+        position: absolute;
+        background-color: transparent;
+        min-width: max-content;
+    }

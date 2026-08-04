@@ -1,0 +1,117 @@
+
+.semi-cropper {
+    position: relative
+}
+
+    .semi-cropper img {
+      max-width: none;
+    }
+      /* To avoid the `max-Width` setting of `img` to 100% in `tailwindCSS` affecting the style of img in Cropper.*/
+
+    .semi-cropper-img {
+      position: absolute;
+      user-select: none;
+    }
+
+    .semi-cropper-img-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+    }
+
+    .semi-cropper-mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--semi-cssvar-color-cropper_mask-bg);
+      cursor: move;;
+    }
+
+    .semi-cropper-box {
+      position: absolute;
+      outline: var(--semi-cssvar-width-cropper_box-outline) solid var(--semi-cssvar-color-cropper_box-outline)
+    }
+
+      .semi-cropper-box-corner {
+        position: absolute;
+        background: var(--semi-cssvar-color-cropper_box_corner-bg);
+        width: var(--semi-cssvar-width-cropper_box_corner);
+        height: var(--semi-cssvar-width-cropper_box_corner);
+        z-index: 1
+      }
+
+        .semi-cropper-box-corner-tl {
+          top: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2);
+          left: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2);
+          cursor: nwse-resize;
+        }
+
+        .semi-cropper-box-corner-tr {
+          top: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2);
+          right: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2);
+          cursor: nesw-resize;
+        }
+
+        .semi-cropper-box-corner-tm {
+          top: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2);
+          left: 50%;
+          margin-left: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2);
+          cursor: ns-resize;
+        }
+
+        .semi-cropper-box-corner-ml {
+          top: 50%;
+          left: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2);
+          margin-top: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2);
+          cursor: ew-resize;
+        }
+
+        .semi-cropper-box-corner-mr {
+          top: 50%;
+          right: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2);
+          margin-top: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2);
+          cursor: ew-resize;
+        }
+
+        .semi-cropper-box-corner-bl {
+          bottom: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2);
+          left: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2);
+          cursor: nesw-resize;
+        }
+
+        .semi-cropper-box-corner-bm {
+          bottom: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2);
+          left: 50%;
+          margin-left: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2); 
+          cursor: ns-resize;
+        }
+
+        .semi-cropper-box-corner-br {
+          bottom: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2);
+          right: -calc(var(--semi-cssvar-width-cropper_box_corner) / 2);
+          cursor: nwse-resize
+        }
+
+    .semi-cropper-view-box {
+      position: absolute;
+      overflow: hidden;
+      cursor: move;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0
+    }
+
+      .semi-cropper-view-box-round {
+        border-radius: 50%;
+      }
+
+    .semi-cropper-view-img {
+      user-select: none;
+    }
+      /* position: absolute;*/

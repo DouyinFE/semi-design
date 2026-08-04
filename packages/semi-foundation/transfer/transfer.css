@@ -1,0 +1,269 @@
+
+.semi-transfer {
+    background-color: var(--semi-cssvar-color-transfer-bg);
+    border: var(--semi-cssvar-width-transfer-border) solid var(--semi-cssvar-color-transfer-border);
+    border-radius: var(--semi-cssvar-radius-transfer);
+    min-width: var(--semi-cssvar-width-transfer-minWidth);
+    height: var(--semi-cssvar-height-transfer);
+    box-sizing: border-box;
+    display: flex
+}
+    /* max-height: 412px;*/
+    /* min-height: 400px;*/
+
+    .semi-transfer-disabled {
+    }
+        /* background-color: $color-transfer_disabled-bg;*/
+        .semi-transfer-disabled .semi-transfer-header {
+            color: var(--semi-cssvar-color-transfer_disabled-text);
+            cursor: not-allowed;
+        }
+        .semi-transfer-disabled .semi-transfer-item {
+            color: var(--semi-cssvar-color-transfer_disabled-text);
+            cursor: not-allowed
+        }
+
+            .semi-transfer-disabled .semi-transfer-item:hover {
+                background-color: inherit
+            }
+                .semi-transfer-disabled .semi-transfer-item:hover .semi-transfer-item-close-icon {
+                    visibility: hidden;
+                }
+
+            .semi-transfer-disabled .semi-transfer-item:active {
+                background-color: inherit;
+            }
+
+    .semi-transfer-custom-panel {
+        border: none;
+        min-width: inherit;
+        height: inherit;
+    }
+
+    .semi-transfer-header {
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    display: flex;
+    align-items: center;
+        height: var(--semi-cssvar-height-transfer_header);
+        margin-top: var(--semi-cssvar-spacing-transfer_header-marginTop);
+        margin-right: var(--semi-cssvar-spacing-transfer_header-marginRight);
+        margin-bottom: var(--semi-cssvar-spacing-transfer_header-marginBottom);
+        margin-left: var(--semi-cssvar-spacing-transfer_header-marginLeft);
+        color: var(--semi-cssvar-color-transfer_header-text);
+        flex-shrink: 0
+    }
+
+        .semi-transfer-header-all {
+            font-weight: var(--semi-cssvar-font-transfer_header_all-fontWeight);
+            margin-left: var(--semi-cssvar-spacing-transfer_header_all-marginLeft);
+        }
+        .semi-transfer-header .semi-button {
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        }
+
+    .semi-transfer-item {
+        min-height: var(--semi-cssvar-height-transfer_item-minHeight);
+        box-sizing: border-box;
+        padding-top: var(--semi-cssvar-spacing-transfer_item-paddingTop);
+        padding-right: var(--semi-cssvar-spacing-transfer_item-paddingRight);
+        padding-bottom: var(--semi-cssvar-spacing-transfer_item-paddingBottom);
+        padding-left: var(--semi-cssvar-spacing-transfer_item-paddingLeft);
+        user-select: none;
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    display: flex;
+    align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        color: var(--semi-cssvar-color-transfer_item-text);
+        cursor: pointer;
+        transition: background-color var(--semi-cssvar-transition_duration_transfer_item-bg) var(--semi-cssvar-transition_function-transfer_item-bg) var(--semi-cssvar-transition_delay-transfer_item-bg)
+    }
+
+
+
+        .semi-transfer-item:hover {
+            background-color: var(--semi-cssvar-color-transfer_item-bg-hover);
+        }
+
+        .semi-transfer-item:active {
+            background-color: var(--semi-cssvar-color-transfer_item-bg-active);
+        }
+
+        .semi-transfer-item-disabled {
+            cursor: not-allowed
+        }
+
+            .semi-transfer-item-disabled:hover {
+                background-color: inherit;
+            }
+
+        .semi-transfer-item .semi-transfer-item-close-icon {
+            font-size: var(--semi-cssvar-width-transfer_item_close-icon);
+            cursor: pointer;
+            visibility: hidden;
+            color: var(--semi-cssvar-color-transfer_close_icon-icon);
+        }
+
+    .semi-transfer-left {
+        width: var(--semi-cssvar-width-transfer_left);
+        border-right: var(--semi-cssvar-width-transfer_left-border) solid var(--semi-cssvar-color-transfer-border);
+        display: flex;
+        flex-direction: column
+    }
+        /* padding: $spacing-base-tight;*/
+
+        .semi-transfer-left-list {
+            overflow: auto;
+            flex-grow: 1;
+        }
+
+        .semi-transfer-left-pagination {
+            padding-top: var(--semi-cssvar-spacing-base-tight);
+            padding-bottom: var(--semi-cssvar-spacing-base-tight);
+            padding-left: var(--semi-cssvar-spacing-base-tight);
+            padding-right: var(--semi-cssvar-spacing-base-tight);
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .semi-transfer-left-empty {
+            height: var(--semi-cssvar-height-transfer_left_empty);
+        }
+        .semi-transfer-left >.semi-spin {
+            width: 100%;
+            flex-grow: 1;
+        }
+
+    .semi-transfer-right {
+        width: var(--semi-cssvar-width-transfer_right);
+        display: flex;
+        flex-direction: column;
+        position: relative
+    }
+        /* padding: $spacing-base-tight;*/
+
+        .semi-transfer-right-header {
+            margin-top: var(--semi-cssvar-spacing-transfer_right_header-marginTop);
+            margin-bottom: var(--semi-cssvar-spacing-transfer_right_header-marginBottom);
+            height: var(--semi-cssvar-height-transfer_right_header);
+            flex-shrink: 0;
+        }
+
+        .semi-transfer-right-list {
+            overflow: auto;
+            flex-grow: 1;
+        }
+            /* max-height: 360px;*/
+
+        .semi-transfer-right-item {
+            color: var(--semi-cssvar-color-transfer_selected_item-text);
+            cursor: auto
+        }
+
+            .semi-transfer-right-item:hover {
+            }
+                .semi-transfer-right-item:hover .semi-transfer-item-close-icon {
+                    flex-shrink: 0;
+                    visibility: visible;
+                    cursor: pointer;
+                }
+                .semi-transfer-right-item:hover .semi-transfer-item-close-icon.semi-transfer-item-close-icon-disabled {
+                    visibility: hidden;
+                }
+            .semi-transfer-right-item-text {
+                flex: 1;
+                word-break: break-all;
+            }
+
+            .semi-transfer-right-item-drag {            
+            }
+                .semi-transfer-right-item-drag-handler {
+                    margin-right: var(--semi-cssvar-spacing-transfer_right_item_drag_handler-marginRight);
+                    flex-shrink: 0;
+                    cursor: move;
+                }
+
+                .semi-transfer-right-item-drag-item-move {
+                    z-index: var(--semi-cssvar-z-transfer_right_item_drag_item_move);
+                }
+
+            .semi-transfer-right-item-sortable-item {
+            }
+                .semi-transfer-right-item-sortable-item-active {
+                    opacity: 0;
+                }
+
+        .semi-transfer-right-empty {
+            position: absolute;
+            height: var(--semi-cssvar-height-transfer_right_empty);
+        }
+
+    .semi-transfer-empty {
+        width: var(--semi-cssvar-width-transfer_empty);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        color: var(--semi-cssvar-color-transfer_empty-text);
+    }
+
+    .semi-transfer-filter {
+        margin-top: var(--semi-cssvar-spacing-transfer_filter-marginTop);
+        margin-right: var(--semi-cssvar-spacing-transfer_filter-marginRight);
+        margin-bottom: var(--semi-cssvar-spacing-transfer_filter-marginBottom);
+        margin-left: var(--semi-cssvar-spacing-transfer_filter-marginLeft);
+    }
+
+    .semi-transfer-group-title {
+        color: var(--semi-cssvar-color-transfer_group_title-text);
+        padding-left: var(--semi-cssvar-spacing-transfer_group_title-paddingLeft);
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        height: var(--semi-cssvar-height-transfer_group_title);
+    display: flex;
+    align-items: center;
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-transfer, .semi-portal-rtl .semi-transfer {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-transfer-header, .semi-portal-rtl .semi-transfer-header {
+        }
+
+            .semi-rtl .semi-transfer-header-all, .semi-portal-rtl .semi-transfer-header-all {
+                margin-left: 0;
+                margin-right: var(--semi-cssvar-spacing-transfer_header_all-marginLeft);
+            }
+
+        .semi-rtl .semi-transfer-item, .semi-portal-rtl .semi-transfer-item {
+            padding-left: var(--semi-cssvar-spacing-transfer_item-paddingRight);
+            padding-right: var(--semi-cssvar-spacing-transfer_item-paddingLeft);
+        }
+
+        .semi-rtl .semi-transfer-left, .semi-portal-rtl .semi-transfer-left {
+            border-right: 0;
+            border-left: var(--semi-cssvar-width-transfer_left-border) solid var(--semi-cssvar-color-transfer-border);
+        }
+
+        .semi-rtl .semi-transfer-group-title, .semi-portal-rtl .semi-transfer-group-title {
+            padding-left: 0;
+            padding-right: var(--semi-cssvar-spacing-transfer_group_title-paddingLeft);
+        }

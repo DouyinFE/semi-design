@@ -1,0 +1,6 @@
+
+
+.semi-collapsible-transition{
+    transition: height var(--semi-cssvar-transition_duration-collapsible-height) var(--semi-cssvar-transition_function-collapsible-height) var(--semi-cssvar-transition_delay-collapsible-height),
+    opacity var(--semi-cssvar-transition_duration-collapsible-opacity) var(--semi-cssvar-transition_function-collapsible-opacity) var(--semi-cssvar-transition_delay-collapsible-opacity),
+}

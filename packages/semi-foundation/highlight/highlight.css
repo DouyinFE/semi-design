@@ -1,0 +1,6 @@
+
+.semi-highlight-tag {
+    color: var(--semi-cssvar-color-highlight-text-default);
+    background-color: var(--semi-cssvar-color-highlight-text-bg-default);
+    font-weight: var(--semi-cssvar-font-highlight-text-fontWeight);
+}

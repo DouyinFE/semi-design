@@ -1,0 +1,157 @@
+
+.semi-floatButton {
+    position: fixed;
+    bottom: var(--semi-cssvar-spacing-floatButton-bottom);
+    right: var(--semi-cssvar-spacing-floatButton-right);
+    z-index: var(--semi-cssvar-z-floatButton);
+    cursor: pointer
+}
+
+    .semi-floatButton-body {
+        background-color: var(--semi-cssvar-color-floatButton-bg);
+        box-shadow: var(--semi-cssvar-shadow-floatButton);
+        color: var(--semi-cssvar-color-floatButton-text);
+        display: flex;
+        align-items: center;
+        justify-content: center
+    }
+
+        .semi-floatButton-body:hover {
+            background-color: var(--semi-cssvar-color-floatButton-bg-hover);
+        }
+
+        .semi-floatButton-body:active {
+            background-color: var(--semi-cssvar-color-floatButton-bg-active);
+        }
+
+    .semi-floatButton-disabled {
+        background: var(--semi-cssvar-color-floatButton-disabled-bg);
+        color: var(--semi-cssvar-color-floatButton-disabled-text);
+        cursor: not-allowed
+    }
+
+        .semi-floatButton-disabled:hover {
+            background-color: var(--semi-cssvar-color-floatButton-disabled-bg);
+        }
+
+    .semi-floatButton-colorful {
+        background: var(--semi-cssvar-color-floatButton-colorful-bg);
+        color: var(--semi-cssvar-color-floatButton-colorful-text)
+
+    }
+
+        .semi-floatButton-colorful:hover {
+            background: var(--semi-cssvar-color-floatButton-colorful-bg-hover);
+        }
+
+         .semi-floatButton-colorful:active {
+            background: var(--semi-cssvar-color-floatButton-colorful-bg-active);
+        }
+
+    .semi-floatButton.semi-floatButton-square {
+    }
+            
+        .semi-floatButton.semi-floatButton-square .semi-badge-dot, .semi-floatButton.semi-floatButton-square .semi-badge-count {
+            top: calc(0.29 * var(--semi-cssvar-radius-floatButton_square));
+            inset-inline-end: calc(0.29 * var(--semi-cssvar-radius-floatButton_square));
+        }
+            /* Calculation logic:
+            The center of the badge is the intersection of two lines. 
+            - The first line is the connecting line between the center of the floatButton and the upper right corner of the enclosing rectangle. 
+            - The second line is the border of the floatButton.
+            Can be calculated through radius， (√2 - 1）/√2 * R = 0.29 * R
+            */
+
+    .semi-floatButton-default {
+        width: var(--semi-cssvar-width-floatButton);
+        height: var(--semi-cssvar-width-floatButton)
+
+    }
+
+        .semi-floatButton-default.semi-floatButton-round {
+        }
+            
+            .semi-floatButton-default.semi-floatButton-round .semi-badge-dot, .semi-floatButton-default.semi-floatButton-round .semi-badge-count {
+                top: calc(0.29 * 0.5 * var(--semi-cssvar-width-floatButton));
+                inset-inline-end: calc(0.29 * 0.5 * var(--semi-cssvar-width-floatButton));
+            }
+                /* Calculation logic:
+                The center of the badge is the intersection of two lines. 
+                - The first line is the connecting line between the center of the floatButton and the upper right corner of the enclosing rectangle. 
+                - The second line is the border of the floatButton.
+                Can be calculated through radius (√2 - 1）/√2 * R = 0.29 * R，and R = 0.5 * width
+                */
+
+    .semi-floatButton-small {
+        width: var(--semi-cssvar-width-floatButton_small);
+        height: var(--semi-cssvar-width-floatButton_small)
+    }
+
+        .semi-floatButton-small.semi-floatButton-round {
+        }
+            
+            .semi-floatButton-small.semi-floatButton-round .semi-badge-dot, .semi-floatButton-small.semi-floatButton-round .semi-badge-count {
+                top: calc(0.29 * 0.5 * var(--semi-cssvar-width-floatButton_small));
+                inset-inline-end: calc(0.29 * 0.5 *var(--semi-cssvar-width-floatButton_small));
+            }
+
+    .semi-floatButton-large {
+        width: var(--semi-cssvar-width-floatButton_large);
+        height: var(--semi-cssvar-width-floatButton_large)
+    }
+
+        .semi-floatButton-large.semi-floatButton-round {
+        }
+            
+            .semi-floatButton-large.semi-floatButton-round .semi-badge-dot, .semi-floatButton-large.semi-floatButton-round .semi-badge-count {
+                top: calc(0.29 * 0.5 * var(--semi-cssvar-width-floatButton_large));
+                inset-inline-end: calc(0.29 * 0.5 * var(--semi-cssvar-width-floatButton_large));
+            }
+
+    .semi-floatButton-square {
+        border-radius: var(--semi-cssvar-radius-floatButton_square);
+    }
+
+    .semi-floatButton-round {
+        border-radius: var(--semi-cssvar-radius-floatButton_round);
+    }
+
+.semi-floatButtonGroup {
+    position: fixed;
+    border-radius: var(--semi-cssvar-radius-floatButton_group-border-radius);
+    bottom: var(--semi-cssvar-spacing-floatButton_group-bottom);
+    right: var(--semi-cssvar-spacing-floatButton_group-right);
+    z-index: var(--semi-cssvar-z-floatButton_group);
+    background: var(--semi-cssvar-color-floatButton_group-bg);
+    box-shadow: var(--semi-cssvar-shadow-floatButton_group);
+    display: inline-flex;
+    padding: var(--semi-cssvar-spacing-floatButton_group-padding);
+    gap: var(--semi-cssvar-spacing-floatButton_group-columnGap)
+
+}
+
+    .semi-floatButtonGroup-item {
+        cursor: pointer;
+        display: flex;
+        padding: var(--semi-cssvar-spacing-floatButton_group_item-paddingY) var(--semi-cssvar-spacing-floatButton_group_item-paddingX);
+        align-items: center;
+        column-gap: var(--semi-cssvar-spacing-floatButton_group_item-columnGap);
+        border-radius: var(--semi-cssvar-radius-floatButton_group_item-border-radius);
+        color: var(--semi-cssvar-color-floatButton_group_item-text);
+        font-size: var(--semi-cssvar-font-floatButton_group_item-fontSize);
+        font-style: normal;
+        font-weight: var(--semi-cssvar-font-floatButton_group_item-fontWeight);
+        line-height: var(--semi-cssvar-font-floatButton_group_item-lineHeight)
+    }
+
+        .semi-floatButtonGroup-item:hover {
+            background: var(--semi-cssvar-color-floatButton_group_item-bg-hover);
+        }
+
+        .semi-floatButtonGroup-item:active {
+            background: var(--semi-cssvar-color-floatButton_group_item-bg-active);
+        }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/

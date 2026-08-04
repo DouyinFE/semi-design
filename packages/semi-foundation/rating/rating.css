@@ -1,0 +1,127 @@
+
+.semi-rating {
+    display: inline-block;
+    margin: var(--semi-cssvar-spacing-rating-margin);
+    padding: var(--semi-cssvar-spacing-rating-padding);
+    color: var(--semi-cssvar-color-rating-icon-default);
+    list-style: none;
+    outline: none;
+    border-radius: 3px
+}
+    /* font-size: $font-rating-fontSize;*/
+    /* line-height: unset;*/
+
+    .semi-rating-focus {
+        outline: var(--semi-cssvar-width-rating-outline-focus) solid var(--semi-cssvar-color-rating-outline-focus);
+    }
+
+    .semi-rating-no-focus {
+        outline: none;
+    }
+
+    .semi-rating-disabled .semi-rating-star {
+        cursor: default
+    }
+
+        .semi-rating-disabled .semi-rating-star:hover {
+            transform: scale(1);
+        }
+
+    .semi-rating-star {
+        position: relative;
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        color: inherit;
+        cursor: pointer;
+        transition: all 0.5s;
+        transform:scale(var(--semi-cssvar-transform-scale-rating))
+    }
+
+        .semi-rating-star:not(:last-child) {
+            margin-right: var(--semi-cssvar-spacing-rating_item-marginRight);
+        }
+
+        .semi-rating-star > div {
+        }
+            .semi-rating-star > div:hover, .semi-rating-star > div:focus {
+                transform: scale(1.1);
+            }
+
+            .semi-rating-star > div.semi-rating-star-disabled {
+                transform: none;
+            }
+
+        .semi-rating-star-small {
+            width: var(--semi-cssvar-width-rating_item_small);
+            height: var(--semi-cssvar-width-rating_item_small);
+            font-size: var(--semi-cssvar-font-rating_item_small-fontSize);
+        }
+
+        .semi-rating-star-default {
+            width: var(--semi-cssvar-width-rating_item_default);
+            height: var(--semi-cssvar-width-rating_item_default);
+            font-size: var(--semi-cssvar-font-rating_item_default-fontSize);
+        }
+
+        .semi-rating-star-outer {
+            display: inline-flex;
+            width: fit-content;
+            height: fit-content;
+        }
+
+        .semi-rating-star-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 3px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .semi-rating-star-first, .semi-rating-star-second {
+            transition: color var(--semi-cssvar-transition_duration-rating-color) var(--semi-cssvar-transition_function-rating-color) var(--semi-cssvar-transition_delay-rating-color);
+            color: var(--semi-cssvar-color-rating-bg-default);
+            user-select: none;
+        }
+
+        .semi-rating-star-first {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        .semi-rating-star-half .semi-rating-star-first, .semi-rating-star-half .semi-rating-star-second {
+            opacity: 1;
+        }
+
+        .semi-rating-star-half .semi-rating-star-first, .semi-rating-star-full .semi-rating-star-second {
+            color: inherit;
+        }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-rating, .semi-portal-rtl .semi-rating {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-rating-star, .semi-portal-rtl .semi-rating-star {
+        }
+
+            .semi-rtl .semi-rating-star:not(:last-child), .semi-portal-rtl .semi-rating-star:not(:last-child) {
+                margin-right: 0;
+                margin-left: var(--semi-cssvar-spacing-rating_item-marginRight);
+            }
+
+            .semi-rtl .semi-rating-star-first, .semi-portal-rtl .semi-rating-star-first {
+                left: auto;
+                right: 0;
+            }

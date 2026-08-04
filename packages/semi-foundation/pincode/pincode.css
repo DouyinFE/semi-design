@@ -1,0 +1,38 @@
+
+
+
+.semi-pincode {
+}
+    .semi-pincode-wrapper{
+        display: flex
+    }
+
+        .semi-pincode-wrapper .semi-input-wrapper{
+        }
+            .semi-pincode-wrapper .semi-input-wrapper-small{
+                width: var(--semi-cssvar-width-pinCode_input_small);
+                margin-right: var(--semi-cssvar-spacing-pinCode_small-marginRight)
+            }
+                .semi-pincode-wrapper .semi-input-wrapper-small:last-child{
+                    margin-right: 0px;
+                }
+
+            .semi-pincode-wrapper .semi-input-wrapper-default{
+                width: var(--semi-cssvar-width-pinCode_input_default);
+                margin-right: var(--semi-cssvar-spacing-pinCode_default-marginRight)
+            }
+                .semi-pincode-wrapper .semi-input-wrapper-default:last-child{
+                    margin-right: 0px;
+                }
+
+            .semi-pincode-wrapper .semi-input-wrapper-large{
+                width: var(--semi-cssvar-width-pinCode_input_large);
+                margin-right: var(--semi-cssvar-spacing-pinCode_large-marginRight)
+            }
+                .semi-pincode-wrapper .semi-input-wrapper-large:last-child{
+                    margin-right: 0px;
+                }
+            .semi-pincode-wrapper .semi-input-wrapper input{
+                padding: 0;
+                text-align: center;
+            }

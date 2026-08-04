@@ -1,0 +1,75 @@
+
+.semi-divider {
+    margin: var(--semi-cssvar-spacing-divider_horizontal-marginTop) var(--semi-cssvar-spacing-divider_horizontal-marginRight) var(--semi-cssvar-spacing-divider_horizontal-marginBottom) var(--semi-cssvar-spacing-divider_horizontal-marginLeft);
+    border-bottom: var(--semi-cssvar-width-divider-border) solid  var(--semi-cssvar-color-divider_border-color);
+    color: var(--semi-cssvar-color-divider_text-default);
+    box-sizing: border-box
+}
+
+    .semi-divider-dashed {
+        border-bottom-style: dashed;
+    }
+
+    .semi-divider-horizontal {
+        width: 100%;
+        display: flex;
+    }
+
+    .semi-divider-vertical {
+        border-bottom: 0;
+        display: inline-block;
+        margin: var(--semi-cssvar-spacing-divider_vertical-marginTop) var(--semi-cssvar-spacing-divider_vertical-marginRight) var(--semi-cssvar-spacing-divider_vertical-marginBottom) var(--semi-cssvar-spacing-divider_vertical-marginLeft);
+        border-left: var(--semi-cssvar-width-divider-border) solid  var(--semi-cssvar-color-divider_border-color);
+        height: var(--semi-cssvar-height-divider_vertical);
+        vertical-align: middle;
+    }
+
+    .semi-divider-with-text {
+        display: flex;
+        border-bottom: 0;
+        white-space: nowrap;
+        align-items: center
+    }
+
+        .semi-divider-with-text .semi-divider_inner-text {
+            font-weight: var(--semi-cssvar-font-divider_text-weight);
+            padding: var(--semi-cssvar-spacing-divider_inner-text-paddingTop) var(--semi-cssvar-spacing-divider_inner-text-paddingRight) var(--semi-cssvar-spacing-divider_inner-text-paddingBottom) var(--semi-cssvar-spacing-divider_inner-text-paddingLeft);
+            display: inline-block;
+        }
+
+
+        .semi-divider-with-text::before, .semi-divider-with-text::after {
+            content: "";
+            width: 50%;
+            border-bottom: var(--semi-cssvar-width-divider-border) solid  var(--semi-cssvar-color-divider_border-color);
+        }
+
+        .semi-divider-with-text-left {
+        }
+            .semi-divider-with-text-left::before {
+                width: var(--semi-cssvar-width-divider_inner_text_left_line);
+            }
+
+            .semi-divider-with-text-left::after {
+                flex: 1;
+            }
+
+        .semi-divider-with-text-right {
+        }
+            .semi-divider-with-text-right::before {
+                flex: 1;
+            }
+
+            .semi-divider-with-text-right::after {
+                width: var(--semi-cssvar-width-divider_inner_text_right_line);
+            }
+
+.semi-divider-dashed {
+    &::before, &::after {
+        border-bottom: var(--semi-cssvar-width-divider-border) dashed  var(--semi-cssvar-color-divider_border-color);
+    }
+}
+
+.semi-divider-vertical.semi-divider-dashed {
+    border-left: var(--semi-cssvar-width-divider-border) dashed  var(--semi-cssvar-color-divider_border-color);
+}

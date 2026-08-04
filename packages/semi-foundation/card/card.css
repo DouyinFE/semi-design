@@ -1,0 +1,187 @@
+
+.semi-card {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border-radius: var(--semi-cssvar-radius-card);
+    overflow: hidden;
+    background-color: var(--semi-cssvar-color-card-bg-default);
+    font-size: var(--semi-cssvar-font-card_default-fontSize);
+    font-style: normal;
+    font-weight: var(--semi-cssvar-font-card_default-fontWeight);
+    line-height: var(--semi-cssvar-font-card_default-lineHeight);
+    letter-spacing: 0em
+}
+
+    .semi-card-shadows {
+        cursor: pointer;
+        transition: box-shadow var(--semi-cssvar-motion-card-transition_duration)
+    }
+        
+        .semi-card-shadows-hover {
+        }
+            .semi-card-shadows-hover:hover {
+                box-shadow: var(--semi-cssvar-shadow-card);
+                z-index: var(--semi-cssvar-z-card_hover);
+            } /* 避免网格型卡片组shadow覆盖*/
+        
+        .semi-card-shadows-always {
+            box-shadow: var(--semi-cssvar-shadow-card);
+        }
+
+    .semi-card-bordered {
+        border: var(--semi-cssvar-width-card-border) solid var(--semi-cssvar-color-card-border);
+    }
+
+    .semi-card-header {
+        padding: var(--semi-cssvar-spacing-card-padding)
+    }
+
+        .semi-card-header-bordered {
+            border-bottom: var(--semi-cssvar-width-card-border) solid var(--semi-cssvar-color-card-border);
+        }
+
+        .semi-card-header-wrapper {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: row-reverse;
+            justify-content: space-between
+        }
+
+            .semi-card-header-wrapper-spacing {
+                margin-right: var(--semi-cssvar-spacing-card-margin);
+            }
+
+            .semi-card-header-wrapper-title {
+                width: 100%;
+                overflow: hidden;
+            }
+
+            .semi-card-header-wrapper-extra {
+                flex-shrink: 0;
+                font-size: var(--semi-cssvar-font-card_extra-fontSize);
+                font-style: normal;
+                font-weight: var(--semi-cssvar-font-card_extra-fontWeight);
+                letter-spacing: 0em;
+                color: var(--semi-cssvar-color-card_extra-text);
+            }
+
+    .semi-card-cover {
+    }
+        .semi-card-cover > * {
+            display: block;
+            width: 100%;
+        }
+
+    .semi-card-body {
+        padding: var(--semi-cssvar-spacing-card-padding);
+        font-size: var(--semi-cssvar-font-card_default-fontSize);
+        font-style: normal;
+        font-weight: var(--semi-cssvar-font-card_default-fontWeight);
+        line-height: var(--semi-cssvar-font-card_default-lineHeight);
+        letter-spacing: 0em;
+        color: var(--semi-cssvar-color-card_body-text)
+    }
+
+        .semi-card-body-actions {
+            margin-top: var(--semi-cssvar-spacing-card-margin);
+            padding-top: var(--semi-cssvar-spacing-card-padding);
+            border-top: var(--semi-cssvar-width-card-border) solid var(--semi-cssvar-color-card-border);
+        }
+
+    .semi-card-footer {
+        padding: var(--semi-cssvar-spacing-card-padding)
+    }
+
+        .semi-card-footer-bordered {
+            border-top: var(--semi-cssvar-width-card-border) solid var(--semi-cssvar-color-card-border);
+        }
+
+    .semi-card-meta {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start
+    }
+
+        .semi-card-meta-avatar {
+            margin-right: var(--semi-cssvar-spacing-card_avatar-marginRight);
+        }
+
+        .semi-card-meta-wrapper {
+        }
+            .semi-card-meta-wrapper-title {
+                font-size: var(--semi-cssvar-font-card_title-fontSize);
+                font-style: normal;
+                font-weight: var(--semi-cssvar-font-card_title-fontWeight);
+                line-height: var(--semi-cssvar-font-card_title-lineHeight);
+                letter-spacing: 0em;
+                color: var(--semi-cssvar-color-card_title-text);
+            }
+
+            .semi-card-meta-wrapper-description {
+                font-size: var(--semi-cssvar-font-card_default-fontSize);
+                font-style: normal;
+                font-weight: var(--semi-cssvar-font-card_default-fontWeight);
+                line-height: var(--semi-cssvar-font-card_default-lineHeight);
+                letter-spacing: 0em;
+                color: var(--semi-cssvar-color-card_description-text);
+            }
+
+.semi-card-group {
+}
+    .semi-card-group-grid {
+    }
+        .semi-card-group-grid .semi-card {
+            border-radius: 0;
+        }
+        
+        .semi-card-group-grid .semi-card {
+            margin-left: var(--semi-cssvar-spacing-cardGroup_card-margin);
+            margin-top: var(--semi-cssvar-spacing-cardGroup_card-margin);
+        }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-card, .semi-portal-rtl .semi-card {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-card-header, .semi-portal-rtl .semi-card-header {
+        }
+            .semi-rtl .semi-card-header-wrapper, .semi-portal-rtl .semi-card-header-wrapper {
+                align-items: flex-end
+            }
+
+                .semi-rtl .semi-card-header-wrapper-title, .semi-portal-rtl .semi-card-header-wrapper-title {
+                    display: flex;
+                    align-items: flex-end;
+                }
+                
+                .semi-rtl .semi-card-header-wrapper-spacing, .semi-portal-rtl .semi-card-header-wrapper-spacing {
+                    margin-left: var(--semi-cssvar-spacing-card-margin);
+                    margin-right: 0;
+                }
+
+        .semi-rtl .semi-card-meta, .semi-portal-rtl .semi-card-meta {
+        }
+            .semi-rtl .semi-card-meta-avatar, .semi-portal-rtl .semi-card-meta-avatar {
+                margin-left: var(--semi-cssvar-spacing-card_avatar-marginRight);
+                margin-right: 0;
+            }
+
+    .semi-rtl .semi-card-group, .semi-portal-rtl .semi-card-group {
+        direction: rtl
+    }
+        .semi-rtl .semi-card-group-grid, .semi-portal-rtl .semi-card-group-grid {
+        }
+            .semi-rtl .semi-card-group-grid .semi-card, .semi-portal-rtl .semi-card-group-grid .semi-card {
+                margin-left: 0;
+                margin-top: 0;
+                margin-right: var(--semi-cssvar-spacing-cardGroup_card-margin);
+                margin-bottom: var(--semi-cssvar-spacing-cardGroup_card-margin);
+            }

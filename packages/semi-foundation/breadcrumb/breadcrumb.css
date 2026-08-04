@@ -1,0 +1,158 @@
+
+.semi-breadcrumb {
+    overflow: hidden
+
+}
+
+    .semi-breadcrumb-wrapper {
+        display: flex;
+        flex-wrap: wrap
+    }
+
+        .semi-breadcrumb-wrapper-loose {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+            font-size: var(--semi-cssvar-font-breadcrumb_loose-fontSize);
+        }
+
+        .semi-breadcrumb-wrapper-compact {
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+            font-size: var(--semi-cssvar-font-breadcrumb_compact-fontSize);
+        }
+
+    .semi-breadcrumb-item-wrap {
+        display: inline-flex;
+        align-items: center;
+        margin: var(--semi-cssvar-spacing-breadcrumb_item_wrap-marginY) 0px;
+        margin-right: var(--semi-cssvar-spacing-breadcrumb_item_wrap-marginRight);
+    }
+
+    .semi-breadcrumb-item {
+        display: inline-flex;
+        align-items: center;
+        column-gap: var(--semi-cssvar-spacing-breadcrumb_item_text-marginLeft);
+        margin-right: var(--semi-cssvar-spacing-breadcrumb_item-marginRight);
+        color: var(--semi-cssvar-color-breadcrumb_default-text-default);
+        font-weight: var(--semi-cssvar-font-breadcrumb_default-fontWeight)
+    }
+        /* flex-shrink: 0;*/
+
+        .semi-breadcrumb-item .semi-typography {
+            color: inherit;
+        }
+
+        /* removed to item-link cls*/
+        /* &:hover {*/
+        /*     color: $color-breadcrumb_default-text-hover;*/
+        /*     cursor: pointer;*/
+        /* }*/
+
+        /* &:active {*/
+        /*     color: $color-breadcrumb_default-text-active;*/
+        /*     cursor: pointer;*/
+        /* }*/
+
+        .semi-breadcrumb-item-title-inline {
+            display: inline-flex;
+        }
+
+    .semi-breadcrumb-item-active {
+        color: var(--semi-cssvar-color-breadcrumb_active-text-default);
+        font-weight: var(--semi-cssvar-font-breadcrumb_active-fontWeight)
+    }
+
+        .semi-breadcrumb-item-active:hover, .semi-breadcrumb-item-active:active {
+            border: none;
+            margin-bottom: 0px;
+            color: var(--semi-cssvar-color-breadcrumb_active-text-active);
+            cursor: default;
+        }
+
+        .semi-breadcrumb-item-active .semi-typography {
+            font-weight: var(--semi-cssvar-font-breadcrumb_active-fontWeight);
+        }
+
+    .semi-breadcrumb-item-icon {
+        margin-bottom: -1px;
+    }
+
+    /* &-item-title,*/
+    .semi-breadcrumb-item-more {
+    }
+        .semi-breadcrumb-item-more svg {
+            vertical-align: middle;
+        }
+
+    /* &-item-icon+&-item-title {*/
+    /*     margin-left: $spacing-breadcrumb_item_text-marginLeft;*/
+    /* }*/
+
+    .semi-breadcrumb-item-link {
+        text-decoration: inherit;
+        transition: color var(--semi-cssvar-transition_duration-breadcrumb_link-text) var(--semi-cssvar-transition-function_breadcrumb_link-text) var(--semi-cssvar-transition_delay-breadcrumb_link-text);
+        transform: scale(var(--semi-cssvar-transform_scale-breadcrumb_link-text))
+    }
+
+        .semi-breadcrumb-item-link:hover {
+            color: var(--semi-cssvar-color-breadcrumb_default-text-hover);
+            cursor: pointer;
+        }
+
+        .semi-breadcrumb-item-link:active {
+            color: var(--semi-cssvar-color-breadcrumb_default-text-active);
+            cursor: pointer;
+        }
+
+    .semi-breadcrumb-collapse {
+        display: inline-flex;
+        flex-shrink: 0;
+    }
+
+    .semi-breadcrumb-separator {
+        display: flex;
+        color: var(--semi-cssvar-color-breadcrumb_sepearator_default-icon-default);
+    }
+
+    .semi-breadcrumb-restItem {
+        color: var(--semi-cssvar-color-breadcrumb_restItem-text-default);
+        margin-right: var(--semi-cssvar-spacing-breadcrumb_restItem-marginRight);
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-breadcrumb, .semi-portal-rtl .semi-breadcrumb {
+    }
+
+        .semi-rtl .semi-breadcrumb-wrapper, .semi-portal-rtl .semi-breadcrumb-wrapper {
+            direction: rtl;
+        }
+
+        .semi-rtl .semi-breadcrumb-item-wrap, .semi-portal-rtl .semi-breadcrumb-item-wrap {
+            margin-right: 0;
+            margin-left: var(--semi-cssvar-spacing-breadcrumb_item_wrap-marginRight);
+        }
+
+        .semi-rtl .semi-breadcrumb-item, .semi-portal-rtl .semi-breadcrumb-item {
+            margin-right: 0;
+            margin-left: var(--semi-cssvar-spacing-breadcrumb_item-marginRight);
+        }
+
+
+        .semi-rtl .semi-breadcrumb-restItem, .semi-portal-rtl .semi-breadcrumb-restItem {
+            margin-right: 0;
+            margin-left: var(--semi-cssvar-spacing-breadcrumb_restItem-marginRight);
+        }
+
+    .semi-rtl .semi-breadcrumb-item-icon + .semi-breadcrumb-item-title, .semi-portal-rtl .semi-breadcrumb-item-icon + .semi-breadcrumb-item-title {
+        margin-left: 0;
+        margin-right: var(--semi-cssvar-spacing-breadcrumb_item_text-marginLeft);
+        display: inline-block;
+    }

@@ -1,0 +1,131 @@
+
+.semi-spin {
+    position: relative;
+    display: inline-block;
+    width: var(--semi-cssvar-width-spin_middle);
+    height: var(--semi-cssvar-width-spin_middle)
+}
+
+    @keyframes semi-animation-rotate {
+        from {
+            transform: rotate(0);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .semi-spin-wrapper {
+        text-align: center;
+        position: absolute;
+        width: 100%;
+        transform: translateY(-50%);
+        top: 50%;
+        color: var(--semi-cssvar-color-spin-bg)
+    }
+
+        .semi-spin-wrapper > svg {
+            display: inline;
+            animation: var(--semi-cssvar-animation_duration-spin_wrapper-spin) linear infinite semi-animation-rotate;
+            animation-fill-mode: forwards;
+            vertical-align: top;
+    width: var(--semi-cssvar-width-spin_middle);
+    height: var(--semi-cssvar-width-spin_middle);
+        }
+
+    .semi-spin-animate {
+        display: inline-flex;
+        animation: var(--semi-cssvar-animation_duration-spin_customChildren-spin) linear infinite semi-animation-rotate;
+        animation-fill-mode: forwards;
+    }
+
+    .semi-spin-children {
+        opacity: var(--semi-cssvar-opacity-spin_children);
+        user-select: none;
+    }
+
+    .semi-spin-block {
+        display: block
+    }
+
+        /* 添加一个遮罩解决嵌套 Spin 穿透问题*/
+
+        .semi-spin-block::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .semi-spin-block .semi-spin-wrapper {
+            display: block;
+        }
+
+        .semi-spin-block.semi-spin {
+            height: auto;
+            width: auto;
+        }
+
+    .semi-spin-hidden {
+    }
+        .semi-spin-hidden::after {
+            content: none;
+        }
+
+        /* 考虑到嵌套，.spin-chidren 节点的 opacity 由直接父级节点的 .spin-hidden 决定*/
+        .semi-spin-hidden > .semi-spin-children {
+            opacity: 1;
+            user-select: auto;
+        }
+
+.semi-spin-small {
+    width: var(--semi-cssvar-width-spin_small);
+    height: var(--semi-cssvar-width-spin_small);
+
+    & > .semi-spin-wrapper svg {
+    width: var(--semi-cssvar-width-spin_small);
+    height: var(--semi-cssvar-width-spin_small);
+    }
+}
+
+.semi-spin-middle {
+    width: var(--semi-cssvar-width-spin_middle);
+    height: var(--semi-cssvar-width-spin_middle);
+
+    & > .semi-spin-wrapper svg {
+    width: var(--semi-cssvar-width-spin_middle);
+    height: var(--semi-cssvar-width-spin_middle);
+    }
+}
+
+.semi-spin-large {
+    width: var(--semi-cssvar-width-spin_large);
+    height: var(--semi-cssvar-width-spin_large);
+
+    & > .semi-spin-wrapper svg {
+    width: var(--semi-cssvar-width-spin_large);
+    height: var(--semi-cssvar-width-spin_large);
+    }
+}
+
+.semi-spin-container {
+    overflow: hidden;
+}/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+    & .semi-spin {
+        direction: rtl;
+    }
+
+    & .semi-spin-container {
+        direction: rtl;
+    }
+}

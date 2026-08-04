@@ -1,0 +1,428 @@
+/* ============================================================*/
+
+.semi-checkbox {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    cursor: pointer;
+    transition: background-color var(--semi-cssvar-transition_duration-checkbox-bg) var(--semi-cssvar-transition_function-checkbox-bg) var(--semi-cssvar-transition_delay-checkbox-bg),
+    border var(--semi-cssvar-transition_duration-checkbox-border) var(--semi-cssvar-transition_function-checkbox-border) var(--semi-cssvar-transition_delay-checkbox-border);
+    transform: scale(var(--semi-cssvar-transform_scale-checkbox));
+    column-gap: var(--semi-cssvar-spacing-checkbox_label-paddingLeft)
+}
+    /* box-sizing: border-box;*/
+
+    .semi-checkbox input[type="checkbox"] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        opacity: 0;
+    }
+
+    .semi-checkbox-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--semi-cssvar-spacing-checkbox_extra-marginTop);
+    }
+
+    .semi-checkbox-addon {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        color: var(--semi-cssvar-color-checkbox_label-text-default);
+        line-height: var(--semi-cssvar-font-checkbox_label-lineHeight);
+        user-select: none;
+    }
+
+    .semi-checkbox:hover {
+    }
+        .semi-checkbox:hover .semi-checkbox-inner-display {
+            background: var(--semi-cssvar-color-checkbox_default-bg-hover);
+            box-shadow: inset 0 0 0 var(--semi-cssvar-size-checkbox_inner-shadow) var(--semi-cssvar-color-checkbox_default-border-hover);
+        }
+
+        .semi-checkbox:hover .semi-checkbox-inner-checked {
+        }
+            .semi-checkbox:hover .semi-checkbox-inner-checked .semi-checkbox-inner-display {
+                background: var(--semi-cssvar-color-checkbox_checked-bg-hover);
+                box-shadow: none;
+            }
+
+    .semi-checkbox:active {
+    }
+        .semi-checkbox:active .semi-checkbox-inner-display {
+            background: var(--semi-cssvar-color-checkbox_default-bg-active);
+        }
+
+        .semi-checkbox:active .semi-checkbox-inner-checked {
+        }
+            .semi-checkbox:active .semi-checkbox-inner-checked .semi-checkbox-inner-display {
+                background: var(--semi-cssvar-color-checkbox_checked-bg-active);
+                box-shadow: none;
+            }
+
+    .semi-checkbox.semi-checkbox-disabled:hover, .semi-checkbox.semi-checkbox-disabled:active {
+    }
+        .semi-checkbox.semi-checkbox-disabled:hover .semi-checkbox-inner-display, .semi-checkbox.semi-checkbox-disabled:active .semi-checkbox-inner-display {
+            background: var(--semi-cssvar-color-checkbox_disabled-bg-default);
+            box-shadow: inset 0 0 0 var(--semi-cssvar-size-checkbox_inner-shadow) var(--semi-cssvar-color-checkbox_disabled-border-default);
+        }
+
+        .semi-checkbox.semi-checkbox-disabled:hover .semi-checkbox-inner-checked, .semi-checkbox.semi-checkbox-disabled:active .semi-checkbox-inner-checked {
+        }
+            .semi-checkbox.semi-checkbox-disabled:hover .semi-checkbox-inner-checked .semi-checkbox-inner-display, .semi-checkbox.semi-checkbox-disabled:active .semi-checkbox-inner-checked .semi-checkbox-inner-display {
+                color: var(--semi-cssvar-color-checkbox_checked-icon-disabled);
+                background: var(--semi-cssvar-color-checkbox_checked-bg-disabled);
+                box-shadow: none;
+            }
+
+    .semi-checkbox-inner {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: var(--semi-cssvar-width-checkbox_inner);
+        height: var(--semi-cssvar-height-checkbox_inner);
+        user-select: none;
+        cursor: pointer
+    } /* prevent text under it will be selected when double click*/
+
+        .semi-checkbox-inner-display {
+    box-sizing: border-box;
+            position: relative;
+            width: var(--semi-cssvar-width-checkbox_inner);
+            height: var(--semi-cssvar-width-checkbox_inner);
+            margin: 0;
+            background: var(--semi-cssvar-color-checkbox_default-bg-default);
+            transition: background-color var(--semi-cssvar-transition_duration-checkbox-bg) var(--semi-cssvar-transition_function-checkbox-bg) var(--semi-cssvar-transition_delay-checkbox-bg),
+                border var(--semi-cssvar-transition_duration-checkbox-border) var(--semi-cssvar-transition_function-checkbox-border) var(--semi-cssvar-transition_delay-checkbox-border);
+
+            box-shadow: inset 0 0 0 var(--semi-cssvar-size-checkbox_inner-shadow) var(--semi-cssvar-color-checkbox_default-border-default);
+            border-radius: var(--semi-cssvar-radius-checkbox_inner)
+        }
+
+            .semi-checkbox-inner-display .semi-icon {
+                font-size: 16px;
+            }
+
+    .semi-checkbox-inner-checked {
+    }
+        .semi-checkbox-inner-checked .semi-checkbox-inner-display {
+            background: var(--semi-cssvar-color-checkbox_checked-bg-default);
+            color: var(--semi-cssvar-color-checkbox_checked-icon-default);
+
+            box-shadow: inset 0 0 0 var(--semi-cssvar-size-checkbox_inner-shadow) var(--semi-cssvar-color-checkbox_checked-border-default);
+            border-radius: var(--semi-cssvar-radius-checkbox_inner);
+        }
+
+        .semi-checkbox-inner-checked>.semi-checkbox-addon {
+            color: var(--semi-cssvar-color-checkbox_label-text-default);
+        }
+
+    .semi-checkbox:hover {
+    }
+        .semi-checkbox:hover .semi-checkbox-inner-display {
+            background: var(--semi-cssvar-color-checkbox_default-bg-hover);
+        }
+
+        .semi-checkbox:hover.semi-checkbox-indeterminate .semi-checkbox-inner-display {
+            background: var(--semi-cssvar-color-checkbox_checked-bg-hover);
+            box-shadow: none;
+            color: var(--semi-cssvar-color-checkbox_checked-icon-hover);
+        }
+
+        .semi-checkbox:hover .semi-checkbox-inner-checked {
+        }
+            .semi-checkbox:hover .semi-checkbox-inner-checked .semi-checkbox-inner-display {
+                background: var(--semi-cssvar-color-checkbox_checked-bg-hover);
+                border-color: var(--semi-cssvar-color-checkbox_checked-border-hover);
+                color: var(--semi-cssvar-color-checkbox_checked-icon-hover);
+            }
+
+        .semi-checkbox:hover.semi-checkbox-cardType.semi-checkbox-unChecked.semi-checkbox-cardType_enable {
+        }
+            .semi-checkbox:hover.semi-checkbox-cardType.semi-checkbox-unChecked.semi-checkbox-cardType_enable .semi-checkbox-inner-display {
+                background: var(--semi-cssvar-color-checkbox_cardType_inner-bg-hover);
+            }
+
+    .semi-checkbox:active {
+    }
+        .semi-checkbox:active .semi-checkbox-inner-display {
+            background: var(--semi-cssvar-color-checkbox_default-bg-active);
+        }
+
+        .semi-checkbox:active.semi-checkbox-indeterminate .semi-checkbox-inner-display {
+            background: var(--semi-cssvar-color-checkbox_checked-bg-active);
+            border-color: var(--semi-cssvar-color-checkbox_checked-border-active);
+            color: var(--semi-cssvar-color-checkbox_checked-icon-active);
+            box-shadow: none;
+        }
+
+        .semi-checkbox:active .semi-checkbox-inner-checked {
+        }
+            .semi-checkbox:active .semi-checkbox-inner-checked .semi-checkbox-inner-display {
+                background: var(--semi-cssvar-color-checkbox_checked-bg-active);
+                border-color: var(--semi-cssvar-color-checkbox_checked-border-active);
+                color: var(--semi-cssvar-color-checkbox_checked-icon-active);
+            }
+
+        .semi-checkbox:active.semi-checkbox-cardType.semi-checkbox-unChecked.semi-checkbox-cardType_enable {
+        }
+            .semi-checkbox:active.semi-checkbox-cardType.semi-checkbox-unChecked.semi-checkbox-cardType_enable .semi-checkbox-inner-display {
+                background: var(--semi-cssvar-color-checkbox_cardType_inner-bg-active);
+            }
+
+    .semi-checkbox-cardType {
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        border-radius: var(--semi-cssvar-radius-checkbox_cardType);
+        padding: var(--semi-cssvar-spacing-checkbox_cardType-paddingY) var(--semi-cssvar-spacing-checkbox_cardType-paddingX);
+        background: transparent;
+        border: var(--semi-cssvar-width-checkbox_cardType_checked-border) solid var(--semi-cssvar-color-checkbox_cardType-border-default)
+    }
+
+
+        .semi-checkbox-cardType .semi-checkbox-inner {
+            position: relative;
+            flex-shrink: 0
+        }
+
+            .semi-checkbox-cardType .semi-checkbox-inner-display {
+                background: var(--semi-cssvar-color-checkbox_cardType_inner-bg-default);
+            }
+
+        .semi-checkbox-cardType .semi-checkbox-inner-pureCardType {
+            opacity: 0;
+            width: 0;
+        }
+            /* Reasons to use opacity:0 & width: 0 instead of display: none*/
+            /* The a11y keyboard focus event of the checkbox depends on the implementation of the input focus/blur event*/
+            /* input focus/blur cannot take effect when display: none*/
+
+        .semi-checkbox-cardType .semi-checkbox-addon {
+            font-weight: var(--semi-cssvar-font-checkbox_cardType_addon-fontWeight);
+            font-size: var(--semi-cssvar-font-checkbox_cardType_addon-size);
+            line-height: var(--semi-cssvar-font-checkbox_cardType_addon-lineHeight);
+            color: var(--semi-cssvar-color-checkbox_cardType_addon-text-default);
+        }
+
+        .semi-checkbox-cardType .semi-checkbox-extra {
+            font-weight: var(--semi-cssvar-font-checkbox_cardType_extra-fontWeight);
+            font-size: var(--semi-cssvar-font-checkbox_cardType_extra-size);
+            line-height: var(--semi-cssvar-font-checkbox_cardType_extra-lineHeight);
+            color: var(--semi-cssvar-color-checkbox_cardType_extra-text-default)
+        }
+
+            .semi-checkbox-cardType .semi-checkbox-extra.semi-checkbox-cardType_extra_noChildren {
+                margin-top: 0;
+            }
+
+        .semi-checkbox-cardType:hover {
+            background: var(--semi-cssvar-color-checkbox_cardType-bg-hover);
+        }
+
+        .semi-checkbox-cardType:active {
+            background: var(--semi-cssvar-color-checkbox_cardType-bg-active);
+        }
+
+        .semi-checkbox-cardType_checked {
+            background: var(--semi-cssvar-color-checkbox_cardType_checked-bg);
+            border: var(--semi-cssvar-width-checkbox_cardType_checked-border) solid var(--semi-cssvar-color-checkbox_cardType_checked_border-default)
+        }
+
+            .semi-checkbox-cardType_checked:hover {
+                background: var(--semi-cssvar-color-checkbox_cardType_checked-bg);
+                border-color: var(--semi-cssvar-color-checkbox_cardType_checked_border-hover)
+            }
+
+                .semi-checkbox-cardType_checked:hover .semi-checkbox-inner-checked .semi-checkbox-inner-display {
+                    box-shadow: none;
+                }
+
+            .semi-checkbox-cardType_checked:active {
+                background: var(--semi-cssvar-color-checkbox_cardType_checked-bg);
+                border-color: var(--semi-cssvar-color-checkbox_cardType_checked_border-active);
+            }
+
+        .semi-checkbox-cardType_disabled {
+        }
+            .semi-checkbox-cardType_disabled:active {
+                background: transparent;
+            }
+
+            .semi-checkbox-cardType_disabled:hover {
+                background: transparent;
+            }
+
+        .semi-checkbox-cardType_checked_disabled.semi-checkbox-cardType {
+            background: var(--semi-cssvar-color-checkbox_cardType_checked_disabled-bg);
+            border: var(--semi-cssvar-width-checkbox_cardType_checked_disabled-border) solid var(--semi-cssvar-color-checkbox_cardType_checked_disabled_border-default)
+        }
+
+            .semi-checkbox-cardType_checked_disabled.semi-checkbox-cardType:hover {
+            }
+                .semi-checkbox-cardType_checked_disabled.semi-checkbox-cardType:hover .semi-checkbox-inner-checked .semi-checkbox-inner-display {
+                    box-shadow: none;
+                }
+
+    .semi-checkbox-indeterminate, .semi-checkbox-checked {
+    }
+        .semi-checkbox-indeterminate .semi-checkbox-inner, .semi-checkbox-checked .semi-checkbox-inner {
+        }
+
+            .semi-checkbox-indeterminate .semi-checkbox-inner-display, .semi-checkbox-checked .semi-checkbox-inner-display {
+                background: var(--semi-cssvar-color-checkbox_checked-bg-default);
+                color: var(--semi-cssvar-color-checkbox_checked-icon-default);
+
+                box-shadow: inset 0 0 0 var(--semi-cssvar-size-checkbox_inner-shadow) var(--semi-cssvar-color-checkbox_checked-border-default);
+                border-radius: var(--semi-cssvar-radius-checkbox_inner)
+            }
+
+                .semi-checkbox-indeterminate .semi-checkbox-inner-display:hover, .semi-checkbox-checked .semi-checkbox-inner-display:hover {
+                    background: var(--semi-cssvar-color-checkbox_checked-bg-hover);
+                    border-color: var(--semi-cssvar-color-checkbox_checked-border-hover);
+                    color: var(--semi-cssvar-color-checkbox_checked-icon-hover);
+                }
+
+                .semi-checkbox-indeterminate .semi-checkbox-inner-display:active, .semi-checkbox-checked .semi-checkbox-inner-display:active {
+                    background: var(--semi-cssvar-color-checkbox_checked-bg-active);
+                    border-color: var(--semi-cssvar-color-checkbox_checked-border-active);
+                    color: var(--semi-cssvar-color-checkbox_checked-icon-active);
+                }
+
+            .semi-checkbox-indeterminate .semi-checkbox-inner-addon, .semi-checkbox-checked .semi-checkbox-inner-addon {
+                color: var(--semi-cssvar-color-checkbox_label-text-default);
+            }
+
+    .semi-checkbox-disabled {
+        cursor: not-allowed
+    }
+
+        .semi-checkbox-disabled .semi-checkbox-inner {
+            cursor: not-allowed
+        }
+
+            .semi-checkbox-disabled .semi-checkbox-inner-display {
+                color: var(--semi-cssvar-color-checkbox_checked-icon-disabled);
+                background: var(--semi-cssvar-color-checkbox_disabled-bg-default);
+                box-shadow: inset 0 0 0 var(--semi-cssvar-size-checkbox_inner-shadow) var(--semi-cssvar-color-checkbox_disabled-border-default)
+            }
+
+                .semi-checkbox-disabled .semi-checkbox-inner-display:hover {
+                    color: var(--semi-cssvar-color-checkbox_checked-icon-disabled);
+                    background: transparent;
+                }
+
+            .semi-checkbox-disabled .semi-checkbox-inner-checked {
+                color: var(--semi-cssvar-color-checkbox_checked-icon-disabled)
+            }
+
+                .semi-checkbox-disabled .semi-checkbox-inner-checked .semi-checkbox-inner-display {
+                    opacity: 0.75;
+                    background: var(--semi-cssvar-color-checkbox_checked-bg-disabled);
+                    box-shadow: inset 0 0 0 var(--semi-cssvar-size-checkbox_inner-shadow) var(--semi-cssvar-color-checkbox_checked-bg-disabled)
+                }
+
+                    .semi-checkbox-disabled .semi-checkbox-inner-checked .semi-checkbox-inner-display:hover {
+                        color: var(--semi-cssvar-color-checkbox_checked-icon-disabled);
+                        background: var(--semi-cssvar-color-checkbox_checked-bg-disabled);
+                    }
+
+        .semi-checkbox-disabled .semi-checkbox-addon {
+            color: var(--semi-cssvar-color-checkbox_label-text-disabled);
+        }
+
+        .semi-checkbox-disabled .semi-checkbox-extra {
+            color: var(--semi-cssvar-color-checkbox_label-text-disabled);
+        }
+
+    .semi-checkbox.semi-checkbox-disabled.semi-checkbox-indeterminate .semi-checkbox-inner-display {
+        opacity: 0.75;
+        background: var(--semi-cssvar-color-checkbox_checked-bg-disabled);
+        box-shadow: inset 0 0 0 var(--semi-cssvar-size-checkbox_inner-shadow) var(--semi-cssvar-color-checkbox_checked-bg-disabled);
+        color: var(--semi-cssvar-color-checkbox_checked-icon-disabled);
+    }
+
+    .semi-checkbox-extra {
+        flex-shrink: 0;
+        flex-grow: 1;
+        flex-basis: 100%;
+        box-sizing: border-box;
+        color: var(--semi-cssvar-color-checkbox_extra-text-default);
+    }
+
+    .semi-checkbox-focus {
+        outline: var(--semi-cssvar-width-checkbox-outline) solid var(--semi-cssvar-color-checkbox_primary-outline-focus)
+    }
+
+        .semi-checkbox-focus-border {
+            box-shadow: inset 0 0 0 var(--semi-cssvar-size-checkbox_inner-shadow) var(--semi-cssvar-color-checkbox_default-border-hover);
+        }
+
+.semi-checkboxGroup {
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    line-height: var(--semi-cssvar-font-size-regular)
+}
+    /* make sure group height 32px*/
+
+    .semi-checkboxGroup .semi-checkbox {
+    }
+        .semi-checkboxGroup .semi-checkbox.semi-checkbox-vertical {
+            margin-bottom: var(--semi-cssvar-spacing-checkbox_group_vertical-marginBottom);
+        }
+
+    .semi-checkboxGroup-horizontal {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--semi-cssvar-spacing-checkbox_group_horizontal-marginRight)
+    }
+
+        .semi-checkboxGroup-horizontal .semi-checkbox {
+            display: inline-flex;
+        }
+
+    .semi-checkboxGroup-vertical {
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--semi-cssvar-spacing-checkbox_group_vertical_item-marginBottom)
+    }
+
+        .semi-checkboxGroup-vertical-cardType {
+            row-gap: var(--semi-cssvar-spacing-checkbox_card_group_vertical-marginBottom);
+        }
+
+
+        .semi-checkboxGroup-vertical-pureCardType {
+        }
+            .semi-checkboxGroup-vertical-pureCardType .semi-checkbox {
+                column-gap: 0;
+            }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl, 
+.semi-portal-rtl {
+    & .semi-checkbox {
+        direction: rtl;
+
+        & input[type="checkbox"] {
+            left: auto;
+            right: 0;
+        }
+    }
+
+    & .semi-checkboxGroup {
+        direction: rtl;
+    }
+}

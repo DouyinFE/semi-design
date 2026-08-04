@@ -1,0 +1,225 @@
+
+.semi-scrolllist {
+    width: 100%;
+    height: 100%;
+    background: var(--semi-cssvar-color-scrollList-bg);
+    box-shadow: var(--semi-cssvar-shadow-scrollList);
+    border-radius: var(--semi-cssvar-radius-scrollList);
+    overflow: hidden;
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    user-select: none;
+
+    display: flex;
+    flex-direction: column
+}
+
+    .semi-scrolllist-header {
+        text-align: center;
+        padding: var(--semi-cssvar-spacing-scrollList_header-paddingY) var(--semi-cssvar-spacing-scrollList_header-paddingX);
+        background: var(--semi-cssvar-color-scrollList_header-bg)
+    }
+
+        .semi-scrolllist-header-title {
+            padding: var(--semi-cssvar-spacing-scrollList_header_title-paddingY) var(--semi-cssvar-spacing-scrollList_header_title-paddingX);
+            font-weight: var(--semi-cssvar-font-scrollList_header_title-fontWeight);
+            color: var(--semi-cssvar-color-scrollList_header-title);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        }
+
+    .semi-scrolllist-body {
+        display: flex;
+        height: var(--semi-cssvar-height-scrollList);
+        padding: var(--semi-cssvar-spacing-scrollList_body-paddingY) var(--semi-cssvar-spacing-scrollList_body-paddingX);
+        overflow: hidden
+    }
+
+        .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer-nocycle, .semi-scrolllist-body .semi-scrolllist-item {
+        }
+            .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer-nocycle > ul, .semi-scrolllist-body .semi-scrolllist-item > ul {
+            }
+                .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer-nocycle > ul:before, .semi-scrolllist-body .semi-scrolllist-item > ul:before {
+                    content: '';
+                    display: block;
+                    width: 100%;
+                    height: calc((var(--semi-cssvar-height-scrollList) - var(--semi-cssvar-height-scrollList_item)) * 0.5);
+                }
+
+        .semi-scrolllist-body .semi-scrolllist-item {
+            position: relative;
+            flex: 1;
+            overflow-x: hidden;
+            overflow-y: auto
+        }
+
+            .semi-scrolllist-body .semi-scrolllist-item:not(:last-child) {
+                border-right: var(--semi-cssvar-width-scrollList_item-border) solid var(--semi-cssvar-color-scrollList-border);
+            }
+
+        .semi-scrolllist-body .semi-scrolllist-item, .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer {
+        }
+            .semi-scrolllist-body .semi-scrolllist-item > ul, .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul {
+                box-sizing: border-box;
+                width: 100%;
+                margin: var(--semi-cssvar-spacing-scrollList_item_ul-margin);
+                padding: var(--semi-cssvar-spacing-scrollList_item_ul-padding);
+                padding-bottom: var(--semi-cssvar-spacing-scrollList_item_ul-paddingBottom);
+                list-style: none
+            }
+
+                .semi-scrolllist-body .semi-scrolllist-item > ul > li, .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul > li {
+                    list-style: none;
+                    height: var(--semi-cssvar-height-scrollList_item);
+                    box-sizing: border-box;
+                    color: var(--semi-cssvar-color-scrollList_item-text);
+                    text-align: center;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    background-color: var(--semi-cssvar-color-scrollList_item-bg);
+                    transition: background-color var(--semi-cssvar-transition_duration-scrollList_selected_item-bg) var(--semi-cssvar-transition_function-scrollList_selected_item-bg) var(--semi-cssvar-transition_delay-scrollList_selected_item-bg)
+                }
+                    /* padding: 8px 18px;*/
+                    .semi-scrolllist-body .semi-scrolllist-item > ul > li.semi-scrolllist-item-sel, .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul > li.semi-scrolllist-item-sel {
+                        background: var(--semi-cssvar-color-scrollList_selected_item-bg);
+                        color: var(--semi-cssvar-color-scrollList_selected_item-text)
+                    }
+
+                        .semi-scrolllist-body .semi-scrolllist-item > ul > li.semi-scrolllist-item-sel > svg, .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul > li.semi-scrolllist-item-sel > svg {
+                            color: var(--semi-cssvar-color-scrollList_selected_item-icon);
+                            width: var(--semi-cssvar-width-scrollList_item_sel_svg);
+                            height: var(--semi-cssvar-width-scrollList_item_sel_svg);
+                            margin-right: var(--semi-cssvar-spacing-scrollList_item_sel_svg-marginRight);
+                        }
+
+                    .semi-scrolllist-body .semi-scrolllist-item > ul > li:not(.disabled):not(.semi-scrolllist-item-disabled):not(.semi-scrolllist-item-sel):not(.semi-scrolllist-item-selected), .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul > li:not(.disabled):not(.semi-scrolllist-item-disabled):not(.semi-scrolllist-item-sel):not(.semi-scrolllist-item-selected) {
+                        cursor: pointer
+                    }
+
+                        .semi-scrolllist-body .semi-scrolllist-item > ul > li:not(.disabled):not(.semi-scrolllist-item-disabled):not(.semi-scrolllist-item-sel):not(.semi-scrolllist-item-selected):hover, .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul > li:not(.disabled):not(.semi-scrolllist-item-disabled):not(.semi-scrolllist-item-sel):not(.semi-scrolllist-item-selected):hover {
+                            background-color: var(--semi-cssvar-color-scrollList_item-text-hover);
+                        }
+
+                        .semi-scrolllist-body .semi-scrolllist-item > ul > li:not(.disabled):not(.semi-scrolllist-item-disabled):not(.semi-scrolllist-item-sel):not(.semi-scrolllist-item-selected):active, .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul > li:not(.disabled):not(.semi-scrolllist-item-disabled):not(.semi-scrolllist-item-sel):not(.semi-scrolllist-item-selected):active {
+                            background-color: var(--semi-cssvar-color-scrollList_item-bg-active);
+                        }
+                    .semi-scrolllist-body .semi-scrolllist-item > ul > li.semi-scrolllist-item-disabled, .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul > li.semi-scrolllist-item-disabled {
+                        color: var(--semi-cssvar-color-scrollList_disabled_item-text);
+                        cursor: not-allowed;
+                    }
+
+        .semi-scrolllist-body .semi-scrolllist-item-wheel {
+            position: relative;
+            flex: 1;
+            overflow: hidden
+        }
+
+            .semi-scrolllist-body .semi-scrolllist-item-wheel:not(:last-child) {
+                border-right: var(--semi-cssvar-border-thickness-control) solid var(--semi-cssvar-color-scrollList-border);
+            }
+
+            .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-item-selected {
+                font-weight: var(--semi-cssvar-font-scrollList_item_wheel_item_selected-fontWeight);
+                color: var(--semi-color-primary) !important;
+            }
+
+            .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer {
+                overflow-x: hidden;
+                overflow-y: auto;
+                height: 100%;
+                width: 100%;
+                padding-right: var(--semi-cssvar-spacing-scrollList_item_wheel_list_outer-paddingRight);
+            }
+
+            .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-shade {
+                width: 100%;
+                height: 50%;
+                pointer-events: none;
+                position: absolute
+            }
+
+                .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-shade-pre {
+                    top: 0;
+                    margin-top: var(--semi-cssvar-spacing-scrollList_item_wheel_list_shade_pre-marginTop);
+                    background: var(--semi-cssvar-color-scrollList-bg);
+                    opacity: 0.5;
+                }
+
+                .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-shade-post {
+                    top: 50%;
+                    margin-top: var(--semi-cssvar-spacing-scrollList_item_wheel_list_shade_post-marginTop);
+                    background: var(--semi-cssvar-color-scrollList-bg);
+                    opacity: 0.5;
+                }
+
+            .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-selector {
+                pointer-events: none;
+                position: absolute;
+                top: 50%;
+                border-top: var(--semi-cssvar-width-scrollList_item_wheel_selector-border) solid var(--semi-cssvar-color-scrollList-border);
+                border-bottom: var(--semi-cssvar-width-scrollList_item_wheel_selector-border) solid var(--semi-cssvar-color-scrollList-border);
+                height: var(--semi-cssvar-height-scrollList_item);
+                width: 100%;
+                transform: translateY(-50%);
+            }
+    .semi-scrolllist .semi-scrolllist-footer {
+        border-top: var(--semi-cssvar-width-scrollList_footer-border) solid var(--semi-cssvar-color-scrollList_footer-border);
+        padding: var(--semi-cssvar-spacing-scrollList_footer-padding);
+    }
+    .semi-scrolllist .semi-scrolllist-line {
+        background: var(--semi-cssvar-color-scrollList-border);
+        height: var(--semi-cssvar-height-scrollList_line);
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-scrolllist, .semi-portal-rtl .semi-scrolllist {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-scrolllist-body, .semi-portal-rtl .semi-scrolllist-body {
+        }
+            .semi-rtl .semi-scrolllist-body .semi-scrolllist-item, .semi-portal-rtl .semi-scrolllist-body .semi-scrolllist-item {
+            }
+
+                .semi-rtl .semi-scrolllist-body .semi-scrolllist-item:not(:last-child), .semi-portal-rtl .semi-scrolllist-body .semi-scrolllist-item:not(:last-child) {
+                    border-right: 0;
+                    border-left: var(--semi-cssvar-width-scrollList_item-border) solid var(--semi-cssvar-color-scrollList-border);
+                }
+            .semi-rtl .semi-scrolllist-body .semi-scrolllist-item, .semi-portal-rtl .semi-scrolllist-body .semi-scrolllist-item, .semi-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer, .semi-portal-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer {
+            }
+
+                .semi-rtl .semi-scrolllist-body .semi-scrolllist-item > ul, .semi-portal-rtl .semi-scrolllist-body .semi-scrolllist-item > ul, .semi-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul, .semi-portal-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul {
+                }
+
+                    .semi-rtl .semi-scrolllist-body .semi-scrolllist-item > ul > li, .semi-portal-rtl .semi-scrolllist-body .semi-scrolllist-item > ul > li, .semi-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul > li, .semi-portal-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul > li {
+                    }
+                        .semi-rtl .semi-scrolllist-body .semi-scrolllist-item > ul > li.semi-scrolllist-item-sel, .semi-portal-rtl .semi-scrolllist-body .semi-scrolllist-item > ul > li.semi-scrolllist-item-sel, .semi-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul > li.semi-scrolllist-item-sel, .semi-portal-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul > li.semi-scrolllist-item-sel {
+                        }
+
+                            .semi-rtl .semi-scrolllist-body .semi-scrolllist-item > ul > li.semi-scrolllist-item-sel > svg, .semi-portal-rtl .semi-scrolllist-body .semi-scrolllist-item > ul > li.semi-scrolllist-item-sel > svg, .semi-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul > li.semi-scrolllist-item-sel > svg, .semi-portal-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer > ul > li.semi-scrolllist-item-sel > svg {
+                                margin-right: 0;
+                                margin-left: var(--semi-cssvar-spacing-scrollList_item_sel_svg-marginRight);
+                            }
+
+            .semi-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel, .semi-portal-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel {
+            }
+
+                .semi-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel:not(:last-child), .semi-portal-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel:not(:last-child) {
+                    border-right: 0;
+                    border-left: var(--semi-cssvar-width-scrollList_item_wheel-border) solid var(--semi-cssvar-color-scrollList-border);
+                }
+
+                .semi-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer, .semi-portal-rtl .semi-scrolllist-body .semi-scrolllist-item-wheel .semi-scrolllist-list-outer {
+                    padding-right: 0;
+                    padding-left: var(--semi-cssvar-spacing-scrollList_item_wheel_list_outer-paddingRight);
+                }

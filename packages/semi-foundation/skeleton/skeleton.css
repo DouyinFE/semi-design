@@ -1,0 +1,116 @@
+
+.semi-skeleton {
+}
+    .semi-skeleton-avatar, .semi-skeleton-image, .semi-skeleton-title, .semi-skeleton-button {
+        background: var(--semi-cssvar-color-skeleton_default-bg-default);
+        border-radius: var(--semi-cssvar-radius-skeleton_item);
+    }
+
+    .semi-skeleton-avatar {
+    }
+        .semi-skeleton-avatar-circle {
+            border-radius: 50%;
+        }
+
+        .semi-skeleton-avatar-extra-extra-small {
+            width: var(--semi-cssvar-width-skeleton_avatar_extra_extra_small);
+            height: var(--semi-cssvar-width-skeleton_avatar_extra_extra_small);
+        }
+
+        .semi-skeleton-avatar-extra-small {
+            width: var(--semi-cssvar-width-skeleton_avatar_extra_small);
+            height: var(--semi-cssvar-width-skeleton_avatar_extra_small);
+        }
+
+        .semi-skeleton-avatar-medium {
+            width: var(--semi-cssvar-width-skeleton_avatar_medium);
+            height: var(--semi-cssvar-width-skeleton_avatar_medium);
+        }
+
+        .semi-skeleton-avatar-small {
+            width: var(--semi-cssvar-width-skeleton_avatar_small);
+            height: var(--semi-cssvar-width-skeleton_avatar_small);
+        }
+
+        .semi-skeleton-avatar-large {
+            width: var(--semi-cssvar-width-skeleton_avatar_large);
+            height: var(--semi-cssvar-width-skeleton_avatar_large);
+        }
+
+        .semi-skeleton-avatar-extra-large {
+            width: var(--semi-cssvar-width-skeleton_avatar_extra_large);
+            height: var(--semi-cssvar-width-skeleton_avatar_extra_large);
+        }
+
+    .semi-skeleton-paragraph {
+        margin: var(--semi-cssvar-spacing-none);
+        padding: var(--semi-cssvar-spacing-none);
+        list-style-type: none
+    }
+
+        .semi-skeleton-paragraph li {
+            background: var(--semi-cssvar-color-skeleton_default-bg-default);
+            border-radius: var(--semi-cssvar-radius-skeleton_li);
+            width: 100%;
+            height: var(--semi-cssvar-height-skeleton_li);
+            margin-bottom: var(--semi-cssvar-spacing-skeleton_li-marginBottom)
+        }
+
+            .semi-skeleton-paragraph li:last-child {
+                width: 60%;
+                margin-bottom: var(--semi-cssvar-spacing-none);
+            }
+
+            .semi-skeleton-paragraph li:first-child {
+                width: 100%;
+            }
+
+    .semi-skeleton-title {
+        width: 100%;
+        height: var(--semi-cssvar-height-skeleton_title);
+    }
+
+    .semi-skeleton-button {
+        width: var(--semi-cssvar-width-skeleton_button);
+        height: var(--semi-cssvar-height-skeleton_button);
+    }
+
+    .semi-skeleton-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .semi-skeleton-active {
+    }
+        .semi-skeleton-active .semi-skeleton-avatar, .semi-skeleton-active .semi-skeleton-image, .semi-skeleton-active .semi-skeleton-title, .semi-skeleton-active .semi-skeleton-button, .semi-skeleton-active .semi-skeleton-paragraph li {
+            background: linear-gradient(
+                90deg,
+                var(--semi-cssvar-color-skeleton_default-bg-default) 25%,
+                var(--semi-cssvar-color-skeleton_loading-gradient-bg-active) 44%,
+                var(--semi-cssvar-color-skeleton_default-bg-default) 88%
+            );
+            background-size: 400% 100%;
+            animation: var(--semi-cssvar-animation_duration-skeleton-highlight) skeleton-loading var(--semi-cssvar-animation_function-skeleton-highlight) infinite;
+            animation-fill-mode: forwards;
+        }
+
+    @keyframes skeleton-loading {
+        0% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0 50%;
+        }
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+    & .semi-skeleton {
+        direction: rtl;
+    }
+}

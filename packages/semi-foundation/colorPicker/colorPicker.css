@@ -1,0 +1,109 @@
+
+
+.semi-colorPicker {
+
+
+
+}
+
+    .semi-colorPicker-colorChooseArea{
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+        position: relative;
+        flex-grow: 1;
+        border-color: transparent;
+        border-radius: var(--semi-cssvar-radius-colorPicker-topLeft) var(--semi-cssvar-radius-colorPicker-topRight) var(--semi-cssvar-radius-colorPicker-bottomLeft) var(--semi-cssvar-radius-colorPicker-bottomRight);
+        background-image: linear-gradient(to top, #000, rgba(0, 0, 0, 0)), linear-gradient(to right, #fff, rgba(255, 255, 255, 0));
+    }
+
+        /**
+         *  Referrer from https://github.com/web-padawan/vanilla-colorful/blob/5d219ee360ae2f29534864b28ca9e6074233b9ce/src/lib/styles/saturation.css
+         */
+
+
+    .semi-colorPicker-handle{
+        border-radius: var(--semi-cssvar-radius-colorPicker-handle);
+        border: var(--semi-cssvar-width-colorPicker_handle-border) solid var(--semi-cssvar-color-colorPicker_handle-border);
+        position: absolute;
+        box-sizing: border-box;
+        cursor: grab;
+    }
+
+
+
+
+    .semi-colorPicker-alphaSlider{
+        position: relative;
+        cursor: pointer;
+        margin-top: var(--semi-cssvar-spacing-colorPicker_slider-marginTop);
+        border-radius: var(--semi-cssvar-radius-colorPicker-handle);
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><rect x="8" width="8" height="8"/><rect y="8" width="8" height="8"/></svg>')
+
+    }
+
+
+        .semi-colorPicker-alphaSlider .semi-colorPicker-alphaSliderInner{
+            width: 100%;
+            height: 100%;
+            border-radius: var(--semi-cssvar-radius-colorPicker-alphaSliderInner);
+        }
+
+        .semi-colorPicker-alphaSlider .semi-colorPicker-alphaHandle{
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><rect x="8" width="8" height="8"/><rect y="8" width="8" height="8"/></svg>');
+            border-radius: var(--semi-cssvar-radius-colorPicker-handle);
+            border: var(--semi-cssvar-width-colorPicker_handle-border) solid var(--semi-cssvar-color-colorPicker_handle-border);
+            position: absolute;
+            box-sizing: border-box;
+            cursor: grab;
+
+        }
+
+    .semi-colorPicker-colorSlider{
+        position: relative;
+        cursor: pointer;
+        margin-top: var(--semi-cssvar-spacing-colorPicker_slider-marginTop);
+        border-radius: var(--semi-cssvar-radius-colorPicker-handle);
+        background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
+    }
+
+
+
+    .semi-colorPicker-dataPart{
+        margin-top: var(--semi-cssvar-spacing-colorPicker_dataPart-marginTop);
+        display: flex;
+        align-items: center
+    }
+        .semi-colorPicker-dataPart .semi-colorPicker-colorDemoBlock{
+            border-radius: var(--semi-cssvar-radius-colorPicker-demoBlock);
+        }
+        .semi-colorPicker-dataPart .semi-colorPicker-inputGroup{
+            margin-left: var(--semi-cssvar-spacing-colorPicker_inputGroup-marginLeft);
+            width: 100%;
+            flex:1;
+            flex-wrap: nowrap
+        }
+            .semi-colorPicker-dataPart .semi-colorPicker-inputGroup .semi-colorPicker-colorPickerInput{
+                flex: 1;
+            }
+            .semi-colorPicker-dataPart .semi-colorPicker-inputGroup .semi-colorPicker-colorPickerInputNumber{
+                width: var(--semi-cssvar-width-colorPicker-colorPickerInputNumber)
+            }
+                .semi-colorPicker-dataPart .semi-colorPicker-inputGroup .semi-colorPicker-colorPickerInputNumber .semi-colorPicker-inputNumberSuffix{
+                    font-size: var(--semi-cssvar-font-colorPicker_inputNumberSuffix-fontSize);
+                    padding: var(--semi-cssvar-spacing-colorPicker_inputNumberSuffix-vertical) var(--semi-cssvar-spacing-colorPicker_inputNumberSuffix-horizontal);
+                }
+        .semi-colorPicker-dataPart .semi-colorPicker-formatSelect{
+            width: var(--semi-cssvar-width-colorPicker-formatSelect);
+        }
+
+
+    .semi-colorPicker-popover{
+        padding: var(--semi-cssvar-spacing-colorPicker_popover-padding)
+
+    }
+
+        .semi-colorPicker-popover-defaultChildren{
+            width:var(--semi-cssvar-width-colorPicker-defaultTrigger);
+            height: var(--semi-cssvar-width-colorPicker-defaultTrigger);
+            border-radius: var(--semi-cssvar-radius-colorPicker-defaultTrigger);
+            cursor: pointer;
+        }

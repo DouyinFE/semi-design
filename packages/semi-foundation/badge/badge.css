@@ -1,0 +1,164 @@
+
+.semi-badge {
+    position: relative;
+    display: inline-block
+
+}
+
+    .semi-badge-dot {
+        box-sizing: border-box;
+        width: var(--semi-cssvar-width-badge_dot);
+        height: var(--semi-cssvar-height-badge_dot);
+        border-radius: var(--semi-cssvar-radius-badge_dot);
+        background-color: var(--semi-cssvar-color-badge_default-bg-default);
+        border: var(--semi-cssvar-width-badge-border) var(--semi-cssvar-color-badge_default-border-default) solid;
+        z-index: var(--semi-cssvar-z-badge);
+    }
+
+    .semi-badge-count {
+        box-sizing: border-box;
+        height: var(--semi-cssvar-height-badge_count);
+        min-width: var(--semi-cssvar-height-badge_count);
+        border-radius: calc(var(--semi-cssvar-height-badge_count) * 0.5);
+        padding: var(--semi-cssvar-spacing-badge_count-paddingY) var(--semi-cssvar-spacing-badge_count-paddingX);
+        background-color: var(--semi-cssvar-color-badge_default-bg-default);
+        border: var(--semi-cssvar-width-badge-border) var(--semi-cssvar-color-badge_default-border-default) solid;
+        z-index: var(--semi-cssvar-z-badge);
+        text-align: center;
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        font-weight: var(--semi-cssvar-font-weight-regular);
+        color: var(--semi-cssvar-color-badge_default-text-default);
+    }
+
+    .semi-badge-rightTop {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(50%, -50%);
+        transform-origin: 100% 0%;
+    }
+
+    .semi-badge-rightBottom {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        transform: translate(50%, 50%);
+        transform-origin: 100% 0%;
+    }
+
+    .semi-badge-leftTop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+        transform-origin: 100% 0%;
+    }
+
+    .semi-badge-leftBottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transform: translate(-50%, 50%);
+        transform-origin: 100% 0%;
+    }
+
+    .semi-badge-custom {
+        display: flex;
+    }
+
+    .semi-badge-block {
+        position: static;
+        display: inline-block;
+    }
+
+
+    .semi-badge-primary {
+    }
+        .semi-badge-primary.semi-badge-solid {
+            background-color: var(--semi-cssvar-color-badge_primary_solid-bg-default);
+        }
+        .semi-badge-primary.semi-badge-light {
+            background-color: var(--semi-cssvar-color-badge_primary_light-bg-default);
+            color: var(--semi-cssvar-color-badge_primary_light-text-default);
+        }
+        .semi-badge-primary.semi-badge-inverted {
+            color: var(--semi-cssvar-color-badge_primary_inverted-text-default);
+        }
+
+    .semi-badge-secondary {
+    }
+        .semi-badge-secondary.semi-badge-solid {
+            background-color: var(--semi-cssvar-color-badge_secondary_solid-bg-default);
+        }
+        .semi-badge-secondary.semi-badge-light {
+            background-color: var(--semi-cssvar-color-badge_secondary_light-bg-default);
+            color: var(--semi-cssvar-color-badge_secondary_light-text-default);
+        }
+        .semi-badge-secondary.semi-badge-inverted {
+            color: var(--semi-cssvar-color-badge_secondary_inverted-text-default);
+        }
+
+    .semi-badge-tertiary {
+    }
+        .semi-badge-tertiary.semi-badge-solid {
+            background-color: var(--semi-cssvar-color-badge_tertiary_solid-bg-default);
+        }
+        .semi-badge-tertiary.semi-badge-light {
+            background-color: var(--semi-cssvar-color-badge_tertiary_light-bg-default);
+            color: var(--semi-cssvar-color-badge_tertiary_light-text-default);
+        }
+        .semi-badge-tertiary.semi-badge-inverted {
+            color: var(--semi-cssvar-color-badge_tertiary_inverted-text-default);
+        }
+
+    .semi-badge-danger {
+    }
+        .semi-badge-danger.semi-badge-solid {
+            background-color: var(--semi-cssvar-color-badge_danger_solid-bg-default);
+        }
+        .semi-badge-danger.semi-badge-light {
+            background-color: var(--semi-cssvar-color-badge_danger_light-bg-default);
+            color: var(--semi-cssvar-color-badge_danger_light-text-default);
+        }
+        .semi-badge-danger.semi-badge-inverted {
+            color: var(--semi-cssvar-color-badge_danger_inverted-text-default);
+        }
+
+    .semi-badge-warning {
+    }
+        .semi-badge-warning.semi-badge-solid {
+            background-color: var(--semi-cssvar-color-badge_warning_solid-bg-default);
+        }
+        .semi-badge-warning.semi-badge-light {
+            background-color: var(--semi-cssvar-color-badge_warning_light-bg-default);
+            color: var(--semi-cssvar-color-badge_warning_light-text-default);
+        }
+        .semi-badge-warning.semi-badge-inverted {
+            color: var(--semi-cssvar-color-badge_warning_inverted-text-default);
+        }
+
+    .semi-badge-success {
+    }
+        .semi-badge-success.semi-badge-solid {
+            background-color: var(--semi-cssvar-color-badge_success_solid-bg-default);
+        }
+        .semi-badge-success.semi-badge-light {
+            background-color: var(--semi-cssvar-color-badge_success_light-bg-default);
+            color: var(--semi-cssvar-color-badge_success_light-text-default);
+        }
+        .semi-badge-success.semi-badge-inverted {
+            color: var(--semi-cssvar-color-badge_success_inverted-text-default);
+        }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+    & .semi-badge {
+        direction: rtl;
+    }
+}

@@ -1,0 +1,357 @@
+
+.semi-tagInput {
+    background-color: var(--semi-cssvar-color-tagInput_default-bg-default);
+    border: var(--semi-cssvar-width-tagInput-border-default) var(--semi-cssvar-color-tagInput-border-default) solid;
+    border-radius: var(--semi-cssvar-radius-tagInput);
+    display: inline-flex;
+    font-weight: var(--semi-cssvar-font-weight-regular);
+    width: 100%;
+    min-height: var(--semi-cssvar-height-tagInput-default);
+    box-sizing: border-box;
+    transition: background-color var(--semi-cssvar-transition_duration-tagInput-bg) var(--semi-cssvar-transition_function-tagInput-bg) var(--semi-cssvar-transition_delay-tagInput-bg),
+        border var(--semi-cssvar-transition_duration-tagInput-border) var(--semi-cssvar-transition_function-tagInput-border) var(--semi-cssvar-transition_delay-tagInput-border)
+}
+
+    .semi-tagInput-small {
+        min-height: var(--semi-cssvar-height-tagInput-small);
+    }
+
+    .semi-tagInput-large {
+        min-height: var(--semi-cssvar-height-tagInput-large);
+    }
+
+    .semi-tagInput-drag {
+    }
+
+        .semi-tagInput-drag-item {
+            display: flex;
+            align-items: center
+        }
+
+            .semi-tagInput-drag-item-move {
+                z-index: var(--semi-cssvar-z-tagInput_drag_item_move);
+            }
+
+        .semi-tagInput-drag-handler {
+            color: var(--semi-cssvar-color-tagInput_handler-icon-default);
+            margin-right: var(--semi-cssvar-spacing-tagInput_drag_handler-marginRight);
+            cursor: move;
+        }
+
+    .semi-tagInput-sortable-item {
+        position: relative;
+        max-width: 100%
+    }
+        .semi-tagInput-sortable-item-over {
+            overflow: visible
+        }
+            .semi-tagInput-sortable-item-over::before {
+                content: "";
+                display: block;
+                height: 100%;
+                width: var(--semi-cssvar-width-tagInput_sortable_item_over);
+                background-color: var(--semi-cssvar-color-tagInput_sortable_item_over-bg);
+                position: absolute;
+                left: -var(--semi-cssvar-width-tagInput_sortable_item_over);
+                top: 0;
+            }
+
+        .semi-tagInput-sortable-item-active {
+            opacity: 0.5;
+        }
+
+    .semi-tagInput-hover {
+        background-color: var(--semi-cssvar-color-tagInput_default-bg-hover);
+        border: var(--semi-cssvar-width-tagInput-border-hover) var(--semi-cssvar-color-tagInput-border-hover) solid;
+    }
+
+    .semi-tagInput-focus {
+        background-color: var(--semi-cssvar-color-tagInput_default-bg-focus);
+        border: var(--semi-cssvar-width-tagInput-border-focus) var(--semi-cssvar-color-tagInput-border-focus) solid;
+    }
+
+    .semi-tagInput-warning {
+        background-color: var(--semi-cssvar-color-tagInput_warning-bg-default);
+        border-color: var(--semi-cssvar-color-tagInput_warning-border-default)
+    }
+
+        .semi-tagInput-warning:hover {
+            background-color: var(--semi-cssvar-color-tagInput_warning-bg-hover);
+            border-color: var(--semi-cssvar-color-tagInput_warning-border-hover);
+        }
+
+        .semi-tagInput-warning.semi-tagInput-focus {
+            background-color: var(--semi-cssvar-color-tagInput_warning-bg-focus);
+            border-color: var(--semi-cssvar-color-tagInput_warning-border-focus);
+        }
+
+    .semi-tagInput-error {
+        background-color: var(--semi-cssvar-color-tagInput_danger-bg-default);
+        border-color: var(--semi-cssvar-color-tagInput_danger-border-default)
+    }
+
+        .semi-tagInput-error:hover {
+            background-color: var(--semi-cssvar-color-tagInput_danger-bg-hover);
+            border-color: var(--semi-cssvar-color-tagInput_danger-border-hover);
+        }
+
+        .semi-tagInput-error.semi-tagInput-focus {
+            background-color: var(--semi-cssvar-color-tagInput_danger-bg-focus);
+            border-color: var(--semi-cssvar-color-tagInput_danger-border-focus);
+        }
+
+    .semi-tagInput-disabled {
+        background-color: var(--semi-cssvar-color-tagInput_disabled-bg);
+        cursor: not-allowed
+
+    }
+
+        .semi-tagInput-disabled .semi-tagInput-clearBtn, .semi-tagInput-disabled .semi-tagInput-prefix, .semi-tagInput-disabled .semi-tagInput-suffix {
+            color: var(--semi-cssvar-color-tagInput_disabled-text-default);
+        }
+        .semi-tagInput-disabled .semi-tagInput-wrapper {
+            cursor: not-allowed;
+        }
+        .semi-tagInput-disabled .semi-tagInput-wrapper-tag {
+            color: var(--semi-cssvar-color-tagInput_disabled-text-default);
+            background-color: transparent;
+        }
+        .semi-tagInput-disabled .semi-tagInput-wrapper-input {
+            cursor: not-allowed
+        }
+            .semi-tagInput-disabled .semi-tagInput-wrapper-input::placeholder {
+                color: var(--semi-cssvar-color-tagInput_disabled-text-default);
+            }
+
+    .semi-tagInput-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        flex-grow: 1;
+        align-items: center;
+        padding-left: var(--semi-cssvar-spacing-extra-tight);
+        padding-right: var(--semi-cssvar-spacing-extra-tight);
+        overflow: hidden;
+        position: relative
+    }
+
+        .semi-tagInput-wrapper-tag {
+            margin-right: var(--semi-cssvar-spacing-extra-tight);
+            white-space: pre;
+            max-width: 100%
+        }
+
+            .semi-tagInput-wrapper-tag-size {
+            }
+                .semi-tagInput-wrapper-tag-size-small {
+                    margin-top: var(--semi-cssvar-spacing-tagInput_small-Y);
+                    margin-bottom: var(--semi-cssvar-spacing-tagInput_small-Y);
+                }
+
+                .semi-tagInput-wrapper-tag-size-default {
+                    margin-top: var(--semi-cssvar-spacing-tagInput_default-Y);
+                    margin-bottom: var(--semi-cssvar-spacing-tagInput_default-Y);
+                }
+
+                .semi-tagInput-wrapper-tag-size-large {
+                    margin-top: var(--semi-cssvar-spacing-tagInput_large-Y);
+                    margin-bottom: var(--semi-cssvar-spacing-tagInput_large-Y);
+                }
+
+            .semi-tagInput-wrapper-tag-icon {
+                padding-left: var(--semi-cssvar-spacing-tagInput_tag_icon_paddingLeft);
+            }
+
+        .semi-tagInput-wrapper-typo {
+            font-size: var(--semi-cssvar-font-size-small)
+        }
+
+            .semi-tagInput-wrapper-typo-disabled {
+                color: var(--semi-cssvar-color-tagInput_disabled-text-default);
+            }
+
+        .semi-tagInput-wrapper-n {
+            cursor: pointer;
+            font-size: var(--semi-cssvar-font-size-small);
+            margin-right: var(--semi-cssvar-spacing-extra-tight);
+            color: var(--semi-color-text-0);
+            padding-left: var(--semi-cssvar-spacing-tagInput_wrapper_n_paddingX);
+            padding-right: var(--semi-cssvar-spacing-tagInput_wrapper_n_paddingX)
+        }
+
+            .semi-tagInput-wrapper-n-disabled {
+                cursor: not-allowed;
+                color: var(--semi-cssvar-color-tagInput_disabled-text-default);
+            }
+
+        .semi-tagInput-wrapper .semi-tagInput-wrapper-input {
+            flex-grow: 1;
+            width: min-content;
+            min-width: 2px;
+            max-width: 100%;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            font-size: var(--semi-cssvar-font-size-regular)
+        }
+            /* min-width: 38px;*/
+
+            .semi-tagInput-wrapper .semi-tagInput-wrapper-input:hover {
+                background-color: transparent;
+            }
+
+            .semi-tagInput-wrapper .semi-tagInput-wrapper-input:not(:first-child) > input {
+                padding-left: 0;
+            }
+
+            .semi-tagInput-wrapper .semi-tagInput-wrapper-input-small {
+                height: var(--semi-cssvar-height-tagInput_input_small);
+                margin-top: var(--semi-cssvar-spacing-tagInput_small-Y);
+                margin-bottom: var(--semi-cssvar-spacing-tagInput_small-Y);
+                line-height: var(--semi-cssvar-height-tagInput_input_small)
+            }
+
+                .semi-tagInput-wrapper .semi-tagInput-wrapper-input-small .semi-input-small {
+                    height: var(--semi-cssvar-height-tagInput_input_small);
+                    line-height: var(--semi-cssvar-height-tagInput_input_small);
+                }
+
+            .semi-tagInput-wrapper .semi-tagInput-wrapper-input-default {
+                height: var(--semi-cssvar-height-tagInput_input_default);
+                margin-top: var(--semi-cssvar-spacing-tagInput_default-Y);
+                margin-bottom: var(--semi-cssvar-spacing-tagInput_default-Y);
+                line-height: var(--semi-cssvar-height-tagInput_input_default)
+            }
+
+                .semi-tagInput-wrapper .semi-tagInput-wrapper-input-default .semi-input-default {
+                    height: var(--semi-cssvar-height-tagInput_input_default);
+                    line-height: var(--semi-cssvar-height-tagInput_input_default);
+                }
+
+            .semi-tagInput-wrapper .semi-tagInput-wrapper-input-large {
+                height: var(--semi-cssvar-height-tagInput_input_large);
+                margin-top: var(--semi-cssvar-spacing-tagInput_large-Y);
+                margin-bottom: var(--semi-cssvar-spacing-tagInput_large-Y);
+                line-height: var(--semi-cssvar-height-tagInput_input_large)
+            }
+
+                .semi-tagInput-wrapper .semi-tagInput-wrapper-input-large .semi-input-large {
+                    height: var(--semi-cssvar-height-tagInput_input_large);
+                    line-height: var(--semi-cssvar-height-tagInput_input_large);
+                }
+
+        /* hidden mirror used to measure input text width */
+        .semi-tagInput-wrapper-inputMirror {
+            position: absolute;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+            pointer-events: none;
+            height: 0;
+            overflow: hidden;
+            white-space: pre;
+            font-size: var(--semi-cssvar-font-size-regular);
+            font-weight: var(--semi-cssvar-font-weight-regular);
+            font-family: inherit;
+        }
+
+    .semi-tagInput-clearBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        width: var(--semi-cssvar-width-tagInput-clear-medium);
+        flex-shrink: 0;
+        color: var(--semi-cssvar-color-tagInput-icon-default)
+    }
+
+        .semi-tagInput-clearBtn:hover {
+            cursor: pointer;
+            color: var(--semi-cssvar-color-tagInput-icon-hover);
+        }
+
+        .semi-tagInput-clearBtn-invisible {
+            visibility: hidden;
+        }
+
+    .semi-tagInput-inset-label {
+        margin: 0 var(--semi-cssvar-spacing-tagInput_prefix_suffix-marginX);
+        font-weight: var(--semi-cssvar-font-tagInput_prefix_suffix-fontWeight);
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        color: var(--semi-cssvar-color-tagInput_prefix-default);
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    .semi-tagInput-prefix, .semi-tagInput-suffix {
+    display: flex;
+    justify-content: center;
+    align-items: center
+    }
+        .semi-tagInput-prefix-text, .semi-tagInput-suffix-text {
+            margin: 0 var(--semi-cssvar-spacing-tagInput_prefix_suffix-marginX);
+            font-weight: var(--semi-cssvar-font-tagInput_prefix_suffix-fontWeight);
+            white-space: nowrap;
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        }
+        .semi-tagInput-prefix-icon, .semi-tagInput-suffix-icon {
+            color: var(--semi-cssvar-color-tagInput-icon-default);
+            margin: 0 var(--semi-cssvar-spacing-tight);
+        }
+
+    .semi-tagInput-prefix {
+    }
+        .semi-tagInput-prefix-text {
+            color: var(--semi-cssvar-color-tagInput_prefix-default);
+        }
+
+    .semi-tagInput-suffix {
+    }
+        .semi-tagInput-suffix-text {
+            color: var(--semi-cssvar-color-tagInput_suffix-default);
+        }
+
+    .semi-tagInput-with-prefix {
+    }
+        .semi-tagInput-with-prefix .semi-input {
+            padding-left: 0;
+        }
+
+    .semi-tagInput-tag-content-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .semi-tagInput-sortable-list {
+        display: flex;
+        flex-flow: row wrap;
+        width: 100%;
+    }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-tagInput, .semi-portal-rtl .semi-tagInput {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-tagInput-wrapper, .semi-portal-rtl .semi-tagInput-wrapper {
+        }
+
+            .semi-rtl .semi-tagInput-wrapper-tag, .semi-portal-rtl .semi-tagInput-wrapper-tag {
+                margin-left: var(--semi-cssvar-spacing-extra-tight);
+                margin-right: 0;
+            }
+
+            .semi-rtl .semi-tagInput-wrapper-input, .semi-portal-rtl .semi-tagInput-wrapper-input {
+            }
+
+                .semi-rtl .semi-tagInput-wrapper-input:not(:first-child) > input, .semi-portal-rtl .semi-tagInput-wrapper-input:not(:first-child) > input {
+                    padding-right: 0;
+                }

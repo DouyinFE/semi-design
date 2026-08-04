@@ -1,0 +1,125 @@
+
+.semi-banner {
+    padding: var(--semi-cssvar-spacing-banner-paddingY) var(--semi-cssvar-spacing-banner-paddingX)
+}
+    /* align-items: center;*/
+    /* @include font-size-regular;*/
+
+    .semi-banner-content-wrapper {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .semi-banner-description {
+        margin: 0;
+    }
+
+    .semi-banner .semi-banner-content-wrapper {
+    }
+        .semi-banner .semi-banner-content-wrapper .semi-banner-content {
+            display: flex;
+            flex: 1;
+        }
+
+    .semi-banner-in-container {
+        border-radius: var(--semi-cssvar-radius-banner)
+    }
+
+        .semi-banner-in-container .semi-banner-content-wrapper {
+        }
+            .semi-banner-in-container .semi-banner-content-wrapper .semi-banner-content {
+            }
+
+                .semi-banner-in-container .semi-banner-content-wrapper .semi-banner-content-body {
+                    flex: 1
+                }
+
+                    .semi-banner-in-container .semi-banner-content-wrapper .semi-banner-content-body .semi-banner-title + .semi-banner-description {
+                        margin-top: var(--semi-cssvar-spacing-banner_title_description-marginTop);
+                    }
+
+    .semi-banner-full {
+    }
+        .semi-banner-full .semi-banner-content-wrapper {
+        }
+            .semi-banner-full .semi-banner-content-wrapper .semi-banner-content {
+                justify-content: center;
+            }
+            .semi-banner-full .semi-banner-content-wrapper .semi-banner-icon, .semi-banner-full .semi-banner-content-wrapper .semi-banner-content-body {
+                display: flex;
+                align-items: center;
+            }
+
+    .semi-banner-close {
+        margin-left: var(--semi-cssvar-spacing-banner_closeBtn-marginLeft);
+        height: var(--semi-cssvar-height-banner_closeBtn);
+        width: var(--semi-cssvar-width-banner_closeBtn);
+    }
+
+    .semi-banner-extra {
+        margin-top: var(--semi-cssvar-spacing-banner_extra-marginTop);
+    }
+
+    .semi-banner-icon {
+        display: flex;
+        margin-right: var(--semi-cssvar-spacing-banner_icon-marginRight);
+    }
+
+    .semi-banner-info {
+        background-color: var(--semi-cssvar-color-banner_info-bg-default);
+        color: var(--semi-cssvar-color-banner_info-text-default)
+    }
+
+        .semi-banner-info.semi-banner-bordered {
+            border: var(--semi-cssvar-width-banner-border) solid var(--semi-cssvar-color-banner_info-border-default);
+        }
+
+    .semi-banner-warning {
+        background-color: var(--semi-cssvar-color-banner_warning-bg-default);
+        color: var(--semi-cssvar-color-banner_warning-text-default)
+    }
+
+        .semi-banner-warning.semi-banner-bordered {
+            border: var(--semi-cssvar-width-banner-border) solid var(--semi-cssvar-color-banner_warning-border-default);
+        }
+
+    .semi-banner-success {
+        background-color: var(--semi-cssvar-color-banner_success-bg-default);
+        color: var(--semi-cssvar-color-banner_success-text-default)
+    }
+
+        .semi-banner-success.semi-banner-bordered {
+            border: var(--semi-cssvar-width-banner-border) solid var(--semi-cssvar-color-banner_success-border-default);
+        }
+
+    .semi-banner-danger {
+        background-color: var(--semi-cssvar-color-banner_danger-bg-default);
+        color: var(--semi-cssvar-color-banner_danger-text-default)
+    }
+
+        .semi-banner-danger.semi-banner-bordered {
+            border: var(--semi-cssvar-width-banner-border) solid var(--semi-cssvar-color-banner_danger-border-default);
+        }/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-banner, .semi-portal-rtl .semi-banner {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-banner-close, .semi-portal-rtl .semi-banner-close {
+            margin-left: 0;
+            margin-right: var(--semi-cssvar-spacing-banner_closeBtn-marginLeft);
+            height: var(--semi-cssvar-height-banner_closeBtn);
+            width: var(--semi-cssvar-width-banner_closeBtn);
+        }
+
+        .semi-rtl .semi-banner-icon, .semi-portal-rtl .semi-banner-icon {
+            margin-right: 0;
+            margin-left: var(--semi-cssvar-spacing-banner_icon-marginRight);
+        }

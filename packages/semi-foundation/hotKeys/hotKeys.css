@@ -1,0 +1,33 @@
+
+.semi-hotKeys {
+    box-sizing: border-box;
+    position: relative;
+    user-select: none;
+    white-space: nowrap;
+    vertical-align: bottom;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex
+
+}
+
+    .semi-hotKeys-content {
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        border-radius: var(--semi-cssvar-radius-hotKeys);
+        height: var(--semi-cssvar-height-hotKeys);
+        padding: var(--semi-cssvar-spacing-hotKeys-paddingY) var(--semi-cssvar-spacing-hotKeys-paddingX);
+        border: var(--semi-cssvar-width-hotKeys-border);
+        background-color: var(--semi-cssvar-color-hotKeys-bg);
+        color: var(--semi-cssvar-color-hotKeys-text);
+    }
+
+    .semi-hotKeys-split {
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        margin: 0 3px;
+        color: var(--semi-cssvar-color-hotKeys-split);
+    }

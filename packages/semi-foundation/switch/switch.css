@@ -1,0 +1,407 @@
+
+.semi-switch {
+    box-sizing: border-box;
+    display: inline-block;
+    border-radius: var(--semi-cssvar-radius-switch);
+    border: var(--semi-cssvar-border-thickness-control) var(--semi-cssvar-color-switch_default-border-default) solid;
+    position: relative;
+    cursor: pointer;
+    background-color: var(--semi-cssvar-color-switch_default-bg-default);
+    transition: background-color var(--semi-cssvar-transition_duration-switch-bg) var(--semi-cssvar-transition_function-switch-bg) var(--semi-cssvar-transition_delay_switch-bg);
+
+    width: var(--semi-cssvar-width-switch);
+    height: var(--semi-cssvar-height-switch)
+}
+    /* box-shadow: inset 0 0 0 0 $color-switch_default-bg-success;*/
+    /*transition: background-color $motion-switch-transitionDuration ease-in-out;*/
+
+    .semi-switch:hover {
+        background-color: var(--semi-cssvar-color-switch_default-bg-hover);
+    }
+
+    .semi-switch:active {
+        border: var(--semi-cssvar-border-thickness-control) var(--semi-cssvar-color-switch_default-bg-active) solid
+    }
+        .semi-switch:active .semi-switch-knob {
+            width: var(--semi-cssvar-width-switch_knob_active);
+        }
+
+    .semi-switch-focus {
+        outline: var(--semi-cssvar-width-switch-outline) solid var(--semi-cssvar-color-switch_primary-outline-focus);
+    }
+
+    .semi-switch-checked {
+        background-color: var(--semi-cssvar-color-switch_checked-bg-default)
+    }
+
+        .semi-switch-checked:hover {
+            background-color: var(--semi-cssvar-color-switch_checked-bg-hover);
+        }
+
+        .semi-switch-checked .semi-switch-knob {
+            transform: translateX(var(--semi-cssvar-spacing-switch_checked-translateX));
+            background-color: var(--semi-cssvar-color-switch_knob-bg-checked);
+        }
+
+        .semi-switch-checked:active {
+        }
+            .semi-switch-checked:active .semi-switch-knob {
+                transform: translateX(var(--semi-cssvar-spacing-switch_checked-translateX) - var(--semi-cssvar-width-switch_knob_expand));
+            }
+
+    .semi-switch-active {
+        background-color: var(--semi-cssvar-color-switch_checked-bg-active);
+    }
+
+    .semi-switch-disabled {
+        cursor: not-allowed;
+        background-color: var(--semi-cssvar-color-switch_disabled-bg-default);
+        border: var(--semi-cssvar-border-thickness-control) var(--semi-cssvar-color-switch_disabled-border-default) solid
+    }
+
+        .semi-switch-disabled:hover {
+            background-color: var(--semi-cssvar-color-switch_disabled-bg-hover);
+        }
+
+        .semi-switch-disabled:active {
+            background-color: var(--semi-cssvar-color-switch_disabled-bg-active)
+        }
+            .semi-switch-disabled:active .semi-switch-knob {
+                width: var(--semi-cssvar-width-switch_knob_default);
+            }
+
+        .semi-switch-disabled .semi-switch-knob {
+            cursor: not-allowed;
+    box-shadow: none;
+            border: var(--semi-cssvar-width-switch_knob_disabled-border) var(--semi-cssvar-color-switch_knob-border-default) solid;
+        }
+        
+        .semi-switch-disabled .semi-switch-native-control {
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+        .semi-switch-disabled.semi-switch-checked {
+            border-color: var(--semi-cssvar-color-switch_checked_disabled-border-default);
+            background-color: var(--semi-cssvar-color-switch_checked_disabled-bg-default)
+        }
+            .semi-switch-disabled.semi-switch-checked:active {
+            }
+                .semi-switch-disabled.semi-switch-checked:active .semi-switch-knob {
+                    transform: translateX(var(--semi-cssvar-spacing-switch_checked-translateX));
+                }
+            .semi-switch-disabled.semi-switch-checked .semi-switch-knob {
+    box-shadow: none;
+                border: none;
+            }
+
+    .semi-switch-disabled.semi-switch-loading:not(.semi-switch-checked) {
+    }
+        .semi-switch-disabled.semi-switch-loading:not(.semi-switch-checked):hover {
+            background-color: var(--semi-cssvar-color-switch_spin_unchecked-bg-default);
+        }
+
+    .semi-switch-knob {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        border-radius: calc(var(--semi-cssvar-width-switch_knob_default) * 0.5);
+        background-color: var(--semi-cssvar-color-switch_knob-bg-default);
+        box-sizing: border-box;
+        position: absolute;
+        left: var(--semi-cssvar-spacing-switch_knob-left);
+        right: auto;
+        transition: transform var(--semi-cssvar-motion-switch-transitionDuration) ease-in-out, width var(--semi-cssvar-motion-switch-transitionDuration) ease-in-out;
+
+        width: var(--semi-cssvar-width-switch_knob_default);
+        height: var(--semi-cssvar-width-switch_knob_default);
+        top: var(--semi-cssvar-spacing-switch_knob-padding);
+        transform: translateX(var(--semi-cssvar-spacing-switch_unchecked-translateX));
+    }
+
+    .semi-switch-native-control {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: inherit;
+        pointer-events: auto;
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0
+    } /* 消除ua样式影响*/
+
+        .semi-switch-native-control[type="checkbox"] {
+            width: inherit;
+            height: inherit;
+        }
+
+    .semi-switch-checked-text, .semi-switch-unchecked-text {
+        position: absolute;
+        font-size: var(--semi-cssvar-font-size-small);
+        height: 100%;
+        width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    .semi-switch-checked-text {
+        color: var(--semi-cssvar-color-switch_checked-text-default);
+    }
+
+    .semi-switch-unchecked-text {
+        color: var(--semi-cssvar-color-switch_unchecked-text-default);
+        right: 0;
+    }
+
+    .semi-switch-loading {
+        display: inline-flex;
+        align-items: center;
+        background-color: var(--semi-cssvar-color-switch_spin_unchecked-bg-default)
+    }
+
+        .semi-switch-loading-spin {
+        }
+            .semi-switch-loading-spin .semi-spin-wrapper{
+                display: inline-flex;
+                align-items: center;
+                color: var(--semi-cssvar-color-switch_loading_spin-default);
+            }
+
+.semi-switch-loading {
+
+    & .semi-switch-loading-spin {
+        transform: translateX(var(--semi-cssvar-spacing-switch_spin_unchecked-translateX));
+
+        &>.semi-spin-wrapper>svg{
+            width: var(--semi-cssvar-width-switch_spin-default);
+            height: var(--semi-cssvar-width-switch_spin-default);
+        }
+    }
+
+    &.semi-switch-checked {
+        background-color: var(--semi-cssvar-color-switch_spin_checked-bg-default);
+
+        & .semi-switch-loading-spin {
+            transform: translateX(var(--semi-cssvar-spacing-switch_spin_checked-translateX));
+        }
+    }
+}
+
+.semi-switch-loading.semi-switch-small {
+
+    & .semi-switch-loading-spin {
+        transform: translateX(var(--semi-cssvar-spacing-switch_spin_unchecked_small-translateX));
+
+        &>.semi-spin-wrapper>svg{
+            width: var(--semi-cssvar-width-switch_spin-small);
+            height: var(--semi-cssvar-width-switch_spin-small);
+        }
+    }
+    &.semi-switch-checked{
+
+        & .semi-switch-loading-spin {
+            transform: translateX(var(--semi-cssvar-spacing-switch_spin_checked_small-translateX));
+        }
+    }
+}
+
+.semi-switch-loading.semi-switch-large {
+
+    & .semi-switch-loading-spin {
+        transform: translateX(var(--semi-cssvar-spacing-switch_spin_unchecked_large-translateX));
+
+        &>.semi-spin-wrapper>svg{
+            width: var(--semi-cssvar-width-switch_spin-large);
+            height: var(--semi-cssvar-width-switch_spin-large);
+        }
+    }
+
+    &.semi-switch-checked {
+
+        & .semi-switch-loading-spin {
+            transform: translateX(var(--semi-cssvar-spacing-switch_spin_checked_large-translateX));
+        }
+    }
+}
+
+.semi-switch-disabled.semi-switch-checked {
+    background-color: var(--semi-cssvar-color-switch_checked_disabled-bg-default);
+}
+
+.semi-switch-large {
+    width: var(--semi-cssvar-width-switch_large);
+    height: var(--semi-cssvar-height-switch_large);
+    border-radius: var(--semi-cssvar-radius-switch_large);
+    & .semi-switch-knob {
+        width: var(--semi-cssvar-width-switch_knob_large);
+        height: var(--semi-cssvar-width-switch_knob_large);
+        top: var(--semi-cssvar-spacing-switch_knob_large-padding);
+        border-radius: calc(var(--semi-cssvar-width-switch_knob_large) * 0.5);
+        transform: translateX(var(--semi-cssvar-spacing-switch_unchecked_large-translateX));
+    }
+    &.semi-switch-checked {
+        & .semi-switch-knob {
+            transform: translateX(var(--semi-cssvar-spacing-switch_checked_large-translateX));
+        }
+
+        &:active {
+            & .semi-switch-knob {
+                transform: translateX(var(--semi-cssvar-spacing-switch_checked_large-translateX) - var(--semi-cssvar-spacing-switch_expand_large-translateX));
+            }
+        }
+    }
+
+    &:active {
+        & .semi-switch-knob {
+            width: var(--semi-cssvar-width-switch_knob_large_active);
+        }
+    }
+    & .semi-switch-checked-text, & .semi-switch-unchecked-text {
+        width: var(--semi-cssvar-width-switch_checked_unchecked_text);
+        font-size: var(--semi-cssvar-font-size-regular);
+    }
+}
+
+.semi-switch-small {
+    width: var(--semi-cssvar-width-switch_small);
+    height: var(--semi-cssvar-height-switch_small);
+    border-radius: var(--semi-cssvar-radius-switch_small);
+    & .semi-switch-knob {
+        width: var(--semi-cssvar-width-switch_knob_large_small);
+        height: var(--semi-cssvar-width-switch_knob_large_small);
+        top: var(--semi-cssvar-spacing-switch_knob_small-padding);
+        border-radius: calc(var(--semi-cssvar-width-switch_knob_large_small) * 0.5);
+        transform: translateX(var(--semi-cssvar-spacing-switch_unchecked_small-translateX));
+    }
+    &.semi-switch-checked {
+        & .semi-switch-knob {
+            transform: translateX(var(--semi-cssvar-spacing-switch_checked_small-translateX));
+        }
+
+        &:active {
+            & .semi-switch-knob {
+                transform: translateX(var(--semi-cssvar-spacing-switch_checked_small-translateX) - var(--semi-cssvar-spacing-switch_expand_small-translateX));
+            }
+        }
+    }
+
+    &:active {
+        & .semi-switch-knob {
+            width: var(--semi-cssvar-width-switch_knob_small_active);
+        }
+    }
+}
+
+.semi-form {
+    & .semi-switch-native-control {
+        width: 100%;
+        height: 100%;
+    }
+}/* ============================================================*/
+/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-switch, .semi-portal-rtl .semi-switch {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-switch-checked, .semi-portal-rtl .semi-switch-checked {
+        }
+            .semi-rtl .semi-switch-checked .semi-switch-knob, .semi-portal-rtl .semi-switch-checked .semi-switch-knob {
+                transform: translateX(-var(--semi-cssvar-spacing-switch_checked-translateX));
+            }
+
+            .semi-rtl .semi-switch-checked:active, .semi-portal-rtl .semi-switch-checked:active {
+            }
+                .semi-rtl .semi-switch-checked:active .semi-switch-knob, .semi-portal-rtl .semi-switch-checked:active .semi-switch-knob {
+                    transform: translateX(var(--semi-cssvar-width-switch_knob_expand) - var(--semi-cssvar-spacing-switch_checked-translateX));
+                }
+
+        .semi-rtl .semi-switch-knob, .semi-portal-rtl .semi-switch-knob {
+            right: 0;
+            left: auto;
+            transform: translateX(-1 * var(--semi-cssvar-spacing-switch_unchecked-translateX));
+        }
+
+        .semi-rtl .semi-switch-native-control, .semi-portal-rtl .semi-switch-native-control {
+            right: 0;
+        }
+
+        .semi-rtl .semi-switch-unchecked-text, .semi-portal-rtl .semi-switch-unchecked-text {
+            left: 0;
+        }
+
+    .semi-rtl .semi-switch-loading, .semi-portal-rtl .semi-switch-loading {
+    }
+        .semi-rtl .semi-switch-loading .semi-switch-loading-spin, .semi-portal-rtl .semi-switch-loading .semi-switch-loading-spin {
+            transform: translateX(-var(--semi-cssvar-spacing-switch_spin_unchecked-translateX));
+        }
+    
+        .semi-rtl .semi-switch-loading.semi-switch-checked, .semi-portal-rtl .semi-switch-loading.semi-switch-checked {
+        }
+            .semi-rtl .semi-switch-loading.semi-switch-checked .semi-switch-loading-spin, .semi-portal-rtl .semi-switch-loading.semi-switch-checked .semi-switch-loading-spin {
+                transform: translateX(-var(--semi-cssvar-spacing-switch_spin_checked-translateX));
+            }
+    
+    .semi-rtl .semi-switch-loading.semi-switch-small, .semi-portal-rtl .semi-switch-loading.semi-switch-small {
+    }
+        .semi-rtl .semi-switch-loading.semi-switch-small .semi-switch-loading-spin, .semi-portal-rtl .semi-switch-loading.semi-switch-small .semi-switch-loading-spin {
+            transform: translateX(-var(--semi-cssvar-spacing-switch_spin_unchecked_small-translateX));
+        }
+        .semi-rtl .semi-switch-loading.semi-switch-small.semi-switch-checked, .semi-portal-rtl .semi-switch-loading.semi-switch-small.semi-switch-checked{
+        }
+            .semi-rtl .semi-switch-loading.semi-switch-small.semi-switch-checked .semi-switch-loading-spin, .semi-portal-rtl .semi-switch-loading.semi-switch-small.semi-switch-checked .semi-switch-loading-spin {
+                transform: translateX(-var(--semi-cssvar-spacing-switch_spin_checked_small-translateX));
+            }
+    
+    .semi-rtl .semi-switch-loading.semi-switch-large, .semi-portal-rtl .semi-switch-loading.semi-switch-large {
+    }
+        .semi-rtl .semi-switch-loading.semi-switch-large .semi-switch-loading-spin, .semi-portal-rtl .semi-switch-loading.semi-switch-large .semi-switch-loading-spin {
+            transform: translateX(-var(--semi-cssvar-spacing-switch_spin_unchecked_large-translateX));
+        }
+    
+        .semi-rtl .semi-switch-loading.semi-switch-large.semi-switch-checked, .semi-portal-rtl .semi-switch-loading.semi-switch-large.semi-switch-checked {
+        }
+            .semi-rtl .semi-switch-loading.semi-switch-large.semi-switch-checked .semi-switch-loading-spin, .semi-portal-rtl .semi-switch-loading.semi-switch-large.semi-switch-checked .semi-switch-loading-spin {
+                transform: translateX(-var(--semi-cssvar-spacing-switch_spin_checked_large-translateX));
+            }
+
+    .semi-rtl .semi-switch-large, .semi-portal-rtl .semi-switch-large {
+    }
+        .semi-rtl .semi-switch-large .semi-switch-knob, .semi-portal-rtl .semi-switch-large .semi-switch-knob {
+            transform: translateX(-var(--semi-cssvar-spacing-switch_unchecked_large-translateX));
+        }
+        .semi-rtl .semi-switch-large.semi-switch-checked, .semi-portal-rtl .semi-switch-large.semi-switch-checked {
+        }
+            .semi-rtl .semi-switch-large.semi-switch-checked .semi-switch-knob, .semi-portal-rtl .semi-switch-large.semi-switch-checked .semi-switch-knob {
+                transform: translateX(-var(--semi-cssvar-spacing-switch_checked_large-translateX));
+            }
+
+            .semi-rtl .semi-switch-large.semi-switch-checked:active, .semi-portal-rtl .semi-switch-large.semi-switch-checked:active {
+            }
+                .semi-rtl .semi-switch-large.semi-switch-checked:active .semi-switch-knob, .semi-portal-rtl .semi-switch-large.semi-switch-checked:active .semi-switch-knob {
+                    transform: translateX(var(--semi-cssvar-spacing-switch_expand_large-translateX) - var(--semi-cssvar-spacing-switch_checked_large-translateX));
+                }
+
+    .semi-rtl .semi-switch-small, .semi-portal-rtl .semi-switch-small {
+    }
+        .semi-rtl .semi-switch-small .semi-switch-knob, .semi-portal-rtl .semi-switch-small .semi-switch-knob {
+            transform: translateX(-var(--semi-cssvar-spacing-switch_unchecked_small-translateX));
+        }
+        .semi-rtl .semi-switch-small.semi-switch-checked, .semi-portal-rtl .semi-switch-small.semi-switch-checked {
+        }
+            .semi-rtl .semi-switch-small.semi-switch-checked .semi-switch-knob, .semi-portal-rtl .semi-switch-small.semi-switch-checked .semi-switch-knob {
+                transform: translateX(-var(--semi-cssvar-spacing-switch_checked_small-translateX));
+            }
+
+            .semi-rtl .semi-switch-small.semi-switch-checked:active, .semi-portal-rtl .semi-switch-small.semi-switch-checked:active {
+            }
+                .semi-rtl .semi-switch-small.semi-switch-checked:active .semi-switch-knob, .semi-portal-rtl .semi-switch-small.semi-switch-checked:active .semi-switch-knob {
+                    transform: translateX(var(--semi-cssvar-spacing-switch_expand_small-translateX) - var(--semi-cssvar-spacing-switch_checked_small-translateX));
+                }
