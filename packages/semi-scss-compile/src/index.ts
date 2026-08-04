@@ -1,6 +1,7 @@
 import generateScssMap from './utils/generateSCSSMap';
 import writeFile from './utils/writeFile';
 import compilerFromScssMap from './utils/compiler';
+import compileCss from './utils/compilerCss';
 import path from 'path';
 import fs from 'fs-extra';
 
@@ -23,6 +24,7 @@ const compile = ({ foundationPath, themePath, iconPath, outputPath, isMin = fals
 
 export {
     compile,
+    compileCss,
     generateScssMap,
     compilerFromScssMap,
     writeFile

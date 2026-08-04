@@ -10,6 +10,7 @@ const replace = require('gulp-replace');
 const del = require('del');
 const tsConfig = require('./tsconfig.json');
 const getBabelConfig = require('./getBabelConfig');
+const { compileCssSource } = require('../../scripts/css-migration/compileCssSource');
 
 gulp.task('cleanLib', function cleanLib() {
     return del(['lib/**/*']);
@@ -98,6 +99,17 @@ function moveScss(isESM) {
         .pipe(gulp.dest(targetDir));
 }
 
+// 编译 css 真源（嵌套 → 平面），保留 var(--semi-cssvar-*) 引用（token 由主题包运行时提供）
+gulp.task('compileCss', function compileCss() {
+    return gulp.src(['**/*.css', '!**/node_modules/**/*.*'])
+        .pipe(through2.obj(function (chunk, enc, cb) {
+            chunk.contents = Buffer.from(compileCssSource(chunk.contents.toString('utf-8')), 'utf-8');
+            cb(null, chunk);
+        }))
+        .pipe(gulp.dest('lib/es'))
+        .pipe(gulp.dest('lib/cjs'));
+});
+
 gulp.task('moveScssForESM', function moveScssForESM() {
     return moveScss(true);
 });
@@ -110,7 +122,7 @@ gulp.task('compileLib',
     gulp.series(
         [
             'cleanLib',
-            'compileScss',
+            'compileScss', 'compileCss',
             gulp.parallel('moveScssForESM', 'moveScssForCJS'),
             gulp.parallel('compileTSXForESM', 'compileTSXForCJS')
         ]

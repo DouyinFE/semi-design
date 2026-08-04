@@ -33,6 +33,7 @@ export interface SemiThemeOptions {
 // Only allow numeric suffix to avoid over-matching non-Semi packages.
 const SEMI_LIB_JS_RE = /@douyinfe\/semi-(ui|icons)(-\d+)?\/lib\/.+\.js$/;
 const SEMI_LIB_SCSS_RE = /@douyinfe\/semi-(ui|icons|foundation)(-\d+)?\/lib\/.+\.scss$/;
+const SEMI_LIB_CSS_RE = /@douyinfe\/semi-(ui|icons|foundation)(-\d+)?\/lib\/.+\.css$/;
 
 export default class SemiWebpackPlugin {
 
@@ -174,6 +175,40 @@ export default class SemiWebpackPlugin {
                         ...commonLoaderList,
                     ];
                 }
+                module.loaders = this.options.overrideStylesheetLoaders?.(loaderList) ?? loaderList;
+            }
+        }
+        // css 真源链路（新）：lib/*.css → 注入主题 css 变量（token.css/global.css/animation.css）+ prefixCls 文本替换
+        if (SEMI_LIB_CSS_RE.test(compatiblePath)) {
+            const cssLoader = require.resolve('css-loader');
+            const styleLoader = require.resolve('style-loader');
+            const semiCssLoaderOptions = typeof this.options.theme === 'object' ? { ...this.options.theme, cssLayer: this.options.cssLayer } : {
+                name: this.options.theme,
+                cssLayer: this.options.cssLayer
+            };
+            if (!this.hasSemiThemeLoader(module.loaders)) {
+                const lastLoader = this.options.extractCssOptions ? {
+                    loader: this.options.extractCssOptions.loader,
+                    options: this.options.extractCssOptions.loaderOptions || {}
+                } : {
+                    loader: styleLoader
+                };
+                const loaderList = [
+                    lastLoader,
+                    {
+                        loader: cssLoader,
+                        options: { sourceMap: false },
+                    },
+                    {
+                        loader: path.join(__dirname, 'semi-css-theme-loader'),
+                        options: {
+                            ...semiCssLoaderOptions,
+                            prefixCls: this.options.prefixCls,
+                            include: this.options.include,
+                            variables: this.convertMapToString(this.options.variables || {}),
+                        },
+                    },
+                ];
                 module.loaders = this.options.overrideStylesheetLoaders?.(loaderList) ?? loaderList;
             }
         }

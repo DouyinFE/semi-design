@@ -218,6 +218,22 @@ export default defineConfig({
 }
 ```
 
+## 新链路：CSS 变量定制（css 化迁移后）
+
+Semi 的样式系统已支持 css 化新链路：组件样式以 **css 真源**（嵌套 css + `var(--semi-cssvar-*)` 引用）发布，主题变量由主题包以 **css 变量** 形式提供（`css/token.css` / `css/global.css` / `css/animation.css`）。
+
+- **自定义主题包**：在保留 `scss/` 目录（兼容旧版 Semi）的同时，可新增 `css/token.css`（覆盖 `--semi-cssvar-*` 变量值），同一主题包同时兼容新旧 Semi。
+- **直接覆盖 css 变量**（无需构建）：在业务样式或 `:root` 中覆盖变量即可：
+
+```css
+:root {
+    --semi-cssvar-color-button_primary-bg-default: #1677ff;
+    --semi-cssvar-spacing-base: 16px;
+    --semi-color-primary: rgba(22, 119, 255, 1);
+}
+```
+
+- **打包插件**（webpack / vite / rspack）会自动为组件 css 注入主题包的 `css/token.css` + `css/global.css` + `css/animation.css`；`prefixCls` 通过文本替换 `.semi-` 类名实现。
 
 ## 更新主题
 

@@ -7,10 +7,14 @@
         "scss"
     ],
     "files": [
-        "scss"
+        "scss",
+        "css"
     ],
     "main": "semi.scss",
-    "sideEffects": "*.scss",
+    "sideEffects": [
+        "*.scss",
+        "*.css"
+    ],
     "author": "huangzhijing.pixel@bytedance.com",
     "license": "MIT",
     "gitHead": "208186435ee571d1dde07a7fa378050d56d94fe2",

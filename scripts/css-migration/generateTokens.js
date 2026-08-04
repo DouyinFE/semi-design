@@ -54,6 +54,11 @@ function buildExportScss() {
     const lines = [];
     lines.push(`@use "sass:meta";`);
     lines.push(`@import "${THEME}/scss/index.scss";`);
+    // semi-icons 变量（icons.css 引用）
+    const iconsVars = path.join(ROOT, 'packages/semi-icons/src/styles/variables.scss');
+    if (fs.existsSync(iconsVars)) {
+        lines.push(`@import "${iconsVars}";`);
+    }
     // 按依赖顺序导入各组件变量文件
     const importedDirs = new Set();
     for (const comp of COMPONENT_ORDER) {
@@ -93,6 +98,16 @@ function buildExportScss() {
         if (!fs.statSync(dir).isDirectory()) continue;
         if (['node_modules', 'lib', 'keyframes', 'scripts', 'base', '_portal', '_utils'].includes(comp)) continue;
         allVars.push(...scanVariables(dir).map((v) => ({ v, comp })));
+    }
+    // semi-icons 变量（semi-icons/src/styles/variables.scss，icons.css 引用）
+    const iconsVarsPath = path.join(ROOT, 'packages/semi-icons/src/styles/variables.scss');
+    if (fs.existsSync(iconsVarsPath)) {
+        const re = /^\s*\$([A-Za-z_][A-Za-z0-9_-]*)\s*:/gm;
+        const content = fs.readFileSync(iconsVarsPath, 'utf-8');
+        let m;
+        while ((m = re.exec(content))) {
+            allVars.push({ v: m[1], comp: '__icons__' });
+        }
     }
     // theme 变量（index.scss 已导入）
     const themeVars = scanVariables(THEME + '/scss').map((v) => ({ v, comp: '__theme__' }));
@@ -210,6 +225,24 @@ if (require.main === module) {
     fs.mkdirSync(outputDir, { recursive: true });
     fs.writeFileSync(path.join(outputDir, 'token.css'), tokenCss);
     fs.writeFileSync(path.join(__dirname, 'varMap.json'), JSON.stringify(map, null, 0));
+    // 纯 css 版 global/animation（css-loader 无法处理 scss；--semi-color-* 等运行时变量）
+    const sass = require('sass');
+    const themeScss = path.join(THEME, 'scss');
+    const sassImporter = [{
+        findFileUrl(url) {
+            if (url.startsWith('/') || url.startsWith('file:')) return new URL(url.startsWith('file:') ? url : `file://${url}`);
+            const resolved = path.resolve(themeScss, url);
+            if (fs.existsSync(resolved)) return new URL(`file://${resolved}`);
+            return null;
+        },
+    }];
+    for (const name of ['global', 'animation']) {
+        const scssFile = path.join(themeScss, `${name}.scss`);
+        if (fs.existsSync(scssFile)) {
+            const css = sass.compileString(fs.readFileSync(scssFile, 'utf-8'), { style: 'expanded', charset: false, importers: sassImporter }).css;
+            fs.writeFileSync(path.join(outputDir, `${name}.css`), css);
+        }
+    }
     const conflicts = detectConflicts();
     fs.writeFileSync(path.join(__dirname, 'conflictVars.json'), JSON.stringify(conflicts, null, 0));
     console.log(`token.css 生成: ${outputDir}/token.css (${tokenCss.length} bytes, ${Object.keys(map).length} 个变量)`);

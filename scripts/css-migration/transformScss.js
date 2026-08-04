@@ -498,8 +498,15 @@ async function inlineImports(root, ctx) {
         }
     });
     for (const { at, url } of imports) {
-        const base = url.startsWith('/') ? '' : path.dirname(ctx.filePath);
-        const abs = path.resolve(ROOT, base, url);
+        // 解析路径：支持 ~@douyinfe/semi-foundation/xxx（semi-ui 引用 foundation 样式）
+        let abs;
+        if (url.startsWith('~')) {
+            const rel = url.slice(1).replace(/^@douyinfe\/semi-foundation\//, 'semi-foundation/');
+            abs = path.join(ROOT, 'packages', rel);
+        } else {
+            const base = url.startsWith('/') ? '' : path.dirname(ctx.filePath);
+            abs = path.resolve(ROOT, base, url);
+        }
         if (!fs.existsSync(abs)) {
             console.warn(`[import] 未找到: ${url} (${abs})`);
             at.remove();
@@ -851,6 +858,10 @@ async function processFile(root, ctx) {
     }
     removeMixinDefs(root, ctx);
     // 6. decl 值变换 + atrule params 处理（@media/@keyframes 等值上下文）
+    // 删除所有 FROZEN 冻结注释（含内联子文件带来的，如 rtl.scss 的 banner）
+    root.walkComments((c) => {
+        if (/FROZEN/.test(c.text)) c.remove();
+    });
     root.walkAtRules('use', (at) => at.remove()); // @use 是 sass 模块指令，css 无此语法
     root.walkDecls((decl) => {
         if (isStructuralDecl(decl)) { decl.remove(); return; }
@@ -900,6 +911,12 @@ async function processFile(root, ctx) {
 async function convertComponent(component, scssFile = null) {
     const filePath = path.join(FOUNDATION, component, scssFile || `${component}.scss`);
     if (!fs.existsSync(filePath)) throw new Error(`文件不存在: ${filePath}`);
+    return convertFile(filePath);
+}
+
+// 通用转换：任意 scss 文件路径 → 嵌套 css（semi-ui/_base/base.scss 等）
+async function convertFile(filePath) {
+    const component = path.basename(path.dirname(filePath));
     const ctx = new Ctx(component, filePath);
     loadThemeMixins(ctx);
     const root = scssParser.parse(fs.readFileSync(filePath, 'utf-8'), { from: filePath });
@@ -907,7 +924,7 @@ async function convertComponent(component, scssFile = null) {
     return root.toString();
 }
 
-module.exports = { convertComponent, Ctx };
+module.exports = { convertComponent, convertFile, Ctx };
 
 // CLI: node transformScss.js <component> [scssFile]
 if (require.main === module) {

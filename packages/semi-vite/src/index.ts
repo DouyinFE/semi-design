@@ -1,7 +1,7 @@
 import { semiTheming } from './plugin';
-import { transformSemiTheme } from './theme-loader';
+import { transformSemiTheme, transformSemiCssTheme } from './theme-loader';
 
-export { semiTheming, transformSemiTheme };
+export { semiTheming, transformSemiTheme, transformSemiCssTheme };
 export type { SemiVitePluginOptions, SemiThemeOptions } from './types';
 export default semiTheming;
 

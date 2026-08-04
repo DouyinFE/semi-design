@@ -3,7 +3,7 @@ import { fileURLToPath, URL } from 'url';
 import type { Plugin } from 'vite';
 
 import { convertMapToString, createCssImportResolver, normalizePath } from './utils';
-import { transformSemiTheme } from './theme-loader';
+import { transformSemiTheme, transformSemiCssTheme } from './theme-loader';
 import type { SemiThemeOptions, SemiVitePluginOptions } from './types';
 
 const SEMI_CSS_RE = /@douyinfe[\\/]+semi-(ui|icons|foundation)(-\d+)?[\\/]+lib[\\/]+.+\.css(\?.*)?$/;
@@ -85,6 +85,20 @@ export function semiTheming(rawOptions: SemiVitePluginOptions = {}): Plugin {
                 return null;
             }
 
+            // 新链路（css 化）：lib/*.css 真源编译产物存在 → css 直连（注入主题 css 变量 + prefixCls 文本替换）
+            if (existsSync(filePath)) {
+                const rawSource = readFileSync(filePath, 'utf-8');
+                const transformed = transformSemiCssTheme(rawSource, {
+                    name: themeOptions.name,
+                    prefixCls: options.prefixCls,
+                    variables,
+                    include,
+                    cssLayer: options.cssLayer,
+                });
+                return transformed;
+            }
+
+            // 旧链路（scss）：css 改写回 scss 走 sass 编译
             const scssFilePath = filePath.replace(/\.css$/, '.scss');
             if (!existsSync(scssFilePath)) {
                 return null;

@@ -102,3 +102,40 @@ export function transformSemiTheme(source: string, importer: string, query: Semi
     }
     return finalCSS;
 }
+
+/**
+ * css 真源链路：注入主题 css 变量（token/global/animation）+ prefixCls 文本替换
+ * 对应 scss 版 transformSemiTheme（css 版：运行时 css 变量而非编译期 scss 变量）
+ */
+export function transformSemiCssTheme(
+    source: string,
+    query: {
+        name?: string;
+        prefixCls?: string;
+        variables?: string;
+        include?: string;
+        cssLayer?: boolean
+    }
+): string {
+    const theme = query.name || '@douyinfe/semi-theme-default';
+    const inject = [
+        `@import "${theme}/css/token.css";`,
+        `@import "${theme}/css/global.css";`,
+        `@import "${theme}/css/animation.css";`,
+    ];
+    if (query.include) {
+        inject.push(`@import "${query.include}";`);
+    }
+    if (query.variables) {
+        inject.push(query.variables);
+    }
+    // prefixCls 文本替换（只作用于组件源码；css 变量名 --semi- 不替换）
+    let result = source;
+    if (query.prefixCls && query.prefixCls !== 'semi') {
+        result = result.replace(/\.semi-/g, `.${query.prefixCls}-`);
+        result = result.replace(/(?<![\w.-])semi-/g, `${query.prefixCls}-`);
+    }
+    const cssLayerStr = query.cssLayer ? `@layer semi{` : '';
+    const cssLayerEnd = query.cssLayer ? '}' : '';
+    return `${inject.join('\n')}\n${cssLayerStr}${result}${cssLayerEnd}`;
+}

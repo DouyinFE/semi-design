@@ -26,6 +26,8 @@
         "fast-copy": "^3.0.1 ",
         "fs-extra": "^8.1.0",
         "lodash": "^4.17.21",
+        "postcss": "^8.4.8",
+        "postcss-nested": "^6.2.0",
         "sass": "^1.54.9"
     },
     "devDependencies": {

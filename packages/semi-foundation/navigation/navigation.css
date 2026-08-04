@@ -1,4 +1,3 @@
-/* Mixins*/
 
 .semi-navigation {
     box-sizing: border-box;
@@ -943,7 +942,6 @@
         padding: var(--semi-cssvar-spacing-navigation_item_sub-padding);
     }
 }/* ============================================================*/
-/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/

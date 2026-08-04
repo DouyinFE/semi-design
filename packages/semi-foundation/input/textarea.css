@@ -1,0 +1,408 @@
+
+
+.semi-input-textarea-wrapper {
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    border: var(--semi-cssvar-width-input_wrapper-border) var(--semi-cssvar-color-input_default-border-default) solid;
+    border-radius: var(--semi-cssvar-radius-input_wrapper);
+    vertical-align: bottom;
+    background-color: var(--semi-cssvar-color-input_default-bg-default);
+    transition: background-color var(--semi-cssvar-transition_duration-input-bg) var(--semi-cssvar-transition_function-input-bg) var(--semi-cssvar-transition_delay-input-bg),
+    border var(--semi-cssvar-transition_duration-input-border) var(--semi-cssvar-transition_function-input-border) var(--semi-cssvar-transition_delay-input-border)
+}
+
+    /* When native resize changes textarea width, wrapper (border/clear/counter) should follow.*/
+    /* Default wrapper is `width: 100%`, so it won't grow with textarea. Enable shrink-to-fit.*/
+    .semi-input-textarea-wrapper-resizeX {
+        display: inline-block;
+        width: fit-content;
+        max-width: 100%;
+    }
+        /* Keep original textarea wrapper formatting (stacking counter, etc.),*/
+        /* only shrink-to-fit width so border follows horizontal resize.*/
+        /* Using inline-flex here may change internal layout and cause clear/counter misalignment.*/
+
+    .semi-input-textarea-wrapper-resizeY {
+    }
+        /* Keep default width behavior; vertical resize doesn't require wrapper width change.*/
+
+    .semi-input-textarea-wrapper:hover {
+        background-color: var(--semi-cssvar-color-input_default-bg-hover);
+    }
+
+    .semi-input-textarea-wrapper-focus {
+        background-color: var(--semi-cssvar-color-input_default-bg-focus);
+        border: var(--semi-cssvar-width-input_wrapper_focus-border) var(--semi-cssvar-color-input_default-border-focus) solid
+    }
+        .semi-input-textarea-wrapper-focus:hover, .semi-input-textarea-wrapper-focus:active {
+            background-color: var(--semi-cssvar-color-input_default-bg-focus);
+        }
+
+    .semi-input-textarea-wrapper:active {
+        background-color: var(--semi-cssvar-color-input_default-bg-active);
+    }
+
+    .semi-input-textarea-wrapper .semi-input-clearbtn {
+        position: absolute;
+        top: 0;
+        min-width: var(--semi-cssvar-width-textarea-icon);
+        color: var(--semi-cssvar-color-textarea-icon-default);
+        right: var(--semi-cssvar-spacing-textarea-icon-right);
+        height: var(--semi-cssvar-height-textarea-default);
+        display: flex;
+        align-items: center;
+        justify-content: center
+    }
+        /* Center the icon within the clearbtn area*/
+
+        .semi-input-textarea-wrapper .semi-input-clearbtn > svg {
+            pointer-events: none;
+        }
+
+        .semi-input-textarea-wrapper .semi-input-clearbtn:hover {
+            cursor: pointer
+        }
+
+            .semi-input-textarea-wrapper .semi-input-clearbtn:hover .semi-icon {
+                color: var(--semi-cssvar-color-textarea-icon-hover);
+            }
+
+        .semi-input-textarea-wrapper .semi-input-clearbtn-hidden {
+            visibility: hidden;
+        }
+
+    .semi-input-textarea-wrapper-disabled, .semi-input-textarea-wrapper-readonly {
+        cursor: not-allowed;
+        color: var(--semi-cssvar-color-input_disabled-text-default);
+        background-color: var(--semi-cssvar-color-input_disabled-bg-default)
+    }
+        /* border: $border-thickness-control $color-input_disabled-border-default solid;*/
+
+        .semi-input-textarea-wrapper-disabled:hover, .semi-input-textarea-wrapper-readonly:hover {
+            background-color: var(--semi-cssvar-color-input_disabled-bg-default);
+        }
+
+        .semi-input-textarea-wrapper-disabled::placeholder, .semi-input-textarea-wrapper-readonly::placeholder {
+            color: var(--semi-cssvar-color-input_disabled-text-default);
+        }
+
+    .semi-input-textarea-wrapper-readonly {
+        cursor: text;
+    }
+
+    .semi-input-textarea-wrapper-error {
+        background-color: var(--semi-cssvar-color-input_danger-bg-default);
+        border-color: var(--semi-cssvar-color-input_danger-border-default)
+    }
+
+        .semi-input-textarea-wrapper-error:hover {
+            background-color: var(--semi-cssvar-color-input_danger-bg-hover);
+            border-color: var(--semi-cssvar-color-input_danger-border-hover);
+        }
+
+        .semi-input-textarea-wrapper-error.semi-input-textarea-wrapper-focus {
+            background-color: var(--semi-cssvar-color-input_danger-bg-focus);
+            border-color: var(--semi-cssvar-color-input_danger-border-focus);
+        }
+
+        .semi-input-textarea-wrapper-error:active {
+            background-color: var(--semi-cssvar-color-input_danger-bg-active);
+            border-color: var(--semi-cssvar-color-input_danger-border-focus);
+        }
+
+    .semi-input-textarea-wrapper-warning {
+        background-color: var(--semi-cssvar-color-input_warning-bg-default);
+        border-color: var(--semi-cssvar-color-input_warning-border-default)
+    }
+
+        .semi-input-textarea-wrapper-warning:hover {
+            background-color: var(--semi-cssvar-color-input_warning-bg-hover);
+            border-color: var(--semi-cssvar-color-input_warning-border-hover);
+        }
+
+        .semi-input-textarea-wrapper-warning.semi-input-textarea-wrapper-focus {
+            background-color: var(--semi-cssvar-color-input_warning-bg-focus);
+            border-color: var(--semi-cssvar-color-input_warning-border-focus);
+        }
+
+        .semi-input-textarea-wrapper-warning:active {
+            background-color: var(--semi-cssvar-color-input_warning-bg-active);
+            border-color: var(--semi-cssvar-color-input_warning-border-focus);
+        }
+
+    /* &-resize {*/
+    /*     resize: vertical;*/
+    /*     overflow: auto;*/
+
+    /*     .#{$module}-textarea {*/
+    /*         min-height: 52px;*/
+    /*         height: calc(100% - 24px);*/
+    /*     }*/
+    /* }*/
+
+.semi-input-textarea {
+    position: relative;
+    resize: none;
+    padding: var(--semi-cssvar-spacing-textarea-paddingY) var(--semi-cssvar-spacing-textarea-paddingX);
+    box-shadow: none;
+    font-size: var(--semi-cssvar-font-size-regular);
+    line-height: 20px;
+    font-family: var(--semi-cssvar-font-family-regular);
+    background-color: transparent;
+    border: var(--semi-cssvar-width-textarea-border) solid var(--semi-cssvar-color-textarea-border-default);
+    vertical-align: bottom;
+    width: 100%;
+    outline: none;
+    cursor: text;
+    box-sizing: border-box;
+    color: var(--semi-cssvar-color-input_default-text-default)
+}
+    /* resize is now controlled by resize prop, default to none for backward compatibility*/
+    /* min-height: $height-input_default;*/
+
+    .semi-input-textarea:hover {
+        border-color: var(--semi-cssvar-color-textarea-border-hover);
+    }
+
+    .semi-input-textarea::placeholder {
+        color: var(--semi-cssvar-color-input_placeholder-text-default);
+    }
+
+    .semi-input-textarea-showClear {
+        padding-right: var(--semi-cssvar-spacing-textarea_withShowClear-paddingRight);
+    }
+
+    .semi-input-textarea-disabled, .semi-input-textarea-readonly {
+        cursor: not-allowed;
+        color: var(--semi-cssvar-color-input_disabled-text-default);
+        background-color: transparent
+    }
+
+        .semi-input-textarea-disabled:hover, .semi-input-textarea-readonly:hover {
+            background-color: transparent;
+        }
+
+        .semi-input-textarea-disabled::placeholder, .semi-input-textarea-readonly::placeholder {
+            color: var(--semi-cssvar-color-input_disabled-text-default);
+        }
+
+    .semi-input-textarea-readonly {
+        cursor: text;
+    }
+
+    .semi-input-textarea-autosize {
+        overflow: hidden;
+        resize: none;
+    }
+        /* When autosize is enabled, force resize to none to avoid conflicts*/
+
+    .semi-input-textarea-counter {
+    font-size: var(--semi-cssvar-font-size-small);
+    line-height: 16px;
+    font-family: var(--semi-cssvar-font-family-regular);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: var(--semi-cssvar-spacing-textarea_counter-paddingTop) var(--semi-cssvar-spacing-textarea_counter-paddingRight) var(--semi-cssvar-spacing-textarea_counter-paddingBottom) var(--semi-cssvar-spacing-textarea_counter-paddingLeft);
+        min-height: var(--semi-cssvar-height-textarea_counter);
+        text-align: right;
+        color: var(--semi-cssvar-color-input_counter-text-default)
+    }
+
+        .semi-input-textarea-counter-exceed {
+            color: var(--semi-cssvar-color-input_counter_danger-text-default);
+        }
+
+.semi-input-textarea-borderless{
+    &:not(:focus-within):not(:hover){
+        background-color:transparent;
+        border-color: transparent;
+    }
+
+    &:focus-within:not(:active){
+        background-color:transparent;
+    }
+
+    &.semi-input-textarea-wrapper-error:not(:focus-within){
+        border-color: var(--semi-cssvar-color-input_danger-border-focus);
+    }
+
+
+
+    &.semi-input-textarea-wrapper-warning:not(:focus-within){
+        border-color: var(--semi-cssvar-color-input_warning-border-focus);
+    }
+
+    &.semi-input-textarea-wrapper-error{
+            & .semi-input-textarea-counter{
+                color: var(--semi-cssvar-color-input_danger-border-focus);
+            }
+    }
+
+    &.semi-input-textarea-wrapper-warning{
+        & .semi-input-textarea-counter{
+            color: var(--semi-cssvar-color-input_warning-border-focus);
+        }
+    }
+
+}
+
+/* Line number styles*/
+.semi-input-textarea-wrapper-withLineNumber {
+    display: flex;
+    padding: 0;
+    align-items: flex-start;
+
+    &.semi-input-textarea-wrapper-resizeX {
+        /* Keep line number + textarea layout, but let width shrink-to-fit*/
+        display: inline-flex;
+        width: fit-content;
+        max-width: 100%;
+
+        & .semi-input-textarea-content {
+            flex: 0 0 auto;
+        }
+
+        /* Do not force a minimum width here; allow the control to fit narrow containers.*/
+    }
+
+    & .semi-input-textarea-lineNumber {
+        flex-shrink: 0;
+        padding: var(--semi-cssvar-spacing-textarea-paddingY) var(--semi-cssvar-spacing-textarea-paddingX);
+        background-color: var(--semi-color-fill-1);
+        border-right: 1px solid var(--semi-color-border);
+        color: var(--semi-color-text-2);
+        /* Use common monospace font stack for better alignment*/
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: inherit;
+        line-height: 1.5;
+        text-align: right;
+        user-select: none;
+        min-width: 36px;
+        border-radius: var(--semi-cssvar-radius-input_wrapper) 0 0 var(--semi-cssvar-radius-input_wrapper);
+        /* Allow scrolling but hide scrollbar*/
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: none; /* Firefox*/
+        -ms-overflow-style: none; /* IE 10+*/
+        &::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Edge*/
+        }
+    }
+
+    /* Content wrapper for textarea to participate in flex layout*/
+    & .semi-input-textarea-content {
+        display: flex;
+        flex: 1;
+        min-width: 0;
+    }
+
+    & .semi-input-textarea-lineNumber-item {
+        display: flex;
+        /* Align to the first visual line when soft-wrapping*/
+        align-items: flex-start;
+        justify-content: flex-end;
+        box-sizing: border-box;
+    }
+
+    & .semi-input-textarea {
+        border-radius: 0 var(--semi-cssvar-radius-input_wrapper) var(--semi-cssvar-radius-input_wrapper) 0;
+        line-height: 1.5;
+        flex: 1;
+    }
+}/* ============================================================*/
+/* 样式修改请编辑同目录下的 .css 文件。*/
+/* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
+/* ============================================================*/
+/*@import '../theme/variables.scss';*/
+
+.semi-rtl,
+.semi-portal-rtl {
+}
+    .semi-rtl .semi-input-wrapper, .semi-portal-rtl .semi-input-wrapper {
+        direction: rtl
+    }
+
+        .semi-rtl .semi-input-wrapper__with-prefix, .semi-portal-rtl .semi-input-wrapper__with-prefix {
+        }
+            .semi-rtl .semi-input-wrapper__with-prefix .semi-input, .semi-portal-rtl .semi-input-wrapper__with-prefix .semi-input {
+                padding-left: auto;
+                padding-right: 0;
+            }
+
+        .semi-rtl .semi-input-wrapper__with-suffix, .semi-portal-rtl .semi-input-wrapper__with-suffix {
+        }
+            .semi-rtl .semi-input-wrapper__with-suffix .semi-input, .semi-portal-rtl .semi-input-wrapper__with-suffix .semi-input {
+                padding-right: auto;
+                padding-left: 0;
+            }
+
+    .semi-rtl .semi-input, .semi-portal-rtl .semi-input {
+        padding-left: var(--semi-cssvar-spacing-input-paddingRight);
+        padding-right: var(--semi-cssvar-spacing-input-paddingLeft)
+    }
+
+
+        .semi-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix, .semi-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix, .semi-portal-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix, .semi-portal-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix {
+        }
+            .semi-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix + .semi-input-suffix-text, .semi-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix + .semi-input-suffix-text, .semi-portal-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix + .semi-input-suffix-text, .semi-portal-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix + .semi-input-suffix-text {
+                margin-left: auto;
+                margin-right: 0;
+            }
+
+            .semi-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix + .semi-input-suffix-icon, .semi-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix + .semi-input-suffix-icon, .semi-portal-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix + .semi-input-suffix-icon, .semi-portal-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix + .semi-input-suffix-icon {
+                margin-left: auto;
+                margin-right: 0;
+            }
+
+        .semi-rtl .semi-input-append, .semi-portal-rtl .semi-input-append {
+            border-left: 0;
+            border-right: var(--semi-cssvar-width-input_append-border) var(--semi-cssvar-color-input_default-border-default) solid;
+        }
+
+        .semi-rtl .semi-input-prepend, .semi-portal-rtl .semi-input-prepend {
+            border-right: 0;
+            border-left: var(--semi-cssvar-width-input_prepend-border) var(--semi-cssvar-color-input_default-border-default) solid;
+        }
+
+        .semi-rtl .semi-input-group, .semi-portal-rtl .semi-input-group {
+        }
+            .semi-rtl .semi-input-group .semi-select, .semi-portal-rtl .semi-input-group .semi-select, .semi-rtl .semi-input-group .semi-cascader, .semi-portal-rtl .semi-input-group .semi-cascader, .semi-rtl .semi-input-group .semi-tree-select, .semi-portal-rtl .semi-input-group .semi-tree-select, .semi-rtl .semi-input-group > .semi-input-wrapper, .semi-portal-rtl .semi-input-group > .semi-input-wrapper {
+            }
+
+                .semi-rtl .semi-input-group .semi-select:not(:last-child), .semi-portal-rtl .semi-input-group .semi-select:not(:last-child), .semi-rtl .semi-input-group .semi-cascader:not(:last-child), .semi-portal-rtl .semi-input-group .semi-cascader:not(:last-child), .semi-rtl .semi-input-group .semi-tree-select:not(:last-child), .semi-portal-rtl .semi-input-group .semi-tree-select:not(:last-child), .semi-rtl .semi-input-group > .semi-input-wrapper:not(:last-child), .semi-portal-rtl .semi-input-group > .semi-input-wrapper:not(:last-child) {
+                }
+
+                    .semi-rtl .semi-input-group .semi-select:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-select:not(:last-child)::after, .semi-rtl .semi-input-group .semi-cascader:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-cascader:not(:last-child)::after, .semi-rtl .semi-input-group .semi-tree-select:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-tree-select:not(:last-child)::after, .semi-rtl .semi-input-group > .semi-input-wrapper:not(:last-child)::after, .semi-portal-rtl .semi-input-group > .semi-input-wrapper:not(:last-child)::after {
+                        right: auto;
+                        left: -1px;
+                    }
+
+            .semi-rtl .semi-input-group .semi-input-number, .semi-portal-rtl .semi-input-group .semi-input-number {
+            }
+
+                .semi-rtl .semi-input-group .semi-input-number:not(:last-child), .semi-portal-rtl .semi-input-group .semi-input-number:not(:last-child) {
+                }
+
+                    .semi-rtl .semi-input-group .semi-input-number:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-input-number:not(:last-child)::after {
+                        right: auto;
+                        left: -1px;
+                    }
+
+    .semi-rtl .semi-input-textarea-wrapper, .semi-portal-rtl .semi-input-textarea-wrapper {
+        direction: rtl;
+    }
+
+    .semi-rtl .semi-input-textarea, .semi-portal-rtl .semi-input-textarea {
+    }
+
+        .semi-rtl .semi-input-textarea-counter, .semi-portal-rtl .semi-input-textarea-counter {
+            text-align: left;
+        }
+
+        .semi-rtl .semi-input-textarea-showClear, .semi-portal-rtl .semi-input-textarea-showClear {
+            padding-right: 0;
+            padding-left: var(--semi-cssvar-spacing-textarea_withShowClear-paddingRight);
+        }

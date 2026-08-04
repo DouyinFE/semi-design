@@ -3993,4 +3993,10 @@ body {
   --semi-cssvar-animation_duration-videoPlayer_slider-out: 300ms;
   --semi-cssvar-animation_function-videoPlayer_slider-in: cubic-bezier(0.62, 0.05, 0.36, 0.95);
   --semi-cssvar-animation_function-videoPlayer_slider-out: cubic-bezier(0.62, 0.05, 0.36, 0.95);
+  --semi-cssvar-width-icon_extra_small: 8px;
+  --semi-cssvar-width-icon_small: 12px;
+  --semi-cssvar-width-icon_medium: 16px;
+  --semi-cssvar-width-icon_large: 20px;
+  --semi-cssvar-width-icon_extra_large: 24px;
+  --semi-cssvar-motion-icon_spin-animationDuration: 0.6s;
 }

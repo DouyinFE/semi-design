@@ -103,7 +103,6 @@
         animation: semi-tooltip-zoomOut var(--semi-cssvar-animation_duration-tooltip_out) var(--semi-cssvar-animation_function-tooltip_out);
         animation-fill-mode: forwards;
     }/* ============================================================*/
-/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
@@ -247,7 +246,6 @@
     .semi-tooltip-wrapper[x-placement='bottomRight'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='bottomRight'] .semi-tooltip-with-arrow {
         min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
     }/* ============================================================*/
-/* FROZEN: 本文件已由同目录 .css 真源取代（css 化迁移），停止维护。*/
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
