@@ -35,7 +35,8 @@ function compileLegacy(component, scssFile = null) {
     const targetFile = scssFile || `${component}.scss`;
     const scssPath = path.join(compDir, targetFile);
     if (!fs.existsSync(scssPath)) {
-        throw new Error(`scss 文件不存在: ${scssPath}`);
+        // 无 scss 文件（纯逻辑组件）→ 返回 null 表示跳过
+        return null;
     }
     const scssRaw = fs.readFileSync(scssPath, 'utf-8');
     // 与 gulpfile 一致：头部注入 theme index.scss
@@ -71,6 +72,10 @@ if (require.main === module) {
     const [component, scssFile] = process.argv.slice(2);
     try {
         const css = compileLegacy(component, scssFile);
+        if (css === null) {
+            console.error(`无 scss 文件（跳过）: ${component}/${scssFile || ''}`);
+            process.exit(2);
+        }
         process.stdout.write(css);
     } catch (e) {
         console.error(`编译失败 ${component}/${scssFile || ''}:`, e.message);

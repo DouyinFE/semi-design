@@ -55,6 +55,10 @@ function compileNested(css) {
 
 async function verify(component, scssFile = null) {
     const legacy = compileLegacy(component, scssFile);
+    if (legacy === null) {
+        // 无 scss 文件（纯逻辑组件，如 dragMove/icons/lottie/utils）→ 跳过而非失败
+        return { ok: 'skip', reason: '无 scss 文件（组件无样式）' };
+    }
     const nested = await convertComponent(component, scssFile);
     let flat;
     try {
