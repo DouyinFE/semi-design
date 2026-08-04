@@ -7,8 +7,12 @@ export default function SemiThemeLoader(source: string) {
     const query = loaderUtils.getOptions ? loaderUtils.getOptions(this) : loaderUtils.parseQuery(this.query);
     const cssLayer = query.cssLayer ?? false as boolean;
     const theme = query.name || '@douyinfe/semi-theme-default';
-    // always inject
-    const scssVarStr = `@import "~${theme}/scss/index.scss";\n`;
+    let scssVarStr = `@import "~${theme}/scss/index.scss";\n`;
+    try {
+        resolve.sync(this.context, `${theme}/scss/index.scss`);
+    } catch (e) {
+        scssVarStr = ''; // theme scss 不存在（已 css 化）→ 跳过注入，scss 文件独立编译
+    }
     // inject once
     const cssVarStr = `@import "~${theme}/scss/global.scss";\n`;
     let animationStr = `@import "~${theme}/scss/animation.scss";\n`;

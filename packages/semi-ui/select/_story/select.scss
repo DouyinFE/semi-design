@@ -41,11 +41,11 @@
             cursor: not-allowed;
         }
         &:first-of-type {
-            margin-top: $spacing-extra-tight;
+            margin-top: var(--semi-cssvar-spacing-extra-tight);
         }
 
         &:last-of-type {
-            margin-bottom: $spacing-extra-tight;
+            margin-bottom: var(--semi-cssvar-spacing-extra-tight);
         }
     }
 }

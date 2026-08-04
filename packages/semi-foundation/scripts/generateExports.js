@@ -104,7 +104,7 @@ function scanDirectory(dir, basePath = '') {
                 exports[exportKey] = exportValue;
                 exports[exportKeyCjs] = exportValue;
                 exports[exportKeyNoLib] = exportValue;
-            } else if (entry.name.endsWith('.scss')) {
+            } else if (entry.name.endsWith('.css')) {
                 const exportKey = `./lib/es/${relativePath}`;
                 const exportKeyCjs = `./lib/cjs/${relativePath}`;
                 const exportKeyNoLib = `./${relativePath}`;
@@ -185,47 +185,12 @@ function generateExports() {
         }
     };
 
-    // 添加 SCSS 文件的通配符规则
-    const scssExports = {
-        './lib/es/*/*.scss': {
-            import: './lib/es/*/*.scss',
-            require: './lib/cjs/*/*.scss',
-            default: './lib/es/*/*.scss'
-        },
-        './lib/es/*.scss': {
-            import: './lib/es/*.scss',
-            require: './lib/cjs/*.scss',
-            default: './lib/es/*.scss'
-        },
-        './lib/cjs/*/*.scss': {
-            import: './lib/es/*/*.scss',
-            require: './lib/cjs/*/*.scss',
-            default: './lib/cjs/*/*.scss'
-        },
-        './lib/cjs/*.scss': {
-            import: './lib/es/*.scss',
-            require: './lib/cjs/*.scss',
-            default: './lib/cjs/*.scss'
-        },
-        // 添加不带 lib/es 前缀的通配符规则
-        './*/*.scss': {
-            import: './lib/es/*/*.scss',
-            require: './lib/cjs/*/*.scss',
-            default: './lib/es/*/*.scss'
-        },
-        './*.scss': {
-            import: './lib/es/*.scss',
-            require: './lib/cjs/*.scss',
-            default: './lib/es/*.scss'
-        }
-    };
-
     // 合并所有 exports
     const allExports = {
         ...mainExports,
         ...exports,
         ...cssExports,
-        ...scssExports
+        
     };
 
     console.log(`Generated ${Object.keys(exports).length} export paths`);

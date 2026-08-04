@@ -15,8 +15,12 @@ export default function SemiThemeLoader(this: LoaderContext<SemiThemeLoaderOptio
     const query = this.getOptions();
     const theme = query.name || '@douyinfe/semi-theme-default';
     const cssLayer = query.cssLayer ?? false as boolean;
-    // always inject
-    const scssVarStr = `@import "~${theme}/scss/index.scss";\n`;
+    let scssVarStr = `@import "~${theme}/scss/index.scss";\n`;
+    try {
+        resolve.sync(this.context, `${theme}/scss/index.scss`);
+    } catch (e) {
+        scssVarStr = ''; // theme scss 不存在（已 css 化）→ 跳过注入，scss 文件独立编译
+    }
     // inject once
     const cssVarStr = `@import "~${theme}/scss/global.scss";\n`;
     let animationStr = `@import "~${theme}/scss/animation.scss";\n`;

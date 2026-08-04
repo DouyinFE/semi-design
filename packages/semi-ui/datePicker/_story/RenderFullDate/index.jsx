@@ -1,7 +1,7 @@
 import React from 'react';
 import { DatePicker, Space } from '@douyinfe/semi-ui';
 import classNames from 'classnames';
-import '@douyinfe/semi-foundation/datePicker/datePicker.scss'; 
+import '@douyinfe/semi-foundation/datePicker/datePicker.css'; 
 import './index.scss';
 
 /**

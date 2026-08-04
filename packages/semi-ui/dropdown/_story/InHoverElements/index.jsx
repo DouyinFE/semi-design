@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Dropdown } from '@douyinfe/semi-ui';
 import { IconEdit } from '@douyinfe/semi-icons';
 
-import '@douyinfe/semi-foundation/dropdown/dropdown.scss';
+import '@douyinfe/semi-foundation/dropdown/dropdown.css';
 
 export default function Demo() {
     const ref = useRef();

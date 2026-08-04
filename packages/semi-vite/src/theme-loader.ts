@@ -24,10 +24,16 @@ export function transformSemiTheme(source: string, importer: string, query: Semi
     const theme = query.name || '@douyinfe/semi-theme-default';
     const cssLayer = query.cssLayer ?? false;
 
-    const scssVarStr = `@import "~${theme}/scss/index.scss";\n`;
-    const cssVarStr = `@import "~${theme}/scss/global.scss";\n`;
+    let scssVarStr = `@import "~${theme}/scss/index.scss";\n`;
+    let cssVarStr = `@import "~${theme}/scss/global.scss";\n`;
     let animationStr = `@import "~${theme}/scss/animation.scss";\n`;
 
+    if (!tryResolve(importer, `${theme}/scss/index.scss`)) {
+        scssVarStr = ''; // theme scss 不存在（已 css 化）→ 跳过注入
+    }
+    if (!tryResolve(importer, `${theme}/scss/global.scss`)) {
+        cssVarStr = '';
+    }
     if (!tryResolve(importer, `${theme}/scss/animation.scss`)) {
         animationStr = '';
     }

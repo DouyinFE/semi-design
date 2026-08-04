@@ -1,4 +1,8 @@
 // import 'reset-css';
+// 全量 css 化：全局引入主题 css 变量（token/global/animation），组件 css 的 var(--semi-cssvar-*) 自动解析
+import '@douyinfe/semi-theme-default/css/token.css';
+import '@douyinfe/semi-theme-default/css/global.css';
+import '@douyinfe/semi-theme-default/css/animation.css';
 // import 'normalize.css';
 import React from 'react';
 import { StoryContext } from '@storybook/react';

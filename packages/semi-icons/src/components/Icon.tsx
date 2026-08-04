@@ -1,7 +1,7 @@
 import React, { ReactNode, Ref, CSSProperties, DetailedHTMLProps, ComponentType } from 'react';
 import { BASE_CLASS_PREFIX } from '../env';
 import cls from 'classnames';
-import '../styles/icons.scss';
+import '../styles/icons.css';
 
 export type IconSize = 'inherit' | 'extra-small' | 'small' | 'default' | 'large' | 'extra-large';
 
