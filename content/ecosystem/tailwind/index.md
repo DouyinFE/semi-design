@@ -46,7 +46,52 @@ Semi 不依赖任何第三方样式库，没有安装 Tailwind 一样可以运�
 #### 解决方案
 无论 Tailwind 和 组件库哪一方优先级高，都会出现问题，因此解决方式在于正确处理 Tailwind 样式中 Preflight 和用户需要的原子类的优先级相对于组件库优先级的关系。
 
-** 1. 开启 Semi 插件 (>= 2.59.0) **
+Semi 提供两种方案，推荐使用**方案 A（免插件）**，无需安装任何插件或进行 loader 配置。
+
+---
+
+**方案 A（推荐）：使用 Semi 的 layer 入口文件**
+
+Semi 的样式产物（组件 css、主题 css、聚合产物 `semi.css`）本身是普通规则、**不包含任何 `@layer`**，因此对不使用原子类库的普通用户完全无感，也兼容低版本浏览器。当需要与 Tailwind 搭配时，通过 `@import ... layer(semi)` 将 Semi 样式归入 `semi` 层即可获得正确的优先级。
+
+**1. 在项目入口（如 `main.tsx`）最顶部声明 layer 顺序：**
+
+```js
+import 'semi-layer.css'; // 必须在最顶部，内容见下
+```
+
+创建一个 CSS 文件（如 `semi-layer.css`），内容如下（一行声明层顺序）：
+```css
+@layer theme, base, semi, utilities;
+```
+
+**2. 引入 Semi 样式时使用 layer 入口文件，按你的使用方式二选一：**
+
+- 使用聚合产物（`semi-ui/dist/css/semi.css`）的用户，将 import 换成 layer 入口：
+
+```js
+import '@douyinfe/semi-ui/dist/css/semi.layer.css';  // 等价于 @import './semi.css' layer(semi)
+```
+
+- 按需加载（组件级 css）的用户，引入主题 layer 入口 + 组件 css 时追加 `layer(semi)`：
+
+```js
+import '@douyinfe/semi-theme-default/css/layer.css';  // 主题 token/global/animation 归入 semi 层
+```
+
+```css
+/* 业务 css 中按需引入组件样式时 */
+@import '@douyinfe/semi-foundation/button/button.css' layer(semi);
+```
+
+**原理**：`@import ... layer(semi)` 将整个文件的内容归入 `semi` 层（归层动作发生在 import 时，样式文件本身仍是普通规则）。配合入口声明的层顺序 `@layer theme, base, semi, utilities`，Semi 样式优先级介于 base（Preflight）与 utilities（原子类）之间：Preflight 不会破坏组件样式，原子类可以覆盖组件样式。
+
+**兼容低版本浏览器**：CSS Layer 要求浏览器版本高于 Chromium 99（[兼容性表格](https://caniuse.com/?search=CSS%20Cascade%20Layers)）。低版本浏览器会忽略 `@import ... layer(semi)`（该 import 不生效），此时 Semi 样式缺失，需要添加 CSS Layer 的 Polyfill，请参考 [postcss-cascade-layers](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-cascade-layers)。不使用 Tailwind 的用户不受影响（普通 import 即可）。
+
+---
+
+**方案 B（插件方式）：开启 Semi 插件 (>= 2.59.0) **
+
 ```shell
 yarn add -D @douyinfe/semi-webpack-plugin
 ```
@@ -88,6 +133,10 @@ module.exports = {
 
 
 ** 3. 修改 Tailwind 入口配置**
+
+<Notice>
+若已按方案 A 配置了层顺序声明（semi-layer.css），此步可跳过；方案 B 仅需在插件开启后确保入口声明了相同的层顺序。
+</Notice>
 
 <Notice title="选择你的 Tailwind 版本">
 Tailwind v3 和 v4 的配置方式不同，请根据你使用的版本选择对应的配置方式。
@@ -152,13 +201,20 @@ CSS Layer 要求浏览器版本高于 Chromium 99 <a target="_blank" href="https
 #### 原理
 通过 CSS Layer 特性，实现不同来源的样式的优先级设置。
 
-开启插件后，所有的 Semi 样式都会被 `@layer {xxxx}` 包裹。另外，我们也手动设置了项目中的 Tailwind 的各种类型的样式的 Layer。
+- **方案 A（layer 入口文件）**：Semi 样式产物本身是普通规则（零 `@layer`），通过 `@import ... layer(semi)` 在引入时将全部内容归入 `semi` 层。归层动作只发生在 import 语句上，不改变样式文件本身，因此不使用 Tailwind 的用户直接普通 import 时行为完全不变。
+- **方案 B（插件方式）**：开启插件后，所有的 Semi 样式在构建时被 `@layer {xxxx}` 包裹。
 
-另外，我们配置了各种 Layer 的优先级顺序：
+两种方案均配合 Tailwind 入口声明的 Layer 顺序工作（v4 写法）：
 ```css
-@layer tailwind-base,semi,tailwind-components,tailwind-utils;
+@layer theme, base, semi, utilities;
 ```
+（v3 写法：`@layer tailwind-base,semi,tailwind-components,tailwind-utils;`）
+
 上述 CSS 的含义为，base（含 Preflight）优先级最低，Semi 次之，用户设置的原子类样式（padding-[xxx] 等）优先级最高，这样即可解决上面遇到的问题。
+
+<Notice title="关于主题变量的覆盖顺序">
+Semi 主题 css（token/global/animation）在 layer 场景下同样归入 `semi` 层，用户自定义的主题变量（普通层样式）优先级高于 `semi` 层，可以覆盖 Semi 默认变量。若你的项目不使用 layer 方案，则遵循常规 CSS 规则：同特异性声明后加载者生效，请确保业务样式的 import 顺序在 Semi 样式之后。
+</Notice>
 
 
 ### 2.解决在 Tailwind 原子类中使用 Semi Token 的问题 (可选)

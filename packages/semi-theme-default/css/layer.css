@@ -1,0 +1,8 @@
+/* Semi 主题 css 的 layer 入口（Tailwind 等原子类库搭配使用）
+ * 用法：入口声明 @layer theme, base, semi, utilities; 后 import 本文件
+ * 原理：样式文件本身零 @layer（普通规则，低版本浏览器无感），通过 @import ... layer(semi) 归入 semi 层，
+ *       使 Semi 样式优先级介于 base（Preflight）与 utilities（原子类）之间
+ */
+@import './token.css' layer(semi);
+@import './global.css' layer(semi);
+@import './animation.css' layer(semi);
