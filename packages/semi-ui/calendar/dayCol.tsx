@@ -7,7 +7,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/calendar/constants';
 import BaseComponent from '../_base/baseComponent';
 import localeContext from '../locale/context';
 import { DayColProps } from './interface';
-import '@douyinfe/semi-foundation/calendar/calendar.scss';
+import '@douyinfe/semi-foundation/calendar/calendar.css';
 
 
 const prefixCls = `${cssClasses.PREFIX}-grid`;

@@ -2,7 +2,7 @@ import React, { isValidElement } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/descriptions/constants';
-import '@douyinfe/semi-foundation/descriptions/descriptions.scss';
+import '@douyinfe/semi-foundation/descriptions/descriptions.css';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import { isPlainObject } from 'lodash';
 import DescriptionsContext, { DescriptionsAlign, DescriptionLayout } from './descriptions-context';

@@ -7,7 +7,7 @@ import Button, { Theme, ButtonProps } from '../button/Button';
 import SpinIcon from '../spin/icon';
 import { IconAILoading, IconSize } from '@douyinfe/semi-icons';
 import { noop } from 'lodash';
-import '@douyinfe/semi-foundation/button/iconButton.scss';
+import '@douyinfe/semi-foundation/button/iconButton.css';
 
 const iconSizes = iconStrings.SIZE;
 

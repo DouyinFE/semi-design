@@ -5,7 +5,7 @@ import { checkboxClasses as css, strings } from '@douyinfe/semi-foundation/check
 import CheckboxFoundation, { CheckboxAdapter, BasicCheckboxEvent, BasicTargetObject, BaseCheckboxProps } from '@douyinfe/semi-foundation/checkbox/checkboxFoundation';
 import CheckboxInner from './checkboxInner';
 import BaseComponent from '../_base/baseComponent';
-import '@douyinfe/semi-foundation/checkbox/checkbox.scss';
+import '@douyinfe/semi-foundation/checkbox/checkbox.css';
 import { Context, CheckboxContextType } from './context';
 import { isUndefined, isBoolean, noop } from 'lodash';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';

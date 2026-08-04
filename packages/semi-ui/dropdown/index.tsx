@@ -14,7 +14,7 @@ import DropdownDivider, { DropdownDividerProps } from './dropdownDivider';
 import DropdownTitle, { DropdownTitleProps } from './dropdownTitle';
 
 import DropdownContext, { DropdownContextType } from './context';
-import '@douyinfe/semi-foundation/dropdown/dropdown.scss';
+import '@douyinfe/semi-foundation/dropdown/dropdown.css';
 import { noop, get } from 'lodash';
 import { getDefaultPropsFromGlobalConfig } from "../_utils";
 

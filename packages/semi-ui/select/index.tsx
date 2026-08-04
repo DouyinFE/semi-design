@@ -29,7 +29,7 @@ import { IconChevronDown, IconClear, IconSearch } from '@douyinfe/semi-icons';
 import { isSemiIcon, getFocusableElements, getActiveElement, getDefaultPropsFromGlobalConfig } from '../_utils';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 
-import '@douyinfe/semi-foundation/select/select.scss';
+import '@douyinfe/semi-foundation/select/select.css';
 import type { Locale } from '../locale/interface';
 import type { Position, TooltipProps } from '../tooltip';
 export type { OptionProps } from './option';

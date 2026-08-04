@@ -1,5 +1,5 @@
 
-import '@douyinfe/semi-foundation/modal/modal.scss';
+import '@douyinfe/semi-foundation/modal/modal.css';
 import { ModalState } from '@douyinfe/semi-foundation/modal/modalFoundation';
 import Modal from './Modal';
 import　{ ModalReactProps } from './Modal';

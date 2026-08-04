@@ -3,7 +3,7 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/list/constants';
 import { noop } from 'lodash';
-import '@douyinfe/semi-foundation/list/list.scss';
+import '@douyinfe/semi-foundation/list/list.css';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
 import ListItem from './item';

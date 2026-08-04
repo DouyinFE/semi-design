@@ -16,7 +16,7 @@ import CascaderFoundation, {
 import { cssClasses, strings } from '@douyinfe/semi-foundation/cascader/constants';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import { isSet, isEqual, isString, isEmpty, isFunction, isNumber, noop, flatten, isObject, get } from 'lodash';
-import '@douyinfe/semi-foundation/cascader/cascader.scss';
+import '@douyinfe/semi-foundation/cascader/cascader.css';
 import { IconClear, IconChevronDown } from '@douyinfe/semi-icons';
 import { convertDataToEntities, calcMergeType, getKeyByValuePath, getKeyByPos, getValueOrKey } from '@douyinfe/semi-foundation/cascader/util';
 import { calcCheckedKeys, normalizeKeyList, calcDisabledKeys } from '@douyinfe/semi-foundation/tree/treeUtil';

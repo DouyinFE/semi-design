@@ -3,7 +3,7 @@ import { render as reactRender, unmount as reactUnmount } from '../_utils/reactR
 import { destroyFns, ModalReactProps } from './Modal';
 import ConfirmModal from './ConfirmModal';
 
-import '@douyinfe/semi-foundation/modal/modal.scss';
+import '@douyinfe/semi-foundation/modal/modal.css';
 import { IconAlertCircle, IconAlertTriangle, IconHelpCircle, IconInfoCircle, IconTickCircle } from '@douyinfe/semi-icons';
 import { omit } from "lodash";
 import { type ButtonProps } from "../button";

@@ -7,7 +7,7 @@ import { cssClasses, } from '@douyinfe/semi-foundation/resizable/constants';
 import { Direction, Size, Enable, ResizeStartCallback, ResizeCallback, HandleClassName, directions } from '@douyinfe/semi-foundation/resizable/types';
 import BaseComponent from '../../_base/baseComponent';
 import ResizableHandler from './resizableHandler';
-import '@douyinfe/semi-foundation/resizable/resizable.scss';
+import '@douyinfe/semi-foundation/resizable/resizable.css';
 
 const prefixCls = cssClasses.PREFIX;
 export interface HandleComponent {

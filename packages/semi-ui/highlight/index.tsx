@@ -5,7 +5,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/highlight/constants';
 import HighlightFoundation from '@douyinfe/semi-foundation/highlight/foundation';
 import type { SearchWords, Chunk } from '@douyinfe/semi-foundation/highlight/foundation';
 
-import '@douyinfe/semi-foundation/highlight/highlight.scss';
+import '@douyinfe/semi-foundation/highlight/highlight.css';
 
 interface GetHighLightTextHTMLProps {
     sourceString?: string;

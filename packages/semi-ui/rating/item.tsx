@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/rating/constants';
-import '@douyinfe/semi-foundation/rating/rating.scss';
+import '@douyinfe/semi-foundation/rating/rating.css';
 import { IconStar } from '@douyinfe/semi-icons';
 import { RatingItemFoundation, RatingItemAdapter } from '@douyinfe/semi-foundation/rating/foundation';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';

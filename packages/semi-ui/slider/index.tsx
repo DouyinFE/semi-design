@@ -7,7 +7,7 @@ import BaseComponent from '../_base/baseComponent';
 import SliderFoundation, { SliderAdapter, SliderProps as BasicSliceProps, SliderState, tipFormatterBasicType } from '@douyinfe/semi-foundation/slider/foundation';
 import Tooltip from '../tooltip/index';
 import ConfigContext, { ContextValue } from '../configProvider/context';
-import '@douyinfe/semi-foundation/slider/slider.scss';
+import '@douyinfe/semi-foundation/slider/slider.css';
 import { isEqual, noop } from 'lodash';
 
 const prefixCls = cssClasses.PREFIX;

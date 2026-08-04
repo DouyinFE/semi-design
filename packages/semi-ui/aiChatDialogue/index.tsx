@@ -2,7 +2,7 @@ import * as React from 'react';
 import BaseComponent from '../_base/baseComponent';
 import PropTypes from 'prop-types';
 import cls from "classnames";
-import "@douyinfe/semi-foundation/aiChatDialogue/aiChatDialogue.scss";
+import "@douyinfe/semi-foundation/aiChatDialogue/aiChatDialogue.css";
 import { ReasoningWidget } from './widgets/contentItem/reasoning';
 import { DialogueStepWidget } from './widgets/contentItem/dialogueStep';
 import { AnnotationWidget } from './widgets/contentItem/annotation';

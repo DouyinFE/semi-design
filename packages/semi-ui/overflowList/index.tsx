@@ -9,7 +9,7 @@ import IntersectionObserver from './intersectionObserver';
 
 import OverflowListFoundation, { OverflowListAdapter } from '@douyinfe/semi-foundation/overflowList/foundation';
 
-import '@douyinfe/semi-foundation/overflowList/overflowList.scss';
+import '@douyinfe/semi-foundation/overflowList/overflowList.css';
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import copy from 'fast-copy';
 

@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import cls from "classnames";
 import { cssClasses } from "@douyinfe/semi-foundation/collapsible/constants";
 import { isEqual, omit, pick } from "lodash";
-import "@douyinfe/semi-foundation/collapsible/collapsible.scss";
+import "@douyinfe/semi-foundation/collapsible/collapsible.css";
 import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 export interface CollapsibleProps extends CollapsibleFoundationProps {

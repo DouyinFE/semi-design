@@ -10,7 +10,7 @@ import { IconSendMsgStroked, IconFile, IconCode, IconCrossStroked,
     IconMusic, IconVideo, IconPdf, IconWord, IconExcel,
     IconSize
 } from '@douyinfe/semi-icons';
-import '@douyinfe/semi-foundation/aiChatInput/aiChatInput.scss';
+import '@douyinfe/semi-foundation/aiChatInput/aiChatInput.css';
 import HorizontalScroller from './horizontalScroller';
 import cls from 'classnames';
 import { getAttachmentType, isImageType, getContentType, getCustomSlotAttribute, getSkillSlotString } from '@douyinfe/semi-foundation/aiChatInput/utils';

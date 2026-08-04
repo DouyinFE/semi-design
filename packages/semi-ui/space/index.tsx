@@ -2,7 +2,7 @@ import React, { PureComponent, ReactNode, CSSProperties } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/space/constants';
-import '@douyinfe/semi-foundation/space/space.scss';
+import '@douyinfe/semi-foundation/space/space.css';
 import { isString, isArray, isNumber } from 'lodash';
 import { flatten } from './utils';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';

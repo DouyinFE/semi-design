@@ -10,7 +10,7 @@ import DayCol from './dayCol';
 import TimeCol from './timeCol';
 import { isEqual } from 'lodash';
 import { calcRowHeight } from '@douyinfe/semi-foundation/calendar/eventUtil';
-import '@douyinfe/semi-foundation/calendar/calendar.scss';
+import '@douyinfe/semi-foundation/calendar/calendar.css';
 import { RangeCalendarProps } from './interface';
 import { Locale } from '../locale/interface';
 

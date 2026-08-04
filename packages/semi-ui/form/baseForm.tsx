@@ -16,7 +16,7 @@ import Label from './label';
 import ErrorMessage, { ReactFieldError } from './errorMessage';
 import FormInputGroup from './group';
 import { noop } from 'lodash';
-import '@douyinfe/semi-foundation/form/form.scss';
+import '@douyinfe/semi-foundation/form/form.css';
 import {
     FormInput,
     FormInputNumber,

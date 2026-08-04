@@ -4,7 +4,7 @@ import cls from 'classnames';
 
 import { strings, cssClasses } from '@douyinfe/semi-foundation/navigation/constants';
 import CollapseButton from './CollapseButton';
-import '@douyinfe/semi-foundation/navigation/navigation.scss';
+import '@douyinfe/semi-foundation/navigation/navigation.css';
 import { noop } from 'lodash';
 import NavContext, { NavContextType } from './nav-context';
 import { BaseProps } from '../_base/baseComponent';

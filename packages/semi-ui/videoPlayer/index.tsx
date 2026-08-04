@@ -4,7 +4,7 @@ import cls from 'classnames';
 import BaseComponent from '../_base/baseComponent';
 import { cssClasses, DEFAULT_PLAYBACK_RATE, numbers, strings } from '@douyinfe/semi-foundation/videoPlayer/constants';
 import VideoPlayerFoundation, { VideoPlayerAdapter } from '@douyinfe/semi-foundation/videoPlayer/foundation';
-import '@douyinfe/semi-foundation/videoPlayer/videoPlayer.scss';
+import '@douyinfe/semi-foundation/videoPlayer/videoPlayer.css';
 import { IconPlay, IconPause, IconVolume1, IconVolume2, IconRestart, IconFlipHorizontal, IconMinimize, IconMaximize, IconMute, IconPlayCircle, IconMiniPlayer } from '@douyinfe/semi-icons';
 import Button from '../button';
 import Popover from '../popover';

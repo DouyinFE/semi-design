@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { isNumber, isString, noop } from 'lodash';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/badge/constants';
-import '@douyinfe/semi-foundation/badge/badge.scss';
+import '@douyinfe/semi-foundation/badge/badge.css';
 
 const prefixCls = cssClasses.PREFIX;
 

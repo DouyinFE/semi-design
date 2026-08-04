@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Button from '../iconButton';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/banner/constants';
 import BannerFoundation, { BannerAdapter } from '@douyinfe/semi-foundation/banner/foundation';
-import '@douyinfe/semi-foundation/banner/banner.scss';
+import '@douyinfe/semi-foundation/banner/banner.css';
 import Typography from '../typography';
 import { IconClose, IconAlertTriangle, IconInfoCircle, IconTickCircle, IconAlertCircle } from '@douyinfe/semi-icons';
 

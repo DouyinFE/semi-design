@@ -11,7 +11,7 @@ import PaginationFoundation, {
     PageList, PaginationAdapter
 } from '@douyinfe/semi-foundation/pagination/foundation';
 import { cssClasses, numbers } from '@douyinfe/semi-foundation/pagination/constants';
-import '@douyinfe/semi-foundation/pagination/pagination.scss';
+import '@douyinfe/semi-foundation/pagination/pagination.css';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 import warning from '@douyinfe/semi-foundation/utils/warning';

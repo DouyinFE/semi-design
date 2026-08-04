@@ -5,7 +5,7 @@ import LocaleConsumer from '../locale/localeConsumer';
 import localeContext from '../locale/context';
 import { cssClasses } from '@douyinfe/semi-foundation/calendar/constants';
 
-import '@douyinfe/semi-foundation/calendar/calendar.scss';
+import '@douyinfe/semi-foundation/calendar/calendar.css';
 import { TimeColProps } from './interface';
 import { Locale } from '../locale/interface';
 

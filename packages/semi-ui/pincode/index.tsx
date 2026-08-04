@@ -10,7 +10,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/pincode/constants';
 import BaseComponent from '../_base/baseComponent';
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import Input, { InputProps } from '../input';
-import "@douyinfe/semi-foundation/pincode/pincode.scss";
+import "@douyinfe/semi-foundation/pincode/pincode.css";
 
 export interface PinCodeProps extends PinCodeBaseProps {
     className?: string;

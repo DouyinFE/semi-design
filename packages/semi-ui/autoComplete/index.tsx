@@ -16,7 +16,7 @@ import Trigger from '../trigger';
 
 import Option from './option';
 import warning from '@douyinfe/semi-foundation/utils/warning';
-import '@douyinfe/semi-foundation/autoComplete/autoComplete.scss';
+import '@douyinfe/semi-foundation/autoComplete/autoComplete.css';
 import ReactDOM from 'react-dom';
 import { getDefaultPropsFromGlobalConfig } from "../_utils";
 

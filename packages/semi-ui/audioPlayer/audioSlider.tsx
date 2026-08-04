@@ -1,6 +1,6 @@
 import React from 'react';
 import cls from 'classnames';
-import '@douyinfe/semi-foundation/audioPlayer/audioPlayer.scss';
+import '@douyinfe/semi-foundation/audioPlayer/audioPlayer.css';
 import { cssClasses } from '@douyinfe/semi-foundation/audioPlayer/constants';
 import Tooltip from '../tooltip';
 import { formatTime } from './utils';

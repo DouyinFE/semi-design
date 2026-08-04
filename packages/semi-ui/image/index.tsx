@@ -1,7 +1,7 @@
 import Image from "./image";
 import PreviewInner from "./previewInner";
 import Preview from "./preview";
-import "@douyinfe/semi-foundation/image/image.scss";
+import "@douyinfe/semi-foundation/image/image.css";
 
 export default Image;
 export {

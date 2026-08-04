@@ -6,7 +6,7 @@ import { throttle } from 'lodash';
 import { cssClasses } from '@douyinfe/semi-foundation/backtop/constants';
 import BackTopFoundation, { BackTopAdapter } from '@douyinfe/semi-foundation/backtop/foundation';
 
-import '@douyinfe/semi-foundation/backtop/backtop.scss';
+import '@douyinfe/semi-foundation/backtop/backtop.css';
 import IconButton from '../iconButton';
 import { IconChevronUp } from '@douyinfe/semi-icons';
 import { getDefaultPropsFromGlobalConfig } from "../_utils";

@@ -4,7 +4,7 @@ import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import ConfigContext, { ContextValue } from '../configProvider/context';
-import '@douyinfe/semi-foundation/_portal/portal.scss';
+import '@douyinfe/semi-foundation/_portal/portal.css';
 
 export interface PortalProps {
     children: React.ReactNode;

@@ -5,7 +5,7 @@ import InputFoundation from '@douyinfe/semi-foundation/input/foundation';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/input/constants';
 import { isSemiIcon } from '../_utils';
 import BaseComponent from '../_base/baseComponent';
-import '@douyinfe/semi-foundation/input/input.scss';
+import '@douyinfe/semi-foundation/input/input.css';
 import { isString, noop, isFunction, isUndefined } from 'lodash';
 import { IconClear, IconEyeOpened, IconEyeClosedSolid } from '@douyinfe/semi-icons';
 

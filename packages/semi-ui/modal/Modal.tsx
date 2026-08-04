@@ -1,5 +1,5 @@
 import { cssClasses, strings } from '@douyinfe/semi-foundation/modal/constants';
-import '@douyinfe/semi-foundation/modal/modal.scss';
+import '@douyinfe/semi-foundation/modal/modal.css';
 import ModalFoundation, { ModalAdapter, ModalProps, ModalState } from '@douyinfe/semi-foundation/modal/modalFoundation';
 import cls from 'classnames';
 import { noop } from 'lodash';

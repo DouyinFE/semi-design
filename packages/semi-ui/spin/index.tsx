@@ -5,7 +5,7 @@ import BaseComponent from '../_base/baseComponent';
 import { cssClasses as css, strings } from '@douyinfe/semi-foundation/spin/constants';
 import SpinFoundation from '@douyinfe/semi-foundation/spin/foundation';
 import SpinIcon from './icon';
-import '@douyinfe/semi-foundation/spin/spin.scss';
+import '@douyinfe/semi-foundation/spin/spin.css';
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
 
 const prefixCls = css.PREFIX;

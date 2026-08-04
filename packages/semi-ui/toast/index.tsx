@@ -9,7 +9,7 @@ import ToastListFoundation, {
 import { cssClasses, strings } from '@douyinfe/semi-foundation/toast/constants';
 import BaseComponent from '../_base/baseComponent';
 import Toast from './toast';
-import '@douyinfe/semi-foundation/toast/toast.scss';
+import '@douyinfe/semi-foundation/toast/toast.css';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import useToast from './useToast';
 import { ConfigProps, ToastInstance, ToastProps, ToastState } from '@douyinfe/semi-foundation/toast/toastFoundation';

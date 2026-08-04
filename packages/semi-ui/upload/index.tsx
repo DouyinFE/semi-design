@@ -25,7 +25,7 @@ import type {
     CropProps,
 } from './interface';
 import { Locale } from '../locale/interface';
-import '@douyinfe/semi-foundation/upload/upload.scss';
+import '@douyinfe/semi-foundation/upload/upload.css';
 
 import type {
     CustomFile,

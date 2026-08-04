@@ -4,7 +4,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/modal/constants';
 import Modal from './Modal';
 import { isSemiIcon } from '../_utils';
 
-import '@douyinfe/semi-foundation/modal/modal.scss';
+import '@douyinfe/semi-foundation/modal/modal.css';
 import { ConfirmProps } from './confirm';
 
 const ConfirmModal = (props: ConfirmProps) => {

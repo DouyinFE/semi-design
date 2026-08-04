@@ -7,7 +7,7 @@ import { cssClasses, numbers, strings } from '@douyinfe/semi-foundation/carousel
 import CarouselFoundation, { CarouselAdapter } from '@douyinfe/semi-foundation/carousel/foundation';
 import CarouselIndicator from './CarouselIndicator';
 import CarouselArrow from './CarouselArrow';
-import '@douyinfe/semi-foundation/carousel/carousel.scss';
+import '@douyinfe/semi-foundation/carousel/carousel.css';
 import { debounce, isEqual, pick } from 'lodash';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 

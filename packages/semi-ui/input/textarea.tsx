@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TextAreaFoundation from '@douyinfe/semi-foundation/input/textareaFoundation';
 import { cssClasses } from '@douyinfe/semi-foundation/input/constants';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
-import '@douyinfe/semi-foundation/input/textarea.scss';
+import '@douyinfe/semi-foundation/input/textarea.css';
 import { noop, omit, isFunction, isUndefined, isObject, throttle } from 'lodash';
 import type { DebouncedFunc } from 'lodash';
 import { IconClear } from '@douyinfe/semi-icons';

@@ -12,7 +12,7 @@ import { isEqual } from 'lodash';
 import { calcRowHeight } from '@douyinfe/semi-foundation/calendar/eventUtil';
 import type { WeekCalendarProps } from './interface';
 
-import '@douyinfe/semi-foundation/calendar/calendar.scss';
+import '@douyinfe/semi-foundation/calendar/calendar.css';
 import { Locale } from '../locale/interface';
 
 const toPercent = (num: number) => {

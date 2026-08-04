@@ -2,7 +2,7 @@ import React, { PureComponent, ReactNode, CSSProperties } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/skeleton/constants';
-import '@douyinfe/semi-foundation/skeleton/skeleton.scss';
+import '@douyinfe/semi-foundation/skeleton/skeleton.css';
 import { Avatar, Image, Title, Button, Paragraph } from './item';
 
 export type { ParagraphProps, AvatarProps, GenericProps } from './item';

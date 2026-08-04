@@ -10,7 +10,7 @@ import {
     isFunction
 } from 'lodash';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tagInput/constants';
-import '@douyinfe/semi-foundation/tagInput/tagInput.scss';
+import '@douyinfe/semi-foundation/tagInput/tagInput.css';
 import TagInputFoundation, { TagInputAdapter, OnSortEndProps } from '@douyinfe/semi-foundation/tagInput/foundation';
 import { ArrayElement } from '../_base/base';
 import { isSemiIcon } from '../_utils';

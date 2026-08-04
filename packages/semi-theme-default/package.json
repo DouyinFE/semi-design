@@ -1,22 +1,21 @@
 {
-    "name": "@douyinfe/semi-theme-default",
-    "version": "2.102.0",
-    "description": "semi-theme-default",
-    "keywords": [
-        "semi-theme",
-        "scss"
-    ],
-    "files": [
-        "scss",
-        "css"
-    ],
-    "main": "semi.scss",
-    "sideEffects": [
-        "*.scss",
-        "*.css"
-    ],
-    "author": "huangzhijing.pixel@bytedance.com",
-    "license": "MIT",
-    "gitHead": "208186435ee571d1dde07a7fa378050d56d94fe2",
-    "_unpkg": true
+  "name": "@douyinfe/semi-theme-default",
+  "version": "2.102.0",
+  "description": "semi-theme-default",
+  "keywords": [
+    "semi-theme",
+    "scss"
+  ],
+  "files": [
+    "css"
+  ],
+  "main": "css/token.css",
+  "sideEffects": [
+    "*.scss",
+    "*.css"
+  ],
+  "author": "huangzhijing.pixel@bytedance.com",
+  "license": "MIT",
+  "gitHead": "208186435ee571d1dde07a7fa378050d56d94fe2",
+  "_unpkg": true
 }

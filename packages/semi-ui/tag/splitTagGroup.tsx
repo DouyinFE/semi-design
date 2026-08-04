@@ -2,7 +2,7 @@ import React, { Children, cloneElement, isValidElement, ReactNode } from 'react'
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/tag/constants';
-import '@douyinfe/semi-foundation/tag/tag.scss';
+import '@douyinfe/semi-foundation/tag/tag.css';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 
 const prefixCls = cssClasses.PREFIX;

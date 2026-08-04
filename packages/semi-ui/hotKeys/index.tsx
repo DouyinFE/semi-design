@@ -5,7 +5,7 @@ import HotKeysFoudation, { HotKeysAdapter } from '@douyinfe/semi-foundation/hotK
 import { cssClasses, Keys } from '@douyinfe/semi-foundation/hotKeys/constants';
 import BaseComponent from '../_base/baseComponent';
 import { noop } from 'lodash';
-import '@douyinfe/semi-foundation/hotKeys/hotKeys.scss';
+import '@douyinfe/semi-foundation/hotKeys/hotKeys.css';
 const prefixCls = cssClasses.PREFIX;
 
 export interface HotKeysProps {

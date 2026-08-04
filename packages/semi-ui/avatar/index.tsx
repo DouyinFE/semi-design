@@ -3,7 +3,7 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/avatar/constants';
 import AvatarFoundation, { AvatarAdapter } from '@douyinfe/semi-foundation/avatar/foundation';
-import '@douyinfe/semi-foundation/avatar/avatar.scss';
+import '@douyinfe/semi-foundation/avatar/avatar.css';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
 import BaseComponent from '../_base/baseComponent';
 import { AvatarProps } from './interface';

@@ -1,7 +1,7 @@
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import React from 'react';
 import cls from 'classnames';
-import '@douyinfe/semi-foundation/audioPlayer/audioPlayer.scss';
+import '@douyinfe/semi-foundation/audioPlayer/audioPlayer.css';
 import { cssClasses } from '@douyinfe/semi-foundation/audioPlayer/constants';
 import Button from '../button';
 import Dropdown from '../dropdown';

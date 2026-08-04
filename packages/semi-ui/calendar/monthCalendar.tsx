@@ -16,7 +16,7 @@ import Button from '../iconButton';
 import { Locale } from '../locale/interface';
 import { MonthCalendarProps } from './interface';
 
-import '@douyinfe/semi-foundation/calendar/calendar.scss';
+import '@douyinfe/semi-foundation/calendar/calendar.css';
 
 const toPercent = (num: number) => {
     const res = num < 1 ? num * 100 : 100;

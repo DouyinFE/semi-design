@@ -7,7 +7,7 @@ import WeekCalendar from './weekCalendar';
 import MonthCalendar from './monthCalendar';
 import RangeCalendar from './rangeCalendar';
 import { CalendarProps } from './interface';
-import '@douyinfe/semi-foundation/calendar/calendar.scss';
+import '@douyinfe/semi-foundation/calendar/calendar.css';
 
 export * from './interface';
 

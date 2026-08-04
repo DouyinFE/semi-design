@@ -2,7 +2,7 @@ import React, { PureComponent, ReactNode, CSSProperties } from 'react';
 import { omit, isString } from 'lodash';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/card/constants';
-import '@douyinfe/semi-foundation/card/card.scss';
+import '@douyinfe/semi-foundation/card/card.css';
 import Meta from './meta';
 import cls from 'classnames';
 import Skeleton from '../skeleton';

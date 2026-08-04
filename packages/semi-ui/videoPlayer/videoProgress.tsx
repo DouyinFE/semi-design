@@ -1,6 +1,6 @@
 import React from 'react';
 import cls from 'classnames';
-import '@douyinfe/semi-foundation/videoPlayer/videoPlayer.scss';
+import '@douyinfe/semi-foundation/videoPlayer/videoPlayer.css';
 import { cssClasses } from '@douyinfe/semi-foundation/videoPlayer/constants';
 import VideoProgressFoundation, { Marker, MarkerListItem, VideoProgressAdapter } from '@douyinfe/semi-foundation/videoPlayer/progressFoundation';
 import Tooltip from '../tooltip';

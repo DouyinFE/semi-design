@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import '@douyinfe/semi-foundation/steps/steps.scss';
+import '@douyinfe/semi-foundation/steps/steps.css';
 import Step from './step';
 import FillSteps, { FillStepsProps } from './fillSteps';
 import BasicSteps, { BasicStepsProps } from './basicSteps';

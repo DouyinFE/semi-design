@@ -5,7 +5,7 @@ import ConfigContext, { ContextValue } from '../configProvider/context';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/popover/constants';
 import Tooltip, { ArrowBounding, Position, TooltipProps, Trigger, RenderContentProps } from '../tooltip/index';
 import Arrow from './Arrow';
-import '@douyinfe/semi-foundation/popover/popover.scss';
+import '@douyinfe/semi-foundation/popover/popover.css';
 import { BaseProps } from '../_base/baseComponent';
 import { isFunction, noop } from 'lodash';
 

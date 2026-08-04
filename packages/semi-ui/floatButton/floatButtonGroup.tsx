@@ -1,6 +1,6 @@
 import React from 'react';
 import { cssClassesGroup, strings } from '@douyinfe/semi-foundation/floatButton/constants';
-import '@douyinfe/semi-foundation/floatButton/floatButton.scss';
+import '@douyinfe/semi-foundation/floatButton/floatButton.css';
 import BaseComponent from '../_base/baseComponent';
 import { ArrayElement } from '../_base/base';
 import Badge, { BadgeProps } from '../badge';

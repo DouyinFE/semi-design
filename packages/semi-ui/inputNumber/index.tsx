@@ -11,7 +11,7 @@ import BaseComponent from '../_base/baseComponent';
 import { cssClasses, numbers, strings } from '@douyinfe/semi-foundation/inputNumber/constants';
 import { IconChevronUp, IconChevronDown } from '@douyinfe/semi-icons';
 
-import '@douyinfe/semi-foundation/inputNumber/inputNumber.scss';
+import '@douyinfe/semi-foundation/inputNumber/inputNumber.css';
 import { isNaN, isString, noop } from 'lodash';
 import { ArrayElement } from '../_base/base';
 import LocaleConsumer from '../locale/localeConsumer';

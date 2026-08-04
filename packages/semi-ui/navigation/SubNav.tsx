@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 
-import '@douyinfe/semi-foundation/navigation/navigation.scss';
+import '@douyinfe/semi-foundation/navigation/navigation.css';
 
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import SubNavFoundation, { SubNavAdapter } from '@douyinfe/semi-foundation/navigation/subNavFoundation';

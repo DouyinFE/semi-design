@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/button/constants';
-import '@douyinfe/semi-foundation/button/button.scss';
+import '@douyinfe/semi-foundation/button/button.css';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 
 const prefixCls = cssClasses.PREFIX;

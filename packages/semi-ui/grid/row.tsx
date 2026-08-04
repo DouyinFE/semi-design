@@ -5,7 +5,7 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/grid/constants';
-import '@douyinfe/semi-foundation/grid/grid.scss';
+import '@douyinfe/semi-foundation/grid/grid.css';
 import { registerMediaQuery } from '../_utils';
 
 const responsiveArray = ['xxl', 'xl', 'lg', 'md', 'sm', 'xs'];

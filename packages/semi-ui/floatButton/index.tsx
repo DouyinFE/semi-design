@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { cssClasses } from '@douyinfe/semi-foundation/floatButton/constants';
-import '@douyinfe/semi-foundation/floatButton/floatButton.scss';
+import '@douyinfe/semi-foundation/floatButton/floatButton.css';
 import BaseComponent from '../_base/baseComponent';
 import Badge from '../badge';
 import cls from 'classnames';

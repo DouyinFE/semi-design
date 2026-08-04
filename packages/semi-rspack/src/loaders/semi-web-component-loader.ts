@@ -62,17 +62,17 @@ function getAllComponents(components: string[]) {
 
 function getScssImportPaths(components: string[]) {
     const pathsObj = {
-        IconPath: '@douyinfe/semi-icons/lib/es/styles/icons.scss',
-        basePath: '@douyinfe/semi-ui/lib/es/_base/base.scss',
+        IconPath: '@douyinfe/semi-icons/lib/es/styles/icons.css',
+        basePath: '@douyinfe/semi-ui/lib/es/_base/base.css',
         foundationPath: '@douyinfe/semi-foundation/lib/es/'
     };
     const specialCase = {
         'Icon': pathsObj.IconPath,
         'Base': pathsObj.basePath,
-        'Portal': `${pathsObj.foundationPath}_portal/portal.scss`,
-        "TextArea": `${pathsObj.foundationPath}input/textarea.scss`,
-        "IconButton": `${pathsObj.foundationPath}button/iconButton.scss`,
-        "SplitButtonGroup": `${pathsObj.foundationPath}button/SplitButtonGroup.scss`,
+        'Portal': `${pathsObj.foundationPath}_portal/portal.css`,
+        "TextArea": `${pathsObj.foundationPath}input/textarea.css`,
+        "IconButton": `${pathsObj.foundationPath}button/iconButton.css`,
+        "SplitButtonGroup": `${pathsObj.foundationPath}button/button.css`,
     };
     const cssPaths = ["Base", ...components].map(componentName => {
         const lowFirstLetter = componentName.slice(0, 1).toLowerCase() + componentName.slice(1);
@@ -80,7 +80,7 @@ function getScssImportPaths(components: string[]) {
         if (specialCase[componentName]) {
             pathName = specialCase[componentName];
         } else {
-            pathName = `${pathsObj.foundationPath}${lowFirstLetter}/${lowFirstLetter}.scss`;
+            pathName = `${pathsObj.foundationPath}${lowFirstLetter}/${lowFirstLetter}.css`;
         }
         return pathName;
     });

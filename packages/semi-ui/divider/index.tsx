@@ -1,7 +1,7 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/divider/constants';
-import '@douyinfe/semi-foundation/divider/divider.scss';
+import '@douyinfe/semi-foundation/divider/divider.css';
 
 
 const prefixCls = cssClasses.PREFIX;

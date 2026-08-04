@@ -6,7 +6,7 @@ import AnchorFoundation, { AnchorAdapter } from '@douyinfe/semi-foundation/ancho
 import BaseComponent from '../_base/baseComponent';
 import Link from './link';
 import AnchorContext from './anchor-context';
-import '@douyinfe/semi-foundation/anchor/anchor.scss';
+import '@douyinfe/semi-foundation/anchor/anchor.css';
 import { noop, debounce, throttle } from 'lodash';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import { ArrayElement } from '../_base/base';

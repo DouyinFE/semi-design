@@ -4,7 +4,7 @@ import JsonViewerFoundation, {
     JsonViewerOptions,
     JsonViewerAdapter,
 } from '@douyinfe/semi-foundation/jsonViewer/foundation';
-import '@douyinfe/semi-foundation/jsonViewer/jsonViewer.scss';
+import '@douyinfe/semi-foundation/jsonViewer/jsonViewer.css';
 import { cssClasses } from '@douyinfe/semi-foundation/jsonViewer/constants';
 import ButtonGroup from '../button/buttonGroup';
 import Button from '../button';

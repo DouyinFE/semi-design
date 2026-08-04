@@ -4,7 +4,7 @@ import cls from 'classnames';
 
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import { cssClasses } from '@douyinfe/semi-foundation/navigation/constants';
-import '@douyinfe/semi-foundation/navigation/navigation.scss';
+import '@douyinfe/semi-foundation/navigation/navigation.css';
 
 import NavContext, { NavContextType } from './nav-context';
 import { BaseProps } from '../_base/baseComponent';

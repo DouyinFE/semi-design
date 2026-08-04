@@ -4,7 +4,7 @@ import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/timeline/constants';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
-import '@douyinfe/semi-foundation/timeline/timeline.scss';
+import '@douyinfe/semi-foundation/timeline/timeline.css';
 
 export interface TimelineItemProps {
     color?: string;

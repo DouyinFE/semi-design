@@ -1,4 +1,4 @@
-import './_base/base.scss';
+import './_base/base.css';
 export { default as BaseFoundation } from "@douyinfe/semi-foundation/base/foundation";
 export { default as BaseComponent } from "./_base/baseComponent";
 export { default as Anchor } from './anchor';

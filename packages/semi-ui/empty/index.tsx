@@ -1,7 +1,7 @@
 import React from 'react';
 import cls from 'classnames';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/empty/constants';
-import '@douyinfe/semi-foundation/empty/empty.scss';
+import '@douyinfe/semi-foundation/empty/empty.css';
 import Typography from '../typography';
 import BaseComponent from '../_base/baseComponent';
 import { ArrayElement } from '../_base/base';

@@ -12,7 +12,7 @@ import LocaleConsumer from "../locale/localeConsumer";
 import { Locale } from "../locale/interface";
 import { isBoolean, isObject, isUndefined, omit } from "lodash";
 import Skeleton from "../skeleton";
-import "@douyinfe/semi-foundation/image/image.scss";
+import "@douyinfe/semi-foundation/image/image.css";
 
 const prefixCls = cssClasses.PREFIX;
 

@@ -11,7 +11,7 @@ import NotificationListFoundation, {
 import { cssClasses, strings } from '@douyinfe/semi-foundation/notification/constants';
 import Notice from './notice';
 import BaseComponent from '../_base/baseComponent';
-import '@douyinfe/semi-foundation/notification/notification.scss';
+import '@douyinfe/semi-foundation/notification/notification.css';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import useNotification from './useNotification';
 import {

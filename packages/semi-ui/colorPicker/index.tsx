@@ -11,7 +11,7 @@ import AlphaSlider from './AlphaSlider';
 import ColorSlider from './ColorSlider';
 import DataPart from './DataPart';
 import cls from 'classnames';
-import "@douyinfe/semi-foundation/colorPicker/colorPicker.scss";
+import "@douyinfe/semi-foundation/colorPicker/colorPicker.css";
 import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';
 import Popover from '../popover';
 import {

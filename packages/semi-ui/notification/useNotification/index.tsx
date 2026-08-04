@@ -2,7 +2,7 @@ import React, { ReactElement, ReactNode, useState } from 'react';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/notification/constants';
 import HookNotice from './HookNotice';
-import '@douyinfe/semi-foundation/notification/notification.scss';
+import '@douyinfe/semi-foundation/notification/notification.css';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import { NoticeInstance, NoticePosition, NoticeProps } from '@douyinfe/semi-foundation/notification/notificationFoundation';
 import { NoticesInPosition } from '../';

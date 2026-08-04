@@ -4,7 +4,7 @@ import cls from "classnames";
 import PropTypes from 'prop-types';
 import type { ChatProps, ChatState, Message } from './interface';
 import InputBox from './inputBox';
-import "@douyinfe/semi-foundation/chat/chat.scss";
+import "@douyinfe/semi-foundation/chat/chat.css";
 import Hint from './hint';
 import { IconChevronDown, IconDisc } from '@douyinfe/semi-icons';
 import ChatContent from './chatContent';

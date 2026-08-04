@@ -8,7 +8,7 @@ import PreviewFoundation from "@douyinfe/semi-foundation/image/previewFoundation
 import { getUuidShort } from "@douyinfe/semi-foundation/utils/uuid";
 import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
 import { isObject, isEqual } from "lodash";
-import "@douyinfe/semi-foundation/image/image.scss";
+import "@douyinfe/semi-foundation/image/image.css";
 import cls from "classnames";
 import { omit } from "lodash";
 

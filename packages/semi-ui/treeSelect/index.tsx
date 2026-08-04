@@ -30,8 +30,8 @@ import {
 import { cssClasses, strings } from '@douyinfe/semi-foundation/treeSelect/constants';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import { FixedSizeList as VirtualList, ListItemKeySelector } from 'react-window';
-import '@douyinfe/semi-foundation/tree/tree.scss';
-import '@douyinfe/semi-foundation/treeSelect/treeSelect.scss';
+import '@douyinfe/semi-foundation/tree/tree.css';
+import '@douyinfe/semi-foundation/treeSelect/treeSelect.css';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import TagGroup from '../tag/group';

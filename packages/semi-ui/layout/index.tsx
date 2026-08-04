@@ -2,7 +2,7 @@ import React, { AriaRole, ComponentClass, CSSProperties } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/layout/constants';
-import '@douyinfe/semi-foundation/layout/layout.scss';
+import '@douyinfe/semi-foundation/layout/layout.css';
 import LayoutContext, { ContextType } from './layout-context';
 import Sider from './Sider';
 

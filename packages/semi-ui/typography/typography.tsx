@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/typography/constants';
-import '@douyinfe/semi-foundation/typography/typography.scss';
+import '@douyinfe/semi-foundation/typography/typography.css';
 import { BaseProps } from '../_base/baseComponent';
 import { omit } from 'lodash';
 const prefixCls = cssClasses.PREFIX;

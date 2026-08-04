@@ -1,0 +1,43 @@
+.semi-icon {
+    display: inline-block;
+    font-style: normal;
+    line-height: 0;
+    text-align: center;
+    text-transform: none;
+    text-rendering: optimizeLegibility;
+    fill: currentColor;
+}
+
+.semi-icon-extra-small {
+    font-size: var(--semi-cssvar-width-icon_extra_small);
+}
+
+.semi-icon-small {
+    font-size: var(--semi-cssvar-width-icon_small);
+}
+
+.semi-icon-default {
+    font-size: var(--semi-cssvar-width-icon_medium);
+}
+
+.semi-icon-large {
+    font-size: var(--semi-cssvar-width-icon_large);
+}
+
+.semi-icon-extra-large {
+    font-size: var(--semi-cssvar-width-icon_extra_large);
+}
+
+.semi-icon-spinning {
+    animation: var(--semi-cssvar-motion-icon_spin-animationDuration) linear infinite semi-icon-animation-rotate;
+    animation-fill-mode: forwards;
+}
+
+@keyframes semi-icon-animation-rotate {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

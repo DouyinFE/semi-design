@@ -6,7 +6,7 @@ import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined
 import TabsFoundation, { TabsAdapter } from '@douyinfe/semi-foundation/tabs/foundation';
 import { isEqual, pick } from 'lodash';
 import BaseComponent from '../_base/baseComponent';
-import '@douyinfe/semi-foundation/tabs/tabs.scss';
+import '@douyinfe/semi-foundation/tabs/tabs.css';
 
 import TabBar from './TabBar';
 import TabPane from './TabPane';

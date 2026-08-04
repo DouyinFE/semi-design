@@ -5,7 +5,7 @@ import MarkdownRenderFoundation, {
     MarkdownRenderBaseProps,
     MarkdownRenderBaseState,
 } from '@douyinfe/semi-foundation/markdownRender/foundation';
-import "@douyinfe/semi-foundation/markdownRender/markdownRender.scss";
+import "@douyinfe/semi-foundation/markdownRender/markdownRender.css";
 import { CSSProperties } from 'react';
 import * as runtime from 'react/jsx-runtime';
 import { cssClasses } from '@douyinfe/semi-foundation/markdownRender/constants';

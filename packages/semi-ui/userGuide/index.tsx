@@ -9,7 +9,7 @@ import Popover from '../popover';
 import Button, { ButtonProps } from '../button';
 import Modal from '../modal';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
-import '@douyinfe/semi-foundation/userGuide/userGuide.scss';
+import '@douyinfe/semi-foundation/userGuide/userGuide.css';
 import { BaseProps } from '../_base/baseComponent';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';

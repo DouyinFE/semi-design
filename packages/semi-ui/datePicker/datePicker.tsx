@@ -24,7 +24,7 @@ import QuickControl from './quickControl';
 import Footer from './footer';
 import Trigger from '../trigger';
 import YearAndMonth, { YearAndMonthProps } from './yearAndMonth';
-import '@douyinfe/semi-foundation/datePicker/datePicker.scss';
+import '@douyinfe/semi-foundation/datePicker/datePicker.css';
 import { Locale } from '../locale/interface';
 import { TimePickerProps } from '../timePicker/TimePicker';
 import { ScrollItemProps } from '../scrollList/scrollItem';

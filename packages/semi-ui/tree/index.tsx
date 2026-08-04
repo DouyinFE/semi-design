@@ -28,7 +28,7 @@ import TreeContext from './treeContext';
 import TreeNode from './treeNode';
 import NodeList from './nodeList';
 import LocaleConsumer from '../locale/localeConsumer';
-import '@douyinfe/semi-foundation/tree/tree.scss';
+import '@douyinfe/semi-foundation/tree/tree.css';
 import { IconSearch } from '@douyinfe/semi-icons';
 import { Locale as LocaleObject } from '../locale/interface';
 import {

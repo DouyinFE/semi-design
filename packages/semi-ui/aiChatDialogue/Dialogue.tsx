@@ -1,7 +1,7 @@
 import * as React from 'react';
 import BaseComponent from '../_base/baseComponent';
 import cls from "classnames";
-import "@douyinfe/semi-foundation/aiChatDialogue/aiChatDialogue.scss";
+import "@douyinfe/semi-foundation/aiChatDialogue/aiChatDialogue.css";
 import { cssClasses, strings } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
 import { Checkbox } from '../checkbox';
 import DialogueTitle from './widgets/dialogueTitle';

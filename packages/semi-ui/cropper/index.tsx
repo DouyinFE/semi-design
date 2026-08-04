@@ -2,7 +2,7 @@ import React from 'react';
 import BaseComponent from '../_base/baseComponent';
 import cls from "classnames";
 import PropTypes from 'prop-types';
-import "@douyinfe/semi-foundation/cropper/cropper.scss";
+import "@douyinfe/semi-foundation/cropper/cropper.css";
 import CropperFoundation, { CropperAdapter, ImageDataState, CropperBox } from '@douyinfe/semi-foundation/cropper/foundation';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/cropper/constants';
 import ResizeObserver, { ObserverProperty } from '../resizeObserver';

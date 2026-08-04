@@ -7,7 +7,7 @@ import { Button } from '../../index';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/sidebar/constants';
 import BaseComponent from '../../_base/baseComponent';
 import PropTypes from 'prop-types';
-import "@douyinfe/semi-foundation/sidebar/sidebar.scss";
+import "@douyinfe/semi-foundation/sidebar/sidebar.css";
 import ContainerFoundation, { ContainerAdapter, ContainerProps, ContainerState } from '@douyinfe/semi-foundation/sidebar/containerFoundation';
 import { Enable } from '@douyinfe/semi-foundation/resizable/types';
 import { ContainerReactProps } from '../interface';

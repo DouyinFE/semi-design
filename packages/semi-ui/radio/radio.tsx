@@ -7,7 +7,7 @@ import RadioFoundation, { RadioAdapter } from '@douyinfe/semi-foundation/radio/r
 import { RadioChangeEvent } from '@douyinfe/semi-foundation/radio/radioInnerFoundation';
 import { strings, radioClasses as css } from '@douyinfe/semi-foundation/radio/constants';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
-import '@douyinfe/semi-foundation/radio/radio.scss';
+import '@douyinfe/semi-foundation/radio/radio.css';
 
 import BaseComponent from '../_base/baseComponent';
 import RadioInner from './radioInner';

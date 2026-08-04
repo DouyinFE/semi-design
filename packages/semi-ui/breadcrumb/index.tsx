@@ -5,7 +5,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/breadcrumb/consta
 import BreadcrumbFoundation, { BreadcrumbAdapter } from '@douyinfe/semi-foundation/breadcrumb/foundation';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import { isFunction } from 'lodash';
-import '@douyinfe/semi-foundation/breadcrumb/breadcrumb.scss';
+import '@douyinfe/semi-foundation/breadcrumb/breadcrumb.css';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import Popover from '../popover';

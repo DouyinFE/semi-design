@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SwitchFoudation, { SwitchAdapter } from '@douyinfe/semi-foundation/switch/foundation';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/switch/constants';
 import BaseComponent from '../_base/baseComponent';
-import '@douyinfe/semi-foundation/switch/switch.scss';
+import '@douyinfe/semi-foundation/switch/switch.css';
 
 import { noop } from 'lodash';
 import Spin from '../spin';

@@ -13,7 +13,7 @@ import Footer, { NavFooterProps } from './Footer';
 import Header, { NavHeaderProps } from './Header';
 import NavContext from './nav-context';
 import LocaleConsumer from '../locale/localeConsumer';
-import '@douyinfe/semi-foundation/navigation/navigation.scss';
+import '@douyinfe/semi-foundation/navigation/navigation.css';
 import { getDefaultPropsFromGlobalConfig } from "../_utils";
 import { DropdownProps } from '../dropdown';
 

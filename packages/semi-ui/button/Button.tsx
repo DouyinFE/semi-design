@@ -2,7 +2,7 @@ import React, { PureComponent, ReactNode } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/button/constants';
-import '@douyinfe/semi-foundation/button/button.scss';
+import '@douyinfe/semi-foundation/button/button.css';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
 import { omit } from 'lodash';
 import cls from "classnames";

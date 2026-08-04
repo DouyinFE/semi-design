@@ -6,7 +6,7 @@ import propTypes from 'prop-types';
 import ScrollItem from './scrollItem';
 import Foundation from '@douyinfe/semi-foundation/scrollList/foundation';
 
-import '@douyinfe/semi-foundation/scrollList/scrollList.scss';
+import '@douyinfe/semi-foundation/scrollList/scrollList.css';
 
 export type { ScrollItemProps } from './scrollItem';
 export interface ScrollListProps extends BaseProps {

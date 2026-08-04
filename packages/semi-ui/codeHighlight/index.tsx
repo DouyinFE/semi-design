@@ -6,7 +6,7 @@ import CodeHighlightFoundation, {
     CodeHighlightBaseState,
 } from '@douyinfe/semi-foundation/codeHighlight';
 import { CSSProperties } from 'react';
-import "@douyinfe/semi-foundation/codeHighlight/codeHighlight.scss";
+import "@douyinfe/semi-foundation/codeHighlight/codeHighlight.css";
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import PropTypes from 'prop-types';
 import cls from "classnames";

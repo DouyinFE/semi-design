@@ -16,7 +16,7 @@ import LocaleConsumer from '../locale/localeConsumer';
 import { ButtonProps } from '../button';
 import FeedbackFoundation, { FeedbackAdapter } from '@douyinfe/semi-foundation/feedback/foundation';
 import { RadioChangeEvent } from '../radio';
-import '@douyinfe/semi-foundation/feedback/feedback.scss';
+import '@douyinfe/semi-foundation/feedback/feedback.css';
 
 const { Emoji } = strings;
 

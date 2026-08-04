@@ -6,7 +6,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/button/constants'
 import { get } from 'lodash';
 import { Type, Size, ButtonProps } from './Button';
 
-import '@douyinfe/semi-foundation/button/button.scss';
+import '@douyinfe/semi-foundation/button/button.css';
 
 export type Theme = 'solid' | 'borderless' | 'light' | 'outline';
 

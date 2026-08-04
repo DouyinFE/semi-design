@@ -6,7 +6,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import BaseComponent from '../../_base/baseComponent';
 import { ResizeContext, ResizeContextProps } from './resizeContext';
 import { ResizeCallback, ResizeEventType, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/types';
-import "@douyinfe/semi-foundation/resizable/resizable.scss";
+import "@douyinfe/semi-foundation/resizable/resizable.css";
 
 const prefixCls = cssClasses.PREFIX;
 

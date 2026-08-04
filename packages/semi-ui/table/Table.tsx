@@ -33,7 +33,7 @@ import Store from '@douyinfe/semi-foundation/utils/Store';
 import TableFoundation, { TableAdapter, BasePageData, BaseRowKeyType, BaseHeadWidth, BaseEntitys, CheckRelation } from '@douyinfe/semi-foundation/table/foundation';
 import { TableSelectionCellEvent } from '@douyinfe/semi-foundation/table/tableSelectionCellFoundation';
 import { strings, cssClasses, numbers } from '@douyinfe/semi-foundation/table/constants';
-import '@douyinfe/semi-foundation/table/table.scss';
+import '@douyinfe/semi-foundation/table/table.css';
 
 import Spin from '../spin';
 import BaseComponent from '../_base/baseComponent';

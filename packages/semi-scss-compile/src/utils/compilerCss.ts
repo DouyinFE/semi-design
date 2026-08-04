@@ -102,7 +102,9 @@ export const compileCss = ({ foundationPath, themePath, iconPath, outputPath, is
         }).css;
     };
     const compileScssFileWithImporter = (file: string, baseDir: string): string => {
-        const src = `@import "${themeIndexPath}";\n${fs.readFileSync(file, 'utf-8')}`;
+        // theme index 可能不存在（主题包已 css 化）：存在才注入
+        const themeImport = fs.existsSync(themeIndexPath) ? `@import "${themeIndexPath}";\n` : '';
+        const src = `${themeImport}${fs.readFileSync(file, 'utf-8')}`;
         return sass.compileString(src, {
             style: 'expanded',
             charset: false,
@@ -114,7 +116,7 @@ export const compileCss = ({ foundationPath, themePath, iconPath, outputPath, is
                         }
                         const resolved = path.resolve(baseDir, url);
                         if (fs.existsSync(resolved)) return new URL(`file://${resolved}`);
-                        // theme 相对
+                        // theme 相对（scss 主题保留时）
                         const themeResolved = path.resolve(path.join(themePath, 'scss'), url);
                         if (fs.existsSync(themeResolved)) return new URL(`file://${themeResolved}`);
                         return null;
@@ -124,12 +126,16 @@ export const compileCss = ({ foundationPath, themePath, iconPath, outputPath, is
         }).css;
     };
 
-    // 1. 主题部分：css 主题（token.css + global.css + animation.css）
+    // 1. 主题部分：css 主题（token.css + global.css + animation.css，css 产物；scss 保留时回退编译）
     const tokenCss = fs.existsSync(path.join(themePath, 'css', 'token.css'))
         ? fs.readFileSync(path.join(themePath, 'css', 'token.css'), 'utf-8')
         : '';
-    const globalCss = compileScssFile(path.join(themePath, 'scss', 'global.scss'));
-    const animationCss = compileScssFile(path.join(themePath, 'scss', 'animation.scss'));
+    const globalCss = fs.existsSync(path.join(themePath, 'css', 'global.css'))
+        ? fs.readFileSync(path.join(themePath, 'css', 'global.css'), 'utf-8')
+        : compileScssFile(path.join(themePath, 'scss', 'global.scss'));
+    const animationCss = fs.existsSync(path.join(themePath, 'css', 'animation.css'))
+        ? fs.readFileSync(path.join(themePath, 'css', 'animation.css'), 'utf-8')
+        : compileScssFile(path.join(themePath, 'scss', 'animation.scss'));
     const themeBlock = [tokenCss, globalCss, animationCss].filter(Boolean).join('\n');
 
     // 2. 组件部分：混合（有 scss → scss 编译值版；没有 scss → css 真源 var 版）

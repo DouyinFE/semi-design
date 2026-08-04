@@ -10,7 +10,7 @@ import CollapseFoundation, {
 } from '@douyinfe/semi-foundation/collapse/foundation';
 import BaseComponent from '../_base/baseComponent';
 import CollapsePanel from './item';
-import '@douyinfe/semi-foundation/collapse/collapse.scss';
+import '@douyinfe/semi-foundation/collapse/collapse.css';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
 import { isEqual } from 'lodash';
 import CollapseContext from './collapse-context';

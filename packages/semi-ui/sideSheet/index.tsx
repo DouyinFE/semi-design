@@ -12,7 +12,7 @@ import SideSheetFoundation, {
     SideSheetProps,
     SideSheetState
 } from '@douyinfe/semi-foundation/sideSheet/sideSheetFoundation';
-import '@douyinfe/semi-foundation/sideSheet/sideSheet.scss';
+import '@douyinfe/semi-foundation/sideSheet/sideSheet.css';
 import CSSAnimation from "../_cssAnimation";
 import { getDefaultPropsFromGlobalConfig, getScrollbarWidth } from '../_utils';
 

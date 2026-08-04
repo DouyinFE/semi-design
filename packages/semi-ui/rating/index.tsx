@@ -10,7 +10,7 @@ import Item from './item';
 import Tooltip from '../tooltip';
 import RatingFoundation, { RatingAdapter } from '@douyinfe/semi-foundation/rating/foundation';
 
-import '@douyinfe/semi-foundation/rating/rating.scss';
+import '@douyinfe/semi-foundation/rating/rating.css';
 
 export type { RatingItemProps } from './item';
 export interface RatingProps {

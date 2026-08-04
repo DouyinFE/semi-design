@@ -17,7 +17,7 @@ import TimeInput from './TimeInput';
 import { PanelShape, PanelShapeDefaults } from './PanelShape';
 import { TimeShape } from './TimeShape';
 
-import '@douyinfe/semi-foundation/timePicker/timePicker.scss';
+import '@douyinfe/semi-foundation/timePicker/timePicker.css';
 import Trigger from '../trigger';
 
 import { InputSize } from '../input';

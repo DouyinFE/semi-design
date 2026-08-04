@@ -11,7 +11,7 @@ import LocaleConsumer from '../locale/localeConsumer';
 import localeContext from '../locale/context';
 import { Locale } from '../locale/interface';
 import { DayCalendarProps } from './interface';
-import '@douyinfe/semi-foundation/calendar/calendar.scss';
+import '@douyinfe/semi-foundation/calendar/calendar.css';
 
 const prefixCls = `${cssClasses.PREFIX}-day`;
 

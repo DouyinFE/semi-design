@@ -3,7 +3,7 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/progress/constants';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
-import '@douyinfe/semi-foundation/progress/progress.scss';
+import '@douyinfe/semi-foundation/progress/progress.css';
 import { Animation } from '@douyinfe/semi-animation';
 import { Motion } from '../_base/base';
 import { generateColor, StrokeArr } from '@douyinfe/semi-foundation/progress/generates';

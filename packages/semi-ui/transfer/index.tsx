@@ -5,7 +5,7 @@ import { isEqual, noop, omit, isEmpty, isArray, pick } from 'lodash';
 import TransferFoundation, { TransferAdapter, BasicDataItem, OnSortEndProps } from '@douyinfe/semi-foundation/transfer/foundation';
 import { _generateDataByType, _generateSelectedItems } from '@douyinfe/semi-foundation/transfer/transferUtils';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/transfer/constants';
-import '@douyinfe/semi-foundation/transfer/transfer.scss';
+import '@douyinfe/semi-foundation/transfer/transfer.css';
 import BaseComponent from '../_base/baseComponent';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';

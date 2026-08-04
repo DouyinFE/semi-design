@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/skeleton/constants';
 import { strings } from '@douyinfe/semi-foundation/avatar/constants';
 
-import '@douyinfe/semi-foundation/skeleton/skeleton.scss';
+import '@douyinfe/semi-foundation/skeleton/skeleton.css';
 
 export type BasicProps = {
     prefixCls?: string;

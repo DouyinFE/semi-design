@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import '@douyinfe/semi-foundation/timeline/timeline.scss';
+import '@douyinfe/semi-foundation/timeline/timeline.css';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/timeline/constants';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import ConfigContext from '../configProvider/context';

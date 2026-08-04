@@ -13,7 +13,7 @@ import { Type as ButtonType } from '../button/Button';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale as LocaleObject } from '../locale/interface';
-import '@douyinfe/semi-foundation/popconfirm/popconfirm.scss';
+import '@douyinfe/semi-foundation/popconfirm/popconfirm.css';
 import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 export interface PopconfirmProps extends PopoverProps {

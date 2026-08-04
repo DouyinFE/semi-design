@@ -6,7 +6,7 @@ import Avatar from '../avatar/index';
 import { IconClose } from '@douyinfe/semi-icons';
 import { TagProps, TagSize, TagColor, TagType } from './interface';
 import { handlePrevent } from '@douyinfe/semi-foundation/utils/a11y';
-import '@douyinfe/semi-foundation/tag/tag.scss';
+import '@douyinfe/semi-foundation/tag/tag.css';
 import { isString } from 'lodash';
 import cls from 'classnames';
 
