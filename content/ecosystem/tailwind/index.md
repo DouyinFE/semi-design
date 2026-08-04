@@ -84,6 +84,12 @@ import '@douyinfe/semi-theme-default/css/layer.css';  // 主题 token/global/ani
 @import '@douyinfe/semi-foundation/button/button.css' layer(semi);
 ```
 
+<Notice type="warning" title="组件级多文件归层的构建工具限制">
+
+组件级用法（多个 `@import ... layer(semi)` 语句）已在以下链路验证可用：Tailwind v4 CLI、webpack（css-loader 7+，layer 经模块元数据在运行时归层）。但 **postcss-import（16.x）对多个 `@import ... layer()` 语句只对第一个生效**（已知限制），使用 postcss 链路（postcss-cli、vite 等）的项目建议改用**聚合产物**（`semi.layer.css`，单文件归层）或在入口使用单个 layer 入口文件。
+
+</Notice>
+
 **原理**：`@import ... layer(semi)` 将整个文件的内容归入 `semi` 层（归层动作发生在 import 时，样式文件本身仍是普通规则）。配合入口声明的层顺序 `@layer theme, base, semi, utilities`，Semi 样式优先级介于 base（Preflight）与 utilities（原子类）之间：Preflight 不会破坏组件样式，原子类可以覆盖组件样式。
 
 **兼容低版本浏览器**：CSS Layer 要求浏览器版本高于 Chromium 99（[兼容性表格](https://caniuse.com/?search=CSS%20Cascade%20Layers)）。低版本浏览器会忽略 `@import ... layer(semi)`（该 import 不生效），此时 Semi 样式缺失，需要添加 CSS Layer 的 Polyfill，请参考 [postcss-cascade-layers](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-cascade-layers)。不使用 Tailwind 的用户不受影响（普通 import 即可）。
