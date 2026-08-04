@@ -10,9 +10,6 @@
 }
     /* max-height: 412px;*/
     /* min-height: 400px;*/
-
-    .semi-transfer-disabled {
-    }
         /* background-color: $color-transfer_disabled-bg;*/
         .semi-transfer-disabled .semi-transfer-header {
             color: var(--semi-cssvar-color-transfer_disabled-text);
@@ -166,9 +163,6 @@
             color: var(--semi-cssvar-color-transfer_selected_item-text);
             cursor: auto
         }
-
-            .semi-transfer-right-item:hover {
-            }
                 .semi-transfer-right-item:hover .semi-transfer-item-close-icon {
                     flex-shrink: 0;
                     visibility: visible;
@@ -181,9 +175,6 @@
                 flex: 1;
                 word-break: break-all;
             }
-
-            .semi-transfer-right-item-drag {            
-            }
                 .semi-transfer-right-item-drag-handler {
                     margin-right: var(--semi-cssvar-spacing-transfer_right_item_drag_handler-marginRight);
                     flex-shrink: 0;
@@ -193,9 +184,6 @@
                 .semi-transfer-right-item-drag-item-move {
                     z-index: var(--semi-cssvar-z-transfer_right_item_drag_item_move);
                 }
-
-            .semi-transfer-right-item-sortable-item {
-            }
                 .semi-transfer-right-item-sortable-item-active {
                     opacity: 0;
                 }
@@ -236,16 +224,9 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-transfer, .semi-portal-rtl .semi-transfer {
         direction: rtl
     }
-
-        .semi-rtl .semi-transfer-header, .semi-portal-rtl .semi-transfer-header {
-        }
 
             .semi-rtl .semi-transfer-header-all, .semi-portal-rtl .semi-transfer-header-all {
                 margin-left: 0;

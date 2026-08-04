@@ -178,9 +178,6 @@
         .semi-tree-select-selection .semi-tree-select-triggerSingleSearch-wrapper{
             width: 100%
         }
-
-            .semi-tree-select-selection .semi-tree-select-triggerSingleSearch-wrapper .semi-tree-select-inputTrigger {
-            }
                 .semi-tree-select-selection .semi-tree-select-triggerSingleSearch-wrapper .semi-tree-select-inputTrigger .semi-input-wrapper {
                     background: transparent;
                 }
@@ -221,9 +218,6 @@
                 padding-left: var(--semi-cssvar-spacing-treeSelect_selection_tagInput_wrapper-paddingX);
                 padding-right: var(--semi-cssvar-spacing-treeSelect_selection_tagInput_wrapper-paddingX)
             }
-
-                .semi-tree-select-selection .semi-tagInput .semi-tagInput-wrapper .semi-input-wrapper {
-                }
                     /* height: $height-treeSelect_selection_tagInput_input_default;*/
 
                     .semi-tree-select-selection .semi-tagInput .semi-tagInput-wrapper .semi-input-wrapper .semi-input {
@@ -239,16 +233,9 @@
                         margin-top: var(--semi-cssvar-spacing-treeSelect_tag-marginY);
                         margin-bottom: var(--semi-cssvar-spacing-treeSelect_tag-marginY);
                     }
-    
-    .semi-tree-select-multiple-tagInput-notEmpty {
-    }
         .semi-tree-select-multiple-tagInput-notEmpty .semi-tagInput {
             margin-left: var(--semi-cssvar-spacing-treeSelect_selection_tagInput_notEmpty-marginLeft);
         }
-
-
-    .semi-tree-select-multiple-tagInput-empty {
-    }
         .semi-tree-select-multiple-tagInput-empty .semi-tagInput {
             margin-left: var(--semi-cssvar-spacing-treeSelect_selection_tagInput_empty-marginLeft);
         }
@@ -290,15 +277,9 @@
                 overflow: visible;
             }
                 /* allow height to grow when wrapping*/
-
-            .semi-tree-select-triggerTagWrap.semi-tree-select-multiple.semi-tree-select-small {
-            }
                 .semi-tree-select-triggerTagWrap.semi-tree-select-multiple.semi-tree-select-small .semi-tree-select-selection {
                     min-height: calc(var(--semi-cssvar-height-treeSelect_small) - 2 * var(--semi-cssvar-width-treeSelect-border));
                 }
-
-            .semi-tree-select-triggerTagWrap.semi-tree-select-multiple.semi-tree-select-large {
-            }
                 .semi-tree-select-triggerTagWrap.semi-tree-select-multiple.semi-tree-select-large .semi-tree-select-selection {
                     min-height: calc(var(--semi-cssvar-height-treeSelect_large) - 2 * var(--semi-cssvar-width-treeSelect-border));
                 }
@@ -368,9 +349,6 @@
         width: var(--semi-cssvar-width-treeSelect_arrow);
         color: var(--semi-cssvar-color-treeSelect_default-icon-default);
     }
-
-    .semi-tree-select-clearbtn {
-    }
         .semi-tree-select-clearbtn:hover {
             color: var(--semi-cssvar-color-treeSelect_default-icon-hover);
         }
@@ -399,9 +377,6 @@
             color: var(--semi-cssvar-color-treeSelect_default-icon-default);
             margin: var(--semi-cssvar-spacing-treeSelect_prefix_icon-marginY) var(--semi-cssvar-spacing-treeSelect_prefix_icon-marginX);
         }
-
-        .semi-tree-select-prefix.semi-tree-select-with-suffix, .semi-tree-select-suffix.semi-tree-select-with-suffix {
-        }
             .semi-tree-select-prefix.semi-tree-select-with-suffix .semi-tree-select-selection, .semi-tree-select-suffix.semi-tree-select-with-suffix .semi-tree-select-selection {
                 padding-right: var(--semi-cssvar-spacing-treeSelect_selection_withSuffix-paddingRight);
             }
@@ -420,8 +395,6 @@
             max-height: var(--semi-cssvar-height-treeSelect_popover);
             overflow: auto;
         }
-.semi-tree-select-popover {
-}
     .semi-tree-select-popover .semi-tree-wrapper {
         height: 100%;
         display: flex;
@@ -476,29 +449,16 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-tree-select, .semi-portal-rtl .semi-tree-select {
         direction: rtl
     }
-
-        .semi-rtl .semi-tree-select .semi-tagInput, .semi-portal-rtl .semi-tree-select .semi-tagInput {
-        }
             .semi-rtl .semi-tree-select .semi-tagInput .semi-input, .semi-portal-rtl .semi-tree-select .semi-tagInput .semi-input {
                 padding-right: 0;
             }
-
-        .semi-rtl .semi-tree-select-multiple-tagInput-notEmpty, .semi-portal-rtl .semi-tree-select-multiple-tagInput-notEmpty {
-        }
             .semi-rtl .semi-tree-select-multiple-tagInput-notEmpty .semi-tagInput, .semi-portal-rtl .semi-tree-select-multiple-tagInput-notEmpty .semi-tagInput {
                 margin-left: 0;
                 margin-right: var(--semi-cssvar-spacing-treeSelect_selection_tagInput_notEmpty-marginLeft);
             }
-    
-        .semi-rtl .semi-tree-select-multiple-tagInput-empty, .semi-portal-rtl .semi-tree-select-multiple-tagInput-empty {
-        }
             .semi-rtl .semi-tree-select-multiple-tagInput-empty .semi-tagInput, .semi-portal-rtl .semi-tree-select-multiple-tagInput-empty .semi-tagInput {
                 margin-left: 0;
                 margin-right: var(--semi-cssvar-spacing-treeSelect_selection_tagInput_empty-marginLeft);
@@ -506,9 +466,6 @@
         .semi-rtl .semi-tree-select-selection, .semi-portal-rtl .semi-tree-select-selection{
             padding-right: var(--semi-cssvar-spacing-treeSelect_selection-paddingLeft);
             padding-left: 0;
-        }
-
-        .semi-rtl .semi-tree-select-multiple, .semi-portal-rtl .semi-tree-select-multiple {
         }
             .semi-rtl .semi-tree-select-multiple .semi-tree-select-selection, .semi-portal-rtl .semi-tree-select-multiple .semi-tree-select-selection {
                 padding-left: 0;
@@ -519,10 +476,6 @@
                     padding-left: 0;
                     padding-right: var(--semi-cssvar-spacing-treeSelect_placeholder_multiple-paddingLeft);
                 }
-        .semi-rtl .semi-tree-select-prefix, .semi-portal-rtl .semi-tree-select-prefix, .semi-rtl .semi-tree-select-suffix, .semi-portal-rtl .semi-tree-select-suffix {
-        }
-            .semi-rtl .semi-tree-select-prefix.semi-tree-select-with-suffix, .semi-portal-rtl .semi-tree-select-prefix.semi-tree-select-with-suffix, .semi-rtl .semi-tree-select-suffix.semi-tree-select-with-suffix, .semi-portal-rtl .semi-tree-select-suffix.semi-tree-select-with-suffix {
-            }
                 .semi-rtl .semi-tree-select-prefix.semi-tree-select-with-suffix .semi-tree-select-selection, .semi-portal-rtl .semi-tree-select-prefix.semi-tree-select-with-suffix .semi-tree-select-selection, .semi-rtl .semi-tree-select-suffix.semi-tree-select-with-suffix .semi-tree-select-selection, .semi-portal-rtl .semi-tree-select-suffix.semi-tree-select-with-suffix .semi-tree-select-selection {
                     padding-right: auto;
                     padding-left: 0;

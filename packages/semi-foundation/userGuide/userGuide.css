@@ -1,8 +1,4 @@
 
-
-.semi-userGuide {
-}
-
     .semi-userGuide-spotlight {
         position: fixed;
         top: 0;
@@ -31,9 +27,6 @@
 
         .semi-userGuide-popup-content-primary {
             color: var(--semi-cssvar-color-userGuide_popup-text-primary);
-        }
-
-        .semi-userGuide-popup-content-cover {
         }
             .semi-userGuide-popup-content-cover img {
                 display: block;
@@ -75,9 +68,6 @@
             font-size: var(--semi-cssvar-font-size-regular); 
             line-height: var(--semi-cssvar-font-userGuide_popup_content_indicator-lineHeight);
         }
-
-    .semi-userGuide-modal {
-    }
 
         .semi-userGuide-modal .semi-modal-small {
             width: fit-content;

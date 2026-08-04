@@ -225,9 +225,6 @@
                     margin-bottom: var(--semi-cssvar-spacing-cascader_selection_tag-marginY);
                 }
 
-        .semi-cascader-selection-text {
-        }
-
             .semi-cascader-selection-text-inactive {
                 color: var(--semi-cssvar-color-cascader_selection_text_inactive);
             }
@@ -247,9 +244,6 @@
         /* position: absolute;*/
         /* top: 0;*/
         /* right: 0;*/
-
-    .semi-cascader-clearbtn {
-    }
         .semi-cascader-clearbtn:hover {
             color: var(--semi-cssvar-color-cascader-icon-hover);
         }
@@ -299,9 +293,6 @@
         .semi-cascader.semi-cascader-with-prefix .semi-cascader-selection {
             padding-left: 0;
         }
-
-    .semi-cascader.semi-cascader-with-suffix {
-    }
         .semi-cascader.semi-cascader-with-suffix .semi-cascader-selection {
             padding-right: 0;
         }
@@ -358,9 +349,6 @@
 .semi-cascader-single.semi-cascader-filterable {
     display: inline-flex
 }
-
-    .semi-cascader-single.semi-cascader-filterable .semi-cascader-selection {
-    }
         .semi-cascader-single.semi-cascader-filterable .semi-cascader-selection .semi-cascader-search-wrapper {
             width: 100%;
             height: var(--semi-cssvar-height-cascader_selection_wrapper);
@@ -573,37 +561,20 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-cascader, .semi-portal-rtl .semi-cascader {
         direction: rtl
     }
-
-
-        .semi-rtl .semi-cascader.semi-cascader-with-prefix, .semi-portal-rtl .semi-cascader.semi-cascader-with-prefix {
-        }
             .semi-rtl .semi-cascader.semi-cascader-with-prefix .semi-cascader-selection, .semi-portal-rtl .semi-cascader.semi-cascader-with-prefix .semi-cascader-selection {
                 padding-left: auto;
                 padding-right: 0;
             }
-
-        .semi-rtl .semi-cascader.semi-cascader-with-suffix, .semi-portal-rtl .semi-cascader.semi-cascader-with-suffix {
-        }
             .semi-rtl .semi-cascader.semi-cascader-with-suffix .semi-cascader-selection, .semi-portal-rtl .semi-cascader.semi-cascader-with-suffix .semi-cascader-selection {
                 padding-right: auto;
                 padding-left: 0;
             }
-
-        .semi-rtl .semi-cascader-selection, .semi-portal-rtl .semi-cascader-selection{
-        }
             .semi-rtl .semi-cascader-selection-multiple, .semi-portal-rtl .semi-cascader-selection-multiple {
                 padding-right: var(--semi-cssvar-spacing-cascader_selection_multiple-paddingLeft);
                 padding-left: var(--semi-cssvar-spacing-cascader_selection_multiple-paddingRight);
-            }
-
-            .semi-rtl .semi-cascader-selection-tag, .semi-portal-rtl .semi-cascader-selection-tag {
             }
                 .semi-rtl .semi-cascader-selection-tag:first-child, .semi-portal-rtl .semi-cascader-selection-tag:first-child {
                     margin-right: 0;
@@ -618,9 +589,6 @@
                 margin-left: 0;
                 margin-right: var(--semi-cssvar-spacing-cascader_selection_tagInput-marginLeft);
             }
-
-            .semi-rtl .semi-cascader-selection .semi-tagInput, .semi-portal-rtl .semi-cascader-selection .semi-tagInput {
-            }
                 .semi-rtl .semi-cascader-selection .semi-tagInput .semi-input-wrapper, .semi-portal-rtl .semi-cascader-selection .semi-tagInput .semi-input-wrapper {
                     margin-left: 0;
                     margin-right: var(--semi-cssvar-spacing-cascader_selection_input-marginLeft)
@@ -628,18 +596,10 @@
                     .semi-rtl .semi-cascader-selection .semi-tagInput .semi-input-wrapper .semi-input, .semi-portal-rtl .semi-cascader-selection .semi-tagInput .semi-input-wrapper .semi-input {
                         padding-right: 0;
                     }
-
-.semi-cascader-option {
-}
-    .semi-cascader-option-label {
-    }
         .semi-cascader-option-label-checkbox {
             margin-right: 0;
             margin-left: var(--semi-cssvar-spacing-cascader_label_checkbox-marginRight);
         }
-
-.semi-cascader-option-lists {
-}
     .semi-cascader-option-lists-rtl {
         direction: rtl;
     }
@@ -656,11 +616,6 @@
 
         .semi-cascader-option-lists.semi-cascader-option-lists-rtl .semi-cascader-option-list:first-child {
             border-right: none;
-        }
-
-    .semi-cascader-option-lists.semi-cascader-option-lists-rtl .semi-cascader-option {
-    }
-        .semi-cascader-option-lists.semi-cascader-option-lists-rtl .semi-cascader-option-icon {
         }
             .semi-cascader-option-lists.semi-cascader-option-lists-rtl .semi-cascader-option-icon-active, .semi-cascader-option-lists.semi-cascader-option-lists-rtl .semi-cascader-option-icon-empty {
                 margin-right: 0;

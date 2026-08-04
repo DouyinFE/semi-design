@@ -252,9 +252,6 @@
 /* RTL support (horizontal)*/
 /* Slider uses `left` positioning in LTR. In RTL we switch to `right` positioning*/
 /* in the component logic, so centering transforms must be mirrored.*/
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-slider, .semi-portal-rtl .semi-slider {
         direction: rtl
     }

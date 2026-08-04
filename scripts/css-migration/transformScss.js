@@ -870,9 +870,13 @@ async function processFile(root, ctx) {
     root.walkAtRules((at) => {
         if (at.name === 'media' || at.name === 'supports' || at.name === 'container') {
             if (at.params) {
-                // 媒体查询中的变量 → var 引用（verify 阶段先代入 token 值再编译，
-                // Lightning CSS 不支持 media query 中的 var()，代入后为静态值）
+                // 媒体查询中的变量 → 编译期代入 token 值（Chrome 不支持 @media 里的 var()，
+                // 必须静态值；与 sass 产物一致）
                 at.params = transformDeclValue(at.params, ctx);
+                at.params = at.params.replace(/var\(--semi-cssvar-([A-Za-z_][A-Za-z0-9_-]*)\)/g, (m, name) => {
+                    const tv = getTokenValues().get(name.replace(/-/g, '_'));
+                    return tv !== undefined ? tv : m;
+                });
             }
         }
         if (at.name === 'keyframes' || at.name === '-webkit-keyframes') {
@@ -901,6 +905,24 @@ async function processFile(root, ctx) {
         }
     }
     root.nodes = topOut;
+    // 8. 清理空规则（无 decls 无子规则；sass 产物不输出空容器，真源应保持一致）
+    // 循环清理：删除子规则后父规则可能变空；快照收集再删除（walkRules 回调中 remove 会跳过后续节点）
+    for (let pass = 0; pass < 5; pass++) {
+        const emptyRules = [];
+        root.walkRules((r) => {
+            if (r.nodes && r.nodes.length === 0) emptyRules.push(r);
+        });
+        if (!emptyRules.length) break;
+        for (const r of emptyRules) {
+            if (r.parent) {
+                r.remove();
+            } else {
+                // flattenRule 的 clone 规则 parent 为 null（remove 检查 parent 不删）→ 直接从 root.nodes splice
+                const idx = root.nodes.indexOf(r);
+                if (idx > -1) root.nodes.splice(idx, 1);
+            }
+        }
+    }
 }
 
 /**

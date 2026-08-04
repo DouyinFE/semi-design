@@ -43,9 +43,6 @@
             width: 50%;
             border-bottom: var(--semi-cssvar-width-divider-border) solid  var(--semi-cssvar-color-divider_border-color);
         }
-
-        .semi-divider-with-text-left {
-        }
             .semi-divider-with-text-left::before {
                 width: var(--semi-cssvar-width-divider_inner_text_left_line);
             }
@@ -53,9 +50,6 @@
             .semi-divider-with-text-left::after {
                 flex: 1;
             }
-
-        .semi-divider-with-text-right {
-        }
             .semi-divider-with-text-right::before {
                 flex: 1;
             }

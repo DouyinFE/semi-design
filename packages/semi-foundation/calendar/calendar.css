@@ -1,9 +1,4 @@
 
-.semi-calendar-day,
-.semi-calendar-week,
-.semi-calendar-month {
-}
-
     .semi-calendar-day ul, .semi-calendar-week ul, .semi-calendar-month ul, .semi-calendar-day li, .semi-calendar-week li, .semi-calendar-month li {
         padding: var(--semi-cssvar-spacing-calendar_ul_li-padding);
         margin: var(--semi-cssvar-spacing-calendar_ul_li-margin);
@@ -116,9 +111,6 @@
             height: 100%;
         }
 
-        .semi-calendar-day .semi-calendar-grid-curr, .semi-calendar-week .semi-calendar-grid-curr {
-        }
-
             .semi-calendar-day .semi-calendar-grid-curr-circle, .semi-calendar-week .semi-calendar-grid-curr-circle {
                 background: var(--semi-cssvar-color-calendar_currCircle-bg-default);
                 border-radius: var(--semi-cssvar-radius-calendar_currCircle);
@@ -213,9 +205,6 @@
     }
 }
 
-.semi-calendar-day {
-}
-
     .semi-calendar-day-scroll-wrapper {
         height: var(--semi-cssvar-height-calendar_day_scroll_wrapper);
     }
@@ -235,9 +224,6 @@
 
     .semi-calendar-week .semi-calendar-grid-skeleton li {
         border-right: var(--semi-cssvar-width-calendar-border-default) solid var(--semi-cssvar-color-calendar_day-border);
-    }
-
-    .semi-calendar-week .semi-calendar-grid:last-child {
     }
         .semi-calendar-week .semi-calendar-grid:last-child .semi-calendar-grid-content li {
             border-right: 0;
@@ -454,9 +440,6 @@
         flex: 1 1 auto;
         position: relative
     }
-
-        .semi-calendar-month-weekrow .semi-calendar-event-items {
-        }
             .semi-calendar-month-weekrow .semi-calendar-event-items .semi-calendar-event-month {
                 position: absolute;
                 font-size: var(--semi-cssvar-font-calendar_month_day-fontSize);
@@ -528,23 +511,13 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-calendar-day, .semi-portal-rtl .semi-calendar-day, .semi-rtl .semi-calendar-week, .semi-portal-rtl .semi-calendar-week, .semi-rtl .semi-calendar-month, .semi-portal-rtl .semi-calendar-month {
         direction: rtl;
-    }
-
-    .semi-rtl .semi-calendar-day, .semi-portal-rtl .semi-calendar-day, .semi-rtl .semi-calendar-week, .semi-portal-rtl .semi-calendar-week {
     }
 
         .semi-rtl .semi-calendar-day-sticky-left, .semi-portal-rtl .semi-calendar-day-sticky-left, .semi-rtl .semi-calendar-week-sticky-left, .semi-portal-rtl .semi-calendar-week-sticky-left {
             left: auto;
             right: var(--semi-cssvar-spacing-calendar_sticky_left-left);
-        }
-
-        .semi-rtl .semi-calendar-day .semi-calendar-all-day, .semi-portal-rtl .semi-calendar-day .semi-calendar-all-day, .semi-rtl .semi-calendar-week .semi-calendar-all-day, .semi-portal-rtl .semi-calendar-week .semi-calendar-all-day {
         }
             .semi-rtl .semi-calendar-day .semi-calendar-all-day .semi-calendar-tag, .semi-portal-rtl .semi-calendar-day .semi-calendar-all-day .semi-calendar-tag, .semi-rtl .semi-calendar-week .semi-calendar-all-day .semi-calendar-tag, .semi-portal-rtl .semi-calendar-week .semi-calendar-all-day .semi-calendar-tag {
                 text-align: left;
@@ -565,9 +538,6 @@
             margin-left: 0;
             margin-right: auto;
         }
-
-    .semi-rtl .semi-calendar-week, .semi-portal-rtl .semi-calendar-week {
-    }
         .semi-rtl .semi-calendar-week .semi-calendar-grid-skeleton-row-line::after, .semi-portal-rtl .semi-calendar-week .semi-calendar-grid-skeleton-row-line::after {
             left: 0;
             right: 0;
@@ -577,22 +547,14 @@
             border-right: 0;
             border-left: var(--semi-cssvar-width-calendar-border-default) solid var(--semi-cssvar-color-calendar_day-border);
         }
-
-        .semi-rtl .semi-calendar-week .semi-calendar-grid:last-child, .semi-portal-rtl .semi-calendar-week .semi-calendar-grid:last-child {
-        }
             .semi-rtl .semi-calendar-week .semi-calendar-grid:last-child .semi-calendar-grid-content li, .semi-portal-rtl .semi-calendar-week .semi-calendar-grid:last-child .semi-calendar-grid-content li {
                 border-left: 0;
             }
-
-        .semi-rtl .semi-calendar-week .semi-calendar-all-day, .semi-portal-rtl .semi-calendar-week .semi-calendar-all-day {
-        }
 
             .semi-rtl .semi-calendar-week .semi-calendar-all-day-content, .semi-portal-rtl .semi-calendar-week .semi-calendar-all-day-content {
                 padding-left: auto;
                 padding-right: var(--semi-cssvar-spacing-calendar_allDay_content-paddingLeft)
             }
-                .semi-rtl .semi-calendar-week .semi-calendar-all-day-content .semi-calendar-all-day-skeleton, .semi-portal-rtl .semi-calendar-week .semi-calendar-all-day-content .semi-calendar-all-day-skeleton {
-                }
 
                     .semi-rtl .semi-calendar-week .semi-calendar-all-day-content .semi-calendar-all-day-skeleton li, .semi-portal-rtl .semi-calendar-week .semi-calendar-all-day-content .semi-calendar-all-day-skeleton li {
                         border-right: 0;
@@ -612,12 +574,6 @@
                 padding-left: var(--semi-cssvar-spacing-calendar_tag_child-paddingRight);
             }
 
-    .semi-rtl .semi-calendar-month, .semi-portal-rtl .semi-calendar-month {
-    }
-
-        .semi-rtl .semi-calendar-month-grid-row, .semi-portal-rtl .semi-calendar-month-grid-row, .semi-rtl .semi-calendar-month-skeleton, .semi-portal-rtl .semi-calendar-month-skeleton {
-        }
-
             .semi-rtl .semi-calendar-month-grid-row li, .semi-portal-rtl .semi-calendar-month-grid-row li, .semi-rtl .semi-calendar-month-skeleton li, .semi-portal-rtl .semi-calendar-month-skeleton li {
                 text-align: left;
                 padding-right: auto;
@@ -627,9 +583,6 @@
                 .semi-rtl .semi-calendar-month-grid-row li span, .semi-portal-rtl .semi-calendar-month-grid-row li span, .semi-rtl .semi-calendar-month-skeleton li span, .semi-portal-rtl .semi-calendar-month-skeleton li span {
                     text-align: left;
                 }
-
-        .semi-rtl .semi-calendar-month-skeleton, .semi-portal-rtl .semi-calendar-month-skeleton {
-        }
 
             .semi-rtl .semi-calendar-month-skeleton li, .semi-portal-rtl .semi-calendar-month-skeleton li {
                 border-right: 0;
@@ -649,9 +602,6 @@
             right: auto;
             left: var(--semi-cssvar-spacing-calendar_month_date-right);
         }
-
-    .semi-rtl .semi-calendar-month-event-card, .semi-portal-rtl .semi-calendar-month-event-card {
-    }
 
         .semi-rtl .semi-calendar-month-event-card-close, .semi-portal-rtl .semi-calendar-month-event-card-close {
             margin-right: 0;

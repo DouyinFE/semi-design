@@ -20,8 +20,6 @@
             height: fit-content;
             text-align: center
         }
-            .semi-toast-wrapper .semi-toast-innerWrapper-hover{
-            }
                 .semi-toast-wrapper .semi-toast-innerWrapper-hover .semi-toast-zero-height-wrapper{
                     perspective: unset;
                     perspective-origin: center center;
@@ -67,11 +65,6 @@
             overflow-wrap: break-word;
         }
             /* word-wrap is an alias of overflow-wrap, word-wrap can take effect on more browsers, in order to prevent future changes, use both  */
-
-    .semi-toast-light {
-    }
-        .semi-toast-light.semi-toast-warning {
-        }
             .semi-toast-light.semi-toast-warning .semi-toast-content {
                 background-color: var(--semi-cssvar-color-toast_warning_light-bg);
                 border: var(--semi-cssvar-width-toast_light-border) solid var(--semi-cssvar-color-toast_warning_light-border);
@@ -79,9 +72,6 @@
             .semi-toast-light.semi-toast-warning .semi-toast-icon-warning {
                 color: var(--semi-cssvar-color-toast_warning_light-icon);
             }
-
-        .semi-toast-light.semi-toast-success {
-        }
             .semi-toast-light.semi-toast-success .semi-toast-content {
                 background-color: var(--semi-cssvar-color-toast_success_light-bg);
                 border: var(--semi-cssvar-width-toast_light-border) solid var(--semi-cssvar-color-toast_success_light-border);
@@ -89,9 +79,6 @@
             .semi-toast-light.semi-toast-success .semi-toast-icon-success {
                 color: var(--semi-cssvar-color-toast_success_light-icon);
             }
-
-        .semi-toast-light.semi-toast-info {
-        }
             .semi-toast-light.semi-toast-info .semi-toast-content {
                 background-color: var(--semi-cssvar-color-toast_info_light-bg);
                 border: var(--semi-cssvar-width-toast_light-border) solid var(--semi-cssvar-color-toast_info_light-border);
@@ -99,9 +86,6 @@
             .semi-toast-light.semi-toast-info .semi-toast-icon-info {
                 color: var(--semi-cssvar-color-toast_info_light-icon);
             }
-
-        .semi-toast-light.semi-toast-error {
-        }
             .semi-toast-light.semi-toast-error .semi-toast-content {
                 background-color: var(--semi-cssvar-color-toast_danger_light-bg);
                 border: var(--semi-cssvar-width-toast_light-border) solid var(--semi-cssvar-color-toast_danger_light-border);
@@ -159,14 +143,8 @@
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
 
-.semi-toast {
-}
-
     .semi-toast-rtl {
         direction: rtl;
-    }
-
-    .semi-toast-rtl .semi-toast-content {
     }
         .semi-toast-rtl .semi-toast-content .semi-toast-content-text {
             text-align: right;

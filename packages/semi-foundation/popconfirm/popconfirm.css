@@ -31,9 +31,6 @@
             margin-right: var(--semi-cssvar-spacing-popconfirm_header_icon-marginRight);
         }
 
-        .semi-popconfirm-header .semi-icon {
-        }
-
             .semi-popconfirm-header .semi-icon-alert_triangle {
                 color: var(--semi-cssvar-color-popconfirm_header_alert-icon);
             }
@@ -81,21 +78,12 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-popconfirm {
-}
     .semi-popconfirm-rtl {
         direction: rtl;
-    }
-
-    .semi-popconfirm-inner {
     }
         .semi-popconfirm-rtl .semi-popconfirm-inner {
             padding: var(--semi-cssvar-spacing-popconfirm-top) var(--semi-cssvar-spacing-popconfirm-bottom) var(--semi-cssvar-spacing-popconfirm-top) var(--semi-cssvar-spacing-popconfirm-top);
         }
-
-    .semi-popconfirm-header {
-    }
         .semi-popconfirm-rtl .semi-popconfirm-header {
             margin-right: 0
         }
@@ -104,9 +92,6 @@
                 margin-right: 0;
                 margin-left: var(--semi-cssvar-spacing-popconfirm_header_icon-marginRight);
             }
-
-    .semi-popconfirm-footer {
-    }
         .semi-popconfirm-rtl .semi-popconfirm-footer {
             justify-content: flex-end
         }

@@ -55,9 +55,6 @@
         overflow: scroll
 
     }
-
-        .semi-chat-container-scroll-hidden {
-        }
             .semi-chat-container-scroll-hidden::-webkit-scrollbar {
                 display: none;
             }
@@ -112,9 +109,6 @@
         margin-bottom: var(--semi-cssvar-spacing-chat_chatBox-marginY);
         column-gap: var(--semi-cssvar-spacing-chat_chatBox-columnGap)
     }
-
-        .semi-chat-chatBox:hover {
-        }
             .semi-chat-chatBox:hover .semi-chat-chatBox-action:not(.semi-chat-chatBox-action-hidden) {
                 visibility: visible;
             }
@@ -154,9 +148,6 @@
             margin-left: var(--semi-cssvar-spacing-chat_chatBox_action-marginX);
             margin-right: var(--semi-cssvar-spacing-chat_chatBox_action-marginX)
         }
-
-            .semi-chat-chatBox-action-btn {
-            }
                 .semi-chat-chatBox-action-btn.semi-button {
                     height: fit-content;
                     width: fit-content;
@@ -204,10 +195,6 @@
             max-width: calc(100% - var(--semi-cssvar-spacing-chat_chatBox-columnGap) - var(--semi-cssvar-width-chat_chatBox_avatar));
         }
 
-
-        .semi-chat-chatBox-content {
-        }
-
             .semi-chat-chatBox-content-bubble, .semi-chat-chatBox-content-userBubble {
                 padding: var(--semi-cssvar-spacing-chat_chatBox_content-paddingY) var(--semi-cssvar-spacing-chat_chatBox_content-paddingX);
                 border-radius: var(--semi-cssvar-radius-chat_chatBox_content);
@@ -250,9 +237,6 @@
 
                 .semi-chat-chatBox-content-user .semi-markdownRender ul, .semi-chat-chatBox-content-user .semi-markdownRender li {
                     color: var(--semi-cssvar-color-chat_chatBox_content_user-text);
-                }
-
-                .semi-chat-chatBox-content-user .semi-typography a {  
                 }
                     .semi-chat-chatBox-content-user .semi-typography a, .semi-chat-chatBox-content-user .semi-typography a:visited, .semi-chat-chatBox-content-user .semi-typography a:hover {
                         color: var(--semi-cssvar-color-chat_chatBox_content_user-text);
@@ -361,9 +345,6 @@
                             padding: var(--semi-cssvar-spacing-chat_chatBox_content_code_topSlot_copy-padding);
                             border-radius: var(--semi-cssvar-radius-chat_chatBox_content_code_topSlot_copy); 
                         }
-        
-                    .semi-chat-chatBox-content-code-topSlot-toCopy {
-                    }
                         .semi-chat-chatBox-content-code-topSlot-toCopy:hover {
                             background: var(--semi-cssvar-color-chat_chatBox_code_topSlot_toCopy-bg-hover);
                         }  
@@ -396,9 +377,6 @@
             .semi-chat-inputBox-clearButton.semi-button.semi-button-primary.semi-button-borderless {
                 color: var(--semi-cssvar-color-chat_inputBottom_clearButton_icon);
             }
-
-        .semi-chat-inputBox-upload {
-        }
             .semi-chat-inputBox-upload .semi-upload-file-list {
                 display: none;
             }
@@ -449,9 +427,6 @@
         .semi-chat-inputBox-textarea {
             flex-grow: 1
         }
-
-            .semi-chat-inputBox-textarea.semi-input-textarea-wrapper {
-            }
                 .semi-chat-inputBox-textarea.semi-input-textarea-wrapper, .semi-chat-inputBox-textarea.semi-input-textarea-wrapper:hover, .semi-chat-inputBox-textarea.semi-input-textarea-wrapper:active {
                     border: none;
                     background-color: transparent;
@@ -471,9 +446,6 @@
         .semi-chat-attachment-item {
             position: relative
         }
-
-            .semi-chat-attachment-item:hover {
-            }
                 .semi-chat-attachment-item:hover .semi-chat-inputBox-attachment-clear {
                     visibility: visible;
                 }
@@ -565,10 +537,6 @@
         margin-bottom: var(--semi-cssvar-spacing-chat_hint-marginY);
         margin-left: var(--semi-cssvar-spacing-chat_hint-marginLeft);
     }
-
-    .semi-chat-hint {
-       
-    }
         .semi-chat-hint-item {
             cursor: pointer;
             display: flex;
@@ -611,11 +579,6 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-   
-}
     .semi-rtl .semi-chat, .semi-portal-rtl .semi-chat {
         direction: rtl 
     }

@@ -1,14 +1,6 @@
-
-
-
-.semi-pincode {
-}
     .semi-pincode-wrapper{
         display: flex
     }
-
-        .semi-pincode-wrapper .semi-input-wrapper{
-        }
             .semi-pincode-wrapper .semi-input-wrapper-small{
                 width: var(--semi-cssvar-width-pinCode_input_small);
                 margin-right: var(--semi-cssvar-spacing-pinCode_small-marginRight)

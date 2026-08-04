@@ -30,41 +30,23 @@
         margin: 0;
         cursor: pointer;
     }
-
-    .semi-radio:hover {
-    }
         .semi-radio:hover .semi-radio-inner-display {
             background: var(--semi-cssvar-color-radio_default-bg-hover);
             border: solid var(--semi-cssvar-width-radio_hover-border) var(--semi-cssvar-color-radio_default-border-hover);
         }
-
-        .semi-radio:hover.semi-radio-cardRadioGroup {
-        }
             .semi-radio:hover.semi-radio-cardRadioGroup .semi-radio-inner-display {
                 background: var(--semi-cssvar-color-radio_card-bg-hover);
             }
-
-        .semi-radio:hover .semi-radio-inner-checked {
-        }
             .semi-radio:hover .semi-radio-inner-checked .semi-radio-inner-display {
                 background: var(--semi-cssvar-color-radio_primary-bg-hover);
                 border-color: var(--semi-cssvar-color-radio_checked-border-hover);
             }
-
-    .semi-radio:active {
-    }
         .semi-radio:active .semi-radio-inner-display {
             background: var(--semi-cssvar-color-radio_default-bg-active);
-        }
-
-        .semi-radio:active.semi-radio-cardRadioGroup {
         }
             .semi-radio:active.semi-radio-cardRadioGroup .semi-radio-inner-display {
                 background: var(--semi-cssvar-color-radio_card-bg-active);
             }
-
-        .semi-radio:active .semi-radio-inner-checked {
-        }
             .semi-radio:active .semi-radio-inner-checked .semi-radio-inner-display {
                 background: var(--semi-cssvar-color-radio_primary-bg-active);
                 border-color: var(--semi-cssvar-color-radio_checked-border-active);
@@ -153,9 +135,6 @@
                 background: var(--semi-cssvar-color-radio_cardRadioGroup-bg-checked);
                 border: var(--semi-cssvar-width-radio_cardRadioGroup_checked-border) solid var(--semi-cssvar-color-radio_cardRadioGroup_checked_border-active)
             }
-
-                .semi-radio-cardRadioGroup_checked:active .semi-radio-inner-checked {
-                }
                     .semi-radio-cardRadioGroup_checked:active .semi-radio-inner-checked .semi-radio-inner-display {
                         border-color: var(--semi-cssvar-color-radio_cardRadioGroup_checked_border-active);
                     }
@@ -166,9 +145,6 @@
 
         .semi-radio-cardRadioGroup_hover {
             background: var(--semi-cssvar-color-radio_cardRadioGroup-bg-hover);
-        }
-
-        .semi-radio-cardRadioGroup_disabled {
         }
             .semi-radio-cardRadioGroup_disabled:active {
                 background: var(--semi-cssvar-color-radio_cardRadioGroup_disabled-bg-active);
@@ -182,21 +158,12 @@
             .semi-radio-cardRadioGroup_checked_disabled.semi-radio-cardRadioGroup .semi-radio-inner-checked .semi-radio-inner-display {
                 border-color: var(--semi-cssvar-color-radio_cardRadioGroup_checked_disabled-border-default);
             }
-
-            .semi-radio-cardRadioGroup_checked_disabled.semi-radio-cardRadioGroup:hover {
-            }
                 .semi-radio-cardRadioGroup_checked_disabled.semi-radio-cardRadioGroup:hover .semi-radio-inner-checked .semi-radio-inner-display {
                     border-color: var(--semi-cssvar-color-radio_cardRadioGroup_checked_disabled-border-hover);
                 }
-
-    .semi-radio.semi-radio-disabled:hover, .semi-radio.semi-radio-disabled:active {
-    }
         .semi-radio.semi-radio-disabled:hover .semi-radio-inner-display, .semi-radio.semi-radio-disabled:active .semi-radio-inner-display {
             background: var(--semi-cssvar-color-radio_disabled-bg-default);
             border: solid var(--semi-cssvar-width-radio_disabled-border) var(--semi-cssvar-color-radio_disabled-border-default);
-        }
-
-        .semi-radio.semi-radio-disabled:hover .semi-radio-inner-checked, .semi-radio.semi-radio-disabled:active .semi-radio-inner-checked {
         }
             .semi-radio.semi-radio-disabled:hover .semi-radio-inner-checked .semi-radio-inner-display, .semi-radio.semi-radio-disabled:active .semi-radio-inner-checked .semi-radio-inner-display {
                 color: var(--semi-cssvar-color-radio_checked-icon-disabled);
@@ -240,15 +207,9 @@
         flex-direction: column;
         row-gap: var(--semi-cssvar-spacing-radio_content-rowGap);
     }
-
-    .semi-radio:hover {
-    }
         .semi-radio:hover .semi-radio-inner-display {
             background: var(--semi-cssvar-color-radio_default-bg-hover);
         }
-
-    .semi-radio:active {
-    }
         .semi-radio:active .semi-radio-inner-display {
             background: var(--semi-cssvar-color-radio_default-bg-active);
         }
@@ -296,18 +257,9 @@
                 font-size: var(--semi-cssvar-font-radio_buttonRadio_large-default-size);
                 padding: var(--semi-cssvar-spacing-radio_addon_buttonRadio_large-paddingY) var(--semi-cssvar-spacing-radio_addon_buttonRadio_large-paddingX);
             }
-
-    .semi-radio .semi-radio-inner-checked {
-    }
-
-        .semi-radio .semi-radio-inner-checked:hover {
-        }
             .semi-radio .semi-radio-inner-checked:hover .semi-radio-inner-display {
                 background: var(--semi-cssvar-color-radio_primary-bg-hover);
             }
-
-        .semi-radio .semi-radio-inner-checked:active {
-        }
             .semi-radio .semi-radio-inner-checked:active .semi-radio-inner-display {
                 background: var(--semi-cssvar-color-radio_primary-bg-active);
             }
@@ -335,9 +287,6 @@
         opacity: 0;
     } /* when type= button/card/pureCard, reset margin*/
 
-    .semi-radio-disabled {
-    }
-
         .semi-radio-disabled, .semi-radio-disabled:hover {
             cursor: not-allowed;
         }
@@ -355,9 +304,6 @@
                 .semi-radio-disabled .semi-radio-inner-display:hover {
                     background: var(--semi-cssvar-color-radio_disabled-bg-hover);
                 }
-
-        .semi-radio-disabled .semi-radio-inner-checked {
-        }
             .semi-radio-disabled .semi-radio-inner-checked .semi-radio-inner-display {
                 color: var(--semi-cssvar-color-radio_checked-icon-disabled);
                 background: var(--semi-cssvar-color-radio_checked-bg-disabled);
@@ -402,14 +348,9 @@
         flex-direction: column;
         row-gap: var(--semi-cssvar-spacing-radio_group_vertical-marginBottom)
     }
-
-        .semi-radioGroup-vertical-default {
-        }
             .semi-radioGroup-vertical-default .semi-radio {
                 display: flex;
             }
-        .semi-radioGroup-vertical-card {
-        }
             .semi-radioGroup-vertical-card .semi-radio {
                 display: flex;
             }
@@ -430,10 +371,6 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-radio, .semi-portal-rtl .semi-radio {
         direction: rtl
     }
@@ -441,9 +378,6 @@
         .semi-rtl .semi-radio input[type="checkbox"], .semi-portal-rtl .semi-radio input[type="checkbox"], .semi-rtl .semi-radio input[type="radio"], .semi-portal-rtl .semi-radio input[type="radio"] {
             left: auto;
             right: 0;
-        }
-
-        .semi-rtl .semi-radio-buttonRadioGroup, .semi-portal-rtl .semi-radio-buttonRadioGroup {
         }
             .semi-rtl .semi-radio-buttonRadioGroup:not(:last-child), .semi-portal-rtl .semi-radio-buttonRadioGroup:not(:last-child) {
                 padding-left: var(--semi-cssvar-spacing-radio_buttonRadioGroup-paddingRight);

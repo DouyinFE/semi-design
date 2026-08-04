@@ -18,10 +18,6 @@
             border-bottom-right-radius: var(--semi-cssvar-radius-button_splitButtonGroup_last_bottomRight);
             margin-right: unset;
         }
-
-
-    .semi-button-split:hover {
-    }
         /* 因为上面那条规则，导致原来的active被覆盖*/
         .semi-button-split:hover .semi-button-borderless:active {
             background-color: var(--semi-cssvar-color-button_borderless-bg-active);
@@ -65,8 +61,6 @@
 
     /* the specificity of `.#{$module}:focus-visible`  may lower than `reset.css` default `focus-visible` style*/
     /* so we add a class at the same level*/
-    .semi-button.semi-button-primary, .semi-button.semi-button-secondary, .semi-button.semi-button-tertiary, .semi-button.semi-button-warning, .semi-button.semi-button-danger {
-    }
         .semi-button.semi-button-primary:focus-visible, .semi-button.semi-button-secondary:focus-visible, .semi-button.semi-button-tertiary:focus-visible, .semi-button.semi-button-warning:focus-visible, .semi-button.semi-button-danger:focus-visible {
             outline: var(--semi-cssvar-width-button-outline) solid var(--semi-cssvar-color-button_primary_outline-focus);
         }
@@ -164,10 +158,6 @@
         border var(--semi-cssvar-transition_duration-button_tertiary-border) var(--semi-cssvar-transition_function-button_tertiary-border) var(--semi-cssvar-transition_delay-button_tertiary-border);
         transform: scale(var(--semi-cssvar-transform_scale_button_tertiary))
     }
-
-        .semi-button-tertiary.semi-button-colorful {
-           
-        }
             .semi-button-tertiary.semi-button-colorful.semi-button-solid {
                 background: var(--semi-cssvar-color-button_tertiary_solid_colorful-bg-default)
             }
@@ -221,9 +211,6 @@
         border var(--semi-cssvar-transition_duration-button_primary-border) var(--semi-cssvar-transition_function-button_primary-border) var(--semi-cssvar-transition_delay-button_primary-border);;
         transform: scale(var(--semi-cssvar-transform_scale-button_primary))
     }
-
-        .semi-button-primary.semi-button-colorful {
-        }
             .semi-button-primary.semi-button-colorful.semi-button-solid {
                 background: var(--semi-cssvar-color-button_primary_solid_colorful-bg-default)
             }
@@ -235,9 +222,6 @@
                 .semi-button-primary.semi-button-colorful.semi-button-solid:not(.semi-button-borderless):not(.semi-button-light):not(.semi-button-outline):active {
                     background: var(--semi-cssvar-color-button_primary_solid_colorful-bg-active);
                 }
-
-            .semi-button-primary.semi-button-colorful.semi-button-light {
-            }
                 .semi-button-primary.semi-button-colorful.semi-button-light .semi-button-content-right, .semi-button-primary.semi-button-colorful.semi-button-light .semi-button-content:not(:has(>.semi-button-content-right)) {
                     background: var(--semi-cssvar-color-button_primary_light_colorful-text-default);
                     background-clip: text;
@@ -247,9 +231,6 @@
             .semi-button-primary.semi-button-colorful.semi-button-outline {
                 color: var(--semi-cssvar-color-button_primary_light_outline-text-default);
                 border-color: var(--semi-cssvar-color-button_primary_light_outline-border);
-            }
-
-            .semi-button-primary.semi-button-colorful.semi-button-borderless {  
             }
                 .semi-button-primary.semi-button-colorful.semi-button-borderless .semi-button-content-right, .semi-button-primary.semi-button-colorful.semi-button-borderless .semi-button-content:not(:has(>.semi-button-content-right)) {
                     background: var(--semi-cssvar-color-button_primary_light_borderless-text-default);
@@ -433,16 +414,10 @@
                 padding-left: var(--semi-cssvar-spacing-button_default-paddingLeft);
                 padding-right: var(--semi-cssvar-spacing-button_default-paddingRight);
             }
-
-            .semi-button-group > .semi-button-size-large {
-            }
                 .semi-button-group > .semi-button-size-large .semi-button-content {
                     padding-left: var(--semi-cssvar-spacing-button_large-paddingLeft);
                     padding-right: var(--semi-cssvar-spacing-button_large-paddingRight);
                 }
-
-            .semi-button-group > .semi-button-size-small {
-            }
                 .semi-button-group > .semi-button-size-small .semi-button-content {
                     padding-left: var(--semi-cssvar-spacing-button_small-paddingLeft);
                     padding-right: var(--semi-cssvar-spacing-button_small-paddingRight);
@@ -457,18 +432,10 @@
                     padding-left: var(--semi-cssvar-spacing-button_iconOnly_default-paddingLeft);
                     padding-right: var(--semi-cssvar-spacing-button_iconOnly_default-paddingRight);
                 }
-
-                .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size {
-                }
-                    .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-small {
-                    }
                         .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-small .semi-button-content {
                             padding-left: var(--semi-cssvar-spacing-button_iconOnly_small-paddingLeft);
                             padding-right: var(--semi-cssvar-spacing-button_iconOnly_small-paddingRight);
                         }
-
-                    .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-large {
-                    }
                         .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-large .semi-button-content {
                             padding-left: var(--semi-cssvar-spacing-button_iconOnly_large-paddingLeft);
                             padding-right: var(--semi-cssvar-spacing-button_iconOnly_large-paddingRight);
@@ -537,10 +504,6 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-button, .semi-portal-rtl .semi-button {
         direction: rtl;
 
@@ -571,16 +534,10 @@
                     padding-left: var(--semi-cssvar-spacing-button_default-paddingRight);
                     padding-right: var(--semi-cssvar-spacing-button_default-paddingLeft);
                 }
-
-                .semi-rtl .semi-button-group > .semi-button-size-large, .semi-portal-rtl .semi-button-group > .semi-button-size-large {
-                }
                     .semi-rtl .semi-button-group > .semi-button-size-large .semi-button-content, .semi-portal-rtl .semi-button-group > .semi-button-size-large .semi-button-content {
                         padding-left: var(--semi-cssvar-spacing-button_large-paddingRight);
                         padding-right: var(--semi-cssvar-spacing-button_large-paddingLeft);
                     }
-
-                .semi-rtl .semi-button-group > .semi-button-size-small, .semi-portal-rtl .semi-button-group > .semi-button-size-small {
-                }
                     .semi-rtl .semi-button-group > .semi-button-size-small .semi-button-content, .semi-portal-rtl .semi-button-group > .semi-button-size-small .semi-button-content {
                         padding-left: var(--semi-cssvar-spacing-button_small-paddingRight);
                         padding-right: var(--semi-cssvar-spacing-button_small-paddingLeft);
@@ -595,19 +552,10 @@
                         padding-left: var(--semi-cssvar-spacing-button_iconOnly_default-paddingRight);
                         padding-right: var(--semi-cssvar-spacing-button_iconOnly_default-paddingLeft);
                     }
-
-                    .semi-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size, .semi-portal-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size {
-                    }
-
-                        .semi-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-small, .semi-portal-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-small {
-                        }
                             .semi-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-small .semi-button-content, .semi-portal-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-small .semi-button-content {
                                 padding-left: var(--semi-cssvar-spacing-button_iconOnly_small-paddingRight);
                                 padding-right: var(--semi-cssvar-spacing-button_iconOnly_small-paddingLeft);
                             }
-
-                        .semi-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-large, .semi-portal-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-large {
-                        }
                             .semi-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-large .semi-button-content, .semi-portal-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-large .semi-button-content {
                                 padding-left: var(--semi-cssvar-spacing-button_iconOnly_large-paddingRight);
                                 padding-right: var(--semi-cssvar-spacing-button_iconOnly_large-paddingLeft);
@@ -618,9 +566,6 @@
                     border-bottom-left-radius: 0;
                     border-top-right-radius: var(--semi-cssvar-radius-button_group);
                     border-bottom-right-radius: var(--semi-cssvar-radius-button_group);
-                }
-
-                .semi-rtl .semi-button-group > .semi-button:not(:last-child), .semi-portal-rtl .semi-button-group > .semi-button:not(:last-child) {
                 }
                     .semi-rtl .semi-button-group > .semi-button:not(:last-child) .semi-button-content, .semi-portal-rtl .semi-button-group > .semi-button:not(:last-child) .semi-button-content {
                         border-left: var(--semi-cssvar-width-button_group-border) var(--semi-cssvar-color-button_group-border-default) solid;
@@ -639,9 +584,6 @@
             padding-right: var(--semi-cssvar-spacing-button_iconOnly_default-paddingLeft)
         }
 
-            .semi-rtl .semi-button.semi-button-with-icon-only.semi-button-size, .semi-portal-rtl .semi-button.semi-button-with-icon-only.semi-button-size {
-            }
-
                 .semi-rtl .semi-button.semi-button-with-icon-only.semi-button-size-small, .semi-portal-rtl .semi-button.semi-button-with-icon-only.semi-button-size-small {
                     padding-left: var(--semi-cssvar-spacing-button_iconOnly_small-paddingRight);
                     padding-right: var(--semi-cssvar-spacing-button_iconOnly_small-paddingLeft);
@@ -651,9 +593,6 @@
                     padding-left: var(--semi-cssvar-spacing-button_iconOnly_large-paddingRight);
                     padding-right: var(--semi-cssvar-spacing-button_iconOnly_large-paddingLeft);
                 }
-
-        .semi-rtl .semi-button-content, .semi-portal-rtl .semi-button-content {
-        }
 
             .semi-rtl .semi-button-content-left, .semi-portal-rtl .semi-button-content-left {
                 margin-left: var(--semi-cssvar-spacing-button_iconOnly_content-marginRight);

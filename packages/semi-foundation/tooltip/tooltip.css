@@ -42,12 +42,6 @@
         opacity: var(--semi-cssvar-motion-zoom_opacity-from);
     }
 }
-
-
-
-.semi-tooltip {
-
-}
     .semi-tooltip-wrapper {
         position: relative;
         background-color: var(--semi-cssvar-color-tooltip-bg-default);
@@ -106,19 +100,11 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-tooltip {
-}
-    .semi-tooltip-wrapper {
-    }
         .semi-tooltip-wrapper .semi-tooltip-icon-arrow {
             height: 7px;
             width: var(--semi-cssvar-width-tooltip_arrow);
             position: absolute;
             color:rgba(var(--semi-grey-7), 1);
-        }
-
-        .semi-tooltip-wrapper[x-placement='top'] {
         }
             .semi-tooltip-wrapper[x-placement='top'] .semi-tooltip-icon-arrow {
                 left: var(--semi-tooltip-arrow-offset-x, 50%);
@@ -128,8 +114,6 @@
     .semi-tooltip-wrapper[x-placement='top'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='top'] .semi-tooltip-with-arrow {
         min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
     }
-        .semi-tooltip-wrapper[x-placement='topLeft'] {
-        }
             .semi-tooltip-wrapper[x-placement='topLeft'] .semi-tooltip-icon-arrow {
                 bottom: (-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
                 left: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
@@ -137,8 +121,6 @@
     .semi-tooltip-wrapper[x-placement='topLeft'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='topLeft'] .semi-tooltip-with-arrow {
         min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
     }
-        .semi-tooltip-wrapper[x-placement='topRight'] {
-        }
             .semi-tooltip-wrapper[x-placement='topRight'] .semi-tooltip-icon-arrow {
                 bottom: (-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
                 right: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
@@ -146,8 +128,6 @@
     .semi-tooltip-wrapper[x-placement='topRight'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='topRight'] .semi-tooltip-with-arrow {
         min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
     }
-        .semi-tooltip-wrapper[x-placement='leftTop'] {
-        }
             .semi-tooltip-wrapper[x-placement='leftTop'] .semi-tooltip-icon-arrow {
                 width: 7px;
                 height: var(--semi-cssvar-height-tooltip_arrow_vertical);
@@ -157,8 +137,6 @@
     .semi-tooltip-wrapper[x-placement='leftTop'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='leftTop'] .semi-tooltip-with-arrow {
         min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px * 2);
     }
-        .semi-tooltip-wrapper[x-placement='left'] {
-        }
             .semi-tooltip-wrapper[x-placement='left'] .semi-tooltip-icon-arrow {
                 width: 7px;
                 height: var(--semi-cssvar-height-tooltip_arrow_vertical);
@@ -169,8 +147,6 @@
     .semi-tooltip-wrapper[x-placement='left'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='left'] .semi-tooltip-with-arrow {
         min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px * 2);
     }
-        .semi-tooltip-wrapper[x-placement='leftBottom'] {
-        }
             .semi-tooltip-wrapper[x-placement='leftBottom'] .semi-tooltip-icon-arrow {
                 width: 7px;
                 height: var(--semi-cssvar-height-tooltip_arrow_vertical);
@@ -180,8 +156,6 @@
     .semi-tooltip-wrapper[x-placement='leftBottom'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='leftBottom'] .semi-tooltip-with-arrow {
         min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px * 2);
     }
-        .semi-tooltip-wrapper[x-placement='rightTop'] {
-        }
             .semi-tooltip-wrapper[x-placement='rightTop'] .semi-tooltip-icon-arrow {
                 width: 7px;
                 height: var(--semi-cssvar-height-tooltip_arrow_vertical);
@@ -192,8 +166,6 @@
     .semi-tooltip-wrapper[x-placement='rightTop'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='rightTop'] .semi-tooltip-with-arrow {
         min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px * 2);
     }
-        .semi-tooltip-wrapper[x-placement='right'] {
-        }
             .semi-tooltip-wrapper[x-placement='right'] .semi-tooltip-icon-arrow {
                 width: 7px;
                 height: var(--semi-cssvar-height-tooltip_arrow_vertical);
@@ -204,8 +176,6 @@
     .semi-tooltip-wrapper[x-placement='right'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='right'] .semi-tooltip-with-arrow {
         min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px * 2);
     }
-        .semi-tooltip-wrapper[x-placement='rightBottom'] {
-        }
             .semi-tooltip-wrapper[x-placement='rightBottom'] .semi-tooltip-icon-arrow {
                 width: 7px;
                 height: var(--semi-cssvar-height-tooltip_arrow_vertical);
@@ -216,8 +186,6 @@
     .semi-tooltip-wrapper[x-placement='rightBottom'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='rightBottom'] .semi-tooltip-with-arrow {
         min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 5px * 2);
     }
-        .semi-tooltip-wrapper[x-placement='bottomLeft'] {
-        }
             .semi-tooltip-wrapper[x-placement='bottomLeft'] .semi-tooltip-icon-arrow {
                 top: (-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
                 left: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
@@ -226,8 +194,6 @@
     .semi-tooltip-wrapper[x-placement='bottomLeft'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='bottomLeft'] .semi-tooltip-with-arrow {
         min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
     }
-        .semi-tooltip-wrapper[x-placement='bottom'] {
-        }
             .semi-tooltip-wrapper[x-placement='bottom'] .semi-tooltip-icon-arrow {
                 top: (-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
                 left: var(--semi-tooltip-arrow-offset-x, 50%);
@@ -236,8 +202,6 @@
     .semi-tooltip-wrapper[x-placement='bottom'].semi-tooltip-with-arrow, .semi-tooltip-wrapper[x-placement='bottom'] .semi-tooltip-with-arrow {
         min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
     }
-        .semi-tooltip-wrapper[x-placement='bottomRight'] {
-        }
             .semi-tooltip-wrapper[x-placement='bottomRight'] .semi-tooltip-icon-arrow {
                 right: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
                 top: (-7px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));

@@ -25,9 +25,6 @@
     .semi-avatar-focus {
         outline: var(--semi-cssvar-width-avatar-outline) solid var(--semi-cssvar-color-avatar-outline-focus);
     }
-
-    .semi-avatar-no-focus-visible {
-    }
         .semi-avatar-no-focus-visible:focus-visible {
             outline: none;
         }
@@ -228,9 +225,6 @@
             top: var(--semi-cssvar-spacing-avatar-top_slot_extra_large-shift);
             scale: var(--semi-cssvar-spacing-avatar-top_slot_extra_large-scale);
         }
-
-    .semi-avatar-wrapper .semi-avatar-top_slot-bg-with_border{
-    }
         /*top: $width-avatar_additional-border;*/
 
     .semi-avatar-wrapper .semi-avatar-top_slot-wrapper{
@@ -719,22 +713,12 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-avatar, .semi-portal-rtl .semi-avatar {
         direction: rtl
     }
-
-        .semi-rtl .semi-avatar-extra-extra-small, .semi-portal-rtl .semi-avatar-extra-extra-small {
-        }
             .semi-rtl .semi-avatar-extra-extra-small .semi-avatar-content, .semi-portal-rtl .semi-avatar-extra-extra-small .semi-avatar-content {
                 transform: scale(0.8);
             }
-
-        .semi-rtl .semi-avatar-extra-small, .semi-portal-rtl .semi-avatar-extra-small {
-        }
             .semi-rtl .semi-avatar-extra-small .semi-avatar-content, .semi-portal-rtl .semi-avatar-extra-small .semi-avatar-content {
                 transform: scale(0.8);
             }
@@ -747,9 +731,6 @@
     .semi-rtl .semi-avatar-group, .semi-portal-rtl .semi-avatar-group {
         direction: rtl
     }
-
-        .semi-rtl .semi-avatar-group .semi-avatar, .semi-portal-rtl .semi-avatar-group .semi-avatar {
-        }
 
             .semi-rtl .semi-avatar-group .semi-avatar:first-child, .semi-portal-rtl .semi-avatar-group .semi-avatar:first-child {
                 margin-left: auto;

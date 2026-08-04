@@ -115,9 +115,6 @@
         border-radius: var(--semi-cssvar-radius-videoPlayer_notification);
         font-size: var(--semi-cssvar-font-videoPlayer_notification-fontSize);
     }
-
-    .semi-videoPlayer-mirror {
-    }
         .semi-videoPlayer-mirror video {
             transform: rotateX(0deg) rotateY(180deg);
         }
@@ -155,9 +152,6 @@
 
             .semi-videoPlayer-controls-menu-item {
                 margin-right: var(--semi-cssvar-spacing-videoPlayer-controls_item-gap);
-            }
-
-            .semi-videoPlayer-controls-menu-button {
             }
                 .semi-videoPlayer-controls-menu-button svg {
                     color: var(--semi-cssvar-color-videoPlayer_controls-text);
@@ -269,9 +263,6 @@
             bottom: 0;
             border-radius: var(--semi-cssvar-radius-videoPlayer_progress_bar)
         }
-
-            .semi-videoPlayer-progress-slider-active, .semi-videoPlayer-progress-slider:hover {
-            }
                 .semi-videoPlayer-progress-slider-active .semi-videoPlayer-progress-slider-list, .semi-videoPlayer-progress-slider:hover .semi-videoPlayer-progress-slider-list, .semi-videoPlayer-progress-slider-active .semi-videoPlayer-progress-slider-played, .semi-videoPlayer-progress-slider:hover .semi-videoPlayer-progress-slider-played, .semi-videoPlayer-progress-slider-active .semi-videoPlayer-progress-slider-buffered, .semi-videoPlayer-progress-slider:hover .semi-videoPlayer-progress-slider-buffered {
                     height: var(--semi-cssvar-height-videoPlayer_progress_bar-hover);
                     transition: transform var(--semi-cssvar-animation_duration-videoPlayer_slider-in);

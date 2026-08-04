@@ -1,11 +1,5 @@
-
-.semi-steps {
-}
     .semi-steps .semi-col {
         flex: 1;
-    }
-
-    .semi-steps-vertical {
     }
         .semi-steps-vertical .semi-row-flex {
             flex-direction: column;
@@ -82,9 +76,6 @@
             .semi-steps .semi-steps-item-process .semi-steps-item-title, .semi-steps .semi-steps-item-process .semi-steps-item-icon {
                 color: var(--semi-cssvar-color-steps_primary-icon-default);
             }
-
-        .semi-steps .semi-steps-item-wait {
-        }
             .semi-steps .semi-steps-item-wait .semi-steps-item-left:not(.semi-steps-item-icon) {
                 background: var(--semi-cssvar-color-steps-bg-default);
             }
@@ -92,9 +83,6 @@
             .semi-steps .semi-steps-item-wait .semi-steps-item-icon {
                 color: var(--semi-cssvar-color-steps-icon-default);
             }
-
-        .semi-steps .semi-steps-item-finish {
-        }
 
             .semi-steps .semi-steps-item-finish .semi-icon, .semi-steps .semi-steps-item-finish .semi-steps-item-title {
                 color: var(--semi-cssvar-color-steps_success-text-default);
@@ -116,9 +104,6 @@
                     color: var(--semi-cssvar-color-steps_success-text-active);
                 }
 
-        .semi-steps .semi-steps-item-error {
-        }
-
             .semi-steps .semi-steps-item-error .semi-icon, .semi-steps .semi-steps-item-error .semi-steps-item-title {
                 color: var(--semi-cssvar-color-steps_danger-text-default);
             }
@@ -138,9 +123,6 @@
                 .semi-steps .semi-steps-item-error-active:active .semi-icon, .semi-steps .semi-steps-item-error-active:active .semi-steps-item-title {
                     color: var(--semi-cssvar-color-steps_danger-text-active);
                 }
-
-        .semi-steps .semi-steps-item-warning {
-        }
 
             .semi-steps .semi-steps-item-warning .semi-steps-item-title, .semi-steps .semi-steps-item-warning .semi-icon {
                 color: var(--semi-cssvar-color-steps_warning-text-default);
@@ -199,18 +181,10 @@
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
 
-.semi-steps-basic {
-}
-
     .semi-steps-basic.semi-steps-horizontal {
         display: flex;
         flex-flow: row nowrap
     }
-
-        .semi-steps-basic.semi-steps-horizontal.semi-steps-hasline {
-        }
-            .semi-steps-basic.semi-steps-horizontal.semi-steps-hasline .semi-steps-item-title {
-            }
 
                 .semi-steps-basic.semi-steps-horizontal.semi-steps-hasline .semi-steps-item-title::after {
                     content: "";
@@ -243,13 +217,6 @@
 
                     .semi-steps-basic.semi-steps-horizontal .semi-steps-item:last-child .semi-steps-item-title::after {
                         display: none;
-                    }
-
-            .semi-steps-basic.semi-steps-horizontal .semi-steps-item-done {
-            }
-                .semi-steps-basic.semi-steps-horizontal .semi-steps-item-done .semi-steps-item-container {
-                }
-                    .semi-steps-basic.semi-steps-horizontal .semi-steps-item-done .semi-steps-item-container .semi-steps-item-title {
                     }
 
                         .semi-steps-basic.semi-steps-horizontal .semi-steps-item-done .semi-steps-item-container .semi-steps-item-title::after {
@@ -298,19 +265,9 @@
         .semi-steps-basic.semi-steps-vertical .semi-steps-item-icon {
             box-sizing: content-box;
         }
-
-        .semi-steps-basic.semi-steps-vertical.semi-steps-small {
-        }
-            .semi-steps-basic.semi-steps-vertical.semi-steps-small .semi-steps-item {
-            }
                 .semi-steps-basic.semi-steps-vertical.semi-steps-small .semi-steps-item .semi-steps-item-content {
                     min-height: var(--semi-cssvar-height-steps_basic_vertical_small_item_content-minHeight);
                 }
-
-        .semi-steps-basic.semi-steps-vertical.semi-steps-hasline {
-        }
-            .semi-steps-basic.semi-steps-vertical.semi-steps-hasline .semi-steps-item-icon {
-            }
 
                 .semi-steps-basic.semi-steps-vertical.semi-steps-hasline .semi-steps-item-icon::after {
                     content: "";
@@ -331,19 +288,9 @@
                 padding-top: 0;
             }
 
-            .semi-steps-basic.semi-steps-vertical .semi-steps-item:last-child {
-            }
-                .semi-steps-basic.semi-steps-vertical .semi-steps-item:last-child .semi-steps-item-icon {
-                }
-
                     .semi-steps-basic.semi-steps-vertical .semi-steps-item:last-child .semi-steps-item-icon::after {
                         display: none;
                     }
-
-            .semi-steps-basic.semi-steps-vertical .semi-steps-item-done {
-            }
-                .semi-steps-basic.semi-steps-vertical .semi-steps-item-done .semi-steps-item-icon {
-                }
 
                     .semi-steps-basic.semi-steps-vertical .semi-steps-item-done .semi-steps-item-icon::after {
                         background: var(--semi-cssvar-color-steps_item_done_icon_after-bg);
@@ -393,9 +340,6 @@
 
         .semi-steps-basic .semi-steps-item-clickable {
             cursor: pointer;
-        }
-
-        .semi-steps-basic .semi-steps-item-hover:hover {
         }
 
             .semi-steps-basic .semi-steps-item-hover:hover .semi-steps-item-title {
@@ -459,13 +403,6 @@
 
         /* 完成状态的样式*/
 
-        .semi-steps-basic .semi-steps-item-finish {
-
-
-        }
-            .semi-steps-basic .semi-steps-item-finish .semi-steps-item-left {
-            }
-
                 .semi-steps-basic .semi-steps-item-finish .semi-steps-item-left .semi-steps-item-icon {
                     color: var(--semi-cssvar-color-steps_item_finish-icon)
                 }
@@ -475,14 +412,8 @@
                     }
 
         /* 等待状态的样式*/
-
-        .semi-steps-basic .semi-steps-item-wait {
-        }
             .semi-steps-basic .semi-steps-item-wait .semi-steps-item-title {
                 color: var(--semi-cssvar-color-steps_item_wait_title-text);
-            }
-
-            .semi-steps-basic .semi-steps-item-wait .semi-steps-item-left {
             }
 
                 .semi-steps-basic .semi-steps-item-wait .semi-steps-item-left .semi-steps-item-icon {
@@ -494,25 +425,12 @@
                         color: var(--semi-cssvar-color-steps_item_wait_left_number_icon-icon);
                     }
 
-            .semi-steps-basic .semi-steps-item-wait-hover:hover {
-            }
-                .semi-steps-basic .semi-steps-item-wait-hover:hover .semi-steps-item-left {
-                }
-
-                    .semi-steps-basic .semi-steps-item-wait-hover:hover .semi-steps-item-left .semi-steps-item-icon {
-                    }
-
                         .semi-steps-basic .semi-steps-item-wait-hover:hover .semi-steps-item-left .semi-steps-item-icon .semi-steps-item-number-icon {
                             background: var(--semi-cssvar-color-steps_item_wait_left_number_icon-bg-hover);
                             color: var(--semi-cssvar-color-steps_item_wait_left_number_icon-icon-hover);
                         }
 
         /* 进行状态的样式*/
-
-        .semi-steps-basic .semi-steps-item-process {
-        }
-            .semi-steps-basic .semi-steps-item-process .semi-steps-item-left {
-            }
 
                 .semi-steps-basic .semi-steps-item-process .semi-steps-item-left .semi-steps-item-icon {
                     color: var(--semi-cssvar-color-steps_item_process_left-icon)
@@ -524,11 +442,6 @@
 
         /* 错误状态的样式*/
 
-        .semi-steps-basic .semi-steps-item-error {
-        }
-            .semi-steps-basic .semi-steps-item-error .semi-steps-item-left {
-            }
-
                 .semi-steps-basic .semi-steps-item-error .semi-steps-item-left .semi-steps-item-icon {
                     color: var(--semi-cssvar-color-steps_item_error_left-icon)
                 }
@@ -539,11 +452,6 @@
 
         /* 警告状态的样式*/
 
-        .semi-steps-basic .semi-steps-item-warning {
-        }
-            .semi-steps-basic .semi-steps-item-warning .semi-steps-item-left {
-            }
-
                 .semi-steps-basic .semi-steps-item-warning .semi-steps-item-left .semi-steps-item-icon {
                     color: var(--semi-cssvar-color-steps_item_warning_left-icon)
                 }
@@ -552,19 +460,10 @@
                         color: var(--semi-cssvar-color-steps_item_warning_left_number-icon);
                     }
 
-    .semi-steps-basic.semi-steps-small {
-    }
-
-        .semi-steps-basic.semi-steps-small .semi-steps-item {
-        }
-
             .semi-steps-basic.semi-steps-small .semi-steps-item .semi-steps-item-title {
     font-size: var(--semi-cssvar-font-size-regular);
     line-height: 20px;
     font-family: var(--semi-cssvar-font-family-regular);
-            }
-
-            .semi-steps-basic.semi-steps-small .semi-steps-item .semi-steps-item-left {
             }
 
                 .semi-steps-basic.semi-steps-small .semi-steps-item .semi-steps-item-left .semi-steps-item-icon {
@@ -628,20 +527,10 @@
     white-space: nowrap;
             font-weight: var(--semi-cssvar-font-steps_nav_item_title-fontWeight);
         }
-
-
-        .semi-steps-nav .semi-steps-item-active {
-        }
             .semi-steps-nav .semi-steps-item-active .semi-steps-item-title {
                 color: var(--semi-cssvar-color-steps_nav_item_title-text-active);
                 font-weight: var(--semi-cssvar-font-steps_nav_item_title_active-fontWeight);
             }
-
-    .semi-steps-nav.semi-steps-small {
-    }
-        .semi-steps-nav.semi-steps-small .semi-steps-item {
-
-        }
             .semi-steps-nav.semi-steps-small .semi-steps-item .semi-steps-item-title {
     font-size: var(--semi-cssvar-font-size-regular);
     line-height: 20px;
@@ -650,10 +539,6 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-steps, .semi-portal-rtl .semi-steps {
         direction: rtl
     }
@@ -671,11 +556,6 @@
     .semi-rtl .semi-steps-basic, .semi-portal-rtl .semi-steps-basic {
         direction: rtl
     }
-
-        .semi-rtl .semi-steps-basic.semi-steps-horizontal, .semi-portal-rtl .semi-steps-basic.semi-steps-horizontal {
-        }
-            .semi-rtl .semi-steps-basic.semi-steps-horizontal .semi-steps-item, .semi-portal-rtl .semi-steps-basic.semi-steps-horizontal .semi-steps-item {
-            }
                 .semi-rtl .semi-steps-basic.semi-steps-horizontal .semi-steps-item .semi-steps-item-title, .semi-portal-rtl .semi-steps-basic.semi-steps-horizontal .semi-steps-item .semi-steps-item-title {
                     padding-left: var(--semi-cssvar-spacing-steps_basic_item_title-paddingRight)
                 }
@@ -683,9 +563,6 @@
                     .semi-rtl .semi-steps-basic.semi-steps-horizontal .semi-steps-item .semi-steps-item-title::after, .semi-portal-rtl .semi-steps-basic.semi-steps-horizontal .semi-steps-item .semi-steps-item-title::after {
                         right: 100%;
                     }
-
-        .semi-rtl .semi-steps-basic.semi-steps-vertical, .semi-portal-rtl .semi-steps-basic.semi-steps-vertical {
-        }
             .semi-rtl .semi-steps-basic.semi-steps-vertical .semi-steps-item, .semi-portal-rtl .semi-steps-basic.semi-steps-vertical .semi-steps-item {
                 margin: 0;
             }

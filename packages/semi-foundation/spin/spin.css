@@ -68,9 +68,6 @@
             height: auto;
             width: auto;
         }
-
-    .semi-spin-hidden {
-    }
         .semi-spin-hidden::after {
             content: none;
         }

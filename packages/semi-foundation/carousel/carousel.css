@@ -23,9 +23,6 @@
             .semi-carousel-content-item-current {
                 z-index: 1;
             }
-
-        .semi-carousel-content-fade {
-        }
             .semi-carousel-content-fade > * {
                 opacity: 0;
             }
@@ -33,9 +30,6 @@
             .semi-carousel-content-fade .semi-carousel-content-item-current {
                 opacity: 1;
             }
-
-        .semi-carousel-content-slide {
-        }
             .semi-carousel-content-slide > *:not(.semi-carousel-content-item-current) {
                 visibility: hidden;
             }
@@ -51,9 +45,6 @@
                 animation: semi-carousel-content-item-keyframe-slide-in;
                 animation-fill-mode: forwards;
             }
-
-        .semi-carousel-content-reverse {
-        }
             .semi-carousel-content-reverse .semi-carousel-content-item-slide-out {
                 animation: semi-carousel-content-item-keyframe-slide-out-reverse;
                 animation-fill-mode: forwards;
@@ -87,9 +78,6 @@
             position: absolute;
             right: var(--semi-cssvar-spacing-carousel_indicator-padding);
             bottom: var(--semi-cssvar-spacing-carousel_indicator-padding);
-        }
-
-        .semi-carousel-indicator-dot {
         }
             .semi-carousel-indicator-dot .semi-carousel-indicator-item {
                 border-radius: var(--semi-cssvar-radius-carousel_indicator_dot);
@@ -232,9 +220,6 @@
                     .semi-carousel-indicator-line .semi-carousel-indicator-item-dark:active {
                         background: var(--semi-cssvar-color-carousel_indicator_theme_dark-bg-active);
                     }
-
-        .semi-carousel-indicator-columnar {
-        }
             .semi-carousel-indicator-columnar .semi-carousel-indicator-item {
                 cursor: pointer
             }
@@ -365,9 +350,6 @@
         z-index: 2;
         opacity: 0;
     }
-
-    .semi-carousel:hover {
-    }
         .semi-carousel:hover .semi-carousel-arrow-hover div {
             opacity: 1;
         }
@@ -414,9 +396,6 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-carousel, .semi-portal-rtl .semi-carousel {
         direction: rtl
     }
@@ -424,20 +403,10 @@
         .semi-rtl .semi-carousel-indicator, .semi-portal-rtl .semi-carousel-indicator {
             display: flex
         }
-
-            .semi-rtl .semi-carousel-indicator-dot, .semi-portal-rtl .semi-carousel-indicator-dot {
-            }
-                .semi-rtl .semi-carousel-indicator-dot .semi-carousel-indicator-item, .semi-portal-rtl .semi-carousel-indicator-dot .semi-carousel-indicator-item {
-                }
                     .semi-rtl .semi-carousel-indicator-dot .semi-carousel-indicator-item:not(:last-child), .semi-portal-rtl .semi-carousel-indicator-dot .semi-carousel-indicator-item:not(:last-child) {
                         margin-right: 0;
                         margin-left: var(--semi-cssvar-spacing-carousel_indicator_dot-marginX);
                     }
-
-            .semi-rtl .semi-carousel-indicator-columnar, .semi-portal-rtl .semi-carousel-indicator-columnar {
-            }
-                .semi-rtl .semi-carousel-indicator-columnar .semi-carousel-indicator-item, .semi-portal-rtl .semi-carousel-indicator-columnar .semi-carousel-indicator-item {
-                }
                     .semi-rtl .semi-carousel-indicator-columnar .semi-carousel-indicator-item:not(:last-child), .semi-portal-rtl .semi-carousel-indicator-columnar .semi-carousel-indicator-item:not(:last-child) {
                         margin-right: 0;
                         margin-left: var(--semi-cssvar-spacing-carousel_indicator_columnar-marginX);

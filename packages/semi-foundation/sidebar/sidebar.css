@@ -1,9 +1,3 @@
-
-.semi-sidebar {
-}
-
-    .semi-sidebar-main {
-    }
         .semi-sidebar-main .semi-sidebar-container-content {
             overflow: hidden;
         }
@@ -189,9 +183,6 @@
         .semi-sidebar-mcp-configure-content-custom-empty {
             margin-top: var(--semi-cssvar-spacing-sidebar_mcp_custom_empty-marginTop);
         }
-
-    .semi-sidebar-annotation {
-    }
         .semi-sidebar-annotation .semi-sidebar-container-content {
             padding: var(--semi-cssvar-spacing-sidebar_annotation_container-padding);
             overflow: auto;
@@ -363,10 +354,6 @@
         height: 100%;
     }
 
-    .semi-sidebar-code-content, .semi-sidebar-main-content {
-
-    }
-
         .semi-sidebar-code-content .semi-codeHighlight-defaultTheme pre[class*=language-], .semi-sidebar-main-content .semi-codeHighlight-defaultTheme pre[class*=language-] {
             margin: 0px;
             padding-top: 0px;
@@ -385,10 +372,6 @@
             padding-bottom: 0px;
             background-color: transparent;
         }
-
-    .semi-sidebar-collapse {
-
-    }
 
         .semi-sidebar-collapse .semi-collapse-item {
             border: var(--semi-cssvar-width-sidebar_collapse_item_border) solid var(--semi-cssvar-color-sidebar_collapse_item-border);
@@ -433,15 +416,9 @@
                 width: var(--semi-cssvar-width-sidebar_collapse_header_expand_btn);
                 height: var(--semi-cssvar-width-sidebar_collapse_header_expand_btn);
             }
-
-        .semi-sidebar-collapse .semi-collapse-item-active {
-        }
             .semi-sidebar-collapse .semi-collapse-item-active .semi-collapsible-wrapper {
                 border-top: var(--semi-cssvar-width-sidebar_collapse_item_content-borderTop) solid var(--semi-cssvar-color-sidebar_collapse_item_content-borderTop);
             }
-
-        .semi-sidebar-collapse-code {
-        }
             .semi-sidebar-collapse-code .semi-collapse-content {
                 padding: 12px 0px;
             }
@@ -454,23 +431,13 @@
         padding: var(--semi-cssvar-spacing-sidebar_options-paddingY) var(--semi-cssvar-spacing-sidebar_options-paddingX);
         border-bottom: var(--semi-cssvar-width-sidebar_options-borderBottom) solid var(--semi-cssvar-color-sidebar_options-borderBottom)
     }
-
-        .semi-sidebar-options-button {
-        }
             .semi-sidebar-options-button .semi-button-content-right {
                 margin-left: var(--semi-cssvar-spacing-sidebar_options_button-marginLeft);
             }
-
-        .semi-sidebar-options-normal {
-        }
             .semi-sidebar-options-normal.semi-button-primary.semi-button-light {
                 color: var(--semi-cssvar-color-sidebar_options_button-text);
                 font-weight: var(--semi-cssvar-font-weight-regular);
             }
-
-    .semi-sidebar-file {
-
-    }
         
         .semi-sidebar-file .tiptap {
             font-size: var(--semi-cssvar-font-sidebar_file-fontSize);
@@ -548,12 +515,6 @@
             .semi-sidebar-file .tiptap.ProseMirror img:not([data-type="emoji"] img).ProseMirror-selectednode {
                 outline-color: var(--semi-color-text-0);
             }
-
-            .semi-sidebar-file .tiptap .tiptap-image-slot {
-                
-            }
-                .semi-sidebar-file .tiptap .tiptap-image-slot .uploadFail, .semi-sidebar-file .tiptap .tiptap-image-slot .validateFail, .semi-sidebar-file .tiptap .tiptap-image-slot .uploading, .semi-sidebar-file .tiptap .tiptap-image-slot .success {
-                }
                     .semi-sidebar-file .tiptap .tiptap-image-slot .uploadFail .semi-upload-drag-area, .semi-sidebar-file .tiptap .tiptap-image-slot .validateFail .semi-upload-drag-area, .semi-sidebar-file .tiptap .tiptap-image-slot .uploading .semi-upload-drag-area, .semi-sidebar-file .tiptap .tiptap-image-slot .success .semi-upload-drag-area {
                         display: none;
                     }
@@ -579,13 +540,6 @@
                 margin: var(--semi-cssvar-spacing-sidebar_menu_bar_divider-margin);
             }
 
-            .semi-sidebar-file-menu-bar-btn {
-
-            }
-
-                .semi-sidebar-file-menu-bar-btn-active {
-                }
-
                     .semi-sidebar-file-menu-bar-btn-active.semi-button-tertiary.semi-button-borderless {
                         background: var(--semi-cssvar-color-sidebar_menu_bar_btn-active-bg);
                     }
@@ -603,15 +557,9 @@
                 justify-content: center
             }
 
-                .semi-sidebar-file-menu-bar-link-dropdown-btn-active {  
-                }
-
                     .semi-sidebar-file-menu-bar-link-dropdown-btn-active.semi-button-tertiary.semi-button-borderless {
                         color: var(--semi-cssvar-color-sidebar_menu_bar_link_dropdown_btn-active);
                     }
-
-    .semi-sidebar-detail {
-    }
         .semi-sidebar-detail .semi-sidebar-file {
             height: 100%;
             display: flex;
@@ -632,27 +580,14 @@
             overflow: auto;
         }
 
-    .semi-sidebar-main {
-
-        
-    }
-
         .semi-sidebar-main .semi-sidebar-code-content {
             height: 200px;
             overflow: auto;
-        }
-
-        .semi-sidebar-main .semi-sidebar-collapse-file {
         }
             .semi-sidebar-main .semi-sidebar-collapse-file .semi-collapse-content {
                 max-height: var(--semi-cssvar-height-sidebar_main_collapse_file_content-maxHeight);
                 overflow: auto;
             }
-
-
-
-        .semi-sidebar-main .semi-sidebar-collapse-code {
-        }
             .semi-sidebar-main .semi-sidebar-collapse-code .semi-collapse-content {
                 max-height: var(--semi-cssvar-height-sidebar_main_collapse_code_content-maxHeight);
                 overflow: auto;

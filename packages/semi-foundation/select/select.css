@@ -362,15 +362,9 @@
         .semi-select-multiple .semi-select-inline-label-wrapper {
             flex-shrink: 0;
         }
-
-    .semi-select-multiple.semi-select-large {
-    }
         .semi-select-multiple.semi-select-large .semi-select-content-wrapper {
             min-height: calc(var(--semi-cssvar-height-select_large) - 2 * var(--semi-cssvar-width-select-border));
         }
-
-    .semi-select-multiple.semi-select-small {
-    }
         .semi-select-multiple.semi-select-small .semi-select-content-wrapper {
             min-height: calc(var(--semi-cssvar-height-select_small) - 2 * var(--semi-cssvar-width-select-border));
         }
@@ -487,17 +481,12 @@
 }
 
 /* 多选且可输入*/
-.semi-select-multiple.semi-select-filterable {
-}
     .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper {
         flex-grow: 1;
         height: 100%;
         overflow: hidden;
         position: relative
     }
-
-        .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper:not(.semi-select-content-wrapper-empty) {
-        }
             .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper:not(.semi-select-content-wrapper-empty) .semi-input-wrapper {
                 height: var(--semi-cssvar-height-select_multiple_input_default);
                 line-height: var(--semi-cssvar-height-select_multiple_input_default)
@@ -505,9 +494,6 @@
                 .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper:not(.semi-select-content-wrapper-empty) .semi-input-wrapper .semi-input-default {
                     height: var(--semi-cssvar-height-select_multiple_input_default);
                 }
-
-        .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper-empty {
-        }
             .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper-empty .semi-input-wrapper {
                 position: absolute;
                 top: 0;
@@ -577,8 +563,6 @@
     overflow-x: hidden;
     overflow-y: auto
 }
-    .semi-select-option-list-chosen {
-    }
         .semi-select-option-list-chosen .semi-select-option-icon {
             display: flex;
         }
@@ -662,10 +646,6 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-select, .semi-portal-rtl .semi-select {
         direction: rtl
     }
@@ -675,29 +655,17 @@
             margin-right: var(--semi-cssvar-spacing-select_selection-marginLeft)
         }
 
-            .semi-rtl .semi-select-selection .semi-tag, .semi-portal-rtl .semi-select-selection .semi-tag {
-            }
-
                 .semi-rtl .semi-select-selection .semi-tag:nth-of-type(1), .semi-portal-rtl .semi-select-selection .semi-tag:nth-of-type(1) {
                     margin-right: 0;
                 }
-
-            .semi-rtl .semi-select-selection .semi-tag-group, .semi-portal-rtl .semi-select-selection .semi-tag-group {
-            }
                 .semi-rtl .semi-select-selection .semi-tag-group .semi-tag, .semi-portal-rtl .semi-select-selection .semi-tag-group .semi-tag {
                     margin-left: var(--semi-cssvar-spacing-select_tag-marginRight);
                     margin-right: 0;
                 }
                     /* rtl override mixin*/
-
-        .semi-rtl .semi-select-multiple, .semi-portal-rtl .semi-select-multiple {
-        }
             .semi-rtl .semi-select-multiple .semi-select-selection, .semi-portal-rtl .semi-select-multiple .semi-select-selection {
                 margin-left: 0;
                 margin-right: var(--semi-cssvar-spacing-select_multiple_selection-marginLeft);
-            }
-
-            .semi-rtl .semi-select-multiple .semi-select-content-wrapper, .semi-portal-rtl .semi-select-multiple .semi-select-content-wrapper {
             }
 
                 .semi-rtl .semi-select-multiple .semi-select-content-wrapper-empty, .semi-portal-rtl .semi-select-multiple .semi-select-content-wrapper-empty {
@@ -709,30 +677,18 @@
             margin-right: 0;
             margin-left: var(--semi-cssvar-spacing-select_create_tips-marginRight);
         }
-
-    .semi-rtl .semi-select-with-prefix, .semi-portal-rtl .semi-select-with-prefix {
-    }
         .semi-rtl .semi-select-with-prefix .semi-select-selection, .semi-portal-rtl .semi-select-with-prefix .semi-select-selection {
             margin-left: auto;
             margin-right: 0;
         }
 
     /* 单选且可输入*/
-    .semi-rtl .semi-select-single.semi-select-filterable, .semi-portal-rtl .semi-select-single.semi-select-filterable {
-    }
         .semi-rtl .semi-select-single.semi-select-filterable .semi-input-wrapper, .semi-portal-rtl .semi-select-single.semi-select-filterable .semi-input-wrapper {
             left: auto;
             right: 0;
         }
 
     /* 多选且可输入*/
-    .semi-rtl .semi-select-multiple.semi-select-filterable, .semi-portal-rtl .semi-select-multiple.semi-select-filterable {
-    }
-        .semi-rtl .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper, .semi-portal-rtl .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper {
-        }
-
-            .semi-rtl .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper-empty, .semi-portal-rtl .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper-empty {
-            }
                 .semi-rtl .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper-empty .semi-input-wrapper, .semi-portal-rtl .semi-select-multiple.semi-select-filterable .semi-select-content-wrapper-empty .semi-input-wrapper {
                     left: auto;
                     right: 0;
@@ -741,9 +697,6 @@
     .semi-rtl .semi-select-group, .semi-portal-rtl .semi-select-group {
         padding-left: var(--semi-cssvar-spacing-select_group-paddingLeft);
         padding-right: var(--semi-cssvar-spacing-select_group-paddingRight);
-    }
-
-    .semi-rtl .semi-select-option, .semi-portal-rtl .semi-select-option {
     }
 
         .semi-rtl .semi-select-option-icon, .semi-portal-rtl .semi-select-option-icon {

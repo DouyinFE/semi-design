@@ -4,9 +4,6 @@
 /* @import '../theme/variables.scss';*/
 /* @import './variables.scss';*/
 
-.semi-table-panel {
-}
-
     .semi-table-panel-operation {
         background-color: var(--semi-cssvar-color-table_panel-bg-default);
         padding-left: var(--semi-cssvar-spacing-table_panel_operation-paddingX);
@@ -26,9 +23,6 @@
         .semi-table-panel-operation-selected {
             color: var(--semi-cssvar-color-table_panel-text-default);
         }
-
-.semi-table-pagination {
-}
 
     .semi-table-pagination-info {
     font-size: var(--semi-cssvar-font-size-regular);
@@ -78,16 +72,10 @@
             .semi-table-wrapper-ltr .semi-spin {
                 direction: ltr;
             }
-
-    .semi-table-middle {
-    }
         .semi-table-middle .semi-table-tbody > .semi-table-row > .semi-table-row-cell {
             padding-top: var(--semi-cssvar-spacing-table_middle-paddingY);
             padding-bottom: var(--semi-cssvar-spacing-table_middle-paddingY);
         }
-
-    .semi-table-small {
-    }
         .semi-table-small .semi-table-tbody > .semi-table-row > .semi-table-row-cell {
             padding-top: var(--semi-cssvar-spacing-table_small-paddingY);
             padding-bottom: var(--semi-cssvar-spacing-table_small-paddingY);
@@ -127,15 +115,9 @@
         .semi-table-header-hidden {
             height: 0;
         }
-
-    .semi-table-align-center {
-    }
         .semi-table-align-center .semi-table-operate-wrapper {
             justify-content: center;
         }
-
-    .semi-table-align-right {
-    }
         .semi-table-align-right .semi-table-operate-wrapper {
             justify-content: flex-end;
         }
@@ -157,16 +139,9 @@
         .semi-table-colgroup .semi-table-col {
             display: table-column;
         }
-        .semi-table-colgroup .semi-table-column {
-        }
             .semi-table-colgroup .semi-table-column-expand, .semi-table-colgroup .semi-table-column-selection {
                 width: var(--semi-cssvar-width-table_column_selection);
             }
-
-    .semi-table-thead {
-    }
-        .semi-table-thead > .semi-table-row {
-        }
             .semi-table-thead > .semi-table-row > .semi-table-row-head {
                 background-color: var(--semi-cssvar-color-table_th-bg-default);
                 color: var(--semi-cssvar-color-table_th-text-default);
@@ -201,9 +176,6 @@
                         /*         }*/
                         /*     }*/
                         /* }*/
-
-                .semi-table-thead > .semi-table-row > .semi-table-row-head.semi-table-cell-fixed {
-                }
                     .semi-table-thead > .semi-table-row > .semi-table-row-head.semi-table-cell-fixed-left, .semi-table-thead > .semi-table-row > .semi-table-row-head.semi-table-cell-fixed-right {
                         z-index: var(--semi-cssvar-z-table_fixed_column);
                         position: sticky;
@@ -231,9 +203,6 @@
     border-right: var(--semi-cssvar-width-table_resizer_border) solid var(--semi-cssvar-color-table_resizer-bg-default);
                         }
 
-    .semi-table-thead > .semi-table-row > .semi-table-row-head.semi-table-cell-fixed-left-last.resizing .react-resizable-handle {
-    }
-
         .semi-table-thead > .semi-table-row > .semi-table-row-head.semi-table-cell-fixed-left-last.resizing .react-resizable-handle:hover {
             background-color: unset;
         }
@@ -246,9 +215,6 @@
                         .semi-table-thead > .semi-table-row > .semi-table-row-head.semi-table-cell-fixed-right-first.resizing {
     border-right: var(--semi-cssvar-width-table_resizer_border) solid var(--semi-cssvar-color-table_resizer-bg-default);
                         }
-
-    .semi-table-thead > .semi-table-row > .semi-table-row-head.semi-table-cell-fixed-right-first.resizing .react-resizable-handle {
-    }
 
         .semi-table-thead > .semi-table-row > .semi-table-row-head.semi-table-cell-fixed-right-first.resizing .react-resizable-handle:hover {
             background-color: unset;
@@ -295,9 +261,6 @@
     border-right: var(--semi-cssvar-width-table_resizer_border) solid var(--semi-cssvar-color-table_resizer-bg-default);
             }
 
-    .semi-table-thead > .semi-table-row .resizing .react-resizable-handle {
-    }
-
         .semi-table-thead > .semi-table-row .resizing .react-resizable-handle:hover {
             background-color: unset;
         }
@@ -327,31 +290,20 @@
 
             /* Programmatic hover state (e.g. rowSpanHover feature)*/
             /* Keep visual effect consistent with native :hover*/
-            .semi-table-tbody > .semi-table-row.semi-table-row-hovered {
-            }
                 .semi-table-tbody > .semi-table-row.semi-table-row-hovered > .semi-table-row-cell {
                     background-image: linear-gradient(0deg, var(--semi-cssvar-color-table_body-bg-hover), var(--semi-cssvar-color-table_body-bg-hover));
                     background-color: var(--semi-cssvar-color-table_cell-bg-hover)
                 }
-
-                    .semi-table-tbody > .semi-table-row.semi-table-row-hovered > .semi-table-row-cell.semi-table-cell-fixed {
-                    }
                         .semi-table-tbody > .semi-table-row.semi-table-row-hovered > .semi-table-row-cell.semi-table-cell-fixed-left, .semi-table-tbody > .semi-table-row.semi-table-row-hovered > .semi-table-row-cell.semi-table-cell-fixed-right {
                             background-image: linear-gradient(0deg, var(--semi-cssvar-color-table_body-bg-hover), var(--semi-cssvar-color-table_body-bg-hover));
                             background-color: var(--semi-cssvar-color-table_body-bg-default);
                         }
-
-            .semi-table-tbody > .semi-table-row:hover {
-            }
                 .semi-table-tbody > .semi-table-row:hover > .semi-table-row-cell {
                     background-image: linear-gradient(0deg, var(--semi-cssvar-color-table_body-bg-hover), var(--semi-cssvar-color-table_body-bg-hover));
                     background-color: var(--semi-cssvar-color-table_cell-bg-hover)
                 }
                     /* $color-table_body-bg-hover has transparency，will reveal the background color $color-table_body-bg-default\*/
                     /* combine background-image and background-color to make the non-fixed column color does not show through the bottom color*/
-
-                    .semi-table-tbody > .semi-table-row:hover > .semi-table-row-cell.semi-table-cell-fixed {
-                    }
                         .semi-table-tbody > .semi-table-row:hover > .semi-table-row-cell.semi-table-cell-fixed-left, .semi-table-tbody > .semi-table-row:hover > .semi-table-row-cell.semi-table-cell-fixed-right {
                             background-image: linear-gradient(0deg, var(--semi-cssvar-color-table_body-bg-hover), var(--semi-cssvar-color-table_body-bg-hover));
                             background-color: var(--semi-cssvar-color-table_body-bg-default);
@@ -392,19 +344,12 @@
     text-overflow: ellipsis;
     white-space: nowrap;
                 }
-            .semi-table-tbody > .semi-table-row.semi-table-row {
-            }
-                .semi-table-tbody > .semi-table-row.semi-table-row-expand {
-                }
                     .semi-table-tbody > .semi-table-row.semi-table-row-expand > .semi-table-row-cell {
                         background-color: var(--semi-cssvar-color-table_row_expanded-bg-default);
                     }
                 .semi-table-tbody > .semi-table-row.semi-table-row-hidden {
                     display: none;
                 }
-
-            .semi-table-tbody > .semi-table-row > .semi-table-cell-fixed {
-            }
                 .semi-table-tbody > .semi-table-row > .semi-table-cell-fixed-left, .semi-table-tbody > .semi-table-row > .semi-table-cell-fixed-right {
                     z-index: var(--semi-cssvar-z-table_fixed_column);
                     position: sticky;
@@ -463,17 +408,11 @@
                 align-items: center;
                 overflow: hidden;
             }
-
-            .semi-table-virtualized .semi-table-tbody > .semi-table-row-section {
-            }
                 .semi-table-virtualized .semi-table-tbody > .semi-table-row-section > .semi-table-row-cell {
                     padding-top: var(--semi-cssvar-spacing-table-paddingY);
                     padding-bottom: var(--semi-cssvar-spacing-table-paddingY);
                     display: flex;
                 }
-
-            .semi-table-virtualized .semi-table-tbody > .semi-table-row-expand {
-            }
                 .semi-table-virtualized .semi-table-tbody > .semi-table-row-expand > .semi-table-row-cell {
                     padding: 0;
                     overflow: unset;
@@ -484,9 +423,6 @@
         padding: var(--semi-cssvar-spacing-table_footer-padding);
         margin: 0;
         position: relative;
-    }
-
-    .semi-table .semi-table-selection {
     }
         .semi-table .semi-table-selection-wrap {
             display: inline-flex;
@@ -501,9 +437,6 @@
             .semi-table .semi-table-selection-disabled > .semi-checkbox {
                 pointer-events: none;
             }
-
-    .semi-table .semi-table-column {
-    }
         .semi-table .semi-table-column-hidden {
             display: none;
         }
@@ -512,16 +445,10 @@
             text-align: center
         }
             /* width: $width-table_column_selection;*/
-
-            .semi-table .semi-table-column-selection .semi-checkbox-inner-display {
-            }
                 .semi-table .semi-table-column-selection .semi-checkbox-inner-display .semi-icon {
                     left: 0;
                     top: 0;
                 }
-
-        .semi-table .semi-table-column-expand {
-        }
             .semi-table .semi-table-column-expand .semi-table-expand-icon {
                 transform: translateY(2px)
             }
@@ -560,9 +487,6 @@
                     width: var(--semi-cssvar-width-table_column_sorter-icon);
                     height: var(--semi-cssvar-height-table_column_sorter-icon);
                 }
-
-                .semi-table .semi-table-column-sorter-up.on, .semi-table .semi-table-column-sorter-down.on {
-                }
                     .semi-table .semi-table-column-sorter-up.on .semi-icon-caretup, .semi-table .semi-table-column-sorter-down.on .semi-icon-caretup, .semi-table .semi-table-column-sorter-up.on .semi-icon-caretdown, .semi-table .semi-table-column-sorter-down.on .semi-icon-caretdown {
                         color: var(--semi-cssvar-color-table_sorter_on-text-default);
                     }
@@ -584,9 +508,6 @@
             .semi-table .semi-table-column-filter.on {
                 color: var(--semi-cssvar-color-table_filter_on-text-default);
             }
-
-    .semi-table-bordered {
-    }
         .semi-table-bordered > .semi-table-title {
             padding-left: var(--semi-cssvar-spacing-table_bordered_titler-paddingLeft);
             padding-right: var(--semi-cssvar-spacing-table_bordered_titler-paddingRight);
@@ -600,13 +521,6 @@
             border-right: 0;
             border-bottom: 0;
         }
-
-        :where(.semi-table-bordered) {
-        }
-            :where(.semi-table-bordered) > .semi-table-container {
-            }
-                :where(.semi-table-bordered) > .semi-table-container >  .semi-table-header {
-                }
                     :where(.semi-table-bordered) > .semi-table-container >  .semi-table-header::-webkit-scrollbar {
                         border-right: var(--semi-cssvar-width-table_base_border) var(--semi-cssvar-border-table_base-borderStyle) var(--semi-cssvar-color-table-border-default);
                     }
@@ -622,10 +536,6 @@
         /* last column cell border (which is scrollable). Draw an overlay right border on the container to keep it visible.*/
         /* When scrolled to the far right, `.semi-table-scroll-position-right` exists and we should not draw it to avoid*/
         /* double borders.*/
-        .semi-table-bordered:not(.semi-table-scroll-position-right) {
-        }
-            .semi-table-bordered:not(.semi-table-scroll-position-right) > .semi-table-container {
-            }
                 .semi-table-bordered:not(.semi-table-scroll-position-right) > .semi-table-container::after {
                     content: '';
                     position: absolute;
@@ -649,16 +559,8 @@
                     /* Sass >=1.55 treats `inset -$width-...` as the binary expression*/
                     /* `inset - $width-...` (strict-unary deprecation), which compiles to the*/
                     /* broken value `inset-1px` (no space) and breaks the box-shadow.*/
-
-        :where(.semi-table-bordered > .semi-table-container) {
-        }
             :where(.semi-table-bordered > .semi-table-container) > .semi-table-body > .semi-table-placeholder {
                 border-right: var(--semi-cssvar-width-table_base_border) var(--semi-cssvar-border-table_base-borderStyle) var(--semi-cssvar-color-table-border-default);
-            }
-
-        :where(.semi-table-bordered > .semi-table-container > .semi-table-body) {
-        }
-            :where(.semi-table-bordered > .semi-table-container > .semi-table-body) > .semi-table > .semi-table-thead > .semi-table-row > .semi-table-row-head {
             }
                 :where(.semi-table-bordered > .semi-table-container > .semi-table-body) > .semi-table > .semi-table-thead > .semi-table-row > .semi-table-row-head .react-resizable-handle {
                     background-color: transparent;
@@ -667,9 +569,6 @@
             :where(.semi-table-bordered > .semi-table-container > .semi-table-body) > .semi-table > .semi-table-thead > .semi-table-row > .semi-table-row-head, :where(.semi-table-bordered > .semi-table-container > .semi-table-body) > .semi-table > .semi-table-tbody > .semi-table-row > .semi-table-row-cell {
                 border-right: var(--semi-cssvar-width-table_base_border) var(--semi-cssvar-border-table_base-borderStyle) var(--semi-cssvar-color-table-border-default);
             }
-
-        :where(.semi-table-bordered > .semi-table-container > .semi-table-header) {
-        }
             :where(.semi-table-bordered > .semi-table-container > .semi-table-header) > .semi-table > .semi-table-thead > .semi-table-row > .semi-table-row-head {
                 border-right: var(--semi-cssvar-width-table_base_border) var(--semi-cssvar-border-table_base-borderStyle) var(--semi-cssvar-color-table-border-default)
             }
@@ -697,9 +596,6 @@
         table-layout: fixed;
         min-width: 100%
     }
-
-        .semi-table-fixed > .semi-table-tbody {
-        }
             .semi-table-fixed > .semi-table-tbody > .semi-table-row-expand > .semi-table-row-cell > .semi-table-expand-inner, .semi-table-fixed > .semi-table-tbody > .semi-table-row-section > .semi-table-row-cell > .semi-table-section-inner {
                 position: sticky;
                 overflow: auto;
@@ -714,28 +610,12 @@
             }
 
         /* when header is fixed, table should use `table-layout: fixed` to avoid align bug*/
-        .semi-table-fixed-header {
-        }
             .semi-table-fixed-header table {
                 table-layout: fixed;
             }
-
-    .semi-table-scroll {
-    }
-        .semi-table-scroll-position {
-        }
-            .semi-table-scroll-position-left {
-            }
-                .semi-table-scroll-position-left .semi-table-tbody, .semi-table-scroll-position-left .semi-table-thead {
-                }
                     .semi-table-scroll-position-left .semi-table-tbody > .semi-table-row > .semi-table-cell-fixed-left-last, .semi-table-scroll-position-left .semi-table-thead > .semi-table-row > .semi-table-cell-fixed-left-last {
                         box-shadow: none;
                     }
-
-            .semi-table-scroll-position-right {
-            }
-                .semi-table-scroll-position-right .semi-table-tbody, .semi-table-scroll-position-right .semi-table-thead {
-                }
                     .semi-table-scroll-position-right .semi-table-tbody > .semi-table-row > .semi-table-cell-fixed-right-first, .semi-table-scroll-position-right .semi-table-thead > .semi-table-row > .semi-table-cell-fixed-right-first {
                         box-shadow: none;
                     }
@@ -781,36 +661,19 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-table-wrapper-rtl {
-}
     .semi-table-wrapper-rtl .semi-table {
         direction: rtl;
         text-align: right
     }
-
-        .semi-table-wrapper-rtl .semi-table-align-left {
-        }
             .semi-table-wrapper-rtl .semi-table-align-left .semi-table-operate-wrapper {
                 justify-content: flex-end;
             }
-
-        .semi-table-wrapper-rtl .semi-table-align-right {
-        }
             .semi-table-wrapper-rtl .semi-table-align-right .semi-table-operate-wrapper {
                 justify-content: flex-start;
-            }
-
-        .semi-table-wrapper-rtl .semi-table-thead {
-        }
-            .semi-table-wrapper-rtl .semi-table-thead > .semi-table-row {
             }
                 .semi-table-wrapper-rtl .semi-table-thead > .semi-table-row > .semi-table-row-head {
                     text-align: right
                 }
-
-                    .semi-table-wrapper-rtl .semi-table-thead > .semi-table-row > .semi-table-row-head.semi-table-cell-fixed {
-                    }
 
                         .semi-table-wrapper-rtl .semi-table-thead > .semi-table-row > .semi-table-row-head.semi-table-cell-fixed-left-last {
                             border-right: 0;
@@ -848,18 +711,11 @@
         .semi-table-wrapper-rtl .semi-table-tbody {
             display: table-row-group
         }
-            .semi-table-wrapper-rtl .semi-table-tbody > .semi-table-row {
-            }
-                .semi-table-wrapper-rtl .semi-table-tbody > .semi-table-row > .semi-table-row-cell {
-                }
 
                     .semi-table-wrapper-rtl .semi-table-tbody > .semi-table-row > .semi-table-row-cell.resizing {
                         border-right: 0;
                         border-left: var(--semi-cssvar-width-table_resizer_border) solid var(--semi-cssvar-color-table_resizer-bg-default);
                     }
-
-                .semi-table-wrapper-rtl .semi-table-tbody > .semi-table-row > .semi-table-cell-fixed {
-                }
 
                     .semi-table-wrapper-rtl .semi-table-tbody > .semi-table-row > .semi-table-cell-fixed-left-last {
                         border-right: 0;
@@ -870,21 +726,10 @@
                         border-left: 0;
                         border-right: var(--semi-cssvar-width-table_cell_fixed_right_first) solid var(--semi-cssvar-color-table_shadow-border-default);
                     }
-
-        .semi-table-wrapper-rtl .semi-table .semi-table-column {
-        }
-
-            .semi-table-wrapper-rtl .semi-table .semi-table-column-selection {
-            }
-                .semi-table-wrapper-rtl .semi-table .semi-table-column-selection .semi-checkbox-inner-display {
-                }
                     .semi-table-wrapper-rtl .semi-table .semi-table-column-selection .semi-checkbox-inner-display .semi-icon {
                         left: auto;
                         right: 0;
                     }
-
-            .semi-table-wrapper-rtl .semi-table .semi-table-column-expand {
-            }
                 .semi-table-wrapper-rtl .semi-table .semi-table-column-expand .semi-table-expand-icon {
                     transform: scaleX(-1) translateY(2px)
                 }
@@ -903,9 +748,6 @@
                 margin-left: 0;
                 margin-right: var(--semi-cssvar-spacing-table_column_filter-marginLeft);
             }
-
-        .semi-table-wrapper-rtl .semi-table-bordered {
-        }
             .semi-table-wrapper-rtl .semi-table-bordered .semi-table-container {
                 border-left: 0;
                 border-right: var(--semi-cssvar-width-table_base_border) var(--semi-cssvar-border-table_base-borderStyle) var(--semi-cssvar-color-table-border-default);
@@ -921,9 +763,6 @@
                 border-right: 0;
             }
 
-            .semi-table-wrapper-rtl .semi-table-bordered .semi-table-header {
-            }
-
                 .semi-table-wrapper-rtl .semi-table-bordered .semi-table-header::-webkit-scrollbar {
                     border-right: 0;
                     border-left: var(--semi-cssvar-width-table_base_border) var(--semi-cssvar-border-table_base-borderStyle) var(--semi-cssvar-color-table-border-default);
@@ -933,10 +772,6 @@
             /* the outer left border can be outside of viewport (the real border is rendered by the last column cell).*/
             /* Draw an overlay left border on the container to keep it visible.*/
             /* When scrolled to the far left, `.semi-table-scroll-position-left` exists and we should not draw it.*/
-            .semi-table-wrapper-rtl .semi-table-bordered:not(.semi-table-scroll-position-left) {
-            }
-                .semi-table-wrapper-rtl .semi-table-bordered:not(.semi-table-scroll-position-left) > .semi-table-container {
-                }
                     .semi-table-wrapper-rtl .semi-table-bordered:not(.semi-table-scroll-position-left) > .semi-table-container::after {
                         content: '';
                         position: absolute;
@@ -949,11 +784,6 @@
                         z-index: calc(var(--semi-cssvar-z-table_fixed_column) + 2);
                         pointer-events: none;
                     }
-
-        .semi-table-wrapper-rtl .semi-table-fixed {
-        }
-            .semi-table-wrapper-rtl .semi-table-fixed > .semi-table-tbody {
-            }
                 .semi-table-wrapper-rtl .semi-table-fixed > .semi-table-tbody > .semi-table-row-expand > .semi-table-row-cell > .semi-table-expand-inner, .semi-table-wrapper-rtl .semi-table-fixed > .semi-table-tbody > .semi-table-row-section > .semi-table-row-cell > .semi-table-section-inner {
                     left: auto;
                     right: 0;
@@ -962,26 +792,12 @@
                     padding-right: var(--semi-cssvar-spacing-table_expand_row-paddingLeft);
                     padding-left: var(--semi-cssvar-spacing-table_expand_row-paddingRight);
                 }
-
-        .semi-table-wrapper-rtl .semi-table-scroll {
-        }
-            .semi-table-wrapper-rtl .semi-table-scroll-position {
-            }
-                .semi-table-wrapper-rtl .semi-table-scroll-position-left {
-                }
-                    .semi-table-wrapper-rtl .semi-table-scroll-position-left .semi-table-tbody, .semi-table-wrapper-rtl .semi-table-scroll-position-left .semi-table-thead {
-                    }
                         .semi-table-wrapper-rtl .semi-table-scroll-position-left .semi-table-tbody > .semi-table-row > .semi-table-cell-fixed-left-last, .semi-table-wrapper-rtl .semi-table-scroll-position-left .semi-table-thead > .semi-table-row > .semi-table-cell-fixed-left-last {
                             box-shadow: var(--semi-cssvar-shadow-table_right);
                         }
                         .semi-table-wrapper-rtl .semi-table-scroll-position-left .semi-table-tbody > .semi-table-row > .semi-table-cell-fixed-right-first, .semi-table-wrapper-rtl .semi-table-scroll-position-left .semi-table-thead > .semi-table-row > .semi-table-cell-fixed-right-first {
                             box-shadow: none;
                         }
-    
-                .semi-table-wrapper-rtl .semi-table-scroll-position-right {
-                }
-                    .semi-table-wrapper-rtl .semi-table-scroll-position-right .semi-table-tbody, .semi-table-wrapper-rtl .semi-table-scroll-position-right .semi-table-thead {
-                    }
                         .semi-table-wrapper-rtl .semi-table-scroll-position-right .semi-table-tbody > .semi-table-row > .semi-table-cell-fixed-left-last, .semi-table-wrapper-rtl .semi-table-scroll-position-right .semi-table-thead > .semi-table-row > .semi-table-cell-fixed-left-last {
                             box-shadow: none;
                         }

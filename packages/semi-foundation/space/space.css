@@ -9,8 +9,6 @@
     .semi-space-horizontal {
         flex-direction: row;
     }
-    .semi-space-align {
-    }
         .semi-space-align-center {
             align-items: center;
         }

@@ -98,9 +98,6 @@
         padding: var(--semi-cssvar-spacing-tag_closable-paddingTop) var(--semi-cssvar-spacing-tag_closable-paddingRight) var(--semi-cssvar-spacing-tag_closable-paddingBottom)
             var(--semi-cssvar-spacing-tag_closable-paddingLeft);
     }
-
-    .semi-tag-avatar-square, .semi-tag-avatar-circle {
-    }
         .semi-tag-avatar-square .semi-avatar, .semi-tag-avatar-circle .semi-avatar {
             margin-right: var(--semi-cssvar-spacing-tag_avatar-marginRight);
         }
@@ -109,9 +106,6 @@
         padding: var(--semi-cssvar-spacing-tag_avatar_square-paddingTop) var(--semi-cssvar-spacing-tag_avatar_square-paddingRight)
             var(--semi-cssvar-spacing-tag_avatar_square-paddingBottom) var(--semi-cssvar-spacing-tag_avatar_square-paddingLeft)
     }
-
-        .semi-tag-avatar-square .semi-avatar {
-        }
             .semi-tag-avatar-square .semi-avatar > img {
                 background-color: var(--semi-cssvar-color-tag_avatar_square_img-bg-default);
             }
@@ -120,16 +114,10 @@
         padding: var(--semi-cssvar-spacing-tag_avatar_circle-paddingTop) var(--semi-cssvar-spacing-tag_avatar_circle-paddingRight)
             var(--semi-cssvar-spacing-tag_avatar_circle-paddingBottom) var(--semi-cssvar-spacing-tag_avatar_circle-paddingLeft);
     }
-
-    .semi-tag-avatar-square.semi-tag-default, .semi-tag-avatar-square.semi-tag-small {
-    }
         .semi-tag-avatar-square.semi-tag-default .semi-avatar, .semi-tag-avatar-square.semi-tag-small .semi-avatar {
             width: var(--semi-cssvar-height-tag_small);
             height: var(--semi-cssvar-height-tag_small);
         }
-
-    .semi-tag-avatar-square.semi-tag-large {
-    }
         .semi-tag-avatar-square.semi-tag-large .semi-avatar {
             width: var(--semi-cssvar-height-tag_large);
             height: var(--semi-cssvar-height-tag_large);
@@ -176,11 +164,6 @@
             .semi-tag-colorful.semi-tag-light.semi-tag-gradient { 
                 background: var(--semi-cssvar-color-tag_colorful_light_gradient-bg)
             }
-
-                .semi-tag-colorful.semi-tag-light.semi-tag-gradient .semi-tag-prefix-icon {
-                }
-                    .semi-tag-colorful.semi-tag-light.semi-tag-gradient .semi-tag-prefix-icon svg {
-                    }
                         .semi-tag-colorful.semi-tag-light.semi-tag-gradient .semi-tag-prefix-icon svg stop:nth-child(1) {
                             stop-color: var(--semi-cssvar-color-tag_colorful_light_gradient-1);
                         }
@@ -212,11 +195,6 @@
            .semi-tag-colorful.semi-tag-ghost.semi-tag-gradient { 
                 border: none
             }
-
-                .semi-tag-colorful.semi-tag-ghost.semi-tag-gradient .semi-tag-prefix-icon {
-                }
-                    .semi-tag-colorful.semi-tag-ghost.semi-tag-gradient .semi-tag-prefix-icon svg {
-                    }
                         .semi-tag-colorful.semi-tag-ghost.semi-tag-gradient .semi-tag-prefix-icon svg stop:nth-child(1) {
                             stop-color: var(--semi-cssvar-color-tag_colorful_ghost_gradient-1);
                         }
@@ -232,9 +210,6 @@
                         .semi-tag-colorful.semi-tag-ghost.semi-tag-gradient .semi-tag-prefix-icon svg stop:nth-child(4) {
                             stop-color: var(--semi-cssvar-color-tag_colorful_ghost_gradient-4);
                         }
-
-                .semi-tag-colorful.semi-tag-ghost.semi-tag-gradient.semi-tag-circle {
-                }
                     .semi-tag-colorful.semi-tag-ghost.semi-tag-gradient.semi-tag-circle::before {
                         border-radius: var(--semi-cssvar-radius-tag_circle);
                     }
@@ -559,9 +534,6 @@
             border-bottom-right-radius: var(--semi-cssvar-radius-tag);
             margin-right: unset;
         }
-
-        .semi-tag-split .semi-tag-circle {
-        }
             .semi-tag-split .semi-tag-circle.semi-tag-first {
                 border-top-left-radius: var(--semi-cssvar-radius-tag_circle);
                 border-bottom-left-radius: var(--semi-cssvar-radius-tag_circle);
@@ -574,10 +546,6 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-tag, .semi-portal-rtl .semi-tag {
         direction: rtl
     }
@@ -589,9 +557,6 @@
 
         .semi-rtl .semi-tag-closable, .semi-portal-rtl .semi-tag-closable {
             padding: var(--semi-cssvar-spacing-tag_closable-paddingTop) var(--semi-cssvar-spacing-tag_closable-paddingLeft) var(--semi-cssvar-spacing-tag_closable-paddingBottom) var(--semi-cssvar-spacing-tag_closable-paddingRight);
-        }
-
-        .semi-rtl .semi-tag-avatar-square, .semi-portal-rtl .semi-tag-avatar-square, .semi-rtl .semi-tag-avatar-circle, .semi-portal-rtl .semi-tag-avatar-circle {
         }
             .semi-rtl .semi-tag-avatar-square .semi-avatar, .semi-portal-rtl .semi-tag-avatar-square .semi-avatar, .semi-rtl .semi-tag-avatar-circle .semi-avatar, .semi-portal-rtl .semi-tag-avatar-circle .semi-avatar {
                 margin-right: auto;

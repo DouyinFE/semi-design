@@ -346,17 +346,9 @@
 /* ============================================================*/
 
 /* sideSheet 挂载在 body 下，无法直接使用 .semi-rtl*/
-.semi-sidesheet {
-}
-
-    .semi-sidesheet-inner {
-    }
         .semi-sidesheet-rtl .semi-sidesheet-inner {
             direction: rtl;
         }
-
-    .semi-sidesheet-title {
-    }
         .semi-sidesheet-rtl .semi-sidesheet-title {
             text-align: right;
         }

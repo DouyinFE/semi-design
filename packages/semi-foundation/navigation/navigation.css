@@ -130,9 +130,6 @@
     .semi-navigation-sub-wrap > .semi-navigation-item-inner {
         width: 100%;
     }
-
-    .semi-navigation-sub-wrap .semi-navigation-sub-title {
-    }
         .semi-navigation-sub-wrap .semi-navigation-sub-title > .semi-navigation-item-inner {
             display: flex;
         }
@@ -151,9 +148,6 @@
 
     .semi-navigation .semi-navigation-sub-title {
         margin-bottom: var(--semi-cssvar-spacing-navigation_sub_title-marginBottom);
-    }
-
-    .semi-navigation-item-icon {
     }
         /*display: inline-flex;*/
         /*color: $color-navigation_itemL1_icon-default;*/
@@ -212,9 +206,6 @@
 
     .semi-navigation-inner > .semi-navigation-item {
         color: var(--semi-cssvar-color-navigation_itemL1-text-default);
-    }
-
-    .semi-navigation-item-normal:hover {
     }
         .semi-navigation-item-normal:hover:not(.semi-navigation-item-selected) {
     background-color: var(--semi-cssvar-color-navigation_itemL1-bg-hover);
@@ -334,11 +325,6 @@
             /*& > .#{$module}-item-icon:first-child {*/
             /*    margin-left: $width-navigation_icon_text_between;*/
             /*}*/
-
-            .semi-navigation-sub .semi-navigation-item:hover {
-            }
-                .semi-navigation-sub .semi-navigation-item:hover:not(.semi-navigation-sub-wrap) {
-                }
                     .semi-navigation-sub .semi-navigation-item:hover:not(.semi-navigation-sub-wrap):not(.semi-navigation-item-selected):not(.semi-navigation-item-disabled) {
     background-color: var(--semi-cssvar-color-navigation_itemL1-bg-hover);
     color: var(--semi-cssvar-color-navigation_itemL1-text-hover);
@@ -366,11 +352,6 @@
     .semi-navigation-sub .semi-navigation-item:hover.semi-navigation-item-selected .semi-navigation-item-icon:first-child {
         color: var(--semi-cssvar-color-navigation_itemL1_selected_icon-default);
     }
-
-            .semi-navigation-sub .semi-navigation-item:active {
-            }
-                .semi-navigation-sub .semi-navigation-item:active:not(.semi-navigation-sub-wrap) {
-                }
                     .semi-navigation-sub .semi-navigation-item:active:not(.semi-navigation-sub-wrap):not(.semi-navigation-item-selected):not(.semi-navigation-item-disabled) {
     background-color: var(--semi-cssvar-color-navigation_itemL1-bg-active);
     color: var(--semi-cssvar-color-navigation_itemL1-text-active);
@@ -440,8 +421,6 @@
     }
 
 /* Header、Footer-Common */
-.semi-navigation {
-}
 
     .semi-navigation-header {
         display: inline-flex;
@@ -487,15 +466,9 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-
-.semi-navigation-collapsed {
-}
     .semi-navigation-collapsed .semi-navigation-header {
         justify-content: center
     }
-
-        .semi-navigation-collapsed .semi-navigation-header .semi-navigation-header {
-        }
 
             .semi-navigation-collapsed .semi-navigation-header .semi-navigation-header-logo {
                 margin-right: 0;
@@ -514,20 +487,9 @@
             }
 
 /* 垂直模式特有的样式*/
-.semi-navigation-vertical {
-}
-    .semi-navigation-vertical .semi-navigation {
-    }
-        .semi-navigation-vertical .semi-navigation-list > .semi-navigation-item-selected:not(.semi-navigation-item-disabled) {
-        }
-            .semi-navigation-vertical .semi-navigation-list > .semi-navigation-item-selected:not(.semi-navigation-item-disabled).semi-navigation-item-normal:hover {
-            }
                 .semi-navigation-vertical .semi-navigation-list > .semi-navigation-item-selected:not(.semi-navigation-item-disabled).semi-navigation-item-normal:hover .semi-navigation-item-icon:first-child {
                     color: var(--semi-cssvar-color-navigation_itemL1_selected_icon-default);
                 }
-
-        .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap {
-        }
             .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap > .semi-navigation-sub-title {
                 color: var(--semi-cssvar-color-navigation_itemL1-text-default);
                 background-color: var(--semi-cssvar-color-navigation_itemL1-bg-default)
@@ -566,9 +528,6 @@
     .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap > .semi-navigation-sub-title-disabled .semi-navigation-item-icon, .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap > .semi-navigation-sub-title-disabled .semi-navigation-item-icon:first-child {
         color: var(--semi-cssvar-color-navigation_itemL1_disabled_icon-default);
     }
-
-                .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap > .semi-navigation-sub-title:hover {
-                }
                     .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap > .semi-navigation-sub-title:hover:not(.semi-navigation-sub-title-selected) {
     background-color: var(--semi-cssvar-color-navigation_itemL1-bg-hover);
     color: var(--semi-cssvar-color-navigation_itemL1-text-hover);
@@ -585,9 +544,6 @@
     .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap > .semi-navigation-sub-title:hover.semi-navigation-sub-title-selected .semi-navigation-item-icon:first-child {
         color: var(--semi-cssvar-color-navigation_itemL1_selected_icon-default);
     }
-
-                .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap > .semi-navigation-sub-title:active {
-                }
                     .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap > .semi-navigation-sub-title:active:not(.semi-navigation-sub-title-selected) {
     background-color: var(--semi-cssvar-color-navigation_itemL1-bg-active);
     color: var(--semi-cssvar-color-navigation_itemL1-text-active);
@@ -604,11 +560,6 @@
     .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap > .semi-navigation-sub-title:active.semi-navigation-sub-title-selected .semi-navigation-item-icon:first-child {
         color: var(--semi-cssvar-color-navigation_itemL1_selected_icon-default);
     }
-
-                .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap > .semi-navigation-sub-title:hover, .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap > .semi-navigation-sub-title:active {
-                }
-                    .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap > .semi-navigation-sub-title:hover.semi-navigation-sub-title-disabled, .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap > .semi-navigation-sub-title:active.semi-navigation-sub-title-disabled {
-                    }
                         .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap > .semi-navigation-sub-title:hover.semi-navigation-sub-title-disabled:not(.semi-navigation-sub-title-selected), .semi-navigation-vertical .semi-navigation-list > .semi-navigation-sub-wrap > .semi-navigation-sub-title:active.semi-navigation-sub-title-disabled:not(.semi-navigation-sub-title-selected) {
     background-color: var(--semi-cssvar-color-navigation_itemL1_disabled-bg-default);
     color: var(--semi-cssvar-color-navigation_itemL1_disabled-text-default);
@@ -629,10 +580,6 @@
     }
 
         /* 兼容 renderWrapper 的场景，详见 issue: https://github.com/DouyinFE/semi-design/issues/2690*/
-        .semi-navigation-vertical .semi-navigation-list  .semi-navigation-sub-wrap {
-        }
-            .semi-navigation-vertical .semi-navigation-list  .semi-navigation-sub-wrap > .semi-navigation-sub-title {
-            }
 
                 .semi-navigation-vertical .semi-navigation-list  .semi-navigation-sub-wrap > .semi-navigation-sub-title-disabled {
     background-color: var(--semi-cssvar-color-navigation_itemL1_disabled-bg-default);
@@ -643,9 +590,6 @@
     .semi-navigation-vertical .semi-navigation-list  .semi-navigation-sub-wrap > .semi-navigation-sub-title-disabled .semi-navigation-item-icon, .semi-navigation-vertical .semi-navigation-list  .semi-navigation-sub-wrap > .semi-navigation-sub-title-disabled .semi-navigation-item-icon:first-child {
         color: var(--semi-cssvar-color-navigation_itemL1_disabled_icon-default);
     }
-
-                .semi-navigation-vertical .semi-navigation-list  .semi-navigation-sub-wrap > .semi-navigation-sub-title:hover {
-                }
                     .semi-navigation-vertical .semi-navigation-list  .semi-navigation-sub-wrap > .semi-navigation-sub-title:hover:not(.semi-navigation-sub-title-selected) {
     background-color: var(--semi-cssvar-color-navigation_itemL1-bg-hover);
     color: var(--semi-cssvar-color-navigation_itemL1-text-hover);
@@ -663,11 +607,6 @@
     .semi-navigation-vertical .semi-navigation-list  .semi-navigation-sub-wrap > .semi-navigation-sub-title:hover.semi-navigation-sub-title-selected .semi-navigation-item-icon:first-child {
         color: var(--semi-cssvar-color-navigation_itemL1_selected_icon-default);
     }
-
-                .semi-navigation-vertical .semi-navigation-list  .semi-navigation-sub-wrap > .semi-navigation-sub-title:hover {
-                }
-                    .semi-navigation-vertical .semi-navigation-list  .semi-navigation-sub-wrap > .semi-navigation-sub-title:hover.semi-navigation-sub-title-disabled {
-                    }
                         .semi-navigation-vertical .semi-navigation-list  .semi-navigation-sub-wrap > .semi-navigation-sub-title:hover.semi-navigation-sub-title-disabled:not(.semi-navigation-sub-title-selected) {
     background-color: var(--semi-cssvar-color-navigation_itemL1_disabled-bg-default);
     color: var(--semi-cssvar-color-navigation_itemL1_disabled-text-default);
@@ -724,9 +663,6 @@
         padding-left: var(--semi-cssvar-spacing-navigation_vertical_footer-paddingLeft);
         padding-right: var(--semi-cssvar-spacing-navigation_vertical_footer-paddingRight)
     }
-
-        .semi-navigation-vertical .semi-navigation-footer .semi-navigation-collapse-btn {
-        }
             .semi-navigation-vertical .semi-navigation-footer .semi-navigation-collapse-btn .semi-button-content-right {
                 margin-left: var(--semi-cssvar-spacing-navigation_vertical_footer_semi_button_content_right-marginLeft);
                 opacity: 1;
@@ -812,9 +748,6 @@
         color: var(--semi-cssvar-color-navigation_horizontal_itemL1_disabled_icon-default);
     }
 
-        .semi-navigation-horizontal .semi-navigation-list .semi-navigation-item-normal {
-        }
-
             .semi-navigation-horizontal .semi-navigation-list .semi-navigation-item-normal:hover:not(.semi-navigation-item-selected) {
     color: var(--semi-cssvar-color-navigation_horizontal_itemL1-text-hover);
     background-color: var(--semi-cssvar-color-navigation_horizontal_itemL1-bg-hover)
@@ -835,9 +768,6 @@
     .semi-navigation-horizontal .semi-navigation-list .semi-navigation-item-normal:active:not(.semi-navigation-item-selected) .semi-navigation-item-icon:first-child {
         color: var(--semi-cssvar-color-navigation_horizontal_itemL1_icon-active);
     }
-
-            .semi-navigation-horizontal .semi-navigation-list .semi-navigation-item-normal:hover, .semi-navigation-horizontal .semi-navigation-list .semi-navigation-item-normal:active {
-            }
                 .semi-navigation-horizontal .semi-navigation-list .semi-navigation-item-normal:hover.semi-navigation-item-disabled, .semi-navigation-horizontal .semi-navigation-list .semi-navigation-item-normal:active.semi-navigation-item-disabled {
     color: var(--semi-cssvar-color-navigation_horizontal_itemL1_disabled-text-default);
     background-color: var(--semi-cssvar-color-navigation_horizontal_itemL1_disabled-bg-default);
@@ -856,15 +786,9 @@
         .semi-navigation-horizontal .semi-navigation-list .semi-navigation-item:not(:last-of-type) {
             margin-right: var(--semi-cssvar-spacing-navigation_horizontal_nav_list_item_not_last-marginRight);
         }
-
-        .semi-navigation-horizontal .semi-navigation-list .semi-navigation-sub-title {
-        }
             .semi-navigation-horizontal .semi-navigation-list .semi-navigation-sub-title .semi-navigation-item-text {
                 color: var(--semi-cssvar-color-navigation_horizontal_itemL1-text-default);
                 background-color: var(--semi-cssvar-color-navigation_horizontal_itemL1-bg-default);
-            }
-
-            .semi-navigation-horizontal .semi-navigation-list .semi-navigation-sub-title-selected {
             }
                 .semi-navigation-horizontal .semi-navigation-list .semi-navigation-sub-title-selected .semi-navigation-item-icon:first-child, .semi-navigation-horizontal .semi-navigation-list .semi-navigation-sub-title-selected .semi-navigation-item-text {
                     color: var(--semi-cssvar-color-navigation_horizontal_itemL1_selected-text-default);
@@ -945,10 +869,6 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-navigation, .semi-portal-rtl .semi-navigation {
         direction: rtl;
 
@@ -971,11 +891,6 @@
             margin-right: auto;
         }
 
-        .semi-rtl .semi-navigation-sub, .semi-portal-rtl .semi-navigation-sub {
-        }
-            .semi-rtl .semi-navigation-sub .semi-navigation-item, .semi-portal-rtl .semi-navigation-sub .semi-navigation-item {
-            }
-
                 .semi-rtl .semi-navigation-sub .semi-navigation-item > .semi-rtl .semi-navigation-sub .semi-navigation-item-text:first-child, .semi-rtl .semi-navigation-sub .semi-navigation-item > .semi-portal-rtl .semi-navigation-sub .semi-navigation-item-text:first-child, .semi-portal-rtl .semi-navigation-sub .semi-navigation-item > .semi-rtl .semi-navigation-sub .semi-navigation-item-text:first-child, .semi-portal-rtl .semi-navigation-sub .semi-navigation-item > .semi-portal-rtl .semi-navigation-sub .semi-navigation-item-text:first-child {
                     margin-left: auto;
                     margin-right: calc(var(--semi-cssvar-spacing-base-tight) + var(--semi-cssvar-width-navigation_icon_left) + var(--semi-cssvar-width-navigation_icon_text_between));
@@ -984,9 +899,6 @@
                 .semi-rtl .semi-navigation-sub .semi-navigation-item > .semi-navigation-item-icon:first-child, .semi-portal-rtl .semi-navigation-sub .semi-navigation-item > .semi-navigation-item-icon:first-child {
                     margin-right: var(--semi-cssvar-width-navigation_icon_text_between);
                 }
-
-    .semi-rtl .semi-navigation, .semi-portal-rtl .semi-navigation {
-    }
 
         .semi-rtl .semi-navigation-header, .semi-portal-rtl .semi-navigation-header {
             display: inline-flex;
@@ -1003,11 +915,6 @@
     .semi-rtl .semi-navigation-collapsed, .semi-portal-rtl .semi-navigation-collapsed {
         direction: rtl
     }
-
-        .semi-rtl .semi-navigation-collapsed .semi-navigation-header, .semi-portal-rtl .semi-navigation-collapsed .semi-navigation-header {
-        }
-            .semi-rtl .semi-navigation-collapsed .semi-navigation-header .semi-navigation-header, .semi-portal-rtl .semi-navigation-collapsed .semi-navigation-header .semi-navigation-header {
-            }
 
                 .semi-rtl .semi-navigation-collapsed .semi-navigation-header .semi-navigation-header-logo, .semi-portal-rtl .semi-navigation-collapsed .semi-navigation-header .semi-navigation-header-logo {
                     margin-right: auto;
@@ -1029,11 +936,6 @@
                 padding-left: var(--semi-cssvar-spacing-navigation_vertical_nav_header_collapsed-paddingRight);
                 transition: var(--semi-cssvar-motion-navigation_padding_rtl), var(--semi-cssvar-motion-navigation_width);
             }
-
-        .semi-rtl .semi-navigation-vertical .semi-navigation-footer, .semi-portal-rtl .semi-navigation-vertical .semi-navigation-footer {
-        }
-            .semi-rtl .semi-navigation-vertical .semi-navigation-footer .semi-navigation-collapse-btn, .semi-portal-rtl .semi-navigation-vertical .semi-navigation-footer .semi-navigation-collapse-btn {
-            }
                 .semi-rtl .semi-navigation-vertical .semi-navigation-footer .semi-navigation-collapse-btn .semi-button-content-right, .semi-portal-rtl .semi-navigation-vertical .semi-navigation-footer .semi-navigation-collapse-btn .semi-button-content-right {
                     margin-left: auto;
                     margin-right: var(--semi-cssvar-spacing-navigation_vertical_footer_semi_button_content_right-marginLeft);
@@ -1053,9 +955,6 @@
         .semi-rtl .semi-navigation-horizontal .semi-navigation-header, .semi-portal-rtl .semi-navigation-horizontal .semi-navigation-header {
             margin-right: auto;
             margin-left: var(--semi-cssvar-spacing-navigation_horizontal_header_logo-marginRight);
-        }
-
-        .semi-rtl .semi-navigation-horizontal .semi-navigation-list, .semi-portal-rtl .semi-navigation-horizontal .semi-navigation-list {
         }
             .semi-rtl .semi-navigation-horizontal .semi-navigation-list .semi-navigation-item:not(:last-of-type), .semi-portal-rtl .semi-navigation-horizontal .semi-navigation-list .semi-navigation-item:not(:last-of-type) {
                 margin-right: auto;

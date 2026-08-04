@@ -47,9 +47,6 @@
          .semi-floatButton-colorful:active {
             background: var(--semi-cssvar-color-floatButton-colorful-bg-active);
         }
-
-    .semi-floatButton.semi-floatButton-square {
-    }
             
         .semi-floatButton.semi-floatButton-square .semi-badge-dot, .semi-floatButton.semi-floatButton-square .semi-badge-count {
             top: calc(0.29 * var(--semi-cssvar-radius-floatButton_square));
@@ -67,9 +64,6 @@
         height: var(--semi-cssvar-width-floatButton)
 
     }
-
-        .semi-floatButton-default.semi-floatButton-round {
-        }
             
             .semi-floatButton-default.semi-floatButton-round .semi-badge-dot, .semi-floatButton-default.semi-floatButton-round .semi-badge-count {
                 top: calc(0.29 * 0.5 * var(--semi-cssvar-width-floatButton));
@@ -86,9 +80,6 @@
         width: var(--semi-cssvar-width-floatButton_small);
         height: var(--semi-cssvar-width-floatButton_small)
     }
-
-        .semi-floatButton-small.semi-floatButton-round {
-        }
             
             .semi-floatButton-small.semi-floatButton-round .semi-badge-dot, .semi-floatButton-small.semi-floatButton-round .semi-badge-count {
                 top: calc(0.29 * 0.5 * var(--semi-cssvar-width-floatButton_small));
@@ -99,9 +90,6 @@
         width: var(--semi-cssvar-width-floatButton_large);
         height: var(--semi-cssvar-width-floatButton_large)
     }
-
-        .semi-floatButton-large.semi-floatButton-round {
-        }
             
             .semi-floatButton-large.semi-floatButton-round .semi-badge-dot, .semi-floatButton-large.semi-floatButton-round .semi-badge-count {
                 top: calc(0.29 * 0.5 * var(--semi-cssvar-width-floatButton_large));

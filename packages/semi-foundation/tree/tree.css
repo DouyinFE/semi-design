@@ -1,6 +1,3 @@
-
-.semi-tree {
-}
     .semi-tree-search-wrapper {
         padding: var(--semi-cssvar-spacing-tree_search_wrapper-paddingY) var(--semi-cssvar-spacing-tree_search_wrapper-paddingX);
     }
@@ -77,9 +74,6 @@
             display: block;
             flex: 1;
         }
-
-        .semi-tree-option-list .semi-tree-option-ellipsis {
-        }
             .semi-tree-option-list .semi-tree-option-ellipsis .semi-tree-option-label-text {
                 white-space: nowrap;
                 overflow: hidden;
@@ -101,9 +95,6 @@
         .semi-tree-option-list .semi-tree-option-item-icon {
             color: var(--semi-cssvar-color-tree_option-icon-default);
         }
-
-        .semi-tree-option-list .semi-tree-option-active {
-        }
             .semi-tree-option-list .semi-tree-option-active .semi-tree-option-label-text {
                 background-color: var(--semi-cssvar-color-tree_option-bg-active);
             }
@@ -111,9 +102,6 @@
             .semi-tree-option-list .semi-tree-option-active:hover, .semi-tree-option-list .semi-tree-option-active:active {
                 background-color: transparent;
             }
-
-        .semi-tree-option-list .semi-tree-option-selected {
-        }
             .semi-tree-option-list .semi-tree-option-selected .semi-tree-option-label {
                 background-color: var(--semi-cssvar-color-tree_option-bg-active)
             }
@@ -121,9 +109,6 @@
                 .semi-tree-option-list .semi-tree-option-selected .semi-tree-option-label:hover, .semi-tree-option-list .semi-tree-option-selected .semi-tree-option-label:active {
                     background-color: var(--semi-cssvar-color-tree_option-bg-active);
                 }
-
-        .semi-tree-option-list .semi-tree-option-collapsed {
-        }
             .semi-tree-option-list .semi-tree-option-collapsed .semi-tree-option-expand-icon {
                 transform: rotate(270deg);
             }
@@ -137,9 +122,6 @@
 
         .semi-tree-option-list .semi-tree-option-hidden {
             display: none;
-        }
-
-        .semi-tree-option-list .semi-tree-option-disabled {
         }
             .semi-tree-option-list .semi-tree-option-disabled .semi-tree-option-label {
                 color: var(--semi-cssvar-color-tree_option_disabled-text-default);
@@ -174,9 +156,6 @@
                 border-bottom: var(--semi-cssvar-width-tree_option_draggable-border) var(--semi-cssvar-color-tree_option_draggable_insert-border-default)
                     solid;
             }
-
-            .semi-tree-option-list .semi-tree-option-draggable .semi-tree-option-indent {  
-            }
                 .semi-tree-option-list .semi-tree-option-draggable .semi-tree-option-indent .semi-tree-option-indent-unit:before {
                     top: 0px;
                     bottom: 0px;
@@ -186,15 +165,9 @@
                 top: 0px;
                 bottom: 0px;
             }
-
-            .semi-tree-option-list .semi-tree-option-draggable.semi-tree-option-tree-node-last-leaf {
-            }
                 .semi-tree-option-list .semi-tree-option-draggable.semi-tree-option-tree-node-last-leaf .semi-tree-option-switcher-leaf-line::before {
                     height: 50%;
                 }
-
-        .semi-tree-option-list .semi-tree-option-fullLabel-draggable {
-        }
             .semi-tree-option-list .semi-tree-option-fullLabel-draggable.semi-tree-option-fullLabel-drag-over-gap-top {
                 border-top: var(--semi-cssvar-width-tree_option_draggable-border) var(--semi-cssvar-color-tree_option_draggable_insert-border-default) solid;
             }
@@ -215,8 +188,6 @@
 
             /* selected solid background will overlap with drag over border-bottom*/
             /* add an extra border to complement*/
-            .semi-tree-option-list .semi-tree-option-drag-over.semi-tree-option-draggable + .semi-tree-option-selected, .semi-tree-option-list .semi-tree-option-drag-over.semi-tree-option-fullLabel-draggable + .semi-tree-option-selected {
-            }
                 .semi-tree-option-list .semi-tree-option-drag-over.semi-tree-option-draggable + .semi-tree-option-selected::after, .semi-tree-option-list .semi-tree-option-drag-over.semi-tree-option-fullLabel-draggable + .semi-tree-option-selected::after {
                     content: '';
                     position: absolute;
@@ -236,9 +207,6 @@
                 display: inline-block;
                 width: var(--semi-cssvar-spacing-tree_option_level-paddingLeft);
             }
-
-        .semi-tree-option-list .semi-tree-option-indent-show-line {
-        }
             .semi-tree-option-list .semi-tree-option-indent-show-line .semi-tree-option-indent-unit {
                 position: relative;
                 height: 100%
@@ -251,9 +219,6 @@
                     bottom: -var(--semi-cssvar-spacing-tree_option-paddingBottom);
                     border-inline-end: var(--semi-cssvar-width-tree_option_line) solid var(--semi-color-text-3);
                     content: '';
-                }
-
-                .semi-tree-option-list .semi-tree-option-indent-show-line .semi-tree-option-indent-unit-end {
                 }
                     .semi-tree-option-list .semi-tree-option-indent-show-line .semi-tree-option-indent-unit-end::before {
                         display: none;
@@ -296,11 +261,6 @@
                     content: '';
                     margin-inline-start: var(--semi-cssvar-width-tree_option_line);
                 }
-
-        .semi-tree-option-list .semi-tree-option-tree-node-last-leaf {
-        }
-            .semi-tree-option-list .semi-tree-option-tree-node-last-leaf .semi-tree-option-switcher-leaf-line {
-            }
                 .semi-tree-option-list .semi-tree-option-tree-node-last-leaf .semi-tree-option-switcher-leaf-line::before {
                     height: calc(50% + var(--semi-cssvar-spacing-tree_option-paddingTop));
                 }
@@ -381,9 +341,6 @@
         .semi-tree-option-list .semi-tree-option.semi-tree-option-fullLabel-level-20 {
             padding-left: calc(var(--semi-cssvar-spacing-tree_option_level-paddingLeft) * (20 - 1) + var(--semi-cssvar-spacing-tree_option_level1-paddingLeft));
         }
-
-    .semi-tree-option-list .semi-tree-option-empty {
-    }
         .semi-tree-option-list .semi-tree-option-empty:hover, .semi-tree-option-list .semi-tree-option-empty:active {
             background-color: transparent;
         }
@@ -398,11 +355,6 @@
 
     .semi-tree-option-list .semi-checkboxGroup-vertical {
         row-gap: 0;
-    }
-
-.semi-tree-option-list-block {
-}
-    .semi-tree-option-list-block .semi-tree-option {
     }
         .semi-tree-option-list-block .semi-tree-option:hover {
             background-color: var(--semi-cssvar-color-tree_option-bg-hover);
@@ -486,19 +438,12 @@
         .semi-tree-option-list-block .semi-tree-option-label-text {
             width: 0;
         }
-
-    .semi-tree-option-list-block .semi-tree-option-empty {
-    }
         .semi-tree-option-list-block .semi-tree-option-empty:hover, .semi-tree-option-list-block .semi-tree-option-empty:active {
             background-color: transparent;
         }/* ============================================================*/
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-popover-rtl {
-}
     .semi-rtl .semi-tree, .semi-popover-rtl .semi-tree {
         direction: rtl;
     }
@@ -520,8 +465,6 @@
             padding-left: 0;
             padding-right: var(--semi-cssvar-spacing-tree_option_level1-paddingLeft)
         }
-            .semi-rtl .semi-tree-option-list .semi-tree-option-label, .semi-popover-rtl .semi-tree-option-list .semi-tree-option-label {
-            }
                 .semi-rtl .semi-tree-option-list .semi-tree-option-label > .semi-icon, .semi-popover-rtl .semi-tree-option-list .semi-tree-option-label > .semi-icon {
                     margin-right: 0;
                     margin-left: var(--semi-cssvar-spacing-tree_icon-marginRight);
@@ -531,9 +474,6 @@
                     margin-right: 0;
                     margin-left: var(--semi-cssvar-spacing-tree_icon-marginRight);
                 }
-
-            .semi-rtl .semi-tree-option-list .semi-tree-option-collapsed, .semi-popover-rtl .semi-tree-option-list .semi-tree-option-collapsed {
-            }
                 .semi-rtl .semi-tree-option-list .semi-tree-option-collapsed .semi-tree-option-expand-icon, .semi-popover-rtl .semi-tree-option-list .semi-tree-option-collapsed .semi-tree-option-expand-icon {
                     transform: rotate(90deg);
                 }
@@ -621,9 +561,6 @@
         .semi-rtl .semi-tree-option-list .semi-tree-option-label-empty, .semi-popover-rtl .semi-tree-option-list .semi-tree-option-label-empty {
             padding-left: auto;
             padding-right: 0;
-        }
-
-        .semi-rtl .semi-tree-option-list .semi-tree-option, .semi-popover-rtl .semi-tree-option-list .semi-tree-option {
         }
             .semi-rtl .semi-tree-option-list .semi-tree-option-switcher, .semi-popover-rtl .semi-tree-option-list .semi-tree-option-switcher {
                 margin-right: 0;

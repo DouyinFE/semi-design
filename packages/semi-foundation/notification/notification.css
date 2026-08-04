@@ -44,9 +44,6 @@
     }
 
 }
-
-.semi-notification {
-}
     .semi-notification-notice {
     box-shadow: var(--semi-shadow-elevated);
         border-radius: var(--semi-cssvar-radius-notification_notice);
@@ -89,9 +86,6 @@
 
         .semi-notification-notice-success {
             color: var(--semi-cssvar-color-notification_success-icon);
-        }
-
-        .semi-notification-notice-light {
         }
             .semi-notification-notice-light.semi-notification-notice-warning {
                 background-image: linear-gradient(0deg, var(--semi-cssvar-color-notification_warning_light-bg), var(--semi-cssvar-color-notification_warning_light-bg));
@@ -374,12 +368,6 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-notification {
-}
-
-    .semi-notification-notice {
-    }
         .semi-notification-notice.semi-notification-notice-rtl {
             padding-right: var(--semi-cssvar-spacing-notification_notice-paddingLeft);
             padding-left: var(--semi-cssvar-spacing-notification_notice-paddingRight);

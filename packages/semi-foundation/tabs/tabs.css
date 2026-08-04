@@ -107,9 +107,6 @@
                     color: var(--semi-cssvar-color-tabs_tab-icon-active);
                 }
 
-        .semi-tabs-bar .semi-tabs-tab-active {
-        }
-
             .semi-tabs-bar .semi-tabs-tab-active, .semi-tabs-bar .semi-tabs-tab-active:hover {
                 cursor: default;
                 font-weight: var(--semi-cssvar-font-tabs_tab_active-fontWeight);
@@ -138,9 +135,6 @@
                 color: var(--semi-cssvar-color-tabs_tab_line_disabled-text-hover);
                 border-bottom: none;
             }
-
-    .semi-tabs-tab-single {
-    }
         .semi-tabs-tab-single.semi-tabs-tab {
     font-size: var(--semi-cssvar-font-size-regular);
     line-height: 20px;
@@ -202,9 +196,6 @@
                     color: var(--semi-color-text-2);
                 }
 
-        .semi-tabs-tab-single.semi-tabs-tab-active {
-        }
-
             .semi-tabs-tab-single.semi-tabs-tab-active, .semi-tabs-tab-single.semi-tabs-tab-active:hover {
                 cursor: default;
                 font-weight: var(--semi-cssvar-font-tabs_tab_active-fontWeight);
@@ -233,9 +224,6 @@
                 color: var(--semi-cssvar-color-tabs_tab_line_disabled-text-hover);
                 border-bottom: none;
             }
-
-    .semi-tabs-bar-collapse {
-    }
         .semi-tabs-bar-collapse, .semi-tabs-bar-collapse .semi-tabs-bar-overflow-list {
             display: flex;
             align-items: center;
@@ -321,9 +309,6 @@
         display: block;
         clear: both;
     }
-
-    .semi-tabs-bar-line {
-    }
         .semi-tabs-bar-line.semi-tabs-bar-top {
             border-bottom: var(--semi-cssvar-width-tabs_bar_line-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-default);
             transition: color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text);
@@ -365,9 +350,6 @@
                 .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab-medium {
                     padding: var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingTop) var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingRight) var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingBottom) var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingLeft);
                 }
-
-            .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab-active {
-            }
 
                 .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab-active, .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab-active:hover {
                     border-bottom: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_indicator_selected-icon-default);
@@ -427,11 +409,6 @@
             line-height: var(--semi-cssvar-font-tabs_bar_extra_small-lineHeight);
         }
 
-    .semi-tabs-bar-card {
-    }
-        .semi-tabs-bar-card.semi-tabs-bar-top {
-        }
-
             .semi-tabs-bar-card.semi-tabs-bar-top::before {
                 position: absolute;
                 right: 0;
@@ -456,9 +433,6 @@
                 .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type) {
                     margin-right: var(--semi-cssvar-spacing-tabs_bar_card_tab-marginRight);
                 }
-
-            .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab-active {
-            }
 
                 .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab-active, .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab-active:hover {
                     padding: var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingTop) var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingRight) var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingBottom) var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingLeft);
@@ -485,9 +459,6 @@
                 .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab:not(:last-of-type) {
                     margin-bottom: var(--semi-cssvar-spacing-tabs_bar_card_tab_left-marginBottom);
                 }
-
-            .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab-active {
-            }
 
                 .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab-active:after {
                     content: " ";
@@ -532,19 +503,9 @@
         border: none
     }
 
-        .semi-tabs-bar-button.semi-tabs-bar-left {
-        }
-            .semi-tabs-bar-button.semi-tabs-bar-left .semi-tabs-tab {
-            }
-
                 .semi-tabs-bar-button.semi-tabs-bar-left .semi-tabs-tab:not(:last-of-type) {
                     margin-bottom: var(--semi-cssvar-spacing-tabs_bar_button_tab_left-marginBottom);
                 }
-
-        .semi-tabs-bar-button.semi-tabs-bar-top {
-        }
-            .semi-tabs-bar-button.semi-tabs-bar-top .semi-tabs-tab {
-            }
 
                 .semi-tabs-bar-button.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type) {
                     margin-right: var(--semi-cssvar-spacing-tabs_bar_button_tab-marginRight);
@@ -575,17 +536,11 @@
                 background-color: var(--semi-cssvar-color-tabs_tab_button-bg-active);
             }
 
-        .semi-tabs-bar-button .semi-tabs-tab-active {
-        }
-
             .semi-tabs-bar-button .semi-tabs-tab-active, .semi-tabs-bar-button .semi-tabs-tab-active:hover {
                 color: var(--semi-cssvar-color-tabs_tab_button_selected-text-default);
                 border: none;
                 background-color: var(--semi-cssvar-color-tabs_tab_button_selected-bg-default);
             }
-
-    .semi-tabs-bar-slash {
-    }
 
         .semi-tabs-bar-slash .semi-tabs-tab {
             padding: var(--semi-cssvar-spacing-tabs_bar_slash_tab-paddingY) var(--semi-cssvar-spacing-tabs_bar_slash_tab-paddingX)
@@ -715,11 +670,6 @@
         animation-fill-mode: forwards;
     }
 
-    .semi-tabs-tab-line {
-    }
-        .semi-tabs-tab-line.semi-tabs-tab-top {
-        }
-
             .semi-tabs-tab-line.semi-tabs-tab-top.semi-tabs-tab {
                 font-size: var(--semi-cssvar-font-tabs_bar_large-fontSize);
                 padding: var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingTop) var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingRight) var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingBottom) var(--semi-cssvar-spacing-tabs_bar_line_tab-paddingLeft);
@@ -759,15 +709,9 @@
                     padding: var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingTop) var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingRight) var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingBottom) var(--semi-cssvar-spacing-tabs_bar_line_tab_medium-paddingLeft);
                 }
 
-            .semi-tabs-tab-line.semi-tabs-tab-top.semi-tabs-tab-active {
-            }
-
                 .semi-tabs-tab-line.semi-tabs-tab-top.semi-tabs-tab-active, .semi-tabs-tab-line.semi-tabs-tab-top.semi-tabs-tab-active:hover {
                     border-bottom: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_indicator_selected-icon-default);
                 }
-
-        .semi-tabs-tab-line.semi-tabs-tab-left {
-        }
 
             .semi-tabs-tab-line.semi-tabs-tab-left.semi-tabs-tab {
                 padding: var(--semi-cssvar-spacing-tabs_bar_line_tab_left-padding);
@@ -808,11 +752,6 @@
                     background-color: var(--semi-cssvar-color-tabs_tab_line_vertical_selected-bg-default);
                 }
 
-    .semi-tabs-tab-card {
-    }
-        .semi-tabs-tab-card.semi-tabs-tab-top {
-        }
-
             .semi-tabs-tab-card.semi-tabs-tab-top.semi-tabs-tab {
                 border: var(--semi-cssvar-width-tabs_bar_card-border) solid transparent;
                 border-bottom: none;
@@ -824,9 +763,6 @@
                     border-bottom: none;
                 }
 
-            .semi-tabs-tab-card.semi-tabs-tab-top.semi-tabs-tab-active {
-            }
-
                 .semi-tabs-tab-card.semi-tabs-tab-top.semi-tabs-tab-active, .semi-tabs-tab-card.semi-tabs-tab-top.semi-tabs-tab-active:hover {
                     padding: var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingTop) var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingRight) var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingBottom) var(--semi-cssvar-spacing-tabs_bar_card_tab_active-paddingLeft);
                     border: var(--semi-cssvar-width-tabs_bar_card-border) solid var(--semi-cssvar-color-tabs_tab_card_indicator_selected-icon-default);
@@ -834,9 +770,6 @@
                     background: transparent;
                 }
                     /* padding-bottom: $spacing-tight + 1;*/
-
-        .semi-tabs-tab-card.semi-tabs-tab-left {
-        }
 
             .semi-tabs-tab-card.semi-tabs-tab-left.semi-tabs-tab {
                 border: var(--semi-cssvar-width-tabs_bar_card-border) solid transparent;
@@ -848,9 +781,6 @@
                 .semi-tabs-tab-card.semi-tabs-tab-left.semi-tabs-tab:hover {
                     border-right: none;
                 }
-
-            .semi-tabs-tab-card.semi-tabs-tab-left.semi-tabs-tab-active {
-            }
 
                 .semi-tabs-tab-card.semi-tabs-tab-left.semi-tabs-tab-active:after {
                     content: " ";
@@ -920,9 +850,6 @@
                 background-color: var(--semi-cssvar-color-tabs_tab_button-bg-active);
             }
 
-        .semi-tabs-tab-button.semi-tabs-tab-active {
-        }
-
             .semi-tabs-tab-button.semi-tabs-tab-active, .semi-tabs-tab-button.semi-tabs-tab-active:hover {
                 color: var(--semi-cssvar-color-tabs_tab_button_selected-text-default);
                 border: none;
@@ -931,16 +858,9 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-tabs, .semi-portal-rtl .semi-tabs {
         direction: rtl
     }
-
-        .semi-rtl .semi-tabs-bar, .semi-portal-rtl .semi-tabs-bar {
-        }
             .semi-rtl .semi-tabs-bar .semi-tabs-tab, .semi-portal-rtl .semi-tabs-bar .semi-tabs-tab {
                 float: right
             }
@@ -949,9 +869,6 @@
                     margin-right: 0;
                     margin-left: var(--semi-cssvar-spacing-tabs_tab_icon-marginRight);
                 }
-
-        .semi-rtl .semi-tabs-bar-collapse, .semi-portal-rtl .semi-tabs-bar-collapse {
-        }
             .semi-rtl .semi-tabs-bar-collapse .semi-tabs-bar-arrow-start, .semi-portal-rtl .semi-tabs-bar-collapse .semi-tabs-bar-arrow-start {
                 margin-right: 0;
                 margin-left: var(--semi-cssvar-spacing-tabs_overflow_icon-marginRight);
@@ -965,13 +882,6 @@
             .semi-rtl .semi-tabs-bar-collapse .semi-icon-chevron_right, .semi-portal-rtl .semi-tabs-bar-collapse .semi-icon-chevron_right, .semi-rtl .semi-tabs-bar-collapse .semi-icon-chevron_left, .semi-portal-rtl .semi-tabs-bar-collapse .semi-icon-chevron_left {
                 transform: scaleX(-1);
             }
-
-        .semi-rtl .semi-tabs-bar-line, .semi-portal-rtl .semi-tabs-bar-line {
-        }
-            .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-top, .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-top {
-            }
-                .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab, .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab {
-                }
 
                     .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type), .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type) {
                         margin-right: 0;
@@ -998,20 +908,10 @@
                         border-right: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_default-border-active);
                     }
 
-                .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-active, .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-active {
-                }
-
                     .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-active, .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-active, .semi-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-active:hover, .semi-portal-rtl .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab-active:hover {
                         border-left: 0;
                         border-right: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid var(--semi-cssvar-color-tabs_tab_line_indicator_selected-icon-default);
                     }
-
-        .semi-rtl .semi-tabs-bar-card, .semi-portal-rtl .semi-tabs-bar-card {
-        }
-            .semi-rtl .semi-tabs-bar-card.semi-tabs-bar-top, .semi-portal-rtl .semi-tabs-bar-card.semi-tabs-bar-top {
-            }
-                .semi-rtl .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab, .semi-portal-rtl .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab {
-                }
 
                     .semi-rtl .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type), .semi-portal-rtl .semi-tabs-bar-card.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type) {
                         margin-left: 0;
@@ -1032,20 +932,10 @@
                         border-left: none;
                     }
 
-                .semi-rtl .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab-active, .semi-portal-rtl .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab-active {
-                }
-
                     .semi-rtl .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab-active:after, .semi-portal-rtl .semi-tabs-bar-card.semi-tabs-bar-left .semi-tabs-tab-active:after {
                         right: auto;
                         left: -1px;
                     }
-
-        .semi-rtl .semi-tabs-bar-button, .semi-portal-rtl .semi-tabs-bar-button {
-        }
-            .semi-rtl .semi-tabs-bar-button.semi-tabs-bar-top, .semi-portal-rtl .semi-tabs-bar-button.semi-tabs-bar-top {
-            }
-                .semi-rtl .semi-tabs-bar-button.semi-tabs-bar-top .semi-tabs-tab, .semi-portal-rtl .semi-tabs-bar-button.semi-tabs-bar-top .semi-tabs-tab {
-                }
 
                     .semi-rtl .semi-tabs-bar-button.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type), .semi-portal-rtl .semi-tabs-bar-button.semi-tabs-bar-top .semi-tabs-tab:not(:last-of-type) {
                         margin-right: auto;

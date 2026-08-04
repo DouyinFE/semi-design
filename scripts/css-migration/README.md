@@ -67,3 +67,14 @@ node generateTokens.js
 # 验证 semi.css 聚合产物（规则集等价 + 无残留）
 node verifySemiCss.js
 ```
+
+## 阶段 6：视觉回归（渲染级等价）
+
+`visualDiff.js`：用 Chrome headless（puppeteer-core）对代表性组件 DOM 分别加载旧产物（sass 编译值版 + global/animation）和新产物（css 真源 + token.css + global/animation），逐元素对比 computed style（浏览器层叠求值结果）。
+
+```bash
+node visualDiff.js                        # 默认 5 个组件
+node visualDiff.js button input grid ...  # 指定组件
+```
+
+**发现并修复的真 bug**：Chrome 不支持 `@media` 里的 `var()`——grid 的响应式断点（`@media (min-width: var(--semi-cssvar-width-grid_screen-md-min))`）在渲染时不生效。已修复：transformScss 对 @media params 做 token 编译期代入（静态值，与 sass 产物一致）。

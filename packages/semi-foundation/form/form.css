@@ -1,6 +1,3 @@
-
-.semi-form {
-}
     .semi-form .semi-form-field {
         box-sizing: border-box;
     }
@@ -26,24 +23,16 @@
         .semi-form-horizontal .semi-row {
             display: block;
         }
-
-    .semi-form-vertical {
-    }
         .semi-form-vertical .semi-form-field {
             margin: 0;
             padding-top: var(--semi-cssvar-spacing-form_field_vertical-paddingTop);
             padding-bottom: var(--semi-cssvar-spacing-form_field_vertical-paddingBottom);
             overflow: hidden
         }
-
-            .semi-form-vertical .semi-form-field[x-label-pos="top"] {
-            }
                 /* .#{$col}-right,*/
                 /* .#{$col}-left {*/
                 /*     width: 100%;*/
                 /* }*/
-            .semi-form-vertical .semi-form-field .semi-form-col {
-            }
 
                 .semi-form-vertical .semi-form-field .semi-form-col-right {
                     display: flex;
@@ -54,11 +43,6 @@
                     display: flex;
                     justify-content: flex-start;
                 }
-
-        .semi-form-vertical .semi-form-field-group {
-        }
-            .semi-form-vertical .semi-form-field-group .semi-form-col {
-            }
                 .semi-form-vertical .semi-form-field-group .semi-form-col-right {
                     display: flex;
                     justify-content: flex-end;
@@ -67,9 +51,6 @@
                     display: flex;
                     justify-content: flex-start;
                 }
-
-        .semi-form-vertical .semi-form-field-pure {
-        }
             /* padding-top: 0;*/
             /* padding-bottom: 0;*/
             /* overflow: inherit;*/
@@ -92,9 +73,6 @@
         .semi-form-field-label-disabled {
             color: var(--semi-cssvar-color-form_label_disabled-text-default);
         }
-
-        .semi-form-field-label-with-extra {
-        }
             .semi-form-field-label-with-extra .semi-form-field-label-text {
                 display: inline-block;
             }
@@ -102,11 +80,6 @@
                 display: flex;
                 align-items: center;
                 margin-left: var(--semi-cssvar-spacing-form_label_extra-marginLeft);
-            }
-
-        .semi-form-field-label-required {
-        }
-            .semi-form-field-label-required .semi-form-field-label-text {
             }
                 .semi-form-field-label-required .semi-form-field-label-text::after {
                     content: "*";
@@ -145,12 +118,6 @@
 
     .semi-form-field-error-message {
         color: var(--semi-cssvar-color-form_message_error-text-default);
-    }
-
-.semi-form-field {
-}
-
-    .semi-form-field[x-label-pos="top"] {
     }
         /* display:*/
         .semi-form-field[x-label-pos="top"] .semi-form-field-label {
@@ -204,16 +171,10 @@
             margin-top: var(--semi-cssvar-spacing-form_switch_rating_marginY);
             margin-bottom: var(--semi-cssvar-spacing-form_switch_rating_marginY);
         }
-
-    .semi-form-field[x-extra-pos="middle"] {
-    }
         .semi-form-field[x-extra-pos="middle"] .semi-form-field-extra {
             margin-top: var(--semi-cssvar-spacing-form_extra_posMid-marginTop);
             margin-bottom: var(--semi-cssvar-spacing-form_extra_posMid-marginBottom);
         }
-
-    .semi-form-field[x-extra-pos="bottom"] {
-    }
         .semi-form-field[x-extra-pos="bottom"] .semi-form-field-extra {
             margin-top: var(--semi-cssvar-spacing-form_extra_posBottom-marginTop);
         }
@@ -259,8 +220,6 @@
 }
 
 .semi-form-field-group {
-    &[x-label-pos="top"] {
-    }
 
     &[x-label-pos="left"] {
         display: flex;
@@ -302,16 +261,9 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-form, .semi-portal-rtl .semi-form {
         direction: rtl
     }
-
-        .semi-rtl .semi-form-horizontal, .semi-portal-rtl .semi-form-horizontal {
-        }
             .semi-rtl .semi-form-horizontal .semi-form-field, .semi-portal-rtl .semi-form-horizontal .semi-form-field {
                 margin-left: 0;
                 margin-right: 0;
@@ -332,17 +284,9 @@
             padding-right: 0;
             padding-left: var(--semi-cssvar-spacing-form_label-paddingRight)
         }
-    
-            .semi-rtl .semi-form-field-label-with-extra, .semi-portal-rtl .semi-form-field-label-with-extra {
-            }
                 .semi-rtl .semi-form-field-label-with-extra .semi-form-field-label-extra, .semi-portal-rtl .semi-form-field-label-with-extra .semi-form-field-label-extra {
                     margin-left: 0;
                     margin-right: var(--semi-cssvar-spacing-form_label_extra-marginLeft);
-                }
-    
-            .semi-rtl .semi-form-field-label-required, .semi-portal-rtl .semi-form-field-label-required {
-            }
-                .semi-rtl .semi-form-field-label-required .semi-form-field-label-text, .semi-portal-rtl .semi-form-field-label-required .semi-form-field-label-text {
                 }
 
                     .semi-rtl .semi-form-field-label-required .semi-form-field-label-text::after, .semi-portal-rtl .semi-form-field-label-required .semi-form-field-label-text::after {
@@ -362,16 +306,10 @@
     .semi-rtl .semi-form-field, .semi-portal-rtl .semi-form-field {
         direction: rtl
     }
-
-        .semi-rtl .semi-form-field[x-label-pos="left"], .semi-portal-rtl .semi-form-field[x-label-pos="left"] {
-        }
             .semi-rtl .semi-form-field[x-label-pos="left"] .semi-form-field-label, .semi-portal-rtl .semi-form-field[x-label-pos="left"] .semi-form-field-label {
                 margin-right: 0;
                 margin-left: var(--semi-cssvar-spacing-form_label_posLeft-marginRight);
             }
-    
-    .semi-rtl .semi-form-field, .semi-portal-rtl .semi-form-field {
-    }
 
         .semi-rtl .semi-form-field-validate-status-icon, .semi-portal-rtl .semi-form-field-validate-status-icon {
             margin-right: 0;

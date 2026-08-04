@@ -119,24 +119,13 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
-    .semi-rtl .semi-dropdown, .semi-portal-rtl .semi-dropdown {
-    }
         .semi-rtl .semi-dropdown-wrapper, .semi-portal-rtl .semi-dropdown-wrapper {
             direction: rtl;
-        }
-
-        .semi-rtl .semi-dropdown-title, .semi-portal-rtl .semi-dropdown-title {
         }
             .semi-rtl .semi-dropdown-title-withTick, .semi-portal-rtl .semi-dropdown-title-withTick {
                 padding-left: 0;
                 padding-right: var(--semi-cssvar-spacing-dropdown_title_withTick-paddingLeft);
             }
-        .semi-rtl .semi-dropdown-item, .semi-portal-rtl .semi-dropdown-item {
-        }
             .semi-rtl .semi-dropdown-item-withTick, .semi-portal-rtl .semi-dropdown-item-withTick {
                 padding-left: auto;
                 padding-right: var(--semi-cssvar-spacing-dropdown_item_withTick-paddingLeft);

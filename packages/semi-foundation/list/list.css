@@ -90,18 +90,12 @@
     .semi-list-large .semi-list-item, .semi-list-large .semi-list-header, .semi-list-large .semi-list-footer {
         padding: var(--semi-cssvar-spacing-list_large-paddingX) var(--semi-cssvar-spacing-list_large-paddingY);
     }
-
-    .semi-list.semi-list-grid {
-    }
         .semi-list.semi-list-grid .semi-list-item {
             padding: var(--semi-cssvar-spacing-none);
         }
 
     .semi-list.semi-list-bordered {
         border: var(--semi-cssvar-border-thickness-control) solid var(--semi-cssvar-color-list_default-border-default);
-    }
-
-    .semi-list.semi-list-flex {
     }
         .semi-list.semi-list-flex .semi-list-items {
             display: flex;
@@ -118,10 +112,6 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-list, .semi-portal-rtl .semi-list {
         direction: rtl
     }
@@ -129,10 +119,7 @@
         .semi-rtl .semi-list-item, .semi-portal-rtl .semi-list-item {
             direction: rtl
         }  
-            /* 滚动加载无限长列表*/  
-
-            .semi-rtl .semi-list-item-body, .semi-portal-rtl .semi-list-item-body {
-            }
+            /* 滚动加载无限长列表*/
 
                 .semi-rtl .semi-list-item-body-header, .semi-portal-rtl .semi-list-item-body-header {
                     margin-right: auto;
@@ -144,9 +131,6 @@
                 margin-left: var(--semi-cssvar-spacing-none);
                 margin-right: var(--semi-cssvar-spacing-list_extra-marginRight);
             }
-    
-        .semi-rtl .semi-list.semi-list-flex, .semi-portal-rtl .semi-list.semi-list-flex {
-        }
             .semi-rtl .semi-list.semi-list-flex.semi-list-split .semi-list-item, .semi-portal-rtl .semi-list.semi-list-flex.semi-list-split .semi-list-item {
                 border-bottom: none;
                 border-right: var(--semi-cssvar-border-thickness);

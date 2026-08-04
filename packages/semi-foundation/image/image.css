@@ -249,10 +249,6 @@ img[src=""], img:not([src]) {
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
 
-.semi-rtl,
-.semi-portal-rtl {
-}
-
     .semi-rtl .semi-image-preview, .semi-portal-rtl .semi-image-preview {
 
         direction: rtl
@@ -273,9 +269,6 @@ img[src=""], img:not([src]) {
             left: var(--semi-cssvar-spacing-image_preview_icon-x);
             right: auto;
             transform: var(--semi-cssvar-transform_rotate-image_preview_icon-rtl);
-        }
-
-        .semi-rtl .semi-image-preview-footer, .semi-portal-rtl .semi-image-preview-footer {
         }
 
             .semi-rtl .semi-image-preview-footer-page, .semi-portal-rtl .semi-image-preview-footer-page {

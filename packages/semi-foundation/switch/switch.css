@@ -42,9 +42,6 @@
             transform: translateX(var(--semi-cssvar-spacing-switch_checked-translateX));
             background-color: var(--semi-cssvar-color-switch_knob-bg-checked);
         }
-
-        .semi-switch-checked:active {
-        }
             .semi-switch-checked:active .semi-switch-knob {
                 transform: translateX(var(--semi-cssvar-spacing-switch_checked-translateX) - var(--semi-cssvar-width-switch_knob_expand));
             }
@@ -85,8 +82,6 @@
             border-color: var(--semi-cssvar-color-switch_checked_disabled-border-default);
             background-color: var(--semi-cssvar-color-switch_checked_disabled-bg-default)
         }
-            .semi-switch-disabled.semi-switch-checked:active {
-            }
                 .semi-switch-disabled.semi-switch-checked:active .semi-switch-knob {
                     transform: translateX(var(--semi-cssvar-spacing-switch_checked-translateX));
                 }
@@ -94,9 +89,6 @@
     box-shadow: none;
                 border: none;
             }
-
-    .semi-switch-disabled.semi-switch-loading:not(.semi-switch-checked) {
-    }
         .semi-switch-disabled.semi-switch-loading:not(.semi-switch-checked):hover {
             background-color: var(--semi-cssvar-color-switch_spin_unchecked-bg-default);
         }
@@ -159,9 +151,6 @@
         align-items: center;
         background-color: var(--semi-cssvar-color-switch_spin_unchecked-bg-default)
     }
-
-        .semi-switch-loading-spin {
-        }
             .semi-switch-loading-spin .semi-spin-wrapper{
                 display: inline-flex;
                 align-items: center;
@@ -302,21 +291,11 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-switch, .semi-portal-rtl .semi-switch {
         direction: rtl
     }
-
-        .semi-rtl .semi-switch-checked, .semi-portal-rtl .semi-switch-checked {
-        }
             .semi-rtl .semi-switch-checked .semi-switch-knob, .semi-portal-rtl .semi-switch-checked .semi-switch-knob {
                 transform: translateX(-var(--semi-cssvar-spacing-switch_checked-translateX));
-            }
-
-            .semi-rtl .semi-switch-checked:active, .semi-portal-rtl .semi-switch-checked:active {
             }
                 .semi-rtl .semi-switch-checked:active .semi-switch-knob, .semi-portal-rtl .semi-switch-checked:active .semi-switch-knob {
                     transform: translateX(var(--semi-cssvar-width-switch_knob_expand) - var(--semi-cssvar-spacing-switch_checked-translateX));
@@ -335,71 +314,38 @@
         .semi-rtl .semi-switch-unchecked-text, .semi-portal-rtl .semi-switch-unchecked-text {
             left: 0;
         }
-
-    .semi-rtl .semi-switch-loading, .semi-portal-rtl .semi-switch-loading {
-    }
         .semi-rtl .semi-switch-loading .semi-switch-loading-spin, .semi-portal-rtl .semi-switch-loading .semi-switch-loading-spin {
             transform: translateX(-var(--semi-cssvar-spacing-switch_spin_unchecked-translateX));
-        }
-    
-        .semi-rtl .semi-switch-loading.semi-switch-checked, .semi-portal-rtl .semi-switch-loading.semi-switch-checked {
         }
             .semi-rtl .semi-switch-loading.semi-switch-checked .semi-switch-loading-spin, .semi-portal-rtl .semi-switch-loading.semi-switch-checked .semi-switch-loading-spin {
                 transform: translateX(-var(--semi-cssvar-spacing-switch_spin_checked-translateX));
             }
-    
-    .semi-rtl .semi-switch-loading.semi-switch-small, .semi-portal-rtl .semi-switch-loading.semi-switch-small {
-    }
         .semi-rtl .semi-switch-loading.semi-switch-small .semi-switch-loading-spin, .semi-portal-rtl .semi-switch-loading.semi-switch-small .semi-switch-loading-spin {
             transform: translateX(-var(--semi-cssvar-spacing-switch_spin_unchecked_small-translateX));
-        }
-        .semi-rtl .semi-switch-loading.semi-switch-small.semi-switch-checked, .semi-portal-rtl .semi-switch-loading.semi-switch-small.semi-switch-checked{
         }
             .semi-rtl .semi-switch-loading.semi-switch-small.semi-switch-checked .semi-switch-loading-spin, .semi-portal-rtl .semi-switch-loading.semi-switch-small.semi-switch-checked .semi-switch-loading-spin {
                 transform: translateX(-var(--semi-cssvar-spacing-switch_spin_checked_small-translateX));
             }
-    
-    .semi-rtl .semi-switch-loading.semi-switch-large, .semi-portal-rtl .semi-switch-loading.semi-switch-large {
-    }
         .semi-rtl .semi-switch-loading.semi-switch-large .semi-switch-loading-spin, .semi-portal-rtl .semi-switch-loading.semi-switch-large .semi-switch-loading-spin {
             transform: translateX(-var(--semi-cssvar-spacing-switch_spin_unchecked_large-translateX));
-        }
-    
-        .semi-rtl .semi-switch-loading.semi-switch-large.semi-switch-checked, .semi-portal-rtl .semi-switch-loading.semi-switch-large.semi-switch-checked {
         }
             .semi-rtl .semi-switch-loading.semi-switch-large.semi-switch-checked .semi-switch-loading-spin, .semi-portal-rtl .semi-switch-loading.semi-switch-large.semi-switch-checked .semi-switch-loading-spin {
                 transform: translateX(-var(--semi-cssvar-spacing-switch_spin_checked_large-translateX));
             }
-
-    .semi-rtl .semi-switch-large, .semi-portal-rtl .semi-switch-large {
-    }
         .semi-rtl .semi-switch-large .semi-switch-knob, .semi-portal-rtl .semi-switch-large .semi-switch-knob {
             transform: translateX(-var(--semi-cssvar-spacing-switch_unchecked_large-translateX));
-        }
-        .semi-rtl .semi-switch-large.semi-switch-checked, .semi-portal-rtl .semi-switch-large.semi-switch-checked {
         }
             .semi-rtl .semi-switch-large.semi-switch-checked .semi-switch-knob, .semi-portal-rtl .semi-switch-large.semi-switch-checked .semi-switch-knob {
                 transform: translateX(-var(--semi-cssvar-spacing-switch_checked_large-translateX));
             }
-
-            .semi-rtl .semi-switch-large.semi-switch-checked:active, .semi-portal-rtl .semi-switch-large.semi-switch-checked:active {
-            }
                 .semi-rtl .semi-switch-large.semi-switch-checked:active .semi-switch-knob, .semi-portal-rtl .semi-switch-large.semi-switch-checked:active .semi-switch-knob {
                     transform: translateX(var(--semi-cssvar-spacing-switch_expand_large-translateX) - var(--semi-cssvar-spacing-switch_checked_large-translateX));
                 }
-
-    .semi-rtl .semi-switch-small, .semi-portal-rtl .semi-switch-small {
-    }
         .semi-rtl .semi-switch-small .semi-switch-knob, .semi-portal-rtl .semi-switch-small .semi-switch-knob {
             transform: translateX(-var(--semi-cssvar-spacing-switch_unchecked_small-translateX));
         }
-        .semi-rtl .semi-switch-small.semi-switch-checked, .semi-portal-rtl .semi-switch-small.semi-switch-checked {
-        }
             .semi-rtl .semi-switch-small.semi-switch-checked .semi-switch-knob, .semi-portal-rtl .semi-switch-small.semi-switch-checked .semi-switch-knob {
                 transform: translateX(-var(--semi-cssvar-spacing-switch_checked_small-translateX));
-            }
-
-            .semi-rtl .semi-switch-small.semi-switch-checked:active, .semi-portal-rtl .semi-switch-small.semi-switch-checked:active {
             }
                 .semi-rtl .semi-switch-small.semi-switch-checked:active .semi-switch-knob, .semi-portal-rtl .semi-switch-small.semi-switch-checked:active .semi-switch-knob {
                     transform: translateX(var(--semi-cssvar-spacing-switch_expand_small-translateX) - var(--semi-cssvar-spacing-switch_checked_small-translateX));

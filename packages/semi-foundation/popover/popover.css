@@ -26,10 +26,6 @@
     }
 }
 
-
-.semi-popover {
-}
-
     .semi-popover-wrapper {
         position: relative;
         background-color: var(--semi-cssvar-color-popover-bg-default);
@@ -96,19 +92,11 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-popover {
-}
-    .semi-popover-wrapper {
-    }
         .semi-popover-wrapper .semi-popover-icon-arrow {
             height: 8px;
             width: var(--semi-cssvar-width-tooltip_arrow);
             position: absolute;
             color:unset;
-        }
-
-        .semi-popover-wrapper[x-placement='top'] {
         }
             .semi-popover-wrapper[x-placement='top'] .semi-popover-icon-arrow {
                 left: var(--semi-tooltip-arrow-offset-x, 50%);
@@ -118,8 +106,6 @@
     .semi-popover-wrapper[x-placement='top'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='top'] .semi-popover-with-arrow {
         min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
     }
-        .semi-popover-wrapper[x-placement='topLeft'] {
-        }
             .semi-popover-wrapper[x-placement='topLeft'] .semi-popover-icon-arrow {
                 bottom: (-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
                 left: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
@@ -127,8 +113,6 @@
     .semi-popover-wrapper[x-placement='topLeft'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='topLeft'] .semi-popover-with-arrow {
         min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
     }
-        .semi-popover-wrapper[x-placement='topRight'] {
-        }
             .semi-popover-wrapper[x-placement='topRight'] .semi-popover-icon-arrow {
                 bottom: (-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
                 right: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
@@ -136,8 +120,6 @@
     .semi-popover-wrapper[x-placement='topRight'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='topRight'] .semi-popover-with-arrow {
         min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
     }
-        .semi-popover-wrapper[x-placement='leftTop'] {
-        }
             .semi-popover-wrapper[x-placement='leftTop'] .semi-popover-icon-arrow {
                 width: 8px;
                 height: var(--semi-cssvar-height-tooltip_arrow_vertical);
@@ -147,8 +129,6 @@
     .semi-popover-wrapper[x-placement='leftTop'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='leftTop'] .semi-popover-with-arrow {
         min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px * 2);
     }
-        .semi-popover-wrapper[x-placement='left'] {
-        }
             .semi-popover-wrapper[x-placement='left'] .semi-popover-icon-arrow {
                 width: 8px;
                 height: var(--semi-cssvar-height-tooltip_arrow_vertical);
@@ -159,8 +139,6 @@
     .semi-popover-wrapper[x-placement='left'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='left'] .semi-popover-with-arrow {
         min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px * 2);
     }
-        .semi-popover-wrapper[x-placement='leftBottom'] {
-        }
             .semi-popover-wrapper[x-placement='leftBottom'] .semi-popover-icon-arrow {
                 width: 8px;
                 height: var(--semi-cssvar-height-tooltip_arrow_vertical);
@@ -170,8 +148,6 @@
     .semi-popover-wrapper[x-placement='leftBottom'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='leftBottom'] .semi-popover-with-arrow {
         min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px * 2);
     }
-        .semi-popover-wrapper[x-placement='rightTop'] {
-        }
             .semi-popover-wrapper[x-placement='rightTop'] .semi-popover-icon-arrow {
                 width: 8px;
                 height: var(--semi-cssvar-height-tooltip_arrow_vertical);
@@ -182,8 +158,6 @@
     .semi-popover-wrapper[x-placement='rightTop'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='rightTop'] .semi-popover-with-arrow {
         min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px * 2);
     }
-        .semi-popover-wrapper[x-placement='right'] {
-        }
             .semi-popover-wrapper[x-placement='right'] .semi-popover-icon-arrow {
                 width: 8px;
                 height: var(--semi-cssvar-height-tooltip_arrow_vertical);
@@ -194,8 +168,6 @@
     .semi-popover-wrapper[x-placement='right'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='right'] .semi-popover-with-arrow {
         min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px * 2);
     }
-        .semi-popover-wrapper[x-placement='rightBottom'] {
-        }
             .semi-popover-wrapper[x-placement='rightBottom'] .semi-popover-icon-arrow {
                 width: 8px;
                 height: var(--semi-cssvar-height-tooltip_arrow_vertical);
@@ -206,8 +178,6 @@
     .semi-popover-wrapper[x-placement='rightBottom'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='rightBottom'] .semi-popover-with-arrow {
         min-height: calc(var(--semi-cssvar-height-tooltip_arrow_vertical) + 6px * 2);
     }
-        .semi-popover-wrapper[x-placement='bottomLeft'] {
-        }
             .semi-popover-wrapper[x-placement='bottomLeft'] .semi-popover-icon-arrow {
                 top: (-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
                 left: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
@@ -216,8 +186,6 @@
     .semi-popover-wrapper[x-placement='bottomLeft'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='bottomLeft'] .semi-popover-with-arrow {
         min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
     }
-        .semi-popover-wrapper[x-placement='bottom'] {
-        }
             .semi-popover-wrapper[x-placement='bottom'] .semi-popover-icon-arrow {
                 top: (-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));
                 left: var(--semi-tooltip-arrow-offset-x, 50%);
@@ -226,8 +194,6 @@
     .semi-popover-wrapper[x-placement='bottom'].semi-popover-with-arrow, .semi-popover-wrapper[x-placement='bottom'] .semi-popover-with-arrow {
         min-width: calc(var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x) * 2 + var(--semi-cssvar-width-tooltip_arrow));
     }
-        .semi-popover-wrapper[x-placement='bottomRight'] {
-        }
             .semi-popover-wrapper[x-placement='bottomRight'] .semi-popover-icon-arrow {
                 right: var(--semi-cssvar-spacing-tooltip_arrow_adjusted_offset-x);
                 top: (-8px + var(--semi-cssvar-spacing-tooltip_arrow_offset-y));

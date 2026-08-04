@@ -17,9 +17,6 @@
         cursor: pointer;
         transition: box-shadow var(--semi-cssvar-motion-card-transition_duration)
     }
-        
-        .semi-card-shadows-hover {
-        }
             .semi-card-shadows-hover:hover {
                 box-shadow: var(--semi-cssvar-shadow-card);
                 z-index: var(--semi-cssvar-z-card_hover);
@@ -65,9 +62,6 @@
                 letter-spacing: 0em;
                 color: var(--semi-cssvar-color-card_extra-text);
             }
-
-    .semi-card-cover {
-    }
         .semi-card-cover > * {
             display: block;
             width: 100%;
@@ -106,9 +100,6 @@
         .semi-card-meta-avatar {
             margin-right: var(--semi-cssvar-spacing-card_avatar-marginRight);
         }
-
-        .semi-card-meta-wrapper {
-        }
             .semi-card-meta-wrapper-title {
                 font-size: var(--semi-cssvar-font-card_title-fontSize);
                 font-style: normal;
@@ -126,11 +117,6 @@
                 letter-spacing: 0em;
                 color: var(--semi-cssvar-color-card_description-text);
             }
-
-.semi-card-group {
-}
-    .semi-card-group-grid {
-    }
         .semi-card-group-grid .semi-card {
             border-radius: 0;
         }
@@ -142,16 +128,9 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-card, .semi-portal-rtl .semi-card {
         direction: rtl
     }
-
-        .semi-rtl .semi-card-header, .semi-portal-rtl .semi-card-header {
-        }
             .semi-rtl .semi-card-header-wrapper, .semi-portal-rtl .semi-card-header-wrapper {
                 align-items: flex-end
             }
@@ -165,9 +144,6 @@
                     margin-left: var(--semi-cssvar-spacing-card-margin);
                     margin-right: 0;
                 }
-
-        .semi-rtl .semi-card-meta, .semi-portal-rtl .semi-card-meta {
-        }
             .semi-rtl .semi-card-meta-avatar, .semi-portal-rtl .semi-card-meta-avatar {
                 margin-left: var(--semi-cssvar-spacing-card_avatar-marginRight);
                 margin-right: 0;
@@ -176,8 +152,6 @@
     .semi-rtl .semi-card-group, .semi-portal-rtl .semi-card-group {
         direction: rtl
     }
-        .semi-rtl .semi-card-group-grid, .semi-portal-rtl .semi-card-group-grid {
-        }
             .semi-rtl .semi-card-group-grid .semi-card, .semi-portal-rtl .semi-card-group-grid .semi-card {
                 margin-left: 0;
                 margin-top: 0;

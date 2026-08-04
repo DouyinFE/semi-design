@@ -23,9 +23,6 @@
         /* Keep original textarea wrapper formatting (stacking counter, etc.),*/
         /* only shrink-to-fit width so border follows horizontal resize.*/
         /* Using inline-flex here may change internal layout and cause clear/counter misalignment.*/
-
-    .semi-input-textarea-wrapper-resizeY {
-    }
         /* Keep default width behavior; vertical resize doesn't require wrapper width change.*/
 
     .semi-input-textarea-wrapper:hover {
@@ -317,23 +314,13 @@
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
 /*@import '../theme/variables.scss';*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-input-wrapper, .semi-portal-rtl .semi-input-wrapper {
         direction: rtl
     }
-
-        .semi-rtl .semi-input-wrapper__with-prefix, .semi-portal-rtl .semi-input-wrapper__with-prefix {
-        }
             .semi-rtl .semi-input-wrapper__with-prefix .semi-input, .semi-portal-rtl .semi-input-wrapper__with-prefix .semi-input {
                 padding-left: auto;
                 padding-right: 0;
             }
-
-        .semi-rtl .semi-input-wrapper__with-suffix, .semi-portal-rtl .semi-input-wrapper__with-suffix {
-        }
             .semi-rtl .semi-input-wrapper__with-suffix .semi-input, .semi-portal-rtl .semi-input-wrapper__with-suffix .semi-input {
                 padding-right: auto;
                 padding-left: 0;
@@ -343,10 +330,6 @@
         padding-left: var(--semi-cssvar-spacing-input-paddingRight);
         padding-right: var(--semi-cssvar-spacing-input-paddingLeft)
     }
-
-
-        .semi-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix, .semi-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix, .semi-portal-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix, .semi-portal-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix {
-        }
             .semi-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix + .semi-input-suffix-text, .semi-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix + .semi-input-suffix-text, .semi-portal-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix + .semi-input-suffix-text, .semi-portal-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix + .semi-input-suffix-text {
                 margin-left: auto;
                 margin-right: 0;
@@ -367,24 +350,10 @@
             border-left: var(--semi-cssvar-width-input_prepend-border) var(--semi-cssvar-color-input_default-border-default) solid;
         }
 
-        .semi-rtl .semi-input-group, .semi-portal-rtl .semi-input-group {
-        }
-            .semi-rtl .semi-input-group .semi-select, .semi-portal-rtl .semi-input-group .semi-select, .semi-rtl .semi-input-group .semi-cascader, .semi-portal-rtl .semi-input-group .semi-cascader, .semi-rtl .semi-input-group .semi-tree-select, .semi-portal-rtl .semi-input-group .semi-tree-select, .semi-rtl .semi-input-group > .semi-input-wrapper, .semi-portal-rtl .semi-input-group > .semi-input-wrapper {
-            }
-
-                .semi-rtl .semi-input-group .semi-select:not(:last-child), .semi-portal-rtl .semi-input-group .semi-select:not(:last-child), .semi-rtl .semi-input-group .semi-cascader:not(:last-child), .semi-portal-rtl .semi-input-group .semi-cascader:not(:last-child), .semi-rtl .semi-input-group .semi-tree-select:not(:last-child), .semi-portal-rtl .semi-input-group .semi-tree-select:not(:last-child), .semi-rtl .semi-input-group > .semi-input-wrapper:not(:last-child), .semi-portal-rtl .semi-input-group > .semi-input-wrapper:not(:last-child) {
-                }
-
                     .semi-rtl .semi-input-group .semi-select:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-select:not(:last-child)::after, .semi-rtl .semi-input-group .semi-cascader:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-cascader:not(:last-child)::after, .semi-rtl .semi-input-group .semi-tree-select:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-tree-select:not(:last-child)::after, .semi-rtl .semi-input-group > .semi-input-wrapper:not(:last-child)::after, .semi-portal-rtl .semi-input-group > .semi-input-wrapper:not(:last-child)::after {
                         right: auto;
                         left: -1px;
                     }
-
-            .semi-rtl .semi-input-group .semi-input-number, .semi-portal-rtl .semi-input-group .semi-input-number {
-            }
-
-                .semi-rtl .semi-input-group .semi-input-number:not(:last-child), .semi-portal-rtl .semi-input-group .semi-input-number:not(:last-child) {
-                }
 
                     .semi-rtl .semi-input-group .semi-input-number:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-input-number:not(:last-child)::after {
                         right: auto;
@@ -393,9 +362,6 @@
 
     .semi-rtl .semi-input-textarea-wrapper, .semi-portal-rtl .semi-input-textarea-wrapper {
         direction: rtl;
-    }
-
-    .semi-rtl .semi-input-textarea, .semi-portal-rtl .semi-input-textarea {
     }
 
         .semi-rtl .semi-input-textarea-counter, .semi-portal-rtl .semi-input-textarea-counter {

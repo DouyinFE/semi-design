@@ -194,23 +194,14 @@
             outline: var(--semi-cssvar-width-input_icon-outline) solid var(--semi-cssvar-color-input_icon-outline);
             outline-offset: var(--semi-cssvar-width-input_icon-outlineOffset);
         }
-
-    .semi-input-wrapper__with-suffix-icon.semi-input-wrapper-clearable:not(.semi-input-wrapper__with-suffix-hidden) {
-    }
         .semi-input-wrapper__with-suffix-icon.semi-input-wrapper-clearable:not(.semi-input-wrapper__with-suffix-hidden) .semi-input-clearbtn {
             min-width: var(--semi-cssvar-width-input-icon_clear_before_suffix);
             justify-content: flex-end;
         }
-
-    .semi-input-wrapper-modebtn.semi-input-wrapper-clearable {
-    }
         .semi-input-wrapper-modebtn.semi-input-wrapper-clearable .semi-input-clearbtn {
             min-width: var(--semi-cssvar-width-input-icon_clear_before_modebtn);
             justify-content: center;
         }
-
-    .semi-input-wrapper.semi-input-wrapper__with-append-only {
-    }
         .semi-input-wrapper.semi-input-wrapper__with-append-only .semi-input {
             border-radius: 0 var(--semi-cssvar-radius-input_wrapper) var(--semi-cssvar-radius-input_wrapper) 0
         }
@@ -219,9 +210,6 @@
                 border-right-style: none;
                 border-radius: 0;
             }
-
-    .semi-input-wrapper.semi-input-wrapper__with-prepend-only {
-    }
         .semi-input-wrapper.semi-input-wrapper__with-prepend-only .semi-input {
             border-radius: var(--semi-cssvar-radius-input_wrapper) 0 0 var(--semi-cssvar-radius-input_wrapper)
         }
@@ -265,9 +253,6 @@
 
                 .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:focus.semi-input-sibling-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:focus.semi-input-sibling-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:focus.semi-input-sibling-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:focus.semi-input-sibling-modebtn {
                     border-right-style: none;
-                }
-
-                .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:focus.semi-input-sibling-modebtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:focus.semi-input-sibling-modebtn {
                 }
 
                     .semi-input-wrapper.semi-input-wrapper__with-prepend .semi-input:focus.semi-input-sibling-modebtn + .semi-input-clearbtn, .semi-input-wrapper.semi-input-wrapper__with-append .semi-input:focus.semi-input-sibling-modebtn + .semi-input-clearbtn {
@@ -526,9 +511,6 @@
         justify-content: center;
         min-width: var(--semi-cssvar-width-input-icon);
     }
-
-    .semi-input-clearbtn + .semi-input-suffix {
-    }
         .semi-input-clearbtn + .semi-input-suffix + .semi-input-suffix-text {
             margin-left: 0;
         }
@@ -566,9 +548,6 @@
     .semi-input-prepend {
         border-radius: var(--semi-cssvar-radius-input_wrapper) 0 0 var(--semi-cssvar-radius-input_wrapper);
         border-right: var(--semi-cssvar-width-input_prepend-border) var(--semi-cssvar-color-input_default-border-default) solid;
-    }
-
-    .semi-input-disabled {
     }
         .semi-input-disabled::placeholder {
             color: var(--semi-cssvar-color-input_disabled-text-default);
@@ -611,22 +590,13 @@
         .semi-input-group .semi-select{
             overflow-y: visible;
         }
-        
-        .semi-input-group .semi-input-number, .semi-input-group .semi-datepicker, .semi-input-group .semi-timepicker, .semi-input-group .semi-autocomplete {
-        }
             
             .semi-input-group .semi-input-number .semi-input-wrapper, .semi-input-group .semi-datepicker .semi-input-wrapper, .semi-input-group .semi-timepicker .semi-input-wrapper, .semi-input-group .semi-autocomplete .semi-input-wrapper, .semi-input-group .semi-input-number .semi-datepicker-range-input, .semi-input-group .semi-datepicker .semi-datepicker-range-input, .semi-input-group .semi-timepicker .semi-datepicker-range-input, .semi-input-group .semi-autocomplete .semi-datepicker-range-input {
                 border-radius: 0;
             }
-
-            .semi-input-group .semi-input-number:first-child, .semi-input-group .semi-datepicker:first-child, .semi-input-group .semi-timepicker:first-child, .semi-input-group .semi-autocomplete:first-child {
-            }
                 .semi-input-group .semi-input-number:first-child .semi-input-wrapper, .semi-input-group .semi-datepicker:first-child .semi-input-wrapper, .semi-input-group .semi-timepicker:first-child .semi-input-wrapper, .semi-input-group .semi-autocomplete:first-child .semi-input-wrapper, .semi-input-group .semi-input-number:first-child .semi-datepicker-range-input, .semi-input-group .semi-datepicker:first-child .semi-datepicker-range-input, .semi-input-group .semi-timepicker:first-child .semi-datepicker-range-input, .semi-input-group .semi-autocomplete:first-child .semi-datepicker-range-input {
                     border-radius: var(--semi-cssvar-radius-input_wrapper) 0 0 var(--semi-cssvar-radius-input_wrapper);
                 }
-
-            .semi-input-group .semi-input-number:last-child, .semi-input-group .semi-datepicker:last-child, .semi-input-group .semi-timepicker:last-child, .semi-input-group .semi-autocomplete:last-child {
-            }
                 .semi-input-group .semi-input-number:last-child .semi-input-wrapper, .semi-input-group .semi-datepicker:last-child .semi-input-wrapper, .semi-input-group .semi-timepicker:last-child .semi-input-wrapper, .semi-input-group .semi-autocomplete:last-child .semi-input-wrapper, .semi-input-group .semi-input-number:last-child .semi-datepicker-range-input, .semi-input-group .semi-datepicker:last-child .semi-datepicker-range-input, .semi-input-group .semi-timepicker:last-child .semi-datepicker-range-input, .semi-input-group .semi-autocomplete:last-child .semi-datepicker-range-input {
                     border-radius: 0 var(--semi-cssvar-radius-input_wrapper) var(--semi-cssvar-radius-input_wrapper) 0;
                 }
@@ -645,9 +615,6 @@
                     bottom: 1px;
                 }
                     /* height: $inputGroup-border-height;*/
-
-    .semi-input-group-wrapper {
-    }
         .semi-input-group-wrapper-with-top-label {
             margin-top: var(--semi-cssvar-spacing-input_group_withTopLabel-marginTop);
             margin-bottom: var(--semi-cssvar-spacing-input_group_withTopLabel-marginBottom)
@@ -655,9 +622,6 @@
 
             .semi-input-group-wrapper-with-top-label .semi-input-group {
                 display: flex;
-            }
-
-            .semi-input-group-wrapper-with-top-label .semi-input-group {
             }
                 .semi-input-group-wrapper-with-top-label .semi-input-group .semi-form-field {
                     margin-top: 0;
@@ -704,23 +668,13 @@
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
 /*@import '../theme/variables.scss';*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-input-wrapper, .semi-portal-rtl .semi-input-wrapper {
         direction: rtl
     }
-
-        .semi-rtl .semi-input-wrapper__with-prefix, .semi-portal-rtl .semi-input-wrapper__with-prefix {
-        }
             .semi-rtl .semi-input-wrapper__with-prefix .semi-input, .semi-portal-rtl .semi-input-wrapper__with-prefix .semi-input {
                 padding-left: auto;
                 padding-right: 0;
             }
-
-        .semi-rtl .semi-input-wrapper__with-suffix, .semi-portal-rtl .semi-input-wrapper__with-suffix {
-        }
             .semi-rtl .semi-input-wrapper__with-suffix .semi-input, .semi-portal-rtl .semi-input-wrapper__with-suffix .semi-input {
                 padding-right: auto;
                 padding-left: 0;
@@ -730,10 +684,6 @@
         padding-left: var(--semi-cssvar-spacing-input-paddingRight);
         padding-right: var(--semi-cssvar-spacing-input-paddingLeft)
     }
-
-
-        .semi-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix, .semi-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix, .semi-portal-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix, .semi-portal-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix {
-        }
             .semi-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix + .semi-input-suffix-text, .semi-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix + .semi-input-suffix-text, .semi-portal-rtl .semi-input-clearbtn + .semi-rtl .semi-input-suffix + .semi-input-suffix-text, .semi-portal-rtl .semi-input-clearbtn + .semi-portal-rtl .semi-input-suffix + .semi-input-suffix-text {
                 margin-left: auto;
                 margin-right: 0;
@@ -754,24 +704,10 @@
             border-left: var(--semi-cssvar-width-input_prepend-border) var(--semi-cssvar-color-input_default-border-default) solid;
         }
 
-        .semi-rtl .semi-input-group, .semi-portal-rtl .semi-input-group {
-        }
-            .semi-rtl .semi-input-group .semi-select, .semi-portal-rtl .semi-input-group .semi-select, .semi-rtl .semi-input-group .semi-cascader, .semi-portal-rtl .semi-input-group .semi-cascader, .semi-rtl .semi-input-group .semi-tree-select, .semi-portal-rtl .semi-input-group .semi-tree-select, .semi-rtl .semi-input-group > .semi-input-wrapper, .semi-portal-rtl .semi-input-group > .semi-input-wrapper {
-            }
-
-                .semi-rtl .semi-input-group .semi-select:not(:last-child), .semi-portal-rtl .semi-input-group .semi-select:not(:last-child), .semi-rtl .semi-input-group .semi-cascader:not(:last-child), .semi-portal-rtl .semi-input-group .semi-cascader:not(:last-child), .semi-rtl .semi-input-group .semi-tree-select:not(:last-child), .semi-portal-rtl .semi-input-group .semi-tree-select:not(:last-child), .semi-rtl .semi-input-group > .semi-input-wrapper:not(:last-child), .semi-portal-rtl .semi-input-group > .semi-input-wrapper:not(:last-child) {
-                }
-
                     .semi-rtl .semi-input-group .semi-select:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-select:not(:last-child)::after, .semi-rtl .semi-input-group .semi-cascader:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-cascader:not(:last-child)::after, .semi-rtl .semi-input-group .semi-tree-select:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-tree-select:not(:last-child)::after, .semi-rtl .semi-input-group > .semi-input-wrapper:not(:last-child)::after, .semi-portal-rtl .semi-input-group > .semi-input-wrapper:not(:last-child)::after {
                         right: auto;
                         left: -1px;
                     }
-
-            .semi-rtl .semi-input-group .semi-input-number, .semi-portal-rtl .semi-input-group .semi-input-number {
-            }
-
-                .semi-rtl .semi-input-group .semi-input-number:not(:last-child), .semi-portal-rtl .semi-input-group .semi-input-number:not(:last-child) {
-                }
 
                     .semi-rtl .semi-input-group .semi-input-number:not(:last-child)::after, .semi-portal-rtl .semi-input-group .semi-input-number:not(:last-child)::after {
                         right: auto;
@@ -780,9 +716,6 @@
 
     .semi-rtl .semi-input-textarea-wrapper, .semi-portal-rtl .semi-input-textarea-wrapper {
         direction: rtl;
-    }
-
-    .semi-rtl .semi-input-textarea, .semi-portal-rtl .semi-input-textarea {
     }
 
         .semi-rtl .semi-input-textarea-counter, .semi-portal-rtl .semi-input-textarea-counter {

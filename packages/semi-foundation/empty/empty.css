@@ -23,9 +23,6 @@
         .semi-empty-vertical .semi-empty-title, .semi-empty-vertical .semi-empty-description {
             text-align: center;
         }
-
-    .semi-empty-horizontal {
-    }
         .semi-empty-horizontal .semi-empty-content {
             margin-left: var(--semi-cssvar-spacing-empty_content_horizontal-marginLeft);
         }
@@ -49,16 +46,9 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-empty, .semi-portal-rtl .semi-empty {
         direction: rtl
     }
-
-        .semi-rtl .semi-empty-horizontal, .semi-portal-rtl .semi-empty-horizontal {
-        }
             .semi-rtl .semi-empty-horizontal .semi-empty-content, .semi-portal-rtl .semi-empty-horizontal .semi-empty-content {
                 margin-left: auto;
                 margin-right: var(--semi-cssvar-spacing-empty_content_horizontal-marginLeft);

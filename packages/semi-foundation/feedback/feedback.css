@@ -1,7 +1,4 @@
 
-.semi-feedback {
-}
-
     .semi-feedback-emoji-container {
         display: flex;
         justify-content: center;
@@ -51,18 +48,12 @@
     .semi-feedback .semi-modal {
         width: var(--semi-cssvar-width-feedback);
     }
-
-    .semi-feedback.semi-feedback-text {
-    }
         .semi-feedback.semi-feedback-text .semi-modal {
             width: var(--semi-cssvar-width-feedback);
         }
 
     .semi-feedback .semi-sidesheet-inner {
         border-radius: var(--semi-cssvar-radius-feedback_sidesheet_inner);
-    }
-
-    .semi-feedback.semi-sidesheet {
     }
         .semi-feedback.semi-sidesheet.semi-sidesheet-size-small {
             width: var(--semi-cssvar-width-feedback);  
@@ -75,9 +66,6 @@
         .semi-feedback.semi-sidesheet-bottom {
             right: var(--semi-cssvar-spacing-feedback_sidesheet_bottom-right);
             left: auto;
-        }
-
-        .semi-feedback.semi-sidesheet-bottom {
         }
             .semi-feedback.semi-sidesheet-bottom .semi-sidesheet-inner-wrap {
                 bottom: var(--semi-cssvar-spacing-feedback_sidesheet_bottom_inner_wrap-bottom);
@@ -99,9 +87,6 @@
             to {
                 transform: translateY(calc(100% + var(--semi-cssvar-spacing-feedback_sidesheet_bottom_inner_wrap-bottom)));
             }
-        }
-
-        .semi-feedback.semi-sidesheet .semi-sidesheet-fixed {
         }
 
             .semi-feedback.semi-sidesheet .semi-sidesheet-fixed.semi-feedback-bottom {

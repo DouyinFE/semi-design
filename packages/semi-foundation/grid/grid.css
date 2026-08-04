@@ -2131,7 +2131,7 @@
 /* // Columns, offsets, pushes, and pulls for the small device range, from phones*/
 /* // to tablets.*/
 
-@media (min-width: var(--semi-cssvar-width-grid_screen-sm-min)) {
+@media (min-width: 576px) {
 
         .semi-col-sm-1 {
             flex: 0 0 auto;
@@ -3074,7 +3074,7 @@
 /* //*/
 /* // Columns, offsets, pushes, and pulls for the desktop device range.*/
 
-@media (min-width: var(--semi-cssvar-width-grid_screen-md-min)) {
+@media (min-width: 768px) {
 
         .semi-col-md-1 {
             flex: 0 0 auto;
@@ -4017,7 +4017,7 @@
 /* //*/
 /* // Columns, offsets, pushes, and pulls for the large desktop device range.*/
 
-@media (min-width: var(--semi-cssvar-width-grid_screen-lg-min)) {
+@media (min-width: 992px) {
 
         .semi-col-lg-1 {
             flex: 0 0 auto;
@@ -4960,7 +4960,7 @@
 /* //*/
 /* // Columns, offsets, pushes, and pulls for the full hd device range.*/
 
-@media (min-width: var(--semi-cssvar-width-grid_screen-xl-min)) {
+@media (min-width: 1200px) {
 
         .semi-col-xl-1 {
             flex: 0 0 auto;
@@ -5903,7 +5903,7 @@
 /* //*/
 /* // Columns, offsets, pushes, and pulls for the full hd device range.*/
 
-@media (min-width: var(--semi-cssvar-width-grid_screen-xxl-min)) {
+@media (min-width: 1600px) {
 
         .semi-col-xxl-1 {
             flex: 0 0 auto;

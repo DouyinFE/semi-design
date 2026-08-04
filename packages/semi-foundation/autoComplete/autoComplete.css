@@ -104,9 +104,6 @@
         overflow-x: hidden;
         overflow-y: auto
     }
-
-        .semi-autocomplete-option-list-chosen {
-        }
             .semi-autocomplete-option-list-chosen .semi-autocomplete-option-icon {
                 display: flex;
             }

@@ -72,10 +72,6 @@
         position: static;
         display: inline-block;
     }
-
-
-    .semi-badge-primary {
-    }
         .semi-badge-primary.semi-badge-solid {
             background-color: var(--semi-cssvar-color-badge_primary_solid-bg-default);
         }
@@ -86,9 +82,6 @@
         .semi-badge-primary.semi-badge-inverted {
             color: var(--semi-cssvar-color-badge_primary_inverted-text-default);
         }
-
-    .semi-badge-secondary {
-    }
         .semi-badge-secondary.semi-badge-solid {
             background-color: var(--semi-cssvar-color-badge_secondary_solid-bg-default);
         }
@@ -99,9 +92,6 @@
         .semi-badge-secondary.semi-badge-inverted {
             color: var(--semi-cssvar-color-badge_secondary_inverted-text-default);
         }
-
-    .semi-badge-tertiary {
-    }
         .semi-badge-tertiary.semi-badge-solid {
             background-color: var(--semi-cssvar-color-badge_tertiary_solid-bg-default);
         }
@@ -112,9 +102,6 @@
         .semi-badge-tertiary.semi-badge-inverted {
             color: var(--semi-cssvar-color-badge_tertiary_inverted-text-default);
         }
-
-    .semi-badge-danger {
-    }
         .semi-badge-danger.semi-badge-solid {
             background-color: var(--semi-cssvar-color-badge_danger_solid-bg-default);
         }
@@ -125,9 +112,6 @@
         .semi-badge-danger.semi-badge-inverted {
             color: var(--semi-cssvar-color-badge_danger_inverted-text-default);
         }
-
-    .semi-badge-warning {
-    }
         .semi-badge-warning.semi-badge-solid {
             background-color: var(--semi-cssvar-color-badge_warning_solid-bg-default);
         }
@@ -138,9 +122,6 @@
         .semi-badge-warning.semi-badge-inverted {
             color: var(--semi-cssvar-color-badge_warning_inverted-text-default);
         }
-
-    .semi-badge-success {
-    }
         .semi-badge-success.semi-badge-solid {
             background-color: var(--semi-cssvar-color-badge_success_solid-bg-default);
         }

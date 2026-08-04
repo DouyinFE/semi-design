@@ -1,11 +1,4 @@
 
-.semi-markdownRender {
-
-
-
-
-}
-
     .semi-markdownRender-simple-code{
         background: var(--semi-cssvar-color-markdownRender_simpleCode-bg);
         color:var(--semi-cssvar-color-markdownRender_simpleCode-text);
@@ -29,9 +22,6 @@
             text-align: center;
             color: var(--semi-cssvar-color-markdownRender_component_image_alt);
         }
-
-    .semi-markdownRender-component-header.semi-typography{
-    }
         .semi-markdownRender-component-header.semi-typography.semi-typography-h1 {
             margin-top: var(--semi-cssvar-spacing-markdownRender_component_header1-marginTop);
             margin-bottom: var(--semi-cssvar-spacing-markdownRender_component_header1-marginBottom);
@@ -52,9 +42,6 @@
             margin-top: var(--semi-cssvar-spacing-markdownRender_component_header5-marginTop);
             margin-bottom: var(--semi-cssvar-spacing-markdownRender_component_header5-marginBottom);
         }
-
-    .semi-markdownRender-component-p {
-    }
         .semi-markdownRender-component-p strong {
             font-weight: var(--semi-cssvar-font-weight-bold);
         }

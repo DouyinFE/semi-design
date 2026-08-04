@@ -37,9 +37,6 @@
     font-family: var(--semi-cssvar-font-family-regular);
         color: var(--semi-cssvar-color-descriptions_value-text-default);
     }
-
-    .semi-descriptions-center {
-    }
         .semi-descriptions-center .semi-descriptions-item-th {
             text-align: right;
         }
@@ -47,15 +44,9 @@
         .semi-descriptions-center .semi-descriptions-item-td {
             text-align: left;
         }
-
-    .semi-descriptions-left {
-    }
         .semi-descriptions-left .semi-descriptions-item-th, .semi-descriptions-left .semi-descriptions-item-td {
             text-align: left;
         }
-
-    .semi-descriptions-justify {
-    }
         .semi-descriptions-justify .semi-descriptions-item-th {
             text-align: left;
         }
@@ -63,9 +54,6 @@
         .semi-descriptions-justify .semi-descriptions-item-td {
             text-align: right;
         }
-
-    .semi-descriptions-plain {
-    }
         /* tag 垂直居中*/
         .semi-descriptions-plain .semi-descriptions-key, .semi-descriptions-plain .semi-descriptions-value {
             display: inline-block;
@@ -78,9 +66,6 @@
             .semi-descriptions-plain .semi-descriptions-value .semi-tag {
                 vertical-align: middle;
             }
-
-    .semi-descriptions-double {
-    }
 
         .semi-descriptions-double tbody {
             display: flex;
@@ -100,9 +85,6 @@
         .semi-descriptions-double .semi-descriptions-value {
             font-weight: var(--semi-cssvar-font-descriptions_value-fontWeight);
         }
-
-        .semi-descriptions-double-small {
-        }
             .semi-descriptions-double-small .semi-descriptions-item {
                 padding-right: var(--semi-cssvar-spacing-descriptions_item_small-paddingRight);
             }
@@ -121,9 +103,6 @@
     font-family: var(--semi-cssvar-font-family-regular);
                 font-size: var(--semi-cssvar-font-descriptions_value_small-fontSize);
             }
-
-        .semi-descriptions-double-medium {
-        }
             .semi-descriptions-double-medium .semi-descriptions-item {
                 padding-right: var(--semi-cssvar-spacing-descriptions_item_medium-paddingRight);
             }
@@ -139,9 +118,6 @@
     font-family: var(--semi-cssvar-font-family-regular);
                 font-size: var(--semi-cssvar-font-descriptions_value_medium-fontSize);
             }
-
-        .semi-descriptions-double-large {
-        }
             .semi-descriptions-double-large .semi-descriptions-item {
                 padding-right: var(--semi-cssvar-spacing-descriptions_item_large-paddingRight);
             }
@@ -157,9 +133,6 @@
     font-family: var(--semi-cssvar-font-family-regular);
                 font-size: var(--semi-cssvar-font-descriptions_value_large-fontSize);
             }
-
-    .semi-descriptions-horizontal {
-    }
         .semi-descriptions-horizontal table {
             table-layout: fixed;
         }
@@ -173,10 +146,6 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-descriptions, .semi-portal-rtl .semi-descriptions {
         direction: rtl
     }
@@ -191,9 +160,6 @@
         .semi-rtl .semi-descriptions .semi-descriptions-item, .semi-portal-rtl .semi-descriptions .semi-descriptions-item {
             text-align: right;
         }
-
-        .semi-rtl .semi-descriptions-center, .semi-portal-rtl .semi-descriptions-center {
-        }
             .semi-rtl .semi-descriptions-center .semi-descriptions-item-th, .semi-portal-rtl .semi-descriptions-center .semi-descriptions-item-th {
                 text-align: left;
             }
@@ -201,15 +167,9 @@
             .semi-rtl .semi-descriptions-center .semi-descriptions-item-td, .semi-portal-rtl .semi-descriptions-center .semi-descriptions-item-td {
                 text-align: right;
             }
-
-        .semi-rtl .semi-descriptions-left, .semi-portal-rtl .semi-descriptions-left {
-        }
             .semi-rtl .semi-descriptions-left .semi-descriptions-item-th, .semi-portal-rtl .semi-descriptions-left .semi-descriptions-item-th, .semi-rtl .semi-descriptions-left .semi-descriptions-item-td, .semi-portal-rtl .semi-descriptions-left .semi-descriptions-item-td {
                 text-align: left;
             }
-
-        .semi-rtl .semi-descriptions-justify, .semi-portal-rtl .semi-descriptions-justify {
-        }
             .semi-rtl .semi-descriptions-justify .semi-descriptions-item-th, .semi-portal-rtl .semi-descriptions-justify .semi-descriptions-item-th {
                 text-align: right;
             }
@@ -217,9 +177,6 @@
             .semi-rtl .semi-descriptions-justify .semi-descriptions-item-td, .semi-portal-rtl .semi-descriptions-justify .semi-descriptions-item-td {
                 text-align: left;
             }
-
-        .semi-rtl .semi-descriptions-plain, .semi-portal-rtl .semi-descriptions-plain {
-        }
             .semi-rtl .semi-descriptions-plain .semi-descriptions-key, .semi-portal-rtl .semi-descriptions-plain .semi-descriptions-key, .semi-rtl .semi-descriptions-plain .semi-descriptions-value, .semi-portal-rtl .semi-descriptions-plain .semi-descriptions-value {
                 display: inline-block;
             } 
@@ -240,23 +197,14 @@
             .semi-rtl .semi-descriptions-double .semi-descriptions-item, .semi-portal-rtl .semi-descriptions-double .semi-descriptions-item {
                 text-align: right;
             }
-
-            .semi-rtl .semi-descriptions-double-small, .semi-portal-rtl .semi-descriptions-double-small {
-            }
                 .semi-rtl .semi-descriptions-double-small .semi-descriptions-item, .semi-portal-rtl .semi-descriptions-double-small .semi-descriptions-item {
                     padding-right: 0;
                     padding-left: var(--semi-cssvar-spacing-descriptions_item_small-paddingRight);
                 }
-
-            .semi-rtl .semi-descriptions-double-medium, .semi-portal-rtl .semi-descriptions-double-medium {
-            }
                 .semi-rtl .semi-descriptions-double-medium .semi-descriptions-item, .semi-portal-rtl .semi-descriptions-double-medium .semi-descriptions-item {
                     padding-right: 0;
                     padding-left: var(--semi-cssvar-spacing-descriptions_item_medium-paddingRight);
                 }
-
-            .semi-rtl .semi-descriptions-double-large, .semi-portal-rtl .semi-descriptions-double-large {
-            }
                 .semi-rtl .semi-descriptions-double-large .semi-descriptions-item, .semi-portal-rtl .semi-descriptions-double-large .semi-descriptions-item {
                     padding-right: 0;
                     padding-left: var(--semi-cssvar-spacing-descriptions_item_large-paddingRight);

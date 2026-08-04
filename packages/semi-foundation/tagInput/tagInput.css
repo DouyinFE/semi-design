@@ -20,9 +20,6 @@
         min-height: var(--semi-cssvar-height-tagInput-large);
     }
 
-    .semi-tagInput-drag {
-    }
-
         .semi-tagInput-drag-item {
             display: flex;
             align-items: center
@@ -139,9 +136,6 @@
             white-space: pre;
             max-width: 100%
         }
-
-            .semi-tagInput-wrapper-tag-size {
-            }
                 .semi-tagInput-wrapper-tag-size-small {
                     margin-top: var(--semi-cssvar-spacing-tagInput_small-Y);
                     margin-bottom: var(--semi-cssvar-spacing-tagInput_small-Y);
@@ -300,21 +294,12 @@
             color: var(--semi-cssvar-color-tagInput-icon-default);
             margin: 0 var(--semi-cssvar-spacing-tight);
         }
-
-    .semi-tagInput-prefix {
-    }
         .semi-tagInput-prefix-text {
             color: var(--semi-cssvar-color-tagInput_prefix-default);
         }
-
-    .semi-tagInput-suffix {
-    }
         .semi-tagInput-suffix-text {
             color: var(--semi-cssvar-color-tagInput_suffix-default);
         }
-
-    .semi-tagInput-with-prefix {
-    }
         .semi-tagInput-with-prefix .semi-input {
             padding-left: 0;
         }
@@ -332,23 +317,13 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-tagInput, .semi-portal-rtl .semi-tagInput {
         direction: rtl
     }
 
-        .semi-rtl .semi-tagInput-wrapper, .semi-portal-rtl .semi-tagInput-wrapper {
-        }
-
             .semi-rtl .semi-tagInput-wrapper-tag, .semi-portal-rtl .semi-tagInput-wrapper-tag {
                 margin-left: var(--semi-cssvar-spacing-extra-tight);
                 margin-right: 0;
-            }
-
-            .semi-rtl .semi-tagInput-wrapper-input, .semi-portal-rtl .semi-tagInput-wrapper-input {
             }
 
                 .semi-rtl .semi-tagInput-wrapper-input:not(:first-child) > input, .semi-portal-rtl .semi-tagInput-wrapper-input:not(:first-child) > input {

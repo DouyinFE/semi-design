@@ -12,9 +12,6 @@
         position: relative;
         overflow-y: scroll
     }
-
-        .semi-ai-chat-dialogue-list-scroll-hidden {
-        }
             .semi-ai-chat-dialogue-list-scroll-hidden::-webkit-scrollbar {
                 display: none;
             }
@@ -53,9 +50,6 @@
 
                     align-items: flex-end;
                 }
-
-                .semi-ai-chat-dialogue-wrapper .semi-ai-chat-dialogue-container-right .semi-ai-chat-dialogue-content {
-                }
                     .semi-ai-chat-dialogue-wrapper .semi-ai-chat-dialogue-container-right .semi-ai-chat-dialogue-content-no-bubble, .semi-ai-chat-dialogue-wrapper .semi-ai-chat-dialogue-container-right .semi-ai-chat-dialogue-content-user, .semi-ai-chat-dialogue-wrapper .semi-ai-chat-dialogue-container-right .semi-ai-chat-dialogue-content-custom-renderer {
                         margin-left: auto;
                     }
@@ -68,9 +62,6 @@
                         .semi-ai-chat-dialogue-wrapper .semi-ai-chat-dialogue-container-right .semi-ai-chat-dialogue-content-inner .semi-markdownRender {
                             text-align: left;
                         }
-
-        .semi-ai-chat-dialogue-wrapper:hover {
-        }
             .semi-ai-chat-dialogue-wrapper:hover .semi-ai-chat-dialogue-action:not(.semi-ai-chat-dialogue-action-hidden) {
                 visibility: visible;
             }
@@ -150,9 +141,6 @@
         .semi-ai-chat-dialogue-content-user { 
             display: flex
         }
-
-            .semi-ai-chat-dialogue-content-user:hover {
-            }
                 .semi-ai-chat-dialogue-content-user:hover .semi-ai-chat-dialogue-content-icon-reference {
                     display: flex;
                     padding: var(--semi-cssvar-spacing-aiChatDialogue_icon_reference-paddingY) var(--semi-cssvar-spacing-aiChatDialogue_icon_reference-paddingX);
@@ -259,10 +247,7 @@
             background: var(--semi-cssvar-color-aiChatDialogue_file-bg);
             text-decoration: none;
             vertical-align: top
-        } 
-
-            .semi-ai-chat-dialogue-content-file:hover {
-            }
+        }
                 .semi-ai-chat-dialogue-content-file:hover .semi-ai-chat-dialogue-content-icon-reference {
                     display: flex;
                     flex-shrink: 0;
@@ -315,9 +300,6 @@
 
                 .semi-ai-chat-dialogue-content-file-icon-video {
                     background-color: var(--semi-cssvar-color-aiChatDialogue_video_icon-bg);
-                }
-
-                .semi-ai-chat-dialogue-content-file-icon-image {
                 }
                     .semi-ai-chat-dialogue-content-file-icon-image .semi-ai-chat-dialogue-content-file-icon {
                         background-size: cover;
@@ -395,9 +377,6 @@
 
         .semi-ai-chat-dialogue-action.semi-ai-chat-dialogue-action-hidden, .semi-ai-chat-dialogue-action:hover.semi-ai-chat-dialogue-action-hidden {
             visibility: hidden;
-        }
-
-        .semi-ai-chat-dialogue-action-dropdown {
         }
 
             .semi-ai-chat-dialogue-action-dropdown li {
@@ -527,9 +506,6 @@
                 justify-content: center;
                 column-gap: var(--semi-cssvar-spacing-aiChatDialogue_step_action_desc-columnGap);
             }
-
-    .semi-ai-chat-dialogue-step-wrapper {
-    }
         .semi-ai-chat-dialogue-step-wrapper > .semi-ai-chat-dialogue-step:first-child {
             margin-top: var(--semi-cssvar-spacing-aiChatDialogue_step_wrapper-marginTop);
         }
@@ -720,9 +696,6 @@
         .semi-ai-chat-dialogue-hints-selecting {
             margin-left: var(--semi-cssvar-spacing-aiChatDialogue_hints_selecting-marginLeft);
         }
-
-    .semi-ai-chat-dialogue-hint {
-    }
         .semi-ai-chat-dialogue-hint-item {
             cursor: pointer;
             display: flex;
@@ -769,11 +742,6 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-   
-}
     .semi-rtl .semi-ai-chat-dialogue-wrapper, .semi-portal-rtl .semi-ai-chat-dialogue-wrapper {
         direction: rtl 
     }

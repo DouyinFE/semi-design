@@ -31,9 +31,6 @@
             color: var(--semi-cssvar-color-inputNumber_button-text-default);
         }
 
-        .semi-input-number-suffix-btns > .semi-input-number-button-up:not(.semi-input-number-button-up-not-allowed), .semi-input-number-suffix-btns > .semi-input-number-button-down:not(.semi-input-number-button-down-not-allowed) {
-        }
-
             .semi-input-number-suffix-btns > .semi-input-number-button-up:not(.semi-input-number-button-up-not-allowed):hover, .semi-input-number-suffix-btns > .semi-input-number-button-down:not(.semi-input-number-button-down-not-allowed):hover {
                 cursor: pointer;
                 background-color: var(--semi-cssvar-color-inputNumber_button-bg-hover);
@@ -62,9 +59,6 @@
         border-radius: var(--semi-cssvar-radius-inputNumber_inner);
         overflow: hidden
     }
-
-    .semi-input-number .semi-input-clearbtn {
-    }
         .semi-input-number .semi-input-clearbtn + .semi-input-suffix {
             margin-left: var(--semi-cssvar-spacing-inputNumber_clearbtn_suffix-marginLeft)
         }
@@ -72,30 +66,18 @@
             .semi-input-number .semi-input-clearbtn + .semi-input-suffix .semi-input-number-suffix-btns-inner {
                 margin-left: 0;
             }
-
-    .semi-input-number-size {
-    }
-
-        .semi-input-number-size-default {
-        }
             .semi-input-number-size-default .semi-input-number-suffix-btns {
                 height: var(--semi-cssvar-height-inputNumber_button_default);
             }
             .semi-input-number-size-default .semi-input-number-suffix-btns-inner {
                 height: var(--semi-cssvar-height-inputNumber_button_inner_default);
             }
-
-        .semi-input-number-size-large {
-        }
             .semi-input-number-size-large .semi-input-number-suffix-btns {
                 height: var(--semi-cssvar-height-inputNumber_button_large);
             }
             .semi-input-number-size-large .semi-input-number-suffix-btns-inner {
                 height: var(--semi-cssvar-height-inputNumber_button_inner_large);
             }
-
-        .semi-input-number-size-small {
-        }
             .semi-input-number-size-small .semi-input-number-suffix-btns {
                 height: var(--semi-cssvar-height-inputNumber_button_small);
             }
@@ -114,10 +96,6 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-input-number, .semi-portal-rtl .semi-input-number {
         direction: rtl
     }
@@ -130,9 +108,6 @@
         .semi-rtl .semi-input-number-suffix-btns-inner, .semi-portal-rtl .semi-input-number-suffix-btns-inner {
             margin-left: auto;
             margin-right: var(--semi-cssvar-spacing-inputNumber_button_inner-marginLeft);
-        }
-
-        .semi-rtl .semi-input-number .semi-input-clearbtn, .semi-portal-rtl .semi-input-number .semi-input-clearbtn {
         }
             .semi-rtl .semi-input-number .semi-input-clearbtn + .semi-input-suffix, .semi-portal-rtl .semi-input-number .semi-input-clearbtn + .semi-input-suffix {
                 margin-left: auto;

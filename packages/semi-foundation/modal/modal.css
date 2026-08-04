@@ -143,9 +143,6 @@
             margin-left: var(--semi-cssvar-spacing-modal_footer_button-marginLeft);
             margin-right: 0;
         }
-
-    .semi-modal-confirm {
-    }
         .semi-modal-confirm .semi-modal-header {
             margin-bottom: var(--semi-cssvar-spacing-modal_confirm_header-marginBottom);
         }
@@ -298,30 +295,17 @@
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
 
-.semi-modal {
-}
-
     .semi-modal-rtl {
         direction: rtl;
-    }
-
-    .semi-modal-icon-wrapper {
-
     }
         .semi-modal-rtl .semi-modal-icon-wrapper, .semi-modal-confirm-rtl .semi-modal-icon-wrapper {
             margin-right: 0;
             margin-left: var(--semi-cssvar-spacing-modal_confirm_icon_wrapper-marginRight);
         }
-
-    .semi-modal-withIcon {
-    }
         .semi-modal-rtl .semi-modal-withIcon, .semi-modal-confirm-rtl .semi-modal-withIcon {
             margin-left: 0;
             margin-right: var(--semi-cssvar-spacing-modal_content_withicon-marginLeft);
         }
-
-    .semi-modal-footer {
-    }
         .semi-modal-rtl .semi-modal-footer, .semi-modal-confirm-rtl .semi-modal-footer {
             text-align: left
         }
@@ -329,9 +313,6 @@
                 margin-left: var(--semi-cssvar-spacing-modal_footer_button-marginRight);
                 margin-right: var(--semi-cssvar-spacing-modal_footer_button-marginLeft);
             }
-
-    .semi-modal-confirm {
-    }
 
         .semi-modal-confirm-rtl {
             direction: rtl;

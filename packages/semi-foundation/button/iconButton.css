@@ -1,6 +1,3 @@
-
-.semi-button {
-}
     @keyframes semi-animation-rotate {
         from {
             transform: rotate(0);
@@ -25,9 +22,6 @@
         cursor: not-allowed
     }
 
-        .semi-button.semi-button-loading .semi-button-content {
-        }
-
             .semi-button.semi-button-loading .semi-button-content>svg, .semi-button.semi-button-loading .semi-button-content-loading-icon {
                 width: 16px;
                 height: 16px;
@@ -45,9 +39,6 @@
         justify-content: center;
         align-items: center
     }
-
-        .semi-button.semi-button-with-icon-only.semi-button-size {
-        }
 
             .semi-button.semi-button-with-icon-only.semi-button-size-small {
                 padding-left: var(--semi-cssvar-spacing-button_iconOnly_small-paddingLeft);
@@ -67,9 +58,6 @@
                 width: var(--semi-cssvar-width-button_iconOnly_large);
             }
 
-    .semi-button-content {
-    }
-
         .semi-button-content-left {
             margin-right: var(--semi-cssvar-spacing-button_iconOnly_content-marginRight);
             display: flex;
@@ -84,10 +72,6 @@
 /* 样式修改请编辑同目录下的 .css 文件。*/
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
-
-.semi-rtl,
-.semi-portal-rtl {
-}
     .semi-rtl .semi-button, .semi-portal-rtl .semi-button {
         direction: rtl;
 
@@ -118,16 +102,10 @@
                     padding-left: var(--semi-cssvar-spacing-button_default-paddingRight);
                     padding-right: var(--semi-cssvar-spacing-button_default-paddingLeft);
                 }
-
-                .semi-rtl .semi-button-group > .semi-button-size-large, .semi-portal-rtl .semi-button-group > .semi-button-size-large {
-                }
                     .semi-rtl .semi-button-group > .semi-button-size-large .semi-button-content, .semi-portal-rtl .semi-button-group > .semi-button-size-large .semi-button-content {
                         padding-left: var(--semi-cssvar-spacing-button_large-paddingRight);
                         padding-right: var(--semi-cssvar-spacing-button_large-paddingLeft);
                     }
-
-                .semi-rtl .semi-button-group > .semi-button-size-small, .semi-portal-rtl .semi-button-group > .semi-button-size-small {
-                }
                     .semi-rtl .semi-button-group > .semi-button-size-small .semi-button-content, .semi-portal-rtl .semi-button-group > .semi-button-size-small .semi-button-content {
                         padding-left: var(--semi-cssvar-spacing-button_small-paddingRight);
                         padding-right: var(--semi-cssvar-spacing-button_small-paddingLeft);
@@ -142,19 +120,10 @@
                         padding-left: var(--semi-cssvar-spacing-button_iconOnly_default-paddingRight);
                         padding-right: var(--semi-cssvar-spacing-button_iconOnly_default-paddingLeft);
                     }
-
-                    .semi-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size, .semi-portal-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size {
-                    }
-
-                        .semi-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-small, .semi-portal-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-small {
-                        }
                             .semi-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-small .semi-button-content, .semi-portal-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-small .semi-button-content {
                                 padding-left: var(--semi-cssvar-spacing-button_iconOnly_small-paddingRight);
                                 padding-right: var(--semi-cssvar-spacing-button_iconOnly_small-paddingLeft);
                             }
-
-                        .semi-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-large, .semi-portal-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-large {
-                        }
                             .semi-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-large .semi-button-content, .semi-portal-rtl .semi-button-group > .semi-button.semi-button-with-icon-only.semi-button-size-large .semi-button-content {
                                 padding-left: var(--semi-cssvar-spacing-button_iconOnly_large-paddingRight);
                                 padding-right: var(--semi-cssvar-spacing-button_iconOnly_large-paddingLeft);
@@ -165,9 +134,6 @@
                     border-bottom-left-radius: 0;
                     border-top-right-radius: var(--semi-cssvar-radius-button_group);
                     border-bottom-right-radius: var(--semi-cssvar-radius-button_group);
-                }
-
-                .semi-rtl .semi-button-group > .semi-button:not(:last-child), .semi-portal-rtl .semi-button-group > .semi-button:not(:last-child) {
                 }
                     .semi-rtl .semi-button-group > .semi-button:not(:last-child) .semi-button-content, .semi-portal-rtl .semi-button-group > .semi-button:not(:last-child) .semi-button-content {
                         border-left: var(--semi-cssvar-width-button_group-border) var(--semi-cssvar-color-button_group-border-default) solid;
@@ -186,9 +152,6 @@
             padding-right: var(--semi-cssvar-spacing-button_iconOnly_default-paddingLeft)
         }
 
-            .semi-rtl .semi-button.semi-button-with-icon-only.semi-button-size, .semi-portal-rtl .semi-button.semi-button-with-icon-only.semi-button-size {
-            }
-
                 .semi-rtl .semi-button.semi-button-with-icon-only.semi-button-size-small, .semi-portal-rtl .semi-button.semi-button-with-icon-only.semi-button-size-small {
                     padding-left: var(--semi-cssvar-spacing-button_iconOnly_small-paddingRight);
                     padding-right: var(--semi-cssvar-spacing-button_iconOnly_small-paddingLeft);
@@ -198,9 +161,6 @@
                     padding-left: var(--semi-cssvar-spacing-button_iconOnly_large-paddingRight);
                     padding-right: var(--semi-cssvar-spacing-button_iconOnly_large-paddingLeft);
                 }
-
-        .semi-rtl .semi-button-content, .semi-portal-rtl .semi-button-content {
-        }
 
             .semi-rtl .semi-button-content-left, .semi-portal-rtl .semi-button-content-left {
                 margin-left: var(--semi-cssvar-spacing-button_iconOnly_content-marginRight);

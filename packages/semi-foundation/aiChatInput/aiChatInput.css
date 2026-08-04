@@ -26,9 +26,6 @@
             .semi-aiChatInput-skill-item-active {
                 background-color: var(--semi-cssvar-color-aiChatInput_skill_item-bg-active);
             }
-
-    .semi-aiChatInput-popover {
-    }
         .semi-aiChatInput-popover-suggestion {
             box-shadow: none;
         }
@@ -177,9 +174,6 @@
         user-select: none;
         -webkit-user-select: none
     }
-
-        .semi-aiChatInput-footer-round {
-        }
             .semi-aiChatInput-footer-round .semi-aiChatInput-footer-configure-select, .semi-aiChatInput-footer-round .semi-aiChatInput-footer-configure-button, .semi-aiChatInput-footer-round .semi-aiChatInput-footer-configure-radio-button, .semi-aiChatInput-footer-round .semi-aiChatInput-footer-configure-mcp-trigger, .semi-aiChatInput-footer-round .semi-aiChatInput-footer-action-button, .semi-aiChatInput-footer-round .semi-aiChatInput-footer-action-upload, .semi-aiChatInput-footer-round .semi-radio-addon-buttonRadio {
                 border-radius: var(--semi-cssvar-radius-aiChatInput_footer_round);
             }
@@ -294,9 +288,6 @@
                    background: transparent;
                 }
 
-            .semi-aiChatInput-footer-configure-radio-button {
-            }
-
                 .semi-aiChatInput-footer-configure-radio-button .semi-radio-addon-buttonRadio {
                     height: var(--semi-cssvar-height-aiChatInput_footer_configure_radio_button);
                     padding: var(--semi-cssvar-spacing-aiChatInput_footer_configure_radio_button-padding);
@@ -307,10 +298,6 @@
                         color: var(--semi-cssvar-color-aiChatInput_footer_configure_radio_button-checked);
                         background: var(--semi-cssvar-color-aiChatInput_footer_configure_radio_button_checked-bg);
                     }
-
-            .semi-aiChatInput-footer-configure-mcp {
-
-            }
                 .semi-aiChatInput-footer-configure-mcp-header {
                     padding: var(--semi-cssvar-spacing-aiChatInput_footer_configure_mcp_header-paddingTop) var(--semi-cssvar-spacing-aiChatInput_footer_configure_mcp_header-paddingX) var(--semi-cssvar-spacing-aiChatInput_footer_configure_mcp_header-paddingBottom);
     font-size: var(--semi-cssvar-font-size-small);
@@ -325,9 +312,6 @@
 
                     .semi-aiChatInput-footer-configure-mcp-header-title {
                         color: var(--semi-cssvar-color-aiChatInput_footer-configure_mcp_header_title-text);
-                    }
-
-                    .semi-aiChatInput-footer-configure-mcp-header-config {
                     }
                         .semi-aiChatInput-footer-configure-mcp-header-config.semi-button {
                             padding: 0px;

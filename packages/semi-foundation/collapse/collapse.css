@@ -1,8 +1,3 @@
-
-
-
-.semi-collapse {
-}
     .semi-collapse-item {
         border-bottom: var(--semi-cssvar-width-collapse_item-border) solid var(--semi-cssvar-color-collapse_item-border-default);
     }
@@ -86,19 +81,9 @@
 /* 本文件仅保留用于旧版构建链路兼容（semi-webpack 主题注入等）。*/
 /* ============================================================*/
 
-.semi-rtl,
-.semi-portal-rtl {
-}
-
     .semi-rtl .semi-collapse, .semi-portal-rtl .semi-collapse {
         direction: rtl
     }
-
-        .semi-rtl .semi-collapse-header, .semi-portal-rtl .semi-collapse-header {
-        }
-
-            .semi-rtl .semi-collapse-header-right, .semi-portal-rtl .semi-collapse-header-right {
-            }
 
                 .semi-rtl .semi-collapse-header-right span, .semi-portal-rtl .semi-collapse-header-right span {
                     display: flex;

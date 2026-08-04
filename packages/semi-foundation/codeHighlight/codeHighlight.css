@@ -1,9 +1,3 @@
-
-.semi-codeHighlight{
-
-}
-  .semi-codeHighlight-defaultTheme{
-  }
     /**
      * prism.js default theme for JavaScript, CSS and HTML
      * Based on dabblet (http://dabblet.com)
@@ -50,10 +44,6 @@
       background: #f9f7f9;
     }
       /* padding: .1em .3em;*/
-
-    .semi-codeHighlight-defaultTheme pre{
-
-    }
       .semi-codeHighlight-defaultTheme pre .namespace {
         opacity: .7;
       }

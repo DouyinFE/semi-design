@@ -170,3 +170,34 @@ You can customize how webpack process semi related styles by override the loader
 
 
 In webpack@5, some hooks need to be obtained through api `NormalModule.getCompilationHooks`. But in some scenarios, webpack will not be installed, such as Next.js. Therefore, the user is required to pass in NormalModule as a parameter.
+
+## CSS 真源链路（新）
+
+Semi 样式系统 css 化迁移后，组件样式以 css 真源发布（嵌套 css + `var(--semi-cssvar-*)` 引用），主题变量由主题包的 `css/token.css` / `css/global.css` / `css/animation.css` 提供。
+
+`SemiCssThemeLoader`（导出为 `semiCssThemeLoader`）为 css 真源注入主题变量 + prefixCls 文本替换。推荐通过 webpack rule 接入（webpack 5 中插件的 loader hook 注入存在兼容限制，rule 方式最稳定）：
+
+```js
+// webpack.config.js
+const { semiCssThemeLoader } = require('@douyinfe/semi-webpack-plugin');
+
+module.exports = {
+    module: {
+        rules: [
+            {
+                test: /@douyinfe[\\/]+semi-(ui|icons|foundation)[\\/]+lib[\\/]+.+\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: semiCssThemeLoader,
+                        options: { name: '@douyinfe/semi-theme-default', prefixCls: 'my' },
+                    },
+                ],
+            },
+        ],
+    },
+};
+```
+
+> 注：插件内置的 loader hook 注入（`module.loaders` 赋值）在 webpack 5.94+ 中不生效（scss/css 链路同等，属于既有兼容限制），rule 方式不受影响。
