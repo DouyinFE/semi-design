@@ -47,26 +47,34 @@ You can make a custom theme through [Semi Design System](https://semi.design/dsm
 - 多主题分区互不干扰：不同容器覆盖不同变量，嵌套容器内层覆盖外层。
 - 暗色容器（`.semi-always-dark` / `theme-mode="dark"`）内同时提供暗色 cssvar，组件 `var(--semi-cssvar-*)` 引用在容器内解析为暗色值。
 
+## 主题优先级与 body 占位语义
+
+**默认主题包（semi-theme-default）的全局变量定义在 `html body`（特异性 0,0,2）**——高于普通 `body`（0,0,1）规则：
+
+- 业务方在**局部容器**（`.semi-theme` 或自定义类）内覆盖变量不受影响（类选择器 0,1,0 及以上 > 0,0,2）
+- 业务方若想**全局覆盖**默认主题变量，需使用 `html body { --x: v }`、`body { --x: v !important }` 或容器类（旧写法 `body { --x: v }` 因特异性低于默认主题而失效）
+
 ## 自定义主题包约定（重要）
 
-**只有默认主题包（semi-theme-default）的 css 带 `body` / `:host` 选择器**（提供全页零配置默认值）。
-
-自定义主题包（DSM 导出或自行生成）的 css **只挂 `.semi-theme-<主题名>` 容器类，绝不能带 `body` / `:host` 选择器**——否则业务方局部引入主题时，`body` 上的变量定义会**覆盖全局默认主题**（污染整个页面）。
+自定义主题包（DSM 导出或 `node generateTokens.js --scope <name>` 生成）的 css 挂 **`body`（兜底版）+ `.semi-theme-<主题名>`（容器版）** 双选择器，不带 `:host`：
 
 ```css
-/* ✅ 自定义主题包正确写法：只挂容器类 */
-.semi-theme-brand { --semi-color-primary: #ff4d4f; --semi-color-primary-hover: #e64545; }
-/* ❌ 错误写法：body 选择器会污染全页 */
-body { --semi-color-primary: #ff4d4f; }
+/* 自定义主题包产物结构（--scope brand）*/
+body { --semi-color-primary: #ff4d4f; }               /* 兜底版：仅当 body 上没有其他主题时生效 */
+.semi-theme-brand { --semi-color-primary: #ff4d4f; }  /* 容器版：任意容器加类即生效 */
 ```
 
-**业务方使用自定义主题包**：容器同时加 `.semi-theme`（挂载完整变量链）与主题容器类：
+**body 占位语义**：由于默认主题的全局变量定义在 `html body`（0,0,2），自定义主题的 `body` 兜底版（0,0,1）在**默认主题已挂载时自动失效**（不会覆盖全页默认主题）；当业务方**不引入默认主题**、单独使用自定义主题时，兜底版生效（全页使用自定义主题）。因此：
+
+- 同时引入默认主题 + 自定义主题 → 全页保持默认，自定义主题只在其容器内生效（不污染）
+- 只引入自定义主题 → 全页使用自定义主题
+- 多个自定义主题的兜底版同时存在时，后加载者生效（同一时刻 body 上只应挂一个全局主题；多主题分区请使用容器版）
+
+**业务方使用自定义主题包**：容器加 `.semi-theme`（挂载完整变量链）与主题容器类：
 
 ```html
 <div class="semi-theme semi-theme-brand"><!-- 该区域使用自定义主题 --></div>
 ```
-
-生成自定义主题包时使用 `--scope` 参数（生成工具支持）：`node generateTokens.js --scope brand`，产物选择器为 `.semi-theme-brand`（不含 body/:host）。
 
 ## 与 Tailwind 搭配
 

@@ -17,8 +17,10 @@ const THEME = path.join(ROOT, 'packages/semi-theme-default');
 // - 默认主题包（不传 scopeName）：body, .semi-theme（零配置全页生效 + 任意 .semi-theme 容器）
 // - 自定义主题包（--scope <name>）：.semi-theme-<name>（只挂容器类，不带 body/:host，业务方局部引入不会污染全页）
 const SCOPE_SELECTOR = process.argv.includes('--scope')
-    ? `.semi-theme-${process.argv[process.argv.indexOf('--scope') + 1]}`
-    : 'body, .semi-theme';
+    // 自定义主题包：body（0,0,1 兜底版，默认主题 html body 0,0,2 存在时自动失效）+ 容器类（局部生效）
+    ? `body, .semi-theme-${process.argv[process.argv.indexOf('--scope') + 1]}`
+    // 默认主题包：html body（0,0,2，压过自定义主题的 body 版，保证全页默认不被覆盖）+ .semi-theme 容器
+    : 'html body, .semi-theme';
 
 // 组件变量文件的依赖顺序（参考 semi-webpack/src/componentName.ts 的注释：popover 依赖 tooltip 等）
 // 为保证变量定义先于引用，按此顺序导入；新组件追加
@@ -250,11 +252,13 @@ if (require.main === module) {
             let css = sass.compileString(fs.readFileSync(scssFile, 'utf-8'), { style: 'expanded', charset: false, importers: sassImporter }).css;
             // 自定义主题包模式：body/:host 选择器替换为容器类（避免局部引入污染全局）
             if (process.argv.includes('--scope')) {
+                // 自定义主题包：body 保留（0,0,1 兜底，默认主题 html body 存在时自动失效），
+                // :host 去除，容器变体挂 .semi-theme-<name>
                 css = css
-                    .replace(/body, body \.semi-always-light, :host, :host \.semi-always-light/g, `.semi-theme-${scopeName}, .semi-theme-${scopeName} .semi-always-light`)
-                    .replace(/body\[theme-mode=dark\], body \.semi-always-dark, :host\(\[theme-mode=dark\]\), :host \.semi-always-dark/g, `.semi-theme-${scopeName}[theme-mode=dark], .semi-theme-${scopeName} .semi-always-dark`)
-                    .replace(/body, body\[theme-mode=dark\] \.semi-always-light, :host, :host \.semi-always-light/g, `.semi-theme-${scopeName}, .semi-theme-${scopeName}[theme-mode=dark] .semi-always-light`)
-                    .replace(/body, :host/g, `.semi-theme-${scopeName}`);
+                    .replace(/html body, body \.semi-always-light, :host, :host \.semi-always-light/g, `body, body .semi-always-light, .semi-theme-${scopeName}, .semi-theme-${scopeName} .semi-always-light`)
+                    .replace(/html body\[theme-mode=dark\], body \.semi-always-dark, :host\(\[theme-mode=dark\]\), :host \.semi-always-dark/g, `body[theme-mode=dark], body .semi-always-dark, .semi-theme-${scopeName}[theme-mode=dark], .semi-theme-${scopeName} .semi-always-dark`)
+                    .replace(/html body, body\[theme-mode=dark\] \.semi-always-light, :host, :host \.semi-always-light/g, `body, body[theme-mode=dark] .semi-always-light, .semi-theme-${scopeName}, .semi-theme-${scopeName}[theme-mode=dark] .semi-always-light`)
+                    .replace(/html body, .semi-theme, :host/g, `body, .semi-theme-${scopeName}`);
             }
             fs.writeFileSync(path.join(outputDir, `${name}.css`), css);
         }

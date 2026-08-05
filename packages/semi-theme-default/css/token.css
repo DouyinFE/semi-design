@@ -1,7 +1,7 @@
 /* shadow */
 /* sizing */
 /* spacing */
-body, .semi-theme {
+html body, .semi-theme {
   --semi-cssvar-prefix: "semi";
   --semi-cssvar-height-control-small: 24px;
   --semi-cssvar-height-control-default: 32px;
