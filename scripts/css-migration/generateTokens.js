@@ -14,12 +14,12 @@ const FOUNDATION = path.join(ROOT, 'packages/semi-foundation');
 const THEME = path.join(ROOT, 'packages/semi-theme-default');
 
 // 主题作用域选择器：
-// - 默认主题包（不传 scopeName）：body, .semi-theme（零配置全页生效 + 任意 .semi-theme 容器）
-// - 自定义主题包（--scope <name>）：.semi-theme-<name>（只挂容器类，不带 body/:host，业务方局部引入不会污染全页）
+// - 默认主题包（不传 --scope）：html body, .semi-theme（全页默认 0,0,2 + 任意 .semi-theme 容器）
+// - 自定义主题包（--scope <name>）：.semi-theme-<name>（单一选择器容器版，体积最小，不污染全页）
+// - 自定义主题包 body 兜底版（--scope <name> --global）：单独生成 <name>.global.css（body 单一选择器，
+//   仅当 body 上没有其他主题时生效——默认主题 html body 0,0,2 存在时自动失效；按需引入，避免变量双份膨胀）
 const SCOPE_SELECTOR = process.argv.includes('--scope')
-    // 自定义主题包：body（0,0,1 兜底版，默认主题 html body 0,0,2 存在时自动失效）+ 容器类（局部生效）
-    ? `body, .semi-theme-${process.argv[process.argv.indexOf('--scope') + 1]}`
-    // 默认主题包：html body（0,0,2，压过自定义主题的 body 版，保证全页默认不被覆盖）+ .semi-theme 容器
+    ? `.semi-theme-${process.argv[process.argv.indexOf('--scope') + 1]}`
     : 'html body, .semi-theme';
 
 // 组件变量文件的依赖顺序（参考 semi-webpack/src/componentName.ts 的注释：popover 依赖 tooltip 等）
@@ -252,16 +252,29 @@ if (require.main === module) {
             let css = sass.compileString(fs.readFileSync(scssFile, 'utf-8'), { style: 'expanded', charset: false, importers: sassImporter }).css;
             // 自定义主题包模式：body/:host 选择器替换为容器类（避免局部引入污染全局）
             if (process.argv.includes('--scope')) {
-                // 自定义主题包：body 保留（0,0,1 兜底，默认主题 html body 存在时自动失效），
-                // :host 去除，容器变体挂 .semi-theme-<name>
+                // 自定义主题包容器版：选择器全部替换为 .semi-theme-<name>（单一选择器，不带 body/:host）
                 css = css
-                    .replace(/html body, body \.semi-always-light, :host, :host \.semi-always-light/g, `body, body .semi-always-light, .semi-theme-${scopeName}, .semi-theme-${scopeName} .semi-always-light`)
-                    .replace(/html body\[theme-mode=dark\], body \.semi-always-dark, :host\(\[theme-mode=dark\]\), :host \.semi-always-dark/g, `body[theme-mode=dark], body .semi-always-dark, .semi-theme-${scopeName}[theme-mode=dark], .semi-theme-${scopeName} .semi-always-dark`)
-                    .replace(/html body, body\[theme-mode=dark\] \.semi-always-light, :host, :host \.semi-always-light/g, `body, body[theme-mode=dark] .semi-always-light, .semi-theme-${scopeName}, .semi-theme-${scopeName}[theme-mode=dark] .semi-always-light`)
-                    .replace(/html body, .semi-theme, :host/g, `body, .semi-theme-${scopeName}`);
+                    .replace(/html body, body \.semi-always-light, :host, :host \.semi-always-light/g, `.semi-theme-${scopeName}, .semi-theme-${scopeName} .semi-always-light`)
+                    .replace(/html body\[theme-mode=dark\], body \.semi-always-dark, :host\(\[theme-mode=dark\]\), :host \.semi-always-dark/g, `.semi-theme-${scopeName}[theme-mode=dark], .semi-theme-${scopeName} .semi-always-dark`)
+                    .replace(/html body, body\[theme-mode=dark\] \.semi-always-light, :host, :host \.semi-always-light/g, `.semi-theme-${scopeName}, .semi-theme-${scopeName}[theme-mode=dark] .semi-always-light`)
+                    .replace(/html body, .semi-theme, :host/g, `.semi-theme-${scopeName}`);
             }
             fs.writeFileSync(path.join(outputDir, `${name}.css`), css);
+            // --global：额外生成 body 兜底版（单一选择器 body，默认主题 html body 0,0,2 存在时自动失效）
+            if (process.argv.includes('--global')) {
+                const bodyCss = css
+                    .replace(new RegExp(`\\.semi-theme-${scopeName}, `, 'g'), 'body, ')
+                    .replace(new RegExp(`\\.semi-theme-${scopeName}\\[`, 'g'), 'body[')
+                    .replace(new RegExp(`\\.semi-theme-${scopeName} `, 'g'), 'body ')
+                    .replace(new RegExp(`\\.semi-theme-${scopeName}`, 'g'), 'body');
+                fs.writeFileSync(path.join(outputDir, `${name}.global.css`), bodyCss);
+            }
         }
+    }
+    // --global：token 兜底版（body 单一选择器）
+    if (process.argv.includes('--global')) {
+        const tokenBodyCss = tokenCss.replace(`.semi-theme-${scopeName}`, 'body');
+        fs.writeFileSync(path.join(outputDir, 'token.global.css'), tokenBodyCss);
     }
     const conflicts = detectConflicts();
     fs.writeFileSync(path.join(__dirname, 'conflictVars.json'), JSON.stringify(conflicts, null, 0));

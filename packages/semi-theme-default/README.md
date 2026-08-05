@@ -56,18 +56,23 @@ You can make a custom theme through [Semi Design System](https://semi.design/dsm
 
 ## 自定义主题包约定（重要）
 
-自定义主题包（DSM 导出或 `node generateTokens.js --scope <name>` 生成）的 css 挂 **`body`（兜底版）+ `.semi-theme-<主题名>`（容器版）** 双选择器，不带 `:host`：
+自定义主题包（DSM 导出或 `node generateTokens.js --scope <name>` 生成）的 css 挂 **`.semi-theme-<主题名>` 单一选择器**（容器版），不带 `body` / `:host`：
 
 ```css
-/* 自定义主题包产物结构（--scope brand）*/
-body { --semi-color-primary: #ff4d4f; }               /* 兜底版：仅当 body 上没有其他主题时生效 */
-.semi-theme-brand { --semi-color-primary: #ff4d4f; }  /* 容器版：任意容器加类即生效 */
+/* 自定义主题包产物结构（--scope brand，token.css / global.css / animation.css）*/
+.semi-theme-brand { --semi-color-primary: #ff4d4f; }  /* 单一选择器，任意容器加类即生效 */
 ```
 
-**body 占位语义**：由于默认主题的全局变量定义在 `html body`（0,0,2），自定义主题的 `body` 兜底版（0,0,1）在**默认主题已挂载时自动失效**（不会覆盖全页默认主题）；当业务方**不引入默认主题**、单独使用自定义主题时，兜底版生效（全页使用自定义主题）。因此：
+**可选 body 兜底版**：如需"全页使用自定义主题"（不引入默认主题时），生成时追加 `--global` 参数，额外产出 `token.global.css` / `global.global.css` / `animation.global.css`（`body` 单一选择器）：
 
-- 同时引入默认主题 + 自定义主题 → 全页保持默认，自定义主题只在其容器内生效（不污染）
-- 只引入自定义主题 → 全页使用自定义主题
+```bash
+node generateTokens.js --scope brand --global
+```
+
+**body 占位语义**：由于默认主题的全局变量定义在 `html body`（0,0,2），自定义主题的 `body` 兜底版（0,0,1）在**默认主题已挂载时自动失效**（不会覆盖全页默认主题）；当业务方**不引入默认主题**、单独引入兜底版时生效（全页使用自定义主题）。兜底版独立成文件、按需引入，避免变量双份膨胀。因此：
+
+- 同时引入默认主题 + 自定义主题（容器版）→ 全页保持默认，自定义主题只在其容器内生效（不污染）
+- 只引入自定义主题兜底版 → 全页使用自定义主题
 - 多个自定义主题的兜底版同时存在时，后加载者生效（同一时刻 body 上只应挂一个全局主题；多主题分区请使用容器版）
 
 **业务方使用自定义主题包**：容器加 `.semi-theme`（挂载完整变量链）与主题容器类：
