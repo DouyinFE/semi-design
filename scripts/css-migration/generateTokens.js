@@ -1,6 +1,6 @@
 /**
  * token 生成器：扫描全部 variables.scss / animation.scss，生成
- * 1) 导出 scss（body { --semi-cssvar-x: #{$x}; }）→ sass 编译 → token.css
+ * 1) 导出 scss（body, .semi-theme { --semi-cssvar-x: #{$x}; }）→ sass 编译 → token.css
  * 2) 变量映射表（$x → --semi-cssvar-x）JSON，供改写工具使用
  *
  * 命名规则：$<name> → --semi-cssvar-<name>（变量名原样保留，下划线/连字符不转换）
@@ -48,7 +48,7 @@ function scanVariables(dir) {
 }
 
 /**
- * 生成导出 scss：body { --semi-cssvar-x: #{$x}; }
+ * 生成导出 scss：body, .semi-theme { --semi-cssvar-x: #{$x}; }
  */
 function buildExportScss() {
     const lines = [];
@@ -91,7 +91,7 @@ function buildExportScss() {
     }
     // 变量声明
     lines.push('');
-    lines.push('body {');
+    lines.push('body, .semi-theme {');
     const allVars = [];
     for (const comp of fs.readdirSync(FOUNDATION)) {
         const dir = path.join(FOUNDATION, comp);

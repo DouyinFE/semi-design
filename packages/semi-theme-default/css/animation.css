@@ -1,4 +1,4 @@
-body, :host {
+body, .semi-theme, :host {
   --semi-transition_duration-slowest:0ms;
   --semi-transition_duration-slower:0ms;
   --semi-transition_duration-slow:0ms;
