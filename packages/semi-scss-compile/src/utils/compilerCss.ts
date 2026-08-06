@@ -3,14 +3,11 @@
  * - 主题部分：css 主题（token.css + global.css + animation.css，--semi-cssvar-* / --semi-color-*）
  * - 组件部分：组件有 scss → scss 编译（注入 theme index.scss，输出值版，与旧链路一致）；
  *             组件没有 scss → css 真源（var 引用版，运行时由主题 css 变量解析）
- * postcss/postcss-nested 从 scripts/css-migration 加载（仓库内构建工具，不随 npm 分发）
+ * postcss/postcss-nested 作为本包依赖随 npm 一起分发
  */
 import path from 'path';
 import fs from 'fs-extra';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-// __dirname = packages/semi-scss-compile/lib/utils → ../../../../ = 仓库根
-const { compileCssSource } = require('../../../../scripts/css-migration/compileCssSource');
+import compileCssSource from './compileCssSource';
 
 export interface CompileCssOptions {
     foundationPath: string;
@@ -78,6 +75,7 @@ function collectComponents(foundationPath: string): { dir: string; mainScss: str
  * 组件样式源选择：有 scss → scss 编译（值版）；没有 scss → css 真源（var 版）
  */
 export const compileCss = ({ foundationPath, themePath, iconPath, outputPath, isMin = false }: CompileCssOptions) => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const sass = require('sass');
     const themeIndexPath = path.join(themePath, 'scss', 'index.scss');
     const sassImporter = [

@@ -19,6 +19,11 @@ function stripBanner(css) {
 }
 
 async function main() {
+    if (!fs.existsSync(path.join(ROOT, 'packages/semi-foundation/base/base.scss')) ||
+        !fs.existsSync(path.join(ROOT, 'packages/semi-ui/_base/base.scss'))) {
+        console.log('CSS 真源已存在，跳过 SCSS base 转换。');
+        return;
+    }
     // 1. foundation/base/base.scss → base.css
     const baseCss = await convertFile(path.join(ROOT, 'packages/semi-foundation/base/base.scss'));
     fs.writeFileSync(path.join(ROOT, 'packages/semi-foundation/base/base.css'), stripBanner(baseCss));
@@ -59,9 +64,7 @@ async function main() {
     const re = /--semi-cssvar-([A-Za-z_][A-Za-z0-9_-]*)\s*:\s*([^;]+);/g;
     let m;
     while ((m = re.exec(tokenCss))) map.set(m[1], m[2].trim());
-    const norm = new Map();
-    for (const [k, v] of map) norm.set(k.replace(/-/g, '_'), v);
-    const sub = uiBaseCss.replace(/var\(--semi-cssvar-([A-Za-z_][A-Za-z0-9_-]*)\)/g, (mm, name) => norm.get(name.replace(/-/g, '_')) ?? mm);
+    const sub = uiBaseCss.replace(/var\(--semi-cssvar-([A-Za-z_][A-Za-z0-9_-]*)\)/g, (mm, name) => map.get(name) ?? mm);
     const flat = postcss([nested()]).process(sub, { from: undefined }).css;
     // 新链路运行时 = base.css 编译 + global.scss + animation.scss（主题包提供 CSS 变量）
     // 旧链路 = sass 编译（注入 global + animation），需拼入对比（同样用 sass 编译以统一格式）

@@ -87,7 +87,7 @@
         padding: var(--semi-cssvar-spacing-radio_cardRadioGroup-paddingY) var(--semi-cssvar-spacing-radio_cardRadioGroup-paddingX);
         background: var(--semi-cssvar-color-radio_cardRadioGroup-bg-default);
         border: var(--semi-cssvar-width-radio_cardRadioGroup_checked-border) solid var(--semi-cssvar-color-radio_cardRadioGroup_border-default);
-        transition: background-color var(--semi-cssvar-transition_duration_radio-bg) var(--semi-cssvar-transition_function-radio-bg) var(--semi-cssvar-transition_delay-radio-bg),
+        transition: background-color var(--semi-cssvar-transition_duration-radio-bg) var(--semi-cssvar-transition_function-radio-bg) var(--semi-cssvar-transition_delay-radio-bg),
         border var(--semi-cssvar-transition_duration-radio-border) var(--semi-cssvar-transition_function-radio-border) var(--semi-cssvar-transition_delay-radio-border)
     }
 

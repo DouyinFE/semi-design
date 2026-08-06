@@ -200,11 +200,11 @@ customElements.define("test-shadow-dom", TestShadowDom);
 async function importSemiComponentStyle(componentsStr, root, cb){
   const modules = await Promise.all([
     // 基础样式
-    import("@douyinfe/semi-ui/lib/es/_base/base.scss"),
+    import("@douyinfe/semi-ui/lib/es/_base/base.css"),
     // 依赖的组件样式
-    import("@douyinfe/semi-icons/lib/es/styles/icons.scss"),
+    import("@douyinfe/semi-icons/lib/es/styles/icons.css"),
     // 组件样式
-    import("@douyinfe/semi-foundation/lib/es/button/button.scss")
+    import("@douyinfe/semi-foundation/lib/es/button/button.css")
   ]);
   const styleStr = modules.map(module => {
     const cssContent = module.default;

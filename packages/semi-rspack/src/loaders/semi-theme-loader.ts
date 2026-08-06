@@ -21,8 +21,13 @@ export default function SemiThemeLoader(this: LoaderContext<SemiThemeLoaderOptio
     } catch (e) {
         scssVarStr = ''; // theme scss 不存在（已 css 化）→ 跳过注入，scss 文件独立编译
     }
-    // inject once
-    const cssVarStr = `@import "~${theme}/scss/global.scss";\n`;
+    // inject once（旧版 SCSS 主题不存在时不能留下悬空 import）
+    let cssVarStr = `@import "~${theme}/scss/global.scss";\n`;
+    try {
+        resolve.sync(this.context, `${theme}/scss/global.scss`);
+    } catch (e) {
+        cssVarStr = '';
+    }
     let animationStr = `@import "~${theme}/scss/animation.scss";\n`;
 
     try {

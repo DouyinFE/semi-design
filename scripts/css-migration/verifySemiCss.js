@@ -35,9 +35,7 @@ function main() {
     const re = /--semi-cssvar-([A-Za-z_][A-Za-z0-9_-]*)\s*:\s*([^;]+);/g;
     let m;
     while ((m = re.exec(tokenCss))) map.set(m[1], m[2].trim());
-    const norm = new Map();
-    for (const [k, v] of map) norm.set(k.replace(/-/g, '_'), v);
-    const sub = newCss.replace(/var\(--semi-cssvar-([A-Za-z_][A-Za-z0-9_-]*)\)/g, (mm, name) => norm.get(name.replace(/-/g, '_')) ?? mm);
+    const sub = newCss.replace(/var\(--semi-cssvar-([A-Za-z_][A-Za-z0-9_-]*)\)/g, (mm, name) => map.get(name) ?? mm);
 
     const a = normalizeCss(oldCss);
     const b = normalizeCss(sub);

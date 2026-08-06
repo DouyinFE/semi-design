@@ -35,7 +35,7 @@
         color: inherit;
         cursor: pointer;
         transition: all 0.5s;
-        transform:scale(var(--semi-cssvar-transform-scale-rating))
+        transform:scale(var(--semi-cssvar-transform_scale-rating))
     }
 
         .semi-rating-star:not(:last-child) {

@@ -90,7 +90,7 @@
 
     .semi-breadcrumb-item-link {
         text-decoration: inherit;
-        transition: color var(--semi-cssvar-transition_duration-breadcrumb_link-text) var(--semi-cssvar-transition-function_breadcrumb_link-text) var(--semi-cssvar-transition_delay-breadcrumb_link-text);
+        transition: color var(--semi-cssvar-transition_duration-breadcrumb_link-text) var(--semi-cssvar-transition_function-breadcrumb_link-text) var(--semi-cssvar-transition_delay-breadcrumb_link-text);
         transform: scale(var(--semi-cssvar-transform_scale-breadcrumb_link-text))
     }
 
@@ -115,7 +115,7 @@
     }
 
     .semi-breadcrumb-restItem {
-        color: var(--semi-cssvar-color-breadcrumb_restItem-text-default);
+        color: var(--semi-cssvar-color-breadcrumb-restItem-text-default);
         margin-right: var(--semi-cssvar-spacing-breadcrumb_restItem-marginRight);
     }/* ============================================================*/
 /* 样式修改请编辑同目录下的 .css 文件。*/

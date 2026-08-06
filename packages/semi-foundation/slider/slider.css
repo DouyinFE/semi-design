@@ -49,7 +49,7 @@
         border: none;
         border-radius: 50%;
         cursor: pointer;
-        transition: background-color var(--semi-cssvar-transition_duration_slider_handle-bg) var(--semi-cssvar-transition_function-slider-handle-bg) var(--semi-cssvar-transition_delay-slider_handle-bg);
+        transition: background-color var(--semi-cssvar-transition_duration-slider_handle-bg) var(--semi-cssvar-transition_function-slider_handle-bg) var(--semi-cssvar-transition_delay-slider_handle-bg);
         transform: var(--semi-cssvar-transform_scale-slider_handle) translateX(-50%) translateY(var(--semi-cssvar-spacing-slider_handle-translateY));
         display: inline-flex;
         justify-content: center;

@@ -33,7 +33,7 @@
 
         .semi-divider-with-text .semi-divider_inner-text {
             font-weight: var(--semi-cssvar-font-divider_text-weight);
-            padding: var(--semi-cssvar-spacing-divider_inner-text-paddingTop) var(--semi-cssvar-spacing-divider_inner-text-paddingRight) var(--semi-cssvar-spacing-divider_inner-text-paddingBottom) var(--semi-cssvar-spacing-divider_inner-text-paddingLeft);
+            padding: var(--semi-cssvar-spacing-divider_inner_text-paddingTop) var(--semi-cssvar-spacing-divider_inner_text-paddingRight) var(--semi-cssvar-spacing-divider_inner_text-paddingBottom) var(--semi-cssvar-spacing-divider_inner_text-paddingLeft);
             display: inline-block;
         }
 

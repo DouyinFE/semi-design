@@ -83,7 +83,6 @@ module.exports = (env, argv) => {
                             sassOptions: {
                                 silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin'],
                             },
-                            additionalData: `@import "${path.join(packagesDir, 'semi-theme-default/scss/index.scss').replace(/\\/g, '/')}";`,
                         },
                     },
                 ],
@@ -148,7 +147,6 @@ module.exports = (env, argv) => {
             "@douyinfe/semi-animation-react$": path.join(packagesDir, "semi-animation-react/index.ts"),
             "@douyinfe/semi-animation-styled$": path.join(packagesDir, "semi-animation-styled/index.ts"),
             "@douyinfe/semi-json-viewer-core$": path.join(packagesDir, "semi-json-viewer-core/src/index.ts"),
-            "@douyinfe/semi-theme-default$": path.join(packagesDir, "semi-theme-default/scss/index.scss"),
             // 前缀匹配用于深层导入
             "@douyinfe/semi-ui": path.join(packagesDir, "semi-ui"),
             "@douyinfe/semi-foundation": path.join(packagesDir, "semi-foundation"),

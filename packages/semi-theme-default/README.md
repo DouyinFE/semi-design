@@ -9,15 +9,15 @@ You can make a custom theme through [Semi Design System](https://semi.design/dsm
 ```
 ├── package.json
 ├── css
-│   ├── token.css        // Design Token（--semi-cssvar-*，3997 个，定义在 body 与 .semi-theme 容器）
-│   ├── global.css       // 全局色板与语义色板（--semi-color-* 等，含亮/暗两套，定义在 body / .semi-always-light / .semi-always-dark / .semi-theme 容器）
+│   ├── token.css        // Design Token（--semi-cssvar-*，3997 个，定义在 html body、.semi-theme 与 :host）
+│   ├── global.css       // 全局色板与语义色板（--semi-color-* 等，含亮/暗两套，定义在 html body / .semi-theme / :host 及暗色子作用域）
 │   ├── animation.css    // 动效变量（transition 时长/函数/延迟）
 │   └── layer.css        // Tailwind 等原子类库搭配入口：@import 三文件 layer(semi)
 ```
 
 ## 主题变量与作用域
 
-主题变量（`--semi-cssvar-*` / `--semi-color-*`）定义在 **`body`（零配置全页生效）** 与 **`.semi-theme` 容器（任意 scope div 生效）** 上：
+主题变量（`--semi-cssvar-*` / `--semi-color-*`）定义在 **`html body`（零配置全页生效）**、**`.semi-theme` 容器** 与 **`:host`（Shadow DOM）** 上：
 
 ```html
 <!-- 全页默认：无需任何配置 -->
@@ -37,7 +37,7 @@ You can make a custom theme through [Semi Design System](https://semi.design/dsm
 - 业务方在任意 scope div 上覆盖变量即可实现局部换主题（无需重新编译）：
 
 ```css
-.theme-a { --semi-cssvar-color-primary: #ff4d4f; --semi-color-primary: #ff4d4f; }
+.theme-a { --semi-color-primary: #ff4d4f; }
 ```
 
 ```html
@@ -56,7 +56,7 @@ You can make a custom theme through [Semi Design System](https://semi.design/dsm
 
 ## 自定义主题包约定（重要）
 
-自定义主题包（DSM 导出或 `node generateTokens.js --scope <name>` 生成）的 css 挂 **`.semi-theme-<主题名>` 单一选择器**（容器版），不带 `body` / `:host`：
+自定义主题包（DSM 导出或 `node generateTokens.js <outputDir> --scope <name>` 生成）的 css 挂 **`.semi-theme-<主题名>` 单一选择器**（容器版），不带 `body` / `:host`：
 
 ```css
 /* 自定义主题包产物结构（--scope brand，token.css / global.css / animation.css）*/
@@ -66,7 +66,7 @@ You can make a custom theme through [Semi Design System](https://semi.design/dsm
 **可选 body 兜底版**：如需"全页使用自定义主题"（不引入默认主题时），生成时追加 `--global` 参数，额外产出 `token.global.css` / `global.global.css` / `animation.global.css`（`body` 单一选择器）：
 
 ```bash
-node generateTokens.js --scope brand --global
+node generateTokens.js path/to/theme/css --scope brand --global
 ```
 
 **body 占位语义**：由于默认主题的全局变量定义在 `html body`（0,0,2），自定义主题的 `body` 兜底版（0,0,1）在**默认主题已挂载时自动失效**（不会覆盖全页默认主题）；当业务方**不引入默认主题**、单独引入兜底版时生效（全页使用自定义主题）。兜底版独立成文件、按需引入，避免变量双份膨胀。因此：
@@ -75,10 +75,10 @@ node generateTokens.js --scope brand --global
 - 只引入自定义主题兜底版 → 全页使用自定义主题
 - 多个自定义主题的兜底版同时存在时，后加载者生效（同一时刻 body 上只应挂一个全局主题；多主题分区请使用容器版）
 
-**业务方使用自定义主题包**：容器加 `.semi-theme`（挂载完整变量链）与主题容器类：
+**业务方使用自定义主题包**：容器直接加主题容器类即可：
 
 ```html
-<div class="semi-theme semi-theme-brand"><!-- 该区域使用自定义主题 --></div>
+<div class="semi-theme-brand"><!-- 该区域使用自定义主题 --></div>
 ```
 
 ## 与 Tailwind 搭配

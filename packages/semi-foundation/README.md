@@ -20,10 +20,8 @@ This allows us to reuse Foundation code across frameworks by only re-implementin
   │   └── tooltip
   │       ├── constants.js    // Constant definition, including numbers, strings, cssClass
   │       ├── foundation.js   // Core foundation
-  │       ├── tooltip.scss    // Stylesheet
-  │       ├── mixin.scss      // Scss mixin
-  │       ├── rtl.scss        // Rtl 
-  │       ├── variables.scss  // Scss variable
+  │       ├── tooltip.css     // CSS 真源（嵌套 CSS）
+  │       ├── foundation.ts   // Core foundation
 
 ```
 

@@ -295,7 +295,7 @@
                 }
 
                     .semi-aiChatInput-footer-configure-radio-button .semi-radio-addon-buttonRadio-checked {
-                        color: var(--semi-cssvar-color-aiChatInput_footer_configure_radio_button-checked);
+                        color: var(--semi-cssvar-color-aiChatInput_footer_configure_radio_button_checked);
                         background: var(--semi-cssvar-color-aiChatInput_footer_configure_radio_button_checked-bg);
                     }
                 .semi-aiChatInput-footer-configure-mcp-header {
@@ -643,4 +643,3 @@
                 .semi-aiChatInput-editor-content .tiptap .skill-slot-delete {
                     display: none;
                 }
-

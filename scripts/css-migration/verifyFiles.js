@@ -12,6 +12,32 @@ const { diffCss } = require('./diff');
 const ROOT = path.resolve(__dirname, '../..');
 const FOUNDATION = path.join(ROOT, 'packages/semi-foundation');
 const SPECIAL = { '_portal': 'portal.scss' };
+const RUNTIME_VARIABLES = new Set([
+    '--semi-tooltip-arrow-offset-x',
+    '--semi-tooltip-arrow-offset-y',
+]);
+
+function findUndefinedCssVariables() {
+    const files = [
+        ...fs.readdirSync(FOUNDATION, { withFileTypes: true })
+            .filter(entry => entry.isDirectory() && !['lib', 'node_modules'].includes(entry.name))
+            .flatMap(entry => fs.readdirSync(path.join(FOUNDATION, entry.name))
+                .filter(file => file.endsWith('.css'))
+                .map(file => path.join(FOUNDATION, entry.name, file))),
+        path.join(ROOT, 'packages/semi-theme-default/css/token.css'),
+        path.join(ROOT, 'packages/semi-theme-default/css/global.css'),
+        path.join(ROOT, 'packages/semi-theme-default/css/animation.css'),
+    ];
+    const defined = new Set();
+    const referenced = new Set();
+    for (const file of files) {
+        if (!fs.existsSync(file)) continue;
+        const css = fs.readFileSync(file, 'utf-8');
+        for (const name of css.matchAll(/(--semi-[A-Za-z0-9_-]+)\s*:/g)) defined.add(name[1]);
+        for (const name of css.matchAll(/var\(\s*(--semi-[A-Za-z0-9_-]+)/g)) referenced.add(name[1]);
+    }
+    return [...referenced].filter(name => !defined.has(name) && !RUNTIME_VARIABLES.has(name)).sort();
+}
 
 // token 值表 + 代入（同 verify.js 逻辑）
 let tokenMap = null;
@@ -24,15 +50,10 @@ function getTokenMap() {
     while ((m = re.exec(css))) tokenMap.set(m[1], m[2].trim());
     return tokenMap;
 }
-function tokenKey(name) {
-    return name.replace(/-/g, '_');
-}
 function substituteTokens(css) {
     const map = getTokenMap();
-    const normIndex = new Map();
-    for (const [name, val] of map) normIndex.set(tokenKey(name), val);
     return css.replace(/var\(--semi-cssvar-([A-Za-z_][A-Za-z0-9_-]*)\)/g, (m, name) => {
-        const v = normIndex.get(tokenKey(name));
+        const v = map.get(name);
         return v !== undefined ? v : m;
     });
 }
@@ -40,7 +61,7 @@ function substituteTokens(css) {
 function verifyFile(comp) {
     const scssFile = SPECIAL[comp] || `${comp}.scss`;
     const legacy = compileLegacy(comp, scssFile);
-    if (legacy === null) return { comp, ok: 'skip', reason: '无 scss（组件无样式）' };
+    if (legacy === null) return { comp, ok: 'not-comparable', reason: '无 scss 基线（组件已 CSS 化）' };
     const cssPath = path.join(FOUNDATION, comp, scssFile.replace(/\.scss$/, '.css'));
     if (!fs.existsSync(cssPath)) return { comp, ok: false, error: 'css 真源不存在（未转换）' };
     const cssSource = fs.readFileSync(cssPath, 'utf-8');
@@ -64,15 +85,21 @@ async function main() {
             if (!comps.includes(c)) comps.push(c);
         }
     }
-    let pass = 0, skip = 0, fail = 0;
+    let pass = 0, notComparable = 0, fail = 0;
     const failed = [];
     const skipped = [];
+    const undefinedVariables = findUndefinedCssVariables();
+    if (undefinedVariables.length) {
+        fail++;
+        failed.push('css-variable-resolution');
+        console.log(`❌ 未定义的 CSS 变量（${undefinedVariables.length}）: ${undefinedVariables.join(', ')}`);
+    }
     for (const comp of comps) {
         const r = verifyFile(comp);
         if (r.ok === true) {
             pass++;
-        } else if (r.ok === 'skip') {
-            skip++;
+        } else if (r.ok === 'not-comparable') {
+            notComparable++;
             skipped.push(comp);
         } else {
             fail++;
@@ -80,8 +107,8 @@ async function main() {
             console.log(`❌ ${comp}: ${r.error || `${r.diffs} 处差异`}`);
         }
     }
-    console.log(`落库验证: ${pass} 零差异, ${skip} 无 scss 跳过, ${fail} 失败（共 ${pass + skip + fail} 个组件）`);
-    if (skipped.length) console.log('无 scss（跳过）:', skipped.join(', '));
+    console.log(`落库验证: ${pass} 零差异, ${notComparable} 无旧基线, ${fail} 失败（共 ${pass + notComparable + fail} 个组件）`);
+    if (skipped.length) console.log('无旧基线（CSS 已作为真源）:', skipped.join(', '));
     if (failed.length) console.log('失败:', failed.join(', '));
     process.exit(fail ? 1 : 0);
 }

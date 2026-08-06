@@ -54,8 +54,7 @@ export default defineConfig((env, argv) => {
 			"@douyinfe/semi-animation-react$": path.join(packagesDir, "semi-animation-react/index.ts"),
 			"@douyinfe/semi-animation-styled$": path.join(packagesDir, "semi-animation-styled/index.ts"),
 			"@douyinfe/semi-json-viewer-core$": path.join(packagesDir, "semi-json-viewer-core/src/index.ts"),
-			"@douyinfe/semi-theme-default$": path.join(packagesDir, "semi-theme-default/scss/index.scss"),
-			// 前缀匹配用于深层导入
+            // 前缀匹配用于深层导入
 			"@douyinfe/semi-ui": path.join(packagesDir, "semi-ui"),
 			"@douyinfe/semi-foundation": path.join(packagesDir, "semi-foundation"),
 			"@douyinfe/semi-icons": path.join(packagesDir, "semi-icons/src"),
@@ -143,37 +142,17 @@ export default defineConfig((env, argv) => {
 					fullySpecified: false,
 				},
 			},
-			// SCSS/SASS 支持
-			{
-				test: /\.s[ac]ss$/i,
-				use: [
-					{
-						loader: "sass-loader",
-						options: {
-							implementation: require("sass"),
-							// 模拟 semi-ui 编译时的行为：
-							// 1. 所有 SCSS 注入 index.scss（SCSS 变量）+ animation.scss
-							// 2. _base/base.scss 额外注入 global.scss（CSS 变量）
-							additionalData: (content: string, loaderContext: { resourcePath: string }) => {
-								const themeDir = path.resolve(packagesDir, "semi-theme-default/scss").replace(/\\/g, '/');
-								const scssVarStr = `@import "${themeDir}/index.scss";\n`;
-								const animationStr = `@import "${themeDir}/animation.scss";\n`;
-								const cssVarStr = `@import "${themeDir}/global.scss";\n`;
-								
-								// 只在 _base/base.scss 中注入 CSS 变量（跟 npm 包行为一致）
-								if (/_base[\\/]base\.scss/.test(loaderContext.resourcePath)) {
-									return scssVarStr + animationStr + cssVarStr + content;
-								}
-								return scssVarStr + animationStr + content;
-							},
-							sassOptions: {
-								silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin'],
-								// 允许 @import 从 semi-theme-default 获取变量
-								includePaths: [
-									path.resolve(packagesDir, "semi-theme-default/scss"),
-									path.resolve(packagesDir, "semi-foundation"),
-								]
-							}
+            // SCSS/SASS 支持（仅保留 playground 自身的 scss，不再注入已删除的主题 scss）
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            implementation: require("sass"),
+                            sassOptions: {
+                                silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin'],
+                            }
 						}
 					}
 				],

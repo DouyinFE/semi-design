@@ -1,13 +1,13 @@
 # Semi 样式 css 化迁移工具
 
-把 semi-foundation 的 scss 源码转换为"嵌套 css 真源"，并用三向验证保证与 sass 编译产物语义等价。
+CSS 迁移与验证工具集：历史上把 semi-foundation 的 SCSS 转换为“嵌套 CSS 真源”，当前生产样式已经以 CSS 为唯一真源；仍保留旧版验证/转换工具用于历史基线和外部旧主题兼容。
 
 ## 工具
 
 | 文件 | 作用 |
 |---|---|
 | `compileLegacy.js` | 复刻 gulpfile 的 sass 编译（注入 theme），产出旧产物基线 |
-| `generateTokens.js` | 扫描 variables.scss → 生成 `semi-theme-default/css/token.css`（3991 个 `--semi-cssvar-*` 变量）+ 冲突检测 |
+| `generateTokens.js` | 优先读取 `semi-theme-default/css/token.css` 生成主题 CSS；存在旧 SCSS 时才走 Sass 兼容分支，并支持自定义作用域 |
 | `transformScss.js` | 核心转换器：scss → 嵌套 css（& 展开/mixin 内联/@for 展开/变量→token） |
 | `sassEval.js` | sass 表达式求值服务（循环边界、条件、算术——"语义求值交给 sass"） |
 | `diff.js` + `normalize.js` | 规范化 diff 验证器（:is 展开、颜色/简写/顺序归一、token 代入） |
@@ -31,14 +31,14 @@ done
 
 ## 现状
 
-- **76/80 有样式组件三向验证零差异**（dragMove/icons/lottie/utils 无 scss）
-- **阶段 2 完成：80 个 css 真源已落库**（78 组件主文件 + iconButton/textarea 独立子文件 + base + portal，子文件 rtl/variables 等已内联）
-- 277 个 scss 文件已加 FROZEN 冻结标记（仅保留用于旧版构建链路兼容）
-- token 命名规则：`$name` → `--semi-cssvar-<name>`（下划线/连字符原样保留）
+- 生产 `semi-foundation` / `semi-theme-default` 的 SCSS 已删除，组件 CSS 与主题 CSS 是当前真源；Storybook 等示例 SCSS 不属于生产样式源。
+- `verifyFiles.js` 对仍有旧 SCSS 基线的组件做零差异比较；已删除 SCSS 的组件报告“无旧基线”，不会再伪报“验证通过”。
+- `verifyFiles.js` 同时按精确变量名检查 CSS 引用；仅允许 Tooltip 运行时注入的箭头偏移变量未在主题 CSS 中声明。
+- token 命名规则：`$name` → `--semi-cssvar-<name>`（下划线/连字符原样保留，验证时要求精确匹配）。
 
 ## 阶段 3：构建链路
 
-- **semi-foundation / semi-ui gulpfile**：新增 `compileCss` 任务（css 真源 → postcss-nested 编译 → lib/es + lib/cjs），scss 编译链路保留
+- **semi-foundation / semi-ui gulpfile**：`compileCss` 任务（css 真源 → postcss-nested 编译 → lib/es + lib/cjs）
 - **semi-scss-compile**：新增 `compileCss`（css 真源 + token.css + global/animation 合并 → semi.css），规则集等价验证通过
 - **主题包 css 产物**（semi-theme-default/css/）：`token.css`（3997 变量）+ `global.css` + `animation.css`（纯 css，css-loader 可直接处理）
 
@@ -57,9 +57,6 @@ node batchConvert.js
 # 验证落库的 css 文件（读文件而非重新转换）
 node verifyFiles.js            # 全部（78 零差异 + 4 无 scss）
 node verifyFiles.js button     # 单个
-
-# scss 冻结标记（幂等）
-node freezeScss.js
 
 # 生成主题包 css 产物（token.css + global.css + animation.css + 冲突检测）
 node generateTokens.js

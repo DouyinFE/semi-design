@@ -362,7 +362,7 @@
             .semi-tabs-bar-line.semi-tabs-bar-left .semi-tabs-tab {
                 padding: var(--semi-cssvar-spacing-tabs_bar_line_tab_left-padding);
                 border-left: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid transparent;
-                transition: background-color var(--semi-cssvar-transition_duration-tabs-tab_button-bg) var(--semi-cssvar-transition_function-tabs_tab_button-bg) var(--semi-cssvar-transition_delay-tabs_tab_button-bg),
+                transition: background-color var(--semi-cssvar-transition_duration-tabs_tab_button-bg) var(--semi-cssvar-transition_function-tabs_tab_button-bg) var(--semi-cssvar-transition_delay-tabs_tab_button-bg),
                 color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text)
             }/*按钮式tabs的 color的transition*/
 
@@ -516,7 +516,7 @@
             border-radius: var(--semi-cssvar-radius-tabs_tab_button);
             color: var(--semi-cssvar-color-tabs_tab_button-text-default);
             border: none;
-            transition: background-color var(--semi-cssvar-transition_duration-tabs-tab_button-bg) var(--semi-cssvar-transition_function-tabs_tab_button-bg) var(--semi-cssvar-transition_delay-tabs_tab_button-bg),
+            transition: background-color var(--semi-cssvar-transition_duration-tabs_tab_button-bg) var(--semi-cssvar-transition_function-tabs_tab_button-bg) var(--semi-cssvar-transition_delay-tabs_tab_button-bg),
                 color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text);
 
             transform: scale(var(--semi-cssvar-transform_scale-tabs_tab_button-item))
@@ -716,7 +716,7 @@
             .semi-tabs-tab-line.semi-tabs-tab-left.semi-tabs-tab {
                 padding: var(--semi-cssvar-spacing-tabs_bar_line_tab_left-padding);
                 border-left: var(--semi-cssvar-width-tabs_bar_line_tab-border) solid transparent;
-                transition: background-color var(--semi-cssvar-transition_duration-tabs-tab_button-bg) var(--semi-cssvar-transition_function-tabs_tab_button-bg) var(--semi-cssvar-transition_delay-tabs_tab_button-bg),
+                transition: background-color var(--semi-cssvar-transition_duration-tabs_tab_button-bg) var(--semi-cssvar-transition_function-tabs_tab_button-bg) var(--semi-cssvar-transition_delay-tabs_tab_button-bg),
                 color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text)
             }/*按钮式tabs的 color的transition*/
 
@@ -830,7 +830,7 @@
             border-radius: var(--semi-cssvar-radius-tabs_tab_button);
             color: var(--semi-cssvar-color-tabs_tab_button-text-default);
             border: none;
-            transition: background-color var(--semi-cssvar-transition_duration-tabs-tab_button-bg) var(--semi-cssvar-transition_function-tabs_tab_button-bg) var(--semi-cssvar-transition_delay-tabs_tab_button-bg),
+                transition: background-color var(--semi-cssvar-transition_duration-tabs_tab_button-bg) var(--semi-cssvar-transition_function-tabs_tab_button-bg) var(--semi-cssvar-transition_delay-tabs_tab_button-bg),
             color var(--semi-cssvar-transition_duration-tabs_tab_line-text) var(--semi-cssvar-transition_function-tabs_tab_line-text) var(--semi-cssvar-transition_delay-tabs_tab_line-text);
 
             transform: scale(var(--semi-cssvar-transform_scale-tabs_tab_button-item))

@@ -2,8 +2,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 
-// 不需要手动导入 global.scss！
-// CSS 变量会自动通过 _base/base.scss 注入（跟 npm 包行为一致）
+// 主题 CSS 在 App.tsx 中显式导入，组件 CSS 只负责组件样式。
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<App />

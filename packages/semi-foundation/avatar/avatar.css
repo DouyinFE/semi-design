@@ -616,8 +616,8 @@
     }
 
     .semi-avatar-additionalBorder-extra-small{
-        width: calc(var(--semi-cssvar-width-avatar_extra-small) + 2 * var(--semi-cssvar-spacing-avatar_additional-borderGap) + 2 * var(--semi-cssvar-width-avatar_additional-border));
-        height: calc(var(--semi-cssvar-width-avatar_extra-small) + 2 * var(--semi-cssvar-spacing-avatar_additional-borderGap) + 2 * var(--semi-cssvar-width-avatar_additional-border));
+        width: calc(var(--semi-cssvar-width-avatar_extra_small) + 2 * var(--semi-cssvar-spacing-avatar_additional-borderGap) + 2 * var(--semi-cssvar-width-avatar_additional-border));
+        height: calc(var(--semi-cssvar-width-avatar_extra_small) + 2 * var(--semi-cssvar-spacing-avatar_additional-borderGap) + 2 * var(--semi-cssvar-width-avatar_additional-border));
     }
 
     .semi-avatar-additionalBorder-small{
@@ -648,27 +648,27 @@
     }
 
 .semi-avatar-square.semi-avatar-additionalBorder-extra_extra_small {
-    border-radius: var(--semi-cssvar-radius-avatar-extra_extra_small);
+    border-radius: var(--semi-cssvar-radius-avatar_extra_extra_small);
 }
 
 .semi-avatar-square.semi-avatar-additionalBorder-extra_small {
-    border-radius: var(--semi-cssvar-radius-avatar-extra_small);
+    border-radius: var(--semi-cssvar-radius-avatar_extra_small);
 }
 
 .semi-avatar-square.semi-avatar-additionalBorder-small {
-    border-radius: var(--semi-cssvar-radius-avatar-small);
+    border-radius: var(--semi-cssvar-radius-avatar_small);
 }
 
 .semi-avatar-square.semi-avatar-additionalBorder-default {
-    border-radius: var(--semi-cssvar-radius-avatar-default);
+    border-radius: var(--semi-cssvar-radius-avatar_default);
 }
 
 .semi-avatar-square.semi-avatar-additionalBorder-medium {
-    border-radius: var(--semi-cssvar-radius-avatar-medium);
+    border-radius: var(--semi-cssvar-radius-avatar_medium);
 }
 
 .semi-avatar-square.semi-avatar-additionalBorder-large {
-    border-radius: var(--semi-cssvar-radius-avatar-large);
+    border-radius: var(--semi-cssvar-radius-avatar_large);
 }
 
 .semi-avatar-additionalBorder-circle{

@@ -79,7 +79,7 @@
         flex-wrap: nowrap;
         color: var(--semi-cssvar-color-transfer_item-text);
         cursor: pointer;
-        transition: background-color var(--semi-cssvar-transition_duration_transfer_item-bg) var(--semi-cssvar-transition_function-transfer_item-bg) var(--semi-cssvar-transition_delay-transfer_item-bg)
+        transition: background-color var(--semi-cssvar-transition_duration_transfer_item-bg) var(--semi-cssvar-transition_function_transfer_item-bg) var(--semi-cssvar-transition_delay_transfer_item-bg)
     }
 
 

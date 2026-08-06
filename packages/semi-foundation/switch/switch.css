@@ -7,7 +7,7 @@
     position: relative;
     cursor: pointer;
     background-color: var(--semi-cssvar-color-switch_default-bg-default);
-    transition: background-color var(--semi-cssvar-transition_duration-switch-bg) var(--semi-cssvar-transition_function-switch-bg) var(--semi-cssvar-transition_delay_switch-bg);
+    transition: background-color var(--semi-cssvar-transition_duration-switch-bg) var(--semi-cssvar-transition_function-switch-bg) var(--semi-cssvar-transition_delay-switch-bg);
 
     width: var(--semi-cssvar-width-switch);
     height: var(--semi-cssvar-height-switch)

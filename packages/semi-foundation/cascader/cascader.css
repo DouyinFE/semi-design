@@ -629,6 +629,6 @@
 
         .semi-cascader-option-lists.semi-cascader-option-lists-rtl .semi-cascader-option .semi-icon-chevron_right {
             margin-left: 0;
-            margin-right: var(--semi-cssvar-spacing-cascader_option_icon-marginLeft);
+            margin-right: var(--semi-cssvar-spacing-cascader_option-icon-marginLeft);
             transform: scaleX(-1);
         }

@@ -246,7 +246,7 @@
 @keyframes semi-modal-content-keyframe-show {
 
     0% {
-        opacity: var(--semi-cssvar-animation_opacity-modal_content_open);
+        opacity: var(--semi-cssvar-animation_opacity-modal_content-open);
         transform: scale(var(--semi-cssvar-animation_transform_scale-modal_content-open));
     }
 

@@ -35,7 +35,7 @@
         padding: var(--semi-cssvar-spacing-steps_item-paddingY) var(--semi-cssvar-spacing-steps_item-paddingX);
         transition: color var(--semi-cssvar-transition_duration-steps_item_title-text) var(--semi-cssvar-transition_function-steps_item_title-text) var(--semi-cssvar-transition_delay-steps_item_title-text);
         transform:scale(var(--semi-cssvar-transform_scale-step-item));
-        transition: background-color var(--semi-cssvar-transition_duration-steps_item-backgroundColor) var(--semi-cssvar-transition_function-steps_item_backgroundColor) var(--semi-cssvar-transition_delay-steps_item_backgroundColor)
+        transition: background-color var(--semi-cssvar-transition_duration-steps_item_backgroundColor) var(--semi-cssvar-transition_function-steps_item_backgroundColor) var(--semi-cssvar-transition_delay-steps_item_backgroundColor)
     } /* item 字体颜色动效*/ /*step backgroundColor 的transition变化*/
         
         .semi-steps .semi-steps-item .semi-steps-item-title {
@@ -333,7 +333,7 @@
         overflow: hidden;
         flex: 1;
         transition: color var(--semi-cssvar-transition_duration-steps_item_title-text) var(--semi-cssvar-transition_function-steps_item_title-text) var(--semi-cssvar-transition_delay-steps_item_title-text), 
-        background-color var(--semi-cssvar-transition_duration-steps_item-backgroundColor) var(--semi-cssvar-transition_function-steps_item_backgroundColor) var(--semi-cssvar-transition_delay-steps_item_backgroundColor);
+            background-color var(--semi-cssvar-transition_duration-steps_item_backgroundColor) var(--semi-cssvar-transition_function-steps_item_backgroundColor) var(--semi-cssvar-transition_delay-steps_item_backgroundColor);
         
         transform:scale(var(--semi-cssvar-transform_scale-step-item))
     } /*step backgroundColor 的transition变化*/

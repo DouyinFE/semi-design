@@ -75,7 +75,7 @@
         color: var(--semi-cssvar-color-button_danger-text-default);
         transition: background-color var(--semi-cssvar-transition_duration-button_danger-bg) var(--semi-cssvar-transition_function-button_danger-bg) var(--semi-cssvar-transition_delay-button_danger-bg),
         border var(--semi-cssvar-transition_duration-button_danger-border) var(--semi-cssvar-transition_function-button_danger-border) var(--semi-cssvar-transition_delay-button_danger-border);
-        transform: scale(var(--semi-cssvar-transform-scale-button_danger))
+        transform: scale(var(--semi-cssvar-transform_scale-button_danger))
     }
 
         .semi-button-danger-disabled {
@@ -156,7 +156,7 @@
         color: var(--semi-cssvar-color-button_tertiary-text-default);
         transition: background-color var(--semi-cssvar-transition_duration-button_tertiary-bg) var(--semi-cssvar-transition_function-button_tertiary-bg) var(--semi-cssvar-transition_delay-button_tertiary-bg),
         border var(--semi-cssvar-transition_duration-button_tertiary-border) var(--semi-cssvar-transition_function-button_tertiary-border) var(--semi-cssvar-transition_delay-button_tertiary-border);
-        transform: scale(var(--semi-cssvar-transform_scale_button_tertiary))
+        transform: scale(var(--semi-cssvar-transform_scale-button_tertiary))
     }
             .semi-button-tertiary.semi-button-colorful.semi-button-solid {
                 background: var(--semi-cssvar-color-button_tertiary_solid_colorful-bg-default)

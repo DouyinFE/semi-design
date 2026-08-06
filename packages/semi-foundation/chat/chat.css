@@ -182,7 +182,7 @@
             }
 
                 .semi-chat-chatBox-action .semi-button-tertiary.semi-button-borderless:hover {
-                    color: var(--semi-cssvar-color-chat_chatBox_action-icon-hover);
+                    color: var(--semi-cssvar-color-chat_chatBox_action_icon-hover);
                 }
 
     

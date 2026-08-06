@@ -100,8 +100,8 @@
 
                 .semi-carousel-indicator-dot .semi-carousel-indicator-item-primary {
                     background-color: var(--semi-cssvar-color-carousel_indicator_theme_primary-bg-default);
-                    transition: background-color var(--semi-cssvar-transition_duration-carousel_indicator-bg)
-                        var(--semi-cssvar-transition_function-carousel_indicator-bg) var(--semi-cssvar-transition_delay-carousel_indicator-bg)
+                    transition: background-color var(--semi-cssvar-transition_duration_carousel_indicator-bg)
+                        var(--semi-cssvar-transition_function_carousel_indicator-bg) var(--semi-cssvar-transition_delay_carousel_indicator-bg)
                 }
 
                     .semi-carousel-indicator-dot .semi-carousel-indicator-item-primary.semi-carousel-indicator-item-active {
@@ -118,8 +118,8 @@
 
                 .semi-carousel-indicator-dot .semi-carousel-indicator-item-light {
                     background-color: var(--semi-cssvar-color-carousel_indicator_theme_light-bg-default);
-                    transition: background-color var(--semi-cssvar-transition_duration-carousel_indicator-bg)
-                        var(--semi-cssvar-transition_function-carousel_indicator-bg) var(--semi-cssvar-transition_delay-carousel_indicator-bg)
+                    transition: background-color var(--semi-cssvar-transition_duration_carousel_indicator-bg)
+                        var(--semi-cssvar-transition_function_carousel_indicator-bg) var(--semi-cssvar-transition_delay_carousel_indicator-bg)
                 }
 
                     .semi-carousel-indicator-dot .semi-carousel-indicator-item-light.semi-carousel-indicator-item-active {
@@ -136,8 +136,8 @@
 
                 .semi-carousel-indicator-dot .semi-carousel-indicator-item-dark {
                     background-color: var(--semi-cssvar-color-carousel_indicator_theme_dark-bg-default);
-                    transition: background-color var(--semi-cssvar-transition_duration-carousel_indicator-bg)
-                        var(--semi-cssvar-transition_function-carousel_indicator-bg) var(--semi-cssvar-transition_delay-carousel_indicator-bg)
+                    transition: background-color var(--semi-cssvar-transition_duration_carousel_indicator-bg)
+                        var(--semi-cssvar-transition_function_carousel_indicator-bg) var(--semi-cssvar-transition_delay_carousel_indicator-bg)
                 }
 
                     .semi-carousel-indicator-dot .semi-carousel-indicator-item-dark.semi-carousel-indicator-item-active {
@@ -318,8 +318,8 @@
 
         .semi-carousel-arrow-light {
             color: var(--semi-cssvar-color-carousel_arrow_theme_light-bg-default);
-            transition: color var(--semi-cssvar-transition_duration-carousel_arrow-bg) var(--semi-cssvar-transition_funciton_carousel_arrow-bg)
-                var(--semi-cssvar-transition_delay-carousel_arrow-bg)
+            transition: color var(--semi-cssvar-transition_duration_carousel_arrow-bg) var(--semi-cssvar-transition_funciton_carousel_arrow-bg)
+                var(--semi-cssvar-transition_delay_carousel_arrow-bg)
         }
 
             .semi-carousel-arrow-light:hover {
@@ -328,8 +328,8 @@
 
         .semi-carousel-arrow-primary {
             color: var(--semi-cssvar-color-carousel_arrow_theme_primary-bg-default);
-            transition: color var(--semi-cssvar-transition_duration-carousel_arrow-bg) var(--semi-cssvar-transition_funciton_carousel_arrow-bg)
-                var(--semi-cssvar-transition_delay-carousel_arrow-bg)
+            transition: color var(--semi-cssvar-transition_duration_carousel_arrow-bg) var(--semi-cssvar-transition_funciton_carousel_arrow-bg)
+                var(--semi-cssvar-transition_delay_carousel_arrow-bg)
         }
 
             .semi-carousel-arrow-primary:hover {
@@ -338,8 +338,8 @@
 
         .semi-carousel-arrow-dark {
             color: var(--semi-cssvar-color-carousel_arrow_theme_dark-bg-default);
-            transition: color var(--semi-cssvar-transition_duration-carousel_arrow-bg) var(--semi-cssvar-transition_funciton_carousel_arrow-bg)
-                var(--semi-cssvar-transition_delay-carousel_arrow-bg)
+            transition: color var(--semi-cssvar-transition_duration_carousel_arrow-bg) var(--semi-cssvar-transition_funciton_carousel_arrow-bg)
+                var(--semi-cssvar-transition_delay_carousel_arrow-bg)
         }
 
             .semi-carousel-arrow-dark:hover {

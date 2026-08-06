@@ -1,7 +1,7 @@
 /* shadow */
 /* sizing */
 /* spacing */
-html body, .semi-theme {
+html body, .semi-theme, :host {
   --semi-cssvar-prefix: "semi";
   --semi-cssvar-height-control-small: 24px;
   --semi-cssvar-height-control-default: 32px;
@@ -454,7 +454,7 @@ html body, .semi-theme {
   --semi-cssvar-color-audio-player-slider-bg-light: rgba(var(--semi-grey-2), 1);
   --semi-cssvar-color-audio-player-slider-progress: rgba(var(--semi-blue-4), 1);
   --semi-cssvar-color-audio-player-slider-dot-bg: rgba(var(--semi-white), 1);
-  --semi-cssvar-color-audio-player-disabled-text: var(--semi-color-grey-7);
+  --semi-cssvar-color-audio-player-disabled-text: var(--semi-grey-7);
   --semi-cssvar-color-audio-player-text-default: var(--semi-color-default);
   --semi-cssvar-color-audio-player-light-disabled-bg: var(--semi-color-disabled-text);
   --semi-cssvar-color-audio-player-light-disabled-text: rgba(var(--semi-white), 1);
@@ -2388,7 +2388,7 @@ html body, .semi-theme {
   --semi-cssvar-color-progress_default-bg: var(--semi-color-fill-0);
   --semi-cssvar-color-progress_track_inner-bg: var(--semi-color-success);
   --semi-cssvar-color-progress_line_text-text: var(--semi-color-text-0);
-  --semi-cssvar-color-progress_circle-text: var(--semi-color-mode-minor-text);
+  --semi-cssvar-color-progress_circle-text: var(--semi-color-text-2);
   --semi-cssvar-motion-progress-transition_duration: 0.3s;
   --semi-cssvar-motion-progress-transition_timing_function: cubic-bezier(0.62, 0.05, 0.36, 0.95);
   --semi-cssvar-height-progress_horizontal: 4px;

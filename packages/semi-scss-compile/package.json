@@ -1,7 +1,7 @@
 {
     "name": "@douyinfe/semi-scss-compile",
     "version": "2.102.0",
-    "description": "compile semi scss to css",
+    "description": "compile Semi CSS/SCSS sources to CSS",
     "author": "daiqiang@bytedance.com",
     "license": "MIT",
     "main": "lib/index.js",
@@ -15,6 +15,7 @@
     ],
     "keywords": [
         "semi-scss-compiler",
+        "css",
         "scss"
     ],
     "scripts": {

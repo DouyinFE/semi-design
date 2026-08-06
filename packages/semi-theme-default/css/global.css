@@ -223,7 +223,7 @@ html body, body .semi-always-light, .semi-theme, .semi-theme .semi-always-light,
   --semi-ai-general-9: linear-gradient(278deg, rgba(var(--semi-ai-general-9-0)) 0%, rgba(var(--semi-ai-general-9-1)) 30%, rgba(var(--semi-ai-general-9-2)) 60%, rgba(var(--semi-ai-general-9-3)) 100%);
 }
 
-html body[theme-mode=dark], body .semi-always-dark, .semi-theme[theme-mode=dark], .semi-theme .semi-always-dark, :host([theme-mode=dark]), :host .semi-always-dark {
+html body[theme-mode=dark], body.semi-always-dark, body .semi-always-dark, .semi-theme[theme-mode=dark], .semi-theme.semi-always-dark, .semi-theme .semi-always-dark, :host([theme-mode=dark]), :host.semi-always-dark, :host .semi-always-dark {
   --semi-red-0: 108,9,11;
   --semi-red-1: 144,17,16;
   --semi-red-2: 180,32,25;
@@ -572,7 +572,7 @@ html body, body[theme-mode=dark] .semi-always-light, .semi-theme, .semi-theme[th
   --semi-color-ai-background-top-hover: linear-gradient(201.15deg, rgba(83, 56, 255, 0.32) 6.58%, rgba(176, 48, 240, 0.192) 32.88%, rgba(231, 45, 255, 0.096) 59.17%, rgba(255, 255, 255, 0) 94.23%);
 }
 
-html body[theme-mode=dark], body .semi-always-dark, .semi-theme[theme-mode=dark], .semi-theme .semi-always-dark, :host([theme-mode=dark]), :host .semi-always-dark {
+html body[theme-mode=dark], body.semi-always-dark, body .semi-always-dark, .semi-theme[theme-mode=dark], .semi-theme.semi-always-dark, .semi-theme .semi-always-dark, :host([theme-mode=dark]), :host.semi-always-dark, :host .semi-always-dark {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   --semi-color-white: rgba(228, 231, 245, 1);
@@ -1149,7 +1149,7 @@ html body[theme-mode=dark], body .semi-always-dark, .semi-theme[theme-mode=dark]
   --semi-cssvar-color-audio-player-slider-bg-light: rgba(var(--semi-grey-2), 1);
   --semi-cssvar-color-audio-player-slider-progress: rgba(var(--semi-blue-4), 1);
   --semi-cssvar-color-audio-player-slider-dot-bg: rgba(var(--semi-white), 1);
-  --semi-cssvar-color-audio-player-disabled-text: var(--semi-color-grey-7);
+  --semi-cssvar-color-audio-player-disabled-text: var(--semi-grey-7);
   --semi-cssvar-color-audio-player-text-default: var(--semi-color-default);
   --semi-cssvar-color-audio-player-light-disabled-bg: var(--semi-color-disabled-text);
   --semi-cssvar-color-audio-player-light-disabled-text: rgba(var(--semi-white), 1);
@@ -3083,7 +3083,7 @@ html body[theme-mode=dark], body .semi-always-dark, .semi-theme[theme-mode=dark]
   --semi-cssvar-color-progress_default-bg: var(--semi-color-fill-0);
   --semi-cssvar-color-progress_track_inner-bg: var(--semi-color-success);
   --semi-cssvar-color-progress_line_text-text: var(--semi-color-text-0);
-  --semi-cssvar-color-progress_circle-text: var(--semi-color-mode-minor-text);
+  --semi-cssvar-color-progress_circle-text: var(--semi-color-text-2);
   --semi-cssvar-motion-progress-transition_duration: 0.3s;
   --semi-cssvar-motion-progress-transition_timing_function: cubic-bezier(0.62, 0.05, 0.36, 0.95);
   --semi-cssvar-height-progress_horizontal: 4px;

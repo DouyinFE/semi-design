@@ -2,7 +2,7 @@
 
 ## Description
 
-There are mainly the following two usage scenarios:
+There are mainly the following two usage scenarios. The compiler supports the legacy SCSS source and the current CSS source:
 
 - For Sever side consumption in Semi Design System.When publishing the theme, call the script on the Node side to
   compile the custom theme package into a complete semi.css file

@@ -182,6 +182,8 @@ export default class SemiWebpackPlugin {
         if (SEMI_LIB_CSS_RE.test(compatiblePath)) {
             const cssLoader = require.resolve('css-loader');
             const styleLoader = require.resolve('style-loader');
+            const rawLoader = require.resolve('raw-loader');
+            const extraCssLoader = path.join(__dirname, 'semi-extract-css-content-loader');
             const semiCssLoaderOptions = typeof this.options.theme === 'object' ? { ...this.options.theme, cssLayer: this.options.cssLayer } : {
                 name: this.options.theme,
                 cssLayer: this.options.cssLayer
@@ -193,8 +195,7 @@ export default class SemiWebpackPlugin {
                 } : {
                     loader: styleLoader
                 };
-                const loaderList = [
-                    lastLoader,
+                const commonLoaderList = [
                     {
                         loader: cssLoader,
                         options: { sourceMap: false },
@@ -209,6 +210,11 @@ export default class SemiWebpackPlugin {
                         },
                     },
                 ];
+                const loaderList = this.options.webComponentPath ? [
+                    { loader: rawLoader },
+                    { loader: extraCssLoader },
+                    ...commonLoaderList,
+                ] : [lastLoader, ...commonLoaderList];
                 module.loaders = this.options.overrideStylesheetLoaders?.(loaderList) ?? loaderList;
             }
         }

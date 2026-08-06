@@ -28,21 +28,10 @@ function getTokenMap() {
 }
 
 // 把 css 中的 var(--semi-cssvar-x) 代入 token 值（验证用：新产物是 var 引用版）
-// sass 变量名中 -/_ 等价：定义处与引用处拼写可能不同（transform_scale-button vs transform-scale_button）
-// 因此按"归一化键"（统一 _）匹配
-function tokenKey(name) {
-    return name.replace(/-/g, '_');
-}
-
 function substituteTokens(css) {
     const map = getTokenMap();
-    // 构建归一化索引
-    const normIndex = new Map();
-    for (const [name, val] of map) {
-        normIndex.set(tokenKey(name), val);
-    }
     return css.replace(/var\(--semi-cssvar-([A-Za-z_][A-Za-z0-9_-]*)\)/g, (m, name) => {
-        const v = normIndex.get(tokenKey(name));
+        const v = map.get(name);
         return v !== undefined ? v : m;
     });
 }
@@ -85,6 +74,10 @@ if (require.main === module) {
         if (r.error) {
             console.log(`❌ ${component}/${scssFile || ''}: ${r.error}`);
             process.exit(1);
+        }
+        if (r.ok === 'skip') {
+            console.log(`ℹ️ ${component}/${scssFile || ''}: 无旧 scss 基线，CSS 真源无需三向比较`);
+            process.exit(0);
         }
         console.log(`旧产物规则: ${r.totalLegacy}, 新产物规则: ${r.totalFlat}`);
         if (r.ok) {
