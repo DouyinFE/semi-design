@@ -110,6 +110,15 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
      * When paste event is successfully handled, we ignore the subsequent keydown event.
      */
     _pasteHandled: boolean = false;
+    /**
+     * Working copy of fileList used during a synchronous startUpload batch.
+     * Do NOT rely on React state fileList here: setState is async (batched in React 18),
+     * so reading getState('fileList') between iterations of a sync loop returns a stale
+     * snapshot and earlier removals get overwritten by later ones (see #3335).
+     * Seeded at the start of startUpload and cleared when the sync loop finishes;
+     * async (promise) results fall back to React state.
+     */
+    _batchFileList: Array<BaseFileItem> | null = null;
     constructor(adapter: UploadAdapter<P, S>) {
         super({ ...adapter });
     }
@@ -521,11 +530,16 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     }
 
     startUpload(fileList: Array<BaseFileItem>): void {
+        // Seed a working copy so multiple synchronous beforeUpload results
+        // (e.g. several files returning autoRemove) compose correctly instead of each
+        // reading a stale React state snapshot and overwriting earlier removals. (#3335)
+        this._batchFileList = this.getState('fileList').slice();
         fileList.forEach(file => {
             if (!file._sizeInvalid) {
                 this.upload(file);
             }
         });
+        this._batchFileList = null;
     }
 
     upload(file: BaseFileItem): void {
@@ -584,7 +598,9 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     // handle beforeUpload result when it's an object
     handleBeforeUploadResultInObject(buResult: Partial<BeforeUploadObjectResult>, file: BaseFileItem): void {
         const { shouldUpload, status, autoRemove, validateMessage, fileInstance } = buResult;
-        let newFileList: Array<BaseFileItem> = this.getState('fileList').slice();
+        // During a synchronous startUpload batch, read from the working copy instead of
+        // React state so removals/mutations from earlier files in the same loop are kept. (#3335)
+        let newFileList: Array<BaseFileItem> = (this._batchFileList || this.getState('fileList')).slice();
         if (autoRemove) {
             this._releaseFileUrl(file.uid);
             newFileList = newFileList.filter(item => item.uid !== file.uid);
@@ -605,6 +621,12 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                 newFileList[index].url = this._createURL(fileInstance, file.uid);
             }
             newFileList[index].shouldUpload = shouldUpload;
+        }
+
+        // Keep the batch working copy in sync so the next file in the same synchronous
+        // loop builds on this result rather than a stale React state snapshot. (#3335)
+        if (this._batchFileList) {
+            this._batchFileList = newFileList;
         }
 
         this._adapter.updateFileList(newFileList);
