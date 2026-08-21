@@ -289,7 +289,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         // - For CSS ellipsis, truncation happens in the content box (excluding padding).
         // - clientWidth excludes border/scrollbar, but includes padding.
         //   So we use: contentBoxWidth = clientWidth - paddingLeft - paddingRight
-        const containerClientWidth = containerNode.clientWidth;
+        const containerClientWidth = containerNode.getBoundingClientRect().width;
         // Get computed style to account for padding
         // CSS text-overflow: ellipsis truncates text in the content area (excluding padding)
         // So we need to compare contentWidth with the actual content area width

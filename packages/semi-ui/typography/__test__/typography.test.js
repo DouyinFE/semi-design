@@ -83,6 +83,88 @@ describe(`Typography`, () => {
         expect(typographyParagraph.find('semi-typography-ellipsis').length).toEqual(0);
     });
 
+    it('ellipsis showTooltip 亚像素取整误差不应误判溢出（回归用例）', async () => {
+        // 背景：compareSingleRow 用整数 clientWidth 与精确浮点 Range 宽度比较，
+        // 当文本实际宽度小数部分 ∈ (0, 0.5) 时（如 32.3046875px），clientWidth 取整为 32，
+        // 32.3046875 > 32 会虚报溢出，导致未溢出的短文本也错误显示 tooltip。
+        // 修复：容器宽度改用 getBoundingClientRect().width（与 contentWidth 同精度，小数参与比较）。
+        // jsdom 无 document.createRange，这里整体 mock 测量 API。
+        const makeRect = width => ({
+            width,
+            height: 20,
+            left: 0,
+            right: width,
+            top: 0,
+            bottom: 20,
+            x: 0,
+            y: 0,
+            toJSON: () => ({}),
+        });
+
+        const originalCreateRange = document.createRange;
+        const originalElRect = HTMLElement.prototype.getBoundingClientRect;
+        const originalClientWidth = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'clientWidth');
+
+        const mockRangeWidth = rangeWidth => {
+            document.createRange = () => ({
+                selectNodeContents: () => {},
+                detach: () => {},
+                getBoundingClientRect: () => makeRect(rangeWidth),
+            });
+        };
+
+        const mockSubPixel = () => {
+            // 文本精确宽度 32.3046875（小数部分 < 0.5，clientWidth 取整为 32）→ 未真正溢出
+            mockRangeWidth(32.3046875);
+            HTMLElement.prototype.getBoundingClientRect = jest.fn(() => makeRect(32.3046875));
+            Object.defineProperty(HTMLElement.prototype, 'clientWidth', { configurable: true, get: () => 32 });
+        };
+
+        const mockRealOverflow = () => {
+            // 容器被宽度限制为 100，文本内容 250 → 真实溢出
+            mockRangeWidth(250);
+            HTMLElement.prototype.getBoundingClientRect = jest.fn(() => makeRect(100));
+            Object.defineProperty(HTMLElement.prototype, 'clientWidth', { configurable: true, get: () => 100 });
+        };
+
+        const waitEllipsisCalc = () => new Promise(resolve => setTimeout(resolve, 100));
+
+        try {
+            // 场景一：亚像素差异（32.3046875 vs 32），文本并未真正溢出 → 不应渲染 Tooltip
+            mockSubPixel();
+            const text1 = mount(
+                <Typography.Text ellipsis={{ showTooltip: true }} style={{ maxWidth: 220 }}>
+                    testa
+                </Typography.Text>
+            );
+            await waitEllipsisCalc();
+            text1.update();
+            expect(text1.find('[data-popupid]').length).toEqual(0);
+            text1.unmount();
+
+            // 场景二：真实溢出（250 > 100）→ 应正常渲染 Tooltip
+            mockRealOverflow();
+            const text2 = mount(
+                <Typography.Text ellipsis={{ showTooltip: true }} style={{ maxWidth: 100 }}>
+                    This is a very very long text that should be truncated for sure
+                </Typography.Text>
+            );
+            await waitEllipsisCalc();
+            text2.update();
+            // hostNodes: 只统计真实 DOM 节点（排除 React 组件节点的重复匹配）
+            expect(text2.find('[data-popupid]').hostNodes().length).toEqual(1);
+            text2.unmount();
+        } finally {
+            document.createRange = originalCreateRange;
+            HTMLElement.prototype.getBoundingClientRect = originalElRect;
+            if (originalClientWidth) {
+                Object.defineProperty(HTMLElement.prototype, 'clientWidth', originalClientWidth);
+            } else {
+                delete HTMLElement.prototype.clientWidth;
+            }
+        }
+    });
+
     it('typography Numeral', () => {
         let numeral = mount(
             <Typography.Numeral rule={'numbers'} truncate={'ceil'} precision={2}>
