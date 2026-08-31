@@ -134,6 +134,9 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
      * setState (React 18 automatic batching). (#3335)
      */
     updateFileListInternal(newFileList: Array<BaseFileItem>, callback?: () => void): void {
+        if (this._batchFileList) {
+            this._batchFileList = newFileList;
+        }
         this._latestFileList = newFileList;
         this._adapter.updateFileList(newFileList, callback);
     }
@@ -141,6 +144,10 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     /** Keep the synchronous snapshot aligned with an externally controlled fileList. */
     syncLatestFileList(fileList: Array<BaseFileItem>): void {
         this._latestFileList = fileList.slice();
+    }
+
+    getLatestFileList(): Array<BaseFileItem> {
+        return this._batchFileList || this._latestFileList || this.getState('fileList');
     }
     constructor(adapter: UploadAdapter<P, S>) {
         super({ ...adapter });
@@ -551,7 +558,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     /* istanbul ignore next */
     manualUpload(): void {
         // find the list of files that have not been uploaded
-        const waitToUploadFileList = this.getState('fileList').filter((item: BaseFileItem) => item.status === FILE_STATUS_WAIT_UPLOAD);
+        const waitToUploadFileList = this.getLatestFileList().filter((item: BaseFileItem) => item.status === FILE_STATUS_WAIT_UPLOAD);
         this.startUpload(waitToUploadFileList);
     }
 
@@ -560,7 +567,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         // (e.g. several files returning autoRemove) compose correctly instead of each
         // reading a stale React state snapshot and overwriting earlier removals. (#3335)
         // try/finally guarantees the working copy is cleared even if beforeUpload throws.
-        this._batchFileList = this.getState('fileList').slice();
+        this._batchFileList = this.getLatestFileList().slice();
         try {
             fileList.forEach(file => {
                 if (!file._sizeInvalid) {
@@ -579,7 +586,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             return;
         }
         if (typeof beforeUpload === 'function') {
-            const { fileList } = this.getStates();
+            const fileList = this.getLatestFileList();
             const buResult = this._adapter.notifyBeforeUpload({ file, fileList });
             switch (true) {
                 // sync validate - boolean
@@ -632,7 +639,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         // (promise) results read from the most recent synchronous snapshot, falling back
         // to React state. This keeps mixed sync + async beforeUpload results composing
         // correctly under React 18 automatic batching. (#3335)
-        let newFileList: Array<BaseFileItem> = (this._batchFileList || this._latestFileList || this.getState('fileList')).slice();
+        let newFileList: Array<BaseFileItem> = this.getLatestFileList().slice();
         if (autoRemove) {
             this._releaseFileUrl(file.uid);
             newFileList = newFileList.filter(item => item.uid !== file.uid);
@@ -653,12 +660,6 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                 newFileList[index].url = this._createURL(fileInstance, file.uid);
             }
             newFileList[index].shouldUpload = shouldUpload;
-        }
-
-        // Keep the batch working copy in sync so the next beforeUpload result
-        // in the same batch builds on this result. (#3335)
-        if (this._batchFileList) {
-            this._batchFileList = newFileList;
         }
 
         this.updateFileListInternal(newFileList);
@@ -757,8 +758,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     }
 
     handleProgress({ e, fileInstance }: { e?: ProgressEvent; fileInstance: File }): void {
-        const { fileList } = this.getStates();
-        const newFileList = fileList.slice();
+        const newFileList = this.getLatestFileList().slice();
         let percent = 0;
         if (e.total > 0) {
             percent = Number(((e.loaded / e.total) * 100 * numbers.PROGRESS_COEFFICIENT).toFixed(0)) || 0;
@@ -768,7 +768,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             return;
         }
         newFileList[index].percent = percent;
-        newFileList[index].status = FILE_STATUS_UPLOADING;
+        newFileList[index].status = FILE_STATUS_UPLOADING as FileItemStatus;
 
         this._adapter.notifyProgress(percent, fileInstance, newFileList);
         this.updateFileListInternal(newFileList);
@@ -776,7 +776,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     }
 
     handleOnLoad({ e, xhr, fileInstance }: { e?: ProgressEvent; xhr: XMLHttpRequest; fileInstance: File }): void {
-        const { fileList } = this.getStates();
+        const fileList = this.getLatestFileList();
         const index = this._getFileIndex(fileInstance, fileList);
         if (index < 0) {
             return;
@@ -789,7 +789,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     }
 
     handleSuccess({ e, fileInstance, isCustomRequest = false, xhr, response }: { e?: ProgressEvent; fileInstance: CustomFile; isCustomRequest?: boolean; xhr?: XMLHttpRequest; response?: any }): void {
-        const { fileList } = this.getStates();
+        const fileList = this.getLatestFileList();
         let body: any = null;
         const index = this._getFileIndex(fileInstance, fileList);
         if (index < 0) {
@@ -804,7 +804,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         const newFileList = fileList.slice();
         const { afterUpload } = this.getProps();
 
-        newFileList[index].status = FILE_STATUS_SUCCESS;
+        newFileList[index].status = FILE_STATUS_SUCCESS as FileItemStatus;
         newFileList[index].percent = 100;
         this._adapter.notifyProgress(100, fileInstance, newFileList);
         newFileList[index].response = body;
@@ -817,7 +817,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                     file: newFileList[index],
                     fileList: newFileList,
                 }) || {};
-            status ? (newFileList[index].status = status) : null;
+            status ? (newFileList[index].status = status as FileItemStatus) : null;
             validateMessage ? (newFileList[index].validateMessage = validateMessage) : null;
             name ? (newFileList[index].name = name) : null;
             if (url) {
@@ -868,7 +868,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     }
 
     handleError({ e, xhr, fileInstance }: { e?: ProgressEvent;xhr: XMLHttpRequest;fileInstance: CustomFile }): void {
-        const { fileList } = this.getStates();
+        const fileList = this.getLatestFileList();
         const index = this._getFileIndex(fileInstance, fileList);
         if (index < 0) {
             return;
@@ -877,7 +877,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         const newFileList = fileList.slice();
         const error = this.getError({ action, xhr, fileName: fileInstance.name });
 
-        newFileList[index].status = FILE_STATUS_UPLOAD_FAIL;
+        newFileList[index].status = FILE_STATUS_UPLOAD_FAIL as FileItemStatus;
         newFileList[index].response = error;
         newFileList[index].event = e;
 

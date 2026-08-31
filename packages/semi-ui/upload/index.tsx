@@ -491,8 +491,8 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         this.foundation.init();
     }
 
-    componentDidUpdate(prevProps: UploadProps): void {
-        if ('fileList' in this.props && (!('fileList' in prevProps) || prevProps.fileList !== this.props.fileList)) {
+    componentDidUpdate(): void {
+        if ('fileList' in this.props) {
             this.foundation.syncLatestFileList(this.props.fileList || []);
         }
     }

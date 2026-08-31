@@ -17,7 +17,7 @@ import UploadFoundation from '../../../semi-foundation/upload/foundation';
  * when the synchronous batch finishes.
  */
 describe('Upload foundation - batched autoRemove (#3335)', () => {
-    function createFoundation({ initialFileList, beforeUpload }) {
+    function createFoundation({ initialFileList, beforeUpload, ...uploadProps }) {
         // committed React state; getState/getStates read this
         let committedFileList = initialFileList.slice();
         // pending (batched) update; not visible via getState until flushed
@@ -27,8 +27,8 @@ describe('Upload foundation - batched autoRemove (#3335)', () => {
         const adapter = {
             getContext: () => undefined,
             getContexts: () => ({}),
-            getProp: key => ({ beforeUpload })[key],
-            getProps: () => ({ beforeUpload }),
+            getProp: key => ({ beforeUpload, ...uploadProps })[key],
+            getProps: () => ({ beforeUpload, ...uploadProps }),
             getState: key => ({ fileList: committedFileList })[key],
             getStates: () => ({ fileList: committedFileList }),
             updateFileList: (fileList) => {
@@ -37,6 +37,7 @@ describe('Upload foundation - batched autoRemove (#3335)', () => {
                 pendingFileList = fileList;
             },
             notifyChange: ({ fileList }) => changes.push(fileList),
+            notifyProgress: () => {},
             updateLocalUrls: () => {},
             notifyBeforeUpload: ({ file, fileList }) => beforeUpload({ file, fileList }),
         };
@@ -57,7 +58,7 @@ describe('Upload foundation - batched autoRemove (#3335)', () => {
         return { foundation, flush, setCommittedFileList, getChanges: () => changes };
     }
 
-    const makeFile = uid => ({ uid, name: `${uid}.png`, size: '10KB', status: 'wait', fileInstance: {} });
+    const makeFile = uid => ({ uid, name: `${uid}.png`, size: '10KB', status: 'wait', fileInstance: { uid } });
 
     it('removes every file when multiple files return autoRemove synchronously', () => {
         const fileA = makeFile('a');
@@ -159,6 +160,36 @@ describe('Upload foundation - batched autoRemove (#3335)', () => {
 
         expect(flush().map(f => f.uid)).toEqual(['external']);
         expect(getChanges()).toHaveLength(1);
+    });
+
+    it('does not resurrect a removed file when customRequest reports progress synchronously', () => {
+        const fileA = makeFile('a');
+        const fileB = makeFile('b');
+        const beforeUpload = ({ file }) =>
+            file.uid === 'a' ? { shouldUpload: false, autoRemove: true } : true;
+        const customRequest = ({ onProgress }) => {
+            onProgress({ total: 100, loaded: 50 });
+        };
+        const originalXMLHttpRequest = global.XMLHttpRequest;
+        const originalFormData = global.FormData;
+        global.XMLHttpRequest = jest.fn();
+        global.FormData = jest.fn();
+        try {
+            const { foundation, flush } = createFoundation({
+                initialFileList: [fileA, fileB],
+                beforeUpload,
+                customRequest,
+            });
+
+            foundation.startUpload([fileA, fileB]);
+
+            const result = flush();
+            expect(result.map(f => f.uid)).toEqual(['b']);
+            expect(result[0]).toMatchObject({ status: 'uploading', percent: 48 });
+        } finally {
+            global.XMLHttpRequest = originalXMLHttpRequest;
+            global.FormData = originalFormData;
+        }
     });
 
     it('clears the working copy even when beforeUpload throws', () => {
