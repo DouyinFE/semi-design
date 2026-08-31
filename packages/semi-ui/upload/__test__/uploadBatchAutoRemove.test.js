@@ -50,7 +50,11 @@ describe('Upload foundation - batched autoRemove (#3335)', () => {
             }
             return committedFileList;
         };
-        return { foundation, flush, getChanges: () => changes };
+        const setCommittedFileList = fileList => {
+            committedFileList = fileList.slice();
+            pendingFileList = null;
+        };
+        return { foundation, flush, setCommittedFileList, getChanges: () => changes };
     }
 
     const makeFile = uid => ({ uid, name: `${uid}.png`, size: '10KB', status: 'wait', fileInstance: {} });
@@ -121,6 +125,40 @@ describe('Upload foundation - batched autoRemove (#3335)', () => {
         await Promise.resolve();
         await Promise.resolve();
         expect(flush()).toEqual([]);
+    });
+
+    it('does not resurrect files replaced by an externally controlled fileList', async () => {
+        const fileA = makeFile('a');
+        const fileB = makeFile('b');
+        const externalFile = makeFile('external');
+        let resolveFileB;
+
+        const beforeUpload = ({ file }) => {
+            if (file.uid === 'a') {
+                return { shouldUpload: false, autoRemove: true };
+            }
+            return new Promise(resolve => {
+                resolveFileB = resolve;
+            });
+        };
+        const { foundation, flush, setCommittedFileList, getChanges } = createFoundation({
+            initialFileList: [fileA, fileB],
+            beforeUpload,
+        });
+
+        foundation.startUpload([fileA, fileB]);
+        expect(flush().map(f => f.uid)).toEqual(['b']);
+
+        // Simulate getDerivedStateFromProps + componentDidUpdate after the parent
+        // replaces the controlled list while file B's beforeUpload is pending.
+        setCommittedFileList([externalFile]);
+        foundation.syncLatestFileList([externalFile]);
+        resolveFileB({ shouldUpload: false, status: 'uploadFail' });
+        await Promise.resolve();
+        await Promise.resolve();
+
+        expect(flush().map(f => f.uid)).toEqual(['external']);
+        expect(getChanges()).toHaveLength(1);
     });
 
     it('clears the working copy even when beforeUpload throws', () => {

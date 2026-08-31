@@ -137,6 +137,11 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         this._latestFileList = newFileList;
         this._adapter.updateFileList(newFileList, callback);
     }
+
+    /** Keep the synchronous snapshot aligned with an externally controlled fileList. */
+    syncLatestFileList(fileList: Array<BaseFileItem>): void {
+        this._latestFileList = fileList.slice();
+    }
     constructor(adapter: UploadAdapter<P, S>) {
         super({ ...adapter });
     }
@@ -144,6 +149,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     init(): void {
         // make sure state reset, otherwise may cause upload abort in React StrictMode, like https://github.com/DouyinFE/semi-design/pull/843
         this.destroyState = false;
+        this.syncLatestFileList(this.getState('fileList'));
         // In controlled mode, parent may keep and pass back fileList with blob url.
         // Sync them into internal map so later remove/clear can revoke correctly.
         this._syncLocalUrlsFromFileList();
@@ -187,6 +193,8 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         if (!disabled) {
             this.unbindPastingHandler();
         }
+        this._batchFileList = null;
+        this._latestFileList = null;
         this.destroyState = true;
     }
 
