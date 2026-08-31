@@ -9,7 +9,7 @@ import ResizeObserver, { ObserverProperty } from '../resizeObserver';
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import { isUndefined } from 'lodash';
 
-interface CropperProps {
+export interface CropperProps {
     className?: string;
     style?: React.CSSProperties;
     /* The address of the image that needs to be cropped */
