@@ -7,7 +7,7 @@ import { BaseProps } from '../_base/baseComponent';
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import { omit } from 'lodash';
 const prefixCls = cssClasses.PREFIX;
-interface TypographyProps extends BaseProps {
+export interface TypographyProps extends BaseProps {
     component?: React.ElementType;
     forwardRef?: React.RefObject<any>;
     tooltipRef?: React.RefObject<any>

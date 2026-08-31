@@ -37,4 +37,11 @@ describe('semiGlobal.config.overrideDefaultProps (#3318)', () => {
         expect(wrapper.exists('.semi-input-wrapper-clearable')).toEqual(false);
         wrapper.unmount();
     });
+
+    it('支持冻结的全局默认配置对象', () => {
+        semiGlobal.config.overrideDefaultProps = { Input: Object.freeze({ showClear: true }) };
+        const wrapper = mount(<Input />);
+        expect(wrapper.exists('.semi-input-wrapper-clearable')).toEqual(true);
+        wrapper.unmount();
+    });
 });

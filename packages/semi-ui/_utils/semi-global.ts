@@ -6,6 +6,7 @@ import type { CascaderProps } from "../cascader";
 import type { CheckboxProps } from "../checkbox";
 import type { ChatProps } from "../chat/interface";
 import type { AIChatInputProps } from "../aiChatInput";
+import type { AIChatDialogueProps } from "../aiChatDialogue/interface";
 import type { CodeHighlightProps } from "../codeHighlight";
 import type { CollapseReactProps } from "../collapse";
 import type { CollapsibleProps } from "../collapsible";
@@ -37,7 +38,7 @@ import type { ToastReactProps } from "../toast";
 import type { TooltipProps } from "../tooltip";
 import type { TreeProps } from "../tree/interface";
 import type { TreeSelectProps } from "../treeSelect";
-import type { BaseTypographyProps } from "../typography";
+import type { TypographyProps } from "../typography";
 import type { UploadProps } from "../upload";
 import type { BaseFormProps } from "../form/interface";
 import type { MarkdownRenderProps } from "../markdownRender";
@@ -61,6 +62,7 @@ interface SemiGlobalConfig {
         Cascader?: Partial<CascaderProps>;
         Chat?: Partial<ChatProps>;
         AIChatInput?: Partial<AIChatInputProps>;
+        AIChatDialogue?: Partial<AIChatDialogueProps>;
         Checkbox?: Partial<CheckboxProps>;
         CodeHighlight?: Partial<CodeHighlightProps>;
         Collapse?: Partial<CollapseReactProps>;
@@ -95,7 +97,7 @@ interface SemiGlobalConfig {
         Tooltip?: Partial<TooltipProps>;
         Tree?: Partial<TreeProps>;
         TreeSelect?: Partial<TreeSelectProps>;
-        Typography?: Partial<BaseTypographyProps>;
+        Typography?: Partial<TypographyProps>;
         Upload?: Partial<UploadProps>
     }
 }
