@@ -193,4 +193,62 @@ describe('Progress', () => {
         const minp = getProgress(minProps);
         expect(minp.find('.semi-progress-line-text').text()).toEqual('0%');
     });
+
+    it('line indeterminate ignores percent/showInfo and renders animation class', () => {
+        const p = getProgress({ indeterminate: true, percent: 50, showInfo: true });
+        // wrapper 带 indeterminate class
+        expect(p.exists('.semi-progress-indeterminate')).toEqual(true);
+        // inner 使用动画 class，且不写死 width
+        const inner = p.find('.semi-progress-track-inner-indeterminate');
+        expect(inner.length).toEqual(1);
+        expect(inner.getDOMNode().style.width).toEqual('');
+        // showInfo 被忽略：不渲染百分比文案
+        expect(p.exists('.semi-progress-line-text')).toEqual(false);
+        // role=progressbar 不设置 aria-valuenow
+        expect(p.getDOMNode().getAttribute('aria-valuenow')).toBeNull();
+        p.unmount();
+    });
+
+    it('line indeterminate default false keeps percent width', () => {
+        const p = getProgress({ percent: 30, showInfo: true });
+        expect(p.exists('.semi-progress-indeterminate')).toEqual(false);
+        const inner = p.find('.semi-progress-track-inner');
+        expect(inner.getDOMNode().getAttribute('style')).toContain('width: 30%');
+        expect(p.exists('.semi-progress-line-text')).toEqual(true);
+        p.unmount();
+    });
+
+    it('circle indeterminate renders fixed arc and rotating animation class, hides text', () => {
+        const p = getProgress({ type: 'circle', indeterminate: true, percent: 30, showInfo: true });
+        const inner = p.find('.semi-progress-circle-ring-inner-indeterminate');
+        expect(inner.length).toEqual(1);
+        // 弧长为 30% 周长：dasharray = 0.3 * circumference / circumference
+        const dasharray = inner.getDOMNode().getAttribute('stroke-dasharray');
+        expect(dasharray).toContain(' ');
+        const [arc, total] = dasharray.split(' ').map(Number);
+        expect(Number((arc / total).toFixed(3))).toBeCloseTo(0.3, 3);
+        expect(inner.getDOMNode().getAttribute('stroke-dashoffset')).toEqual('0');
+        // showInfo 被忽略：不渲染百分比文案
+        expect(p.exists('.semi-progress-circle-text')).toEqual(false);
+        // 不设置 aria-valuenow
+        expect(p.getDOMNode().getAttribute('aria-valuenow')).toBeNull();
+        p.unmount();
+    });
+
+    it('circle indeterminate default false keeps percent dashoffset', () => {
+        const p = getProgress({ type: 'circle', percent: 30, showInfo: true });
+        expect(p.exists('.semi-progress-circle-ring-inner-indeterminate')).toEqual(false);
+        const inner = p.find('.semi-progress-circle-ring-inner').hostNodes();
+        expect(inner.getDOMNode().getAttribute('stroke-dashoffset')).not.toEqual('0');
+        expect(p.exists('.semi-progress-circle-text')).toEqual(true);
+        p.unmount();
+    });
+
+    it('vertical line indeterminate uses vertical animation class', () => {
+        const p = getProgress({ direction: 'vertical', indeterminate: true, percent: 50 });
+        const inner = p.find('.semi-progress-track-inner-indeterminate');
+        expect(inner.length).toEqual(1);
+        expect(inner.getDOMNode().getAttribute('class')).toContain('semi-progress-track-inner-indeterminate');
+        p.unmount();
+    });
 });

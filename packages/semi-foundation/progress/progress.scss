@@ -23,6 +23,7 @@ $module: #{$prefix}-progress;
         .#{$module}-track {
             height: 100%;
             width: 100%;
+            overflow: hidden;
         }
 
         .#{$module}-track-inner {
@@ -31,6 +32,12 @@ $module: #{$prefix}-progress;
             border-radius: $radius-progress_track_inner;
             transition: width $motion-progress-transition_duration;
             transition-timing-function: $motion-progress-transition_timing_function;
+        }
+
+        .#{$module}-track-inner-indeterminate {
+            width: 35%;
+            transition: none;
+            animation: semi-progress-indeterminate-slide 1.6s ease-in-out infinite;
         }
 
         .#{$module}-line-text {
@@ -57,6 +64,7 @@ $module: #{$prefix}-progress;
         .#{$module}-track {
             height: 100%;
             width: 100%;
+            overflow: hidden;
         }
 
         .#{$module}-track-inner {
@@ -65,6 +73,13 @@ $module: #{$prefix}-progress;
             width: 100%;
             transition: height $motion-progress-transition_duration;
             transition-timing-function: $motion-progress-transition_timing_function;
+        }
+
+        .#{$module}-track-inner-indeterminate {
+            height: 35%;
+            width: 100%;
+            transition: none;
+            animation-name: semi-progress-indeterminate-slide-vertical;
         }
 
         .#{$module}-line-text {
@@ -95,6 +110,12 @@ $module: #{$prefix}-progress;
             stroke: $color-progress_track_inner-bg;
         }
 
+        &-ring-inner-indeterminate {
+            transform: rotate(0deg);
+            transform-origin: 50% 50%;
+            animation: semi-progress-indeterminate-rotate 1.2s linear infinite;
+        }
+
         &-text {
             position: absolute;
             top: 50%;
@@ -105,6 +126,44 @@ $module: #{$prefix}-progress;
             user-select: none;
             color: $color-progress_circle-text;
         }
+    }
+}
+
+@keyframes semi-progress-indeterminate-slide {
+    0% {
+        transform: translateX(-120%);
+    }
+
+    55% {
+        transform: translateX(300%);
+    }
+
+    100% {
+        transform: translateX(300%);
+    }
+}
+
+@keyframes semi-progress-indeterminate-slide-vertical {
+    0% {
+        transform: translateY(-120%);
+    }
+
+    55% {
+        transform: translateY(300%);
+    }
+
+    100% {
+        transform: translateY(300%);
+    }
+}
+
+@keyframes semi-progress-indeterminate-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
     }
 }
 
