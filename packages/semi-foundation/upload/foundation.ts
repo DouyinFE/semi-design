@@ -110,6 +110,33 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
      * When paste event is successfully handled, we ignore the subsequent keydown event.
      */
     _pasteHandled: boolean = false;
+    /**
+     * Working copy of fileList used during a synchronous startUpload batch.
+     * Do NOT rely on React state fileList here: setState is async (batched in React 18),
+     * so reading getState('fileList') between iterations of a sync loop returns a stale
+     * snapshot and earlier removals get overwritten by later ones (see #3335).
+     * Seeded at the start of startUpload and cleared when the sync loop finishes (see
+     * try/finally in startUpload); async (promise) results fall back to _latestFileList
+     * then React state.
+     */
+    _batchFileList: Array<BaseFileItem> | null = null;
+    /**
+     * The most recent fileList produced by handleBeforeUploadResultInObject.
+     * Unlike React state (which is flushed asynchronously under React 18 automatic
+     * batching), this is updated synchronously, so a later async beforeUpload result
+     * composes with earlier sync removals of the same batch instead of reading a stale
+     * snapshot (mixed sync + async beforeUpload results, see #3335).
+     */
+    _latestFileList: Array<BaseFileItem> | null = null;
+    /**
+     * Unify all fileList commits: keep _latestFileList in sync synchronously so async
+     * beforeUpload results compose with recent mutations even before React flushes
+     * setState (React 18 automatic batching). (#3335)
+     */
+    updateFileListInternal(newFileList: Array<BaseFileItem>, callback?: () => void): void {
+        this._latestFileList = newFileList;
+        this._adapter.updateFileList(newFileList, callback);
+    }
     constructor(adapter: UploadAdapter<P, S>) {
         super({ ...adapter });
     }
@@ -363,7 +390,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         }
         newFileList.splice(replaceIdx, 1, newFileItem);
         this._adapter.notifyChange({ currentFile: newFileItem, fileList: newFileList });
-        this._adapter.updateFileList(newFileList, () => {
+        this.updateFileListInternal(newFileList, () => {
             this._adapter.resetReplaceInput();
             if (!newFileItem._sizeInvalid) {
                 this.upload(newFileItem);
@@ -405,7 +432,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         const { uploadTrigger } = this.getProps();
         const currentFiles = files.map(item => this.buildFileItem(item, uploadTrigger));
         this._adapter.notifyChange({ fileList: currentFiles, currentFile: currentFiles[0] });
-        this._adapter.updateFileList(currentFiles, () => {
+        this.updateFileListInternal(currentFiles, () => {
             if (uploadTrigger === TRIGGER_AUTO) {
                 this.startUpload(currentFiles);
             }
@@ -425,7 +452,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                 this._adapter.notifyChange({ fileList, currentFile: file });
             }
         });
-        this._adapter.updateFileList(fileList, () => {
+        this.updateFileListInternal(fileList, () => {
             if (uploadTrigger === TRIGGER_AUTO) {
                 this.startUpload(currentFiles);
             }
@@ -506,7 +533,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
 
         this._adapter.notifyFileSelect(currentFileList);
         this._adapter.notifyChange({ fileList: newFileList, currentFile: null });
-        this._adapter.updateFileList(newFileList, () => {
+        this.updateFileListInternal(newFileList, () => {
             if (uploadTrigger === TRIGGER_AUTO) {
                 this.startUpload(fileItemList);
             }
@@ -521,11 +548,20 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     }
 
     startUpload(fileList: Array<BaseFileItem>): void {
-        fileList.forEach(file => {
-            if (!file._sizeInvalid) {
-                this.upload(file);
-            }
-        });
+        // Seed a working copy so multiple synchronous beforeUpload results
+        // (e.g. several files returning autoRemove) compose correctly instead of each
+        // reading a stale React state snapshot and overwriting earlier removals. (#3335)
+        // try/finally guarantees the working copy is cleared even if beforeUpload throws.
+        this._batchFileList = this.getState('fileList').slice();
+        try {
+            fileList.forEach(file => {
+                if (!file._sizeInvalid) {
+                    this.upload(file);
+                }
+            });
+        } finally {
+            this._batchFileList = null;
+        }
     }
 
     upload(file: BaseFileItem): void {
@@ -584,7 +620,11 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     // handle beforeUpload result when it's an object
     handleBeforeUploadResultInObject(buResult: Partial<BeforeUploadObjectResult>, file: BaseFileItem): void {
         const { shouldUpload, status, autoRemove, validateMessage, fileInstance } = buResult;
-        let newFileList: Array<BaseFileItem> = this.getState('fileList').slice();
+        // During a synchronous startUpload batch, read from the working copy; for async
+        // (promise) results read from the most recent synchronous snapshot, falling back
+        // to React state. This keeps mixed sync + async beforeUpload results composing
+        // correctly under React 18 automatic batching. (#3335)
+        let newFileList: Array<BaseFileItem> = (this._batchFileList || this._latestFileList || this.getState('fileList')).slice();
         if (autoRemove) {
             this._releaseFileUrl(file.uid);
             newFileList = newFileList.filter(item => item.uid !== file.uid);
@@ -607,7 +647,13 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             newFileList[index].shouldUpload = shouldUpload;
         }
 
-        this._adapter.updateFileList(newFileList);
+        // Keep the batch working copy in sync so the next beforeUpload result
+        // in the same batch builds on this result. (#3335)
+        if (this._batchFileList) {
+            this._batchFileList = newFileList;
+        }
+
+        this.updateFileListInternal(newFileList);
         this._adapter.notifyChange({ fileList: newFileList, currentFile: file });
 
         if (shouldUpload) {
@@ -717,7 +763,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         newFileList[index].status = FILE_STATUS_UPLOADING;
 
         this._adapter.notifyProgress(percent, fileInstance, newFileList);
-        this._adapter.updateFileList(newFileList);
+        this.updateFileListInternal(newFileList);
         this._adapter.notifyChange({ fileList: newFileList, currentFile: newFileList[index] });
     }
 
@@ -778,7 +824,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         }
         this._adapter.notifySuccess(body, fileInstance, newFileList);
         this._adapter.notifyChange({ fileList: newFileList, currentFile: newFileList[index] });
-        this._adapter.updateFileList(newFileList);
+        this.updateFileListInternal(newFileList);
     }
 
     _getFileIndex(file: CustomFile | BaseFileItem, fileList: Array<BaseFileItem>): number {
@@ -808,7 +854,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             this._releaseFileUrl(file.uid);
 
             this._adapter.notifyRemove(file.fileInstance, newFileList, file);
-            this._adapter.updateFileList(newFileList);
+            this.updateFileListInternal(newFileList);
             this._adapter.notifyChange({ fileList: newFileList, currentFile: file });
         });
     }
@@ -828,7 +874,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         newFileList[index].event = e;
 
         this._adapter.notifyError(error, fileInstance, newFileList, xhr);
-        this._adapter.updateFileList(newFileList);
+        this.updateFileListInternal(newFileList);
         this._adapter.notifyChange({ currentFile: newFileList[index], fileList: newFileList });
     }
 
@@ -844,7 +890,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                 return;
             }
             this._releaseAllFileUrls();
-            this._adapter.updateFileList([]);
+            this.updateFileListInternal([]);
             this._adapter.notifyClear();
             this._adapter.notifyChange({ fileList: [] } as any);
         }).catch(error => {
