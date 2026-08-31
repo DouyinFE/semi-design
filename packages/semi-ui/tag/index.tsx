@@ -26,6 +26,8 @@ export interface TagState {
 }
 
 export default class Tag extends Component<TagProps, TagState> {
+    static __SemiComponentName__ = "Tag";
+
     static defaultProps: TagProps = getDefaultPropsFromGlobalConfig(Tag.__SemiComponentName__, {
         size: tagSize[0] as TagSize,
         color: tagColors[0] as TagColor,
