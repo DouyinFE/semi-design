@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/typography/constants';
 import '@douyinfe/semi-foundation/typography/typography.scss';
 import { BaseProps } from '../_base/baseComponent';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import { omit } from 'lodash';
 const prefixCls = cssClasses.PREFIX;
 interface TypographyProps extends BaseProps {
@@ -12,11 +13,12 @@ interface TypographyProps extends BaseProps {
     tooltipRef?: React.RefObject<any>
 }
 class Typography extends PureComponent<TypographyProps> {
-    static defaultProps = {
+    static __SemiComponentName__ = "Typography";
+    static defaultProps = getDefaultPropsFromGlobalConfig(Typography.__SemiComponentName__, {
         component: 'article',
         style: {},
         className: '',
-    };
+    });
 
     static propTypes = {
         component: PropTypes.string,

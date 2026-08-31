@@ -6,6 +6,7 @@ import "@douyinfe/semi-foundation/cropper/cropper.scss";
 import CropperFoundation, { CropperAdapter, ImageDataState, CropperBox } from '@douyinfe/semi-foundation/cropper/foundation';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/cropper/constants';
 import ResizeObserver, { ObserverProperty } from '../resizeObserver';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import { isUndefined } from 'lodash';
 
 interface CropperProps {
@@ -62,7 +63,7 @@ class Cropper extends BaseComponent<CropperProps, CropperState> {
         
     };
 
-    static defaultProps = {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Cropper.__SemiComponentName__, {
         shape: 'rect',
         defaultAspectRatio: 1,
         showResizeBox: true,
@@ -70,7 +71,7 @@ class Cropper extends BaseComponent<CropperProps, CropperState> {
         maxZoom: 3,
         minZoom: 0.1,
         zoomStep: 0.1,
-    }
+    });
 
     containerRef: HTMLDivElement;
     imgRef: React.RefObject<HTMLImageElement>;

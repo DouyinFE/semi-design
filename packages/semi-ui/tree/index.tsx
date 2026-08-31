@@ -42,6 +42,7 @@ import {
     ScrollData,
 } from './interface';
 import CheckboxGroup from '../checkbox/checkboxGroup';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 
 export * from './interface';
 export type { AutoSizerProps } from './autoSizer';
@@ -58,6 +59,7 @@ const treeDataNodeShape = {
 treeDataNodeShape.children = PropTypes.arrayOf(PropTypes.shape(treeDataNodeShape));
 
 class Tree extends BaseComponent<TreeProps, TreeState> {
+    static __SemiComponentName__ = "Tree";
     static contextType = ConfigContext;
 
     static propTypes = {
@@ -123,7 +125,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         preventScroll: PropTypes.bool,
     };
 
-    static defaultProps = {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Tree.__SemiComponentName__, {
         showClear: true,
         disabled: false,
         blockNode: true,
@@ -144,7 +146,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         autoExpandWhenDragEnter: true,
         checkRelation: 'related',
         autoMergeValue: true,
-    };
+    });
 
     static TreeNode: typeof TreeNode;
     inputRef: React.RefObject<typeof Input>;

@@ -46,7 +46,7 @@ import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
 import Trigger from '../trigger';
 import TagInput from '../tagInput';
-import { isSemiIcon } from '../_utils';
+import { isSemiIcon, getDefaultPropsFromGlobalConfig } from '../_utils';
 import { OptionProps, TreeProps, TreeState, FlattenNode, TreeNodeData, TreeNodeProps } from '../tree/interface';
 import { IconChevronDown, IconClear, IconSearch } from '@douyinfe/semi-icons';
 import CheckboxGroup from '../checkbox/checkboxGroup';
@@ -156,12 +156,12 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     onFocus?: (e: React.MouseEvent) => void;
     onVisibleChange?: (isVisible: boolean) => void;
     onClear?: (e: React.MouseEvent | React.KeyboardEvent<HTMLDivElement>) => void;
-    autoMergeValue?: boolean
+    autoMergeValue?: boolean;
     /**
      * Whether to allow selected tags to wrap to multiple lines in trigger (multiple + searchPosition="trigger").
      * When enabled, TreeSelect will constrain trigger width and allow TagInput to wrap.
      */
-    triggerTagWrap?: boolean;
+    triggerTagWrap?: boolean
 }
 
 export type OverrideCommonState =
@@ -187,6 +187,7 @@ const prefixTree = cssClasses.PREFIX_TREE;
 const key = 0;
 
 class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
+    static __SemiComponentName__ = "TreeSelect";
     static contextType = ConfigContext;
 
     static propTypes = {
@@ -287,7 +288,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         triggerTagWrap: PropTypes.bool,
     };
 
-    static defaultProps: Partial<TreeSelectProps> = {
+    static defaultProps: Partial<TreeSelectProps> = getDefaultPropsFromGlobalConfig(TreeSelect.__SemiComponentName__, {
         borderless: false,
         searchPosition: strings.SEARCH_POSITION_DROPDOWN,
         arrowIcon: <IconChevronDown />,
@@ -321,7 +322,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         clickTriggerToHide: true,
         autoMergeValue: true,
         triggerTagWrap: false,
-    };
+    });
     inputRef: React.RefObject<typeof Input>;
     tagInputRef: React.RefObject<TagInput>;
     triggerRef: React.RefObject<HTMLDivElement>;

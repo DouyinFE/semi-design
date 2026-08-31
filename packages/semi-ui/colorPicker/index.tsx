@@ -14,6 +14,7 @@ import cls from 'classnames';
 import "@douyinfe/semi-foundation/colorPicker/colorPicker.scss";
 import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';
 import Popover from '../popover';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import {
     hexToHsva,
     hexToRgba, hsvaStringToHsva, hsvaToHex, hsvaToRgba,
@@ -51,7 +52,7 @@ class ColorPicker extends BaseComponent<PropsWithChildren<ColorPickerReactProps>
         };
     }
 
-    static defaultProps = {
+    static defaultProps = getDefaultPropsFromGlobalConfig(ColorPicker.__SemiComponentName__, {
         defaultValue: {
             hsva: { h: 176, s: 71, v: 77, a: 1 },
             rgba: { r: 57, g: 197, b: 187, a: 1 },
@@ -59,7 +60,7 @@ class ColorPicker extends BaseComponent<PropsWithChildren<ColorPickerReactProps>
         },
         eyeDropper: true,
         defaultFormat: 'hex'
-    }
+    })
 
     get adapter(): ColorPickerAdapter<ColorPickerReactProps, ColorPickerReactState> {
         return {
