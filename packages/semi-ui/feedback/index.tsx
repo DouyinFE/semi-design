@@ -17,6 +17,7 @@ import { ButtonProps } from '../button';
 import FeedbackFoundation, { FeedbackAdapter } from '@douyinfe/semi-foundation/feedback/foundation';
 import { RadioChangeEvent } from '../radio';
 import '@douyinfe/semi-foundation/feedback/feedback.scss';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 
 const { Emoji } = strings;
 
@@ -61,14 +62,14 @@ interface FeedbackState {
 export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState> {
     static __SemiComponentName__ = "Feedback";
 
-    static defaultProps = {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Feedback.__SemiComponentName__, {
         mode: 'popup',
         type: 'emoji',
         onValueChange: noop,
         onCancel: noop,
         onOk: noop,
         afterClose: noop,
-    };
+    });
 
     foundation: FeedbackFoundation;
 

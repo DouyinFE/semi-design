@@ -9,6 +9,7 @@ import Tooltip from '../tooltip/index';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import '@douyinfe/semi-foundation/slider/slider.scss';
 import { isEqual, noop } from 'lodash';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -29,6 +30,7 @@ function domIsInRenderTree(e: HTMLElement) {
 }
 
 export default class Slider extends BaseComponent<SliderProps, SliderState> {
+    static __SemiComponentName__ = "Slider";
     static contextType = ConfigContext;
     static propTypes = {
         // allowClear: PropTypes.bool,
@@ -70,7 +72,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         ]),
     } as any;
 
-    static defaultProps: Partial<SliderProps> = {
+    static defaultProps: Partial<SliderProps> = getDefaultPropsFromGlobalConfig(Slider.__SemiComponentName__, {
         // allowClear: false,
         disabled: false,
         showMarkLabel: true,
@@ -91,7 +93,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             // console.log(value);
         },
         verticalReverse: false
-    };
+    });
     private sliderEl: React.RefObject<HTMLDivElement>;
     private minHanleEl: React.RefObject<HTMLSpanElement>;
     private maxHanleEl: React.RefObject<HTMLSpanElement>;

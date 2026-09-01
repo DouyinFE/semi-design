@@ -162,31 +162,53 @@ export function getScrollbarWidth() {
 
 export function getDefaultPropsFromGlobalConfig(componentName: string, semiDefaultProps: any = {}) {
     const getFromGlobalConfig = ()=> semiGlobal?.config?.overrideDefaultProps?.[componentName] || {};
+    const hasOwn = (target: object, key: PropertyKey): boolean => Object.prototype.hasOwnProperty.call(target, key);
     return new Proxy({
         ...semiDefaultProps,
     }, {
         get(target, key, receiver) {
             const defaultPropsFromGlobal = getFromGlobalConfig();
-            if (key in defaultPropsFromGlobal) {
-                return defaultPropsFromGlobal[key];
+            const targetDescriptor = Reflect.getOwnPropertyDescriptor(target, key);
+            // Respect Proxy invariants if consumers freeze/seal defaultProps.
+            if (targetDescriptor && !targetDescriptor.configurable && !targetDescriptor.writable) {
+                return Reflect.get(target, key, receiver);
+            }
+            if (hasOwn(defaultPropsFromGlobal, key)) {
+                return Reflect.get(defaultPropsFromGlobal, key);
             }
             return Reflect.get(target, key, receiver);
         },
         set(target, key, value, receiver) {
             return Reflect.set(target, key, value, receiver);
         },
-        ownKeys() {
+        ownKeys(target) {
+            if (!Reflect.isExtensible(target)) {
+                return Reflect.ownKeys(target);
+            }
             const defaultPropsFromGlobal = getFromGlobalConfig();
-            return Array.from(new Set([...Reflect.ownKeys(semiDefaultProps), ...Object.keys(defaultPropsFromGlobal)]));
+            return Array.from(new Set([...Reflect.ownKeys(target), ...Reflect.ownKeys(defaultPropsFromGlobal)]));
         },
         getOwnPropertyDescriptor(target, key) {
             const defaultPropsFromGlobal = getFromGlobalConfig();
-            if (key in defaultPropsFromGlobal) {
-                return Reflect.getOwnPropertyDescriptor(defaultPropsFromGlobal, key);
-            } else {
-                return Reflect.getOwnPropertyDescriptor(target, key);
+            const targetDescriptor = Reflect.getOwnPropertyDescriptor(target, key);
+            if (targetDescriptor && !targetDescriptor.configurable) {
+                return targetDescriptor;
             }
+            if (!targetDescriptor && !Reflect.isExtensible(target)) {
+                return undefined;
+            }
+            const globalDescriptor = Reflect.getOwnPropertyDescriptor(defaultPropsFromGlobal, key);
+            if (globalDescriptor) {
+                // A descriptor reported for a virtual Proxy property must remain
+                // configurable, even when the source config object is frozen.
+                return {
+                    configurable: true,
+                    enumerable: globalDescriptor.enumerable,
+                    writable: true,
+                    value: Reflect.get(defaultPropsFromGlobal, key),
+                };
+            }
+            return targetDescriptor;
         }
     });
 }
-

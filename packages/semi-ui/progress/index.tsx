@@ -7,6 +7,7 @@ import '@douyinfe/semi-foundation/progress/progress.scss';
 import { Animation } from '@douyinfe/semi-animation';
 import { Motion } from '../_base/base';
 import { generateColor, StrokeArr } from '@douyinfe/semi-foundation/progress/generates';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -38,6 +39,7 @@ export interface ProgressState {
 }
 
 class Progress extends Component<ProgressProps, ProgressState> {
+    static __SemiComponentName__ = "Progress";
     static propTypes = {
         'aria-label': PropTypes.string,
         'aria-labelledby': PropTypes.string,
@@ -70,7 +72,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
         width: PropTypes.number,
     };
 
-    static defaultProps = {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Progress.__SemiComponentName__, {
         className: '',
         direction: strings.DEFAULT_DIRECTION,
         format: (text: string): string => `${text}%`,
@@ -84,7 +86,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
         strokeWidth: 4,
         style: {},
         type: strings.DEFAULT_TYPE,
-    };
+    });
 
     _mounted: boolean = true;
 
