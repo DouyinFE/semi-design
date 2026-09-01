@@ -300,6 +300,11 @@ describe(`TimePicker`, () => {
             ['上午 12:00:02', 'a h:mm:ss', true],
             ['上午 12:00:0', 'a h:mm:ss', false],
             ['上午 12:0:00', 'a h:mm:ss', false],
+            // format separator containing a regExp-special character should not throw (regression test,
+            // previously threw "SyntaxError: Invalid regular expression" because the separator was
+            // interpolated into a RegExp character class without escaping)
+            ['12\\00', 'HH\\mm', true],
+            ['12.00', 'HH.mm', true],
         ];
 
         testCases.forEach(test => {

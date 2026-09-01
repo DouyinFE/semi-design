@@ -131,7 +131,8 @@ export const isTimeFormatLike = (time: string, formatToken: string) => {
     const hmsReg = /[H|m|s]{1,2}/;
     const formatSplitted = formatToken.split(formatNotSupportChReg); // => ['HH', 'mm'];
     const timeSeparator = formatToken.replace(formatSupportChReg, ''); // => :
-    const timeReg = new RegExp(`[${timeSeparator}]`, 'g'); // => /[:]/g
+    const escapedTimeSeparator = timeSeparator.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&'); // escape regExp special characters to avoid invalid regExp, e.g. format="HH\\mm"
+    const timeReg = new RegExp(`[${escapedTimeSeparator}]`, 'g'); // => /[:]/g
     const timeSplitted = time.split(timeReg); // => ['12', '0]
 
     if (formatSplitted.length !== timeSplitted.length) {
