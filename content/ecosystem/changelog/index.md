@@ -14,6 +14,14 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.103.0 (2026-09-01)
+- 【Feat】
+    - Progress 组件新增 `indeterminate` 属性，用于展示进度未知的加载动画，`line` / `circle` 类型均支持；开启后 `percent` 不再控制可视进度，且 `showInfo` 百分比文本隐藏 [#3334](https://github.com/DouyinFE/semi-design/issues/3334) [#3343](https://github.com/DouyinFE/semi-design/pull/3343)
+    - 为 Input、Button、Checkbox、Radio、Switch、Slider、Progress、Tag、Typography、Upload、Tree、TreeSelect、Table、Form 等组件补全 `semiGlobal.config.overrideDefaultProps` 全局默认属性配置支持（类型声明 + defaultProps 包装），可通过 `semiGlobal.config.overrideDefaultProps` 统一设置默认 props [#3318](https://github.com/DouyinFE/semi-design/issues/3318) [#3347](https://github.com/DouyinFE/semi-design/pull/3347)
+- 【Fix】
+    - 修复 Typography 开启 `ellipsis.showTooltip` 时因亚像素取整导致未溢出短文本误显示 tooltip 的问题，同时修正容器宽度计算扣除 `border`，避免带 border 的容器漏判真实溢出 [#2350](https://github.com/DouyinFE/semi-design/issues/2350) [#3344](https://github.com/DouyinFE/semi-design/pull/3344)
+    - 修复 Upload 多文件上传时 `beforeUpload` 返回 `autoRemove` 后文件残留的问题（React 18 自动批处理下 state 快照过期） [#3335](https://github.com/DouyinFE/semi-design/issues/3335) [#3346](https://github.com/DouyinFE/semi-design/pull/3346)
+
 #### 🎉 2.102.0 (2026-07-31)
 - 【Feat】
     - DragMove 组件新增 `positionStrategy="relative"` 定位策略，在保留元素原有布局位置的同时通过相对偏移实现拖动，修复 `centered` 可拖拽 Modal 向下偏移的问题；默认 `absolute` 策略保持不变 [@SudoUserReal](https://github.com/SudoUserReal) [#3323](https://github.com/DouyinFE/semi-design/issues/3323) [#3333](https://github.com/DouyinFE/semi-design/pull/3333)

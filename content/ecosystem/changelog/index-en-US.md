@@ -16,6 +16,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.103.0 (2026-09-01)
+- 【Feat】
+    - Added the `indeterminate` prop to Progress for displaying a loading animation when progress is unknown; supported by both `line` and `circle` types. When enabled, `percent` no longer controls the visible progress and the `showInfo` percentage text is hidden [#3334](https://github.com/DouyinFE/semi-design/issues/3334) [#3343](https://github.com/DouyinFE/semi-design/pull/3343)
+    - Completed `semiGlobal.config.overrideDefaultProps` global default-prop support (type declarations + defaultProps wrapping) for Input, Button, Checkbox, Radio, Switch, Slider, Progress, Tag, Typography, Upload, Tree, TreeSelect, Table, Form and other components, so default props can be set uniformly via `semiGlobal.config.overrideDefaultProps` [#3318](https://github.com/DouyinFE/semi-design/issues/3318) [#3347](https://github.com/DouyinFE/semi-design/pull/3347)
+- 【Fix】
+    - Fixed Typography erroneously showing a tooltip for short non-overflowing text due to sub-pixel rounding when `ellipsis.showTooltip` is enabled, and corrected the container width calculation to subtract `border`, avoiding missed real overflow detection on bordered containers [#2350](https://github.com/DouyinFE/semi-design/issues/2350) [#3344](https://github.com/DouyinFE/semi-design/pull/3344)
+    - Fixed leftover files in Upload when multiple `beforeUpload` results return `autoRemove`, caused by a stale React state snapshot under React 18 automatic batching [#3335](https://github.com/DouyinFE/semi-design/issues/3335) [#3346](https://github.com/DouyinFE/semi-design/pull/3346)
+
 #### 🎉 2.102.0 (2026-07-31)
 - 【Feat】
     - Added `positionStrategy="relative"` to DragMove, allowing an element to remain in its original layout position while being dragged with relative offsets. This fixes downward displacement of draggable Modals with `centered` enabled, while preserving `absolute` as the default strategy [@SudoUserReal](https://github.com/SudoUserReal) [#3323](https://github.com/DouyinFE/semi-design/issues/3323) [#3333](https://github.com/DouyinFE/semi-design/pull/3333)
