@@ -22,723 +22,722 @@
     </url>
     <url>
         <loc>https://semi.design/blogs</loc>
-        <lastmod>2026-07-31T09:43:57.204Z</lastmod>
+        <lastmod>2026-09-01T08:30:48.017Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US</loc>
-        <lastmod>2026-07-31T09:43:57.348Z</lastmod>
+        <lastmod>2026-09-01T08:30:48.101Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/about/contact</loc>
-        <lastmod>2026-07-31T09:43:57.484Z</lastmod>
+        <lastmod>2026-09-01T08:30:48.232Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/about/known-issues</loc>
-        <lastmod>2026-07-31T09:43:57.486Z</lastmod>
+        <lastmod>2026-09-01T08:30:48.422Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/about/roadmap</loc>
-        <lastmod>2026-07-31T09:43:57.701Z</lastmod>
+        <lastmod>2026-09-01T08:30:48.478Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/about/schema</loc>
-        <lastmod>2026-07-31T09:43:57.671Z</lastmod>
+        <lastmod>2026-09-01T08:30:48.538Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/d2c/inspect</loc>
-        <lastmod>2026-07-31T09:43:57.801Z</lastmod>
+        <lastmod>2026-09-01T08:30:48.622Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/d2c/mark</loc>
-        <lastmod>2026-07-31T09:43:57.915Z</lastmod>
+        <lastmod>2026-09-01T08:30:48.683Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/d2c/mark-icon</loc>
-        <lastmod>2026-07-31T09:43:58.189Z</lastmod>
+        <lastmod>2026-09-01T08:30:48.924Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/d2c/mark-library</loc>
-        <lastmod>2026-07-31T09:43:58.060Z</lastmod>
+        <lastmod>2026-09-01T08:30:48.925Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/d2c/mark-table</loc>
-        <lastmod>2026-07-31T09:43:58.487Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.765Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/d2c/settings</loc>
-        <lastmod>2026-07-31T09:43:58.259Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.502Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/d2c/support-list</loc>
-        <lastmod>2026-07-31T09:43:58.546Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.564Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/d2c/transform-plugin</loc>
-        <lastmod>2026-07-31T09:43:58.470Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.444Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/d2c/translate-logic</loc>
-        <lastmod>2026-07-31T09:43:58.616Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.511Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/d2c/translate-page</loc>
-        <lastmod>2026-07-31T09:43:58.606Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.962Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/start/changelog</loc>
-        <lastmod>2026-07-31T09:43:58.848Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.540Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/start/faq</loc>
-        <lastmod>2026-07-31T09:43:58.808Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.547Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/start/introduction</loc>
-        <lastmod>2026-07-31T09:43:59.049Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.939Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/start/quick-start</loc>
-        <lastmod>2026-07-31T09:44:01.293Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.526Z</lastmod>
         <changefreq>weekly</changefreq>
-        <scm>1.0.0.130</scm>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/start/terms</loc>
-        <lastmod>2026-07-31T09:43:59.535Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.701Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/uikit/create</loc>
-        <lastmod>2026-07-31T09:43:59.224Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.725Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/uikit/figma-usage</loc>
-        <lastmod>2026-07-31T09:43:59.432Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.744Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/uikit/form-usage</loc>
-        <lastmod>2026-07-31T09:43:59.375Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.868Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/uikit/migrate</loc>
-        <lastmod>2026-07-31T09:43:59.735Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.721Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/uikit/rules</loc>
-        <lastmod>2026-07-31T09:43:59.642Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.876Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/en-US/uikit/table-usage</loc>
-        <lastmod>2026-07-31T09:43:59.758Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.827Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN</loc>
-        <lastmod>2026-07-31T09:44:00.221Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.727Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/about/contact</loc>
-        <lastmod>2026-07-31T09:43:59.846Z</lastmod>
+        <lastmod>2026-09-01T08:30:49.946Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/about/known-issues</loc>
-        <lastmod>2026-07-31T09:43:59.848Z</lastmod>
+        <lastmod>2026-09-01T08:30:50.045Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/about/roadmap</loc>
-        <lastmod>2026-07-31T09:44:00.005Z</lastmod>
+        <lastmod>2026-09-01T08:30:50.175Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/about/schema</loc>
-        <lastmod>2026-07-31T09:43:59.983Z</lastmod>
+        <lastmod>2026-09-01T08:30:50.080Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/d2c/inspect</loc>
-        <lastmod>2026-07-31T09:44:00.433Z</lastmod>
+        <lastmod>2026-09-01T08:30:50.174Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/d2c/mark</loc>
-        <lastmod>2026-07-31T09:44:00.406Z</lastmod>
+        <lastmod>2026-09-01T08:30:50.149Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/d2c/mark-icon</loc>
-        <lastmod>2026-07-31T09:44:00.262Z</lastmod>
+        <lastmod>2026-09-01T08:30:50.774Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/d2c/mark-library</loc>
-        <lastmod>2026-07-31T09:44:00.240Z</lastmod>
+        <lastmod>2026-09-01T08:30:50.713Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/d2c/mark-table</loc>
-        <lastmod>2026-07-31T09:44:02.070Z</lastmod>
+        <lastmod>2026-09-01T08:30:50.804Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/d2c/settings</loc>
-        <lastmod>2026-07-31T09:44:00.372Z</lastmod>
+        <lastmod>2026-09-01T08:30:50.728Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/d2c/support-list</loc>
-        <lastmod>2026-07-31T09:44:00.654Z</lastmod>
+        <lastmod>2026-09-01T08:30:50.839Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/d2c/transform-plugin</loc>
-        <lastmod>2026-07-31T09:44:00.627Z</lastmod>
+        <lastmod>2026-09-01T08:30:50.770Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/d2c/translate-logic</loc>
-        <lastmod>2026-07-31T09:44:00.796Z</lastmod>
+        <lastmod>2026-09-01T08:30:51.096Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/d2c/translate-page</loc>
-        <lastmod>2026-07-31T09:44:00.741Z</lastmod>
+        <lastmod>2026-09-01T08:30:51.182Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/start/changelog</loc>
-        <lastmod>2026-07-31T09:44:00.979Z</lastmod>
+        <lastmod>2026-09-01T08:30:51.317Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/start/faq</loc>
-        <lastmod>2026-07-31T09:44:01.112Z</lastmod>
+        <lastmod>2026-09-01T08:30:51.361Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/start/introduction</loc>
-        <lastmod>2026-07-31T09:44:01.111Z</lastmod>
+        <lastmod>2026-09-01T08:30:51.351Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/start/quick-start</loc>
-        <lastmod>2026-07-31T09:44:00.985Z</lastmod>
+        <lastmod>2026-09-01T08:30:51.480Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/start/terms</loc>
-        <lastmod>2026-07-31T09:44:01.117Z</lastmod>
+        <lastmod>2026-09-01T08:30:51.941Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/uikit/create</loc>
-        <lastmod>2026-07-31T09:44:01.004Z</lastmod>
+        <lastmod>2026-09-01T08:30:51.963Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/uikit/figma-usage</loc>
-        <lastmod>2026-07-31T09:44:01.267Z</lastmod>
+        <lastmod>2026-09-01T08:30:51.957Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/uikit/form-usage</loc>
-        <lastmod>2026-07-31T09:44:01.413Z</lastmod>
+        <lastmod>2026-09-01T08:30:51.930Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/uikit/migrate</loc>
-        <lastmod>2026-07-31T09:44:01.434Z</lastmod>
+        <lastmod>2026-09-01T08:30:52.146Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/uikit/rules</loc>
-        <lastmod>2026-07-31T09:44:01.473Z</lastmod>
+        <lastmod>2026-09-01T08:30:52.085Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/code/zh-CN/uikit/table-usage</loc>
-        <lastmod>2026-07-31T09:44:01.498Z</lastmod>
+        <lastmod>2026-09-01T08:30:52.350Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/feedback/banner</loc>
-        <lastmod>2026-07-31T09:44:01.527Z</lastmod>
+        <lastmod>2026-09-01T08:30:52.322Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/feedback/notification</loc>
-        <lastmod>2026-07-31T09:44:01.489Z</lastmod>
+        <lastmod>2026-09-01T08:30:52.480Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/feedback/popconfirm</loc>
-        <lastmod>2026-07-31T09:44:01.464Z</lastmod>
+        <lastmod>2026-09-01T08:30:52.425Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/feedback/progress</loc>
-        <lastmod>2026-07-31T09:44:01.776Z</lastmod>
+        <lastmod>2026-09-01T08:30:52.332Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/feedback/skeleton</loc>
-        <lastmod>2026-07-31T09:44:01.627Z</lastmod>
+        <lastmod>2026-09-01T08:30:52.760Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/feedback/spin</loc>
-        <lastmod>2026-07-31T09:44:02.075Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.123Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/feedback/toast</loc>
-        <lastmod>2026-07-31T09:44:02.187Z</lastmod>
+        <lastmod>2026-09-01T08:30:52.791Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/handbook/intro</loc>
-        <lastmod>2026-07-31T09:44:02.322Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.078Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/handbook/tools</loc>
-        <lastmod>2026-07-31T09:44:02.534Z</lastmod>
+        <lastmod>2026-09-01T08:30:52.946Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/button</loc>
-        <lastmod>2026-07-31T09:44:02.511Z</lastmod>
+        <lastmod>2026-09-01T08:30:52.905Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/cascader</loc>
-        <lastmod>2026-07-31T09:44:02.584Z</lastmod>
+        <lastmod>2026-09-01T08:30:52.945Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/checkbox</loc>
-        <lastmod>2026-07-31T09:44:02.791Z</lastmod>
+        <lastmod>2026-09-01T08:30:52.972Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/datepicker</loc>
-        <lastmod>2026-07-31T09:44:02.777Z</lastmod>
+        <lastmod>2026-09-01T08:30:52.957Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/form</loc>
-        <lastmod>2026-07-31T09:44:03.019Z</lastmod>
+        <lastmod>2026-09-01T08:30:52.970Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/input</loc>
-        <lastmod>2026-07-31T09:44:03.028Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.004Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/inputnumber</loc>
-        <lastmod>2026-07-31T09:44:03.088Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.127Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/radio</loc>
-        <lastmod>2026-07-31T09:44:03.329Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.148Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/rating</loc>
-        <lastmod>2026-07-31T09:44:03.197Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.185Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/select</loc>
-        <lastmod>2026-07-31T09:44:03.170Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.224Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/slider</loc>
-        <lastmod>2026-07-31T09:44:03.592Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.167Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/switch</loc>
-        <lastmod>2026-07-31T09:44:03.589Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.133Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/taginput</loc>
-        <lastmod>2026-07-31T09:44:03.784Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.536Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/timepicker</loc>
-        <lastmod>2026-07-31T09:44:03.790Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.611Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/transfer</loc>
-        <lastmod>2026-07-31T09:44:03.968Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.802Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/treeselect</loc>
-        <lastmod>2026-07-31T09:44:04.004Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.743Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/input/upload</loc>
-        <lastmod>2026-07-31T09:44:04.135Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.401Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/navigation/anchor</loc>
-        <lastmod>2026-07-31T09:44:04.187Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.402Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/navigation/breadcrumb</loc>
-        <lastmod>2026-07-31T09:44:04.337Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.985Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/navigation/navigation</loc>
-        <lastmod>2026-07-31T09:44:04.321Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.923Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/navigation/pagination</loc>
-        <lastmod>2026-07-31T09:44:04.575Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.919Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/navigation/steps</loc>
-        <lastmod>2026-07-31T09:44:04.514Z</lastmod>
+        <lastmod>2026-09-01T08:30:53.987Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/navigation/tabs</loc>
-        <lastmod>2026-07-31T09:44:04.741Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.190Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/navigation/tree</loc>
-        <lastmod>2026-07-31T09:44:04.706Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.205Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/show/avatar</loc>
-        <lastmod>2026-07-31T09:44:04.898Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.156Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/show/badge</loc>
-        <lastmod>2026-07-31T09:44:05.073Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.195Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/show/calendar</loc>
-        <lastmod>2026-07-31T09:44:05.087Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.212Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/show/card</loc>
-        <lastmod>2026-07-31T09:44:05.176Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.277Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/show/collapse</loc>
-        <lastmod>2026-07-31T09:44:05.087Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.824Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/show/descriptions</loc>
-        <lastmod>2026-07-31T09:44:05.079Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.345Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/show/dropdown</loc>
-        <lastmod>2026-07-31T09:44:05.037Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.508Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/show/list</loc>
-        <lastmod>2026-07-31T09:44:05.011Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.563Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/show/modal</loc>
-        <lastmod>2026-07-31T09:44:05.227Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.575Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/show/popover</loc>
-        <lastmod>2026-07-31T09:44:05.395Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.512Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/show/scrolllist</loc>
-        <lastmod>2026-07-31T09:44:05.455Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.727Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/show/table</loc>
-        <lastmod>2026-07-31T09:44:05.428Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.751Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/show/tag</loc>
-        <lastmod>2026-07-31T09:44:05.442Z</lastmod>
+        <lastmod>2026-09-01T08:30:54.790Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/show/timeline</loc>
-        <lastmod>2026-07-31T09:44:05.412Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.110Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/show/tooltip</loc>
-        <lastmod>2026-07-31T09:44:05.632Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.100Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/visual/colors</loc>
-        <lastmod>2026-07-31T09:44:05.567Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.083Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/visual/dark-mode</loc>
-        <lastmod>2026-07-31T09:44:05.591Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.037Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/visual/data-format</loc>
-        <lastmod>2026-07-31T09:44:05.602Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.028Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/visual/grid</loc>
-        <lastmod>2026-07-31T09:44:05.759Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.051Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/visual/iconography</loc>
-        <lastmod>2026-07-31T09:44:05.784Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.024Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/visual/layout</loc>
-        <lastmod>2026-07-31T09:44:06.003Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.297Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/visual/spacings</loc>
-        <lastmod>2026-07-31T09:44:06.003Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.255Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/design/zh-CN/visual/typography</loc>
-        <lastmod>2026-07-31T09:44:06.014Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.544Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/introduction/case</loc>
-        <lastmod>2026-07-31T09:44:06.464Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.632Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/introduction/changelog</loc>
-        <lastmod>2026-07-31T09:44:06.210Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.579Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/introduction/faq</loc>
-        <lastmod>2026-07-31T09:44:06.129Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.632Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/introduction/roadmap</loc>
-        <lastmod>2026-07-31T09:44:06.132Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.651Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/introduction/start</loc>
-        <lastmod>2026-07-31T09:44:06.056Z</lastmod>
+        <lastmod>2026-09-01T08:30:56.076Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/plugin/changeThemeModel</loc>
-        <lastmod>2026-07-31T09:44:06.357Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.540Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/plugin/genDocs</loc>
-        <lastmod>2026-07-31T09:44:06.312Z</lastmod>
+        <lastmod>2026-09-01T08:30:57.465Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/plugin/intallPlugin</loc>
-        <lastmod>2026-07-31T09:44:06.498Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.569Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/plugin/syncInFigma</loc>
-        <lastmod>2026-07-31T09:44:06.787Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.635Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/plugin/writeTheme</loc>
-        <lastmod>2026-07-31T09:44:06.537Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.873Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/themeStore/fork</loc>
-        <lastmod>2026-07-31T09:44:06.499Z</lastmod>
+        <lastmod>2026-09-01T08:30:55.796Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/themeStore/preview</loc>
-        <lastmod>2026-07-31T09:44:06.499Z</lastmod>
+        <lastmod>2026-09-01T08:30:56.249Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/themeStore/publish</loc>
-        <lastmod>2026-07-31T09:44:06.531Z</lastmod>
+        <lastmod>2026-09-01T08:30:56.003Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/web/addPartner</loc>
-        <lastmod>2026-07-31T09:44:06.828Z</lastmod>
+        <lastmod>2026-09-01T08:30:56.007Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/web/componentToken</loc>
-        <lastmod>2026-07-31T09:44:06.691Z</lastmod>
+        <lastmod>2026-09-01T08:30:56.474Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/web/globalToken</loc>
-        <lastmod>2026-07-31T09:44:06.751Z</lastmod>
+        <lastmod>2026-09-01T08:30:56.174Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/web/use</loc>
-        <lastmod>2026-07-31T09:44:06.752Z</lastmod>
+        <lastmod>2026-09-01T08:30:56.029Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/web/web_publish</loc>
-        <lastmod>2026-07-31T09:44:06.808Z</lastmod>
+        <lastmod>2026-09-01T08:30:56.288Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm_manual/zh-CN/web/web_start</loc>
-        <lastmod>2026-07-31T09:44:06.732Z</lastmod>
+        <lastmod>2026-09-01T08:30:56.639Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/dsm/landing</loc>
-        <lastmod>2026-07-31T09:44:06.935Z</lastmod>
+        <lastmod>2026-09-01T08:30:56.111Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/basic/divider</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/basic/grid</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/basic/icon</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/basic/layout</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/basic/space</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/basic/tokens</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/basic/typography</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/feedback/banner</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/feedback/notification</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/feedback/popconfirm</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/feedback/progress</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/feedback/skeleton</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/feedback/spin</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/feedback/toast</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/autocomplete</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
@@ -748,242 +747,242 @@
     </url>
     <url>
         <loc>https://semi.design/en-US/input/cascader</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/checkbox</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/datepicker</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/form</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/input</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/inputnumber</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/radio</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/rating</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/select</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/slider</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/switch</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/taginput</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/timepicker</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/transfer</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/treeselect</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/input/upload</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/navigation/anchor</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/navigation/backtop</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/navigation/breadcrumb</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/navigation/navigation</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/navigation/pagination</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/navigation/steps</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/navigation/tabs</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/navigation/tree</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/other/configprovider</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/other/locale</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/avatar</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/badge</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/calendar</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/card</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/carousel</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/collapse</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/collapsible</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/descriptions</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/dropdown</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/empty</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/highlight</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/image</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/list</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/modal</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/overflowlist</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/popover</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/scrolllist</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/sidesheet</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/table</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/tag</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/timeline</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/show/tooltip</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
@@ -1013,17 +1012,17 @@
     </url>
     <url>
         <loc>https://semi.design/en-US/start/getting-started</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/start/introduction</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/en-US/start/overview</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
@@ -1033,77 +1032,77 @@
     </url>
     <url>
         <loc>https://semi.design/zh-CN/basic/divider</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/basic/grid</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/basic/icon</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/basic/layout</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/basic/space</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/basic/tokens</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/basic/typography</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/feedback/banner</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/feedback/notification</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/feedback/popconfirm</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/feedback/progress</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/feedback/skeleton</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/feedback/spin</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/feedback/toast</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/autocomplete</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
@@ -1113,242 +1112,242 @@
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/cascader</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/checkbox</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/datepicker</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/form</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/input</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/inputnumber</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/radio</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/rating</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/select</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/slider</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/switch</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/taginput</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/timepicker</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/transfer</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/treeselect</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/input/upload</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/navigation/anchor</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/navigation/backtop</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/navigation/breadcrumb</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/navigation/navigation</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/navigation/pagination</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/navigation/steps</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/navigation/tabs</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/navigation/tree</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/other/configprovider</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/other/locale</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/avatar</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/badge</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/calendar</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/card</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/carousel</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/collapse</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/collapsible</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/descriptions</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/dropdown</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/empty</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/highlight</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/image</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/list</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/modal</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/overflowlist</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/popover</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/scrolllist</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/sidesheet</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/table</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/tag</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/timeline</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/show/tooltip</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
@@ -1378,17 +1377,17 @@
     </url>
     <url>
         <loc>https://semi.design/zh-CN/start/getting-started</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/start/introduction</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://semi.design/zh-CN/start/overview</loc>
-        <lastmod>2026-07-31T09:19:39.000Z</lastmod>
+        <lastmod>2026-09-01T07:59:35.000Z</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
