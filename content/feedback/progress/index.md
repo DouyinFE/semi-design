@@ -45,6 +45,27 @@ import { Progress } from '@douyinfe/semi-ui';
 );
 ```
 
+### 不确定状态的进度条
+
+当任务进度无法计算时，可设置 `indeterminate` 展示不确定状态。该属性支持条状和环形进度条；开启后 `percent` 不再控制进度长度，且不会展示 `showInfo` 文本。
+
+```jsx live=true
+import React from 'react';
+import { Progress } from '@douyinfe/semi-ui';
+
+() => (
+    <div style={{ width: 240 }}>
+        <Progress indeterminate aria-label="正在加载" />
+        <br />
+        <Progress indeterminate size="large" aria-label="正在加载" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 20 }}>
+            <Progress indeterminate type="circle" aria-label="正在加载" />
+            <Progress indeterminate type="circle" size="small" aria-label="正在加载" />
+        </div>
+    </div>
+);
+```
+
 ### 展示百分比文本
 
 通过`showInfo`控制是否展示百分比数字，可以通过`format`格式化展示文本
@@ -417,6 +438,7 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 | direction | 条状进度条方向 `horizontal`、`vertical` | string | 'horizontal' |
 | format | 格式化函数，入参为当前百分比，return 的结果将会直接渲染在圆形进度条中心 | (percent: number) => ReactNode | (percent) => percent + '%' |
 | id | id 标识<br/>**v2.2.0 后提供** | string |  |
+| indeterminate | 是否展示不确定状态的进度条。开启后 `percent` 不再控制进度长度，且不展示 `showInfo` 文本 | boolean | false |
 | orbitStroke | 进度条轨道填充色<br/>**v1.0.0 后提供** | string | 'var(--semi-color-fill-0)' |
 | percent | 进度百分比 | number |  |
 | showInfo | 环形进度条是否显示中间文本，条状进度条后右侧是否显示文本 | boolean | false |
@@ -434,7 +456,7 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 ### ARIA
 
 -   Progress 具有 `progressbar` role 来表示它是一个进度条组件。
--   Progress 会自动将 `aria-valuenow` 设置为传递给组件的进度百分比（`percent`），以确保屏幕阅读器可以获取正确的百分比数值。另外，Progress 支持传入 `aria-valuetext`，当你传入时，根据 W3C 规范，`aria-valuetext` 将优先被屏幕阅读器使用消费，而不是 `aria-valuenow`
+-   Progress 会自动将 `aria-valuenow` 设置为传递给组件的进度百分比（`percent`），以确保屏幕阅读器可以获取正确的百分比数值。当 `indeterminate=true` 时，由于当前进度未知，不设置 `aria-valuenow`。另外，Progress 支持传入 `aria-valuetext`，当你传入时，根据 W3C 规范，`aria-valuetext` 将优先被屏幕阅读器使用消费，而不是 `aria-valuenow`
 -   Progress 支持传入 `aria-label`、`aria-labelledby`
     -   当 Progress 外部存在关于 Progress 作用的描述元素时，你可以通过 aria-labelledby 显式指定某些元素的 id 是 Progress 的标签
     -   否则你应当通过 aria-label 说明 Progress 所代表的具体数值含义

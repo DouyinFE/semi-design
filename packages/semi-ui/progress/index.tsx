@@ -18,6 +18,7 @@ export interface ProgressProps {
     direction?: 'horizontal' | 'vertical';
     format?: (percent: number) => React.ReactNode;
     id?: string;
+    indeterminate?: boolean;
     motion?: Motion;
     orbitStroke?: string;
     percent?: number;
@@ -45,6 +46,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
         direction: PropTypes.oneOf(strings.directions),
         format: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
         id: PropTypes.string,
+        indeterminate: PropTypes.bool,
         motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.object]),
         orbitStroke: PropTypes.string,
         percent: PropTypes.number,
@@ -72,6 +74,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
         className: '',
         direction: strings.DEFAULT_DIRECTION,
         format: (text: string): string => `${text}%`,
+        indeterminate: false,
         motion: true,
         percent: 0,
         showInfo: false,
@@ -158,6 +161,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
             percent,
             orbitStroke,
             id,
+            indeterminate,
             ...rest
         } = this.props;
         const ariaLabel = this.props['aria-label'];
@@ -167,7 +171,9 @@ class Progress extends Component<ProgressProps, ProgressState> {
         const classNames = {
             wrapper: cls(`${prefixCls}-circle`, className),
             svg: cls(`${prefixCls}-circle-ring`),
-            circle: cls(`${prefixCls}-circle-ring-inner`),
+            circle: cls(`${prefixCls}-circle-ring-inner`, {
+                [`${prefixCls}-circle-ring-inner-indeterminate`]: indeterminate,
+            }),
             track: cls(`${prefixCls}-circle-ring-track`),
         };
         const perc = this.calcPercent(percent);
@@ -188,8 +194,12 @@ class Progress extends Component<ProgressProps, ProgressState> {
         const cx = width / 2;
         const radius = (width - strokeWidth) / 2; // radius
         const circumference = radius * 2 * Math.PI;
-        const strokeDashoffset = (1 - perc / 100) * circumference; // Offset
-        const strokeDasharray = `${circumference} ${circumference}`;
+
+        // indeterminate: 弧长为固定比例（30% 周长），由 CSS 动画驱动旋转；percent 被忽略
+        // indeterminate: use a fixed arc length (30% of circumference), driven by CSS animation rotation; percent is ignored
+        const strokeDashoffset = indeterminate ? 0 : (1 - perc / 100) * circumference;
+        const strokeDasharray = indeterminate ? `${circumference * 0.3} ${circumference}` : `${circumference} ${circumference}`;
+        const trackStrokeDasharray = `${circumference} ${circumference}`;
 
         const text = format(percNumber);
 
@@ -201,7 +211,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
                 role="progressbar"
                 aria-valuemin={0}
                 aria-valuemax={100}
-                aria-valuenow={percNumber}
+                aria-valuenow={indeterminate ? undefined : percNumber}
                 aria-labelledby={ariaLabelledBy}
                 aria-label={ariaLabel}
                 aria-valuetext={ariaValueText}
@@ -212,7 +222,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
                         className={classNames.track}
                         strokeDashoffset={0}
                         strokeWidth={strokeWidth}
-                        strokeDasharray={strokeDasharray}
+                        strokeDasharray={trackStrokeDasharray}
                         strokeLinecap={strokeLinecap}
                         fill="transparent"
                         style={{ stroke: orbitStroke }}
@@ -235,7 +245,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
                         aria-hidden
                     />
                 </svg>
-                {showInfo && size !== 'small' ? <span className={`${prefixCls}-circle-text`}>{text}</span> : null}
+                {showInfo && size !== 'small' && !indeterminate ? <span className={`${prefixCls}-circle-text`}>{text}</span> : null}
             </div>
         );
     }
@@ -276,6 +286,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
             percent,
             orbitStroke,
             id,
+            indeterminate,
             ...rest
         } = this.props;
         const ariaLabel = this.props['aria-label'];
@@ -286,11 +297,14 @@ class Progress extends Component<ProgressProps, ProgressState> {
             [`${prefixCls}-horizontal`]: direction === strings.DEFAULT_DIRECTION,
             [`${prefixCls}-vertical`]: direction !== strings.DEFAULT_DIRECTION,
             [`${prefixCls}-large`]: size === 'large',
+            [`${prefixCls}-indeterminate`]: indeterminate,
         });
         const progressTrackCls = cls({
             [`${prefixCls}-track`]: true,
         });
-        const innerCls = cls(`${prefixCls}-track-inner`);
+        const innerCls = cls(`${prefixCls}-track-inner`, {
+            [`${prefixCls}-track-inner-indeterminate`]: indeterminate,
+        });
 
         const perc = this.calcPercent(percent);
         const percNumber = this.calcPercent(percentNumber);
@@ -301,10 +315,14 @@ class Progress extends Component<ProgressProps, ProgressState> {
         const innerStyle: Record<string, any> = {
             background: _stroke,
         };
-        if (direction === strings.DEFAULT_DIRECTION) {
-            innerStyle.width = `${perc}%`;
-        } else {
-            innerStyle.height = `${perc}%`;
+        // indeterminate: 由 CSS 动画控制滑块位移，不再写死 width/height；percent 被忽略
+        // indeterminate: the sliding block is driven by CSS animation, width/height is not hard-coded; percent is ignored
+        if (!indeterminate) {
+            if (direction === strings.DEFAULT_DIRECTION) {
+                innerStyle.width = `${perc}%`;
+            } else {
+                innerStyle.height = `${perc}%`;
+            }
         }
 
         const text = format(percNumber);
@@ -317,7 +335,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
                 role="progressbar"
                 aria-valuemin={0}
                 aria-valuemax={100}
-                aria-valuenow={perc}
+                aria-valuenow={indeterminate ? undefined : perc}
                 aria-labelledby={ariaLabelledBy}
                 aria-label={ariaLabel}
                 aria-valuetext={ariaValueText}
@@ -330,7 +348,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
                 >
                     <div className={innerCls} style={innerStyle} aria-hidden />
                 </div>
-                {showInfo ? <div className={`${prefixCls}-line-text`}>{text}</div> : null}
+                {showInfo && !indeterminate ? <div className={`${prefixCls}-line-text`}>{text}</div> : null}
             </div>
         );
     }
