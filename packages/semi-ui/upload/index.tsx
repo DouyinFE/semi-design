@@ -491,6 +491,12 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         this.foundation.init();
     }
 
+    componentDidUpdate(): void {
+        if ('fileList' in this.props) {
+            this.foundation.syncLatestFileList(this.props.fileList || []);
+        }
+    }
+
     componentWillUnmount(): void {
         this.foundation.destroy();
     }
