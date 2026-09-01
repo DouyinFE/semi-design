@@ -45,6 +45,27 @@ import { Progress } from '@douyinfe/semi-ui';
 );
 ```
 
+### Indeterminate progress bar
+
+Set `indeterminate` when progress cannot be calculated. It supports both line and circle progress bars. When enabled, `percent` no longer controls the progress length and `showInfo` text is hidden.
+
+```jsx live=true
+import React from 'react';
+import { Progress } from '@douyinfe/semi-ui';
+
+() => (
+    <div style={{ width: 240 }}>
+        <Progress indeterminate aria-label="Loading" />
+        <br />
+        <Progress indeterminate size="large" aria-label="Loading" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 20 }}>
+            <Progress indeterminate type="circle" aria-label="Loading" />
+            <Progress indeterminate type="circle" size="small" aria-label="Loading" />
+        </div>
+    </div>
+);
+```
+
 ### Show percentage text
 
 You can control whether to show percentage number through the `showInfo` property In addition, you can format the percentage text show through `format`.
@@ -396,6 +417,7 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 | direction | The direction of the bar progress bar `horizontal`, `vertical` | string | 'horizontal' |
 | id | id attribute <br/>**provided after v2.2.0** | string |  |
 | format | Formatting function, the input parameter is the current percentage, the result of return will be directly rendered in the center of the circular progress bar | (percent: number) => ReactNode | (percent) => percent +'%' |
+| indeterminate | Whether to display an indeterminate progress bar. When enabled, `percent` no longer controls the progress length and `showInfo` text is hidden | boolean | false |
 | orbitStroke | Progress bar track fill color<br/>**provided after v1.0.0** | string | 'var(--semi-color-fill-0)' |
 | percent | percentage of progress | number |  |
 | showInfo | Whether to display the middle text in the circular progress bar, and whether to display the text on the right side of the bar-shaped progress bar | boolean | false |
@@ -412,7 +434,7 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 ### ARIA
 
 -   Progress has a `progressbar` role to indicate that it is a progress bar component.
--   Progress will automatically set `aria-valuenow` as the progress percentage (`percent`) passed to the component to ensure that the screen reader can get the correct percentage value. In addition, Progress supports incoming `aria-valuetext`. When you pass in, according to W3C specifications, `aria-valuetext` will be used and consumed by screen readers instead of `aria-valuenow`
+-   Progress will automatically set `aria-valuenow` as the progress percentage (`percent`) passed to the component to ensure that the screen reader can get the correct percentage value. When `indeterminate=true`, `aria-valuenow` is omitted because the current progress value is unknown. In addition, Progress supports incoming `aria-valuetext`. When you pass in, according to W3C specifications, `aria-valuetext` will be used and consumed by screen readers instead of `aria-valuenow`
 -   Progress support `aria-label`, `aria-labelledby`
     -   When there is a description element about the role of Progress outside of Progress, you can explicitly specify that the id of certain elements is the label of Progress through `aria-labelledby`
     -   Otherwise, you should use aria-label to explain the specific meaning of the value represented by Progress
