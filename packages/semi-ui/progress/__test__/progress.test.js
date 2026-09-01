@@ -228,6 +228,10 @@ describe('Progress', () => {
         const [arc, total] = dasharray.split(' ').map(Number);
         expect(Number((arc / total).toFixed(3))).toBeCloseTo(0.3, 3);
         expect(inner.getDOMNode().getAttribute('stroke-dashoffset')).toEqual('0');
+        // 背景轨道保持完整圆环，不随前景弧变为 30%
+        const trackDasharray = p.find('.semi-progress-circle-ring-track').getDOMNode().getAttribute('stroke-dasharray');
+        const [trackArc, trackTotal] = trackDasharray.split(' ').map(Number);
+        expect(trackArc).toEqual(trackTotal);
         // showInfo 被忽略：不渲染百分比文案
         expect(p.exists('.semi-progress-circle-text')).toEqual(false);
         // 不设置 aria-valuenow

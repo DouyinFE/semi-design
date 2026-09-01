@@ -199,6 +199,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
         // indeterminate: use a fixed arc length (30% of circumference), driven by CSS animation rotation; percent is ignored
         const strokeDashoffset = indeterminate ? 0 : (1 - perc / 100) * circumference;
         const strokeDasharray = indeterminate ? `${circumference * 0.3} ${circumference}` : `${circumference} ${circumference}`;
+        const trackStrokeDasharray = `${circumference} ${circumference}`;
 
         const text = format(percNumber);
 
@@ -221,7 +222,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
                         className={classNames.track}
                         strokeDashoffset={0}
                         strokeWidth={strokeWidth}
-                        strokeDasharray={strokeDasharray}
+                        strokeDasharray={trackStrokeDasharray}
                         strokeLinecap={strokeLinecap}
                         fill="transparent"
                         style={{ stroke: orbitStroke }}

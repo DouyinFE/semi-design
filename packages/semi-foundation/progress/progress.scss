@@ -79,7 +79,7 @@ $module: #{$prefix}-progress;
             height: 35%;
             width: 100%;
             transition: none;
-            animation-name: semi-progress-indeterminate-slide-vertical;
+            animation: semi-progress-indeterminate-slide-vertical 1.6s ease-in-out infinite;
         }
 
         .#{$module}-line-text {
