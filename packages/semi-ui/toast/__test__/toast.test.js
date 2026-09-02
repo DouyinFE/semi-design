@@ -29,7 +29,7 @@ describe('Toast', () => {
         let toast = document.querySelector(`.${BASE_CLASS_PREFIX}-toast-info`);
         expect(toast.classList.contains(`${BASE_CLASS_PREFIX}-toast-light`)).toEqual(true);
     });
-    it('duration, >0', done => {
+    it('duration, >0', () => new Promise(resolve => {
         let opts = {
             duration: 1,
             content: 'dur1',
@@ -42,10 +42,10 @@ describe('Toast', () => {
             let toast = document.querySelector(`.${BASE_CLASS_PREFIX}-toast-info`); // expect toast had been remove
 
             expect(toast).toEqual(null);
-            done();
+            resolve();
         }, 1500);
-    });
-    it('update content by id', done => {
+    }));
+    it('update content by id', () => new Promise(resolve => {
         const id = 'toastid'
         Toast.info({ content: 'bytedance', id, motion: false });
         let toast = document.querySelector(`.${BASE_CLASS_PREFIX}-toast-info`);
@@ -57,11 +57,11 @@ describe('Toast', () => {
                 Toast.error({ content: 'error', id, motion: false});
                 expect(toast.textContent).toEqual('error');
                 expect(toast?.className).toEqual(`${BASE_CLASS_PREFIX}-toast ${BASE_CLASS_PREFIX}-toast-error`)
-                done()
+                resolve()
             }, 1000)
         }, 1000)
-    });
-    it('should trigger onClose after duration', done => {
+    }));
+    it('should trigger onClose after duration', () => new Promise(resolve => {
         let spyOnClose = sinon.spy(() => {});
         let opts = {
             onClose: spyOnClose,
@@ -72,9 +72,9 @@ describe('Toast', () => {
         let toast = document.querySelector(`.${BASE_CLASS_PREFIX}-toast-info`);
         setTimeout(() => {
             expect(spyOnClose.calledOnce).toEqual(true);
-            done();
+            resolve();
         }, 1000);
-    });
+    }));
     it('should trigger onClose when click close btn', () => {
         let spyOnClose = sinon.spy(() => {});
         let opts = {

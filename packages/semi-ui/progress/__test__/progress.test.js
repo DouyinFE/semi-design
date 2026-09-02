@@ -11,7 +11,7 @@ describe('Progress', () => {
         function testNaN() {
             p.setProps({ percent: NaN });
         }
-        expect(testNaN).toThrow('');
+        expect(testNaN).toThrow();
     });
 
     it('render successfully', () => {

@@ -25,7 +25,7 @@ describe('RadioGroup', () => {
         return <RadioGroup {...props} options={options} />;
     }
     it('fire change events when value changes', () => {
-        const onChange = jest.fn();
+        const onChange = rs.fn();
 
         const wrapper = mount(
             createRadioGroup({
@@ -45,8 +45,8 @@ describe('RadioGroup', () => {
         expect(onChange.mock.calls.length).toBe(2);
     });
     it('both of radio and radioGroup will trigger onchange event when they exists', () => {
-        const onChange = jest.fn();
-        const onChangeRadioGroup = jest.fn();
+        const onChange = rs.fn();
+        const onChangeRadioGroup = rs.fn();
 
         const wrapper = mount(
             <RadioGroup onChange={onChangeRadioGroup}>
@@ -76,7 +76,7 @@ describe('RadioGroup', () => {
     });
 
     it('should only trigger once when in group with options', () => {
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         const options = [{ label: 'Bamboo', value: 'Bamboo' }];
         const wrapper = mount(<RadioGroup options={options} onChange={onChange} />);
 
@@ -85,7 +85,7 @@ describe('RadioGroup', () => {
     });
 
     it("won't fire change events when value not changes", () => {
-        const onChange = jest.fn();
+        const onChange = rs.fn();
 
         const wrapper = mount(
             createRadioGroup({
@@ -258,7 +258,7 @@ describe('RadioGroup', () => {
     });
 
     it('mode advanced allows deselection', () => {
-        const onChange = jest.fn();
+        const onChange = rs.fn();
         const radioGroup = mount(
             <RadioGroup mode="advanced" onChange={onChange} defaultValue="A">
                 <Radio value="A">A</Radio>
