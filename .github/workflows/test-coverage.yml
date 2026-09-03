@@ -11,7 +11,8 @@ on:
     workflow_dispatch:
 
 jobs:
-    jest:
+    unit-test:
+        name: Unit test with coverage
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -20,13 +21,13 @@ jobs:
                   node-version: '20'
             - name: Run install
               run: npm i -g lerna@^6 && npm run bootstrap
-            - name: Run Jest test
+            - name: Run unit tests with coverage
               run: npm run test:coverage
-            - name: Archive Jest coverage
+            - name: Archive unit coverage
               uses: actions/upload-artifact@v4
               with:
                   if-no-files-found: error
-                  name: jest
+                  name: unit
                   path: test/coverage/coverage-final.json
     cypress:
         runs-on: ubuntu-latest
@@ -55,21 +56,21 @@ jobs:
                   path: cypress/coverage/coverage-final.json
     coverage:
         runs-on: ubuntu-latest
-        needs: [jest, cypress]
+        needs: [unit-test, cypress]
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
               with:
                   node-version: '20'
-            - name: Download Jest coverage
+            - name: Download unit coverage
               uses: actions/download-artifact@v4
               with:
-                  # upload jest and cypress coverage to output dir
+                  # upload unit and cypress coverage to output dir
                   path: output
             - name: Code coverage merge
               run: |
                   tree output
-                  npx istanbul-merge --out output/coverage-final.json output/jest/coverage-final.json output/cypress/coverage-final.json
+                  npx istanbul-merge --out output/coverage-final.json output/unit/coverage-final.json output/cypress/coverage-final.json
                   tree output
             - name: Run codecov
               run: npx codecov --token=${{ secrets.CODECOV_TOKEN }} --file=output/coverage-final.json

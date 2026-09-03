@@ -61,7 +61,7 @@ describe('modal', () => {
         modal.unmount();
     });
 
-    it('visible', (done) => {
+    it('visible', () => new Promise(resolve => {
         let component = getModal();
         let modal = mount(component, { attachTo: document.getElementById('container') });
         expect(modal.exists(`div.${BASE_CLASS_PREFIX}-modal`)).toEqual(false);
@@ -76,9 +76,9 @@ describe('modal', () => {
         expect(document.body.style.overflow).not.toEqual('hidden');
         setTimeout(() => {
             expect(document.querySelector(`div.${BASE_CLASS_PREFIX}-modal`)).toEqual(null);
-            done();
+            resolve();
         }, 2000);
-    });
+    }));
 
     it('render basic content', () => {
         let com = getModal({ title: 'SemiTitle', visible: true })
@@ -274,15 +274,15 @@ describe('modal', () => {
         expect(document.querySelector(`div.${BASE_CLASS_PREFIX}-modal`)).toEqual(null);
     });
 
-    it('centered', (done) => {
+    it('centered', () => new Promise(resolve => {
         let com = getModal({ centered: true, visible: true, motion: true });
         let modal = mount(com, { attachTo: document.getElementById('container') });
         setTimeout(() => {
             modal.update();
             expect(modal.find(`div.${BASE_CLASS_PREFIX}-modal-content`)).toHaveClassName(`semi-modal-content-animate-show`);
-            done();
+            resolve();
         }, 2000);
-    });
+    }));
 
     it('centered without motion', () => {
         let com = getModal({ centered: true, visible: true, motion: false });

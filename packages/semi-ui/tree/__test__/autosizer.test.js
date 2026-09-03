@@ -84,7 +84,7 @@ describe('AutoSizer', () => {
     await new Promise(resolve => setTimeout(resolve, 100));
   }
 
-  it('should update :height after a resize event', async done => {
+  it('should update :height after a resize event', async () => {
     render(
       getAutoSizer({
         height: 100,
@@ -96,6 +96,5 @@ describe('AutoSizer', () => {
     await simulateResize({ element: rendered, height: 400, });
     // TODO
     // expect(rendered.textContent).toContain('height:400');
-    done();
   });
 });
