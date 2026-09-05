@@ -72,6 +72,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     groupRef: React.RefObject<HTMLDivElement>;
     groupSize: number;
     availableSize: number;
+    resizeObserver: ResizeObserver | null = null;
     static contextType = ResizeContext;
     context: ResizeGroupProps;
     // 在context中使用的属性需要考虑在strictMode下会执行两次，所以用Map来维护
@@ -89,6 +90,14 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         this.foundation.init();
         // 监听窗口大小变化，保证一些限制仍生效
         window.addEventListener('resize', this.foundation.ensureConstraint);
+        // 当 group 初次挂载在 display:none 容器内时 offset 尺寸为 0，item 尺寸会以 0px handler 计算且不再更新；
+        // 监听 group 自身尺寸变化，待其可见（可测量）后重新计算一次布局。#3336
+        if (typeof ResizeObserver !== 'undefined' && this.groupRef.current) {
+            this.resizeObserver = new ResizeObserver(() => {
+                this.foundation.handleGroupResize();
+            });
+            this.resizeObserver.observe(this.groupRef.current);
+        }
     }
 
     componentDidUpdate(prevProps: ResizeGroupProps) {
@@ -108,6 +117,10 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     componentWillUnmount() {
         this.foundation.destroy();
         window.removeEventListener('resize', this.foundation.ensureConstraint);
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+            this.resizeObserver = null;
+        }
     }
 
     get adapter(): ResizeGroupAdapter<ResizeGroupProps, ResizeGroupState> {
