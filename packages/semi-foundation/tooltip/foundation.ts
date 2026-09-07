@@ -240,7 +240,14 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // bind focus to hover trigger for a11y
                 triggerEventSet[eventNames.focus] = () => {
                     const { disableFocusListener } = this.getProps();
-                    this.getProp('condition') !== false && !disableFocusListener && this.delayShow();
+                    const triggerDOM = this._adapter.getTriggerDOM();
+                    if (this.getProp('condition') !== false && !disableFocusListener) {
+                        // Only show on focus if mouse is actually hovering the trigger.
+                        // This prevents tooltip flash when focus returns after modal/dialog closes.
+                        if (triggerDOM?.matches?.(':hover')) {
+                            this.delayShow();
+                        }
+                    }
                 };
                 triggerEventSet[eventNames.blur] = () => {
                     const { disableFocusListener } = this.getProps();
@@ -356,6 +363,18 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             this._adapter.on('portalInserted', checkTriggerIsHover);
         }
 
+        // Guard: for hover trigger, check :hover before inserting portal.
+        // Without this, the portal is inserted first and checkTriggerIsHover only runs
+        // after the DOM commit — too late, the tooltip renders one visible frame (flash).
+        if (trigger === "hover") {
+            const triggerDOM = this._adapter.getTriggerDOM();
+            if (triggerDOM && !triggerDOM.matches(":hover")) {
+                // Mouse is not on trigger, abort show to prevent flash.
+                this._adapter.off('portalInserted');
+                this._adapter.off('positionUpdated');
+                return;
+            }
+        }
 
         this._adapter.on('positionUpdated', () => {
             this._togglePortalVisible(true);
