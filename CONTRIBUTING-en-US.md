@@ -21,7 +21,7 @@ cd semi-design
 ```bash
 git checkout -b <TOPIC_BRANCH_NAME>
 ```
->Before installing the environment,make sure that there is a dependency of `lerna` and `yarn` locally, if not, should run:
+>Before installing the environment, make sure that there is a dependency of `lerna` and `yarn` locally, if not, should run:
 ```base
 corepack enable
 ```
