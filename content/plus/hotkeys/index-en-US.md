@@ -21,7 +21,7 @@ PinCode supported from 2.66.0
 import { HotKeys } from '@douyinfe/semi-ui';
 ```
 
-### Explaination
+### Explanation
 The hotkeys only support combinations of modifier keys like Shift, Control, Meta, and Alt with other keys.
 
 > [Meta](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey) corresponds to Command on macOS and Win on Windows.

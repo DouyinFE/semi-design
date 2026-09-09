@@ -111,7 +111,7 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
             <br />
             <Collapsible isOpen={isOpen}>
                 <div>
-                    <span>Conntent of first level</span>
+                    <span>Content of first level</span>
                     <Button onClick={() => setChildOpen(!isChildOpen)}>Toggle List</Button>
                 </div>
                 <Collapsible isOpen={isChildOpen}>{collapsed}</Collapsible>

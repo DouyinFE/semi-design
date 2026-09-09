@@ -66,7 +66,7 @@ All warning logs will be output in the semi-codemod-log.log file under ProjectPa
 
 ##### 4. Update the usage of Css Variable
 
-If you use Semi's css variable in your code, in addition to using semi-codemod-v2, you also need to use the style-lint tool we provide to automatically update all css varable usage
+If you use Semi's css variable in your code, in addition to using semi-codemod-v2, you also need to use the style-lint tool we provide to automatically update all css variable usage
 
 - Install Semi style-lint package
 

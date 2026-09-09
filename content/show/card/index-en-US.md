@@ -673,7 +673,7 @@ function Demo() {
 |headerLine        |Whether to set borders in the title area and content area of the card                |boolean           |true    |- |
 |headerStyle       |Header style                                                                         |CSSProperties     |-       |- |
 |loading           |Whether to set a placeholder when loading                                            |boolean           |false   |- |
-|shadows           |Set the time to show the shadow. If this property is not set, there will be no shadow. Optiona: `hover`, `always`|string |-       |- |
+|shadows           |Set the time to show the shadow. If this property is not set, there will be no shadow. Optional: `hover`, `always`|string |-       |- |
 |style             |Card style                                                                           |CSSProperties     |-       |- |
 |title             |Card title                                                                           |ReactNode         |-       |- |
 

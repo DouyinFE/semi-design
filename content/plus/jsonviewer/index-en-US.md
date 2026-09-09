@@ -55,7 +55,7 @@ function SimpleJsonViewer() {
 render(SimpleJsonViewer);
 ```
 
-### Differrent lineHeight
+### Different lineHeight
 
 Configure the `lineHeight` parameter of `options` to set a fixed line height (unit: px, default 18).
 

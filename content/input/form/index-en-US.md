@@ -43,7 +43,7 @@ Properties are hijacked by Form, so
 
 <Notice type="primary" title="Notice">
 
-1. No longer need to manually bind the onChange event and update the value as controled component. But you can continue to listen onChange events for the latest values if you want
+1. No longer need to manually bind the onChange event and update the value as controlled component. But you can continue to listen onChange events for the latest values if you want
 2. You cannot set the state of component with attributes such as `value`, `defaultValue`, `checked`, `defaultChecked`, etc. The default value can be set by Field's `initValue` or Form's `unitValues`
 3. You should not modify the value of Form State directly, all changes to the data in the Form should be done by providing `formApi`, `fieldApi`
 
@@ -1145,7 +1145,7 @@ class FormLevelValidateSync extends React.Component {
             errors.sex = 'must be woman';
         }
         errors.familyName = [
-            { before: 'before errror balabala ', after: 'after error balabala' },
+            { before: 'before error balabala ', after: 'after error balabala' },
             'familyName[1] error balabala'
         ];
         return errors;
