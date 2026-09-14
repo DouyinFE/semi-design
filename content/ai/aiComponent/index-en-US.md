@@ -30,7 +30,7 @@ For `AI Icon`, single-color, dual-color, and multi-color icons are supported, to
 
 For AI-style `Button`, `Tag`, and `FloatButton`, the `Colorful` property of the component can be enabled.
 
-Below are some examples of basic AI components. For more examples and use cases, please see [AI Token](/en-US/basic/tokens), [AI Icon](en-US/basic/icon), [AI Button](/en-US/basic/button#AI%20%E9%A3%8E%E6%A0%BC%20-%20%E5%A4%9A%E5%BD%A9%E6%8C%89%E9%92%AE), [AI Tag](/en-US/show/tag#AI%20%E9%A3%8E%E6%A0%BC%20-%20%E5%A4%9A%E5%BD%A9%E6%A0%87%E7%AD%BE), [AI FloatButton](/en-US/basic/floatbutton#AI%20%E9%A3%8E%E6%A0%BC%20-%20%E5%A4%9A%E5%BD%A9%E6%82%AC%E6%B5%AE%E6%8C%89%E9%92%AE).
+Below are some examples of basic AI components. For more examples and use cases, please see [AI Token](/en-US/basic/tokens), [AI Icon](/en-US/basic/icon), [AI Button](/en-US/basic/button#AI%20%E9%A3%8E%E6%A0%BC%20-%20%E5%A4%9A%E5%BD%A9%E6%8C%89%E9%92%AE), [AI Tag](/en-US/show/tag#AI%20%E9%A3%8E%E6%A0%BC%20-%20%E5%A4%9A%E5%BD%A9%E6%A0%87%E7%AD%BE), [AI FloatButton](/en-US/basic/floatbutton#AI%20%E9%A3%8E%E6%A0%BC%20-%20%E5%A4%9A%E5%BD%A9%E6%82%AC%E6%B5%AE%E6%8C%89%E9%92%AE).
 
 ```jsx live=true dir="column"
 import React from 'react';
