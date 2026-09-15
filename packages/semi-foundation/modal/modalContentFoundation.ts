@@ -30,6 +30,15 @@ export interface ModalContentAdapter extends DefaultAdapter<ModalContentProps, M
     prevFocusElementReFocus: () => void
 }
 
+/**
+ * Stack of `handleKeyDown` handlers for modals that currently listen on
+ * `document`. Every ModalContent registers its own document-level keydown
+ * listener, so `stopPropagation()` cannot stop sibling listeners on the same
+ * node — one ESC used to close every open dialog. Only the most recently
+ * mounted (top-most) listener should respond.
+ */
+const escListenerStack: Array<(e: any) => void> = [];
+
 export default class ModalContentFoundation extends BaseFoundation<ModalContentAdapter> {
 
     constructor(adapter: ModalContentAdapter) {
@@ -53,6 +62,12 @@ export default class ModalContentFoundation extends BaseFoundation<ModalContentA
     handleKeyDown = (e: any) => {
         const { closeOnEsc } = this.getProps();
         if (closeOnEsc && e.keyCode === KeyCode.ESC) {
+            // Multiple open modals each registered a document-level keydown
+            // listener; only the top-most (most recently mounted) one may
+            // close, so a single ESC closes dialogs one at a time.
+            if (escListenerStack[escListenerStack.length - 1] !== this.handleKeyDown) {
+                return;
+            }
             e.stopPropagation();
             this.close(e);
             return;
@@ -61,10 +76,17 @@ export default class ModalContentFoundation extends BaseFoundation<ModalContentA
 
     handleKeyDownEventListenerMount() {
         this._adapter.addKeyDownEventListener();
+        if (this.getProps().closeOnEsc) {
+            escListenerStack.push(this.handleKeyDown);
+        }
     }
 
     handleKeyDownEventListenerUnmount() {
         this._adapter.removeKeyDownEventListener();
+        const index = escListenerStack.indexOf(this.handleKeyDown);
+        if (index !== -1) {
+            escListenerStack.splice(index, 1);
+        }
     }
 
     getMouseState() {

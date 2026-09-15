@@ -336,4 +336,49 @@ describe('modal', () => {
         expect(modal.exists(`div.${testClass}`)).toEqual(true);
         modal.unmount();
     });
+
+    it('esc closes only the top-most modal when multiple are open', () => {
+        const onCancelOuter = jest.fn();
+        const onCancelInner = jest.fn();
+        class StackedModals extends React.Component {
+            state = {
+                outerVisible: true,
+                innerVisible: true,
+            };
+
+            handleOuterCancel = (e) => {
+                onCancelOuter(e);
+                this.setState({ outerVisible: false });
+            };
+
+            handleInnerCancel = (e) => {
+                onCancelInner(e);
+                this.setState({ innerVisible: false });
+            };
+
+            render() {
+                return (
+                    <>
+                        {getModal({ visible: this.state.outerVisible, onCancel: this.handleOuterCancel })}
+                        {getModal({ visible: this.state.innerVisible, onCancel: this.handleInnerCancel })}
+                    </>
+                );
+            }
+        }
+
+        const stacked = mount(<StackedModals />, { attachTo: document.getElementById('container') });
+
+        document.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 27 }));
+
+        // Only the most recently mounted (top-most) modal should close.
+        expect(onCancelInner).toHaveBeenCalledTimes(1);
+        expect(onCancelOuter).toHaveBeenCalledTimes(0);
+
+        // After the top modal unmounts, the next ESC reaches the outer one.
+        stacked.update();
+        document.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 27 }));
+        expect(onCancelOuter).toHaveBeenCalledTimes(1);
+
+        stacked.unmount();
+    });
 })
