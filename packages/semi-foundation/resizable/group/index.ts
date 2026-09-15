@@ -73,6 +73,9 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
     totalMinus: number;
     itemPercentMap: Map<number, number>; // 内部维护一个百分比数组，消除浮点计算误差
     type?: ResizeEventType;
+    // 首次 initSpace 时 group 是否可测量（非 display:none）。
+    // Whether the group was measurable (not inside display:none) on the first initSpace run. #3336
+    sizeInitialized: boolean = false;
 
 
     init(): void {
@@ -80,6 +83,19 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         this.itemMinusMap = new Map();
         this.itemPercentMap = new Map();
         this.initSpace();
+    }
+
+    /**
+     * When the group is initially mounted inside a display:none container, its own size
+     * and the handler sizes are all 0, so item sizes are computed with a `- 0px` handler
+     * offset and never corrected once the container becomes visible. Recalculate the layout
+     * the first time the group becomes measurable. Once it has a valid size, later resizes
+     * must NOT re-run initSpace, otherwise the user's manual drag results would be reset. #3336
+     */
+    handleGroupResize = () => {
+        if (!this.sizeInitialized && this.groupSize > 0) {
+            this.initSpace();
+        }
     }
     get window(): Window | null {
         return this.groupRef.ownerDocument.defaultView as Window ?? null;
@@ -231,6 +247,9 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         // calculate accurate space for group item
         let handlerSizes = new Array(this._adapter.getHandlerCount()).fill(0);
         let parentSize = this.groupSize;
+        // Mark whether the group is measurable now; if not (e.g. inside display:none),
+        // handleGroupResize will re-run initSpace once it becomes visible. #3336
+        this.sizeInitialized = parentSize > 0;
         this.totalMinus = 0;
         for (let i = 0; i < this._adapter.getHandlerCount(); i++) {
             let handlerSize = direction === 'horizontal' ? this._adapter.getHandler(i).offsetWidth : this._adapter.getHandler(i).offsetHeight;
