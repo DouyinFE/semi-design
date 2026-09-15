@@ -140,6 +140,9 @@ const local: Locale = {
         selectedFiles: '選択されたファイル',
         illegalSize: '不正なファイルサイズ',
         fail: 'アップロードに失敗しました',
+        cropTitle: '画像のトリミング',
+        cropOk: '確認する',
+        cropCancel: 'キャンセル',
     },
     TreeSelect: {
         searchPlaceholder: '検索する',

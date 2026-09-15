@@ -534,9 +534,20 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
      * @param {number} num
      * @returns {number}
      */
-    _getPrecLen(num: string | number) {
+   _getPrecLen(num: string | number) {
         if (typeof num !== 'string') {
-            num = String(Math.abs(Number(num || '')));
+            const n = Number(num || '');
+            if (!isFinite(n) || n === 0) return 0;
+            const s = Math.abs(n).toString();
+            // Numbers with abs < 1e-6 are stringified in scientific notation by
+            // `Number.prototype.toString` per ECMAScript spec — e.g. (1e-8).toString() === "1e-8".
+            // Detect that explicitly so step values smaller than 1e-6 keep correct precision.
+            if (/e/i.test(s)) {
+                const [mantissa, exp] = s.split(/e/i);
+                const mantissaDecimals = (mantissa.split('.')[1] || '').length;
+                return Math.max(0, mantissaDecimals - parseInt(exp, 10));
+            }
+            num = s;
         }
         const idx = num.indexOf('.') + 1;
         return idx ? num.length - idx : 0;

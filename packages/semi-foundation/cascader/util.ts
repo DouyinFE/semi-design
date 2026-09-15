@@ -1,9 +1,18 @@
 import {
     isNull,
     isUndefined,
-    isEqual
+    isEqual,
+    get
 } from 'lodash';
 import { strings, VALUE_SPLIT } from './constants';
+
+export interface KeyMapProps {
+    value?: string;
+    label?: string;
+    disabled?: string;
+    children?: string;
+    isLeaf?: string;
+}
 
 function getPosition(level: any, index: any) {
     return `${level}-${index}`;
@@ -54,23 +63,39 @@ export function filter(sugInput: string, option: any, filterTreeNode: any, filte
 /**
  * Traverse all the data by `treeData`.
  */
-function traverseDataNodes(treeNodes: any, callback: any) {
+function traverseDataNodes(treeNodes: any, callback: any, keyMaps?: KeyMapProps) {
+    const realValueName = get(keyMaps, 'value', 'value');
+    const realChildrenName = get(keyMaps, 'children', 'children');
+
     const processNode = (node: any, ind?: any, parent?: any) => {
-        const children = node ? node.children : treeNodes;
+        const children = node ? node[realChildrenName] : treeNodes;
         let item: any = null;
         // Process node if is not root
         if (node) {
-            const key = parent ? `${parent.key}${VALUE_SPLIT}${node.value}` : `${node.value}`;
+            const nodeValue = node[realValueName];
+            const key = parent ? `${parent.key}${VALUE_SPLIT}${nodeValue}` : `${nodeValue}`;
             const pos = parent ? getPosition(parent.pos, ind) : `${ind}`;
+            
+            // Map original fields to standard field names if keyMaps is provided
+            const mappedData = { ...node };
+            if (keyMaps) {
+                Object.entries(keyMaps).forEach(([standardKey, originalKey]) => {
+                    const value = node[originalKey as string];
+                    if (!isUndefined(value)) {
+                        mappedData[standardKey] = value;
+                    }
+                });
+            }
+            
             item = {
-                data: { ...node },
+                data: mappedData,
                 ind,
                 key,
                 pos,
                 level: parent ? parent.level + 1 : 0,
                 parentKey: parent ? parent.key : null,
                 path: parent ? [...parent.path, key] : [key],
-                valuePath: parent ? [...parent.valuePath, node.value] : [node.value]
+                valuePath: parent ? [...parent.valuePath, nodeValue] : [nodeValue]
             };
 
             callback(item);
@@ -106,18 +131,20 @@ export function getValuePathByKey(key: string) {
     return key.split(VALUE_SPLIT);
 }
 
-export function getKeyByPos(pos: string, treeData: any) {
+export function getKeyByPos(pos: string, treeData: any, keyMaps?: KeyMapProps) {
+    const realValueName = get(keyMaps, 'value', 'value');
+    const realChildrenName = get(keyMaps, 'children', 'children');
     const posArr = pos.split('-').map(item => Number(item));
     let resultData = treeData;
-    let valuePath = [];
+    const valuePath: (string | number)[] = [];
     posArr.forEach((item, index) => {
-        resultData = index === 0 ? resultData[item] : resultData?.children?.[item];
-        valuePath.push(resultData?.value);
+        resultData = index === 0 ? resultData[item] : resultData?.[realChildrenName]?.[item];
+        valuePath.push(resultData?.[realValueName]);
     });
     return getKeyByValuePath(valuePath);
 }
 
-export function convertDataToEntities(dataNodes: any) {
+export function convertDataToEntities(dataNodes: any, keyMaps?: KeyMapProps) {
     const keyEntities: any = {};
 
     traverseDataNodes(dataNodes, (data: any) => {
@@ -132,8 +159,22 @@ export function convertDataToEntities(dataNodes: any) {
             entity.parent.children = entity.parent.children || [];
             entity.parent.children.push(entity);
         }
-    });
+    }, keyMaps);
     return keyEntities;
+}
+
+/**
+ * Get the value from data item using keyMaps mapping.
+ * Similar to Tree/TreeSelect's getValueOrKey.
+ * When keyMaps maps value to a custom field (e.g., 'id'), use that field;
+ * otherwise fall back to 'value'.
+ */
+export function getValueOrKey(data: any, keyMaps?: KeyMapProps) {
+    const valueName = get(keyMaps, 'value', 'value');
+    if (Array.isArray(data)) {
+        return data.map(item => get(item, valueName));
+    }
+    return get(data, valueName);
 }
 
 export function calcMergeType(autoMergeValue: boolean, leafOnly: boolean): string {

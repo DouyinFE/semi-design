@@ -25,6 +25,10 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
     yMin: number;
     startOffsetX: number;
     startOffsetY: number;
+    startClientX: number;
+    startClientY: number;
+    startLeft: number;
+    startTop: number;
 
     get constrainer() {
         return this._adapter.getConstrainer();
@@ -44,9 +48,13 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
             throw new Error('drag element must be a valid element');
         }
         this.element = element;
-        this.element.style.position = 'absolute';
+        this.updatePositionStrategy();
         this.handler.style.cursor = 'move';
         this._registerStartEvent();
+    }
+
+    updatePositionStrategy = () => {
+        this.element.style.position = this.getProp('positionStrategy') === 'relative' ? 'relative' : 'absolute';
     }
 
     _registerStartEvent = () => {
@@ -95,6 +103,18 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
     _calcMoveRange() {
         // Calculate the range within which an element can move
         if (this.constrainer) {
+            if (this.getProp('positionStrategy') === 'relative') {
+                const elementRect = this.element.getBoundingClientRect();
+                const constrainerRect = this.constrainer.getBoundingClientRect();
+                const style = window.getComputedStyle(this.element);
+                const currentLeft = parseFloat(style.left) || 0;
+                const currentTop = parseFloat(style.top) || 0;
+                this.xMin = currentLeft + constrainerRect.left - elementRect.left;
+                this.xMax = currentLeft + constrainerRect.right - elementRect.right;
+                this.yMin = currentTop + constrainerRect.top - elementRect.top;
+                this.yMax = currentTop + constrainerRect.bottom - elementRect.bottom;
+                return;
+            }
             let node = this.element.offsetParent as HTMLElement;
             let startX = 0;
             let startY = 0;
@@ -126,6 +146,14 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
     }
 
     _calcOffset = (e: Touch | MouseEvent) => {
+        if (this.getProp('positionStrategy') === 'relative') {
+            const style = window.getComputedStyle(this.element);
+            this.startClientX = e.clientX;
+            this.startClientY = e.clientY;
+            this.startLeft = parseFloat(style.left) || 0;
+            this.startTop = parseFloat(style.top) || 0;
+            return;
+        }
         this.startOffsetX = e.clientX - this.element.offsetLeft;
         this.startOffsetY = e.clientY - this.element.offsetTop;
     }
@@ -161,8 +189,13 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
 
     _changePos = (e: Touch | MouseEvent) => {
         const { customMove } = this.getProps();
-        let newLeft = e.clientX - this.startOffsetX;
-        let newTop = e.clientY - this.startOffsetY;
+        const useRelativePosition = this.getProp('positionStrategy') === 'relative';
+        let newLeft = useRelativePosition ?
+            this.startLeft + e.clientX - this.startClientX :
+            e.clientX - this.startOffsetX;
+        let newTop = useRelativePosition ?
+            this.startTop + e.clientY - this.startClientY :
+            e.clientY - this.startOffsetY;
         if (this.constrainer) {
             newLeft = clampValueInRange(newLeft, this.xMin, this.xMax);
             newTop = clampValueInRange(newTop, this.yMin, this.yMax); 

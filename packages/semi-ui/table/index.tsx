@@ -6,9 +6,11 @@ import Column from './Column';
 import { strings } from '@douyinfe/semi-foundation/table/constants';
 import { TableProps, Data } from './interface';
 import ConfigContext, { ContextValue } from '../configProvider/context';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 
 class Table<RecordType extends Record<string, any> = Data> extends React.PureComponent<TableProps<RecordType>> {
     static Column = Column;
+    static __SemiComponentName__ = "Table";
     static DEFAULT_KEY_COLUMN_SELECTION = strings.DEFAULT_KEY_COLUMN_SELECTION;
     static DEFAULT_KEY_COLUMN_EXPAND = strings.DEFAULT_KEY_COLUMN_EXPAND;
 
@@ -17,9 +19,9 @@ class Table<RecordType extends Record<string, any> = Data> extends React.PureCom
         resizable: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     };
 
-    static defaultProps = {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Table.__SemiComponentName__, {
         hideExpandedColumn: true,
-    };
+    });
 
     static contextType = ConfigContext;
 

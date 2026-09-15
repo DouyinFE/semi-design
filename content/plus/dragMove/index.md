@@ -28,7 +28,7 @@ import { DragMove } from '@douyinfe/semi-ui';
 
 ***注意***
 
-1. DragMove 会将可拖拽的元素设置为 absolute 定位
+1. DragMove 默认会将可拖拽的元素设置为 absolute 定位；需要保留元素原有布局位置（例如居中的 Modal）时，可设置 `positionStrategy="relative"`
 2. DragMove 需要将 DOM 事件监听器应用到 children 中，如果子元素是自定义的组件，你需要确保它能将属性传递至底层的 DOM 元素。支持以下类型的 children：
     1. Class Component，不强制绑定ref，但需要确保 props 可被透传至真实的 DOM 节点上
     2. 使用 forwardRef 包裹后的函数式组件，将 props 与 ref 透传到 children 内真实的 DOM 节点上
@@ -227,6 +227,7 @@ function CustomMove() {
 | constrainer | 返回限制可拖拽的范围的元素 | () => HTMLElement \| 'parent' | - |
 | customMove | 自定义拖动后的位置处理| (element: HTMLElement, top: number, left: number) => void | -|
 | handler | 返回触发拖动的元素 | () => HTMLElement | - |
+| positionStrategy | 拖拽元素的定位策略，relative 可保留元素原有布局位置 | 'absolute' \| 'relative' | 'absolute' |
 | onMouseDown | 鼠标按下时的回调 | (e: MouseEvent) => void | - |
 | onMouseMove | 鼠标移动时的回调 | (e: MouseEvent) => void | - |
 | onMouseUp | 鼠标抬起时的回调 | (e: MouseEvent) => void | - |

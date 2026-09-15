@@ -8,6 +8,7 @@ import { RadioChangeEvent } from '@douyinfe/semi-foundation/radio/radioInnerFoun
 import { strings, radioClasses as css } from '@douyinfe/semi-foundation/radio/constants';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import '@douyinfe/semi-foundation/radio/radio.scss';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 
 import BaseComponent from '../_base/baseComponent';
 import RadioInner from './radioInner';
@@ -57,6 +58,7 @@ export interface RadioState {
 export type { RadioChangeEvent };
 
 class Radio extends BaseComponent<RadioProps, RadioState> {
+    static __SemiComponentName__ = "Radio";
     static contextType = Context;
 
     static propTypes = {
@@ -81,7 +83,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         preventScroll: PropTypes.bool,
     };
 
-    static defaultProps: Partial<RadioProps> = {
+    static defaultProps: Partial<RadioProps> = getDefaultPropsFromGlobalConfig(Radio.__SemiComponentName__, {
         autoFocus: false,
         defaultChecked: false,
         value: undefined as undefined,
@@ -90,7 +92,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         onMouseLeave: noop,
         mode: '',
         type: 'default'
-    };
+    });
     static elementType: string;
 
     radioEntity: RadioInner;

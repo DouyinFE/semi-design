@@ -8,6 +8,7 @@ import '@douyinfe/semi-foundation/switch/switch.scss';
 
 import { noop } from 'lodash';
 import Spin from '../spin';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 export interface SwitchProps {
     'aria-label'?: React.AriaAttributes['aria-label'];
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
@@ -36,6 +37,7 @@ export interface SwitchState {
 }
 
 class Switch extends BaseComponent<SwitchProps, SwitchState> {
+    static __SemiComponentName__ = "Switch";
     static propTypes = {
         'aria-label': PropTypes.string,
         'aria-labelledby': PropTypes.string,
@@ -57,7 +59,7 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
         id: PropTypes.string,
     };
 
-    static defaultProps: Partial<SwitchProps> = {
+    static defaultProps: Partial<SwitchProps> = getDefaultPropsFromGlobalConfig(Switch.__SemiComponentName__, {
         disabled: false,
         className: '',
         onChange: noop,
@@ -65,7 +67,7 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
         onMouseEnter: noop,
         onMouseLeave: noop,
         size: 'default',
-    };
+    });
 
     private switchRef: React.RefObject<HTMLInputElement>;
 

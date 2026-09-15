@@ -95,7 +95,7 @@ export interface TooltipProps extends BaseProps {
      * When set to false, the tooltip will not show when triggered
      * @default true
      */
-    condition?: boolean;
+    condition?: boolean
 }
 
 interface TooltipState {
@@ -202,6 +202,9 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     isWrapped: boolean;
     mounted: any;
     scrollHandler: any;
+    popupResizeObserver: ResizeObserver;
+    popupResizeTimer: ReturnType<typeof setTimeout>;
+    popupSizeStabilizeTimer: ReturnType<typeof setTimeout>;
     getPopupContainer: () => HTMLElement;
     containerPosition: string;
     foundation: TooltipFoundation;
@@ -252,6 +255,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             getAnimatingState: () => this.isAnimating,
             insertPortal: (content: TooltipProps['content'], { position, ...containerStyle }: { position: Position }) => {
                 this.cachedLatestTransitionState = "enter";
+                this.disconnectPopupResizeObserver();
                 this.setState(
                     {
                         isInsert: true,
@@ -274,39 +278,76 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                             }
                         };
                         const el = this.containerEl?.current;
-                        // Fast path: DOM already laid out — preserves prior behavior on simple apps
-                        if (el && (el.offsetWidth > 0 || el.offsetHeight > 0)) {
-                            emit();
-                            return;
-                        }
-                        // Slow path: observe portal-inner until it gets real dimensions
+                        // Keep observing while the popup is visible. Some popup content
+                        // (for example DatePicker) first lays out at a small non-zero size,
+                        // then expands after its child state commits. Positioning only at
+                        // the first non-zero size leaves the final popup overflowing.
                         if (el && typeof ResizeObserver !== 'undefined') {
                             let emitted = false;
-                            const ro = new ResizeObserver(() => {
-                                if (!emitted && el.offsetWidth > 0 && el.offsetHeight > 0) {
-                                    emitted = true;
-                                    ro.disconnect();
-                                    emit();
-                                }
-                            });
-                            ro.observe(el);
-                            // Safety net: bail out after 50ms even if RO never fires
-                            setTimeout(() => {
+                            let lastWidth = el.offsetWidth;
+                            let lastHeight = el.offsetHeight;
+                            const emitOnce = () => {
                                 if (!emitted) {
                                     emitted = true;
-                                    ro.disconnect();
                                     emit();
                                 }
-                            }, 50);
+                            };
+                            // #3354: 等待 popup 尺寸稳定后再做首次定位。
+                            // DatePicker 等内容会先以较小的非零尺寸完成初次布局，
+                            // 若此时立即定位（快路径或首次 RO 回调），尺寸扩展后会因
+                            // 溢出判定变化而翻转，视觉上表现为位置跳变（闪烁）。
+                            const scheduleStableEmit = () => {
+                                clearTimeout(this.popupSizeStabilizeTimer);
+                                this.popupSizeStabilizeTimer = setTimeout(() => {
+                                    if (!emitted && this.cachedLatestTransitionState === 'enter') {
+                                        emitOnce();
+                                    }
+                                }, 32);
+                            };
+                            const ro = new ResizeObserver(() => {
+                                const width = el.offsetWidth;
+                                const height = el.offsetHeight;
+                                if (width <= 0 || height <= 0) {
+                                    return;
+                                }
+                                const sizeChanged = width !== lastWidth || height !== lastHeight;
+                                lastWidth = width;
+                                lastHeight = height;
+                                if (!emitted) {
+                                    scheduleStableEmit();
+                                } else if (sizeChanged && this.cachedLatestTransitionState === 'enter') {
+                                    clearTimeout(this.popupResizeTimer);
+                                    this.popupResizeTimer = setTimeout(() => {
+                                        if (this.cachedLatestTransitionState === 'enter') {
+                                            this.foundation.calcPosition();
+                                        }
+                                    }, 0);
+                                }
+                            });
+                            this.popupResizeObserver = ro;
+                            ro.observe(el);
+                            if (lastWidth > 0 && lastHeight > 0) {
+                                scheduleStableEmit();
+                            }
+                            // Safety net: bail out after 100ms even if RO never fires
+                            setTimeout(() => {
+                                if (!emitted) {
+                                    emitOnce();
+                                }
+                            }, 100);
                             return;
                         }
-                        // Final fallback (no containerEl yet, or no ResizeObserver):
-                        // preserve original setTimeout(0) behavior
-                        setTimeout(emit, 0);
+                        // Fallback for browsers without ResizeObserver.
+                        if (el && el.offsetWidth > 0 && el.offsetHeight > 0) {
+                            emit();
+                        } else {
+                            setTimeout(emit, 0);
+                        }
                     }
                 );
             },
             removePortal: () => {
+                this.disconnectPopupResizeObserver();
                 this.setState({ isInsert: false, isPositionUpdated: false });
             },
             getEventName: () => ({
@@ -346,6 +387,14 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         scrollLeft: container.scrollLeft,
                         scrollTop: container.scrollTop,
                     };
+                    // #3354: body 的高度通常只是内容高度，而弹层实际可显示区域是视口；
+                    // 用 body 边界做溢出判断会把正常能放下的弹层误判为溢出并 pin 到错误位置。
+                    // 这里使用 clientWidth/clientHeight（视口内容区，不含滚动条），
+                    // 避免在 Windows/Linux 经典滚动条下弹层贴边时被滚动条遮挡。
+                    if (container === document.body) {
+                        rect.right = Math.max(boundingRect.right, document.documentElement.clientWidth);
+                        rect.bottom = Math.max(boundingRect.bottom, document.documentElement.clientHeight);
+                    }
                 }
 
                 return rect;
@@ -552,8 +601,16 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
     componentWillUnmount() {
         this.mounted = false;
+        this.disconnectPopupResizeObserver();
         this.foundation.destroy();
     }
+
+    disconnectPopupResizeObserver = () => {
+        clearTimeout(this.popupResizeTimer);
+        clearTimeout(this.popupSizeStabilizeTimer);
+        this.popupResizeObserver?.disconnect();
+        this.popupResizeObserver = null;
+    };
 
     /**
      * focus on tooltip trigger
@@ -592,6 +649,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     // };
 
     didLeave = () => {
+        this.disconnectPopupResizeObserver();
         if (this.props.keepDOM) {
             this.foundation.setDisplayNone(true);
         } else {

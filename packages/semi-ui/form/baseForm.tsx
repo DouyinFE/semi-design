@@ -9,7 +9,7 @@ import BaseComponent from '../_base/baseComponent';
 import { FormStateContext, FormApiContext, FormUpdaterContext } from './context';
 import { isEmptyChildren } from '../_base/reactUtils';
 import Row from '../grid/row';
-import { cloneDeep } from '../_utils/index';
+import { cloneDeep, getDefaultPropsFromGlobalConfig } from '../_utils/index';
 import Slot from './slot';
 import Section from './section';
 import Label from './label';
@@ -50,6 +50,7 @@ interface BaseFormState {
     formId: string
 }
 class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseFormProps<Values>, BaseFormState> {
+    static __SemiComponentName__ = "Form";
     static propTypes = {
         'aria-label': PropTypes.string,
         onSubmit: PropTypes.func,
@@ -91,7 +92,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
         form: PropTypes.object, // External formApi created by Form.useForm()
     };
 
-    static defaultProps = {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Form.__SemiComponentName__, {
         onChange: noop,
         onSubmitFail: noop,
         onSubmit: noop,
@@ -103,7 +104,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
         allowEmpty: false,
         autoScrollToError: false,
         showValidateIcon: true,
-    };
+    });
 
     static Input = FormInput;
     static TextArea = FormTextArea;

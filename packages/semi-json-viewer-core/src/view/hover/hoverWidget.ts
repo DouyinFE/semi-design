@@ -73,7 +73,7 @@ export class HoverWidget {
         setStyles(this._tooltipDom, {
             visibility: 'hidden',
         });
-        this._tooltipDom.innerHTML = '';
+        this._tooltipDom.textContent = '';
         this._hoverDom = null;
     }
 
@@ -89,7 +89,7 @@ export class HoverWidget {
 
     render(el: HTMLElement) {
         if (!this._hoverDom) return;
-        this._tooltipDom.innerHTML = '';
+        this._tooltipDom.textContent = '';
         this._tooltipDom.appendChild(el);
 
         // 获取必要的位置信息

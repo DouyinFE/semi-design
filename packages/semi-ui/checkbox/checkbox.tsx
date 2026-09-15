@@ -7,6 +7,7 @@ import CheckboxInner from './checkboxInner';
 import BaseComponent from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/checkbox/checkbox.scss';
 import { Context, CheckboxContextType } from './context';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import { isUndefined, isBoolean, noop } from 'lodash';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import { CheckboxType } from './checkboxGroup';
@@ -46,6 +47,7 @@ interface CheckboxState {
     focusVisible?: boolean
 }
 class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
+    static __SemiComponentName__ = "Checkbox";
     static contextType = Context;
 
     static propTypes = {
@@ -78,14 +80,14 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         type: PropTypes.string,
     };
 
-    static defaultProps = {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Checkbox.__SemiComponentName__, {
         defaultChecked: false,
         indeterminate: false,
         onChange: noop,
         onMouseEnter: noop,
         onMouseLeave: noop,
         type: 'default',
-    };
+    });
     static elementType: string;
 
     checkboxEntity: CheckboxInner;

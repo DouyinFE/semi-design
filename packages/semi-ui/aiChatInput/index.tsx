@@ -30,6 +30,7 @@ import { Locale } from '../locale/interface';
 import LocaleConsumer from '../locale/localeConsumer';
 import SkillItem from './skillItem';
 import SuggestionItem from './suggestionItem';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 
 export { getConfigureItem };
 export * from './interface';
@@ -45,7 +46,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
 
     private clickOutsideHandler: (e: Event) => void | null;
 
-    static defaultProps: Partial<AIChatInputProps> = {
+    static defaultProps: Partial<AIChatInputProps> = getDefaultPropsFromGlobalConfig(AIChatInput.__SemiComponentName__, {
         onContentChange: noop,
         onStopGenerate: noop,
         showReference: true,
@@ -58,7 +59,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
         keepSkillAfterSend: false,
         showUploadButton: true,
         clearContentOnGenerating: true,
-    }
+    });
 
     constructor(props: AIChatInputProps) {
         super(props);

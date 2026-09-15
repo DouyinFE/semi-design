@@ -59,7 +59,7 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
     componentDidUpdate(prevProps: Readonly<PinCodeProps>, prevState: Readonly<PinCodeState>, snapshot?: any) {
 
         if (prevProps.value !== this.props.value) {
-            this.foundation.updateValueList(this.props.value.split(""));
+            this.foundation.updateValueList((this.props.value || '').split(""));
         }
     }
 

@@ -37,9 +37,9 @@ export interface DateInputProps extends DateInputFoundationProps, BaseProps {
     inputRef?: React.RefObject<HTMLInputElement>;
     rangeInputStartRef?: React.RefObject<HTMLInputElement>;
     rangeInputEndRef?: React.RefObject<HTMLInputElement>;
-    showClearIgnoreDisabled?: boolean
+    showClearIgnoreDisabled?: boolean;
     /** Only affects rendering of the separator between range inputs */
-    rangeSeparatorNode?: React.ReactNode;
+    rangeSeparatorNode?: React.ReactNode
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -419,6 +419,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             onRangeEndTabPress,
             rangeInputFocus,
             rangeSeparator,
+            rangeSeparatorNode,
             insetInput,
             insetInputValue,
             defaultPickerValue,

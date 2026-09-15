@@ -335,6 +335,155 @@ describe(`Tooltip`, () => {
     await sleep(100);
     expect(toolTipElem.state('visible')).toBe(false);
   });
+
+  // https://github.com/DouyinFE/semi-design/issues/3310
+  // https://github.com/DouyinFE/semi-design/issues/3329
+  // When portal-inner is only partially laid out at mount time, positioning must wait
+  // for ResizeObserver to report both real dimensions before emitting 'portalInserted',
+  // otherwise calcPosition reads a zero-sized axis and the flip logic is silently skipped.
+  it(`waits for both popup dimensions before positioning`, async () => {
+    const realResizeObserver = global.ResizeObserver;
+    const offsetWidthDesc = Object.getOwnPropertyDescriptor(global.HTMLElement.prototype, 'offsetWidth');
+    const offsetHeightDesc = Object.getOwnPropertyDescriptor(global.HTMLElement.prototype, 'offsetHeight');
+
+    const observers = [];
+    let laidOut = false;
+    global.ResizeObserver = class {
+      constructor(cb) { this.cb = cb; observers.push(this); }
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    };
+    // Simulate a portal whose width is ready before its height. The old fast-path
+    // treated either non-zero axis as fully laid out and positioned too early.
+    Object.defineProperty(global.HTMLElement.prototype, 'offsetWidth', { configurable: true, get() { return 120; } });
+    Object.defineProperty(global.HTMLElement.prototype, 'offsetHeight', { configurable: true, get() { return laidOut ? 32 : 0; } });
+
+    try {
+      const demo = mount(
+        <Tooltip motion={false} content={'Content'} visible={true} trigger={'custom'} position="top">
+          <Button>trigger</Button>
+        </Tooltip>
+      );
+      await sleep(10);
+
+      // Because the portal height was still 0 at mount, the slow path must observe it.
+      expect(observers.length).toBeGreaterThan(0);
+
+      const instance = demo.find(Tooltip).instance();
+      const calcSpy = sinon.spy(instance.foundation, 'calcPosition');
+
+      // Browser lays out portal-inner, then ResizeObserver fires
+      laidOut = true;
+      observers.forEach(o => o.cb && o.cb());
+      // #3354: 首次定位会等待尺寸稳定（32ms 稳定窗口）后再执行
+      await sleep(60);
+
+      // The layout-driven ResizeObserver callback should have triggered positioning
+      expect(calcSpy.called).toBe(true);
+      calcSpy.restore();
+      demo.unmount();
+    } finally {
+      global.ResizeObserver = realResizeObserver;
+      Object.defineProperty(global.HTMLElement.prototype, 'offsetWidth', offsetWidthDesc);
+      Object.defineProperty(global.HTMLElement.prototype, 'offsetHeight', offsetHeightDesc);
+    }
+  });
+
+  it(`repositions when popup content grows after its initial layout`, async () => {
+    const realResizeObserver = global.ResizeObserver;
+    const offsetWidthDesc = Object.getOwnPropertyDescriptor(global.HTMLElement.prototype, 'offsetWidth');
+    const offsetHeightDesc = Object.getOwnPropertyDescriptor(global.HTMLElement.prototype, 'offsetHeight');
+
+    const observers = [];
+    let popupHeight = 32;
+    global.ResizeObserver = class {
+      constructor(cb) { this.cb = cb; observers.push(this); }
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    };
+    Object.defineProperty(global.HTMLElement.prototype, 'offsetWidth', { configurable: true, get() { return 120; } });
+    Object.defineProperty(global.HTMLElement.prototype, 'offsetHeight', { configurable: true, get() { return popupHeight; } });
+
+    try {
+      const demo = mount(
+        <Tooltip motion={false} content={'Content'} visible={true} trigger={'custom'} position="bottom">
+          <Button>trigger</Button>
+        </Tooltip>
+      );
+      // #3354: 等待首次定位完成（尺寸稳定窗口 32ms）后再制造内容增长
+      await sleep(60);
+
+      const instance = demo.find(Tooltip).instance();
+      const calcSpy = sinon.spy(instance.foundation, 'calcPosition');
+
+      // DatePicker-like content can grow after Tooltip has already positioned
+      // against a valid, but incomplete, initial size.
+      popupHeight = 342;
+      observers.forEach(o => o.cb && o.cb());
+      await sleep(30);
+
+      expect(calcSpy.calledOnce).toBe(true);
+      calcSpy.restore();
+      demo.unmount();
+    } finally {
+      global.ResizeObserver = realResizeObserver;
+      Object.defineProperty(global.HTMLElement.prototype, 'offsetWidth', offsetWidthDesc);
+      Object.defineProperty(global.HTMLElement.prototype, 'offsetHeight', offsetHeightDesc);
+    }
+  });
+
+  it(`positions once after popup size stabilizes to avoid flicker (#3354)`, async () => {
+    const realResizeObserver = global.ResizeObserver;
+    const offsetWidthDesc = Object.getOwnPropertyDescriptor(global.HTMLElement.prototype, 'offsetWidth');
+    const offsetHeightDesc = Object.getOwnPropertyDescriptor(global.HTMLElement.prototype, 'offsetHeight');
+
+    const observers = [];
+    // DatePicker-like popup: a small non-zero size first, then it grows.
+    // Positioning against that intermediate size causes a flip/jump once the
+    // final size arrives, which is visible as flickering.
+    let popupHeight = 32;
+    global.ResizeObserver = class {
+      constructor(cb) { this.cb = cb; observers.push(this); }
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    };
+    Object.defineProperty(global.HTMLElement.prototype, 'offsetWidth', { configurable: true, get() { return 120; } });
+    Object.defineProperty(global.HTMLElement.prototype, 'offsetHeight', { configurable: true, get() { return popupHeight; } });
+
+    try {
+      const demo = mount(
+        <Tooltip motion={false} content={'Content'} visible={true} trigger={'custom'} position="bottom">
+          <Button>trigger</Button>
+        </Tooltip>
+      );
+      await sleep(10);
+
+      const instance = demo.find(Tooltip).instance();
+      const calcSpy = sinon.spy(instance.foundation, 'calcPosition');
+
+      // The popup grows before the size-stabilize window elapses
+      popupHeight = 342;
+      observers.forEach(o => o.cb && o.cb());
+      await sleep(10);
+
+      // Must not position against the unstable intermediate size
+      expect(calcSpy.called).toBe(false);
+
+      // After the size stabilizes, positioning runs exactly once
+      await sleep(60);
+      expect(calcSpy.calledOnce).toBe(true);
+
+      calcSpy.restore();
+      demo.unmount();
+    } finally {
+      global.ResizeObserver = realResizeObserver;
+      Object.defineProperty(global.HTMLElement.prototype, 'offsetWidth', offsetWidthDesc);
+      Object.defineProperty(global.HTMLElement.prototype, 'offsetHeight', offsetHeightDesc);
+    }
+  });
 });
 
 it('wrapperClassName', () => {

@@ -36,6 +36,7 @@ import type {
 } from '@douyinfe/semi-foundation/upload/foundation';
 import type { ValidateStatus } from '../_base/baseComponent';
 import { ShowTooltip } from '../typography';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -170,6 +171,7 @@ export interface UploadState {
 }
 
 class Upload extends BaseComponent<UploadProps, UploadState> {
+    static __SemiComponentName__ = "Upload";
     static propTypes = {
         accept: PropTypes.string, // Limit allowed file types
         action: PropTypes.string.isRequired,
@@ -246,7 +248,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         cropModalProps: PropTypes.object,
     };
 
-    static defaultProps: Partial<UploadProps> = {
+    static defaultProps: Partial<UploadProps> = getDefaultPropsFromGlobalConfig(Upload.__SemiComponentName__, {
         defaultFileList: [],
         disabled: false,
         listType: 'list' as const,
@@ -277,7 +279,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         uploadTrigger: 'auto' as const,
         withCredentials: false,
         showTooltip: true,
-    };
+    });
 
     static FileCard = FileCard;
 
@@ -489,6 +491,12 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
 
     componentDidMount(): void {
         this.foundation.init();
+    }
+
+    componentDidUpdate(): void {
+        if ('fileList' in this.props) {
+            this.foundation.syncLatestFileList(this.props.fileList || []);
+        }
     }
 
     componentWillUnmount(): void {

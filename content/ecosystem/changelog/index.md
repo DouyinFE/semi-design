@@ -14,6 +14,53 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.103.0 (2026-09-01)
+- 【Feat】
+    - Progress 组件新增 `indeterminate` 属性，用于展示进度未知的加载动画，`line` / `circle` 类型均支持；开启后 `percent` 不再控制可视进度，且 `showInfo` 百分比文本隐藏 [#3334](https://github.com/DouyinFE/semi-design/issues/3334) [#3343](https://github.com/DouyinFE/semi-design/pull/3343)
+    - 为 Input、Button、Checkbox、Radio、Switch、Slider、Progress、Tag、Typography、Upload、Tree、TreeSelect、Table、Form 等组件补全 `semiGlobal.config.overrideDefaultProps` 全局默认属性配置支持（类型声明 + defaultProps 包装），可通过 `semiGlobal.config.overrideDefaultProps` 统一设置默认 props [#3318](https://github.com/DouyinFE/semi-design/issues/3318) [#3347](https://github.com/DouyinFE/semi-design/pull/3347)
+- 【Fix】
+    - 修复 Typography 开启 `ellipsis.showTooltip` 时因亚像素取整导致未溢出短文本误显示 tooltip 的问题，同时修正容器宽度计算扣除 `border`，避免带 border 的容器漏判真实溢出 [#2350](https://github.com/DouyinFE/semi-design/issues/2350) [#3344](https://github.com/DouyinFE/semi-design/pull/3344)
+    - 修复 Upload 多文件上传时 `beforeUpload` 返回 `autoRemove` 后文件残留的问题（React 18 自动批处理下 state 快照过期） [#3335](https://github.com/DouyinFE/semi-design/issues/3335) [#3346](https://github.com/DouyinFE/semi-design/pull/3346)
+
+#### 🎉 2.102.0 (2026-07-31)
+- 【Feat】
+    - DragMove 组件新增 `positionStrategy="relative"` 定位策略，在保留元素原有布局位置的同时通过相对偏移实现拖动，修复 `centered` 可拖拽 Modal 向下偏移的问题；默认 `absolute` 策略保持不变 [@SudoUserReal](https://github.com/SudoUserReal) [#3323](https://github.com/DouyinFE/semi-design/issues/3323) [#3333](https://github.com/DouyinFE/semi-design/pull/3333)
+- 【Fix】
+    - 修复 DatePicker 等动态尺寸浮层在初次展示后内容尺寸发生变化时未重新计算位置，导致浮层被视口裁剪或在后续页面尺寸变化时跳动的问题 [@SudoUserReal](https://github.com/SudoUserReal) [#3329](https://github.com/DouyinFE/semi-design/issues/3329) [#3331](https://github.com/DouyinFE/semi-design/pull/3331)
+    - 修复 Tree 开启 `filterTreeNode` 与 `showFilteredOnly` 后，搜索态下展开或折叠节点时动画范围包含已过滤隐藏节点，导致可见列表闪烁的问题 [@SudoUserReal](https://github.com/SudoUserReal) [#3325](https://github.com/DouyinFE/semi-design/issues/3325) [#3332](https://github.com/DouyinFE/semi-design/pull/3332)
+    - 修复 DatePicker 的 `rangeSeparatorNode` 属性被意外传递到原生 DOM 元素，导致 React 输出未知属性警告的问题 [@holdxen](https://github.com/holdxen) [#3327](https://github.com/DouyinFE/semi-design/pull/3327)
+    - 修复 Button 未继承应用配置字体、回退使用浏览器默认字体的问题 [@teiron-jueyue](https://github.com/teiron-jueyue) [#3324](https://github.com/DouyinFE/semi-design/pull/3324)
+
+#### 🎉 2.101.1 (2026-07-20)
+- 【Fix】
+    - 修复 Portal 在 React 18+ StrictMode 模拟重新挂载时重建容器节点，导致浮层子树被卸载并重新挂载、子组件副作用重复执行及数据请求重复发送的问题 [@kwokhoho](https://github.com/kwokhoho) [#3315](https://github.com/DouyinFE/semi-design/issues/3315) [#3316](https://github.com/DouyinFE/semi-design/pull/3316)
+    - 修复 React StrictMode 模拟重新挂载后 `Form.useForm()` 返回的 API 失效，调用 `getValues()` 等方法返回 `undefined` 的问题 [@yipengisbetter](https://github.com/yipengisbetter) [#3320](https://github.com/DouyinFE/semi-design/pull/3320)
+    - 修复 Form.PinCode 组件的值被完全清空时，因对空值直接调用 `split` 而崩溃的问题 [@SudoUserReal](https://github.com/SudoUserReal) [#3317](https://github.com/DouyinFE/semi-design/issues/3317) [#3321](https://github.com/DouyinFE/semi-design/pull/3321)
+
+#### 🎉 2.101.0 (2026-07-02)
+- 【Fix】
+    - 补齐 Upload 组件图片裁切弹窗在日语环境下的标题、确认按钮和取消按钮文案，避免启用裁切功能时回退显示中文默认文案 [@greymoth-jp](https://github.com/greymoth-jp) [#3313](https://github.com/DouyinFE/semi-design/pull/3313)
+    - 修复 JSON Viewer 补全列表及视图清理逻辑中直接写入 HTML 带来的 XSS 风险，补全项现通过 DOM API 创建并使用 `textContent` 渲染文本 [#3314](https://github.com/DouyinFE/semi-design/pull/3314)
+
+#### 🎉 2.100.0 (2026-06-09)
+- 【Fix】
+    - 修复 InputNumber 组件在 `step` 绝对值小于 `1e-6`（如 `1e-8`）时，因 `_getPrecLen` 未识别科学计数法字符串（`String(1e-8) === "1e-8"`）导致步进精度计算为 0、点击 +/- 按钮无响应的问题 [@kwokhoho](https://github.com/kwokhoho) [#3308](https://github.com/DouyinFE/semi-design/issues/3308) [#3305](https://github.com/DouyinFE/semi-design/pull/3305)
+    - 修复 Tooltip 及其衍生组件（Popover / Select / TreeSelect / Cascader / DatePicker 等）在 React 大型应用 / StrictMode 下，浮层 mount 时因定位时机早于 portal 布局完成、读取到 0×0 尺寸而无法根据视口空间正确翻转（flip）的问题，改用 ResizeObserver 等待真实尺寸后再定位 [@kwokhoho](https://github.com/kwokhoho) [#3310](https://github.com/DouyinFE/semi-design/issues/3310) [#3309](https://github.com/DouyinFE/semi-design/pull/3309)
+
+#### 🎉 2.99.3 (2026-06-01)
+- 【Feat】
+    - Cascader 组件新增 `keyMaps` prop，支持自定义 `value`、`label`、`children`、`disabled`、`isLeaf` 字段映射，便于适配非标准字段名的数据源 [#3302](https://github.com/DouyinFE/semi-design/issues/3302) [#3304](https://github.com/DouyinFE/semi-design/pull/3304)
+- 【Fix】
+    - 修复使用 DSM 导出的自定义主题时编译失败的问题，补齐 Popover 依赖的箭头偏移变量，并调整主题构建插件中的组件变量导入顺序 [#3306](https://github.com/DouyinFE/semi-design/issues/3306) [#3307](https://github.com/DouyinFE/semi-design/pull/3307)
+
+#### 🎉 2.99.2 (2026-05-22)
+- 【Fix】
+    - 修复 Table 组件 header 右侧边框样式 `box-shadow: inset -$width-table_base_border 0 0 0 ...` 在 Sass 1.55+ 下因 strict-unary 解析规则被编译为 `inset-1px 0 0 0 ...`（中间无空格、box-shadow 失效）的问题，导致水平滚动场景下 header 右侧边框丢失。改用 `$width-table_base_border * -1` 写法规避歧义
+
+#### 🎉 2.99.1 (2026-05-22)
+- 【Fix】
+    - 修复 Modal 组件在 `centered` 为 true 且内容高度超过视口时，title、关闭按钮与底部按钮被裁切且无法通过滚动到达的问题。改用 `align-items: flex-start` + `margin: auto` 的安全居中方案：内容能放下时仍视觉居中，溢出时退化为顶部对齐并可正常滚动 [@Cody2333](https://github.com/Cody2333) [#3300](https://github.com/DouyinFE/semi-design/issues/3300) [#3301](https://github.com/DouyinFE/semi-design/pull/3301)
+
 #### 🎉 2.99.0 (2026-05-21)
 - 【Fix】
     - 修复 Cascader 组件在开启 filterTreeNode 时，搜索关键词与选项 label 大小写不一致导致匹配结果无法高亮的问题 [#3296](https://github.com/DouyinFE/semi-design/issues/3296) [#3297](https://github.com/DouyinFE/semi-design/pull/3297)
@@ -5027,4 +5074,3 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 #### 0.0.1 (2019-05-13)
 -   【New Component】
     - 正式发布以下组件 Button、Switch、Pagination、Notification、Tag、Tooltip、Popover、Dropdown、Select、Checkbox、Icon、Toast、DatePicker、Form、Tabs、TimePicker、Radio、Soin、AutoComplete、Slider、Step、Modal、Nav、InputNumber、Input、Grid、ScrollList、Table
-

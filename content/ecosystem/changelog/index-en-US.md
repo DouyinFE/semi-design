@@ -16,6 +16,53 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.103.0 (2026-09-01)
+- 【Feat】
+    - Added the `indeterminate` prop to Progress for displaying a loading animation when progress is unknown; supported by both `line` and `circle` types. When enabled, `percent` no longer controls the visible progress and the `showInfo` percentage text is hidden [#3334](https://github.com/DouyinFE/semi-design/issues/3334) [#3343](https://github.com/DouyinFE/semi-design/pull/3343)
+    - Completed `semiGlobal.config.overrideDefaultProps` global default-prop support (type declarations + defaultProps wrapping) for Input, Button, Checkbox, Radio, Switch, Slider, Progress, Tag, Typography, Upload, Tree, TreeSelect, Table, Form and other components, so default props can be set uniformly via `semiGlobal.config.overrideDefaultProps` [#3318](https://github.com/DouyinFE/semi-design/issues/3318) [#3347](https://github.com/DouyinFE/semi-design/pull/3347)
+- 【Fix】
+    - Fixed Typography erroneously showing a tooltip for short non-overflowing text due to sub-pixel rounding when `ellipsis.showTooltip` is enabled, and corrected the container width calculation to subtract `border`, avoiding missed real overflow detection on bordered containers [#2350](https://github.com/DouyinFE/semi-design/issues/2350) [#3344](https://github.com/DouyinFE/semi-design/pull/3344)
+    - Fixed leftover files in Upload when multiple `beforeUpload` results return `autoRemove`, caused by a stale React state snapshot under React 18 automatic batching [#3335](https://github.com/DouyinFE/semi-design/issues/3335) [#3346](https://github.com/DouyinFE/semi-design/pull/3346)
+
+#### 🎉 2.102.0 (2026-07-31)
+- 【Feat】
+    - Added `positionStrategy="relative"` to DragMove, allowing an element to remain in its original layout position while being dragged with relative offsets. This fixes downward displacement of draggable Modals with `centered` enabled, while preserving `absolute` as the default strategy [@SudoUserReal](https://github.com/SudoUserReal) [#3323](https://github.com/DouyinFE/semi-design/issues/3323) [#3333](https://github.com/DouyinFE/semi-design/pull/3333)
+- 【Fix】
+    - Fixed dynamically sized popups such as DatePicker not recalculating their placement when content dimensions changed after the initial display, which could cause viewport clipping or a later jump after the page was resized [@SudoUserReal](https://github.com/SudoUserReal) [#3329](https://github.com/DouyinFE/semi-design/issues/3329) [#3331](https://github.com/DouyinFE/semi-design/pull/3331)
+    - Fixed visible-list flicker when expanding or collapsing Tree nodes during search with both `filterTreeNode` and `showFilteredOnly` enabled, where the animation range incorrectly included filtered-out hidden nodes [@SudoUserReal](https://github.com/SudoUserReal) [#3325](https://github.com/DouyinFE/semi-design/issues/3325) [#3332](https://github.com/DouyinFE/semi-design/pull/3332)
+    - Fixed DatePicker spreading the `rangeSeparatorNode` prop onto a native DOM element and causing a React unknown-prop warning [@holdxen](https://github.com/holdxen) [#3327](https://github.com/DouyinFE/semi-design/pull/3327)
+    - Fixed Button not inheriting the application-configured font family and falling back to the browser's default button font [@teiron-jueyue](https://github.com/teiron-jueyue) [#3324](https://github.com/DouyinFE/semi-design/pull/3324)
+
+#### 🎉 2.101.1 (2026-07-20)
+- 【Fix】
+    - Fixed Portal recreating its container element during React 18+ StrictMode simulated remounts, which caused popup subtrees to unmount and remount, reran child effects, and sent duplicate data requests [@kwokhoho](https://github.com/kwokhoho) [#3315](https://github.com/DouyinFE/semi-design/issues/3315) [#3316](https://github.com/DouyinFE/semi-design/pull/3316)
+    - Fixed the API returned by `Form.useForm()` becoming unavailable after a React StrictMode simulated remount, causing methods such as `getValues()` to return `undefined` [@yipengisbetter](https://github.com/yipengisbetter) [#3320](https://github.com/DouyinFE/semi-design/pull/3320)
+    - Fixed Form.PinCode crashing when its value was fully cleared because `split` was called directly on an empty value [@SudoUserReal](https://github.com/SudoUserReal) [#3317](https://github.com/DouyinFE/semi-design/issues/3317) [#3321](https://github.com/DouyinFE/semi-design/pull/3321)
+
+#### 🎉 2.101.0 (2026-07-02)
+- 【Fix】
+    - Added missing Japanese locale text for the Upload image-crop modal title, confirm button, and cancel button, avoiding fallback to Chinese defaults when image cropping is enabled in Japanese locale [@greymoth-jp](https://github.com/greymoth-jp) [#3313](https://github.com/DouyinFE/semi-design/pull/3313)
+    - Fixed a potential XSS risk in JSON Viewer by avoiding direct HTML writes in the completion list and view-clearing paths. Completion items are now created with DOM APIs and rendered via `textContent` [#3314](https://github.com/DouyinFE/semi-design/pull/3314)
+
+#### 🎉 2.100.0 (2026-06-09)
+- 【Fix】
+    - Fixed InputNumber not responding to +/- buttons when the absolute value of `step` is smaller than `1e-6` (e.g. `1e-8`). `_getPrecLen` did not recognize the scientific-notation string (`String(1e-8) === "1e-8"`) and returned 0 precision, which froze the step calculation [@kwokhoho](https://github.com/kwokhoho) [#3308](https://github.com/DouyinFE/semi-design/issues/3308) [#3305](https://github.com/DouyinFE/semi-design/pull/3305)
+    - Fixed Tooltip-based popups (Popover / Select / TreeSelect / Cascader / DatePicker, etc.) failing to flip according to viewport space on mount in large React apps / StrictMode, where positioning ran before the portal finished layout and read a 0×0 wrapper. Now it waits for real dimensions via ResizeObserver before positioning [@kwokhoho](https://github.com/kwokhoho) [#3310](https://github.com/DouyinFE/semi-design/issues/3310) [#3309](https://github.com/DouyinFE/semi-design/pull/3309)
+
+#### 🎉 2.99.3 (2026-06-01)
+- 【Feat】
+    - Added `keyMaps` prop to Cascader for custom field mapping of `value`, `label`, `children`, `disabled`, and `isLeaf`, making it easier to adapt data sources with non-standard field names [#3302](https://github.com/DouyinFE/semi-design/issues/3302) [#3304](https://github.com/DouyinFE/semi-design/pull/3304)
+- 【Fix】
+    - Fixed compilation failure when using DSM-exported custom themes by adding the arrow offset variable required by Popover and adjusting component variable import order in theme build plugins [#3306](https://github.com/DouyinFE/semi-design/issues/3306) [#3307](https://github.com/DouyinFE/semi-design/pull/3307)
+
+#### 🎉 2.99.2 (2026-05-22)
+- 【Fix】
+    - Fixed Table header right border being broken on Sass 1.55+. The original `box-shadow: inset -$width-table_base_border 0 0 0 ...` was parsed as a binary subtraction under the strict-unary rule and compiled to `inset-1px 0 0 0 ...` (no space between `inset` and the offset), making the whole box-shadow invalid and the header's right border invisible in horizontal-scroll scenarios. Rewrote it as `$width-table_base_border * -1` to avoid the ambiguity
+
+#### 🎉 2.99.1 (2026-05-22)
+- 【Fix】
+    - Fixed Modal component being unreachable when `centered` is true and content height exceeds the viewport — title / close button / footer buttons were clipped and could not be reached by scrolling. Switched to the safe-centering pattern (`align-items: flex-start` + `margin: auto`): the modal stays visually centered when content fits, and degrades to top-aligned + scrollable when content overflows [@Cody2333](https://github.com/Cody2333) [#3300](https://github.com/DouyinFE/semi-design/issues/3300) [#3301](https://github.com/DouyinFE/semi-design/pull/3301)
+
 #### 🎉 2.99.0 (2026-05-21)
 - 【Fix】
     - Fixed Cascader component not highlighting matched text when search keyword case differs from option label case with filterTreeNode enabled [#3296](https://github.com/DouyinFE/semi-design/issues/3296) [#3297](https://github.com/DouyinFE/semi-design/pull/3297)

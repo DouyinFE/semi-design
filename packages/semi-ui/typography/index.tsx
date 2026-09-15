@@ -18,6 +18,7 @@ Typography.Paragraph = Paragraph;
 Typography.Numeral = Numeral;
 
 export type { BaseTypographyProps } from './base';
+export type { TypographyProps } from './typography';
 export type { CopyableProps } from './copyable';
 export type { TitleProps } from './title';
 export type { TextProps } from './text';

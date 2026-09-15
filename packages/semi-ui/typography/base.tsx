@@ -287,16 +287,23 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const containerNode = this.wrapperRef.current;
         // NOTE:
         // - For CSS ellipsis, truncation happens in the content box (excluding padding).
-        // - clientWidth excludes border/scrollbar, but includes padding.
-        //   So we use: contentBoxWidth = clientWidth - paddingLeft - paddingRight
-        const containerClientWidth = containerNode.clientWidth;
-        // Get computed style to account for padding
+        // - `clientWidth` is an integer (browser rounds fractional px), while
+        //   Range.getBoundingClientRect().width is an exact float. Comparing them directly
+        //   yields false overflow on sub-pixel text (e.g. 32.3 > 32) → tooltip shown on
+        //   non-overflowing short text. So use getBoundingClientRect().width (same precision).
+        // - rect.width includes border + padding + content (border-box), while clientWidth
+        //   excludes border/scrollbar but includes padding. To get the content-box width we
+        //   must subtract both padding and border.
+        const containerRectWidth = containerNode.getBoundingClientRect().width;
+        // Get computed style to account for padding and border
         // CSS text-overflow: ellipsis truncates text in the content area (excluding padding)
         // So we need to compare contentWidth with the actual content area width
         const computedStyle = window.getComputedStyle(containerNode);
         const paddingLeft = parseFloat(computedStyle.paddingLeft) || 0;
         const paddingRight = parseFloat(computedStyle.paddingRight) || 0;
-        const contentAreaWidth = Math.max(0, containerClientWidth - paddingLeft - paddingRight);
+        const borderLeft = parseFloat(computedStyle.borderLeftWidth) || 0;
+        const borderRight = parseFloat(computedStyle.borderRightWidth) || 0;
+        const contentAreaWidth = Math.max(0, containerRectWidth - paddingLeft - paddingRight - borderLeft - borderRight);
         
         const childNodes = Array.from(containerNode.childNodes) as Node[];
         const range = document.createRange();

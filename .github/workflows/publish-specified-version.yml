@@ -10,12 +10,33 @@ on:
             target_version:
                 description: '目标版本号 (例如: 2.74.0) | 会在新分支 v版本号-publish 上发布'
                 required: true
+            npm_tag:
+                description: 'npm dist-tag (例如: custom, meego-alpha)'
+                required: true
+                default: 'custom'
 
 jobs:
     publish-specified-version:
         name: '在指定分支发布指定版本'
         runs-on: ubuntu-latest
+        env:
+            BASE_BRANCH: ${{ inputs.branch }}
+            TARGET_VERSION: ${{ inputs.target_version }}
+            NPM_TAG: ${{ inputs.npm_tag }}
         steps:
+            - name: Validate inputs
+              run: |
+                  set -euo pipefail
+                  git check-ref-format --branch "$BASE_BRANCH"
+                  if [[ ! "$TARGET_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z][0-9A-Za-z.-]*)?$ ]]; then
+                    echo "::error::Invalid target version: $TARGET_VERSION"
+                    exit 1
+                  fi
+                  if [[ ! "$NPM_TAG" =~ ^[a-z][a-z0-9._-]*$ ]]; then
+                    echo "::error::Invalid npm tag: $NPM_TAG. Use a lowercase letter first, followed by lowercase letters, digits, dots, underscores, or hyphens."
+                    exit 1
+                  fi
+
             - name: gen token
               run: |
                   set -e
@@ -32,13 +53,13 @@ jobs:
               run: |
                   git config --global user.name 'semi-team'
                   git config --global user.email 'semi-team@bytedance.com'
-                  git fetch origin ${{ github.event.inputs.branch }}:${{ github.event.inputs.branch }}
-                  git checkout ${{ github.event.inputs.branch }}
+                  git fetch origin "$BASE_BRANCH:$BASE_BRANCH"
+                  git checkout "$BASE_BRANCH"
 
             - name: Create new branch with version name
               run: |
                   set -e
-                  git checkout -b v${{ github.event.inputs.target_version }}-publish
+                  git checkout -b "v${TARGET_VERSION}-publish"
 
             - name: Use Node.js 20
               uses: actions/setup-node@v4
@@ -59,16 +80,17 @@ jobs:
                   if [ -n "$(git status --porcelain)" ]; then
                     echo "there are changes";
                     git add .
-                    git commit --no-verify -m "chore: publish ${{ github.event.inputs.target_version }}"
+                    git commit --no-verify -m "chore: publish $TARGET_VERSION"
                   else
                     echo "no changes";
                   fi
                   npm config set registry=https://registry.npmjs.org/
                   npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN_NEW }}
                   npm whoami
-                  echo "Publishing version: ${{ github.event.inputs.target_version }}"
-                  lerna version ${{ github.event.inputs.target_version }} --exact --force-publish --yes --no-push
-                  lerna publish from-package --yes --dist-tag custom
-                  BRANCH_NAME=v${{ github.event.inputs.target_version }}-publish
+                  echo "Publishing version: $TARGET_VERSION"
+                  echo "Publishing npm dist-tag: $NPM_TAG"
+                  lerna version "$TARGET_VERSION" --exact --force-publish --yes --no-push
+                  lerna publish from-package --yes --dist-tag "$NPM_TAG"
+                  BRANCH_NAME="v${TARGET_VERSION}-publish"
                   git push --set-upstream origin HEAD:refs/heads/$BRANCH_NAME -o ci.skip --no-verify
-                  git push origin refs/tags/v${{ github.event.inputs.target_version }} --no-verify
+                  git push origin "refs/tags/v${TARGET_VERSION}" --no-verify

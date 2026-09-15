@@ -9,6 +9,7 @@ import { handlePrevent } from '@douyinfe/semi-foundation/utils/a11y';
 import '@douyinfe/semi-foundation/tag/tag.scss';
 import { isString } from 'lodash';
 import cls from 'classnames';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 
 export * from './interface';
 
@@ -25,7 +26,9 @@ export interface TagState {
 }
 
 export default class Tag extends Component<TagProps, TagState> {
-    static defaultProps: TagProps = {
+    static __SemiComponentName__ = "Tag";
+
+    static defaultProps: TagProps = getDefaultPropsFromGlobalConfig(Tag.__SemiComponentName__, {
         size: tagSize[0] as TagSize,
         color: tagColors[0] as TagColor,
         closable: false,
@@ -42,7 +45,7 @@ export default class Tag extends Component<TagProps, TagState> {
         suffixIcon: null,
         colorful: false,
         gradient: false,
-    };
+    });
 
     static propTypes = {
         children: PropTypes.node,

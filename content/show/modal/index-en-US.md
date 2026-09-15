@@ -521,9 +521,10 @@ function Demo(props = {}) {
             <Modal
                 title="Draggable Modal"
                 visible={visible}
+                centered
                 onCancel={() => setVisible(false)}
                 modalRender={(modal) => (
-                    <DragMove>{modal}</DragMove>
+                    <DragMove positionStrategy="relative">{modal}</DragMove>
                 )}
             >
                 <p>This is the content of a basic sidesheet.</p>

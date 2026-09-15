@@ -237,7 +237,7 @@ export class View {
             width: '60%',
             height: '100%',
         });
-        lineNumber.innerHTML = actualLineNumber.toString();
+        lineNumber.textContent = actualLineNumber.toString();
         lineNumberElement.appendChild(lineNumber);
         lineNumberElement.dataset.lineNumber = actualLineNumber.toString();
         return lineNumberElement;
@@ -293,8 +293,8 @@ export class View {
     }
 
     private clearContainers() {
-        this._lineScrollDom.innerHTML = '';
-        this._scrollDom.innerHTML = '';
+        this._lineScrollDom.textContent = '';
+        this._scrollDom.textContent = '';
     }
 
     public resetScalingManagerConfigAndCell(index: number) {
@@ -339,7 +339,7 @@ export class View {
         this._lineScrollDom.style.height = `${totalSize}px`;
         if (this._options?.readOnly && this._customRenderMap.size > 0) {
             this._customRenderMap.forEach((value, key) => {
-                key.innerHTML = '';
+                key.textContent = '';
             });
             this.emitter.emit('customRender', {
                 customRenderMap: this._customRenderMap

@@ -5060,13 +5060,25 @@ describe(`DatePicker`, () => {
         await sleep();
         const popup = document.querySelector(popupSelector);
         if (popup) {
-            const days = popup.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-day`);
-            if (days.length >= 15) {
+            // 只选择「当前显示月份且未禁用」的真实日期：
+            // - 空白占位格没有 aria-label，需排除
+            // - 上月/下月的补位日期带 aria-label 且默认非 disabled，点击会触发月份切换导致后续点击失效，需排除
+            // - disabled 日期点击无效，需排除
+            // 首日偏移随"今天"的星期变化，不能用绝对下标（如 days[5]/days[15]），否则会偶发踩到补位/禁用日期。
+            const now = new Date();
+            const monthPrefix = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+            const days = Array.from(
+                popup.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-day[aria-label]`)
+            ).filter(day => {
+                const label = day.getAttribute('aria-label');
+                return label && label.startsWith(monthPrefix) && day.getAttribute('aria-disabled') !== 'true';
+            });
+            if (days.length >= 2) {
                 // Click start date
-                days[5].click();
+                days[0].click();
                 await sleep(100);
                 // Click end date
-                days[15].click();
+                days[days.length - 1].click();
                 await sleep(100);
                 expect(onChange.called).toBe(true);
             }
@@ -5088,11 +5100,19 @@ describe(`DatePicker`, () => {
         await sleep();
         const popup = document.querySelector(popupSelector);
         if (popup) {
-            const days = popup.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-day`);
-            if (days.length >= 10) {
-                days[3].click();
+            // 与 dateRange 用例同理：只选当前月份且未禁用的日期，避免补位/禁用日期
+            const now = new Date();
+            const monthPrefix = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+            const days = Array.from(
+                popup.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-day[aria-label]`)
+            ).filter(day => {
+                const label = day.getAttribute('aria-label');
+                return label && label.startsWith(monthPrefix) && day.getAttribute('aria-disabled') !== 'true';
+            });
+            if (days.length >= 2) {
+                days[0].click();
                 await sleep(100);
-                days[8].click();
+                days[days.length - 1].click();
                 await sleep(100);
             }
         }

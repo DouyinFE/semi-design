@@ -139,7 +139,7 @@ export class CompleteWidget {
         });
 
         // 清空并添加新的建议
-        this._suggestionsContainer.innerHTML = '';
+        this._suggestionsContainer.textContent = '';
         this._renderCompletions();
     }
 
@@ -204,16 +204,19 @@ export class CompleteWidget {
 
     private _renderCompletions() {
         const className = `${this._view.prefixCls}-complete-suggestions-item`;
-        this._suggestionsContainer.innerHTML = this._suggestions
-            .map(
-                (item, index) => `
-        <li class="${className}" style="background-color: ${index === this._selectedIndex ? 'var(--semi-color-fill-0)' : 'transparent'
-}" data-index="${index}">
-            ${item.label}
-        </li>
-    `
-            )
-            .join('');
+        const fragment = document.createDocumentFragment();
+
+        this._suggestions.forEach((item, index) => {
+            const suggestionItem = document.createElement('li');
+            suggestionItem.className = className;
+            suggestionItem.style.backgroundColor = index === this._selectedIndex ? 'var(--semi-color-fill-0)' : 'transparent';
+            suggestionItem.dataset.index = index.toString();
+            suggestionItem.textContent = item.label;
+            fragment.appendChild(suggestionItem);
+        });
+
+        this._suggestionsContainer.textContent = '';
+        this._suggestionsContainer.appendChild(fragment);
     }
 
     public hide() {

@@ -23,7 +23,9 @@ export interface DragMoveProps {
     // Return true to trigger dragging. Return false to not trigger dragging.
     allowMove?: (e: MouseEvent | TouchEvent, element: HTMLElement) => boolean;
     // customize move behavior
-    customMove?: (e: HTMLElement, top: number, left: number) => void
+    customMove?: (e: HTMLElement, top: number, left: number) => void;
+    // Use relative positioning to preserve the element's original layout position.
+    positionStrategy?: 'absolute' | 'relative'
 }
 
 export default class DragMove extends BaseComponent<DragMoveProps> {
@@ -36,6 +38,7 @@ export default class DragMove extends BaseComponent<DragMoveProps> {
         constrainer: PropTypes.oneOfType([PropTypes.func, PropTypes.oneOf(['parent'])]),
         allowMove: PropTypes.func,
         customMove: PropTypes.func,
+        positionStrategy: PropTypes.oneOf(['absolute', 'relative']),
         onMouseDown: PropTypes.func,
         onMouseMove: PropTypes.func,
         onMouseUp: PropTypes.func,
@@ -49,6 +52,7 @@ export default class DragMove extends BaseComponent<DragMoveProps> {
 
     static defaultProps = {
         allowInputDrag: false,
+        positionStrategy: 'absolute',
     };
 
     constructor(props: DragMoveProps) {
@@ -120,6 +124,12 @@ export default class DragMove extends BaseComponent<DragMoveProps> {
         this.foundation.destroy();
     }
 
+    componentDidUpdate(prevProps: DragMoveProps): void {
+        if (prevProps.positionStrategy !== this.props.positionStrategy) {
+            this.foundation.updatePositionStrategy();
+        }
+    }
+
     render() {
         const { children } = this.props;
         const newChildren = React.cloneElement(children, {
@@ -136,4 +146,3 @@ export default class DragMove extends BaseComponent<DragMoveProps> {
         return newChildren;
     }
 }
- 
