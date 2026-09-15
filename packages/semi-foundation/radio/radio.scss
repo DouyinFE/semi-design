@@ -236,6 +236,15 @@ $inner-width: $width-icon-medium;
                 width: 100%;
                 height: 100%;
                 font-size: 14px;
+
+                // #3350: 显式设置 svg 尺寸并 block 化，替代 svg 自带的 width/height="1em"。
+                // Safari 对以 em 指定尺寸的内联 SVG 存在渲染偏差，会导致 checked 状态
+                // 的白点视觉偏移；100% 让 svg 与图标容器严格同尺寸，无偏移空间。
+                svg {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                }
             }
         }
     }
