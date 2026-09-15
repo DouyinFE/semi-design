@@ -389,9 +389,11 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     };
                     // #3354: body 的高度通常只是内容高度，而弹层实际可显示区域是视口；
                     // 用 body 边界做溢出判断会把正常能放下的弹层误判为溢出并 pin 到错误位置。
+                    // 这里使用 clientWidth/clientHeight（视口内容区，不含滚动条），
+                    // 避免在 Windows/Linux 经典滚动条下弹层贴边时被滚动条遮挡。
                     if (container === document.body) {
-                        rect.right = Math.max(boundingRect.right, window.innerWidth);
-                        rect.bottom = Math.max(boundingRect.bottom, window.innerHeight);
+                        rect.right = Math.max(boundingRect.right, document.documentElement.clientWidth);
+                        rect.bottom = Math.max(boundingRect.bottom, document.documentElement.clientHeight);
                     }
                 }
 
