@@ -46,7 +46,7 @@ function Demo() {
 
 ### Text
 
-Text component has different built-in styles. You could also pass `icon` to use the build-in styles for icon. Different from passing icon to children, using `icon` for link will have no underline in compliance with Semi Design principles.
+Text component has different built-in styles. You could also pass `icon` to use the built-in styles for icon. Different from passing icon to children, using `icon` for link will have no underline in compliance with Semi Design principles.
 
 ```jsx live=true
 import React from 'react';
@@ -427,7 +427,7 @@ function Demo() {
             <Text 
                 ellipsis={{ 
                     showTooltip: {
-                        opts: { content: 'Insfrastructure|Data-inf|bytegraph.cheetah.user_relation' }
+                        opts: { content: 'Infrastructure|Data-inf|bytegraph.cheetah.user_relation' }
                     }
                 }}
                 style={{ width: 150 }}
@@ -438,7 +438,7 @@ function Demo() {
             <Text 
                 ellipsis={{ 
                     showTooltip: {
-                        opts: { content: 'Insfrastructure|Data-inf|bytegraph.cheetah.user_relation', className: 'components-typography-demo' }
+                        opts: { content: 'Infrastructure|Data-inf|bytegraph.cheetah.user_relation', className: 'components-typography-demo' }
                     }
                 }}
                 style={{ width: 150 }}
@@ -449,7 +449,7 @@ function Demo() {
             <Text 
                 ellipsis={{
                     showTooltip: {
-                        opts: { content: 'Insfrastructure|Data-inf|bytegraph.cheetah.user_relation', style: { wordBreak: 'break-all' } }
+                        opts: { content: 'Infrastructure|Data-inf|bytegraph.cheetah.user_relation', style: { wordBreak: 'break-all' } }
                     }
                 }}
                 style={{ width: 150 }}

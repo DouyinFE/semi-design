@@ -1677,7 +1677,7 @@ render(DefaultChat);
 
 | PROPERTIES | INSTRUCTIONS | TYPE | DEFAULT |
 |------|--------|-------|-------|
-| type | type,  suport `text` \| `image_url` \| `file_url`  | string | - |
+| type | type,  support `text` \| `image_url` \| `file_url`  | string | - |
 | text | Content data when type is `text` | string | - |
 | image_url | Content data when type is `image_url` | { url: string } | - |
 | file_url | Content data when type is `file_url` | { url: string; name: string; size: string; type: string } | - |

@@ -1253,7 +1253,7 @@ interface Default TreeProps {
     disableStrictly:true,
     leafOnly:true,
     filterTreeNode:true,
-    searchRender:flase,
+    searchRender:false,
 
 }
 ```

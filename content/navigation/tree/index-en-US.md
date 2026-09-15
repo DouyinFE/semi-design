@@ -2389,7 +2389,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | searchClassName     | Classname property for search box  | string                      | -       | - |
 | searchPlaceholder   | Placeholder for search box         | string                      | -       | - |
 | searchRender | Custom method to render search input; hide search box if set to false(**V>=1.0.0**) | ((searchRenderProps: object) => ReactNode) \| false | - | 0.35.0 |
-| searchStyle         | Style for for search box           | CSSProperties                      | -       | - |
+| searchStyle         | Style for search box           | CSSProperties                      | -       | - |
 | showClear   | Toggle whether to support clear input box | boolean                     | true   | 0.35.0|
 | showFilteredOnly | Toggle whether to displayed filtered result only in search mode | boolean | false | 0.32.0 |
 | showLine | show line between tree nodes | boolean | false | 2.50.0 |

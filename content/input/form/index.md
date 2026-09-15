@@ -1222,7 +1222,7 @@ class FormLevelValidateSync extends React.Component {
             errors.sex = 'must be woman';
         }
         errors.familyName = [
-            { before: 'before errror balabala ', after: 'after error balabala' },
+            { before: 'before error balabala ', after: 'after error balabala' },
             'familyName[1] error balabala'
         ];
         return errors;
@@ -2525,7 +2525,7 @@ const { ErrorMessage } = Form;
 | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
 | valueKey          | 组件表示值的属性，如 Switch、Radio 的是'checked'，Input 的是'value'                                                                                                                                                                           | 'value'    |
 | onKeyChangeFnName | 组件值变化时的回调函数，一般为'onChange'                                                                                                                                                                                                      | 'onChange' |
-| valuePath         | 值属性在回调函数中第一个参数的路径,如 Radio 的 onChange(e.target.checked)，那么该值需要设为 target.checkd；RadioGroup 的 onChange(e.target.value)，该值为'target.value'；若第一个参数就是值本身，无需再往下取值，该项不需要设                 |            |
+| valuePath         | 值属性在回调函数中第一个参数的路径,如 Radio 的 onChange(e.target.checked)，那么该值需要设为 target.checked；RadioGroup 的 onChange(e.target.value)，该值为'target.value'；若第一个参数就是值本身，无需再往下取值，该项不需要设                 |            |
 
 ## Accessibility
 

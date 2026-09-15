@@ -457,7 +457,7 @@ import { Tag, SplitTagGroup, Space } from '@douyinfe/semi-ui';
 
 ### ARIA
 
-- `aria-label` is used to indicate the role of `Tag`, for deleteable or clickable `Tag` , we recommend using this attribute
+- `aria-label` is used to indicate the role of `Tag`, for deletable or clickable `Tag`, we recommend using this attribute
 
 ### Keyboard and Focus
 

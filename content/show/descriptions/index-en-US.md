@@ -6,7 +6,7 @@ title: Description
 subTitle: Descriptions
 icon: doc-descriptions
 dir: column
-breif: The description list is used to render key-value pairs.
+brief: The description list is used to render key-value pairs.
 ---
 
 ## Demos
@@ -29,7 +29,7 @@ import { Descriptions, Tag } from '@douyinfe/semi-ui';
 () => {
     const data = [
         { key: 'Actual Users', value: '1,480,000' },
-        { key: '7-day Rentention', value: '98%' },
+        { key: '7-day Retention', value: '98%' },
         { key: 'Security Level', value: 'III' },
         { key: 'Category Tag', value: <Tag style={{ margin: 0 }}>E-commerce</Tag> },
         { key: 'Authorized State', value: 'Unauthorized' },
@@ -50,7 +50,7 @@ import { Descriptions, Tag } from '@douyinfe/semi-ui';
 () => {
     const data = [
         { key: 'Actual Users', value: '1,480,000' },
-        { key: '7-day Rentention', value: '98%' },
+        { key: '7-day Retention', value: '98%' },
         { key: 'Security Level', value: 'III' },
         { key: 'Category Tag', value: <Tag style={{ margin: 0 }}>E-commerce</Tag> },
         { key: 'Authorized State', value: 'Unauthorized' },
@@ -89,7 +89,7 @@ import { IconArrowUp } from '@douyinfe/semi-icons';
     const data = [
         { key: 'Actual Users', value: '1,480,000' },
         {
-            key: '7-day Rentention',
+            key: '7-day Retention',
             value: (
                 <span>
                     98%
@@ -129,7 +129,7 @@ import { Descriptions } from '@douyinfe/semi-ui';
     return (
         <Descriptions>
             <Descriptions.Item itemKey="Actual Users">1,480,000</Descriptions.Item>
-            <Descriptions.Item itemKey="7-day Rentention">98%</Descriptions.Item>
+            <Descriptions.Item itemKey="7-day Retention">98%</Descriptions.Item>
             <Descriptions.Item itemKey="Security Level">III</Descriptions.Item>
             <Descriptions.Item itemKey="Category Tag">E-commerce</Descriptions.Item>
             <Descriptions.Item itemKey="Authorized State">Unauthorized</Descriptions.Item>

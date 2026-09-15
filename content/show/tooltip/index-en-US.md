@@ -399,7 +399,7 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
   - about content
       - The wrapper of content will be automatically added with id attribute to match the `aria-describedby` of children and associate content with children
   - about children
-       - There should be an explicit connection between the content of the Tooltip and its children. Tooltip will automatically add the `aria-describedby` attribute to the children element, the value is the id of the content wraper. 
+       - There should be an explicit connection between the content of the Tooltip and its children. Tooltip will automatically add the `aria-describedby` attribute to the children element, the value is the id of the content wrapper.
        - If the children of your Tooltip are Icon and do not contain visible text, we recommend that you add the `aria-label` attribute to the children to describe accordingly 
 
 ```js

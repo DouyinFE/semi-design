@@ -330,17 +330,17 @@ function ModalDemo() {
     {
       icon: <IconSemiLogo style={{ fontSize: 48 }} />,
       title: 'Boost new feature adoption with Integration',
-      content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
+      content: 'Sample data is prepared for you to demonstrate how Integration may be useful for your team'
     },
     {
       icon: <IconVigoLogo style={{ fontSize: 48 }} />,
       title: 'Introducing Dark Mode',
-      content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
+      content: 'Sample data is prepared for you to demonstrate how Integration may be useful for your team'
     },
     {
       icon: <IconSemiLogo style={{ fontSize: 48 }} />,
       title: 'New List Component',
-      content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
+      content: 'Sample data is prepared for you to demonstrate how Integration may be useful for your team'
     },
   ];
   const btnStyle = {
