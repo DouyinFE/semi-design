@@ -16996,7 +16996,7 @@ jake@^10.8.5:
     filelist "^1.0.4"
     minimatch "^3.1.2"
 
-jest-canvas-mock@~2.5.2:
+jest-canvas-mock@2.5.8:
   version "2.5.8"
   resolved "https://registry.yarnpkg.com/jest-canvas-mock/-/jest-canvas-mock-2.5.8.tgz#f9b44e2957dd6be1e2af11f3ce5cccf97bc13993"
   integrity sha512-RUZRaFHCnLjg0/UAodCai5PTsa7kQI1rUXE5wsQu9f2315dh2YSN7/i3fObTycs7PO09DLSiGXiJTALYIw2yuw==
@@ -24272,13 +24272,6 @@ rst-selector-parser@^2.2.3:
   dependencies:
     lodash.flattendeep "^4.4.0"
     nearley "^2.7.10"
-
-rstest-canvas-mock@0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/rstest-canvas-mock/-/rstest-canvas-mock-0.0.6.tgz#eb20049ec40828c937643b46175db85562461dfc"
-  integrity sha512-o4jx7SkI43DMsg8LiZ8/F9UCtYcS5NUtHO5S0RYm+s8swlvlV+GyVGJyDdYJfSw/yawFGrarii5BMiKqasXt/w==
-  dependencies:
-    jest-canvas-mock "~2.5.2"
 
 run-async@^2.2.0, run-async@^2.4.0:
   version "2.4.1"

@@ -338,8 +338,8 @@ describe('modal', () => {
     });
 
     it('esc closes only the top-most modal when multiple are open', () => {
-        const onCancelOuter = jest.fn();
-        const onCancelInner = jest.fn();
+        const onCancelOuter = rs.fn();
+        const onCancelInner = rs.fn();
         class StackedModals extends React.Component {
             state = {
                 outerVisible: true,

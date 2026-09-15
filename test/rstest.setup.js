@@ -1,6 +1,6 @@
 import enzymeMatchers from 'enzyme-matchers';
 import enzymeSerializer from 'enzyme-to-json/serializer';
-import 'rstest-canvas-mock';
+import './canvas.setup';
 import './setup';
 
 expect.addSnapshotSerializer(enzymeSerializer);
