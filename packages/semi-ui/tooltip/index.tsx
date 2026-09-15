@@ -204,6 +204,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     scrollHandler: any;
     popupResizeObserver: ResizeObserver;
     popupResizeTimer: ReturnType<typeof setTimeout>;
+    popupSizeStabilizeTimer: ReturnType<typeof setTimeout>;
     getPopupContainer: () => HTMLElement;
     containerPosition: string;
     foundation: TooltipFoundation;
@@ -291,6 +292,18 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                                     emit();
                                 }
                             };
+                            // #3354: 等待 popup 尺寸稳定后再做首次定位。
+                            // DatePicker 等内容会先以较小的非零尺寸完成初次布局，
+                            // 若此时立即定位（快路径或首次 RO 回调），尺寸扩展后会因
+                            // 溢出判定变化而翻转，视觉上表现为位置跳变（闪烁）。
+                            const scheduleStableEmit = () => {
+                                clearTimeout(this.popupSizeStabilizeTimer);
+                                this.popupSizeStabilizeTimer = setTimeout(() => {
+                                    if (!emitted && this.cachedLatestTransitionState === 'enter') {
+                                        emitOnce();
+                                    }
+                                }, 32);
+                            };
                             const ro = new ResizeObserver(() => {
                                 const width = el.offsetWidth;
                                 const height = el.offsetHeight;
@@ -301,7 +314,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                                 lastWidth = width;
                                 lastHeight = height;
                                 if (!emitted) {
-                                    emitOnce();
+                                    scheduleStableEmit();
                                 } else if (sizeChanged && this.cachedLatestTransitionState === 'enter') {
                                     clearTimeout(this.popupResizeTimer);
                                     this.popupResizeTimer = setTimeout(() => {
@@ -314,14 +327,14 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                             this.popupResizeObserver = ro;
                             ro.observe(el);
                             if (lastWidth > 0 && lastHeight > 0) {
-                                emitOnce();
+                                scheduleStableEmit();
                             }
-                            // Safety net: bail out after 50ms even if RO never fires
+                            // Safety net: bail out after 100ms even if RO never fires
                             setTimeout(() => {
                                 if (!emitted) {
                                     emitOnce();
                                 }
-                            }, 50);
+                            }, 100);
                             return;
                         }
                         // Fallback for browsers without ResizeObserver.
@@ -374,6 +387,12 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         scrollLeft: container.scrollLeft,
                         scrollTop: container.scrollTop,
                     };
+                    // #3354: body 的高度通常只是内容高度，而弹层实际可显示区域是视口；
+                    // 用 body 边界做溢出判断会把正常能放下的弹层误判为溢出并 pin 到错误位置。
+                    if (container === document.body) {
+                        rect.right = Math.max(boundingRect.right, window.innerWidth);
+                        rect.bottom = Math.max(boundingRect.bottom, window.innerHeight);
+                    }
                 }
 
                 return rect;
@@ -586,6 +605,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
     disconnectPopupResizeObserver = () => {
         clearTimeout(this.popupResizeTimer);
+        clearTimeout(this.popupSizeStabilizeTimer);
         this.popupResizeObserver?.disconnect();
         this.popupResizeObserver = null;
     };
