@@ -11,7 +11,8 @@ on:
     workflow_dispatch:
 
 jobs:
-    jest:
+    unit-test:
+        name: Unit test
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -20,5 +21,5 @@ jobs:
                   node-version: '20'
             - name: Run install
               run: npm i -g lerna@^6 && npm run bootstrap
-            - name: Run Jest test
+            - name: Run unit tests
               run: npm run test:unit

@@ -3,7 +3,7 @@ import sinon from 'sinon';
 
 describe('BackTop', () => {
     beforeEach(() => {
-        jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb());
+        rs.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb());
       });
       
     afterEach(() => {

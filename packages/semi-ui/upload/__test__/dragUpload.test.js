@@ -39,7 +39,7 @@ const createEvent = files => {
 describe('Drag Upload', () => {
     let requests;
     let xhr;
-    window.URL.createObjectURL = jest.fn();
+    window.URL.createObjectURL = rs.fn();
 
     beforeEach(() => {
         xhr = sinon.useFakeXMLHttpRequest();

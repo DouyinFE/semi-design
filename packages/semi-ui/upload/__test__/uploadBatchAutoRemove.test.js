@@ -172,8 +172,8 @@ describe('Upload foundation - batched autoRemove (#3335)', () => {
         };
         const originalXMLHttpRequest = global.XMLHttpRequest;
         const originalFormData = global.FormData;
-        global.XMLHttpRequest = jest.fn();
-        global.FormData = jest.fn();
+        global.XMLHttpRequest = rs.fn();
+        global.FormData = rs.fn();
         try {
             const { foundation, flush } = createFoundation({
                 initialFileList: [fileA, fileB],

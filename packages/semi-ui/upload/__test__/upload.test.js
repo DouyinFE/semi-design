@@ -69,8 +69,8 @@ const defaultFileList = [
 describe('Upload', () => {
     let requests;
     let xhr;
-    window.URL.createObjectURL = jest.fn();
-    window.URL.revokeObjectURL = jest.fn();
+    window.URL.createObjectURL = rs.fn();
+    window.URL.revokeObjectURL = rs.fn();
 
     beforeEach(() => {
         xhr = sinon.useFakeXMLHttpRequest();
@@ -571,7 +571,7 @@ describe('Upload', () => {
         upload.unmount();
     });
 
-    it('should not revoke objectURL on unmount in controlled mode', done => {
+    it('should not revoke objectURL on unmount in controlled mode', () => new Promise(resolve => {
         // Simulate issue scenario: controlled fileList + Upload unmount/remount
         const objUrl = 'blob:semi-upload-test-url';
         window.URL.createObjectURL.mockImplementation(() => objUrl);
@@ -625,11 +625,11 @@ describe('Upload', () => {
             // fileList still kept in wrapper state
             expect(wrapper.state('fileList').length).toEqual(1);
             wrapper.unmount();
-            done();
+            resolve();
         });
-    });
+    }));
 
-    it('should revoke objectURL when remove/clear', done => {
+    it('should revoke objectURL when remove/clear', () => new Promise(resolve => {
         const objUrl = 'blob:semi-upload-test-url-2';
         window.URL.createObjectURL.mockImplementation(() => objUrl);
 
@@ -657,12 +657,12 @@ describe('Upload', () => {
                 expect(window.URL.revokeObjectURL).toHaveBeenCalled();
                 upload.unmount();
                 upload2.unmount();
-                done();
+                resolve();
             });
         });
-    });
+    }));
 
-    it('should revoke all objectURLs when selecting multiple files then clear', done => {
+    it('should revoke all objectURLs when selecting multiple files then clear', () => new Promise(resolve => {
         const urlMap = {
             'a.png': 'blob:multi-a',
             'b.png': 'blob:multi-b',
@@ -686,9 +686,9 @@ describe('Upload', () => {
             const revoked = window.URL.revokeObjectURL.mock.calls.map(args => args[0]);
             expect(revoked).toEqual(expect.arrayContaining(['blob:multi-a', 'blob:multi-b']));
             upload.unmount();
-            done();
+            resolve();
         });
-    });
+    }));
 
     it('afterUpload', () => {
         // afterUploadResult:
@@ -900,7 +900,7 @@ describe('Upload', () => {
         });
     });
 
-    it('beforeRemove effects', () => {
+    it('beforeRemove effects', async () => {
         const props = {
             fileList: [
                 {
@@ -941,16 +941,15 @@ describe('Upload', () => {
         removeBtn.simulate('click', event);
         removeBtnPass.simulate('click', event);
 
-        setTimeout(() => {
-            expect(spyOnChange.callCount).toEqual(0);
-            expect(spyOnRemove.callCount).toEqual(0);
+        await Promise.resolve();
+        expect(spyOnChange.callCount).toEqual(0);
+        expect(spyOnRemove.callCount).toEqual(0);
 
-            expect(spyOnChangePass.callCount).toEqual(1);
-            expect(Array.isArray(spyOnChangePass.firstCall.args[0].fileList)).toEqual(true);
-            expect(spyOnChangePass.firstCall.args[0].fileList.length).toEqual(0);
-            expect(spyOnRemovePass.callCount).toEqual(1);
-            expect(spyOnRemovePass.firstCall.args[0].uid).toEqual('1');
-        });
+        expect(spyOnChangePass.callCount).toEqual(1);
+        expect(Array.isArray(spyOnChangePass.firstCall.args[0].fileList)).toEqual(true);
+        expect(spyOnChangePass.firstCall.args[0].fileList.length).toEqual(0);
+        expect(spyOnRemovePass.callCount).toEqual(1);
+        expect(spyOnRemovePass.firstCall.args[2].uid).toEqual('1');
     });
 
     it('beforeClear effects', () => {

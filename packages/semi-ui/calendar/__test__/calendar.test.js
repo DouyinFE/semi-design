@@ -39,13 +39,13 @@ describe('Calendar', () => {
     })
 
     it('prop onClick', () => {
-        const clickHandler = jest.fn();
+        const clickHandler = rs.fn();
         let weekWrapper = mount(<Calendar onClick={clickHandler} mode='week'  />)
         expect(clickHandler).toHaveBeenCalledTimes(0)
         weekWrapper.find('.semi-calendar-grid-skeleton-row-line').at(0).simulate('click')
         expect(clickHandler).toHaveBeenCalledTimes(1)
 
-        const clickHandler2 = jest.fn();
+        const clickHandler2 = rs.fn();
         let monthWrapper = mount(<Calendar onClick={clickHandler2} mode='month'  />)
         expect(clickHandler2).toHaveBeenCalledTimes(0)
         monthWrapper.find('.semi-calendar-month-skeleton li').at(0).simulate('click')

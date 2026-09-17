@@ -175,7 +175,7 @@ describe('Form-field', () => {
         form.find(`.${BASE_CLASS_PREFIX}-input`).simulate('change', successEvent);
         expect(form.exists(`.${BASE_CLASS_PREFIX}-form-field-error-message`)).toEqual(false);
     });
-    it('validate-async', done => {
+    it('validate-async', () => new Promise(resolve => {
         const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
         const validate = val => {
             return sleep(50).then(() => {
@@ -217,10 +217,10 @@ describe('Form-field', () => {
             expect(spyValidate.secondCall.calledWithMatch('semi')).toEqual(true);
             expect(formApi.getError('name')).toEqual(undefined);
             expect(form.exists(`.${BASE_CLASS_PREFIX}-form-field-error-message`)).toEqual(false);
-            done();
+            resolve();
         }, 800);
-    });
-    it('rules', done => {
+    }));
+    it('rules', () => new Promise(resolve => {
         // rules work
         let fieldProps = {
             field: 'name',
@@ -253,9 +253,9 @@ describe('Form-field', () => {
         setTimeout(() => {
             // console.log(formApi);
             expect(form.find(`.${BASE_CLASS_PREFIX}-form-field-error-message`).text()).toEqual('not muji');
-            done();
+            resolve();
         }, 200);
-    });
+    }));
     it('transform', () => {
         const transform = stringVal => {
             return Number(stringVal);
@@ -308,7 +308,7 @@ describe('Form-field', () => {
         expect(formApi.getValue('count')).toEqual(5);
     });
 
-    it('trigger - mounted / change / blur ', done => {
+    it('trigger - mounted / change / blur ', () => new Promise(resolve => {
         const validate = val => (val !== 'semi' ? 'invalid' : '');
         const propsChange = {
             trigger: 'change',
@@ -346,11 +346,11 @@ describe('Form-field', () => {
             form.update();
             expect(form.find(`.a .${BASE_CLASS_PREFIX}-form-field-error-message`).text()).toEqual('invalid');
             expect(form.find(`.b .${BASE_CLASS_PREFIX}-form-field-error-message`).text()).toEqual('invalid');
-            done();
+            resolve();
         }, 100);
-    });
+    }));
 
-    it('trigger - change & blur', done => {
+    it('trigger - change & blur', () => new Promise(resolve => {
         const validate = val => {
             if (val === 'changeVal') {
                 return 'changeError';
@@ -384,9 +384,9 @@ describe('Form-field', () => {
         setTimeout(() => {
             form.update();
             expect(form.find(`.a .${BASE_CLASS_PREFIX}-form-field-error-message`).text()).toEqual('blurError');
-            done();
+            resolve();
         }, 100);
-    });
+    }));
 
     it('field', () => {
         // 1、username
