@@ -13,7 +13,7 @@
         "packages/semi-ui",
         "packages/semi-webpack"
     ],
-    "node": "20",
+    "node": "22",
     "sandboxes": [
         "/.codesandbox/examples/pr-story",
         "oubej"
