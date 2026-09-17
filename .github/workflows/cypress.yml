@@ -35,7 +35,7 @@ jobs:
                   corepack enable
             - name: Build storybook
               run: |
-                  yarn bootstrap
+                  yarn bootstrap -- --ignore-engines
                   yarn build:lib
                   yarn build-storybook
             - name: Save build folder
