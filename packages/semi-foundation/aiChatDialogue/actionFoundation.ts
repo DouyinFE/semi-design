@@ -3,7 +3,7 @@ import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 export interface DialogueActionAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     notifyDeleteMessage: () => void;
     notifyMessageCopy: () => void;
-    copyToClipboardAndToast: () => void;
+    copyToClipboardAndToast: () => Promise<void>;
     notifyLikeMessage: () => void;
     notifyDislikeMessage: () => void;
     notifyResetMessage: () => void;
@@ -24,9 +24,9 @@ export default class DialogueActionFoundation <P = Record<string, any>, S = Reco
         this._adapter.unregisterClickOutsideHandler();
     }
 
-    copyMessage = () => {
+    copyMessage = async () => {
         this._adapter.notifyMessageCopy();
-        this._adapter.copyToClipboardAndToast(); 
+        await this._adapter.copyToClipboardAndToast(); 
     }
 
     resetMessage = () => {
