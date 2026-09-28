@@ -1,6 +1,6 @@
 ---
 name: semi-design-guide
-description: 使用 Semi Design 组件的完整指南，包括 MCP 工具使用流程、常见模式、生成页面后的验证和最佳实践。当你需要查询 Semi Design 组件、生成或验证组件页面、解决使用问题时，请使用此技能。
+description: 使用 Semi Design 组件的完整指南，包括 MCP 工具使用流程、常见模式、生成页面后的验证和最佳实践。当你需要查询 Semi Design 组件、生成组件页面或解决使用问题时，请使用此技能。
 ---
 
 # Semi Design 使用指南
@@ -19,7 +19,7 @@ description: 使用 Semi Design 组件的完整指南，包括 MCP 工具使用�
 - MCP 工具概览：介绍 `get_semi_document`、`get_component_file_list`、`get_file_code`、`get_function_code` 四个工具的功能和使用场景
 - 基础查询流程：查找组件 → 查询详情 → 查看源码 → 查看函数实现的四步走流程
 - 完整任务示例：包含 Table 筛选、表单验证、级联选择器、拖拽排序等常见场景的详细步骤
-- 渲染后验证：启动本地预览，用浏览器完成关键操作并检查可见结果
+- 渲染后验证：优先复用项目现有测试；需要视觉语义验证时可选用 Midscene
 - 常用查询技巧：指定版本查询、获取完整代码、错误排查流程等
 
 **何时使用**：当你需要查询组件文档、了解组件 API、实现某个具体功能但不确定如何下手时。
