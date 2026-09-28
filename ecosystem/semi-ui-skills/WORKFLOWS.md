@@ -184,9 +184,11 @@
 如果项目已配置 [Midscene 模型](https://midscenejs.com/model-config)，可以用浏览器对预览页面做语义操作和断言。下面是一个可复制的最小脚本，放在使用该 Skill 的项目中运行：
 
 ```bash
-npm install --save-dev @midscene/web playwright
+npm install --save-dev @midscene/web playwright @playwright/test
 npx playwright install chromium
 ```
+
+`@midscene/web/playwright` 会加载 `@playwright/test`；直接使用 `PlaywrightAgent` 时也需要安装它。
 
 ```js
 // verify-ui.mjs
