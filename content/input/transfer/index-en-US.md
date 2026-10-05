@@ -1557,9 +1557,3 @@ Some internal methods provided by Transfer can be accessed through ref:
 
 ## Design Tokens
 <DesignToken/>
-
-## Related materials
-
-```material
-52
-```
