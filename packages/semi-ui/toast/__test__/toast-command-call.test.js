@@ -62,8 +62,9 @@ describe('Toast - 2', () => {
         expect(style.right).toEqual('40px');
     });
 
-    it('set global config', () => {
+    it('set global config', async () => {
         Toast.destroyAll();
+        await Promise.resolve();
         Toast.config({
             theme: 'light',
             duration: 0,

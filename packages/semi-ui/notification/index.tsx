@@ -183,16 +183,19 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
 
     static destroyAll() {
         if (ref) {
-            ref.destroyAll();
+            const instance = ref;
             const wrapper = document.querySelector(`#${this.wrapperId}`);
-            
-            if (wrapper) {
-                reactUnmount(wrapper);
-                wrapper.parentNode?.removeChild(wrapper);
-            }
-            
+            wrapper?.removeAttribute('id');
             ref = null;
             this.wrapperId = null;
+
+            Promise.resolve().then(() => {
+                instance.destroyAll();
+                if (wrapper) {
+                    reactUnmount(wrapper);
+                    wrapper.parentNode?.removeChild(wrapper);
+                }
+            });
         }
     }
 

@@ -3,6 +3,8 @@ import { Icon, Modal } from '../../index';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 
 import { IconSend } from '@douyinfe/semi-icons';
+import * as reactRender from '../../_utils/reactRender';
+import { destroyFns } from '../Modal';
 
 
 function getModal(modalProps, children) {
@@ -183,6 +185,40 @@ describe('modal', () => {
         modal.update({ 'title': 'Updated Semi', 'content': 'Updated Content' });
         expect(modalDom.querySelector(`.${BASE_CLASS_PREFIX}-modal-confirm-title-text`).textContent).toEqual('Updated Semi');
         expect(modalDom.querySelector(`.${BASE_CLASS_PREFIX}-modal-confirm-content`).textContent).toEqual('Updated Content');
+    });
+
+    it.each(['confirm', 'cancel', 'destroy'])('defers disposal after %s until the close commit finishes', async action => {
+        const renderSpy = jest.spyOn(reactRender, 'render');
+        const unmountSpy = jest.spyOn(reactRender, 'unmount');
+        const afterClose = jest.fn();
+        const pendingBefore = destroyFns.length;
+        const instance = Modal.confirm({ title: 'Semi', content: 'Content', motion: false, afterClose });
+        const container = renderSpy.mock.calls[0][1];
+
+        try {
+            if (action === 'destroy') {
+                instance.destroy();
+                instance.destroy();
+            } else {
+                document.querySelector(`.${BASE_CLASS_PREFIX}-modal-confirm button[aria-label="${action}"]`).click();
+            }
+
+            expect(afterClose).toHaveBeenCalledTimes(1);
+            expect(unmountSpy).not.toHaveBeenCalled();
+            expect(container.isConnected).toBe(true);
+
+            await Promise.resolve();
+
+            expect(unmountSpy).toHaveBeenCalledTimes(1);
+            expect(unmountSpy).toHaveBeenCalledWith(container);
+            expect(container.isConnected).toBe(false);
+            expect(document.querySelector(`.${BASE_CLASS_PREFIX}-modal-confirm`)).toBeNull();
+            expect(destroyFns).toHaveLength(pendingBefore);
+            expect(afterClose).toHaveBeenCalledTimes(1);
+        } finally {
+            renderSpy.mockRestore();
+            unmountSpy.mockRestore();
+        }
     });
 
     // TODO: modal destroy

@@ -166,16 +166,19 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
 
     static destroyAll() {
         if (ToastList.ref) {
-            ToastList.ref.destroyAll();
+            const instance = ToastList.ref;
             const wrapper = document.querySelector(`#${this.wrapperId}`);
-            
-            if (wrapper) {
-                reactUnmount(wrapper);
-                wrapper.parentNode?.removeChild(wrapper);
-            }
-            
+            wrapper?.removeAttribute('id');
             ToastList.ref = null;
             this.wrapperId = null;
+
+            Promise.resolve().then(() => {
+                instance.destroyAll();
+                if (wrapper) {
+                    reactUnmount(wrapper);
+                    wrapper.parentNode?.removeChild(wrapper);
+                }
+            });
         }
     }
     static getWrapperId() {
