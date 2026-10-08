@@ -177,6 +177,56 @@
 3. **查看拖拽相关源码**
 4. **生成带拖拽功能的 Table 代码**
 
+## 生成后验证渲染与交互
+
+生成组件代码后，先运行项目现有的构建或类型检查，再启动本地预览。根据需求写出一个可观察的操作和结果，例如“空表单点击提交后，必填项显示错误提示”。优先复用项目已有的组件测试或浏览器测试来检查这个结果。
+
+### 可选：使用 Midscene 做视觉语义验证
+
+如果生成页面的结构经常变化，固定选择器难以维护，并且项目已有可用的视觉模型，可以用 Midscene 对本地预览做语义操作和断言。这一步需要单独[配置模型](https://midscenejs.com/model-config)，会产生模型调用费用；使用 Semi Skill 本身不需要安装 Midscene。
+
+下面是一个可复制的最小脚本，放在需要视觉验证的项目中运行：
+
+```bash
+npm install --save-dev @midscene/web playwright @playwright/test
+npx playwright install chromium
+```
+
+`@midscene/web/playwright` 会加载 `@playwright/test`；直接使用 `PlaywrightAgent` 时也需要安装它。
+
+```js
+// verify-ui.mjs
+import { chromium } from 'playwright';
+import { PlaywrightAgent } from '@midscene/web/playwright';
+
+const { PREVIEW_URL, UI_ACTION, UI_EXPECTED } = process.env;
+if (!PREVIEW_URL || !UI_ACTION || !UI_EXPECTED) {
+    throw new Error('Set PREVIEW_URL, UI_ACTION and UI_EXPECTED before running');
+}
+
+const browser = await chromium.launch({ headless: true });
+try {
+    const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+    await page.goto(PREVIEW_URL, { waitUntil: 'domcontentloaded' });
+    const agent = new PlaywrightAgent(page);
+    await agent.aiAct(UI_ACTION);
+    await agent.aiAssert(UI_EXPECTED);
+} finally {
+    await browser.close();
+}
+```
+
+例如，验证生成的表单时，先用本地数据打开预览，再运行：
+
+```bash
+PREVIEW_URL=http://localhost:3000 \
+UI_ACTION='保持必填项为空，点击提交按钮' \
+UI_EXPECTED='表单仍然可见，必填项旁显示错误提示' \
+node verify-ui.mjs
+```
+
+断言失败时，查看 Midscene 生成的 [运行报告](https://midscenejs.com/integrate-with-playwright)，定位实际页面状态，修改代码后重新验证。涉及提交、上传等操作时，使用本地测试数据，避免触发真实服务。
+
 ## 常用查询技巧
 
 ### 1. 指定版本查询
