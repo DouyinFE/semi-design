@@ -91,7 +91,7 @@ describe('Form-onChange', () => {
     });
 
     // 4、field error status changed
-    it('onChange - trigger by field error status updated internal', done => {
+    it('onChange - trigger by field error status updated internal', () => new Promise(resolve => {
         const spyOnChange = sinon.spy(formState => {});
 
         const props = {
@@ -118,9 +118,9 @@ describe('Form-onChange', () => {
             // first called by value change
             expect(spyOnChange.callCount).toEqual(2);
             expect(spyOnChange.lastCall.calledWithMatch(expectFormState)).toEqual(true);
-            done();
+            resolve();
         }, 300);
-    });
+    }));
 
     // 5、field touched status changed
     it('onChange - trigger by touched status updated, internal', () => {

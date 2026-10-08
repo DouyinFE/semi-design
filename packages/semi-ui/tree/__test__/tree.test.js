@@ -954,8 +954,8 @@ describe('Tree', () => {
 
     it('async load data', () => {
         const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => { } } }
-        const then = jest.fn(() => Promise.resolve());
-        const loadData = jest.fn(() => ({ then }));
+        const then = rs.fn(() => Promise.resolve());
+        const loadData = rs.fn(() => ({ then }));
         const data = {
             label: '亚洲',
             value: 'Asia',
@@ -985,7 +985,7 @@ describe('Tree', () => {
         expect(spyOnDragStart.calledWithMatch({node: dragNodeData})).toEqual(true);
     });
 
-    it('DND - dragEnter event', (done) => {
+    it('DND - dragEnter event', () => new Promise(resolve => {
         const spyOnDragEnter = sinon.spy(() => { });
         let tree = getTree({
             draggable: true,
@@ -1003,9 +1003,9 @@ describe('Tree', () => {
         setTimeout(() => {
             expect(spyOnDragEnter.calledOnce).toBe(true);
             expect(spyOnDragEnter.calledWithMatch({node: dropNodeData, expandedKeys: ['beimeizhou']})).toEqual(true);
-            done();
+            resolve();
         }, 500);
-    });
+    }));
 
     it('DND - dragOver event', () => {
         const spyOnDragOver = sinon.spy(() => { });

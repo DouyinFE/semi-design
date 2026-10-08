@@ -96,8 +96,8 @@ describe(`Typography`, () => {
                 detach: () => {},
                 getBoundingClientRect: () => ({ width: textWidth }),
             });
-            HTMLElement.prototype.getBoundingClientRect = jest.fn(() => ({ width: containerWidth }));
-            window.getComputedStyle = jest.fn(() => ({
+            HTMLElement.prototype.getBoundingClientRect = rs.fn(() => ({ width: containerWidth }));
+            window.getComputedStyle = rs.fn(() => ({
                 paddingLeft: padding,
                 paddingRight: padding,
                 borderLeftWidth: border,

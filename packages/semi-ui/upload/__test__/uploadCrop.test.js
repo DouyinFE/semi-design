@@ -37,8 +37,8 @@ describe('Upload crop', () => {
     let requests;
 
     beforeAll(() => {
-        window.URL.createObjectURL = jest.fn(() => 'blob:mock');
-        window.URL.revokeObjectURL = jest.fn();
+        window.URL.createObjectURL = rs.fn(() => 'blob:mock');
+        window.URL.revokeObjectURL = rs.fn();
     });
 
     beforeEach(() => {
@@ -73,7 +73,7 @@ describe('Upload crop', () => {
     });
 
     it('beforeCrop returning false bypasses the cropper', async () => {
-        const beforeCrop = jest.fn(() => false);
+        const beforeCrop = rs.fn(() => false);
         const upload = getUpload({ crop: true, beforeCrop });
         trigger(upload, { target: { files: [createFile(100, 'avatar.png', 'image/png')] } });
         await sleep(50);

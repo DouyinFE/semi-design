@@ -722,8 +722,8 @@ describe('Cascader', () => {
 
     it('async load data', () => {
         const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => {} } };
-        const then = jest.fn(() => Promise.resolve());
-        const loadData = jest.fn(() => ({ then }));
+        const then = rs.fn(() => Promise.resolve());
+        const loadData = rs.fn(() => ({ then }));
         const data = {
             label: '亚洲',
             value: 'Asia',
@@ -2919,7 +2919,7 @@ describe('Cascader', () => {
 
     // 测试 renderIcon 返回 expandIcon (item.tsx line 172)
     it('renderIcon returns custom expandIcon', async () => {
-        const customIcon = <span className="custom-expand-icon">></span>;
+        const customIcon = <span className="custom-expand-icon">{'>'}</span>;
         const cascader = mount(
             <Cascader
                 treeData={treeData}

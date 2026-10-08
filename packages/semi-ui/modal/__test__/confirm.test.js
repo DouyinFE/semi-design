@@ -103,7 +103,7 @@ describe('modal', () => {
         expect(spyOnOk.calledOnce).toBe(true);
     });
 
-    it('confirm ok callback promise loading', (done) => {
+    it('confirm ok callback promise loading', () => new Promise(resolve => {
         let onOk = () => new Promise(resolve => {
             setTimeout(() => {
                 resolve();
@@ -119,11 +119,11 @@ describe('modal', () => {
         setTimeout(() => {
             debugger
             expect(modal.querySelectorAll(`.${BASE_CLASS_PREFIX}-button`)[2].classList.contains(`${BASE_CLASS_PREFIX}-button-loading`)).toEqual(false);
-            done();
+            resolve();
         }, 2000);
-    });
+    }));
 
-    it('confirm ok callback promise error', (done) => {
+    it('confirm ok callback promise error', () => new Promise(resolve => {
         const error = new Error('something wrong');
         let onOk = () => Promise.reject(error);
         let spyOnOk = sinon.spy(onOk);
@@ -138,11 +138,11 @@ describe('modal', () => {
             expect(modal.querySelectorAll(`.${BASE_CLASS_PREFIX}-button`)[2].classList.contains(`${BASE_CLASS_PREFIX}-button-loading`)).toEqual(false);
             expect(document.querySelector(`div.${BASE_CLASS_PREFIX}-modal`)).not.toEqual(null);
             // console.error.restore();
-            done();
+            resolve();
         }, 1000);
-    });
+    }));
 
-    it('confirm cancel callback promise loading', (done) => {
+    it('confirm cancel callback promise loading', () => new Promise(resolve => {
         let onCancel = () => new Promise(resolve => {
             setTimeout(() => {
                 resolve();
@@ -157,11 +157,11 @@ describe('modal', () => {
         expect(modal.querySelectorAll(`.${BASE_CLASS_PREFIX}-button`)[1].classList.contains(`${BASE_CLASS_PREFIX}-button-loading`)).toEqual(true);
         setTimeout(() => {
             expect(modal.querySelectorAll(`.${BASE_CLASS_PREFIX}-button`)[1].classList.contains(`${BASE_CLASS_PREFIX}-button-loading`)).toEqual(false);
-            done();
+            resolve();
         }, 2000);
-    });
+    }));
 
-    it('confirm cancel callback promise error', (done) => {
+    it('confirm cancel callback promise error', () => new Promise(resolve => {
         const error = new Error('something wrong');
         let onCancel = () => Promise.reject(error);
         let spyOnCancel = sinon.spy(onCancel);
@@ -173,9 +173,9 @@ describe('modal', () => {
         setTimeout(() => {
             // expect(spyLog.calledWithMatch(error)).toBe(true);
             // console.error.restore();
-            done();
+            resolve();
         }, 1000);
-    });
+    }));
 
     it('modal update', () => {
         let modal = Modal.confirm({ 'title': 'Semi', 'content': 'Content' });

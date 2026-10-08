@@ -149,7 +149,7 @@ describe('Form-formApi', () => {
     });
 
 
-    it('formApi-getError', done => {
+    it('formApi-getError', () => new Promise(resolve => {
         let formApi = null;
         let getFormApi = api => {
             formApi = api;
@@ -170,11 +170,11 @@ describe('Form-formApi', () => {
         form.find(`.semi-input`).simulate('change', event);
         setTimeout(() => {
             expect(formApi.getError('name')).toEqual(errorMessage);
-            done();
+            resolve();
         }, 300);
-    });
+    }));
 
-    it('formApi-getFormState', done => {
+    it('formApi-getFormState', () => new Promise(resolve => {
         let formApi = null;
         let getFormApi = api => {
             formApi = api;
@@ -199,9 +199,9 @@ describe('Form-formApi', () => {
         };
         setTimeout(() => {
             expect(formApi.getFormState()).toEqual(expectFormState);
-            done();
+            resolve();
         }, 300);
-    });
+    }));
 
     it('formApi-setError', () => {
         let formApi = null;

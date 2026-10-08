@@ -187,7 +187,7 @@ describe('Form-baseForm', () => {
         expect(formApis.every(apiName => apiMaps.has(apiName) && typeof api[apiName] === 'function')).toEqual(true);
     });
 
-    it('onSubmit-without validate, trigger by formApi', done => {
+    it('onSubmit-without validate, trigger by formApi', () => new Promise(resolve => {
         let api = null;
         let onSubmit = values => {};
         let spyOnSubmit = sinon.spy(onSubmit);
@@ -208,11 +208,11 @@ describe('Form-baseForm', () => {
         setTimeout(() => {
             expect(spyOnSubmit.calledOnce).toBe(true);
             expect(spyOnSubmit.calledWithMatch({})).toBe(true);
-            done();
+            resolve();
         }, 300);
-    });
+    }));
 
-    it('onSubmit-without validate, trigger by form dom event', done => {
+    it('onSubmit-without validate, trigger by form dom event', () => new Promise(resolve => {
         let api = null;
         let onSubmit = values => {};
         let spyOnSubmit = sinon.spy(onSubmit);
@@ -234,11 +234,11 @@ describe('Form-baseForm', () => {
         setTimeout(() => {
             expect(spyOnSubmit.calledOnce).toBe(true);
             expect(spyOnSubmit.calledWithMatch({})).toBe(true);
-            done();
+            resolve();
         }, 300);
-    });
+    }));
 
-    it('onSubmitFail', done => {
+    it('onSubmitFail', () => new Promise(resolve => {
         let api = null;
         let spyOnSubmit = sinon.spy(values => {});
         let spyOnSubmitFail = sinon.spy(errors => {});
@@ -274,9 +274,9 @@ describe('Form-baseForm', () => {
                     name2: emptyTips,
                 })
             ).toBe(true);
-            done();
+            resolve();
         }, 200);
-    });
+    }));
 
     it('onReset', () => {
         let api = null;
@@ -301,7 +301,7 @@ describe('Form-baseForm', () => {
         expect(form.find(`.${BASE_CLASS_PREFIX}-input`).instance().value).toEqual('a');
     });
 
-    it('allowEmpty', done => {
+    it('allowEmpty', () => new Promise(resolve => {
         let api = null;
         let spyOnSubmit = sinon.spy(values => {});
 
@@ -322,9 +322,9 @@ describe('Form-baseForm', () => {
                     business: undefined,
                 })
             ).toBe(true);
-            done();
+            resolve();
         }, 200);
-    });
+    }));
 
     // TODO onValueChange second arugment
     it('onValueChange', () => {

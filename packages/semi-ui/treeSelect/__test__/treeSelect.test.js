@@ -826,8 +826,8 @@ describe('TreeSelect', () => {
 
     it('async load data', () => {
         const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => { } } }
-        const then = jest.fn(() => Promise.resolve());
-        const loadData = jest.fn(() => ({ then }));
+        const then = rs.fn(() => Promise.resolve());
+        const loadData = rs.fn(() => ({ then }));
         const data = {
             label: '亚洲',
             value: 'Asia',
@@ -999,20 +999,17 @@ describe('TreeSelect', () => {
         expect(innerHTML).toEqual(yaZhouValue);
     });
 
-    it('search autofocus', () => {
+    it('search autofocus', async () => {
         let treeSelect = getTreeSelect({
+            defaultOpen: false,
             filterTreeNode: true,
             searchAutoFocus: true,
         });
         let selectEle = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select`)
         selectEle.simulate('click');
-        setTimeout(() => {
-            let searchWrapper = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`)
-
-            const searchInput = searchWrapper.find(`input`)
-            expect(searchInput.matchesElement(document.activeElement)).toEqual(true);
-            done();
-        }, 100);
+        await sleep(100);
+        const searchInput = document.querySelector(`.${BASE_CLASS_PREFIX}-tree-search-wrapper input`);
+        expect(searchInput).toEqual(document.activeElement);
     });
 
     it('treeData is updated should not clear value when uncontrolled mode and single selection', () => {

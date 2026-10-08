@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Rstest Snapshot v1
 
 exports[`模态框-点击遮罩层不可关闭 1`] = `
 <Component>

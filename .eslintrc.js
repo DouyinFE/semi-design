@@ -1,7 +1,6 @@
 /* eslint-disable */
 module.exports = {
     env: {
-        'jest/globals': true,
         'browser': true,
         'node': true
     },
@@ -13,10 +12,31 @@ module.exports = {
     extends: ["plugin:markdown/recommended"],
     overrides: [
         {
+            files: ['**/__test__/**/*.{js,jsx,ts,tsx}', '**/_story/**/*.{js,jsx,ts,tsx}'],
+            globals: {
+                afterAll: 'readonly',
+                afterEach: 'readonly',
+                beforeAll: 'readonly',
+                beforeEach: 'readonly',
+                describe: 'readonly',
+                expect: 'readonly',
+                it: 'readonly',
+                mount: 'readonly',
+                React: 'readonly',
+                render: 'readonly',
+                rs: 'readonly',
+                rstest: 'readonly',
+                shallow: 'readonly',
+                sinon: 'readonly',
+                test: 'readonly',
+                testRender: 'readonly',
+            },
+        },
+        {
             files: ['*.js', '*.jsx'],
-            extends: ['jest-enzyme', 'plugin:react/recommended', 'plugin:import/recommended', 'plugin:import/errors', 'plugin:import/warnings', 'plugin:jsx-a11y/recommended'],
+            extends: ['plugin:react/recommended', 'plugin:import/recommended', 'plugin:import/errors', 'plugin:import/warnings', 'plugin:jsx-a11y/recommended'],
             parser: '@babel/eslint-parser',
-            plugins: ['react', 'react-hooks', 'jest', 'import'],
+            plugins: ['react', 'react-hooks', 'import'],
             rules: {
                 // 因为历史原因，现有项目基本全部是4个空格
                 indent: ['error', 4, {'SwitchCase': 1}],
@@ -54,12 +74,12 @@ module.exports = {
         {
             files: ['*.ts', '*.tsx'],
             excludedFiles: ['content/**'],
-            extends: ['jest-enzyme', 'plugin:@typescript-eslint/recommended', 'plugin:import/typescript', 'plugin:react/recommended', 'plugin:jsx-a11y/recommended'],
+            extends: ['plugin:@typescript-eslint/recommended', 'plugin:import/typescript', 'plugin:react/recommended', 'plugin:jsx-a11y/recommended'],
             parser: '@typescript-eslint/parser',
             parserOptions: {
                 project: ['./tsconfig.eslint.json'],
             },
-            plugins: ['react', 'jest', 'react-hooks', 'import', '@typescript-eslint', 'semi-design'],
+            plugins: ['react', 'react-hooks', 'import', '@typescript-eslint', 'semi-design'],
             rules: {
                 // 因为历史原因，现有项目基本全部是4个空格
                 "arrow-spacing": ["error", { "before": true, "after": true }],
