@@ -14,6 +14,18 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.104.0 (2026-10-09)
+- 【Fix】
+    - 修复 Modal 静态方法、Toast 和 Notification 在 React 提交阶段同步卸载 root 的问题（React 19 下控制台输出 "Attempted to synchronously unmount a root while React was already rendering"），销毁改为 microtask 延后执行，重复销毁与立即重开场景均已处理 [#3360](https://github.com/DouyinFE/semi-design/issues/3360) [#3362](https://github.com/DouyinFE/semi-design/pull/3362)
+    - 修复 timePicker 在 `format` 分隔符包含正则特殊字符（如 `HH\mm`）时抛出 "Invalid regular expression" 错误的问题 [#3348](https://github.com/DouyinFE/semi-design/pull/3348)
+    - 修复 Modal 按 ESC 键会关闭所有弹窗的问题，现在只关闭最顶层的 Modal [#3352](https://github.com/DouyinFE/semi-design/pull/3352)
+    - 修复 ResizeGroup 初始以 `display: none` 挂载、变为可见后未重新计算子项尺寸的问题 [#3336](https://github.com/DouyinFE/semi-design/issues/3336) [#3339](https://github.com/DouyinFE/semi-design/pull/3339)
+    - 修复 Radio 选中态白点在 macOS Safari 下不居中的问题，改用显式 SVG 尺寸替代 em 单位渲染 [#3350](https://github.com/DouyinFE/semi-design/issues/3350) [#3357](https://github.com/DouyinFE/semi-design/pull/3357)
+    - 修复 DatePicker 等浮层在打开时位置闪烁的问题（等待尺寸稳定后再进行首次定位），并修正浮层溢出边界的视口计算 [#3354](https://github.com/DouyinFE/semi-design/issues/3354) [#3356](https://github.com/DouyinFE/semi-design/pull/3356)
+    - 修正罗马尼亚语（ro）的多处翻译错误（上传/下载语义、排序提示、日期文案等），并补充 Upload 图片裁切弹窗缺失的文案 [#3366](https://github.com/DouyinFE/semi-design/pull/3366)
+- 【Test】
+    - 将单元测试和本地 Story 测试从 Jest 迁移到 Rstest [#3349](https://github.com/DouyinFE/semi-design/pull/3349)
+
 #### 🎉 2.103.0 (2026-09-01)
 - 【Feat】
     - Progress 组件新增 `indeterminate` 属性，用于展示进度未知的加载动画，`line` / `circle` 类型均支持；开启后 `percent` 不再控制可视进度，且 `showInfo` 百分比文本隐藏 [#3334](https://github.com/DouyinFE/semi-design/issues/3334) [#3343](https://github.com/DouyinFE/semi-design/pull/3343)

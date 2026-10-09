@@ -16,6 +16,18 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.104.0 (2026-10-09)
+- 【Fix】
+    - Fixed Modal static methods, Toast and Notification synchronously unmounting their root during a React commit (React 19 console error "Attempted to synchronously unmount a root while React was already rendering"). Disposal is now deferred to a microtask; duplicate-destroy and immediate-reopen cases are handled [#3360](https://github.com/DouyinFE/semi-design/issues/3360) [#3362](https://github.com/DouyinFE/semi-design/pull/3362)
+    - Fixed timePicker throwing "Invalid regular expression" when the `format` separator contains regex-special characters (e.g. `HH\mm`) [#3348](https://github.com/DouyinFE/semi-design/pull/3348)
+    - Fixed pressing ESC closing all modals; now only the top-most Modal is closed [#3352](https://github.com/DouyinFE/semi-design/pull/3352)
+    - Fixed ResizeGroup not recalculating item sizes when initially mounted with `display: none` and later becoming visible [#3336](https://github.com/DouyinFE/semi-design/issues/3336) [#3339](https://github.com/DouyinFE/semi-design/pull/3339)
+    - Fixed the Radio checked-dot being off-center in macOS Safari by rendering with explicit SVG sizing instead of `em` units [#3350](https://github.com/DouyinFE/semi-design/issues/3350) [#3357](https://github.com/DouyinFE/semi-design/pull/3357)
+    - Fixed popup position flicker on open for DatePicker and other popups (now waits for stable size before the initial positioning), and corrected the viewport bounds calculation for popup overflow [#3354](https://github.com/DouyinFE/semi-design/issues/3354) [#3356](https://github.com/DouyinFE/semi-design/pull/3356)
+    - Fixed several Romanian (ro) translation errors (upload/download wording, sort tooltips, date strings, etc.) and added the missing Upload image-crop modal text [#3366](https://github.com/DouyinFE/semi-design/pull/3366)
+- 【Test】
+    - Migrated unit tests and local Story tests from Jest to Rstest [#3349](https://github.com/DouyinFE/semi-design/pull/3349)
+
 #### 🎉 2.103.0 (2026-09-01)
 - 【Feat】
     - Added the `indeterminate` prop to Progress for displaying a loading animation when progress is unknown; supported by both `line` and `circle` types. When enabled, `percent` no longer controls the visible progress and the `showInfo` percentage text is hidden [#3334](https://github.com/DouyinFE/semi-design/issues/3334) [#3343](https://github.com/DouyinFE/semi-design/pull/3343)
