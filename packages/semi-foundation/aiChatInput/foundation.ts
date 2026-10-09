@@ -296,11 +296,7 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
             return true;
         }
         const json = editor.getJSON?.();
-        const level2Content = json.content[0].content;
-        if (level2Content === undefined) {
-            return true;
-        }
-        return false;
+        return !json.content.some((item: any) => item.content?.length);
     }
 
     canSend = () => {
