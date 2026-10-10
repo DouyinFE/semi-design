@@ -101,7 +101,7 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
         return (
             <LocaleConsumer componentName="Typography">
                 {(locale: Locale['Typography']) => (
-                    <span>
+                    <span style={{ display: 'inline-flex', alignItems: 'center' }}>
                         <IconTick />
                         {locale.copied}
                     </span>
