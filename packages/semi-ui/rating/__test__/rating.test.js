@@ -344,13 +344,43 @@ describe('Rating', () => {
         R.unmount();
     });
 
-    it('onClick callback', () => {
-        let onClick = (e, index) => {};
-        let spyOnClick = sinon.spy(onClick);
-        const R = getRating({ onClick: spyOnClick, defaultValue: 2 });
-        // 验证 onClick 属性被传递
-        expect(R.props().onClick).toBeDefined();
-        R.unmount();
+    ['click', 'keydown'].forEach(eventType => {
+        [false, true].forEach(controlled => {
+            it(`onClick callback via ${eventType}, controlled=${controlled}`, () => {
+                const onClick = sinon.spy();
+                const onChange = sinon.spy();
+                const props = controlled ? { value: 2 } : { defaultValue: 2 };
+                const R = getRating({ ...props, onClick, onChange });
+                const event = { type: eventType, key: 'Enter', keyCode: 13, pageX: 0 };
+                try {
+                    R.find('div[role="radio"]').at(0).simulate(eventType, event);
+                    expect(onClick.callCount).toBe(1);
+                    expect(onClick.firstCall.args[0].type).toBe(eventType);
+                    expect(onClick.firstCall.args[1]).toBe(0);
+                    expect(onChange.calledOnceWithExactly(1)).toBe(true);
+                    if (controlled) {
+                        R.setProps({ value: 1 });
+                    }
+                    R.find('div[role="radio"]').at(0).simulate(eventType, event);
+                    expect(onClick.callCount).toBe(2);
+                    expect(onClick.secondCall.args[1]).toBe(0);
+                    expect(onChange.secondCall.args).toEqual([0]);
+                } finally {
+                    R.unmount();
+                }
+            });
+        });
+
+        it(`disabled Rating does not notify onClick via ${eventType}`, () => {
+            const onClick = sinon.spy();
+            const R = getRating({ disabled: true, defaultValue: 2, onClick });
+            try {
+                R.find('div[role="radio"]').at(0).simulate(eventType, { key: 'Enter', keyCode: 13 });
+                expect(onClick.callCount).toBe(0);
+            } finally {
+                R.unmount();
+            }
+        });
     });
 
     it('disabled state prevents interactions', () => {

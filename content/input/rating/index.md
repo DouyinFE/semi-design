@@ -152,6 +152,7 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 | value | 当前受控值 | number | - |
 | onBlur | 失去焦点时的回调 | function() | - |
 | onChange | 选择时的回调 | function(value: number) | - |
+| onClick | 点击星星或按 Enter 选择时的回调，index 从 0 开始 | function(event: MouseEvent \| KeyboardEvent, index: number) | - |
 | onFocus | 获取焦点时的回调 | function() | - |
 | onHoverChange | 鼠标经过时数值变化的回调 | function(value: number) | - |
 | onKeyDown | 按键回调 | function(e: event) | - |

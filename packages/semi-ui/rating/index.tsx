@@ -70,6 +70,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
         style: PropTypes.object,
         prefixCls: PropTypes.string,
         onChange: PropTypes.func,
+        onClick: PropTypes.func,
         onHoverChange: PropTypes.func,
         className: PropTypes.string,
         character: PropTypes.node,
@@ -211,6 +212,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
 
     onClick: RatingProps['onClick'] = (event, index) => {
         this.foundation.handleClick(event, index);
+        this.props.onClick?.(event, index);
     };
 
     onFocus: RatingProps['onFocus'] = e => {
