@@ -398,7 +398,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
                         });
                 }
 
-                dataSource.sort(withOrderSort(sorter, currentSortOrder));
+                dataSource = [...dataSource].sort(withOrderSort(sorter, currentSortOrder));
 
                 return false;
             }

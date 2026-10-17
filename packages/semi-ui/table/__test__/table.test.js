@@ -40,6 +40,21 @@ import {IconStar} from '@douyinfe/semi-icons';
  */
 
 const dataTotalSize = 46;
+
+describe('Table input data when sorting', () => {
+    it.each(['ascend', 'descend'])('preserves dataSource with %s sorting', sortOrder => {
+        const dataSource = [30, 10, 20].map(age => ({ key: age, age }));
+        const columns = [{ title: 'Age', dataIndex: 'age', sorter: (a, b) => a.age - b.age, sortOrder }];
+        const wrapper = mount(<Table pagination={false} columns={columns} dataSource={dataSource} />);
+        try {
+            const displayed = wrapper.find('.semi-table-tbody .semi-table-row-cell').map(cell => Number(cell.text()));
+            expect(displayed).toEqual(sortOrder === 'ascend' ? [10, 20, 30] : [30, 20, 10]);
+            expect(dataSource.map(item => item.age)).toEqual([30, 10, 20]);
+        } finally {
+            wrapper.unmount();
+        }
+    });
+});
 const data = getData(dataTotalSize);
 const columns = getColumns();
 
