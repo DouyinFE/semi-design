@@ -18,6 +18,9 @@ import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } f
 import useModal from './useModal';
 
 export let destroyFns: any[] = [];
+let bodyScrollLockCount = 0;
+let originalBodyOverflow: string;
+let originalBodyWidth: string;
 export type ConfirmType = 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
 export type Directions = 'ltr' | 'rtl';
 export type { ModalState };
@@ -113,9 +116,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
     foundation: ModalFoundation;
 
     private readonly modalRef: LegacyRef<ModalContent>;
-    private bodyOverflow: string|null = null;
-    private scrollBarWidth: number;
-    private originBodyWidth: string;
+    private hasBodyScrollLock = false;
     private _haveRendered: boolean;
 
     constructor(props: ModalReactProps) {
@@ -127,9 +128,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         this.foundation = new ModalFoundation(this.adapter);
         this.modalRef = React.createRef();
 
-        this.scrollBarWidth = 0;
-        this.originBodyWidth = '100%';
-
     }
 
     get adapter(): ModalAdapter {
@@ -138,17 +136,30 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             getProps: () => this.props,
             disabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
-                this.bodyOverflow = document.body.style.overflow || '';
-                if ((!getPopupContainer || getPopupContainer() === globalThis?.document?.body) && this.bodyOverflow !== 'hidden') {
-                    document.body.style.overflow = 'hidden';
-                    document.body.style.width = `calc(${this.originBodyWidth || '100%'} - ${this.scrollBarWidth}px)`;
+                if (this.hasBodyScrollLock || (getPopupContainer && getPopupContainer() !== document.body)) {
+                    return;
                 }
+                if (bodyScrollLockCount === 0) {
+                    originalBodyOverflow = document.body.style.overflow;
+                    originalBodyWidth = document.body.style.width;
+                    if (originalBodyOverflow !== 'hidden') {
+                        const scrollBarWidth = getScrollbarWidth();
+                        document.body.style.overflow = 'hidden';
+                        document.body.style.width = `calc(${originalBodyWidth || '100%'} - ${scrollBarWidth}px)`;
+                    }
+                }
+                bodyScrollLockCount++;
+                this.hasBodyScrollLock = true;
             },
             enabledBodyScroll: () => {
-                const { getPopupContainer } = this.props;
-                if ((!getPopupContainer || getPopupContainer() === globalThis?.document?.body) && this.bodyOverflow !== null && this.bodyOverflow !== 'hidden') {
-                    document.body.style.overflow = this.bodyOverflow;
-                    document.body.style.width = this.originBodyWidth;
+                if (!this.hasBodyScrollLock) {
+                    return;
+                }
+                this.hasBodyScrollLock = false;
+                bodyScrollLockCount--;
+                if (bodyScrollLockCount === 0) {
+                    document.body.style.overflow = originalBodyOverflow;
+                    document.body.style.width = originalBodyWidth;
                 }
             },
             notifyCancel: (e: React.MouseEvent) => {
@@ -225,8 +236,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
 
     componentDidMount() {
 
-        this.scrollBarWidth = getScrollbarWidth();
-        this.originBodyWidth = document.body.style.width;
         if (this.props.visible) {
             this.foundation.beforeShow();
         }
