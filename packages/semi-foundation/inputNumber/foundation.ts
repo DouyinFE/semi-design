@@ -143,7 +143,9 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         const parts = new Intl.NumberFormat(localeCode, {
             style: 'currency',
             currency: this._getFinalCurrency() || this.getCurrencyByLocaleCode(),
-            currencyDisplay
+            currencyDisplay,
+            // Zero-fraction currencies still need a decimal separator when parsing input.
+            minimumFractionDigits: 1,
         }).formatToParts(1234.5);
 
         for (const part of parts) {
@@ -534,7 +536,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
      * @param {number} num
      * @returns {number}
      */
-   _getPrecLen(num: string | number) {
+    _getPrecLen(num: string | number) {
         if (typeof num !== 'string') {
             const n = Number(num || '');
             if (!isFinite(n) || n === 0) return 0;
