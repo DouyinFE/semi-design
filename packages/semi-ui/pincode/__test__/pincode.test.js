@@ -204,6 +204,58 @@ describe('PinCode', () => {
         wrapper.unmount();
     });
 
+    it.each([
+        ['empty', { count: 4 }],
+        ['partially filled', { count: 6, defaultValue: '1' }],
+        ['controlled', { count: 4, value: '1' }],
+        ['filled', { count: 6, defaultValue: '123456' }],
+    ])('moves through all inputs with arrow keys when %s', (mode, props) => {
+        const onChange = sinon.spy();
+        const wrapper = getPinCode({ ...props, onChange });
+        const inputs = wrapper.find('input').map(input => input.getDOMNode());
+        const press = key => document.activeElement.dispatchEvent(new KeyboardEvent('keydown', {
+            key, bubbles: true, cancelable: true,
+        }));
+
+        inputs[0].focus();
+        for (let index = 1; index < inputs.length; index++) {
+            press('ArrowRight');
+            expect(document.activeElement).toBe(inputs[index]);
+        }
+        press('ArrowRight');
+        expect(document.activeElement).toBe(inputs[inputs.length - 1]);
+        for (let index = inputs.length - 2; index >= 0; index--) {
+            press('ArrowLeft');
+            expect(document.activeElement).toBe(inputs[index]);
+        }
+        press('ArrowLeft');
+        expect(document.activeElement).toBe(inputs[0]);
+        expect(onChange.called).toBe(false);
+        wrapper.unmount();
+    });
+
+    it.each([4, 6])('moves to the next empty input after Delete with count %s', count => {
+        const onChange = sinon.spy();
+        const wrapper = getPinCode({ count, defaultValue: '12', onChange });
+        const inputs = wrapper.find('input').map(input => input.getDOMNode());
+        const pressDelete = () => document.activeElement.dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'Delete', bubbles: true, cancelable: true,
+        }));
+
+        inputs[1].focus();
+        pressDelete();
+        expect(inputs[1].value).toBe('');
+        expect(onChange.calledOnceWithExactly('1')).toBe(true);
+        expect(document.activeElement).toBe(inputs[2]);
+
+        pressDelete();
+        expect(document.activeElement).toBe(inputs[3]);
+        inputs[count - 1].focus();
+        pressDelete();
+        expect(document.activeElement).toBe(inputs[count - 1]);
+        wrapper.unmount();
+    });
+
     it('format prop with mixed type', () => {
         const wrapper = getPinCode({ format: 'mixed' });
         expect(wrapper.props().format).toEqual('mixed');
