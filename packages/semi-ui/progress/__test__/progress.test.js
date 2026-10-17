@@ -6,6 +6,26 @@ import Progress from '../index';
 const getProgress = (props = {}) => mount(<Progress {...props} />);
 
 describe('Progress', () => {
+    [false, true].forEach(strokeGradient => {
+        it(`preserves stroke array order with strokeGradient=${strokeGradient}`, () => {
+            const stroke = [
+                { percent: 80, color: '#000' },
+                { percent: 20, color: '#fff' },
+            ];
+            const original = stroke.slice();
+            const p = getProgress({ type: 'circle', percent: 20, stroke, strokeGradient, motion: false });
+            try {
+                expect(stroke).toEqual(original);
+                expect(p.find('.semi-progress-circle-ring-inner').getDOMNode().style.stroke).toEqual('#ffffffff');
+                p.setProps({ percent: 80 });
+                expect(stroke).toEqual(original);
+                expect(p.find('.semi-progress-circle-ring-inner').getDOMNode().style.stroke).toEqual('#000000ff');
+            } finally {
+                p.unmount();
+            }
+        });
+    });
+
     it('percent pass invalid value like NaN', () => {
         const p = getProgress({ percent: 30 });
         function testNaN() {
