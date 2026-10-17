@@ -159,7 +159,7 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
 
         this.shouldUseInitValue = true;
         this.setState({ keys });
-        const updateKey = new Date().valueOf();
+        const updateKey = getUuidv4();
         updater.updateArrayField(field, { updateKey });
         this.cacheUpdateKey = updateKey;
         return newKey;
@@ -177,7 +177,7 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
             newArrayFieldVal.push(cloneRowVal);
         }
         updater.updateStateValue(field, newArrayFieldVal, {});
-        updater.updateArrayField(field, { updateKey: new Date().valueOf() });
+        updater.updateArrayField(field, { updateKey: getUuidv4() });
     }
 
     remove(i: number) {
