@@ -220,6 +220,56 @@ describe('Pagination', () => {
         expect(pag.find('.semi-page-item-active').text()).toEqual("3");
     });
 
+    it.each([
+        ['uncontrolled', { defaultCurrentPage: 3 }],
+        ['controlled', { currentPage: 3 }],
+    ])('ignores empty quick jumper Enter in %s mode', (mode, pageProps) => {
+        const onChange = sinon.spy();
+        const onPageChange = sinon.spy();
+        const pag = mount(
+            <Pagination {...pageProps} total={200} showQuickJumper onChange={onChange} onPageChange={onPageChange} />
+        );
+        const jumper = pag.find('.semi-page-quickjump-input-number input');
+
+        jumper.simulate('focus');
+        jumper.simulate('keypress', { key: 'Enter' });
+        expect(pag.find('.semi-page-item-active').text()).toEqual('3');
+        expect(onChange.called).toBe(false);
+        expect(onPageChange.called).toBe(false);
+
+        jumper.simulate('change', { target: { value: '5' } });
+        jumper.simulate('change', { target: { value: '' } });
+        jumper.simulate('keypress', { key: 'Enter' });
+        jumper.simulate('blur');
+        expect(pag.find('.semi-page-item-active').text()).toEqual('3');
+        expect(onChange.called).toBe(false);
+        expect(onPageChange.called).toBe(false);
+        pag.unmount();
+    });
+
+    it('ignores empty Enter after a successful quick jump', () => {
+        const onChange = sinon.spy();
+        const onPageChange = sinon.spy();
+        const pag = mount(
+            <Pagination total={200} defaultCurrentPage={3} showQuickJumper onChange={onChange} onPageChange={onPageChange} />
+        );
+        const jumper = pag.find('.semi-page-quickjump-input-number input');
+
+        jumper.simulate('focus');
+        jumper.simulate('change', { target: { value: '5' } });
+        jumper.simulate('keypress', { key: 'Enter' });
+        expect(pag.find('.semi-page-item-active').text()).toEqual('5');
+        expect(jumper.getDOMNode().value).toEqual('');
+        expect(onChange.calledOnceWithExactly(5, 10)).toBe(true);
+        expect(onPageChange.calledOnceWithExactly(5)).toBe(true);
+
+        jumper.simulate('keypress', { key: 'Enter' });
+        expect(pag.find('.semi-page-item-active').text()).toEqual('5');
+        expect(onChange.calledOnce).toBe(true);
+        expect(onPageChange.calledOnce).toBe(true);
+        pag.unmount();
+    });
+
     it('showQuickJumper', () => {
         let spyOnChange = sinon.spy(() => {});
         let props = {

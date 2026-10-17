@@ -253,6 +253,9 @@ class PaginationFoundation<P = Record<string, any>, S = Record<string, any>> ext
 
 
     _handleQuickJump(quickJumpPage: string | number) {
+        if (quickJumpPage === '') {
+            return;
+        }
         let page = Number(quickJumpPage);
         const { pageSize, total } = this.getStates();
         const totalPageNum = this._getTotalPageNumber(total, pageSize);
