@@ -11,7 +11,8 @@ import { useFormState, useStateWithGetter, useFormUpdater, useArrayFieldState } 
 import ErrorMessage from '../errorMessage';
 import { isElement } from '../../_base/reactUtils';
 import Label from '../label';
-import { Col } from '../../grid';
+import { Col, Row } from '../../grid';
+import { RowContext } from '../../grid/row';
 import type { CallOpts, WithFieldOption } from '@douyinfe/semi-foundation/form/interface';
 import type { CommonFieldProps, CommonexcludeType } from '../interface';
 import { noop } from "lodash";
@@ -723,7 +724,9 @@ function withField<
                     x-extra-pos={mergeExtraPos}
                 >
                     {withCol ? (
-                        withColContent
+                        <RowContext.Consumer>
+                            {rowContext => rowContext ? withColContent : <Row>{withColContent}</Row>}
+                        </RowContext.Consumer>
                     ) : (
                         <>
                             {labelContent}
