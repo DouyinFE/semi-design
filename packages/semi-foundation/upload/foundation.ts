@@ -160,10 +160,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         // In controlled mode, parent may keep and pass back fileList with blob url.
         // Sync them into internal map so later remove/clear can revoke correctly.
         this._syncLocalUrlsFromFileList();
-        const { disabled, addOnPasting } = this.getProps();
-        if (addOnPasting && !disabled) {
-            this.bindPastingHandler();
-        }
+        this.syncPastingHandler();
     }
 
     /**
@@ -193,13 +190,10 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     }
 
     destroy() {
-        const { disabled, addOnPasting } = this.getProps();
         // Do NOT revoke objectURL on unmount.
         // In controlled mode, parent may keep and pass back fileList with blob url;
         // revoking here will cause preview/blob ERR_FILE_NOT_FOUND after remount.
-        if (!disabled) {
-            this.unbindPastingHandler();
-        }
+        this.unbindPastingHandler();
         this._batchFileList = null;
         this._latestFileList = null;
         this.destroyState = true;
@@ -1075,6 +1069,10 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                     clipboardItem.getType(type).then(blob => {
                         return blob.arrayBuffer();
                     }).then((buffer) => {
+                        const { disabled, addOnPasting } = this.getProps();
+                        if (disabled || !addOnPasting || this.destroyState) {
+                            return;
+                        }
                         const format = type.split('/')[1];
                         const file = new File([buffer], `upload.${format}`, { type });
                         this.handleChange([file]);
@@ -1085,8 +1083,8 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     }
 
     handlePasting(e: any) {
-        const { addOnPasting } = this.getProps();
-        if (!addOnPasting) {
+        const { addOnPasting, disabled } = this.getProps();
+        if (!addOnPasting || disabled || this.destroyState) {
             return;
         }
 
@@ -1157,6 +1155,14 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                 .catch(error => {
                     this._adapter.notifyPastingError(error);
                 });
+        }
+    }
+
+    syncPastingHandler(): void {
+        this.unbindPastingHandler();
+        const { addOnPasting, disabled } = this.getProps();
+        if (addOnPasting && !disabled) {
+            this.bindPastingHandler();
         }
     }
 
