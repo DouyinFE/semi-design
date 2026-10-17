@@ -15,7 +15,7 @@ export function _generateGroupedData(dataSource: any[]): any[] {
 // DFS
 export function _generateTreeData(dataSource: any[]): any[] {
     const newData = [];
-    const stack = [...dataSource].reverse();
+    const stack = dataSource.map(item => ({ ...item })).reverse();
     while (stack.length) {
         const current = stack.pop();
         current.path = current.path || [omit(current, ['children'])];
