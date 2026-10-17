@@ -808,7 +808,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
             tmpParsed = Array.isArray(tmpParsed) ? tmpParsed : tmpParsed && [tmpParsed];
             if (tmpParsed && tmpParsed.length) {
                 if (needDedupe) {
-                    !result.filter(r => Boolean(tmpParsed.find(tp => isSameSecond(r, tp)))) && result.push(...tmpParsed);
+                    !result.some(r => Boolean(tmpParsed.find(tp => isSameSecond(r, tp)))) && result.push(...tmpParsed);
                 } else {
                     result.push(...tmpParsed);
                 }
@@ -844,7 +844,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
             if (tmpParsed && tmpParsed.length) {
                 if (needDedupe) {
                     // 20190519 TODO: needs to determine the case where multiple is true and range
-                    !result.filter(r => Boolean(tmpParsed.find(tp => isSameSecond(r, tp)))) && result.push(...tmpParsed);
+                    !result.some(r => Boolean(tmpParsed.find(tp => isSameSecond(r, tp)))) && result.push(...tmpParsed);
                 } else {
                     result.push(...tmpParsed);
                 }
