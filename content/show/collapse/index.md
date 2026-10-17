@@ -202,6 +202,11 @@ import { IconCopy } from '@douyinfe/semi-icons';
 
 ## Accessibility
 
+### 键盘操作
+
+- 使用 `Tab` 或 `Shift + Tab` 移动焦点。
+- 标题获得焦点后，按 `Enter` 或空格键展开、收起面板。禁用的面板不响应这两个按键。
+
 ### ARIA
 
 - 面板 header 右侧按钮 设置了 `aria-hidden=true`
