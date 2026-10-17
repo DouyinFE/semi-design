@@ -1,8 +1,29 @@
 import AsyncValidator from 'async-validator';
-import { toPath, isUndefined } from 'lodash';
+import { toPath, isUndefined, clone } from 'lodash';
 import { FieldValidateTriggerType, BasicTriggerType, ComponentProps, WithFieldOption } from './interface';
 import { strings } from './constants';
 import copy from 'fast-copy';
+
+export function copyFieldPath(object: Record<string, any>, field: string): Record<string, any> {
+    const result = { ...object };
+    let source = object;
+    let target = result;
+    // Copy ancestors so the existing set/remove cleanup cannot modify earlier snapshots.
+    for (const key of toPath(field).slice(0, -1)) {
+        if (!Object.prototype.hasOwnProperty.call(source, key)) {
+            break;
+        }
+        const value = source[key];
+        if (value === null || typeof value !== 'object') {
+            break;
+        }
+        const next = Array.isArray(value) ? value.slice() : clone(value);
+        Object.defineProperty(target, key, { value: next, enumerable: true, configurable: true, writable: true });
+        source = value;
+        target = next;
+    }
+    return result;
+}
 
 /**
  * 
