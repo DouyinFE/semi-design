@@ -106,14 +106,14 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
 
     }
 
-    getCurrentColor = ()=>{
+    getCurrentColor = () => {
 
         const value = this.getProp("value");
         const currentColor = this.getState("currentColor");
         return value || currentColor;
     }
 
-    handleChange = (color: HsvaColor|RgbaColor|string, format: 'hex'|'rgba'|'hsva')=>{
+    handleChange = (color: HsvaColor|RgbaColor|string, format: 'hex'|'rgba'|'hsva') => {
         let currentColor;
 
         if (format === 'hsva') {
@@ -146,22 +146,22 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
     }
 
 
-    handleAlphaChangeByHandle = (newAlpha: {a: number})=>{
+    handleAlphaChangeByHandle = (newAlpha: {a: number}) => {
         this.handleChangeA(this.getCurrentColor(), newAlpha.a);
     }
 
-    handleColorChangeByHandle = (newHue: {h: number})=>{
+    handleColorChangeByHandle = (newHue: {h: number}) => {
         this.handleChangeH(this.getCurrentColor(), newHue.h);
     }
 
 
-    getHandlePositionByHSVA = (hsva: HsvaColor, { width, height }: {width: number;height: number}, handleSize: number)=>{
+    getHandlePositionByHSVA = (hsva: HsvaColor, { width, height }: {width: number;height: number}, handleSize: number) => {
 
         const defaultColorPosition = { x: hsva.s / 100 * width, y: (1 - hsva.v / 100) * height };
         return { x: defaultColorPosition.x - handleSize / 2, y: defaultColorPosition.y - handleSize / 2 };
     }
 
-    getHandlePositionByMousePosition = (mousePosition: {x: number;y: number}, { width, height }: {width: number;height: number}, handleSize: number)=>{
+    getHandlePositionByMousePosition = (mousePosition: {x: number;y: number}, { width, height }: {width: number;height: number}, handleSize: number) => {
         if (mousePosition.x > width || mousePosition.x < 0) {
             return null;
         }
@@ -179,19 +179,12 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
     }
 
 
-    getAlphaHandlePositionByMousePosition = (mousePosition: number, width: number, handleSize: number)=>{
-        if (mousePosition < 0 || mousePosition > width) {
-            return null;
-        }
-        return mousePosition - handleSize / 2;
+    getAlphaHandlePositionByMousePosition = (mousePosition: number, width: number, handleSize: number) => {
+        return Math.min(Math.max(mousePosition, 0), width) - handleSize / 2;
     }
 
-    getColorHandlePositionByMousePosition = (mousePosition: number, width: number, handleSize: number)=>{
-        if (mousePosition < 0 || mousePosition > width) {
-            return null;
-        }
-
-        return mousePosition - handleSize / 2;
+    getColorHandlePositionByMousePosition = (mousePosition: number, width: number, handleSize: number) => {
+        return Math.min(Math.max(mousePosition, 0), width) - handleSize / 2;
     }
 
 
