@@ -2,7 +2,7 @@ import BaseFoundation from '../base/foundation';
 import * as ObjectUtil from '../utils/object';
 import isPromise from '../utils/isPromise';
 import { getUuidv4 } from '../utils/uuid';
-import { isValid } from './utils';
+import { isValid, copyFieldPath } from './utils';
 import { isUndefined, isFunction, toPath } from 'lodash';
 import scrollIntoView, { Options as ScrollIntoViewOptions } from 'scroll-into-view-if-needed';
 
@@ -168,6 +168,12 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         // delete data
         try {
             if (!targetField.keepState) {
+                this.data = {
+                    ...this.data,
+                    values: copyFieldPath(this.data.values, field),
+                    errors: copyFieldPath(this.data.errors, field),
+                    touched: copyFieldPath(this.data.touched, field),
+                };
                 ObjectUtil.remove(this.data.values, field);
                 ObjectUtil.remove(this.data.errors, field);
                 ObjectUtil.remove(this.data.touched, field);
@@ -261,7 +267,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                             }
                         } else {
                             if (!silent) {
-                                this.data.errors = result;
+                                this.data = { ...this.data, errors: result };
                                 this._adapter.notifyChange(this.data);
                                 this.injectErrorToField(result);
                                 this._adapter.forceUpdate();
@@ -282,7 +288,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             } else {
                 // TODO: current design, returning an empty object will be considered a checksum failure and will be rejected. Only returning an empty string will be considered a success, consider resetting it in 1.0?
                 if (!silent) {
-                    this.data.errors = maybePromisedErrors;
+                    this.data = { ...this.data, errors: maybePromisedErrors };
                     this.injectErrorToField(maybePromisedErrors);
                     this._adapter.notifyChange(this.data);
                     this._adapter.forceUpdate();
@@ -495,7 +501,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         // When isOverride is true, there may be a non-existent field in the values passed in, directly synchronized to formState.values
         // 当isOverride为true，传入的values中可能存在不存在的field时，直接将其同步到formState.values中
         if (isOverride) {
-            this.data.values = _values;
+            this.data = { ...this.data, values: _values };
         }
 
         // After completing the assignment, the unified callback can be done once.
@@ -525,7 +531,9 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         // (Field-level allowEmpty overriding behavior is handled during register/restore paths.)
         const allowEmpty = fieldAllowEmpty ? fieldAllowEmpty : formAllowEmpty;
 
-        ObjectUtil.set(this.data.values, field, value, allowEmpty);
+        const values = copyFieldPath(this.data.values, field);
+        ObjectUtil.set(values, field, value, allowEmpty);
+        this.data = { ...this.data, values };
         /**
          * When registering, setValue called when Field initValue is synchronized to FormState should not trigger notify
          * but need to trigger forceUpdate, otherwise useFormState, useFieldState initial rendering will have problems
@@ -556,7 +564,9 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     updateStateTouched(field: string, isTouched: boolean, opts?: CallOpts, callback?: () => void): void {
         const notNotify = opts && opts.notNotify;
         const notUpdate = opts && opts.notUpdate;
-        ObjectUtil.set(this.data.touched, field, isTouched);
+        const touched = copyFieldPath(this.data.touched, field);
+        ObjectUtil.set(touched, field, isTouched);
+        this.data = { ...this.data, touched };
 
         if (!notNotify) {
             this._adapter.notifyChange(this.data);
@@ -578,7 +588,9 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     updateStateError(field: string, error: any, opts: CallOpts, callback?: () => void): void {
         const notNotify = opts && opts.notNotify;
         const notUpdate = opts && opts.notUpdate;
-        ObjectUtil.set(this.data.errors, field, error);
+        const errors = copyFieldPath(this.data.errors, field);
+        ObjectUtil.set(errors, field, error);
+        this.data = { ...this.data, errors };
 
         
         // The setError caused by centralized validation does not need to trigger notify, otherwise it will be called too frequently, as many times as there are fields
