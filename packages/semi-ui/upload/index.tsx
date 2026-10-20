@@ -396,7 +396,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                                                         }
                                                     }
                                                     
-                                                    if (files.length > 0) {
+                                                    if (files.length > 0 && this.props.addOnPasting && !this.props.disabled && !this.foundation.destroyState) {
                                                         const imageFiles = files.filter(file => this.isImageFile(file));
                                                         
                                                         if (imageFiles.length > 0) {
@@ -493,9 +493,12 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         this.foundation.init();
     }
 
-    componentDidUpdate(): void {
+    componentDidUpdate(prevProps: UploadProps): void {
         if ('fileList' in this.props) {
             this.foundation.syncLatestFileList(this.props.fileList || []);
+        }
+        if (prevProps.addOnPasting !== this.props.addOnPasting || prevProps.disabled !== this.props.disabled) {
+            this.foundation.syncPastingHandler();
         }
     }
 
