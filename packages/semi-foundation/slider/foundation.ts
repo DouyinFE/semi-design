@@ -679,7 +679,10 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
     }
 
     handleKeyDown = (event: any, handler: 'min'| 'max') => {
-        const { min, max, currentValue } = this.getStates();
+        const { min, max, currentValue, disabled } = this.getStates();
+        if (disabled) {
+            return;
+        }
         const { step, range, vertical } = this.getProps();
         const direction = this._adapter.getContext('direction');
         const isRTL = direction === 'rtl' && !vertical;
