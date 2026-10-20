@@ -8,6 +8,40 @@ import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 const Step = Steps.Step;
 
 describe('Steps', () => {
+    ['fill', 'basic', 'nav'].forEach(type => {
+        [0, 1].forEach(initial => {
+            ['click', 'keydown'].forEach(event => {
+                it(`${type} respects initial=${initial} in onChange via ${event}`, () => {
+                    const onChange = sinon.spy();
+                    const wrapper = mount(
+                        <Steps type={type} initial={initial} current={initial} onChange={onChange}>
+                            <Step title="First" />
+                            <Step title="Second" />
+                            <Step title="Third" />
+                        </Steps>
+                    );
+                    const activate = index => wrapper.find('div[tabIndex=0]').at(index)
+                        .simulate(event, { key: 'Enter' });
+                    try {
+                        activate(0);
+                        expect(onChange.callCount).toBe(0);
+                        activate(1);
+                        expect(onChange.callCount).toBe(1);
+                        expect(onChange.firstCall.args).toEqual([initial + 1]);
+                        wrapper.setProps({ current: initial + 1 });
+                        activate(1);
+                        expect(onChange.callCount).toBe(1);
+                        activate(2);
+                        expect(onChange.callCount).toBe(2);
+                        expect(onChange.secondCall.args).toEqual([initial + 2]);
+                    } finally {
+                        wrapper.unmount();
+                    }
+                });
+            });
+        });
+    });
+
     it('current works', () => {
         const element = (
             <Steps current={0}>
@@ -249,10 +283,11 @@ describe('Steps', () => {
         const wrapper = mount(element);
         const fiestStepContainer = wrapper.find('Step').at(1).find(`.${stepsClasses.ITEM}`);
         fiestStepContainer.simulate('click');
-        expect(spyOnChange.calledOnce).toEqual(false);
+        expect(spyOnChange.calledOnceWithExactly(2)).toEqual(true);
         const fiestStepContainer2 = wrapper.find('Step').at(0).find(`.${stepsClasses.ITEM}`);
         fiestStepContainer2.simulate('click');
         expect(spyOnChange.calledOnce).toEqual(true);
+        wrapper.unmount();
     });
 
     it('Steps type', () => {
