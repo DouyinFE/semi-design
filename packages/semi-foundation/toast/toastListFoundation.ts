@@ -40,17 +40,25 @@ export default class ToastListFoundation extends BaseFoundation<ToastListAdapter
         return this._adapter.getInputWrapperRect();
     }
 
+    private updateList(removedItems: ToastInstance[] = []) {
+        const renderedList = this._adapter.getState('list');
+        // Reused instances need new timers, including same-id replacements before the next render.
+        const updatedItems = this.toastList.filter(item =>
+            renderedList.some(rendered => rendered.id === item.id && rendered !== item)
+        );
+        this._adapter.updateToast(this.toastList, removedItems, updatedItems);
+    }
+
     addToast(toastOpts: ToastProps) {
         this.toastList = [...this.toastList, toastOpts];
-        this._adapter.updateToast(this.toastList, [], []);
+        this.updateList();
     }
 
     updateToast(id: string, toastOpts: ToastProps) {
         let toastList = this.toastList;
         toastList = toastList.map((toast) => toast.id === id ? { ...toast, ...toastOpts } : toast);
-        const updatedItems = toastList.filter((toast => toast.id === id));
         this.toastList = toastList;
-        this._adapter.updateToast(toastList, [], updatedItems);
+        this.updateList();
     }
 
     removeToast(id: string) {
@@ -64,7 +72,7 @@ export default class ToastListFoundation extends BaseFoundation<ToastListAdapter
             return true;
         });
         this.toastList = toastList;
-        this._adapter.updateToast(toastList, removedItems, []);
+        this.updateList(removedItems);
     }
 
     destroyAll() {
