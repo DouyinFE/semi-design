@@ -13,6 +13,21 @@ function getPagination(props) {
 
 describe('Pagination', () => {
 
+    it.each([
+        [{}, 40, 4],
+        [{ pageSizeOpts: [20, 40] }, 80, 4],
+        [{ pageSize: 5 }, 20, 4],
+    ])('updates small pagination total with the effective page size: %j', (props, total, pages) => {
+        const wrapper = mount(<Pagination size="small" hoverShowPageSelect total={30} {...props} />);
+        try {
+            wrapper.setProps({ total });
+            expect(wrapper.find('.semi-page-item-small').text().trim()).toBe(`1/${pages}`);
+            expect(wrapper.state('allPageNumbers')).toEqual([1, 2, 3, 4]);
+        } finally {
+            wrapper.unmount();
+        }
+    });
+
     // 主要验证渲染的pageItem数量，以及最后一页的页码
     it('Pagination total & pageSize', () => {
     

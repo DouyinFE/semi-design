@@ -121,6 +121,9 @@ class PaginationFoundation<P = Record<string, any>, S = Record<string, any>> ext
         if (size !== 'small' || !hoverShowPageSelect || disabled) {
             return;
         } else {
+            if (pageSize === null || typeof pageSize === 'undefined') {
+                pageSize = this.getState('pageSize');
+            }
             const pageNumbers = Array.from({ length: Math.ceil(total / pageSize) }, (v, i) => i + 1);
             this._adapter.updateAllPageNumbers(pageNumbers);
         }
