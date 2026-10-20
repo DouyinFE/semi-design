@@ -13,6 +13,21 @@ function getPagination(props) {
 
 describe('Pagination', () => {
 
+    it.each([
+        [{}, 40, 4],
+        [{ pageSizeOpts: [20, 40] }, 80, 4],
+        [{ pageSize: 5 }, 20, 4],
+    ])('updates small pagination total with the effective page size: %j', (props, total, pages) => {
+        const wrapper = mount(<Pagination size="small" hoverShowPageSelect total={30} {...props} />);
+        try {
+            wrapper.setProps({ total });
+            expect(wrapper.find('.semi-page-item-small').text().trim()).toBe(`1/${pages}`);
+            expect(wrapper.state('allPageNumbers')).toEqual([1, 2, 3, 4]);
+        } finally {
+            wrapper.unmount();
+        }
+    });
+
     // 主要验证渲染的pageItem数量，以及最后一页的页码
     it('Pagination total & pageSize', () => {
     
@@ -218,6 +233,56 @@ describe('Pagination', () => {
         pag.setProps({ currentPage: 4 });
         expect(pag.state().currentPage).toEqual(4);
         expect(pag.find('.semi-page-item-active').text()).toEqual("3");
+    });
+
+    it.each([
+        ['uncontrolled', { defaultCurrentPage: 3 }],
+        ['controlled', { currentPage: 3 }],
+    ])('ignores empty quick jumper Enter in %s mode', (mode, pageProps) => {
+        const onChange = sinon.spy();
+        const onPageChange = sinon.spy();
+        const pag = mount(
+            <Pagination {...pageProps} total={200} showQuickJumper onChange={onChange} onPageChange={onPageChange} />
+        );
+        const jumper = pag.find('.semi-page-quickjump-input-number input');
+
+        jumper.simulate('focus');
+        jumper.simulate('keypress', { key: 'Enter' });
+        expect(pag.find('.semi-page-item-active').text()).toEqual('3');
+        expect(onChange.called).toBe(false);
+        expect(onPageChange.called).toBe(false);
+
+        jumper.simulate('change', { target: { value: '5' } });
+        jumper.simulate('change', { target: { value: '' } });
+        jumper.simulate('keypress', { key: 'Enter' });
+        jumper.simulate('blur');
+        expect(pag.find('.semi-page-item-active').text()).toEqual('3');
+        expect(onChange.called).toBe(false);
+        expect(onPageChange.called).toBe(false);
+        pag.unmount();
+    });
+
+    it('ignores empty Enter after a successful quick jump', () => {
+        const onChange = sinon.spy();
+        const onPageChange = sinon.spy();
+        const pag = mount(
+            <Pagination total={200} defaultCurrentPage={3} showQuickJumper onChange={onChange} onPageChange={onPageChange} />
+        );
+        const jumper = pag.find('.semi-page-quickjump-input-number input');
+
+        jumper.simulate('focus');
+        jumper.simulate('change', { target: { value: '5' } });
+        jumper.simulate('keypress', { key: 'Enter' });
+        expect(pag.find('.semi-page-item-active').text()).toEqual('5');
+        expect(jumper.getDOMNode().value).toEqual('');
+        expect(onChange.calledOnceWithExactly(5, 10)).toBe(true);
+        expect(onPageChange.calledOnceWithExactly(5)).toBe(true);
+
+        jumper.simulate('keypress', { key: 'Enter' });
+        expect(pag.find('.semi-page-item-active').text()).toEqual('5');
+        expect(onChange.calledOnce).toBe(true);
+        expect(onPageChange.calledOnce).toBe(true);
+        pag.unmount();
     });
 
     it('showQuickJumper', () => {

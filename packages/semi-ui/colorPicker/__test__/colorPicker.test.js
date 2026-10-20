@@ -712,7 +712,7 @@ describe('ColorPicker', () => {
         const wrapper = getColorPicker({});
         const instance = wrapper.find('ColorPicker').instance();
         const pos = instance.foundation.getAlphaHandlePositionByMousePosition(300, 280, 18);
-        expect(pos).toBeNull();
+        expect(pos).toBe(271);
         wrapper.unmount();
     });
 
@@ -720,7 +720,7 @@ describe('ColorPicker', () => {
         const wrapper = getColorPicker({});
         const instance = wrapper.find('ColorPicker').instance();
         const pos = instance.foundation.getAlphaHandlePositionByMousePosition(-1, 280, 18);
-        expect(pos).toBeNull();
+        expect(pos).toBe(-9);
         wrapper.unmount();
     });
 
@@ -736,7 +736,7 @@ describe('ColorPicker', () => {
         const wrapper = getColorPicker({});
         const instance = wrapper.find('ColorPicker').instance();
         const pos = instance.foundation.getColorHandlePositionByMousePosition(300, 280, 18);
-        expect(pos).toBeNull();
+        expect(pos).toBe(271);
         wrapper.unmount();
     });
 
@@ -744,7 +744,7 @@ describe('ColorPicker', () => {
         const wrapper = getColorPicker({});
         const instance = wrapper.find('ColorPicker').instance();
         const pos = instance.foundation.getColorHandlePositionByMousePosition(-1, 280, 18);
-        expect(pos).toBeNull();
+        expect(pos).toBe(-9);
         wrapper.unmount();
     });
 

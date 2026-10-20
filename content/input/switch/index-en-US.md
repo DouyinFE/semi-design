@@ -184,6 +184,7 @@ import { Switch } from '@douyinfe/semi-ui';
 | disabled | If true, the switch will be disabled. | boolean | false |  |
 | loading | Turn on loading status | boolean | false | - |
 | onChange | Callback function when changing | function (checked: boolean) |  |  |
+| onBlur | Callback when the switch loses focus | function(event: React.FocusEvent<HTMLInputElement>) |  |  |
 | onMouseEnter | A callback when the mouse moves in | function () |  |  |
 | onMouseLeave | A callback when the mouse moves out | function () |  |  |
 | size | Size, optional value `large`, `default`, `small` | string | 'default' |  |

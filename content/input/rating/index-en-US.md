@@ -168,6 +168,7 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 | value         | Controlled value                                                                      | number                  | -                                        |
 | onBlur        | Callback function when losing focus.                                                  | function()              | -                                        |
 | onChange      | Callback function at the time of selection                                            | function(value: number) | -                                        |
+| onClick | Callback when a star is clicked or selected with Enter; index is zero-based | function(event: MouseEvent \| KeyboardEvent, index: number) | - |
 | onFocus       | Callback function when getting focus                                                  | function()              | -                                        |
 | onHoverChange | Callback function of numerical changes when the mouse hovers                          | function(value: number) | -                                        |
 | onKeyDown     | Callback function when key down                                                       | function(e: event)      | -                                        |

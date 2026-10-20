@@ -79,7 +79,8 @@ export function isValid(errors: any): boolean {
     } else if (
         errors &&
         typeof errors.$$typeof === 'symbol' &&
-        errors.$$typeof.toString() === 'Symbol(react.element)'
+        (errors.$$typeof.toString() === 'Symbol(react.element)' ||
+            errors.$$typeof.toString() === 'Symbol(react.transitional.element)')
     ) {
         // when error message is reactNode
         // only work with React Adapter

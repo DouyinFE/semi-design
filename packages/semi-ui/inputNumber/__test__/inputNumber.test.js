@@ -18,6 +18,25 @@ const times = (n = 0, fn) => {
 };
 
 describe(`InputNumber`, () => {
+    it.each([
+        ['JPY', 'ja-JP', '123456.78'],
+        ['VND', 'vi-VN', '123456,78'],
+        ['IDR', 'id-ID', '123456,78'],
+        ['USD', 'en-US', '123456.78'],
+        ['EUR', 'de-DE', '123456,78'],
+    ])('parses localized decimal strings for %s without changing the amount', (currency, localeCode, value) => {
+        const wrapper = mount(<InputNumber currency={currency} localeCode={localeCode} defaultValue={value} />);
+        try {
+            const format = number => new Intl.NumberFormat(localeCode, { style: 'currency', currency }).format(number);
+            expect(wrapper.find('input').getDOMNode().value).toBe(format(123456.78));
+            wrapper.find('input').simulate('focus');
+            wrapper.find('input').simulate('change', { target: { value: value.replace('123456', '-12') } });
+            wrapper.find('input').simulate('blur');
+            expect(wrapper.find('input').getDOMNode().value).toBe(format(-12.78));
+        } finally {
+            wrapper.unmount();
+        }
+    });
     /**
      * test appearance
      */
@@ -1593,4 +1612,3 @@ describe(`InputNumber`, () => {
     });
 
 });
- 

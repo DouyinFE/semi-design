@@ -106,7 +106,7 @@ export default class HighlightFoundation extends BaseFoundation<HighlightAdapter
     }: ChunkQuery): Chunk[] => (
         searchWords
             .map(searchWord => typeof searchWord === 'string' ? { text: searchWord } : searchWord)
-            .filter(searchWord => searchWord.text) // Remove empty words
+            .filter(searchWord => searchWord?.text) // Remove empty words
             .reduce((chunks, searchWord) => {
                 let searchText = searchWord.text;
                 if (autoEscape) {

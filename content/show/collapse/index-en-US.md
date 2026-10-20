@@ -203,6 +203,11 @@ import { IconCopy } from '@douyinfe/semi-icons';
 
 ## Accessibility
 
+### Keyboard interaction
+
+- Use `Tab` or `Shift + Tab` to move focus.
+- When a panel header has focus, press `Enter` or `Space` to expand or collapse it. Disabled panels do not respond to these keys.
+
 ### ARIA
 
 - The button on the right side of the panel header is set to `aria-hidden=true`

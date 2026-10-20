@@ -179,6 +179,7 @@ import { Switch } from '@douyinfe/semi-ui';
 | disabled | 是否禁用 | boolean | false |  |
 | loading | 设置加载状态 | boolean | false | - |
 | onChange | 变化时回调函数 | function(checked:boolean) |  |  |
+| onBlur | 开关失去焦点时回调 | function(event: React.FocusEvent<HTMLInputElement>) |  |  |
 | onMouseEnter | 鼠标移入时回调 | function() |  |  |
 | onMouseLeave | 鼠标移出时回调 | function() |  |  |
 | size | 尺寸,可选值`large`,`default`,`small` | string | 'default' |  |

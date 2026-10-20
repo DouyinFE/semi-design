@@ -25,7 +25,6 @@ export interface SpinProps {
 }
 
 interface SpinState {
-    delay: number;
     loading: boolean
 }
 class Spin extends BaseComponent<SpinProps, SpinState> {
@@ -56,26 +55,17 @@ class Spin extends BaseComponent<SpinProps, SpinState> {
         this.foundation = new SpinFoundation(this.adapter);
 
         this.state = {
-            delay: props.delay,
-            loading: true,
+            loading: Boolean(props.spinning && !props.delay),
         };
     }
 
     static getDerivedStateFromProps(props: SpinProps) {
-        if (!props.delay) {
+        if (!props.delay || props.spinning === false) {
             return {
                 loading: props.spinning
             };
         }
-        if (props.spinning === false) {
-            return {
-                delay: 0,
-                loading: false
-            };
-        }
-        return {
-            delay: props.delay
-        };
+        return null;
     }
 
     get adapter() {
@@ -85,6 +75,16 @@ class Spin extends BaseComponent<SpinProps, SpinState> {
                 this.setState({ loading: value });
             }
         };
+    }
+
+    componentDidMount() {
+        this.foundation.updateLoadingIfNeedDelay();
+    }
+
+    componentDidUpdate(prevProps: SpinProps) {
+        if (prevProps.spinning !== this.props.spinning || prevProps.delay !== this.props.delay) {
+            this.foundation.updateLoadingIfNeedDelay();
+        }
     }
 
     componentWillUnmount() {
@@ -104,11 +104,10 @@ class Spin extends BaseComponent<SpinProps, SpinState> {
                 <SpinIcon />
             )}
             {tip ? <div x-semi-prop="tip">{tip}</div> : null}
-        </div>:null;
+        </div> : null;
     }
 
     render() {
-        this.foundation.updateLoadingIfNeedDelay();
         const { children, style, wrapperClassName, childStyle, size, ...rest } = this.props;
         const { loading } = this.state;
         const spinCls = cls(

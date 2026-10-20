@@ -35,7 +35,7 @@ class PinCodeFoundation<P = Record<string, any>, S = Record<string, any>> extend
     static mixedReg = /^[0-9a-zA-Z]$/;
 
 
-    handleCurrentActiveIndexChange = (index: number, state: "focus"|"blur")=>{
+    handleCurrentActiveIndexChange = (index: number, state: "focus"|"blur") => {
         if (state === "focus") {
             this._adapter.onCurrentActiveIndexChange(index);
         }
@@ -82,7 +82,7 @@ class PinCodeFoundation<P = Record<string, any>, S = Record<string, any>> extend
         this._adapter.updateValueList(newValueList);
     }
 
-    handlePaste = async (e: ClipboardEvent, startInputIndex: number)=>{
+    handlePaste = async (e: ClipboardEvent, startInputIndex: number) => {
         // 在 Firefox 中，需要在函数开始时立即阻止默认粘贴行为
         // 否则 Firefox 可能在 preventDefault 调用前就执行默认粘贴，导致双重写入
         e.preventDefault();
@@ -99,7 +99,7 @@ class PinCodeFoundation<P = Record<string, any>, S = Record<string, any>> extend
         }
     }
 
-    handleKeyDownOnSingleInput = (e: KeyboardEvent, index: number)=>{
+    handleKeyDownOnSingleInput = (e: KeyboardEvent, index: number) => {
         const valueList = [...this.getState("valueList")];
         if (e.key === "Backspace") {
             valueList[index] = "";
@@ -111,13 +111,13 @@ class PinCodeFoundation<P = Record<string, any>, S = Record<string, any>> extend
             valueList[index] = "";
             this.updateValueList(valueList);
             this._adapter.notifyValueChange(valueList);
-            this._adapter.changeSpecificInputFocusState(Math.min(valueList.length - 1, index + 1), "focus");
+            this._adapter.changeSpecificInputFocusState(Math.min(this.getProp("count") - 1, index + 1), "focus");
             e.preventDefault();
         } else if (e.key === "ArrowLeft") {
             this._adapter.changeSpecificInputFocusState(Math.max(0, index - 1), "focus");
             e.preventDefault();
         } else if (e.key === "ArrowRight") {
-            this._adapter.changeSpecificInputFocusState(Math.min(valueList.length - 1, index + 1), "focus");
+            this._adapter.changeSpecificInputFocusState(Math.min(this.getProp("count") - 1, index + 1), "focus");
             e.preventDefault();
         }
 

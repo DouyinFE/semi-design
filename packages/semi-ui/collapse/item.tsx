@@ -106,6 +106,18 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
         }
     }
 
+    handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (this.props.disabled || e.target !== e.currentTarget) {
+            return;
+        }
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            // Reuse clicks to preserve trigger settings and the onChange event type.
+            const trigger = this.context.clickHeaderToExpand ? e.currentTarget : this.headerExpandIconTriggerRef.current;
+            trigger?.click();
+        }
+    }
+
     render() {
         const {
             className,
@@ -151,6 +163,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
                     aria-expanded={active ? 'true' : 'false'}
                     aria-owns={this.ariaID}
                     onClick={e => !disabled && this.handleClick(itemKey, e)}
+                    onKeyDown={this.handleKeyDown}
                 >
                     {this.renderHeader(active, children !== undefined && !disabled)}
                 </div>

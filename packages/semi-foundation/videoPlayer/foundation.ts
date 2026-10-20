@@ -311,20 +311,21 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
     registerEvent = () => {
         const video = this._adapter.getVideo();
         if (!video) return;
-        document.addEventListener('keydown', (e) => this.handleBodyKeyDown(e));
+        document.addEventListener('keydown', this.handleBodyKeyDown);
         document.addEventListener('fullscreenchange', this.handleFullscreenChange);
         video.addEventListener('leavepictureinpicture', this.handleLeavePictureInPicture);
     }
 
     unregisterEvent = () => {
         const video = this._adapter.getVideo();
-        if (!video) return;
-        document.removeEventListener('keydown', (e) => this.handleBodyKeyDown(e));
+        document.removeEventListener('keydown', this.handleBodyKeyDown);
         document.removeEventListener('fullscreenchange', this.handleFullscreenChange);
-        video.removeEventListener('leavepictureinpicture', this.handleLeavePictureInPicture);
+        if (video) {
+            video.removeEventListener('leavepictureinpicture', this.handleLeavePictureInPicture);
+        }
     }
 
-    handleBodyKeyDown(e: KeyboardEvent) {
+    handleBodyKeyDown = (e: KeyboardEvent) => {
         const videoWrapper = this._adapter.getVideoWrapper();
         
         // Only respond to keyboard events when focus is within the video player
@@ -347,4 +348,4 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
             this.handleTimeChange(currentTime + seekTime);
         }
     }
-} 
+}

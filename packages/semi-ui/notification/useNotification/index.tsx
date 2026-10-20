@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useState } from 'react';
+import React, { ReactElement, ReactNode, useState, useRef } from 'react';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/notification/constants';
 import HookNotice from './HookNotice';
@@ -58,7 +58,7 @@ function usePatchElement(): [ReactNode[], typeof patchElement] {
 
 export default function useNotification() {
     const [elements, patchElement] = usePatchElement();
-    const noticeRef = new Map<string, { close: () => void } & ReactElement>();
+    const noticeRef = useRef(new Map<string, { close: () => void } & ReactElement>());
 
     const addNotice = (config: NoticeProps) => {
         const id = getUuid('semi_notice_');
@@ -68,7 +68,11 @@ export default function useNotification() {
         };
         let closeFunc: ReturnType<typeof patchElement>;
         const ref = (ele: { close: () => void } & ReactElement) => {
-            noticeRef.set(id, ele);
+            if (ele) {
+                noticeRef.current.set(id, ele);
+            } else {
+                noticeRef.current.delete(id);
+            }
         };
         const notice = <HookNotice key={id} {...mergeConfig} afterClose={(instanceID: string) => closeFunc(instanceID)} ref={ref} />;
         closeFunc = patchElement(notice, { ...mergeConfig });
@@ -76,7 +80,7 @@ export default function useNotification() {
     };
 
     const removeElement = (instanceID: string) => {
-        const ele = noticeRef.get(instanceID);
+        const ele = noticeRef.current.get(instanceID);
         ele && ele.close();
     };
 

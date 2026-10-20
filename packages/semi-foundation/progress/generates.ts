@@ -23,7 +23,7 @@ function generateColor(s: StrokeArr, percent: number, gradient: boolean): string
 }
 
 function generate(s: StrokeArr, percent: number, gradient: boolean): string | undefined {
-    s.sort((a, b) => a.percent - b.percent);
+    s = [...s].sort((a, b) => a.percent - b.percent);
     if (s[0].percent > percent) {
         return strings.STROKE_DEFAULT;
     }

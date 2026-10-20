@@ -1173,7 +1173,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             return;
         }
         const removedItem = keyEntities[key] ?? {};
-        !removedItem?.data?.disable && this._handleMultipleSelect(removedItem);
+        !removedItem?.data?.disabled && this._handleMultipleSelect(removedItem);
         this._adapter.rePositionDropdown();
     }
 

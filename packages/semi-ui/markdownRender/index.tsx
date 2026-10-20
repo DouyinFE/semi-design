@@ -25,6 +25,7 @@ export interface MarkdownRenderState extends MarkdownRenderBaseState{
 class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderState> {
 
     foundation = new MarkdownRenderFoundation(this.adapter)
+    evaluationVersion = 0;
 
     constructor(props: MarkdownRenderProps) {
         super(props);
@@ -51,16 +52,25 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
     })
     
     componentDidMount(): void {
-        (async () => {
-            this.setState({ MDXContentComponent: await this.foundation.evaluate(this.props.raw) });
-        })();
+        this.evaluateContent();
     }
 
     componentDidUpdate(prevProps: Readonly<MarkdownRenderProps>, prevState: Readonly<MarkdownRenderState>, snapshot?: any) {
         if (prevProps.raw !== this.props.raw) {
-            (async () => {
-                this.setState({ MDXContentComponent: await this.foundation.evaluate(this.props.raw) });
-            })();
+            this.evaluateContent();
+        }
+    }
+
+    componentWillUnmount(): void {
+        this.evaluationVersion++;
+        super.componentWillUnmount();
+    }
+
+    async evaluateContent() {
+        const version = ++this.evaluationVersion;
+        const MDXContentComponent = await this.foundation.evaluate(this.props.raw);
+        if (version === this.evaluationVersion) {
+            this.setState({ MDXContentComponent });
         }
     }
 
