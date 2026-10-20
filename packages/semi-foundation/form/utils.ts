@@ -17,7 +17,22 @@ export function copyFieldPath(object: Record<string, any>, field: string): Recor
         if (value === null || typeof value !== 'object') {
             break;
         }
-        const next = Array.isArray(value) ? value.slice() : clone(value);
+        let next;
+        if (value instanceof Error) {
+            next = Object.assign(new Error(value.message), value);
+            Object.setPrototypeOf(next, Object.getPrototypeOf(value));
+            // Error details are non-enumerable and lodash.clone would discard them.
+            Object.getOwnPropertyNames(value).forEach(key => {
+                Object.defineProperty(next, key, {
+                    value: value[key],
+                    enumerable: Object.prototype.propertyIsEnumerable.call(value, key),
+                    configurable: true,
+                    writable: true,
+                });
+            });
+        } else {
+            next = Array.isArray(value) ? Object.assign(value.slice(), value) : clone(value);
+        }
         Object.defineProperty(target, key, { value: next, enumerable: true, configurable: true, writable: true });
         source = value;
         target = next;

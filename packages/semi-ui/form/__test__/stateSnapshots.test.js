@@ -81,7 +81,7 @@ describe('Form state snapshots', () => {
         expect(foundation.data.values).toEqual({ name: 'replacement' });
     });
 
-    it.each(['form', 'field'])('returns current values after asynchronous %s validation', async level => {
+    it.each(['form', 'field'])('returns the checked snapshot after asynchronous %s validation', async level => {
         let finish;
         const pending = new Promise(resolve => { finish = resolve; });
         const foundation = createFoundation(level === 'form' ? { validator: () => pending } : {});
@@ -92,10 +92,11 @@ describe('Form state snapshots', () => {
         foundation.updateStateValue('rows[0].name', 'second', {});
         finish();
         const values = await validation;
-        expect(values.rows[0].name).toBe('second');
+        expect(values.rows[0].name).toBe('first');
+        expect(foundation.data.values.rows[0].name).toBe('second');
     });
 
-    it('reports current values after asynchronous submission failure', async () => {
+    it('reports the checked values after asynchronous submission failure', async () => {
         let finish;
         const validation = new Promise(resolve => { finish = resolve; });
         let notifyFailure;
@@ -107,7 +108,8 @@ describe('Form state snapshots', () => {
         foundation.updateStateValue('rows[0].name', 'second', {});
         finish({ rows: [{ name: 'invalid' }] });
         const values = await failed;
-        expect(values.rows[0].name).toBe('second');
+        expect(values.rows[0].name).toBe('first');
+        expect(foundation.data.values.rows[0].name).toBe('second');
     });
 
     it('preserves sparse array holes and removes empty paths without changing old values', () => {

@@ -259,7 +259,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                     (result: any) => {
                         // validate success，clear error
                         if (!result) {
-                            const _values = this._adapter.cloneDeep(this.data.values);
+                            const _values = this._adapter.cloneDeep(values);
                             resolve(_values);
                             if (!silent) {
                                 this.injectErrorToField({});
@@ -300,6 +300,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
 
     // field level validate
     _fieldsValidate(fieldPaths?: Array<string>, silent: boolean = false): Promise<unknown> {
+        const { values } = this.data;
         // When there is no custom validation function at Form level, perform validation of each Field
         return new Promise((resolve, reject) => {
             let promiseSet: Promise<any>[] = [];
@@ -330,7 +331,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 }
                 const errors = this.getError();
                 if (this._isValid(targetFields)) {
-                    const _values = this._adapter.cloneDeep(this.data.values);
+                    const _values = this._adapter.cloneDeep(values);
                     resolve(_values);
                 } else {
                     if (!silent) {
@@ -343,6 +344,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     }
 
     submit(e?: any): void {
+        const { values } = this.data;
         // validate form
         this.validate()
             .then((resolveValues: any) => {
@@ -352,7 +354,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             })
             .catch(errors => {
                 const _errors = this._adapter.cloneDeep(errors);
-                const _values = this._adapter.cloneDeep(this.data.values);
+                const _values = this._adapter.cloneDeep(values);
                 this._adapter.notifySubmitFail(_errors, _values, e);
             });
     }
