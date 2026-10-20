@@ -1,6 +1,7 @@
 import BaseFoundation from '../base/foundation';
 import * as ObjectUtil from '../utils/object';
 import isPromise from '../utils/isPromise';
+import { getUuidv4 } from '../utils/uuid';
 import { isValid } from './utils';
 import { isUndefined, isFunction, toPath } from 'lodash';
 import scrollIntoView, { Options as ScrollIntoViewOptions } from 'scroll-into-view-if-needed';
@@ -183,7 +184,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     // in order to solve bytedance internal issue-289
     registerArrayField(arrayFieldPath: string, val: any): void {
         this.updateArrayField(arrayFieldPath, {
-            updateKey: new Date().valueOf(),
+            updateKey: getUuidv4(),
             initValue: val
         });
     }
@@ -430,7 +431,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             const arrayFieldState = this.registeredArrayField.get(path);
             const arrayFieldInitValue = arrayFieldState.initValue;
             this.updateStateValue(path, arrayFieldInitValue, { notNotify: true, notUpdate: true });
-            this.updateArrayField(path, { updateKey: new Date().valueOf() });
+            this.updateArrayField(path, { updateKey: getUuidv4() });
         });
     }
 
@@ -488,7 +489,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         if (this.registeredArrayField.size) {
             const arrayFieldPaths = [...this.registeredArrayField.keys()];
             arrayFieldPaths.forEach(path => {
-                this.updateArrayField(path, { updateKey: new Date().valueOf() });
+                this.updateArrayField(path, { updateKey: getUuidv4() });
             });
         }
         // When isOverride is true, there may be a non-existent field in the values passed in, directly synchronized to formState.values
@@ -619,7 +620,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
 
                 // If the reset happens to be, then update the updateKey corresponding to ArrayField to render it again
                 if (this.getArrayField(field)) {
-                    this.updateArrayField(field, { updateKey: new Date().valueOf() });
+                    this.updateArrayField(field, { updateKey: getUuidv4() });
                 }
             }
         };
@@ -641,7 +642,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                     }
                 });
                 if (this.getArrayField(field)) {
-                    this.updateArrayField(field, { updateKey: new Date().valueOf() });
+                    this.updateArrayField(field, { updateKey: getUuidv4() });
                 }
             }
         };
@@ -663,7 +664,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                     }
                 });
                 if (this.getArrayField(field)) {
-                    this.updateArrayField(field, { updateKey: new Date().valueOf() });
+                    this.updateArrayField(field, { updateKey: getUuidv4() });
                 }
             }
         };
