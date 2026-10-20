@@ -20,15 +20,12 @@ class SpinFoundation extends BaseFoundation<SpinAdapter> {
     }
 
     updateLoadingIfNeedDelay() {
+        this.destroy();
         const { spinning: propsSpinning, delay: propsDelay } = this._adapter.getProps();
-        const { delay } = this._adapter.getStates();
-        if (delay) {
-            const self = this;
+        if (propsSpinning && propsDelay) {
             this._timer = setTimeout(() => {
-                self._adapter.setState({
-                    loading: propsSpinning,
-                    delay: 0
-                });
+                this._timer = null;
+                this._adapter.setLoading(this.getProp('spinning'));
             }, propsDelay);
         }
     }
