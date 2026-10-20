@@ -217,7 +217,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
      */
     valueFormatIsCorrect = (value: SliderProps['value']) => {
         if (Array.isArray(value)) {
-            return typeof value[0] === 'number' && typeof value[0] === 'number';
+            return typeof value[0] === 'number' && typeof value[1] === 'number';
         } else {
             return typeof value === 'number';
         }
