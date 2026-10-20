@@ -19,18 +19,20 @@ export interface ToastListAdapter extends DefaultAdapter<ToastListProps, ToastLi
 }
 
 export default class ToastListFoundation extends BaseFoundation<ToastListAdapter> {
-
+    // Keep operations synchronous while the adapter batches rendered state updates.
+    private toastList: ToastListState['list'];
 
     constructor(adapter: ToastListAdapter) {
         super({ ...ToastListFoundation.defaultAdapter, ...adapter });
+        this.toastList = this._adapter.getState('list');
     }
 
     hasToast(id: string) {
-        const toastList = this._adapter.getState('list') as ToastListState['list'];
-        return toastList.map(({ id }) =>id).includes(id);
+        const toastList = this.toastList;
+        return toastList.map(({ id }) => id).includes(id);
     }
 
-    handleMouseInSideChange = (mouseInSideChange: boolean)=>{
+    handleMouseInSideChange = (mouseInSideChange: boolean) => {
         this._adapter.handleMouseInSideChange(mouseInSideChange);
     }
 
@@ -38,25 +40,29 @@ export default class ToastListFoundation extends BaseFoundation<ToastListAdapter
         return this._adapter.getInputWrapperRect();
     }
 
+    private updateList(removedItems: ToastInstance[] = []) {
+        const renderedList = this._adapter.getState('list');
+        // Reused instances need new timers, including same-id replacements before the next render.
+        const updatedItems = this.toastList.filter(item =>
+            renderedList.some(rendered => rendered.id === item.id && rendered !== item)
+        );
+        this._adapter.updateToast(this.toastList, removedItems, updatedItems);
+    }
+
     addToast(toastOpts: ToastProps) {
-        const toastList = this._adapter.getState('list') as ToastListState['list'];
-        // const id = getUuid('toast');
-        // let toastOpts = { ...opts, id };
-        // console.log(toastOpts);
-        toastList.push(toastOpts);
-        this._adapter.updateToast(toastList, [], []);
-        // return id;
+        this.toastList = [...this.toastList, toastOpts];
+        this.updateList();
     }
 
     updateToast(id: string, toastOpts: ToastProps) {
-        let toastList = this._adapter.getState('list') as ToastListState['list'];
-        toastList = toastList.map((toast) => toast.id === id ? { ...toast, ...toastOpts }: toast);
-        const updatedItems = toastList.filter((toast => toast.id === id));
-        this._adapter.updateToast(toastList, [], updatedItems);
+        let toastList = this.toastList;
+        toastList = toastList.map((toast) => toast.id === id ? { ...toast, ...toastOpts } : toast);
+        this.toastList = toastList;
+        this.updateList();
     }
 
     removeToast(id: string) {
-        let toastList = this._adapter.getState('list') as ToastListState['list'];
+        let toastList = this.toastList;
         const removedItems: ToastListState['removedItems'] = [];
         toastList = toastList.filter(toastOpts => {
             if (toastOpts.id === id) {
@@ -65,12 +71,14 @@ export default class ToastListFoundation extends BaseFoundation<ToastListAdapter
             }
             return true;
         });
-        this._adapter.updateToast(toastList, removedItems, []);
+        this.toastList = toastList;
+        this.updateList(removedItems);
     }
 
     destroyAll() {
-        const toastList = this._adapter.getState('list');
+        const toastList = this.toastList;
         if (toastList.length > 0) {
+            this.toastList = [];
             this._adapter.updateToast([], toastList, []);
         }
     }
