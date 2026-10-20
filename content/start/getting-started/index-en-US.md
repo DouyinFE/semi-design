@@ -7,11 +7,14 @@ localeCode: en-US
 order: 2
 ---
 
-Semi Design is maintained by the Douyin front-end team and provides 70+ ready-to-use React components and the Figam Variant UI Kit. You can import and use it in any React project (new projects are recommended to be created via Rsbuild, CreateReactApp, or Vite). Currently, it supports React v16, v17, v18, and v19 ([React v19 adaptation](/en-US/start/react19)).
+Semi Design is maintained by the Douyin front-end team and provides 70+ ready-to-use React components and the Figam Variant UI Kit. You can import and use it in any React project (new projects are recommended to be created via Rsbuild, CreateReactApp, or Vite). Currently, it supports React v16, v17, v18, and v19 ([React v19 adaptation](/en-US/ecosystem/react19)).
 
-If you need to use compile-time customization capabilities such as prefixCls, themes, and CSS Layers, we recommend using Webpack or Rspack/Rsbuild as your engineering build solution. (For ByteDance users, if you are using your company's internal engineering solution, please refer to the Lark documentation for configuration: <a href="https://bytedance.larkoffice.com/wiki/FaRwweDLmigrD0k8wLgcDaQtnbb" target="_blank">Semi Engineering FAQ</a>)
+For compile-time customization such as prefixCls, themes, and CSS Layers, use the Semi plugin for your build tool. Webpack, Rspack/Rsbuild, and Vite are supported; see [Customize Theme](/en-US/advanced/customize-theme) and [With TailwindCSS](/en-US/ecosystem/tailwind). (For ByteDance users, if you are using your company's internal engineering solution, please refer to the Lark documentation for configuration: <a href="https://bytedance.larkoffice.com/wiki/FaRwweDLmigrD0k8wLgcDaQtnbb" target="_blank">Semi Engineering FAQ</a>)
 
-<Notice title='Important Notes'> The component package @douyinfe/semi-ui is suitable for React versions lower than v19. If using React v19, please use @douyinfe/semi-ui-19. In all examples below, @douyinfe/semi-ui can be replaced with @douyinfe/semi-ui-19.
+<Notice title='React Version Compatibility'>
+
+React 16, 17, 18, and 19 all use the same package, `@douyinfe/semi-ui`. React 19 projects must import `@douyinfe/semi-ui/react19-adapter` in the application entry before using Semi components; there is no need to install `@douyinfe/semi-ui-19`. See the [React 19 guide](/en-US/ecosystem/react19) for migration steps and limitations.
+
 </Notice>
 
 ## 1. Install Library
@@ -29,25 +32,38 @@ pnpm add @douyinfe/semi-ui
 ## 2. Use components in a modular way 💫
 
 `Semi` provides esm format dist, and the css of the component is only imported by the corresponding js.  
-When used in `Webpack`, `Rspack`, `create-react-app` or `Vite` projects, there is no need to configure any compilation items.   
+With the default theme, `Webpack`, `Rspack`, `create-react-app`, and `Vite` projects generally do not need a Semi-specific build plugin. For theme customization or Tailwind layers, follow the build configuration in the corresponding guide.
 All related resources are packaged on-demand at build process. Tree shaking will work without additional configuration.
 
-```jsx
-import React, { Component } from 'react';
-import { Button, Toast } from '@douyinfe/semi-ui';
+For **React 19**, add the following import to your application entry before using any Semi components. React 16/17/18 projects do not need this import:
 
-class Demo extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return <Button onClick={() => Toast.warning({ content: 'welcome' })}>Hello Semi</Button>;
-    }
-}
+```js
+// main.tsx or index.tsx, React 19 only
+import '@douyinfe/semi-ui/react19-adapter';
 ```
 
-> It is recommended to import [reset.css](https://www.npmjs.com/package/reset-css) into the project, which can avoid introducing the default style of the browser.
+Then import components from `@douyinfe/semi-ui` as usual:
+
+```jsx
+import React from 'react';
+import { Button, Toast } from '@douyinfe/semi-ui';
+
+const SemiApp = () => {
+    return (
+        <Button onClick={() => Toast.warning({ content: 'welcome' })}>Hello Semi</Button>
+    );
+};
+
+export default SemiApp;
+```
+
+> If your project does not already have a CSS reset, consider [reset.css](https://www.npmjs.com/package/reset-css) to reduce differences between browser defaults. If Tailwind CSS Preflight is enabled, an additional reset.css is usually unnecessary; avoid applying redundant resets. If Preflight is disabled, choose a reset strategy appropriate for your project. See [With TailwindCSS](/en-US/ecosystem/tailwind) for style priority configuration.
+
+### On-demand loading and automatic imports
+
+On-demand loading is different from omitting `import` statements in source code. The explicit imports above allow your build tool to perform tree shaking; an automatic import plugin is not required for on-demand bundling.
+
+Official build plugins such as `@douyinfe/semi-vite-plugin` and `@douyinfe/semi-webpack-plugin` handle themes, CSS prefixes, and styles; they do not generate imports for `Button`, `Toast`, or other JSX components, or provide a component auto-import resolver. This guide recommends keeping explicit imports and using your editor's auto-import feature. If you choose a third-party tool, configure it according to its React/JSX support.
 
 ## 3. Use in Next.js
 - If you only use the default theme, you can add Semi-related packages to `transpilePackages` (Next.js version requires >= v13.1) . 
@@ -207,4 +223,3 @@ Use script and link tags to import files directly in the browser, and use the gl
     );
 </script>
 ```
-

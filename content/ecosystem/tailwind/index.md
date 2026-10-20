@@ -31,6 +31,8 @@ Semi 不依赖任何第三方样式库，没有安装 Tailwind 一样可以运�
 #### 原因分析
 使用 Tailwind 时，Tailwind 通过 className 对 dom 进行样式修改，同样作用于 Semi 组件库。同时 Tailwind 默认开启了 [Preflight](https://tailwindcss.com/docs/preflight) 来重置浏览器默认样式。
 
+已启用 Preflight 的项目通常无需再引入 `reset-css`。重复引入其他全局 reset 并不能解决样式优先级冲突；如果手动禁用了 Preflight，请根据项目需要选择重置方案。
+
 此时根据你项目的配置和入口的 import，有两种可能：
 
 1. Tailwind 比 Semi 的样式先引入，Semi 优先级更高
@@ -84,7 +86,50 @@ module.exports = {
 };
 ```
 
-使用非 webpack rspack 构建的用户请参照原理自行对 semi 的 css 进行 layer 包裹
+- Vite 用户：安装 `@douyinfe/semi-vite-plugin`（>= 2.98.0），在现有 React 项目的 Vite 配置中开启 `cssLayer`。该插件处理 Semi 样式，不代替 Tailwind 自身的构建配置。
+
+```shell
+npm install -D @douyinfe/semi-vite-plugin
+```
+
+**Tailwind v4** 使用 `@tailwindcss/vite` 时，配置如下：
+
+```shell
+npm install -D tailwindcss@^4 @tailwindcss/vite@^4
+```
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
+import semiTheming from '@douyinfe/semi-vite-plugin';
+
+export default defineConfig({
+    plugins: [
+        react(),
+        tailwindcss(),
+        semiTheming({ cssLayer: true }),
+    ],
+});
+```
+
+**Tailwind v3** 保留项目已有的 Tailwind PostCSS 配置，不安装或使用 `@tailwindcss/vite`，Vite 配置为：
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import semiTheming from '@douyinfe/semi-vite-plugin';
+
+export default defineConfig({
+    plugins: [react(), semiTheming({ cssLayer: true })],
+});
+```
+
+以上两种 Vite 配置都需要继续按下一节设置对应 Tailwind 版本的 Layer 顺序和入口 CSS。若还需接入主题包，可在同一个 `semiTheming` 配置中增加 `theme` 等选项，详见[定制主题](/zh-CN/advanced/customize-theme)。
+
+使用其他构建工具的用户，可参照原理自行对 Semi 的 CSS 进行 Layer 包裹。
 
 
 ** 3. 修改 Tailwind 入口配置**
@@ -95,9 +140,11 @@ Tailwind v3 和 v4 的配置方式不同，请根据你使用的版本选择对�
 
 **Tailwind v4 配置方式：**
 
+层顺序需要包含 Tailwind 默认的 `components` 层，确保它位于 `utilities` 之前。否则 Tailwind 后续声明 `components` 时会将其追加到已知层的末尾，导致该层中的自定义组件样式反过来覆盖工具类。
+
 1. 创建一个 CSS 文件（如 `semi-layer.css`），内容如下：
 ```css
-@layer theme, base, semi, utilities;
+@layer theme, base, semi, components, utilities;
 ```
 
 2. 在项目的 JS 入口文件（如 `main.tsx`、`App.tsx` 或 `index.js`）的**最顶部**，在所有其他 import 语句之前，import 这个文件：
@@ -152,7 +199,7 @@ CSS Layer 要求浏览器版本高于 Chromium 99 <a target="_blank" href="https
 #### 原理
 通过 CSS Layer 特性，实现不同来源的样式的优先级设置。
 
-开启插件后，所有的 Semi 样式都会被 `@layer {xxxx}` 包裹。另外，我们也手动设置了项目中的 Tailwind 的各种类型的样式的 Layer。
+插件将编译生成的 Semi 组件及主题样式包裹在 `@layer semi { ... }` 中；Tailwind 的各种样式层则由项目单独配置。
 
 另外，我们配置了各种 Layer 的优先级顺序：
 ```css

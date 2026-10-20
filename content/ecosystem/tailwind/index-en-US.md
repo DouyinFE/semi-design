@@ -29,6 +29,8 @@ There is no effect or component library style exception when using some atomic c
 #### Cause Analysis
 When using Tailwind, Tailwind modifies the dom style through className, which also affects the Semi component library. At the same time, Tailwind enables [Preflight](https://tailwindcss.com/docs/preflight) by default to reset the browser's default style.
 
+Projects with Preflight enabled usually do not need an additional `reset-css`. Adding another global reset does not resolve style priority conflicts. If you disable Preflight, choose a reset strategy appropriate for your project.
+
 At this time, depending on the configuration of your project and the import of the entry, there are two possibilities:
 
 1. Tailwind is introduced before Semi style, and Semi has higher priority
@@ -82,7 +84,50 @@ module.exports = {
 };
 ```
 
-For users who use neither webpack or rspack build, please refer to the principle to layer-wrap semi's css yourself
+- Vite users: install `@douyinfe/semi-vite-plugin` (>= 2.98.0) and enable `cssLayer` in your existing React project's Vite configuration. This plugin processes Semi styles; it does not replace Tailwind's own build configuration.
+
+```shell
+npm install -D @douyinfe/semi-vite-plugin
+```
+
+For **Tailwind v4** with `@tailwindcss/vite`:
+
+```shell
+npm install -D tailwindcss@^4 @tailwindcss/vite@^4
+```
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
+import semiTheming from '@douyinfe/semi-vite-plugin';
+
+export default defineConfig({
+    plugins: [
+        react(),
+        tailwindcss(),
+        semiTheming({ cssLayer: true }),
+    ],
+});
+```
+
+For **Tailwind v3**, retain your existing Tailwind PostCSS configuration. Do not install or use `@tailwindcss/vite`; configure Vite as follows:
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import semiTheming from '@douyinfe/semi-vite-plugin';
+
+export default defineConfig({
+    plugins: [react(), semiTheming({ cssLayer: true })],
+});
+```
+
+For either Vite setup, continue with the next section to configure the layer order and entry CSS for your Tailwind version. If you also need a theme package, add `theme` and other options to the same `semiTheming` configuration; see [Customize Theme](/en-US/advanced/customize-theme).
+
+For other build tools, refer to the principle below to wrap Semi CSS in a layer.
 
 ** 3. Modify Tailwind entry configuration**
 
@@ -92,9 +137,11 @@ The configuration methods for Tailwind v3 and v4 are different. Please choose th
 
 **Tailwind v4 Configuration:**
 
+Include Tailwind's default `components` layer before `utilities` in the initial order declaration. Otherwise, Tailwind's later declaration appends `components` after the known layers, allowing custom component styles in that layer to override utility classes.
+
 1. Create a CSS file (e.g., `semi-layer.css`) with the following content:
 ```css
-@layer theme, base, semi, utilities;
+@layer theme, base, semi, components, utilities;
 ```
 
 2. Import this file at the **very top** of your project's JS entry file (e.g., `main.tsx`, `App.tsx`, or `index.js`), before all other import statements:
@@ -149,7 +196,7 @@ CSS Layer requires a browser version higher than Chromium 99 <a target="_blank" 
 #### Principle
 Through the CSS Layer feature, priority setting of styles from different sources is achieved.
 
-After enabling the plugin, all Semi styles will be wrapped by `@layer {xxxx}`. In addition, we also manually set the layers of various types of Tailwind styles in the project.
+The plugin wraps Semi's compiled component and theme styles in `@layer semi { ... }`. Tailwind's style layers are configured separately in the application.
 
 In addition, we configured the priority order of various Layers:
 ```css
