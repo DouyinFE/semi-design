@@ -31,7 +31,7 @@ const Steps = (props: NavStepsProps) => {
                 total,
                 ...child.props,
             };
-            childProps.active = index === current;
+            childProps.active = index + initial === current;
             childProps.onChange = onChange ? () => {
                 if (index + initial !== current) {
                     onChange(index + initial);
