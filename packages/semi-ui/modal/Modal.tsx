@@ -157,7 +157,8 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                 }
                 this.hasBodyScrollLock = false;
                 bodyScrollLockCount--;
-                if (bodyScrollLockCount === 0) {
+                // A pre-existing hidden style belongs to another owner and must not be restored here.
+                if (bodyScrollLockCount === 0 && originalBodyOverflow !== 'hidden') {
                     document.body.style.overflow = originalBodyOverflow;
                     document.body.style.width = originalBodyWidth;
                 }
