@@ -19,6 +19,7 @@ export interface SwitchProps {
     checked?: boolean;
     disabled?: boolean;
     onChange?: (checked: boolean, e: React.ChangeEvent<HTMLInputElement>) => void;
+    onBlur?: React.FocusEventHandler<HTMLInputElement>;
     loading?: boolean;
     className?: string;
     style?: React.CSSProperties;
@@ -51,6 +52,7 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
         disabled: PropTypes.bool,
         loading: PropTypes.bool,
         onChange: PropTypes.func,
+        onBlur: PropTypes.func,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
         style: PropTypes.object,
@@ -121,8 +123,9 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
         this.foundation.handleFocusVisible(event);
     }
 
-    handleBlur = (event: React.FocusEvent) => {
+    handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
         this.foundation.handleBlur();
+        this.props.onBlur?.(event);
     }
 
     render() {
