@@ -120,6 +120,23 @@ function getTransfer(props) {
 }
 
 describe(`Transfer`, () => {
+    it('preserves caller tree nodes when rendering treeList paths', () => {
+        const dataSource = [
+            { key: 'leaf', value: 'leaf', label: 'Leaf' },
+            { key: 'parent', value: 'parent', label: 'Parent', children: [
+                { key: 'child', value: 'child', label: 'Child' },
+            ] },
+        ];
+        const original = _.cloneDeep(dataSource);
+        const wrapper = mount(<Transfer type="treeList" dataSource={dataSource} defaultValue={['child']} showPath />);
+        try {
+            expect(wrapper.text()).toContain('Child');
+            expect(wrapper.text()).toContain('Parent');
+            expect(dataSource).toEqual(original);
+        } finally {
+            wrapper.unmount();
+        }
+    });
     beforeEach(() => {
         // Avoid `attachTo: document.body` Warning
         const div = document.createElement('div');
