@@ -322,6 +322,8 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             color,
             className,
             hoverMask,
+            onMouseEnter,
+            onMouseLeave,
             onClick,
             imgAttr,
             src,
