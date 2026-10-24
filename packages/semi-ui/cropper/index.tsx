@@ -146,7 +146,7 @@ class Cropper extends BaseComponent<CropperProps, CropperState> {
                 };
             }
         }
-        if (!isUndefined(newRotate) && newZoom !== zoom) {
+        if (!isUndefined(newZoom) && newZoom !== zoom) {
             nextState.zoom = newZoom;
             if (loaded) {
                 // 同上
