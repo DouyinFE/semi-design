@@ -173,7 +173,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
             <div
                 id={id}
                 // Keep option-text clicks inside the group before Checkbox focuses its input.
-                tabIndex={-1}
+                tabIndex={this.props.disabled ? undefined : -1}
                 onBlur={this.handleBlur}
                 role="list"
                 aria-label={this.props['aria-label']}

@@ -39,6 +39,18 @@ describe('CheckboxGroup blur', () => {
         } finally { wrapper.unmount(); host.remove(); }
     });
 
+    it('does not make a disabled group focusable', () => {
+        const host = document.createElement('div');
+        document.body.appendChild(host);
+        const wrapper = mount(<div><Checkbox.Group disabled options={['A', 'B']} /><button>Outside</button></div>, { attachTo: host });
+        try {
+            const outside = wrapper.find('button').getDOMNode();
+            outside.focus();
+            wrapper.find('.semi-checkboxGroup').getDOMNode().focus();
+            expect(document.activeElement).toBe(outside);
+        } finally { wrapper.unmount(); host.remove(); }
+    });
+
     it('runs Form blur validation after leaving the group', async () => {
         const validator = sinon.spy(() => 'Please select an option');
         let api;
