@@ -15,7 +15,9 @@ const Code = (props: PropsWithChildren<{ className: string }>) => {
     }, [props.className]);
 
     const onCopyButtonClick = useCallback(() => {
-        copy(props.children as string);
+        if (!copy(props.children as string)) {
+            return;
+        }
         setCopied(true);
         setTimeout(() => {
             setCopied(false);
