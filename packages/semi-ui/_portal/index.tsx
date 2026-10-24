@@ -38,45 +38,34 @@ class Portal extends PureComponent<PortalProps, PortalState> {
 
     el: HTMLElement;
     context: ContextValue;
-    constructor(props: PortalProps, context: ContextValue) {
+    constructor(props: PortalProps) {
         super(props);
         this.state = {
-            container: this.initContainer(context, true)
+            container: undefined
         };
     }
 
     componentDidMount() {
         const container = this.initContainer(this.context);
-        if (container!==this.state.container) {
+        if (container !== this.state.container) {
             this.setState({ container });
         }
     }
 
-    initContainer = (context: ContextValue, catchError = false) => {
-        try {
-            let container: HTMLElement | undefined = undefined;
-            if (!this.el || !this.state?.container || !Array.from(this.state.container.childNodes).includes(this.el)) {
-                // Reuse the existing el if it was detached from the container — e.g. React 18+
-                // StrictMode's simulated remount runs componentWillUnmount (which removes el)
-                // and then componentDidMount lands here. Creating a new el would change
-                // createPortal's container identity and force React to unmount & remount the
-                // entire portal subtree (children effects re-run, data requests fire twice).
-                // Re-appending the same node restores the DOM without touching the React tree.
-                if (!this.el) {
-                    this.el = document.createElement('div');
-                }
-                const getContainer = this.props.getPopupContainer || context.getPopupContainer || defaultGetContainer;
-                const portalContainer = getContainer();
-                portalContainer.appendChild(this.el);
-                this.addStyle(this.props.style);
-                this.addClass(this.props.prefixCls, context, this.props.className);
-                container = portalContainer;
-                return container;
+    initContainer = (context: ContextValue) => {
+        let container: HTMLElement | undefined = undefined;
+        if (!this.el || !this.state?.container || !Array.from(this.state.container.childNodes).includes(this.el)) {
+            // Keep the same portal target when StrictMode simulates a remount.
+            if (!this.el) {
+                this.el = document.createElement('div');
             }
-        } catch (e) {
-            if (!catchError) {
-                throw e;
-            }
+            const getContainer = this.props.getPopupContainer || context.getPopupContainer || defaultGetContainer;
+            const portalContainer = getContainer();
+            portalContainer.appendChild(this.el);
+            this.addStyle(this.props.style);
+            this.addClass(this.props.prefixCls, context, this.props.className);
+            container = portalContainer;
+            return container;
         }
         return this.state?.container;
     }
@@ -90,9 +79,8 @@ class Portal extends PureComponent<PortalProps, PortalState> {
     }
 
     componentWillUnmount() {
-        const { container } = this.state;
-        if (container) {
-            container.removeChild(this.el);
+        if (this.el && this.el.parentNode) {
+            this.el.parentNode.removeChild(this.el);
         }
     }
 
