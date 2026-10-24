@@ -111,6 +111,8 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
     }
 
     componentWillUnmount(): void {
+        this.debouncedMouseEnter.cancel();
+        this.debouncedMouseLeave.cancel();
         this.foundation.destroy();
     }
 
@@ -155,6 +157,9 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
             this.foundation.handleAutoPlay();
         }
     }
+
+    debouncedMouseEnter = debounce(this.handleMouseEnter, 400);
+    debouncedMouseLeave = debounce(this.handleMouseLeave, 400);
 
     onIndicatorChange = (activeIndex: number): void => {
         return this.foundation.onIndicatorChange(activeIndex);
@@ -273,11 +278,9 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
                 // tabIndex={0}
                 className={carouselWrapperCls}
                 style={style}
-                onMouseEnter={debounce(this.handleMouseEnter, 400)}
-                onMouseLeave={debounce(this.handleMouseLeave, 400)}
+                onMouseEnter={this.debouncedMouseEnter}
+                onMouseLeave={this.debouncedMouseLeave}
                 {...this.getDataAttr(this.props)}
-            // onMouseEnter={this.handleMouseEnter}
-            // onMouseLeave={this.handleMouseLeave}
             // onKeyDown={e => this.foundation.handleKeyDown(e)}
             >
                 <div
