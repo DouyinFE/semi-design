@@ -122,13 +122,13 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
         this._adapter.notifyIntersect(res);
     }
 
-    getReversedItems = ()=>{
+    getReversedItems = () => {
         const { items } = this.getProps();
         return copy(items).reverse();
     }
     handleCollapseOverflow() {
         const { minVisibleItems, collapseFrom } = this.getProps();
-        const { overflowWidth, containerWidth, pivot: statePivot, overflowStatus } = this.getStates();
+        const { overflowWidth, containerWidth, pivot: statePivot, overflowStatus, lastOverflowCount } = this.getStates();
         const { items, onOverflow } = this.getProps();
         let itemWidths = overflowWidth, _pivot = 0;
         let overflowed = false;
@@ -145,8 +145,12 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
                     overflowStatus: "normal",
                     pivot: items.length - 1,
                     visible: items,
-                    overflow: []
+                    overflow: [],
+                    lastOverflowCount: 0,
                 });
+                if (lastOverflowCount !== 0) {
+                    onOverflow([]);
+                }
                 break;
             }
             _pivot++;
@@ -161,9 +165,10 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
                 pivot: pivot,
                 visible,
                 overflow,
+                lastOverflowCount: overflow.length,
             });
             // trigger onOverflow
-            if (statePivot !== pivot) {
+            if (statePivot !== pivot || lastOverflowCount !== overflow.length) {
                 onOverflow(overflow);
             }
             return;

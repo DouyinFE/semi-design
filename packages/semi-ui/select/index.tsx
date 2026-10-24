@@ -105,7 +105,7 @@ export interface selectMethod {
     focus?: () => void;
     close?: () => void;
     open?: () => void;
-    rePosition?: () => void;
+    rePosition?: () => void
 }
 export type SelectSize = 'small' | 'large' | 'default';
 
@@ -198,15 +198,15 @@ export type SelectProps<T = BasicSelectValue> = {
     showRestTagsPopover?: boolean;
     restTagsPopoverProps?: PopoverProps
 } & Pick<
-    TooltipProps,
-    | 'spacing'
-    | 'getPopupContainer'
-    | 'motion'
-    | 'autoAdjustOverflow'
-    | 'mouseLeaveDelay'
-    | 'mouseEnterDelay'
-    | 'stopPropagation'
-    | 'rePosKey'
+TooltipProps,
+| 'spacing'
+| 'getPopupContainer'
+| 'motion'
+| 'autoAdjustOverflow'
+| 'mouseLeaveDelay'
+| 'mouseEnterDelay'
+| 'stopPropagation'
+| 'rePosKey'
 >;
 
 export interface SelectState {
@@ -1191,7 +1191,8 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
     handleOverflow(items: [React.ReactNode, any][]) {
         const { overflowItemCount, selections } = this.state;
         const { maxTagCount } = this.props;
-        const newOverFlowItemCount = selections.size - maxTagCount > 0 ? selections.size - maxTagCount + items.length - 1 : items.length - 1;
+        const hiddenByCount = Math.max(0, selections.size - (maxTagCount ?? selections.size));
+        const newOverFlowItemCount = hiddenByCount + Math.max(0, items.length - 1);
         if (overflowItemCount !== newOverFlowItemCount) {
             this.foundation.updateOverflowItemCount(selections.size, newOverFlowItemCount);
         }
@@ -1204,6 +1205,7 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
         return (
             <div className={`${prefixcls}-content-wrapper-collapse`}>
                 <OverflowList
+                    style={{ flex: 1 }}
                     items={normalTags}
                     itemKey={item => item?.[1]?.value}
                     overflowRenderer={overflowItems => this.renderOverflow(overflowItems as [React.ReactNode, any][], length - 1)}
