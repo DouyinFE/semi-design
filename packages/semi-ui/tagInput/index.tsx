@@ -586,7 +586,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                 container={SortContainer}
                 prefix={prefixCls}
                 transition={null}
-                dragOverlayCls={`${prefixCls}-right-item-drag-item-move`}
+                dragOverlayCls={`${prefixCls}-drag-item-move`}
             />;
         }
         return (
