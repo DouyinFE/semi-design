@@ -27,6 +27,24 @@ function getImagePreview(imageProps) {
 }
 
 describe('ImagePreview', () => {
+    it('opens with defaultVisible and can be closed without a controlled visible prop', () => {
+        const image = mount(getImagePreview({ defaultVisible: true }));
+        try {
+            expect(image.exists(`div.${BASE_CLASS_PREFIX}-image-preview`)).toBe(true);
+            image.find(`.${BASE_CLASS_PREFIX}-image-preview-header-close`).simulate('mouseUp');
+            expect(image.exists(`div.${BASE_CLASS_PREFIX}-image-preview`)).toBe(false);
+        } finally {
+            image.setProps({ visible: false });
+            image.unmount();
+        }
+    });
+
+    it('lets controlled visible=false override defaultVisible', () => {
+        const image = mount(getImagePreview({ defaultVisible: true, visible: false }));
+        expect(image.exists(`div.${BASE_CLASS_PREFIX}-image-preview`)).toBe(false);
+        image.unmount();
+    });
+
     it('visible', function () {
         const imageComponent = getImagePreview();
         const image = mount(imageComponent, { attachTo: document.getElementById('container') });
