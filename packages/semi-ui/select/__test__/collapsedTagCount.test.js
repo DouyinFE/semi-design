@@ -17,10 +17,11 @@ describe('Select collapsed tag counts after removing an option', () => {
         originalObserver = global.ResizeObserver;
         global.ResizeObserver = class {
             targets = new Set();
+            widths = new Map();
             constructor(callback) { this.callback = callback; observers.add(this); }
-            observe(target) { this.targets.add(target); }
-            unobserve(target) { this.targets.delete(target); }
-            disconnect() { this.targets.clear(); }
+            observe(target) { if (!this.targets.has(target)) this.widths.delete(target); this.targets.add(target); }
+            unobserve(target) { this.targets.delete(target); this.widths.delete(target); }
+            disconnect() { this.targets.clear(); this.widths.clear(); }
         };
         widthDescriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'clientWidth');
         Object.defineProperty(HTMLElement.prototype, 'clientWidth', {
@@ -44,7 +45,9 @@ describe('Select collapsed tag counts after removing an option', () => {
         for (let pass = 0; pass < 3; pass++) {
             act(() => {
                 [...observers].forEach(observer => {
-                    if (observer.targets.size) observer.callback([...observer.targets].map(target => ({ target, contentRect: { width: target.clientWidth, height: 32 } })));
+                    const changed = [...observer.targets].filter(target => observer.widths.get(target) !== target.clientWidth);
+                    changed.forEach(target => observer.widths.set(target, target.clientWidth));
+                    if (changed.length) observer.callback(changed.map(target => ({ target, contentRect: { width: target.clientWidth, height: 32 } })));
                 });
             });
             wrapper.update();
