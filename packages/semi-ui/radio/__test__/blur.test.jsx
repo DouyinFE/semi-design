@@ -21,6 +21,37 @@ describe('RadioGroup blur', () => {
         } finally { wrapper.unmount(); }
     });
 
+    it('keeps focus inside during an option-text click before the input receives focus', () => {
+        const host = document.createElement('div');
+        document.body.appendChild(host);
+        const onBlur = sinon.spy();
+        const wrapper = mount(<div><Radio.Group options={['A', 'B']} onBlur={onBlur} /><button>Outside</button></div>, { attachTo: host });
+        try {
+            const group = wrapper.find('.semi-radioGroup').getDOMNode();
+            const inputs = wrapper.find('input');
+            act(() => { inputs.at(0).getDOMNode().focus(); });
+            act(() => { group.focus(); });
+            expect(document.activeElement).toBe(group);
+            act(() => { inputs.at(1).getDOMNode().focus(); });
+            expect(onBlur.callCount).toBe(0);
+            act(() => { wrapper.find('button').getDOMNode().focus(); });
+            expect(onBlur.callCount).toBe(1);
+        } finally { wrapper.unmount(); host.remove(); }
+    });
+
+
+    it('does not make a disabled group focusable', () => {
+        const host = document.createElement('div');
+        document.body.appendChild(host);
+        const wrapper = mount(<div><Radio.Group disabled options={['A', 'B']} /><button>Outside</button></div>, { attachTo: host });
+        try {
+            const outside = wrapper.find('button').getDOMNode();
+            outside.focus();
+            wrapper.find('.semi-radioGroup').getDOMNode().focus();
+            expect(document.activeElement).toBe(outside);
+        } finally { wrapper.unmount(); host.remove(); }
+    });
+
     it('runs Form blur validation after leaving the group', async () => {
         const validator = sinon.spy(() => 'Please select an option');
         let api;
