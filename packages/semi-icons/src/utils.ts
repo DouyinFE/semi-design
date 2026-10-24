@@ -44,7 +44,7 @@ function getFillColor(fill: string | string[] | undefined, num: number) {
             result = fill.slice(0, num);
         }
         if (num === 4) {
-            return result.reverse();
+            return [...result].reverse();
         } 
         return result;
     }
