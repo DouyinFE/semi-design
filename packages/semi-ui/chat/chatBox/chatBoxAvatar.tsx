@@ -30,7 +30,7 @@ const ChatBoxAvatar = React.memo((props: ChatBoxAvatarProps) => {
         >
             {!isAvatarString ? avatar : null}
         </Avatar>);
-    }, [role]);
+    }, [role, continueSend]);
 
     if (customRenderFunc && typeof customRenderFunc === 'function') {
         return customRenderFunc({
