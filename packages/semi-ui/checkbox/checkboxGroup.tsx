@@ -23,6 +23,7 @@ export type CheckboxGroupProps = {
     options?: any[];
     value?: any[];
     onChange?: (value: any[]) => void;
+    onBlur?: React.FocusEventHandler<HTMLDivElement>;
     children?: React.ReactNode;
     prefixCls?: string;
     direction?: CheckboxDirection;
@@ -50,6 +51,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
         options: PropTypes.array,
         value: PropTypes.array,
         onChange: PropTypes.func,
+        onBlur: PropTypes.func,
         children: PropTypes.node,
         prefixCls: PropTypes.string,
         direction: PropTypes.oneOf<CheckboxGroupProps['direction']>(strings.DIRECTION_SET),
@@ -105,6 +107,12 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
     onChange(evt: CheckboxEvent) {
         this.foundation.handleChange(evt);
     }
+
+    handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+            this.props.onBlur?.(event);
+        }
+    };
 
     render() {
         const { children, options, prefixCls, direction, className, id, style, type, disabled } = this.props;
@@ -164,6 +172,9 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
         return (
             <div
                 id={id}
+                // Keep option-text clicks inside the group before Checkbox focuses its input.
+                tabIndex={-1}
+                onBlur={this.handleBlur}
                 role="list"
                 aria-label={this.props['aria-label']}
                 className={prefixClsDisplay} 
