@@ -73,6 +73,7 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
     };
 
     setCopied = (item: string, timer: number) => {
+        clearTimeout(this._timeId);
         this.setState({
             copied: true,
             item,
