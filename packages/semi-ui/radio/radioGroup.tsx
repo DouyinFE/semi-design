@@ -224,6 +224,8 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
                 className={prefixClsDisplay}
                 style={style}
                 id={id}
+                // Keep option-text clicks inside the group before Radio focuses its input.
+                tabIndex={this.props.disabled ? undefined : -1}
                 onBlur={this.handleBlur}
                 aria-label={this.props['aria-label']}
                 aria-invalid={this.props['aria-invalid']}
