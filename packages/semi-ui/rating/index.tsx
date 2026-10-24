@@ -326,9 +326,13 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
         return (
             // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
             <ul 
+                role="radiogroup"
                 aria-label={ariaLabel}
                 aria-labelledby={this.props['aria-labelledby']}
                 aria-describedby={this.props['aria-describedby']}
+                aria-required={this.props['aria-required']}
+                aria-invalid={this.props['aria-invalid']}
+                aria-errormessage={this.props['aria-errormessage']}
                 className={listCls}
                 style={style}
                 onMouseLeave={disabled ? noop : this.onMouseLeave}
