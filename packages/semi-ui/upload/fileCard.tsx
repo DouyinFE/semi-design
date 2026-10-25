@@ -231,7 +231,7 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
     }
 
     renderFile(locale: Locale["Upload"]) {
-        const { name, size, percent, url, showRetry: propsShowRetry, showReplace: propsShowReplace, preview, previewFile, status, style, onPreviewClick, renderFileOperation, showTooltip } = this.props;
+        const { name, size, percent, url, showRetry: propsShowRetry, showReplace: propsShowReplace, preview, previewFile, status, style, onPreviewClick, renderFileOperation, showTooltip, disabled } = this.props;
         const { fallbackPreview } = this.state;
         const fileCardCls = cls({
             [`${prefixCls}-file-card`]: true,
@@ -254,7 +254,7 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
         if (previewFile) {
             previewContent = previewFile(this.props);
         }
-        const operation = typeof renderFileOperation === 'function' ? renderFileOperation(this.props) : <Button onClick={e => this.onRemove(e)} type="tertiary" icon={<IconClose />} theme="borderless" size="small" className={closeCls} />;
+        const operation = typeof renderFileOperation === 'function' ? renderFileOperation(this.props) : <Button disabled={disabled} onClick={e => this.onRemove(e)} type="tertiary" icon={<IconClose />} theme="borderless" size="small" className={closeCls} />;
         return (
             <div role="listitem" className={fileCardCls} style={style} onClick={onPreviewClick}>
                 <div className={previewCls}>
