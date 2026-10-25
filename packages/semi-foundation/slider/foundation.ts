@@ -729,7 +729,9 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
                 update = currentValue !== outputValue;
             }
             if (update) {
-                this._adapter.updateCurrentValue(outputValue);
+                if (!this._isControlledComponent()) {
+                    this._adapter.updateCurrentValue(outputValue);
+                }
                 this._adapter.notifyChange(outputValue);
             }
             handlePrevent(event);
