@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { TextStyleKit } from '@tiptap/extension-text-style';
 import StarterKit from '@tiptap/starter-kit';
 import { Image } from "@tiptap/extension-image";
@@ -435,6 +435,10 @@ export const FileItem = React.memo((props: FileItemProps) => {
             onContentChange?.(editor.getHTML());
         },
     });
+
+    useEffect(() => {
+        editor?.setEditable(editable, false);
+    }, [editor, editable]);
 
     if (!editor) {
         return null;
