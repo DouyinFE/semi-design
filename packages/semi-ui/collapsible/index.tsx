@@ -181,7 +181,7 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
             : collapseHeight;
         const wrapperStyle: React.CSSProperties = {
             overflow: 'hidden',
-            height: isOpen ? this.state.domHeight : collapsedHeight,
+            height: isOpen ? (this.state.domInRenderTree ? this.state.domHeight : 'auto') : collapsedHeight,
             opacity: (isOpen || !this.props.fade || collapseHeight !== 0) ? 1 : 0,
             transitionDuration: `${this.props.motion && this.state.isTransitioning ? this.props.duration : 0}ms`,
             ...this.props.style
