@@ -39,7 +39,14 @@ export default class FloatButtonGroup extends BaseComponent<FloatButtonGroupProp
     }
 
     handleClick = (e) => {
-        const value = e.target.dataset.value;
+        if (this.props.disabled) {
+            return;
+        }
+        const item = e.target.closest(`.${prefixCls}-item`);
+        if (!item || !e.currentTarget.contains(item)) {
+            return;
+        }
+        const value = item.dataset.value;
         this.props.onClick?.(value, e);
     }
 
