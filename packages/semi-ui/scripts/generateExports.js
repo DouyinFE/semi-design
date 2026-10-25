@@ -62,8 +62,8 @@ function scanDirectory(dir, basePath = '') {
                 if (exportKeyWithExt !== exportKeyWithoutExt) {
                     exports[exportKeyWithoutExt] = exportValue;
                 }
-            } else if (entry.name.endsWith('.css')) {
-                // 找到 .css 文件，生成导出映射
+            } else if (entry.name.endsWith('.css') || relativePath === '_base/base.scss') {
+                // The web component loader imports the base SCSS entry directly.
                 const exportKey = `./lib/es/${relativePath}`;
                 const esPath = `lib/es/${relativePath}`;
                 const cjsPath = `lib/cjs/${relativePath}`;
