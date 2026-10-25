@@ -64,7 +64,8 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
         this.foundation.init();
     }
 
-    componentDidUpdate(_prevProps: HotKeysProps) {
+    componentDidUpdate() {
+        this.adapter.registerEvent();
     }
 
     componentWillUnmount() {
@@ -72,6 +73,7 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
     }
 
     foundation: HotKeysFoudation;
+    listenerTarget: HTMLElement;
 
     get adapter(): HotKeysAdapter<HotKeysProps, HotKeysState> {
         return {
@@ -80,12 +82,17 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
                 this.props.onHotKey?.(e);
             },
             registerEvent: () => {
-                let target = this.props.getListenerTarget?.() ?? document.body;
+                const target = this.props.getListenerTarget?.() ?? document.body;
+                if (target === this.listenerTarget) {
+                    return;
+                }
+                this.adapter.unregisterEvent();
+                this.listenerTarget = target;
                 target.addEventListener('keydown', this.foundation.handleKeyDown);
             },
             unregisterEvent: () => {
-                let target = this.props.getListenerTarget?.() ?? document.body;
-                target.removeEventListener('keydown', this.foundation.handleKeyDown);
+                this.listenerTarget?.removeEventListener('keydown', this.foundation.handleKeyDown);
+                this.listenerTarget = undefined;
             }
         };
     }
