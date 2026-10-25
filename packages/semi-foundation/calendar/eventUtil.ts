@@ -64,6 +64,7 @@ export const isAllDayEvent = (event: EventObject) => 'allDay' in event && event.
  * if event object does not have end time, add end time = start time + 1h; if not same day, then endday of the start
  */
 export const amendEvent = (event: EventObject) => {
+    event = { ...event };
     const { start, end } = event;
     if (!start && !end) {
         return undefined;
@@ -171,7 +172,7 @@ export const parseEvent = (event: EventObject) => {
 
     if (start && end) {
         if (!isBefore(start, end)) {
-            [event.start, event.end] = [event.end, event.start];
+            event = { ...event, start: end, end: start };
         }
         if (isSameDay(start, end)) {
             res.push(copyEvent(event, startOfDay(start)));
