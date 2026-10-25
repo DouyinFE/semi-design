@@ -64,6 +64,13 @@ export default class BackTop extends BaseComponent<BackTopProps, BackTopState> {
         this.handler = throttle(this.handleClick, this.props.duration ?? BackTop.defaultProps.duration);
     }
 
+    componentDidUpdate(prevProps: BackTopProps) {
+        this.foundation.updateTarget();
+        if (prevProps.visibilityHeight !== this.props.visibilityHeight) {
+            this.foundation.handleScroll();
+        }
+    }
+
     componentWillUnmount() {
         this.foundation.destroy();
     }
