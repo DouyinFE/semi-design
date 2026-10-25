@@ -153,16 +153,17 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
     componentDidUpdate(prevProps: MonthCalendarProps, prevState: MonthCalendarState) {
         const prevEventKeys = prevState.cachedKeys;
         const nowEventKeys = this.props.events.map(event => event.key);
+        const weekStartsOnChanged = prevProps.weekStartsOn !== this.props.weekStartsOn;
 
         let itemLimitUpdate = false;
         let { itemLimit } = this.state;
-        if (prevProps.height !== this.props.height) {
+        if (prevProps.height !== this.props.height || weekStartsOnChanged) {
             itemLimit = this.calcItemLimit();
             if (prevState.itemLimit !== itemLimit) {
                 itemLimitUpdate = true;
             }
         }
-        if (!isEqual(prevEventKeys, nowEventKeys) || itemLimitUpdate || !isEqual(prevProps.displayValue, this.props.displayValue)) {
+        if (!isEqual(prevEventKeys, nowEventKeys) || itemLimitUpdate || weekStartsOnChanged || !isEqual(prevProps.displayValue, this.props.displayValue)) {
             this.foundation.parseMonthlyEvents(itemLimit);
         }
     }
