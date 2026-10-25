@@ -16,6 +16,8 @@ import cls from 'classnames';
 import { getAttachmentType, isImageType, getContentType, getCustomSlotAttribute, getSkillSlotString } from '@douyinfe/semi-foundation/aiChatInput/utils';
 import Configure from './configure';
 import RichTextInput from './richTextInput';
+// Keep the custom editor command types available through the component entry.
+import './extension/statusExtension';
 import { Editor, FocusPosition } from '@tiptap/core';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import { throttle } from 'lodash';
