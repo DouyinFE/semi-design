@@ -19,7 +19,7 @@ import { IconClose, IconSearch, IconHandle } from '@douyinfe/semi-icons';
 import { Value as TreeValue, TreeProps } from '../tree/interface';
 import { RenderItemProps, Sortable } from '../_sortable';
 import { verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { FixedSizeList as VirtualList } from 'react-window';
+import { FixedSizeList as VirtualList, ListChildComponentProps } from 'react-window';
 import AutoSizer from '../tree/autoSizer';
 
 export interface DataItem extends BasicDataItem {
@@ -53,7 +53,7 @@ export interface RenderSelectedItemProps extends DataItem {
     /**
      * The full path of the node in treeList mode (only available when showPath is true)
      */
-    fullPath?: Array<FullPathItem>;
+    fullPath?: Array<FullPathItem>
 }
 
 export interface EmptyContent {
@@ -126,7 +126,7 @@ export interface PaginationProps {
     /** Number of items per page */
     pageSize?: number;
     /** Callback when page changes */
-    onPageChange?: (currentPage: number) => void;
+    onPageChange?: (currentPage: number) => void
 }
 
 export interface ResolvedDataItem extends DataItem {
@@ -152,7 +152,7 @@ interface HeaderConfig {
     showButton: boolean;
     num: number;
     allChecked?: boolean;
-    leafOnlyNum?: number;
+    leafOnlyNum?: number
 }
 
 type SourceHeaderProps = {
@@ -160,7 +160,7 @@ type SourceHeaderProps = {
     showButton: boolean;
     allChecked: boolean;
     onAllClick: () => void;
-    leafOnlyNum?: number;
+    leafOnlyNum?: number
 }
 
 type SelectedHeaderProps = {
@@ -174,7 +174,7 @@ export interface TransferState {
     selectedItems: Map<number | string, ResolvedDataItem>;
     searchResult: Set<number | string>;
     inputValue: string;
-    leftCurrentPage: number;
+    leftCurrentPage: number
 }
 
 export interface TransferProps {
@@ -208,6 +208,9 @@ export interface TransferProps {
 }
 
 const prefixCls = cssClasses.PREFIX;
+const VirtualizedSelectedListOuter = React.forwardRef<HTMLDivElement, any>((props, ref) => (
+    <div {...props} ref={ref} role="list" aria-label="Selected list" />
+));
 class Transfer extends BaseComponent<TransferProps, TransferState> {
     static propTypes = {
         style: PropTypes.object,
@@ -736,6 +739,12 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         return sortList;
     }
 
+    renderVirtualizedItem = ({ index, style, data }: ListChildComponentProps<ResolvedDataItem[]>) => (
+        <div role="presentation" style={style}>
+            {this.renderRightItem(data[index])}
+        </div>
+    );
+
     renderVirtualizedSelectedList(selectedData: Array<ResolvedDataItem>) {
         const { virtualize } = this.props;
         if (!virtualize || isEmpty(virtualize)) {
@@ -750,22 +759,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             return item?.key ?? index;
         };
 
-        // Add semantics back to the scroll container (react-window renders divs by default).
-        const OuterElement = React.forwardRef<HTMLDivElement, any>((props: any, ref) => (
-            <div {...props} ref={ref} role="list" aria-label="Selected list" />
-        ));
-
         const listCls = `${prefixCls}-right-list ${prefixCls}-right-virtual-list`;
-
-        // Virtual list item renderer
-        const VirtualizedItem = ({ index, style }: { index: number; style: React.CSSProperties }) => {
-            const item = selectedData[index];
-            return (
-                <div role="presentation" style={style}>
-                    {this.renderRightItem(item)}
-                </div>
-            );
-        };
 
         // Use AutoSizer to automatically calculate height if height is not specified or is percentage
         if (typeof height !== 'number') {
@@ -779,13 +773,14 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                                 // @ts-ignore react-window typing expects number but runtime can handle CSS width strings.
                                 width={autoWidth}
                                 itemCount={selectedData.length}
+                                itemData={selectedData}
                                 itemSize={itemSize}
                                 itemKey={itemKey}
                                 className={listCls}
                                 // @ts-ignore react-window typing is too strict for custom outer element
-                                outerElementType={OuterElement}
+                                outerElementType={VirtualizedSelectedListOuter}
                             >
-                                {VirtualizedItem}
+                                {this.renderVirtualizedItem}
                             </VirtualList>
                         )}
                     </AutoSizer>
@@ -799,13 +794,14 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 height={height}
                 width={width || '100%'}
                 itemCount={selectedData.length}
+                itemData={selectedData}
                 itemSize={itemSize}
                 itemKey={itemKey}
                 className={listCls}
                 // @ts-ignore react-window typing is too strict for custom outer element
-                outerElementType={OuterElement}
+                outerElementType={VirtualizedSelectedListOuter}
             >
-                {VirtualizedItem}
+                {this.renderVirtualizedItem}
             </VirtualList>
         );
     }
