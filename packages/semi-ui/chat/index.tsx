@@ -28,11 +28,9 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
 
     containerRef: React.RefObject<HTMLDivElement>;
     animation: any;
-    wheelEventHandler: any;
     foundation: ChatFoundation;
     uploadRef: React.RefObject<Upload>;
     dropAreaRef: React.RefObject<HTMLDivElement>;
-    scrollTargetRef: React.RefObject<HTMLElement>;
 
     static propTypes = {
         className: PropTypes.string,
@@ -85,9 +83,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         this.containerRef = React.createRef();
         this.uploadRef = React.createRef();
         this.dropAreaRef = React.createRef();
-        this.wheelEventHandler = null;
         this.foundation = new ChatFoundation(this.adapter);
-        this.scrollTargetRef = React.createRef();
 
         this.state = {
             backBottomVisible: false,
@@ -144,40 +140,6 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     }
                     return null;
                 });
-            },
-            registerWheelEvent: () => {
-                this.adapter.unRegisterWheelEvent();
-                const containerElement = this.containerRef.current;
-                if (!containerElement) {
-                    return ;
-                }
-                this.wheelEventHandler = (e: any) => {
-                    /**
-                     * Why use this.scrollTargetRef.current and wheel's currentTarget target comparison?
-                     * Both scroll and wheel events are on the container
-                     * his.scrollTargetRef.current is the object where scrolling actually occurs
-                     * wheel's currentTarget is the container,
-                     * Only when the wheel event occurs and there is scroll, the following logic(show scroll bar) needs to be executed
-                     */
-                    if (this.scrollTargetRef?.current !== e.currentTarget) {
-                        return;
-                    }
-                    this.adapter.setWheelScroll(true);
-                    this.adapter.unRegisterWheelEvent();
-                };
-
-                containerElement.addEventListener('wheel', this.wheelEventHandler);
-            },
-            unRegisterWheelEvent: () => {
-                if (this.wheelEventHandler) {
-                    const containerElement = this.containerRef.current;
-                    if (!containerElement) {
-                        return ;
-                    } else {
-                        containerElement.removeEventListener('wheel', this.wheelEventHandler);
-                    }
-                    this.wheelEventHandler = null;
-                }
             },
             notifyStopGenerate: (e: MouseEvent) => {
                 const { onStopGenerator } = this.props;
@@ -278,7 +240,6 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
     }
 
     containerScroll = (e: React.UIEvent<HTMLDivElement>) => {
-        (this.scrollTargetRef as any).current = e.target as HTMLElement;
         if (e.target !== e.currentTarget) {
             return;
         }
@@ -337,9 +298,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     <div className={`${prefixCls}-content`}>
                         <ResizeObserver onResize={this.foundation.handleScrollContainerResize}>
                             <div
-                                className={cls(`${prefixCls}-container`, {
-                                    'semi-chat-container-scroll-hidden': !wheelScroll
-                                })}
+                                className={`${prefixCls}-container`}
                                 onScroll={this.containerScroll}
                                 ref={this.containerRef}
                             >

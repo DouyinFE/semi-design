@@ -18,9 +18,7 @@ export interface DialogueAdapter<P = Record<string, any>, S = Record<string, any
     notifyDislikeMessage: (message: Message) => void;
     notifyEditMessage: (message: Message) => void;
     notifyHintClick: (hint: string) => void;
-    setBackBottomVisible: (visible: boolean) => void;
-    registerWheelEvent: () => void;
-    unRegisterWheelEvent: () => void
+    setBackBottomVisible: (visible: boolean) => void
 }
 
 export default class DialogueFoundation <P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<DialogueAdapter<P, S>, P, S> {
@@ -29,10 +27,10 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
     }
 
     animation: any;
+    private _lastScrollTop = 0;
 
     init = () => {
         this.scrollToBottomImmediately();
-        this._adapter.registerWheelEvent();
     }
 
     destroy = () => {
@@ -156,6 +154,7 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
         const element = this._adapter.getContainerRef();
         if (element) {
             element.scrollTop = element.scrollHeight;
+            this._lastScrollTop = element.scrollTop;
         }
     }
 
@@ -180,6 +179,7 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
 
         this.animation.on('frame', ({ scrollTop }: { scrollTop: number }) => {
             element.scrollTop = scrollTop;
+            this._lastScrollTop = element.scrollTop;
         });
 
         this.animation.start();
@@ -189,6 +189,7 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
         const element = this._adapter.getContainerRef();
         if (element) {
             element.scrollTop = 0;
+            this._lastScrollTop = element.scrollTop;
         }
     }
 
@@ -213,12 +214,23 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
 
         this.animation.on('frame', ({ scrollTop }: { scrollTop: number }) => {
             element.scrollTop = scrollTop;
+            this._lastScrollTop = element.scrollTop;
         });
 
         this.animation.start();
     }
 
     containerScroll = (e: any) => {
+        const target = e.target;
+        const { wheelScroll } = this.getStates();
+        const atBottom = target.scrollHeight - target.clientHeight - target.scrollTop <= 1;
+        if (atBottom && wheelScroll) {
+            this._adapter.setWheelScroll(false);
+        } else if (!atBottom && target.scrollTop < this._lastScrollTop && !wheelScroll) {
+            this.animation && this.animation.destroy();
+            this._adapter.setWheelScroll(true);
+        }
+        this._lastScrollTop = target.scrollTop;
         this._persistEvent(e);
         const update = () => {
             this.getScroll(e.target);
