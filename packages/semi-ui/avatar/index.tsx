@@ -10,6 +10,7 @@ import { AvatarProps } from './interface';
 import { handlePrevent } from '@douyinfe/semi-foundation/utils/a11y';
 import { getDefaultPropsFromGlobalConfig } from "../_utils";
 import TopSlotSvg from "./TopSlotSvg";
+import AvatarGroupContext from './context';
 
 
 const sizeSet = strings.SIZE;
@@ -27,6 +28,7 @@ export interface AvatarState {
 }
 
 export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
+    static contextType = AvatarGroupContext;
     static __SemiComponentName__ = "Avatar";
     static defaultProps = getDefaultPropsFromGlobalConfig(Avatar.__SemiComponentName__, {
         size: 'medium',
@@ -365,11 +367,11 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             <div className={`${prefixCls}-hover`} x-semi-prop="hoverContent">{hoverContent}</div>) : null;
 
         let avatar = <span
+            role={this.context ? 'listitem' : undefined}
             {...(others as any)}
             style={shouldWrap ? {} : customStyle}
             className={avatarCls}
             {...(shouldWrap ? {} : mouseEvent)}
-            role='listitem'
             ref={this.avatarRef}>
             {this.getContent()}
             {hoverRender}
