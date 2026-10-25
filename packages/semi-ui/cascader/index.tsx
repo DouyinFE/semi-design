@@ -906,11 +906,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     };
 
     renderCustomTrigger = () => {
-        const { disabled, triggerRender, multiple } = this.props;
+        const { disabled, triggerRender, multiple, checkRelation } = this.props;
         const { selectedKeys, inputValue, inputPlaceHolder, resolvedCheckedKeys, checkedKeys, keyEntities } = this.state;
         let realValue;
         if (multiple) {
-            if (this.mergeType === strings.NONE_MERGE_TYPE) {
+            if (this.mergeType === strings.NONE_MERGE_TYPE || checkRelation === strings.UN_RELATED) {
                 realValue = new Set();
                 checkedKeys.forEach(key => { realValue.add(keyEntities[key]?.pos); });
             } else {
