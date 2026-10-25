@@ -77,7 +77,7 @@ export default class DragMove extends BaseComponent<DragMoveProps> {
             getConstrainer: () => {
                 const { constrainer } = this.props;
                 if (typeof constrainer === 'string' && constrainer === 'parent') {
-                    return (this.elementRef.current as HTMLElement)?.parentNode as HTMLElement;
+                    return this.adapter.getDragElement()?.parentNode as HTMLElement;
                 } else if (typeof constrainer === 'function') {
                     return constrainer() as any;
                 } else {
