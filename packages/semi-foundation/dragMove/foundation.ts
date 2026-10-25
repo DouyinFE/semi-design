@@ -19,6 +19,10 @@ export interface DragMoveAdapter<P = Record<string, any>, S = Record<string, any
 
 export default class DragMoveFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<DragMoveAdapter<P, S>, P, S> {
     element: HTMLElement;
+    handlerElement: HTMLElement;
+    handlerCursor: string;
+    destroyed = false;
+    animationFrames = new Set<number>();
     xMax: number;
     xMin: number;
     yMax: number;
@@ -48,8 +52,11 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
             throw new Error('drag element must be a valid element');
         }
         this.element = element;
+        this.destroyed = false;
+        this.handlerElement = this.handler;
+        this.handlerCursor = this.handlerElement.style.cursor;
         this.updatePositionStrategy();
-        this.handler.style.cursor = 'move';
+        this.handlerElement.style.cursor = 'move';
         this._registerStartEvent();
     }
 
@@ -58,18 +65,24 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
     }
 
     _registerStartEvent = () => {
-        this.handler.addEventListener('mousedown', this.onMouseDown);
-        this.handler.addEventListener('touchstart', this.onTouchStart);
+        this.handlerElement.addEventListener('mousedown', this.onMouseDown);
+        this.handlerElement.addEventListener('touchstart', this.onTouchStart);
     }
 
     _unRegisterStartEvent = () => {
-        this.handler.removeEventListener('mousedown', this.onMouseDown);
-        this.handler.removeEventListener('touchstart', this.onTouchStart);
+        this.handlerElement?.removeEventListener('mousedown', this.onMouseDown);
+        this.handlerElement?.removeEventListener('touchstart', this.onTouchStart);
     }
 
     destroy() {
+        this.destroyed = true;
         this._unRegisterStartEvent();
         this._unRegisterEvent();
+        this.animationFrames.forEach(frame => cancelAnimationFrame(frame));
+        this.animationFrames.clear();
+        if (this.handlerElement?.style.cursor === 'move') {
+            this.handlerElement.style.cursor = this.handlerCursor;
+        }
     }
 
     _registerDocMouseEvent = () => {
@@ -166,7 +179,10 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
     onMouseDown = (e: MouseEvent) => {
         this._calcMoveRange();
         this._adapter.notifyMouseDown(e);
-        if (!this._allowMove(e)) {
+        if (this.destroyed) {
+            return;
+        }
+        if (!this._allowMove(e) || this.destroyed) {
             return;
         }
         this._registerDocMouseEvent();
@@ -178,7 +194,10 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
     onTouchStart = (e: TouchEvent) => {
         this._calcMoveRange();
         this._adapter.notifyTouchStart(e);
-        if (!this._allowMove(e)) {
+        if (this.destroyed) {
+            return;
+        }
+        if (!this._allowMove(e) || this.destroyed) {
             return;
         }
         this._registerDocTouchEvent();
@@ -188,6 +207,9 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
     }
 
     _changePos = (e: Touch | MouseEvent) => {
+        if (this.destroyed) {
+            return;
+        }
         const { customMove } = this.getProps();
         const useRelativePosition = this.getProp('positionStrategy') === 'relative';
         let newLeft = useRelativePosition ?
@@ -201,7 +223,9 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
             newTop = clampValueInRange(newTop, this.yMin, this.yMax); 
         }
 
-        requestAnimationFrame(() => {
+        let frame: number;
+        frame = requestAnimationFrame(() => {
+            this.animationFrames.delete(frame);
             if (customMove) {
                 customMove(this.element, newTop, newLeft);
                 return;
@@ -209,6 +233,7 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
             this.element.style.top = newTop + 'px';
             this.element.style.left = newLeft + 'px';
         }); 
+        this.animationFrames.add(frame);
     }
 
     _onMouseMove = (e: MouseEvent) => {
