@@ -8,6 +8,7 @@ import ColorSliderFoundation, {
     ColorSliderBaseState
 } from "@douyinfe/semi-foundation/colorPicker/ColorSliderFoundation";
 import BaseComponent from "../../_base/baseComponent";
+import bindTouchDrag from '../bindTouchDrag';
 
 export interface ColorSliderProps extends ColorSliderBaseProps {
     className?: string;
@@ -20,6 +21,7 @@ export interface ColorSliderState extends ColorSliderBaseState {
 
 class ColorSlider extends BaseComponent<PropsWithChildren<ColorSliderProps>, ColorSliderState> {
     private readonly ref: React.RefObject<HTMLDivElement>;
+    private unbindTouchDrag: () => void;
 
     constructor(props: ColorSliderProps) {
         super(props);
@@ -29,6 +31,17 @@ class ColorSlider extends BaseComponent<PropsWithChildren<ColorSliderProps>, Col
             isHandleGrabbing: false
         };
         this.ref = React.createRef<HTMLDivElement>();
+    }
+
+    componentDidMount() {
+        super.componentDidMount();
+        this.unbindTouchDrag = bindTouchDrag(this.ref.current, this.foundation.setHandlePositionByMousePosition,
+            isHandleGrabbing => this.setState({ isHandleGrabbing }));
+    }
+
+    componentWillUnmount() {
+        this.unbindTouchDrag?.();
+        super.componentWillUnmount();
     }
 
     get adapter(): ColorSliderAdapter<ColorSliderProps, ColorSliderState> {

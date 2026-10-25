@@ -41,7 +41,7 @@ class ColorSliderFoundation extends BaseFoundation<ColorSliderAdapter<ColorSlide
     }
 
 
-    setHandlePositionByMousePosition = (e: MouseEvent) => {
+    setHandlePositionByMousePosition = (e: Pick<MouseEvent, 'clientX'>) => {
         const rect = this._adapter.getDOM()?.getBoundingClientRect();
         if (!rect) {
             return;
