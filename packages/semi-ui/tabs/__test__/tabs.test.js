@@ -86,6 +86,26 @@ describe('Tabs', () => {
         }
     });
 
+    it('updates the close button when only TabPane closable changes', () => {
+        const onTabClose = sinon.spy();
+        const pane = closable => <TabPane tab="titleA" itemKey="A" closable={closable}>contentA</TabPane>;
+        const tabs = mount(<Tabs type="card" onTabClose={onTabClose}>{pane(false)}</Tabs>);
+        const closeButton = `.${BASE_CLASS_PREFIX}-tabs-tab-icon-close`;
+        expect(tabs.find(closeButton)).toHaveLength(0);
+        tabs.setProps({ children: pane(true) });
+        tabs.update();
+        expect(tabs.find(closeButton)).toHaveLength(1);
+        tabs.find(closeButton).simulate('click');
+        expect(onTabClose.calledOnce).toBe(true);
+        expect(onTabClose.firstCall.args[0]).toBe('A');
+        tabs.setProps({ children: pane(false) });
+        tabs.update();
+        expect(tabs.find(closeButton)).toHaveLength(0);
+        expect(tabs.find('[role="tab"]').prop('aria-selected')).toBe('true');
+        expect(tabs.find('[role="tabpanel"]').text()).toBe('contentA');
+        tabs.unmount();
+    });
+
     it('tabs render basicly', () => {
         let props = {};
         const tabs = mount(getTabs(props, defaultTabPane))

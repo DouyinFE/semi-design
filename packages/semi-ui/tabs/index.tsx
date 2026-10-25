@@ -16,7 +16,7 @@ import TabsContext from './tabs-context';
 import { PlainTab, TabBarProps, TabsProps } from './interface';
 import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
-const panePickKeys = ['className', 'style', 'disabled', 'itemKey', 'tab', 'icon'];
+const panePickKeys = ['className', 'style', 'disabled', 'itemKey', 'tab', 'icon', 'closable'];
 
 export * from './interface';
 
