@@ -176,12 +176,14 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
 
     render() {
         const { isOpen, collapseHeight, collapseHeightAdaptive } = this.props;
+        const unmeasuredCollapsed = !isOpen && collapseHeightAdaptive && !this.state.domInRenderTree;
         const collapsedHeight = collapseHeightAdaptive 
-            ? Math.min(this.state.domHeight, collapseHeight) 
+            ? (unmeasuredCollapsed ? 'auto' : Math.min(this.state.domHeight, collapseHeight))
             : collapseHeight;
         const wrapperStyle: React.CSSProperties = {
             overflow: 'hidden',
             height: isOpen ? this.state.domHeight : collapsedHeight,
+            maxHeight: unmeasuredCollapsed ? collapseHeight : undefined,
             opacity: (isOpen || !this.props.fade || collapseHeight !== 0) ? 1 : 0,
             transitionDuration: `${this.props.motion && this.state.isTransitioning ? this.props.duration : 0}ms`,
             ...this.props.style
