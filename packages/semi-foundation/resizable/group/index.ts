@@ -263,7 +263,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
 
         for (let i = 0; i < this._adapter.getItemCount(); i++) {
             if (i === 0) {
-                this.itemMinusMap.set(i, handlerSizes[i] / 2);
+                this.itemMinusMap.set(i, (handlerSizes[i] || 0) / 2);
             } else if (i === this._adapter.getItemCount() - 1) {
                 this.itemMinusMap.set(i, handlerSizes[i - 1] / 2);
             } else {
@@ -382,6 +382,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
     }, 200) 
 
     destroy(): void {
-        
+        this.ensureConstraint.cancel();
+        this.unregisterEvents();
     }
 }
