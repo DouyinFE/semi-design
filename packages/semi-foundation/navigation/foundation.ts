@@ -121,10 +121,11 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
      */
     init(lifecycle?: string) {
         const { defaultSelectedKeys, selectedKeys } = this.getProps();
-        let willSelectedKeys = selectedKeys || defaultSelectedKeys || [];
-        const { itemKeysMap, willOpenKeys, formattedItems } = this.getCalcState();
+        const isInitial = lifecycle === 'constructor';
+        let willSelectedKeys = selectedKeys || (isInitial ? defaultSelectedKeys : this.getState('selectedKeys')) || [];
+        const { itemKeysMap, willOpenKeys, formattedItems } = this.getCalcState(isInitial);
         const parentSelectKeys = this.selectLevelZeroParentKeys(itemKeysMap, willSelectedKeys);
-        willSelectedKeys = willSelectedKeys.concat(parentSelectKeys);
+        willSelectedKeys = Array.from(new Set(willSelectedKeys.concat(parentSelectKeys)));
 
         if (lifecycle === 'constructor') {
             return {
@@ -147,9 +148,9 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
     /**
      * Get the state to be calculated
      */
-    getCalcState() {
+    getCalcState(isInitial = false) {
         const { itemKeysMap, formattedItems } = this.getFormattedItems();
-        const willOpenKeys = this.getWillOpenKeys(itemKeysMap);
+        const willOpenKeys = this.getWillOpenKeys(itemKeysMap, isInitial);
         return { itemKeysMap, willOpenKeys, formattedItems };
     }
 
@@ -171,16 +172,16 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
      * Calculate the keys that will need to be opened soon
      * @param {*} itemKeysMap
      */
-    getWillOpenKeys(itemKeysMap: ItemKey2ParentKeysMap) {
+    getWillOpenKeys(itemKeysMap: ItemKey2ParentKeysMap, isInitial = false) {
         const { defaultOpenKeys, openKeys, defaultSelectedKeys, selectedKeys, mode } = this.getProps();
         const { openKeys: stateOpenKeys = [] } = this.getStates();
 
-        let willOpenKeys = openKeys || defaultOpenKeys || [];
+        let willOpenKeys = openKeys || (isInitial ? defaultOpenKeys : stateOpenKeys) || [];
+        const currentSelectedKeys = selectedKeys || (isInitial ? defaultSelectedKeys : undefined);
         if (
             !(Array.isArray(defaultOpenKeys) ||
-            Array.isArray(openKeys)) && mode === strings.MODE_VERTICAL && (Array.isArray(defaultSelectedKeys) || Array.isArray(selectedKeys))
+            Array.isArray(openKeys)) && mode === strings.MODE_VERTICAL && Array.isArray(currentSelectedKeys)
         ) {
-            const currentSelectedKeys = Array.isArray(selectedKeys) ? selectedKeys : defaultSelectedKeys;
             willOpenKeys = stateOpenKeys.concat(this.getShouldOpenKeys(itemKeysMap, currentSelectedKeys));
             willOpenKeys = Array.from(new Set(willOpenKeys));
         }
