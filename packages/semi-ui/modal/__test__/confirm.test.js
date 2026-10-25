@@ -5,6 +5,7 @@ import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 import { IconSend } from '@douyinfe/semi-icons';
 import * as reactRender from '../../_utils/reactRender';
 import { destroyFns } from '../Modal';
+import { getByRole } from '@testing-library/dom';
 
 
 function getModal(modalProps, children) {
@@ -200,7 +201,8 @@ describe('modal', () => {
                 instance.destroy();
                 instance.destroy();
             } else {
-                document.querySelector(`.${BASE_CLASS_PREFIX}-modal-confirm button[aria-label="${action}"]`).click();
+                const modal = document.querySelector(`.${BASE_CLASS_PREFIX}-modal-confirm`);
+                getByRole(modal, 'button', { name: action === 'confirm' ? '确定' : '取消' }).click();
             }
 
             expect(afterClose).toHaveBeenCalledTimes(1);
