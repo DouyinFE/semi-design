@@ -15,7 +15,7 @@ export interface HotKeysProps {
     onClick?: () => void;
     onHotKey?: (e: KeyboardEvent) => void;
     mergeMetaCtrl?: boolean;
-    render?: () => ReactNode | ReactNode;
+    render?: (() => ReactNode) | ReactNode;
     getListenerTarget?: () => HTMLElement;
     className?: string;
     style?: React.CSSProperties
