@@ -424,7 +424,6 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
                 ),
             onClick: this.handleInputClick,
             ref: this.triggerRef,
-            id,
             ...keyboardEventSet,
             // tooltip give tabindex 0 to children by default, autoComplete just need the input get focus, so outer div's tabindex set to -1
             tabIndex: -1,
@@ -432,6 +431,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         };
 
         const innerProps = {
+            id,
             disabled,
             placeholder,
             autoFocus: autoFocus,
