@@ -67,7 +67,7 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
 
     onTouchStart = (e: TouchEvent) => {
         const { notifyResizeStart } = this.context;
-        notifyResizeStart(this.handlerIndex, e.targetTouches[0], 'touch');
+        notifyResizeStart(this.handlerIndex, e, 'touch');
     }
     
     get adapter(): ResizeHandlerAdapter<ResizeHandlerProps, ResizeHandlerState> {
