@@ -441,6 +441,37 @@ describe('Upload', () => {
         expect(xhr instanceof XMLHttpRequest).toEqual(true);
     });
 
+    ['defaultFileList', 'fileList'].forEach(listProp => {
+        [undefined, 'uploadField'].forEach(name => {
+            it(`notifies retry without posting missing fileInstance from ${listProp}, name=${name}`, () => {
+                const failedFile = { uid: 'failed', name: 'failed.png', status: 'uploadFail', size: 130 };
+                const onRetry = sinon.spy();
+                const customRequest = sinon.spy();
+                const upload = getUpload({ [listProp]: [failedFile], onRetry, customRequest, name });
+                expect(() => upload.find(`.${BASE_CLASS_PREFIX}-upload-file-card-info-retry`).simulate('click')).not.toThrow();
+                expect(onRetry.calledOnceWithExactly(failedFile)).toBe(true);
+                expect(customRequest.called).toBe(false);
+                expect(requests).toHaveLength(0);
+                upload.unmount();
+            });
+        });
+    });
+
+    it('retries a file supplied through onRetry before posting', () => {
+        const failedFile = { uid: 'failed', name: 'failed.png', status: 'uploadFail', size: 130 };
+        const fileInstance = createFile(130, 'failed.png');
+        const customRequest = sinon.spy();
+        const upload = getUpload({
+            defaultFileList: [failedFile],
+            onRetry: file => { file.fileInstance = fileInstance; },
+            customRequest,
+        });
+        upload.find(`.${BASE_CLASS_PREFIX}-upload-file-card-info-retry`).simulate('click');
+        expect(customRequest.calledOnce).toBe(true);
+        expect(customRequest.firstCall.args[0].fileInstance).toBe(fileInstance);
+        upload.unmount();
+    });
+
     it('onRetry', () => {
         const onRetry = f => {};
         const spyOnRetry = sinon.spy(onRetry);
@@ -463,6 +494,7 @@ describe('Upload', () => {
         expect(spyOnRetry.calledOnce).toEqual(true);
         const [f] = spyOnRetry.args[0];
         expect(f.fileInstance instanceof File).toEqual(true);
+        expect(requests).toHaveLength(1);
     });
 
     it('onOpenFileDialog', () => {
