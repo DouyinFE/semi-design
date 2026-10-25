@@ -121,13 +121,12 @@ export default class DialogueFoundation <P = Record<string, any>, S = Record<str
             editing: !chats[index].editing,
         };
         // Make sure there is only one message in edit mode
-        chats.map(item => {
-            if (item.editing) {
-                item.editing = !item.editing;
+        const newChats = chats.map((item, itemIndex) => {
+            if (itemIndex === index) {
+                return newChat;
             }
+            return item.editing ? { ...item, editing: false } : item;
         });
-        const newChats = [...chats];
-        newChats.splice(index, 1, newChat);
         this._adapter.notifyChatsChange(newChats);
     }
 
