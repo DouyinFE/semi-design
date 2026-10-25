@@ -122,7 +122,11 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
     componentDidMount() {
         this.foundation.init();
 
-        const { mode, cycled, selectedIndex, list } = this.props;
+        this.initSelectedNode();
+    }
+
+    initSelectedNode = () => {
+        const { mode, cycled, selectedIndex } = this.props;
 
         const selectedNode = this.getNodeByIndex(
             typeof selectedIndex === 'number' && selectedIndex > -1 ? selectedIndex : 0
@@ -141,10 +145,15 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
         } else {
             this.scrollToNode(selectedNode, 0);
         }
-    }
+    };
 
     componentDidUpdate(prevProps: ScrollItemProps<T>) {
-        const { selectedIndex } = this.props;
+        const { selectedIndex, list } = this.props;
+
+        if (!prevProps.list.length && list.length) {
+            this.initSelectedNode();
+            return;
+        }
 
         // smooth scroll to selected option
         if (prevProps.selectedIndex !== selectedIndex) {
@@ -325,6 +334,10 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
     };
 
     scrollToNode = (node: HTMLElement, duration: number) => {
+        if (!node) {
+            return;
+        }
+
         const { wrapper } = this;
         const wrapperHeight = wrapper.offsetHeight;
         const itemHeight = this.getItmHeight(node);
