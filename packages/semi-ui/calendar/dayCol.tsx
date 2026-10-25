@@ -86,7 +86,7 @@ export default class DayCol extends BaseComponent<DayColProps, DayColState> {
             const style = {
                 top: `${top}px`,
                 height: `${Math.max(minEventHeight, height)}px`,
-                left: left
+                insetInlineStart: left
             };
             return (
                 <li className={`${cssClasses.PREFIX}-event-item ${cssClasses.PREFIX}-event-day`} style={style} key={key || `${top}-${ind}`}>
