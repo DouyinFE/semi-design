@@ -54,7 +54,7 @@ export interface OverflowListState {
     maxCount?: number;
     overflowStatus?: 'calculating' | 'overflowed' | 'normal';
     pivot?: number;
-    overflowWidth?: number
+    overflowWidth?: number;
     /**
      * Cache overflow result for scroll mode.
      * Used to keep arrow/menu state stable during items changes or before IntersectionObserver updates.
@@ -63,7 +63,7 @@ export interface OverflowListState {
     /**
      * Whether scroll overflow is recalculating (e.g. items changed and visibility not re-computed yet).
      */
-    isScrollOverflowCalculating?: boolean;
+    isScrollOverflowCalculating?: boolean
 }
 
 // reference to https://github.com/palantir/blueprint/blob/1aa71605/packages/core/src/components/overflow-list/overflowList.tsx#L34
@@ -342,7 +342,6 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                     visible.map((item, idx) => {
                         const key = this.getItemKey(item, idx);
                         const element = visibleItemRenderer(item, idx);
-                        const child = React.cloneElement(element);
                         return (
                             <ResizeObserver
                                 key={key ?? idx}
@@ -351,7 +350,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                                 {/* 用div包起来，可以直接在resize回调中拿到宽度，不用通过获取元素的padding, margin, border-width求和计算宽度*/}
                                 {/* This div wrap can get width directly rather than do the math of padding, margin, border-width*/}
                                 <div key={key ?? idx} className={`${prefixCls}-item`}>
-                                    {child}
+                                    {element}
                                 </div>
                             </ResizeObserver>);
                     }),
