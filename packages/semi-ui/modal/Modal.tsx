@@ -117,6 +117,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
     private scrollBarWidth: number;
     private originBodyWidth: string;
     private _haveRendered: boolean;
+    private unmountToken: Record<string, never> | null = null;
 
     constructor(props: ModalReactProps) {
         super(props);
@@ -158,7 +159,17 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                 return this.props.onOk(e);
             },
             notifyClose: () => {
-                this.props.afterClose();
+                const token = this.unmountToken;
+                if (token) {
+                    // A StrictMode remount must cancel the simulated close notification.
+                    Promise.resolve().then(() => {
+                        if (this.unmountToken === token) {
+                            this.props.afterClose();
+                        }
+                    });
+                } else {
+                    this.props.afterClose();
+                }
             },
             toggleDisplayNone: (displayNone: boolean, callback?: (hidden: boolean) => void) => {
                 if (displayNone !== this.state.displayNone) {
@@ -224,7 +235,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
     };
 
     componentDidMount() {
-
+        this.unmountToken = null;
         this.scrollBarWidth = getScrollbarWidth();
         this.originBodyWidth = document.body.style.width;
         if (this.props.visible) {
@@ -244,6 +255,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
     }
 
     componentWillUnmount() {
+        this.unmountToken = {};
         if (this.props.visible) {
             this.foundation.destroy();
         } else {
