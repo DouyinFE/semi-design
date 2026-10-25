@@ -26,7 +26,8 @@ export interface SemiWebpackPluginOptions {
 }
 
 export interface SemiThemeOptions {
-    name?: string
+    name?: string;
+    include?: string
 }
 
 // Support packages like @douyinfe/semi-ui-19, @douyinfe/semi-icons-19
@@ -158,7 +159,7 @@ export default class SemiWebpackPlugin {
                             ...semiSemiLoaderOptions,
                             prefixCls: this.options.prefixCls,
                             variables: this.convertMapToString(this.options.variables || {}),
-                            include: this.options.include
+                            include: this.options.include !== undefined ? this.options.include : semiSemiLoaderOptions.include
                         }
                     }
                 ];
