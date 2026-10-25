@@ -73,6 +73,23 @@ class Sider extends React.PureComponent<SiderProps> {
     }
 
     componentDidMount(): void {
+        this.registerBreakpoints();
+
+        if (this.context.siderHook) {
+            this.context.siderHook.addSider(this.uniqueId);
+        }
+    }
+
+    componentDidUpdate(prevProps: SiderProps): void {
+        if (Object.keys(responsiveMap).some(screen =>
+            Boolean(this.props.breakpoint?.includes(screen as keyof ResponsiveMap)) !==
+            Boolean(prevProps.breakpoint?.includes(screen as keyof ResponsiveMap)))) {
+            this.registerBreakpoints();
+        }
+    }
+
+    registerBreakpoints(): void {
+        this.unRegisters.forEach(unRegister => unRegister());
         const { breakpoint } = this.props;
         const matchBpt: Array<keyof ResponsiveMap> = (Object.keys(responsiveMap) as (keyof ResponsiveMap)[]).filter((item) => breakpoint && breakpoint.indexOf(item) !== -1) as any;
         const unRegisters = matchBpt.map(screen => registerMediaQuery(responsiveMap[screen], {
@@ -84,10 +101,6 @@ class Sider extends React.PureComponent<SiderProps> {
             },
         }));
         this.unRegisters = unRegisters;
-
-        if (this.context.siderHook) {
-            this.context.siderHook.addSider(this.uniqueId);
-        }
     }
 
     componentWillUnmount(): void {
