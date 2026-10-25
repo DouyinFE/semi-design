@@ -93,6 +93,8 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
 
         this.throttledAdjustList = throttle((e, nearestNode) => {
             this.foundation.adjustInfiniteList(this.list, this.wrapper, nearestNode);
+            const adjusted = this.foundation.getNearestNodeInfo(this.list, this.selector);
+            this.debouncedSelect(e, adjusted.nearestNode);
         }, msPerFrame);
 
         this.debouncedSelect = debounce((e, nearestNode) => {
@@ -144,7 +146,25 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
     }
 
     componentDidUpdate(prevProps: ScrollItemProps<T>) {
-        const { selectedIndex } = this.props;
+        const { selectedIndex, list, cycled } = this.props;
+
+        if (prevProps.list.length && list.length && prevProps.list.length !== list.length) {
+            this.throttledAdjustList.cancel();
+            this.debouncedSelect.cancel();
+            if (this.scrollAnimation) {
+                this.scrollAnimation.destroy();
+            }
+            let node = this.selectedNode;
+            if (prevProps.selectedIndex !== selectedIndex ||
+                !this.list.contains(node) || !this.list.contains(this.willSelectNode)) {
+                const offset = this.isWheelMode() && cycled ? this.state.prependCount * list.length : 0;
+                node = this.getNodeByIndex(offset + selectedIndex) as HTMLElement;
+            }
+            this._cacheSelectedNode(node);
+            this._cacheWillSelectNode(node);
+            this.scrollToNode(node, 0);
+            return;
+        }
 
         // smooth scroll to selected option
         if (prevProps.selectedIndex !== selectedIndex) {
@@ -369,9 +389,9 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
 
         if (this.props.cycled) {
             this.throttledAdjustList(e, nearestNode);
+        } else {
+            this.debouncedSelect(e, nearestNode);
         }
-
-        this.debouncedSelect(e, nearestNode);
     };
 
     /**
