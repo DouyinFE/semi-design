@@ -556,7 +556,6 @@ $module: #{$prefix}-aiChatInput;
                     top: $spacing-aiChatInput_rich_text-input_slot-paddingY;
                     left: $spacing-aiChatInput_rich_text-input_slot-paddingX;
                     pointer-events: none;
-                    white-space: pre;
                     z-index: $z-aiChatInput_rich_text-input_slot_placeholder;
                     color: $color-aiChatInput_rich_text-input_slot_placeholder;
                     // font-weight: 600;
