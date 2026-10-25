@@ -98,7 +98,7 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
 
 
     render() {
-        const { message, selecting, align, isSelected, onSelectChange, continueSend } = this.props;
+        const { message, selecting, align, isSelected, onSelectChange, continueSend, dialogueRenderConfig } = this.props;
         const id = message.id;
 
         const isRightAlign = message.role === ROLE.USER && align === DIALOGUE_ALIGN.LEFT_RIGHT;
@@ -106,6 +106,30 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
             [`${prefixCls}-container`]: true,
             [`${prefixCls}-container-right`]: isRightAlign,
         });
+
+        const renderFullDialogue = dialogueRenderConfig?.renderFullDialogue;
+        const dialogue = typeof renderFullDialogue === 'function'
+            ? renderFullDialogue({
+                message,
+                role: this.getRoleInfo(),
+                defaultNodes: {
+                    avatar: this.avatarNode(),
+                    title: this.titleNode(),
+                    content: this.contentNode(),
+                    action: this.actionNode(),
+                },
+                className: containerCls,
+            })
+            : (
+                <div className={containerCls}>
+                    {this.avatarNode()}
+                    <div className={`${prefixCls}-inner`}>
+                        {!continueSend && this.titleNode()}
+                        {this.contentNode()}
+                        {this.actionNode()}
+                    </div>
+                </div>
+            );
 
         return (
             <div className={cls(`${prefixCls}-wrapper`, {
@@ -122,14 +146,7 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
                         </div>
                     )
                 }
-                <div className={containerCls}>
-                    {this.avatarNode()}
-                    <div className={`${prefixCls}-inner`}>
-                        {!continueSend && this.titleNode()}
-                        {this.contentNode()}
-                        {this.actionNode()}
-                    </div>
-                </div>
+                {dialogue}
             </div>
         );
     }
