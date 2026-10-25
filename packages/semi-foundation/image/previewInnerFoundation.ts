@@ -227,7 +227,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
     preloadGapImage = () => {
         const { preLoad, preLoadGap, infinite, currentIndex } = this.getProps();
 
-        const { imgSrc }= this.getStates();
+        const { imgSrc } = this.getStates();
         if (!preLoad || typeof preLoadGap !== "number" || preLoadGap < 1) {
             return;
         }
@@ -246,7 +246,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
             }
         }
         Img.onload = (e) => {
-            this.setLoadSuccessStatus(Img.src);
+            this.setLoadSuccessStatus(preloadImages[index]);
             callback(e);
         };
         Img.onerror = callback;
@@ -281,7 +281,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         }
         // 如果图片没有加载成功过，则进行预加载
         // If the image has not been loaded successfully, preload it
-        if (!imgLoadStatus[preloadIndex]) {
+        if (!imgLoadStatus.has(imgSrc[preloadIndex])) {
             const Img = new Image();
             Img.onload = (e) => {
                 this.setLoadSuccessStatus(imgSrc[preloadIndex]);
@@ -292,8 +292,8 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
 
     setLoadSuccessStatus = (src: string) => {
         const { imgLoadStatus } = this.getStates();
-        const status = { ...imgLoadStatus };
-        status[src] = true;
+        const status = new Map(imgLoadStatus);
+        status.set(src, true);
         this.setState({
             imgLoadStatus: status,
         } as any);
