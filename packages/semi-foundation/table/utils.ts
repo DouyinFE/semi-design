@@ -423,7 +423,7 @@ export function getAllDisabledRowKeys({ dataSource, getCheckboxProps, childrenRe
             const children = get(record, childrenRecordName);
 
             if (Array.isArray(children) && children.length) {
-                const keys = getAllDisabledRowKeys({ dataSource: children, getCheckboxProps });
+                const keys = getAllDisabledRowKeys({ dataSource: children, getCheckboxProps, childrenRecordName, rowKey });
 
                 disabledRowKeys.push(...keys);
             }
