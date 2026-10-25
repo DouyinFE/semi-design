@@ -12,7 +12,7 @@ export interface ResizeContextProps {
     registerHandler: (ref: RefObject<HTMLDivElement>) => number;
     unregisterItem: (ref: RefObject<HTMLDivElement>) => void;
     unregisterHandler: (ref: RefObject<HTMLDivElement>) => void;
-    notifyResizeStart: (handlerIndex: number, e: MouseEvent | Touch, type: ResizeEventType) => void;
+    notifyResizeStart: (handlerIndex: number, e: MouseEvent | TouchEvent, type: ResizeEventType) => void;
     getGroupSize: () => number
 }
 
