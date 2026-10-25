@@ -90,9 +90,10 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
             ...super.adapter,
             updateNotices: (notices: NoticeInstance[], removedItems: NoticeInstance[] = [], updatedItems: NoticeInstance[] = []) => {
                 this.noticeStorage = [...notices];
-                this.removeItemStorage = [...removedItems];
+                this.removeItemStorage = Array.from(new Set([...this.removeItemStorage, ...removedItems]))
+                    .filter(item => !notices.some(notice => notice.id === item.id));
                 // setState is async sometimes and react often merges state, so use "this" , make sure other code always get right data.
-                this.setState({ notices, removedItems, updatedItems });
+                this.setState({ notices, removedItems: this.removeItemStorage, updatedItems });
             },
             getNotices: () => this.noticeStorage,
         };
@@ -250,6 +251,12 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
                         const isRemoved = removedItems.find(removedItem => removedItem.id === notice.id) !== undefined;
                         return <CSSAnimation key={notice.id}
                             animationState={isRemoved ? "leave" : "enter"}
+                            onAnimationEnd={() => {
+                                if (isRemoved) {
+                                    this.removeItemStorage = this.removeItemStorage.filter(item => item !== notice);
+                                    this.setState({ removedItems: this.removeItemStorage });
+                                }
+                            }}
                             startClassName={`${cssClasses.NOTICE}-animation-${isRemoved ? "hide" : "show"}_${position}`}>
                             {({ animationClassName, animationEventsNeedBind, isAnimating }) => {
                                 return isRemoved && !isAnimating ? null : <Notice
