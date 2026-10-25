@@ -286,9 +286,9 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
             });
         } else {
             this._adapter.setState({
-                value: '',
                 isFocus: false,
             });
+            this._adapter.setValue('');
         }
         if (isFocus) {
             this._adapter.notifyBlur('', e);
