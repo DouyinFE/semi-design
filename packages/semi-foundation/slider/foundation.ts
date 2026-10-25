@@ -87,6 +87,7 @@ export interface SliderAdapter extends DefaultAdapter<SliderProps, SliderState>{
     updateDisabled: (disabled: SliderState['disabled']) => void;
     transNewPropsToState: <K extends keyof SliderState>(stateObj: Pick<SliderState, K>, callback?: () => void) => void;
     notifyChange: (callbackValue: number | number[]) => void;
+    notifyBlur: (e: any) => void;
     setDragging: (value: boolean[]) => void;
     updateCurrentValue: (value: SliderState['currentValue']) => void;
     setOverallVars: (key: string, value: any) => void;
@@ -762,6 +763,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
     }
 
     onBlur = (e: any, handler: 'min'| 'max') => {
+        this._adapter.notifyBlur(e);
         const noTooltip = this._noTooltip();
         if (noTooltip) {
             return;
