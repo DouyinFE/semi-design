@@ -3,6 +3,7 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tabs/constants';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
+import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import TabsFoundation, { TabsAdapter } from '@douyinfe/semi-foundation/tabs/foundation';
 import { isEqual, pick } from 'lodash';
 import BaseComponent from '../_base/baseComponent';
@@ -20,6 +21,7 @@ const panePickKeys = ['className', 'style', 'disabled', 'itemKey', 'tab', 'icon'
 export * from './interface';
 
 export interface TabsState {
+    tabsId?: string;
     activeKey: string;
     panes: Array<PlainTab>;
     prevActiveKey: string | null;
@@ -90,6 +92,12 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         };
         this.contentRef = createRef();
         this.contentHeight = 'auto';
+    }
+
+    componentDidMount(): void {
+        super.componentDidMount();
+        // Generate IDs after hydration so server and initial client markup match.
+        this.setState({ tabsId: getUuidShort({ prefix: 'semi-tabs' }) });
     }
 
     get adapter(): TabsAdapter<TabsProps, TabsState> {
@@ -267,9 +275,10 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             arrowPosition,
             renderArrow,
             dropdownProps,
+            tabList,
             ...restProps
         } = this.props;
-        const { panes, activeKey } = this.state;
+        const { panes, activeKey, tabsId } = this.state;
         const tabWrapperCls = cls(className, {
             [cssClasses.TABS]: true,
             [`${cssClasses.TABS}-${tabPosition}`]: tabPosition,
@@ -307,9 +316,11 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
 
         return (
             <div className={tabWrapperCls} style={style} {...this.getDataAttr(restProps)}>
-                {tabBar}
                 <TabsContext.Provider
                     value={{
+                        tabsId,
+                        keepDOM,
+                        isTabList: Boolean(tabList),
                         activeKey,
                         lazyRender,
                         panes,
@@ -319,8 +330,12 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
                         forceDisableMotion: this.state.forceDisableMotion
                     }}
                 >
+                    {tabBar}
                     <div
                         ref={this.setContentRef}
+                        role={tabList ? 'tabpanel' : undefined}
+                        id={tabList && tabsId ? `${tabsId}-panel-${activeKey}` : undefined}
+                        aria-labelledby={tabList && tabsId ? `${tabsId}-tab-${activeKey}` : undefined}
                         className={tabContentCls}
                         style={{ ...contentStyle }}
                     >
