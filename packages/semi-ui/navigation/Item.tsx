@@ -270,21 +270,12 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
                 [`${clsPrefix}-disabled`]: disabled,
                 [`${clsPrefix}-has-link`]: typeof link === 'string',
             });
-            const ariaProps = {
-                'aria-disabled': disabled,
-            };
-            if (isSubNav) {
-                const isOpen = this.adapter.getIsOpen();
-                ariaProps['aria-expanded'] = isOpen;
-            }
-
             itemDom = (
                 // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
                 <li
-                    // if role = menuitem, the narration will read all expanded li
-                    role={isSubNav ? null : "menuitem"}
-                    tabIndex={isSubNav ? -1 : tabIndex}
-                    {...ariaProps}
+                    role={isSubNav ? "none" : "menuitem"}
+                    tabIndex={isSubNav ? undefined : tabIndex}
+                    aria-disabled={isSubNav ? undefined : disabled}
                     style={style}
                     ref={this.setItemRef}
                     className={popoverItemCls}
