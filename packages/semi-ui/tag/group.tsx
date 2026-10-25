@@ -100,21 +100,23 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
                 (newTag as TagProps).avatarShape = avatarShape;
             }
 
+            let key = (newTag as TagProps).tagKey;
             if (!(newTag as TagProps).tagKey) {
                 if (typeof (newTag as TagProps).children === 'string' || typeof (newTag as TagProps).children === 'number') {
                     (newTag as TagProps).tagKey = (newTag as TagProps).children as string | number;
+                    key = (newTag as TagProps).tagKey;
                 } else {
                     (newTag as TagProps).tagKey = Math.random();
                 }
             }
-            return <Tag {...(newTag as TagProps)} key={(newTag as TagProps).tagKey} onClose={(tagChildren, e, tagKey) => {
+            return <Tag {...(newTag as TagProps)} key={key} onClose={(tagChildren, e, tagKey) => {
                 if ((newTag as TagProps).onClose) {
                     (newTag as TagProps).onClose(tagChildren, e, tagKey);
                 }
                 onTagClose && onTagClose(tagChildren, e, tagKey);
             }} />;
         });
-        return renderTags;
+        return React.Children.toArray(renderTags as React.ReactNode[]);
     }
 
     render() {
