@@ -1421,7 +1421,10 @@ describe(`TimePicker`, () => {
         const props = {
             type: 'timeRange',
             defaultValue: ['10:00:00', '12:00:00'],
-            panels: [<div key="0">Custom Panel 1</div>, <div key="1">Custom Panel 2</div>],
+            panels: [
+                { panelHeader: 'Start header', panelFooter: 'Start footer' },
+                { panelHeader: 'End header', panelFooter: 'End footer' },
+            ],
             defaultOpen: true,
             locale: Locale.TimePicker,
             localeCode: Locale.code,
@@ -1431,7 +1434,11 @@ describe(`TimePicker`, () => {
         
         await sleep(200);
         
-        expect(elem.props().panels.length).toBe(2);
+        const panels = elem.find(`.${BASE_CLASS_PREFIX}-scrolllist`);
+        expect(panels.at(0).find(`.${BASE_CLASS_PREFIX}-scrolllist-header`).text()).toBe('Start header');
+        expect(panels.at(0).find(`.${BASE_CLASS_PREFIX}-scrolllist-footer`).text()).toBe('Start footer');
+        expect(panels.at(1).find(`.${BASE_CLASS_PREFIX}-scrolllist-header`).text()).toBe('End header');
+        expect(panels.at(1).find(`.${BASE_CLASS_PREFIX}-scrolllist-footer`).text()).toBe('End footer');
         elem.unmount();
     });
 
