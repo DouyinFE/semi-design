@@ -13,6 +13,7 @@ import { AIChatDialogueProps } from './interface';
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
 import Hint from './widgets/dialogueHint';
+import ResizeObserver from '../resizeObserver';
 import { Button } from "../index";
 import { IconChevronDown } from '@douyinfe/semi-icons';
 
@@ -119,7 +120,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
             backBottomVisible: false,
             wheelScroll: false,
         };
-        
+
         this.onSelectOrRemove = this.onSelectOrRemove.bind(this);
     }
 
@@ -268,7 +269,13 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         }
         this.foundation.containerScroll(e);
     }
-    
+
+    handleContentResize = () => {
+        if (!this.state.wheelScroll) {
+            this.foundation.scrollToBottomImmediately();
+        }
+    }
+
     render() {
         const { roleConfig, onMessageBadFeedback, onMessageGoodFeedback, onMessageReset, onMessageEdit, onMessageDelete, onHintClick,
             selecting, hintCls, hintStyle, hints, renderHintBox, style, className, ...restProps } = this.props;
@@ -284,42 +291,46 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
                     onScroll={this.containerScroll}
                     ref={this.containerRef}
                 >
-                    {chats.map((chat, index) => {
-                        const isLastChat = index === chats.length - 1;
-                        const continueSend = index > 0 && chat?.role === chats[index - 1]?.role;
-                        return (
-                            <DialogueItem 
-                                key={chat.id}
-                                message={chat}
-                                role={roleConfig[chat.role]}
-                                onSelectChange={this.onSelectOrRemove}
-                                isSelected={selectedIds.has(chat.id)}
-                                roleConfig={roleConfig}
-                                onMessageBadFeedback={this.foundation.dislikeMessage}
-                                onMessageGoodFeedback={this.foundation.likeMessage}
-                                onMessageReset={this.foundation.resetMessage}
-                                onMessageEdit={this.foundation.editMessage}
-                                onMessageDelete={this.foundation.deleteMessage}
-                                isLastChat={isLastChat}
-                                // todo: 不太确定用户的需求场景，暂时设置成 false，如果用户有相关需求，转为一个对外提供的 api
-                                // todo: Not sure about the user's demand scenario, temporarily set it to false. 
-                                // If the user has relevant needs, turn it into an external API
-                                continueSend={false}
-                                selecting={selecting}
-                                {...restProps}
-                            />
-                        );
-                    })}
-                    {
-                        !!hints?.length && <Hint
-                            className={hintCls}
-                            style={hintStyle}
-                            hints={hints}
-                            onHintClick={this.foundation.onHintClick}
-                            renderHintBox={renderHintBox}
-                            selecting={selecting}
-                        />
-                    }
+                    <ResizeObserver onResize={this.handleContentResize}>
+                        <div>
+                            {chats.map((chat, index) => {
+                                const isLastChat = index === chats.length - 1;
+                                const continueSend = index > 0 && chat?.role === chats[index - 1]?.role;
+                                return (
+                                    <DialogueItem
+                                        key={chat.id}
+                                        message={chat}
+                                        role={roleConfig[chat.role]}
+                                        onSelectChange={this.onSelectOrRemove}
+                                        isSelected={selectedIds.has(chat.id)}
+                                        roleConfig={roleConfig}
+                                        onMessageBadFeedback={this.foundation.dislikeMessage}
+                                        onMessageGoodFeedback={this.foundation.likeMessage}
+                                        onMessageReset={this.foundation.resetMessage}
+                                        onMessageEdit={this.foundation.editMessage}
+                                        onMessageDelete={this.foundation.deleteMessage}
+                                        isLastChat={isLastChat}
+                                        // todo: 不太确定用户的需求场景，暂时设置成 false，如果用户有相关需求，转为一个对外提供的 api
+                                        // todo: Not sure about the user's demand scenario, temporarily set it to false.
+                                        // If the user has relevant needs, turn it into an external API
+                                        continueSend={false}
+                                        selecting={selecting}
+                                        {...restProps}
+                                    />
+                                );
+                            })}
+                            {
+                                !!hints?.length && <Hint
+                                    className={hintCls}
+                                    style={hintStyle}
+                                    hints={hints}
+                                    onHintClick={this.foundation.onHintClick}
+                                    renderHintBox={renderHintBox}
+                                    selecting={selecting}
+                                />
+                            }
+                        </div>
+                    </ResizeObserver>
                 </div>
                 {
                     backBottomVisible && (<span className={`${PREFIX}-backBottom`}>
