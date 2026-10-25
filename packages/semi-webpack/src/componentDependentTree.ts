@@ -58,7 +58,7 @@ const dependentTree = {
     "Resizable": ["Icon"],
     "ScrollList": [] as any,
     "Select": ["Tag", "OverflowList", "Space", "Typography", "Spin", "Popover", "Icon"],
-    "SideSheet": ["[Portal", "Button", "Icon"],
+    "SideSheet": ["Portal", "Button", "Icon"],
     "Skeleton": [] as any,
     "Slider": ["Tooltip"],
     "Space": [] as any,
