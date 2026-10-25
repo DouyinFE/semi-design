@@ -86,7 +86,7 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
     }
     
     handleSuggestionSelect = (suggestion: Suggestion) => {
-        this._adapter.setContent(suggestion as unknown as string);
+        this._adapter.setContent(typeof suggestion === 'string' ? suggestion : suggestion.content);
         this._adapter.focusEditor();
     }
 
