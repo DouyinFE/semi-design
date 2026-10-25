@@ -19,7 +19,7 @@ import { Locale } from '../locale/interface';
 
 export interface ScientificNotationConfig {
     /** Number of digits threshold to trigger scientific notation display */
-    threshold?: number;
+    threshold?: number
 }
 
 export interface InputNumberProps extends InputProps {
@@ -389,6 +389,9 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                 } else if (this.foundation.isValidNumber(parsedNum)) {
                     newValue = this.foundation.doFormat(parsedNum, true, true);
                     this.foundation.updateStates({ number: parsedNum, value: newValue });
+                    if (this.foundation._isScientificNotation() && !this.foundation._isCurrency()) {
+                        newValue = this.foundation.doFormat(parsedNum, true, false);
+                    }
                 } else {
                     // Invalid digital analog blurring effect instead of controlled failure
                     newValue = '';
