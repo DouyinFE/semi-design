@@ -24,7 +24,7 @@ export function createThemeLoaderRule(opts?: SemiWebpackPluginOptions) {
         ...themeOptions,
         prefixCls: opts.prefixCls,
         variables: stringifyVariableRecord(opts.variables),
-        include: opts.include,
+        include: opts.include !== undefined ? opts.include : themeOptions.include,
         cssLayer: opts.cssLayer
     };
     const loaderInfo = {

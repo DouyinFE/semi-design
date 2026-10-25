@@ -5,7 +5,7 @@ import { defineConfig } from '@rstest/core';
 
 const rootDir = fileURLToPath(new URL('.', import.meta.url));
 
-const unitTests = ['packages/semi-ui/**/__test__/**/*.{js,jsx,ts,tsx}'];
+const unitTests = ['packages/semi-ui/**/__test__/**/*.{js,jsx,ts,tsx}', 'packages/semi-{webpack,rspack}/__test__/**/*.{js,jsx,ts,tsx}'];
 const storyTests = ['packages/semi-ui/**/_story/?(*.)+(stories).{js,jsx,ts,tsx}'];
 const isStoryTest = process.env.type === 'story';
 const testInclude = isStoryTest ? storyTests : unitTests;
