@@ -285,6 +285,12 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         this.foundation.containerScroll(e);
     }
 
+    handleContentResize = () => {
+        if (!this.state.wheelScroll) {
+            this.foundation.scrollToBottomImmediately();
+        }
+    }
+
     render() {
         const { topSlot, bottomSlot, roleConfig, hints,
             onChatsChange, onMessageCopy, renderInputArea,
@@ -343,31 +349,35 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                                 onScroll={this.containerScroll}
                                 ref={this.containerRef}
                             >
-                                <ChatContent
-                                    align={align}
-                                    mode={mode}
-                                    chats={chats}
-                                    escapeHtml={escapeHtml}
-                                    roleConfig={roleConfig}
-                                    customMarkDownComponents={customMarkDownComponents}
-                                    onMessageDelete={this.foundation.deleteMessage}
-                                    onChatsChange={onChatsChange}
-                                    onMessageBadFeedback={this.foundation.dislikeMessage}
-                                    onMessageGoodFeedback={this.foundation.likeMessage}
-                                    onMessageReset={this.foundation.resetMessage}
-                                    onMessageCopy={onMessageCopy}
-                                    chatBoxRenderConfig={chatBoxRenderConfig}
-                                    renderDivider={renderDivider}
-                                    markdownRenderProps={markdownRenderProps}
-                                />
-                                {/* hint area */}
-                                {!!hints?.length && <Hint
-                                    className={hintCls}
-                                    style={hintStyle}
-                                    value={hints}
-                                    onHintClick={this.foundation.onHintClick}
-                                    renderHintBox={renderHintBox}
-                                />}
+                                <ResizeObserver onResize={this.handleContentResize}>
+                                    <div>
+                                        <ChatContent
+                                            align={align}
+                                            mode={mode}
+                                            chats={chats}
+                                            escapeHtml={escapeHtml}
+                                            roleConfig={roleConfig}
+                                            customMarkDownComponents={customMarkDownComponents}
+                                            onMessageDelete={this.foundation.deleteMessage}
+                                            onChatsChange={onChatsChange}
+                                            onMessageBadFeedback={this.foundation.dislikeMessage}
+                                            onMessageGoodFeedback={this.foundation.likeMessage}
+                                            onMessageReset={this.foundation.resetMessage}
+                                            onMessageCopy={onMessageCopy}
+                                            chatBoxRenderConfig={chatBoxRenderConfig}
+                                            renderDivider={renderDivider}
+                                            markdownRenderProps={markdownRenderProps}
+                                        />
+                                        {/* hint area */}
+                                        {!!hints?.length && <Hint
+                                            className={hintCls}
+                                            style={hintStyle}
+                                            value={hints}
+                                            onHintClick={this.foundation.onHintClick}
+                                            renderHintBox={renderHintBox}
+                                        />}
+                                    </div>
+                                </ResizeObserver>
                             </div>
                         </ResizeObserver>
                     </div>
