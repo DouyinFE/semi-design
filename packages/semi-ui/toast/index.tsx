@@ -71,7 +71,11 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         return {
             ...super.adapter,
             updateToast: (list: ToastInstance[], removedItems: ToastInstance[], updatedItems: ToastInstance[]) => {
-                this.setState({ list, removedItems, updatedItems });
+                this.setState(prev => {
+                    const pending = new Map<string, ToastInstance>([...prev.removedItems, ...removedItems].map(item => [item.id, item]));
+                    list.forEach(item => pending.delete(item.id));
+                    return { list, removedItems: [...pending.values()], updatedItems };
+                });
             },
             handleMouseInSideChange: (mouseInSide: boolean) => {
                 this.setState({ mouseInSide });
