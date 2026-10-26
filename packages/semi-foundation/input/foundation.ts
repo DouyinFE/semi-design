@@ -79,7 +79,7 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
         if (!isFunction(getValueLength)) {
             return value;
         }
-        if (maxLength) {
+        if (maxLength || maxLength === 0) {
             return this.handleVisibleMaxLength(value);
         }
         if (minLength) {
@@ -123,7 +123,7 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
         if (!isFunction(getValueLength)) {
             return;
         }
-        if (maxLength) {
+        if (maxLength || maxLength === 0) {
             const nextValue = this.handleVisibleMaxLength(value);
             nextValue !== value && this.changeInput(nextValue, e);
         }
