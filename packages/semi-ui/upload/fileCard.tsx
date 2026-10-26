@@ -152,13 +152,13 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
 
     renderPic(locale: Locale['Upload']): ReactNode {
         const { fallbackPreview } = this.state;
-        const { url, percent, status, disabled, style, onPreviewClick, showPicInfo, renderPicInfo, renderPicClose, renderPicPreviewIcon, renderThumbnail, name, index, picHeight, picWidth } = this.props;
+        const { url, percent, status, disabled, style, className, onPreviewClick, showPicInfo, renderPicInfo, renderPicClose, renderPicPreviewIcon, renderThumbnail, name, index, picHeight, picWidth } = this.props;
         const showProgress = status === strings.FILE_STATUS_UPLOADING && percent !== 100;
         const showRetry = status === strings.FILE_STATUS_UPLOAD_FAIL && this.props.showRetry;
         const showReplace = status === strings.FILE_STATUS_SUCCESS && this.props.showReplace;
         const showPreview = status === strings.FILE_STATUS_SUCCESS && !this.props.showReplace;
         const customThumbnail = typeof renderThumbnail === 'function';
-        const filePicCardCls = cls({
+        const filePicCardCls = cls(className, {
             [`${prefixCls}-picture-file-card`]: true,
             [`${prefixCls}-picture-file-card-preview-fallback`]: fallbackPreview,
             [`${prefixCls}-picture-file-card-disabled`]: disabled,
@@ -231,9 +231,9 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
     }
 
     renderFile(locale: Locale["Upload"]) {
-        const { name, size, percent, url, showRetry: propsShowRetry, showReplace: propsShowReplace, preview, previewFile, status, style, onPreviewClick, renderFileOperation, showTooltip } = this.props;
+        const { name, size, percent, url, showRetry: propsShowRetry, showReplace: propsShowReplace, preview, previewFile, status, style, className, onPreviewClick, renderFileOperation, showTooltip } = this.props;
         const { fallbackPreview } = this.state;
-        const fileCardCls = cls({
+        const fileCardCls = cls(className, {
             [`${prefixCls}-file-card`]: true,
             [`${prefixCls}-file-card-fail`]: status === strings.FILE_STATUS_VALID_FAIL || status === strings.FILE_STATUS_UPLOAD_FAIL,
             [`${prefixCls}-file-card-show-pointer`]: typeof onPreviewClick !== 'undefined',
