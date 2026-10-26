@@ -325,6 +325,9 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         const { sliderX, sliderY, sliderWidth, sliderHeight } = this._adapter.getSliderLengths();
         const startPos = vertical ? sliderY : sliderX;
         const len = vertical ? sliderHeight : sliderWidth;
+        if (len === 0) {
+            return false;
+        }
         let stepValue;
         if (vertical && verticalReverse) {
             //isMin = !isMin;
