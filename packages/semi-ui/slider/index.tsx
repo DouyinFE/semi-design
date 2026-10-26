@@ -336,6 +336,9 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         const commonAria = {
             'aria-label': ariaLabel ?? (disabled ? 'Disabled Slider' : undefined),
             'aria-labelledby': ariaLabelledby,
+            'aria-describedby': this.props['aria-describedby'],
+            'aria-errormessage': this.props['aria-errormessage'],
+            'aria-invalid': this.props['aria-invalid'],
             'aria-disabled': disabled
         };
         vertical && Object.assign(commonAria, { 'aria-orientation': 'vertical' });
