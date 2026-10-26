@@ -266,6 +266,9 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
 
     resetMessage = (message: Message) => {
         const { chats } = this.getStates();
+        if (!chats.length) {
+            return;
+        }
         const lastMessage = chats[chats.length - 1];
         const newLastChat = {
             ...lastMessage,
