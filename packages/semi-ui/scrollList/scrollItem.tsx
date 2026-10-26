@@ -1,5 +1,6 @@
 import React, { AriaAttributes } from 'react';
 import BaseComponent from '../_base/baseComponent';
+import ResizeObserver, { ObserverProperty, ResizeEntry } from '../resizeObserver';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { noop, debounce, throttle, find, map, findIndex, times } from 'lodash';
@@ -66,6 +67,7 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
     selector: unknown;
     scrollAnimation: any;
     scrolling: boolean;
+    observedHeight = 0;
     throttledAdjustList: DebounceSelectFn;
     debouncedSelect: DebounceSelectFn;
 
@@ -566,7 +568,20 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
         );
     };
 
+    handleResize = ([entry]: ResizeEntry[]) => {
+        const height = entry.contentRect.height;
+        if (height > 0 && this.observedHeight === 0) {
+            const selectedNode = this.getNodeByIndex(this.props.selectedIndex) as HTMLElement;
+            if (selectedNode) {
+                this.scrollToNode(selectedNode, 0);
+            }
+        }
+        this.observedHeight = height;
+    };
+
     render() {
-        return this.isWheelMode() ? this.renderInfiniteList() : this.renderNormalList();
+        return <ResizeObserver onResize={this.handleResize} observerProperty={ObserverProperty.Height}>
+            {this.isWheelMode() ? this.renderInfiniteList() : this.renderNormalList()}
+        </ResizeObserver>;
     }
 }
