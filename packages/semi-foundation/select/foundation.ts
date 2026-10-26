@@ -81,7 +81,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
         const autoFocus = this.getProp('autoFocus');
         if (autoFocus) {
-            this.focus(originalOptions);
+            this.focus(originalOptions, !(isDefaultOpen || isOpen));
         }
     }
 
