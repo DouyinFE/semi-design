@@ -25,16 +25,8 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
     onMenuKeydown(event: any): void {
         const menu = getAncestorNodeByRole(event.target, 'tooltip');
         
-        if (!this.menuItemNodes) {
-            this.menuItemNodes = [...(event.target.parentNode).getElementsByTagName('li')].filter(item => item.ariaDisabled !== "true");
-        }
-
-        if (this.firstChars.length === 0) {
-            this.menuItemNodes.forEach((item: Element) => {
-                // the menuItemNodes can be an component and not exit textContent
-                this.firstChars.push(item.textContent.trim()[0]?.toLowerCase());
-            });
-        }
+        this.menuItemNodes = [...(event.target.parentNode).getElementsByTagName('li')].filter(item => item.getAttribute('aria-disabled') !== 'true');
+        this.firstChars = this.menuItemNodes.map(item => item.textContent.trim()[0]?.toLowerCase());
 
         // get the currently focused menu item
         const curItem = this.menuItemNodes.find(item => item.tabIndex === 0);
