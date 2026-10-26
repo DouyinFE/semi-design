@@ -43,6 +43,7 @@ export interface MCPConfigureContentState {
 }
 
 export interface MCPConfigureContentAdapter extends DefaultAdapter<MCPConfigureContentProps, MCPConfigureContentState> {
+    notifySearch: (inputValue: string, custom: boolean) => void;
     notifyConfigureClick: (e: any, option: MCPOption) => void;
     notifyEditClick: (e: any, option: MCPOption) => void;
     notifyStatusChange?: (options: MCPOption[], custom: boolean) => void;
@@ -58,6 +59,7 @@ export default class MCPConfigureContentFoundation extends BaseFoundation<MCPCon
     handleSearch = (value: string) => {
         this.setState({ inputValue: value });
         this.updateShowOptions(value);
+        this._adapter.notifySearch(value, this.getState('mode') === strings.MCP_MODE.CUSTOM);
     }
 
     updateShowOptions = throttle((value: string, mode?: MCPConfigureMode) => {
