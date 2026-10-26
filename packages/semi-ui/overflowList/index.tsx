@@ -12,6 +12,7 @@ import OverflowListFoundation, { OverflowListAdapter } from '@douyinfe/semi-foun
 import '@douyinfe/semi-foundation/overflowList/overflowList.scss';
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import copy from 'fast-copy';
+import { getRef } from '../_utils/reactRender';
 
 const prefixCls = cssClasses.PREFIX;
 const Boundary = strings.BOUNDARY_MAP;
@@ -317,9 +318,10 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                         key={`${prefixCls}-scroll-wrapper`}
                     >
                         {visible.map(visibleItemRenderer).map((item: ReactElement) => {
-                            const { forwardRef, key } = item as any;
+                            const { key } = item;
+                            const itemRef = getRef(item);
                             return React.cloneElement(item, {
-                                ref: (node: any) => this.mergeRef(forwardRef, node, key),
+                                ref: (node: any) => this.mergeRef(itemRef, node, key),
                                 'data-scrollkey': `${key}`,
                                 key,
                             });
