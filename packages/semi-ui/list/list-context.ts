@@ -10,6 +10,6 @@ export interface ListContextValue {
     grid?: Grid
 }
 
-const ListContext = React.createContext<ListContextValue>(null);
+const ListContext = React.createContext<ListContextValue>({});
 
 export default ListContext;
