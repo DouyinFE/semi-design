@@ -198,13 +198,17 @@ function Demo() {
 | Property | Description | Type | Default value | Version |
 | --- | --- | --- | --- | --- |
 | autoFocus | Whether to automatically focus on the first element | boolean | true |
+| aria-label, aria-labelledby, aria-describedby, aria-errormessage, aria-invalid, aria-required | Accessibility attributes passed to every input | Same as Input | |
 | className | Class name | string | |
 | count | Number of digits of verification code | number | 6 |
 | defaultValue | Default value of input box content | string | |
 | disabled | Disable | boolean | false |
+| id | ID of the first input, used to associate a label | string | |
 | format | Limitation of single character format of verification code | 'number'\| 'mixed‘ \| RegExp \| (char:string)=>boolean | 'number' |
 | size | Input box size, large, default, small | string | 'default' |
 | style | Style | object | |
+| tabIndex | Tab index of every input | number | |
+| validateStatus | Validation status of every input | 'default'\| 'error'\| 'warning'\| 'success' | |
 | value | Input box content | string | |
 | onChange | Input callback | (value:string)=>void | |
 | onComplete | Callback after all digits of verification code are entered | (value: string) => void | |
