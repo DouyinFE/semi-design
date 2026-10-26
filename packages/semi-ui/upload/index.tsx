@@ -412,6 +412,8 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                                             }).catch(error => {
                                                 this.props.onPastingError(error);
                                             });
+                                        } else {
+                                            this.props.onPastingError(result);
                                         }
                                     })
                                     .catch(error => {
