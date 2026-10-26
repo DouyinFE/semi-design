@@ -626,7 +626,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     };
 
     renderTagInput() {
-        const { size, disabled, placeholder, maxTagCount, showRestTagsPopover, restTagsPopoverProps, checkRelation } = this.props;
+        const { size, disabled, placeholder, maxTagCount, showRestTagsPopover, restTagsPopoverProps, checkRelation, preventScroll } = this.props;
         const { inputValue, checkedKeys, keyEntities, resolvedCheckedKeys, inputPlaceHolder } = this.state;
         const tagInputcls = cls(`${prefixcls}-tagInput-wrapper`);
         const realKeys = this.mergeType === strings.NONE_MERGE_TYPE  || checkRelation === strings.UN_RELATED ?
@@ -635,6 +635,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             <TagInput
                 className={tagInputcls}
                 ref={this.inputRef as any}
+                preventScroll={preventScroll}
                 disabled={disabled}
                 size={size}
                 value={[...realKeys]}
