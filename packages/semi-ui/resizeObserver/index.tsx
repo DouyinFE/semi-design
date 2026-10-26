@@ -40,6 +40,7 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
     childNode: any;
     element: Element;
     _parentNode: HTMLElement;
+    mounted = false;
 
     formerPropertyValue: Map<Element, number> = new Map()
 
@@ -52,6 +53,7 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
     }
 
     componentDidMount() {
+        this.mounted = true;
         this.observeElement?.();
     }
 
@@ -60,6 +62,7 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
     }
 
     componentWillUnmount() {
+        this.mounted = false;
         if (this.observer) {
             this.observer.disconnect();
             this.observer = null;
@@ -141,6 +144,9 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
             ref(node);
         } else if (typeof ref === 'object' && ref && 'current' in ref) {
             ref.current = node;
+        }
+        if (this.mounted && node) {
+            this.observeElement();
         }
     };
 
