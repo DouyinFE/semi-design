@@ -544,10 +544,10 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
     }
 }
 
-const ForwardVideoPlayer = React.forwardRef<HTMLVideoElement, Omit<VideoPlayerProps, 'forwardRef'>>((props, ref) => (
-    <VideoPlayer {...props} forwardRef={ref} />
+const ForwardVideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>((props, ref) => (
+    <VideoPlayer {...props} forwardRef={ref ?? props.forwardRef} />
 ));
 
 export default ForwardVideoPlayer;
 
-export { VideoPlayer }; 
+export { VideoPlayer };
