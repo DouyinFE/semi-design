@@ -51,6 +51,8 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
 
     componentDidMount() {
         this.ariaID = getUuidShort({});
+        // Keep server and first client ids identical, then publish the mounted relationship.
+        this.forceUpdate();
     }
 
     renderHeader(active: boolean, expandIconEnable = true) {
