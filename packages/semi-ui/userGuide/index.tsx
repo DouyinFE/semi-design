@@ -103,6 +103,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     private bodyOverflow: string;
     private scrollBarWidth: number;
     private originBodyWidth: string;
+    private hasBodyScrollLock = false;
     foundation: UserGuideFoundation;
     userGuideId: string;
 
@@ -122,17 +123,20 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
             ...super.adapter,
             disabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
-                this.bodyOverflow = document.body.style.overflow || '';
-                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
+                if (!getPopupContainer && !this.hasBodyScrollLock && document.body.style.overflow !== 'hidden') {
+                    this.bodyOverflow = document.body.style.overflow;
+                    this.originBodyWidth = document.body.style.width;
+                    this.scrollBarWidth = getScrollbarWidth();
+                    this.hasBodyScrollLock = true;
                     document.body.style.overflow = 'hidden';
                     document.body.style.width = `calc(${this.originBodyWidth || '100%'} - ${this.scrollBarWidth}px)`;
                 }
             },
             enabledBodyScroll: () => {
-                const { getPopupContainer } = this.props;
-                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
+                if (this.hasBodyScrollLock) {
                     document.body.style.overflow = this.bodyOverflow;
                     document.body.style.width = this.originBodyWidth;
+                    this.hasBodyScrollLock = false;
                 }
             },
             notifyChange: (current: number) => {
@@ -166,7 +170,9 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
 
     componentDidMount() {
         this.foundation.init();
-        this.scrollBarWidth = getScrollbarWidth();
+        if (this.props.visible && this.props.steps.length) {
+            this.foundation.beforeShow();
+        }
         this.userGuideId = getUuidShort();
     }
 
