@@ -181,7 +181,7 @@ class MCPConfigureContent extends BaseComponent<MCPConfigureContentReactProps, M
             onClick={() => this.foundation.handleStatusChange(option, !option.active)} 
         />;
         return option.disabled ? <LocaleConsumer componentName="Sidebar" >
-            {(locale: Locale['Sidebar']) => (<Tooltip title={locale.defaultMcpInfo}>{buttonNode}</Tooltip>)}
+            {(locale: Locale['Sidebar']) => (<Tooltip content={locale.defaultMcpInfo}>{buttonNode}</Tooltip>)}
         </LocaleConsumer> : buttonNode;
     }
 
