@@ -102,7 +102,7 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
             notifyOk: (e: React.MouseEvent) => {
                 return this.props.onOk(e);
             },
-            notifyTextAreaChange: (value: string, e: React.MouseEvent<HTMLTextAreaElement>) => {
+            notifyTextAreaChange: (value: string, e: React.ChangeEvent<HTMLTextAreaElement>) => {
                 const { textAreaProps = {} } = this.props;
                 const { onChange } = textAreaProps;
                 onChange?.(value, e);

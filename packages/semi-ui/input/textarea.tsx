@@ -46,7 +46,7 @@ export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
     showCounter?: boolean;
     showClear?: boolean;
     onClear?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
-    onChange?: (value: string, e: React.MouseEvent<HTMLTextAreaElement>) => void;
+    onChange?: (value: string, e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
     onFocus?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
     onInput?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
@@ -200,7 +200,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             getRef: () => this.libRef.current,
             toggleFocusing: (focusing: boolean) => this.setState({ isFocus: focusing }),
             toggleHovering: (hovering: boolean) => this.setState({ isHover: hovering }),
-            notifyChange: (val: string, e: React.MouseEvent<HTMLTextAreaElement>) => {
+            notifyChange: (val: string, e: React.ChangeEvent<HTMLTextAreaElement>) => {
                 this.props.onChange(val, e);
             },
             notifyClear: (e: React.MouseEvent<HTMLTextAreaElement>) => this.props.onClear(e),
@@ -582,7 +582,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             placeholder: !placeholder ? null : placeholder,
             onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => this.foundation.handleChange(e.target.value, e),
             onFocus: (e: React.FocusEvent<HTMLTextAreaElement>) => this.foundation.handleFocus(e),
-            onBlur: (e: React.FocusEvent<HTMLTextAreaElement>) => this.foundation.handleBlur(e.nativeEvent),
+            onBlur: (e: React.FocusEvent<HTMLTextAreaElement>) => this.foundation.handleBlur(e),
             onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => this.foundation.handleKeyDown(e),
             onScroll: this.handleTextAreaScroll,
             value: value === null || value === undefined ? '' : value,
