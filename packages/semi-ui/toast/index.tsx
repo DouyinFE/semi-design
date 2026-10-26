@@ -124,7 +124,7 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             });
             // document.body.appendChild(div);
             if (mergedOpts.getPopupContainer) {
-                const container = mergedOpts.getPopupContainer();
+                const container = mergedOpts.getPopupContainer() ?? document.body;
                 container.appendChild(div);
             } else {
                 document.body.appendChild(div);
