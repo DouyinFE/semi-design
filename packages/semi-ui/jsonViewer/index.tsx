@@ -191,6 +191,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
 
     componentDidUpdate(prevProps: JsonViewerProps): void {
         if (!isEqual(prevProps.options, this.props.options) || this.props.value !== prevProps.value) {
+            this.setState({ customRenderMap: new Map() });
             this.foundation.jsonViewer.dispose();
             this.foundation.init();
             this.setupResizeObserver();
