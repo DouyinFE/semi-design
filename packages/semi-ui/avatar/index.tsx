@@ -140,7 +140,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         this.foundation.init();
     }
 
-    componentDidUpdate(prevProps: AvatarProps) {
+    componentDidUpdate(prevProps: AvatarProps, prevState: AvatarState) {
         if (this.props.src && this.props.src !== prevProps.src) {
             const image = new Image(0, 0);
             image.src = this.props.src;
@@ -154,7 +154,12 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
                 this.setState({ isImgExist: false });
             };
         }
-        if (typeof this.props.children === "string" && this.props.children !== prevProps.children) {
+        if (typeof this.props.children === "string" &&
+            (!this.props.src || !this.state.isImgExist) &&
+            (this.props.children !== prevProps.children ||
+                this.props.size !== prevProps.size ||
+                this.props.gap !== prevProps.gap ||
+                this.state.isImgExist !== prevState.isImgExist)) {
             this.foundation.changeScale();
         }
     }
