@@ -168,7 +168,14 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
     _cacheNode = (name: string, node: Element) =>
         name && node && Object.prototype.hasOwnProperty.call(this, name) && (this[name] = node);
 
-    _cacheSelectedNode = (selectedNode: Element) => this._cacheNode('selectedNode', selectedNode);
+    _cacheSelectedNode = (selectedNode: Element) => {
+        this._cacheNode('selectedNode', selectedNode);
+        if (isElement(selectedNode) && isElement(this.list)) {
+            map(this.list.children, node => {
+                node.setAttribute('aria-selected', String(node === selectedNode));
+            });
+        }
+    };
 
     _cacheWillSelectNode = (node: Element) => this._cacheNode('willSelectNode', node);
 
@@ -446,10 +453,8 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
                     key={prefixKey + index}
                     {...events}
                     className={cls}
-                    // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
                     role="option"
-                    // 
-                    // aria-selected={selected}
+                    aria-selected={selected && prefixKey === ''}
                     aria-disabled={item.disabled}
                 >
                     {text}
