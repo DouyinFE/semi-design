@@ -87,6 +87,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         onMouseEnter: noop,
         onMouseLeave: noop,
         type: 'default',
+        tabIndex: -1,
     });
     static elementType: string;
 
