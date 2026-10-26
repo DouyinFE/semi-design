@@ -308,7 +308,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     }
 
     renderStep = (step: StepItem, index: number) => {
-        const { theme, position, visible, className, style, spotlightPadding } = this.props;
+        const { theme, position, visible, className, style, spotlightPadding, getPopupContainer, zIndex } = this.props;
         const { current } = this.state;
 
         const isCurrentStep = current === index;
@@ -336,6 +336,8 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
                 position={step.position || position}
                 trigger="custom"
                 visible={visible && isCurrentStep}
+                getPopupContainer={getPopupContainer}
+                zIndex={zIndex}
                 showArrow={step.showArrow !== false}
             >
                 <div
@@ -370,7 +372,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
             <>
                 {
                     spotlightRect ? (
-                        <svg className={`${prefixCls}-spotlight`} style={{ zIndex }}>
+                        <svg className={`${prefixCls}-spotlight`} style={{ zIndex: zIndex - 1 }}>
                             <defs>
                                 <mask id={`spotlight-${this.userGuideId}`}>
                                     <rect width="100%" height="100%" fill="white"/>
@@ -449,7 +451,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     }
 
     renderModal = () => {
-        const { visible, steps, showSkipButton, showPrevButton, finishText, nextButtonProps, prevButtonProps, mask } = this.props;
+        const { visible, steps, showSkipButton, showPrevButton, finishText, nextButtonProps, prevButtonProps, mask, getPopupContainer, zIndex } = this.props;
         const { current } = this.state;
         const step = steps[current];
 
@@ -467,6 +469,8 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
                         visible={visible}
                         maskClosable={false}
                         mask={mask}
+                        getPopupContainer={getPopupContainer}
+                        zIndex={zIndex}
                         centered
                         footer={null}
                     >
@@ -544,4 +548,4 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     }
 }
 
-export default UserGuide; 
+export default UserGuide;
