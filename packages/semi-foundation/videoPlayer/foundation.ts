@@ -16,6 +16,7 @@ export interface VideoPlayerAdapter<P = Record<string, any>, S = Record<string, 
     setIsError: (isError: boolean) => void;
     setIsMirror: (isMirror: boolean) => void;
     setIsPlaying: (isPlaying: boolean) => void;
+    setIsFullscreen: (isFullscreen: boolean) => void;
     setMuted: (muted: boolean) => void;
     setNotificationContent: (content: string) => void;
     setPlaybackRate: (rate: number) => void;
@@ -293,6 +294,7 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
 
     handleFullscreenChange = () => {
         const isFullScreen = this.checkFullScreen();
+        this._adapter.setIsFullscreen(isFullScreen);
         if (isFullScreen) {
             document.addEventListener('mousemove', this.handleMouseMove);
         } else {
