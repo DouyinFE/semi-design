@@ -180,8 +180,8 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         const { steps, mode, visible } = this.props;
         const { current } = this.state;
 
-        if (visible !== prevProps.visible) {
-            if (visible) {
+        if (Boolean(visible && steps.length) !== Boolean(prevProps.visible && prevProps.steps.length)) {
+            if (visible && steps.length) {
                 this.foundation.beforeShow();
                 this.setState({ current: 0 });
             } else {
@@ -225,7 +225,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         const { current } = this.state;
         const step = steps[current];
 
-        if (step.target) {
+        if (step?.target) {
             const target = typeof step.target === 'function' ? step.target() : step.target;
             // Checks if the target element is within the viewport, and scrolls it into view if not
             this.scrollTargetIntoViewIfNeeded(target);
