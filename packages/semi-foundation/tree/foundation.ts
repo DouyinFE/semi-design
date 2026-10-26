@@ -322,6 +322,7 @@ export interface TreeAdapter extends DefaultAdapter<BasicTreeProps, BasicTreeInn
 
 export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTreeProps, BasicTreeInnerData> {
     delayedDragEnterLogic: any;
+    private dragEnterTimers = new Set<ReturnType<typeof setTimeout>>();
     throttledDragOverUpdate: ReturnType<typeof throttle>;
     dragImage: HTMLElement;
 
@@ -341,6 +342,8 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
     destroy() {
         super.destroy();
         this.removeDragImage();
+        this.dragEnterTimers.forEach(timer => clearTimeout(timer));
+        this.dragEnterTimers.clear();
         // Cancel any pending throttled updates
         if (this.throttledDragOverUpdate) {
             this.throttledDragOverUpdate.cancel();
@@ -859,7 +862,8 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         }
 
         // Trigger dragenter after clearing the prev state in dragleave
-        setTimeout(() => {
+        const dragEnterTimer = setTimeout(() => {
+            this.dragEnterTimers.delete(dragEnterTimer);
             this._adapter.updateState({
                 dragOverNodeKey: eventKey,
                 dropPosition,
@@ -889,6 +893,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
                 this.triggerDragEvent('onDragEnter', e, treeNode, { expandedKeys: [...newExpandedKeys] });
             }, 400);
         }, 0);
+        this.dragEnterTimers.add(dragEnterTimer);
     }
 
     handleNodeDragOver(e: any, treeNode: BasicTreeNodeData, dragNode: any) {
