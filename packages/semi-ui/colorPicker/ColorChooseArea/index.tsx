@@ -69,6 +69,12 @@ class ColorChooseArea extends BaseComponent<PropsWithChildren<ColorChooseAreaPro
     }
 
 
+    componentWillUnmount() {
+        this.ref.current?.removeEventListener('mousemove', this.foundation.setHandlePositionByMousePosition);
+        window.removeEventListener('mouseup', this.foundation.handleMouseUp);
+        super.componentWillUnmount();
+    }
+
     componentDidUpdate(prevProps: Readonly<ColorChooseAreaProps>, prevState: Readonly<ColorChooseAreaState>, snapshot?: any) {
         if (JSON.stringify(prevProps.hsva) !== JSON.stringify(this.props.hsva)) {
             this.setState({ handlePosition: this.foundation.getHandlePositionByHSVA() });
