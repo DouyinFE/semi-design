@@ -168,10 +168,13 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         this.foundation.init();
         this.scrollBarWidth = getScrollbarWidth();
         this.userGuideId = getUuidShort();
+        window.addEventListener('resize', this.handleLayoutChange);
+        window.addEventListener('scroll', this.handleLayoutChange, true);
+        this.updateSpotlightRect(true);
     }
 
     componentDidUpdate(prevProps: UserGuideProps, prevStates: UserGuideState) {
-        const { steps, mode, visible } = this.props;
+        const { visible } = this.props;
         const { current } = this.state;
 
         if (visible !== prevProps.visible) {
@@ -183,14 +186,18 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
             }
         }
 
-        if (mode === 'popup' && (prevStates.current !== current) && steps[current] || (prevProps.visible !== visible)) {
-            this.updateSpotlightRect();
-        }
+        this.updateSpotlightRect((!prevProps.visible && visible) || prevStates.current !== current);
     }
 
     componentWillUnmount() {
+        window.removeEventListener('resize', this.handleLayoutChange);
+        window.removeEventListener('scroll', this.handleLayoutChange, true);
         this.foundation.destroy();
     }
+
+    handleLayoutChange = () => {
+        this.updateSpotlightRect();
+    };
 
     scrollTargetIntoViewIfNeeded(target: Element) {
         if (!target) {
@@ -214,15 +221,19 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     }
 
 
-    async updateSpotlightRect() {
-        const { steps, spotlightPadding } = this.props;
+    updateSpotlightRect(scrollIntoView = false) {
+        const { steps, spotlightPadding, visible, mode } = this.props;
         const { current } = this.state;
+        if (!visible || mode !== 'popup') {
+            return;
+        }
         const step = steps[current];
 
-        if (step.target) {
+        if (step?.target) {
             const target = typeof step.target === 'function' ? step.target() : step.target;
-            // Checks if the target element is within the viewport, and scrolls it into view if not
-            this.scrollTargetIntoViewIfNeeded(target);
+            if (scrollIntoView || !this.state.spotlightRect) {
+                this.scrollTargetIntoViewIfNeeded(target);
+            }
 
             const rect = target?.getBoundingClientRect();
             const padding = step?.spotlightPadding || spotlightPadding || numbers.DEFAULT_SPOTLIGHT_PADDING;
@@ -234,9 +245,11 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
                 rect.height + padding * 2
             );
 
-            requestAnimationFrame(() => {
+            const previous = this.state.spotlightRect;
+            if (!previous || previous.x !== newRects.x || previous.y !== newRects.y ||
+                previous.width !== newRects.width || previous.height !== newRects.height) {
                 this.setState({ spotlightRect: newRects });
-            });
+            }
         }
     }
 
@@ -336,6 +349,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
                 position={step.position || position}
                 trigger="custom"
                 visible={visible && isCurrentStep}
+                rePosKey={JSON.stringify(this.state.spotlightRect)}
                 showArrow={step.showArrow !== false}
             >
                 <div
@@ -360,10 +374,6 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
 
         if (!step.target) {
             return null;
-        }
-
-        if (!spotlightRect) {
-            this.updateSpotlightRect();
         }
 
         return (
@@ -544,4 +554,4 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     }
 }
 
-export default UserGuide; 
+export default UserGuide;
