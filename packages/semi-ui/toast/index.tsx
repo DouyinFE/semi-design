@@ -76,12 +76,15 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             ...super.adapter,
             updateToast: (list: ToastInstance[], removedItems: ToastInstance[], updatedItems: ToastInstance[]) => {
                 this.setState(prev => {
-                    const ids = [...list, ...removedItems].map(item => item.id);
+                    const pending = new Map<string, ToastInstance>([...prev.removedItems, ...removedItems].map(item => [item.id, item]));
+                    list.forEach(item => pending.delete(item.id));
+                    const pendingItems = [...pending.values()];
+                    const ids = [...list, ...pendingItems].map(item => item.id);
                     const orderedIds = [
                         ...prev.orderedIds.filter(id => ids.includes(id)),
                         ...ids.filter(id => !prev.orderedIds.includes(id))
                     ];
-                    return { list, removedItems, updatedItems, orderedIds };
+                    return { list, removedItems: pendingItems, updatedItems, orderedIds };
                 });
             },
             handleMouseInSideChange: (mouseInSide: boolean) => {
