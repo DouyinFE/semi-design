@@ -53,6 +53,7 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
     static defaultProps = {};
     static wrapperId: null | string;
     stack: boolean = false;
+    appliedUpdates = new WeakSet<ToastInstance>();
 
     innerWrapperRef: React.RefObject<HTMLDivElement> = React.createRef();
 
@@ -265,10 +266,10 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         let { list } = this.state;
         const { removedItems, updatedItems } = this.state;
         list = Array.from(new Set([...list, ...removedItems]));
-        const updatedIds = updatedItems.map(({ id }) => id);
-
         const refFn: React.LegacyRef<Toast> = (toast) => {
-            if (toast?.foundation?._id && updatedIds.includes(toast.foundation._id)) {
+            const update = toast && updatedItems.find(item => item.id === toast.foundation._id);
+            if (update && !this.appliedUpdates.has(update)) {
+                this.appliedUpdates.add(update);
                 toast.foundation.restartCloseTimer();
             }
         };
