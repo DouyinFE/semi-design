@@ -265,6 +265,12 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
                     footer={this.renderFooter(locale)}
                     onCancel={this.foundation.handleCancel}
                     {...(restProps as SideSheetReactProps)}
+                    afterVisibleChange={visible => {
+                        (this.props as FeedbackSideSheetProps).afterVisibleChange?.(visible);
+                        if (!visible) {
+                            this.props.afterClose();
+                        }
+                    }}
                 >
                     {realChildren}
                 </SideSheet>)
