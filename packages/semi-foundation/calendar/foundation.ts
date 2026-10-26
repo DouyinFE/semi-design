@@ -120,6 +120,7 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
 
     destroy() {
         this.raf && cancelAnimationFrame(this.raf);
+        this._adapter.unregisterClickOutsideHandler?.();
     }
 
     initCurrTime() {
