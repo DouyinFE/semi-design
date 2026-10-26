@@ -213,6 +213,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
 
         return (
             <div
+                role="radiogroup"
                 className={prefixClsDisplay}
                 style={style}
                 id={id}
