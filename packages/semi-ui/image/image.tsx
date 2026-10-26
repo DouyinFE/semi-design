@@ -56,7 +56,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         this.state = {
             src: "",
             loadStatus: "loading",
-            previewVisible: false,
+            previewVisible: isObject(props.preview) && Boolean(props.preview.defaultVisible),
         };
 
         this.foundation = new ImageFoundation(this.adapter);
