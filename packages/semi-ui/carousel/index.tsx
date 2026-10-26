@@ -166,7 +166,8 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
     handleMouseLeave = (): void => {
         this.isHovered = false;
         const { autoPlay } = this.props;
-        if ((typeof autoPlay !== 'object' || autoPlay.hoverToPause) && !this.foundation.getIsControlledComponent()) {
+        if ((typeof autoPlay !== 'object' || autoPlay.hoverToPause) &&
+            (!this.foundation.getIsControlledComponent() || this.foundation._forcePlay)) {
             this.foundation.handleAutoPlay();
         }
     }
