@@ -5,7 +5,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/typography/consta
 import Typography from './typography';
 import Copyable from './copyable';
 import { IconSize as Size } from '../icons/index';
-import { isUndefined, omit, merge, isString, isNull, isFunction } from 'lodash';
+import { isUndefined, omit, merge, isString, isNull, isFunction, defaults } from 'lodash';
 import Tooltip from '../tooltip/index';
 import Popover from '../popover/index';
 import getRenderText from './util';
@@ -352,7 +352,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
                     }
                 );
             }
-            return { ...defaultOpts, ...showTooltip };
+            return defaults({}, showTooltip, defaultOpts);
         }
         return defaultOpts;
     };
@@ -471,7 +471,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         if (!ellipsis) {
             return {};
         }
-        const opt = {
+        const opt = defaults({}, typeof ellipsis === 'object' ? ellipsis : null, {
             rows: 1,
             expandable: false,
             pos: 'end' as EllipsisPos,
@@ -480,8 +480,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             collapsible: false,
             expandText: (ellipsis as Ellipsis).expandable ? this.expandStr : undefined,
             collapseText: (ellipsis as Ellipsis).collapsible ? this.collapseStr : undefined,
-            ...(typeof ellipsis === 'object' ? ellipsis : null),
-        };
+        });
         return opt;
     };
 
