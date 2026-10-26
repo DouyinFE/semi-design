@@ -101,7 +101,9 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
     static getDerivedStateFromProps(props: CarouselProps, state: CarouselState): Partial<CarouselState> {
         const states: Partial<CarouselState> = {};
         if (!isNullOrUndefined(props.activeIndex) && props.activeIndex !== state.activeIndex) {
+            states.preIndex = state.activeIndex;
             states.activeIndex = props.activeIndex;
+            states.isInit = false;
         }
         return states;
     }
