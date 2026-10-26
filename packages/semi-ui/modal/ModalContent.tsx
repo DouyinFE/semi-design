@@ -276,7 +276,11 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             aria-modal="true"
             aria-labelledby={`${cssClasses.DIALOG}-title`}
             aria-describedby={`${cssClasses.DIALOG}-body`}
-            onAnimationEnd={props.onAnimationEnd}
+            {...props.contentExtraProps}
+            onAnimationEnd={event => {
+                props.onAnimationEnd?.(event);
+                props.contentExtraProps?.onAnimationEnd?.(event);
+            }}
             className={cls([`${cssClasses.DIALOG}-content`,
                 props.contentClassName,
                 {
@@ -331,7 +335,6 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                     })}
                     onClick={maskClosable ? this.onMaskClick : null}
                     onMouseUp={maskClosable ? this.onMaskMouseUp : null}
-                    {...this.props.contentExtraProps}
                 >
                     {this.getDialogElement()}
                 </div>

@@ -93,7 +93,10 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
     }
 
 
-    handleAnimationEnd = () => {
+    handleAnimationEnd = (event: React.AnimationEvent) => {
+        if (event.target !== event.currentTarget) {
+            return;
+        }
         this.setState({
             currentClassName: this.props.endClassName,
             extraStyle: {
