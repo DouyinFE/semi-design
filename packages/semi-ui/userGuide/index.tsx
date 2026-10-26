@@ -330,7 +330,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         return (
             <Popover
                 key={`userGuide-popup-${index}`}
-                className={cls(`${prefixCls}-popover`, className)}
+                className={cls(`${prefixCls}-popover`, className, step.className)}
                 style={{ ...basePopoverStyle, ...primaryStyle, ...style }}
                 content={this.renderPopupContent(step, index)}
                 position={step.position || position}
@@ -386,7 +386,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
                                 </mask>
                             </defs>
                             {
-                                mask && (
+                                (step.mask ?? mask) && (
                                     <>
                                         <rect
                                             width="100%"
@@ -449,7 +449,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     }
 
     renderModal = () => {
-        const { visible, steps, showSkipButton, showPrevButton, finishText, nextButtonProps, prevButtonProps, mask } = this.props;
+        const { visible, steps, showSkipButton, showPrevButton, finishText, nextButtonProps, prevButtonProps, mask, className, style } = this.props;
         const { current } = this.state;
         const step = steps[current];
 
@@ -461,12 +461,13 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
             <LocaleConsumer componentName="UserGuide">
                 {(locale: Locale['UserGuide'], localeCode: Locale['code']) => (
                     <Modal
-                        className={cssClasses.PREFIX_MODAL}
+                        className={cls(cssClasses.PREFIX_MODAL, className, step.className)}
+                        style={style}
                         bodyStyle={{ padding: 0 }}
                         header={null}
                         visible={visible}
                         maskClosable={false}
-                        mask={mask}
+                        mask={step.mask ?? mask}
                         centered
                         footer={null}
                     >
@@ -544,4 +545,4 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     }
 }
 
-export default UserGuide; 
+export default UserGuide;
