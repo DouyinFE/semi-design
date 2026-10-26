@@ -40,7 +40,11 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         const video = this._adapter.getVideo();
         if (video) {
             this._adapter.setTotalTime(video.duration);
-            this.handleVolumeChange(muted ? 0 : volume);
+            this.handleVolumeChange(volume);
+            if (muted) {
+                video.volume = 0;
+                this._adapter.setMuted(true);
+            }
         }
         this.registerEvent();
     }
