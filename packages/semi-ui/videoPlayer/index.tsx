@@ -67,7 +67,6 @@ export interface VideoPlayerState {
     muted: boolean;
     notificationContent: string;
     playbackRate: number;
-    playbackRateList: { label: string; value: number }[];
     showNotification: boolean;
     showControls: boolean;
     src: string;
@@ -106,7 +105,6 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
             muted: props.muted,
             notificationContent: '',
             playbackRate: props.defaultPlaybackRate || 1,
-            playbackRateList: props.playbackRateList,
             showNotification: false,
             showControls: true,
             src: props.src || '',
@@ -458,8 +456,8 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
     }
 
     render() {
-        const { markers, qualityList, routeList, width, height, autoPlay, style, className, loop, captionsSrc, crossOrigin, theme } = this.props;
-        const { isPlaying, playbackRate, playbackRateList, isMirror, currentTime, totalTime, currentQuality, currentRoute, src, bufferedValue, showControls } = this.state;
+        const { markers, qualityList, routeList, width, height, autoPlay, style, className, loop, captionsSrc, crossOrigin, theme, playbackRateList } = this.props;
+        const { isPlaying, playbackRate, isMirror, currentTime, totalTime, currentQuality, currentRoute, src, bufferedValue, showControls } = this.state;
 
         return (
             <LocaleConsumer componentName="VideoPlayer">
@@ -550,4 +548,4 @@ const ForwardVideoPlayer = React.forwardRef<HTMLVideoElement, Omit<VideoPlayerPr
 
 export default ForwardVideoPlayer;
 
-export { VideoPlayer }; 
+export { VideoPlayer };
