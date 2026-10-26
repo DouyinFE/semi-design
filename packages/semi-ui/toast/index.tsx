@@ -10,7 +10,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/toast/constants';
 import BaseComponent from '../_base/baseComponent';
 import Toast from './toast';
 import '@douyinfe/semi-foundation/toast/toast.scss';
-import getUuid from '@douyinfe/semi-foundation/utils/uuid';
+import getUuid, { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import useToast from './useToast';
 import { ConfigProps, ToastInstance, ToastProps, ToastState } from '@douyinfe/semi-foundation/toast/toastFoundation';
 import CSSAnimation from '../_cssAnimation';
@@ -110,7 +110,7 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         if (!ToastList.ref) {
             const div = document.createElement('div');
             if (!this.wrapperId) {
-                this.wrapperId = getUuid('toast-wrapper').slice(0, 26);
+                this.wrapperId = getUuidShort({ prefix: 'toast-wrapper' });
             }
             div.className = cssClasses.WRAPPER;
             div.id = this.wrapperId;
