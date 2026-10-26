@@ -43,6 +43,21 @@ export default class FloatButtonGroup extends BaseComponent<FloatButtonGroupProp
         this.props.onClick?.(value, e);
     }
 
+    handleItemClick = (item: FloatButtonGroupItem, e: React.MouseEvent) => {
+        if (this.props.disabled || item.disabled) {
+            e.stopPropagation();
+            return;
+        }
+        if (item.href) {
+            if (item.target === '_blank') {
+                window.open(item.href, '_blank');
+            } else {
+                window.location.href = item.href;
+            }
+        }
+        item.onClick?.(e);
+    }
+
     render(): JSX.Element {
         const { className, style, disabled, items } = this.props;
         return (
@@ -57,7 +72,7 @@ export default class FloatButtonGroup extends BaseComponent<FloatButtonGroupProp
                     if (item.badge) {
                         return (
                             <Badge key={index} {...item.badge}>
-                                <div className={cls(`${prefixCls}-item`)} data-value={item.value}>
+                                <div className={cls(`${prefixCls}-item`, item.className)} style={item.style} data-value={item.value} onClick={e => this.handleItemClick(item, e)}>
                                     {item.icon}
                                     {item.content}
                                 </div>
@@ -67,8 +82,10 @@ export default class FloatButtonGroup extends BaseComponent<FloatButtonGroupProp
                     return (
                         <div
                             key={index} 
-                            className={cls(`${prefixCls}-item`)}
+                            className={cls(`${prefixCls}-item`, item.className)}
+                            style={item.style}
                             data-value={item.value}
+                            onClick={e => this.handleItemClick(item, e)}
                         >
                             {item.icon}
                             {item.content}
