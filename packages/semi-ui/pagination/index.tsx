@@ -208,7 +208,9 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         };
 
         let pagerHasChanged = false;
-        let allPageNumberNeedUpdate = false;
+        let allPageNumberNeedUpdate = prevProps.size !== this.props.size ||
+            prevProps.hoverShowPageSelect !== this.props.hoverShowPageSelect ||
+            prevProps.disabled !== this.props.disabled;
 
         if (prevProps.currentPage !== this.props.currentPage) {
             pagerHasChanged = true;
