@@ -479,6 +479,7 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
             notifyMaxLimit: (option: OptionProps) => this.props.onExceed(option),
             getMaxLimit: () => this.props.max,
             registerClickOutsideHandler: (cb: (e: MouseEvent) => void) => {
+                this.adapter.unregisterClickOutsideHandler();
                 const clickOutsideHandler: (e: MouseEvent) => void = e => {
                     const triggerDom = (this.triggerRef && this.triggerRef.current) as Element;
                     const optionsDom = (this.optionContainerEl && this.optionContainerEl.current) as Element;
