@@ -23,8 +23,15 @@ export default class NodeList extends PureComponent<NodeListProps, NodeListState
         const hasChanged = !isEqual(prevState.cachedMotionKeys, motionKeys) ||
         !isEqual(prevState.cachedData.map(i => i.key), flattenNodes.map(i => i.key));
         const motionArr = [...motionKeys];
-        if (!hasChanged || !motionArr.length) {
+        if (!hasChanged) {
             return null;
+        }
+        if (!motionArr.length) {
+            return {
+                transitionNodes: [],
+                cachedData: flattenNodes,
+                cachedMotionKeys: motionKeys
+            };
         }
         const transitionNodes: TransitionNodes<FlattenNode> = [];
         const transitionRange: FlattenNode[] = [];
