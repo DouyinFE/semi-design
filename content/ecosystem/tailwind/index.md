@@ -138,6 +138,10 @@ export default defineConfig({
 Tailwind v3 和 v4 的配置方式不同，请根据你使用的版本选择对应的配置方式。
 </Notice>
 
+<Notice type="warning" title="必须保证生产环境的 CSS 层顺序">
+以下入口 import 顺序在大多数项目中可以保证最终的 CSS 顺序，但最终应以生产构建产物和浏览器中的实际样式为准。Layer 顺序声明必须在任何首次声明这些层的样式之前生效，才能保证普通样式声明的优先级为 Preflight 低于 Semi、Semi 低于工具类。仅开启 `cssLayer`，或仅在源码中把 import 写在第一行，并不能覆盖所有生产分块和 CSS 提取场景。配置后请按下方“检查生产构建产物”一节验证。
+</Notice>
+
 **Tailwind v4 配置方式：**
 
 层顺序需要包含 Tailwind 默认的 `components` 层，确保它位于 `utilities` 之前。否则 Tailwind 后续声明 `components` 时会将其追加到已知层的末尾，导致该层中的自定义组件样式反过来覆盖工具类。
@@ -159,7 +163,7 @@ import { Button } from '@douyinfe/semi-ui';
 
 <Notice type="warning" title="重要">
 
-`semi-layer.css` 必须在任何包含 `@import "tailwindcss";` 的 CSS 文件和任何 Semi 组件的 import 之前引入，否则 CSS Layer 顺序将不正确。建议将其放在入口文件的第一行。
+在源码入口中，`semi-layer.css` 应在任何包含 `@import "tailwindcss";` 的 CSS 文件和任何 Semi 组件的 import 之前引入，建议放在入口文件的第一行；同时仍需确保生产产物中，Layer 顺序声明位于相关层的样式之前。
 
 </Notice>
 
@@ -189,6 +193,31 @@ Tailwind v3 入口的 CSS 通常是包含了下面三行的文件
 ```
 
 并在项目的 JS 入口文件（即 App.tsx 或 index.js）处**最上方** import 上面修改的文件。（通常一个 Tailwind 项目对于上面文件的 import 已经处理好，只要将该 import 语句提到所有 import 语句前即可）
+
+**4. 检查生产构建产物（Tailwind v3 / v4 均适用）**
+
+完成配置后，请运行项目的生产构建和产物预览，不能仅以开发模式正常或构建成功作为验证依据：
+
+1. 检查生成的 HTML 中 `<link rel="stylesheet">` / `<style>` 的顺序，以及对应 CSS 文件中的内容顺序，确认完整的 Layer 顺序声明出现在相关层第一次被声明之前。这里指文档和样式表中的层叠顺序，不是网络请求完成的先后。
+2. 如果使用 `manualChunks`、共享依赖分块或其他 CSS 提取配置，Semi 的 CSS 可能被提到入口 CSS 之前。例如，先出现 `@layer semi { ... }`、再出现 `@layer theme, base, semi, components, utilities;`，后者无法重新排列已经注册的 `semi` 层，Preflight 就可能反过来覆盖 Semi。即使最终只生成一个 CSS 文件，也需检查文件内部的声明顺序。
+3. 在生产预览中同时检查默认组件样式和工具类覆盖效果，例如 Button 的背景、padding 是否正常，以及显式设置的 padding 工具类是否仍然生效。
+
+如果入口 import 无法保证生产顺序，可以将 Layer 顺序声明放在 HTML `<head>` 中所有其他样式之前，先建立层顺序；保留原有 Tailwind 入口 CSS 和 Semi 插件的 `cssLayer` 配置。例如，Tailwind v4 的 Vite 项目可以在 `index.html` 中添加：
+
+```html
+<head>
+    <style>@layer theme, base, semi, components, utilities;</style>
+    <!-- 其他样式和入口脚本 -->
+</head>
+```
+
+Tailwind v3 则将上述 `<style>` 中的声明替换为：
+
+```css
+@layer tailwind-base, semi, tailwind-components, tailwind-utils;
+```
+
+如果项目启用了严格的 Content Security Policy（CSP），请为内联样式配置允许的 nonce/hash，或使用确保最先加载的独立样式表，并再次检查生产产物顺序；不要为了该声明关闭 CSP。
 
 
 <Notice title="兼容低版本浏览器">

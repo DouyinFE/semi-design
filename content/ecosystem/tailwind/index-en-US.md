@@ -135,6 +135,10 @@ For other build tools, refer to the principle below to wrap Semi CSS in a layer.
 The configuration methods for Tailwind v3 and v4 are different. Please choose the corresponding configuration method based on the version you are using.
 </Notice>
 
+<Notice type="warning" title="Ensure the CSS layer order in production">
+The entry import order below preserves the final CSS order in most projects, but the production output and the browser's actual styles are the source of truth. The layer order declaration must take effect before any styles first declare those layers, so normal declarations follow the intended priority: Preflight below Semi, and Semi below utilities. Enabling `cssLayer`, or putting an import on the first source line alone, does not cover every production chunking and CSS extraction setup. Verify the result using the “Check the production output” section below.
+</Notice>
+
 **Tailwind v4 Configuration:**
 
 Include Tailwind's default `components` layer before `utilities` in the initial order declaration. Otherwise, Tailwind's later declaration appends `components` after the known layers, allowing custom component styles in that layer to override utility classes.
@@ -156,7 +160,7 @@ import { Button } from '@douyinfe/semi-ui';
 
 <Notice type="warning" title="Important">
 
-`semi-layer.css` must be imported before any CSS file containing `@import "tailwindcss";` and before any Semi component imports, otherwise the CSS Layer order will be incorrect. It is recommended to place it on the first line of the entry file.
+In the source entry, import `semi-layer.css` before any CSS file containing `@import "tailwindcss";` and before any Semi component imports, preferably on the first line. Also ensure that the layer order declaration precedes the relevant layer styles in the production output.
 
 </Notice>
 
@@ -186,6 +190,31 @@ Modify it to (copy directly):
 ```
 
 And import the above modified file at the **top** of the project's JS entry file (i.e. App.tsx or index.js). (Usually a Tailwind project has already processed the import of the above files, just put the import statement before all import statements)
+
+**4. Check the production output (applies to Tailwind v3 and v4)**
+
+After configuration, run the project's production build and preview its output. A working development server or a successful build alone is not sufficient verification:
+
+1. Inspect the order of `<link rel="stylesheet">` / `<style>` elements in the generated HTML and the content order of their CSS files. Ensure that the complete layer order declaration precedes the first declaration of the relevant layers. This means cascade order in the document and stylesheets, not the order in which network requests finish.
+2. With `manualChunks`, shared dependency chunks, or other CSS extraction settings, Semi CSS may appear before the entry CSS. For example, if `@layer semi { ... }` appears before `@layer theme, base, semi, components, utilities;`, the latter cannot reorder the already registered `semi` layer, so Preflight may override Semi instead. Even when the build emits a single CSS file, check the declaration order inside it.
+3. In the production preview, check both default component styles and utility overrides. For example, verify the Button background and padding, and confirm that an explicitly applied padding utility still works.
+
+If entry imports cannot guarantee the production order, declare the layer order in the HTML `<head>` before all other styles. Keep the existing Tailwind entry CSS and the Semi plugin's `cssLayer` configuration. For example, a Vite project using Tailwind v4 can add the following to `index.html`:
+
+```html
+<head>
+    <style>@layer theme, base, semi, components, utilities;</style>
+    <!-- Other styles and entry scripts -->
+</head>
+```
+
+For Tailwind v3, replace the declaration inside the `<style>` element with:
+
+```css
+@layer tailwind-base, semi, tailwind-components, tailwind-utils;
+```
+
+If the project uses a strict Content Security Policy (CSP), authorize the inline style with an appropriate nonce/hash, or use a separate stylesheet guaranteed to load first, and verify the production output order again. Do not disable CSP for this declaration.
 
 
 <Notice title="Compatible with lower version browsers">
