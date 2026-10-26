@@ -71,6 +71,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
     static __SemiComponentName__ = "OverflowList";
 
     static defaultProps = getDefaultPropsFromGlobalConfig(OverflowList.__SemiComponentName__, {
+        items: [],
         collapseFrom: 'end',
         minVisibleItems: 0,
         overflowRenderer: (): ReactElement => null,
