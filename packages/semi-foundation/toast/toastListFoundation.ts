@@ -38,13 +38,15 @@ export default class ToastListFoundation extends BaseFoundation<ToastListAdapter
         return this._adapter.getInputWrapperRect();
     }
 
-    addToast(toastOpts: ToastProps) {
+    addToast(toastOpts: ToastInstance) {
         const toastList = this._adapter.getState('list') as ToastListState['list'];
+        const isReopened = (this._adapter.getState('removedItems') as ToastListState['removedItems'])
+            .some(item => item.id === toastOpts.id);
         // const id = getUuid('toast');
         // let toastOpts = { ...opts, id };
         // console.log(toastOpts);
         toastList.push(toastOpts);
-        this._adapter.updateToast(toastList, [], []);
+        this._adapter.updateToast(toastList, [], isReopened ? [toastOpts] : []);
         // return id;
     }
 
