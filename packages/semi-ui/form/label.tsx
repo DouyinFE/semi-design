@@ -62,7 +62,7 @@ export default class Label extends PureComponent<LabelProps> {
             [`${prefixCls}-field-label-disabled`]: disabled,
             [`${prefixCls}-field-label-with-extra`]: extra,
         });
-        const labelStyle = style ? style : {};
+        const labelStyle = style ? { ...style } : {};
         width ? labelStyle.width = width : null;
 
         const optionalText = (
