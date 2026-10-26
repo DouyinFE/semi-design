@@ -171,8 +171,8 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         this.foundation.handleLeave(e);
     }
 
-    handleError() {
-        this.foundation.handleImgLoadError();
+    handleError(event: React.SyntheticEvent<HTMLImageElement>) {
+        this.foundation.handleImgLoadError(event);
     }
 
     handleKeyDown(event: any) {
