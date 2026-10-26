@@ -86,6 +86,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
     foundation!: AvatarFoundation;
     avatarRef: React.RefObject<HTMLElement | null>;
+    private imageVersion = 0;
 
     constructor(props: AvatarProps) {
         super(props);
@@ -141,17 +142,27 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
     }
 
     componentDidUpdate(prevProps: AvatarProps) {
+        if (this.props.src !== prevProps.src) {
+            this.imageVersion++;
+        }
         if (this.props.src && this.props.src !== prevProps.src) {
+            const version = this.imageVersion;
             const image = new Image(0, 0);
             image.src = this.props.src;
             image.onload = () => {
-                this.setState({ isImgExist: true });
+                if (version === this.imageVersion) {
+                    this.setState({ isImgExist: true });
+                }
             };
             image.onerror = () => {
-                this.setState({ isImgExist: false });
+                if (version === this.imageVersion) {
+                    this.setState({ isImgExist: false });
+                }
             };
             image.onabort = () => {
-                this.setState({ isImgExist: false });
+                if (version === this.imageVersion) {
+                    this.setState({ isImgExist: false });
+                }
             };
         }
         if (typeof this.props.children === "string" && this.props.children !== prevProps.children) {
@@ -160,6 +171,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
     }
 
     componentWillUnmount() {
+        this.imageVersion++;
         this.foundation.destroy();
     }
 
