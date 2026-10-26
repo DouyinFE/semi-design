@@ -163,7 +163,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
                     className={headerCls}
                     aria-disabled={disabled}
                     aria-expanded={active ? 'true' : 'false'}
-                    aria-owns={this.ariaID}
+                    aria-owns={active && children ? this.ariaID : undefined}
                     onClick={e => !disabled && this.handleClick(itemKey, e)}
                     onKeyDown={this.handleKeyDown}
                 >
