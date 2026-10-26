@@ -31,6 +31,7 @@ export interface ContainerAdapter extends DefaultAdapter<ContainerProps, Contain
 }
 
 export default class ContainerFoundation extends BaseFoundation<ContainerAdapter> {
+    private _lastVisible = false;
     constructor(adapter: ContainerAdapter) {
         super({ ...ContainerFoundation.defaultAdapter, ...adapter });
     }
@@ -73,5 +74,9 @@ export default class ContainerFoundation extends BaseFoundation<ContainerAdapter
     handleAnimationEnd = () => {
         const { visible } = this.getProps();
         this.toggleDisplayNone(!visible);
+        if (Boolean(visible) !== this._lastVisible) {
+            this._lastVisible = Boolean(visible);
+            this.onVisibleChange(this._lastVisible);
+        }
     }
 }
