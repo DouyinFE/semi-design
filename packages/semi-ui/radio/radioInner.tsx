@@ -60,7 +60,7 @@ class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {
     constructor(props: RadioInnerProps) {
         super(props);
         this.state = {
-            checked: false
+            checked: props.checked
         };
         this.foundation = new RadioInnerFoundation(this.adapter);
         this.onChange = this.onChange.bind(this);

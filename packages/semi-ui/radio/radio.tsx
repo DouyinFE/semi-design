@@ -107,7 +107,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             hover: false,
             addonId: props.addonId,
             extraId: props.extraId,
-            checked: props.checked || props.defaultChecked || false,
+            checked: 'checked' in props ? props.checked : props.defaultChecked,
         };
         this.foundation = new RadioFoundation(this.adapter);
         this.radioEntity = null;
