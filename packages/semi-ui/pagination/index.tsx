@@ -132,21 +132,24 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         const pageSize = props.pageSize || props.pageSizeOpts[0] || numbers.DEFAULT_PAGE_SIZE; // Use pageSize first, use the first of pageSizeOpts when not, use the default value when none
 
         const shouldFillAllNumber = props.size === 'small' && props.hoverShowPageSelect && !props.disabled;
+        const currentPage = props.currentPage || props.defaultCurrentPage;
+        const totalPageNum = Math.ceil(total / pageSize);
 
         this.state = {
             total,
             showTotal: props.showTotal,
-            currentPage: props.currentPage || props.defaultCurrentPage,
+            currentPage,
             pageSize,
             pageList: [],
-            prevDisabled: false,
-            nextDisabled: false,
+            prevDisabled: currentPage === 1,
+            nextDisabled: currentPage === 1 ? totalPageNum < 2 : currentPage === totalPageNum,
             restLeftPageList: [],
             restRightPageList: [],
             quickJumpPage: '',
             allPageNumbers: shouldFillAllNumber ? Array.from({ length: Math.ceil(total / pageSize) }, (v, i) => i + 1) : [], // only need to count in smallPage mode, when props.size = small
         };
         this.foundation = new PaginationFoundation(this.adapter);
+        this.state = { ...this.state, ...this.foundation.getPageList({ currentPage, total, pageSize }) };
         this.renderDefaultPage = this.renderDefaultPage.bind(this);
         this.renderSmallPage = this.renderSmallPage.bind(this);
         warning(
