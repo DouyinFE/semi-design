@@ -40,7 +40,7 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         const video = this._adapter.getVideo();
         if (video) {
             this._adapter.setTotalTime(video.duration);
-            this.handleVolumeChange(volume);
+            this.handleVolumeChange(volume, false);
             if (muted) {
                 video.volume = 0;
                 this._adapter.setMuted(true);
@@ -163,13 +163,16 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         this._adapter.setShowControls(true);
     }
 
-    handleVolumeChange(value: number) {
+    handleVolumeChange(value: number, notify = true) {
         const video = this._adapter.getVideo();
         if (!video) return;
         const volume = Math.floor(value > 0 ? value : 0);
         video.volume = volume / 100;
         this._adapter.setVolume(volume);
         this._adapter.setMuted(volume === 0 ? true : false);
+        if (notify) {
+            this._adapter.notifyVolumeChange(volume);
+        }
     }
 
     handleVolumeSilent = () => {
@@ -184,6 +187,7 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
             video.volume = 0;
             this._adapter.setMuted(true);
         }
+        this._adapter.notifyVolumeChange(muted ? volume : 0);
     }
 
     checkFullScreen() {
