@@ -27,7 +27,7 @@ import { Rating } from '@douyinfe/semi-ui';
 
 () => (
     <div>
-        <Rating Default Value={5} />
+        <Rating defaultValue={5} />
         <br />
         <br />
         <Rating size="small" defaultValue={5} />
@@ -144,7 +144,7 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
         <Rating size={18} character={'S'} defaultValue={3} />
         <br />
         <br />
-        <Rating Count={10} defaultValue={6} />
+        <Rating count={10} defaultValue={6} />
     </div>
 );
 ```
