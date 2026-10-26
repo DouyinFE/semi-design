@@ -106,7 +106,7 @@ export default class Link extends BaseComponent<LinkProps, {}> {
                 Object.assign({ opts: {} }, showTooltip) : { opts: {} };
             // The position can be set through showTooltip, here it is compatible with the position API
             if (position) {
-                showTooltipObj.opts['position'] = position;
+                showTooltipObj.opts = { ...showTooltipObj.opts, position };
             }
             return (
                 <Typography.Text
