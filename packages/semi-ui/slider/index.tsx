@@ -106,7 +106,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
     constructor(props: SliderProps) {
         super(props);
         let { value } = this.props;
-        if (!value) {
+        if (typeof value === 'undefined') {
             value = this.props.defaultValue;
         }
         this.state = {
