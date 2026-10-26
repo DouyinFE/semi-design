@@ -207,7 +207,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         const clickable = onClick !== noop;
         const isImg = src && isImgExist;
         const a11yFocusProps = {
-            tabIndex: 0,
+            tabIndex: (this.props as AvatarProps & { tabIndex?: number }).tabIndex === undefined ? 0 : -1,
             onKeyDown: this.handleKeyDown,
             onFocus: this.handleFocusVisible,
             onBlur: this.handleBlur,
@@ -350,6 +350,28 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             onMouseLeave: this.onLeave,
         };
         const isImg = src && isImgExist;
+        const outerFocusProps = others as typeof others & Pick<React.HTMLAttributes<HTMLElement>, 'tabIndex' | 'onKeyDown' | 'onFocus' | 'onBlur'>;
+        const focusOnRoot = onClick !== noop && (isImg || typeof children === 'string') && outerFocusProps.tabIndex !== undefined;
+        const focusEvent = focusOnRoot ? {
+            onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => {
+                outerFocusProps.onKeyDown?.(event);
+                if (event.target === event.currentTarget && !event.defaultPrevented) {
+                    this.handleKeyDown(event);
+                }
+            },
+            onFocus: (event: React.FocusEvent<HTMLElement>) => {
+                if (event.target === event.currentTarget) {
+                    this.handleFocusVisible(event);
+                }
+                outerFocusProps.onFocus?.(event);
+            },
+            onBlur: (event: React.FocusEvent<HTMLElement>) => {
+                if (event.target === event.currentTarget) {
+                    this.handleBlur(event);
+                }
+                outerFocusProps.onBlur?.(event);
+            },
+        } : {};
         const avatarCls = cls(
             prefixCls,
             {
@@ -372,6 +394,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             style={shouldWrap ? {} : customStyle}
             className={avatarCls}
             {...(shouldWrap ? {} : mouseEvent)}
+            {...focusEvent}
             ref={this.avatarRef}>
             {this.getContent()}
             {hoverRender}
