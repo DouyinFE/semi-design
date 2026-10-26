@@ -39,7 +39,7 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
     observer: ResizeObserver;
     childNode: any;
     element: Element;
-    _parentNode: HTMLElement;
+    _parentNode: Element;
 
     formerPropertyValue: Map<Element, number> = new Map()
 
@@ -128,7 +128,7 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
             element.parentNode &&
             element.parentNode.ownerDocument &&
             element.parentNode.ownerDocument.defaultView &&
-            element.parentNode instanceof element.parentNode.ownerDocument.defaultView.HTMLElement
+            element.parentNode instanceof element.parentNode.ownerDocument.defaultView.Element
         ) {
             this._parentNode = element.parentNode;
             this.observer.observe(this._parentNode);
