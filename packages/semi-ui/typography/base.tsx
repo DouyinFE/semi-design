@@ -499,7 +499,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         } else if (expanded && !noCollapseText) {
             text = collapseText;
         }
-        if (!noExpandText || !noCollapseText) {
+        if (expanded ? !noCollapseText : !noExpandText) {
             return (
                 // TODO: replace `a` tag with `span` in next major version
                 // NOTE: may have effect on style
