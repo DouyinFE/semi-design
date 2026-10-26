@@ -2,7 +2,6 @@ import React, { CSSProperties } from 'react';
 import { render as reactRender, unmount as reactUnmount } from '../_utils/reactRender';
 import PropTypes from 'prop-types';
 import ToastListFoundation, {
-    ToastListAdapter,
     ToastListProps,
     ToastListState
 } from '@douyinfe/semi-foundation/toast/toastListFoundation';
@@ -32,7 +31,11 @@ export type {
     ToastState
 };
 
-const createBaseToast = () => class ToastList extends BaseComponent<ToastListProps, ToastListState> {
+interface ToastListReactState extends ToastListState {
+    orderedIds: ToastInstance['id'][]
+}
+
+const createBaseToast = () => class ToastList extends BaseComponent<ToastListProps, ToastListReactState> {
     static ref: ToastList;
     static useToast: typeof useToast;
     static defaultOpts: ToastReactProps & { motion: boolean } = {
@@ -62,16 +65,24 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             list: [],
             removedItems: [],
             updatedItems: [],
-            mouseInSide: false
+            mouseInSide: false,
+            orderedIds: []
         };
         this.foundation = new ToastListFoundation(this.adapter);
     }
 
-    get adapter(): ToastListAdapter {
+    get adapter() {
         return {
             ...super.adapter,
             updateToast: (list: ToastInstance[], removedItems: ToastInstance[], updatedItems: ToastInstance[]) => {
-                this.setState({ list, removedItems, updatedItems });
+                this.setState(prev => {
+                    const ids = [...list, ...removedItems].map(item => item.id);
+                    const orderedIds = [
+                        ...prev.orderedIds.filter(id => ids.includes(id)),
+                        ...ids.filter(id => !prev.orderedIds.includes(id))
+                    ];
+                    return { list, removedItems, updatedItems, orderedIds };
+                });
             },
             handleMouseInSideChange: (mouseInSide: boolean) => {
                 this.setState({ mouseInSide });
@@ -265,6 +276,7 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         let { list } = this.state;
         const { removedItems, updatedItems } = this.state;
         list = Array.from(new Set([...list, ...removedItems]));
+        list.sort((a, b) => this.state.orderedIds.indexOf(a.id) - this.state.orderedIds.indexOf(b.id));
         const updatedIds = updatedItems.map(({ id }) => id);
 
         const refFn: React.LegacyRef<Toast> = (toast) => {
@@ -308,6 +320,7 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
                                     return {
                                         ...prev,
                                         removedItems: prev.removedItems.filter(removed => removed.id !== item.id),
+                                        orderedIds: prev.orderedIds.filter(id => id !== item.id),
                                     };
                                 });
                             }}
