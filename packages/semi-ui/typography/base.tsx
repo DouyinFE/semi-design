@@ -5,7 +5,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/typography/consta
 import Typography from './typography';
 import Copyable from './copyable';
 import { IconSize as Size } from '../icons/index';
-import { isUndefined, omit, merge, isString, isNull, isFunction, defaults } from 'lodash';
+import { isUndefined, omit, merge, isString, isNull, isFunction, defaults, isEqual } from 'lodash';
 import Tooltip from '../tooltip/index';
 import Popover from '../popover/index';
 import getRenderText from './util';
@@ -208,7 +208,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const newState: Partial<BaseTypographyState> = {};
         newState.prevChildren = props.children;
 
-        if (props.ellipsis && prevChildren !== props.children) {
+        if (props.ellipsis && !isEqual(prevChildren, props.children)) {
             // reset ellipsis state if children update
             newState.isOverflowed = false;
             newState.ellipsisContent = props.children;
@@ -223,7 +223,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             this.onResize().then(() => runAfterTicks(() => this.observerTakingEffect = true, 1));
         }
         // Render was based on outdated refs and needs to be rerun
-        if (this.props.children !== prevProps.children) {
+        if (!isEqual(this.props.children, prevProps.children)) {
             this.forceUpdate();
             if (this.props.ellipsis && prevProps.ellipsis) {
                 this.onResize();
