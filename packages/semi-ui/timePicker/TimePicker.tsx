@@ -116,9 +116,6 @@ export interface TimePickerState {
     inputValue: string;
     currentSelectPanel: string | number;
     isAM: [boolean, boolean];
-    showHour: boolean;
-    showMinute: boolean;
-    showSecond: boolean;
     invalid: boolean
 }
 
@@ -233,7 +230,6 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
 
     constructor(props: TimePickerProps) {
         super(props);
-        const { format = strings.DEFAULT_FORMAT } = props;
 
         this.state = {
             open: props.open || props.defaultOpen || false,
@@ -241,9 +237,6 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
             inputValue: '', // time string
             currentSelectPanel: 0,
             isAM: [true, false],
-            showHour: Boolean(format.match(/HH|hh|H|h/g)),
-            showMinute: Boolean(format.match(/mm/g)),
-            showSecond: Boolean(format.match(/ss/g)),
             invalid: undefined
         };
 
@@ -317,6 +310,8 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                 __prevTimeZone: prevProps.timeZone,
                 value: this.state.value,
             });
+        } else if (this.props.format !== prevProps.format || this.props.use12Hours !== prevProps.use12Hours) {
+            this.foundation.refreshProps({ value: this.state.value });
         }
     }
 
@@ -436,7 +431,10 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
 
     getPopupClassName() {
         const { use12Hours, prefixCls, popupClassName } = this.props;
-        const { showHour, showMinute, showSecond } = this.state;
+        const format = this.foundation.getDefaultFormatIfNeed();
+        const showHour = /HH|hh|H|h/.test(format);
+        const showMinute = /mm/.test(format);
+        const showSecond = /ss/.test(format);
         let selectColumnCount = 0;
         if (showHour) {
             selectColumnCount += 1;

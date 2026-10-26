@@ -565,7 +565,7 @@ describe(`TimePicker`, () => {
         
         // 验证面板存在，并且没有秒选择器
         expect(document.querySelectorAll(`.${BASE_CLASS_PREFIX}-scrolllist`).length).toBe(1);
-        expect(elem.state('showSecond')).toBe(false);
+        expect(document.querySelectorAll(`.${BASE_CLASS_PREFIX}-timepicker-panel-list-second`).length).toBe(0);
         elem.unmount();
     });
 
@@ -582,8 +582,8 @@ describe(`TimePicker`, () => {
         
         // 验证面板存在
         expect(document.querySelectorAll(`.${BASE_CLASS_PREFIX}-scrolllist`).length).toBe(1);
-        expect(elem.state('showMinute')).toBe(false);
-        expect(elem.state('showSecond')).toBe(false);
+        expect(document.querySelectorAll(`.${BASE_CLASS_PREFIX}-timepicker-panel-list-minute`).length).toBe(0);
+        expect(document.querySelectorAll(`.${BASE_CLASS_PREFIX}-timepicker-panel-list-second`).length).toBe(0);
         elem.unmount();
     });
 
@@ -1093,8 +1093,7 @@ describe(`TimePicker`, () => {
         
         await sleep(200);
         
-        // 验证 showHour 为 false
-        expect(elem.state('showHour')).toBe(false);
+        expect(document.querySelectorAll(`.${BASE_CLASS_PREFIX}-timepicker-panel-list-hour`).length).toBe(0);
         elem.unmount();
     });
 
