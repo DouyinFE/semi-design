@@ -86,7 +86,7 @@ export interface TreeProps extends BasicTreeProps {
     renderFullLabel?: (renderFullLabelProps: RenderFullLabelProps) => ReactNode;
     renderLabel?: (label?: ReactNode, treeNode?: TreeNodeData, searchWord?: string) => ReactNode;
     autoMergeValue?: boolean;
-    expandIcon?: ReactNode
+    expandIcon?: TreeNodeProps['expandIcon']
 }
 export interface OptionProps {
     index: number;
