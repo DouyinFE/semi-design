@@ -407,7 +407,10 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             id,
             clearIcon
         } = this.props;
-        const { inputValue, keyboardEventSet, selection } = this.state;
+        const { inputValue, keyboardEventSet, selection, visible, focusIndex, options } = this.state;
+        const activeOption = options.filter(option => option.show)[focusIndex];
+        const activeOptionId = visible && activeOption && typeof activeOption.renderOptionItem !== 'function' ?
+            `${prefixCls}-${this.optionListId}-option-${focusIndex}` : undefined;
 
         const useCustomTrigger = typeof triggerRender === 'function';
 
@@ -432,6 +435,11 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
 
         const innerProps = {
             id,
+            role: 'combobox' as const,
+            'aria-autocomplete': 'list' as const,
+            'aria-expanded': visible,
+            'aria-controls': visible ? `${prefixCls}-${this.optionListId}` : undefined,
+            'aria-activedescendant': activeOptionId,
             disabled,
             placeholder,
             autoFocus: autoFocus,
@@ -495,6 +503,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
                 onMouseEnter={() => this.foundation.handleOptionMouseEnter(optionIndex)}
                 key={option.key || option.label + option.value + optionIndex}
                 {...option}
+                _optionId={`${prefixCls}-${this.optionListId}-option-${optionIndex}`}
             >
                 {option._renderedLabel ?? option.label}
             </Option>
