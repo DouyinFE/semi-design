@@ -6,6 +6,7 @@ export interface ContainerProps {
     resizable?: boolean;
     style?: Record<string, any>;
     className?: string;
+    closeOnEsc?: boolean;
     defaultSize?: { width?: number | string; height?: number | string };
     onCancel?: (e: any) => void;
     children?: any;

@@ -1358,6 +1358,7 @@ render(<SideBarDemo />);
 |------|----|------|-------|
 | afterVisibleChange | Callback fired after visible state changes | (isVisible: boolean) => void |-  |
 | className | Custom class name | string | - |
+| closeOnEsc | Whether to allow closing the container with the Esc key | boolean | - |
 | containerRef | Ref of the container element | React.RefObject<HTMLDivElement\> | - |
 | defaultSize | Default size (width/height), only effective when resizable is true | { width?: number \| string; height?: number \| string } | - |
 | maxWidth | Max width, only effective when resizable is true | string \| number | - |

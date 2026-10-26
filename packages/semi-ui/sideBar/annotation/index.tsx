@@ -13,7 +13,7 @@ import { Locale } from '../../locale/interface';
 
 const prefixCls = cssClasses.ANNOTATION;
 
-interface AnnotationProps extends ContainerReactProps, ContentProps {}
+interface AnnotationProps extends Omit<ContainerReactProps, 'closeOnEsc'>, ContentProps {}
 
 interface AnnotationState {}
 
