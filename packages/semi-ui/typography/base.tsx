@@ -219,10 +219,13 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
     }
 
     componentDidUpdate(prevProps: BaseTypographyProps) {
+        if (this.props.ellipsis && !prevProps.ellipsis) {
+            this.onResize().then(() => runAfterTicks(() => this.observerTakingEffect = true, 1));
+        }
         // Render was based on outdated refs and needs to be rerun
         if (this.props.children !== prevProps.children) {
             this.forceUpdate();
-            if (this.props.ellipsis) {
+            if (this.props.ellipsis && prevProps.ellipsis) {
                 this.onResize();
             }
         }
