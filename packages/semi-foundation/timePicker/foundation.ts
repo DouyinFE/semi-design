@@ -141,13 +141,18 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             value = value ? [value] : [];
         }
 
-        const parsedValues: Date[] = [];
+        const parsedValues: Date[] = new Array(value.length);
         let invalid = false;
-        (value as any[]).forEach(v => {
+        const parsedAll = (value as any[]).every((v, index) => {
             const pv = parseToDate(v, formatToken, dateFnsLocale);
-            if (!isNaN(pv.getTime())) {
-                parsedValues.push(this.isValidTimeZone(timeZone) ? utcToZonedTime(pv, timeZone) : pv);
+            if (isUndefined(pv) && this._adapter.isRangePicker()) {
+                return true;
             }
+            if (pv && !isNaN(pv.getTime())) {
+                parsedValues[index] = this.isValidTimeZone(timeZone) ? utcToZonedTime(pv, timeZone) : pv;
+                return true;
+            }
+            return false;
         });
 
         const isAM = [true, false];
@@ -155,7 +160,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             isAM[idx] = getHours(item) < 12;
         });
 
-        if (parsedValues.length === value.length) {
+        if (parsedAll) {
             value = parsedValues;
         } else {
             value = [];
