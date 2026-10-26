@@ -346,7 +346,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
     }
 
     render() {
-        const { itemKey, style, onMouseEnter, onMouseLeave, disabled, text } = this.props;
+        const { itemKey, style, className, onMouseEnter, onMouseLeave, disabled, text } = this.props;
 
         const { mode, isCollapsed, prefixCls } = this.context;
 
@@ -369,7 +369,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
                 itemKey={itemKey}
                 forwardRef={this.setItemRef}
                 isCollapsed={isCollapsed}
-                className={`${prefixCls}-sub-wrap`}
+                className={cls(`${prefixCls}-sub-wrap`, className)}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 disabled={disabled}
