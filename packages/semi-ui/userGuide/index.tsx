@@ -215,7 +215,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
 
 
     async updateSpotlightRect() {
-        const { steps, spotlightPadding } = this.props;
+        const { steps } = this.props;
         const { current } = this.state;
         const step = steps[current];
 
@@ -225,7 +225,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
             this.scrollTargetIntoViewIfNeeded(target);
 
             const rect = target?.getBoundingClientRect();
-            const padding = step?.spotlightPadding || spotlightPadding || numbers.DEFAULT_SPOTLIGHT_PADDING;
+            const padding = this.foundation.getFinalPaading();
 
             const newRects = new DOMRect(
                 rect.x - padding,
@@ -308,7 +308,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     }
 
     renderStep = (step: StepItem, index: number) => {
-        const { theme, position, visible, className, style, spotlightPadding } = this.props;
+        const { theme, position, visible, className, style } = this.props;
         const { current } = this.state;
 
         const isCurrentStep = current === index;
@@ -322,7 +322,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         const basePopoverStyle = { padding: 0 };
 
         const rect = target.getBoundingClientRect();
-        const padding = step?.spotlightPadding || spotlightPadding || numbers.DEFAULT_SPOTLIGHT_PADDING;
+        const padding = this.foundation.getFinalPaading();
         const isPrimaryTheme = theme === 'primary' || step?.theme === 'primary';
         const primaryStyle = isPrimaryTheme ? { backgroundColor: 'var(--semi-color-primary)' } : {};
 
@@ -544,4 +544,4 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     }
 }
 
-export default UserGuide; 
+export default UserGuide;
