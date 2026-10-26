@@ -165,7 +165,11 @@ export default class Link extends BaseComponent<LinkProps, {}> {
                     {...ariaProps}
                     className={linkTitleCls}
                     onClick={e => this.handleClick(e)}
-                    onKeyPress={e => this.handleClick(e)}
+                    onKeyPress={e => {
+                        if (e.key === 'Enter') {
+                            this.handleClick(e);
+                        }
+                    }}
                 >
                     {this.renderTitle()}
                 </div>
