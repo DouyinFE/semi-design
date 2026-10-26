@@ -255,13 +255,20 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         this.foundation.handleIntersect(entries);
     };
 
-    mergeRef = (ref: RefCallback<any> | MutableRefObject<any> | null, node: Element, key: Key): void => {
+    mergeRef = (ref: RefCallback<any> | MutableRefObject<any> | null, node: Element, key: Key): (() => void) | void => {
         this.itemRefs[key] = node;
         if (typeof ref === 'function') {
-            ref(node);
+            const cleanup = ref(node) as unknown;
+            if (typeof cleanup === 'function') {
+                return () => {
+                    this.itemRefs[key] = null;
+                    cleanup();
+                };
+            }
         } else if (typeof ref === 'object' && ref && 'current' in ref) {
             ref.current = node;
         }
+        return undefined;
     };
 
     renderOverflow = (): ReactNode | ReactNode[] => {
