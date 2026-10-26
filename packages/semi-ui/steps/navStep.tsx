@@ -36,7 +36,7 @@ const NavStep = (props: NavStepProps) => {
         }
     };
     return (
-        <div role={props["role"]} aria-label={props["aria-label"]} aria-current="step" tabIndex={0} className={classString} style={style} onClick={e => handleClick(e)} onKeyDown={handleKeyDown}>
+        <div role={props["role"]} aria-label={props["aria-label"]} aria-current={active ? 'step' : undefined} tabIndex={0} className={classString} style={style} onClick={e => handleClick(e)} onKeyDown={handleKeyDown}>
             <div className={`${prefixCls}-container`}>
                 <div className={`${prefixCls}-content`}>
                     <div className={`${prefixCls}-title`}>

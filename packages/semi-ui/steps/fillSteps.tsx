@@ -50,6 +50,7 @@ const Steps = (props: FillStepsProps) => {
                     childProps.status = 'wait';
                 }
             }
+            childProps.active = stepNumber === current;
             childProps.onChange = onChange ? () => {
                 if (index !== current) {
                     onChange(index + initial);
