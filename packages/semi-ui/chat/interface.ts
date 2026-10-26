@@ -35,7 +35,7 @@ export interface ChatProps extends CommonChatsProps {
     renderHintBox?: (props: {content: string; index: number;onHintClick: () => void}) => React.ReactNode;
     onHintClick?: (hint: string) => void;
     onChatsChange?: (chats?: Message[]) => void;
-    onStopGenerator?: (e?: MouseEvent) => void;
+    onStopGenerator?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
     customMarkDownComponents?: MDXProps['components'];
     onClear?: () => void;
     onInputChange?: (props: { value?: string; attachment?: FileItem[] }) => void;
