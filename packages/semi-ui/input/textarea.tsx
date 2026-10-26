@@ -506,7 +506,8 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             onResize,
             resize,
             disabled,
-            readonly,
+            readonly: legacyReadonly,
+            readOnly,
             className,
             showCounter,
             validateStatus,
@@ -529,6 +530,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             ...rest
         } = this.props;
         const { isFocus, value, minLength: stateMinLength } = this.state;
+        const readonly = Boolean(legacyReadonly || readOnly);
 
         // Only opt-in to the new resize behavior when `resize` prop is explicitly provided.
         // This guarantees the default width behavior remains identical to previous versions.
