@@ -65,7 +65,7 @@ export interface CascaderProps extends BasicCascaderProps {
     emptyContent?: ReactNode;
     motion?: boolean;
     filterTreeNode?: ((inputValue: string, treeNodeString: string, data?: CascaderData) => boolean) | boolean;
-    filterSorter?: (first: CascaderData, second: CascaderData, inputValue: string) => number;
+    filterSorter?: (first: CascaderData[], second: CascaderData[], inputValue: string) => number;
     filterRender?: (props: FilterRenderProps) => ReactNode;
     treeData?: Array<CascaderData>;
     restTagsPopoverProps?: PopoverProps;
