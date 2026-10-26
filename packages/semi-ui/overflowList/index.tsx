@@ -132,7 +132,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
             return (!prevProps && name in props) || (prevProps && !isEqual(prevProps[name], props[name]));
         };
         const itemsChanged = needUpdate('items');
-        if (itemsChanged || needUpdate('style')) {
+        if (itemsChanged || needUpdate('style') || needUpdate('renderMode')) {
             // reset visible state if the above props change.
             newState.direction = OverflowDirection.GROW;
             newState.lastOverflowCount = 0;
