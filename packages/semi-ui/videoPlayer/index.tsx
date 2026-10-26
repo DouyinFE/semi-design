@@ -64,6 +64,7 @@ export interface VideoPlayerState {
     isError: boolean;
     isMirror: boolean;
     isPlaying: boolean;
+    isFullscreen: boolean;
     muted: boolean;
     notificationContent: string;
     playbackRate: number;
@@ -103,6 +104,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
             isError: false,
             isMirror: false,
             isPlaying: false,
+            isFullscreen: false,
             muted: props.muted,
             notificationContent: '',
             playbackRate: props.defaultPlaybackRate || 1,
@@ -134,6 +136,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
             setIsError: (isError: boolean) => this.setState({ isError }),
             setIsMirror: (isMirror: boolean) => this.setState({ isMirror }),
             setIsPlaying: (isPlaying: boolean) => this.setState({ isPlaying }),
+            setIsFullscreen: (isFullscreen: boolean) => this.setState({ isFullscreen }),
             setMuted: (muted: boolean) => this.setState({ muted }),
             setNotificationContent: (content: string) => this.setState({ notificationContent: content }),
             setPlaybackRate: (rate: number) => this.setState({ playbackRate: rate }),
@@ -459,7 +462,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
 
     render() {
         const { markers, qualityList, routeList, width, height, autoPlay, style, className, loop, captionsSrc, crossOrigin, theme } = this.props;
-        const { isPlaying, playbackRate, playbackRateList, isMirror, currentTime, totalTime, currentQuality, currentRoute, src, bufferedValue, showControls } = this.state;
+        const { isPlaying, playbackRate, playbackRateList, isMirror, currentTime, totalTime, currentQuality, currentRoute, src, bufferedValue, showControls, isFullscreen } = this.state;
 
         return (
             <LocaleConsumer componentName="VideoPlayer">
@@ -531,7 +534,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                                         {qualityList && qualityList.length > 0 && this.renderDropdownButton(currentQuality, qualityList, this.handleQualityChange, strings.QUALITY, locale)}
                                         {routeList && routeList.length > 0 && this.renderDropdownButton(currentRoute, routeList, this.handleRouteChange, strings.ROUTE, locale)}
                                         {this.renderIconButton(<IconFlipHorizontal />, () => this.handleMirror(locale), strings.MIRROR)}
-                                        {this.renderIconButton(this.foundation.checkFullScreen() ? <IconMinimize /> : <IconMaximize />, this.handleFullscreen, strings.FULLSCREEN)}
+                                        {this.renderIconButton(isFullscreen ? <IconMinimize /> : <IconMaximize />, this.handleFullscreen, strings.FULLSCREEN)}
                                         {this.renderIconButton(<IconMiniPlayer />, this.handlePictureInPicture, strings.PICTURE_IN_PICTURE)}
                                     </div>
                                 </div>
@@ -550,4 +553,4 @@ const ForwardVideoPlayer = React.forwardRef<HTMLVideoElement, Omit<VideoPlayerPr
 
 export default ForwardVideoPlayer;
 
-export { VideoPlayer }; 
+export { VideoPlayer };
