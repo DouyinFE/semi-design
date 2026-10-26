@@ -137,10 +137,17 @@ export default class DragMove extends BaseComponent<DragMoveProps> {
                 (this.elementRef as any).current = node;
                 const ref = getRef(children);
                 if (typeof ref === 'function') {
-                    ref(node);
+                    const cleanup = ref(node) as unknown;
+                    if (typeof cleanup === 'function') {
+                        return () => {
+                            (this.elementRef as any).current = null;
+                            cleanup();
+                        };
+                    }
                 } else if (ref && typeof ref === 'object') {
                     (ref as React.MutableRefObject<any>).current = node;
                 }
+                return undefined;
             },
         });
         return newChildren;
