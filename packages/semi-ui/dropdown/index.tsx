@@ -121,7 +121,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         super(props);
 
         this.state = {
-            popVisible: props.visible,
+            popVisible: Boolean(props.visible),
         };
 
         this.foundation = new Foundation(this.adapter);
