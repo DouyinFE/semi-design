@@ -35,6 +35,14 @@ const Hint = React.memo((props: HintProps) => {
                     <div 
                         className={`${PREFIX_HINT}-item`}
                         key={index} 
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={event => {
+                            if (event.key === 'Enter' || event.key === ' ') {
+                                event.preventDefault();
+                                onHintClick?.(item);
+                            }
+                        }}
                         onClick={() => {
                             onHintClick?.(item);
                         }}
