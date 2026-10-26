@@ -1762,6 +1762,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |transformFile | After selecting the file, the callback function before uploading the file can be used to customize the conversion processing of the file | (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => FileItem | | - |
 |uploadTrigger | Trigger upload timing, optional values ​​`auto`, `custom` | string |'auto' | |
 |validateMessage | Upload the overall error message | ReactNode | | 1.0.0 |
+|timeout | Timeout in milliseconds for built-in upload requests. 0 means no timeout. Handle timeouts in customRequest when using it | number | 0 | |
 |withCredentials | Whether to bring cookie information | boolean | false | |
 
 ## Accessibility
