@@ -22,7 +22,7 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
     handlerElement: HTMLElement;
     handlerCursor: string;
     destroyed = false;
-    animationFrames = new Set<number>();
+    animationFrames = new Map<number, () => void>();
     xMax: number;
     xMin: number;
     yMax: number;
@@ -78,7 +78,7 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
         this.destroyed = true;
         this._unRegisterStartEvent();
         this._unRegisterEvent();
-        this.animationFrames.forEach(frame => cancelAnimationFrame(frame));
+        this.animationFrames.forEach((update, frame) => cancelAnimationFrame(frame));
         this.animationFrames.clear();
         if (this.handlerElement?.style.cursor === 'move') {
             this.handlerElement.style.cursor = this.handlerCursor;
@@ -224,7 +224,7 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
         }
 
         let frame: number;
-        frame = requestAnimationFrame(() => {
+        const updatePosition = () => {
             this.animationFrames.delete(frame);
             if (customMove) {
                 customMove(this.element, newTop, newLeft);
@@ -232,8 +232,9 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
             }
             this.element.style.top = newTop + 'px';
             this.element.style.left = newLeft + 'px';
-        }); 
-        this.animationFrames.add(frame);
+        };
+        frame = requestAnimationFrame(updatePosition);
+        this.animationFrames.set(frame, updatePosition);
     }
 
     _onMouseMove = (e: MouseEvent) => {
@@ -247,17 +248,36 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
         this._changePos(touch);
     }
 
+    _flushAnimationFrames = () => {
+        this.animationFrames.forEach((update, frame) => {
+            cancelAnimationFrame(frame);
+            update();
+        });
+    }
+
     _onMouseUp = (e: MouseEvent) => {
+        this._flushAnimationFrames();
+        if (this.destroyed) {
+            return;
+        }
         this._adapter.notifyMouseUp(e);
         this._unRegisterDocMouseEvent();
     }
 
     _onTouchEnd = (e: TouchEvent) => {
+        this._flushAnimationFrames();
+        if (this.destroyed) {
+            return;
+        }
         this._adapter.notifyTouchEnd(e);
         this._unRegisterDocTouchEvent();
     }
 
     _onTouchCancel = (e: TouchEvent) => {
+        this._flushAnimationFrames();
+        if (this.destroyed) {
+            return;
+        }
         this._adapter.notifyTouchCancel(e);
         this._unRegisterDocTouchEvent();
     }
