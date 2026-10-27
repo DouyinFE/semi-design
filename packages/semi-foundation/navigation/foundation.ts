@@ -159,7 +159,8 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
     getFormattedItems() {
         const { items, children } = this.getProps();
         const formattedItems = this.formatItems(items);
-        const willHandleItems = Array.isArray(items) && items.length ? formattedItems : children;
+        const childItems = Array.isArray(children) ? children : [children];
+        const willHandleItems = Array.isArray(items) && items.length ? formattedItems : childItems;
         const itemKeysMap = NavigationFoundation.buildItemKeysMap(willHandleItems);
         return {
             itemKeysMap,
