@@ -56,6 +56,10 @@ export default class MCPConfigureContentFoundation extends BaseFoundation<MCPCon
         super({ ...adapter });
     }
 
+    destroy() {
+        this.updateShowOptions.cancel();
+    }
+
     handleSearch = (value: string) => {
         this.setState({ inputValue: value });
         this.updateShowOptions(value);
