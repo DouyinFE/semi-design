@@ -1,4 +1,5 @@
 import Portal from '../index';
+import Modal from '../../modal';
 import { renderToString } from 'react-dom/server';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 
@@ -7,9 +8,17 @@ describe('Portal', () => {
         document.body.innerHTML = '';
     });
 
-    it('does not access the popup container during server rendering', () => {
+    it('renders nothing during server rendering where document is unavailable', () => {
         const getPopupContainer = sinon.spy(() => document.body);
-        expect(renderToString(<Portal getPopupContainer={getPopupContainer}><span>content</span></Portal>)).toBe('');
+        const doc = global.document;
+        delete global.document;
+        let html;
+        try {
+            html = renderToString(<Portal getPopupContainer={getPopupContainer}><span>content</span></Portal>);
+        } finally {
+            global.document = doc;
+        }
+        expect(html).toBe('');
         expect(getPopupContainer.called).toBe(false);
     });
 
@@ -33,6 +42,41 @@ describe('Portal', () => {
         expect(connected).toEqual([true]);
         expect(document.activeElement.id).toBe('portal-autofocus');
         wrapper.unmount();
+    });
+
+    it('renders children on the first commit so parent mount effects can read their refs', () => {
+        const seen = {};
+        function Parent() {
+            const ref = React.useRef(null);
+            React.useLayoutEffect(() => { seen.layoutEffect = !!ref.current; }, []);
+            React.useEffect(() => { seen.effect = !!ref.current; }, []);
+            return <Portal><input ref={ref} /></Portal>;
+        }
+        class ClassParent extends React.Component {
+            ref = React.createRef();
+            componentDidMount() { seen.didMount = !!this.ref.current; }
+            render() { return <Portal><input ref={this.ref} /></Portal>; }
+        }
+        mount(<Parent />).unmount();
+        mount(<ClassParent />).unmount();
+        expect(seen).toEqual({ layoutEffect: true, effect: true, didMount: true });
+    });
+
+    it('lets a Modal parent focus content from an effect when visible flips to true', () => {
+        function Parent({ visible }) {
+            const ref = React.useRef(null);
+            React.useEffect(() => {
+                if (visible) {
+                    ref.current.focus();
+                }
+            }, [visible]);
+            return <Modal visible={visible} motion={false} footer={null}><input id="modal-input" ref={ref} /></Modal>;
+        }
+        const wrapper = mount(<Parent visible={false} />);
+        expect(() => wrapper.setProps({ visible: true })).not.toThrow();
+        expect(document.activeElement.id).toBe('modal-input');
+        wrapper.unmount();
+        document.body.style.cssText = '';
     });
 
     it('renders into a custom container with its class and styles', () => {

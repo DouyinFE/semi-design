@@ -20,6 +20,7 @@ export interface PortalState {
 }
 
 const defaultGetContainer = () => document.body;
+const strictModeEls = new WeakMap<PortalProps, HTMLElement>();
 class Portal extends PureComponent<PortalProps, PortalState> {
     static contextType = ConfigContext;
 
@@ -38,11 +39,18 @@ class Portal extends PureComponent<PortalProps, PortalState> {
 
     el: HTMLElement;
     context: ContextValue;
-    constructor(props: PortalProps) {
+    constructor(props: PortalProps, context: ContextValue) {
         super(props);
+        // StrictMode constructs the instance twice with the same props object and discards one
+        // of them without ever unmounting it, so the second call reuses the first call's el
+        // instead of leaving an orphan in the DOM. render() ends this window.
+        this.el = strictModeEls.get(props);
         this.state = {
-            container: undefined
+            container: this.initContainer(context, true)
         };
+        if (this.el) {
+            strictModeEls.set(props, this.el);
+        }
     }
 
     componentDidMount() {
@@ -52,20 +60,26 @@ class Portal extends PureComponent<PortalProps, PortalState> {
         }
     }
 
-    initContainer = (context: ContextValue) => {
-        let container: HTMLElement | undefined = undefined;
-        if (!this.el || !this.state?.container || !Array.from(this.state.container.childNodes).includes(this.el)) {
-            // Keep the same portal target when StrictMode simulates a remount.
-            if (!this.el) {
-                this.el = document.createElement('div');
+    initContainer = (context: ContextValue, catchError = false) => {
+        try {
+            let container: HTMLElement | undefined = undefined;
+            if (!this.el || !this.state?.container || !Array.from(this.state.container.childNodes).includes(this.el)) {
+                // Keep the same portal target when StrictMode simulates a remount.
+                if (!this.el) {
+                    this.el = document.createElement('div');
+                }
+                const getContainer = this.props.getPopupContainer || context.getPopupContainer || defaultGetContainer;
+                const portalContainer = getContainer();
+                portalContainer.appendChild(this.el);
+                this.addStyle(this.props.style);
+                this.addClass(this.props.prefixCls, context, this.props.className);
+                container = portalContainer;
+                return container;
             }
-            const getContainer = this.props.getPopupContainer || context.getPopupContainer || defaultGetContainer;
-            const portalContainer = getContainer();
-            portalContainer.appendChild(this.el);
-            this.addStyle(this.props.style);
-            this.addClass(this.props.prefixCls, context, this.props.className);
-            container = portalContainer;
-            return container;
+        } catch (e) {
+            if (!catchError) {
+                throw e;
+            }
         }
         return this.state?.container;
     }
@@ -104,6 +118,7 @@ class Portal extends PureComponent<PortalProps, PortalState> {
 
     render() {
         const { state, props } = this;
+        strictModeEls.delete(props);
         if (state.container) {
             return createPortal(props.children, this.el);
         }

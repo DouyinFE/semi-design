@@ -205,7 +205,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     popupResizeObserver: ResizeObserver;
     popupResizeTimer: ReturnType<typeof setTimeout>;
     popupSizeStabilizeTimer: ReturnType<typeof setTimeout>;
-    pendingPortalLayout: () => void;
     getPopupContainer: () => HTMLElement;
     containerPosition: string;
     foundation: TooltipFoundation;
@@ -244,18 +243,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         this.containerPosition = undefined;
     }
 
-    setContainerEl = (node: HTMLDivElement) => {
-        this.containerEl = { current: node };
-        this.flushPendingPortalLayout();
-    };
-
-    flushPendingPortalLayout = () => {
-        if (this.containerEl?.current && this.pendingPortalLayout) {
-            const callback = this.pendingPortalLayout;
-            this.pendingPortalLayout = null;
-            callback();
-        }
-    };
+    setContainerEl = (node: HTMLDivElement) => (this.containerEl = { current: node });
 
     get adapter(): TooltipAdapter<TooltipProps, TooltipState> {
         return {
@@ -268,87 +256,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             insertPortal: (content: TooltipProps['content'], { position, ...containerStyle }: { position: Position }) => {
                 this.cachedLatestTransitionState = "enter";
                 this.disconnectPopupResizeObserver();
-                this.pendingPortalLayout = () => {
-                    // Wait for portal-inner to be actually laid out before emitting
-                    // 'portalInserted' (which triggers calcPosition). The previous
-                    // setTimeout(0) assumed React commit + DOM layout would finish
-                    // within one macrotask, which fails in large React apps + StrictMode
-                    // where commit can take 50+ms. The early emit causes calcPosition
-                    // to read a 0x0 wrapperRect, and the adjustPosIfNeed if-guard
-                    // (foundation.ts: `wrapperRect.width > 0 && wrapperRect.height > 0`)
-                    // silently skips the flip logic, leaving placement at default.
-                    const emit = () => {
-                        if (this.cachedLatestTransitionState === 'enter') {
-                            this.eventManager.emit('portalInserted');
-                        }
-                    };
-                    const el = this.containerEl?.current;
-                    // Keep observing while the popup is visible. Some popup content
-                    // (for example DatePicker) first lays out at a small non-zero size,
-                    // then expands after its child state commits. Positioning only at
-                    // the first non-zero size leaves the final popup overflowing.
-                    if (el && typeof ResizeObserver !== 'undefined') {
-                        let emitted = false;
-                        let lastWidth = el.offsetWidth;
-                        let lastHeight = el.offsetHeight;
-                        const emitOnce = () => {
-                            if (!emitted) {
-                                emitted = true;
-                                emit();
-                            }
-                        };
-                            // #3354: 等待 popup 尺寸稳定后再做首次定位。
-                            // DatePicker 等内容会先以较小的非零尺寸完成初次布局，
-                            // 若此时立即定位（快路径或首次 RO 回调），尺寸扩展后会因
-                            // 溢出判定变化而翻转，视觉上表现为位置跳变（闪烁）。
-                        const scheduleStableEmit = () => {
-                            clearTimeout(this.popupSizeStabilizeTimer);
-                            this.popupSizeStabilizeTimer = setTimeout(() => {
-                                if (!emitted && this.cachedLatestTransitionState === 'enter') {
-                                    emitOnce();
-                                }
-                            }, 32);
-                        };
-                        const ro = new ResizeObserver(() => {
-                            const width = el.offsetWidth;
-                            const height = el.offsetHeight;
-                            if (width <= 0 || height <= 0) {
-                                return;
-                            }
-                            const sizeChanged = width !== lastWidth || height !== lastHeight;
-                            lastWidth = width;
-                            lastHeight = height;
-                            if (!emitted) {
-                                scheduleStableEmit();
-                            } else if (sizeChanged && this.cachedLatestTransitionState === 'enter') {
-                                clearTimeout(this.popupResizeTimer);
-                                this.popupResizeTimer = setTimeout(() => {
-                                    if (this.cachedLatestTransitionState === 'enter') {
-                                        this.foundation.calcPosition();
-                                    }
-                                }, 0);
-                            }
-                        });
-                        this.popupResizeObserver = ro;
-                        ro.observe(el);
-                        if (lastWidth > 0 && lastHeight > 0) {
-                            scheduleStableEmit();
-                        }
-                        // Safety net: bail out after 100ms even if RO never fires
-                        setTimeout(() => {
-                            if (!emitted) {
-                                emitOnce();
-                            }
-                        }, 100);
-                        return;
-                    }
-                    // Fallback for browsers without ResizeObserver.
-                    if (el && el.offsetWidth > 0 && el.offsetHeight > 0) {
-                        emit();
-                    } else {
-                        setTimeout(emit, 0);
-                    }
-                };
                 this.setState(
                     {
                         isInsert: true,
@@ -356,7 +263,87 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         containerStyle: { ...this.state.containerStyle, ...containerStyle },
                         isPositionUpdated: false,
                     },
-                    this.flushPendingPortalLayout
+                    () => {
+                        // Wait for portal-inner to be actually laid out before emitting
+                        // 'portalInserted' (which triggers calcPosition). The previous
+                        // setTimeout(0) assumed React commit + DOM layout would finish
+                        // within one macrotask, which fails in large React apps + StrictMode
+                        // where commit can take 50+ms. The early emit causes calcPosition
+                        // to read a 0x0 wrapperRect, and the adjustPosIfNeed if-guard
+                        // (foundation.ts: `wrapperRect.width > 0 && wrapperRect.height > 0`)
+                        // silently skips the flip logic, leaving placement at default.
+                        const emit = () => {
+                            if (this.cachedLatestTransitionState === 'enter') {
+                                this.eventManager.emit('portalInserted');
+                            }
+                        };
+                        const el = this.containerEl?.current;
+                        // Keep observing while the popup is visible. Some popup content
+                        // (for example DatePicker) first lays out at a small non-zero size,
+                        // then expands after its child state commits. Positioning only at
+                        // the first non-zero size leaves the final popup overflowing.
+                        if (el && typeof ResizeObserver !== 'undefined') {
+                            let emitted = false;
+                            let lastWidth = el.offsetWidth;
+                            let lastHeight = el.offsetHeight;
+                            const emitOnce = () => {
+                                if (!emitted) {
+                                    emitted = true;
+                                    emit();
+                                }
+                            };
+                            // #3354: 等待 popup 尺寸稳定后再做首次定位。
+                            // DatePicker 等内容会先以较小的非零尺寸完成初次布局，
+                            // 若此时立即定位（快路径或首次 RO 回调），尺寸扩展后会因
+                            // 溢出判定变化而翻转，视觉上表现为位置跳变（闪烁）。
+                            const scheduleStableEmit = () => {
+                                clearTimeout(this.popupSizeStabilizeTimer);
+                                this.popupSizeStabilizeTimer = setTimeout(() => {
+                                    if (!emitted && this.cachedLatestTransitionState === 'enter') {
+                                        emitOnce();
+                                    }
+                                }, 32);
+                            };
+                            const ro = new ResizeObserver(() => {
+                                const width = el.offsetWidth;
+                                const height = el.offsetHeight;
+                                if (width <= 0 || height <= 0) {
+                                    return;
+                                }
+                                const sizeChanged = width !== lastWidth || height !== lastHeight;
+                                lastWidth = width;
+                                lastHeight = height;
+                                if (!emitted) {
+                                    scheduleStableEmit();
+                                } else if (sizeChanged && this.cachedLatestTransitionState === 'enter') {
+                                    clearTimeout(this.popupResizeTimer);
+                                    this.popupResizeTimer = setTimeout(() => {
+                                        if (this.cachedLatestTransitionState === 'enter') {
+                                            this.foundation.calcPosition();
+                                        }
+                                    }, 0);
+                                }
+                            });
+                            this.popupResizeObserver = ro;
+                            ro.observe(el);
+                            if (lastWidth > 0 && lastHeight > 0) {
+                                scheduleStableEmit();
+                            }
+                            // Safety net: bail out after 100ms even if RO never fires
+                            setTimeout(() => {
+                                if (!emitted) {
+                                    emitOnce();
+                                }
+                            }, 100);
+                            return;
+                        }
+                        // Fallback for browsers without ResizeObserver.
+                        if (el && el.offsetWidth > 0 && el.offsetHeight > 0) {
+                            emit();
+                        } else {
+                            setTimeout(emit, 0);
+                        }
+                    }
                 );
             },
             removePortal: () => {
@@ -619,7 +606,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     }
 
     disconnectPopupResizeObserver = () => {
-        this.pendingPortalLayout = null;
         clearTimeout(this.popupResizeTimer);
         clearTimeout(this.popupSizeStabilizeTimer);
         this.popupResizeObserver?.disconnect();
