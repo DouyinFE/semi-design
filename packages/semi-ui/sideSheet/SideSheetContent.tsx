@@ -146,7 +146,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
                 role="dialog"
                 aria-label={props['aria-label']}
                 tabIndex={-1}
-                className={cls(`${prefixCls}-inner`, `${prefixCls}-inner-wrap`, this.props.dialogClassName ?? "", `${prefixCls}-size-${props.size}`)}
+                className={cls(`${prefixCls}-inner`, `${prefixCls}-inner-wrap`, this.props.dialogClassName??"", `${prefixCls}-size-${props.size}`)}
                 // onMouseDown={this.onDialogMouseDown}
                 style={{ ...props.style, ...style }}
                 {...this.props.wrapperExtraProps}
