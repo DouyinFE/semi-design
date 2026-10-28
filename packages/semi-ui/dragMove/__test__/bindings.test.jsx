@@ -62,6 +62,61 @@ describe('DragMove DOM ownership', () => {
         expect(b.style.cursor).toBe('');
     });
 
+    it('keeps an in-progress drag alive when the handler changes', () => {
+        const a = document.createElement('div');
+        const b = document.createElement('div');
+        let handler = a;
+        const onMouseMove = sinon.spy();
+        const onMouseUp = sinon.spy();
+        const onMouseDown = sinon.spy();
+        const wrapper = mount(<DragMove handler={() => handler} onMouseDown={onMouseDown} onMouseMove={onMouseMove} onMouseUp={onMouseUp}><div>A</div></DragMove>);
+        try {
+            down(a);
+            handler = b;
+            wrapper.setProps({ positionStrategy: 'relative' });
+            document.dispatchEvent(new MouseEvent('mousemove', { bubbles: true, clientX: 20, clientY: 20 }));
+            up();
+            expect(onMouseMove.callCount).toBe(1);
+            expect(onMouseUp.callCount).toBe(1);
+            down(a);
+            up();
+            expect(onMouseDown.callCount).toBe(1);
+            down(b);
+            up();
+            expect(onMouseDown.callCount).toBe(2);
+        } finally { wrapper.unmount(); }
+    });
+
+    it('unbinds without throwing when the handler becomes null and rebinds when it returns', () => {
+        const a = document.createElement('div');
+        let handler = a;
+        const onMouseDown = sinon.spy();
+        const wrapper = mount(<DragMove handler={() => handler} onMouseDown={onMouseDown}><div>A</div></DragMove>);
+        try {
+            handler = null;
+            wrapper.setProps({ positionStrategy: 'relative' });
+            expect(a.style.cursor).toBe('');
+            down(a);
+            up();
+            expect(onMouseDown.callCount).toBe(0);
+            handler = a;
+            wrapper.setProps({ positionStrategy: 'absolute' });
+            down(a);
+            up();
+            expect(onMouseDown.callCount).toBe(1);
+        } finally { wrapper.unmount(); }
+    });
+
+    it('does not throw when the child stops rendering an element', () => {
+        class Empty extends React.Component {
+            render() { return null; }
+        }
+        const wrapper = mount(<DragMove><div>A</div></DragMove>);
+        try {
+            expect(() => wrapper.setProps({ children: <Empty /> })).not.toThrow();
+        } finally { wrapper.unmount(); }
+    });
+
     it('does not schedule custom movement after onMouseMove unmounts the component', () => {
         const customMove = sinon.spy();
         let wrapper;

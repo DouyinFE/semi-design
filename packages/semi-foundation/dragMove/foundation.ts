@@ -51,13 +51,40 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
         if (!element) {
             throw new Error('drag element must be a valid element');
         }
-        this.element = element;
         this.destroyed = false;
-        this.handlerElement = this.handler;
-        this.handlerCursor = this.handlerElement.style.cursor;
+        this._bind(element, this.handler);
+    }
+
+    _bind(element: HTMLElement, handler: HTMLElement) {
+        this.element = element;
+        this.handlerElement = handler;
+        this.handlerCursor = handler.style.cursor;
         this.updatePositionStrategy();
-        this.handlerElement.style.cursor = 'move';
+        handler.style.cursor = 'move';
         this._registerStartEvent();
+    }
+
+    _restoreHandlerCursor() {
+        if (this.handlerElement?.style.cursor === 'move') {
+            this.handlerElement.style.cursor = this.handlerCursor;
+        }
+    }
+
+    /**
+     * Move the start listeners to the current element/handler. Document-level listeners and
+     * pending frames are left alone so a drag in progress can still finish.
+     */
+    rebind() {
+        this._unRegisterStartEvent();
+        this._restoreHandlerCursor();
+        const element = this._adapter.getDragElement();
+        const handler = element ? this.handler : null;
+        if (element && handler) {
+            this._bind(element, handler);
+        } else {
+            this.element = element;
+            this.handlerElement = handler;
+        }
     }
 
     updatePositionStrategy = () => {
@@ -80,9 +107,7 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
         this._unRegisterEvent();
         this.animationFrames.forEach((update, frame) => cancelAnimationFrame(frame));
         this.animationFrames.clear();
-        if (this.handlerElement?.style.cursor === 'move') {
-            this.handlerElement.style.cursor = this.handlerCursor;
-        }
+        this._restoreHandlerCursor();
     }
 
     _registerDocMouseEvent = () => {

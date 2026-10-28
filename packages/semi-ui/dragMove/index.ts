@@ -125,12 +125,12 @@ export default class DragMove extends BaseComponent<DragMoveProps> {
     }
 
     componentDidUpdate(prevProps: DragMoveProps): void {
-        if (this.adapter.getDragElement() !== this.foundation.element || this.adapter.getHandler() !== this.foundation.handlerElement) {
-            this.foundation.destroy();
-            this.foundation.init();
+        const element = this.adapter.getDragElement();
+        if (element !== this.foundation.element || this.adapter.getHandler() !== this.foundation.handlerElement) {
+            this.foundation.rebind();
             return;
         }
-        if (prevProps.positionStrategy !== this.props.positionStrategy) {
+        if (element && prevProps.positionStrategy !== this.props.positionStrategy) {
             this.foundation.updatePositionStrategy();
         }
     }
