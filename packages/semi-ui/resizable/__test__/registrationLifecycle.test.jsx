@@ -91,7 +91,8 @@ describe('ResizeGroup registrations', () => {
         it(`removes active ${type} drag listeners on unmount`, () => {
             wrapper = mount(render());
             const foundation = wrapper.instance().foundation;
-            foundation.onResizeStart(0, { clientX: 0, clientY: 0, target: document.body }, type);
+            const point = { clientX: 0, clientY: 0, target: document.body };
+            foundation.onResizeStart(0, type === 'touch' ? { target: point.target, targetTouches: [point] } : point, type);
             const remove = jest.spyOn(window, 'removeEventListener');
             wrapper.unmount();
             wrapper = null;

@@ -4,7 +4,7 @@ import { ResizeContext } from '../group/resizeContext';
 describe('ResizeHandler disabled', () => {
     function createHandler(disabled) {
         const notifyResizeStart = sinon.spy();
-        const context = { direction: 'horizontal', registerHandler: () => 0, notifyResizeStart };
+        const context = { direction: 'horizontal', registerHandler: () => 0, unregisterHandler: () => {}, notifyResizeStart };
         const Consumer = props => <ResizeContext.Provider value={context}><ResizeHandler disabled={props.disabled} /></ResizeContext.Provider>;
         const wrapper = mount(<Consumer disabled={disabled} />);
         return { wrapper, notifyResizeStart, node: wrapper.find('.semi-resizable-handler').getDOMNode() };
