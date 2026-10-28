@@ -412,25 +412,30 @@ class Demo extends React.Component {
 By setting the `remote` property, you can enable remote search. When enabled, local filtering is skipped on input, only the `onSearch` callback is triggered, allowing users to handle remote data fetching and update `treeData`.
 
 ```jsx live=true
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { TreeSelect, Spin } from '@douyinfe/semi-ui';
 
 () => {
     const [value, setValue] = useState();
     const [treeData, setTreeData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const timer = useRef();
+
+    useEffect(() => () => clearTimeout(timer.current), []);
 
     // Simulate remote search
     const handleSearch = useCallback((inputValue) => {
+        clearTimeout(timer.current);
         if (!inputValue) {
             setTreeData([]);
+            setLoading(false);
             return;
         }
 
         setLoading(true);
         
         // Simulate network request
-        setTimeout(() => {
+        timer.current = setTimeout(() => {
             const mockData = [
                 { label: `${inputValue} - Result 1`, value: `${inputValue}-1`, key: `${inputValue}-1` },
                 { label: `${inputValue} - Result 2`, value: `${inputValue}-2`, key: `${inputValue}-2` },
