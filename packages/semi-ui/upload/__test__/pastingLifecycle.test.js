@@ -84,6 +84,102 @@ describe('Upload pasting lifecycle', () => {
         expect(remove.calledWith('keydown', keydown)).toBe(true);
     });
 
+    it.each([false, true])('handles each native image paste once, including when crop=%s', async crop => {
+        const permissions = Object.getOwnPropertyDescriptor(navigator, 'permissions');
+        const clipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+        Object.defineProperty(navigator, 'permissions', {
+            configurable: true, value: { query: async () => ({ state: 'granted' }) },
+        });
+        Object.defineProperty(navigator, 'clipboard', {
+            configurable: true,
+            value: { read: async () => [{ types: ['image/png'], getType: async () => ({ arrayBuffer: async () => new ArrayBuffer(1) }) }] },
+        });
+        try {
+            const request = sinon.spy();
+            render({ addOnPasting: true, customRequest: request, crop });
+            const cropFiles = sinon.stub(instance, 'handleCropFiles');
+            await act(async () => {
+                for (let i = 0; i < 2; i++) {
+                    document.body.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyV', ctrlKey: true, metaKey: true, bubbles: true }));
+                    pasteFile();
+                }
+                await new Promise(resolve => setTimeout(resolve, 150));
+            });
+            expect(crop ? cropFiles.callCount : request.callCount).toBe(2);
+        } finally {
+            if (permissions) { Object.defineProperty(navigator, 'permissions', permissions); } else { delete navigator.permissions; }
+            if (clipboard) { Object.defineProperty(navigator, 'clipboard', clipboard); } else { delete navigator.clipboard; }
+        }
+    });
+
+    it.each([false, true])('ignores a clipboard read already in progress after a native paste (crop=%s)', async crop => {
+        const permissions = Object.getOwnPropertyDescriptor(navigator, 'permissions');
+        const clipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+        let finishRead;
+        let notifyRead;
+        const started = new Promise(resolve => { notifyRead = resolve; });
+        Object.defineProperty(navigator, 'permissions', { configurable: true, value: { query: async () => ({ state: 'granted' }) } });
+        Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { read: () => { notifyRead(); return new Promise(resolve => { finishRead = resolve; }); } } });
+        try {
+            const request = sinon.spy();
+            render({ addOnPasting: true, customRequest: request, crop });
+            const cropFiles = sinon.stub(instance, 'handleCropFiles');
+            document.body.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyV', ctrlKey: true, metaKey: true, bubbles: true }));
+            await started;
+            await act(async () => {
+                pasteFile();
+                finishRead([{ types: ['image/png'], getType: async () => ({ arrayBuffer: async () => new ArrayBuffer(1) }) }]);
+                await new Promise(resolve => setTimeout(resolve, 150));
+            });
+            expect(crop ? cropFiles.callCount : request.callCount).toBe(1);
+        } finally {
+            if (permissions) { Object.defineProperty(navigator, 'permissions', permissions); } else { delete navigator.permissions; }
+            if (clipboard) { Object.defineProperty(navigator, 'clipboard', clipboard); } else { delete navigator.clipboard; }
+        }
+    });
+
+    it.each([false, true])('keeps keyboard clipboard fallback working without a native file paste (crop=%s)', async crop => {
+        const permissions = Object.getOwnPropertyDescriptor(navigator, 'permissions');
+        const clipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+        Object.defineProperty(navigator, 'permissions', { configurable: true, value: { query: async () => ({ state: 'granted' }) } });
+        Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { read: async () => [{ types: ['image/png'], getType: async () => ({ arrayBuffer: async () => new ArrayBuffer(1) }) }] } });
+        try {
+            const request = sinon.spy();
+            render({ addOnPasting: true, customRequest: request, crop });
+            const cropFiles = sinon.stub(instance, 'handleCropFiles');
+            await act(async () => {
+                document.body.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyV', ctrlKey: true, metaKey: true, bubbles: true }));
+                await new Promise(resolve => setTimeout(resolve, 150));
+            });
+            expect(crop ? cropFiles.callCount : request.callCount).toBe(1);
+        } finally {
+            if (permissions) { Object.defineProperty(navigator, 'permissions', permissions); } else { delete navigator.permissions; }
+            if (clipboard) { Object.defineProperty(navigator, 'clipboard', clipboard); } else { delete navigator.clipboard; }
+        }
+    });
+
+    it.each([false, true])('handles a later independent native paste after keyboard fallback (crop=%s)', async crop => {
+        const permissions = Object.getOwnPropertyDescriptor(navigator, 'permissions');
+        const clipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+        Object.defineProperty(navigator, 'permissions', { configurable: true, value: { query: async () => ({ state: 'granted' }) } });
+        Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { read: async () => [{ types: ['image/png'], getType: async () => ({ arrayBuffer: async () => new ArrayBuffer(1) }) }] } });
+        try {
+            const request = sinon.spy();
+            render({ addOnPasting: true, customRequest: request, crop });
+            const cropFiles = sinon.stub(instance, 'handleCropFiles');
+            await act(async () => {
+                document.body.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyV', ctrlKey: true, metaKey: true, bubbles: true }));
+                await new Promise(resolve => setTimeout(resolve, 150));
+                pasteFile();
+                await new Promise(resolve => setTimeout(resolve, 150));
+            });
+            expect(crop ? cropFiles.callCount : request.callCount).toBe(2);
+        } finally {
+            if (permissions) { Object.defineProperty(navigator, 'permissions', permissions); } else { delete navigator.permissions; }
+            if (clipboard) { Object.defineProperty(navigator, 'clipboard', clipboard); } else { delete navigator.clipboard; }
+        }
+    });
+
     it.each([false, true])('ignores clipboard reads that finish after disabling (crop=%s)', async crop => {
         const permissions = Object.getOwnPropertyDescriptor(navigator, 'permissions');
         const clipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard');

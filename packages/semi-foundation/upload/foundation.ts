@@ -105,11 +105,8 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
      * when _createURL is called multiple times in a sync loop.
      */
     _localUrls: Record<string, string> = {};
-    /**
-     * Flag to prevent duplicate handling of paste events.
-     * When paste event is successfully handled, we ignore the subsequent keydown event.
-     */
-    _pasteHandled: boolean = false;
+    /** Associates a keyboard paste with the native paste event in the same task. */
+    _pendingPaste: { handled: boolean; clipboardHandled: boolean } | null = null;
     /**
      * Working copy of fileList used during a synchronous startUpload batch.
      * Do NOT rely on React state fileList here: setState is async (batched in React 18),
@@ -1061,7 +1058,25 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         this._adapter.notifyPreviewClick(fileItem);
     }
 
-    readFileFromClipboard(clipboardItems) {
+    beginPasting() {
+        const pending = { handled: false, clipboardHandled: false };
+        this._pendingPaste = pending;
+        setTimeout(() => {
+            if (this._pendingPaste === pending) this._pendingPaste = null;
+        }, 0);
+        return pending;
+    }
+
+    markPastingHandled() {
+        const clipboardHandled = Boolean(this._pendingPaste?.clipboardHandled);
+        if (this._pendingPaste) {
+            this._pendingPaste.handled = true;
+            this._pendingPaste = null;
+        }
+        return clipboardHandled;
+    }
+
+    readFileFromClipboard(clipboardItems, pending?: { handled: boolean; clipboardHandled: boolean }) {
         for (const clipboardItem of clipboardItems) {
             for (const type of clipboardItem.types) {
                 // types maybe: text/plain, image/png, text/html
@@ -1070,11 +1085,12 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                         return blob.arrayBuffer();
                     }).then((buffer) => {
                         const { disabled, addOnPasting } = this.getProps();
-                        if (disabled || !addOnPasting || this.destroyState) {
+                        if (disabled || !addOnPasting || this.destroyState || pending?.handled) {
                             return;
                         }
                         const format = type.split('/')[1];
                         const file = new File([buffer], `upload.${format}`, { type });
+                        if (pending) pending.clipboardHandled = true;
                         this.handleChange([file]);
                     });
                 }
@@ -1106,24 +1122,14 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
 
             if (files.length > 0) {
                 e.preventDefault();
-                this.handleChange(files);
-                // Mark that paste event has been handled to prevent duplicate handling by keydown event
-                this._pasteHandled = true;
-                // Reset the flag after a short delay to allow future paste operations
-                setTimeout(() => {
-                    this._pasteHandled = false;
-                }, 100);
+                if (!this.markPastingHandled()) {
+                    this.handleChange(files);
+                }
                 return;
             }
         }
 
         // Fallback to navigator.clipboard for keyboard events (keydown with Ctrl/Cmd+V)
-        // Skip if paste event has already been handled
-        if (this._pasteHandled) {
-            this._pasteHandled = false;
-            return;
-        }
-
         const isMac = this._adapter.isMac();
         const isCombineKeydown = isMac ? e.metaKey : e.ctrlKey;
         
@@ -1132,6 +1138,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             if (!navigator.clipboard || typeof navigator.clipboard.read !== 'function') {
                 return;
             }
+            const pending = this.beginPasting();
 
             // https://github.com/microsoft/TypeScript/issues/33923
             const permissionName = 'clipboard-read' as PermissionName;
@@ -1139,21 +1146,24 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             navigator.permissions
                 .query({ name: permissionName })
                 .then(result => {
+                    if (pending.handled) {
+                        return;
+                    }
                     if (result.state === 'granted' || result.state === 'prompt') {
                         // user has authorized or will authorize
                         navigator.clipboard.read().then(clipboardItems => {
                             // Process the data read from the pasteboard
                             // Check the returned data type to determine if it is image data, and process accordingly
-                            this.readFileFromClipboard(clipboardItems);
+                            this.readFileFromClipboard(clipboardItems, pending);
                         }).catch(error => {
-                            this._adapter.notifyPastingError(error);
+                            if (!pending.handled) this._adapter.notifyPastingError(error);
                         });
                     } else {
                         this._adapter.notifyPastingError(result);
                     }
                 })
                 .catch(error => {
-                    this._adapter.notifyPastingError(error);
+                    if (!pending.handled) this._adapter.notifyPastingError(error);
                 });
         }
     }
