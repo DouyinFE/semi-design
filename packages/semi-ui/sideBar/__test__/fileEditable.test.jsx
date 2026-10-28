@@ -65,7 +65,7 @@ describe('Sidebar FileItem editability updates', () => {
     it('makes the same editor editable again', async () => {
         await render({ editable: false });
         const initialEditor = editor;
-        wrapper.setProps({ editable: true });
+        act(() => { wrapper.setProps({ editable: true }); });
         expect(editor).toBe(initialEditor);
         expect(editor.isEditable).toBe(true);
         expect(host.querySelector('.tiptap').getAttribute('contenteditable')).toBe('true');
@@ -93,5 +93,37 @@ describe('Sidebar FileItem editability updates', () => {
         wrapper.setProps({ fileEditable: false });
         expect(editor).toBe(initialEditor);
         expect(editor.isEditable).toBe(false);
+    });
+
+    it('updates read-only content without reporting a user edit', async () => {
+        const onContentChange = jest.fn();
+        await render({ editable: false, onContentChange });
+        const initialEditor = editor;
+        await act(async () => { wrapper.setProps({ content: '<p>Updated</p>' }); await ready(); });
+        expect(editor).toBe(initialEditor);
+        expect(editor.getHTML()).toBe('<p>Updated</p>');
+        expect(onContentChange).not.toHaveBeenCalled();
+        await act(async () => { wrapper.setProps({ content: '' }); await ready(); });
+        expect(editor.getText()).toBe('');
+    });
+
+    it('does not overwrite local edits when content changes while editable', async () => {
+        await render({ editable: true });
+        act(() => { editor.commands.insertContent('Local edit'); });
+        const html = editor.getHTML();
+        await act(async () => { wrapper.setProps({ content: '<p>External</p>' }); await ready(); });
+        await act(async () => { wrapper.setProps({ editable: false }); await ready(); });
+        expect(editor.getHTML()).toBe(html);
+    });
+
+    it('updates the contents of a read-only FileContent item', async () => {
+        const file = { key: 'file', name: 'Example', content: '<p>Original</p>' };
+        await act(async () => {
+            wrapper = mount(<Sidebar.FileContent activeKey="file" files={[file]} />, { attachTo: host });
+            await ready();
+        });
+        expect(host.querySelector('.tiptap').textContent).toBe('Original');
+        await act(async () => { wrapper.setProps({ files: [{ ...file, content: '<p>Updated</p>' }] }); await ready(); });
+        expect(host.querySelector('.tiptap').textContent).toBe('Updated');
     });
 });

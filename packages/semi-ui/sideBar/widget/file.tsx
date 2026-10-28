@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { TextStyleKit } from '@tiptap/extension-text-style';
 import StarterKit from '@tiptap/starter-kit';
 import { Image } from "@tiptap/extension-image";
@@ -408,6 +408,7 @@ function MenuBar({ editor, className }: { editor: Editor; className: string }) {
 
 export const FileItem = React.memo((props: FileItemProps) => {
     const { editable = true, content, onContentChange, extensions = [], className, style, imgUploadProps } = props;
+    const previousContent = useRef(content);
     const defaultExtensions = useMemo(
         () =>
             [
@@ -439,6 +440,14 @@ export const FileItem = React.memo((props: FileItemProps) => {
     useEffect(() => {
         editor?.setEditable(editable, false);
     }, [editor, editable]);
+
+    useEffect(() => {
+        if (!editor) return;
+        if (!editable && content !== undefined && content !== previousContent.current) {
+            editor.commands.setContent(content, { emitUpdate: false });
+        }
+        previousContent.current = content;
+    }, [editor, content, editable]);
 
     if (!editor) {
         return null;
