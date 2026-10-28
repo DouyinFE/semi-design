@@ -128,6 +128,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
             extra,
             showArrow,
             disabled,
+            onMotionEnd,
             ...restProps
         } = this.props;
         const {
@@ -172,7 +173,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
                         <Collapsible
                             lazyRender={lazyRender}
                             isOpen={active} keepDOM={keepDOM} motion={motion}
-                            onMotionEnd={this.props.onMotionEnd}
+                            onMotionEnd={onMotionEnd}
                             reCalcKey={reCalcKey}>
                             <div
                                 className={contentCls}

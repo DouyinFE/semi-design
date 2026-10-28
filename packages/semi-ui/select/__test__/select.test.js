@@ -473,6 +473,21 @@ describe('Select', () => {
         expect(select.exists(`.${BASE_CLASS_PREFIX}-select-option-list`)).toEqual(false);
     });
 
+    it('disabled selected tag should not render disabled attribute on dom', () => {
+        const select = getSelect({
+            multiple: true,
+            defaultValue: ['abc', 'hotsoon'],
+            optionList: [
+                { value: 'abc', label: 'Abc' },
+                { value: 'hotsoon', label: 'Hotsoon', disabled: true },
+            ],
+        });
+        const tags = select.find(`.${BASE_CLASS_PREFIX}-tag`).hostNodes();
+        expect(tags.length).toEqual(2);
+        tags.forEach(tag => expect(tag.getDOMNode().hasAttribute('disabled')).toBe(false));
+        select.unmount();
+    });
+
     it('onDropdownVisibleChange & clickToHide', async () => {
         let onDropdownVisible = () => {};
         let spyOnDV = sinon.spy(onDropdownVisible);

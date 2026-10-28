@@ -81,7 +81,7 @@ export default class inputGroup extends BaseComponent<InputGroupProps, InputGrou
     }
 
     render() {
-        const { size, style, className, children, label, onBlur: groupOnBlur, onFocus: groupOnFocus, disabled: groupDisabled, ...rest } = this.props;
+        const { size, style, className, children, label, onBlur: groupOnBlur, onFocus: groupOnFocus, disabled: groupDisabled, labelPosition, ...rest } = this.props;
         const groupCls = cls(
             `${prefixCls}-group`,
             {

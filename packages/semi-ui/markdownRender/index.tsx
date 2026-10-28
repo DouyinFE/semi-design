@@ -83,8 +83,10 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
 
     render() {
         const ComponentConstructor = this.state.MDXContentComponent;
+        // before evaluation finishes the state holds the 'div' placeholder, which must not receive components
+        const components = typeof ComponentConstructor === 'string' ? undefined : { ...SemiMarkdownComponents, ...this.props.components };
         return <div className={cls(cssClasses.PREFIX, this.props.className)} style={this.props.style} {...this.getDataAttr()}>
-            <ComponentConstructor components={{ ...SemiMarkdownComponents, ...this.props.components }} />
+            <ComponentConstructor components={components} />
         </div>;
     }
 

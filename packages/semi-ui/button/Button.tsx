@@ -94,6 +94,7 @@ export default class Button extends PureComponent<ButtonProps> {
             colorful,
             prefixCls,
             iconPosition,
+            contentClassName,
             ...attr
         } = this.props;
 
@@ -128,7 +129,7 @@ export default class Button extends PureComponent<ButtonProps> {
 
         return (
             <button {...baseProps} onClick={this.props.onClick} onMouseDown={this.props.onMouseDown} style={style}>
-                <span className={cls(`${prefixCls}-content`, this.props.contentClassName)} onClick={e => disabled && e.stopPropagation()} {...xSemiProps}>
+                <span className={cls(`${prefixCls}-content`, contentClassName)} onClick={e => disabled && e.stopPropagation()} {...xSemiProps}>
                     {children}
                 </span>
             </button>

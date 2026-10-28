@@ -212,4 +212,14 @@ describe(`Typography`, () => {
         expect(typographyParagraph.find('.test-copied').text()).toEqual('true');
     });
 
+    it('Numeral should not pass precision and truncate to dom', () => {
+        const numeral = mount(
+            <Typography.Numeral rule="percentages" precision={2} truncate="floor">0.5</Typography.Numeral>
+        );
+        const dom = numeral.find('span').first().getDOMNode();
+        expect(dom.hasAttribute('precision')).toBe(false);
+        expect(dom.hasAttribute('truncate')).toBe(false);
+        expect(dom.textContent).toEqual('50.00%');
+    });
+
 });

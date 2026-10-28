@@ -624,5 +624,12 @@ describe('Form-baseForm', () => {
         expect(formApi.getFormState().errors).toEqual({});
 
     });
+
+    it('stopPropagation and disabled should not be passed to form dom', () => {
+        const form = getForm({ stopPropagation: { submit: true, reset: true }, disabled: true });
+        const dom = form.find('form').getDOMNode();
+        expect(dom.hasAttribute('stoppropagation')).toBe(false);
+        expect(dom.hasAttribute('disabled')).toBe(false);
+    });
     // it('showValidateIcon', ()=>{})
 });
