@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent, render, within } from '@testing-library/react';
 import Transfer from '../index';
 
 afterEach(cleanup);
@@ -44,6 +44,9 @@ describe('Transfer tree data overrides', () => {
         expect(onChange.lastCall.args[0]).toEqual(['a', 'b']);
         expect(container.querySelector('.semi-transfer-right').textContent).toContain('Source A');
         expect(container.querySelector('.semi-transfer-right').textContent).toContain('Tree B');
+        fireEvent.click(within(container.querySelector('.semi-transfer-left')).getByText('Tree B'));
+        expect(onChange.lastCall.args[0]).toEqual(['a']);
+        expect(container.querySelector('.semi-transfer-right').textContent).toContain('Source A');
     });
 
     it('keeps controlled values from the original data source', () => {
