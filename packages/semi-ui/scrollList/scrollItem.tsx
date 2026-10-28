@@ -571,9 +571,20 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
     handleResize = ([entry]: ResizeEntry[]) => {
         const height = entry.contentRect.height;
         if (height > 0 && this.observedHeight === 0) {
-            const selectedNode = this.getNodeByIndex(this.props.selectedIndex) as HTMLElement;
-            if (selectedNode) {
-                this.scrollToNode(selectedNode, 0);
+            const { selectedIndex, list } = this.props;
+            const { prependCount, appendCount } = this.state;
+            const cycledWheel = this.isWheelMode() && this.props.cycled;
+            if (cycledWheel && !prependCount && !appendCount) {
+                // mounted hidden: copies could not be measured, redo the wheel init now that layout exists
+                this.initSelectedNode();
+            } else {
+                const offset = cycledWheel ? prependCount * list.length : 0;
+                const selectedNode = this.getNodeByIndex(
+                    offset + (typeof selectedIndex === 'number' && selectedIndex > -1 ? selectedIndex : 0)
+                ) as HTMLElement;
+                if (selectedNode) {
+                    this.scrollToNode(selectedNode, 0);
+                }
             }
         }
         this.observedHeight = height;
