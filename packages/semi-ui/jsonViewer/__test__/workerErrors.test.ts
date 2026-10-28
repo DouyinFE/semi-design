@@ -1,4 +1,4 @@
-import { JsonWorkerManager } from '@douyinfe/semi-json-viewer-core/src/worker/jsonWorkerManager';
+import { JsonWorkerManager } from '@douyinfe/semi-json-viewer-core/worker/jsonWorkerManager';
 
 describe('JsonViewer worker request failures', () => {
     let worker;
