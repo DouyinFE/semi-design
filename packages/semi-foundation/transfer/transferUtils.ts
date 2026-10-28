@@ -1,5 +1,6 @@
 import { omit } from 'lodash';
 import { strings } from './constants';
+import type { KeyMapProps } from '../tree/treeUtil';
 
 export function _generateGroupedData(dataSource: any[]): any[] {
     const newData: any[] = [];
@@ -13,34 +14,43 @@ export function _generateGroupedData(dataSource: any[]): any[] {
 }
 
 // DFS
-export function _generateTreeData(dataSource: any[]): any[] {
+export function _generateTreeData(dataSource: any[], keyMaps?: KeyMapProps): any[] {
     const newData = [];
-    const stack = dataSource.map(item => ({ ...item })).reverse();
+    const childrenKey = keyMaps?.children || 'children';
+    const normalize = (item: any) => keyMaps ? {
+        ...item,
+        key: item[keyMaps.key || 'key'],
+        value: item[keyMaps.value || 'value'] ?? item[keyMaps.key || 'key'],
+        label: item[keyMaps.label || 'label'],
+        disabled: item[keyMaps.disabled || 'disabled'],
+        children: item[childrenKey],
+    } : { ...item };
+    const stack = dataSource.map(normalize).reverse();
     while (stack.length) {
         const current = stack.pop();
-        current.path = current.path || [omit(current, ['children'])];
+        current.path = current.path || [omit(current, ['children', childrenKey])];
         if (current.children && Array.isArray(current.children)) {
             const nodes = current.children;
             for (let i = nodes.length - 1; i >= 0; i--) {
-                const child = { ...nodes[i] };
-                child.path = [].concat(current.path).concat(omit(child, ['children']));
+                const child = normalize(nodes[i]);
+                child.path = [].concat(current.path).concat(omit(child, ['children', childrenKey]));
                 stack.push(child);
             }
         } else {
             current.isLeaf = true;
         }
-        newData.push(omit(current, ['children']));
+        newData.push(omit(current, ['children', childrenKey]));
     }
     return newData;
 }
 
-export function _generateDataByType(dataSource: any[], type: string): any[] {
+export function _generateDataByType(dataSource: any[], type: string, keyMaps?: KeyMapProps): any[] {
     const newData = dataSource.slice() || [];
     if (type === strings.TYPE_GROUP_LIST) {
         return _generateGroupedData(newData);
     }
     if (type === strings.TYPE_TREE_TO_LIST) {
-        return _generateTreeData(newData);
+        return _generateTreeData(newData, keyMaps);
     }
     return newData;
 }

@@ -274,7 +274,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         };
         if (Boolean(dataSource) && isArray(dataSource)) {
             // @ts-ignore Avoid reporting errors this.state.xxx is read-only
-            this.state.data = _generateDataByType(dataSource, type);
+            this.state.data = _generateDataByType(dataSource, type, props.treeProps?.keyMaps);
         }
         if (Boolean(defaultValue) && isArray(defaultValue)) {
             // @ts-ignore Avoid reporting errors this.state.xxx is read-only
@@ -295,7 +295,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         let newData = state.data;
         let newSelectedItems = state.selectedItems;
         if (Boolean(dataSource) && Array.isArray(dataSource)) {
-            newData = _generateDataByType(dataSource, type);
+            newData = _generateDataByType(dataSource, type, props.treeProps?.keyMaps);
             mergedState.data = newData;
         }
         if (Boolean(value) && Array.isArray(value)) {

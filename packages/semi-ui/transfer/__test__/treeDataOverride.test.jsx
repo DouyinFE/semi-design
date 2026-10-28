@@ -73,4 +73,16 @@ describe('Transfer tree data overrides', () => {
         fireEvent.click(within(left).getByText('Source A'));
         expect(onChange.lastCall.args[0]).toEqual([]);
     });
+
+    it.each([false, true])('selects mapped tree fields with object callbacks %s', onChangeWithObject => {
+        const onChange = sinon.spy();
+        const keyMaps = { key: 'id', value: 'val', label: 'name', children: 'nodes' };
+        const treeData = [{ id: 'parent', val: 'parent', name: 'Parent', nodes: [{ id: 'b', val: 'b', name: 'Mapped B' }] }];
+        const { container } = render(<Transfer type="treeList" dataSource={source} treeProps={{ treeData, keyMaps, onChangeWithObject }} defaultValue={['a']} onChange={onChange} />);
+        const left = container.querySelector('.semi-transfer-left');
+        fireEvent.click(within(left).getByText('Mapped B'));
+        expect(onChange.lastCall.args[0]).toEqual(['a', 'b']);
+        expect(container.querySelector('.semi-transfer-right').textContent).toContain('Source A');
+        expect(container.querySelector('.semi-transfer-right').textContent).toContain('Mapped B');
+    });
 });
