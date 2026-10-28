@@ -72,6 +72,30 @@ describe('ArrayField registration lifecycle', () => {
         }
     });
 
+    it('registers again after a StrictMode style simulated unmount and remount', async () => {
+        let api;
+        const wrapper = mount(<Form getFormApi={value => { api = value; }}>{renderArray('first', initial)}</Form>);
+        try {
+            // React 18+ StrictMode runs componentWillUnmount then componentDidMount on the same instance
+            const instance = wrapper.find(ArrayField).instance();
+            await act(async () => {
+                instance.componentWillUnmount();
+                instance.componentDidMount();
+            });
+            await act(async () => {
+                api.setValue('rows', next);
+            });
+            await act(async () => {
+                api.reset();
+            });
+            wrapper.update();
+            expect(api.getValues().rows).toEqual(initial);
+            expect(wrapper.find('input').map(input => input.prop('value'))).toEqual(['initial']);
+        } finally {
+            wrapper.unmount();
+        }
+    });
+
     it('keeps parent componentDidMount setValues working', async () => {
         let api;
         class InitializeOnMount extends React.Component {
@@ -90,6 +114,33 @@ describe('ArrayField registration lifecycle', () => {
             wrapper.update();
             expect(api.getValues().rows).toEqual(next);
             expect(wrapper.find('input').map(input => input.prop('value'))).toEqual(['one', 'two', 'three']);
+        } finally {
+            wrapper.unmount();
+        }
+    });
+
+    it('restores initValue when reset is called before the ArrayField mounts', async () => {
+        let api;
+        class ResetOnMount extends React.Component {
+            componentDidMount() {
+                api.setValue('rows', next);
+                api.reset();
+            }
+            render() {
+                return null;
+            }
+        }
+        let wrapper;
+        try {
+            await act(async () => {
+                wrapper = mount(<Form getFormApi={value => { api = value; }}>
+                    <ResetOnMount />
+                    {renderArray('first', initial)}
+                </Form>);
+            });
+            wrapper.update();
+            expect(api.getValues().rows).toEqual(initial);
+            expect(wrapper.find('input').map(input => input.prop('value'))).toEqual(['initial']);
         } finally {
             wrapper.unmount();
         }
