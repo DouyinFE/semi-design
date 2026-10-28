@@ -38,10 +38,26 @@ describe('Collapse panel relationship lifecycle', () => {
         wrapper = mount(<Collapse defaultActiveKey={['one']} motion={false} keepDOM><Collapse.Panel itemKey="one" header="Panel">Content</Collapse.Panel></Collapse>, { attachTo: container });
         wrapper.find('.semi-collapse-header').simulate('click');
         expect(container.querySelector('.semi-collapse-content').textContent).toBe('Content');
-        const id = container.querySelector('.semi-collapse-header').getAttribute('aria-owns');
-        if (id) {
-            expect(document.getElementById(id)).not.toBeNull();
-        }
+        const id = container.querySelector('.semi-collapse-content').id;
+        expect(id).toBeTruthy();
+        expect(container.querySelector('.semi-collapse-header').getAttribute('aria-owns')).toBe(id);
+    });
+
+    it('references keepDOM content that is collapsed from the start', () => {
+        wrapper = mount(<Collapse motion={false} keepDOM><Collapse.Panel itemKey="one" header="Panel">Content</Collapse.Panel></Collapse>, { attachTo: container });
+        const id = container.querySelector('.semi-collapse-content').id;
+        expect(id).toBeTruthy();
+        expect(container.querySelector('.semi-collapse-header').getAttribute('aria-owns')).toBe(id);
+    });
+
+    it('references lazyRender keepDOM content only after it has been rendered', () => {
+        wrapper = mount(<Collapse motion={false} keepDOM lazyRender><Collapse.Panel itemKey="one" header="Panel">Content</Collapse.Panel></Collapse>, { attachTo: container });
+        expect(container.querySelector('.semi-collapse-content')).toBeNull();
+        expect(container.querySelector('.semi-collapse-header').getAttribute('aria-owns')).toBeNull();
+        wrapper.find('.semi-collapse-header').simulate('click');
+        wrapper.find('.semi-collapse-header').simulate('click');
+        const id = container.querySelector('.semi-collapse-content').id;
+        expect(container.querySelector('.semi-collapse-header').getAttribute('aria-owns')).toBe(id);
     });
 
     it('does not reference absent content in an expanded empty panel', () => {
