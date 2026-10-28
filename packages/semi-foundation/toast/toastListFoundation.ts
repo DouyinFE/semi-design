@@ -32,7 +32,7 @@ export default class ToastListFoundation extends BaseFoundation<ToastListAdapter
         return toastList.map(({ id }) => id).includes(id);
     }
 
-    handleMouseInSideChange = (mouseInSideChange: boolean) => {
+    handleMouseInSideChange = (mouseInSideChange: boolean)=>{
         this._adapter.handleMouseInSideChange(mouseInSideChange);
     }
 
