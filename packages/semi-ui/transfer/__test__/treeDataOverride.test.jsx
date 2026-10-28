@@ -74,6 +74,16 @@ describe('Transfer tree data overrides', () => {
         expect(onChange.lastCall.args[0]).toEqual([]);
     });
 
+    it('preserves a controlled selection with object-valued Tree callbacks', () => {
+        const onChange = sinon.spy();
+        const dataSource = [...source, ...tree];
+        const { container } = render(<Transfer type="treeList" dataSource={dataSource} treeProps={{ onChangeWithObject: true }} value={['a']} onChange={onChange} />);
+        const left = container.querySelector('.semi-transfer-left');
+        fireEvent.click(within(left).getByText('Tree B'));
+        expect(onChange.lastCall.args[0]).toEqual(['a', 'b']);
+        expect(container.querySelector('.semi-transfer-right').textContent).toContain('Source A');
+    });
+
     it.each([false, true])('selects mapped tree fields with object callbacks %s', onChangeWithObject => {
         const onChange = sinon.spy();
         const keyMaps = { key: 'id', value: 'val', label: 'name', children: 'nodes' };
