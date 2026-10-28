@@ -201,7 +201,12 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             notifyChange: (cbValue: number | number[]) => {
                 this.props.onChange(Array.isArray(cbValue) ? [...cbValue].sort((a, b) => a - b) : cbValue);
             },
-            notifyBlur: e => this.props.onBlur?.(e),
+            notifyBlur: e => {
+                // Focus moving between the range handles stays inside the slider and is not a blur.
+                if (!this.sliderEl.current?.contains(e.relatedTarget as Node)) {
+                    this.props.onBlur?.(e);
+                }
+            },
             setDragging: (value: boolean[]) => {
                 this.dragging = value;
             },

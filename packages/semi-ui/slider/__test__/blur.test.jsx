@@ -6,7 +6,7 @@ import { Form } from '../../form';
 describe('Slider blur callbacks', () => {
     [false, true].forEach(range => {
         [{}, { tooltipVisible: false }, { tipFormatter: null }].forEach(props => {
-            it(`notifies blur for each handle, range=${range}, tooltip=${JSON.stringify(props)}`, () => {
+            it(`notifies blur when focus leaves the slider, range=${range}, tooltip=${JSON.stringify(props)}`, () => {
                 const onBlur = sinon.spy();
                 const wrapper = mount(<Slider {...props} range={range} onBlur={onBlur} />);
                 const handles = wrapper.find('[role="slider"]').hostNodes();
@@ -19,6 +19,35 @@ describe('Slider blur callbacks', () => {
                 wrapper.unmount();
             });
         });
+    });
+
+    it('does not notify blur when focus moves between the range handles', () => {
+        const onBlur = sinon.spy();
+        const wrapper = mount(<Slider range onBlur={onBlur} />);
+        const handles = wrapper.find('[role="slider"]').hostNodes();
+        handles.at(0).simulate('blur', { relatedTarget: handles.at(1).getDOMNode() });
+        handles.at(1).simulate('blur', { relatedTarget: handles.at(0).getDOMNode() });
+        expect(onBlur.callCount).toBe(0);
+        handles.at(1).simulate('blur', { relatedTarget: document.body });
+        expect(onBlur.callCount).toBe(1);
+        wrapper.unmount();
+    });
+
+    it('validates Form.Slider once when focus moves between the range handles and leaves', async () => {
+        const validate = sinon.spy(() => 'err');
+        const wrapper = mount(<Form><Form.Slider field="r" range initValue={[10, 20]} trigger="blur" validate={validate} /></Form>);
+        const handles = wrapper.find('[role="slider"]').hostNodes();
+        await act(async () => {
+            handles.at(0).simulate('blur', { relatedTarget: handles.at(1).getDOMNode() });
+            await Promise.resolve();
+        });
+        expect(validate.callCount).toBe(0);
+        await act(async () => {
+            handles.at(1).simulate('blur', { relatedTarget: document.body });
+            await Promise.resolve();
+        });
+        expect(validate.callCount).toBe(1);
+        wrapper.unmount();
     });
 
     it('runs Form.Slider validation on blur and keeps the user callback', async () => {
