@@ -53,7 +53,7 @@ class ColorChooseArea extends BaseComponent<PropsWithChildren<ColorChooseAreaPro
     get adapter(): ColorChooseAreaAdapter<ColorChooseAreaProps, ColorChooseAreaState> {
         return {
             ...super.adapter,
-            getColorPickerFoundation: () => this.props.foundation,
+            getColorPickerFoundation: ()=>this.props.foundation,
             handleMouseDown: (e: React.MouseEvent) => {
                 this.setState({ isHandleGrabbing: true });
                 this.ref.current.addEventListener('mousemove', this.foundation.setHandlePositionByMousePosition);
@@ -64,8 +64,8 @@ class ColorChooseArea extends BaseComponent<PropsWithChildren<ColorChooseAreaPro
                 window.removeEventListener('mouseup', this.foundation.handleMouseUp);
                 this.setState({ isHandleGrabbing: false });
             },
-            getDOM: () => this.ref.current,
-            notifyChange: (newColor) => this.props.onChange(newColor)
+            getDOM: ()=>this.ref.current,
+            notifyChange: (newColor)=>this.props.onChange(newColor)
 
         };
     }
@@ -81,7 +81,7 @@ class ColorChooseArea extends BaseComponent<PropsWithChildren<ColorChooseAreaPro
 
 
 
-    handleClick = (e: React.MouseEvent) => {
+    handleClick = (e: React.MouseEvent)=>{
         this.foundation.setHandlePositionByMousePosition(e);
         this.foundation.handleMouseDown(e);
     }
