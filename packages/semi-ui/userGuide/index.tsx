@@ -565,4 +565,4 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     }
 }
 
-export default UserGuide;
+export default UserGuide; 
