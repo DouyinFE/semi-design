@@ -44,7 +44,8 @@ describe('Message calls before the first root commit', () => {
     ['Toast', 'ToastFactory', 'Notification'].forEach(kind => {
         describe(kind, () => {
             const selector = kind === 'Notification' ? '.semi-notification-wrapper' : '.semi-toast-wrapper';
-            const show = (content, id) => api.info({ content, title: content, id, duration: 0, motion: false });
+            // test/setup.js 固定了 Math.random 与 Date，自动生成的 id 可能重复，这里显式指定
+            const show = (content, id = `${content}-id`) => api.info({ content, title: content, id, duration: 0, motion: false });
             const containers = () => document.querySelectorAll(selector);
             const text = () => Array.from(containers()).map(node => node.textContent).join('');
 
