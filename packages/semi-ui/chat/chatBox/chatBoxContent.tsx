@@ -66,18 +66,18 @@ const ChatBoxContent = (props: ChatBoxContentProps) => {
                     if (item.type === 'text') {
                         const rawText = shouldEscapeHtml ? escapeHtmlInMarkdown(item.text) : item.text;
                         return <MarkdownRender
-                            key={`index`}
+                            key={index}
                             format='md'
                             raw={rawText}
                             components={markdownComponents as any}
                             {...markdownRenderProps}
                         />;
                     } else if (item.type === 'image_url') {
-                        return <ImageAttachment key={`index`} src={item.image_url.url} />;
+                        return <ImageAttachment key={index} src={item.image_url.url} />;
                     } else if (item.type === 'file_url') {
                         const { name, size, url, type } = item.file_url;
                         const realType = name.split('.').pop() ?? type?.split('/').pop();
-                        return <FileAttachment key={`index`} url={url} name={name} size={size} type={realType}></FileAttachment>;
+                        return <FileAttachment key={index} url={url} name={name} size={size} type={realType}></FileAttachment>;
                     }
                     return null;
                 });

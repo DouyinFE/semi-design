@@ -47,7 +47,7 @@ const Content = React.memo((props: ContentProps) => {
             <div className={`${annotationCls}-content`}>
                 {item.annotations.map((cite, index) => {
                     if (renderItem) {
-                        return renderItem(cite);
+                        return <React.Fragment key={`${index}`}>{renderItem(cite)}</React.Fragment>;
                     }
                     if (cite.type === 'video') {
                         return <VideoItem key={`${index}`} onClick={onClick} {...cite} />;

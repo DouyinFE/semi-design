@@ -218,6 +218,7 @@ class DialogueAction extends BaseComponent<AIChatDialogueActionProps, AIChatDial
     moreNode = () => {
         return (
             <Dropdown
+                key={'more'}
                 trigger="custom"
                 position='bottomLeft'
                 className={`${PREFIX_ACTION}-dropdown`}
