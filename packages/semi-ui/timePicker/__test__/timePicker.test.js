@@ -933,6 +933,14 @@ describe(`TimePicker`, () => {
         elem.unmount();
     });
 
+    it('does not add a clear title without clearText', async () => {
+        const elem = mount(<TimePicker defaultValue="10:23:15" showClear locale={Locale.TimePicker} localeCode={Locale.code} />);
+
+        elem.find(`.${BASE_CLASS_PREFIX}-input-wrapper`).simulate('mouseEnter');
+        expect(elem.find(`.${BASE_CLASS_PREFIX}-input-clearbtn [title]`).length).toBe(0);
+        elem.unmount();
+    });
+
     it('keeps a custom clear icon when showing clearText', () => {
         const onChange = sinon.spy();
         const elem = mount(<TimePicker
