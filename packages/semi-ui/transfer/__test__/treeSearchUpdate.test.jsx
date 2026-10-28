@@ -31,4 +31,18 @@ describe('Transfer tree search data updates', () => {
             wrapper.unmount();
         }
     });
+
+    it('keeps custom search results when overridden tree data changes', () => {
+        const treeProps = { treeData: getData(0), filterTreeNode: (input, label, data) => data.key.includes(input), showFilteredOnly: true };
+        const wrapper = mount(<Transfer type="treeList" dataSource={[]} treeProps={treeProps} />);
+        try {
+            wrapper.find('input').at(0).simulate('change', { target: { value: 'target' } });
+            expect(wrapper.find('.semi-tree-option-label').map(node => node.text())).toContain('Alpha 0');
+            wrapper.setProps({ treeProps: { ...treeProps, treeData: getData(1) } });
+            wrapper.update();
+            expect(wrapper.find('.semi-tree-option-label').map(node => node.text())).toContain('Alpha 1');
+        } finally {
+            wrapper.unmount();
+        }
+    });
 });
