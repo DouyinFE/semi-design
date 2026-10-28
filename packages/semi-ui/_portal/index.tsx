@@ -47,7 +47,7 @@ class Portal extends PureComponent<PortalProps, PortalState> {
 
     componentDidMount() {
         const container = this.initContainer(this.context);
-        if (container!==this.state.container) {
+        if (container !== this.state.container) {
             this.setState({ container });
         }
     }
@@ -84,11 +84,14 @@ class Portal extends PureComponent<PortalProps, PortalState> {
     componentDidUpdate(prevProps: PortalProps) {
         const getContainer = this.props.getPopupContainer || this.context.getPopupContainer || defaultGetContainer;
         const container = getContainer();
-        if (this.el.parentNode !== container) {
-            container.appendChild(this.el);
-        }
-        if (container !== this.state.container) {
-            this.setState({ container });
+        // A getter may return null once its target is gone; keep the portal where it is.
+        if (container) {
+            if (this.el.parentNode !== container) {
+                container.appendChild(this.el);
+            }
+            if (container !== this.state.container) {
+                this.setState({ container });
+            }
         }
         for (const key of Object.keys(prevProps.style || {})) {
             if (!(key in (this.props.style || {}))) {
