@@ -19,7 +19,7 @@ import { Locale } from '../locale/interface';
 
 export interface ScientificNotationConfig {
     /** Number of digits threshold to trigger scientific notation display */
-    threshold?: number
+    threshold?: number;
 }
 
 export interface InputNumberProps extends InputProps {
