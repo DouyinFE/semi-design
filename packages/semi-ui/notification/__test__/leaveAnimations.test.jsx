@@ -58,6 +58,40 @@ describe('Notification leaving notices', () => {
         expect(list.state.removedItems).toHaveLength(0);
     });
 
+    it('releases a removed notice without animationend after the hide duration', () => {
+        jest.useFakeTimers();
+        try {
+            list.remove('a');
+            expectLeaving('a');
+            jest.advanceTimersByTime(1000);
+            expect(notice('a')).toBeUndefined();
+            expect(list.removeItemStorage).toHaveLength(0);
+            expect(list.state.removedItems).toHaveLength(0);
+        } finally {
+            jest.useRealTimers();
+        }
+    });
+
+    it('releases a removed notice immediately when motion is false', () => {
+        list.add({ id: 'm', title: 'm', duration: 0, motion: false });
+        list.remove('m');
+        expect(notice('m')).toBeUndefined();
+        expect(list.removeItemStorage).toHaveLength(0);
+    });
+
+    it('clears pending fallback timers on unmount', () => {
+        jest.useFakeTimers();
+        try {
+            list.remove('a');
+            wrapper.unmount();
+            expect(jest.getTimerCount()).toBe(0);
+            wrapper = mount(<Notification/>, { attachTo: host });
+            list = wrapper.instance();
+        } finally {
+            jest.useRealTimers();
+        }
+    });
+
     it('allows a new notice to reuse an id that is leaving', () => {
         list.remove('a');
         list.add({ id: 'a', title: 'new a', duration: 0 });
