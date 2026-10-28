@@ -9,7 +9,6 @@ import getDataAttr from "@douyinfe/semi-foundation/utils/getDataAttr";
 
 class CarouselIndicator extends React.PureComponent<CarouselIndicatorProps> {
     static propTypes = {
-        activeKey: PropTypes.number,
         className: PropTypes.string,
         position: PropTypes.oneOf(strings.POSITION_MAP),
         size: PropTypes.oneOf(strings.SIZE),
