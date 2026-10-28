@@ -3,7 +3,7 @@ import { fireEvent, render, waitFor, cleanup } from '@testing-library/react';
 import InputBox from '../inputBox';
 import Chat from '../index';
 
-afterEach(cleanup);
+afterEach(() => { cleanup(); sinon.restore(); });
 
 describe('Chat attachment removal', () => {
     it.each([false, Promise.resolve(false)])('keeps the attachment when beforeRemove rejects removal', async result => {
@@ -47,7 +47,7 @@ describe('Chat upload modes', () => {
             fireEvent.paste(container.querySelector('textarea'), { clipboardData: { items: [{ getAsFile: () => file }] } });
         }
         await waitFor(() => expect(customRequest.calledOnce).toBe(true));
-        expect(container.querySelector('.semi-chat-inputBox-uploadButton').closest('span[style="display: none;"]')).toBeTruthy();
+        expect(container.querySelector('.semi-chat-inputBox-uploadButton').closest('[style="display: none;"]')).toBeTruthy();
     });
 
     it('does not mount Upload when all upload modes are disabled', () => {
@@ -69,5 +69,23 @@ describe('Chat upload modes', () => {
         fireEvent.click(container.querySelector('.semi-chat-attachment-clear'));
         await waitFor(() => expect(container.querySelector('.semi-chat-attachment-file-title')).toBeNull());
         expect(onRemove.calledOnce).toBe(true);
+    });
+
+    it('keeps an in-flight upload when click upload is disabled', async () => {
+        let finishUpload;
+        const onInputChange = sinon.spy();
+        const uploadProps = { action: '/upload', customRequest: ({ onSuccess }) => { finishUpload = onSuccess; } };
+        const { container, rerender } = render(<Chat chats={[]} hints={[]} roleConfig={{}} enableUpload uploadProps={uploadProps} onInputChange={onInputChange} />);
+        const file = new File(['example'], 'example.txt', { type: 'text/plain' });
+        const input = container.querySelector('input.semi-upload-hidden-input');
+        fireEvent.change(input, { target: { files: [file] } });
+        await waitFor(() => expect(finishUpload).toBeTruthy());
+        const beforeToggle = container.querySelector('input.semi-upload-hidden-input');
+        rerender(<Chat chats={[]} hints={[]} roleConfig={{}} enableUpload={{ clickUpload: false, dragUpload: true, pasteUpload: true }} uploadProps={uploadProps} onInputChange={onInputChange} />);
+        expect(container.querySelector('input.semi-upload-hidden-input')).toBe(beforeToggle);
+        const callCount = onInputChange.callCount;
+        finishUpload({ ok: true });
+        await waitFor(() => expect(onInputChange.callCount).toBeGreaterThan(callCount));
+        await waitFor(() => expect(onInputChange.lastCall.args[0].attachment[0].status).toBe('success'));
     });
 });

@@ -91,10 +91,9 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
                 theme='borderless'
             />}
         </Upload>;
-        if (!clickUpload) {
-            return <span style={{ display: 'none' }}>{uploadNode}</span>;
-        }
-        return (uploadTipProps ? <Tooltip {...uploadTipProps}><span>{uploadNode}</span></Tooltip> : uploadNode);
+        return <div style={{ display: clickUpload ? 'contents' : 'none' }}>
+            {uploadTipProps ? <Tooltip {...uploadTipProps}><span>{uploadNode}</span></Tooltip> : uploadNode}
+        </div>;
     }
 
     renderInputArea = () => {
