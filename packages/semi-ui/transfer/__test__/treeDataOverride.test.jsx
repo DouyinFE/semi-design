@@ -35,4 +35,19 @@ describe('Transfer tree data overrides', () => {
         expect(container.querySelector('.semi-transfer-left').textContent).not.toContain('Source A');
         expect(container.querySelector('.semi-transfer-left').textContent).toContain('暂无');
     });
+
+    it('preserves selected source items hidden by the overridden tree', () => {
+        const onChange = sinon.spy();
+        const { container, getByText } = render(<Transfer type="treeList" dataSource={source} treeProps={{ treeData: tree }} defaultValue={['a']} onChange={onChange} />);
+        expect(container.querySelector('.semi-transfer-right').textContent).toContain('Source A');
+        fireEvent.click(getByText('Tree B'));
+        expect(onChange.lastCall.args[0]).toEqual(['a', 'b']);
+        expect(container.querySelector('.semi-transfer-right').textContent).toContain('Source A');
+        expect(container.querySelector('.semi-transfer-right').textContent).toContain('Tree B');
+    });
+
+    it('keeps controlled values from the original data source', () => {
+        const { container } = render(<Transfer type="treeList" dataSource={source} treeProps={{ treeData: tree }} value={['a']} />);
+        expect(container.querySelector('.semi-transfer-right').textContent).toContain('Source A');
+    });
 });

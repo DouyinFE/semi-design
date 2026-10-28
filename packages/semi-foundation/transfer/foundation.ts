@@ -192,7 +192,7 @@ export default class TransferFoundation<P = Record<string, any>, S = Record<stri
     }
 
     handleSelect(values: BasicTreeValue) {
-        const { disabled } = this.getProps();
+        const { disabled, treeProps } = this.getProps();
         const selectedItems = this._adapter.getSelected();
         const { data } = this.getStates();
         const dataItems = data.map((d: BasicResolvedDataItem) => [d.value, d]);
@@ -203,8 +203,17 @@ export default class TransferFoundation<P = Record<string, any>, S = Record<stri
             return;
         }
 
+        if (Array.isArray(treeProps?.treeData)) {
+            selectedItems.forEach((item, key) => {
+                if (!allItemsMap.has(item.value)) {
+                    nextSelectedItemsMap.set(key, item);
+                }
+            });
+        }
+
         (values as any).forEach((value: any) => {
             const node = allItemsMap.get(value) as BasicResolvedDataItem;
+            if (!node && Array.isArray(treeProps?.treeData)) return;
             // The value passed in is an array of the value used, but the internal selectedItems stores a map of keys
             if (selectedItems.has(node.key)) {
                 nextSelectedItemsMap.set(node.key, node);
