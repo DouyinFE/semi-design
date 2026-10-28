@@ -74,7 +74,7 @@ export interface ValidateOptions<K extends keyof any = keyof any> {
     /** Fields to validate, if not specified, validate all fields */
     fields?: Array<K>;
     /** Whether to validate silently (without updating UI or setting touched state) */
-    silent?: boolean
+    silent?: boolean;
 }
 
 // use object replace Record<string, any>, fix issue 933
