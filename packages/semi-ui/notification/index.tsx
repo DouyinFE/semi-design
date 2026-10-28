@@ -27,7 +27,6 @@ import semiGlobal from '../_utils/semi-global';
 
 export interface NoticeReactProps extends NoticeProps {
     style?: CSSProperties
-    isClosing?: boolean
 }
 
 export type {

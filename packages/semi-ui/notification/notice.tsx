@@ -22,7 +22,8 @@ export interface NoticeReactProps extends NoticeProps {
     icon?: React.ReactNode;
     onClick?: (e: React.MouseEvent) => void;
     onAnimationEnd?: (e: React.AnimationEvent) => void;
-    onAnimationStart?: (e: React.AnimationEvent) => void
+    onAnimationStart?: (e: React.AnimationEvent) => void;
+    isClosing?: boolean;
 }
 
 const prefixCls = cssClasses.NOTICE;
