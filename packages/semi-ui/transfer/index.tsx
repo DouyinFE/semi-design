@@ -262,7 +262,8 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
     constructor(props: TransferProps) {
         super(props);
-        const { defaultValue = [], dataSource, type, pagination } = props;
+        const { defaultValue = [], type, pagination } = props;
+        const dataSource = type === strings.TYPE_TREE_TO_LIST ? props.treeProps?.treeData ?? props.dataSource : props.dataSource;
         this.foundation = new TransferFoundation<TransferProps, TransferState>(this.adapter);
         this.state = {
             data: [],
@@ -287,7 +288,8 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     }
 
     static getDerivedStateFromProps(props: TransferProps, state: TransferState) {
-        const { value, dataSource, type, filter, pagination } = props;
+        const { value, type, filter, pagination } = props;
+        const dataSource = type === strings.TYPE_TREE_TO_LIST ? props.treeProps?.treeData ?? props.dataSource : props.dataSource;
         const mergedState = {} as TransferState;
         let newData = state.data;
         let newSelectedItems = state.selectedItems;
