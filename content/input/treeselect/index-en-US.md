@@ -413,7 +413,7 @@ By setting the `remote` property, you can enable remote search. When enabled, lo
 
 ```jsx live=true
 import React, { useState, useCallback } from 'react';
-import { TreeSelect, Toast } from '@douyinfe/semi-ui';
+import { TreeSelect, Spin } from '@douyinfe/semi-ui';
 
 () => {
     const [value, setValue] = useState();
@@ -448,7 +448,7 @@ import { TreeSelect, Toast } from '@douyinfe/semi-ui';
             treeData={treeData}
             filterTreeNode
             remote
-            loading={loading}
+            suffix={loading ? <Spin size="small" /> : undefined}
             value={value}
             onChange={setValue}
             onSearch={handleSearch}
