@@ -53,4 +53,24 @@ describe('Transfer tree data overrides', () => {
         const { container } = render(<Transfer type="treeList" dataSource={source} treeProps={{ treeData: tree }} value={['a']} />);
         expect(container.querySelector('.semi-transfer-right').textContent).toContain('Source A');
     });
+
+    it('supports object-valued Tree callbacks while preserving hidden selections', () => {
+        const onChange = sinon.spy();
+        const { container } = render(<Transfer type="treeList" dataSource={source} treeProps={{ treeData: tree, onChangeWithObject: true }} defaultValue={['a']} onChange={onChange} />);
+        const left = container.querySelector('.semi-transfer-left');
+        fireEvent.click(within(left).getByText('Tree B'));
+        expect(onChange.lastCall.args[0]).toEqual(['a', 'b']);
+        fireEvent.click(within(left).getByText('Tree B'));
+        expect(onChange.lastCall.args[0]).toEqual(['a']);
+    });
+
+    it('supports object-valued Tree callbacks with the original data source', () => {
+        const onChange = sinon.spy();
+        const { container } = render(<Transfer type="treeList" dataSource={source} treeProps={{ onChangeWithObject: true }} onChange={onChange} />);
+        const left = container.querySelector('.semi-transfer-left');
+        fireEvent.click(within(left).getByText('Source A'));
+        expect(onChange.lastCall.args[0]).toEqual(['a']);
+        fireEvent.click(within(left).getByText('Source A'));
+        expect(onChange.lastCall.args[0]).toEqual([]);
+    });
 });

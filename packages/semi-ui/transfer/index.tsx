@@ -627,7 +627,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 treeData={dataSource as any}
                 multiple
                 disableStrictly
-                value={values}
+                value={treeProps?.onChangeWithObject ? Array.from(selectedItems.values()) : values}
                 defaultExpandAll
                 leafOnly
                 ref={tree => this._treeRef = tree}

@@ -211,7 +211,9 @@ export default class TransferFoundation<P = Record<string, any>, S = Record<stri
             });
         }
 
-        (values as any).forEach((value: any) => {
+        (values as any).forEach((item: any) => {
+            const value = treeProps?.onChangeWithObject && item && typeof item === 'object'
+                ? item[treeProps.keyMaps?.value || 'value'] ?? item[treeProps.keyMaps?.key || 'key'] : item;
             const node = allItemsMap.get(value) as BasicResolvedDataItem;
             if (!node && Array.isArray(treeProps?.treeData)) return;
             // The value passed in is an array of the value used, but the internal selectedItems stores a map of keys
