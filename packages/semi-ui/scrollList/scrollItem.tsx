@@ -149,7 +149,7 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
         } else {
             this.scrollToNode(selectedNode, 0);
         }
-    };
+    }
 
     componentDidUpdate(prevProps: ScrollItemProps<T>) {
         const { selectedIndex, list, cycled } = this.props;
