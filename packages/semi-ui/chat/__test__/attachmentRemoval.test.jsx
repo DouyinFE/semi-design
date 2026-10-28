@@ -54,4 +54,20 @@ describe('Chat upload modes', () => {
         const { container } = render(<Chat chats={[]} hints={[]} roleConfig={{}} enableUpload={false} />);
         expect(container.querySelector('input[type="file"]')).toBeNull();
     });
+
+    it('can remove an existing attachment after upload is disabled', async () => {
+        const onRemove = sinon.spy();
+        const customRequest = sinon.spy();
+        const uploadProps = { action: '/upload', addOnPasting: true, customRequest, onRemove };
+        const { container, rerender } = render(<Chat chats={[]} hints={[]} roleConfig={{}} enableUpload uploadProps={uploadProps} />);
+        const file = new File(['example'], 'example.txt', { type: 'text/plain' });
+        fireEvent.change(container.querySelector('input.semi-upload-hidden-input'), { target: { files: [file] } });
+        await waitFor(() => expect(container.querySelector('.semi-chat-attachment-file-title')).toBeTruthy());
+        rerender(<Chat chats={[]} hints={[]} roleConfig={{}} enableUpload={false} uploadProps={uploadProps} />);
+        fireEvent.paste(document.body, { clipboardData: { items: [{ kind: 'file', getAsFile: () => file }] } });
+        expect(customRequest.calledOnce).toBe(true);
+        fireEvent.click(container.querySelector('.semi-chat-attachment-clear'));
+        await waitFor(() => expect(container.querySelector('.semi-chat-attachment-file-title')).toBeNull());
+        expect(onRemove.calledOnce).toBe(true);
+    });
 });

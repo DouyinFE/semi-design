@@ -66,13 +66,15 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
 
     renderUploadButton = () => {
         const { uploadProps, uploadRef = this.uploadRef, uploadTipProps, clickUpload, pasteUpload, dragUpload } = this.props;
-        if (!clickUpload && !pasteUpload && !dragUpload) {
+        const { attachment } = this.state;
+        const canUpload = clickUpload || pasteUpload || dragUpload;
+        if (!canUpload && !attachment.length) {
             return null;
         }
-        const { attachment } = this.state;
         const { className, onChange, renderFileItem, children, ...rest } = uploadProps;
         const realUploadProps = {
             ...rest,
+            addOnPasting: canUpload && rest.addOnPasting,
             className: cls(`${PREFIX_INPUT_BOX}-upload`, {
                 [className]: className
             }),
