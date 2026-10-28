@@ -120,7 +120,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
             backBottomVisible: false,
             wheelScroll: false,
         };
-
+        
         this.onSelectOrRemove = this.onSelectOrRemove.bind(this);
     }
 
