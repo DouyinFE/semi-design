@@ -16,6 +16,7 @@ const textAutoSize = { minRows: 1, maxRows: 5 };
 class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
 
     inputAreaRef: React.RefObject<any>;
+    uploadRef = React.createRef<Upload>();
     static propTypes = {
         uploadProps: PropTypes.object,
     };
@@ -64,7 +65,7 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
     }
 
     renderUploadButton = () => {
-        const { uploadProps, uploadRef, uploadTipProps, clickUpload } = this.props;
+        const { uploadProps, uploadRef = this.uploadRef, uploadTipProps, clickUpload } = this.props;
         if (!clickUpload) {
             return null;
         }
@@ -110,7 +111,7 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
             />
             <Attachment 
                 attachment={attachment as any} 
-                onClear={this.foundation.onAttachmentDelete}
+                onClear={file => (this.props.uploadRef ?? this.uploadRef).current?.remove(file)}
             />
         </div>);
     }
