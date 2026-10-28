@@ -32,8 +32,18 @@ interface AnimationState {
     isAnimating: boolean
 }
 
+export const getPendingAnimations = (element: Element) =>
+    (element.getAnimations?.() ?? []).filter(animation =>
+        'animationName' in animation && animation.playState !== 'finished' && animation.playState !== 'idle' &&
+        animation.effect && Number.isFinite(animation.effect.getComputedTiming().endTime)
+    );
+
 
 class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
+
+    private animationVersion = 0;
+    private completed = false;
+    private mounted = false;
 
     static defaultProps = {
         motion: true,
@@ -54,6 +64,7 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
 
 
     componentDidMount() {
+        this.mounted = true;
         // The purpose is to shield the impact of the presence or absence of animation on the other semi component life cycle.
         // In order to make the component side do not need to manually call the next life cycle function when there is no animation,
         // so when there is no animation , it is logically (and only logically) regarded as an animation with a duration of 0.
@@ -70,6 +81,8 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
         if (changedKeys.includes("animationState")) {
         }
         if (changedKeys.includes("startClassName") || changedKeys.includes('replayKey') || changedKeys.includes("motion")) {
+            this.animationVersion++;
+            this.completed = false;
             this.setState({
                 currentClassName: this.props.startClassName,
                 extraStyle: {
@@ -88,15 +101,24 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
 
     }
 
-    handleAnimationStart = () => {
+    componentWillUnmount() {
+        this.mounted = false;
+    }
+
+    handleAnimationStart = (event: React.AnimationEvent) => {
         this.props.onAnimationStart?.();
+        if (this.props.animationState === 'leave' && event.target === event.currentTarget && !getPendingAnimations(event.currentTarget).length &&
+            (event.currentTarget.getAnimations?.() ?? []).some(animation =>
+                'animationName' in animation && animation.effect && !Number.isFinite(animation.effect.getComputedTiming().endTime)
+            )) {
+            this.completeAnimation();
+        }
     }
 
 
-    handleAnimationEnd = (event: React.AnimationEvent) => {
-        if (event.target !== event.currentTarget) {
-            return;
-        }
+    completeAnimation = () => {
+        if (this.completed) return;
+        this.completed = true;
         this.setState({
             currentClassName: this.props.endClassName,
             extraStyle: {
@@ -106,6 +128,24 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
         }, () => {
             this.props.onAnimationEnd?.(false);
         });
+    }
+
+    handleAnimationEnd = (event: React.AnimationEvent) => {
+        if (event.target !== event.currentTarget) {
+            return;
+        }
+        const element = event.currentTarget;
+        const pending = getPendingAnimations(element);
+        if (pending.length) {
+            const version = this.animationVersion;
+            pending.forEach(animation => animation.finished.catch(() => {
+                if (this.mounted && version === this.animationVersion && !getPendingAnimations(element).length) {
+                    this.completeAnimation();
+                }
+            }));
+            return;
+        }
+        this.completeAnimation();
     }
 
 

@@ -4,9 +4,9 @@ import ModalFoundation, { ModalAdapter, ModalProps, ModalState } from '@douyinfe
 import cls from 'classnames';
 import { noop } from 'lodash';
 import PropTypes from 'prop-types';
-import React, { CSSProperties, LegacyRef, ReactNode } from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
 import BaseComponent from '../_base/baseComponent';
-import CSSAnimation from "../_cssAnimation";
+import CSSAnimation, { getPendingAnimations } from "../_cssAnimation";
 import Portal from '../_portal';
 import { getDefaultPropsFromGlobalConfig, getScrollbarWidth } from '../_utils';
 import Button from '../button';
@@ -112,7 +112,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
     static useModal = useModal;
     foundation: ModalFoundation;
 
-    private readonly modalRef: LegacyRef<ModalContent>;
+    private readonly modalRef: React.RefObject<ModalContent>;
     private bodyOverflow: string|null = null;
     private scrollBarWidth: number;
     private originBodyWidth: string;
@@ -261,6 +261,11 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
 
     updateState = () => {
         const { visible } = this.props;
+        if (!visible) {
+            const modal = this.modalRef.current;
+            const nodes = [modal?.modalDialogRef.current, modal?.modalMaskRef.current];
+            if (nodes.some(node => node && getPendingAnimations(node).length)) return;
+        }
         this.foundation.toggleDisplayNone(!visible);
     };
 
