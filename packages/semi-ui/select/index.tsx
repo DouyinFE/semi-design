@@ -105,7 +105,7 @@ export interface selectMethod {
     focus?: () => void;
     close?: () => void;
     open?: () => void;
-    rePosition?: () => void
+    rePosition?: () => void;
 }
 export type SelectSize = 'small' | 'large' | 'default';
 
@@ -198,15 +198,15 @@ export type SelectProps<T = BasicSelectValue> = {
     showRestTagsPopover?: boolean;
     restTagsPopoverProps?: PopoverProps
 } & Pick<
-TooltipProps,
-| 'spacing'
-| 'getPopupContainer'
-| 'motion'
-| 'autoAdjustOverflow'
-| 'mouseLeaveDelay'
-| 'mouseEnterDelay'
-| 'stopPropagation'
-| 'rePosKey'
+    TooltipProps,
+    | 'spacing'
+    | 'getPopupContainer'
+    | 'motion'
+    | 'autoAdjustOverflow'
+    | 'mouseLeaveDelay'
+    | 'mouseEnterDelay'
+    | 'stopPropagation'
+    | 'rePosKey'
 >;
 
 export interface SelectState {

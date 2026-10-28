@@ -122,7 +122,7 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
         this._adapter.notifyIntersect(res);
     }
 
-    getReversedItems = () => {
+    getReversedItems = ()=>{
         const { items } = this.getProps();
         return copy(items).reverse();
     }

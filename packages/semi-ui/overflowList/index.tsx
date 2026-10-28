@@ -54,7 +54,7 @@ export interface OverflowListState {
     maxCount?: number;
     overflowStatus?: 'calculating' | 'overflowed' | 'normal';
     pivot?: number;
-    overflowWidth?: number;
+    overflowWidth?: number
     /**
      * Cache overflow result for scroll mode.
      * Used to keep arrow/menu state stable during items changes or before IntersectionObserver updates.
@@ -63,7 +63,7 @@ export interface OverflowListState {
     /**
      * Whether scroll overflow is recalculating (e.g. items changed and visibility not re-computed yet).
      */
-    isScrollOverflowCalculating?: boolean
+    isScrollOverflowCalculating?: boolean;
 }
 
 // reference to https://github.com/palantir/blueprint/blob/1aa71605/packages/core/src/components/overflow-list/overflowList.tsx#L34
