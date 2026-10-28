@@ -85,4 +85,12 @@ describe('Transfer tree data overrides', () => {
         expect(container.querySelector('.semi-transfer-right').textContent).toContain('Source A');
         expect(container.querySelector('.semi-transfer-right').textContent).toContain('Mapped B');
     });
+
+    it('uses a mapped key when the tree node has no value', () => {
+        const onChange = sinon.spy();
+        const treeData = [{ id: 'b', name: 'Mapped B' }];
+        const { getByText } = render(<Transfer type="treeList" dataSource={source} treeProps={{ treeData, keyMaps: { key: 'id', value: 'val', label: 'name' } }} onChange={onChange} />);
+        fireEvent.click(getByText('Mapped B'));
+        expect(onChange.lastCall.args[0]).toEqual(['b']);
+    });
 });
