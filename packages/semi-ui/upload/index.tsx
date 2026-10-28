@@ -398,8 +398,8 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                                                         }
                                                     }
                                                     
+                                                    await pending.ready;
                                                     if (files.length > 0 && !pending.handled && this.props.addOnPasting && !this.props.disabled && !this.foundation.destroyState) {
-                                                        pending.clipboardHandled = true;
                                                         const imageFiles = files.filter(file => this.isImageFile(file));
                                                         
                                                         if (imageFiles.length > 0) {
@@ -413,14 +413,14 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                                                 };
                                                 processClipboardItems();
                                             }).catch(error => {
-                                                if (!pending.handled) this.props.onPastingError(error);
+                                                this.foundation.notifyPastingErrorIfUnhandled(pending, error);
                                             });
                                         } else {
-                                            this.props.onPastingError(result);
+                                            this.foundation.notifyPastingErrorIfUnhandled(pending, result);
                                         }
                                     })
                                     .catch(error => {
-                                        if (!pending.handled) this.props.onPastingError(error);
+                                        this.foundation.notifyPastingErrorIfUnhandled(pending, error);
                                     });
                                 // Don't call original callback, we've handled it
                                 return;
@@ -458,9 +458,8 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                         }
                         if (files.length > 0 && files.some(file => this.isImageFile(file))) {
                             e.preventDefault();
-                            if (!this.foundation.markPastingHandled()) {
-                                this.handleCropFiles(files);
-                            }
+                            this.foundation.markPastingHandled();
+                            this.handleCropFiles(files);
                             return;
                         }
                     }

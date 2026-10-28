@@ -211,4 +211,100 @@ describe('Upload pasting lifecycle', () => {
             if (clipboard) { Object.defineProperty(navigator, 'clipboard', clipboard); } else { delete navigator.clipboard; }
         }
     });
+
+    // The native paste event may be dispatched in a later task than keydown (macOS Chromium Cmd+V).
+    describe('paste event arriving in a later task than keydown', () => {
+        let permissions;
+        let clipboard;
+        beforeEach(() => {
+            permissions = Object.getOwnPropertyDescriptor(navigator, 'permissions');
+            clipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+            rs.useFakeTimers();
+        });
+        afterEach(() => {
+            rs.useRealTimers();
+            if (permissions) { Object.defineProperty(navigator, 'permissions', permissions); } else { delete navigator.permissions; }
+            if (clipboard) { Object.defineProperty(navigator, 'clipboard', clipboard); } else { delete navigator.clipboard; }
+        });
+        function setup(state, crop) {
+            Object.defineProperty(navigator, 'permissions', { configurable: true, value: { query: async () => ({ state }) } });
+            Object.defineProperty(navigator, 'clipboard', {
+                configurable: true,
+                value: { read: async () => [{ types: ['image/png'], getType: async () => ({ arrayBuffer: async () => new ArrayBuffer(1) }) }] },
+            });
+            const request = sinon.spy();
+            const onPastingError = sinon.spy();
+            render({ addOnPasting: true, customRequest: request, crop, onPastingError });
+            const cropFiles = sinon.stub(instance, 'handleCropFiles');
+            return { onPastingError, uploads: () => (crop ? cropFiles.callCount : request.callCount) };
+        }
+        const tick = ms => act(async () => { await rs.advanceTimersByTimeAsync(ms); });
+        const press = () => act(async () => {
+            document.body.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyV', ctrlKey: true, metaKey: true, bubbles: true }));
+            await rs.advanceTimersByTimeAsync(0);
+        });
+
+        it.each([false, true])('uploads once and reports no error when permission is granted (crop=%s)', async crop => {
+            const { onPastingError, uploads } = setup('granted', crop);
+            await press();
+            await tick(5);
+            await act(async () => { pasteFile(); });
+            await tick(300);
+            expect(uploads()).toBe(1);
+            expect(onPastingError.called).toBe(false);
+        });
+
+        it.each([false, true])('reports no error when permission is denied (crop=%s)', async crop => {
+            const { onPastingError, uploads } = setup('denied', crop);
+            await press();
+            await tick(5);
+            await act(async () => { pasteFile(); });
+            await tick(300);
+            expect(uploads()).toBe(1);
+            expect(onPastingError.called).toBe(false);
+        });
+
+        it.each([false, true])('reports the permission error only after the fallback delay when no paste event arrives (crop=%s)', async crop => {
+            const { onPastingError, uploads } = setup('denied', crop);
+            await press();
+            await tick(50);
+            expect(onPastingError.called).toBe(false);
+            await tick(100);
+            expect(onPastingError.callCount).toBe(1);
+            expect(uploads()).toBe(0);
+        });
+
+        it.each([false, true])('uses the clipboard read only after the fallback delay when no paste event arrives (crop=%s)', async crop => {
+            const { onPastingError, uploads } = setup('granted', crop);
+            await press();
+            await tick(50);
+            expect(uploads()).toBe(0);
+            await tick(100);
+            expect(uploads()).toBe(1);
+            expect(onPastingError.called).toBe(false);
+        });
+
+        it.each([false, true])('handles consecutive pastes once each (crop=%s)', async crop => {
+            const { uploads } = setup('granted', crop);
+            for (let i = 0; i < 2; i++) {
+                await press();
+                await tick(5);
+                await act(async () => { pasteFile(); });
+                await tick(5);
+            }
+            await tick(300);
+            expect(uploads()).toBe(2);
+        });
+
+        it.each([false, true])('drops the pending clipboard read and its timer on unmount (crop=%s)', async crop => {
+            const { uploads, onPastingError } = setup('granted', crop);
+            await press();
+            wrapper.unmount();
+            wrapper = null;
+            expect(rs.getTimerCount()).toBe(0);
+            await tick(300);
+            expect(uploads()).toBe(0);
+            expect(onPastingError.called).toBe(false);
+        });
+    });
 });

@@ -37,8 +37,14 @@ const strings = {
     PROMPT_POSITION: ['left', 'right', 'bottom'] as const,
 };
 
+// Keydown and the native paste event can land in different tasks (e.g. macOS Chromium, where
+// Cmd+V paste is dispatched after an IPC round trip). Keyboard clipboard reads wait this long
+// for the paste event; a paste arriving later than this can still duplicate the upload.
+const PASTING_FALLBACK_DELAY = 100;
+
 const numbers = {
-    PROGRESS_COEFFICIENT
+    PROGRESS_COEFFICIENT,
+    PASTING_FALLBACK_DELAY,
 };
 
 export { cssClasses, strings, numbers };

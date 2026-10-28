@@ -35,7 +35,8 @@ describe('Upload crop paste permission errors', () => {
         wrapper = mount(<Upload action="/upload" crop addOnPasting onPastingError={onPastingError} />);
         await act(async () => {
             document.body.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyV', ctrlKey: true, metaKey: true }));
-            await new Promise(resolve => setTimeout(resolve, 0));
+            // Errors are held back for the paste fallback delay (100ms) in case a native paste event follows.
+            await new Promise(resolve => setTimeout(resolve, 150));
         });
         return { onPastingError, read };
     }

@@ -64,6 +64,12 @@ export interface AfterUploadResult {
     url?: string
 }
 
+export interface PendingPaste {
+    handled: boolean;
+    timer: ReturnType<typeof setTimeout>;
+    ready: Promise<void>
+}
+
 export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     notifyFileSelect: (files: Array<CustomFile>) => void;
     notifyError: (error: XhrError, fileInstance: CustomFile, fileList: Array<BaseFileItem>, xhr: XMLHttpRequest) => void;
@@ -105,8 +111,8 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
      * when _createURL is called multiple times in a sync loop.
      */
     _localUrls: Record<string, string> = {};
-    /** Associates a keyboard paste with the native paste event in the same task. */
-    _pendingPaste: { handled: boolean; clipboardHandled: boolean } | null = null;
+    /** Associates a keyboard paste with the native paste event that follows it. */
+    _pendingPaste: PendingPaste | null = null;
     /**
      * Working copy of fileList used during a synchronous startUpload batch.
      * Do NOT rely on React state fileList here: setState is async (batched in React 18),
@@ -191,6 +197,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         // In controlled mode, parent may keep and pass back fileList with blob url;
         // revoking here will cause preview/blob ERR_FILE_NOT_FOUND after remount.
         this.unbindPastingHandler();
+        this.markPastingHandled();
         this._batchFileList = null;
         this._latestFileList = null;
         this.destroyState = true;
@@ -1058,41 +1065,54 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         this._adapter.notifyPreviewClick(fileItem);
     }
 
-    beginPasting() {
-        const pending = { handled: false, clipboardHandled: false };
+    /**
+     * Register a keyboard paste. `ready` resolves after the fallback delay if no native paste
+     * event arrives; clipboard read results must wait for it before being used.
+     */
+    beginPasting(): PendingPaste {
+        const pending = { handled: false } as PendingPaste;
+        pending.ready = new Promise<void>(resolve => {
+            pending.timer = setTimeout(() => {
+                if (this._pendingPaste === pending) this._pendingPaste = null;
+                resolve();
+            }, numbers.PASTING_FALLBACK_DELAY);
+        });
         this._pendingPaste = pending;
-        setTimeout(() => {
-            if (this._pendingPaste === pending) this._pendingPaste = null;
-        }, 0);
         return pending;
     }
 
-    markPastingHandled() {
-        const clipboardHandled = Boolean(this._pendingPaste?.clipboardHandled);
-        if (this._pendingPaste) {
-            this._pendingPaste.handled = true;
+    /** The native paste event arrived (or we are destroyed): discard the pending clipboard read. */
+    markPastingHandled(): void {
+        const pending = this._pendingPaste;
+        if (pending) {
+            pending.handled = true;
+            clearTimeout(pending.timer);
             this._pendingPaste = null;
         }
-        return clipboardHandled;
     }
 
-    readFileFromClipboard(clipboardItems, pending?: { handled: boolean; clipboardHandled: boolean }) {
+    notifyPastingErrorIfUnhandled(pending: PendingPaste, error: Error | PermissionStatus): void {
+        pending.ready.then(() => {
+            if (!pending.handled && !this.destroyState) this._adapter.notifyPastingError(error);
+        });
+    }
+
+    readFileFromClipboard(clipboardItems, pending: PendingPaste) {
         for (const clipboardItem of clipboardItems) {
             for (const type of clipboardItem.types) {
                 // types maybe: text/plain, image/png, text/html
                 if (type.startsWith('image')) {
                     clipboardItem.getType(type).then(blob => {
                         return blob.arrayBuffer();
-                    }).then((buffer) => {
+                    }).then((buffer) => pending.ready.then(() => {
                         const { disabled, addOnPasting } = this.getProps();
-                        if (disabled || !addOnPasting || this.destroyState || pending?.handled) {
+                        if (disabled || !addOnPasting || this.destroyState || pending.handled) {
                             return;
                         }
                         const format = type.split('/')[1];
                         const file = new File([buffer], `upload.${format}`, { type });
-                        if (pending) pending.clipboardHandled = true;
                         this.handleChange([file]);
-                    });
+                    }));
                 }
             }
         }
@@ -1122,9 +1142,8 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
 
             if (files.length > 0) {
                 e.preventDefault();
-                if (!this.markPastingHandled()) {
-                    this.handleChange(files);
-                }
+                this.markPastingHandled();
+                this.handleChange(files);
                 return;
             }
         }
@@ -1156,14 +1175,14 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                             // Check the returned data type to determine if it is image data, and process accordingly
                             this.readFileFromClipboard(clipboardItems, pending);
                         }).catch(error => {
-                            if (!pending.handled) this._adapter.notifyPastingError(error);
+                            this.notifyPastingErrorIfUnhandled(pending, error);
                         });
                     } else {
-                        this._adapter.notifyPastingError(result);
+                        this.notifyPastingErrorIfUnhandled(pending, result);
                     }
                 })
                 .catch(error => {
-                    if (!pending.handled) this._adapter.notifyPastingError(error);
+                    this.notifyPastingErrorIfUnhandled(pending, error);
                 });
         }
     }
