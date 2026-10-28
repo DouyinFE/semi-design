@@ -2,7 +2,7 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import NavItem from './NavItem';
 import { ItemProps, ItemKey } from './itemFoundation';
 import { strings } from './constants';
-import { get } from 'lodash';
+import { get, isEmpty } from 'lodash';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 
 export interface ItemKey2ParentKeysMap {
@@ -174,10 +174,12 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
      */
     getWillOpenKeys(itemKeysMap: ItemKey2ParentKeysMap, isInitial = false) {
         const { defaultOpenKeys, openKeys, defaultSelectedKeys, selectedKeys, mode } = this.getProps();
-        const { openKeys: stateOpenKeys = [] } = this.getStates();
+        const { openKeys: stateOpenKeys = [], selectedKeys: stateSelectedKeys, itemKeysMap: stateItemKeysMap } = this.getStates();
 
         let willOpenKeys = openKeys || (isInitial ? defaultOpenKeys : stateOpenKeys) || [];
-        const currentSelectedKeys = selectedKeys || (isInitial ? defaultSelectedKeys : undefined);
+        // Items loaded after mount: the first non-empty map has never been used to open parents of the selected keys
+        const isFirstItemsLoad = !isInitial && isEmpty(stateItemKeysMap) && !isEmpty(itemKeysMap);
+        const currentSelectedKeys = selectedKeys || (isInitial ? defaultSelectedKeys : (isFirstItemsLoad ? stateSelectedKeys : undefined));
         if (
             !(Array.isArray(defaultOpenKeys) ||
             Array.isArray(openKeys)) && mode === strings.MODE_VERTICAL && Array.isArray(currentSelectedKeys)

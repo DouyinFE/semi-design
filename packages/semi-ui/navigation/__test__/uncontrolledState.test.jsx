@@ -59,4 +59,11 @@ describe('Navigation defaults only initialize state', () => {
         expect(wrapper.state('openKeys')).toEqual(['team']);
         wrapper.unmount();
     });
+
+    it('opens the parent of defaultSelectedKeys when items are loaded after the first render', () => {
+        const wrapper = mount(<Nav items={[]} defaultSelectedKeys={['members']} subNavMotion={false} />);
+        wrapper.setProps({ items });
+        expect(wrapper.state('openKeys')).toEqual(['team']);
+        wrapper.unmount();
+    });
 });
