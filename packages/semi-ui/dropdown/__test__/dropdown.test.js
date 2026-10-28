@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Icon, Dropdown, Tag } from '../../index';
 import { string } from 'prop-types';
 import { noop, drop } from 'lodash';
@@ -309,4 +310,5 @@ describe('Dropdown', () => {
         DD.update()
         expect(DD.find('.semi-dropdown-menu').children().length).toEqual(menu2.length - 1);
     });
+    
 });
