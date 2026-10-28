@@ -55,7 +55,7 @@ class Portal extends PureComponent<PortalProps, PortalState> {
 
     componentDidMount() {
         const container = this.initContainer(this.context);
-        if (container !== this.state.container) {
+        if (container!==this.state.container) {
             this.setState({ container });
         }
     }
