@@ -95,7 +95,7 @@ export default class SideSheetFoundation extends BaseFoundation<SideSheetAdapter
     }
 
 
-    toggleDisplayNone = (displayNone: boolean) => {
+    toggleDisplayNone = (displayNone: boolean)=>{
         this._adapter.toggleDisplayNone(displayNone);
     }
 
