@@ -53,7 +53,7 @@ export interface RenderSelectedItemProps extends DataItem {
     /**
      * The full path of the node in treeList mode (only available when showPath is true)
      */
-    fullPath?: Array<FullPathItem>
+    fullPath?: Array<FullPathItem>;
 }
 
 export interface EmptyContent {
@@ -126,7 +126,7 @@ export interface PaginationProps {
     /** Number of items per page */
     pageSize?: number;
     /** Callback when page changes */
-    onPageChange?: (currentPage: number) => void
+    onPageChange?: (currentPage: number) => void;
 }
 
 export interface ResolvedDataItem extends DataItem {
@@ -152,7 +152,7 @@ interface HeaderConfig {
     showButton: boolean;
     num: number;
     allChecked?: boolean;
-    leafOnlyNum?: number
+    leafOnlyNum?: number;
 }
 
 type SourceHeaderProps = {
@@ -160,7 +160,7 @@ type SourceHeaderProps = {
     showButton: boolean;
     allChecked: boolean;
     onAllClick: () => void;
-    leafOnlyNum?: number
+    leafOnlyNum?: number;
 }
 
 type SelectedHeaderProps = {
@@ -174,7 +174,7 @@ export interface TransferState {
     selectedItems: Map<number | string, ResolvedDataItem>;
     searchResult: Set<number | string>;
     inputValue: string;
-    leftCurrentPage: number
+    leftCurrentPage: number;
 }
 
 export interface TransferProps {
