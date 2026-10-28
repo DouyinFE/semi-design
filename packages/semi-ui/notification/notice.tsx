@@ -122,7 +122,9 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
     };
 
     startCloseTimer = () => {
-        this.foundation._startCloseTimer();
+        if (!this.props.isClosing) {
+            this.foundation._startCloseTimer();
+        }
     };
 
     close = (e: React.MouseEvent) => {

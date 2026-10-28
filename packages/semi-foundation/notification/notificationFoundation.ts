@@ -52,8 +52,6 @@ export default class NotificationFoundation extends BaseFoundation<NoticeAdapter
 
     _id: string | null = null; // cache id
 
-    _closed = false;
-
     constructor(adapter: NoticeAdapter) {
         super({ ...NotificationFoundation.defaultAdapter, ...adapter });
     }
@@ -71,7 +69,7 @@ export default class NotificationFoundation extends BaseFoundation<NoticeAdapter
     _startCloseTimer() {
         // unit: s
         const duration = this.getProp('duration');
-        if (!this._closed && duration && isNumber(duration)) {
+        if (duration && isNumber(duration)) {
             this._timer = setTimeout(() => {
                 this.close(); // call parent to remove itself
             }, duration * 1000);
@@ -82,10 +80,6 @@ export default class NotificationFoundation extends BaseFoundation<NoticeAdapter
         if (e) {
             e.stopPropagation();
         }
-        if (this._closed) {
-            return;
-        }
-        this._closed = true;
         this._clearCloseTimer();
         this._adapter.notifyWrapperToRemove(this._id);
         this._adapter.notifyClose();

@@ -9,10 +9,15 @@ describe('Notification close lifecycle', () => {
         try {
             clock.tick(800);
             expect(onClose.calledOnce).toBe(true);
+            notice.setProps({ isClosing: true });
             notice.find(`.${BASE_CLASS_PREFIX}-notification-notice`).simulate('mouseEnter');
             notice.find(`.${BASE_CLASS_PREFIX}-notification-notice`).simulate('mouseLeave');
             clock.tick(800);
             expect(onClose.calledOnce).toBe(true);
+            notice.setProps({ isClosing: false });
+            notice.find(`.${BASE_CLASS_PREFIX}-notification-notice`).simulate('mouseLeave');
+            clock.tick(800);
+            expect(onClose.calledTwice).toBe(true);
         } finally {
             notice.unmount();
             clock.restore();

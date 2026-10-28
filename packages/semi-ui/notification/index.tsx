@@ -27,6 +27,7 @@ import semiGlobal from '../_utils/semi-global';
 
 export interface NoticeReactProps extends NoticeProps {
     style?: CSSProperties
+    isClosing?: boolean
 }
 
 export type {
@@ -265,6 +266,7 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
                                     })}
                                     {...animationEventsNeedBind}
                                     style={{ ...notice.style }}
+                                    isClosing={isRemoved}
                                     close={this.remove}
                                 />;
                             }}
