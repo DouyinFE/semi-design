@@ -65,8 +65,8 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
     }
 
     renderUploadButton = () => {
-        const { uploadProps, uploadRef = this.uploadRef, uploadTipProps, clickUpload } = this.props;
-        if (!clickUpload) {
+        const { uploadProps, uploadRef = this.uploadRef, uploadTipProps, clickUpload, pasteUpload, dragUpload } = this.props;
+        if (!clickUpload && !pasteUpload && !dragUpload) {
             return null;
         }
         const { attachment } = this.state;
@@ -89,6 +89,9 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
                 theme='borderless'
             />}
         </Upload>;
+        if (!clickUpload) {
+            return <span style={{ display: 'none' }}>{uploadNode}</span>;
+        }
         return (uploadTipProps ? <Tooltip {...uploadTipProps}><span>{uploadNode}</span></Tooltip> : uploadNode);
     }
 

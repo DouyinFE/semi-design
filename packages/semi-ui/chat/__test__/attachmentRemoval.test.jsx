@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, render, waitFor, cleanup } from '@testing-library/react';
 import InputBox from '../inputBox';
+import Chat from '../index';
 
 afterEach(cleanup);
 
@@ -31,5 +32,26 @@ describe('Chat attachment removal', () => {
         expect(beforeRemove.calledOnce).toBe(true);
         expect(onRemove.calledOnce).toBe(true);
         expect(onInputChange.lastCall.args[0].attachment).toEqual([]);
+    });
+});
+
+describe('Chat upload modes', () => {
+    it.each(['drag', 'paste'])('uploads by %s when click upload is disabled', async mode => {
+        const customRequest = sinon.spy();
+        const { container } = render(<Chat chats={[]} hints={[]} roleConfig={{}} enableUpload={{ clickUpload: false, dragUpload: true, pasteUpload: true }} uploadProps={{ action: '/upload', customRequest }} />);
+        const file = new File(['example'], 'example.txt', { type: 'text/plain' });
+        if (mode === 'drag') {
+            fireEvent.dragOver(container.querySelector('.semi-chat'));
+            fireEvent.drop(container.querySelector('.semi-chat-dropArea'), { dataTransfer: { files: [file] } });
+        } else {
+            fireEvent.paste(container.querySelector('textarea'), { clipboardData: { items: [{ getAsFile: () => file }] } });
+        }
+        await waitFor(() => expect(customRequest.calledOnce).toBe(true));
+        expect(container.querySelector('.semi-chat-inputBox-uploadButton').closest('span[style="display: none;"]')).toBeTruthy();
+    });
+
+    it('does not mount Upload when all upload modes are disabled', () => {
+        const { container } = render(<Chat chats={[]} hints={[]} roleConfig={{}} enableUpload={false} />);
+        expect(container.querySelector('input[type="file"]')).toBeNull();
     });
 });
