@@ -145,7 +145,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         let invalid = false;
         const parsedAll = (value as any[]).every((v, index) => {
             const pv = parseToDate(v, formatToken, dateFnsLocale);
-            if (isUndefined(pv) && this._adapter.isRangePicker()) {
+            if (this._isEmptyRangeEnd(pv)) {
                 return true;
             }
             if (pv && !isNaN(pv.getTime())) {
@@ -182,6 +182,10 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             inputValue,
             invalid,
         } as any);
+    }
+
+    _isEmptyRangeEnd(date?: Date) {
+        return isUndefined(date) && this._adapter.isRangePicker();
     }
 
     getValidFormat(validFormat?: string) {
@@ -236,11 +240,11 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         
         let dates = this.parseValue(value);
 
-        let invalid = dates.some(d => isNaN(Number(d)));
+        let invalid = dates.some(d => !this._isEmptyRangeEnd(d) && isNaN(Number(d)));
         if (!invalid) {
             if (this.isValidTimeZone(timeZone)) {
                 dates = dates.map(date =>
-                    utcToZonedTime(
+                    this._isEmptyRangeEnd(date) ? date : utcToZonedTime(
                         this.isValidTimeZone(__prevTimeZone) ? zonedTimeToUtc(date, __prevTimeZone) : date,
                         timeZone
                     )
@@ -248,6 +252,9 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             }
             if (this._adapter.isRangePicker()) {
                 invalid = dates.some((d, idx) => {
+                    if (this._isEmptyRangeEnd(d)) {
+                        return false;
+                    }
                     const panelType: PanelType = idx === 1 ? 'right' : 'left';
                     return this.isDisabledHMS(
                         { hours: d.getHours(), minutes: d.getMinutes(), seconds: d.getSeconds() },

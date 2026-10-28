@@ -24,6 +24,15 @@ it('keeps the actual left-first string callback restorable', () => {
     const { container } = render(<TimePicker type="timeRange" defaultValue={result[1]} motion={false} />);
     expect(container.querySelector('input').value).toBe('01:00:00');
 });
+it.each([
+    [['', '01:00:00']],
+    [[undefined, new Date(2020, 0, 1, 1, 0, 0)]],
+])('keeps a controlled range value with an empty end valid on rerender %#', value => {
+    const { container, rerender } = render(<TimePicker type="timeRange" value={undefined} motion={false} />);
+    rerender(<TimePicker type="timeRange" value={value} motion={false} />);
+    expect(container.querySelector('input').value).toBe(' ~ 01:00:00');
+    expect(container.querySelector('.semi-input-wrapper-error')).toBeNull();
+});
 it('preserves a complete range default value', () => {
     const { container } = render(<TimePicker type="timeRange" defaultValue={['01:00:00', '02:00:00']} motion={false} />);
     expect(container.querySelector('input').value).toBe('01:00:00 ~ 02:00:00');
