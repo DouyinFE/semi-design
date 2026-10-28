@@ -550,4 +550,4 @@ const ForwardVideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
 
 export default ForwardVideoPlayer;
 
-export { VideoPlayer };
+export { VideoPlayer }; 
