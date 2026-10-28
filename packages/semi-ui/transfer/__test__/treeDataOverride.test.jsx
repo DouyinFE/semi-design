@@ -103,4 +103,13 @@ describe('Transfer tree data overrides', () => {
         fireEvent.click(getByText('Mapped B'));
         expect(onChange.lastCall.args[0]).toEqual(['b']);
     });
+
+    it.each([false, true])('uses an unmapped key when a tree node has no value, object callbacks %s', onChangeWithObject => {
+        const onChange = sinon.spy();
+        const treeData = [{ key: 'b', label: 'Tree B' }];
+        const { container, getByText } = render(<Transfer type="treeList" dataSource={source} treeProps={{ treeData, onChangeWithObject }} onChange={onChange} />);
+        fireEvent.click(getByText('Tree B'));
+        expect(onChange.lastCall.args[0]).toEqual(['b']);
+        expect(container.querySelector('.semi-transfer-right').textContent).toContain('Tree B');
+    });
 });

@@ -24,7 +24,7 @@ export function _generateTreeData(dataSource: any[], keyMaps?: KeyMapProps): any
         label: item[keyMaps.label || 'label'],
         disabled: item[keyMaps.disabled || 'disabled'],
         children: item[childrenKey],
-    } : { ...item };
+    } : { ...item, value: item.value ?? item.key };
     const stack = dataSource.map(normalize).reverse();
     while (stack.length) {
         const current = stack.pop();
