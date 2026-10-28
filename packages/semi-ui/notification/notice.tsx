@@ -88,6 +88,21 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
 
     context: ContextValue;
 
+    componentDidMount() {
+        super.componentDidMount();
+        if (this.props.isClosing) {
+            this.clearCloseTimer();
+        }
+    }
+
+    componentDidUpdate(prevProps: NoticeReactProps) {
+        if (this.props.isClosing && !prevProps.isClosing) {
+            this.clearCloseTimer();
+        } else if (!this.props.isClosing && prevProps.isClosing) {
+            this.foundation.restartCloseTimer();
+        }
+    }
+
     componentWillUnmount() {
         this.foundation.destroy();
     }
@@ -124,7 +139,7 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
 
     startCloseTimer = () => {
         if (!this.props.isClosing) {
-            this.foundation._startCloseTimer();
+            this.foundation.restartCloseTimer();
         }
     };
 
