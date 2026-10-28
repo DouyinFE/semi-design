@@ -180,7 +180,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     }
 
     componentDidUpdate(prevProps: UserGuideProps, prevStates: UserGuideState) {
-        const { visible } = this.props;
+        const { steps, visible } = this.props;
         const { current } = this.state;
 
         if (Boolean(visible && steps.length) !== Boolean(prevProps.visible && prevProps.steps.length)) {
