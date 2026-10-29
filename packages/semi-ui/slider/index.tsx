@@ -14,6 +14,7 @@ import { getDefaultPropsFromGlobalConfig } from '../_utils';
 const prefixCls = cssClasses.PREFIX;
 
 export interface SliderProps extends BasicSliceProps {
+    onBlur?: React.FocusEventHandler<HTMLSpanElement>;
     style?: CSSProperties;
     railStyle?: CSSProperties
 }
@@ -48,6 +49,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         vertical: PropTypes.bool,
         onAfterChange: PropTypes.func, // OnmouseUp and triggered when clicked
         onChange: PropTypes.func,
+        onBlur: PropTypes.func,
         onMouseUp: PropTypes.func,
         tooltipOnMark: PropTypes.bool,
         tooltipVisible: PropTypes.bool,
@@ -198,6 +200,12 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             },
             notifyChange: (cbValue: number | number[]) => {
                 this.props.onChange(Array.isArray(cbValue) ? [...cbValue].sort((a, b) => a - b) : cbValue);
+            },
+            notifyBlur: e => {
+                // Focus moving between the range handles stays inside the slider and is not a blur.
+                if (!this.sliderEl.current?.contains(e.relatedTarget as Node)) {
+                    this.props.onBlur?.(e);
+                }
             },
             setDragging: (value: boolean[]) => {
                 this.dragging = value;

@@ -31,6 +31,7 @@ export type RadioProps = {
     prefixCls?: string;
     displayMode?: RadioDisplayMode;
     onChange?: (e: RadioChangeEvent) => void;
+    onBlur?: React.FocusEventHandler<HTMLInputElement>;
     onMouseEnter?: (e: React.MouseEvent<HTMLLabelElement>) => void;
     onMouseLeave?: (e: React.MouseEvent<HTMLLabelElement>) => void;
     mode?: RadioMode;
@@ -72,6 +73,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         prefixCls: PropTypes.string,
         displayMode: PropTypes.oneOf<RadioDisplayMode>(['vertical', '']),
         onChange: PropTypes.func,
+        onBlur: PropTypes.func,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
         mode: PropTypes.oneOf(strings.MODE),
@@ -181,8 +183,9 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         this.foundation.handleFocusVisible(event);
     }
 
-    handleBlur = (event: React.FocusEvent) => {
+    handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
         this.foundation.handleBlur();
+        this.props.onBlur?.(event);
     }
 
     render() {
