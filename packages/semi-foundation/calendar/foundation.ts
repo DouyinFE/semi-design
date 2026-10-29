@@ -89,7 +89,7 @@ export type ParsedEventsType = ParsedEvents | ParsedEventsWithArray | MonthlyEve
 
 export interface CalendarAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     updateCurrPos?: (currPos: number) => void;
-    updateShowCurrTime?: () => void;
+    updateShowCurrTime?: (showCurrTime: boolean) => void;
     updateScrollHeight?: (scrollHeight: number) => void;
     setParsedEvents?: (parsedEvents: ParsedEventsType) => void;
     cacheEventKeys?: (cachedKeys: Array<string>) => void;
@@ -124,9 +124,12 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
     }
 
     initCurrTime() {
+        this.raf && cancelAnimationFrame(this.raf);
+        this.raf = null;
         const { showCurrTime, displayValue } = this.getProps();
-        if (showCurrTime && isSameDay(displayValue, getCurrDate())) {
-            this._adapter.updateShowCurrTime();
+        const shouldShow = Boolean(showCurrTime && isSameDay(displayValue, getCurrDate()));
+        this._adapter.updateShowCurrTime(shouldShow);
+        if (shouldShow) {
             this.getCurrLocation();
         }
     }
