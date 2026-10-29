@@ -184,7 +184,7 @@ class Nav extends BaseComponent<NavProps, NavState> {
         this.foundation = new NavigationFoundation(this.adapter);
         this.itemsChanged = true;
 
-        const { isCollapsed, defaultIsCollapsed, items, children } = props;
+        const { isCollapsed, defaultIsCollapsed } = props;
         const initState = {
             isCollapsed: Boolean(this.isControlled('isCollapsed') ? isCollapsed : defaultIsCollapsed),
             // calc state
@@ -194,13 +194,11 @@ class Nav extends BaseComponent<NavProps, NavState> {
             selectedKeys: [],
         };
         this.state = { ...initState };
-        if (items && items.length || children) {
-            const calcState = this.foundation.init('constructor');
-            this.state = {
-                ...initState,
-                ...calcState,
-            };
-        }
+        const calcState = this.foundation.init('constructor');
+        this.state = {
+            ...initState,
+            ...calcState,
+        };
     }
 
     static getDerivedStateFromProps(props: NavProps, state: NavState) {
