@@ -8,6 +8,7 @@ import AlphaSliderFoundation, {
     AlphaSliderBaseProps,
     AlphaSliderBaseState
 } from "@douyinfe/semi-foundation/colorPicker/AlphaSliderFoundation";
+import bindTouchDrag from '../bindTouchDrag';
 
 export interface AlphaSliderProps extends AlphaSliderBaseProps {
     className?: string;
@@ -20,6 +21,7 @@ export interface AlphaSliderState extends AlphaSliderBaseState {
 
 class AlphaSlider extends BaseComponent<PropsWithChildren<AlphaSliderProps>, AlphaSliderState> {
     private ref: React.RefObject<HTMLDivElement>;
+    private unbindTouchDrag: () => void;
 
     constructor(props) {
         super(props);
@@ -29,6 +31,17 @@ class AlphaSlider extends BaseComponent<PropsWithChildren<AlphaSliderProps>, Alp
             isHandleGrabbing: false
         };
         this.ref = React.createRef<HTMLDivElement>();
+    }
+
+    componentDidMount() {
+        super.componentDidMount();
+        this.unbindTouchDrag = bindTouchDrag(this.ref.current, this.foundation.setHandlePositionByMousePosition,
+            isHandleGrabbing => this.setState({ isHandleGrabbing }));
+    }
+
+    componentWillUnmount() {
+        this.unbindTouchDrag?.();
+        super.componentWillUnmount();
     }
 
     get adapter(): AlphaSliderAdapter<AlphaSliderProps, AlphaSliderState> {

@@ -54,7 +54,7 @@ class ColorChooseAreaFoundation extends BaseFoundation<ColorChooseAreaAdapter<Co
     }
 
 
-    setHandlePositionByMousePosition = (e: globalThis.MouseEvent) => {
+    setHandlePositionByMousePosition = (e: Pick<MouseEvent, 'clientX' | 'clientY'>) => {
         const rect = this._adapter.getDOM()?.getBoundingClientRect();
         if (!rect) {
             return;

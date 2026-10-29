@@ -12,6 +12,7 @@ import { round } from "@douyinfe/semi-foundation/colorPicker/utils/round";
 
 
 
+import bindTouchDrag from '../bindTouchDrag';
 
 export interface ColorChooseAreaProps extends ColorChooseAreaBaseProps{
     className?: string;
@@ -24,6 +25,7 @@ export interface ColorChooseAreaState extends ColorChooseAreaBaseState{
 
 class ColorChooseArea extends BaseComponent<PropsWithChildren<ColorChooseAreaProps>, ColorChooseAreaState> {
     ref: React.RefObject<HTMLDivElement>;
+    private unbindTouchDrag: () => void;
 
     constructor(props) {
         super(props);
@@ -33,6 +35,19 @@ class ColorChooseArea extends BaseComponent<PropsWithChildren<ColorChooseAreaPro
             isHandleGrabbing: false,
         };
         this.ref = React.createRef();
+    }
+
+    componentDidMount() {
+        super.componentDidMount();
+        this.unbindTouchDrag = bindTouchDrag(this.ref.current, this.foundation.setHandlePositionByMousePosition,
+            isHandleGrabbing => this.setState({ isHandleGrabbing }));
+    }
+
+    componentWillUnmount() {
+        this.unbindTouchDrag?.();
+        this.ref.current?.removeEventListener('mousemove', this.foundation.setHandlePositionByMousePosition);
+        window.removeEventListener('mouseup', this.foundation.handleMouseUp);
+        super.componentWillUnmount();
     }
 
     get adapter(): ColorChooseAreaAdapter<ColorChooseAreaProps, ColorChooseAreaState> {
