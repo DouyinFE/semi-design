@@ -1738,7 +1738,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |onPreviewClick | Callback when the file card is clicked | (fileItem: FileItem) => void | | - |
 |onProgress | Callback when uploading files| (percent: number, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList: Array<FileItem\> ) => void | | |
 |onRemove | Callback for removing files| (currentFile: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>, currentFileItem: FileItem ) => void | | |
-|onRetry | Upload retry callback | (file: <FileItem\>) => void | | - |
+|onRetry | Upload retry callback. It still fires for items without `fileInstance`, but no upload request is made | (file: <FileItem\>) => void | | - |
 |onSizeError | File size invalid callback| (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>) => void | | |
 |onSuccess | Callback after successful upload| (responseBody: object, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\> ) => void | |
 |picHeight | Set picture display height when listType='picture' | string\|number |  | 2.42.0 |

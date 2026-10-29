@@ -1056,7 +1056,9 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         if (onRetry && typeof onRetry === 'function') {
             onRetry(fileItem);
         }
-        this.post(fileItem);
+        if (fileItem.fileInstance) {
+            this.post(fileItem);
+        }
     }
 
     handlePreviewClick(fileItem: BaseFileItem): void {
