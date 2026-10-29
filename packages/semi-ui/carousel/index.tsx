@@ -59,6 +59,7 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
     };
 
     foundation: CarouselFoundation;
+    private isHovered = false;
 
     constructor(props: CarouselProps) {
         super(props);
@@ -110,7 +111,17 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
         this.handleAutoPlay();
     }
 
+    componentDidUpdate(prevProps: CarouselProps): void {
+        if (!this.foundation.getIsControlledComponent() &&
+            (!isEqual(prevProps.autoPlay, this.props.autoPlay) || prevProps.speed !== this.props.speed)) {
+            this.foundation.stop();
+            this.handleAutoPlay();
+        }
+    }
+
     componentWillUnmount(): void {
+        this.debouncedMouseEnter.cancel();
+        this.debouncedMouseLeave.cancel();
         this.foundation.destroy();
     }
 
@@ -137,12 +148,15 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
     };
 
     handleAutoPlay = (): void => {
-        if (!this.foundation.getIsControlledComponent()) {
+        const { autoPlay } = this.props;
+        const hoverToPause = autoPlay === true || (typeof autoPlay === 'object' && autoPlay.hoverToPause);
+        if (!this.foundation.getIsControlledComponent() && !(this.isHovered && hoverToPause)) {
             this.foundation.handleAutoPlay();
         }
     }
 
     handleMouseEnter = (): void => {
+        this.isHovered = true;
         const { autoPlay } = this.props;
         if ((autoPlay === true) || (typeof autoPlay === 'object' && autoPlay.hoverToPause)) {
             this.foundation.stop();
@@ -150,11 +164,16 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
     }
 
     handleMouseLeave = (): void => {
+        this.isHovered = false;
         const { autoPlay } = this.props;
-        if ((typeof autoPlay !== 'object' || autoPlay.hoverToPause) && !this.foundation.getIsControlledComponent()) {
+        if ((typeof autoPlay !== 'object' || autoPlay.hoverToPause) &&
+            (!this.foundation.getIsControlledComponent() || this.foundation._forcePlay)) {
             this.foundation.handleAutoPlay();
         }
     }
+
+    debouncedMouseEnter = debounce(this.handleMouseEnter, 400);
+    debouncedMouseLeave = debounce(this.handleMouseLeave, 400);
 
     onIndicatorChange = (activeIndex: number): void => {
         return this.foundation.onIndicatorChange(activeIndex);
@@ -273,11 +292,9 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
                 // tabIndex={0}
                 className={carouselWrapperCls}
                 style={style}
-                onMouseEnter={debounce(this.handleMouseEnter, 400)}
-                onMouseLeave={debounce(this.handleMouseLeave, 400)}
+                onMouseEnter={this.debouncedMouseEnter}
+                onMouseLeave={this.debouncedMouseLeave}
                 {...this.getDataAttr(this.props)}
-            // onMouseEnter={this.handleMouseEnter}
-            // onMouseLeave={this.handleMouseLeave}
             // onKeyDown={e => this.foundation.handleKeyDown(e)}
             >
                 <div
