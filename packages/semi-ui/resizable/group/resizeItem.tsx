@@ -65,6 +65,8 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
     }
 
     componentDidUpdate(_prevProps: ResizeItemProps) {
+        const { min, max, defaultSize, onResizeStart, onChange, onResizeEnd } = this.props;
+        this.itemIndex = this.context.registerItem(this.itemRef, min, max, defaultSize, onResizeStart, onChange, onResizeEnd);
         // 支持动态方向，修改item的style
         if (this.context.direction !== this.direction) {
             this.direction = this.context.direction;
@@ -81,6 +83,8 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
     }
 
     componentWillUnmount() {
+        this.context.unregisterItem(this.itemRef);
+        this.itemIndex = -1;
         this.foundation.destroy();
     }
 
