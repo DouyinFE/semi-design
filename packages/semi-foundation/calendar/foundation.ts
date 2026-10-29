@@ -358,7 +358,7 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
         const firstDayOfMonth = startOfMonth(displayValue);
         const lastDayOfMonth = endOfMonth(displayValue);
         const res: EventObject[] = [];
-        (events as EventObject[]).sort((prev, next) => {
+        (events as EventObject[]).slice().sort((prev, next) => {
             if (isBefore(prev.start, next.start)) {
                 return -1;
             }
