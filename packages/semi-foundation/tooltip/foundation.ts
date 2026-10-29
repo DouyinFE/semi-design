@@ -1282,8 +1282,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         
         switch (event && event.key) {
             case "Escape":
-                handlePrevent(event);
-                closeOnEsc && this._handleEscKeyDown(event);
+                if (closeOnEsc && this.getState('visible')) {
+                    handlePrevent(event);
+                    this._handleEscKeyDown(event);
+                }
                 break;
             case "ArrowUp":
                 // when disableArrowKeyDown is true, disable tooltip's arrow keyboard event action
