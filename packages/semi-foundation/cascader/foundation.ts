@@ -1070,11 +1070,13 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             newState.isSearching = false;
             this._adapter.updateInputValue('');
             this._adapter.notifyOnSearch('');
-            newState.checkedKeys = new Set([]);
-            newState.halfCheckedKeys = new Set([]);
-            newState.selectedKeys = new Set([]);
+            if (!isControlled) {
+                newState.checkedKeys = new Set([]);
+                newState.halfCheckedKeys = new Set([]);
+                newState.selectedKeys = new Set([]);
+                newState.resolvedCheckedKeys = new Set([]);
+            }
             newState.activeKeys = new Set([]);
-            newState.resolvedCheckedKeys = new Set([]);
             this._adapter.notifyChange([]);
         } else {
             // if click clearBtn when not searching, clear selected and active values as well
