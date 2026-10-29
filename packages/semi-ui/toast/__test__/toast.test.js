@@ -86,6 +86,10 @@ describe('Toast', () => {
         closeBtn.simulate('click', {});
         expect(spyOnClose.calledOnce).toEqual(true);
     });
+    it('no undefined class when type is not set', () => {
+        let toast = mount(<ToastItem content="bytedance" />);
+        expect(toast.find(`div.${BASE_CLASS_PREFIX}-toast`).first().prop('className')).not.toContain('undefined');
+    });
     it('showClear = false', () => {
         let opts = {
             showClose: false,

@@ -127,7 +127,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         const { content, type, theme, showClose, textMaxWidth, className, style } = this.props;
         const direction = this.props.direction || this.context.direction;
         const toastCls = cls(prefixCls, className, {
-            [`${prefixCls}-${type}`]: true,
+            [`${prefixCls}-${type}`]: Boolean(type),
             [`${prefixCls}-${theme}`]: theme === 'light',
             [`${prefixCls}-rtl`]: direction === 'rtl',
         });

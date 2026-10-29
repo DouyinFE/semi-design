@@ -284,6 +284,12 @@ describe('modal', () => {
         }, 2000);
     }));
 
+    it('content class has no undefined when modalContentClass is not set', () => {
+        const modal = mount(getModal({ visible: true }), { attachTo: document.getElementById('container') });
+        expect(modal.find(`div.${BASE_CLASS_PREFIX}-modal-content`).prop('className')).not.toContain('undefined');
+        modal.unmount();
+    });
+
     it('centered without motion', () => {
         let com = getModal({ centered: true, visible: true, motion: false });
         let modal = mount(com, { attachTo: document.getElementById('container') });

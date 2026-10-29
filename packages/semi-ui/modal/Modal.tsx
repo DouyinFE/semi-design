@@ -397,7 +397,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                                         contentExtraProps={animationEventsNeedBind}
                                         maskExtraProps={maskAnimationEventsNeedBind}
                                         isFullScreen={this.state.isFullScreen}
-                                        contentClassName={`${animationClassName} ${modalContentClass}`}
+                                        contentClassName={cls(animationClassName, modalContentClass)}
                                         maskClassName={maskAnimationClassName}
                                         className={classList}
                                         getPopupContainer={getPopupContainer}
