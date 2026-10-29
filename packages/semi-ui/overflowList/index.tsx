@@ -135,7 +135,8 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         if (itemsChanged || needUpdate('style')) {
             // reset visible state if the above props change.
             newState.direction = OverflowDirection.GROW;
-            newState.lastOverflowCount = 0;
+            // Changed items need a fresh notification even when the visible item count stays the same.
+            newState.lastOverflowCount = props.renderMode === RenderMode.SCROLL ? 0 : -1;
             newState.maxCount = 0;
             // Scroll mode visibility is computed async by IntersectionObserver.
             // Mark recalculating but keep existing scrollOverflow cache to avoid flicker.
