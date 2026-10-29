@@ -79,6 +79,9 @@ class MCPConfigureContent extends BaseComponent<MCPConfigureContentReactProps, M
     get adapter(): MCPConfigureContentAdapter {
         return {
             ...super.adapter,
+            notifySearch: (inputValue: string, custom: boolean) => {
+                this.props.onSearch?.(inputValue, custom);
+            },
             notifyConfigureClick: (e: React.MouseEvent<HTMLButtonElement>, option: MCPOption) => {
                 this.props.onConfigureClick?.(e, option);
             },
