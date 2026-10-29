@@ -229,7 +229,7 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
         };
        
         return (
-            <li className={starCls} style={{ ...sizeStyle }} key={index} ref={this.liRef}>
+            <li role="none" className={starCls} style={{ ...sizeStyle }} key={index} ref={this.liRef}>
                 <div {...(starWrapProps as any)}>
                     {allowHalf && !isEmpty && <div {...firstStarProps} style={{ width: `${firstWidth * 100}%` }}>{content}</div>}
                     <div {...secondStarProps} x-semi-prop="character">{content}</div>
