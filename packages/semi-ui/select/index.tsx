@@ -1003,7 +1003,6 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
         return (
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
-                id={`${prefixcls}-${this.selectOptionListID}`}
                 className={cls({
                     // When emptyContent is null and the option is empty, there is no need for the drop-down option for the user,
                     // so there is no need to set padding through this className
@@ -1016,6 +1015,7 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
                 {outerTopSlot ? <div className={`${prefixcls}-option-list-outer-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerTopSlot}</div> : null}
                 {searchPosition === strings.SEARCH_POSITION_DROPDOWN && filter ? this.renderDropdownInput() : null}
                 <div
+                    id={`${prefixcls}-${this.selectOptionListID}`}
                     style={{ maxHeight: `${maxHeight}px` }}
                     className={optionListCls}
                     role="listbox"
