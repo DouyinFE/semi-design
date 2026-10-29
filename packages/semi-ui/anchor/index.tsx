@@ -244,9 +244,12 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
     };
 
     renderChildren = () => {
-        const loop = (children, level = 1) => {
+        const loop = (children, level = 1): React.ReactElement[] => {
             return React.Children.map(children, child => {
                 if (React.isValidElement(child)) {
+                    if (child.type === React.Fragment) {
+                        return React.cloneElement(child, {}, loop((child.props as any).children, level));
+                    }
                     const childProps = {
                         direction: this.context.direction,
                         level,
