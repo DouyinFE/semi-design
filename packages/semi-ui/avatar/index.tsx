@@ -10,6 +10,7 @@ import { AvatarProps } from './interface';
 import { handlePrevent } from '@douyinfe/semi-foundation/utils/a11y';
 import { getDefaultPropsFromGlobalConfig } from "../_utils";
 import TopSlotSvg from "./TopSlotSvg";
+import AvatarGroupContext from './context';
 
 
 const sizeSet = strings.SIZE;
@@ -27,6 +28,7 @@ export interface AvatarState {
 }
 
 export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
+    static contextType = AvatarGroupContext;
     static __SemiComponentName__ = "Avatar";
     static defaultProps = getDefaultPropsFromGlobalConfig(Avatar.__SemiComponentName__, {
         size: 'medium',
@@ -205,7 +207,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         const clickable = onClick !== noop;
         const isImg = src && isImgExist;
         const a11yFocusProps = {
-            tabIndex: 0,
+            tabIndex: (this.props as AvatarProps & { tabIndex?: number }).tabIndex === undefined ? 0 : -1,
             onKeyDown: this.handleKeyDown,
             onFocus: this.handleFocusVisible,
             onBlur: this.handleBlur,
@@ -348,6 +350,28 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             onMouseLeave: this.onLeave,
         };
         const isImg = src && isImgExist;
+        const outerFocusProps = others as typeof others & Pick<React.HTMLAttributes<HTMLElement>, 'tabIndex' | 'onKeyDown' | 'onFocus' | 'onBlur'>;
+        const focusOnRoot = onClick !== noop && (isImg || typeof children === 'string') && outerFocusProps.tabIndex !== undefined;
+        const focusEvent = focusOnRoot ? {
+            onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => {
+                outerFocusProps.onKeyDown?.(event);
+                if (event.target === event.currentTarget && !event.defaultPrevented) {
+                    this.handleKeyDown(event);
+                }
+            },
+            onFocus: (event: React.FocusEvent<HTMLElement>) => {
+                if (event.target === event.currentTarget) {
+                    this.handleFocusVisible(event);
+                }
+                outerFocusProps.onFocus?.(event);
+            },
+            onBlur: (event: React.FocusEvent<HTMLElement>) => {
+                if (event.target === event.currentTarget) {
+                    this.handleBlur(event);
+                }
+                outerFocusProps.onBlur?.(event);
+            },
+        } : {};
         const avatarCls = cls(
             prefixCls,
             {
@@ -365,11 +389,12 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             <div className={`${prefixCls}-hover`} x-semi-prop="hoverContent">{hoverContent}</div>) : null;
 
         let avatar = <span
+            role={this.context ? 'listitem' : undefined}
             {...(others as any)}
             style={shouldWrap ? {} : customStyle}
             className={avatarCls}
             {...(shouldWrap ? {} : mouseEvent)}
-            role='listitem'
+            {...focusEvent}
             ref={this.avatarRef}>
             {this.getContent()}
             {hoverRender}
