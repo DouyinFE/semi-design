@@ -238,9 +238,8 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
         const restProps = this.foundation.getRestProps();
         const realChildren = this.getRealChildren();
         const disabledOkButton = this.disableSubmitButton();
-        const realCls = cls(prefixCls, {
-            [`${prefixCls}-${type}`]: type,
-            className: className
+        const realCls = cls(prefixCls, className, {
+            [`${prefixCls}-${type}`]: type
         });
 
         return (<LocaleConsumer componentName="Feedback">
