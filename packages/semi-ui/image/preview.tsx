@@ -167,7 +167,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
             return React.Children.map(children, (child) => {
                 if (child && child.props && child.type) {
                     if (child.type.isSemiImage) {
-                        const { src, preview, alt } = child.props;
+                        const { src, preview = true, alt } = child.props;
                         if (preview) {
                             const previewSrc = isObject(preview) ? ((preview as any).src ?? src) : src;
                             srcListInChildren.push(previewSrc);
