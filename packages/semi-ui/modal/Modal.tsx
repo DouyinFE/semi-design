@@ -394,6 +394,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                                 ({ animationClassName: maskAnimationClassName, animationEventsNeedBind: maskAnimationEventsNeedBind }) => {
                                     return shouldRender ? <Portal style={wrapperStyle} getPopupContainer={getPopupContainer}> <ModalContent
                                         {...restProps}
+                                        visible={!this.state.displayNone}
                                         contentExtraProps={animationEventsNeedBind}
                                         maskExtraProps={maskAnimationEventsNeedBind}
                                         isFullScreen={this.state.isFullScreen}
