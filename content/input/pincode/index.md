@@ -189,13 +189,17 @@ function Demo() {
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | autoFocus | 是否自动聚焦到第一个元素 | boolean | true |
+| aria-label、aria-labelledby、aria-describedby、aria-errormessage、aria-invalid、aria-required | 传递给每个输入框的无障碍属性 | 同 Input | |
 | className | 类名 | string |  |
 | count | 验证码位数 | number | 6 |
 | defaultValue | 输入框内容默认值 | string |  |
 | disabled | 禁用 | boolean | false |
+| id | 第一个输入框的 id，可用于关联 label | string | |
 | format | 验证码单个字符格式限制 | 'number'\| 'mixed‘ \| RegExp \| (char:string)=>boolean | 'number' |
 | size | 输入框大小，large、default、small | string | 'default' |
 | style | 样式 | object |  |
+| tabIndex | 每个输入框的 tabIndex | number | |
+| validateStatus | 每个输入框的校验状态 | 'default'\| 'error'\| 'warning'\| 'success' | |
 | value | 输入框内容 | string |  |
 | onChange | 输入回调 | (value:string)=>void |  |
 | onComplete | 验证码所有位数输入完毕回调 | (value: string) => void |  |
