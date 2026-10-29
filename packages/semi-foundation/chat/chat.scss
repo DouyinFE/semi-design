@@ -64,11 +64,6 @@ $module: #{$prefix}-chat;
         height: 100%;
         overflow: scroll;
 
-        &-scroll-hidden {
-            &::-webkit-scrollbar {
-                display: none;
-            }
-        }
 
     }
 

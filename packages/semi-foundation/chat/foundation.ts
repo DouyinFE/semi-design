@@ -57,8 +57,6 @@ export interface ChatAdapter<P = Record<string, any>, S = Record<string, any>> e
     notifyMessageSend: (content: string, attachment: any[]) => void;
     notifyInputChange: (props: { inputValue: string; attachment: any[]}) => void;
     setBackBottomVisible: (visible: boolean) => void;
-    registerWheelEvent: () => void;
-    unRegisterWheelEvent: () => void;
     notifyStopGenerate: (e: any) => void;
     notifyHintClick: (hint: string) => void;
     setUploadAreaVisible: (visible: boolean) => void;
@@ -72,6 +70,7 @@ export interface ChatAdapter<P = Record<string, any>, S = Record<string, any>> e
 export default class ChatFoundation <P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ChatAdapter<P, S>, P, S> {
 
     animation: any;
+    private _lastScrollTop = 0;
 
     constructor(adapter: ChatAdapter<P, S>) {
         super({ ...adapter });
@@ -79,12 +78,10 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
 
     init = () => {
         this.scrollToBottomImmediately();
-        this._adapter.registerWheelEvent();
     }
 
     destroy = () => {
         this.animation && this.animation.destroy();
-        this._adapter.unRegisterWheelEvent();
     }
 
     stopGenerate = (e: any) => {
@@ -95,6 +92,7 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
         const element = this._adapter.getContainerRef();
         if (element) {
             element.scrollTop = element.scrollHeight;
+            this._lastScrollTop = element.scrollTop;
         }
     }
 
@@ -119,12 +117,23 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
 
         this.animation.on('frame', ({ scrollTop }: { scrollTop: number }) => {
             element.scrollTop = scrollTop;
+            this._lastScrollTop = element.scrollTop;
         });
 
         this.animation.start();
     }
 
     containerScroll = (e: any) => {
+        const target = e.target;
+        const { wheelScroll } = this.getStates();
+        const atBottom = target.scrollHeight - target.clientHeight - target.scrollTop <= 1;
+        if (atBottom && wheelScroll) {
+            this._adapter.setWheelScroll(false);
+        } else if (!atBottom && target.scrollTop < this._lastScrollTop && !wheelScroll) {
+            this.animation && this.animation.destroy();
+            this._adapter.setWheelScroll(true);
+        }
+        this._lastScrollTop = target.scrollTop;
         this._persistEvent(e);
         const update = () => {
             this.getScroll(e.target);
@@ -207,7 +216,6 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
             this._adapter.notifyChatsChange([...this.getStates().chats, newMessage]);
         }
         this._adapter.setWheelScroll(false);
-        this._adapter.registerWheelEvent();
         this._adapter.notifyMessageSend(input, attachment);
     }
 
