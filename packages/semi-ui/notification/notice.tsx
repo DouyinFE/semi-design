@@ -86,6 +86,7 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
     }
 
     context: ContextValue;
+    private titleID = getUuidShort({ prefix: `${prefixCls}-title` });
 
     componentWillUnmount() {
         this.foundation.destroy();
@@ -158,7 +159,7 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
             [`${prefixCls}-${theme}`]: theme === 'light',
             [`${prefixCls}-rtl`]: direction === 'rtl',
         });
-        const titleID = getUuidShort({});
+        const titleID = this.titleID;
         return (
             <div
                 className={wrapper}
@@ -166,7 +167,7 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
                 onMouseEnter={this.clearCloseTimer}
                 onMouseLeave={this.startCloseTimer}
                 onClick={this.notifyClick}
-                aria-labelledby={titleID}
+                aria-labelledby={title ? titleID : undefined}
                 role={'alert'}
                 onAnimationEnd={this.props.onAnimationEnd}
                 onAnimationStart={this.props.onAnimationStart}
