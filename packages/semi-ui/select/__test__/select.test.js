@@ -44,6 +44,40 @@ let objectData = [
 ];
 
 describe('Select', () => {
+    [false, true].forEach(multiple => {
+        [false, true].forEach(filter => {
+            it(`clears a custom trigger without an event, multiple=${multiple}, filter=${filter}`, () => {
+                const onChange = sinon.spy();
+                const onClear = sinon.spy();
+                const select = getSelect({
+                    multiple,
+                    filter,
+                    defaultValue: multiple ? ['abc'] : 'abc',
+                    onChange,
+                    onClear,
+                    triggerRender: ({ value, inputValue, onSearch, onClear }) => <div>
+                        <span className="selected-label">{value.map(item => item.label).join(',')}</span>
+                        {filter && <input className="custom-search" value={inputValue} onChange={event => onSearch(event.target.value)} />}
+                        <button className="custom-clear" onClick={() => onClear()}>Clear</button>
+                    </div>,
+                });
+                if (filter) {
+                    select.find('input.custom-search').simulate('change', { target: { value: 'Ab' } });
+                }
+                expect(() => select.find('button.custom-clear').simulate('click')).not.toThrow();
+                select.update();
+                expect(select.find('.selected-label').text()).toBe('');
+                expect(onClear.calledOnce).toBe(true);
+                expect(onChange.calledOnce).toBe(true);
+                expect(onChange.firstCall.args[0]).toEqual(multiple ? [] : undefined);
+                if (filter) {
+                    expect(select.find('input.custom-search').getDOMNode().value).toBe('');
+                }
+                select.unmount();
+            });
+        });
+    });
+
     beforeEach(() => {
         // Avoid `attachTo: document.body` Warning
         const div = document.createElement('div');

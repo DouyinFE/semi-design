@@ -819,8 +819,8 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
         this.foundation.onSelect(option, optionIndex, e);
     }
 
-    onClear(e: React.MouseEvent) {
-        e.nativeEvent.stopImmediatePropagation();
+    onClear(e?: React.MouseEvent) {
+        e?.nativeEvent.stopImmediatePropagation();
         this.foundation.handleClearClick(e as any);
     }
 
