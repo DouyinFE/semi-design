@@ -198,7 +198,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     render() {
         const { src, className, style, lazyLoad, setDownloadName, ...restProps } = this.props;
         const previewInnerProps = { 
-            ...omit(restProps, ['previewCls', 'previewStyle']), 
+            ...omit(restProps, ['previewCls', 'previewStyle', 'onChange']),
             className: restProps?.previewCls, 
             style: restProps?.previewStyle 
         };
