@@ -11,6 +11,7 @@ export interface FillStepProps {
     description?: React.ReactNode;
     icon?: React.ReactNode;
     status?: Status;
+    active?: boolean;
     title?: React.ReactNode;
     className?: string;
     style?: React.CSSProperties;
@@ -24,7 +25,7 @@ export interface FillStepProps {
 }
 
 const FillStep = (props: FillStepProps) => {
-    const { prefixCls = css.ITEM, className = '', title, description, status = 'wait', style, onClick, icon, onChange, stepNumber, onKeyDown } = props;
+    const { prefixCls = css.ITEM, className = '', title, description, status = 'wait', active = false, style, onClick, icon, onChange, stepNumber, onKeyDown } = props;
     const renderIcon = () => {
         let inner, progress;
 
@@ -77,7 +78,7 @@ const FillStep = (props: FillStepProps) => {
         <div
             role={props["role"]}
             aria-label={props["aria-label"]}
-            aria-current="step"
+            aria-current={active ? 'step' : undefined}
             tabIndex={0} 
             className={classnames({
                 [prefixCls]: true,

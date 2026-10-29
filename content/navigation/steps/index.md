@@ -292,7 +292,7 @@ import { Steps } from '@douyinfe/semi-ui';
 ### ARIA
 
 - Steps、Step组件支持传入`aria-label`属性，来表示Steps和Step的描述
-- Step组件具有 `aria-current` `step` 属性，表示这是步骤条内的一步
+- 当前步骤具有 `aria-current="step"` 属性，用于标识步骤条中正在进行的一步
 
 ## API 参考
 
