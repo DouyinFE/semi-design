@@ -96,7 +96,10 @@ export default class Numeral extends PureComponent<NumeralProps> {
             if (typeof item === 'function') {
                 return this.formatNodeDFS(item());
             }
-            if (typeof item === 'object' && 'children' in item['props']) {
+            if (Array.isArray(item)) {
+                return this.formatNodeDFS(item);
+            }
+            if (React.isValidElement<{ children?: React.ReactNode }>(item) && 'children' in item.props) {
                 return {
                     ...item,
                     props: { ...item['props'], children: this.formatNodeDFS(item['props']['children']) },
