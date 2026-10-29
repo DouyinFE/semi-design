@@ -168,14 +168,9 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         if (value !== '') {
             // When scientific notation is enabled, convert to full number on focus
             if (this._isScientificNotation() && !this._isCurrency()) {
-                const strVal = toString(value);
-                const isScientificStr = /e/i.test(strVal) && /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)[eE][+-]?\d+$/.test(strVal.trim());
-                if (isScientificStr) {
-                    const parsedNum = this.doParse(strVal, false, false, false);
-                    if (this.isValidNumber(parsedNum)) {
-                        const fullNumberStr = this.doFormat(parsedNum, true, false);
-                        this._adapter.setValue(fullNumberStr);
-                    }
+                const number = this.getState('number');
+                if (this.isValidNumber(number)) {
+                    this._adapter.setValue(this.doFormat(number, true, false));
                 }
             }
         }
@@ -334,7 +329,9 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
             }
 
             if (strHasChanged || numHasChanged) {
-                const notifyVal = willSetVal != null ? willSetVal : willSetNum;
+                const notifyVal = willSetVal != null ?
+                    (this._isScientificNotation() && !this._isCurrency() ? this.doFormat(currentNumber, true, false) : willSetVal) :
+                    willSetNum;
                 if (willSetVal != null) {
                     this._adapter.setValue(willSetVal);
                     // this.notifyChange(willSetVal);
@@ -478,8 +475,10 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         this._adapter.setNumber(number);
         this._adapter.setValue(formattedValue);
 
-        if (isString(formattedValue) && formattedValue !== String(propsValue ?? '')) {
-            this.notifyChange(formattedValue, null);
+        const notifyValue = number != null && this._isScientificNotation() && !this._isCurrency() ?
+            this.doFormat(number, true, false) : formattedValue;
+        if (isString(notifyValue) && notifyValue !== String(propsValue ?? '')) {
+            this.notifyChange(notifyValue, null);
         }
     }
 
