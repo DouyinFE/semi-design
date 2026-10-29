@@ -130,7 +130,7 @@ export interface SliderProps {
 export interface HeaderProps {
     closable: boolean;
     renderHeader?: (info: any) => ReactNode;
-    title?: string;
+    title?: ReactNode;
     titleStyle?: React.CSSProperties;
     className?: string;
     onClose?: (e: React.MouseEvent<HTMLElement>) => void;
