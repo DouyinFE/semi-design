@@ -66,6 +66,8 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     static defaultProps = {};
     static useNotification: typeof useNotification;
     private static wrapperId: string;
+    private static wrapper: HTMLDivElement | null = null;
+    private static pendingNotices = new Map<string, NoticeProps>();
     private noticeStorage: NoticeInstance[];
     private appliedUpdates = new WeakSet<NoticeInstance>();
     private removeItemStorage: NoticeInstance[];
@@ -107,6 +109,10 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
         notice = { ...defaultConfig, ...globalConfig, ...notice };
         const id = notice.id ?? getUuid('notification');
         if (!ref) {
+            this.pendingNotices.set(id, { ...this.pendingNotices.get(id), ...notice, id });
+            if (this.wrapper) {
+                return id;
+            }
             const { getPopupContainer } = notice;
             const div = document.createElement('div');
             if (!this.wrapperId) {
@@ -121,11 +127,13 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
             } else {
                 document.body.appendChild(div);
             }
+            this.wrapper = div;
             reactRender(React.createElement(NotificationList, {
                 ref: (instance: NotificationList) => {
-                    if (instance) {
+                    if (instance && this.wrapper === div) {
                         ref = instance;
-                        instance.add({ ...notice, id });
+                        this.pendingNotices.forEach(notice => instance.add(notice));
+                        this.pendingNotices.clear();
                     }
                 }
             }), div);
@@ -141,6 +149,7 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     }
 
     static removeNotice(id: string) {
+        this.pendingNotices.delete(id);
         if (ref) {
             ref.remove(id);
         }
@@ -183,15 +192,17 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     }
 
     static destroyAll() {
-        if (ref) {
+        if (this.wrapper) {
             const instance = ref;
-            const wrapper = document.querySelector(`#${this.wrapperId}`);
+            const wrapper = this.wrapper;
             wrapper?.removeAttribute('id');
             ref = null;
+            this.wrapper = null;
+            this.pendingNotices.clear();
             this.wrapperId = null;
 
             Promise.resolve().then(() => {
-                instance.destroyAll();
+                instance?.destroyAll();
                 if (wrapper) {
                     reactUnmount(wrapper);
                     wrapper.parentNode?.removeChild(wrapper);

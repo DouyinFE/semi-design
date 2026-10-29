@@ -10,7 +10,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/toast/constants';
 import BaseComponent from '../_base/baseComponent';
 import Toast from './toast';
 import '@douyinfe/semi-foundation/toast/toast.scss';
-import getUuid from '@douyinfe/semi-foundation/utils/uuid';
+import getUuid, { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import useToast from './useToast';
 import { ConfigProps, ToastInstance, ToastProps, ToastState } from '@douyinfe/semi-foundation/toast/toastFoundation';
 import CSSAnimation from '../_cssAnimation';
@@ -52,6 +52,8 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
 
     static defaultProps = {};
     static wrapperId: null | string;
+    private static wrapper: HTMLDivElement | null = null;
+    private static pendingToasts = new Map<string, ToastReactProps>();
     stack: boolean = false;
     appliedUpdates = new WeakSet<ToastInstance>();
 
@@ -109,9 +111,18 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         const mergedOpts = { ...ToastList.defaultOpts, ...globalConfig, ...opts };
         
         if (!ToastList.ref) {
+            this.pendingToasts.set(id, { ...this.pendingToasts.get(id), ...mergedOpts, id });
+            if (this.wrapper) {
+                ['top', 'left', 'bottom', 'right'].forEach(pos => {
+                    if (pos in mergedOpts) {
+                        this.wrapper.style[pos] = typeof mergedOpts[pos] === 'number' ? `${mergedOpts[pos]}px` : mergedOpts[pos];
+                    }
+                });
+                return id;
+            }
             const div = document.createElement('div');
             if (!this.wrapperId) {
-                this.wrapperId = getUuid('toast-wrapper').slice(0, 26);
+                this.wrapperId = getUuidShort({ prefix: 'toast-wrapper' });
             }
             div.className = cssClasses.WRAPPER;
             div.id = this.wrapperId;
@@ -130,13 +141,17 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             } else {
                 document.body.appendChild(div);
             }
+            this.wrapper = div;
             reactRender(React.createElement(
                 ToastList,
                 { ref: (instance: ToastList) => {
-                    if (instance) {
+                    if (instance && this.wrapper === div) {
                         ToastList.ref = instance;
-                        instance.add({ ...mergedOpts, id });
-                        instance.stack = Boolean(mergedOpts.stack);
+                        this.pendingToasts.forEach(toast => {
+                            instance.add(toast);
+                            instance.stack = Boolean(toast.stack);
+                        });
+                        this.pendingToasts.clear();
                     }
                 } }
             ), div);
@@ -160,21 +175,24 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
     }
 
     static close(id: string) {
+        this.pendingToasts.delete(id);
         if (ToastList.ref) {
             ToastList.ref.remove(id);
         }
     }
 
     static destroyAll() {
-        if (ToastList.ref) {
+        if (this.wrapper) {
             const instance = ToastList.ref;
-            const wrapper = document.querySelector(`#${this.wrapperId}`);
+            const wrapper = this.wrapper;
             wrapper?.removeAttribute('id');
             ToastList.ref = null;
+            this.wrapper = null;
+            this.pendingToasts.clear();
             this.wrapperId = null;
 
             Promise.resolve().then(() => {
-                instance.destroyAll();
+                instance?.destroyAll();
                 if (wrapper) {
                     reactUnmount(wrapper);
                     wrapper.parentNode?.removeChild(wrapper);
