@@ -13,4 +13,18 @@ describe('Highlight optional search words', () => {
             expect(wrapper.find('mark').map(node => node.text())).toEqual(matches);
         } finally { wrapper.unmount(); }
     });
+
+    it('does not warn propTypes when searchWords contains objects', () => {
+        const errorSpy = rs.spyOn(console, 'error').mockImplementation(() => {});
+        const wrapper = mount(
+            <Highlight sourceString="Semi Design" searchWords={[{ text: 'Semi', className: 'custom' }, 'Design']} />
+        );
+        try {
+            expect(errorSpy).not.toHaveBeenCalled();
+            expect(wrapper.find('mark.custom').length).toBe(1);
+        } finally {
+            wrapper.unmount();
+            errorSpy.mockRestore();
+        }
+    });
 });
