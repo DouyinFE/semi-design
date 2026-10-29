@@ -347,10 +347,10 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
 
             panelProps.panelHeader = get(
                 panels,
-                index,
+                [index, 'panelHeader'],
                 isNullOrUndefined(panelHeader) ? get(defaultHeaderMap, index, null) : Array.isArray(panelHeader) ? panelHeader[index] : panelHeader
             );
-            panelProps.panelFooter = get(panels, index, Array.isArray(panelFooter) ? panelFooter[index] : panelFooter) as React.ReactNode;
+            panelProps.panelFooter = get(panels, [index, 'panelFooter'], Array.isArray(panelFooter) ? panelFooter[index] : panelFooter) as React.ReactNode;
         }
 
         return panelProps;
