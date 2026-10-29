@@ -262,7 +262,8 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
     constructor(props: TransferProps) {
         super(props);
-        const { defaultValue = [], dataSource, type, pagination } = props;
+        const { defaultValue = [], type, pagination } = props;
+        const dataSource = type === strings.TYPE_TREE_TO_LIST ? props.treeProps?.treeData ?? props.dataSource : props.dataSource;
         this.foundation = new TransferFoundation<TransferProps, TransferState>(this.adapter);
         this.state = {
             data: [],
@@ -273,11 +274,12 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         };
         if (Boolean(dataSource) && isArray(dataSource)) {
             // @ts-ignore Avoid reporting errors this.state.xxx is read-only
-            this.state.data = _generateDataByType(dataSource, type);
+            this.state.data = _generateDataByType(dataSource, type, props.treeProps?.keyMaps);
         }
         if (Boolean(defaultValue) && isArray(defaultValue)) {
             // @ts-ignore Avoid reporting errors this.state.xxx is read-only
-            this.state.selectedItems = _generateSelectedItems(defaultValue, this.state.data);
+            this.state.selectedItems = _generateSelectedItems(defaultValue, dataSource !== props.dataSource && Array.isArray(props.dataSource)
+                ? this.state.data.concat(_generateDataByType(props.dataSource, type)) : this.state.data);
         }
 
         this.onSelectOrRemove = this.onSelectOrRemove.bind(this);
@@ -287,16 +289,19 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     }
 
     static getDerivedStateFromProps(props: TransferProps, state: TransferState) {
-        const { value, dataSource, type, filter, pagination } = props;
+        const { value, type, filter, pagination } = props;
+        const dataSource = type === strings.TYPE_TREE_TO_LIST ? props.treeProps?.treeData ?? props.dataSource : props.dataSource;
         const mergedState = {} as TransferState;
         let newData = state.data;
         let newSelectedItems = state.selectedItems;
         if (Boolean(dataSource) && Array.isArray(dataSource)) {
-            newData = _generateDataByType(dataSource, type);
+            newData = _generateDataByType(dataSource, type, props.treeProps?.keyMaps);
             mergedState.data = newData;
         }
         if (Boolean(value) && Array.isArray(value)) {
-            newSelectedItems = _generateSelectedItems(value, newData);
+            const selectionData = dataSource !== props.dataSource && Array.isArray(props.dataSource)
+                ? newData.concat(_generateDataByType(props.dataSource, type)) : newData;
+            newSelectedItems = _generateSelectedItems(value, selectionData);
             mergedState.selectedItems = newSelectedItems;
         }
         if (!isEqual(state.data, newData)) {
@@ -304,7 +309,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 const filterFunc = typeof filter === 'function' ?
                     (item: DataItem) => filter(state.inputValue, item) :
                     (item: DataItem) => typeof item.label === 'string' && item.label.includes(state.inputValue);
-                const searchData = newData.filter(filterFunc);
+                const searchData = type === strings.TYPE_TREE_TO_LIST ? newData : newData.filter(filterFunc);
                 const searchResult = new Set(searchData.map(item => item.key));
                 mergedState.searchResult = searchResult;
             }
@@ -622,7 +627,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 treeData={dataSource as any}
                 multiple
                 disableStrictly
-                value={values}
+                value={treeProps?.onChangeWithObject ? Array.from(selectedItems.values()) : values}
                 defaultExpandAll
                 leafOnly
                 ref={tree => this._treeRef = tree}
