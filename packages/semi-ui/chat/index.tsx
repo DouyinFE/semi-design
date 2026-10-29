@@ -133,7 +133,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             },
             notifyInputChange: (props: { inputValue: string; attachment: any[]}) => {
                 const { onInputChange } = this.props;
-                onInputChange && onInputChange(props);
+                onInputChange?.({ value: props.inputValue, attachment: props.attachment });
             },
             setBackBottomVisible: (visible: boolean) => {
                 this.setState((state) => {

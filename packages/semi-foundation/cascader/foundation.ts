@@ -139,7 +139,7 @@ export interface BasicCascaderProps {
     filterLeafOnly?: boolean;
     motion?: boolean;
     filterTreeNode?: ((inputValue: string, treeNodeString: string, data?: BasicCascaderData) => boolean) | boolean;
-    filterSorter?: (first: BasicCascaderData, second: BasicCascaderData, inputValue: string) => number;
+    filterSorter?: (first: BasicCascaderData[], second: BasicCascaderData[], inputValue: string) => number;
     filterRender?: (props: any) => any;
     placeholder?: string;
     searchPlaceholder?: string;

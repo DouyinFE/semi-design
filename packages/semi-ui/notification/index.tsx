@@ -67,6 +67,7 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     static useNotification: typeof useNotification;
     private static wrapperId: string;
     private noticeStorage: NoticeInstance[];
+    private appliedUpdates = new WeakSet<NoticeInstance>();
     private removeItemStorage: NoticeInstance[];
 
 
@@ -255,7 +256,9 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
                                 return isRemoved && !isAnimating ? null : <Notice
                                     {...notice}
                                     ref={(notice)=>{
-                                        if (notice && updatedItems.some(item=>item.id===notice.props.id)) {
+                                        const update = notice && updatedItems.find(item => item.id === notice.props.id);
+                                        if (update && !this.appliedUpdates.has(update)) {
+                                            this.appliedUpdates.add(update);
                                             notice.foundation.restartCloseTimer();
                                         }
                                     }}

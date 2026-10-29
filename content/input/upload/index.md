@@ -1781,6 +1781,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |transformFile | 选中文件后，上传文件前的回调函数，可用于对文件进行自定义转换处理 | (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => FileItem |  |  |
 |uploadTrigger | 触发上传时机，可选值 `auto`、`custom` | string | 'auto' |  |
 |validateMessage | Upload 整体的错误信息 | ReactNode |  |  |
+|timeout | 内置上传请求的超时时间，单位为毫秒，0 表示不限制。使用 customRequest 时由调用方处理超时 | number | 0 | |
 |withCredentials | 是否带上 Cookie 信息 | boolean | false |  |
 
 

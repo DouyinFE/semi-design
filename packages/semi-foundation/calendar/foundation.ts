@@ -97,7 +97,7 @@ export interface CalendarAdapter<P = Record<string, any>, S = Record<string, any
     getRangeData?: () => RangeData;
     setWeeklyData?: (data: WeeklyData) => void;
     getWeeklyData?: () => WeeklyData;
-    registerClickOutsideHandler?: (key: string, cb: () => void) => void;
+    registerClickOutsideHandler?: (key: string, cb: (e: MouseEvent) => void) => void;
     unregisterClickOutsideHandler?: () => void;
     setMonthlyData?: (data: MonthData) => void;
     getMonthlyData?: () => MonthData;
@@ -120,6 +120,7 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
 
     destroy() {
         this.raf && cancelAnimationFrame(this.raf);
+        this._adapter.unregisterClickOutsideHandler?.();
     }
 
     initCurrTime() {
@@ -150,8 +151,8 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
         const popoverWidth = 110;
         const spacing = bodyWidth - e.target.getBoundingClientRect().right - popoverWidth;
         this._adapter.openCard(key, spacing > 0);
-        this._adapter.registerClickOutsideHandler(key, () => {
-            this.closeCard(null, key);
+        this._adapter.registerClickOutsideHandler(key, event => {
+            this.closeCard(event, key);
         });
     }
 

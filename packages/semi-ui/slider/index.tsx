@@ -414,6 +414,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                     rePosKey={minPercent}
                     visible={isInRenderTree && (tipVisible.min || firstDotFocusVisible)}
                     className={`${cssClasses.HANDLE}-tooltip`}
+                    showArrow={this.props.showArrow}
                 >
                     <span
                         ref={this.minHanleEl}
@@ -470,6 +471,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                     rePosKey={maxPercent}
                     visible={isInRenderTree && (tipVisible.max || secondDotFocusVisible)}
                     className={`${cssClasses.HANDLE}-tooltip`}
+                    showArrow={this.props.showArrow}
                 >
                     <span
                         ref={this.maxHanleEl}
