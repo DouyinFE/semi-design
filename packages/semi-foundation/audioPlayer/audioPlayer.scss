@@ -145,9 +145,20 @@ $module: #{$prefix}-audio-player;
         .#{$module}-info-time {
             color: $color-audio-player-font-color-light;
         }
+    }
 
-        .#{$module}-control-speed-menu-item,
+    &-control-volume-light {
+        background: $color-audio-player-background-light;
+
         .#{$module}-control-volume-title {
+            color: $color-audio-player-light-text;
+        }
+    }
+
+    &-control-speed-menu-light {
+        background: $color-audio-player-background-light;
+
+        .#{$module}-control-speed-menu-item {
             color: $color-audio-player-light-text;
         }
 
