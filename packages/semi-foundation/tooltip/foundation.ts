@@ -81,6 +81,7 @@ export interface PopupContainerDOMRect extends DOMRectLikeType {
 export default class Tooltip<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TooltipAdapter<P, S>, P, S> {
     _timer: ReturnType<typeof setTimeout>;
     _mounted: boolean;
+    private _pendingShow = false;
 
     constructor(adapter: TooltipAdapter<P, S>) {
         super({ ...adapter });
@@ -99,6 +100,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
     destroy() {
         this._mounted = false;
+        this._pendingShow = false;
         this.unBindEvent();
     }
 
@@ -320,6 +322,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     show = () => {
         this._initContainerPosition();
         if (this._adapter.getAnimatingState()) {
+            this._pendingShow = true;
             return;
         }
         const content = this.getProp('content');
@@ -1221,6 +1224,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     };
 
     hide = () => {
+        this._pendingShow = false;
         this.clearDelayTimer();
 
         this._togglePortalVisible(false);
@@ -1228,6 +1232,13 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.off('portalInserted');
         this._adapter.off('positionUpdated');
 
+    };
+
+    handleAnimationEnd = () => {
+        if (this._mounted && this._pendingShow) {
+            this._pendingShow = false;
+            this.show();
+        }
     };
 
     _bindScrollEvent() {
