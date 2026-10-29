@@ -64,6 +64,12 @@ export interface AfterUploadResult {
     url?: string
 }
 
+export interface PendingPaste {
+    handled: boolean;
+    timer: ReturnType<typeof setTimeout>;
+    ready: Promise<void>
+}
+
 export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     notifyFileSelect: (files: Array<CustomFile>) => void;
     notifyError: (error: XhrError, fileInstance: CustomFile, fileList: Array<BaseFileItem>, xhr: XMLHttpRequest) => void;
@@ -105,11 +111,8 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
      * when _createURL is called multiple times in a sync loop.
      */
     _localUrls: Record<string, string> = {};
-    /**
-     * Flag to prevent duplicate handling of paste events.
-     * When paste event is successfully handled, we ignore the subsequent keydown event.
-     */
-    _pasteHandled: boolean = false;
+    /** Associates a keyboard paste with the native paste event that follows it. */
+    _pendingPaste: PendingPaste | null = null;
     /**
      * Working copy of fileList used during a synchronous startUpload batch.
      * Do NOT rely on React state fileList here: setState is async (batched in React 18),
@@ -194,6 +197,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         // In controlled mode, parent may keep and pass back fileList with blob url;
         // revoking here will cause preview/blob ERR_FILE_NOT_FOUND after remount.
         this.unbindPastingHandler();
+        this.markPastingHandled();
         this._batchFileList = null;
         this._latestFileList = null;
         this.destroyState = true;
@@ -1061,22 +1065,54 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         this._adapter.notifyPreviewClick(fileItem);
     }
 
-    readFileFromClipboard(clipboardItems) {
+    /**
+     * Register a keyboard paste. `ready` resolves after the fallback delay if no native paste
+     * event arrives; clipboard read results must wait for it before being used.
+     */
+    beginPasting(): PendingPaste {
+        const pending = { handled: false } as PendingPaste;
+        pending.ready = new Promise<void>(resolve => {
+            pending.timer = setTimeout(() => {
+                if (this._pendingPaste === pending) this._pendingPaste = null;
+                resolve();
+            }, numbers.PASTING_FALLBACK_DELAY);
+        });
+        this._pendingPaste = pending;
+        return pending;
+    }
+
+    /** The native paste event arrived (or we are destroyed): discard the pending clipboard read. */
+    markPastingHandled(): void {
+        const pending = this._pendingPaste;
+        if (pending) {
+            pending.handled = true;
+            clearTimeout(pending.timer);
+            this._pendingPaste = null;
+        }
+    }
+
+    notifyPastingErrorIfUnhandled(pending: PendingPaste, error: Error | PermissionStatus): void {
+        pending.ready.then(() => {
+            if (!pending.handled && !this.destroyState) this._adapter.notifyPastingError(error);
+        });
+    }
+
+    readFileFromClipboard(clipboardItems, pending: PendingPaste) {
         for (const clipboardItem of clipboardItems) {
             for (const type of clipboardItem.types) {
                 // types maybe: text/plain, image/png, text/html
                 if (type.startsWith('image')) {
                     clipboardItem.getType(type).then(blob => {
                         return blob.arrayBuffer();
-                    }).then((buffer) => {
+                    }).then((buffer) => pending.ready.then(() => {
                         const { disabled, addOnPasting } = this.getProps();
-                        if (disabled || !addOnPasting || this.destroyState) {
+                        if (disabled || !addOnPasting || this.destroyState || pending.handled) {
                             return;
                         }
                         const format = type.split('/')[1];
                         const file = new File([buffer], `upload.${format}`, { type });
                         this.handleChange([file]);
-                    });
+                    }));
                 }
             }
         }
@@ -1106,24 +1142,13 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
 
             if (files.length > 0) {
                 e.preventDefault();
+                this.markPastingHandled();
                 this.handleChange(files);
-                // Mark that paste event has been handled to prevent duplicate handling by keydown event
-                this._pasteHandled = true;
-                // Reset the flag after a short delay to allow future paste operations
-                setTimeout(() => {
-                    this._pasteHandled = false;
-                }, 100);
                 return;
             }
         }
 
         // Fallback to navigator.clipboard for keyboard events (keydown with Ctrl/Cmd+V)
-        // Skip if paste event has already been handled
-        if (this._pasteHandled) {
-            this._pasteHandled = false;
-            return;
-        }
-
         const isMac = this._adapter.isMac();
         const isCombineKeydown = isMac ? e.metaKey : e.ctrlKey;
         
@@ -1132,6 +1157,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             if (!navigator.clipboard || typeof navigator.clipboard.read !== 'function') {
                 return;
             }
+            const pending = this.beginPasting();
 
             // https://github.com/microsoft/TypeScript/issues/33923
             const permissionName = 'clipboard-read' as PermissionName;
@@ -1139,21 +1165,24 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             navigator.permissions
                 .query({ name: permissionName })
                 .then(result => {
+                    if (pending.handled) {
+                        return;
+                    }
                     if (result.state === 'granted' || result.state === 'prompt') {
                         // user has authorized or will authorize
                         navigator.clipboard.read().then(clipboardItems => {
                             // Process the data read from the pasteboard
                             // Check the returned data type to determine if it is image data, and process accordingly
-                            this.readFileFromClipboard(clipboardItems);
+                            this.readFileFromClipboard(clipboardItems, pending);
                         }).catch(error => {
-                            this._adapter.notifyPastingError(error);
+                            this.notifyPastingErrorIfUnhandled(pending, error);
                         });
                     } else {
-                        this._adapter.notifyPastingError(result);
+                        this.notifyPastingErrorIfUnhandled(pending, result);
                     }
                 })
                 .catch(error => {
-                    this._adapter.notifyPastingError(error);
+                    this.notifyPastingErrorIfUnhandled(pending, error);
                 });
         }
     }

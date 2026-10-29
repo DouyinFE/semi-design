@@ -376,10 +376,12 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                         if (isCombineKeydown && e.code === 'KeyV') {
                             // Check if navigator.clipboard is available
                             if (navigator.clipboard && typeof navigator.clipboard.read === 'function') {
+                                const pending = this.foundation.beginPasting();
                                 const permissionName = 'clipboard-read' as PermissionName;
                                 navigator.permissions
                                     .query({ name: permissionName })
                                     .then(result => {
+                                        if (pending.handled) return;
                                         if (result.state === 'granted' || result.state === 'prompt') {
                                             navigator.clipboard.read().then(clipboardItems => {
                                                 const files: File[] = [];
@@ -396,7 +398,8 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                                                         }
                                                     }
                                                     
-                                                    if (files.length > 0 && this.props.addOnPasting && !this.props.disabled && !this.foundation.destroyState) {
+                                                    await pending.ready;
+                                                    if (files.length > 0 && !pending.handled && this.props.addOnPasting && !this.props.disabled && !this.foundation.destroyState) {
                                                         const imageFiles = files.filter(file => this.isImageFile(file));
                                                         
                                                         if (imageFiles.length > 0) {
@@ -410,12 +413,14 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                                                 };
                                                 processClipboardItems();
                                             }).catch(error => {
-                                                this.props.onPastingError(error);
+                                                this.foundation.notifyPastingErrorIfUnhandled(pending, error);
                                             });
+                                        } else {
+                                            this.foundation.notifyPastingErrorIfUnhandled(pending, result);
                                         }
                                     })
                                     .catch(error => {
-                                        this.props.onPastingError(error);
+                                        this.foundation.notifyPastingErrorIfUnhandled(pending, error);
                                     });
                                 // Don't call original callback, we've handled it
                                 return;
@@ -453,6 +458,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                         }
                         if (files.length > 0 && files.some(file => this.isImageFile(file))) {
                             e.preventDefault();
+                            this.foundation.markPastingHandled();
                             this.handleCropFiles(files);
                             return;
                         }
