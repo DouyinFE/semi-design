@@ -52,7 +52,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
     };
 
     static defaultProps = {
-        displayValue: new Date(),
+        get displayValue() { return new Date(); },
         events: [] as EventObject[],
         mode: 'month',
     };
