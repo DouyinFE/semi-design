@@ -80,6 +80,7 @@ export default class NotificationFoundation extends BaseFoundation<NoticeAdapter
         if (e) {
             e.stopPropagation();
         }
+        this._clearCloseTimer();
         this._adapter.notifyWrapperToRemove(this._id);
         this._adapter.notifyClose();
     }

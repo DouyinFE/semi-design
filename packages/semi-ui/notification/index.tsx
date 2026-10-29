@@ -268,6 +268,7 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
                                     })}
                                     {...animationEventsNeedBind}
                                     style={{ ...notice.style }}
+                                    isClosing={isRemoved}
                                     close={this.remove}
                                 />;
                             }}

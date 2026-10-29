@@ -22,7 +22,8 @@ export interface NoticeReactProps extends NoticeProps {
     icon?: React.ReactNode;
     onClick?: (e: React.MouseEvent) => void;
     onAnimationEnd?: (e: React.AnimationEvent) => void;
-    onAnimationStart?: (e: React.AnimationEvent) => void
+    onAnimationStart?: (e: React.AnimationEvent) => void;
+    isClosing?: boolean;
 }
 
 const prefixCls = cssClasses.NOTICE;
@@ -87,6 +88,21 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
 
     context: ContextValue;
 
+    componentDidMount() {
+        super.componentDidMount();
+        if (this.props.isClosing) {
+            this.clearCloseTimer();
+        }
+    }
+
+    componentDidUpdate(prevProps: NoticeReactProps) {
+        if (this.props.isClosing && !prevProps.isClosing) {
+            this.clearCloseTimer();
+        } else if (!this.props.isClosing && prevProps.isClosing) {
+            this.foundation.restartCloseTimer();
+        }
+    }
+
     componentWillUnmount() {
         this.foundation.destroy();
     }
@@ -122,7 +138,9 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
     };
 
     startCloseTimer = () => {
-        this.foundation._startCloseTimer();
+        if (!this.props.isClosing) {
+            this.foundation.restartCloseTimer();
+        }
     };
 
     close = (e: React.MouseEvent) => {
