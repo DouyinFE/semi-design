@@ -41,6 +41,10 @@ export type RadioProps = {
     addonClassName?: string;
     type?: RadioType;
     'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     addonId?: string;
     extraId?: string;
     name?: string;
@@ -80,6 +84,10 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         addonClassName: PropTypes.string,
         type: PropTypes.oneOf([strings.TYPE_DEFAULT, strings.TYPE_BUTTON, strings.TYPE_CARD, strings.TYPE_PURECARD]), // Button style type
         'aria-label': PropTypes.string,
+        'aria-describedby': PropTypes.string,
+        'aria-errormessage': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-required': PropTypes.bool,
         preventScroll: PropTypes.bool,
     };
 

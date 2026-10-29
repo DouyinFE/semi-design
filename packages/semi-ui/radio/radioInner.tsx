@@ -23,6 +23,10 @@ export interface RadioInnerProps extends BaseProps {
     addonId?: string;
     extraId?: string;
     'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     focusInner?: boolean;
     onInputFocus?: (e: any) => void;
     onInputBlur?: (e: any) => void;
@@ -43,6 +47,10 @@ class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {
         onChange: PropTypes.func,
         mode: PropTypes.oneOf(['advanced', '']),
         'aria-label': PropTypes.string,
+        'aria-describedby': PropTypes.string,
+        'aria-errormessage': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-required': PropTypes.bool,
         focusInner: PropTypes.bool,
         onInputFocus: PropTypes.func,
         onInputBlur: PropTypes.func,
@@ -138,7 +146,10 @@ class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {
                     name={name}
                     aria-label={ariaLabel}
                     aria-labelledby={addonId}
-                    aria-describedby={extraId}
+                    aria-describedby={extraId || this.props['aria-describedby']}
+                    aria-errormessage={this.props['aria-errormessage']}
+                    aria-invalid={this.props['aria-invalid']}
+                    aria-required={this.props['aria-required']}
                     onFocus={onInputFocus}
                     onBlur={onInputBlur}
                 />
