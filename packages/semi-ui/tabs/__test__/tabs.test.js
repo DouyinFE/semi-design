@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { TabPane, Tabs } from '../../index';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
+import ReactDOM from 'react-dom';
+import { renderToString } from 'react-dom/server';
 
 let defaultTabPane = [
     { itemKey: 'itemKeyA', tab: 'titleA', children: 'contentA' },
@@ -19,6 +21,90 @@ function getTabs(tabProps, tabPaneProps = defaultTabPane) {
 }
 
 describe('Tabs', () => {
+
+    it('keeps tab and panel associations within each Tabs instance', () => {
+        const host = document.createElement('div');
+        document.body.appendChild(host);
+        const tabs = mount(<div>{getTabs({})}{getTabs({})}</div>, { attachTo: host });
+        const ids = Array.from(host.querySelectorAll('[id]')).map(node => node.id);
+        expect(new Set(ids).size).toBe(ids.length);
+        host.querySelectorAll('[role="tab"]').forEach(tab => {
+            const panel = document.getElementById(tab.getAttribute('aria-controls'));
+            expect(tab.closest(`.${BASE_CLASS_PREFIX}-tabs`).contains(panel)).toBe(true);
+            expect(document.getElementById(panel.getAttribute('aria-labelledby'))).toBe(tab);
+        });
+        tabs.unmount();
+        host.remove();
+    });
+
+    it('associates the shared tabList panel with the active tab after switching', () => {
+        const host = document.createElement('div');
+        document.body.appendChild(host);
+        const tabs = mount(<Tabs tabList={defaultTabPane}>shared content</Tabs>, { attachTo: host });
+        const check = () => {
+            const active = host.querySelector('[role="tab"][aria-selected="true"]');
+            const panel = document.getElementById(active.getAttribute('aria-controls'));
+            expect(panel).not.toBeNull();
+            expect(panel.getAttribute('role')).toBe('tabpanel');
+            expect(panel.textContent).toBe('shared content');
+            expect(document.getElementById(panel.getAttribute('aria-labelledby'))).toBe(active);
+            expect(host.querySelector('[role="tab"][aria-selected="false"]').hasAttribute('aria-controls')).toBe(false);
+        };
+        check();
+        tabs.find('[role="tab"]').at(1).simulate('click');
+        check();
+        tabs.unmount();
+        host.remove();
+    });
+
+    it('does not reference unmounted panels with keepDOM=false', () => {
+        const tabs = mount(getTabs({ keepDOM: false }));
+        expect(tabs.find('[role="tab"]').at(1).prop('aria-controls')).toBeUndefined();
+        tabs.find('[role="tab"]').at(1).simulate('click');
+        expect(tabs.find('[role="tab"]').at(0).prop('aria-controls')).toBeUndefined();
+        expect(tabs.find('[role="tabpanel"]').prop('aria-labelledby')).toBe(tabs.find('[role="tab"]').at(1).prop('id'));
+        tabs.unmount();
+    });
+
+    it('hydrates without mismatched IDs and connects panels after mounting', () => {
+        const host = document.createElement('div');
+        document.body.appendChild(host);
+        const component = getTabs({});
+        host.innerHTML = renderToString(component);
+        const error = sinon.spy(console, 'error');
+        try {
+            ReactDOM.hydrate(component, host);
+            const tab = host.querySelector('[role="tab"]');
+            const panel = document.getElementById(tab.getAttribute('aria-controls'));
+            expect(panel).not.toBeNull();
+            expect(document.getElementById(panel.getAttribute('aria-labelledby'))).toBe(tab);
+            expect(error.called).toBe(false);
+        } finally {
+            ReactDOM.unmountComponentAtNode(host);
+            error.restore();
+            host.remove();
+        }
+    });
+
+    it('updates the close button when only TabPane closable changes', () => {
+        const onTabClose = sinon.spy();
+        const pane = closable => <TabPane tab="titleA" itemKey="A" closable={closable}>contentA</TabPane>;
+        const tabs = mount(<Tabs type="card" onTabClose={onTabClose}>{pane(false)}</Tabs>);
+        const closeButton = `.${BASE_CLASS_PREFIX}-tabs-tab-icon-close`;
+        expect(tabs.find(closeButton).hostNodes()).toHaveLength(0);
+        tabs.setProps({ children: pane(true) });
+        tabs.update();
+        expect(tabs.find(closeButton).hostNodes()).toHaveLength(1);
+        tabs.find(closeButton).hostNodes().simulate('click');
+        expect(onTabClose.calledOnce).toBe(true);
+        expect(onTabClose.firstCall.args[0]).toBe('A');
+        tabs.setProps({ children: pane(false) });
+        tabs.update();
+        expect(tabs.find(closeButton).hostNodes()).toHaveLength(0);
+        expect(tabs.find('[role="tab"]').prop('aria-selected')).toBe('true');
+        expect(tabs.find('[role="tabpanel"]').text()).toBe('contentA');
+        tabs.unmount();
+    });
 
     it('tabs render basicly', () => {
         let props = {};

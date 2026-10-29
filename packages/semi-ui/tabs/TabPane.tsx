@@ -56,7 +56,7 @@ class TabPane extends PureComponent<TabPaneProps> {
     };
 
     render(): ReactNode {
-        const { tabPaneMotion: motion, tabPosition, prevActiveKey } = this.context;
+        const { tabPaneMotion: motion, tabPosition, prevActiveKey, tabsId } = this.context;
         const { className, style, children, itemKey, tabIndex, ...restProps } = this.props;
         const active = this.context.activeKey === itemKey;
         const classNames = cls(className, {
@@ -88,8 +88,8 @@ class TabPane extends PureComponent<TabPaneProps> {
             <div
                 ref={this.ref}
                 role="tabpanel"
-                id={`semiTabPanel${itemKey}`}
-                aria-labelledby={`semiTab${itemKey}`}
+                id={tabsId ? `${tabsId}-panel-${itemKey}` : undefined}
+                aria-labelledby={tabsId ? `${tabsId}-tab-${itemKey}` : undefined}
                 className={classNames}
                 style={style}
                 aria-hidden={active ? 'false' : 'true'}
