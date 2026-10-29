@@ -19,6 +19,10 @@ export interface DragMoveAdapter<P = Record<string, any>, S = Record<string, any
 
 export default class DragMoveFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<DragMoveAdapter<P, S>, P, S> {
     element: HTMLElement;
+    handlerElement: HTMLElement;
+    handlerCursor: string;
+    destroyed = false;
+    animationFrames = new Map<number, () => void>();
     xMax: number;
     xMin: number;
     yMax: number;
@@ -47,10 +51,40 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
         if (!element) {
             throw new Error('drag element must be a valid element');
         }
+        this.destroyed = false;
+        this._bind(element, this.handler);
+    }
+
+    _bind(element: HTMLElement, handler: HTMLElement) {
         this.element = element;
+        this.handlerElement = handler;
+        this.handlerCursor = handler.style.cursor;
         this.updatePositionStrategy();
-        this.handler.style.cursor = 'move';
+        handler.style.cursor = 'move';
         this._registerStartEvent();
+    }
+
+    _restoreHandlerCursor() {
+        if (this.handlerElement?.style.cursor === 'move') {
+            this.handlerElement.style.cursor = this.handlerCursor;
+        }
+    }
+
+    /**
+     * Move the start listeners to the current element/handler. Document-level listeners and
+     * pending frames are left alone so a drag in progress can still finish.
+     */
+    rebind() {
+        this._unRegisterStartEvent();
+        this._restoreHandlerCursor();
+        const element = this._adapter.getDragElement();
+        const handler = element ? this.handler : null;
+        if (element && handler) {
+            this._bind(element, handler);
+        } else {
+            this.element = element;
+            this.handlerElement = handler;
+        }
     }
 
     updatePositionStrategy = () => {
@@ -58,18 +92,22 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
     }
 
     _registerStartEvent = () => {
-        this.handler.addEventListener('mousedown', this.onMouseDown);
-        this.handler.addEventListener('touchstart', this.onTouchStart);
+        this.handlerElement.addEventListener('mousedown', this.onMouseDown);
+        this.handlerElement.addEventListener('touchstart', this.onTouchStart);
     }
 
     _unRegisterStartEvent = () => {
-        this.handler.removeEventListener('mousedown', this.onMouseDown);
-        this.handler.removeEventListener('touchstart', this.onTouchStart);
+        this.handlerElement?.removeEventListener('mousedown', this.onMouseDown);
+        this.handlerElement?.removeEventListener('touchstart', this.onTouchStart);
     }
 
     destroy() {
+        this.destroyed = true;
         this._unRegisterStartEvent();
         this._unRegisterEvent();
+        this.animationFrames.forEach((update, frame) => cancelAnimationFrame(frame));
+        this.animationFrames.clear();
+        this._restoreHandlerCursor();
     }
 
     _registerDocMouseEvent = () => {
@@ -166,7 +204,10 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
     onMouseDown = (e: MouseEvent) => {
         this._calcMoveRange();
         this._adapter.notifyMouseDown(e);
-        if (!this._allowMove(e)) {
+        if (this.destroyed) {
+            return;
+        }
+        if (!this._allowMove(e) || this.destroyed) {
             return;
         }
         this._registerDocMouseEvent();
@@ -178,7 +219,10 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
     onTouchStart = (e: TouchEvent) => {
         this._calcMoveRange();
         this._adapter.notifyTouchStart(e);
-        if (!this._allowMove(e)) {
+        if (this.destroyed) {
+            return;
+        }
+        if (!this._allowMove(e) || this.destroyed) {
             return;
         }
         this._registerDocTouchEvent();
@@ -188,6 +232,9 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
     }
 
     _changePos = (e: Touch | MouseEvent) => {
+        if (this.destroyed) {
+            return;
+        }
         const { customMove } = this.getProps();
         const useRelativePosition = this.getProp('positionStrategy') === 'relative';
         let newLeft = useRelativePosition ?
@@ -201,14 +248,18 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
             newTop = clampValueInRange(newTop, this.yMin, this.yMax); 
         }
 
-        requestAnimationFrame(() => {
+        let frame: number;
+        const updatePosition = () => {
+            this.animationFrames.delete(frame);
             if (customMove) {
                 customMove(this.element, newTop, newLeft);
                 return;
             }
             this.element.style.top = newTop + 'px';
             this.element.style.left = newLeft + 'px';
-        }); 
+        };
+        frame = requestAnimationFrame(updatePosition);
+        this.animationFrames.set(frame, updatePosition);
     }
 
     _onMouseMove = (e: MouseEvent) => {
@@ -222,17 +273,36 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
         this._changePos(touch);
     }
 
+    _flushAnimationFrames = () => {
+        this.animationFrames.forEach((update, frame) => {
+            cancelAnimationFrame(frame);
+            update();
+        });
+    }
+
     _onMouseUp = (e: MouseEvent) => {
+        this._flushAnimationFrames();
+        if (this.destroyed) {
+            return;
+        }
         this._adapter.notifyMouseUp(e);
         this._unRegisterDocMouseEvent();
     }
 
     _onTouchEnd = (e: TouchEvent) => {
+        this._flushAnimationFrames();
+        if (this.destroyed) {
+            return;
+        }
         this._adapter.notifyTouchEnd(e);
         this._unRegisterDocTouchEvent();
     }
 
     _onTouchCancel = (e: TouchEvent) => {
+        this._flushAnimationFrames();
+        if (this.destroyed) {
+            return;
+        }
         this._adapter.notifyTouchCancel(e);
         this._unRegisterDocTouchEvent();
     }
