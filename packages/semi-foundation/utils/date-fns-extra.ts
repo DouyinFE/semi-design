@@ -196,7 +196,44 @@ const utcToZonedTime = (date: string | number | Date, timeZone: string | number,
  * 
  * @see https://github.com/marnusw/date-fns-tz#zonedtimetoutc
  */
-const zonedTimeToUtc = (date: string | number | Date, timeZone: string | number, options?: OptionsWithTZ) => dateFnsZonedTimeToUtc(date, toIANA(timeZone), options);
+const zonedTimeToUtc = (date: string | number | Date, timeZone: string | number, options?: OptionsWithTZ) => {
+    const zone = toIANA(timeZone);
+    if (!(date instanceof Date) || typeof zone !== 'string' || !isValidTimezoneIANAString(zone)) {
+        return dateFnsZonedTimeToUtc(date, zone, options);
+    }
+    const parsed = toDate(date, options);
+    if (isNaN(parsed.getTime())) {
+        return parsed;
+    }
+    // Recovering a host-local gap input requires retaining wall-clock fields before constructing Date.
+    const wallDate = new Date(0);
+    wallDate.setUTCFullYear(parsed.getFullYear(), parsed.getMonth(), parsed.getDate());
+    wallDate.setUTCHours(parsed.getHours(), parsed.getMinutes(), parsed.getSeconds(), parsed.getMilliseconds());
+    const wallTime = wallDate.getTime();
+    const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: zone,
+        hour12: false,
+        era: 'short',
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+    });
+    const offsetAt = (timestamp: number) => {
+        const formatted = formatter.format(new Date(timestamp));
+        const [month, day, year, hour, minute, second] = formatted.match(/\d+/g).map(Number);
+        const zoned = new Date(0);
+        zoned.setUTCFullYear(formatted.includes('BC') ? 1 - year : year, month - 1, day);
+        zoned.setUTCHours(hour % 24, minute, second, 0);
+        return zoned.getTime() - Math.floor(timestamp / 1000) * 1000;
+    };
+    // Resolve offsets from UTC instants so DST choices do not depend on the host timezone.
+    const initialOffset = offsetAt(wallTime);
+    const nextOffset = offsetAt(wallTime - initialOffset);
+    if (initialOffset === nextOffset) {
+        return new Date(wallTime - initialOffset);
+    }
+    const finalOffset = offsetAt(wallTime - nextOffset);
+    return new Date(wallTime - (nextOffset === finalOffset ? nextOffset : Math.max(nextOffset, finalOffset)));
+};
 
 /**
  * return current system hour offset based on utc:
