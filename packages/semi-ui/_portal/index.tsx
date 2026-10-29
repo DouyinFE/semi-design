@@ -20,6 +20,7 @@ export interface PortalState {
 }
 
 const defaultGetContainer = () => document.body;
+const strictModeEls = new WeakMap<PortalProps, HTMLElement>();
 class Portal extends PureComponent<PortalProps, PortalState> {
     static contextType = ConfigContext;
 
@@ -40,9 +41,16 @@ class Portal extends PureComponent<PortalProps, PortalState> {
     context: ContextValue;
     constructor(props: PortalProps, context: ContextValue) {
         super(props);
+        // StrictMode constructs the instance twice with the same props object and discards one
+        // of them without ever unmounting it, so the second call reuses the first call's el
+        // instead of leaving an orphan in the DOM. render() ends this window.
+        this.el = strictModeEls.get(props);
         this.state = {
             container: this.initContainer(context, true)
         };
+        if (this.el) {
+            strictModeEls.set(props, this.el);
+        }
     }
 
     componentDidMount() {
@@ -56,12 +64,7 @@ class Portal extends PureComponent<PortalProps, PortalState> {
         try {
             let container: HTMLElement | undefined = undefined;
             if (!this.el || !this.state?.container || !Array.from(this.state.container.childNodes).includes(this.el)) {
-                // Reuse the existing el if it was detached from the container — e.g. React 18+
-                // StrictMode's simulated remount runs componentWillUnmount (which removes el)
-                // and then componentDidMount lands here. Creating a new el would change
-                // createPortal's container identity and force React to unmount & remount the
-                // entire portal subtree (children effects re-run, data requests fire twice).
-                // Re-appending the same node restores the DOM without touching the React tree.
+                // Keep the same portal target when StrictMode simulates a remount.
                 if (!this.el) {
                     this.el = document.createElement('div');
                 }
@@ -90,9 +93,8 @@ class Portal extends PureComponent<PortalProps, PortalState> {
     }
 
     componentWillUnmount() {
-        const { container } = this.state;
-        if (container) {
-            container.removeChild(this.el);
+        if (this.el && this.el.parentNode) {
+            this.el.parentNode.removeChild(this.el);
         }
     }
 
@@ -116,6 +118,7 @@ class Portal extends PureComponent<PortalProps, PortalState> {
 
     render() {
         const { state, props } = this;
+        strictModeEls.delete(props);
         if (state.container) {
             return createPortal(props.children, this.el);
         }
