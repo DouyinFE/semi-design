@@ -99,6 +99,7 @@ export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>>
 
 class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<UploadAdapter<P, S>, P, S> {
     destroyState: boolean = false;
+    _pendingRequests: Set<XMLHttpRequest> = new Set();
     /**
      * Canonical storage for objectURL created by this Upload instance.
      * Do NOT rely on React state localUrls because setState is async and may lose updates
@@ -197,6 +198,8 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         this._batchFileList = null;
         this._latestFileList = null;
         this.destroyState = true;
+        this._pendingRequests.forEach(xhr => xhr.abort());
+        this._pendingRequests.clear();
     }
 
     /**
@@ -750,7 +753,16 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             }
         }
 
-        xhr.send(formData);
+        xhr.onloadend = () => {
+            this._pendingRequests.delete(xhr);
+        };
+        this._pendingRequests.add(xhr);
+        try {
+            xhr.send(formData);
+        } catch (error) {
+            this._pendingRequests.delete(xhr);
+            throw error;
+        }
     }
 
     handleProgress({ e, fileInstance }: { e?: ProgressEvent; fileInstance: File }): void {
