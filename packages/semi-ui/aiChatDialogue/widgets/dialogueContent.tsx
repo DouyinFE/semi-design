@@ -31,6 +31,13 @@ const { STATUS, MODE, ROLE, MESSAGE_ITEM_TYPE, TEXT_TYPES, TOOL_CALL_TYPES,
     DOCUMENT_TYPES, IMAGE_TYPES, PDF_TYPES, EXCEL_TYPES, CODE_TYPES, VIDEO_TYPES
 } = strings;
 
+const handleReferenceKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        event.currentTarget.click();
+    }
+};
+
 
 const ImageAttachment = React.memo((props: {src: string; isList: boolean; msg: InputImage; onImageClick?: (msg: InputImage) => void; isLastImage?: boolean}) => {
     const { src, isList, msg, onImageClick, isLastImage } = props;
@@ -121,12 +128,12 @@ const FileAttachment = React.memo((props: FileAttachmentProps) => {
             </span>
         </div>
         {role === ROLE.USER && showReference && (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <div 
                 className={`${PREFIX_CONTENT}-icon-reference`} 
                 role="button" 
                 tabIndex={0}
                 onClick={handleReferenceClick}
+                onKeyDown={handleReferenceKeyDown}
             >
                 <IconSendMsgStroked />
             </div>
@@ -210,12 +217,12 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
                 />
                 {
                     role === ROLE.USER && showReference && (
-                        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
                         <div 
                             className={`${PREFIX_CONTENT}-icon-reference`} 
                             role="button" 
                             tabIndex={0}
                             onClick={() => onReferenceClick?.({ type: 'text', content: text })}
+                            onKeyDown={handleReferenceKeyDown}
                         >
                             <IconSendMsgStroked />
                         </div>)
@@ -358,12 +365,12 @@ const DialogueContent = React.memo((props: DialogueContentProps) => {
                             {...markdownRenderProps}
                         />
                         {role === ROLE.USER && showReference && (
-                            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
                             <div 
                                 className={`${PREFIX_CONTENT}-icon-reference`} 
                                 role="button" 
                                 tabIndex={0}
                                 onClick={() => onReferenceClick?.({ type: 'text', content: textContent })}
+                                onKeyDown={handleReferenceKeyDown}
                             >
                                 <IconSendMsgStroked />
                             </div>
