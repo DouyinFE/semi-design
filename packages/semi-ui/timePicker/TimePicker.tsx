@@ -462,13 +462,11 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
     }
 
     focus() {
-        // TODO this.picker is undefined, confirm keep this func or not
-        // this.picker.focus();
+        this.timePickerRef.current?.querySelector('input')?.focus({ preventScroll: this.props.preventScroll });
     }
 
     blur() {
-        // TODO this.picker is undefined, confirm keep this func or not
-        // this.picker.blur();
+        this.timePickerRef.current?.querySelector('input')?.blur();
     }
 
     /* istanbul ignore next */
