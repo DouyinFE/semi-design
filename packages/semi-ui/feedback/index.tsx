@@ -124,7 +124,7 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
         return <TextArea
             onChange={this.foundation.handleTextChange}
             placeholder='Provider additional feedback'
-            {...textAreaProps}
+            {...omit(textAreaProps, 'onChange')}
         />;
     }
 
@@ -147,7 +147,7 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
             {emoji === Emoji.bad && <TextArea
                 onChange={this.foundation.handleEmojiReasonChange}
                 placeholder='Provider additional feedback(optional)'
-                {...textAreaProps}
+                {...omit(textAreaProps, 'onChange')}
             />}
         </>;
     }
