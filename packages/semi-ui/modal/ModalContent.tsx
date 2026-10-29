@@ -207,7 +207,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                     <Typography.Title
                         heading={5}
                         className={`${cssClasses.DIALOG}-title`}
-                        id={`${cssClasses.DIALOG}-title`}
+                        id={`${this.dialogId}-title`}
                         x-semi-prop="title"
                     >
                         {title}
@@ -230,13 +230,13 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
         const icon = this.renderIcon();
         const hasHeader = title !== null && title !== undefined || 'header' in this.props;
         return hasHeader ? (
-            <div className={bodyCls} id={`${cssClasses.DIALOG}-body`} style={bodyStyle} x-semi-prop="children">
+            <div className={bodyCls} id={`${this.dialogId}-body`} style={bodyStyle} x-semi-prop="children">
                 {children}
             </div>
         ) : (
             <div className={`${cssClasses.DIALOG}-body-wrapper`}>
                 {icon}
-                <div className={bodyCls} style={bodyStyle} x-semi-prop="children">
+                <div className={bodyCls} id={`${this.dialogId}-body`} style={bodyStyle} x-semi-prop="children">
                     {children}
                 </div>
                 {closer}
@@ -274,8 +274,8 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             role="dialog"
             ref={this.modalDialogRef}
             aria-modal="true"
-            aria-labelledby={`${cssClasses.DIALOG}-title`}
-            aria-describedby={`${cssClasses.DIALOG}-body`}
+            aria-labelledby={!('header' in props) && props.title !== null && props.title !== undefined ? `${this.dialogId}-title` : undefined}
+            aria-describedby={`${this.dialogId}-body`}
             onAnimationEnd={props.onAnimationEnd}
             className={cls([`${cssClasses.DIALOG}-content`,
                 props.contentClassName,
