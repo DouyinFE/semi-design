@@ -1,5 +1,6 @@
 import React, { AriaAttributes } from 'react';
 import BaseComponent from '../_base/baseComponent';
+import ResizeObserver, { ObserverProperty, ResizeEntry } from '../resizeObserver';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { noop, debounce, throttle, find, map, findIndex, times } from 'lodash';
@@ -66,6 +67,7 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
     selector: unknown;
     scrollAnimation: any;
     scrolling: boolean;
+    observedHeight = 0;
     throttledAdjustList: DebounceSelectFn;
     debouncedSelect: DebounceSelectFn;
 
@@ -93,6 +95,8 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
 
         this.throttledAdjustList = throttle((e, nearestNode) => {
             this.foundation.adjustInfiniteList(this.list, this.wrapper, nearestNode);
+            const adjusted = this.foundation.getNearestNodeInfo(this.list, this.selector);
+            this.debouncedSelect(e, adjusted.nearestNode);
         }, msPerFrame);
 
         this.debouncedSelect = debounce((e, nearestNode) => {
@@ -122,7 +126,11 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
     componentDidMount() {
         this.foundation.init();
 
-        const { mode, cycled, selectedIndex, list } = this.props;
+        this.initSelectedNode();
+    }
+
+    initSelectedNode = () => {
+        const { mode, cycled, selectedIndex } = this.props;
 
         const selectedNode = this.getNodeByIndex(
             typeof selectedIndex === 'number' && selectedIndex > -1 ? selectedIndex : 0
@@ -144,7 +152,30 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
     }
 
     componentDidUpdate(prevProps: ScrollItemProps<T>) {
-        const { selectedIndex } = this.props;
+        const { selectedIndex, list, cycled } = this.props;
+
+        if (!prevProps.list.length && list.length) {
+            this.initSelectedNode();
+            return;
+        }
+
+        if (prevProps.list.length && list.length && prevProps.list.length !== list.length) {
+            this.throttledAdjustList.cancel();
+            this.debouncedSelect.cancel();
+            if (this.scrollAnimation) {
+                this.scrollAnimation.destroy();
+            }
+            let node = this.selectedNode;
+            if (prevProps.selectedIndex !== selectedIndex ||
+                !this.list.contains(node) || !this.list.contains(this.willSelectNode)) {
+                const offset = this.isWheelMode() && cycled ? this.state.prependCount * list.length : 0;
+                node = this.getNodeByIndex(offset + selectedIndex) as HTMLElement;
+            }
+            this._cacheSelectedNode(node);
+            this._cacheWillSelectNode(node);
+            this.scrollToNode(node, 0);
+            return;
+        }
 
         // smooth scroll to selected option
         if (prevProps.selectedIndex !== selectedIndex) {
@@ -325,6 +356,10 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
     };
 
     scrollToNode = (node: HTMLElement, duration: number) => {
+        if (!node) {
+            return;
+        }
+
         const { wrapper } = this;
         const wrapperHeight = wrapper.offsetHeight;
         const itemHeight = this.getItmHeight(node);
@@ -369,9 +404,9 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
 
         if (this.props.cycled) {
             this.throttledAdjustList(e, nearestNode);
+        } else {
+            this.debouncedSelect(e, nearestNode);
         }
-
-        this.debouncedSelect(e, nearestNode);
     };
 
     /**
@@ -533,7 +568,31 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
         );
     };
 
+    handleResize = ([entry]: ResizeEntry[]) => {
+        const height = entry.contentRect.height;
+        if (height > 0 && this.observedHeight === 0) {
+            const { selectedIndex, list } = this.props;
+            const { prependCount, appendCount } = this.state;
+            const cycledWheel = this.isWheelMode() && this.props.cycled;
+            if (cycledWheel && !prependCount && !appendCount) {
+                // mounted hidden: copies could not be measured, redo the wheel init now that layout exists
+                this.initSelectedNode();
+            } else {
+                const offset = cycledWheel ? prependCount * list.length : 0;
+                const selectedNode = this.getNodeByIndex(
+                    offset + (typeof selectedIndex === 'number' && selectedIndex > -1 ? selectedIndex : 0)
+                ) as HTMLElement;
+                if (selectedNode) {
+                    this.scrollToNode(selectedNode, 0);
+                }
+            }
+        }
+        this.observedHeight = height;
+    };
+
     render() {
-        return this.isWheelMode() ? this.renderInfiniteList() : this.renderNormalList();
+        return <ResizeObserver onResize={this.handleResize} observerProperty={ObserverProperty.Height}>
+            {this.isWheelMode() ? this.renderInfiniteList() : this.renderNormalList()}
+        </ResizeObserver>;
     }
 }
