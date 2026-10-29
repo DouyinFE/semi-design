@@ -54,6 +54,7 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
     private domRef = React.createRef<HTMLDivElement>();
     private resizeObserver: ResizeObserver | null;
     private hasBeenRendered: boolean = false;
+    private motionEndTimer: ReturnType<typeof setTimeout>;
 
     constructor(props: CollapsibleProps) {
         super(props);
@@ -142,6 +143,13 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
     }
 
     componentDidUpdate(prevProps: Readonly<CollapsibleProps>, prevState: Readonly<CollapsibleState>, snapshot?: any) {
+        if (prevProps.isOpen !== this.props.isOpen) {
+            clearTimeout(this.motionEndTimer);
+            if (this.props.motion) {
+                // Empty or hidden content may not produce a transitionend event.
+                this.motionEndTimer = setTimeout(this.handleMotionEnd, this.props.duration + 50);
+            }
+        }
         const changedPropKeys = Object.keys(pick(this.props, ['reCalcKey'])).filter(key => !isEqual(this.props[key], prevProps[key]));
         const changedStateKeys = Object.keys(pick(this.state, ['domInRenderTree'])).filter(key => !isEqual(this.state[key], prevState[key]));
         if (changedPropKeys.includes("reCalcKey")) {
@@ -155,7 +163,20 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
 
     componentWillUnmount() {
         super.componentWillUnmount();
+        clearTimeout(this.motionEndTimer);
         this.resizeObserver.disconnect();
+    }
+
+    handleMotionEnd = () => {
+        if (!this.state.isTransitioning) {
+            return;
+        }
+        clearTimeout(this.motionEndTimer);
+        if (!this.props.isOpen) {
+            this.foundation.updateVisible(false);
+        }
+        this.foundation.updateIsTransitioning(false);
+        this.props.onMotionEnd?.();
     }
 
     handleResize = (entryList: ResizeObserverEntry[]) => {
@@ -203,12 +224,10 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
             <div
                 className={wrapperCls}
                 style={wrapperStyle}
-                onTransitionEnd={() => {
-                    if (!this.props.isOpen) {
-                        this.foundation.updateVisible(false);
+                onTransitionEnd={event => {
+                    if (event.target === event.currentTarget && event.propertyName === 'height') {
+                        this.handleMotionEnd();
                     }
-                    this.foundation.updateIsTransitioning(false);
-                    this.props.onMotionEnd?.();
                 }}
                 {...this.getDataAttr(this.props)}
             >
