@@ -638,19 +638,16 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
                 if ('renderOptionItem' in this.props) {
                     optionClassName = `.${prefixcls}-option-custom-selected`;
                     if (index !== undefined) {
-                        optionClassName = `.${prefixcls}-option-custom:nth-child(${index + 1})`;
+                        optionClassName = `.${prefixcls}-option-custom`;
                     }
                 } else {
                     optionClassName = `.${prefixcls}-option-selected`;
                     if (index !== undefined) {
-                        optionClassName = `.${prefixcls}-option:nth-child(${index + 1})`;
+                        optionClassName = `.${prefixcls}-option`;
                     }
                 }
 
-                let destNode = document.querySelector(`#${prefixcls}-${this.selectOptionListID} ${optionClassName}`) as HTMLDivElement;
-                if (Array.isArray(destNode)) {
-                    destNode = destNode[0];
-                }
+                const destNode = document.querySelectorAll(`#${prefixcls}-${this.selectOptionListID} ${optionClassName}`)[index ?? 0] as HTMLDivElement;
                 if (destNode) {
                     /**
                      * Scroll the first selected item into view.
