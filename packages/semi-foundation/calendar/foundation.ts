@@ -265,8 +265,8 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
         const eventCountMap = {};
         parsed.day = parsed.day.map(item => {
             const key = `${item.startPos}-${item.endPos}`;
-            let curCount = eventCountMap[key];
-            eventCountMap[key] = curCount === undefined ? 0 : ++curCount;
+            const curCount = eventCountMap[key] ?? 0;
+            eventCountMap[key] = curCount + 1;
             item.left = curCount !== 0 ? `${(curCount / sameTimeRangeGroup[key].length * 100)}%` : 0;
             return item;
         });
