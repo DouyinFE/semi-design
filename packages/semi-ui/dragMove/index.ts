@@ -10,7 +10,8 @@ export interface DragMoveProps {
     // The element that triggers the drag event，default is element
     handler?: () => HTMLElement;
     // The element that constrains the movement range, This element requires relative positioning
-    constrainer?: () => HTMLElement | 'parent';
+    constrainer?: (() => HTMLElement) | 'parent';
+    allowInputDrag?: boolean;
     children?: ReactNode | undefined | any;
     onMouseDown?: (e: MouseEvent) => void;
     onMouseMove?: (e: MouseEvent) => void;
