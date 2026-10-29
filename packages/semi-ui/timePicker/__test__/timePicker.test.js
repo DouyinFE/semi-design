@@ -928,7 +928,36 @@ describe(`TimePicker`, () => {
         };
         const elem = mount(<TimePicker {...props} />);
         
-        expect(elem.props().clearText).toBe('清除时间');
+        elem.find(`.${BASE_CLASS_PREFIX}-input-wrapper`).simulate('mouseEnter');
+        expect(elem.find(`.${BASE_CLASS_PREFIX}-input-clearbtn [title="清除时间"]`).length).toBe(1);
+        elem.unmount();
+    });
+
+    it('does not add a clear title without clearText', async () => {
+        const elem = mount(<TimePicker defaultValue="10:23:15" showClear locale={Locale.TimePicker} localeCode={Locale.code} />);
+
+        elem.find(`.${BASE_CLASS_PREFIX}-input-wrapper`).simulate('mouseEnter');
+        expect(elem.find(`.${BASE_CLASS_PREFIX}-input-clearbtn [title]`).length).toBe(0);
+        elem.unmount();
+    });
+
+    it('keeps a custom clear icon when showing clearText', () => {
+        const onChange = sinon.spy();
+        const elem = mount(<TimePicker
+            defaultValue="10:23:15"
+            showClear
+            clearText="Clear time"
+            clearIcon={<span className="custom-clear-icon">X</span>}
+            onChange={onChange}
+            locale={Locale.TimePicker}
+            localeCode={Locale.code}
+        />);
+        elem.find(`.${BASE_CLASS_PREFIX}-input-wrapper`).simulate('mouseEnter');
+        const clearBtn = elem.find(`.${BASE_CLASS_PREFIX}-input-clearbtn`);
+        expect(clearBtn.find('[title="Clear time"] .custom-clear-icon').length).toBe(1);
+        clearBtn.simulate('mouseDown');
+        expect(onChange.calledOnce).toBe(true);
+        expect(onChange.firstCall.args[0]).toBe(undefined);
         elem.unmount();
     });
 
