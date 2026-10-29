@@ -407,7 +407,7 @@ render(Demo);
 | zIndex | 弹层 z-index 值                                                                                                          | number | 1010 |        |
 | theme | 填充样式，支持 `light`, `normal`                                                                                             | string | `normal` | 2.54.0 |
 | duration | 自动关闭的延时，单位 s，设为 0 时不自动关闭                                                                                              | number | 3 |        |
-| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 container 和 内部的 .semi-toast-wrapper `position: relative`, 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。 | () => HTMLElement \| null | () => document.body | - |
+| getPopupContainer | 回调返回 null 时使用默认 document.body。指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 container 和 内部的 .semi-toast-wrapper `position: relative`, 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。 | () => HTMLElement \| null | () => document.body | - |
 
 ## Accessibility
 
