@@ -131,24 +131,26 @@ export default class AnchorFoundation<P = Record<string, any>, S = Record<string
 
     // Get the child nodes of each link
     _getLinkToMap = (link: any, parents: string[], linkMap: { [key: string]: Set<string> }) => {
-        const node = link && link.props;
-        if (!node || !node.href) {
-            return;
-        }
-        if (!(node.href in linkMap)) {
-            linkMap[node.href] = new Set();
-        }
-        // Every ancestor kept a map
-        for (const parent of parents) {
-            linkMap[parent].add(node.href);
-        }
-        if (node.children && node.children.length) {
-            parents.push(node.href);
-            // Maintain child node map
-            for (const child of node.children) {
-                this._getLinkToMap(child, parents, linkMap);
+        for (const item of isArray(link) ? link : [link]) {
+            if (isArray(item)) {
+                this._getLinkToMap(item, parents, linkMap);
+                continue;
             }
-            parents.pop();
+            const node = item && item.props;
+            if (!node) {
+                continue;
+            }
+            if (node.href) {
+                if (!(node.href in linkMap)) {
+                    linkMap[node.href] = new Set();
+                }
+                for (const parent of parents) {
+                    linkMap[parent].add(node.href);
+                }
+            }
+            if (node.children) {
+                this._getLinkToMap(node.children, node.href ? [...parents, node.href] : parents, linkMap);
+            }
         }
     };
 
