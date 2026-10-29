@@ -88,7 +88,7 @@ const InputSlotComponent = (props: NodeViewProps) => {
                 data-placeholder={true}
                 contentEditable={false}
                 className="input-slot-placeholder"
-                style={{ display: shouldShowPlaceholder ? undefined : 'none' }}
+                style={{ display: shouldShowPlaceholder ? undefined : 'none', whiteSpace: 'pre' }}
             >
                 {placeholder}
             </span>
