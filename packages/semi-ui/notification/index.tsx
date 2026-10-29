@@ -69,6 +69,7 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     private noticeStorage: NoticeInstance[];
     private appliedUpdates = new WeakSet<NoticeInstance>();
     private removeItemStorage: NoticeInstance[];
+    private leaveFallbackTimers: Map<string, ReturnType<typeof setTimeout>> = new Map();
 
 
     constructor(props: NotificationListProps) {
@@ -86,14 +87,36 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
 
     context: ContextValue;
 
+    componentWillUnmount(): void {
+        super.componentWillUnmount();
+        this.leaveFallbackTimers.forEach(timer => clearTimeout(timer));
+        this.leaveFallbackTimers.clear();
+    }
+
+    releaseRemovedNotice = (notice: NoticeInstance) => {
+        clearTimeout(this.leaveFallbackTimers.get(notice.id));
+        this.leaveFallbackTimers.delete(notice.id);
+        this.removeItemStorage = this.removeItemStorage.filter(item => item !== notice);
+        this.setState({ removedItems: this.removeItemStorage });
+    };
+
+    // animationend never fires when the hide animation is disabled by CSS (animation: none, reduced motion),
+    // so release the notice after the hide duration (animation.scss, 300ms) with a small margin.
+    scheduleRemovedNoticeRelease = (notice: NoticeInstance) => {
+        if (!this.leaveFallbackTimers.has(notice.id)) {
+            this.leaveFallbackTimers.set(notice.id, setTimeout(() => this.releaseRemovedNotice(notice), 350));
+        }
+    };
+
     get adapter(): NotificationListAdapter {
         return {
             ...super.adapter,
             updateNotices: (notices: NoticeInstance[], removedItems: NoticeInstance[] = [], updatedItems: NoticeInstance[] = []) => {
                 this.noticeStorage = [...notices];
-                this.removeItemStorage = [...removedItems];
+                this.removeItemStorage = Array.from(new Set([...this.removeItemStorage, ...removedItems]))
+                    .filter(item => !notices.some(notice => notice.id === item.id));
                 // setState is async sometimes and react often merges state, so use "this" , make sure other code always get right data.
-                this.setState({ notices, removedItems, updatedItems });
+                this.setState({ notices, removedItems: this.removeItemStorage, updatedItems });
             },
             getNotices: () => this.noticeStorage,
         };
@@ -251,6 +274,17 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
                         const isRemoved = removedItems.find(removedItem => removedItem.id === notice.id) !== undefined;
                         return <CSSAnimation key={notice.id}
                             animationState={isRemoved ? "leave" : "enter"}
+                            motion={notice.motion}
+                            onAnimationStart={() => {
+                                if (isRemoved) {
+                                    this.scheduleRemovedNoticeRelease(notice);
+                                }
+                            }}
+                            onAnimationEnd={() => {
+                                if (isRemoved) {
+                                    this.releaseRemovedNotice(notice);
+                                }
+                            }}
                             startClassName={`${cssClasses.NOTICE}-animation-${isRemoved ? "hide" : "show"}_${position}`}>
                             {({ animationClassName, animationEventsNeedBind, isAnimating }) => {
                                 return isRemoved && !isAnimating ? null : <Notice
