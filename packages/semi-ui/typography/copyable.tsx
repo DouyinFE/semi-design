@@ -9,7 +9,6 @@ import LocaleConsumer from '../locale/localeConsumer';
 import { IconCopy, IconTick } from '@douyinfe/semi-icons';
 import { BaseProps } from '../_base/baseComponent';
 import { Locale } from '../locale/interface';
-import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 import { CopyableConfig } from './title';
 
 const prefixCls = cssClasses.PREFIX;
@@ -116,18 +115,20 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
             role: "button",
             tabIndex: 0,
             onClick: this.copy,
-            onKeyPress: e => isEnterPress(e) && this.copy(e as any),
+            onKeyDown: e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.copy(e as any);
+                }
+            },
         };
 
         {/* TODO: replace `a` tag with `span` in next major version
             NOTE: may have effect on style */}
         const defaultIcon = (
             // eslint-disable-next-line jsx-a11y/anchor-is-valid
-            <a className={`${prefixCls}-action-copy-icon`}>
-                <IconCopy
-                    onClick={this.copy}
-                    {...copyProps}
-                />
+            <a className={`${prefixCls}-action-copy-icon`} {...copyProps}>
+                <IconCopy />
             </a>
         );
 

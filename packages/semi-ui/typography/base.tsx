@@ -10,7 +10,6 @@ import Tooltip from '../tooltip/index';
 import Popover from '../popover/index';
 import getRenderText from './util';
 import warning from '@douyinfe/semi-foundation/utils/warning';
-import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 import LocaleConsumer from '../locale/localeConsumer';
 import type { Locale } from '../locale/interface';
 import type { Ellipsis, EllipsisPos, ShowTooltip, TypographyBaseSize, TypographyBaseType } from './interface';
@@ -509,7 +508,12 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
                     ref={this.expandRef}
                     aria-label={text}
                     onClick={this.toggleOverflow}
-                    onKeyPress={e => isEnterPress(e) && this.toggleOverflow(e as any)}
+                    onKeyDown={e => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            this.toggleOverflow(e as any);
+                        }
+                    }}
                 >
                     {text}
                 </a>
