@@ -10,7 +10,7 @@ import { ContainerReactProps } from '../interface';
 import LocaleConsumer from '../../locale/localeConsumer';
 import { Locale } from '../../locale/interface';
 
-interface MCPConfigureProps extends ContainerReactProps, MCPConfigureContentReactProps {}
+interface MCPConfigureProps extends Omit<ContainerReactProps, 'closeOnEsc'>, MCPConfigureContentReactProps {}
 
 interface MCPConfigureState {}
 
