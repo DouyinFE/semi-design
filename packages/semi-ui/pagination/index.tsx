@@ -357,8 +357,10 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             currentPage,
             restLeftPageList,
             restRightPageList,
+            total,
+            pageSize,
         } = this.state;
-        const { popoverPosition, popoverZIndex, disabled } = this.props;
+        const { popoverPosition, popoverZIndex, disabled, showTotal } = this.props;
 
         return pageList.map((page, i) => {
             const pageListClassName = classNames(`${prefixCls}-item`, {
@@ -383,7 +385,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                 i < 3 ? (content = restLeftPageList) : (content = restRightPageList);
                 return (
                     <Popover
-                        rePosKey={this.props.currentPage}
+                        rePosKey={`${currentPage}-${total}-${pageSize}-${showTotal}`}
                         trigger="hover"
                         // onVisibleChange={visible=>this.handleRestHover(visible, i < 3 ? 'left' : 'right')}
                         content={this.renderRestPageList(content)}
