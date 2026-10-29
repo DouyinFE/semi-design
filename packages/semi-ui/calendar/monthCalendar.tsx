@@ -220,7 +220,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
         const list = events.map((event, ind) => {
             const { leftPos, width, topInd, key, children } = event;
             const style = {
-                left: toPercent(leftPos),
+                insetInlineStart: toPercent(leftPos),
                 width: toPercent(width),
                 top: `${topInd}em`
             };
