@@ -96,6 +96,7 @@ export default class CropperFoundation <P = Record<string, any>, S = Record<stri
     destroy() {
         this.unBindMoveEvent();
         this.unBindResizeEvent();
+        this.unBindImgMoveEvent();
         this.removePreview();
     }
 
@@ -515,8 +516,8 @@ export default class CropperFoundation <P = Record<string, any>, S = Record<stri
     }
 
     unBindResizeEvent = () => {
-        const { aspectRatio } = this.getProps();
-        document.removeEventListener('mousemove', aspectRatio ? this.handleCornerAspectMouseMove : this.handleCornerMouseMove);
+        document.removeEventListener('mousemove', this.handleCornerAspectMouseMove);
+        document.removeEventListener('mousemove', this.handleCornerMouseMove);
         document.removeEventListener('mouseup', this.handleCornerMouseUp);
     }
 

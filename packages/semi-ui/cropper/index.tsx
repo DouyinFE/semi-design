@@ -185,6 +185,12 @@ class Cropper extends BaseComponent<CropperProps, CropperState> {
         this.foundation.init();
     }
 
+    componentDidUpdate(prevProps: CropperProps): void {
+        if (prevProps.aspectRatio !== this.props.aspectRatio) {
+            this.foundation.unBindResizeEvent();
+        }
+    }
+
     componentWillUnmount(): void {
         this.foundation.destroy();
         this.unRegisterImageWrapRef();
