@@ -248,6 +248,7 @@ export default class CropperFoundation <P = Record<string, any>, S = Record<stri
             return;
         }
         const img = document.createElement('img');
+        img.alt = '';
         this.previewImg = img;
         this.previewContainer = previewNode;
         img.src = src;
