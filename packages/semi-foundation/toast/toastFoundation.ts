@@ -75,6 +75,7 @@ export default class ToastFoundation extends BaseFoundation<ToastAdapter> {
     }
 
     close(e?: any) {
+        this.clearCloseTimer_();
         if (e) {
             e.stopPropagation();
         }
