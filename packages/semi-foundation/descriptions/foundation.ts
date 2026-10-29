@@ -33,7 +33,7 @@ export default class DescriptionsFoundation<P = Record<string, any>, S = Record<
                     return total += !isNaN(item.span)?item.span:1;
                 });
                 if (total < column) {
-                    lastSpan.span = column - total + 1;
+                    curSpan.itemList[curSpan.itemList.length - 1] = { ...lastSpan, span: column - total + 1 };
                 }
             }
             horizontalList.push(curSpan.itemList);
