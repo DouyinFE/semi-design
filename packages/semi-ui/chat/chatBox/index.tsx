@@ -49,7 +49,7 @@ const ChatBox = React.memo((props: ChatBoxProps) => {
             message={message}
             customRenderFunc={renderChatBoxAvatar}
         />);
-    }, [info, message, renderChatBoxAvatar]);
+    }, [info, message, renderChatBoxAvatar, continueSend]);
 
     const titleNode = useMemo(() => {
         return (<ChatBoxTitle 
