@@ -531,7 +531,9 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
 
         if (!sugInput) {
             expandedOptsKeys = findAncestorKeys(selectedKeys, keyEntities);
-            expandedOptsKeys.forEach(item => expandedKeys.add(item));
+            if (!this._isExpandControlled()) {
+                expandedOptsKeys.forEach(item => expandedKeys.add(item));
+            }
             flattenNodes = flattenTreeData(treeData, expandedKeys, keyMaps);
         } else {
             filteredOptsKeys = Object.values(keyEntities)
