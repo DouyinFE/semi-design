@@ -157,7 +157,8 @@ export interface FieldStaff {
 export interface ArrayFieldStaff {
     field: string;
     updateKey?: string;
-    initValue?: any
+    initValue?: any;
+    owner?: unknown
 }
 export interface FormUpdaterContextType {
     register: (field: string, fieldState: FieldState, fieldStuff: FieldStaff) => void;
@@ -172,8 +173,8 @@ export interface FormUpdaterContextType {
     getInitValue: (field?: string) => any;
     getFormProps: (keys?: Array<string>) => ComponentProps;
     getField: (field: string) => FieldStaff | undefined;
-    registerArrayField: (arrayFieldPath: string, val: any) => void;
-    unRegisterArrayField: (arrayField: string) => void;
+    registerArrayField: (arrayFieldPath: string, val: any, owner?: unknown) => void;
+    unRegisterArrayField: (arrayField: string, owner?: unknown) => void;
     getArrayField: (arrayField: string) => ArrayFieldStaff;
     updateArrayField: (arrayField: string, updateValue: any) => void
 }

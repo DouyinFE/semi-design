@@ -182,14 +182,19 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     }
 
     // in order to solve bytedance internal issue-289
-    registerArrayField(arrayFieldPath: string, val: any): void {
+    registerArrayField(arrayFieldPath: string, val: any, owner?: unknown): void {
         this.updateArrayField(arrayFieldPath, {
             updateKey: getUuidv4(),
-            initValue: val
+            initValue: val,
+            owner
         });
     }
 
-    unRegisterArrayField(arrayField: string): void {
+    // A replaced instance unmounts after its replacement registered the same path, so only the owner may remove it
+    unRegisterArrayField(arrayField: string, owner?: unknown): void {
+        if (owner && this.registeredArrayField.get(arrayField)?.owner !== owner) {
+            return;
+        }
         this.registeredArrayField.delete(arrayField);
     }
 
