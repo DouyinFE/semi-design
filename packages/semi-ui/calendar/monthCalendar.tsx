@@ -86,7 +86,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
     get adapter(): CalendarAdapter<MonthCalendarProps, MonthCalendarState> {
         return {
             ...super.adapter,
-            registerClickOutsideHandler: (key: string, cb: () => void) => {
+            registerClickOutsideHandler: (key: string, cb: (e: MouseEvent) => void) => {
                 const clickOutsideHandler = (e: MouseEvent) => {
                     
                     const cardDom = this.optionContainerEl && this.optionContainerEl.get(key);
@@ -94,7 +94,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
                     const target = e.target as Element;
                     const path = e.composedPath && e.composedPath() || [target];
                     if (cardDom && !cardDom.contains(target) && !path.includes(cardDom)) {
-                        cb();
+                        cb(e);
                     }
                 };
                 this.clickOutsideHandler = clickOutsideHandler;
@@ -401,7 +401,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
         return (
             <LocaleConsumer componentName="Calendar">
                 {(locale: Locale['Calendar'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => (
-                    <div role="grid" className={monthCls} key={this.state.itemLimit} style={monthStyle} {...this.getDataAttr(this.props)}>
+                    <div role="grid" className={monthCls} style={monthStyle} {...this.getDataAttr(this.props)}>
                         <div role="presentation" className={`${prefixCls}-sticky-top`}>
                             {header}
                             {this.renderHeader(dateFnsLocale)}

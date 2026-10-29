@@ -114,7 +114,10 @@ class Sidebar extends BaseComponent<SideBarProps, SideBarState> {
 
     handleCopyDetailContent = (e: React.MouseEvent, locale: Locale['Sidebar']) => {
         const { detailContent, mode, onDetailContentCopy } = this.props;
-        const content = detailContent.content;
+        const content = detailContent?.content;
+        if (content === undefined) {
+            return;
+        }
         const res = copy(content);
         res && this.ToastInCustomContainer.success({
             content: locale.copySuccess,
@@ -123,7 +126,7 @@ class Sidebar extends BaseComponent<SideBarProps, SideBarState> {
     }
 
     renderHeader = () => {
-        const { renderDetailHeader, detailContent, mode } = this.props;
+        const { renderDetailHeader, detailContent = {}, mode } = this.props;
         const result = renderDetailHeader?.(mode, detailContent);
         if (result) {
             return result;
@@ -144,6 +147,7 @@ class Sidebar extends BaseComponent<SideBarProps, SideBarState> {
                         theme='borderless'
                         type='tertiary'
                         icon={<IconCopyStroked />}
+                        disabled={detailContent.content === undefined}
                         onClick={(e) => this.handleCopyDetailContent(e, locale)}
                     />)}
                 </LocaleConsumer>

@@ -392,7 +392,9 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
     }
 
 
-    renderError = () => <div className={cls(`${prefixCls}-error`)}><IconAlertCircle size='large' />音频加载失败</div>
+    renderError = () => <LocaleConsumer<Locale['AudioPlayer']> componentName="AudioPlayer">
+        {locale => <div className={cls(`${prefixCls}-error`)}><IconAlertCircle size='large' />{locale.mediaError}</div>}
+    </LocaleConsumer>
 
     render() {
         const { audioUrl, autoPlay, className, style, showToolbar = true, theme = 'dark' } = this.props as AudioPlayerProps;

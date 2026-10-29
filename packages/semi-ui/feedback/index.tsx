@@ -124,7 +124,7 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
         return <TextArea
             onChange={this.foundation.handleTextChange}
             placeholder='Provide additional feedback'
-            {...textAreaProps}
+            {...omit(textAreaProps, 'onChange')}
         />;
     }
 
@@ -147,7 +147,7 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
             {emoji === Emoji.bad && <TextArea
                 onChange={this.foundation.handleEmojiReasonChange}
                 placeholder='Provide additional feedback (optional)'
-                {...textAreaProps}
+                {...omit(textAreaProps, 'onChange')}
             />}
         </>;
     }
@@ -238,9 +238,8 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
         const restProps = this.foundation.getRestProps();
         const realChildren = this.getRealChildren();
         const disabledOkButton = this.disableSubmitButton();
-        const realCls = cls(prefixCls, {
-            [`${prefixCls}-${type}`]: type,
-            className: className
+        const realCls = cls(prefixCls, className, {
+            [`${prefixCls}-${type}`]: type
         });
 
         return (<LocaleConsumer componentName="Feedback">
@@ -265,6 +264,12 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
                     footer={this.renderFooter(locale)}
                     onCancel={this.foundation.handleCancel}
                     {...(restProps as SideSheetReactProps)}
+                    afterVisibleChange={visible => {
+                        (this.props as FeedbackSideSheetProps).afterVisibleChange?.(visible);
+                        if (!visible) {
+                            this.props.afterClose();
+                        }
+                    }}
                 >
                     {realChildren}
                 </SideSheet>)
