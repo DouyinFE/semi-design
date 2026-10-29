@@ -708,6 +708,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
 
         formData.append(fileName, fileInstance);
         xhr.open('post', action, true);
+        xhr.timeout = option.timeout || 0;
 
         if (option.withCredentials && 'withCredentials' in xhr) {
             xhr.withCredentials = true;
@@ -735,6 +736,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                 this.handleError({ e, xhr, fileInstance });
             }
         };
+        xhr.ontimeout = xhr.onerror;
 
         // add headers
         let headers = option.headers || {};
