@@ -941,10 +941,17 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 }
                 const ref = getRef(children);
                 if (typeof ref === 'function') {
-                    ref(node);
+                    const cleanup = ref(node) as unknown;
+                    if (typeof cleanup === 'function') {
+                        return () => {
+                            (this.triggerEl as any).current = null;
+                            cleanup();
+                        };
+                    }
                 } else if (ref && typeof ref === 'object') {
                     (ref as React.MutableRefObject<any>).current = node;
                 }
+                return undefined;
             },
             tabIndex: (children as React.ReactElement<any>).props.tabIndex || 0, // a11y keyboard, in some condition select's tabindex need to -1 or 0
             'data-popupid': id
