@@ -392,25 +392,30 @@ import { TreeSelect, Switch } from '@douyinfe/semi-ui';
 通过设置 `remote` 属性可启用远程搜索。开启后，输入时不会执行本地过滤，而是仅触发 `onSearch` 回调，用户可自行处理远程数据获取并更新 `treeData`。
 
 ```jsx live=true
-import React, { useState, useCallback } from 'react';
-import { TreeSelect, Toast } from '@douyinfe/semi-ui';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
+import { TreeSelect, Spin } from '@douyinfe/semi-ui';
 
 () => {
     const [value, setValue] = useState();
     const [treeData, setTreeData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const timer = useRef();
+
+    useEffect(() => () => clearTimeout(timer.current), []);
 
     // 模拟远程搜索
     const handleSearch = useCallback((inputValue) => {
+        clearTimeout(timer.current);
         if (!inputValue) {
             setTreeData([]);
+            setLoading(false);
             return;
         }
 
         setLoading(true);
         
         // 模拟网络请求
-        setTimeout(() => {
+        timer.current = setTimeout(() => {
             const mockData = [
                 { label: `${inputValue} - 结果1`, value: `${inputValue}-1`, key: `${inputValue}-1` },
                 { label: `${inputValue} - 结果2`, value: `${inputValue}-2`, key: `${inputValue}-2` },
@@ -428,7 +433,7 @@ import { TreeSelect, Toast } from '@douyinfe/semi-ui';
             treeData={treeData}
             filterTreeNode
             remote
-            loading={loading}
+            suffix={loading ? <Spin size="small" /> : undefined}
             value={value}
             onChange={setValue}
             onSearch={handleSearch}

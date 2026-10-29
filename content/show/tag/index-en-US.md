@@ -327,7 +327,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
     const defaultList = [
         { tagKey: '1', color: 'light-blue', children: 'Douyin', closable: true, },
         { tagKey: '3', color: 'amber', children: 'Jianying', closable: true, },
-        { tagKey: '3', color: 'violet', children: 'Faceu', closable: true, },
+        { tagKey: '2', color: 'violet', children: 'Faceu', closable: true, },
         { tagKey: '4', color: 'white', children: 'Lark', closable: true, },
     ];
 

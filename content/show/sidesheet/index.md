@@ -312,7 +312,7 @@ import { SideSheet, Form, Button, Typography, Banner } from '@douyinfe/semi-ui';
 | footer | 侧边栏底部                                                                         | ReactNode | null |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                          | () => HTMLElement | - |
 | headerStyle | 面板头部的样式                                                                       | CSSProperties | - |
-| height | 高度，位置为 `top` 或 `bottom` 时生效                                                   | number \| string | 400 |
+| height | 高度，位置为 `top` 或 `bottom` 时生效                                                   | number \| string | 448 |
 | keepDOM | 关闭 SideSheet 时是否保留内部组件不销毁                                                     | boolean | false |
 | mask | 是否显示遮罩，当 `mask={false}` 时允许对外部区域进行操作                          | boolean | true |
 | maskClosable | 是否允许通过点击遮罩来关闭面板                                                               | boolean | true |
