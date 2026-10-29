@@ -18,10 +18,10 @@ describe('table', () => {
      */
     it('columns change ', () => {
         cy.visit('http://localhost:6006/iframe.html?id=table--fixed-columns-change&viewMode=story');
-        cy.get('.semi-page-item').contains('2').click();
+        cy.contains('.semi-page-item', '2').click();
         cy.get('.semi-table-tbody .semi-checkbox').eq(1).click()
             .then(() => {
-                cy.get('.semi-page-item').contains('2').should('have.class', 'semi-page-item-active');
+                cy.contains('.semi-page-item', '2').should('have.class', 'semi-page-item-active');
             });
     });
 
@@ -135,7 +135,7 @@ describe('table', () => {
         cy.visit('http://localhost:6006/iframe.html?id=table--fix-select-all-325&args=&viewMode=story');
         cy.get('.semi-table-row-head .semi-checkbox-inner-display').click();
         cy.get('.semi-checkbox-checked').should('have.length', 3);
-        cy.get('.semi-page-item').contains('2').click();
+        cy.contains('.semi-page-item', '2').click();
         cy.get('.semi-table-row-head .semi-checkbox-checked');
         cy.get('.semi-table-row-head .semi-checkbox-indeterminate').should('not.exist');
         cy.get('.semi-checkbox-checked').should('have.length', 4);
