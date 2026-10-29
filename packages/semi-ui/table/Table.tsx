@@ -1197,7 +1197,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
       */
     addFnsInColumn = (column: ColumnProps = {}) => {
         const { prefixCls } = this.props;
-        if (column && (column.sorter || column.filters || column.onFilter || column.useFullRender)) {
+        if (column && (column.sorter || column.filters || column.onFilter || column.useFullRender ||
+            isValidElement(column.filterDropdown) || typeof column.renderFilterDropdown === 'function')) {
             let hasSorter = typeof column.sorter === 'function' || column.sorter === true;
             let hasFilter = (Array.isArray(column.filters) && column.filters.length) ||
                 isValidElement(column.filterDropdown) ||
