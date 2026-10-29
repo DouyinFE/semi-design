@@ -248,6 +248,10 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         };
 
         this.foundation = new TimePickerFoundation(this.adapter);
+        this.state = {
+            ...this.state,
+            ...this.foundation.getInitialState(),
+        };
         this.timePickerRef = React.createRef();
         this.savePanelRef = React.createRef();
         this.useCustomTrigger = typeof this.props.triggerRender === 'function';
