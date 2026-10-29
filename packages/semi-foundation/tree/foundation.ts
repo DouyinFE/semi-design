@@ -322,7 +322,9 @@ export interface TreeAdapter extends DefaultAdapter<BasicTreeProps, BasicTreeInn
 
 export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTreeProps, BasicTreeInnerData> {
     delayedDragEnterLogic: any;
+    private dragEnterTimers = new Set<ReturnType<typeof setTimeout>>();
     throttledDragOverUpdate: ReturnType<typeof throttle>;
+    dragImage: HTMLElement;
 
     constructor(adapter: TreeAdapter) {
         super({
@@ -339,6 +341,9 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
 
     destroy() {
         super.destroy();
+        this.removeDragImage();
+        this.dragEnterTimers.forEach(timer => clearTimeout(timer));
+        this.dragEnterTimers.clear();
         // Cancel any pending throttled updates
         if (this.throttledDragOverUpdate) {
             this.throttledDragOverUpdate.cancel();
@@ -804,7 +809,13 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         });
     };
 
+    removeDragImage() {
+        this.dragImage?.remove();
+        this.dragImage = null;
+    }
+
     handleNodeDragStart(e: any, treeNode: BasicTreeNodeData) {
+        this.removeDragImage();
         const { keyEntities } = this.getStates();
         const { hideDraggingNode, renderDraggingNode } = this.getProps();
         const { eventKey, nodeInstance, data } = treeNode;
@@ -818,6 +829,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
                 dragImg.style.opacity = 0;
             }
             document.body.appendChild(dragImg);
+            this.dragImage = dragImg;
             e.dataTransfer.setDragImage(dragImg, 0, 0);
         }
 
@@ -850,7 +862,8 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         }
 
         // Trigger dragenter after clearing the prev state in dragleave
-        setTimeout(() => {
+        const dragEnterTimer = setTimeout(() => {
+            this.dragEnterTimers.delete(dragEnterTimer);
             this._adapter.updateState({
                 dragOverNodeKey: eventKey,
                 dropPosition,
@@ -880,6 +893,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
                 this.triggerDragEvent('onDragEnter', e, treeNode, { expandedKeys: [...newExpandedKeys] });
             }, 400);
         }, 0);
+        this.dragEnterTimers.add(dragEnterTimer);
     }
 
     handleNodeDragOver(e: any, treeNode: BasicTreeNodeData, dragNode: any) {
@@ -915,6 +929,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
     handleNodeDragEnd(e: any, treeNode: BasicTreeNodeData) {
         // Flush any pending throttled updates before clearing drag state
         this.throttledDragOverUpdate.flush();
+        this.removeDragImage();
         this.clearDragState();
         this.triggerDragEvent('onDragEnd', e, treeNode);
         this._adapter.setDragNode(null);
