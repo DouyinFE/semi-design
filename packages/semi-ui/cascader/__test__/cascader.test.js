@@ -679,6 +679,42 @@ describe('Cascader', () => {
         // done();
     });
 
+    [false, true].forEach(remote => {
+        it(`preserves a search query when controlled empty options update, remote=${remote}`, () => {
+            const onSearch = sinon.spy();
+            const onChange = sinon.spy();
+            const cascader = render({ value: [], filterTreeNode: true, defaultOpen: true, remote, onSearch, onChange });
+            cascader.find('input').simulate('change', { target: { value: '北京' } });
+            cascader.setProps({ treeData: [{ label: '新北京', value: 'new-beijing' }] });
+            cascader.update();
+            expect(cascader.find('input').getDOMNode().value).toBe('北京');
+            expect(onSearch.calledOnceWithExactly('北京')).toBe(true);
+            const option = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option-flatten`);
+            expect(option).toHaveLength(1);
+            option.simulate('click');
+            expect(onChange.args).toEqual([[['new-beijing']]]);
+            cascader.unmount();
+        });
+    });
+
+    it('still clears the query when the controlled value is explicitly reset', () => {
+        const cascader = render({ value: ['Asia', 'China', 'Beijing'], filterTreeNode: true, defaultOpen: true });
+        cascader.find('input').simulate('change', { target: { value: '北京' } });
+        cascader.setProps({ value: [] });
+        expect(cascader.find('input').getDOMNode().value).toBe('');
+        cascader.unmount();
+    });
+
+    it('does not start searching on an idle empty options update', () => {
+        const onSearch = sinon.spy();
+        const cascader = render({ value: [], filterTreeNode: true, defaultOpen: true, onSearch });
+        cascader.setProps({ treeData: [{ label: '新北京', value: 'new-beijing' }] });
+        expect(cascader.find('input').getDOMNode().value).toBe('');
+        expect(cascader.state('isSearching')).toBe(false);
+        expect(onSearch.called).toBe(false);
+        cascader.unmount();
+    });
+
     it('filterTreeNode as a func', () => {
         let cascader = render({
             filterTreeNode: (inputValue, cascaderNode) => cascaderNode === inputValue,
