@@ -141,13 +141,18 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             value = value ? [value] : [];
         }
 
-        const parsedValues: Date[] = [];
+        const parsedValues: Date[] = new Array(value.length);
         let invalid = false;
-        (value as any[]).forEach(v => {
+        const parsedAll = (value as any[]).every((v, index) => {
             const pv = parseToDate(v, formatToken, dateFnsLocale);
-            if (!isNaN(pv.getTime())) {
-                parsedValues.push(this.isValidTimeZone(timeZone) ? utcToZonedTime(pv, timeZone) : pv);
+            if (this._isEmptyRangeEnd(pv)) {
+                return true;
             }
+            if (pv && !isNaN(pv.getTime())) {
+                parsedValues[index] = this.isValidTimeZone(timeZone) ? utcToZonedTime(pv, timeZone) : pv;
+                return true;
+            }
+            return false;
         });
 
         const isAM = [true, false];
@@ -155,7 +160,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             isAM[idx] = getHours(item) < 12;
         });
 
-        if (parsedValues.length === value.length) {
+        if (parsedAll) {
             value = parsedValues;
         } else {
             value = [];
@@ -177,6 +182,10 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             inputValue,
             invalid,
         } as any);
+    }
+
+    _isEmptyRangeEnd(date?: Date) {
+        return isUndefined(date) && this._adapter.isRangePicker();
     }
 
     getValidFormat(validFormat?: string) {
@@ -231,11 +240,11 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         
         let dates = this.parseValue(value);
 
-        let invalid = dates.some(d => isNaN(Number(d)));
+        let invalid = dates.some(d => !this._isEmptyRangeEnd(d) && isNaN(Number(d)));
         if (!invalid) {
             if (this.isValidTimeZone(timeZone)) {
                 dates = dates.map(date =>
-                    utcToZonedTime(
+                    this._isEmptyRangeEnd(date) ? date : utcToZonedTime(
                         this.isValidTimeZone(__prevTimeZone) ? zonedTimeToUtc(date, __prevTimeZone) : date,
                         timeZone
                     )
@@ -243,6 +252,9 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             }
             if (this._adapter.isRangePicker()) {
                 invalid = dates.some((d, idx) => {
+                    if (this._isEmptyRangeEnd(d)) {
+                        return false;
+                    }
                     const panelType: PanelType = idx === 1 ? 'right' : 'left';
                     return this.isDisabledHMS(
                         { hours: d.getHours(), minutes: d.getMinutes(), seconds: d.getSeconds() },
