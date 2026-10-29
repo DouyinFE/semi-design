@@ -27,11 +27,9 @@ class CodeHighlightFoundation<P = Record<string, any>, S = Record<string, any>> 
 
 
     highlightCode = (ele: HTMLElement, language: string) => {
-        let className = ele.className;
+        let className = ele.className.replace(/\blang(?:uage)?-[\w-]+\b/gi, '');
         const languageClassName = `language-${language}`;
-        if (!className.includes(languageClassName)) {
-            className = cls(className, languageClassName);
-        }
+        className = cls(className, languageClassName);
         if (this.getProp("lineNumber")) {
             className = cls(className, "line-numbers");
         }

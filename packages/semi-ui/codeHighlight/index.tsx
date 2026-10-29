@@ -65,7 +65,7 @@ class CodeHighlight extends BaseComponent<CodeHighlightProps, CodeHighlightState
     }
 
     componentDidUpdate(prevProps: Readonly<CodeHighlightProps>, prevState: Readonly<CodeHighlightState>, snapshot?: any) {
-        if (this.codeRef.current && prevProps.code !== this.props.code || this.props.language !== this.props.language) {
+        if (this.codeRef.current && (prevProps.code !== this.props.code || prevProps.language !== this.props.language)) {
             this.foundation.highlightCode(this.codeRef.current, this.props.language);
         }
     }
