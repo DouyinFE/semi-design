@@ -38,7 +38,7 @@ const Steps = (props: FillStepsProps) => {
             };
 
             if (status === 'error' && index === current - 1) {
-                childProps.className = `${prefixCls}-next-error`;
+                childProps.className = cls(child.props.className, `${prefixCls}-next-error`);
             }
 
             if (!child.props.status) {
