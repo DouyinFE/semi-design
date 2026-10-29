@@ -128,10 +128,12 @@ class MCPConfigureContent extends BaseComponent<MCPConfigureContentReactProps, M
         return <div className={`${prefixCls}-item-container`}>
             {showOptions.map(option => {
                 if (renderItem) {
-                    return renderItem({
-                        custom: mode === strings.MCP_MODE.CUSTOM,
-                        option: option,
-                    });
+                    return <React.Fragment key={option.value}>
+                        {renderItem({
+                            custom: mode === strings.MCP_MODE.CUSTOM,
+                            option: option,
+                        })}
+                    </React.Fragment>;
                 }
                 return (<div key={option.value} className={`${prefixCls}-item`}>
                     {typeof option.icon === 'string' ? 
