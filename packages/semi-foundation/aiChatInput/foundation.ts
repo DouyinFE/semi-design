@@ -17,6 +17,7 @@ export interface AIChatInputAdapter<P = Record<string, any>, S = Record<string, 
     notifyMessageSend: (props: MessageContent) => void;
     notifyStopGenerate: () => void;
     notifySkillChange: (skill: BaseSkill) => void;
+    notifySuggestClick: (suggestion: Suggestion) => void;
     clearContent: () => void;
     clearAttachments: () => void;
     getRichTextDiv: () => HTMLDivElement | null;
@@ -88,6 +89,7 @@ export default class AIChatInputFoundation extends BaseFoundation<AIChatInputAda
     handleSuggestionSelect = (suggestion: Suggestion) => {
         this._adapter.setContent(suggestion as unknown as string);
         this._adapter.focusEditor();
+        this._adapter.notifySuggestClick(suggestion);
     }
 
     /**

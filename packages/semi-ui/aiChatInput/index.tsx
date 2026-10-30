@@ -139,6 +139,9 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
             notifySkillChange: (skill: Skill) => {
                 this.props.onSkillChange?.(skill);
             },
+            notifySuggestClick: suggestion => {
+                this.props.onSuggestClick?.(suggestion);
+            },
             notifyContentChange: (result: Content[]) => {
                 this.transformedContent = result;
                 this.props.onContentChange?.(result);
@@ -207,7 +210,10 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
         };
     }
 
-    componentDidUpdate(prevProps: Readonly<AIChatInputProps>): void {
+    componentDidUpdate(prevProps: Readonly<AIChatInputProps>, prevState: Readonly<AIChatInputState>): void {
+        if (prevState.templateVisible !== this.state.templateVisible) {
+            this.props.onTemplateVisibleChange?.(this.state.templateVisible);
+        }
         const { suggestions, keepSkillAfterSend, clearContentOnGenerating } = this.props;
         if (!isEqual(suggestions, prevProps.suggestions)) {
             const newVisible = (suggestions && suggestions.length > 0) ? true : false;
