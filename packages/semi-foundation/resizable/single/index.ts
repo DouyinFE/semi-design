@@ -130,13 +130,11 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
             return getStringSize(value);
         };
 
-        const isResizing = this.getStates().isResizing;
-
-        const width = size && typeof size.width !== 'undefined' && !isResizing
+        const width = size && typeof size.width !== 'undefined'
             ? getStringSize(size.width)
             : getSize('width');
 
-        const height = size && typeof size.height !== 'undefined' && !isResizing
+        const height = size && typeof size.height !== 'undefined'
             ? getStringSize(size.height)
             : getSize('height');
 
