@@ -10,7 +10,7 @@ import { noop } from '@douyinfe/semi-foundation/utils/function';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import Popover from '../popover';
 import BreadcrumbItem, { RouteProps, BreadcrumbItemInfo } from './item';
-import BreadContext, { BreadContextType } from './bread-context';
+import BreadContext from './bread-context';
 import { TooltipProps } from '../tooltip';
 import { IconMore } from '@douyinfe/semi-icons';
 
@@ -49,8 +49,6 @@ interface BreadcrumbState {
 }
 
 class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
-    static contextType: React.Context<BreadContextType> = BreadContext;
-
     static Item: typeof BreadcrumbItem = BreadcrumbItem;
 
     static propTypes = {

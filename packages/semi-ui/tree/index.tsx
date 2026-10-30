@@ -150,10 +150,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
 
     static TreeNode: typeof TreeNode;
     inputRef: React.RefObject<typeof Input>;
-    optionsRef: React.RefObject<any>;
     dragNode: any;
-    onNodeClick: any;
-    onMotionEnd: any;
     context: ContextValue;
     virtualizedListRef: React.RefObject<any>;
 
@@ -186,7 +183,6 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             dropPosition: null,
         };
         this.inputRef = React.createRef();
-        this.optionsRef = React.createRef();
         this.foundation = new TreeFoundation(this.adapter);
         this.dragNode = null;
         this.virtualizedListRef = React.createRef();
@@ -722,24 +718,6 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         this.foundation.handleNodeDrop(e, treeNode, this.dragNode);
     };
 
-    getTreeNodeRequiredProps = () => {
-        const { expandedKeys, selectedKeys, checkedKeys, halfCheckedKeys, keyEntities, filteredKeys } = this.state;
-        return {
-            expandedKeys: expandedKeys || new Set(),
-            selectedKeys: selectedKeys || [],
-            checkedKeys: checkedKeys || new Set(),
-            halfCheckedKeys: halfCheckedKeys || new Set(),
-            filteredKeys: filteredKeys || new Set(),
-            keyEntities,
-        };
-    };
-
-    getTreeNodeKey = (treeNode: TreeNodeData) => {
-        const { data } = treeNode;
-        const { key } = data;
-        return key;
-    };
-
     renderTreeNode = (treeNode: FlattenNode, ind?: number, style?: React.CSSProperties) => {
         const { data, key } = treeNode;
         const treeNodeProps = this.foundation.getTreeNodeProps(key);
@@ -786,7 +764,6 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                     flattenList={cachedFlattenNodes}
                     motionKeys={motion ? motionKeys : new Set([])}
                     motionType={motionType}
-                    onMotionEnd={this.onMotionEnd}
                     renderTreeNode={this.renderTreeNode}
                 />
             );
@@ -870,7 +847,6 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                     motionType,
                     filterTreeNode,
                     keyEntities,
-                    onNodeClick: this.onNodeClick,
                     onNodeExpand: this.onNodeExpand,
                     onNodeSelect: this.onNodeSelect,
                     onNodeCheck: this.onNodeCheck,

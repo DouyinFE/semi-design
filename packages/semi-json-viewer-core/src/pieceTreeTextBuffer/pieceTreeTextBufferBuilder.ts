@@ -63,10 +63,6 @@ export class PieceTreeTextBufferFactory {
 
         return new PieceTreeBase(chunks, eol, this._normalizeEOL);
     }
-
-    public getFirstLineText(lengthLimit: number): string {
-        return this._chunks[0].buffer.substr(0, 100).split(/\r\n|\r|\n/)[0];
-    }
 }
 
 export class PieceTreeTextBufferBuilder {

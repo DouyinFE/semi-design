@@ -330,7 +330,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     optionContainerEl: React.RefObject<HTMLDivElement>;
     clickOutsideHandler: any;
     // _flattenNodes: TreeState['flattenNodes'];
-    onNodeClick: any;
     onNodeDoubleClick: any;
     onMotionEnd: any;
     treeSelectID: string;
@@ -1541,7 +1540,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     expandAction,
                     filterTreeNode,
                     keyEntities,
-                    onNodeClick: this.onNodeClick,
                     onNodeDoubleClick: this.onNodeDoubleClick,
                     // tree node will call this function when treeNode is right clicked
                     onNodeRightClick: noop,
