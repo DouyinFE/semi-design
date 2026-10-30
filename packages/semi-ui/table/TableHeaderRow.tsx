@@ -81,11 +81,16 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
             const { prefixCls, row, index } = this.props;
             const cellSelector = `.${prefixCls}-row-head`;
             const heads = node && node.querySelectorAll && node.querySelectorAll(cellSelector);
+            const headsByColumn = new Map(map(heads, (head, headIndex) => [
+                head.hasAttribute('aria-colindex') ? Number(head.getAttribute('aria-colindex')) - 1 : headIndex,
+                head,
+            ]));
 
             this.context.setHeadWidths(
-                map(heads, (head, headIndex) => {
-                    let configWidth = get(row, [headIndex, 'column', 'width']);
-                    const key = get(row, [headIndex, 'column', 'key']) as any;
+                map(row, (cell, cellIndex) => {
+                    const head = headsByColumn.get(cellIndex);
+                    let configWidth = cell.column.width;
+                    const key = cell.column.key as any;
                     if (typeof configWidth !== 'number') {
                         configWidth = (head && head.getBoundingClientRect().width) || 0;
                     }
