@@ -15,6 +15,7 @@ export interface BackTopAdapter extends DefaultAdapter {
 
 export default class BackTopFoundation extends BaseFoundation<BackTopAdapter> {
     animation!: any;
+    targetNode: Target;
     constructor(adapter: BackTopAdapter) {
         super({ ...adapter });
     }
@@ -22,6 +23,7 @@ export default class BackTopFoundation extends BaseFoundation<BackTopAdapter> {
     init() {
         const { target } = this.getProps();
         const targetNode = target();
+        this.targetNode = targetNode;
         if (!targetNode) {
             return;
         }
@@ -30,10 +32,18 @@ export default class BackTopFoundation extends BaseFoundation<BackTopAdapter> {
     }
 
     destroy() {
-        const { target } = this.getProps();
-        const targetNode = target();
+        const targetNode = this.targetNode;
         targetNode && targetNode.removeEventListener('scroll', this.handleScroll);
+        this.targetNode = null;
         this.animation && this.animation.destroy();
+    }
+
+    updateTarget() {
+        const { target } = this.getProps();
+        if (target() !== this.targetNode) {
+            this.destroy();
+            this.init();
+        }
     }
 
     getScroll(target: Target) {
