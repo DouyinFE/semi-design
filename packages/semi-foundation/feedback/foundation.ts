@@ -25,7 +25,7 @@ export default class FoundationFoundation extends BaseFoundation<FeedbackAdapter
         this._adapter.notifyValueChange(value);
     }
 
-    handleEmojiReasonChange = (value: string, e?: React.MouseEvent<HTMLTextAreaElement>) => {
+    handleEmojiReasonChange = (value: string, e?: React.ChangeEvent<HTMLTextAreaElement>) => {
         this._adapter.notifyTextAreaChange(value, e);
         const oldValue = this._adapter.getState('value');
         const newValue = {
@@ -35,7 +35,7 @@ export default class FoundationFoundation extends BaseFoundation<FeedbackAdapter
         this._adapter.notifyValueChange(newValue);
     }
 
-    handleTextChange = (value: string, e?: React.MouseEvent<HTMLTextAreaElement>) => {
+    handleTextChange = (value: string, e?: React.ChangeEvent<HTMLTextAreaElement>) => {
         this._adapter.notifyTextAreaChange(value, e);
         this._adapter.notifyValueChange(value);
     }
