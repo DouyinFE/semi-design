@@ -539,6 +539,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
             maximumFractionDigits,
             showCurrencySymbol,
             localeCode,
+            scientificNotation,
             ...rest
         } = this.props;
         const { value, number } = this.state;

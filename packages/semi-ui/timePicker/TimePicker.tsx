@@ -521,6 +521,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
             motion,
             autoAdjustOverflow,
             stopPropagation,
+            disabledTime,
             ...rest
         } = this.props;
         const format = this.foundation.getDefaultFormatIfNeed();

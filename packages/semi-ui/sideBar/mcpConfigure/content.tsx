@@ -180,7 +180,6 @@ class MCPConfigureContent extends BaseComponent<MCPConfigureContentReactProps, M
             type={'primary'}
             className={`${prefixCls}-item-button`}
             disabled={option.disabled}
-            checked={option.active}
             onClick={() => this.foundation.handleStatusChange(option, !option.active)} 
         />;
         return option.disabled ? <LocaleConsumer componentName="Sidebar" >

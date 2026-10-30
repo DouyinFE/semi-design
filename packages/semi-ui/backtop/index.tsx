@@ -99,7 +99,7 @@ export default class BackTop extends BaseComponent<BackTopProps, BackTopState> {
     }
 
     render() {
-        const { children, className, style, onClick, visibilityHeight, target, ...others } = this.props;
+        const { children, className, style, onClick, visibilityHeight, target, duration, ...others } = this.props;
         const { visible } = this.state;
         const preCls = cls(
             prefixCls,

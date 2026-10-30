@@ -1086,7 +1086,6 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
 
         const { content, isRenderInTag } = (renderSelectedItem as RenderMultipleSelectedItemFn)(item[1], { index: i, disabled, onClose });
         const basic = {
-            disabled,
             closable: !disabled,
             onClose,
         };
@@ -1122,7 +1121,6 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
         }
         const { content, isRenderInTag } = (renderSelectedItem as RenderMultipleSelectedItemFn)(item[1], { index: i, disabled, onClose });
         const basic = {
-            disabled,
             closable: !disabled,
             onClose,
         };

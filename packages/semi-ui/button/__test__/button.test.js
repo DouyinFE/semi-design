@@ -68,4 +68,10 @@ describe('Button', () => {
         expect(wrapper.hasClass('test')).toEqual(true);
         expect(wrapper.find('button').getDOMNode().style.color).toBe('red');
     });
+
+    it('contentClassName is applied to content span and not leaked to button dom', () => {
+        const wrapper = mount(<Button contentClassName="cc">a</Button>);
+        expect(wrapper.find('button').getDOMNode().hasAttribute('contentclassname')).toBe(false);
+        expect(wrapper.find('span.cc').length).toBe(1);
+    });
 });

@@ -322,6 +322,8 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
             extraTextPosition,
             id,
             trigger,
+            stopPropagation,
+            disabled,
             ...rest
         } = this.props;
 

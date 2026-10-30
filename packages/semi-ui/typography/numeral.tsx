@@ -112,6 +112,8 @@ export default class Numeral extends PureComponent<NumeralProps> {
         const baseProps = Object.assign({}, this.props) as Record<string, unknown>;
         delete baseProps.rule;
         delete baseProps.parser;
+        delete baseProps.precision;
+        delete baseProps.truncate;
         // Each piece of content in the virtual DOM is formatted by the `formatNumeral` function.
         baseProps.children = this.formatNodeDFS(this.props.children);
         return <Base component={'span'} {...baseProps} />;
