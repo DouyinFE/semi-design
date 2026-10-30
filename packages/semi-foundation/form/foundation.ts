@@ -429,7 +429,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         const arrayFieldPaths = [...this.registeredArrayField.keys()];
         arrayFieldPaths.forEach(path => {
             const arrayFieldState = this.registeredArrayField.get(path);
-            const arrayFieldInitValue = arrayFieldState.initValue;
+            const arrayFieldInitValue = this._adapter.cloneDeep(arrayFieldState.initValue);
             this.updateStateValue(path, arrayFieldInitValue, { notNotify: true, notUpdate: true });
             this.updateArrayField(path, { updateKey: getUuidv4() });
         });
