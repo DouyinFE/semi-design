@@ -5,7 +5,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/typography/consta
 import Typography from './typography';
 import Copyable from './copyable';
 import { IconSize as Size } from '../icons/index';
-import { isUndefined, omit, merge, isString, isNull, isFunction } from 'lodash';
+import { isUndefined, omit, merge, isString, isNull, isFunction, defaults } from 'lodash';
 import Tooltip from '../tooltip/index';
 import Popover from '../popover/index';
 import getRenderText from './util';
@@ -75,6 +75,10 @@ interface BaseTypographyState {
 
 const prefixCls = cssClasses.PREFIX;
 const ELLIPSIS_STR = '...';
+
+// Shallow on purpose: deep-comparing React elements reaches `_owner` (a fiber that alternates between renders)
+const isSameChildren = (prev: React.ReactNode, next: React.ReactNode) => prev === next ||
+    (Array.isArray(prev) && Array.isArray(next) && prev.length === next.length && prev.every((item, i) => item === next[i]));
 
 const wrapperDecorations = (props: BaseTypographyProps, content: React.ReactNode) => {
     const { mark, code, underline, strong, link, disabled } = props;
@@ -208,7 +212,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const newState: Partial<BaseTypographyState> = {};
         newState.prevChildren = props.children;
 
-        if (props.ellipsis && prevChildren !== props.children) {
+        if (props.ellipsis && !isSameChildren(prevChildren, props.children)) {
             // reset ellipsis state if children update
             newState.isOverflowed = false;
             newState.ellipsisContent = props.children;
@@ -219,10 +223,13 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
     }
 
     componentDidUpdate(prevProps: BaseTypographyProps) {
+        if (this.props.ellipsis && !prevProps.ellipsis) {
+            this.onResize().then(() => runAfterTicks(() => this.observerTakingEffect = true, 1));
+        }
         // Render was based on outdated refs and needs to be rerun
-        if (this.props.children !== prevProps.children) {
+        if (!isSameChildren(this.props.children, prevProps.children)) {
             this.forceUpdate();
-            if (this.props.ellipsis) {
+            if (this.props.ellipsis && prevProps.ellipsis) {
                 this.onResize();
             }
         }
@@ -349,7 +356,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
                     }
                 );
             }
-            return { ...defaultOpts, ...showTooltip };
+            return defaults({}, showTooltip, defaultOpts);
         }
         return defaultOpts;
     };
@@ -468,7 +475,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         if (!ellipsis) {
             return {};
         }
-        const opt = {
+        const opt = defaults({}, typeof ellipsis === 'object' ? ellipsis : null, {
             rows: 1,
             expandable: false,
             pos: 'end' as EllipsisPos,
@@ -477,8 +484,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             collapsible: false,
             expandText: (ellipsis as Ellipsis).expandable ? this.expandStr : undefined,
             collapseText: (ellipsis as Ellipsis).collapsible ? this.collapseStr : undefined,
-            ...(typeof ellipsis === 'object' ? ellipsis : null),
-        };
+        });
         return opt;
     };
 
@@ -496,7 +502,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         } else if (expanded && !noCollapseText) {
             text = collapseText;
         }
-        if (!noExpandText || !noCollapseText) {
+        if (expanded ? !noCollapseText : !noExpandText) {
             return (
                 // TODO: replace `a` tag with `span` in next major version
                 // NOTE: may have effect on style
