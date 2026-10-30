@@ -552,7 +552,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
             'aria-disabled': disabled,
             step,
         };
-        if (number) {
+        if (number || number === 0) {
             ariaProps['aria-valuenow'] = number;
         }
         if (max !== Infinity) {
