@@ -101,7 +101,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
                 isValidElement(child) ? child.key : null
             );
         
-            if (!isEqual(prevChildrenKeys, currChildrenKeys)) {
+            if (!prevProps.lazyLoad || prevProps.lazyLoadMargin !== this.props.lazyLoadMargin || !isEqual(prevChildrenKeys, currChildrenKeys)) {
                 this.observerImages();
             }
         }
@@ -111,23 +111,22 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         if (this.previewObserver) {
             // cancel the observation of all elements of the previous observer
             this.previewObserver.disconnect();
-        } else {
-            this.previewObserver = new IntersectionObserver(entries => {
-                entries.forEach(item => {
-                    const src = (item.target as any).dataset?.src;
-                    if (item.isIntersecting && src) {
-                        (item.target as any).src = src;
-                        (item.target as any).removeAttribute("data-src");
-                        this.previewObserver.unobserve(item.target);
-                    }
-                });
-            },
-            {
-                root: document.querySelector(`#${this.previewGroupId}`),
-                rootMargin: this.props.lazyLoadMargin, 
-            }
-            );
         }
+        this.previewObserver = new IntersectionObserver(entries => {
+            entries.forEach(item => {
+                const src = (item.target as any).dataset?.src;
+                if (item.isIntersecting && src) {
+                    (item.target as any).src = src;
+                    (item.target as any).removeAttribute("data-src");
+                    this.previewObserver.unobserve(item.target);
+                }
+            });
+        },
+        {
+            root: document.querySelector(`#${this.previewGroupId}`),
+            rootMargin: this.props.lazyLoadMargin,
+        }
+        );
         const allImgElement = document.querySelectorAll(`.${prefixCls}-img`);
         allImgElement.forEach(item => this.previewObserver.observe(item));
     }
