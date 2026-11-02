@@ -245,7 +245,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         this.state = {
             emptyContentMinWidth: null,
             disabledKeys: new Set(),
-            isOpen: props.defaultOpen,
+            isOpen: props.defaultOpen && !props.disabled,
             /* By changing rePosKey, the dropdown position can be refreshed */
             rePosKey: resetkey,
             /* A data structure for storing cascader data items */
