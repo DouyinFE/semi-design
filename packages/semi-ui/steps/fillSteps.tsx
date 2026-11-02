@@ -51,7 +51,7 @@ const Steps = (props: FillStepsProps) => {
                 }
             }
             childProps.onChange = onChange ? () => {
-                if (index !== current) {
+                if (index + initial !== current) {
                     onChange(index + initial);
                 }
             } : undefined;
