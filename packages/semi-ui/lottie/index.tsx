@@ -65,11 +65,6 @@ class Lottie extends BaseComponent<LottieProps, LottieState> {
         };
     }
 
-    componentDidMount() {
-        super.componentDidMount();
-        this.props.getAnimationInstance?.(this.foundation.animation);
-    }
-
     componentDidUpdate(prevProps: Readonly<LottieProps>, prevState: Readonly<LottieState>, snapshot?: any) {
         if (!isEqual(prevProps.params, this.props.params)) {
             this.foundation.handleParamsUpdate();
