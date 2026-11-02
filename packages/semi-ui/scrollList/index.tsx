@@ -55,11 +55,11 @@ class ScrollList extends BaseComponent<ScrollListProps, {}> {
                         >
                             {header}
                         </div>
-                        <div className={`${clsWrapper}-line`} />
+                        <div className={`${prefixCls || cssClasses.PREFIX}-line`} />
                     </div>
                 ) : null}
                 <div
-                    className={`${clsWrapper}-body`}
+                    className={`${prefixCls || cssClasses.PREFIX}-body`}
                     style={{ height: bodyHeight ? bodyHeight : '' }}
                     x-semi-prop="children"
                 >
@@ -67,7 +67,7 @@ class ScrollList extends BaseComponent<ScrollListProps, {}> {
                 </div>
                 {footer ? (
                     <div
-                        className={`${clsWrapper}-footer`}
+                        className={`${prefixCls || cssClasses.PREFIX}-footer`}
                         x-semi-prop={this.props['x-semi-footer-alias'] || "footer"}
                     >
                         {footer}
