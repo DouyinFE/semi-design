@@ -1,8 +1,9 @@
-import React, { ReactNode, MouseEvent, forwardRef, LegacyRef, useCallback, useMemo } from 'react';
+import React, { ReactNode, MouseEvent, forwardRef, LegacyRef, useCallback, useMemo, useContext } from 'react';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/tabs/constants';
 import { IconClose } from '@douyinfe/semi-icons';
 import { TabType, TabSize, TabPosition } from './interface';
+import TabsContext from './tabs-context';
 
 export interface TabItemProps {
     tab?: ReactNode;
@@ -20,6 +21,7 @@ export interface TabItemProps {
 }
 
 const TabItem = (props: TabItemProps, ref: LegacyRef<HTMLDivElement>) => {
+    const { tabsId, keepDOM, isTabList } = useContext(TabsContext);
     const { 
         tab, 
         size, 
@@ -85,9 +87,9 @@ const TabItem = (props: TabItemProps, ref: LegacyRef<HTMLDivElement>) => {
     return (
         <div
             role="tab"
-            id={`semiTab${itemKey}`}
+            id={tabsId ? `${tabsId}-tab-${itemKey}` : undefined}
             data-tabkey={`semiTab${itemKey}`}
-            aria-controls={`semiTabPanel${itemKey}`}
+            aria-controls={tabsId && (selected || keepDOM && !isTabList) ? `${tabsId}-panel-${itemKey}` : undefined}
             aria-disabled={disabled ? 'true' : 'false'}
             aria-selected={selected ? 'true' : 'false'}
             tabIndex={selected ? 0 : -1}
