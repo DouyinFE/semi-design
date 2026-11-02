@@ -215,6 +215,9 @@ export default class CropperFoundation <P = Record<string, any>, S = Record<stri
             newImgDataState.height = containerHeight;
         }
         this.imgData.scale = scale;
+        const zoom = this.getState('zoom');
+        newImgDataState.width *= zoom;
+        newImgDataState.height *= zoom;
         newImgDataState.centerPoint = {} as Point;
         newImgDataState.centerPoint.x = containerWidth / 2;
         newImgDataState.centerPoint.y = containerHeight / 2;
