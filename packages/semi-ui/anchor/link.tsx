@@ -151,7 +151,7 @@ export default class Link extends BaseComponent<LinkProps, {}> {
             },
         };
         if (active) {
-            ariaProps['aria-details'] = 'active';
+            ariaProps['aria-current'] = 'location';
         }
         if (!showTooltip && typeof title === 'string') {
             ariaProps['title'] = title;
