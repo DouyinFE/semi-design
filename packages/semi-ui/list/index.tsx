@@ -92,7 +92,7 @@ class List<T = any> extends BaseComponent<ListProps<T>> {
     wrapChildren(childrenList: React.ReactNode, children: React.ReactNode) {
         const { grid } = this.props;
         if (grid) {
-            const rowProps = {};
+            const rowProps = { role: 'list' };
             ['align', 'gutter', 'justify', 'type'].forEach(key => {
                 if (key in grid) {
                     rowProps[key] = grid[key];
