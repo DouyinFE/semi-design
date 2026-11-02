@@ -9,6 +9,7 @@ import Button from '../iconButton/index';
 import { IconClose, IconAlertTriangle, IconInfoCircle, IconTickCircle, IconAlertCircle } from '@douyinfe/semi-icons';
 import { noop } from 'lodash';
 import { getDefaultPropsFromGlobalConfig, isSemiIcon } from '../_utils';
+import ResizeObserver, { ResizeEntry } from '../resizeObserver';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -26,7 +27,11 @@ export interface ToastReactProps extends ToastProps {
     }
 }
 
-class Toast extends BaseComponent<ToastReactProps, ToastState> {
+interface ToastReactState extends ToastState {
+    height: string
+}
+
+class Toast extends BaseComponent<ToastReactProps, ToastReactState> {
 
     toastEle: React.RefObject<HTMLDivElement> = React.createRef();
     static contextType = ConfigContext;
@@ -61,7 +66,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
 
     constructor(props: ToastReactProps) {
         super(props);
-        this.state = {};
+        this.state = { height: '0px' };
         this.foundation = new ToastFoundation(this.adapter);
     }
 
@@ -86,6 +91,13 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
     componentWillUnmount() {
         this.foundation.destroy();
     }
+
+    handleResize = ([entry]: ResizeEntry[]) => {
+        const height = getComputedStyle(entry.target).height;
+        if (height !== this.state.height) {
+            this.setState({ height });
+        }
+    };
 
     close(e: React.MouseEvent) {
         this.foundation.close(e);
@@ -170,9 +182,11 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
             </div>
         </div>;
         if (this.props.stack) {
-            const height = this.props.stackExpanded && this.toastEle.current && getComputedStyle(this.toastEle.current).height || 0;
+            const height = this.props.stackExpanded ? this.state.height : 0;
             return <div className={`${prefixCls}-zero-height-wrapper`} style={{ height }}>
-                {toastEle}
+                <ResizeObserver onResize={this.handleResize} observerProperty="height">
+                    {toastEle}
+                </ResizeObserver>
             </div>;
         } else {
             return toastEle;
