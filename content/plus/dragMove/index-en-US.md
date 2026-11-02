@@ -223,7 +223,7 @@ function CustomMove() {
 | --- | --- | --- | ----- |
 | allowInputDrag | Whether to allow dragging when clicking on native input/textarea | boolean | false |
 | allowMove | Determine whether dragging is allowed when clicking/touching. | (event: TouchEvent \| MouseEvent, element: HTMLElement) => boolean | - |
-| constrainer | Returns the element that limits the draggable range. | () => HTMLElement \| 'parent' | - |
+| constrainer | Returns the element that limits the draggable range. | (() => HTMLElement) \| 'parent' | - |
 | customMove | Customize position processing after dragging| (element: HTMLElement, top: number, left: number) => void | -|
 | handler | Returns the element that triggers dragging. | () => HTMLElement | - |
 | positionStrategy | Positioning strategy for the draggable element. Relative preserves its original layout position. | 'absolute' \| 'relative' | 'absolute' |
