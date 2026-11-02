@@ -155,7 +155,7 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
 
     clearContext = (e: any) => {
         const { chats } = this.getStates();
-        if (chats[chats.length - 1].role === ROLE.DIVIDER) {
+        if (!chats.length || chats[chats.length - 1].role === ROLE.DIVIDER) {
             return;
         }
         const dividerMessage = {
