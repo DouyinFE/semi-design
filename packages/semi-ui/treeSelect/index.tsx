@@ -1091,8 +1091,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             } :
             {};
         const isTriggerPositionSearch = searchPosition === strings.SEARCH_POSITION_TRIGGER && filterable;
-        const isEmptyTriggerSearch = isTriggerPositionSearch && isEmpty(checkedKeys);
-        const isValueTriggerSearch = isTriggerPositionSearch && !isEmpty(checkedKeys);
+        const triggerSearchKeys = checkRelation === 'unRelated' && autoMergeValue ? realCheckedKeys : checkedKeys;
+        const isEmptyTriggerSearch = isTriggerPositionSearch && isEmpty(triggerSearchKeys);
+        const isValueTriggerSearch = isTriggerPositionSearch && !isEmpty(triggerSearchKeys);
         const classNames = useCustomTrigger ?
             cls(className) :
             cls(
