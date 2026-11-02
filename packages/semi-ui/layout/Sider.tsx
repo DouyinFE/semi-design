@@ -106,12 +106,12 @@ class Sider extends React.PureComponent<SiderProps> {
     }
 
     render() {
-        const { prefixCls, className, children, style, ...others } = this.props;
+        const { prefixCls, className, children, style, role, ...others } = this.props;
         const classString = cls(className, {
             [`${prefixCls}-sider`]: true,
         });
         return (
-            <aside className={classString} aria-label={this.props['aria-label']} style={style} {...getDataAttr(others)}>
+            <aside className={classString} role={role} aria-label={this.props['aria-label']} style={style} {...getDataAttr(others)}>
                 <div className={`${prefixCls}-sider-children`}>
                     {children}
                 </div>
