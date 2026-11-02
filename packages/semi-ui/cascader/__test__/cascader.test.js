@@ -139,6 +139,45 @@ function render(props) {
 }
 
 describe('Cascader', () => {
+    [true, false].forEach(autoMergeValue => {
+        it(`passes unRelated selections to a custom trigger, autoMergeValue=${autoMergeValue}`, () => {
+            const treeData = [{ label: 'Asia', value: 'asia', children: [
+                { label: 'China', value: 'china' },
+                { label: 'Japan', value: 'japan' },
+            ] }];
+            const cascader = render({
+                multiple: true,
+                checkRelation: 'unRelated',
+                autoMergeValue,
+                treeData,
+                value: ['asia', 'china'],
+                triggerRender: ({ value }) => <button className="custom-trigger">{[...value].sort().join(',')}</button>,
+            });
+            expect(cascader.find('button.custom-trigger').text()).toBe('0-0');
+            cascader.setProps({ value: [['asia', 'china'], ['asia', 'japan']] });
+            cascader.update();
+            expect(cascader.find('button.custom-trigger').text()).toBe('0-0,0-1');
+            cascader.setProps({ value: [] });
+            cascader.update();
+            expect(cascader.find('button.custom-trigger').text()).toBe('');
+            cascader.unmount();
+        });
+    });
+
+    it('still merges related selections for a custom trigger', () => {
+        const cascader = render({
+            multiple: true,
+            treeData: [{ label: 'Asia', value: 'asia', children: [
+                { label: 'China', value: 'china' },
+                { label: 'Japan', value: 'japan' },
+            ] }],
+            defaultValue: [['asia', 'china'], ['asia', 'japan']],
+            triggerRender: ({ value }) => <button className="custom-trigger">{[...value].join(',')}</button>,
+        });
+        expect(cascader.find('button.custom-trigger').text()).toBe('0');
+        cascader.unmount();
+    });
+
     beforeEach(() => {
         // Avoid `attachTo: document.body` Warning
         // clear();
