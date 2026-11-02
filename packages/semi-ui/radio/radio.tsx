@@ -114,6 +114,12 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
     }
 
     componentDidUpdate(prevProps: RadioProps) {
+        if (this.props.addonId !== prevProps.addonId) {
+            this.setState({ addonId: this.props.addonId ?? getUuidShort({ prefix: 'addon' }) });
+        }
+        if (this.props.extraId !== prevProps.extraId) {
+            this.setState({ extraId: this.props.extraId ?? getUuidShort({ prefix: 'extra' }) });
+        }
         if (this.props.checked !== prevProps.checked) {
             if (isUndefined(this.props.checked)) {
                 this.foundation.setChecked(false);
