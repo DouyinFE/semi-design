@@ -81,7 +81,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         super(props);
         this.state = {
             currentIndex: props.currentIndex || props.defaultCurrentIndex || 0,
-            visible: props.visible || props.currentDefaultVisible || false,
+            visible: props.visible || props.defaultVisible || false,
         };
         this.foundation = new PreviewFoundation(this.adapter);
         this.previewGroupId = getUuidShort({ prefix: "semi-image-preview-group", length: 4 });
