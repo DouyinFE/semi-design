@@ -1757,7 +1757,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |onProgress | 上传文件时的回调 | (percent: number, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList: Array<FileItem\>) => void |  |  |
 |onPastingError | addOnPasting为true时，粘贴读取失败时的回调 | (Error\|PermissionState) |  | 2.43.0 |
 |onRemove | 移除文件的回调 | (currentFile: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>, currentFileItem: FileItem) => void |  |  |
-|onRetry | 上传重试的回调 | (file: <FileItem\>) => void |  |  |
+|onRetry | 上传重试的回调。文件项没有 `fileInstance` 时仍触发回调，但不会发起上传请求 | (file: <FileItem\>) => void |  |  |
 |onSizeError | 文件尺寸非法的回调 | (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>) => void |  |  |
 |onSuccess | 上传成功后的回调 | (responseBody: object, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>) => void |  |
 |picHeight | 图片墙模式下，可通过该 API 定制图片展示高度 | string\|number |  | 2.42.0 |
