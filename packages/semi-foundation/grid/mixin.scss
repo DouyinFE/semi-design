@@ -55,6 +55,22 @@
 }
 
 @mixin loop-grid-columns($index, $class) {
+    .#{$module}-col#{$class}-push-0 {
+        left: auto;
+    }
+
+    .#{$module}-col#{$class}-pull-0 {
+        right: auto;
+    }
+
+    .#{$module}-col#{$class}-offset-0 {
+        margin-left: 0;
+    }
+
+    .#{$module}-col#{$class}-order-0 {
+        order: 0;
+    }
+
     @for $i from 1 through ($index) {
         .#{$module}-col#{$class}-#{$i} {
             display: block;
@@ -97,6 +113,13 @@
 }
 
 @mixin loop-grid-columns-rtl($index, $class) {
+    .#{$module}-col#{$class}-offset-0 {
+        .#{$prefix}-rtl & {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+
     @for $i from 1 through ($index) {
         .#{$module}-col#{$class}-offset-#{$i} {
             .#{$prefix}-rtl & {
