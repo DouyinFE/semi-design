@@ -77,6 +77,16 @@ class Row extends React.Component<RowProps, RowState> {
 
     unRegisters: Array<() => void> = [];
 
+    componentDidUpdate(prevProps: RowProps) {
+        if (typeof prevProps.gutter !== 'object' && typeof this.props.gutter === 'object') {
+            const screens: RowState['screens'] = {};
+            (Object.keys(responsiveMap) as Breakpoint[]).forEach(screen => {
+                screens[screen] = window.matchMedia(responsiveMap[screen]).matches;
+            });
+            this.setState({ screens });
+        }
+    }
+
     componentDidMount() {
         this.unRegisters = Object.keys(responsiveMap).map(screen => registerMediaQuery(responsiveMap[screen], {
             match: () => {
