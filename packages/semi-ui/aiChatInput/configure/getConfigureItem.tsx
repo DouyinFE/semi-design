@@ -13,7 +13,7 @@ interface ConfigureItemOpts {
 
 function getConfigureItem(Component: any, opts: ConfigureItemOpts = {}) {
     const ConfigureItem = (props: any) => {
-        const { field, onChange: onOriginChange, className, ...rest } = props;
+        const { field, initValue, onChange: onOriginChange, className, ...rest } = props;
         const {
             valueKey = 'value',
             onKeyChangeFnName = 'onChange',
@@ -35,8 +35,7 @@ function getConfigureItem(Component: any, opts: ConfigureItemOpts = {}) {
         // 用于处理初始值的注册
         // Registration for handling initial values
         useEffect(() => {
-            const { initValue } = props;
-            initValue !== undefined && onChange({ [field]: props.initValue }, true);
+            initValue !== undefined && onChange({ [field]: initValue }, true);
             return () => {
                 onRemove(field);
             };

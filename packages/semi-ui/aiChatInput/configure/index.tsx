@@ -28,27 +28,36 @@ class Configure extends React.Component<any, any> {
     _contextValue: any;
 
     onChange = (obj: any, init = false) => {
+        let newValue: any;
         this.setState((s: any) => {
             const { value } = s;
-            const newValue = { ...value, ...obj };
-            const { onChange } = this.props;
-            !init && onChange?.(newValue, obj);
+            newValue = { ...value, ...obj };
             return { value: newValue };
+        }, () => {
+            !init && this.props.onChange?.(newValue, obj);
         });
     }
 
     onRemove = (field: string) => {
+        let removedValue: any;
         this.setState((s: any) => {
             const { value = {} } = s;
+            if (!Object.prototype.hasOwnProperty.call(value, field)) {
+                return null;
+            }
             const newValue = {};
             Object.keys(value).forEach((key: string) => {
                 if (key !== field) {
                     newValue[key] = value[key];
                 }
             });
-            const { onChange } = this.props;
-            onChange?.(newValue);
+            removedValue = newValue;
             return { value: newValue };
+        }, () => {
+            // StrictMode can register the same field again before this commit.
+            if (removedValue && !Object.prototype.hasOwnProperty.call(this.state.value, field)) {
+                this.props.onChange?.(removedValue);
+            }
         });
     }
 
