@@ -145,6 +145,10 @@ class List<T = any> extends BaseComponent<ListProps<T>> {
             childrenList = [];
             const items = renderItem ? dataSource.map((item, index) => renderItem(item, index)) : [];
             React.Children.forEach(items as any, (child, index) => {
+                if (!React.isValidElement(child)) {
+                    childrenList.push(child);
+                    return;
+                }
                 const itemKey = child.key || `list-item-${index}`;
                 childrenList.push(
                     React.cloneElement(child, {
