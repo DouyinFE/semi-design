@@ -789,6 +789,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         this.props.afterClose?.();
                     }
                     this.isAnimating = false;
+                    this.foundation.handleAnimationEnd();
                 }}>
                 {
                     ({ animationStyle, animationClassName, animationEventsNeedBind }) => {
