@@ -245,11 +245,11 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
         return (<LocaleConsumer componentName="Feedback">
             {(locale: Locale['Feedback'], localeCode: Locale['code']) => {
                 return (mode === 'modal' ? (<Modal
-                    okButtonProps={{ disabled: disabledOkButton }}
                     okText={locale.submit}
                     cancelText={locale.cancel}
                     className={realCls}
                     {...restProps}
+                    okButtonProps={{ disabled: disabledOkButton, ...this.props.okButtonProps }}
                     onOk={this.foundation.handleModalOk}
                     onCancel={this.foundation.handleModalCancel}
                 >
