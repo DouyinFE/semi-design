@@ -333,7 +333,7 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
         const isVolumeSilent = volume === 0;
         return !error ? (<div className={cls(`${prefixCls}-control`)}>
             <Popover autoAdjustOverflow content={
-                <div className={cls(`${prefixCls}-control-volume`)}>
+                <div className={cls(`${prefixCls}-control-volume`, `${prefixCls}-control-volume-${theme}`)}>
                     <div className={cls(`${prefixCls}-control-volume-title`)}>{volume}%</div>
                     <AudioSlider value={volume} max={100} vertical height={120} theme={theme} showTooltip={false} onChange={this.handleVolumeChange} />
                 </div>
@@ -374,7 +374,7 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
                     </Tooltip>
                 )}
             </LocaleConsumer>
-            <Dropdown className={cls(`${prefixCls}-control-speed-menu`)} render={<Dropdown.Menu>
+            <Dropdown className={cls(`${prefixCls}-control-speed-menu`, `${prefixCls}-control-speed-menu-${theme}`)} render={<Dropdown.Menu>
                 {this.rateOptions.map((option) => (
                     <Dropdown.Item className={cls(`${prefixCls}-control-speed-menu-item`)} key={option.value} onClick={() => this.handleSpeedChange(option)} active={option.value === this.state.currentRate.value}>
                         {option.label}
