@@ -145,6 +145,10 @@ class PaginationFoundation<P = Record<string, any>, S = Record<string, any>> ext
     }
 
     _updatePageList(pageListInfo: { currentPage: number; total: number; pageSize: number }) {
+        this._adapter.setPageList(this.getPageList(pageListInfo));
+    }
+
+    getPageList(pageListInfo: { currentPage: number; total: number; pageSize: number }): AdapterPageList {
         const { currentPage, total, pageSize } = pageListInfo;
         let pageList: PageList = [];
         let restLeftPageList: number[] = []; // pages before ...
@@ -206,9 +210,7 @@ class PaginationFoundation<P = Record<string, any>, S = Record<string, any>> ext
                     break;
             }
         }
-        this._adapter.setPageList({ pageList, restLeftPageList, restRightPageList });
-        // this._adapter.setRestLeftPageList(restLeftPageList);
-        // this._adapter.setRestRightPageList(restRightPageList);
+        return { pageList, restLeftPageList, restRightPageList };
     }
 
     changePageSize(newPageSize: number) {
