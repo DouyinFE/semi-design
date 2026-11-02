@@ -179,7 +179,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     this.wheelEventHandler = null;
                 }
             },
-            notifyStopGenerate: (e: MouseEvent) => {
+            notifyStopGenerate: (e: React.MouseEvent<HTMLButtonElement>) => {
                 const { onStopGenerator } = this.props;
                 onStopGenerator && onStopGenerator(e);
             },
