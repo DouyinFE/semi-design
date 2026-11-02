@@ -649,7 +649,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             [`${prefixCls}`]: !vertical,
             [cssClasses.VERTICAL]: vertical,
         });
-        const fixedCurrentValue = Array.isArray(currentValue) ? [...currentValue].sort() : currentValue;
+        const fixedCurrentValue = Array.isArray(currentValue) ? [...currentValue].sort((a, b) => a - b) : currentValue;
         const ariaLabel = range ? `Range: ${this._getAriaValueText(fixedCurrentValue[0], 0)} to ${this._getAriaValueText(fixedCurrentValue[1], 1)}` : undefined;
         const slider = (
             <div
