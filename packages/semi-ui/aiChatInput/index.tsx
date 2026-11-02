@@ -341,7 +341,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
 
     handleReferenceDelete = (reference: Reference) => {
         const { onReferenceDelete } = this.props;
-        onReferenceDelete(reference);
+        onReferenceDelete?.(reference);
     }
 
     getIconByType(type: string, size: IconSize = 'small') {
