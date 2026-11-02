@@ -195,7 +195,6 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         zIndex: popoverNumbers.DEFAULT_Z_INDEX,
         rangeSeparator: strings.DEFAULT_RANGE_SEPARATOR,
         onOpenChange: noop,
-        clearText: 'clear',
         prefixCls: cssClasses.PREFIX,
         inputReadOnly: false,
         style: {},
