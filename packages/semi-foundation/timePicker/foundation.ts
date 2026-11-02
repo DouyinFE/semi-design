@@ -129,6 +129,10 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
      * User input value => save timestamp
      */
     initDataFromDefaultValue() {
+        this.setState(this.getInitialState() as any);
+    }
+
+    getInitialState() {
         const defaultValue = this.getProp('defaultValue');
         let value = this.getProp('value');
         const timeZone = this.getProp('timeZone');
@@ -150,7 +154,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             }
         });
 
-        const isAM = [true, false];
+        const isAM: [boolean, boolean] = [true, false];
         parsedValues.map((item, idx) => {
             isAM[idx] = getHours(item) < 12;
         });
@@ -171,12 +175,12 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             inputValue = (value as any[]).map(v => formatToString(v, formatToken, dateFnsLocale)).join(rangeSeparator);
         }
 
-        this.setState({
+        return {
             isAM,
             value,
             inputValue,
             invalid,
-        } as any);
+        };
     }
 
     getValidFormat(validFormat?: string) {
