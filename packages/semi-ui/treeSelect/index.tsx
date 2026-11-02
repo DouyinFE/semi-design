@@ -142,7 +142,7 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     stopPropagation?: boolean | string;
     restTagsPopoverProps?: PopoverProps;
     expandIcon?: React.ReactNode | ((props: {
-        onClick: (e: MouseEvent) => void;
+        onClick: (e: React.MouseEvent) => void;
         className: string;
         expanded: boolean
     }) => React.ReactNode);
