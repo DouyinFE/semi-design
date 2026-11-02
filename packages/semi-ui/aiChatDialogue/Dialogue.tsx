@@ -57,6 +57,7 @@ class Dialogue extends BaseComponent<AIChatDialogueItemProps, AIChatDialogueStat
         return <DialogueContent 
             key={message.editing}
             message={message} 
+            role={this.getRoleInfo()}
             mode={mode}
             editing={message.editing && message.role === ROLE.USER}
             escapeHtml={escapeHtml}
