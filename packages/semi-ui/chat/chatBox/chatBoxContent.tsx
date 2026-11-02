@@ -86,7 +86,7 @@ const ChatBoxContent = (props: ChatBoxContentProps) => {
                 {realContent}
             </>);
         }
-    }, [status, content]);
+    }, [status, content, shouldEscapeHtml, markdownComponents, markdownRenderProps]);
         
     if (customRenderFunc) {
         return customRenderFunc({ 
