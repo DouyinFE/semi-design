@@ -220,7 +220,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
                         visible={previewVisible}
                         onVisibleChange={this.handlePreviewVisibleChange}
                         crossOrigin={!isUndefined(crossOrigin) ? crossOrigin : previewProps?.crossOrigin}
-                        setDownloadName={setDownloadName}
+                        setDownloadName={!isUndefined(setDownloadName) ? setDownloadName : previewProps?.setDownloadName}
                     />
                 }
             </div>
