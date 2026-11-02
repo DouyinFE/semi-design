@@ -37,6 +37,49 @@ describe('modal', () => {
         document.body.innerHTML = '';
     });
 
+    it('associates each dialog with its own title and body', () => {
+        const modal = mountToBody(<div>
+            {getModal({ visible: true, title: 'First' }, 'first body')}
+            {getModal({ visible: true, title: 'Second' }, 'second body')}
+        </div>);
+        const dialogs = Array.from(document.querySelectorAll('[role="dialog"]'));
+        expect(dialogs).toHaveLength(2);
+        dialogs.forEach((dialog, index) => {
+            const title = document.getElementById(dialog.getAttribute('aria-labelledby'));
+            const body = document.getElementById(dialog.getAttribute('aria-describedby'));
+            expect(dialog.contains(title)).toBe(true);
+            expect(dialog.contains(body)).toBe(true);
+            expect(title.textContent).toBe(['First', 'Second'][index]);
+            expect(body.textContent).toBe(['first body', 'second body'][index]);
+        });
+        modal.unmount();
+    });
+
+    [undefined, null].forEach(title => {
+        it(`describes a dialog with ${title} title without a dangling label`, () => {
+            const modal = mountToBody(getModal({ visible: true, title }, 'untitled body'));
+            const dialog = document.querySelector('[role="dialog"]');
+            expect(dialog.hasAttribute('aria-labelledby')).toBe(false);
+            const body = document.getElementById(dialog.getAttribute('aria-describedby'));
+            expect(dialog.contains(body)).toBe(true);
+            expect(body.textContent).toBe('untitled body');
+            modal.unmount();
+        });
+    });
+
+    it('does not reference a default title when header is customized', () => {
+        const modal = mountToBody(getModal({ visible: true, title: 'Ignored', header: <div>custom header</div> }));
+        expect(document.querySelector('[role="dialog"]').hasAttribute('aria-labelledby')).toBe(false);
+        modal.unmount();
+    });
+
+    it('associates a numeric zero title', () => {
+        const modal = mountToBody(getModal({ visible: true, title: 0 }));
+        const dialog = document.querySelector('[role="dialog"]');
+        expect(document.getElementById(dialog.getAttribute('aria-labelledby')).textContent).toBe('0');
+        modal.unmount();
+    });
+
     it('className / style / maskStyle / bodyStyle / zIndex', () => {
         let component = getModal({
             className: 'test',
