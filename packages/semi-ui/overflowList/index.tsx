@@ -12,6 +12,7 @@ import OverflowListFoundation, { OverflowListAdapter } from '@douyinfe/semi-foun
 import '@douyinfe/semi-foundation/overflowList/overflowList.scss';
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import copy from 'fast-copy';
+import { getRef } from '../_utils/reactRender';
 
 const prefixCls = cssClasses.PREFIX;
 const Boundary = strings.BOUNDARY_MAP;
@@ -254,13 +255,20 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         this.foundation.handleIntersect(entries);
     };
 
-    mergeRef = (ref: RefCallback<any> | MutableRefObject<any> | null, node: Element, key: Key): void => {
+    mergeRef = (ref: RefCallback<any> | MutableRefObject<any> | null, node: Element, key: Key): (() => void) | void => {
         this.itemRefs[key] = node;
         if (typeof ref === 'function') {
-            ref(node);
+            const cleanup = ref(node) as unknown;
+            if (typeof cleanup === 'function') {
+                return () => {
+                    this.itemRefs[key] = null;
+                    cleanup();
+                };
+            }
         } else if (typeof ref === 'object' && ref && 'current' in ref) {
             ref.current = node;
         }
+        return undefined;
     };
 
     renderOverflow = (): ReactNode | ReactNode[] => {
@@ -317,9 +325,10 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                         key={`${prefixCls}-scroll-wrapper`}
                     >
                         {visible.map(visibleItemRenderer).map((item: ReactElement) => {
-                            const { forwardRef, key } = item as any;
+                            const { key } = item;
+                            const itemRef = getRef(item);
                             return React.cloneElement(item, {
-                                ref: (node: any) => this.mergeRef(forwardRef, node, key),
+                                ref: (node: any) => this.mergeRef(itemRef, node, key),
                                 'data-scrollkey': `${key}`,
                                 key,
                             });
