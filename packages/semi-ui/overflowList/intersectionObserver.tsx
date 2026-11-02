@@ -51,9 +51,19 @@ export default class ReactIntersectionObserver extends React.PureComponent<React
 
     }
 
-    componentDidUpdate(): void {
-        const { items } = this.props;
+    componentDidUpdate(prevProps: ReactIntersectionObserverProps): void {
+        const { items, threshold, option, onIntersect } = this.props;
         const itemKeys = Object.keys(items);
+        const previousThreshold = { threshold: prevProps.threshold, ...prevProps.option }.threshold;
+        const nextThreshold = { threshold, ...option }.threshold;
+        if (!isEqual(previousThreshold, nextThreshold)) {
+            const { root, rootMargin } = this.observer;
+            this.observer.disconnect();
+            this.observer = new IntersectionObserver(onIntersect, { root, rootMargin, threshold: nextThreshold });
+            this.observeElement();
+            this.cachedKeys = itemKeys;
+            return;
+        }
         if (!isEqual(this.cachedKeys, itemKeys)) {
             this.observeElement(true);
             this.cachedKeys = itemKeys;
