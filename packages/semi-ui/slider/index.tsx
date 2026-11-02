@@ -106,7 +106,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
     constructor(props: SliderProps) {
         super(props);
         let { value } = this.props;
-        if (!value) {
+        if (typeof value === 'undefined') {
             value = this.props.defaultValue;
         }
         this.state = {
@@ -299,11 +299,12 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         }
 
         if (hasPropValueChange) {
-            const nextValue = this.props.value;
+            const nextValue = this.props.value === undefined && 'value' in this.props ?
+                (this.props.range ? [this.state.min, this.state.min] : this.state.min) : this.props.value;
             const prevValue = this.state.currentValue;
             this.foundation.handleValueChange(prevValue, nextValue);
             // trigger onAfterChange when value is controlled and changed
-            this.props.onAfterChange(this.props.value);
+            this.props.onAfterChange(nextValue);
         }
     }
 
