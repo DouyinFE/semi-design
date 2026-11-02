@@ -1647,4 +1647,10 @@ describe(`TimePicker`, () => {
         expect(elem.state('open')).toBe(true);
         elem.unmount();
     });
+
+    it('disabledTime should not be passed to input dom', () => {
+        const elem = mount(<LocaleTimePicker disabledTime={() => ({})} />);
+        expect(elem.find('input').props().disabledTime).toBeUndefined();
+        elem.unmount();
+    });
 });

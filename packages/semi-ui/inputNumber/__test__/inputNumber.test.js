@@ -1611,4 +1611,10 @@ describe(`InputNumber`, () => {
         expect(inputNumber.find('input').exists()).toBe(true);
     });
 
+    it('scientificNotation should not be passed to input dom', () => {
+        const inputNumber = mount(<InputNumber defaultValue={1e21} scientificNotation={{ threshold: 6 }} />);
+        expect(inputNumber.find('input').getDOMNode().hasAttribute('scientificnotation')).toBe(false);
+        inputNumber.unmount();
+    });
+
 });

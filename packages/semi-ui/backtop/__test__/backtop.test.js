@@ -46,4 +46,10 @@ describe('BackTop', () => {
         expect(onClick.calledOnce).toEqual(true);
         demo.unmount();
     });
+
+    it('duration should not be passed to dom', () => {
+        const demo = mount(<BackTop duration={100} visibilityHeight={-1} className="test" />);
+        expect(demo.find('.semi-backtop.test').getDOMNode().hasAttribute('duration')).toBe(false);
+        demo.unmount();
+    });
 });

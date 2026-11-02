@@ -22,6 +22,12 @@ async function waitForRender(wrapper, selector, maxTries = 20) {
 
 
 describe(`MarkdownRender`, () => {
+    it(`placeholder div should not receive components attribute`, () => {
+        const render = mount(<MarkdownRender raw="# hi" />);
+        expect(render.getDOMNode().innerHTML).not.toContain('components');
+        render.unmount();
+    });
+
     it(`test table render`, async () => {
         const content = `
         | Name | Brand | Count | Price |
