@@ -92,7 +92,7 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
         if (!isFunction(getValueLength)) {
             return value;
         }
-        if (maxLength) {
+        if (maxLength || maxLength === 0) {
             return this.handleVisibleMaxLength(value);
         }
         if (minLength) {
@@ -121,7 +121,7 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
         if (!isFunction(getValueLength)) {
             return;
         }
-        if (maxLength) {
+        if (maxLength || maxLength === 0) {
             const nextValue = this.handleVisibleMaxLength(value);
             nextValue !== value && this._changeValue(nextValue, e);
         }
