@@ -647,8 +647,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     const path = e.composedPath && e.composedPath() || [target];
 
                     if (
-                        optionsDom &&
                         (
+                            !optionsDom ||
                             !optionsDom.contains(target) ||
                             !optionsDom.contains(target.parentNode)
                         ) &&
