@@ -322,13 +322,15 @@ export default class CropperFoundation <P = Record<string, any>, S = Record<stri
         let _zoom: number;
         if (e.deltaY < 0) {
             /* zoom in */
-            if (currZoom + zoomStep <= maxZoom) {
-                _zoom = Number((currZoom + zoomStep).toFixed(2));
+            const nextZoom = Number((currZoom + zoomStep).toFixed(2));
+            if (nextZoom <= maxZoom) {
+                _zoom = nextZoom;
             }
         } else if (e.deltaY > 0) {
             /* zoom out */
-            if (currZoom - zoomStep >= minZoom) {
-                _zoom = Number((currZoom - zoomStep).toFixed(2));
+            const nextZoom = Number((currZoom - zoomStep).toFixed(2));
+            if (nextZoom >= minZoom) {
+                _zoom = nextZoom;
             }
         }
         if (_zoom === undefined) {
