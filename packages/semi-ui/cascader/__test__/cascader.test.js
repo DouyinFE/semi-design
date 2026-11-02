@@ -921,6 +921,42 @@ describe('Cascader', () => {
         );
     });
 
+    [undefined, 'unRelated'].forEach(checkRelation => {
+        it(`keeps controlled multiple selection when clearing, checkRelation=${checkRelation}`, () => {
+            const onChange = sinon.spy();
+            const onClear = sinon.spy();
+            const cascader = render({
+                multiple: true,
+                value: ['Asia', 'China', 'Beijing'],
+                checkRelation,
+                showClear: true,
+                onChange,
+                onClear,
+            });
+            const selection = () => cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection`).text();
+            const initialSelection = selection();
+            expect(initialSelection).toContain('北京');
+            cascader.simulate('mouseEnter', {}).find(`.${BASE_CLASS_PREFIX}-cascader-clearbtn`).simulate('click');
+            expect(onChange.calledOnceWithExactly([])).toBe(true);
+            expect(onClear.calledOnce).toBe(true);
+            expect(selection()).toBe(initialSelection);
+            cascader.setProps({ value: [] });
+            expect(selection()).not.toContain('北京');
+            cascader.unmount();
+        });
+    });
+
+    it('clears uncontrolled multiple selection', () => {
+        const cascader = render({
+            multiple: true,
+            defaultValue: ['Asia', 'China', 'Beijing'],
+            showClear: true,
+        });
+        cascader.simulate('mouseEnter', {}).find(`.${BASE_CLASS_PREFIX}-cascader-clearbtn`).simulate('click');
+        expect(cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection`).text()).not.toContain('北京');
+        cascader.unmount();
+    });
+
     it('onClear and showClear', () => {
         const spyOnClear = sinon.spy(() => { });
         const cascader = render({
