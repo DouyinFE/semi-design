@@ -49,7 +49,7 @@ export default class BackTop extends BaseComponent<BackTopProps, BackTopState> {
         className: PropTypes.string,
     };
 
-    handler: (e: React.MouseEvent<HTMLDivElement>) => void;
+    handler: ReturnType<typeof throttle>;
 
     constructor(props: BackTopProps) {
         super(props);
@@ -65,6 +65,7 @@ export default class BackTop extends BaseComponent<BackTopProps, BackTopState> {
     }
 
     componentWillUnmount() {
+        this.handler.cancel();
         this.foundation.destroy();
     }
 
