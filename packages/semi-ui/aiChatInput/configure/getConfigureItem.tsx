@@ -39,7 +39,7 @@ function getConfigureItem(Component: any, opts: ConfigureItemOpts = {}) {
             return () => {
                 onRemove(field);
             };
-        }, []);
+        }, [field]);
 
         const valueProps = {
             [valueKey]: value[field],
