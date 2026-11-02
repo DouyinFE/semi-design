@@ -245,7 +245,7 @@ class PaginationFoundation<P = Record<string, any>, S = Record<string, any>> ext
         const newPageSizeOpts = [...pageSizeOpts];
         if (newPageSizeOpts.indexOf(pageSize) === -1) {
             const firstLargerIndex = newPageSizeOpts.findIndex(el => el > pageSize);
-            newPageSizeOpts.splice(firstLargerIndex, 0, pageSize);
+            newPageSizeOpts.splice(firstLargerIndex === -1 ? newPageSizeOpts.length : firstLargerIndex, 0, pageSize);
         }
         return newPageSizeOpts;
     }
