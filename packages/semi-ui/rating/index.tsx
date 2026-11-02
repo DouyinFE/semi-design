@@ -299,7 +299,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
                 const text = tooltips[ind] ? tooltips[ind] : '';
                 const showTips = hoverValue - 1 === ind;
                 return (
-                    <Tooltip visible={showTips} trigger="custom" content={text} key={`${ind}-${showTips}`}>
+                    <Tooltip visible={showTips} trigger="custom" content={text} key={ind}>
                         <span className={`${prefixCls}-star-outer`}>{content}</span>
                     </Tooltip>
                 );
