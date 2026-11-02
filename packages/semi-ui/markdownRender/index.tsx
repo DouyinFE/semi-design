@@ -12,6 +12,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/markdownRender/constants';
 import * as SemiMarkdownComponents from "./components";
 import cls from "classnames";
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
 export interface MarkdownRenderProps extends MarkdownRenderBaseProps{
     style?: CSSProperties;
@@ -56,7 +57,11 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
     }
 
     componentDidUpdate(prevProps: Readonly<MarkdownRenderProps>, prevState: Readonly<MarkdownRenderState>, snapshot?: any) {
-        if (prevProps.raw !== this.props.raw) {
+        if (prevProps.raw !== this.props.raw ||
+            prevProps.format !== this.props.format ||
+            prevProps.remarkGfm !== this.props.remarkGfm ||
+            !isEqual(prevProps.remarkPlugins, this.props.remarkPlugins) ||
+            !isEqual(prevProps.rehypePlugins, this.props.rehypePlugins)) {
             this.evaluateContent();
         }
     }
