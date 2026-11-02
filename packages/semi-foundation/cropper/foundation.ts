@@ -242,6 +242,7 @@ export default class CropperFoundation <P = Record<string, any>, S = Record<stri
     }
 
     renderPreview = () => {
+        this.removePreview();
         const { preview, src } = this.getProps();
         const previewNode = preview?.();
         if (!previewNode) {
