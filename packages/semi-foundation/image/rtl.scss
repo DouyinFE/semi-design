@@ -17,13 +17,13 @@ $module: #{$prefix}-image;
         &-prev {
             right: $spacing-image_preview_icon-x;
             left: auto;
-            transform: $transform_rotate-image_preview_icon-rtl;
+            transform: translateY(-50%) $transform_rotate-image_preview_icon-rtl;
         }
     
         &-next {
             left: $spacing-image_preview_icon-x;
             right: auto;
-            transform: $transform_rotate-image_preview_icon-rtl;
+            transform: translateY(-50%) $transform_rotate-image_preview_icon-rtl;
         }
 
         &-footer {
