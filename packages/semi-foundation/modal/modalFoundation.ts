@@ -115,9 +115,8 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
             this._adapter.setState({ onCancelReturnPromiseStatus: "pending" });
             (result as Promise<any>)?.then(() => {
                 this._adapter.setState({ onCancelReturnPromiseStatus: "fulfilled" });
-            })?.catch(e => {
+            }, () => {
                 this._adapter.setState({ onCancelReturnPromiseStatus: "rejected" });
-                throw e;
             });
         }
     }
@@ -128,9 +127,8 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
             this._adapter.setState({ onOKReturnPromiseStatus: "pending" });
             (result as Promise<any>)?.then(() => {
                 this._adapter.setState({ onOKReturnPromiseStatus: "fulfilled" });
-            })?.catch(e => {
+            }, () => {
                 this._adapter.setState({ onOKReturnPromiseStatus: "rejected" });
-                throw e;
             });
         }
     }
