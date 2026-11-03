@@ -230,6 +230,8 @@ const local: Locale = {
         annotationText: '情報要素'
     },
     Feedback: {
+        placeholder: '追加のフィードバックを入力してください',
+        optionalPlaceholder: '追加のフィードバックを入力してください（任意）',
         submit: '送信',
         cancel: 'キャンセル'
     },

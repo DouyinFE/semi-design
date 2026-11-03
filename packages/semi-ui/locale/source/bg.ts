@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'парчета информация'
     },
     Feedback: {
+        placeholder: 'Добавете допълнителна обратна връзка',
+        optionalPlaceholder: 'Добавете допълнителна обратна връзка (по избор)',
         submit: 'Подаване',
         cancel: 'Отказ'
     },

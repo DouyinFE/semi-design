@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'informacijos elementai'
     },
     Feedback: {
+        placeholder: 'Pateikite papildomų atsiliepimų',
+        optionalPlaceholder: 'Pateikite papildomų atsiliepimų (neprivaloma)',
         submit: 'Pateikti',
         cancel: 'Atšaukti'
     },

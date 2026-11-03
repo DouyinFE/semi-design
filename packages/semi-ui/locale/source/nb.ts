@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'dokumenter'
     },
     Feedback: {
+        placeholder: 'Gi ytterligere tilbakemelding',
+        optionalPlaceholder: 'Gi ytterligere tilbakemelding (valgfritt)',
         submit: 'Send inn',
         cancel: 'Avbryt'
     },

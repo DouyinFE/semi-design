@@ -227,6 +227,8 @@ const local: Locale = {
         annotationText: 'ka mga piraso sa impormasyon'
     },
     Feedback: {
+        placeholder: 'Paghatag og dugang nga feedback',
+        optionalPlaceholder: 'Paghatag og dugang nga feedback (opsyonal)',
         submit: 'Isumite',
         cancel: 'Kanselahon'
     },

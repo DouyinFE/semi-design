@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'információ'
     },
     Feedback: {
+        placeholder: 'Adjon további visszajelzést',
+        optionalPlaceholder: 'Adjon további visszajelzést (nem kötelező)',
         submit: 'Beküldés',
         cancel: 'Mégse'
     },

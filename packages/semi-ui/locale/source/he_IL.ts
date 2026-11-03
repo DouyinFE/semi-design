@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'פיסות מידע'
     },
     Feedback: {
+        placeholder: 'ספק משוב נוסף',
+        optionalPlaceholder: 'ספק משוב נוסף (אופציונלי)',
         submit: 'שליחה',
         cancel: 'ביטול'
     },

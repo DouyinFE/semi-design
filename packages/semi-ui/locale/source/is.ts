@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'upplýsingamolar'
     },
     Feedback: {
+        placeholder: 'Gefðu frekari endurgjöf',
+        optionalPlaceholder: 'Gefðu frekari endurgjöf (valfrjálst)',
         submit: 'Senda',
         cancel: 'Hætta við'
     },

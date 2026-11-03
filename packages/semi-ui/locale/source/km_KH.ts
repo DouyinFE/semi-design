@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'ព័ត៌មាន'
     },
     Feedback: {
+        placeholder: 'ផ្តល់មតិកែលម្អបន្ថែម',
+        optionalPlaceholder: 'ផ្តល់មតិកែលម្អបន្ថែម (ស្រេចចិត្ត)',
         submit: 'ដាក់បញ្ជូន',
         cancel: 'បោះបង់'
     },

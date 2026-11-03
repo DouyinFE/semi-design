@@ -233,6 +233,8 @@ const local: Locale = {
         annotationText: 'informatie-elementen'
     },
     Feedback: {
+        placeholder: 'Geef aanvullende feedback',
+        optionalPlaceholder: 'Geef aanvullende feedback (optioneel)',
         submit: 'Versturen',
         cancel: 'Annuleren'
     },

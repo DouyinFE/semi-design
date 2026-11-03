@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'معلومات'
     },
     Feedback: {
+        placeholder: 'اضافی رائے دیں',
+        optionalPlaceholder: 'اضافی رائے دیں (اختیاری)',
         submit: 'جمع کروائیں',
         cancel: 'منسوخ کریں'
     },

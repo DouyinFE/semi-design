@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'axborot qismlari'
     },
     Feedback: {
+        placeholder: 'Qoʻshimcha fikr bildiring',
+        optionalPlaceholder: 'Qoʻshimcha fikr bildiring (ixtiyoriy)',
         submit: 'Yuborish',
         cancel: 'Bekor qilish'
     },

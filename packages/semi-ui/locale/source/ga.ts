@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'píosaí eolais'
     },
     Feedback: {
+        placeholder: 'Tabhair aiseolas breise',
+        optionalPlaceholder: 'Tabhair aiseolas breise (roghnach)',
         submit: 'Cuir isteach',
         cancel: 'Cealaigh'
     },

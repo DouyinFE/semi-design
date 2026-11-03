@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'informacije'
     },
     Feedback: {
+        placeholder: 'Navedite dodatne povratne informacije',
+        optionalPlaceholder: 'Navedite dodatne povratne informacije (neobavezno)',
         submit: 'Pošalji',
         cancel: 'Odustani'
     },

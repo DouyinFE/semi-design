@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'kilder'
     },
     Feedback: {
+        placeholder: 'Giv yderligere feedback',
+        optionalPlaceholder: 'Giv yderligere feedback (valgfrit)',
         submit: 'Indsend',
         cancel: 'Annuller'
     },

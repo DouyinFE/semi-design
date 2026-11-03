@@ -227,6 +227,8 @@ const local: Locale = {
         annotationText: 'bilgi elemanı'
     },
     Feedback: {
+        placeholder: 'Ek geri bildirim sağlayın',
+        optionalPlaceholder: 'Ek geri bildirim sağlayın (isteğe bağlı)',
         submit: 'Göndermek',
         cancel: 'İptal'
     },

@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'құжат'
     },
     Feedback: {
+        placeholder: 'Қосымша пікір қалдырыңыз',
+        optionalPlaceholder: 'Қосымша пікір қалдырыңыз (міндетті емес)',
         submit: 'Жіберу',
         cancel: 'Бас тарту'
     },

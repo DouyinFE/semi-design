@@ -229,6 +229,8 @@ export interface Locale {
         annotationText: string
     };
     Feedback: {
+        placeholder: string;
+        optionalPlaceholder: string;
         submit: string;
         cancel: string
     };

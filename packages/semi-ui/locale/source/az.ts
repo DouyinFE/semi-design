@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'məlumat mənbəsi'
     },
     Feedback: {
+        placeholder: 'Əlavə rəy bildirin',
+        optionalPlaceholder: 'Əlavə rəy bildirin (istəyə bağlı)',
         submit: 'Təqdim edin',
         cancel: 'Ləğv edin'
     },

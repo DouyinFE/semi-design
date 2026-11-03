@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'تکه‌های اطلاعات'
     },
     Feedback: {
+        placeholder: 'بازخورد بیشتری ارائه دهید',
+        optionalPlaceholder: 'بازخورد بیشتری ارائه دهید (اختیاری)',
         submit: 'ارسال',
         cancel: 'لغو'
     },

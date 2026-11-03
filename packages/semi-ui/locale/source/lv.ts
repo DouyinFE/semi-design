@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'informācijas fragmenti'
     },
     Feedback: {
+        placeholder: 'Sniedziet papildu atsauksmes',
+        optionalPlaceholder: 'Sniedziet papildu atsauksmes (pēc izvēles)',
         submit: 'Iesniegt',
         cancel: 'Atcelt'
     },

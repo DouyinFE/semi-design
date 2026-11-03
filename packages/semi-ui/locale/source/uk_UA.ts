@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'частини інформації'
     },
     Feedback: {
+        placeholder: 'Залиште додатковий відгук',
+        optionalPlaceholder: 'Залиште додатковий відгук (необов’язково)',
         submit: 'Надіслати',
         cancel: 'Скасувати'
     },

@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'pjesë informacioni'
     },
     Feedback: {
+        placeholder: 'Jepni komente shtesë',
+        optionalPlaceholder: 'Jepni komente shtesë (opsionale)',
         submit: 'Dërgo',
         cancel: 'Anulo'
     },

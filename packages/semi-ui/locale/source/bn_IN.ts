@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'তথ্যের অংশবিশেষ'
     },
     Feedback: {
+        placeholder: 'অতিরিক্ত মতামত দিন',
+        optionalPlaceholder: 'অতিরিক্ত মতামত দিন (ঐচ্ছিক)',
         submit: 'জমা দিন',
         cancel: 'বাতিল করুন'
     },

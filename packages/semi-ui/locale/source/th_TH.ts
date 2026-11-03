@@ -230,6 +230,8 @@ const local: Locale = {
         annotationText: 'องค์ประกอบของข้อมูล'
     },
     Feedback: {
+        placeholder: 'ให้ความคิดเห็นเพิ่มเติม',
+        optionalPlaceholder: 'ให้ความคิดเห็นเพิ่มเติม (ไม่บังคับ)',
         submit: 'ส่ง',
         cancel: 'ยกเลิก'
     },

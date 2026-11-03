@@ -229,6 +229,8 @@ const local: Locale = {
         annotationText: 'elemente de informație'
     },
     Feedback: {
+        placeholder: 'Oferiți feedback suplimentar',
+        optionalPlaceholder: 'Oferiți feedback suplimentar (opțional)',
         submit: 'Trimite',
         cancel: 'Anulează'
     },

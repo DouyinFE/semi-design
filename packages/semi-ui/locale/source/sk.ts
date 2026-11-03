@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'zdroje informácií'
     },
     Feedback: {
+        placeholder: 'Poskytnite ďalšiu spätnú väzbu',
+        optionalPlaceholder: 'Poskytnite ďalšiu spätnú väzbu (voliteľné)',
         submit: 'Odoslať',
         cancel: 'Zrušiť'
     },

@@ -227,6 +227,8 @@ const local: Locale = {
         annotationText: '篇資料'
     },
     Feedback: {
+        placeholder: '請提供更多意見回饋',
+        optionalPlaceholder: '請提供更多意見回饋（選填）',
         submit: '提交',
         cancel: '取消'
     },

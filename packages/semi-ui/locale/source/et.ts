@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'infokillud'
     },
     Feedback: {
+        placeholder: 'Lisa täiendav tagasiside',
+        optionalPlaceholder: 'Lisa täiendav tagasiside (valikuline)',
         submit: 'Esita',
         cancel: 'Loobu'
     },

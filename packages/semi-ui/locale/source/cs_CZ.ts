@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'zdroje informací'
     },
     Feedback: {
+        placeholder: 'Přidejte další zpětnou vazbu',
+        optionalPlaceholder: 'Přidejte další zpětnou vazbu (volitelné)',
         submit: 'Odeslat',
         cancel: 'Zrušit'
     },

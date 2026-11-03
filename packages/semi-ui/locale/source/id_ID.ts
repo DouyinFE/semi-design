@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'elemen informasi'
     },
     Feedback: {
+        placeholder: 'Berikan masukan tambahan',
+        optionalPlaceholder: 'Berikan masukan tambahan (opsional)',
         submit: 'Kirim',
         cancel: 'Batal'
     },

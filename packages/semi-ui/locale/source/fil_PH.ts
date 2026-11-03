@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: '(na) uri ng impormasyon'
     },
     Feedback: {
+        placeholder: 'Magbigay ng karagdagang feedback',
+        optionalPlaceholder: 'Magbigay ng karagdagang feedback (opsyonal)',
         submit: 'Isumite',
         cancel: 'Kanselahin'
     },

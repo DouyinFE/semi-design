@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'taarifa'
     },
     Feedback: {
+        placeholder: 'Toa maoni ya ziada',
+        optionalPlaceholder: 'Toa maoni ya ziada (hiari)',
         submit: 'Tuma',
         cancel: 'Ghairi'
     },

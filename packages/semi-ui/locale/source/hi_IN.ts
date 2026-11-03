@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'जानकारी के टुकड़े'
     },
     Feedback: {
+        placeholder: 'अतिरिक्त फ़ीडबैक दें',
+        optionalPlaceholder: 'अतिरिक्त फ़ीडबैक दें (वैकल्पिक)',
         submit: 'सबमिट करें',
         cancel: 'रद्द करें'
     },

@@ -230,6 +230,8 @@ const local: Locale = {
         annotationText: '篇资料'
     },
     Feedback: {
+        placeholder: '请提供更多反馈',
+        optionalPlaceholder: '请提供更多反馈（选填）',
         submit: '提交',
         cancel: '取消'
     },

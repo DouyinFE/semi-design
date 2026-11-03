@@ -229,6 +229,8 @@ const local: Locale = {
         annotationText: 'thành phần thông tin'
     },
     Feedback: {
+        placeholder: 'Cung cấp thêm phản hồi',
+        optionalPlaceholder: 'Cung cấp thêm phản hồi (không bắt buộc)',
         submit: 'Nộp',
         cancel: 'Hủy'
     },

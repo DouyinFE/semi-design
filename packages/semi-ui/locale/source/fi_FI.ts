@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'tietolähdettä'
     },
     Feedback: {
+        placeholder: 'Anna lisäpalautetta',
+        optionalPlaceholder: 'Anna lisäpalautetta (valinnainen)',
         submit: 'Lähetä',
         cancel: 'Peruuta'
     },

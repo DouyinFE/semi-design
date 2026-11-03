@@ -226,6 +226,8 @@ const local: Locale = {
         annotationText: 'πληροφορίες'
     },
     Feedback: {
+        placeholder: 'Δώστε επιπλέον σχόλια',
+        optionalPlaceholder: 'Δώστε επιπλέον σχόλια (προαιρετικό)',
         submit: 'Υποβολή',
         cancel: 'Ακύρωση'
     },
