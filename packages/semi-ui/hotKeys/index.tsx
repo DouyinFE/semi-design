@@ -116,7 +116,7 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
                 </div>
             );
         }
-        const renderContent = content ?? hotKeys;
+        const renderContent = content ?? hotKeys ?? [];
 
         return (
             <div
