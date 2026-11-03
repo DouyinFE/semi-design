@@ -92,7 +92,7 @@ class List<T = any> extends BaseComponent<ListProps<T>> {
     wrapChildren(childrenList: React.ReactNode, children: React.ReactNode) {
         const { grid } = this.props;
         if (grid) {
-            const rowProps = {};
+            const rowProps = { role: 'list' };
             ['align', 'gutter', 'justify', 'type'].forEach(key => {
                 if (key in grid) {
                     rowProps[key] = grid[key];
@@ -145,6 +145,10 @@ class List<T = any> extends BaseComponent<ListProps<T>> {
             childrenList = [];
             const items = renderItem ? dataSource.map((item, index) => renderItem(item, index)) : [];
             React.Children.forEach(items as any, (child, index) => {
+                if (!React.isValidElement(child)) {
+                    childrenList.push(child);
+                    return;
+                }
                 const itemKey = child.key || `list-item-${index}`;
                 childrenList.push(
                     React.cloneElement(child, {

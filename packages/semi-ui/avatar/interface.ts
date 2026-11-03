@@ -22,6 +22,7 @@ export type AvatarColor =
     | 'yellow';
 
 export interface AvatarProps extends BaseProps {
+    role?: React.HTMLAttributes<HTMLSpanElement>['role'];
     children?: React.ReactNode;
     color?: AvatarColor;
     shape?: AvatarShape;

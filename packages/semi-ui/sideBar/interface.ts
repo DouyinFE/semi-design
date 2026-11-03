@@ -34,7 +34,7 @@ export interface OptionProps {
 
 type DetailContent = CodeItemProps | FileItemProps | any;
 
-export interface SideBarProps extends ContainerReactProps, OptionProps {
+export interface SideBarProps extends Omit<ContainerReactProps, 'closeOnEsc'>, OptionProps {
     mode?: string; // can be main，code，file，or other string
     detailContent?: DetailContent;
     onActiveOptionChange?: (e: React.MouseEvent, activeKey: string) => void;

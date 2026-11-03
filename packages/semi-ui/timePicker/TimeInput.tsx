@@ -7,7 +7,7 @@ import { noop } from 'lodash';
 import Input from '../input';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import InputFoundation, { TimeInputAdapter } from '@douyinfe/semi-foundation/timePicker/inputFoundation';
-import { IconClock } from '@douyinfe/semi-icons';
+import { IconClock, IconClear } from '@douyinfe/semi-icons';
 import { TimePickerProps } from './TimePicker';
 
 
@@ -17,6 +17,7 @@ export type TimeInputProps = Pick<TimePickerProps,
 'prefixCls' |
 'placeholder' |
 'clearText' |
+'clearIcon' |
 'inputReadOnly' |
 'disabled' |
 'type' |
@@ -51,6 +52,7 @@ class TimeInput extends BaseComponent<TimeInputProps, any> {
         prefixCls: PropTypes.string,
         placeholder: PropTypes.string,
         clearText: PropTypes.string,
+        clearIcon: PropTypes.node,
         inputReadOnly: PropTypes.bool,
         hourOptions: PropTypes.array,
         minuteOptions: PropTypes.array,
@@ -161,6 +163,7 @@ class TimeInput extends BaseComponent<TimeInputProps, any> {
             invalid,
             format,
             clearText,
+            clearIcon,
             disabledHours,
             disabledMinutes,
             disabledSeconds,
@@ -183,6 +186,7 @@ class TimeInput extends BaseComponent<TimeInputProps, any> {
         return (
             <Input
                 {...rest}
+                clearIcon={typeof clearText === 'string' ? <span title={clearText}>{clearIcon || <IconClear />}</span> : clearIcon}
                 hideSuffix
                 className={inputCls}
                 ref={this.setRef as any}

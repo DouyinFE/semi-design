@@ -322,16 +322,16 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 // But skip UI updates in silent mode
                 if (!silent) {
                     this._adapter.notifyChange(this.data);
-                    this._adapter.forceUpdate();
                 }
                 const errors = this.getError();
-                if (this._isValid(targetFields)) {
+                const valid = this._isValid(targetFields);
+                if (!silent) {
+                    this._adapter.forceUpdate(valid ? undefined : () => this._autoScroll());
+                }
+                if (valid) {
                     const _values = this._adapter.cloneDeep(values);
                     resolve(_values);
                 } else {
-                    if (!silent) {
-                        this._autoScroll();
-                    }
                     reject(errors);
                 }
             });

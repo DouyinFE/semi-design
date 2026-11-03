@@ -45,6 +45,10 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
         super({ ...adapter });
     }
 
+    destroy() {
+        this._adapter.unregisterClickOutsideHandler();
+    }
+
     /**
      * handler of input change
      */

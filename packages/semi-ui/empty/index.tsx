@@ -47,7 +47,17 @@ export default class Empty extends BaseComponent<EmptyProps, EmptyState> {
     }
 
     componentDidMount(): void {
-        if (this.props.darkModeImage) {
+        this.observeTheme();
+    }
+
+    componentDidUpdate(prevProps: EmptyProps): void {
+        if (!prevProps.darkModeImage && this.props.darkModeImage) {
+            this.observeTheme();
+        }
+    }
+
+    observeTheme = (): void => {
+        if (this.props.darkModeImage && !this.observer) {
             this.body = window.document.body;
             this.updateMode();
             const config = { attributes: true, childList: false, subtree: false };
@@ -58,6 +68,7 @@ export default class Empty extends BaseComponent<EmptyProps, EmptyState> {
 
     componentWillUnmount(): void {
         this.observer && this.observer.disconnect();
+        this.observer = null;
     }
 
     observe = (mutationsList: any): void => {
@@ -83,7 +94,7 @@ export default class Empty extends BaseComponent<EmptyProps, EmptyState> {
         let imageNode = null;
         if (typeof imgSrc === 'string') {
             imageNode = <img alt={alt} src={imgSrc}/>;
-        } else if (imgSrc && 'id' in (imgSrc as any)) {
+        } else if (imgSrc && typeof imgSrc === 'object' && 'id' in (imgSrc as any)) {
             imageNode = (
                 <svg
                     // className={iconCls}

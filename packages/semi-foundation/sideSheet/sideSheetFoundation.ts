@@ -76,8 +76,7 @@ export default class SideSheetFoundation extends BaseFoundation<SideSheetAdapter
     }
 
     afterHide() {
-        const allowDisable = this.getProp('disableScroll');
-        allowDisable && this._adapter.enabledBodyScroll();
+        this._adapter.enabledBodyScroll();
         this._adapter.removeKeyDownListener();
     }
 

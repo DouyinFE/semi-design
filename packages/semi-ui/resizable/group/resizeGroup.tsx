@@ -229,7 +229,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                     className={classNames(className, prefixCls + '-group')}
                     {...rest}
                 >
-                    {this.state.isResizing && <div style={this.state.backgroundStyle} className={classNames(className, prefixCls + '-background')}/>}
+                    {this.state.isResizing && <div style={this.state.backgroundStyle} className={prefixCls + '-background'}/>}
                     {children}
                 </div>
             </ResizeContext.Provider>

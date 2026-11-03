@@ -1634,7 +1634,7 @@ render(DefaultChat);
 | onMessageGoodFeedback | Triggered when the message is fed back positively | (message: Message) => void | - |
 | onMessageReset | Triggered when message is reset | (message: Message) => void | - |
 | onMessageSend | Triggered when sending a message | (content: string, attachment?: FileItem[]) => void | - |
-| onStopGenerator | Fires when the stop generation button is clicked | (message: Message) => void | - |
+| onStopGenerator | Fires when the stop generation button is clicked, with the button's React mouse event | `(e?: React.MouseEvent<HTMLButtonElement>) => void` | - |
 | placeholder | Input box placeholder | string | - |
 | renderInputArea | Custom rendering input box | (props: RenderInputAreaProps) => React.ReactNode | - |
 | showClearContext | Whether to display the clear context button| boolean | false |

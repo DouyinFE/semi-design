@@ -1738,7 +1738,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |onPreviewClick | Callback when the file card is clicked | (fileItem: FileItem) => void | | - |
 |onProgress | Callback when uploading files| (percent: number, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList: Array<FileItem\> ) => void | | |
 |onRemove | Callback for removing files| (currentFile: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>, currentFileItem: FileItem ) => void | | |
-|onRetry | Upload retry callback | (file: <FileItem\>) => void | | - |
+|onRetry | Upload retry callback. It still fires for items without `fileInstance`, but no upload request is made | (file: <FileItem\>) => void | | - |
 |onSizeError | File size invalid callback| (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>) => void | | |
 |onSuccess | Callback after successful upload| (responseBody: object, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\> ) => void | |
 |picHeight | Set picture display height when listType='picture' | string\|number |  | 2.42.0 |
@@ -1762,6 +1762,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |transformFile | After selecting the file, the callback function before uploading the file can be used to customize the conversion processing of the file | (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => FileItem | | - |
 |uploadTrigger | Trigger upload timing, optional values ​​`auto`, `custom` | string |'auto' | |
 |validateMessage | Upload the overall error message | ReactNode | | 1.0.0 |
+|timeout | Timeout in milliseconds for built-in upload requests. 0 means no timeout. Handle timeouts in customRequest when using it | number | 0 | |
 |withCredentials | Whether to bring cookie information | boolean | false | |
 
 ## Accessibility

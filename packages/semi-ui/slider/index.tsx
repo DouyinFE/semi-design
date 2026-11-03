@@ -106,7 +106,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
     constructor(props: SliderProps) {
         super(props);
         let { value } = this.props;
-        if (!value) {
+        if (typeof value === 'undefined') {
             value = this.props.defaultValue;
         }
         this.state = {
@@ -299,11 +299,12 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         }
 
         if (hasPropValueChange) {
-            const nextValue = this.props.value;
+            const nextValue = this.props.value === undefined && 'value' in this.props ?
+                (this.props.range ? [this.state.min, this.state.min] : this.state.min) : this.props.value;
             const prevValue = this.state.currentValue;
             this.foundation.handleValueChange(prevValue, nextValue);
             // trigger onAfterChange when value is controlled and changed
-            this.props.onAfterChange(this.props.value);
+            this.props.onAfterChange(nextValue);
         }
     }
 
@@ -414,6 +415,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                     rePosKey={minPercent}
                     visible={isInRenderTree && (tipVisible.min || firstDotFocusVisible)}
                     className={`${cssClasses.HANDLE}-tooltip`}
+                    showArrow={this.props.showArrow}
                 >
                     <span
                         ref={this.minHanleEl}
@@ -470,6 +472,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                     rePosKey={maxPercent}
                     visible={isInRenderTree && (tipVisible.max || secondDotFocusVisible)}
                     className={`${cssClasses.HANDLE}-tooltip`}
+                    showArrow={this.props.showArrow}
                 >
                     <span
                         ref={this.maxHanleEl}
@@ -647,7 +650,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             [`${prefixCls}`]: !vertical,
             [cssClasses.VERTICAL]: vertical,
         });
-        const fixedCurrentValue = Array.isArray(currentValue) ? [...currentValue].sort() : currentValue;
+        const fixedCurrentValue = Array.isArray(currentValue) ? [...currentValue].sort((a, b) => a - b) : currentValue;
         const ariaLabel = range ? `Range: ${this._getAriaValueText(fixedCurrentValue[0], 0)} to ${this._getAriaValueText(fixedCurrentValue[1], 1)}` : undefined;
         const slider = (
             <div

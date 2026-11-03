@@ -2,6 +2,7 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import touchEventPolyfill from '../utils/touchPolyfill';
 import warning from '../utils/warning';
 import { handlePrevent } from '../utils/a11y';
+import { strings } from './constants';
 
 export interface Marks{
     [key: number]: string
@@ -325,6 +326,9 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         const { sliderX, sliderY, sliderWidth, sliderHeight } = this._adapter.getSliderLengths();
         const startPos = vertical ? sliderY : sliderX;
         const len = vertical ? sliderHeight : sliderWidth;
+        if (len === 0) {
+            return false;
+        }
         let stepValue;
         if (vertical && verticalReverse) {
             //isMin = !isMin;
@@ -592,6 +596,9 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
     };
 
     onHandleUp = (e: any) => {
+        if (e.type === 'keyup' && !strings.KEYS.includes(e.key)) {
+            return false;
+        }
         this._adapter.onHandleUpBefore(e);
         // const value = this._adapter.getProp('value');
         const { disabled, chooseMovePos } = this._adapter.getStates();
@@ -721,7 +728,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
             case 'default':
                 break;
         }
-        if (["ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "PageUp", "PageDown", "Home", "End"].includes(event.key)) {
+        if (strings.KEYS.includes(event.key)) {
             let update = true;
             if (Array.isArray(currentValue)) {
                 update = !(currentValue[0] === outputValue[0] && currentValue[1] === outputValue[1]);
@@ -729,7 +736,9 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
                 update = currentValue !== outputValue;
             }
             if (update) {
-                this._adapter.updateCurrentValue(outputValue);
+                if (!this._isControlledComponent()) {
+                    this._adapter.updateCurrentValue(outputValue);
+                }
                 this._adapter.notifyChange(outputValue);
             }
             handlePrevent(event);

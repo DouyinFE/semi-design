@@ -638,19 +638,16 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
                 if ('renderOptionItem' in this.props) {
                     optionClassName = `.${prefixcls}-option-custom-selected`;
                     if (index !== undefined) {
-                        optionClassName = `.${prefixcls}-option-custom:nth-child(${index + 1})`;
+                        optionClassName = `.${prefixcls}-option-custom`;
                     }
                 } else {
                     optionClassName = `.${prefixcls}-option-selected`;
                     if (index !== undefined) {
-                        optionClassName = `.${prefixcls}-option:nth-child(${index + 1})`;
+                        optionClassName = `.${prefixcls}-option`;
                     }
                 }
 
-                let destNode = document.querySelector(`#${prefixcls}-${this.selectOptionListID} ${optionClassName}`) as HTMLDivElement;
-                if (Array.isArray(destNode)) {
-                    destNode = destNode[0];
-                }
+                const destNode = document.querySelectorAll(`#${prefixcls}-${this.selectOptionListID} ${optionClassName}`)[index ?? 0] as HTMLDivElement;
                 if (destNode) {
                     /**
                      * Scroll the first selected item into view.
@@ -819,8 +816,8 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
         this.foundation.onSelect(option, optionIndex, e);
     }
 
-    onClear(e: React.MouseEvent) {
-        e.nativeEvent.stopImmediatePropagation();
+    onClear(e?: React.MouseEvent) {
+        e?.nativeEvent.stopImmediatePropagation();
         this.foundation.handleClearClick(e as any);
     }
 
@@ -1003,7 +1000,6 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
         return (
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
-                id={`${prefixcls}-${this.selectOptionListID}`}
                 className={cls({
                     // When emptyContent is null and the option is empty, there is no need for the drop-down option for the user,
                     // so there is no need to set padding through this className
@@ -1016,6 +1012,7 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
                 {outerTopSlot ? <div className={`${prefixcls}-option-list-outer-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerTopSlot}</div> : null}
                 {searchPosition === strings.SEARCH_POSITION_DROPDOWN && filter ? this.renderDropdownInput() : null}
                 <div
+                    id={`${prefixcls}-${this.selectOptionListID}`}
                     style={{ maxHeight: `${maxHeight}px` }}
                     className={optionListCls}
                     role="listbox"
@@ -1086,7 +1083,6 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
 
         const { content, isRenderInTag } = (renderSelectedItem as RenderMultipleSelectedItemFn)(item[1], { index: i, disabled, onClose });
         const basic = {
-            disabled,
             closable: !disabled,
             onClose,
         };
@@ -1122,7 +1118,6 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
         }
         const { content, isRenderInTag } = (renderSelectedItem as RenderMultipleSelectedItemFn)(item[1], { index: i, disabled, onClose });
         const basic = {
-            disabled,
             closable: !disabled,
             onClose,
         };

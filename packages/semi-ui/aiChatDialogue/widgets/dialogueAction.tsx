@@ -256,12 +256,13 @@ class DialogueAction extends BaseComponent<AIChatDialogueActionProps, AIChatDial
         const { role, status = STATUS.COMPLETED } = message;
         const completed = status === STATUS.COMPLETED ;
         const showFeedback = role !== ROLE.USER && completed;
-        const showReset = isLastChat && role === ROLE.ASSISTANT;
+        const isLastAssistant = isLastChat && role === ROLE.ASSISTANT;
+        const showReset = this.props.showReset && isLastAssistant;
         const finished = status !== STATUS.IN_PROGRESS && status !== STATUS.INCOMPLETE;
         const showEdit = role === ROLE.USER;
 
         const wrapCls = cls(PREFIX_ACTION, { 
-            [`${PREFIX_ACTION}-show`]: showReset && finished || showAction,
+            [`${PREFIX_ACTION}-show`]: isLastAssistant && finished || showAction,
             [`${PREFIX_ACTION}-hidden`]: !finished
         });
 

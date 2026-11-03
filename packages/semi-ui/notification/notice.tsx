@@ -22,7 +22,8 @@ export interface NoticeReactProps extends NoticeProps {
     icon?: React.ReactNode;
     onClick?: (e: React.MouseEvent) => void;
     onAnimationEnd?: (e: React.AnimationEvent) => void;
-    onAnimationStart?: (e: React.AnimationEvent) => void
+    onAnimationStart?: (e: React.AnimationEvent) => void;
+    isClosing?: boolean;
 }
 
 const prefixCls = cssClasses.NOTICE;
@@ -86,6 +87,22 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
     }
 
     context: ContextValue;
+    private titleID = getUuidShort({ prefix: `${prefixCls}-title` });
+
+    componentDidMount() {
+        super.componentDidMount();
+        if (this.props.isClosing) {
+            this.clearCloseTimer();
+        }
+    }
+
+    componentDidUpdate(prevProps: NoticeReactProps) {
+        if (this.props.isClosing && !prevProps.isClosing) {
+            this.clearCloseTimer();
+        } else if (!this.props.isClosing && prevProps.isClosing) {
+            this.foundation.restartCloseTimer();
+        }
+    }
 
     componentWillUnmount() {
         this.foundation.destroy();
@@ -122,7 +139,9 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
     };
 
     startCloseTimer = () => {
-        this.foundation._startCloseTimer();
+        if (!this.props.isClosing) {
+            this.foundation.restartCloseTimer();
+        }
     };
 
     close = (e: React.MouseEvent) => {
@@ -158,7 +177,7 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
             [`${prefixCls}-${theme}`]: theme === 'light',
             [`${prefixCls}-rtl`]: direction === 'rtl',
         });
-        const titleID = getUuidShort({});
+        const titleID = this.titleID;
         return (
             <div
                 className={wrapper}
@@ -166,7 +185,7 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
                 onMouseEnter={this.clearCloseTimer}
                 onMouseLeave={this.startCloseTimer}
                 onClick={this.notifyClick}
-                aria-labelledby={titleID}
+                aria-labelledby={title ? titleID : undefined}
                 role={'alert'}
                 onAnimationEnd={this.props.onAnimationEnd}
                 onAnimationStart={this.props.onAnimationStart}

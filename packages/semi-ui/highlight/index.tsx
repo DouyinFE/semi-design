@@ -43,7 +43,14 @@ class Highlight extends PureComponent<HighlightProps> {
         autoEscape: PropTypes.bool,
         caseSensitive: PropTypes.bool,
         sourceString: PropTypes.string,
-        searchWords: PropTypes.arrayOf(PropTypes.string),
+        searchWords: PropTypes.arrayOf(PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.shape({
+                text: PropTypes.string.isRequired,
+                className: PropTypes.string,
+                style: PropTypes.object
+            })
+        ])),
         highlightStyle: PropTypes.object,
         highlightClassName: PropTypes.string,
         component: PropTypes.string

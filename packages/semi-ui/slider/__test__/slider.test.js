@@ -5,6 +5,20 @@ import isEqual from 'lodash/isEqual';
 // TODO 细化单测，目前覆盖的场景过少
 
 describe('Slider', () => {
+    it('orders range accessibility labels numerically without changing the value', () => {
+        const value = [5, 30];
+        const wrapper = mount(<Slider range value={value} />);
+        const getLabel = () => wrapper.find(`.${BASE_CLASS_PREFIX}-slider-wrapper`).prop('aria-label');
+        expect(getLabel().trim()).toBe('Range: 5 to 30');
+        expect(value).toEqual([5, 30]);
+        wrapper.setProps({ value: [30, 5] });
+        expect(getLabel().trim()).toBe('Range: 5 to 30');
+        wrapper.unmount();
+        const negative = mount(<Slider range value={[-5, -30]} min={-100} />);
+        expect(negative.find(`.${BASE_CLASS_PREFIX}-slider-wrapper`).prop('aria-label').trim()).toBe('Range: -30 to -5');
+        negative.unmount();
+    });
+
     it('default value & default range value', () => {
         const wrapper = mount(
             <div>

@@ -568,7 +568,7 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         const options = { closePanel: false };
         if (!multiple && !includeRange && selectedSet.size) {
             const selectedStr = Array.from(selectedSet)[0] as string;
-            const selectedDate = new Date(selectedStr);
+            const selectedDate = parseISO(selectedStr);
             const year = targetDate.getFullYear();
             const month = targetDate.getMonth();
             let fullDate = set(selectedDate, { year, month });

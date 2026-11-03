@@ -79,6 +79,9 @@ class MCPConfigureContent extends BaseComponent<MCPConfigureContentReactProps, M
     get adapter(): MCPConfigureContentAdapter {
         return {
             ...super.adapter,
+            notifySearch: (inputValue: string, custom: boolean) => {
+                this.props.onSearch?.(inputValue, custom);
+            },
             notifyConfigureClick: (e: React.MouseEvent<HTMLButtonElement>, option: MCPOption) => {
                 this.props.onConfigureClick?.(e, option);
             },
@@ -177,11 +180,10 @@ class MCPConfigureContent extends BaseComponent<MCPConfigureContentReactProps, M
             type={'primary'}
             className={`${prefixCls}-item-button`}
             disabled={option.disabled}
-            checked={option.active}
             onClick={() => this.foundation.handleStatusChange(option, !option.active)} 
         />;
         return option.disabled ? <LocaleConsumer componentName="Sidebar" >
-            {(locale: Locale['Sidebar']) => (<Tooltip title={locale.defaultMcpInfo}>{buttonNode}</Tooltip>)}
+            {(locale: Locale['Sidebar']) => (<Tooltip content={locale.defaultMcpInfo}>{buttonNode}</Tooltip>)}
         </LocaleConsumer> : buttonNode;
     }
 

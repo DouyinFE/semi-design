@@ -559,4 +559,13 @@ describe('Input', () => {
     suffix.simulate('mousedown', { preventDefault: preventDefaultSpy });
     expect(preventDefaultSpy.calledOnce).toBe(true);
   });
+
+  it('InputGroup should not pass labelPosition to input dom', () => {
+    const group = mount(
+      <InputGroup label={{ text: 'L' }} labelPosition="left">
+        <Input />
+      </InputGroup>
+    );
+    expect(group.find('input').getDOMNode().hasAttribute('labelposition')).toBe(false);
+  });
 });

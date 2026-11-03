@@ -325,7 +325,7 @@ Step in the step bar.
 ### ARIA
 
 - Steps and Step components support passing in the `aria-label` attribute to represent the description of Steps and Steps
-- Step component has an `aria-current` `step` attribute, indicating that this is a step in the step bar
+- The current step has `aria-current="step"` to identify the active step in the step bar
 
 ## Content Guidelines
 - Step title

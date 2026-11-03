@@ -489,7 +489,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                                     onDurationChange={this.handleDurationChange}
                                     onPlay={this.handleVideoPlay}
                                     onPause={this.handleVideoPause}
-                                    onClick={() => { this.foundation.handlePlayOrPause();}}
+                                    onClick={() => { this.props.clickToPlay && this.foundation.handlePlayOrPause();}}
                                     // An error occurred while getting the media data, or the resource is in an unsupported format.
                                     onError={this.handleError}
                                     onCanPlay={this.handleCanPlay}

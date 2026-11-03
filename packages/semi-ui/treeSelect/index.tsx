@@ -142,7 +142,7 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     stopPropagation?: boolean | string;
     restTagsPopoverProps?: PopoverProps;
     expandIcon?: React.ReactNode | ((props: {
-        onClick: (e: MouseEvent) => void;
+        onClick: (e: React.MouseEvent) => void;
         className: string;
         expanded: boolean
     }) => React.ReactNode);
@@ -646,8 +646,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     const path = e.composedPath && e.composedPath() || [target];
 
                     if (
-                        optionsDom &&
                         (
+                            !optionsDom ||
                             !optionsDom.contains(target) ||
                             !optionsDom.contains(target.parentNode)
                         ) &&
@@ -1090,8 +1090,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             } :
             {};
         const isTriggerPositionSearch = searchPosition === strings.SEARCH_POSITION_TRIGGER && filterable;
-        const isEmptyTriggerSearch = isTriggerPositionSearch && isEmpty(checkedKeys);
-        const isValueTriggerSearch = isTriggerPositionSearch && !isEmpty(checkedKeys);
+        const triggerSearchKeys = checkRelation === 'unRelated' && autoMergeValue ? realCheckedKeys : checkedKeys;
+        const isEmptyTriggerSearch = isTriggerPositionSearch && isEmpty(triggerSearchKeys);
+        const isValueTriggerSearch = isTriggerPositionSearch && !isEmpty(triggerSearchKeys);
         const classNames = useCustomTrigger ?
             cls(className) :
             cls(

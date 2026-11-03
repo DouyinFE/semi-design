@@ -12,6 +12,7 @@ const cssClasses = {
 };
 
 const strings = {
+    KEYS: ['ArrowLeft', 'ArrowDown', 'ArrowRight', 'ArrowUp', 'PageUp', 'PageDown', 'Home', 'End'],
     SIZE: ['small', 'large', 'default'],
     POSITION: ['top', 'bottom'],
     OPTIONS: ['children', 'option'],
