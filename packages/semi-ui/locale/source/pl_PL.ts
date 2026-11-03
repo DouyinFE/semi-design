@@ -22,6 +22,10 @@ const local: Locale = {
     Modal: {
         confirm: 'Potwierdź',
         cancel: 'Anuluj',
+        close: 'Zamknij',
+    },
+    Banner: {
+        close: 'Zamknij',
     },
     Tabs: {
         more: "Więcej"

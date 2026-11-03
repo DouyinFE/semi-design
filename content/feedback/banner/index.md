@@ -195,7 +195,7 @@ import { Banner } from '@douyinfe/semi-ui';
 ### ARIA
 
 - 组件的 `role` 为 'alert'
-- 关闭按钮的 `aria-label` 为 'Close'
+- 关闭按钮的 `aria-label` 跟随当前语言，取自语言包的 `Banner.close`
 
 ### 键盘和焦点
 

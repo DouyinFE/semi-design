@@ -13,7 +13,11 @@ const local: Locale = {
     },
     Modal: {
         confirm: 'Tamam',
-        cancel: 'İptal'
+        cancel: 'İptal',
+        close: 'Kapat',
+    },
+    Banner: {
+        close: 'Kapat',
     },
     Tabs: {
         more: "Daha"

@@ -14,6 +14,10 @@ const local: Locale = {
     Modal: {
         confirm: 'បញ្ជាក់',
         cancel: 'បោះបង់',
+        close: 'បិទ',
+    },
+    Banner: {
+        close: 'បិទ',
     },
     Tabs: {
         more: "ច្រើន​ទៀត"

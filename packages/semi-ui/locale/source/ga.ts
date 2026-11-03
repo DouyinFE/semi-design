@@ -14,6 +14,10 @@ const local: Locale = {
     Modal: {
         confirm: 'Deimhnigh',
         cancel: 'Cealaigh',
+        close: 'Dún',
+    },
+    Banner: {
+        close: 'Dún',
     },
     Tabs: {
         more: "Tuilleadh"

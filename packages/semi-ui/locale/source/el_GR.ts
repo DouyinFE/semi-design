@@ -14,6 +14,10 @@ const local: Locale = {
     Modal: {
         confirm: 'Επιβεβαίωση',
         cancel: 'Ακύρωση',
+        close: 'Κλείσιμο',
+    },
+    Banner: {
+        close: 'Κλείσιμο',
     },
     Tabs: {
         more: "Περισσότερα"

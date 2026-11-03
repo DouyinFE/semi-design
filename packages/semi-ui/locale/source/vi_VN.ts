@@ -14,6 +14,10 @@ const local: Locale = {
     Modal: {
         confirm: 'Xác nhận',
         cancel: 'Huỷ bỏ',
+        close: 'Đóng',
+    },
+    Banner: {
+        close: 'Đóng',
     },
     Tabs: {
         more: "Hơn"

@@ -14,6 +14,10 @@ const local: Locale = {
     Modal: {
         confirm: 'Tasdiqlash',
         cancel: 'Bekor qilish',
+        close: 'Yopish',
+    },
+    Banner: {
+        close: 'Yopish',
     },
     Tabs: {
         more: "Yana"

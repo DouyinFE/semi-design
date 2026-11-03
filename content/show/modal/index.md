@@ -670,6 +670,7 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
 -   aria-modal 设置为 true
 -   aria-labelledby 对应 Modal header
 -   aria-describedby 对应 Modal body
+-   关闭按钮的 aria-label 跟随当前语言，取自语言包的 `Modal.close`
 
 ### 键盘和焦点
 

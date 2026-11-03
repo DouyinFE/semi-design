@@ -19,6 +19,10 @@ const locale: Locale = {
     Modal: {
         confirm: 'Aceptar',
         cancel: 'Cancelar',
+        close: 'Cerrar',
+    },
+    Banner: {
+        close: 'Cerrar',
     },
     Tabs: {
         more: "Más"

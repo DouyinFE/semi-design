@@ -14,6 +14,10 @@ const local: Locale = {
     Modal: {
         confirm: 'အတည်ပြုမည်',
         cancel: 'ပယ်ဖျက်မည်',
+        close: 'ပိတ်ရန်',
+    },
+    Banner: {
+        close: 'ပိတ်ရန်',
     },
     Tabs: {
         more: "နောက်ထပ်"

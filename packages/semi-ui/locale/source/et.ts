@@ -14,6 +14,10 @@ const local: Locale = {
     Modal: {
         confirm: 'Kinnita',
         cancel: 'Tühista',
+        close: 'Sulge',
+    },
+    Banner: {
+        close: 'Sulge',
     },
     Tabs: {
         more: "Rohkem"

@@ -14,6 +14,10 @@ const local: Locale = {
     Modal: {
         confirm: 'Vahvista',
         cancel: 'Peruuta',
+        close: 'Sulje',
+    },
+    Banner: {
+        close: 'Sulje',
     },
     Tabs: {
         more: "Lisää"

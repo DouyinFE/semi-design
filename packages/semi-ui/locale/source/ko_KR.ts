@@ -14,6 +14,10 @@ const local: Locale = {
     Modal: {
         confirm: '확인',
         cancel: '취소',
+        close: '닫기',
+    },
+    Banner: {
+        close: '닫기',
     },
     Tabs: {
         more: "더"

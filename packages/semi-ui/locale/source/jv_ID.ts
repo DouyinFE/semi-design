@@ -14,6 +14,10 @@ const local: Locale = {
     Modal: {
         confirm: 'Konfirmasi',
         cancel: 'Wurungake',
+        close: 'Tutup',
+    },
+    Banner: {
+        close: 'Tutup',
     },
     Tabs: {
         more: "Liyane"

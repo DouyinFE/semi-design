@@ -14,6 +14,10 @@ const local: Locale = {
     Modal: {
         confirm: 'Patvirtinti',
         cancel: 'Atšaukti',
+        close: 'Uždaryti',
+    },
+    Banner: {
+        close: 'Uždaryti',
     },
     Tabs: {
         more: "Daugiau"

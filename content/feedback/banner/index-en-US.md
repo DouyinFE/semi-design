@@ -189,7 +189,7 @@ import { Banner } from '@douyinfe/semi-ui';
 ### ARIA
 
 - The component has a `role` of 'alert'.
-- The close icon has a `aria-label` of 'Close'.
+- The close icon has an `aria-label` that follows the current language, taken from `Banner.close` in the locale.
 
 ### Keyboard and Focus
 

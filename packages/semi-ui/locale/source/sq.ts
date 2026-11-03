@@ -14,6 +14,10 @@ const local: Locale = {
     Modal: {
         confirm: 'Konfirmo',
         cancel: 'Anulo',
+        close: 'Mbyll',
+    },
+    Banner: {
+        close: 'Mbyll',
     },
     Tabs: {
         more: "Më shumë"

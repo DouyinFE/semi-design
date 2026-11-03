@@ -14,6 +14,10 @@ const local: Locale = {
     Modal: {
         confirm: 'Potvrdi',
         cancel: 'Odustani',
+        close: 'Zatvori',
+    },
+    Banner: {
+        close: 'Zatvori',
     },
     Tabs: {
         more: "Više"

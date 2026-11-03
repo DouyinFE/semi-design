@@ -648,6 +648,7 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
 - aria-modal is set to true
 - aria-labelledby corresponds to Modal header
 - aria-describedby corresponds to Modal body
+- The aria-label of the close button follows the current language, taken from `Modal.close` in the locale
 
 ### Keyboard and focus
 - Modal automatically gets the focus when it is popped up, and when it is closed, the focus automatically returns to the element before it was opened.

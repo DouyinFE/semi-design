@@ -12,7 +12,11 @@ export interface Locale {
     };
     Modal: {
         confirm: string;
-        cancel: string
+        cancel: string;
+        close: string
+    };
+    Banner: {
+        close: string
     };
     Tabs: {
         more: string
@@ -105,7 +109,7 @@ export interface Locale {
         ascend: string;
         cancelSort: string;
         confirmFilter: string;
-        resetFilter: string;
+        resetFilter: string
     };
     Select: {
         emptyText: string;
@@ -140,7 +144,7 @@ export interface Locale {
         fail: string;
         cropTitle?: string;
         cropOk?: string;
-        cropCancel?: string;
+        cropCancel?: string
     };
     TreeSelect: {
         searchPlaceholder: string

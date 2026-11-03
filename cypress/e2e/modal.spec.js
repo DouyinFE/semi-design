@@ -44,11 +44,11 @@ describe('modal', () => {
         cy.contains('确定').focus();
         cy.contains('确定').realPress('Tab');
 
-        cy.get('button[aria-label=close]').should('be.focused');
+        cy.get('button.semi-modal-close').should('be.focused');
         // TODO: 
         // we need to remove cypress-plugin-tab cause it can't work with cypress v>10, we use cyress-real-event instead, but it didn't provide combine 
         // keyboard event in this time,
-        // cy.get('button[aria-label=close]').tab({ shift: true });
+        // cy.get('button.semi-modal-close').tab({ shift: true });
         // cy.contains('确定').should('be.focused');
     });
 

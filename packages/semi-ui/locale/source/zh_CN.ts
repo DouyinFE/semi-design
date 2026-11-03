@@ -14,6 +14,10 @@ const local: Locale = {
     Modal: {
         confirm: '确定',
         cancel: '取消',
+        close: '关闭',
+    },
+    Banner: {
+        close: '关闭',
     },
     Tabs: {
         more: "更多",

@@ -14,6 +14,8 @@ import ModalContentFoundation, {
 import { get, isFunction, noop } from 'lodash';
 import { IconClose } from '@douyinfe/semi-icons';
 import FocusTrapHandle from "@douyinfe/semi-foundation/utils/FocusHandle";
+import LocaleConsumer from '../locale/localeConsumer';
+import { Locale } from '../locale/interface';
 
 let uuid = 0;
 
@@ -172,16 +174,19 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
         if (closable) {
             const iconType = closeIcon || <IconClose x-semi-prop="closeIcon"/>;
             closer = (
-                <Button
-                    aria-label="close"
-                    className={`${cssClasses.DIALOG}-close`}
-                    key="close-btn"
-                    onClick={this.close}
-                    type="tertiary"
-                    icon={iconType}
-                    theme="borderless"
-                    size="small"
-                />
+                <LocaleConsumer<Locale['Modal']> componentName="Modal" key="close-btn">
+                    {(locale) => (
+                        <Button
+                            aria-label={locale.close}
+                            className={`${cssClasses.DIALOG}-close`}
+                            onClick={this.close}
+                            type="tertiary"
+                            icon={iconType}
+                            theme="borderless"
+                            size="small"
+                        />
+                    )}
+                </LocaleConsumer>
             );
         }
         return closer;

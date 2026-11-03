@@ -15,6 +15,10 @@ const local: Locale = {
     Modal: {
         confirm: 'Kumpirmahon',
         cancel: 'Kanselahon',
+        close: 'Isira',
+    },
+    Banner: {
+        close: 'Isira',
     },
     Tabs: {
         more: "Uban pa"
