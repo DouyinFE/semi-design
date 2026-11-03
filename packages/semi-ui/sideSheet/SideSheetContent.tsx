@@ -8,7 +8,6 @@ import { IconClose } from '@douyinfe/semi-icons';
 import { SideSheetProps } from "@douyinfe/semi-foundation/sideSheet/sideSheetFoundation";
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 
-let uuid = 0;
 const prefixCls = cssClasses.PREFIX;
 
 
@@ -45,16 +44,6 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
     static defaultProps = {
         onClose: noop,
     };
-    private sideSheetId: string;
-    private timeoutId: number;
-
-    componentDidMount() {
-        this.sideSheetId = `sidesheet-${uuid++}`;
-    }
-
-    componentWillUnmount() {
-        clearTimeout(this.timeoutId);
-    }
 
     onMaskClick = (e: React.MouseEvent) => {
         if (e.target === e.currentTarget) {
@@ -146,7 +135,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
                 role="dialog"
                 aria-label={props['aria-label']}
                 tabIndex={-1}
-                className={cls(`${prefixCls}-inner`, `${prefixCls}-inner-wrap`, this.props.dialogClassName??"", `${prefixCls}-size-${props.size}`)}
+                className={cls(`${prefixCls}-inner`, `${prefixCls}-inner-wrap`, this.props.dialogClassName ?? "", `${prefixCls}-size-${props.size}`)}
                 // onMouseDown={this.onDialogMouseDown}
                 style={{ ...props.style, ...style }}
                 {...this.props.wrapperExtraProps}

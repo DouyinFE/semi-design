@@ -501,7 +501,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
     }
 
     renderLeftFooter = () => {
-        const { renderConfigureArea, round, showTemplateButton } = this.props;
+        const { renderConfigureArea, showTemplateButton } = this.props;
         const { skill = {} } = this.state;
         const { hasTemplate } = skill as Skill;
         return <LocaleConsumer componentName="AIChatInput">
@@ -509,7 +509,6 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
                 <div className={`${prefixCls}-footer-configure`}>
                     <Configure 
                         ref={this.configureRef}
-                        round={round}
                         onChange={this.foundation.onConfigureChange} 
                     >
                         {renderConfigureArea?.()}

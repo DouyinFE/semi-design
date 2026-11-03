@@ -58,7 +58,6 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
 
     dom: React.RefObject<HTMLDivElement>;
     scrollDom: React.RefObject<HTMLDivElement>;
-    isWeekend: boolean;
     allDayRowHeight: number;
     RangeData: RangeData;
 

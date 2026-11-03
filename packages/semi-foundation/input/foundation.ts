@@ -38,18 +38,10 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
         };
     }
 
-    _timer: number | null;
     compositionEnter: boolean = false;
 
     constructor(adapter: InputAdapter) {
         super({ ...InputFoundation.inputDefaultAdapter, ...adapter });
-    }
-
-    destroy() {
-        if (this._timer) {
-            clearTimeout(this._timer);
-            this._timer = null;
-        }
     }
 
     setDisable() {}
