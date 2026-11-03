@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Dún',
     },
     Tabs: {
+        close: 'Dún',
         more: "Tuilleadh"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'Roghnaíodh ${count} mír',
     },
     Sidebar: {
+        close: 'Dún',
         linkAddSuccess: 'Nasc curtha leis go rathúil',
         linkRemoveSuccess: 'Nasc bainte air go rathúil',
         enterLinkAddress: "Iontráil seoladh an nasca",

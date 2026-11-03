@@ -25,6 +25,7 @@ const locale: Locale = {
         close: 'Cerrar',
     },
     Tabs: {
+        close: 'Cerrar',
         more: "Más"
     },
     TimePicker: {
@@ -239,6 +240,7 @@ const locale: Locale = {
         selected: 'Seleccionado ${count} elementos',
     },
     Sidebar: {
+        close: 'Cerrar',
         linkAddSuccess: 'Enlace añadido correctamente',
         linkRemoveSuccess: 'Enlace eliminado correctamente',
         enterLinkAddress: "Introduce la dirección del enlace",

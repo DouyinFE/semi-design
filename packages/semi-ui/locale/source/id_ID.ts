@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Tutup',
     },
     Tabs: {
+        close: 'Tutup',
         more: "Lagi"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'Item yang dipilih ${count}',
     },
     Sidebar: {
+        close: 'Tutup',
         linkAddSuccess: 'Link berhasil ditambahkan',
         linkRemoveSuccess: 'Link berhasil dihapus',
         enterLinkAddress: "Masukkan alamat link",

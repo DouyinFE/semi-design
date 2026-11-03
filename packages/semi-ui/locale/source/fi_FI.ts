@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Sulje',
     },
     Tabs: {
+        close: 'Sulje',
         more: "Lisää"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'Valitut ${count} kohdetta',
     },
     Sidebar: {
+        close: 'Sulje',
         linkAddSuccess: 'Linkki lisätty onnistuneesti',
         linkRemoveSuccess: 'Linkki poistettu onnistuneesti',
         enterLinkAddress: "Syötä linkin osoite",

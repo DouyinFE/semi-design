@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Zapri',
     },
     Tabs: {
+        close: 'Zapri',
         more: "Več"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'Izbranih elementov: ${count}',
     },
     Sidebar: {
+        close: 'Zapri',
         linkAddSuccess: 'Povezava je bila uspešno dodana',
         linkRemoveSuccess: 'Povezava je bila uspešno odstranjena',
         enterLinkAddress: "Vnesite naslov povezave",

@@ -19,6 +19,7 @@ export interface Locale {
         close: string
     };
     Tabs: {
+        close: string;
         more: string
     };
     TimePicker: {
@@ -237,6 +238,7 @@ export interface Locale {
         selected: string
     };
     Sidebar: {
+        close: string;
         linkAddSuccess: string;
         linkRemoveSuccess: string;
         enterLinkAddress: string;

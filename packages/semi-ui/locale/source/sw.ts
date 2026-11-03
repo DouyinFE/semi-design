@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Funga',
     },
     Tabs: {
+        close: 'Funga',
         more: "Zaidi"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'Umechagua vipengee ${count}',
     },
     Sidebar: {
+        close: 'Funga',
         linkAddSuccess: 'Link imeongezwa na mafanikio',
         linkRemoveSuccess: 'Link imefutwa na mafanikio',
         enterLinkAddress: "Ingiza barua pepe ya link",

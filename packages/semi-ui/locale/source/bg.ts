@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Затвори',
     },
     Tabs: {
+        close: 'Затвори',
         more: "Още"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'Избрани ${count} елемента',
     },
     Sidebar: {
+        close: 'Затвори',
         linkAddSuccess: 'Връзката е добавена успешно',
         linkRemoveSuccess: 'Връзката е премахната успешно',
         enterLinkAddress: "Въведете адрес на връзката",

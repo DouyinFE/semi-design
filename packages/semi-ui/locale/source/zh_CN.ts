@@ -20,6 +20,7 @@ const local: Locale = {
         close: '关闭',
     },
     Tabs: {
+        close: '关闭',
         more: "更多",
     },
     TimePicker: {
@@ -238,6 +239,7 @@ const local: Locale = {
         selected: '已选 ${count} 个',
     },
     Sidebar: {
+        close: '关闭',
         linkAddSuccess: '已添加链接',
         linkRemoveSuccess: '已移除链接',
         enterLinkAddress: "输入链接地址",

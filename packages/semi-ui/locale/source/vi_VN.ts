@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Đóng',
     },
     Tabs: {
+        close: 'Đóng',
         more: "Hơn"
     },
     TimePicker: {
@@ -237,6 +238,7 @@ const local: Locale = {
         selected: 'Đã chọn ${count} mục',
     },
     Sidebar: {
+        close: 'Đóng',
         linkAddSuccess: 'Liên kết đã được thêm thành công',
         linkRemoveSuccess: 'Liên kết đã được xóa thành công',
         enterLinkAddress: "Nhập địa chỉ liên kết",

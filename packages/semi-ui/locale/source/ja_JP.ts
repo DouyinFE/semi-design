@@ -20,6 +20,7 @@ const local: Locale = {
         close: '閉じる',
     },
     Tabs: {
+        close: '閉じる',
         more: "もっと"
     },
     TimePicker: {
@@ -238,6 +239,7 @@ const local: Locale = {
         selected: '選択された ${count} 個',
     },
     Sidebar: {
+        close: '閉じる',
         linkAddSuccess: 'リンクを正常に追加しました',
         linkRemoveSuccess: 'リンクを正常に削除しました',
         enterLinkAddress: "リンクアドレスを入力してください",

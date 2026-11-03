@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Kapat',
     },
     Tabs: {
+        close: 'Kapat',
         more: "Daha"
     },
     TimePicker: {
@@ -235,6 +236,7 @@ const local: Locale = {
         selected: '${count} öğe seçildi',
     },
     Sidebar: {
+        close: 'Kapat',
         linkAddSuccess: 'Bağlantı başarıyla eklendi',
         linkRemoveSuccess: 'Bağlantı başarıyla silindi',
         enterLinkAddress: "Bağlantı adresini girin",

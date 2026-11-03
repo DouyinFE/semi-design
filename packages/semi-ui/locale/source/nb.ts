@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Lukk',
     },
     Tabs: {
+        close: 'Lukk',
         more: "Mer"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: '${count} elementer er valgt',
     },
     Sidebar: {
+        close: 'Lukk',
         linkAddSuccess: 'Lenke lagt til vellykket',
         linkRemoveSuccess: 'Lenke fjernet vellykket',
         enterLinkAddress: "Skriv inn lenkens adresse",

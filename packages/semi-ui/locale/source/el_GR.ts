@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Κλείσιμο',
     },
     Tabs: {
+        close: 'Κλείσιμο',
         more: "Περισσότερα"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'Έγινε επιλογή ${count} στοιχείων',
     },
     Sidebar: {
+        close: 'Κλείσιμο',
         linkAddSuccess: 'Ο σύνδεσμος προστέθηκε επιτυχώς',
         linkRemoveSuccess: 'Ο σύνδεσμος αφαιρέθηκε επιτυχώς',
         enterLinkAddress: "Εισάγετε τη διεύθυνση σύνδεσμου",

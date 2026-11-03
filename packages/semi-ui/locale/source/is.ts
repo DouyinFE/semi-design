@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Loka',
     },
     Tabs: {
+        close: 'Loka',
         more: "Meira"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: '${count} atriði valin',
     },
     Sidebar: {
+        close: 'Loka',
         linkAddSuccess: 'Tengill bættur við með góðu árangri',
         linkRemoveSuccess: 'Tengill fjarlægður með góðu árangri',
         enterLinkAddress: "Sláðu inn heimilisfang tengils",

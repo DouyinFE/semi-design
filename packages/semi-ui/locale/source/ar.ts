@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'إغلاق',
     },
     Tabs: {
+        close: 'إغلاق',
         more: "أكثر"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'تم اختيار ${count} عناصر',
     },
     Sidebar: {
+        close: 'إغلاق',
         linkAddSuccess: 'تمت إضافة الرابط بنجاح',
         linkRemoveSuccess: 'تمت إزالة الرابط بنجاح',
         enterLinkAddress: "أدخل عنوان الرابط",

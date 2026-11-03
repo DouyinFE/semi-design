@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Bağla',
     },
     Tabs: {
+        close: 'Bağla',
         more: "Daha çox"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'Seçilmiş ${count} element',
     },
     Sidebar: {
+        close: 'Bağla',
         linkAddSuccess: 'Link uğurla əlavə edildi',
         linkRemoveSuccess: 'Link uğurla silindi',
         enterLinkAddress: "Link ünvanını daxil edin",

@@ -21,6 +21,7 @@ const local: Locale = {
         close: 'Isira',
     },
     Tabs: {
+        close: 'Isira',
         more: "Uban pa"
     },
     TimePicker: {
@@ -235,6 +236,7 @@ const local: Locale = {
         selected: 'Napili ang ${count} ka mga aytem',
     },
     Sidebar: {
+        close: 'Isira',
         linkAddSuccess: 'Nalampos nga gidugang ang link',
         linkRemoveSuccess: 'Nalampos nga gikuha ang link',
         enterLinkAddress: "I-input ang adres sa link",

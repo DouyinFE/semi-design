@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Bezárás',
     },
     Tabs: {
+        close: 'Bezárás',
         more: "Továbbiak"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: '${count} elem kiválasztva',
     },
     Sidebar: {
+        close: 'Bezárás',
         linkAddSuccess: 'A link sikeresen hozzáadva',
         linkRemoveSuccess: 'A link sikeresen eltávolítva',
         enterLinkAddress: "Adja meg a link címét",

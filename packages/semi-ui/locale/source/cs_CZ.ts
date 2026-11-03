@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Zavřít',
     },
     Tabs: {
+        close: 'Zavřít',
         more: "Více"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'Vybrané položky (${count})',
     },
     Sidebar: {
+        close: 'Zavřít',
         linkAddSuccess: 'Odkaz byl úspěšně přidán',
         linkRemoveSuccess: 'Odkaz byl úspěšně odebrán',
         enterLinkAddress: "Zadejte adresu odkazu",

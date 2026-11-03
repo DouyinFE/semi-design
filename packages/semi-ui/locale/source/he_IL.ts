@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'סגור',
     },
     Tabs: {
+        close: 'סגור',
         more: "עוד"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'נבחרו ${count} פריטים',
     },
     Sidebar: {
+        close: 'סגור',
         linkAddSuccess: 'הקישור נוסף בהצלחה',
         linkRemoveSuccess: 'הקישור הוסר בהצלחה',
         enterLinkAddress: "הכנס כתובת קישור",

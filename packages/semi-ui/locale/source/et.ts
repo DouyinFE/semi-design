@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Sulge',
     },
     Tabs: {
+        close: 'Sulge',
         more: "Rohkem"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'Valitud ${count} elementi',
     },
     Sidebar: {
+        close: 'Sulge',
         linkAddSuccess: 'Link lisati edukalt',
         linkRemoveSuccess: 'Link eemaldati edukalt',
         enterLinkAddress: "Sisesta linki aadress",

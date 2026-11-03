@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Жабу',
     },
     Tabs: {
+        close: 'Жабу',
         more: "Тағы"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: '${count} элемент таңдалды',
     },
     Sidebar: {
+        close: 'Жабу',
         linkAddSuccess: 'Сілтеме сәтті қосылды',
         linkRemoveSuccess: 'Сілтеме сәтті жойылды',
         enterLinkAddress: "Сілтеменің адресіне енгізіңіз",

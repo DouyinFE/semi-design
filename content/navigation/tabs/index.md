@@ -998,6 +998,7 @@ class App extends React.Component {
 -   aria-selected: 表明 Tab 是否被选中
 -   aria-controls: 指向 Tab 标签所控制的 TabPane
 -   aria-labelledby: 指向设置 TabPane 标签的元素
+-   关闭图标的 aria-label 跟随当前语言，取自语言包的 `Tabs.close`
 
 ### 键盘和焦点
 

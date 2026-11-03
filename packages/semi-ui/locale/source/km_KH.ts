@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'បិទ',
     },
     Tabs: {
+        close: 'បិទ',
         more: "ច្រើន​ទៀត"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'បានជ្រើសរើសធាតុ ${count}',
     },
     Sidebar: {
+        close: 'បិទ',
         linkAddSuccess: 'តំណបានបន្ថែមដោយជោគជ័យ',
         linkRemoveSuccess: 'តំណបានលុបដោយជោគជ័យ',
         enterLinkAddress: "បញ្ចូលអាសយដ្ឋានតំណ",

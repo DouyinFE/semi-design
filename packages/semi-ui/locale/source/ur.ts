@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'بند کریں',
     },
     Tabs: {
+        close: 'بند کریں',
         more: "مزید"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: '${count} آئٹمز منتخب کی گئیں',
     },
     Sidebar: {
+        close: 'بند کریں',
         linkAddSuccess: 'لنک کامیابی سے شامل کیا گیا',
         linkRemoveSuccess: 'لنک کامیابی سے ہٹا دیا گیا',
         enterLinkAddress: "لنک کا ایڈریس درج کریں",

@@ -28,6 +28,7 @@ const local: Locale = {
         close: 'Zamknij',
     },
     Tabs: {
+        close: 'Zamknij',
         more: "Więcej"
     },
     TimePicker: {
@@ -242,6 +243,7 @@ const local: Locale = {
         selected: 'Wybrano ${count} elementów',
     },
     Sidebar: {
+        close: 'Zamknij',
         linkAddSuccess: 'Link został dodany pomyślnie',
         linkRemoveSuccess: 'Link został usunięty pomyślnie',
         enterLinkAddress: "Wpisz adres linku",

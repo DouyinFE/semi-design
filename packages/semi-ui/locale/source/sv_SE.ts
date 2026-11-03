@@ -25,6 +25,7 @@ const local: Locale = {
         close: 'Stäng',
     },
     Tabs: {
+        close: 'Stäng',
         more: "Mer"
     },
     TimePicker: {
@@ -239,6 +240,7 @@ const local: Locale = {
         selected: '${count} objekt valda',
     },
     Sidebar: {
+        close: 'Stäng',
         linkAddSuccess: 'Länk tillagd framgångsrikt',
         linkRemoveSuccess: 'Länk borttagen framgångsrikt',
         enterLinkAddress: "Ange länkens adress",

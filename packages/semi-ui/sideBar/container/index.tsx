@@ -11,6 +11,8 @@ import "@douyinfe/semi-foundation/sidebar/sidebar.scss";
 import ContainerFoundation, { ContainerAdapter, ContainerProps, ContainerState } from '@douyinfe/semi-foundation/sidebar/containerFoundation';
 import { Enable } from '@douyinfe/semi-foundation/resizable/types';
 import { ContainerReactProps } from '../interface';
+import LocaleConsumer from '../../locale/localeConsumer';
+import { Locale } from '../../locale/interface';
 
 const prefixCls = cssClasses.SIDEBAR;
 
@@ -126,15 +128,20 @@ class Container extends BaseComponent<ContainerReactProps, ContainerState> {
         }
         return <div className={`${prefixCls}-container-header`}>
             <div className={`${prefixCls}-container-header-title`}>{title}</div>
-            {showClose && <Button
-                className={`${prefixCls}-container-header-closeBtn`}
-                icon={<IconClose />}
-                theme="borderless"
-                type="tertiary"
-                aria-label="close"
-                onClick={onCancel}
-                size="small"
-            />}
+            {showClose && <LocaleConsumer<Locale['Sidebar']> componentName="Sidebar">
+                {(locale) => (
+                    <Button
+                        className={`${prefixCls}-container-header-closeBtn`}
+                        icon={<IconClose />}
+                        theme="borderless"
+                        type="tertiary"
+                        // a hand-written locale from an older version may have no Sidebar section
+                        aria-label={locale?.close}
+                        onClick={onCancel}
+                        size="small"
+                    />
+                )}
+            </LocaleConsumer>}
         </div>;
     }
 

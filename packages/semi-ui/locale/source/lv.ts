@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Aizvērt',
     },
     Tabs: {
+        close: 'Aizvērt',
         more: "Vairāk"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'Atlasīto vienumu skaits: ${count}',
     },
     Sidebar: {
+        close: 'Aizvērt',
         linkAddSuccess: 'Saite veiksmīgi pievienota',
         linkRemoveSuccess: 'Saite veiksmīgi izņemta',
         enterLinkAddress: "Ievadiet saites adresi",

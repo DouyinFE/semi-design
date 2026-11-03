@@ -27,6 +27,7 @@ const local: Locale = {
         close: 'Sluiten',
     },
     Tabs: {
+        close: 'Sluiten',
         more: "Meer"
     },
     TimePicker: {
@@ -241,6 +242,7 @@ const local: Locale = {
         selected: '${count} items geselecteerd',
     },
     Sidebar: {
+        close: 'Sluiten',
         linkAddSuccess: 'Link succesvol toegevoegd',
         linkRemoveSuccess: 'Link succesvol verwijderd',
         enterLinkAddress: "Voer het linkadres in",

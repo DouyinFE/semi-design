@@ -4,6 +4,8 @@ import { cssClasses } from '@douyinfe/semi-foundation/tabs/constants';
 import { IconClose } from '@douyinfe/semi-icons';
 import { TabType, TabSize, TabPosition } from './interface';
 import TabsContext from './tabs-context';
+import LocaleConsumer from '../locale/localeConsumer';
+import { Locale } from '../locale/interface';
 
 export interface TabItemProps {
     tab?: ReactNode;
@@ -40,12 +42,16 @@ const TabItem = (props: TabItemProps, ref: LegacyRef<HTMLDivElement>) => {
 
     const closableIcon = useMemo(() => {
         return closable ?
-            <IconClose 
-                aria-label="Close" 
-                role="button" 
-                className={`${cssClasses.TABS_TAB}-icon-close`} 
-                onClick={(e: MouseEvent<HTMLSpanElement>) => deleteTabItem(itemKey, e)} 
-            /> : null;
+            <LocaleConsumer<Locale['Tabs']> componentName="Tabs">
+                {(locale) => (
+                    <IconClose
+                        aria-label={locale.close}
+                        role="button"
+                        className={`${cssClasses.TABS_TAB}-icon-close`}
+                        onClick={(e: MouseEvent<HTMLSpanElement>) => deleteTabItem(itemKey, e)}
+                    />
+                )}
+            </LocaleConsumer> : null;
     }, [type, closable, deleteTabItem, itemKey]);
 
     const renderIcon = useCallback(

@@ -20,6 +20,7 @@ const local: Locale = {
         close: '關閉',
     },
     Tabs: {
+        close: '關閉',
         more: "更多"
     },
     TimePicker: {
@@ -235,6 +236,7 @@ const local: Locale = {
         selected: '已選 ${count} 個',
     },
     Sidebar: {
+        close: '關閉',
         linkAddSuccess: '連結新增成功',
         linkRemoveSuccess: '連結刪除成功',
         enterLinkAddress: "請輸入連結位址",

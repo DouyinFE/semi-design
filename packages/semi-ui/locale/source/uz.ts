@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Yopish',
     },
     Tabs: {
+        close: 'Yopish',
         more: "Yana"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: '${count} ta element tanlangan',
     },
     Sidebar: {
+        close: 'Yopish',
         linkAddSuccess: 'Havola muvaffaqiyatli qo\'shildi',
         linkRemoveSuccess: 'Havola muvaffaqiyatli o\'chirildi',
         enterLinkAddress: "Havola manzilini kiriting",

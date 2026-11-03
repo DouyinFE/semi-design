@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Închide',
     },
     Tabs: {
+        close: 'Închide',
         more: "Mai mult"
     },
     TimePicker: {
@@ -237,6 +238,7 @@ const local: Locale = {
         selected: '${count} articole selectate',
     },
     Sidebar: {
+        close: 'Închide',
         linkAddSuccess: 'Link adăugat cu succes',
         linkRemoveSuccess: 'Link eliminat cu succes',
         enterLinkAddress: "Introduceți adresa link-ului",

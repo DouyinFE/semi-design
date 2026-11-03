@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'Mbyll',
     },
     Tabs: {
+        close: 'Mbyll',
         more: "Më shumë"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'Janë përzgjedhur ${count} artikuj',
     },
     Sidebar: {
+        close: 'Mbyll',
         linkAddSuccess: 'Link u shtua me sukses',
         linkRemoveSuccess: 'Link u fshi me sukses',
         enterLinkAddress: "Shenoni adresën e linkut",

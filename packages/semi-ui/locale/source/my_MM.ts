@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'ပိတ်ရန်',
     },
     Tabs: {
+        close: 'ပိတ်ရန်',
         more: "နောက်ထပ်"
     },
     TimePicker: {
@@ -234,6 +235,7 @@ const local: Locale = {
         selected: 'ပစ္စည်း ${count} ခု ရွေးချယ်ထားသည်',
     },
     Sidebar: {
+        close: 'ပိတ်ရန်',
         linkAddSuccess: 'လင့်ခ်ကိုအောင်မြင်စွာထည့်သွင်းခဲ့သည်',
         linkRemoveSuccess: 'လင့်ခ်ကိုအောင်မြင်စွာဖယ်ရှားခဲ့သည်',
         enterLinkAddress: "လင့်ခ်အိပ်ဒက်ကိုထည့်သွင်းပါ",

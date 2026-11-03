@@ -20,6 +20,7 @@ const local: Locale = {
         close: 'ปิด',
     },
     Tabs: {
+        close: 'ปิด',
         more: "มากกว่า"
     },
     TimePicker: {
@@ -238,6 +239,7 @@ const local: Locale = {
         selected: '${count} รายการที่เลือก',
     },
     Sidebar: {
+        close: 'ปิด',
         linkAddSuccess: 'ลิงก์เพิ่มสำเร็จแล้ว',
         linkRemoveSuccess: 'ลิงก์ลบสำเร็จแล้ว',
         enterLinkAddress: "ป้อนที่อยู่ลิงก์",
