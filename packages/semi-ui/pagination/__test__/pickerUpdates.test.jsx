@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Pagination from '../index';
+import Select from '../../select';
 
 describe('Pagination mini picker property updates', () => {
     it.each([
@@ -27,6 +28,15 @@ describe('Pagination mini picker property updates', () => {
         try {
             wrapper.setProps({ total: 40 });
             expect(wrapper.state('allPageNumbers')).toEqual([1, 2, 3, 4]);
+        } finally { wrapper.unmount(); }
+    });
+    it('uses the page size picked in the size changer, not the initial prop', () => {
+        const wrapper = mount(<Pagination total={90} pageSize={10} showSizeChanger />);
+        try {
+            wrapper.find(Select).first().props().onChange(20);
+            expect(wrapper.state('pageSize')).toBe(20);
+            wrapper.setProps({ size: 'small', hoverShowPageSelect: true });
+            expect(wrapper.state('allPageNumbers')).toEqual([1, 2, 3, 4, 5]);
         } finally { wrapper.unmount(); }
     });
 });
