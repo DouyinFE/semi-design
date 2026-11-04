@@ -103,4 +103,19 @@ describe('InputNumber scientific notation preserves the numeric value', () => {
             wrapper.unmount();
         }
     });
+
+    it('expands the precision-normalized number after exponent input with a formatter', () => {
+        const onChange = sinon.spy();
+        const wrapper = mount(<InputNumber defaultValue={1} precision={3} scientificNotation={{ threshold: 3 }} formatter={value => `$${value}`} parser={value => value.replace('$', '')} onChange={onChange} />);
+        try {
+            wrapper.find('input').simulate('focus');
+            wrapper.find('input').simulate('change', { target: { value: '9.876543219e4' } });
+            wrapper.find('input').simulate('blur');
+            expect(onChange.lastCall.args[0]).toBe(98765.432);
+            wrapper.find('input').simulate('focus');
+            expect(wrapper.find('input').getDOMNode().value).toBe('$98765.432');
+        } finally {
+            wrapper.unmount();
+        }
+    });
 });

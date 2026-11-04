@@ -734,13 +734,9 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         if (typeof value === 'string' && /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)[eE][+-]?\d+$/.test(value.trim())) {
             const scientificNum = parseFloat(value.trim());
             if (!isNaN(scientificNum)) {
-                if (needAdjustMaxMin) {
-                    return this.fetchMinOrMax(scientificNum);
-                }
-                if (needAdjustPrec) {
-                    return toNumber(this._adjustPrec(scientificNum));
-                }
-                return scientificNum;
+                // Same order as the plain number branch: clamp first, then round to precision
+                const limitedNum = needAdjustMaxMin ? this.fetchMinOrMax(scientificNum) : scientificNum;
+                return needAdjustPrec ? toNumber(this._adjustPrec(limitedNum)) : limitedNum;
             }
         }
 
