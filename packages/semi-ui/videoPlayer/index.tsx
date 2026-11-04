@@ -450,7 +450,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                             `${cssClasses.PREFIX_CONTROLS}-popup`)
                         }
                     >
-                        {list.find((option) => option.value === currentValue)?.label}
+                        {list.find((option) => option.value === currentValue)?.label ?? (name === strings.PLAYBACK_RATE ? `${currentValue}x` : undefined)}
                     </div>
                 </Dropdown>
             );

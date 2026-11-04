@@ -8,3 +8,12 @@ it('uses an updated playbackRateList without remounting the player', () => {
     expect(getByText('新1倍')).not.toBeNull();
     expect(queryByText('旧1倍')).toBeNull();
 });
+
+it('shows the actual rate and keeps it when the current rate is removed from playbackRateList', () => {
+    const { container, rerender, getByText } = render(<VideoPlayer src="clip.webm" playbackRateList={[{ label: '1倍', value: 1 }, { label: '2倍', value: 2 }]} />);
+    const video = container.querySelector('video') as HTMLVideoElement;
+    expect(getByText('1倍')).not.toBeNull();
+    rerender(<VideoPlayer src="clip.webm" playbackRateList={[{ label: '2倍', value: 2 }]} />);
+    expect(getByText('1x')).not.toBeNull();
+    expect(video.playbackRate).toBe(1);
+});

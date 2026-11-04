@@ -19,3 +19,20 @@ it('updates the fullscreen icon when the native fullscreen state changes', () =>
         else delete (document as any).fullscreenElement;
     }
 });
+
+it('responds to prefixed fullscreen events only while mounted', () => {
+    const { container, getByRole, unmount } = render(<VideoPlayer src="clip.webm" />);
+    try {
+        Object.defineProperty(document, 'webkitFullscreenElement', { configurable: true, value: container.firstElementChild });
+        fireEvent(document, new Event('webkitfullscreenchange'));
+        expect(getByRole('img', { name: 'minimize' })).not.toBeNull();
+        const spy = jest.spyOn(document, 'removeEventListener');
+        unmount();
+        ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(name => {
+            expect(spy.mock.calls.some(([type]) => type === name)).toBe(true);
+        });
+        spy.mockRestore();
+    } finally {
+        delete (document as any).webkitFullscreenElement;
+    }
+});
