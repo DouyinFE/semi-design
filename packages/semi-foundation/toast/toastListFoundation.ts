@@ -42,9 +42,12 @@ export default class ToastListFoundation extends BaseFoundation<ToastListAdapter
 
     private updateList(removedItems: ToastInstance[] = []) {
         const renderedList = this._adapter.getState('list');
-        // Reused instances need new timers, including same-id replacements before the next render.
+        const leavingItems = this._adapter.getState('removedItems');
+        // Reused instances need new timers, including same-id replacements before the next render
+        // and same-id reopens while the previous instance is still leaving.
         const updatedItems = this.toastList.filter(item =>
-            renderedList.some(rendered => rendered.id === item.id && rendered !== item)
+            renderedList.some(rendered => rendered.id === item.id && rendered !== item) ||
+            leavingItems.some(leaving => leaving.id === item.id)
         );
         this._adapter.updateToast(this.toastList, removedItems, updatedItems);
     }
