@@ -117,7 +117,8 @@ class Portal extends PureComponent<PortalProps, PortalState> {
     addStyle = (style = {}) => {
         if (this.el) {
             for (const key of Object.keys(style)) {
-                this.el.style[key] = style[key];
+                // Assigning undefined/null does not reliably clear a property; '' does (React's removal semantics).
+                this.el.style[key] = style[key] ?? '';
             }
         }
     };

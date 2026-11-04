@@ -19,6 +19,26 @@ describe('Portal prop updates', () => {
         expect(el.style.zIndex).toBe('2400');
         expect(el.style.color).toBe('');
     });
+    it('clears styles explicitly set to undefined or null while moving containers', () => {
+        let current = first;
+        wrapper = mount(
+            <Portal getPopupContainer={() => current} style={{ color: 'red', zIndex: 1200 }}>
+                <input defaultValue="kept" />
+            </Portal>
+        );
+        const el = wrapper.instance().el;
+        const input = el.querySelector('input');
+        current = second;
+        wrapper.setProps({ style: { color: undefined, zIndex: undefined } });
+        expect(el.parentElement).toBe(second);
+        expect(el.style.color).toBe('');
+        expect(el.style.zIndex).toBe('');
+        expect(el.querySelector('input')).toBe(input);
+        wrapper.setProps({ style: { color: 'blue', zIndex: 5 } });
+        wrapper.setProps({ style: { color: null, zIndex: null } });
+        expect(el.style.color).toBe('');
+        expect(el.style.zIndex).toBe('');
+    });
     it('moves the existing portal into a new container without remounting children', () => {
         const mountChild = sinon.spy();
         class Child extends React.Component {
