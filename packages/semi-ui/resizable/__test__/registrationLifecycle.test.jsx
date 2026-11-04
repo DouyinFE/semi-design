@@ -78,6 +78,31 @@ describe('ResizeGroup registrations', () => {
         expect(node.style.width).toBe('calc(70% - 5px)');
     });
 
+    [false, true].forEach(strict => {
+        ['horizontal', 'vertical'].forEach(direction => {
+            it(`resyncs when a descendant removes the first item without re-rendering the group in ${direction}${strict ? ' under StrictMode' : ''}`, () => {
+                class Panels extends React.Component {
+                    state = { items: ['A', 'B', 'C'] };
+                    render() {
+                        return this.state.items.map((id, index) => <React.Fragment key={id}>
+                            {index > 0 && <ResizeHandler />}
+                            <ResizeItem><div>{id}</div></ResizeItem>
+                        </React.Fragment>);
+                    }
+                }
+                const panels = React.createRef();
+                const group = React.createRef();
+                const Root = strict ? React.StrictMode : React.Fragment;
+                wrapper = mount(<Root><ResizeGroup ref={group} direction={direction}><Panels ref={panels} /></ResizeGroup></Root>);
+                panels.current.setState({ items: ['B', 'C'] });
+                window.dispatchEvent(new Event('resize'));
+                expect(() => group.current.foundation.ensureConstraint.flush()).not.toThrow();
+                expect(Array.from(group.current.itemRefs.keys())).toEqual([0, 1]);
+                expect(Array.from(group.current.handlerRefs.keys())).toEqual([0]);
+            });
+        });
+    });
+
     it('cancels a queued constraint check on unmount', () => {
         jest.useFakeTimers();
         wrapper = mount(render());

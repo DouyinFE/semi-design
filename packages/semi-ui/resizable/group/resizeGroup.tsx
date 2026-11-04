@@ -88,8 +88,10 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     itemResizeEnd: Map<number, ResizeCallback> = new Map();
     handlerRefs: Map<number, RefObject<HTMLDivElement>> = new Map();
     private registrationsChanged = false;
+    private mounted = false;
 
     componentDidMount() {
+        this.mounted = true;
         this.registrationsChanged = false;
         this.foundation.init();
         // 监听窗口大小变化，保证一些限制仍生效
@@ -122,6 +124,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     }
 
     componentWillUnmount() {
+        this.mounted = false;
         this.foundation.destroy();
         window.removeEventListener('resize', this.foundation.ensureConstraint);
         if (this.resizeObserver) {
@@ -201,7 +204,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         const index = existing ? existing[0] : Math.max(-1, ...this.itemRefs.keys()) + 1;
         const constraintsChanged = existing && (this.itemMinMap.get(index) !== min || this.itemMaxMap.get(index) !== max);
         if (!existing) {
-            this.registrationsChanged = true;
+            this.markRegistrationsChanged();
         }
         this.itemRefs.set(index, ref);
         this.itemMinMap.set(index, min);
@@ -223,8 +226,17 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         }
         const index = Math.max(-1, ...this.handlerRefs.keys()) + 1;
         this.handlerRefs.set(index, ref);
-        this.registrationsChanged = true;
+        this.markRegistrationsChanged();
         return index;
+    }
+
+    // 后代组件自行增删 item/handler 时 Group 不会重渲染，需主动触发 componentDidUpdate 完成同步；
+    // 挂载前由 componentDidMount 的 init 处理，卸载后无需处理。
+    private markRegistrationsChanged() {
+        this.registrationsChanged = true;
+        if (this.mounted) {
+            this.forceUpdate();
+        }
     }
 
     unregisterItem = (ref: RefObject<HTMLDivElement>) => {
@@ -232,7 +244,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         if (entry) {
             [this.itemRefs, this.itemMinMap, this.itemMaxMap, this.itemDefaultSizeList,
                 this.itemResizeStart, this.itemResizing, this.itemResizeEnd].forEach(map => map.delete(entry[0]));
-            this.registrationsChanged = true;
+            this.markRegistrationsChanged();
         }
     }
 
@@ -240,7 +252,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         const entry = Array.from(this.handlerRefs).find(([, value]) => value === ref);
         if (entry) {
             this.handlerRefs.delete(entry[0]);
-            this.registrationsChanged = true;
+            this.markRegistrationsChanged();
         }
     }
 
