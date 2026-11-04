@@ -75,6 +75,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     foundation: PreviewFoundation;
     previewGroupId: string;
     previewRef: React.RefObject<PreviewInner>;
+    groupRef: React.RefObject<HTMLDivElement>;
     previewObserver: IntersectionObserver;
 
     constructor(props) {
@@ -86,6 +87,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         this.foundation = new PreviewFoundation(this.adapter);
         this.previewGroupId = getUuidShort({ prefix: "semi-image-preview-group", length: 4 });
         this.previewRef = React.createRef<PreviewInner>();
+        this.groupRef = React.createRef<HTMLDivElement>();
     }
 
     componentDidMount() {
@@ -112,23 +114,25 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
             // cancel the observation of all elements of the previous observer
             this.previewObserver.disconnect();
         }
-        this.previewObserver = new IntersectionObserver(entries => {
+        const root = this.groupRef.current;
+        const observer = new IntersectionObserver(entries => {
             entries.forEach(item => {
                 const src = (item.target as any).dataset?.src;
                 if (item.isIntersecting && src) {
                     (item.target as any).src = src;
                     (item.target as any).removeAttribute("data-src");
-                    this.previewObserver.unobserve(item.target);
+                    observer.unobserve(item.target);
                 }
             });
         },
         {
-            root: document.querySelector(`#${this.previewGroupId}`),
+            root,
             rootMargin: this.props.lazyLoadMargin,
         }
         );
-        const allImgElement = document.querySelectorAll(`.${prefixCls}-img`);
-        allImgElement.forEach(item => this.previewObserver.observe(item));
+        this.previewObserver = observer;
+        // Only this group's images: other groups own theirs and may unmount independently
+        root?.querySelectorAll(`.${prefixCls}-img`).forEach(item => observer.observe(item));
     }
 
     static getDerivedStateFromProps(props: PreviewProps, state: PreviewState) {
@@ -220,7 +224,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
                     setDownloadName: setDownloadName,
                 }}
             >
-                <div id={this.previewGroupId} style={style} className={cls(`${prefixCls}-preview-group`, className)}>
+                <div id={this.previewGroupId} ref={this.groupRef} style={style} className={cls(`${prefixCls}-preview-group`, className)}>
                     {newChildren}
                 </div>
                 <PreviewInner
