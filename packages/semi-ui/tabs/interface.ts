@@ -100,6 +100,9 @@ export interface TabPaneTransitionProps {
 }
 
 export interface TabContextValue {
+    tabsId?: string;
+    keepDOM?: boolean;
+    isTabList?: boolean;
     activeKey?: string;
     lazyRender?: boolean;
     panes?: Array<PlainTab>;

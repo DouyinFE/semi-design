@@ -132,21 +132,24 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         const pageSize = props.pageSize || props.pageSizeOpts[0] || numbers.DEFAULT_PAGE_SIZE; // Use pageSize first, use the first of pageSizeOpts when not, use the default value when none
 
         const shouldFillAllNumber = props.size === 'small' && props.hoverShowPageSelect && !props.disabled;
+        const currentPage = props.currentPage || props.defaultCurrentPage;
+        const totalPageNum = Math.ceil(total / pageSize);
 
         this.state = {
             total,
             showTotal: props.showTotal,
-            currentPage: props.currentPage || props.defaultCurrentPage,
+            currentPage,
             pageSize,
             pageList: [],
-            prevDisabled: false,
-            nextDisabled: false,
+            prevDisabled: currentPage === 1,
+            nextDisabled: currentPage === 1 ? totalPageNum < 2 : currentPage === totalPageNum,
             restLeftPageList: [],
             restRightPageList: [],
             quickJumpPage: '',
             allPageNumbers: shouldFillAllNumber ? Array.from({ length: Math.ceil(total / pageSize) }, (v, i) => i + 1) : [], // only need to count in smallPage mode, when props.size = small
         };
         this.foundation = new PaginationFoundation(this.adapter);
+        this.state = { ...this.state, ...this.foundation.getPageList({ currentPage, total, pageSize }) };
         this.renderDefaultPage = this.renderDefaultPage.bind(this);
         this.renderSmallPage = this.renderSmallPage.bind(this);
         warning(
@@ -245,14 +248,14 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         });
         return (
             <li
-                role="button"
-                aria-disabled={isDisabled ? true : false}
-                aria-label="Previous"
+                role={this.props.size === 'small' ? 'none' : undefined}
                 onClick={e => !isDisabled && this.foundation.goPrev(e)}
                 className={preClassName}
                 x-semi-prop="prevText"
             >
-                {prevText || <IconChevronLeft size="large" />}
+                <button type="button" className={`${prefixCls}-item-button`} disabled={isDisabled} aria-disabled={isDisabled} aria-label="Previous">
+                    {prevText || <IconChevronLeft size="large" />}
+                </button>
             </li>
         );
     }
@@ -268,14 +271,14 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         });
         return (
             <li
-                role="button"
-                aria-disabled={isDisabled ? true : false}
-                aria-label="Next"
+                role={this.props.size === 'small' ? 'none' : undefined}
                 onClick={e => !isDisabled && this.foundation.goNext(e)}
                 className={nextClassName}
                 x-semi-prop="nextText"
             >
-                {nextText || <IconChevronRight size="large" />}
+                <button type="button" className={`${prefixCls}-item-button`} disabled={isDisabled} aria-disabled={isDisabled} aria-label="Next">
+                    {nextText || <IconChevronRight size="large" />}
+                </button>
             </li>
         );
     }
@@ -303,7 +306,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             </Option>
         ));
         return (
-            <div className={switchCls}>
+            <li className={switchCls}>
                 <Select
                     aria-label="Page size selector"
                     disabled={disabled}
@@ -317,12 +320,13 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                 >
                     {options}
                 </Select>
-            </div>
+            </li>
         );
     }
 
     renderQuickJump(locale: PaginationLocale) {
-        const { showQuickJumper, disabled } = this.props;
+        const { showQuickJumper, disabled, size } = this.props;
+        const Container = size === 'small' ? 'div' : 'li';
         const { quickJumpPage, total, pageSize } = this.state;
         if (!showQuickJumper) {
             return null;
@@ -335,7 +339,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         });
 
         return (
-            <div className={quickJumpCls}>
+            <Container className={quickJumpCls}>
                 <span>{locale.jumpTo}</span>
                 <InputNumber
                     value={quickJumpPage}
@@ -347,7 +351,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                     onChange={(v: string | number) => this.foundation.handleQuickJumpNumberChange(v)}
                 />
                 <span>{locale.page}</span>
-            </div>
+            </Container>
         );
     }
 
@@ -357,8 +361,10 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             currentPage,
             restLeftPageList,
             restRightPageList,
+            total,
+            pageSize,
         } = this.state;
-        const { popoverPosition, popoverZIndex, disabled } = this.props;
+        const { popoverPosition, popoverZIndex, disabled, showTotal } = this.props;
 
         return pageList.map((page, i) => {
             const pageListClassName = classNames(`${prefixCls}-item`, {
@@ -372,10 +378,19 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                     key={`${page}${i}`}
                     onClick={() => !disabled && this.foundation.goPage(page, i)}
                     className={pageListClassName}
-                    aria-label={page === '...' ? 'More' : `Page ${page}`}
-                    aria-current={currentPage === page ? "page" : false}
+                    aria-label={page === '...' ? 'More' : undefined}
                 >
-                    {page}
+                    {page === '...' ? page : (
+                        <button
+                            type="button"
+                            className={`${prefixCls}-item-button`}
+                            disabled={disabled}
+                            aria-label={`Page ${page}`}
+                            aria-current={currentPage === page ? "page" : false}
+                        >
+                            {page}
+                        </button>
+                    )}
                 </li>
             );
             if (page === '...' && !disabled) {
@@ -383,7 +398,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                 i < 3 ? (content = restLeftPageList) : (content = restRightPageList);
                 return (
                     <Popover
-                        rePosKey={this.props.currentPage}
+                        rePosKey={`${currentPage}-${total}-${pageSize}-${showTotal}`}
                         trigger="hover"
                         // onVisibleChange={visible=>this.handleRestHover(visible, i < 3 ? 'left' : 'right')}
                         content={this.renderRestPageList(content)}
@@ -422,7 +437,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         };
         const itemHeight = 32;
         const listHeight = count >= 5 ? itemHeight * 5 : itemHeight * count;
-        return (
+        const list = (
             // @ts-ignore skip type check cause react-window not update with @types/react 18
             <List
                 className={`${prefixCls}-rest-list`}
@@ -436,6 +451,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                 {row}
             </List>
         );
+        return <div role="list">{list}</div>;
     }
 
 
@@ -497,9 +513,9 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         return (
             <ul className={paginationCls} style={style} {...this.getDataAttr(rest)}>
                 {showTotal ? (
-                    <span className={showTotalCls}>
+                    <li className={showTotalCls}>
                         {totalToken}
-                    </span>
+                    </li>
                 ) : null}
                 {this.renderPrevBtn()}
                 {this.renderPageList()}

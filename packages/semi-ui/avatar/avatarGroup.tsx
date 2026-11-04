@@ -5,6 +5,7 @@ import { get as lodashGet, isFunction, isNumber } from 'lodash';
 import Avatar from './index';
 import { AvatarGroupProps } from './interface';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/avatar/constants';
+import AvatarGroupContext from './context';
 
 const sizeSet = strings.SIZE;
 const shapeSet = strings.SHAPE;
@@ -87,6 +88,8 @@ export default class AvatarGroup extends PureComponent<AvatarGroupProps> {
 
         }
 
-        return <div className={groupCls} role='list'>{inner}</div>;
+        return <AvatarGroupContext.Provider value={true}>
+            <div className={groupCls} role='list'>{inner}</div>
+        </AvatarGroupContext.Provider>;
     }
 }

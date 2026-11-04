@@ -65,7 +65,7 @@ export interface CascaderProps extends BasicCascaderProps {
     emptyContent?: ReactNode;
     motion?: boolean;
     filterTreeNode?: ((inputValue: string, treeNodeString: string, data?: CascaderData) => boolean) | boolean;
-    filterSorter?: (first: CascaderData, second: CascaderData, inputValue: string) => number;
+    filterSorter?: (first: CascaderData[], second: CascaderData[], inputValue: string) => number;
     filterRender?: (props: FilterRenderProps) => ReactNode;
     treeData?: Array<CascaderData>;
     restTagsPopoverProps?: PopoverProps;
@@ -245,7 +245,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         this.state = {
             emptyContentMinWidth: null,
             disabledKeys: new Set(),
-            isOpen: props.defaultOpen,
+            isOpen: props.defaultOpen && !props.disabled,
             /* By changing rePosKey, the dropdown position can be refreshed */
             rePosKey: resetkey,
             /* A data structure for storing cascader data items */
@@ -626,7 +626,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     };
 
     renderTagInput() {
-        const { size, disabled, placeholder, maxTagCount, showRestTagsPopover, restTagsPopoverProps, checkRelation } = this.props;
+        const { size, disabled, placeholder, maxTagCount, showRestTagsPopover, restTagsPopoverProps, checkRelation, preventScroll } = this.props;
         const { inputValue, checkedKeys, keyEntities, resolvedCheckedKeys, inputPlaceHolder } = this.state;
         const tagInputcls = cls(`${prefixcls}-tagInput-wrapper`);
         const realKeys = this.mergeType === strings.NONE_MERGE_TYPE  || checkRelation === strings.UN_RELATED ?
@@ -635,6 +635,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             <TagInput
                 className={tagInputcls}
                 ref={this.inputRef as any}
+                preventScroll={preventScroll}
                 disabled={disabled}
                 size={size}
                 value={[...realKeys]}
@@ -906,11 +907,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     };
 
     renderCustomTrigger = () => {
-        const { disabled, triggerRender, multiple } = this.props;
+        const { disabled, triggerRender, multiple, checkRelation } = this.props;
         const { selectedKeys, inputValue, inputPlaceHolder, resolvedCheckedKeys, checkedKeys, keyEntities } = this.state;
         let realValue;
         if (multiple) {
-            if (this.mergeType === strings.NONE_MERGE_TYPE) {
+            if (this.mergeType === strings.NONE_MERGE_TYPE || checkRelation === strings.UN_RELATED) {
                 realValue = new Set();
                 checkedKeys.forEach(key => { realValue.add(keyEntities[key]?.pos); });
             } else {

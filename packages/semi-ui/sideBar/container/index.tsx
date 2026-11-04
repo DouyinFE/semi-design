@@ -106,9 +106,7 @@ class Container extends BaseComponent<ContainerReactProps, ContainerState> {
     }
 
     componentWillUnmount() {
-        if (this.props.visible) {
-            this.foundation.destroy();
-        }
+        this.foundation.destroy();
     }
 
     handleKeyDown = (e: KeyboardEvent) => {

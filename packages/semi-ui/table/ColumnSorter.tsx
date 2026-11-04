@@ -97,7 +97,7 @@ export default class ColumnSorter extends PureComponent<ColumnSorterProps> {
                 tabIndex={-1}
                 className={`${prefixCls}-column-sorter-wrapper`}
                 onClick={onClick}
-                onKeyPress={e => isEnterPress(e) && onClick(e as any)}
+                onKeyPress={e => isEnterPress(e) && e.currentTarget.click()}
             >
                 {title}
                 {renderSortIcon()}

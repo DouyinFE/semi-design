@@ -513,13 +513,13 @@ function Demo(props = {}) {
 ### Time Zone Identifier
 
 -   Numbers, such as `1`,`-9.5`, represent the time offset from UTC, the unit is hour, and it can be negative or decimal;
--   A string, such as `"GMT-09: 30"`,`"GMT+08: 00"`, which is a characterization offset string starting with `"GMT"`, or [IANA](https://time.is/time_zones), such as `"Asia/Shanghai"`,`"America/Los_Angeles"`, etc.
+-   A string, such as `"GMT-09:30"`,`"GMT+08:00"`, which is a characterization offset string starting with `"GMT"`, or [IANA](https://time.is/time_zones), such as `"Asia/Shanghai"`,`"America/Los_Angeles"`, etc.
 
 When you use numbers or similar writing of `GMT-09:00`, Semi will internally convert these time zone identifiers to the IANA.
 
-- If you set `-9` or `GMT-09:00`, it will be converted to `Pacific/Gambier`. There may be multiple IANA identifiers corresponding to certain numbers. Semi prefers IANA identifiers without daylight saving time;
+- Integer offsets are first converted to `Etc/GMT` identifiers supported by the browser. For example, `-9` or `GMT-09:00` is converted to `Etc/GMT+9`, which has no daylight saving time. If the browser does not support that identifier, Semi falls back to the regional IANA mapping, `Pacific/Gambier` in this example;
 
-- If the number does not have a corresponding IANA identifier without daylight saving time, such as `-3.5`, `3.5`, `10.5`, `13.75`, then we are mapping an IANA identifier with daylight saving time, and the time zone with daylight saving time will be adjust the offset. For example, `-3.5` will add 1h to the standard time after entering daylight saving time.
+- Some fractional offsets, such as `-3.5`, `10.5`, `13.75`, are mapped to regional IANA identifiers with daylight saving time, so the offset changes according to that region's rules. For example, `-3.5` will add 1h to the standard time after entering daylight saving time.
 
 If you want to accurately set the time zone of a region, it is recommended to use the IANA identifiers instead of the previous usage. Here you can check the [IANA list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), and whether the time zone has daylight saving time.
 

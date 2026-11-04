@@ -14,6 +14,7 @@ import { getDefaultPropsFromGlobalConfig } from '../_utils';
 const prefixCls = cssClasses.PREFIX;
 
 export interface SliderProps extends BasicSliceProps {
+    onBlur?: React.FocusEventHandler<HTMLSpanElement>;
     style?: CSSProperties;
     railStyle?: CSSProperties
 }
@@ -48,6 +49,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         vertical: PropTypes.bool,
         onAfterChange: PropTypes.func, // OnmouseUp and triggered when clicked
         onChange: PropTypes.func,
+        onBlur: PropTypes.func,
         onMouseUp: PropTypes.func,
         tooltipOnMark: PropTypes.bool,
         tooltipVisible: PropTypes.bool,
@@ -106,7 +108,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
     constructor(props: SliderProps) {
         super(props);
         let { value } = this.props;
-        if (!value) {
+        if (typeof value === 'undefined') {
             value = this.props.defaultValue;
         }
         this.state = {
@@ -198,6 +200,12 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             },
             notifyChange: (cbValue: number | number[]) => {
                 this.props.onChange(Array.isArray(cbValue) ? [...cbValue].sort((a, b) => a - b) : cbValue);
+            },
+            notifyBlur: e => {
+                // Focus moving between the range handles stays inside the slider and is not a blur.
+                if (!this.sliderEl.current?.contains(e.relatedTarget as Node)) {
+                    this.props.onBlur?.(e);
+                }
             },
             setDragging: (value: boolean[]) => {
                 this.dragging = value;
@@ -299,11 +307,12 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         }
 
         if (hasPropValueChange) {
-            const nextValue = this.props.value;
+            const nextValue = this.props.value === undefined && 'value' in this.props ?
+                (this.props.range ? [this.state.min, this.state.min] : this.state.min) : this.props.value;
             const prevValue = this.state.currentValue;
             this.foundation.handleValueChange(prevValue, nextValue);
             // trigger onAfterChange when value is controlled and changed
-            this.props.onAfterChange(this.props.value);
+            this.props.onAfterChange(nextValue);
         }
     }
 
@@ -414,6 +423,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                     rePosKey={minPercent}
                     visible={isInRenderTree && (tipVisible.min || firstDotFocusVisible)}
                     className={`${cssClasses.HANDLE}-tooltip`}
+                    showArrow={this.props.showArrow}
                 >
                     <span
                         ref={this.minHanleEl}
@@ -470,6 +480,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                     rePosKey={maxPercent}
                     visible={isInRenderTree && (tipVisible.max || secondDotFocusVisible)}
                     className={`${cssClasses.HANDLE}-tooltip`}
+                    showArrow={this.props.showArrow}
                 >
                     <span
                         ref={this.maxHanleEl}
@@ -647,7 +658,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             [`${prefixCls}`]: !vertical,
             [cssClasses.VERTICAL]: vertical,
         });
-        const fixedCurrentValue = Array.isArray(currentValue) ? [...currentValue].sort() : currentValue;
+        const fixedCurrentValue = Array.isArray(currentValue) ? [...currentValue].sort((a, b) => a - b) : currentValue;
         const ariaLabel = range ? `Range: ${this._getAriaValueText(fixedCurrentValue[0], 0)} to ${this._getAriaValueText(fixedCurrentValue[1], 1)}` : undefined;
         const slider = (
             <div

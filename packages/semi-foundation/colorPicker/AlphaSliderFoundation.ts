@@ -42,7 +42,7 @@ class AlphaSliderFoundation extends BaseFoundation<AlphaSliderAdapter<AlphaSlide
     }
 
 
-    setHandlePositionByMousePosition = (e: MouseEvent) => {
+    setHandlePositionByMousePosition = (e: Pick<MouseEvent, 'clientX'>) => {
         const rect = this._adapter.getDOM()?.getBoundingClientRect();
         if (!rect) {
             return;

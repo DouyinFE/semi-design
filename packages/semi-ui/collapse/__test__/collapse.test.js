@@ -165,4 +165,16 @@ describe('Collapse', () => {
         </Collapse>);
         expect(hidePanelArrow.exists('.semi-collapse-header-icon')).toEqual(false);
     });
+
+    it('onMotionEnd should not be passed to dom', () => {
+        const wrapper = mount(
+            <Collapse>
+                <Collapse.Panel header="h" itemKey="1" onMotionEnd={() => {}}>
+                    c
+                </Collapse.Panel>
+            </Collapse>
+        );
+        expect(wrapper.find(`div.${BASE_CLASS_PREFIX}-collapse-item`).props().onMotionEnd).toBeUndefined();
+        wrapper.unmount();
+    });
 });

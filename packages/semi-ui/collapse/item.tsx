@@ -24,6 +24,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
     static contextType: React.Context<CollapseContextType> = CollapseContext;
     headerExpandIconTriggerRef = React.createRef<HTMLElement>()
     private ariaID: string = ""
+    private hasBeenActive: boolean = false
     static propTypes = {
         itemKey: PropTypes.string,
         extra: PropTypes.node,
@@ -51,6 +52,8 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
 
     componentDidMount() {
         this.ariaID = getUuidShort({});
+        // Keep server and first client ids identical, then publish the mounted relationship.
+        this.forceUpdate();
     }
 
     renderHeader(active: boolean, expandIconEnable = true) {
@@ -128,6 +131,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
             extra,
             showArrow,
             disabled,
+            onMotionEnd,
             ...restProps
         } = this.props;
         const {
@@ -138,6 +142,9 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
             lazyRender
         } = this.context;
         const active = activeSet.has(itemKey);
+        // Mirrors Collapsible's shouldRender: keepDOM content stays in the DOM once rendered
+        this.hasBeenActive = this.hasBeenActive || active;
+        const contentRendered = Boolean(children) && (active || (keepDOM && (!lazyRender || this.hasBeenActive)));
         const itemCls = cls(className, {
             [`${cssClasses.PREFIX}-item`]: true,
             [`${cssClasses.PREFIX}-item-active`]: active,
@@ -161,7 +168,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
                     className={headerCls}
                     aria-disabled={disabled}
                     aria-expanded={active ? 'true' : 'false'}
-                    aria-owns={this.ariaID}
+                    aria-owns={contentRendered ? this.ariaID : undefined}
                     onClick={e => !disabled && this.handleClick(itemKey, e)}
                     onKeyDown={this.handleKeyDown}
                 >
@@ -172,7 +179,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
                         <Collapsible
                             lazyRender={lazyRender}
                             isOpen={active} keepDOM={keepDOM} motion={motion}
-                            onMotionEnd={this.props.onMotionEnd}
+                            onMotionEnd={onMotionEnd}
                             reCalcKey={reCalcKey}>
                             <div
                                 className={contentCls}

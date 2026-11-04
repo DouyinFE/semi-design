@@ -28,6 +28,7 @@ export interface CheckboxProps extends BaseCheckboxProps {
     'aria-required'?: React.AriaAttributes['aria-required'];
     children?: React.ReactNode;
     onChange?: (e: CheckboxEvent) => any;
+    onBlur?: React.FocusEventHandler<HTMLInputElement>;
     // TODO, docs
     style?: React.CSSProperties;
     onMouseEnter?: React.MouseEventHandler<HTMLSpanElement>;
@@ -66,6 +67,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         indeterminate: PropTypes.bool,
         // Callback function when changing
         onChange: PropTypes.func,
+        onBlur: PropTypes.func,
         value: PropTypes.any,
         style: PropTypes.object,
         className: PropTypes.string,
@@ -165,6 +167,12 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
     }
 
     componentDidUpdate(prevProps: CheckboxProps) {
+        if (this.props.addonId !== prevProps.addonId) {
+            this.setState({ addonId: this.props.addonId ?? getUuidShort({ prefix: 'addon' }) });
+        }
+        if (this.props.extraId !== prevProps.extraId) {
+            this.setState({ extraId: this.props.extraId ?? getUuidShort({ prefix: 'extra' }) });
+        }
         if (this.props.checked !== prevProps.checked) {
             if (isUndefined(this.props.checked)) {
                 this.foundation.setChecked(false);
@@ -197,8 +205,9 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         this.foundation.handleFocusVisible(event);
     }
 
-    handleBlur = (event: React.FocusEvent) => {
+    handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
         this.foundation.handleBlur();
+        this.props.onBlur?.(event);
     }
 
     render() {

@@ -7,6 +7,7 @@ import { handlePrevent } from "../utils/a11y";
 // code's default height type is html/js/css, add jsx & tsx;
 import 'prismjs';
 import "prismjs/components/prism-jsx.js";
+import "prismjs/components/prism-typescript.js";
 import "prismjs/components/prism-tsx.js";
 
 const { PIC_PREFIX, PIC_SUFFIX_ARRAY, ROLE,
@@ -155,7 +156,7 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
 
     clearContext = (e: any) => {
         const { chats } = this.getStates();
-        if (chats[chats.length - 1].role === ROLE.DIVIDER) {
+        if (!chats.length || chats[chats.length - 1].role === ROLE.DIVIDER) {
             return;
         }
         const dividerMessage = {
@@ -266,6 +267,9 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
 
     resetMessage = (message: Message) => {
         const { chats } = this.getStates();
+        if (!chats.length) {
+            return;
+        }
         const lastMessage = chats[chats.length - 1];
         const newLastChat = {
             ...lastMessage,

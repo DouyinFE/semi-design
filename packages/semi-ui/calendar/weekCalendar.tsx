@@ -49,7 +49,7 @@ export default class WeekCalendar extends BaseComponent<WeekCalendarProps, WeekC
     };
 
     static defaultProps = {
-        displayValue: new Date(),
+        get displayValue() { return new Date(); },
         events: [] as Array<EventObject>,
         mode: 'week',
     };
@@ -198,7 +198,7 @@ export default class WeekCalendar extends BaseComponent<WeekCalendarProps, WeekC
             const { leftPos, width, topInd, children, key } = event;
             const top = `${topInd}em`;
             const style = {
-                left: toPercent(leftPos),
+                insetInlineStart: toPercent(leftPos),
                 width: toPercent(width),
                 top,
             };

@@ -243,6 +243,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
                 onClick={this.handleClick}
                 onKeyPress={this.handleKeyPress}
                 aria-expanded={isOpen ? 'true' : 'false'}
+                aria-disabled={disabled}
             >
                 <div className={`${prefixCls}-item-inner`}>
                     {placeholderIcons}
@@ -276,6 +277,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         const ulWithMotion = <Collapsible motion={subNavMotion} isOpen={isOpen} keepDOM={false} fade={true}>
             {
                 !isCollapsed ? <ul
+                    role="group"
                     className={subNavCls}
                 >
                     {children}
@@ -287,7 +289,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         const finalDom = isHorizontal ? null : subNavMotion ? (
             ulWithMotion
         ) : isOpen && !isCollapsed ? (
-            <ul className={subNavCls}>{children}</ul>
+            <ul role="group" className={subNavCls}>{children}</ul>
         ) : null;
 
         return finalDom;
@@ -346,7 +348,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
     }
 
     render() {
-        const { itemKey, style, onMouseEnter, onMouseLeave, disabled, text } = this.props;
+        const { itemKey, style, className, onMouseEnter, onMouseLeave, disabled, text } = this.props;
 
         const { mode, isCollapsed, prefixCls } = this.context;
 
@@ -369,7 +371,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
                 itemKey={itemKey}
                 forwardRef={this.setItemRef}
                 isCollapsed={isCollapsed}
-                className={`${prefixCls}-sub-wrap`}
+                className={cls(`${prefixCls}-sub-wrap`, className)}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 disabled={disabled}

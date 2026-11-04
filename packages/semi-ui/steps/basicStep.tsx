@@ -109,7 +109,7 @@ const BasicStep = (props: BasicStepProps) => {
     });
 
     return (
-        <div role={props["role"]} aria-label={props["aria-label"]} tabIndex={0} aria-current="step"
+        <div role={props["role"]} aria-label={props["aria-label"]} tabIndex={0} aria-current={active ? 'step' : undefined}
             className={classString} style={style} onClick={e => handleClick(e)} onKeyDown={handleKeyDown}>
             <div className={`${prefixCls}-container`}>
                 <div className={`${prefixCls}-left`}>{renderIcon()}</div>

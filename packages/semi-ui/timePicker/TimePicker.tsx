@@ -195,7 +195,6 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         zIndex: popoverNumbers.DEFAULT_Z_INDEX,
         rangeSeparator: strings.DEFAULT_RANGE_SEPARATOR,
         onOpenChange: noop,
-        clearText: 'clear',
         prefixCls: cssClasses.PREFIX,
         inputReadOnly: false,
         style: {},
@@ -248,6 +247,10 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         };
 
         this.foundation = new TimePickerFoundation(this.adapter);
+        this.state = {
+            ...this.state,
+            ...this.foundation.getInitialState(),
+        };
         this.timePickerRef = React.createRef();
         this.savePanelRef = React.createRef();
         this.useCustomTrigger = typeof this.props.triggerRender === 'function';
@@ -347,10 +350,10 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
 
             panelProps.panelHeader = get(
                 panels,
-                index,
+                [index, 'panelHeader'],
                 isNullOrUndefined(panelHeader) ? get(defaultHeaderMap, index, null) : Array.isArray(panelHeader) ? panelHeader[index] : panelHeader
             );
-            panelProps.panelFooter = get(panels, index, Array.isArray(panelFooter) ? panelFooter[index] : panelFooter) as React.ReactNode;
+            panelProps.panelFooter = get(panels, [index, 'panelFooter'], Array.isArray(panelFooter) ? panelFooter[index] : panelFooter) as React.ReactNode;
         }
 
         return panelProps;
@@ -521,6 +524,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
             motion,
             autoAdjustOverflow,
             stopPropagation,
+            disabledTime,
             ...rest
         } = this.props;
         const format = this.foundation.getDefaultFormatIfNeed();

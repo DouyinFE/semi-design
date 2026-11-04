@@ -6,6 +6,7 @@ import React from 'react';
 import { radioGroupClasses as css, strings } from '@douyinfe/semi-foundation/radio/constants';
 import RadioGroupFoundation, { RadioGroupAdapter } from '@douyinfe/semi-foundation/radio/radioGroupFoundation';
 import { RadioChangeEvent } from '@douyinfe/semi-foundation/radio/radioInnerFoundation';
+import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 
 import { ArrayElement } from '../_base/base';
 import BaseComponent from '../_base/baseComponent';
@@ -33,6 +34,7 @@ export type RadioGroupProps = {
     options?: Options;
     value?: string | number | boolean;
     onChange?: (event: RadioChangeEvent) => void;
+    onBlur?: React.FocusEventHandler<HTMLDivElement>;
     className?: string;
     children?: React.ReactNode;
     style?: React.CSSProperties;
@@ -64,6 +66,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
         type: PropTypes.oneOf([strings.TYPE_DEFAULT, strings.TYPE_BUTTON, strings.TYPE_CARD, strings.TYPE_PURECARD]),
         value: PropTypes.any,
         onChange: PropTypes.func,
+        onBlur: PropTypes.func,
         children: PropTypes.node,
         prefixCls: PropTypes.string,
         className: PropTypes.string,
@@ -89,15 +92,17 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
     };
 
     foundation: RadioGroupFoundation;
+    groupName: string;
     constructor(props: RadioGroupProps) {
         super(props);
         this.state = {
-            value: props.value || props.defaultValue,
+            value: 'value' in props ? props.value : props.defaultValue,
         };
         this.foundation = new RadioGroupFoundation(this.adapter);
     }
 
     componentDidMount() {
+        this.groupName = this.groupName || getUuidShort({ prefix: 'semi-radio-group' });
         this.foundation.init();
     }
 
@@ -138,7 +143,13 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
         this.foundation.handleChange(evt);
     };
 
-    getFormatName = () => this.props.name || 'default';
+    getFormatName = () => this.props.name || this.groupName;
+
+    handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+            this.props.onBlur?.(event);
+        }
+    };
 
     render() {
         const {
@@ -206,16 +217,20 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
                 }
             });
         } else if (children) {
-            inner = React.Children.map(children, (itm, index) => (React.isValidElement(itm) ?
-                React.cloneElement(itm, { key: index }) :
+            inner = React.Children.map(children, itm => (React.isValidElement(itm) ?
+                React.cloneElement(itm) :
                 null));
         }
 
         return (
             <div
+                role="radiogroup"
                 className={prefixClsDisplay}
                 style={style}
                 id={id}
+                // Keep option-text clicks inside the group before Radio focuses its input.
+                tabIndex={this.props.disabled ? undefined : -1}
+                onBlur={this.handleBlur}
                 aria-label={this.props['aria-label']}
                 aria-invalid={this.props['aria-invalid']}
                 aria-errormessage={this.props['aria-errormessage']}

@@ -24,7 +24,8 @@ const workerManagerMap = new Map<string, JsonWorkerManager>();
 
 export class JsonWorkerManager {
     private _worker: Worker;
-    private _callbacks: Map<number, (result: any) => void>;
+    private _callbacks: Map<number, { resolve: (result: any) => void; reject: (error: Error) => void }>;
+    private _workerError: Error | null = null;
 
     constructor() {
         const workerRaw = decodeURIComponent(`%WORKER_RAW%`);
@@ -34,6 +35,8 @@ export class JsonWorkerManager {
         this._callbacks = new Map();
 
         this._worker.onmessage = this._handleWorkerMessage.bind(this);
+        this._worker.onerror = event => this._handleWorkerError(new Error(event.message || 'JsonViewer worker failed'));
+        this._worker.onmessageerror = () => this._handleWorkerError(new Error('JsonViewer worker message could not be deserialized'));
     }
 
     async init(value: string) {
@@ -65,11 +68,25 @@ export class JsonWorkerManager {
     }
 
     private _sendRequest<T extends keyof WorkerService>(method: T, params: WorkerService[T]): Promise<any> {
+        if (this._workerError) {
+            return Promise.reject(this._workerError);
+        }
         return new Promise((resolve, reject) => {
             const messageId = Date.now() + Math.random();
-            this._callbacks.set(messageId, resolve);
-            this._worker.postMessage({ messageId, method, params });
+            this._callbacks.set(messageId, { resolve, reject });
+            try {
+                this._worker.postMessage({ messageId, method, params });
+            } catch (error) {
+                this._callbacks.delete(messageId);
+                reject(error);
+            }
         });
+    }
+
+    private _handleWorkerError(error: Error) {
+        this._workerError = error;
+        this._callbacks.forEach(callback => callback.reject(error));
+        this._callbacks.clear();
     }
 
     private _handleWorkerMessage(event: MessageEvent) {
@@ -77,9 +94,9 @@ export class JsonWorkerManager {
         const callback = this._callbacks.get(messageId);
         if (callback) {
             if (error) {
-                callback(new Error(error));
+                callback.reject(new Error(error));
             } else {
-                callback(result);
+                callback.resolve(result);
             }
             this._callbacks.delete(messageId);
         }

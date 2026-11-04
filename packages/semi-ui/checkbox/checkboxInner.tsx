@@ -7,6 +7,7 @@ import { Context } from './context';
 import { IconCheckboxTick, IconCheckboxIndeterminate } from '@douyinfe/semi-icons';
 
 export interface CheckboxInnerProps {
+    autoFocus?: boolean;
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
     'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
     'aria-invalid'?: React.AriaAttributes['aria-invalid'];
@@ -32,6 +33,7 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
     static contextType = Context;
 
     static propTypes = {
+        autoFocus: PropTypes.bool,
         'aria-describedby': PropTypes.string,
         'aria-errormessage': PropTypes.string,
         'aria-invalid': PropTypes.bool,
@@ -92,6 +94,7 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
         ) : null;
 
         const inputProps: React.InputHTMLAttributes<HTMLInputElement> = {
+            autoFocus: this.props.autoFocus,
             type: "checkbox",
             'aria-label': this.props['aria-label'],
             'aria-disabled': disabled,

@@ -139,6 +139,45 @@ function render(props) {
 }
 
 describe('Cascader', () => {
+    [true, false].forEach(autoMergeValue => {
+        it(`passes unRelated selections to a custom trigger, autoMergeValue=${autoMergeValue}`, () => {
+            const treeData = [{ label: 'Asia', value: 'asia', children: [
+                { label: 'China', value: 'china' },
+                { label: 'Japan', value: 'japan' },
+            ] }];
+            const cascader = render({
+                multiple: true,
+                checkRelation: 'unRelated',
+                autoMergeValue,
+                treeData,
+                value: ['asia', 'china'],
+                triggerRender: ({ value }) => <button className="custom-trigger">{[...value].sort().join(',')}</button>,
+            });
+            expect(cascader.find('button.custom-trigger').text()).toBe('0-0');
+            cascader.setProps({ value: [['asia', 'china'], ['asia', 'japan']] });
+            cascader.update();
+            expect(cascader.find('button.custom-trigger').text()).toBe('0-0,0-1');
+            cascader.setProps({ value: [] });
+            cascader.update();
+            expect(cascader.find('button.custom-trigger').text()).toBe('');
+            cascader.unmount();
+        });
+    });
+
+    it('still merges related selections for a custom trigger', () => {
+        const cascader = render({
+            multiple: true,
+            treeData: [{ label: 'Asia', value: 'asia', children: [
+                { label: 'China', value: 'china' },
+                { label: 'Japan', value: 'japan' },
+            ] }],
+            defaultValue: [['asia', 'china'], ['asia', 'japan']],
+            triggerRender: ({ value }) => <button className="custom-trigger">{[...value].join(',')}</button>,
+        });
+        expect(cascader.find('button.custom-trigger').text()).toBe('0');
+        cascader.unmount();
+    });
+
     beforeEach(() => {
         // Avoid `attachTo: document.body` Warning
         // clear();
@@ -679,6 +718,42 @@ describe('Cascader', () => {
         // done();
     });
 
+    [false, true].forEach(remote => {
+        it(`preserves a search query when controlled empty options update, remote=${remote}`, () => {
+            const onSearch = sinon.spy();
+            const onChange = sinon.spy();
+            const cascader = render({ value: [], filterTreeNode: true, defaultOpen: true, remote, onSearch, onChange });
+            cascader.find('input').simulate('change', { target: { value: '北京' } });
+            cascader.setProps({ treeData: [{ label: '新北京', value: 'new-beijing' }] });
+            cascader.update();
+            expect(cascader.find('input').getDOMNode().value).toBe('北京');
+            expect(onSearch.calledOnceWithExactly('北京')).toBe(true);
+            const option = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-option-flatten`);
+            expect(option).toHaveLength(1);
+            option.simulate('click');
+            expect(onChange.args).toEqual([[['new-beijing']]]);
+            cascader.unmount();
+        });
+    });
+
+    it('still clears the query when the controlled value is explicitly reset', () => {
+        const cascader = render({ value: ['Asia', 'China', 'Beijing'], filterTreeNode: true, defaultOpen: true });
+        cascader.find('input').simulate('change', { target: { value: '北京' } });
+        cascader.setProps({ value: [] });
+        expect(cascader.find('input').getDOMNode().value).toBe('');
+        cascader.unmount();
+    });
+
+    it('does not start searching on an idle empty options update', () => {
+        const onSearch = sinon.spy();
+        const cascader = render({ value: [], filterTreeNode: true, defaultOpen: true, onSearch });
+        cascader.setProps({ treeData: [{ label: '新北京', value: 'new-beijing' }] });
+        expect(cascader.find('input').getDOMNode().value).toBe('');
+        expect(cascader.state('isSearching')).toBe(false);
+        expect(onSearch.called).toBe(false);
+        cascader.unmount();
+    });
+
     it('filterTreeNode as a func', () => {
         let cascader = render({
             filterTreeNode: (inputValue, cascaderNode) => cascaderNode === inputValue,
@@ -919,6 +994,42 @@ describe('Cascader', () => {
         expect(cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection`).getDOMNode().textContent).toEqual(
             '亚洲 / 中国 / 北京'
         );
+    });
+
+    [undefined, 'unRelated'].forEach(checkRelation => {
+        it(`keeps controlled multiple selection when clearing, checkRelation=${checkRelation}`, () => {
+            const onChange = sinon.spy();
+            const onClear = sinon.spy();
+            const cascader = render({
+                multiple: true,
+                value: ['Asia', 'China', 'Beijing'],
+                checkRelation,
+                showClear: true,
+                onChange,
+                onClear,
+            });
+            const selection = () => cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection`).text();
+            const initialSelection = selection();
+            expect(initialSelection).toContain('北京');
+            cascader.simulate('mouseEnter', {}).find(`.${BASE_CLASS_PREFIX}-cascader-clearbtn`).simulate('click');
+            expect(onChange.calledOnceWithExactly([])).toBe(true);
+            expect(onClear.calledOnce).toBe(true);
+            expect(selection()).toBe(initialSelection);
+            cascader.setProps({ value: [] });
+            expect(selection()).not.toContain('北京');
+            cascader.unmount();
+        });
+    });
+
+    it('clears uncontrolled multiple selection', () => {
+        const cascader = render({
+            multiple: true,
+            defaultValue: ['Asia', 'China', 'Beijing'],
+            showClear: true,
+        });
+        cascader.simulate('mouseEnter', {}).find(`.${BASE_CLASS_PREFIX}-cascader-clearbtn`).simulate('click');
+        expect(cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection`).text()).not.toContain('北京');
+        cascader.unmount();
     });
 
     it('onClear and showClear', () => {
