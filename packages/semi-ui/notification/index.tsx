@@ -68,7 +68,7 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     private static wrapperId: string;
     private noticeStorage: NoticeInstance[];
     private removeItemStorage: NoticeInstance[];
-    private leaveFallbackTimers: Map<string, ReturnType<typeof setTimeout>> = new Map();
+    private leaveFallbackTimers: Map<NoticeInstance, ReturnType<typeof setTimeout>> = new Map();
 
 
     constructor(props: NotificationListProps) {
@@ -93,8 +93,8 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     }
 
     releaseRemovedNotice = (notice: NoticeInstance) => {
-        clearTimeout(this.leaveFallbackTimers.get(notice.id));
-        this.leaveFallbackTimers.delete(notice.id);
+        clearTimeout(this.leaveFallbackTimers.get(notice));
+        this.leaveFallbackTimers.delete(notice);
         this.removeItemStorage = this.removeItemStorage.filter(item => item !== notice);
         this.setState({ removedItems: this.removeItemStorage });
     };
@@ -102,8 +102,8 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     // animationend never fires when the hide animation is disabled by CSS (animation: none, reduced motion),
     // so release the notice after the hide duration (animation.scss, 300ms) with a small margin.
     scheduleRemovedNoticeRelease = (notice: NoticeInstance) => {
-        if (!this.leaveFallbackTimers.has(notice.id)) {
-            this.leaveFallbackTimers.set(notice.id, setTimeout(() => this.releaseRemovedNotice(notice), 350));
+        if (!this.leaveFallbackTimers.has(notice)) {
+            this.leaveFallbackTimers.set(notice, setTimeout(() => this.releaseRemovedNotice(notice), 350));
         }
     };
 

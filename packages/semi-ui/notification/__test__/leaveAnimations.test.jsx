@@ -99,6 +99,23 @@ describe('Notification leaving notices', () => {
         expect(notice('new a').className).toContain('animation-show');
     });
 
+    it('releases a reopened notice by its own fallback when an older leave timer is pending', () => {
+        jest.useFakeTimers();
+        try {
+            list.remove('a');
+            jest.advanceTimersByTime(100);
+            list.add({ id: 'a', title: 'reopened', duration: 0 });
+            jest.advanceTimersByTime(100);
+            list.remove('a');
+            expectLeaving('reopened');
+            jest.advanceTimersByTime(350);
+            expect(notice('reopened')).toBeUndefined();
+            expect(list.removeItemStorage).toHaveLength(0);
+        } finally {
+            jest.useRealTimers();
+        }
+    });
+
     it('keeps pending animations when closing an unknown id', () => {
         list.remove('a');
         list.remove('unknown');
