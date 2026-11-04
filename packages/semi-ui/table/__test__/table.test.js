@@ -1512,7 +1512,7 @@ describe(`Table`, () => {
         expect(
           demo
             .find(`.${BASE_CLASS_PREFIX}-page .${BASE_CLASS_PREFIX}-page-item-active`)
-            .getDOMNode().innerHTML
+            .getDOMNode().textContent
         ).toBe('2');
     });
 
@@ -1533,7 +1533,7 @@ describe(`Table`, () => {
         });
         await sleep(2000);
         demo.update();
-        expect(demo.find(`.semi-page .semi-page-item-active`).getDOMNode().innerHTML).toBe('1');
+        expect(demo.find(`.semi-page .semi-page-item-active`).getDOMNode().textContent).toBe('1');
         expect(demo.find(BaseTable).state('pagination')).toHaveProperty('currentPage', 1);
     });
 
