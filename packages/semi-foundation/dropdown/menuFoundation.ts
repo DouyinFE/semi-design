@@ -25,12 +25,16 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
     onMenuKeydown(event: any): void {
         const menu = getAncestorNodeByRole(event.target, 'tooltip');
         
-        this.menuItemNodes = [...(event.target.parentNode).getElementsByTagName('li')].filter(item => item.getAttribute('aria-disabled') !== 'true');
+        const items: HTMLElement[] = [...(event.target.parentNode).getElementsByTagName('li')];
+        const isEnabled = (item: HTMLElement) => item.getAttribute('aria-disabled') !== 'true';
+        this.menuItemNodes = items.filter(isEnabled);
         this.firstChars = this.menuItemNodes.map(item => item.textContent.trim()[0]?.toLowerCase());
 
         // get the currently focused menu item
         const curItem = this.menuItemNodes.find(item => item.tabIndex === 0);
-        
+        // The focused item can become disabled while keeping focus, so arrow keys continue from its DOM position
+        const disabledCurIndex = curItem ? -1 : items.findIndex(item => item.tabIndex === 0);
+
         switch (event.key) {
             case ' ':
             case 'Enter':
@@ -42,11 +46,20 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
                 this.handleEscape(menu);
                 break;
             case 'ArrowUp':
-                setFocusToPreviousMenuItem(this.menuItemNodes, curItem);
+                if (disabledCurIndex >= 0) {
+                    const before = items.slice(0, disabledCurIndex).filter(isEnabled);
+                    setFocusToItem(items, before[before.length - 1] ?? this.menuItemNodes[this.menuItemNodes.length - 1]);
+                } else {
+                    setFocusToPreviousMenuItem(this.menuItemNodes, curItem);
+                }
                 handlePrevent(event);
                 break;
             case 'ArrowDown':
-                setFocusToNextMenuitem(this.menuItemNodes, curItem);
+                if (disabledCurIndex >= 0) {
+                    setFocusToItem(items, items.slice(disabledCurIndex + 1).find(isEnabled) ?? this.menuItemNodes[0]);
+                } else {
+                    setFocusToNextMenuitem(this.menuItemNodes, curItem);
+                }
                 handlePrevent(event);
                 break;
             default:
