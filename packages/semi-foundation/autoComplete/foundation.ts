@@ -113,13 +113,13 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         }
     }
 
-    openDropdown(): void {
+    openDropdown(inputValue?: string): void {
         this.isPanelOpen = true;
         this._adapter.toggleListVisible(true);
         this._setDropdownWidth();
         this._adapter.registerClickOutsideHandler(e => this.closeDropdown(e));
         this._adapter.notifyDropdownVisibleChange(true);
-        this._modifyFocusIndexOnPanelOpen();
+        this._modifyFocusIndexOnPanelOpen(inputValue);
     }
 
     closeDropdown(e?: any): void {
@@ -159,7 +159,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.notifyChange(inputValue);
         this._modifyFocusIndex(inputValue);
         if (!this.isPanelOpen) {
-            this.openDropdown();
+            this.openDropdown(inputValue);
         }
     }
 
@@ -285,8 +285,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         }
     }
 
-    _modifyFocusIndexOnPanelOpen() {
-        let { inputValue } = this.getStates();
+    _modifyFocusIndexOnPanelOpen(inputValue = this.getState('inputValue')) {
         this._modifyFocusIndex(inputValue);
     }
 

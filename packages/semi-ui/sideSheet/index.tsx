@@ -100,23 +100,27 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
     private bodyOverflow: string;
     private scrollBarWidth: number;
     private originBodyWidth: string;
+    private hasBodyScrollLock = false;
 
     get adapter(): SideSheetAdapter {
         return {
             ...super.adapter,
             disabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
-                this.bodyOverflow = document.body.style.overflow || '';
-                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
+                if (!getPopupContainer && !this.hasBodyScrollLock && document.body.style.overflow !== 'hidden') {
+                    this.bodyOverflow = document.body.style.overflow;
+                    this.originBodyWidth = document.body.style.width;
+                    this.scrollBarWidth = getScrollbarWidth();
+                    this.hasBodyScrollLock = true;
                     document.body.style.overflow = 'hidden';
                     document.body.style.width = `calc(${this.originBodyWidth || '100%'} - ${this.scrollBarWidth}px)`;
                 }
             },
             enabledBodyScroll: () => {
-                const { getPopupContainer } = this.props;
-                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
+                if (this.hasBodyScrollLock) {
                     document.body.style.overflow = this.bodyOverflow;
                     document.body.style.width = this.originBodyWidth;
+                    this.hasBodyScrollLock = false;
                 }
             },
             notifyCancel: (e: React.MouseEvent | React.KeyboardEvent) => {
@@ -157,8 +161,6 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
     }
 
     componentDidMount() {
-        this.scrollBarWidth = getScrollbarWidth();
-        this.originBodyWidth = document.body.style.width;
         if (this.props.visible) {
             this.foundation.beforeShow();
         }

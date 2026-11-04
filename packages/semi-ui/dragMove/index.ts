@@ -10,7 +10,8 @@ export interface DragMoveProps {
     // The element that triggers the drag event，default is element
     handler?: () => HTMLElement;
     // The element that constrains the movement range, This element requires relative positioning
-    constrainer?: () => HTMLElement | 'parent';
+    constrainer?: (() => HTMLElement) | 'parent';
+    allowInputDrag?: boolean;
     children?: ReactNode | undefined | any;
     onMouseDown?: (e: MouseEvent) => void;
     onMouseMove?: (e: MouseEvent) => void;
@@ -77,7 +78,7 @@ export default class DragMove extends BaseComponent<DragMoveProps> {
             getConstrainer: () => {
                 const { constrainer } = this.props;
                 if (typeof constrainer === 'string' && constrainer === 'parent') {
-                    return (this.elementRef.current as HTMLElement)?.parentNode as HTMLElement;
+                    return this.adapter.getDragElement()?.parentNode as HTMLElement;
                 } else if (typeof constrainer === 'function') {
                     return constrainer() as any;
                 } else {
@@ -125,7 +126,12 @@ export default class DragMove extends BaseComponent<DragMoveProps> {
     }
 
     componentDidUpdate(prevProps: DragMoveProps): void {
-        if (prevProps.positionStrategy !== this.props.positionStrategy) {
+        const element = this.adapter.getDragElement();
+        if (element !== this.foundation.element || this.adapter.getHandler() !== this.foundation.handlerElement) {
+            this.foundation.rebind();
+            return;
+        }
+        if (element && prevProps.positionStrategy !== this.props.positionStrategy) {
             this.foundation.updatePositionStrategy();
         }
     }
@@ -137,10 +143,17 @@ export default class DragMove extends BaseComponent<DragMoveProps> {
                 (this.elementRef as any).current = node;
                 const ref = getRef(children);
                 if (typeof ref === 'function') {
-                    ref(node);
+                    const cleanup = ref(node) as unknown;
+                    if (typeof cleanup === 'function') {
+                        return () => {
+                            (this.elementRef as any).current = null;
+                            cleanup();
+                        };
+                    }
                 } else if (ref && typeof ref === 'object') {
                     (ref as React.MutableRefObject<any>).current = node;
                 }
+                return undefined;
             },
         });
         return newChildren;

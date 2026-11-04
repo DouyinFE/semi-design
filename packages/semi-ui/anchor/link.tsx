@@ -106,7 +106,7 @@ export default class Link extends BaseComponent<LinkProps, {}> {
                 Object.assign({ opts: {} }, showTooltip) : { opts: {} };
             // The position can be set through showTooltip, here it is compatible with the position API
             if (position) {
-                showTooltipObj.opts['position'] = position;
+                showTooltipObj.opts = { ...showTooltipObj.opts, position };
             }
             return (
                 <Typography.Text
@@ -151,7 +151,7 @@ export default class Link extends BaseComponent<LinkProps, {}> {
             },
         };
         if (active) {
-            ariaProps['aria-details'] = 'active';
+            ariaProps['aria-current'] = 'location';
         }
         if (!showTooltip && typeof title === 'string') {
             ariaProps['title'] = title;
@@ -165,7 +165,11 @@ export default class Link extends BaseComponent<LinkProps, {}> {
                     {...ariaProps}
                     className={linkTitleCls}
                     onClick={e => this.handleClick(e)}
-                    onKeyPress={e => this.handleClick(e)}
+                    onKeyPress={e => {
+                        if (e.key === 'Enter') {
+                            this.handleClick(e);
+                        }
+                    }}
                 >
                     {this.renderTitle()}
                 </div>

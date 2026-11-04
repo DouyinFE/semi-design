@@ -170,7 +170,7 @@ function Demo() {
 | Parameter     | Description                                             | Type          | Default value |
 | ------------- | ------------------------------------------------------- | ------------- | ------------- |
 | onChange      | User selected color callback                            | (value)=>void | -             |
-| alpha         | Whether to enable transparency selection                | boolean       | true          |
+| alpha         | Whether to enable transparency selection                | boolean       | false         |
 | bottomSlot    | Bottom rendering additional elements                    | ReactNode     | -             |
 | className     | Class name                                              | string        | -             |
 | defaultFormat | Default format for manual input                         | rgba hex hsva | hex           |

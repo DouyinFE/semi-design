@@ -201,7 +201,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
         const { chats: oldChats, cacheHints } = prevState;
         const { wheelScroll } = this.state;
         let shouldScroll = false;
-        if (newChats.length > oldChats.length) {
+        if ((newChats?.length ?? 0) > oldChats.length) {
             this.adapter.setWheelScroll(false);
             this.foundation.scrollToBottomImmediately();
         }
@@ -222,7 +222,7 @@ class AIChatDialogue extends BaseComponent<AIChatDialogueProps, AIChatDialogueSt
             }
         }
         if (newHints !== cacheHints) {
-            if (newHints.length > cacheHints.length) {
+            if ((newHints?.length ?? 0) > (cacheHints?.length ?? 0)) {
                 shouldScroll = true;
             }
         }

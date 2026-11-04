@@ -129,7 +129,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             },
             notifyInputChange: (props: { inputValue: string; attachment: any[]}) => {
                 const { onInputChange } = this.props;
-                onInputChange && onInputChange(props);
+                onInputChange?.({ value: props.inputValue, attachment: props.attachment });
             },
             setBackBottomVisible: (visible: boolean) => {
                 this.setState((state) => {
@@ -141,7 +141,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     return null;
                 });
             },
-            notifyStopGenerate: (e: MouseEvent) => {
+            notifyStopGenerate: (e: React.MouseEvent<HTMLButtonElement>) => {
                 const { onStopGenerator } = this.props;
                 onStopGenerator && onStopGenerator(e);
             },
@@ -206,7 +206,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             }
         }
         if (newHints !== cacheHints) {
-            if (newHints.length > cacheHints.length) {
+            if ((newHints?.length ?? 0) > (cacheHints?.length ?? 0)) {
                 shouldScroll = true;
             }
         }

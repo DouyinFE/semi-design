@@ -272,16 +272,6 @@ export default (props: {
     //     // console.log('before', $from.nodeBefore, $from.nodeAfter);
     // }, []);
 
-    const onCreate = useCallback(({ editor }) => {
-        const { state, view } = editor;
-        const tr = handleZeroWidthCharLogic(state);
-        if (tr) {
-            // 一次性触发，避免多次触发导致 appendTransaction 被多次调用
-            view.dispatch(tr);
-        }
-        handleCreate();
-    }, [handleCreate]);
-
     const onUpdate = useCallback(({ editor }) => {
         // The content has changed.
         const content = editor.getText();
@@ -309,14 +299,20 @@ export default (props: {
         editorProps: editorProps,
         immediatelyRender,
         // onSelectionUpdate,
-        onCreate,
         onUpdate,
         onPaste: handlePaste,
     });
 
     useEffect(() => {
         setEditor(editor);
-    }, [editor, setEditor]);
+        if (editor) {
+            const tr = handleZeroWidthCharLogic(editor.state);
+            if (tr) {
+                editor.view.dispatch(tr);
+            }
+            handleCreate();
+        }
+    }, [editor, setEditor, handleCreate]);
 
     if (!editor) {
         // Prevent rendering until the editor is initialized

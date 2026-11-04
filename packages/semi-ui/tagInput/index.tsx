@@ -586,7 +586,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                 container={SortContainer}
                 prefix={prefixCls}
                 transition={null}
-                dragOverlayCls={`${prefixCls}-right-item-drag-item-move`}
+                dragOverlayCls={`${prefixCls}-drag-item-move`}
             />;
         }
         return (
@@ -706,7 +706,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                     {this.renderTags()}
                     <span ref={this.inputMirrorRef} className={`${prefixCls}-wrapper-inputMirror`} />
                     <Input
-                        aria-label='input value'
+                        aria-label={this.props['aria-label'] || 'input value'}
                         ref={this.inputRef as any}
                         className={inputCls}
                         style={inputWrapperStyle}

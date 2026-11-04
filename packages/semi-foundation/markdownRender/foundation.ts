@@ -13,8 +13,8 @@ export interface MarkdownRenderAdapter <P = Record<string, any>, S = Record<stri
 
 export interface MarkdownRenderBaseProps{
     raw: string;
-    components: MDXProps['components'];
-    format: "md"|"mdx";
+    components?: MDXProps['components'];
+    format?: "md"|"mdx";
     remarkPlugins?: PluggableList;
     rehypePlugins?: PluggableList;
     remarkGfm?: boolean

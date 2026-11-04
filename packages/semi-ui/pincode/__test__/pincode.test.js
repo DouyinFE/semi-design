@@ -73,6 +73,35 @@ describe('PinCode', () => {
         wrapper.unmount();
     });
 
+    ['Backspace', 'Delete'].forEach(key => {
+        it(`keeps controlled values after ${key} until the parent updates value`, () => {
+            const onChange = sinon.spy();
+            const wrapper = getPinCode({ value: '1234', count: 4, onChange });
+            const inputs = wrapper.find('input').map(input => input.getDOMNode());
+            inputs[1].focus();
+            inputs[1].dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
+            expect(onChange.calledOnceWithExactly('134')).toBe(true);
+            expect(inputs.map(input => input.value)).toEqual(['1', '2', '3', '4']);
+            expect(document.activeElement).toBe(inputs[key === 'Backspace' ? 0 : 2]);
+            wrapper.setProps({ value: '134' });
+            wrapper.update();
+            expect(inputs.map(input => input.value)).toEqual(['1', '3', '4', '']);
+            wrapper.unmount();
+        });
+
+        it(`still deletes uncontrolled values with ${key}`, () => {
+            const onChange = sinon.spy();
+            const wrapper = getPinCode({ defaultValue: '1234', count: 4, onChange });
+            const inputs = wrapper.find('input').map(input => input.getDOMNode());
+            inputs[1].focus();
+            inputs[1].dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
+            expect(onChange.calledOnceWithExactly('134')).toBe(true);
+            expect(inputs.map(input => input.value)).toEqual(['1', '', '3', '4']);
+            expect(document.activeElement).toBe(inputs[key === 'Backspace' ? 0 : 2]);
+            wrapper.unmount();
+        });
+    });
+
     it('onChange callback', () => {
         const onChange = sinon.spy();
         const wrapper = getPinCode({ onChange });

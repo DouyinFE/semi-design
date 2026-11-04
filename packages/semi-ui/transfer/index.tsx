@@ -19,7 +19,7 @@ import { IconClose, IconSearch, IconHandle } from '@douyinfe/semi-icons';
 import { Value as TreeValue, TreeProps } from '../tree/interface';
 import { RenderItemProps, Sortable } from '../_sortable';
 import { verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { FixedSizeList as VirtualList } from 'react-window';
+import { FixedSizeList as VirtualList, ListChildComponentProps } from 'react-window';
 import AutoSizer from '../tree/autoSizer';
 
 export interface DataItem extends BasicDataItem {
@@ -208,6 +208,9 @@ export interface TransferProps {
 }
 
 const prefixCls = cssClasses.PREFIX;
+const VirtualizedSelectedListOuter = React.forwardRef<HTMLDivElement, any>((props, ref) => (
+    <div {...props} ref={ref} role="list" aria-label="Selected list" />
+));
 class Transfer extends BaseComponent<TransferProps, TransferState> {
     static propTypes = {
         style: PropTypes.object,
@@ -262,7 +265,8 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
     constructor(props: TransferProps) {
         super(props);
-        const { defaultValue = [], dataSource, type, pagination } = props;
+        const { defaultValue = [], type, pagination } = props;
+        const dataSource = type === strings.TYPE_TREE_TO_LIST ? props.treeProps?.treeData ?? props.dataSource : props.dataSource;
         this.foundation = new TransferFoundation<TransferProps, TransferState>(this.adapter);
         this.state = {
             data: [],
@@ -273,11 +277,12 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         };
         if (Boolean(dataSource) && isArray(dataSource)) {
             // @ts-ignore Avoid reporting errors this.state.xxx is read-only
-            this.state.data = _generateDataByType(dataSource, type);
+            this.state.data = _generateDataByType(dataSource, type, props.treeProps?.keyMaps);
         }
         if (Boolean(defaultValue) && isArray(defaultValue)) {
             // @ts-ignore Avoid reporting errors this.state.xxx is read-only
-            this.state.selectedItems = _generateSelectedItems(defaultValue, this.state.data);
+            this.state.selectedItems = _generateSelectedItems(defaultValue, dataSource !== props.dataSource && Array.isArray(props.dataSource)
+                ? this.state.data.concat(_generateDataByType(props.dataSource, type)) : this.state.data);
         }
 
         this.onSelectOrRemove = this.onSelectOrRemove.bind(this);
@@ -287,16 +292,19 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     }
 
     static getDerivedStateFromProps(props: TransferProps, state: TransferState) {
-        const { value, dataSource, type, filter, pagination } = props;
+        const { value, type, filter, pagination } = props;
+        const dataSource = type === strings.TYPE_TREE_TO_LIST ? props.treeProps?.treeData ?? props.dataSource : props.dataSource;
         const mergedState = {} as TransferState;
         let newData = state.data;
         let newSelectedItems = state.selectedItems;
         if (Boolean(dataSource) && Array.isArray(dataSource)) {
-            newData = _generateDataByType(dataSource, type);
+            newData = _generateDataByType(dataSource, type, props.treeProps?.keyMaps);
             mergedState.data = newData;
         }
         if (Boolean(value) && Array.isArray(value)) {
-            newSelectedItems = _generateSelectedItems(value, newData);
+            const selectionData = dataSource !== props.dataSource && Array.isArray(props.dataSource)
+                ? newData.concat(_generateDataByType(props.dataSource, type)) : newData;
+            newSelectedItems = _generateSelectedItems(value, selectionData);
             mergedState.selectedItems = newSelectedItems;
         }
         if (!isEqual(state.data, newData)) {
@@ -304,7 +312,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 const filterFunc = typeof filter === 'function' ?
                     (item: DataItem) => filter(state.inputValue, item) :
                     (item: DataItem) => typeof item.label === 'string' && item.label.includes(state.inputValue);
-                const searchData = newData.filter(filterFunc);
+                const searchData = type === strings.TYPE_TREE_TO_LIST ? newData : newData.filter(filterFunc);
                 const searchResult = new Set(searchData.map(item => item.key));
                 mergedState.searchResult = searchResult;
             }
@@ -622,7 +630,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 treeData={dataSource as any}
                 multiple
                 disableStrictly
-                value={values}
+                value={treeProps?.onChangeWithObject ? Array.from(selectedItems.values()) : values}
                 defaultExpandAll
                 leafOnly
                 ref={tree => this._treeRef = tree}
@@ -736,6 +744,12 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         return sortList;
     }
 
+    renderVirtualizedItem = ({ index, style, data }: ListChildComponentProps<ResolvedDataItem[]>) => (
+        <div role="presentation" style={style}>
+            {this.renderRightItem(data[index])}
+        </div>
+    );
+
     renderVirtualizedSelectedList(selectedData: Array<ResolvedDataItem>) {
         const { virtualize } = this.props;
         if (!virtualize || isEmpty(virtualize)) {
@@ -750,22 +764,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             return item?.key ?? index;
         };
 
-        // Add semantics back to the scroll container (react-window renders divs by default).
-        const OuterElement = React.forwardRef<HTMLDivElement, any>((props: any, ref) => (
-            <div {...props} ref={ref} role="list" aria-label="Selected list" />
-        ));
-
         const listCls = `${prefixCls}-right-list ${prefixCls}-right-virtual-list`;
-
-        // Virtual list item renderer
-        const VirtualizedItem = ({ index, style }: { index: number; style: React.CSSProperties }) => {
-            const item = selectedData[index];
-            return (
-                <div role="presentation" style={style}>
-                    {this.renderRightItem(item)}
-                </div>
-            );
-        };
 
         // Use AutoSizer to automatically calculate height if height is not specified or is percentage
         if (typeof height !== 'number') {
@@ -779,13 +778,14 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                                 // @ts-ignore react-window typing expects number but runtime can handle CSS width strings.
                                 width={autoWidth}
                                 itemCount={selectedData.length}
+                                itemData={selectedData}
                                 itemSize={itemSize}
                                 itemKey={itemKey}
                                 className={listCls}
                                 // @ts-ignore react-window typing is too strict for custom outer element
-                                outerElementType={OuterElement}
+                                outerElementType={VirtualizedSelectedListOuter}
                             >
-                                {VirtualizedItem}
+                                {this.renderVirtualizedItem}
                             </VirtualList>
                         )}
                     </AutoSizer>
@@ -799,13 +799,14 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 height={height}
                 width={width || '100%'}
                 itemCount={selectedData.length}
+                itemData={selectedData}
                 itemSize={itemSize}
                 itemKey={itemKey}
                 className={listCls}
                 // @ts-ignore react-window typing is too strict for custom outer element
-                outerElementType={OuterElement}
+                outerElementType={VirtualizedSelectedListOuter}
             >
-                {VirtualizedItem}
+                {this.renderVirtualizedItem}
             </VirtualList>
         );
     }

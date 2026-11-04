@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { MarkdownRenderProps as OriginMarkdownRenderProps } from '../markdownRender';
 import { MDXProps } from 'mdx/types';
-import type { Annotation, ContentItem, InputFile, InputImage, Message } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
+import type { Annotation, InputFile, InputImage, Message, Reference } from '@douyinfe/semi-foundation/aiChatDialogue/foundation';
 import type { MessageContent } from '@douyinfe/semi-foundation/aiChatInput/interface';
 
 export type MarkdownRenderProps = Partial<OriginMarkdownRenderProps>;
@@ -33,7 +33,7 @@ export interface AIChatDialogueProps {
     onMessageGoodFeedback?: (message?: Message) => void;
     onMessageReset?: (message?: Message) => void;
     onMessageShare?: (message?: Message) => void;
-    onReferenceClick?: (item: ContentItem) => void;
+    onReferenceClick?: (item: Reference) => void;
     onSelect?: (selectedIds: string[]) => void;
     dialogueRenderConfig?: DialogueRenderConfig;
     renderDialogueContentItem?: DialogueContentItemRendererMap;
@@ -67,7 +67,7 @@ export interface DialogueContentProps {
     onImageClick?: (image?: InputImage) => void;
     disabledFileItemClick?: boolean;
     onAnnotationClick?: (annotation?: Annotation) => void;
-    onReferenceClick?: (item: ContentItem) => void;
+    onReferenceClick?: (item: Reference) => void;
     renderDialogueContentItem?: DialogueContentItemRendererMap;
     showReference?: boolean
 }

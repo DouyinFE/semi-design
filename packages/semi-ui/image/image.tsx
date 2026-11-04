@@ -56,7 +56,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         this.state = {
             src: "",
             loadStatus: "loading",
-            previewVisible: false,
+            previewVisible: isObject(props.preview) && Boolean(props.preview.defaultVisible),
         };
 
         this.foundation = new ImageFoundation(this.adapter);
@@ -220,7 +220,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
                         visible={previewVisible}
                         onVisibleChange={this.handlePreviewVisibleChange}
                         crossOrigin={!isUndefined(crossOrigin) ? crossOrigin : previewProps?.crossOrigin}
-                        setDownloadName={setDownloadName}
+                        setDownloadName={!isUndefined(setDownloadName) ? setDownloadName : previewProps?.setDownloadName}
                     />
                 }
             </div>

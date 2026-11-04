@@ -66,6 +66,11 @@ export default class Footer extends BaseComponent<FooterProps> {
         this.foundation = new PreviewFooterFoundation(this.adapter);
     }
 
+    componentWillUnmount() {
+        this.handleSlideChange.cancel();
+        super.componentWillUnmount();
+    }
+
     changeSliderValue = (type: string): void => {
         this.foundation.changeSliderValue(type);
     };

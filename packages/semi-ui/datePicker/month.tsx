@@ -93,7 +93,7 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
     }
 
     componentDidUpdate(prevProps: MonthProps, prevState: MonthState) {
-        if (prevProps.month !== this.props.month) {
+        if (prevProps.month !== this.props.month || prevProps.weekStartsOn !== this.props.weekStartsOn) {
             this.foundation.getMonthTable();
         }
     }

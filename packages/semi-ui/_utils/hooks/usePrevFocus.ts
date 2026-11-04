@@ -9,7 +9,7 @@ export function usePrevFocus() {
     useEffect(() => {
         return function cleanup() {
             const blur = get(prevFocusElement, 'blur');
-            isFunction(blur) && blur();
+            isFunction(blur) && blur.call(prevFocusElement);
         };
     }, [prevFocusElement]);
 

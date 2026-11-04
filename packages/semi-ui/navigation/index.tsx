@@ -386,8 +386,10 @@ class Nav extends BaseComponent<NavProps, NavState> {
             [`${prefixCls}-header-list-outer-collapsed`]: isCollapsed,
         });
 
-        if (this.itemsChanged) {
+        if (this.itemsChanged || this.adapter.getCache('expandIcon') !== this.props.expandIcon || this.adapter.getCache('subDropdownProps') !== this.props.subDropdownProps) {
             this.adapter.setCache('itemElems', this.renderItems(items));
+            this.adapter.setCache('expandIcon', this.props.expandIcon);
+            this.adapter.setCache('subDropdownProps', this.props.subDropdownProps);
         }
 
         return (

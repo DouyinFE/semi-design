@@ -33,6 +33,7 @@ export type RadioGroupProps = {
     options?: Options;
     value?: string | number | boolean;
     onChange?: (event: RadioChangeEvent) => void;
+    onBlur?: React.FocusEventHandler<HTMLDivElement>;
     className?: string;
     children?: React.ReactNode;
     style?: React.CSSProperties;
@@ -64,6 +65,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
         type: PropTypes.oneOf([strings.TYPE_DEFAULT, strings.TYPE_BUTTON, strings.TYPE_CARD, strings.TYPE_PURECARD]),
         value: PropTypes.any,
         onChange: PropTypes.func,
+        onBlur: PropTypes.func,
         children: PropTypes.node,
         prefixCls: PropTypes.string,
         className: PropTypes.string,
@@ -140,6 +142,12 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
 
     getFormatName = () => this.props.name || 'default';
 
+    handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+            this.props.onBlur?.(event);
+        }
+    };
+
     render() {
         const {
             children,
@@ -206,16 +214,20 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
                 }
             });
         } else if (children) {
-            inner = React.Children.map(children, (itm, index) => (React.isValidElement(itm) ?
-                React.cloneElement(itm, { key: index }) :
+            inner = React.Children.map(children, itm => (React.isValidElement(itm) ?
+                React.cloneElement(itm) :
                 null));
         }
 
         return (
             <div
+                role="radiogroup"
                 className={prefixClsDisplay}
                 style={style}
                 id={id}
+                // Keep option-text clicks inside the group before Radio focuses its input.
+                tabIndex={this.props.disabled ? undefined : -1}
+                onBlur={this.handleBlur}
                 aria-label={this.props['aria-label']}
                 aria-invalid={this.props['aria-invalid']}
                 aria-errormessage={this.props['aria-errormessage']}

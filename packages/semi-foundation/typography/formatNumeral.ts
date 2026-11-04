@@ -1,4 +1,5 @@
 import { strings } from './constants';
+import { ceil, floor, round } from 'lodash';
 
 // rule types: 'text' | 'numbers' | 'bytes-decimal' | 'bytes-binary' | 'percentages' | 'exponential'
 // TODO: Refining the 'currency' type
@@ -10,7 +11,7 @@ type RuleMethods = {
     [key in Rule]?: (value: number) => string;
 };
 type TruncateMethods = {
-    [key in Truncate]: (value: number) => number;
+    [key in Truncate]: (value: number, precision?: number) => number;
 };
 
 export default class FormatNumeral {
@@ -43,7 +44,9 @@ export default class FormatNumeral {
         },
         percentages: (value: number) => {
             // The rules here have been modified in version v2.30.0
-            return `${this.truncatePrecision(value * 100)}%`;
+            const [coefficient, exponent = '0'] = String(value).split('e');
+            const percentage = Number.isFinite(value) ? Number(`${coefficient}e${Number(exponent) + 2}`) : value;
+            return `${this.truncatePrecision(percentage)}%`;
         },
         exponential: (value: number) => {
             const vExponential = value.toExponential(this.precision + 2);
@@ -53,9 +56,9 @@ export default class FormatNumeral {
     };
     // A collection of methods for truncating numbers; Methods key: Truncate (strings.Truncate);
     private readonly truncateMethods: TruncateMethods = {
-        ceil: Math.ceil,
-        floor: Math.floor,
-        round: Math.round,
+        ceil,
+        floor,
+        round,
     };
 
     constructor(content: string, rule: Rule, precision: number, truncate: Truncate, parser: Parser | undefined) {
@@ -94,9 +97,7 @@ export default class FormatNumeral {
 
     private truncatePrecision(content: string | number): string {
         // Truncation and selection of rounding methods for processing. function from: truncateMethods
-        const cTruncated =
-            this.truncateMethods[this.truncate](Number(content) * Math.pow(10, this.precision)) /
-            Math.pow(10, this.precision);
+        const cTruncated = this.truncateMethods[this.truncate](Number(content), this.precision);
         const cArr = cTruncated.toString().split('.');
         // is an integer then the end number is normalised
         if (cArr.length === 1) {
