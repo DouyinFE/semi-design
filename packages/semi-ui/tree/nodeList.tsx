@@ -20,8 +20,11 @@ export default class NodeList extends PureComponent<NodeListProps, NodeListState
 
     static getDerivedStateFromProps(props: NodeListProps, prevState: NodeListState) {
         const { flattenNodes = [], motionKeys, motionType, flattenList = [] } = props;
+        // Compare references: same-key label/icon/disabled updates produce new flatten nodes, and
+        // rebuilding with the same keys keeps NodeCollapsible mounted, so the motion is not interrupted
         const hasChanged = !isEqual(prevState.cachedMotionKeys, motionKeys) ||
-        !isEqual(prevState.cachedData.map(i => i.key), flattenNodes.map(i => i.key));
+        prevState.cachedData !== flattenNodes ||
+        prevState.cachedFlattenList !== props.flattenList;
         const motionArr = [...motionKeys];
         if (!hasChanged) {
             return null;
@@ -30,6 +33,7 @@ export default class NodeList extends PureComponent<NodeListProps, NodeListState
             return {
                 transitionNodes: [],
                 cachedData: flattenNodes,
+                cachedFlattenList: props.flattenList,
                 cachedMotionKeys: motionKeys
             };
         }
@@ -53,6 +57,7 @@ export default class NodeList extends PureComponent<NodeListProps, NodeListState
         newState = {
             transitionNodes,
             cachedData: flattenNodes,
+            cachedFlattenList: props.flattenList,
             cachedMotionKeys: motionKeys,
             cachedMotionType: motionType
         };
