@@ -6,6 +6,8 @@ import UserGuideFoundation, { UserGuideAdapter } from '@douyinfe/semi-foundation
 import { Position } from '../tooltip/index';
 import BaseComponent from '../_base/baseComponent';
 import Popover from '../popover';
+import Portal from '../_portal';
+import ConfigContext from '../configProvider/context';
 import Button, { ButtonProps } from '../button';
 import Modal from '../modal';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
@@ -64,6 +66,8 @@ export interface UserGuideState {
 }
 
 class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
+    static contextType = ConfigContext;
+
     static propTypes = {
         mask: PropTypes.bool,
         mode: PropTypes.oneOf(strings.MODE),
@@ -104,6 +108,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     private scrollBarWidth: number;
     private originBodyWidth: string;
     private hasBodyScrollLock = false;
+    private spotlightEl: SVGSVGElement | null = null;
     foundation: UserGuideFoundation;
     userGuideId: string;
 
@@ -193,6 +198,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         }
 
         this.updateSpotlightRect((!prevProps.visible && visible) || prevStates.current !== current);
+        this.syncSpotlightOrigin();
     }
 
     componentWillUnmount() {
@@ -203,6 +209,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
 
     handleLayoutChange = () => {
         this.updateSpotlightRect();
+        this.syncSpotlightOrigin();
     };
 
     scrollTargetIntoViewIfNeeded(target: Element) {
@@ -375,6 +382,42 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         );
     };
 
+    // Same lookup as the card's Portal, including a container configured through ConfigProvider.
+    getCardContainer(): (() => HTMLElement) | undefined {
+        return this.props.getPopupContainer || this.context?.getPopupContainer;
+    }
+
+    // The mask must share the card's stacking context, otherwise a low-z-index container hides the card under the mask.
+    inPopupContainer(node: ReactNode) {
+        const { zIndex } = this.props;
+        const getPopupContainer = this.getCardContainer();
+        return getPopupContainer ? (
+            <Portal getPopupContainer={getPopupContainer} style={{ zIndex: zIndex - 1 }}>{node}</Portal>
+        ) : node;
+    }
+
+    setSpotlightEl = (el: SVGSVGElement | null) => {
+        this.spotlightEl = el;
+    };
+
+    // A transformed container ancestor becomes the containing block of the fixed svg, which shifts it away from
+    // the viewport coordinates used by the rects. Measure that offset and cancel it.
+    // Limitation: translate-only transforms; scale or rotate would need a matrix conversion of the rects.
+    syncSpotlightOrigin() {
+        const el = this.spotlightEl;
+        if (!el || !this.getCardContainer()) {
+            return;
+        }
+        const { x, y } = el.getBoundingClientRect();
+        // rect = containing block origin + current left/top, so add the current offset back to get the origin.
+        const left = -(x - (parseFloat(el.style.left) || 0));
+        const top = -(y - (parseFloat(el.style.top) || 0));
+        if (`${left}px` !== el.style.left || `${top}px` !== el.style.top) {
+            el.style.left = `${left}px`;
+            el.style.top = `${top}px`;
+        }
+    }
+
     renderSpotlight() {
         const { steps, mask, zIndex } = this.props;
         const { spotlightRect, current } = this.state;
@@ -387,8 +430,8 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         return (
             <>
                 {
-                    spotlightRect ? (
-                        <svg className={`${prefixCls}-spotlight`} style={{ zIndex: zIndex - 1 }}>
+                    spotlightRect ? this.inPopupContainer(
+                        <svg ref={this.setSpotlightEl} className={`${prefixCls}-spotlight`} style={{ zIndex: zIndex - 1 }}>
                             <defs>
                                 <mask id={`spotlight-${this.userGuideId}`}>
                                     <rect width="100%" height="100%" fill="white"/>
