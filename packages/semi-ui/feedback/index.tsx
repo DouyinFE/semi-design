@@ -135,12 +135,20 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
         return <>
             <div className={`${prefixCls}-emoji-container`}>
                 {Object.values(Emoji).map(item => (
-                    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
                     <span
                         key={item} 
+                        role="button"
+                        tabIndex={0}
+                        aria-pressed={item === emoji}
                         className={cls(`${prefixCls}-emoji-item`, { [`${prefixCls}-emoji-item-selected`]: item === emoji })}
                         data-value={item} 
                         onClick={this.foundation.handleEmojiClick}
+                        onKeyDown={e => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                this.foundation.handleEmojiClick(e);
+                            }
+                        }}
                     >{item}</span>
                 ))}
             </div>

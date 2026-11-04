@@ -40,7 +40,7 @@ export default class FoundationFoundation extends BaseFoundation<FeedbackAdapter
         this._adapter.notifyValueChange(value);
     }
 
-    handleEmojiClick = (e: React.MouseEvent<HTMLSpanElement>) => {
+    handleEmojiClick = (e: React.MouseEvent<HTMLSpanElement> | React.KeyboardEvent<HTMLSpanElement>) => {
         const { value } = e.currentTarget.dataset;
         this._adapter.notifyValueChange({
             emoji: value,
