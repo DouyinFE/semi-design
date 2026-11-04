@@ -6,6 +6,7 @@ import { noop, get } from 'lodash';
 import ConfigContext from '../configProvider/context';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/timePicker/constants';
+import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 import type { PanelType } from '@douyinfe/semi-foundation/timePicker/constants';
 import Popover, { PopoverProps } from '../popover';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
@@ -461,12 +462,24 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         );
     }
 
+    getTriggerInput() {
+        const root = this.timePickerRef.current;
+        if (!root) {
+            return undefined;
+        }
+        // getPopupContainer can mount the popup under root, so its inputs must be skipped.
+        return Array.from(root.querySelectorAll('input')).find(input => {
+            const portal = input.closest(`.${BASE_CLASS_PREFIX}-portal`);
+            return !portal || !root.contains(portal);
+        });
+    }
+
     focus() {
-        this.timePickerRef.current?.querySelector('input')?.focus({ preventScroll: this.props.preventScroll });
+        this.getTriggerInput()?.focus({ preventScroll: this.props.preventScroll });
     }
 
     blur() {
-        this.timePickerRef.current?.querySelector('input')?.blur();
+        this.getTriggerInput()?.blur();
     }
 
     /* istanbul ignore next */
