@@ -254,7 +254,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
         };
 
         if (this.state?.flexBasis) {
-            style.flexBasis = this.state.flexBasis;
+            resizeStyle.flexBasis = this.state.flexBasis;
         }
 
         return (
