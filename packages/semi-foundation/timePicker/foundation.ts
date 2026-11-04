@@ -489,8 +489,8 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         if (this.isValidTimeZone(timeZone) && _value) {
             const formatToken = this.getValidFormat();
             if (Array.isArray(_value)) {
-                _value = _value.map(v => zonedTimeToUtc(v, timeZone));
-                str = _value.map(v => format(v, formatToken));
+                _value = _value.map(v => this._isEmptyRangeEnd(v) ? v : zonedTimeToUtc(v, timeZone));
+                str = _value.map(v => this._isEmptyRangeEnd(v) ? '' : format(v, formatToken));
             } else {
                 _value = zonedTimeToUtc(_value, timeZone);
                 str = format(_value, formatToken);

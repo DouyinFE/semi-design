@@ -33,6 +33,22 @@ it.each([
     expect(container.querySelector('input').value).toBe(' ~ 01:00:00');
     expect(container.querySelector('.semi-input-wrapper-error')).toBeNull();
 });
+it.each([
+    [['', '']],
+    [['', '01:00:00']],
+])('keeps the empty left end when selecting the right end in a time zone %#', defaultValue => {
+    const onChange = rs.fn();
+    render(<TimePicker type="timeRange" defaultValue={defaultValue} defaultOpen motion={false} timeZone="UTC" scrollItemProps={{ mode: 'normal', cycled: false }} onChange={onChange} />);
+    const hours = document.querySelectorAll('.semi-timepicker-panel-list-hour');
+    fireEvent.click(hours[1].querySelectorAll('li')[2]);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    const [dates, strings] = onChange.mock.calls[0];
+    expect(strings).toHaveLength(2);
+    expect(strings[0]).toBe('');
+    expect(strings[1]).not.toBe('');
+    expect(dates[0]).toBeUndefined();
+    expect(dates[1]).toBeInstanceOf(Date);
+});
 it('preserves a complete range default value', () => {
     const { container } = render(<TimePicker type="timeRange" defaultValue={['01:00:00', '02:00:00']} motion={false} />);
     expect(container.querySelector('input').value).toBe('01:00:00 ~ 02:00:00');
