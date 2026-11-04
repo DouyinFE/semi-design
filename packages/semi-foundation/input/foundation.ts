@@ -302,8 +302,8 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
 
     isAllowClear() {
         const { value, isFocus, isHovering } = this._adapter.getStates();
-        const { showClear, disabled, showClearIgnoreDisabled } = this._adapter.getProps();
-        const allowClear = value && showClear && (!disabled || showClearIgnoreDisabled) && (isFocus || isHovering);
+        const { showClear, disabled, readonly, readOnly, showClearIgnoreDisabled } = this._adapter.getProps();
+        const allowClear = value && showClear && (!(disabled || readonly || readOnly) || showClearIgnoreDisabled) && (isFocus || isHovering);
         return allowClear;
     }
 

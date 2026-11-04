@@ -279,6 +279,10 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
     }
 
     handleClear(e) {
+        const { readonly, readOnly } = this.getProps();
+        if (readonly || readOnly) {
+            return;
+        }
         const { isFocus } = this.getStates();
         if (this._isControlledComponent('value')) {
             this._adapter.setState({
