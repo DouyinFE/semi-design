@@ -23,7 +23,7 @@ export default class RadioInnerFoundation extends BaseFoundation<RadioInnerAdapt
     init() {
         const checked = this._adapter.getProp('checked');
         const defaultChecked = this._adapter.getProp('defaultChecked');
-        this.setChecked(checked || defaultChecked);
+        this.setChecked('checked' in this.getProps() ? checked : defaultChecked);
     }
 
     setChecked(checked: boolean) {
