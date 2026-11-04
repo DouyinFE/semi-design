@@ -91,6 +91,11 @@ export default class BackTopFoundation extends BaseFoundation<BackTopAdapter> {
         const { target, visibilityHeight } = this.getProps();
         const targetNode = target();
         const update = () => {
+            // the target may be missing (e.g. an unset ref); init tolerates this too
+            if (!targetNode) {
+                this._adapter.updateVisible(false);
+                return;
+            }
             const scrollTop = this.getScroll(targetNode);
             this._adapter.updateVisible(scrollTop > visibilityHeight);
         };

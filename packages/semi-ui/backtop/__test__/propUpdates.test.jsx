@@ -54,6 +54,33 @@ describe('BackTop prop updates', () => {
         expect(animation.destroy).not.toHaveBeenCalled();
     });
 
+    it('hides without throwing when the target is missing in the same update that changes visibilityHeight, and recovers when it returns', () => {
+        rstest.spyOn(window, 'requestAnimationFrame').mockRestore();
+        const queued = [];
+        rstest.spyOn(window, 'requestAnimationFrame').mockImplementation(callback => queued.push(callback));
+        const runQueued = () => queued.splice(0).forEach(callback => callback());
+        const node = document.createElement('div');
+        node.scrollTop = 200;
+        const ref = { current: node };
+        const getTarget = () => ref.current;
+        wrapper = mount(<BackTop target={getTarget} visibilityHeight={100} />);
+        runQueued();
+        wrapper.update();
+        expect(wrapper.exists('.semi-backtop')).toBe(true);
+
+        ref.current = null;
+        wrapper.setProps({ visibilityHeight: 1000 });
+        expect(runQueued).not.toThrow();
+        wrapper.update();
+        expect(wrapper.exists('.semi-backtop')).toBe(false);
+
+        ref.current = node;
+        wrapper.setProps({ visibilityHeight: 100 });
+        runQueued();
+        wrapper.update();
+        expect(wrapper.exists('.semi-backtop')).toBe(true);
+    });
+
     it('tracks a new DOM target returned by a stable getter after a parent update', () => {
         const first = document.createElement('div');
         const second = document.createElement('div');
