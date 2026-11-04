@@ -596,6 +596,9 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         if (stateMinLength) {
             (itemProps as any).minLength = stateMinLength;
         }
+        if (validateStatus === 'error') {
+            itemProps['aria-invalid'] = 'true';
+        }
 
         return (
             <div
