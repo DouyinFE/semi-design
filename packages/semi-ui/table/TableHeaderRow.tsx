@@ -68,11 +68,14 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
     }
 
     headerNode: HTMLElement;
+    // Source cell index of each rendered header cell, in DOM order (merged-away cells are not rendered).
+    renderedCellIndexes: number[];
     context: TableContextProps;
 
     constructor(props: TableHeaderRowProps) {
         super(props);
         this.headerNode = null;
+        this.renderedCellIndexes = [];
     }
 
     cacheRef = (node: HTMLElement) => {
@@ -81,10 +84,8 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
             const { prefixCls, row, index } = this.props;
             const cellSelector = `.${prefixCls}-row-head`;
             const heads = node && node.querySelectorAll && node.querySelectorAll(cellSelector);
-            const headsByColumn = new Map(map(heads, (head, headIndex) => [
-                head.hasAttribute('aria-colindex') ? Number(head.getAttribute('aria-colindex')) - 1 : headIndex,
-                head,
-            ]));
+            // Custom header cells may drop aria-colindex, so rely on render order of the non-hidden cells instead.
+            const headsByColumn = new Map(map(heads, (head, headIndex) => [this.renderedCellIndexes[headIndex], head]));
 
             this.context.setHeadWidths(
                 map(row, (cell, cellIndex) => {
@@ -120,6 +121,7 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
         const rowProps = onHeaderRow(columns, index) || {};
         set(rowProps, 'className', classnames(get(rowProps, 'className'), `${prefixCls}-row`));
 
+        this.renderedCellIndexes = [];
         const cells = map(row, (cell, cellIndex) => {
             const { column, ...cellProps } = cell;
             const customProps =
@@ -202,7 +204,8 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
             if (rowSpan === 0 || colSpan === 0) {
                 return null;
             }
-            
+            this.renderedCellIndexes.push(cellIndex);
+
             if (typeof column.clickToSort === 'function') {
                 if (props.onClick) {
                     const onClick = props.onClick;
