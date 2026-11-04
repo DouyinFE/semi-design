@@ -96,6 +96,7 @@ export default class CropperFoundation <P = Record<string, any>, S = Record<stri
     destroy() {
         this.unBindMoveEvent();
         this.unBindResizeEvent();
+        this.unBindImgMoveEvent();
         this.removePreview();
     }
 
@@ -215,6 +216,9 @@ export default class CropperFoundation <P = Record<string, any>, S = Record<stri
             newImgDataState.height = containerHeight;
         }
         this.imgData.scale = scale;
+        const zoom = this.getState('zoom');
+        newImgDataState.width *= zoom;
+        newImgDataState.height *= zoom;
         newImgDataState.centerPoint = {} as Point;
         newImgDataState.centerPoint.x = containerWidth / 2;
         newImgDataState.centerPoint.y = containerHeight / 2;
@@ -242,12 +246,14 @@ export default class CropperFoundation <P = Record<string, any>, S = Record<stri
     }
 
     renderPreview = () => {
+        this.removePreview();
         const { preview, src } = this.getProps();
         const previewNode = preview?.();
         if (!previewNode) {
             return;
         }
         const img = document.createElement('img');
+        img.alt = '';
         this.previewImg = img;
         this.previewContainer = previewNode;
         img.src = src;
@@ -322,13 +328,15 @@ export default class CropperFoundation <P = Record<string, any>, S = Record<stri
         let _zoom: number;
         if (e.deltaY < 0) {
             /* zoom in */
-            if (currZoom + zoomStep <= maxZoom) {
-                _zoom = Number((currZoom + zoomStep).toFixed(2));
+            const nextZoom = Number((currZoom + zoomStep).toFixed(2));
+            if (nextZoom <= maxZoom) {
+                _zoom = nextZoom;
             }
         } else if (e.deltaY > 0) {
             /* zoom out */
-            if (currZoom - zoomStep >= minZoom) {
-                _zoom = Number((currZoom - zoomStep).toFixed(2));
+            const nextZoom = Number((currZoom - zoomStep).toFixed(2));
+            if (nextZoom >= minZoom) {
+                _zoom = nextZoom;
             }
         }
         if (_zoom === undefined) {
@@ -515,8 +523,8 @@ export default class CropperFoundation <P = Record<string, any>, S = Record<stri
     }
 
     unBindResizeEvent = () => {
-        const { aspectRatio } = this.getProps();
-        document.removeEventListener('mousemove', aspectRatio ? this.handleCornerAspectMouseMove : this.handleCornerMouseMove);
+        document.removeEventListener('mousemove', this.handleCornerAspectMouseMove);
+        document.removeEventListener('mousemove', this.handleCornerMouseMove);
         document.removeEventListener('mouseup', this.handleCornerMouseUp);
     }
 

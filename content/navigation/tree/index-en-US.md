@@ -1219,7 +1219,7 @@ The expansion Icon can be customized through `expandIcon`. Supports passing in R
 
 ```ts
 expandIcon: ReactNode | ((props: {
-    onClick: (e: MouseEvent) => void;
+    onClick: (e: React.MouseEvent) => void;
     className: string;
     expanded: boolean;
 }))

@@ -139,7 +139,7 @@ export interface BasicCascaderProps {
     filterLeafOnly?: boolean;
     motion?: boolean;
     filterTreeNode?: ((inputValue: string, treeNodeString: string, data?: BasicCascaderData) => boolean) | boolean;
-    filterSorter?: (first: BasicCascaderData, second: BasicCascaderData, inputValue: string) => number;
+    filterSorter?: (first: BasicCascaderData[], second: BasicCascaderData[], inputValue: string) => number;
     filterRender?: (props: any) => any;
     placeholder?: string;
     searchPlaceholder?: string;
@@ -425,7 +425,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
 
         const selectedValue = !this._isControlledComponent() ? cacheValue : (isUndefined(value) ? [] : value);
         if (isValid(selectedValue)) {
-            this.updateSelectedKey(selectedValue, keyEntities);
+            this.updateSelectedKey(selectedValue, keyEntities, !init && this.getState('isSearching'));
         } else {
             this._adapter.updateStates({ keyEntities });
         }
@@ -525,7 +525,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         return updateStates;
     }
 
-    updateSelectedKey(value: BasicValue, keyEntities: BasicEntities) {
+    updateSelectedKey(value: BasicValue, keyEntities: BasicEntities, preserveSearch = false) {
         const { changeOnSelect, onChangeWithObject, multiple } = this.getProps();
         const {
             activeKeys,
@@ -574,7 +574,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
              * be cleared.
              */
             } else if (isEqual(selectedKeys, Array.from(selectedKeysState))) {
-                updateStates = this._getClearSelectedKey(filterable);
+                updateStates = this._getClearSelectedKey(filterable && !preserveSearch);
             }
         } else if (value && (value as any).length) {
             const val = valuePath[valuePath.length - 1];
@@ -607,7 +607,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             this._adapter.updateStates(updateStates);
             return;
         } else {
-            updateStates = this._getClearSelectedKey(filterable);
+            updateStates = this._getClearSelectedKey(filterable && !preserveSearch);
         }
         updateStates.keyEntities = keyEntities;
         this._adapter.updateStates(updateStates);
@@ -1070,11 +1070,13 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             newState.isSearching = false;
             this._adapter.updateInputValue('');
             this._adapter.notifyOnSearch('');
-            newState.checkedKeys = new Set([]);
-            newState.halfCheckedKeys = new Set([]);
-            newState.selectedKeys = new Set([]);
+            if (!isControlled) {
+                newState.checkedKeys = new Set([]);
+                newState.halfCheckedKeys = new Set([]);
+                newState.selectedKeys = new Set([]);
+                newState.resolvedCheckedKeys = new Set([]);
+            }
             newState.activeKeys = new Set([]);
-            newState.resolvedCheckedKeys = new Set([]);
             this._adapter.notifyChange([]);
         } else {
             // if click clearBtn when not searching, clear selected and active values as well

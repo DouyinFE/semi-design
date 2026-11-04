@@ -12,6 +12,7 @@ import OverflowListFoundation, { OverflowListAdapter } from '@douyinfe/semi-foun
 import '@douyinfe/semi-foundation/overflowList/overflowList.scss';
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import copy from 'fast-copy';
+import { getRef } from '../_utils/reactRender';
 
 const prefixCls = cssClasses.PREFIX;
 const Boundary = strings.BOUNDARY_MAP;
@@ -71,6 +72,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
     static __SemiComponentName__ = "OverflowList";
 
     static defaultProps = getDefaultPropsFromGlobalConfig(OverflowList.__SemiComponentName__, {
+        items: [],
         collapseFrom: 'end',
         minVisibleItems: 0,
         overflowRenderer: (): ReactElement => null,
@@ -132,10 +134,11 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
             return (!prevProps && name in props) || (prevProps && !isEqual(prevProps[name], props[name]));
         };
         const itemsChanged = needUpdate('items');
-        if (itemsChanged || needUpdate('style')) {
+        if (itemsChanged || needUpdate('style') || needUpdate('renderMode')) {
             // reset visible state if the above props change.
             newState.direction = OverflowDirection.GROW;
-            newState.lastOverflowCount = 0;
+            // Changed items need a fresh notification even when the visible item count stays the same.
+            newState.lastOverflowCount = props.renderMode === RenderMode.SCROLL ? 0 : -1;
             newState.maxCount = 0;
             // Scroll mode visibility is computed async by IntersectionObserver.
             // Mark recalculating but keep existing scrollOverflow cache to avoid flicker.
@@ -254,13 +257,20 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         this.foundation.handleIntersect(entries);
     };
 
-    mergeRef = (ref: RefCallback<any> | MutableRefObject<any> | null, node: Element, key: Key): void => {
+    mergeRef = (ref: RefCallback<any> | MutableRefObject<any> | null, node: Element, key: Key): (() => void) | void => {
         this.itemRefs[key] = node;
         if (typeof ref === 'function') {
-            ref(node);
+            const cleanup = ref(node) as unknown;
+            if (typeof cleanup === 'function') {
+                return () => {
+                    this.itemRefs[key] = null;
+                    cleanup();
+                };
+            }
         } else if (typeof ref === 'object' && ref && 'current' in ref) {
             ref.current = node;
         }
+        return undefined;
     };
 
     renderOverflow = (): ReactNode | ReactNode[] => {
@@ -317,9 +327,10 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                         key={`${prefixCls}-scroll-wrapper`}
                     >
                         {visible.map(visibleItemRenderer).map((item: ReactElement) => {
-                            const { forwardRef, key } = item as any;
+                            const { key } = item;
+                            const itemRef = getRef(item);
                             return React.cloneElement(item, {
-                                ref: (node: any) => this.mergeRef(forwardRef, node, key),
+                                ref: (node: any) => this.mergeRef(itemRef, node, key),
                                 'data-scrollkey': `${key}`,
                                 key,
                             });
@@ -342,7 +353,6 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                     visible.map((item, idx) => {
                         const key = this.getItemKey(item, idx);
                         const element = visibleItemRenderer(item, idx);
-                        const child = React.cloneElement(element);
                         return (
                             <ResizeObserver
                                 key={key ?? idx}
@@ -351,7 +361,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                                 {/* 用div包起来，可以直接在resize回调中拿到宽度，不用通过获取元素的padding, margin, border-width求和计算宽度*/}
                                 {/* This div wrap can get width directly rather than do the math of padding, margin, border-width*/}
                                 <div key={key ?? idx} className={`${prefixCls}-item`}>
-                                    {child}
+                                    {element}
                                 </div>
                             </ResizeObserver>);
                     }),

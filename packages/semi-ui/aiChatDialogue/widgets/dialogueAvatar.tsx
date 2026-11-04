@@ -1,6 +1,7 @@
 import React, { useMemo, ReactNode, ReactElement } from 'react';
 import { RenderAvatarProps } from '../interface';
 import Avatar from '../../avatar';
+import { AvatarColor } from '../../avatar/interface';
 import { cssClasses } from '@douyinfe/semi-foundation/aiChatDialogue/constants';
 import cls from 'classnames';
 
@@ -15,13 +16,14 @@ const DialogueAvatar = React.memo((props: DialogueAvatarProps) => {
     const { role, customRenderFunc, continueSend, message } = props;
 
     const node = useMemo(() => {
-        const { avatar } = role;
+        const { avatar, color } = role;
         return (<Avatar
             className={cls(`${PREFIX}-avatar`,
                 {
                     [`${PREFIX}-avatar-hidden`]: continueSend
                 })}
             src={avatar}
+            color={color as AvatarColor}
             size="extra-small"
         >
         </Avatar>);

@@ -254,7 +254,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
         };
 
         if (this.state?.flexBasis) {
-            style.flexBasis = this.state.flexBasis;
+            resizeStyle.flexBasis = this.state.flexBasis;
         }
 
         return (
@@ -264,7 +264,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
                 ref={this.resizableRef}
                 {...this.getDataAttr(this.props)}
             >
-                {this.state.isResizing && <div style={this.state.backgroundStyle} className={classNames(className, prefixCls + '-background')}/>}
+                {this.state.isResizing && <div style={this.state.backgroundStyle} className={prefixCls + '-background'}/>}
                 {children}
                 {this.renderResizeHandler()}
             </div>

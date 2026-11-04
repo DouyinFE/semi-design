@@ -106,12 +106,12 @@ class Progress extends Component<ProgressProps, ProgressState> {
         }
 
         if (prevProps.percent !== this.props.percent) {
+            if (this.animation && this.animation.destroy) {
+                this.animation.destroy();
+            }
             if (!this.props.motion) {
                 this.setState({ percentNumber: this.props.percent });
                 return;
-            }
-            if (this.animation && this.animation.destroy) {
-                this.animation.destroy();
             }
             this.animation = new Animation(
                 {

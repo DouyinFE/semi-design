@@ -159,6 +159,8 @@ import React from 'react';
 | Property | Description | Type | Default value |
 | --- | --- | --- | --- |
 | className | Class name | string | - |
+| width | Width of the animation container | string | - |
+| height | Height of the animation container | string | - |
 | params | Used to configure animation related parameters | Same as lottie-web lottie.loadAnimation input | - |
 | getAnimationInstance | Get the current animation AnimationItem | (animation:AnimationItem)=>void | - |
 | getLottie | Get the global Lottie | (lottie: Lottie)=>void | - |

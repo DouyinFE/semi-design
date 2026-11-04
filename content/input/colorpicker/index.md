@@ -139,7 +139,7 @@ function Demo() {
 | 参数            | 说明         | 类型            | 默认值  |
 |---------------|------------|---------------|------|
 | onChange | 用户选中颜色的回调 | (value)=>void | - |
-| alpha         | 是否开启透明度选择  | boolean       | true |
+| alpha         | 是否开启透明度选择  | boolean       | false |
 | bottomSlot | 底部渲染额外元素 | ReactNode | - |
 | className | 类名 | string | - |
 | defaultFormat | 默认手动输入时的格式 | rgba hex hsva | hex  |

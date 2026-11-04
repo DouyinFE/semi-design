@@ -379,6 +379,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             renderCloseIcon,
             renderPreviewMenu,
             renderHeader,
+            previewTitle,
         } = this.props;
         const { currentIndex, imgSrc, zoom, ratio, rotation, viewerVisible } = this.state;
         let wrapperStyle: {
@@ -423,7 +424,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                     ref={this.registryImageWrapRef}
                     onMouseMove={this.handleMouseMove}
                 >
-                    <Header ref={this.headerRef} className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader} closable={closable} renderCloseIcon={renderCloseIcon} />
+                    <Header ref={this.headerRef} title={previewTitle} className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader} closable={closable} renderCloseIcon={renderCloseIcon} />
                     <PreviewImage
                         ref={this.imageRef}
                         src={imgSrc[currentIndex]}

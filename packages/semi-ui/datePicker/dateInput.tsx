@@ -424,6 +424,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             insetInputValue,
             defaultPickerValue,
             showClearIgnoreDisabled,
+            format,
             ...rest
         } = this.props;
         const dateIcon = <IconCalendar aria-hidden />;

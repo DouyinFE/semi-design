@@ -16,6 +16,8 @@ import cls from 'classnames';
 import { getAttachmentType, isImageType, getContentType, getCustomSlotAttribute, getSkillSlotString } from '@douyinfe/semi-foundation/aiChatInput/utils';
 import Configure from './configure';
 import RichTextInput from './richTextInput';
+// Keep the custom editor command types available through the component entry.
+import './extension/statusExtension';
 import { Editor, FocusPosition } from '@tiptap/core';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import { throttle } from 'lodash';
@@ -139,6 +141,9 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
             notifySkillChange: (skill: Skill) => {
                 this.props.onSkillChange?.(skill);
             },
+            notifySuggestClick: suggestion => {
+                this.props.onSuggestClick?.(suggestion);
+            },
             notifyContentChange: (result: Content[]) => {
                 this.transformedContent = result;
                 this.props.onContentChange?.(result);
@@ -207,7 +212,10 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
         };
     }
 
-    componentDidUpdate(prevProps: Readonly<AIChatInputProps>): void {
+    componentDidUpdate(prevProps: Readonly<AIChatInputProps>, prevState: Readonly<AIChatInputState>): void {
+        if (prevState.templateVisible !== this.state.templateVisible) {
+            this.props.onTemplateVisibleChange?.(this.state.templateVisible);
+        }
         const { suggestions, keepSkillAfterSend, clearContentOnGenerating } = this.props;
         if (!isEqual(suggestions, prevProps.suggestions)) {
             const newVisible = (suggestions && suggestions.length > 0) ? true : false;
@@ -341,7 +349,7 @@ class AIChatInput extends BaseComponent<AIChatInputProps, AIChatInputState> {
 
     handleReferenceDelete = (reference: Reference) => {
         const { onReferenceDelete } = this.props;
-        onReferenceDelete(reference);
+        onReferenceDelete?.(reference);
     }
 
     getIconByType(type: string, size: IconSize = 'small') {

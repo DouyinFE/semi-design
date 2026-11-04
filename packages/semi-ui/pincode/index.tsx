@@ -12,9 +12,12 @@ import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import Input, { InputProps } from '../input';
 import "@douyinfe/semi-foundation/pincode/pincode.scss";
 
-export interface PinCodeProps extends PinCodeBaseProps {
+export interface PinCodeProps extends PinCodeBaseProps, Pick<InputProps,
+'id' | 'tabIndex' | 'validateStatus' | 'aria-label' | 'aria-labelledby' |
+'aria-describedby' | 'aria-errormessage' | 'aria-invalid' | 'aria-required'> {
     className?: string;
     style?: CSSProperties;
+    onBlur?: React.FocusEventHandler<HTMLDivElement>;
     size?: InputProps['size']
 }
 
@@ -30,6 +33,7 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
         value: PropTypes.string,
         format: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.func]),
         onChange: PropTypes.func,
+        onBlur: PropTypes.func,
         defaultValue: PropTypes.string,
         count: PropTypes.number,
         className: PropTypes.string,
@@ -98,6 +102,12 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
     }
 
 
+    handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+            this.props.onBlur?.(event);
+        }
+    }
+
     renderSingleInput = (index: number) => {
         return <Input
             ref={dom => this.inputDOMList[index] = dom}
@@ -107,6 +117,15 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
             value={this.state.valueList[index]}
             size={this.props.size}
             disabled={this.props.disabled}
+            id={index === 0 ? this.props.id : undefined}
+            tabIndex={this.props.tabIndex}
+            validateStatus={this.props.validateStatus}
+            aria-label={this.props['aria-label']}
+            aria-labelledby={this.props['aria-labelledby']}
+            aria-describedby={this.props['aria-describedby']}
+            aria-errormessage={this.props['aria-errormessage']}
+            aria-invalid={this.props['aria-invalid']}
+            aria-required={this.props['aria-required']}
             onBlur={() => this.foundation.handleCurrentActiveIndexChange(index, "blur")}
             onFocus={() => this.foundation.handleCurrentActiveIndexChange(index, "focus")}
             onPaste={e => this.foundation.handlePaste(e.nativeEvent, index)}
@@ -133,7 +152,7 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
         for (let i = 0; i < this.props.count; i++) {
             inputElements.push(this.renderSingleInput(i));
         }
-        return <div className={cls(`${cssClasses.PREFIX}-wrapper`, this.props.className)} style={this.props.style}>
+        return <div className={cls(`${cssClasses.PREFIX}-wrapper`, this.props.className)} style={this.props.style} onBlur={this.handleBlur}>
             {inputElements}
         </div>;
     }

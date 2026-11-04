@@ -231,7 +231,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             return (
                 <IconTreeTriangleDown
                     role='button'
-                    aria-label={`${expanded ? 'Expand' : 'Collapse'} the tree item`}
+                    aria-label={`${expanded ? 'Collapse' : 'Expand'} the tree item`}
                     className={`${prefixcls}-expand-icon`}
                     size="small"
                     onClick={this.onExpand}

@@ -298,11 +298,11 @@ Turn on additional animation effects for borders and content areas through `bord
 ()=>{
     return <div>
 
-        <Avatar color="amber" border={true} style={{marginRight:'8px'}} borderMotion={true} contentMotion={true}>T</Avatar>
+        <Avatar color="amber" border={{motion:true}} style={{marginRight:'8px'}} contentMotion={true}>T</Avatar>
 
-        <Avatar color="amber" border={true}  size={"large"} style={{marginRight:'8px'}} borderMotion={true} contentMotion={true}>T</Avatar>
+        <Avatar color="amber" border={{motion:true}} size={"large"} style={{marginRight:'8px'}} contentMotion={true}>T</Avatar>
 
-        <Avatar color="amber" border={true} size={"extra-large"} style={{marginRight:'8px'}} borderMotion={true} contentMotion={true}>T</Avatar>
+        <Avatar color="amber" border={{motion:true}} size={"extra-large"} style={{marginRight:'8px'}} contentMotion={true}>T</Avatar>
     
     </div>
 }

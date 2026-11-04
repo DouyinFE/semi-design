@@ -145,6 +145,10 @@ class PaginationFoundation<P = Record<string, any>, S = Record<string, any>> ext
     }
 
     _updatePageList(pageListInfo: { currentPage: number; total: number; pageSize: number }) {
+        this._adapter.setPageList(this.getPageList(pageListInfo));
+    }
+
+    getPageList(pageListInfo: { currentPage: number; total: number; pageSize: number }): AdapterPageList {
         const { currentPage, total, pageSize } = pageListInfo;
         let pageList: PageList = [];
         let restLeftPageList: number[] = []; // pages before ...
@@ -206,9 +210,7 @@ class PaginationFoundation<P = Record<string, any>, S = Record<string, any>> ext
                     break;
             }
         }
-        this._adapter.setPageList({ pageList, restLeftPageList, restRightPageList });
-        // this._adapter.setRestLeftPageList(restLeftPageList);
-        // this._adapter.setRestRightPageList(restRightPageList);
+        return { pageList, restLeftPageList, restRightPageList };
     }
 
     changePageSize(newPageSize: number) {
@@ -245,7 +247,7 @@ class PaginationFoundation<P = Record<string, any>, S = Record<string, any>> ext
         const newPageSizeOpts = [...pageSizeOpts];
         if (newPageSizeOpts.indexOf(pageSize) === -1) {
             const firstLargerIndex = newPageSizeOpts.findIndex(el => el > pageSize);
-            newPageSizeOpts.splice(firstLargerIndex, 0, pageSize);
+            newPageSizeOpts.splice(firstLargerIndex === -1 ? newPageSizeOpts.length : firstLargerIndex, 0, pageSize);
         }
         return newPageSizeOpts;
     }

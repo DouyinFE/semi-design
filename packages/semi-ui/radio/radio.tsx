@@ -31,6 +31,7 @@ export type RadioProps = {
     prefixCls?: string;
     displayMode?: RadioDisplayMode;
     onChange?: (e: RadioChangeEvent) => void;
+    onBlur?: React.FocusEventHandler<HTMLInputElement>;
     onMouseEnter?: (e: React.MouseEvent<HTMLLabelElement>) => void;
     onMouseLeave?: (e: React.MouseEvent<HTMLLabelElement>) => void;
     mode?: RadioMode;
@@ -41,6 +42,10 @@ export type RadioProps = {
     addonClassName?: string;
     type?: RadioType;
     'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     addonId?: string;
     extraId?: string;
     name?: string;
@@ -72,6 +77,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         prefixCls: PropTypes.string,
         displayMode: PropTypes.oneOf<RadioDisplayMode>(['vertical', '']),
         onChange: PropTypes.func,
+        onBlur: PropTypes.func,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
         mode: PropTypes.oneOf(strings.MODE),
@@ -80,6 +86,10 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         addonClassName: PropTypes.string,
         type: PropTypes.oneOf([strings.TYPE_DEFAULT, strings.TYPE_BUTTON, strings.TYPE_CARD, strings.TYPE_PURECARD]), // Button style type
         'aria-label': PropTypes.string,
+        'aria-describedby': PropTypes.string,
+        'aria-errormessage': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-required': PropTypes.bool,
         preventScroll: PropTypes.bool,
     };
 
@@ -114,6 +124,12 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
     }
 
     componentDidUpdate(prevProps: RadioProps) {
+        if (this.props.addonId !== prevProps.addonId) {
+            this.setState({ addonId: this.props.addonId ?? getUuidShort({ prefix: 'addon' }) });
+        }
+        if (this.props.extraId !== prevProps.extraId) {
+            this.setState({ extraId: this.props.extraId ?? getUuidShort({ prefix: 'extra' }) });
+        }
         if (this.props.checked !== prevProps.checked) {
             if (isUndefined(this.props.checked)) {
                 this.foundation.setChecked(false);
@@ -181,8 +197,9 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         this.foundation.handleFocusVisible(event);
     }
 
-    handleBlur = (event: React.FocusEvent) => {
+    handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
         this.foundation.handleBlur();
+        this.props.onBlur?.(event);
     }
 
     render() {

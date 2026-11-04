@@ -3,7 +3,7 @@ import { JsonWorker } from './jsonWorker';
 
 let jsonWorker: JsonWorker | null = null;
 
-self.onmessage = (e: MessageEvent) => {
+const handleMessage = (e: MessageEvent) => {
     const { method, params, messageId } = e.data;
 
     if (method === 'init') {
@@ -42,4 +42,12 @@ self.onmessage = (e: MessageEvent) => {
     }
 
     self.postMessage({ messageId, result });
+};
+
+self.onmessage = (e: MessageEvent) => {
+    try {
+        handleMessage(e);
+    } catch (error) {
+        self.postMessage({ messageId: e.data.messageId, error: error instanceof Error ? error.message : String(error) });
+    }
 };

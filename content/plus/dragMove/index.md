@@ -224,7 +224,7 @@ function CustomMove() {
 | --- | --- | --- | ----- |
 | allowInputDrag | 点击原生 input/textarea 时是否允许拖动 | boolean | false |
 | allowMove | 点击/触摸时是否允许拖动的判断函数 | (event: TouchEvent \| MouseEvent, element: HTMLElement) => boolean | - |
-| constrainer | 返回限制可拖拽的范围的元素 | () => HTMLElement \| 'parent' | - |
+| constrainer | 返回限制可拖拽的范围的元素 | (() => HTMLElement) \| 'parent' | - |
 | customMove | 自定义拖动后的位置处理| (element: HTMLElement, top: number, left: number) => void | -|
 | handler | 返回触发拖动的元素 | () => HTMLElement | - |
 | positionStrategy | 拖拽元素的定位策略，relative 可保留元素原有布局位置 | 'absolute' \| 'relative' | 'absolute' |

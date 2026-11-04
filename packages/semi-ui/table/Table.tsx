@@ -688,6 +688,14 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             }
         }
 
+        if (
+            get(propsPagination, 'pageSize') !== get(prevProps.pagination, 'pageSize') &&
+            !this.foundation._pagerIsControlled() &&
+            !('dataSource' in states)
+        ) {
+            states.dataSource = this.cachedFilteredSortedDataSource;
+        }
+
         // when dataSource has change, should reset currentPage
         if (dataSource !== prevProps.dataSource) {
             states.pagination = isObject(statePagination) ? {
@@ -1197,7 +1205,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
       */
     addFnsInColumn = (column: ColumnProps = {}) => {
         const { prefixCls } = this.props;
-        if (column && (column.sorter || column.filters || column.onFilter || column.useFullRender)) {
+        if (column && (column.sorter || column.filters || column.onFilter || column.useFullRender ||
+            isValidElement(column.filterDropdown) || typeof column.renderFilterDropdown === 'function')) {
             let hasSorter = typeof column.sorter === 'function' || column.sorter === true;
             let hasFilter = (Array.isArray(column.filters) && column.filters.length) ||
                 isValidElement(column.filterDropdown) ||

@@ -539,6 +539,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
             maximumFractionDigits,
             showCurrencySymbol,
             localeCode,
+            scientificNotation,
             ...rest
         } = this.props;
         const { value, number } = this.state;
@@ -552,7 +553,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
             'aria-disabled': disabled,
             step,
         };
-        if (number) {
+        if (number || number === 0) {
             ariaProps['aria-valuenow'] = number;
         }
         if (max !== Infinity) {

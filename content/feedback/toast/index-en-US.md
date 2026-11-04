@@ -424,7 +424,7 @@ The static methods provided are as follows: Display: You can pass in `options` o
 | zIndex | Z-index value                                                                                                                                               | number | 1010 |  |
 | theme | Style of background fill, one of `light`, `normal` | string | `normal` | 2.54.0   |
 | duration | Automatic close delay, no auto-close when set to 0 | number | 3 |         |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set container and inner .semi-toast-wrapper  'position: relative`   This will change the DOM tree position, but not the view's rendering position.  | () => HTMLElement \| null | () => document.body | - |
+| getPopupContainer | Returning null uses the default document.body. Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set container and inner .semi-toast-wrapper  'position: relative`   This will change the DOM tree position, but not the view's rendering position.  | () => HTMLElement \| null | () => document.body | - |
 ## Accessibility
 
 ### ARIA

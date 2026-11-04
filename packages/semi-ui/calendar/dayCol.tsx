@@ -61,6 +61,12 @@ export default class DayCol extends BaseComponent<DayColProps, DayColState> {
         this.foundation.initCurrTime();
     }
 
+    componentDidUpdate(prevProps: DayColProps) {
+        if (prevProps.showCurrTime !== this.props.showCurrTime || prevProps.displayValue?.getTime() !== this.props.displayValue?.getTime()) {
+            this.foundation.initCurrTime();
+        }
+    }
+
     componentWillUnmount() {
         this.foundation.destroy();
     }
@@ -71,8 +77,8 @@ export default class DayCol extends BaseComponent<DayColProps, DayColState> {
             updateCurrPos: currPos => {
                 this.setState({ currPos });
             },
-            updateShowCurrTime: () => {
-                this.setState({ showCurrTime: true });
+            updateShowCurrTime: showCurrTime => {
+                this.setState({ showCurrTime });
             },
         };
     }
@@ -86,7 +92,7 @@ export default class DayCol extends BaseComponent<DayColProps, DayColState> {
             const style = {
                 top: `${top}px`,
                 height: `${Math.max(minEventHeight, height)}px`,
-                left: left
+                insetInlineStart: left
             };
             return (
                 <li className={`${cssClasses.PREFIX}-event-item ${cssClasses.PREFIX}-event-day`} style={style} key={key || `${top}-${ind}`}>
