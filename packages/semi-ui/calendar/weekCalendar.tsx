@@ -49,7 +49,7 @@ export default class WeekCalendar extends BaseComponent<WeekCalendarProps, WeekC
     };
 
     static defaultProps = {
-        displayValue: new Date(),
+        get displayValue() { return new Date(); },
         events: [] as Array<EventObject>,
         mode: 'week',
     };

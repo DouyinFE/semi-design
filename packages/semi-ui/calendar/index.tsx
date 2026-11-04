@@ -40,7 +40,7 @@ class Calendar extends BaseComponent<CalendarProps, {}> {
 
     static defaultProps = {
         events: [] as EventObject[],
-        displayValue: new Date(),
+        get displayValue() { return new Date(); },
         showCurrTime: true,
         mode: 'week',
         markWeekend: false,

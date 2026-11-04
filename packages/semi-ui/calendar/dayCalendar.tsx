@@ -43,7 +43,7 @@ export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCale
 
     static defaultProps = {
         events: [] as DayCalendarProps['events'],
-        displayValue: new Date(),
+        get displayValue() { return new Date(); },
         mode: 'day',
     };
 
