@@ -17,6 +17,7 @@ export interface PinCodeProps extends PinCodeBaseProps, Pick<InputProps,
 'aria-describedby' | 'aria-errormessage' | 'aria-invalid' | 'aria-required'> {
     className?: string;
     style?: CSSProperties;
+    onBlur?: React.FocusEventHandler<HTMLDivElement>;
     size?: InputProps['size']
 }
 
@@ -32,6 +33,7 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
         value: PropTypes.string,
         format: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.func]),
         onChange: PropTypes.func,
+        onBlur: PropTypes.func,
         defaultValue: PropTypes.string,
         count: PropTypes.number,
         className: PropTypes.string,
@@ -100,6 +102,12 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
     }
 
 
+    handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+            this.props.onBlur?.(event);
+        }
+    }
+
     renderSingleInput = (index: number) => {
         return <Input
             ref={dom => this.inputDOMList[index] = dom}
@@ -144,7 +152,7 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
         for (let i = 0; i < this.props.count; i++) {
             inputElements.push(this.renderSingleInput(i));
         }
-        return <div className={cls(`${cssClasses.PREFIX}-wrapper`, this.props.className)} style={this.props.style}>
+        return <div className={cls(`${cssClasses.PREFIX}-wrapper`, this.props.className)} style={this.props.style} onBlur={this.handleBlur}>
             {inputElements}
         </div>;
     }

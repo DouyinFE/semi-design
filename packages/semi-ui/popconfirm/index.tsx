@@ -158,7 +158,11 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
 
     handleConfirm = (e: React.MouseEvent): void => this.foundation.handleConfirm(e && e.nativeEvent);
 
-    handleVisibleChange = (visible: boolean): void => this.foundation.handleVisibleChange(visible);
+    handleVisibleChange = (visible: boolean): void => {
+        if (visible !== this.state.visible) {
+            this.foundation.handleVisibleChange(visible);
+        }
+    };
 
     handleClickOutSide = (e: React.MouseEvent) => this.foundation.handleClickOutSide(e);
 

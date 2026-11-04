@@ -688,6 +688,14 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             }
         }
 
+        if (
+            get(propsPagination, 'pageSize') !== get(prevProps.pagination, 'pageSize') &&
+            !this.foundation._pagerIsControlled() &&
+            !('dataSource' in states)
+        ) {
+            states.dataSource = this.cachedFilteredSortedDataSource;
+        }
+
         // when dataSource has change, should reset currentPage
         if (dataSource !== prevProps.dataSource) {
             states.pagination = isObject(statePagination) ? {

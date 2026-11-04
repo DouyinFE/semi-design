@@ -55,11 +55,11 @@ class Lottie extends BaseComponent<LottieProps, LottieState> {
             getContainer,
             getLoadParams: ()=>{
                 return {
-                    container: getContainer(),
                     renderer: "svg",
                     loop: true,
                     autoplay: true,
                     ...this.props.params,
+                    container: getContainer(),
                 };
             }
         };

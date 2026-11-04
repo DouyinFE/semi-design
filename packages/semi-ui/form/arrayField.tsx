@@ -74,6 +74,7 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
     shouldUseInitValue: boolean;
     cacheUpdateKey: string | number;
     context: FormUpdaterContextType;
+    private initValueForReset: any[];
 
     constructor(props: ArrayFieldProps, context: FormUpdaterContextType) {
         super(props, context);
@@ -99,17 +100,25 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
 
         // Separate the arrays that reset and the usual add and remove modify, otherwise they will affect each other
         const initValueCopyForFormState = copy(initValue);
-        const initValueCopyForReset = copy(initValue);
-        context.registerArrayField(field, initValueCopyForReset);
+        this.initValueForReset = copy(initValue);
+        context.registerArrayField(field, copy(this.initValueForReset), this);
         // register ArrayField will update state.updateKey to render, So there is no need to execute forceUpdate here
         context.updateStateValue(field, initValueCopyForFormState, { notNotify: true, notUpdate: true });
 
     }
 
+    componentDidMount() {
+        // StrictMode's simulated unmount removes the registration without re-running the constructor
+        const { field } = this.props;
+        if (this.context.getArrayField(field)?.owner !== this) {
+            this.context.registerArrayField(field, copy(this.initValueForReset), this);
+        }
+    }
+
     componentWillUnmount() {
         const updater = this.context;
         const { field } = this.props;
-        updater.unRegisterArrayField(field);
+        updater.unRegisterArrayField(field, this);
     }
 
     componentDidUpdate() {
