@@ -6,6 +6,7 @@ import React from 'react';
 import { radioGroupClasses as css, strings } from '@douyinfe/semi-foundation/radio/constants';
 import RadioGroupFoundation, { RadioGroupAdapter } from '@douyinfe/semi-foundation/radio/radioGroupFoundation';
 import { RadioChangeEvent } from '@douyinfe/semi-foundation/radio/radioInnerFoundation';
+import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 
 import { ArrayElement } from '../_base/base';
 import BaseComponent from '../_base/baseComponent';
@@ -91,6 +92,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
     };
 
     foundation: RadioGroupFoundation;
+    groupName: string;
     constructor(props: RadioGroupProps) {
         super(props);
         this.state = {
@@ -100,6 +102,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
     }
 
     componentDidMount() {
+        this.groupName = this.groupName || getUuidShort({ prefix: 'semi-radio-group' });
         this.foundation.init();
     }
 
@@ -140,7 +143,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
         this.foundation.handleChange(evt);
     };
 
-    getFormatName = () => this.props.name || 'default';
+    getFormatName = () => this.props.name || this.groupName;
 
     handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node)) {
