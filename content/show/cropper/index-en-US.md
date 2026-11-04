@@ -353,7 +353,7 @@ render(<Demo />)
 | cropperBoxClassName | The class name passed to the crop box | string | - |
 | cropperBoxStyle | The style passed to the crop box | CSSProperties | - |
 | defaultAspectRatio | Initial crop box ratio | number | 1 |
-| imgProps | Attributes passed through to the img tag | object | - |
+| imgProps | Attributes passed to the source img element. onLoad runs after internal image initialization; crop positioning styles take precedence over supplied styles | object | - |
 | fill | The fill color of the non-picture parts in the cropped result | string | 'rgba(0, 0, 0, 0)'  |
 | maxZoom | Maximum zoom factor | number | 3 |
 | minZoom | Minimum zoom factor | number | 0.1 |

@@ -1095,7 +1095,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         this._adapter.notifyMouseLeave(e);
     }
 
-    handleClearClick(e: MouseEvent) {
+    handleClearClick(e?: MouseEvent) {
         const { filter, searchPosition } = this.getProps();
         if (filter && searchPosition === strings.SEARCH_POSITION_TRIGGER) {
             this.clearInput(e);
@@ -1105,7 +1105,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         this.focus(undefined, false);
         this.clearSelected();
         // prevent this click open dropdown
-        e.stopPropagation();
+        e?.stopPropagation();
     }
 
     handleKeyPress(e: KeyboardEvent) {

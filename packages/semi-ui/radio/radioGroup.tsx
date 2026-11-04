@@ -206,13 +206,14 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
                 }
             });
         } else if (children) {
-            inner = React.Children.map(children, (itm, index) => (React.isValidElement(itm) ?
-                React.cloneElement(itm, { key: index }) :
+            inner = React.Children.map(children, itm => (React.isValidElement(itm) ?
+                React.cloneElement(itm) :
                 null));
         }
 
         return (
             <div
+                role="radiogroup"
                 className={prefixClsDisplay}
                 style={style}
                 id={id}

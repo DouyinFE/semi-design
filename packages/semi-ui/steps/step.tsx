@@ -7,6 +7,8 @@ import Context from './context';
 export type Status = 'wait' | 'process' | 'finish' | 'error' | 'warning';
 
 export interface StepProps {
+    role?: React.AriaRole;
+    'aria-label'?: React.AriaAttributes['aria-label'];
     description?: React.ReactNode;
     icon?: React.ReactNode;
     status?: Status;

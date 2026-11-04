@@ -196,7 +196,7 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
             const { leftPos, width, topInd, children } = event;
             const top = `${topInd}em`;
             const style = {
-                left: toPercent(leftPos),
+                insetInlineStart: toPercent(leftPos),
                 width: toPercent(width),
                 top,
             };

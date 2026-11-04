@@ -12,7 +12,9 @@ import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import Input, { InputProps } from '../input';
 import "@douyinfe/semi-foundation/pincode/pincode.scss";
 
-export interface PinCodeProps extends PinCodeBaseProps {
+export interface PinCodeProps extends PinCodeBaseProps, Pick<InputProps,
+'id' | 'tabIndex' | 'validateStatus' | 'aria-label' | 'aria-labelledby' |
+'aria-describedby' | 'aria-errormessage' | 'aria-invalid' | 'aria-required'> {
     className?: string;
     style?: CSSProperties;
     size?: InputProps['size']
@@ -107,6 +109,15 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
             value={this.state.valueList[index]}
             size={this.props.size}
             disabled={this.props.disabled}
+            id={index === 0 ? this.props.id : undefined}
+            tabIndex={this.props.tabIndex}
+            validateStatus={this.props.validateStatus}
+            aria-label={this.props['aria-label']}
+            aria-labelledby={this.props['aria-labelledby']}
+            aria-describedby={this.props['aria-describedby']}
+            aria-errormessage={this.props['aria-errormessage']}
+            aria-invalid={this.props['aria-invalid']}
+            aria-required={this.props['aria-required']}
             onBlur={() => this.foundation.handleCurrentActiveIndexChange(index, "blur")}
             onFocus={() => this.foundation.handleCurrentActiveIndexChange(index, "focus")}
             onPaste={e => this.foundation.handlePaste(e.nativeEvent, index)}

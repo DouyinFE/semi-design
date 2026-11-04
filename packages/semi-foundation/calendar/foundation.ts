@@ -89,7 +89,7 @@ export type ParsedEventsType = ParsedEvents | ParsedEventsWithArray | MonthlyEve
 
 export interface CalendarAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     updateCurrPos?: (currPos: number) => void;
-    updateShowCurrTime?: () => void;
+    updateShowCurrTime?: (showCurrTime: boolean) => void;
     updateScrollHeight?: (scrollHeight: number) => void;
     setParsedEvents?: (parsedEvents: ParsedEventsType) => void;
     cacheEventKeys?: (cachedKeys: Array<string>) => void;
@@ -97,7 +97,7 @@ export interface CalendarAdapter<P = Record<string, any>, S = Record<string, any
     getRangeData?: () => RangeData;
     setWeeklyData?: (data: WeeklyData) => void;
     getWeeklyData?: () => WeeklyData;
-    registerClickOutsideHandler?: (key: string, cb: () => void) => void;
+    registerClickOutsideHandler?: (key: string, cb: (e: MouseEvent) => void) => void;
     unregisterClickOutsideHandler?: () => void;
     setMonthlyData?: (data: MonthData) => void;
     getMonthlyData?: () => MonthData;
@@ -120,12 +120,16 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
 
     destroy() {
         this.raf && cancelAnimationFrame(this.raf);
+        this._adapter.unregisterClickOutsideHandler?.();
     }
 
     initCurrTime() {
+        this.raf && cancelAnimationFrame(this.raf);
+        this.raf = null;
         const { showCurrTime, displayValue } = this.getProps();
-        if (showCurrTime && isSameDay(displayValue, getCurrDate())) {
-            this._adapter.updateShowCurrTime();
+        const shouldShow = Boolean(showCurrTime && isSameDay(displayValue, getCurrDate()));
+        this._adapter.updateShowCurrTime(shouldShow);
+        if (shouldShow) {
             this.getCurrLocation();
         }
     }
@@ -150,8 +154,8 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
         const popoverWidth = 110;
         const spacing = bodyWidth - e.target.getBoundingClientRect().right - popoverWidth;
         this._adapter.openCard(key, spacing > 0);
-        this._adapter.registerClickOutsideHandler(key, () => {
-            this.closeCard(null, key);
+        this._adapter.registerClickOutsideHandler(key, event => {
+            this.closeCard(event, key);
         });
     }
 
@@ -264,8 +268,8 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
         const eventCountMap = {};
         parsed.day = parsed.day.map(item => {
             const key = `${item.startPos}-${item.endPos}`;
-            let curCount = eventCountMap[key];
-            eventCountMap[key] = curCount === undefined ? 0 : ++curCount;
+            const curCount = eventCountMap[key] ?? 0;
+            eventCountMap[key] = curCount + 1;
             item.left = curCount !== 0 ? `${(curCount / sameTimeRangeGroup[key].length * 100)}%` : 0;
             return item;
         });

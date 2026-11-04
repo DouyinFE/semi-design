@@ -90,8 +90,8 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
     anchorID: string;
     scrollContainer: HTMLElement | Window;
     childMap: Record<string, Set<string>>;
-    handler: () => void;
-    clickHandler: () => void;
+    handler: ReturnType<typeof throttle>;
+    clickHandler: ReturnType<typeof debounce>;
     context: ContextValue;
     linkWrapperRef: React.RefObject<HTMLDivElement>;
     resizeObserver: ResizeObserver | null;
@@ -244,9 +244,12 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
     };
 
     renderChildren = () => {
-        const loop = (children, level = 1) => {
+        const loop = (children, level = 1): React.ReactElement[] => {
             return React.Children.map(children, child => {
                 if (React.isValidElement(child)) {
+                    if (child.type === React.Fragment) {
+                        return React.cloneElement(child, {}, loop((child.props as any).children, level));
+                    }
                     const childProps = {
                         direction: this.context.direction,
                         level,
@@ -268,11 +271,9 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
     componentDidMount() {
         const { defaultAnchor = '' } = this.props;
         this.anchorID = getUuid('semi-anchor').replace('.', '');
-        this.scrollContainer = this.adapter.getContainer();
         this.handler = throttle(this.handleScroll, 100);
         this.clickHandler = debounce(this.handleClickLink, 100);
-        this.scrollContainer.addEventListener('scroll', this.handler);
-        this.scrollContainer.addEventListener('scroll', this.clickHandler);
+        this.bindScrollContainer();
         this.setScrollHeight();
         this.setChildMap();
         Boolean(defaultAnchor) && this.foundation.handleClick(null, defaultAnchor, false);
@@ -285,6 +286,7 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
     }
 
     componentDidUpdate(prevProps: AnchorProps, prevState: AnchorState) {
+        this.bindScrollContainer();
         this.updateScrollHeight(prevState, this.state);
         this.updateChildMap(prevState, this.state);
     }
@@ -292,10 +294,29 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
     componentWillUnmount() {
         this.scrollContainer.removeEventListener('scroll', this.handler);
         this.scrollContainer.removeEventListener('scroll', this.clickHandler);
+        this.handler.cancel();
+        this.clickHandler.cancel();
+        this.scrollContainer = null;
         if (this.resizeObserver) {
             this.resizeObserver.disconnect();
         }
     }
+
+    bindScrollContainer = () => {
+        const container = this.adapter.getContainer();
+        if (container === this.scrollContainer) {
+            return;
+        }
+        if (this.scrollContainer) {
+            this.scrollContainer.removeEventListener('scroll', this.handler);
+            this.scrollContainer.removeEventListener('scroll', this.clickHandler);
+            this.handler.cancel();
+            this.clickHandler.cancel();
+        }
+        this.scrollContainer = container;
+        container.addEventListener('scroll', this.handler);
+        container.addEventListener('scroll', this.clickHandler);
+    };
 
     render() {
         const {

@@ -7,11 +7,11 @@ import { PreviewContext } from "./previewContext";
 
 const prefixCls = `${cssClasses.PREFIX}-preview-header`;
 
-const Header = forwardRef(({ onClose, titleStyle, className, renderHeader, closable, renderCloseIcon }: HeaderProps, ref: React.LegacyRef<HTMLElement>) => (
+const Header = forwardRef(({ onClose, title: previewTitle, titleStyle, className, renderHeader, closable, renderCloseIcon }: HeaderProps, ref: React.LegacyRef<HTMLElement>) => (
     <PreviewContext.Consumer>
         {({ currentIndex, titles }) => {
-            let title;
-            if (titles && typeof currentIndex === "number") {
+            let title = previewTitle;
+            if (titles && typeof currentIndex === "number" && typeof titles[currentIndex] !== "undefined") {
                 title = titles[currentIndex];
             }
             const closeIcon = typeof renderCloseIcon === 'function' ? renderCloseIcon?.() : renderCloseIcon;

@@ -158,6 +158,8 @@ import React from 'react';
 | 属性                 | 说明                       | 类型                                    | 默认值 |
 | -------------------- | -------------------------- | --------------------------------------- | ------ |
 | className            | 类名                       | string                                  | -      |
+| width                | 动画容器宽度               | string                                  | -      |
+| height               | 动画容器高度               | string                                  | -      |
 | params               | 用于配置动画相关参数       | 同 lottie-web lottie.loadAnimation 入参 | -      |
 | getAnimationInstance | 获取当前动画 AnimationItem | (animation:AnimationItem)=>void         | -      |
 | getLottie            | 获取全局 Lottie            | (lottie: Lottie)=>void                  | -      |

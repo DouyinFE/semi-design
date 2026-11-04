@@ -36,8 +36,8 @@ $module: #{$prefix}-calendar;
 
         .#{$module}-event-day {
             position: absolute;
-            left: $spacing-calendar_event_day-left;
-            right: $spacing-calendar_event_day-right;
+            inset-inline-start: $spacing-calendar_event_day-left;
+            inset-inline-end: $spacing-calendar_event_day-right;
             z-index: $z-calendar_item;
             overflow: hidden;
         }

@@ -403,7 +403,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
     }
 
     handleWeeksRowNumChange = (weeksRowNum: number, panelType: PanelType) => {
-        const isLeft = panelType === strings.PANEL_TYPE_RIGHT;
+        const isLeft = panelType === strings.PANEL_TYPE_LEFT;
         const isRight = panelType === strings.PANEL_TYPE_RIGHT;
         const allIsYearOrTime = this.leftIsYearOrTime() && this.rightIsYearOrTime();
 

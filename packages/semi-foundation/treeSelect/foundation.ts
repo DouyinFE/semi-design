@@ -588,7 +588,9 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
                 this._adapter.rePositionDropdown();
             }
         } else if (checkRelation === 'related') {
-            const { checkedKeys, halfCheckedKeys } = this.calcCheckedKeys(eventKey, false);
+            const { checkedKeys, halfCheckedKeys } = disableStrictly ?
+                this.calcNonDisabledCheckedKeys(eventKey, false) :
+                this.calcCheckedKeys(eventKey, false);
             this._notifyChange([...checkedKeys], null);
             if (!this._isControlledComponent()) {
                 this._adapter.updateState({ checkedKeys, halfCheckedKeys });

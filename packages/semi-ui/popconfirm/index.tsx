@@ -34,8 +34,8 @@ export interface PopconfirmProps extends PopoverProps {
     trigger?: Trigger;
     showCloseIcon?: boolean;
     position?: Position;
-    onCancel?: (e: React.MouseEvent) => Promise<any> | void;
-    onConfirm?: (e: React.MouseEvent) => Promise<any> | void;
+    onCancel?: (e: MouseEvent) => Promise<any> | void;
+    onConfirm?: (e: MouseEvent) => Promise<any> | void;
     onVisibleChange?: (visible: boolean) => void;
     onClickOutSide?: (e: React.MouseEvent) => void
 }
@@ -136,8 +136,8 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
             setVisible: (visible: boolean): void => this.setState({ visible }),
             updateConfirmLoading: (loading: boolean): void => this.setState({ confirmLoading: loading }),
             updateCancelLoading: (loading: boolean): void => this.setState({ cancelLoading: loading }),
-            notifyConfirm: (e: React.MouseEvent): Promise<any> | void => this.props.onConfirm(e),
-            notifyCancel: (e: React.MouseEvent): Promise<any> | void => this.props.onCancel(e),
+            notifyConfirm: (e: MouseEvent): Promise<any> | void => this.props.onConfirm(e),
+            notifyCancel: (e: MouseEvent): Promise<any> | void => this.props.onCancel(e),
             notifyVisibleChange: (visible: boolean): void => this.props.onVisibleChange(visible),
             notifyClickOutSide: (e: React.MouseEvent) => this.props.onClickOutSide(e),
             focusCancelButton: () => {

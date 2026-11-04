@@ -146,7 +146,7 @@ class Cropper extends BaseComponent<CropperProps, CropperState> {
                 };
             }
         }
-        if (!isUndefined(newRotate) && newZoom !== zoom) {
+        if (!isUndefined(newZoom) && newZoom !== zoom) {
             nextState.zoom = newZoom;
             if (loaded) {
                 // 同上
@@ -185,6 +185,12 @@ class Cropper extends BaseComponent<CropperProps, CropperState> {
         this.foundation.init();
     }
 
+    componentDidUpdate(prevProps: CropperProps): void {
+        if (prevProps.aspectRatio !== this.props.aspectRatio) {
+            this.foundation.unBindResizeEvent();
+        }
+    }
+
     componentWillUnmount(): void {
         this.foundation.destroy();
         this.unRegisterImageWrapRef();
@@ -212,7 +218,7 @@ class Cropper extends BaseComponent<CropperProps, CropperState> {
     }
 
     render() {
-        const { className, style, src, shape, showResizeBox, cropperBoxStyle, cropperBoxCls } = this.props;
+        const { className, style, src, shape, showResizeBox, cropperBoxStyle, cropperBoxCls, imgProps } = this.props;
         const { imgData, cropperBox, rotate, loaded } = this.state;
         const imgX = imgData.centerPoint.x - imgData.width / 2;
         const imgY = imgData.centerPoint.y - imgData.height / 2;
@@ -241,12 +247,18 @@ class Cropper extends BaseComponent<CropperProps, CropperState> {
                 {/* Img layer */}
                 <div className={cssClasses.IMG_WRAPPER}>
                     <img
+                        alt=""
+                        crossOrigin='anonymous'
+                        {...imgProps}
                         ref={this.imgRef}
                         src={src}
-                        onLoad={this.foundation.handleImageLoad}
-                        className={cssClasses.IMG}
-                        crossOrigin='anonymous'
+                        onLoad={e => {
+                            this.foundation.handleImageLoad(e);
+                            imgProps?.onLoad?.(e);
+                        }}
+                        className={cls(cssClasses.IMG, imgProps?.className)}
                         style={{
+                            ...imgProps?.style,
                             width: imgData.width,
                             height: imgData.height,
                             transformOrigin: 'center',
@@ -279,6 +291,7 @@ class Cropper extends BaseComponent<CropperProps, CropperState> {
                         })} 
                     >
                         <img 
+                            alt=""
                             onDragStart={this.foundation.viewIMGDragStart}
                             className={cssClasses.CROPPER_IMG}
                             src={src}

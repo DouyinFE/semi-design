@@ -1,4 +1,18 @@
-import { Extension, RawCommands } from "@tiptap/core";
+import { Extension } from "@tiptap/core";
+
+declare module '@tiptap/core' {
+    interface Commands<ReturnType> {
+        SemiAIChatInput: {
+            setAllowHotKeySendForSemiAIChatInput: (allow: boolean) => ReturnType
+        }
+    }
+
+    interface Storage {
+        SemiAIChatInput: {
+            allowHotKeySend: boolean
+        }
+    }
+}
 
 /**
  * 为什么需要这个扩展？
@@ -23,11 +37,14 @@ const SemiStatusExtension = Extension.create({
     addCommands() {
         return {
             setAllowHotKeySendForSemiAIChatInput(allow: boolean) {
-                return ({ storage }) => {
-                    storage.SemiAIChatInput.allowHotKeySend = allow;
+                return ({ editor, dispatch }) => {
+                    if (dispatch) {
+                        editor.storage.SemiAIChatInput.allowHotKeySend = allow;
+                    }
+                    return true;
                 };
             }
-        } as Partial<RawCommands>;
+        };
     }
 });
 

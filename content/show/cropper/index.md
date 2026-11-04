@@ -355,7 +355,7 @@ render(<Demo />)
 | cropperBoxClassName | 裁切框类名 | string | - |
 | cropperBoxStyle | 裁切框样式 | CSSProperties | - |
 | defaultAspectRatio | 初始裁切框比例 | number | 1 |
-| imgProps | 透传给 img 标签的属性 | object | - |
+| imgProps | 透传给原图 img 标签的属性；onLoad 会在内部加载处理后调用，裁剪定位所需样式优先于传入样式 | object | - |
 | fill | 裁切结果中非图片部分的填充色 | string | 'rgba(0, 0, 0, 0)'  |
 | maxZoom | 最大缩放倍数 | number | 3 |
 | minZoom | 最小缩放倍数 | number | 0.1 |

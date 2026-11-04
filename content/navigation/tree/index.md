@@ -1247,7 +1247,7 @@ class Demo extends React.Component {
 
 ```ts
 expandIcon: ReactNode | ((props: {
-    onClick: (e: MouseEvent) => void;
+    onClick: (e: React.MouseEvent) => void;
     className: string;
     expanded: boolean;
 }))

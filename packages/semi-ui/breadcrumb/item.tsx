@@ -193,6 +193,8 @@ export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, B
 
     render() {
         const {
+            className,
+            style,
             active,
             shouldRenderSeparator
             // children,
@@ -200,12 +202,12 @@ export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, B
         const pageLabel = active ? { 'aria-current': 'page' as const } : {};
         const item = this.renderItem();
         const separator = this.props.separator || <span className={`${clsPrefix}-separator`}>{this.context.separator}</span>;
-        const wrapperCLs = cls({
+        const wrapperCLs = cls(className, {
             [`${clsPrefix}-item-wrap`]: true,
             // [`${clsPrefix}-item-wrap-iconOnly`]: !!children && this.props.icon,
         });
         return (
-            <span className={wrapperCLs} {...pageLabel} {...this.getDataAttr(this.props)}>
+            <span className={wrapperCLs} style={style} {...pageLabel} {...this.getDataAttr(this.props)}>
                 {item}
                 {shouldRenderSeparator && separator}
             </span>

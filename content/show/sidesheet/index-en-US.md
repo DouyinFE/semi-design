@@ -309,7 +309,7 @@ import { SideSheet, Button, Typography, Banner, Form } from '@douyinfe/semi-ui';
 | footer | Footer                                                                                                                     | ReactNode | null | - |
 | getPopupContainer | Container where to render SideSheet inside, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.                                           | () => HTMLElement | - | - |
 | headerStyle | Header style                                                                                                               | CSSProperties | - | - |
-| height | Height, takes effect when `placement` is set to `top` or `bottom`                                                          | number \| string | 400 | - |
+| height | Height, takes effect when `placement` is set to `top` or `bottom`                                                          | number \| string | 448 | - |
 | keepDOM | Keep components inside when closing sideSheet                                                     | boolean | false |
 | mask | Toggle whether to show mask. When `mask={false}`, you could continue operations outside SideSheet         | boolean | true | - |
 | maskClosable | Toggle whether to allow closing when clicking mask                                                                         | boolean | true | - |

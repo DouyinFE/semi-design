@@ -1352,6 +1352,7 @@ render(<SideBarDemo />);
 |------|----|------|-------|
 | afterVisibleChange | 可见状态变化后的回调函数 | (isVisible: boolean) => void |-  |
 | className | 自定义类名 | string | - |
+| closeOnEsc | 是否允许按 Esc 键关闭容器 | boolean | - |
 | containerRef | 容器元素的 Ref 引用 | React.RefObject<HTMLDivElement\> | - |
 | defaultSize | 默认尺寸（宽度/高度）, 仅在 resizable 为 true 时生效 | { width?: number \| string; height?: number \| string } | - |
 | maxWidth | 最大宽度, 仅在 resizable 为 true 时生效 | string \| number | - |

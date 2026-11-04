@@ -137,11 +137,17 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
 
     mergeRef = (ref: any, node: HTMLDivElement) => {
         this.childNode = node;
-        if (typeof ref === 'function') {
-            ref(node);
-        } else if (typeof ref === 'object' && ref && 'current' in ref) {
+        const cleanup = typeof ref === 'function' ? ref(node) : undefined;
+        if (typeof ref === 'object' && ref && 'current' in ref) {
             ref.current = node;
         }
+        if (typeof cleanup === 'function') {
+            return () => {
+                this.childNode = null;
+                cleanup();
+            };
+        }
+        return undefined;
     };
 
     render() {

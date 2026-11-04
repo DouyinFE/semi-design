@@ -158,13 +158,13 @@ export default class Banner extends BaseComponent<BannerProps, BannerState> {
                     <div className={`${prefixCls}-content`}>
                         {this.renderIcon()}
                         <div className={`${prefixCls}-content-body`}>
-                            {title ? <Typography.Title heading={5} className={`${prefixCls}-title`} component="div" x-semi-prop="title">{title}</Typography.Title> : null}
-                            {description ? <Typography.Paragraph className={`${prefixCls}-description`} component="div" x-semi-prop="description">{description}</Typography.Paragraph> : null}
+                            {title || title === 0 ? <Typography.Title heading={5} className={`${prefixCls}-title`} component="div" x-semi-prop="title">{title}</Typography.Title> : null}
+                            {description || description === 0 ? <Typography.Paragraph className={`${prefixCls}-description`} component="div" x-semi-prop="description">{description}</Typography.Paragraph> : null}
                         </div>
                     </div>
                     {this.renderCloser()}
                 </div>
-                {children ? <div className={`${prefixCls}-extra`} x-semi-prop="children">{children}</div> : null}
+                {children || children === 0 ? <div className={`${prefixCls}-extra`} x-semi-prop="children">{children}</div> : null}
             </div>
         ) : null;
         return banner;

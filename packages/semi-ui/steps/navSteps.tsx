@@ -31,16 +31,16 @@ const Steps = (props: NavStepsProps) => {
                 total,
                 ...child.props,
             };
-            childProps.active = index === current;
+            childProps.active = index + initial === current;
             childProps.onChange = onChange ? () => {
-                if (index !== current) {
+                if (index + initial !== current) {
                     onChange(index + initial);
                 }
             } : undefined;
             return cloneElement(child, { ...childProps });
         });
         return content;
-    }, [children, prefixCls, current, size, initial, onChange]);
+    }, [children, current, initial, onChange]);
 
     const wrapperCls = cls(className, {
         [`${prefixCls}-nav`]: true,

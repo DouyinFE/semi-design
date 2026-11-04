@@ -81,7 +81,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         super(props);
         this.state = {
             currentIndex: props.currentIndex || props.defaultCurrentIndex || 0,
-            visible: props.visible || props.currentDefaultVisible || false,
+            visible: props.visible || props.defaultVisible || false,
         };
         this.foundation = new PreviewFoundation(this.adapter);
         this.previewGroupId = getUuidShort({ prefix: "semi-image-preview-group", length: 4 });
@@ -167,7 +167,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
             return React.Children.map(children, (child) => {
                 if (child && child.props && child.type) {
                     if (child.type.isSemiImage) {
-                        const { src, preview, alt } = child.props;
+                        const { src, preview = true, alt } = child.props;
                         if (preview) {
                             const previewSrc = isObject(preview) ? ((preview as any).src ?? src) : src;
                             srcListInChildren.push(previewSrc);
@@ -198,7 +198,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     render() {
         const { src, className, style, lazyLoad, setDownloadName, ...restProps } = this.props;
         const previewInnerProps = { 
-            ...omit(restProps, ['previewCls', 'previewStyle']), 
+            ...omit(restProps, ['previewCls', 'previewStyle', 'onChange']),
             className: restProps?.previewCls, 
             style: restProps?.previewStyle 
         };

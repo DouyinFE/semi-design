@@ -51,7 +51,7 @@ const Steps = (props: BasicStepsProps) => {
             };
 
             if (status === 'error' && index === current - 1) {
-                childProps.className = `${prefixCls}-next-error`;
+                childProps.className = cls(child.props.className, `${prefixCls}-next-error`);
             }
 
             if (!child.props.status) {
@@ -66,14 +66,14 @@ const Steps = (props: BasicStepsProps) => {
             childProps.active = stepNumber === current;
             childProps.done = stepNumber < current;
             childProps.onChange = onChange ? () => {
-                if (index !== current) {
+                if (index + initial !== current) {
                     onChange(index + initial);
                 }
             } : undefined;
             return cloneElement(child, { ...childProps });
         });
         return content;
-    }, [children, initial, prefixCls, direction, status, current, size, onChange]);
+    }, [children, initial, prefixCls, status, current, size, onChange]);
 
     const wrapperCls = cls(className, {
         [`${prefixCls}-basic`]: true,

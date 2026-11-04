@@ -114,10 +114,9 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
         };
     }
     componentWillUnmount() {
-        if (this.props.cycled) {
-            this.throttledAdjustList.cancel();
-            this.debouncedSelect.cancel();
-        }
+        this.throttledAdjustList.cancel();
+        this.debouncedSelect.cancel();
+        this.scrollAnimation?.destroy();
     }
     componentDidMount() {
         this.foundation.init();

@@ -1637,7 +1637,7 @@ render(DefaultChat);
 | onMessageGoodFeedback | 消息正向反馈时触发 | (message: Message) => void | - |
 | onMessageReset | 重置消息时触发 | (message: Message) => void | - |
 | onMessageSend | 发送消息时触发 | (content: string, attachment?: FileItem[]) => void | - |
-| onStopGenerator | 点击停止生成按钮时触发 | (message: Message) => void | - |
+| onStopGenerator | 点击停止生成按钮时触发，参数为按钮的 React 鼠标事件 | `(e?: React.MouseEvent<HTMLButtonElement>) => void` | - |
 | placeholder | 输入框占位符 | string | - |
 | renderInputArea | 自定义渲染输入框 | (props: RenderInputAreaProps) => React.ReactNode | - |
 | showClearContext | 是否展示清除上下文按钮| boolean | false |

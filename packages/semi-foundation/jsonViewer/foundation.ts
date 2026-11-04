@@ -30,6 +30,13 @@ class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
         this.jsonViewer.emitter.on('customRender', (e) => {
             this._adapter.notifyCustomRender(e.customRenderMap);
         });
+        const emitter = this.jsonViewer.emitter;
+        emitter.on('hoverNode', ({ value, target }) => {
+            const el = this._adapter.notifyHover(value, target);
+            if (el) {
+                emitter.emit('renderHoverNode', { el });
+            }
+        });
         this.jsonViewer.layout();
         this.jsonViewer.emitter.on('contentChanged', (e) => {
             this._adapter.notifyChange(this.jsonViewer?.getModel().getValue());

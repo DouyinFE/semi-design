@@ -7139,4 +7139,10 @@ describe(`DatePicker`, () => {
         }
         elem.unmount();
     });
+
+    it('format should not be passed to input dom', () => {
+        const elem = mount(<DatePicker type="dateTime" format="yyyy/MM/dd HH:mm" />);
+        expect(elem.find('input').getDOMNode().hasAttribute('format')).toBe(false);
+        elem.unmount();
+    });
 });
