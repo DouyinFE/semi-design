@@ -373,7 +373,6 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
     }
 
     toYearMonth(panelType: PanelType, target: Date) {
-        this.toYear(panelType, target);
         this.toMonth(panelType, target);
     }
 
