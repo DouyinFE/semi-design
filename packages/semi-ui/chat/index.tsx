@@ -244,7 +244,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             }
         }
         if (newHints !== cacheHints) {
-            if (newHints.length > cacheHints.length) {
+            if ((newHints?.length ?? 0) > (cacheHints?.length ?? 0)) {
                 shouldScroll = true;
             }
         }
