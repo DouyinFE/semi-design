@@ -604,8 +604,8 @@ import { Input, TextArea } from '@douyinfe/semi-ui';
 | showClear    | 支持清除               | boolean                         | false     |
 | style        | 外层容器样式                               | CSSProperties                   | -      |
 | textareaStyle | textarea 元素的样式，可用于设置 textarea 的高度等样式 **>=2.94.0** | CSSProperties | - |
-| onBlur       | 输入框失去焦点时的回调             |(e:event) => void               | -      |
-| onChange     | 输入框内容变化时的回调             | (value:string, e:event) => void |        |
+| onBlur       | 输入框失去焦点时的回调。点击清除按钮引起失焦时，e 是该按钮的点击事件 |(e:event) => void               | -      |
+| onChange     | 输入框内容变化时的回调。点击清除按钮时，e 是该按钮的点击事件，请用 value 读取内容 | (value:string, e:event) => void |        |
 | onClear      | 点击清除按钮时的回调 | (e:event) => void                         | -       |
 | onEnterPress | 按下回车的回调                     | (e:event) => void                         | 无     |
 | onFocus      | 输入框 focus 时的回调              | (e:event) => void               | -      |
