@@ -113,6 +113,8 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     _localUrls: Record<string, string> = {};
     /** Associates a keyboard paste with the native paste event that follows it. */
     _pendingPaste: PendingPaste | null = null;
+    /** Content of the last keyboard clipboard upload, used to drop that paste's late native event. */
+    _lastKeyboardPaste: { signature: string; timer: ReturnType<typeof setTimeout> } | null = null;
     /**
      * Working copy of fileList used during a synchronous startUpload batch.
      * Do NOT rely on React state fileList here: setState is async (batched in React 18),
@@ -198,6 +200,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         // revoking here will cause preview/blob ERR_FILE_NOT_FOUND after remount.
         this.unbindPastingHandler();
         this.markPastingHandled();
+        this.clearKeyboardPaste();
         this._batchFileList = null;
         this._latestFileList = null;
         this.destroyState = true;
@@ -1070,6 +1073,8 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
      * event arrives; clipboard read results must wait for it before being used.
      */
     beginPasting(): PendingPaste {
+        // A new keydown is a new paste action, so the previous one can no longer have a late native event.
+        this.clearKeyboardPaste();
         const pending = { handled: false } as PendingPaste;
         pending.ready = new Promise<void>(resolve => {
             pending.timer = setTimeout(() => {
@@ -1089,6 +1094,36 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             clearTimeout(pending.timer);
             this._pendingPaste = null;
         }
+    }
+
+    clearKeyboardPaste(): void {
+        if (this._lastKeyboardPaste) {
+            clearTimeout(this._lastKeyboardPaste.timer);
+            this._lastKeyboardPaste = null;
+        }
+    }
+
+    /** Remember what a keyboard clipboard read just uploaded, so its late native paste event can be dropped. */
+    rememberKeyboardPaste(files: File[]): void {
+        this.clearKeyboardPaste();
+        const timer = setTimeout(() => {
+            this._lastKeyboardPaste = null;
+        }, numbers.KEYBOARD_PASTE_DEDUPE_WINDOW);
+        this._lastKeyboardPaste = { signature: this.getPasteSignature(files), timer };
+    }
+
+    /** Whether a native paste repeats the last keyboard paste. The record is single use. */
+    consumeRepeatedPaste(files: File[]): boolean {
+        const last = this._lastKeyboardPaste;
+        if (!last) {
+            return false;
+        }
+        this.clearKeyboardPaste();
+        return last.signature === this.getPasteSignature(files);
+    }
+
+    getPasteSignature(files: File[]): string {
+        return files.map(file => `${file.type}:${file.size}`).join(',');
     }
 
     notifyPastingErrorIfUnhandled(pending: PendingPaste, error: Error | PermissionStatus): void {
@@ -1111,6 +1146,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                         }
                         const format = type.split('/')[1];
                         const file = new File([buffer], `upload.${format}`, { type });
+                        this.rememberKeyboardPaste([file]);
                         this.handleChange([file]);
                     }));
                 }
@@ -1142,6 +1178,9 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
 
             if (files.length > 0) {
                 e.preventDefault();
+                if (this.consumeRepeatedPaste(files)) {
+                    return;
+                }
                 this.markPastingHandled();
                 this.handleChange(files);
                 return;

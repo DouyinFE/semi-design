@@ -2,13 +2,14 @@ import React from 'react';
 import { act } from 'react-dom/test-utils';
 import Upload from '../index';
 
-function pasteFile() {
+function pasteFile(content = 'image') {
     const event = new Event('paste', { bubbles: true, cancelable: true });
-    const file = new File(['image'], 'pasted.png', { type: 'image/png' });
+    const file = new File([content], 'pasted.png', { type: 'image/png' });
     Object.defineProperty(event, 'clipboardData', {
         value: { items: [{ kind: 'file', getAsFile: () => file }] },
     });
     document.body.dispatchEvent(event);
+    return event;
 }
 
 describe('Upload pasting lifecycle', () => {
@@ -226,11 +227,11 @@ describe('Upload pasting lifecycle', () => {
             if (permissions) { Object.defineProperty(navigator, 'permissions', permissions); } else { delete navigator.permissions; }
             if (clipboard) { Object.defineProperty(navigator, 'clipboard', clipboard); } else { delete navigator.clipboard; }
         });
-        function setup(state, crop) {
+        function setup(state, crop, clipboardBytes = new ArrayBuffer(1)) {
             Object.defineProperty(navigator, 'permissions', { configurable: true, value: { query: async () => ({ state }) } });
             Object.defineProperty(navigator, 'clipboard', {
                 configurable: true,
-                value: { read: async () => [{ types: ['image/png'], getType: async () => ({ arrayBuffer: async () => new ArrayBuffer(1) }) }] },
+                value: { read: async () => [{ types: ['image/png'], getType: async () => ({ arrayBuffer: async () => clipboardBytes }) }] },
             });
             const request = sinon.spy();
             const onPastingError = sinon.spy();
@@ -294,6 +295,61 @@ describe('Upload pasting lifecycle', () => {
             }
             await tick(300);
             expect(uploads()).toBe(2);
+        });
+
+        describe('native paste that follows the keyboard fallback upload of the same paste', () => {
+            const bytes = () => new Uint8Array([1, 2, 3]).buffer;
+            const sameContent = new Uint8Array([1, 2, 3]);
+
+            it.each([false, true])('drops a native paste with identical content arriving 150ms after keydown (crop=%s)', async crop => {
+                const { uploads } = setup('granted', crop, bytes());
+                await press();
+                await tick(150);
+                expect(uploads()).toBe(1);
+                let event;
+                await act(async () => { event = pasteFile(sameContent); });
+                await tick(300);
+                expect(uploads()).toBe(1);
+                expect(event.defaultPrevented).toBe(true);
+            });
+
+            it.each([false, true])('uploads two independent keyboard pastes of the same image (crop=%s)', async crop => {
+                const { uploads } = setup('granted', crop, bytes());
+                await press();
+                await tick(150);
+                await press();
+                await tick(150);
+                expect(uploads()).toBe(2);
+            });
+
+            it.each([false, true])('uploads a native paste whose content differs from the keyboard fallback upload (crop=%s)', async crop => {
+                const { uploads } = setup('granted', crop, bytes());
+                await press();
+                await tick(150);
+                await act(async () => { pasteFile(new Uint8Array([1, 2, 3, 4])); });
+                await tick(300);
+                expect(uploads()).toBe(2);
+            });
+
+            it.each([false, true])('uploads an identical native paste without keydown after the dedupe window (crop=%s)', async crop => {
+                const { uploads } = setup('granted', crop, bytes());
+                await press();
+                await tick(1200);
+                expect(uploads()).toBe(1);
+                await act(async () => { pasteFile(sameContent); });
+                await tick(300);
+                expect(uploads()).toBe(2);
+            });
+
+            it.each([false, true])('drops only one native paste per keyboard fallback upload (crop=%s)', async crop => {
+                const { uploads } = setup('granted', crop, bytes());
+                await press();
+                await tick(150);
+                await act(async () => { pasteFile(sameContent); });
+                await act(async () => { pasteFile(sameContent); });
+                await tick(300);
+                expect(uploads()).toBe(2);
+            });
         });
 
         it.each([false, true])('drops the pending clipboard read and its timer on unmount (crop=%s)', async crop => {

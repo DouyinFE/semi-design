@@ -400,8 +400,9 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                                                     
                                                     await pending.ready;
                                                     if (files.length > 0 && !pending.handled && this.props.addOnPasting && !this.props.disabled && !this.foundation.destroyState) {
+                                                        this.foundation.rememberKeyboardPaste(files);
                                                         const imageFiles = files.filter(file => this.isImageFile(file));
-                                                        
+
                                                         if (imageFiles.length > 0) {
                                                             // Start cropping
                                                             this.handleCropFiles(files);
@@ -458,6 +459,9 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                         }
                         if (files.length > 0 && files.some(file => this.isImageFile(file))) {
                             e.preventDefault();
+                            if (this.foundation.consumeRepeatedPaste(files)) {
+                                return;
+                            }
                             this.foundation.markPastingHandled();
                             this.handleCropFiles(files);
                             return;
