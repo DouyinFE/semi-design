@@ -23,5 +23,13 @@ describe('Select initial visibility', () => {
         expect(onDropdownVisibleChange.firstCall.args[0]).toBe(true);
         wrapper.unmount();
     });
+
+    it.each([false, true])('focuses the dropdown search input on initial open, multiple=%s', multiple => {
+        const onDropdownVisibleChange = sinon.spy();
+        const wrapper = mount(<Select motion={false} filter defaultOpen autoFocus multiple={multiple} searchPosition="dropdown" optionList={[{ value: 'a', label: 'Alpha' }]} onDropdownVisibleChange={onDropdownVisibleChange} />, { attachTo: document.body.appendChild(document.createElement('div')) });
+        expect(document.activeElement).toBe(document.querySelector('.semi-select-dropdown-input input'));
+        expect(onDropdownVisibleChange.callCount).toBe(1);
+        wrapper.unmount();
+    });
 });
 
