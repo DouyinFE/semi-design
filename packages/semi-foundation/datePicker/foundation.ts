@@ -533,6 +533,10 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      *  - value（可以解析为合法日期时）
      */
     handleInsetInputChange(options: { insetInputStr: string; format: string; insetInputValue: InsetInputValue }) {
+        // Same as handleSelectedChange: the exiting panel is still interactive
+        if (this.getProp('disabled')) {
+            return;
+        }
         const { insetInputStr, format, insetInputValue } = options;
         const _isMultiple = this._isMultiple();
         const result = _isMultiple ? this.parseMultipleInput(insetInputStr, format) : this.parseInput(insetInputStr, format);
@@ -967,6 +971,10 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * @param {*} options
      */
     handleSelectedChange(value: Date[], options?: { fromPreset?: boolean; needCheckFocusRecord?: boolean }) {
+        // The exiting panel (motion) stays mounted after disabled becomes true, so its cells can still fire
+        if (this.getProp('disabled')) {
+            return;
+        }
         const { type, format, rangeSeparator, insetInput } = this._adapter.getProps();
         const { value: stateValue } = this.getStates();
         const controlled = this._isControlledComponent();
@@ -1044,6 +1052,10 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     }
 
     handleConfirm() {
+        // Same as handleSelectedChange: the exiting panel is still interactive
+        if (this.getProp('disabled')) {
+            return;
+        }
         const { cachedSelectedValue, value } = this._adapter.getStates();
         const isRangeValueComplete = this._isRangeValueComplete(cachedSelectedValue);
         const newValue = isRangeValueComplete ? cachedSelectedValue : value;
@@ -1067,6 +1079,10 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     }
 
     handlePresetClick(item: PresetType, e: any) {
+        // Same as handleSelectedChange: the exiting panel is still interactive
+        if (this.getProp('disabled')) {
+            return;
+        }
         const { type, timeZone } = this.getProps();
         const prevTimeZone = this.getState('prevTimezone');
         const start = typeof item.start === 'function' ? item.start() : item.start;
