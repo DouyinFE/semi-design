@@ -17,6 +17,15 @@ describe('TimePicker format updates', () => {
             expect(onChange.called).toBe(false);
         } finally { wrapper.unmount(); }
     });
+    it.each([
+        [false, 3],
+        [true, 4],
+    ])('counts the default columns for an explicit undefined format, use12Hours=%s', (use12Hours, columns) => {
+        const wrapper = mount(<TimePicker open motion={false} format={undefined} use12Hours={use12Hours} />);
+        try {
+            expect(document.querySelector(`.semi-timepicker-panel-column-${columns}`)).not.toBeNull();
+        } finally { wrapper.unmount(); }
+    });
     it('formats an updated controlled value using the latest format', () => {
         const wrapper = mount(<TimePicker motion={false} value="10:20:30" format="HH:mm:ss" />);
         try {

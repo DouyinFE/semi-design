@@ -431,7 +431,8 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
 
     getPopupClassName() {
         const { use12Hours, prefixCls, popupClassName } = this.props;
-        const format = this.foundation.getDefaultFormatIfNeed();
+        // An explicit format={undefined} must count the default columns that Combobox renders.
+        const format = this.foundation.getValidFormat();
         const showHour = /HH|hh|H|h/.test(format);
         const showMinute = /mm/.test(format);
         const showSecond = /ss/.test(format);
