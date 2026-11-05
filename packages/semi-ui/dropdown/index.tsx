@@ -154,7 +154,10 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         }
         return (
             <DropdownContext.Provider value={contextValue}>
-                <div className={className} style={style}>
+                <div
+                    className={className}
+                    style={style}
+                >
                     <div className={`${prefixCls}-content`} x-semi-prop="render">{content}</div>
                 </div>
             </DropdownContext.Provider>
@@ -238,7 +241,6 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                 zIndex={zIndex}
                 motion={motion}
                 margin={margin}
-                content={pop}
                 className={className}
                 prefixCls={prefixCls}
                 spacing={spacing}
@@ -249,6 +251,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                 returnFocusOnClose={true}
                 ref={this.tooltipRef}
                 {...attr}
+                content={pop}
             >
                 {React.isValidElement(children) ?
                     React.cloneElement(children, {
