@@ -51,6 +51,8 @@ export default class ToastFoundation extends BaseFoundation<ToastAdapter> {
 
     _id: string | null = null; // cache id
 
+    _closed = false;
+
     constructor(adapter: ToastAdapter) {
         super({ ...ToastFoundation.defaultAdapter, ...adapter });
     }
@@ -79,6 +81,11 @@ export default class ToastFoundation extends BaseFoundation<ToastAdapter> {
         if (e) {
             e.stopPropagation();
         }
+        // The button stays clickable and hover can restart the timer during the leave animation.
+        if (this._closed) {
+            return;
+        }
+        this._closed = true;
         this._adapter.notifyWrapperToRemove(this._id);
         this._adapter.notifyClose();
     }
@@ -90,7 +97,14 @@ export default class ToastFoundation extends BaseFoundation<ToastAdapter> {
         }
     }
 
+    markClosed() {
+        this._closed = true;
+        this.clearCloseTimer_();
+    }
+
+    // A same-id update or reopen reuses this instance as a new generation.
     restartCloseTimer() {
+        this._closed = false;
         this.clearCloseTimer_();
         this.startCloseTimer_();
     }
