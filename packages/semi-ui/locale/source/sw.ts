@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Thibitisha',
         cancel: 'Ghairi',
+        close: 'Funga',
+    },
+    Banner: {
+        close: 'Funga',
     },
     Tabs: {
+        close: 'Funga',
         more: "Zaidi"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'taarifa'
     },
     Feedback: {
+        placeholder: 'Toa maoni ya ziada',
+        optionalPlaceholder: 'Toa maoni ya ziada (hiari)',
         submit: 'Tuma',
         cancel: 'Ghairi'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'Umechagua vipengee ${count}',
     },
     Sidebar: {
+        close: 'Funga',
         linkAddSuccess: 'Link imeongezwa na mafanikio',
         linkRemoveSuccess: 'Link imefutwa na mafanikio',
         enterLinkAddress: "Ingiza barua pepe ya link",

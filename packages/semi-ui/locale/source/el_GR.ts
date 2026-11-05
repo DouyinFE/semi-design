@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Επιβεβαίωση',
         cancel: 'Ακύρωση',
+        close: 'Κλείσιμο',
+    },
+    Banner: {
+        close: 'Κλείσιμο',
     },
     Tabs: {
+        close: 'Κλείσιμο',
         more: "Περισσότερα"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'πληροφορίες'
     },
     Feedback: {
+        placeholder: 'Δώστε επιπλέον σχόλια',
+        optionalPlaceholder: 'Δώστε επιπλέον σχόλια (προαιρετικό)',
         submit: 'Υποβολή',
         cancel: 'Ακύρωση'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'Έγινε επιλογή ${count} στοιχείων',
     },
     Sidebar: {
+        close: 'Κλείσιμο',
         linkAddSuccess: 'Ο σύνδεσμος προστέθηκε επιτυχώς',
         linkRemoveSuccess: 'Ο σύνδεσμος αφαιρέθηκε επιτυχώς',
         enterLinkAddress: "Εισάγετε τη διεύθυνση σύνδεσμου",

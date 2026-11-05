@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Potvrdiť',
         cancel: 'Zrušiť',
+        close: 'Zavrieť',
+    },
+    Banner: {
+        close: 'Zavrieť',
     },
     Tabs: {
+        close: 'Zavrieť',
         more: "Viac"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'zdroje informácií'
     },
     Feedback: {
+        placeholder: 'Poskytnite ďalšiu spätnú väzbu',
+        optionalPlaceholder: 'Poskytnite ďalšiu spätnú väzbu (voliteľné)',
         submit: 'Odoslať',
         cancel: 'Zrušiť'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'Vybrané položky (${count})',
     },
     Sidebar: {
+        close: 'Zavrieť',
         linkAddSuccess: 'Odkaz bol úspešne pridaný',
         linkRemoveSuccess: 'Odkaz bol úspešne odstránený',
         enterLinkAddress: "Zadajte adresu odkazu",

@@ -21,8 +21,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Bevestigen',
         cancel: 'Annuleren',
+        close: 'Sluiten',
+    },
+    Banner: {
+        close: 'Sluiten',
     },
     Tabs: {
+        close: 'Sluiten',
         more: "Meer"
     },
     TimePicker: {
@@ -228,6 +233,8 @@ const local: Locale = {
         annotationText: 'informatie-elementen'
     },
     Feedback: {
+        placeholder: 'Geef aanvullende feedback',
+        optionalPlaceholder: 'Geef aanvullende feedback (optioneel)',
         submit: 'Versturen',
         cancel: 'Annuleren'
     },
@@ -237,6 +244,7 @@ const local: Locale = {
         selected: '${count} items geselecteerd',
     },
     Sidebar: {
+        close: 'Sluiten',
         linkAddSuccess: 'Link succesvol toegevoegd',
         linkRemoveSuccess: 'Link succesvol verwijderd',
         enterLinkAddress: "Voer het linkadres in",

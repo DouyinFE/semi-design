@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'নিশ্চিত করুন',
         cancel: 'বাতিল করুন',
+        close: 'বন্ধ করুন',
+    },
+    Banner: {
+        close: 'বন্ধ করুন',
     },
     Tabs: {
+        close: 'বন্ধ করুন',
         more: "আরও"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'তথ্যের অংশবিশেষ'
     },
     Feedback: {
+        placeholder: 'অতিরিক্ত মতামত দিন',
+        optionalPlaceholder: 'অতিরিক্ত মতামত দিন (ঐচ্ছিক)',
         submit: 'জমা দিন',
         cancel: 'বাতিল করুন'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: '${count}টি আইটেম নির্বাচন করা হয়েছে',
     },
     Sidebar: {
+        close: 'বন্ধ করুন',
         linkAddSuccess: 'লিঙ্ক সফলভাবে যোগ করা হয়েছে',
         linkRemoveSuccess: 'লিঙ্ক সফলভাবে অপসারণ করা হয়েছে',
         enterLinkAddress: "লিঙ্কের ঠিকানা লিখুন",

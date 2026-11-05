@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Растау',
         cancel: 'Бас тарту',
+        close: 'Жабу',
+    },
+    Banner: {
+        close: 'Жабу',
     },
     Tabs: {
+        close: 'Жабу',
         more: "Тағы"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'құжат'
     },
     Feedback: {
+        placeholder: 'Қосымша пікір қалдырыңыз',
+        optionalPlaceholder: 'Қосымша пікір қалдырыңыз (міндетті емес)',
         submit: 'Жіберу',
         cancel: 'Бас тарту'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: '${count} элемент таңдалды',
     },
     Sidebar: {
+        close: 'Жабу',
         linkAddSuccess: 'Сілтеме сәтті қосылды',
         linkRemoveSuccess: 'Сілтеме сәтті жойылды',
         enterLinkAddress: "Сілтеменің адресіне енгізіңіз",

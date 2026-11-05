@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'ตกลง',
         cancel: 'ยกเลิก',
+        close: 'ปิด',
+    },
+    Banner: {
+        close: 'ปิด',
     },
     Tabs: {
+        close: 'ปิด',
         more: "มากกว่า"
     },
     TimePicker: {
@@ -225,6 +230,8 @@ const local: Locale = {
         annotationText: 'องค์ประกอบของข้อมูล'
     },
     Feedback: {
+        placeholder: 'ให้ความคิดเห็นเพิ่มเติม',
+        optionalPlaceholder: 'ให้ความคิดเห็นเพิ่มเติม (ไม่บังคับ)',
         submit: 'ส่ง',
         cancel: 'ยกเลิก'
     },
@@ -234,6 +241,7 @@ const local: Locale = {
         selected: '${count} รายการที่เลือก',
     },
     Sidebar: {
+        close: 'ปิด',
         linkAddSuccess: 'ลิงก์เพิ่มสำเร็จแล้ว',
         linkRemoveSuccess: 'ลิงก์ลบสำเร็จแล้ว',
         enterLinkAddress: "ป้อนที่อยู่ลิงก์",

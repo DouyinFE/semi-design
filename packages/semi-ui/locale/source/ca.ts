@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Confirma',
         cancel: 'Cancel·la',
+        close: 'Tanca',
+    },
+    Banner: {
+        close: 'Tanca',
     },
     Tabs: {
+        close: 'Tanca',
         more: "Més"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'fonts d\'informació'
     },
     Feedback: {
+        placeholder: 'Proporciona comentaris addicionals',
+        optionalPlaceholder: 'Proporciona comentaris addicionals (opcional)',
         submit: 'Envia',
         cancel: 'Cancel·la'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'S\'han seleccionat ${count} elements',
     },
     Sidebar: {
+        close: 'Tanca',
         linkAddSuccess: 'Enllaç afegit amb èxit',
         linkRemoveSuccess: 'Enllaç esborrat amb èxit',
         enterLinkAddress: "Introdueix l'adreça de l'enllaç",

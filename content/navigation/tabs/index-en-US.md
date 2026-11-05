@@ -981,6 +981,7 @@ class App extends React.Component {
 -   aria-selected: Indicates whether the Tab is selected.
 -   aria-controls: Indicates the TabPane controlled by the Tab
 -   aria-labelledby: Indicates the element labels the TabPane
+-   The aria-label of the close icon follows the current language, taken from `Tabs.close` in the locale
 
 ### Keyboard and Focus
 

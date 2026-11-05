@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'تأیید',
         cancel: 'لغو',
+        close: 'بستن',
+    },
+    Banner: {
+        close: 'بستن',
     },
     Tabs: {
+        close: 'بستن',
         more: "بیشتر"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'تکه‌های اطلاعات'
     },
     Feedback: {
+        placeholder: 'بازخورد بیشتری ارائه دهید',
+        optionalPlaceholder: 'بازخورد بیشتری ارائه دهید (اختیاری)',
         submit: 'ارسال',
         cancel: 'لغو'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'مواردی {count} دلاری انتخاب‌شده',
     },
     Sidebar: {
+        close: 'بستن',
         linkAddSuccess: 'لینک با موفقیت اضافه شد',
         linkRemoveSuccess: 'لینک با موفقیت حذف شد',
         enterLinkAddress: "آدرس لینک را وارد کنید",

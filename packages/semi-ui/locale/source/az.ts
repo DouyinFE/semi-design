@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Təsdiq et',
         cancel: 'Ləğv et',
+        close: 'Bağla',
+    },
+    Banner: {
+        close: 'Bağla',
     },
     Tabs: {
+        close: 'Bağla',
         more: "Daha çox"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'məlumat mənbəsi'
     },
     Feedback: {
+        placeholder: 'Əlavə rəy bildirin',
+        optionalPlaceholder: 'Əlavə rəy bildirin (istəyə bağlı)',
         submit: 'Təqdim edin',
         cancel: 'Ləğv edin'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'Seçilmiş ${count} element',
     },
     Sidebar: {
+        close: 'Bağla',
         linkAddSuccess: 'Link uğurla əlavə edildi',
         linkRemoveSuccess: 'Link uğurla silindi',
         enterLinkAddress: "Link ünvanını daxil edin",

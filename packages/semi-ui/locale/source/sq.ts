@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Konfirmo',
         cancel: 'Anulo',
+        close: 'Mbyll',
+    },
+    Banner: {
+        close: 'Mbyll',
     },
     Tabs: {
+        close: 'Mbyll',
         more: "Më shumë"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'pjesë informacioni'
     },
     Feedback: {
+        placeholder: 'Jepni komente shtesë',
+        optionalPlaceholder: 'Jepni komente shtesë (opsionale)',
         submit: 'Dërgo',
         cancel: 'Anulo'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'Janë përzgjedhur ${count} artikuj',
     },
     Sidebar: {
+        close: 'Mbyll',
         linkAddSuccess: 'Link u shtua me sukses',
         linkRemoveSuccess: 'Link u fshi me sukses',
         enterLinkAddress: "Shenoni adresën e linkut",

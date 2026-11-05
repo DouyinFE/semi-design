@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'подтвердить',
         cancel: 'отмена',
+        close: 'Закрыть',
+    },
+    Banner: {
+        close: 'Закрыть',
     },
     Tabs: {
+        close: 'Закрыть',
         more: "Более"
     },
     TimePicker: {
@@ -224,6 +229,8 @@ const local: Locale = {
         annotationText: 'элементы информации'
     },
     Feedback: {
+        placeholder: 'Оставьте дополнительный отзыв',
+        optionalPlaceholder: 'Оставьте дополнительный отзыв (необязательно)',
         submit: 'Отправить',
         cancel: 'Отмена'
     },
@@ -233,6 +240,7 @@ const local: Locale = {
         selected: 'Выбрано ${count} элементов',
     },
     Sidebar: {
+        close: 'Закрыть',
         linkAddSuccess: 'Ссылка успешно добавлена',
         linkRemoveSuccess: 'Ссылка успешно удалена',
         enterLinkAddress: "Введите адрес ссылки",

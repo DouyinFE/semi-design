@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Apstiprināt',
         cancel: 'Atcelt',
+        close: 'Aizvērt',
+    },
+    Banner: {
+        close: 'Aizvērt',
     },
     Tabs: {
+        close: 'Aizvērt',
         more: "Vairāk"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'informācijas fragmenti'
     },
     Feedback: {
+        placeholder: 'Sniedziet papildu atsauksmes',
+        optionalPlaceholder: 'Sniedziet papildu atsauksmes (pēc izvēles)',
         submit: 'Iesniegt',
         cancel: 'Atcelt'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'Atlasīto vienumu skaits: ${count}',
     },
     Sidebar: {
+        close: 'Aizvērt',
         linkAddSuccess: 'Saite veiksmīgi pievienota',
         linkRemoveSuccess: 'Saite veiksmīgi izņemta',
         enterLinkAddress: "Ievadiet saites adresi",

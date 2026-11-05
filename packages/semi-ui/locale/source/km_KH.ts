@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'បញ្ជាក់',
         cancel: 'បោះបង់',
+        close: 'បិទ',
+    },
+    Banner: {
+        close: 'បិទ',
     },
     Tabs: {
+        close: 'បិទ',
         more: "ច្រើន​ទៀត"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'ព័ត៌មាន'
     },
     Feedback: {
+        placeholder: 'ផ្តល់មតិកែលម្អបន្ថែម',
+        optionalPlaceholder: 'ផ្តល់មតិកែលម្អបន្ថែម (ស្រេចចិត្ត)',
         submit: 'ដាក់បញ្ជូន',
         cancel: 'បោះបង់'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'បានជ្រើសរើសធាតុ ${count}',
     },
     Sidebar: {
+        close: 'បិទ',
         linkAddSuccess: 'តំណបានបន្ថែមដោយជោគជ័យ',
         linkRemoveSuccess: 'តំណបានលុបដោយជោគជ័យ',
         enterLinkAddress: "បញ្ចូលអាសយដ្ឋានតំណ",

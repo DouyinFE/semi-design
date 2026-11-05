@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Potvrdi',
         cancel: 'Odustani',
+        close: 'Zatvori',
+    },
+    Banner: {
+        close: 'Zatvori',
     },
     Tabs: {
+        close: 'Zatvori',
         more: "Više"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'informacije'
     },
     Feedback: {
+        placeholder: 'Navedite dodatne povratne informacije',
+        optionalPlaceholder: 'Navedite dodatne povratne informacije (neobavezno)',
         submit: 'Pošalji',
         cancel: 'Odustani'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'Odabrane stavke: ${count}',
     },
     Sidebar: {
+        close: 'Zatvori',
         linkAddSuccess: 'Link je uspješno dodan',
         linkRemoveSuccess: 'Link je uspješno uklonjen',
         enterLinkAddress: "Unesite adresu linka",

@@ -119,16 +119,16 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
         };
     }
 
-    textNode = () => {
+    textNode = (locale: Locale['Feedback']) => {
         const { textAreaProps } = this.props;
         return <TextArea
             onChange={this.foundation.handleTextChange}
-            placeholder='Provide additional feedback'
+            placeholder={locale.placeholder}
             {...omit(textAreaProps, 'onChange')}
         />;
     }
 
-    emojiNode = () => {
+    emojiNode = (locale: Locale['Feedback']) => {
         const { value } = this.state;
         const { textAreaProps } = this.props;
         const { emoji } = (value ?? {}) as EmojiResult;
@@ -154,7 +154,7 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
             </div>
             {emoji === Emoji.bad && <TextArea
                 onChange={this.foundation.handleEmojiReasonChange}
-                placeholder='Provide additional feedback (optional)'
+                placeholder={locale.optionalPlaceholder}
                 {...omit(textAreaProps, 'onChange')}
             />}
         </>;
@@ -182,7 +182,7 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
         </div>;
     }
     
-    getRealChildren = () => {
+    getRealChildren = (locale: Locale['Feedback']) => {
         const { type, renderContent, children } = this.props;
         let result = null;
         switch (type) {
@@ -190,10 +190,10 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
                 result = children;
                 break;
             case 'text': 
-                result = this.textNode();
+                result = this.textNode(locale);
                 break;
             case 'emoji':
-                result = this.emojiNode();
+                result = this.emojiNode(locale);
                 break;
             case 'radio':
                 result = this.radioNode();
@@ -244,7 +244,6 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
     render(): JSX.Element {
         const { className, children, type, mode, ...rest } = this.props;
         const restProps = this.foundation.getRestProps();
-        const realChildren = this.getRealChildren();
         const disabledOkButton = this.disableSubmitButton();
         const realCls = cls(prefixCls, className, {
             [`${prefixCls}-${type}`]: type
@@ -252,6 +251,7 @@ export default class Feedback extends BaseComponent<FeedbackProps, FeedbackState
 
         return (<LocaleConsumer componentName="Feedback">
             {(locale: Locale['Feedback'], localeCode: Locale['code']) => {
+                const realChildren = this.getRealChildren(locale);
                 return (mode === 'modal' ? (<Modal
                     okText={locale.submit}
                     cancelText={locale.cancel}

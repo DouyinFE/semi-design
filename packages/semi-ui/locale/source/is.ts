@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Staðfesta',
         cancel: 'Hætta við',
+        close: 'Loka',
+    },
+    Banner: {
+        close: 'Loka',
     },
     Tabs: {
+        close: 'Loka',
         more: "Meira"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'upplýsingamolar'
     },
     Feedback: {
+        placeholder: 'Gefðu frekari endurgjöf',
+        optionalPlaceholder: 'Gefðu frekari endurgjöf (valfrjálst)',
         submit: 'Senda',
         cancel: 'Hætta við'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: '${count} atriði valin',
     },
     Sidebar: {
+        close: 'Loka',
         linkAddSuccess: 'Tengill bættur við með góðu árangri',
         linkRemoveSuccess: 'Tengill fjarlægður með góðu árangri',
         enterLinkAddress: "Sláðu inn heimilisfang tengils",

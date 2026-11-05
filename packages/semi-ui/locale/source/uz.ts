@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Tasdiqlash',
         cancel: 'Bekor qilish',
+        close: 'Yopish',
+    },
+    Banner: {
+        close: 'Yopish',
     },
     Tabs: {
+        close: 'Yopish',
         more: "Yana"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'axborot qismlari'
     },
     Feedback: {
+        placeholder: 'Qoʻshimcha fikr bildiring',
+        optionalPlaceholder: 'Qoʻshimcha fikr bildiring (ixtiyoriy)',
         submit: 'Yuborish',
         cancel: 'Bekor qilish'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: '${count} ta element tanlangan',
     },
     Sidebar: {
+        close: 'Yopish',
         linkAddSuccess: 'Havola muvaffaqiyatli qo\'shildi',
         linkRemoveSuccess: 'Havola muvaffaqiyatli o\'chirildi',
         enterLinkAddress: "Havola manzilini kiriting",
