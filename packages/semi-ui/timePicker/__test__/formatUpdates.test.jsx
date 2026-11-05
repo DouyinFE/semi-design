@@ -26,6 +26,28 @@ describe('TimePicker format updates', () => {
             expect(document.querySelector(`.semi-timepicker-panel-column-${columns}`)).not.toBeNull();
         } finally { wrapper.unmount(); }
     });
+    it.each([
+        ['defaultValue'],
+        ['value'],
+    ])('treats an explicit undefined format like an omitted one when use12Hours changes, %s', valueProp => {
+        const props = { motion: false, timeZone: 'UTC', [valueProp]: new Date(Date.UTC(2026, 0, 15, 19, 20, 30)) };
+        const onChange = sinon.spy();
+        const omitted = mount(<TimePicker {...props} />);
+        const explicit = mount(<TimePicker {...props} format={undefined} onChange={onChange} />);
+        try {
+            expect(explicit.find('input').prop('value')).toBe('19:20:30');
+            [omitted, explicit].forEach(wrapper => {
+                wrapper.setProps({ use12Hours: true });
+                wrapper.update();
+            });
+            expect(explicit.find('input').prop('value')).not.toBe('19:20:30');
+            expect(explicit.find('input').prop('value')).toBe(omitted.find('input').prop('value'));
+            expect(onChange.called).toBe(false);
+        } finally {
+            omitted.unmount();
+            explicit.unmount();
+        }
+    });
     it('formats an updated controlled value using the latest format', () => {
         const wrapper = mount(<TimePicker motion={false} value="10:20:30" format="HH:mm:ss" />);
         try {
