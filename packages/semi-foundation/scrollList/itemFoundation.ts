@@ -1,7 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import isElement from '../utils/isElement';
 import { slice, find, findIndex } from 'lodash';
-import { append, prepend } from '../utils/dom';
 
 export interface Item {
     [x: string]: any;
@@ -194,28 +193,14 @@ export default class ItemFoundation<P = Record<string, any>, S = Record<string, 
         const nodeTag = 'li';
         if (isElement(wrapper) && isElement(listWrapper) && list && list.length) {
             const allNodes = listWrapper.querySelectorAll(nodeTag);
-            const total = allNodes.length;
             const ratio = 1;
 
             const prependCount = this.shouldPrepend(listWrapper, wrapper, ratio);
             const appendCount = this.shouldAppend(listWrapper, wrapper, ratio);
 
-            // while (this.shouldPrepend(listWrapper, wrapper, nearestNode)) {
-            if (prependCount) {
-                // move last nodes to first position
-
-                for (let i = 0; i < prependCount; i++) {
-                    const nodes = slice(allNodes, total - list.length * (i + 1), total - list.length * i);
-                    prepend(listWrapper, ...nodes);
-                }
-            }
-
-            // while (this.shouldAppend(listWrapper, wrapper, nearestNode)) {
-            if (appendCount) {
-                for (let i = 0; i < appendCount; i++) {
-                    const nodes = slice(allNodes, i * list.length, (i + 1) * list.length);
-                    append(listWrapper, ...nodes);
-                }
+            const offset = prependCount - appendCount;
+            if (offset) {
+                wrapper.scrollTop += offset * list.length * allNodes[0].getBoundingClientRect().height;
             }
         }
     }
