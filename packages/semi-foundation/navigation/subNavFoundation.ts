@@ -1,15 +1,16 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import isEnterPress from '../utils/isEnterPress';
+import isNullOrUndefined from '../utils/isNullOrUndefined';
 
 const addKeys = function addKeys(originKeys: (string | number)[] = [], ...willAddKeys: (string | number)[]) {
     const keySet = new Set(originKeys);
-    willAddKeys.forEach(key => key && keySet.add(key));
+    willAddKeys.forEach(key => !isNullOrUndefined(key) && keySet.add(key));
     return Array.from(keySet);
 };
 
 const removeKeys = function removeKeys(originKeys: (string | number)[] = [], ...willRemoveKeys: (string | number)[]) {
     const keySet = new Set(originKeys);
-    willRemoveKeys.forEach(key => key && keySet.delete(key));
+    willRemoveKeys.forEach(key => !isNullOrUndefined(key) && keySet.delete(key));
     return Array.from(keySet);
 };
 
