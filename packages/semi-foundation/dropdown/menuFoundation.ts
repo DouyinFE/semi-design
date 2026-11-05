@@ -25,7 +25,8 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
     onMenuKeydown(event: any): void {
         const menu = getAncestorNodeByRole(event.target, 'tooltip');
         
-        const items: HTMLElement[] = [...(event.target.parentNode).getElementsByTagName('li')];
+        // event.target can be an element inside an item, such as an input, so read items from the menu handling the event
+        const items: HTMLElement[] = [...event.currentTarget.getElementsByTagName('li')];
         const isEnabled = (item: HTMLElement) => item.getAttribute('aria-disabled') !== 'true';
         this.menuItemNodes = items.filter(isEnabled);
         this.firstChars = this.menuItemNodes.map(item => item.textContent.trim()[0]?.toLowerCase());
