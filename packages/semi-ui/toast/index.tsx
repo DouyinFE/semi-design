@@ -285,6 +285,10 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         const { removedItems, updatedItems } = this.state;
         list = Array.from(new Set([...list, ...removedItems]));
         const refFn: React.LegacyRef<Toast> = (toast) => {
+            // A toast removed through Toast.close stays mounted while leaving, so it must not fire close.
+            if (toast && removedItems.some(item => item.id === toast.foundation._id)) {
+                toast.foundation.markClosed();
+            }
             const update = toast && updatedItems.find(item => item.id === toast.foundation._id);
             if (update && !this.appliedUpdates.has(update)) {
                 this.appliedUpdates.add(update);
