@@ -31,10 +31,12 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
         this.menuItemNodes = items.filter(isEnabled);
         this.firstChars = this.menuItemNodes.map(item => item.textContent.trim()[0]?.toLowerCase());
 
-        // get the currently focused menu item
-        const curItem = this.menuItemNodes.find(item => item.tabIndex === 0);
+        const isItemTarget = items.includes(event.target);
+        // get the currently focused menu item, which contains the target when focus is on an element inside an item
+        const focusedItem = (!isItemTarget && items.find(item => item.contains(event.target))) || items.find(item => item.tabIndex === 0);
+        const curItem = focusedItem && isEnabled(focusedItem) ? focusedItem : undefined;
         // The focused item can become disabled while keeping focus, so arrow keys continue from its DOM position
-        const disabledCurIndex = curItem ? -1 : items.findIndex(item => item.tabIndex === 0);
+        const disabledCurIndex = focusedItem && !curItem ? items.indexOf(focusedItem) : -1;
 
         switch (event.key) {
             case ' ':
@@ -64,7 +66,8 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
                 handlePrevent(event);
                 break;
             default:
-                if (isPrintableCharacter(event.key)) {
+                // Characters typed into an element inside an item, such as an input, belong to that element
+                if (isItemTarget && isPrintableCharacter(event.key)) {
                     this.setFocusByFirstCharacter(curItem, event.key);
                     // it can be an input on Dropdown, handlePrevent may affect the input of the component
                     // handlePrevent(event); 

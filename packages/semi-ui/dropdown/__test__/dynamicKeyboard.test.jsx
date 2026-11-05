@@ -60,6 +60,20 @@ describe('Dropdown keyboard navigation after menu updates', () => {
             key(startFromInput(), 'ArrowUp');
             expect(document.activeElement.textContent).toBe('Alpha');
         });
+        it('keeps focus in the input while typing a character matching another item', () => {
+            const input = startFromInput();
+            key(input, 'g');
+            expect(document.activeElement).toBe(input);
+        });
+        it('moves from the item holding the input when that item was not reached by arrow keys', () => {
+            const input = startFromInput();
+            const alpha = document.querySelector('[role=menuitem]');
+            key(input, 'ArrowUp');
+            expect(document.activeElement).toBe(alpha);
+            input.focus();
+            key(input, 'ArrowDown');
+            expect(document.activeElement.textContent).toBe('Gamma');
+        });
     });
     it('keeps a portal submenu navigating inside itself', () => {
         const submenu = <Dropdown.Menu><Dropdown.Item>Sub1</Dropdown.Item><Dropdown.Item>Sub2</Dropdown.Item></Dropdown.Menu>;
