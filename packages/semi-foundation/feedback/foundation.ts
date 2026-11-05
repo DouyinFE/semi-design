@@ -61,9 +61,8 @@ export default class FoundationFoundation extends BaseFoundation<FeedbackAdapter
                     onCancelReturnPromiseStatus: "fulfilled", 
                     value: null
                 });
-            })?.catch(e => {
+            }, () => {
                 this._adapter.setState({ onCancelReturnPromiseStatus: "rejected" });
-                throw e;
             });
         } else {
             this._adapter.setValue(null);
@@ -79,9 +78,8 @@ export default class FoundationFoundation extends BaseFoundation<FeedbackAdapter
                     onOKReturnPromiseStatus: "fulfilled",
                     value: null
                 });
-            })?.catch(e => {
+            }, () => {
                 this._adapter.setState({ onOKReturnPromiseStatus: "rejected" });
-                throw e;
             });
         } else {
             this._adapter.setValue(null);
