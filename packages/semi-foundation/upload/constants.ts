@@ -37,8 +37,20 @@ const strings = {
     PROMPT_POSITION: ['left', 'right', 'bottom'] as const,
 };
 
+// Keydown and the native paste event can land in different tasks (e.g. macOS Chromium, where
+// Cmd+V paste is dispatched after an IPC round trip). Keyboard clipboard reads wait this long
+// for the paste event; a paste arriving later than this is dropped by the duplicate check below.
+const PASTING_FALLBACK_DELAY = 100;
+
+// After a keyboard clipboard read uploads, an identical native paste without a new keydown within
+// this window is treated as the late half of the same paste. Kept short so pasting the same image
+// again from the context menu is not swallowed.
+const KEYBOARD_PASTE_DEDUPE_WINDOW = 1000;
+
 const numbers = {
-    PROGRESS_COEFFICIENT
+    PROGRESS_COEFFICIENT,
+    PASTING_FALLBACK_DELAY,
+    KEYBOARD_PASTE_DEDUPE_WINDOW,
 };
 
 export { cssClasses, strings, numbers };
