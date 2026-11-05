@@ -848,8 +848,16 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         const mainCls = `${prefixCls}-file-list-main`;
         const addContentProps = {
             role: 'button',
+            tabIndex: disabled ? -1 : 0,
+            'aria-disabled': disabled,
             className: uploadAddCls,
             onClick: this.onClick,
+            onKeyDown: (event: React.KeyboardEvent) => {
+                if (event.target === event.currentTarget && !disabled && (event.key === 'Enter' || event.key === ' ')) {
+                    event.preventDefault();
+                    this.onClick();
+                }
+            },
             style: {
                 height: picHeight,
                 width: picWidth
