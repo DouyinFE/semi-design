@@ -62,6 +62,8 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                 direction: props.direction,
                 registerItem: this.registerItem,
                 registerHandler: this.registerHandler,
+                unregisterItem: this.unregisterItem,
+                unregisterHandler: this.unregisterHandler,
                 notifyResizeStart: this.foundation.onResizeStart,
                 getGroupSize: this.getGroupSize,
             },
@@ -85,8 +87,12 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     itemResizing: Map<number, ResizeCallback> = new Map();
     itemResizeEnd: Map<number, ResizeCallback> = new Map();
     handlerRefs: Map<number, RefObject<HTMLDivElement>> = new Map();
+    private registrationsChanged = false;
+    private mounted = false;
 
     componentDidMount() {
+        this.mounted = true;
+        this.registrationsChanged = false;
         this.foundation.init();
         // 监听窗口大小变化，保证一些限制仍生效
         window.addEventListener('resize', this.foundation.ensureConstraint);
@@ -101,6 +107,9 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     }
 
     componentDidUpdate(prevProps: ResizeGroupProps) {
+        if (this.registrationsChanged) {
+            this.syncRegistrations();
+        }
         // 支持动态调整伸缩direction
         if (this.props.direction !== prevProps.direction) {
             this.setState((prevState) => ({
@@ -115,6 +124,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     }
 
     componentWillUnmount() {
+        this.mounted = false;
         this.foundation.destroy();
         window.removeEventListener('resize', this.foundation.ensureConstraint);
         if (this.resizeObserver) {
@@ -190,10 +200,12 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         min: string, max: string, defaultSize: string|number,
         onResizeStart: ResizeStartCallback, onChange: ResizeCallback, onResizeEnd: ResizeCallback
     ) => {
-        if (Array.from(this.itemRefs.values()).some(r => r === ref)) {
-            return -1;
+        const existing = Array.from(this.itemRefs).find(([, value]) => value === ref);
+        const index = existing ? existing[0] : Math.max(-1, ...this.itemRefs.keys()) + 1;
+        const constraintsChanged = existing && (this.itemMinMap.get(index) !== min || this.itemMaxMap.get(index) !== max);
+        if (!existing) {
+            this.markRegistrationsChanged();
         }
-        let index = this.itemRefs.size;
         this.itemRefs.set(index, ref);
         this.itemMinMap.set(index, min);
         this.itemMaxMap.set(index, max);
@@ -201,16 +213,78 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         this.itemResizeStart.set(index, onResizeStart);
         this.itemResizing.set(index, onChange);
         this.itemResizeEnd.set(index, onResizeEnd);
+        if (constraintsChanged) {
+            this.foundation.ensureConstraint();
+        }
         return index;
     }
 
     registerHandler = (ref: RefObject<HTMLDivElement>) => {
-        if (Array.from(this.handlerRefs.values()).some(r => r === ref)) {
-            return -1;
+        const existing = Array.from(this.handlerRefs).find(([, value]) => value === ref);
+        if (existing) {
+            return existing[0];
         }
-        let index = this.handlerRefs.size;
+        const index = Math.max(-1, ...this.handlerRefs.keys()) + 1;
         this.handlerRefs.set(index, ref);
+        this.markRegistrationsChanged();
         return index;
+    }
+
+    // 后代组件自行增删 item/handler 时 Group 不会重渲染，需主动触发 componentDidUpdate 完成同步；
+    // 挂载前由 componentDidMount 的 init 处理，卸载后无需处理。
+    private markRegistrationsChanged() {
+        this.registrationsChanged = true;
+        if (this.mounted) {
+            this.forceUpdate();
+        }
+    }
+
+    unregisterItem = (ref: RefObject<HTMLDivElement>) => {
+        const entry = Array.from(this.itemRefs).find(([, value]) => value === ref);
+        if (entry) {
+            [this.itemRefs, this.itemMinMap, this.itemMaxMap, this.itemDefaultSizeList,
+                this.itemResizeStart, this.itemResizing, this.itemResizeEnd].forEach(map => map.delete(entry[0]));
+            this.markRegistrationsChanged();
+        }
+    }
+
+    unregisterHandler = (ref: RefObject<HTMLDivElement>) => {
+        const entry = Array.from(this.handlerRefs).find(([, value]) => value === ref);
+        if (entry) {
+            this.handlerRefs.delete(entry[0]);
+            this.markRegistrationsChanged();
+        }
+    }
+
+    private syncRegistrations() {
+        this.registrationsChanged = false;
+        this.foundation.ensureConstraint.cancel();
+        this.foundation.unregisterEvents();
+        if (this.state.isResizing) {
+            this.setState({ isResizing: false, curHandler: null });
+        }
+        // Mount order can differ from DOM order when an item is inserted between existing items.
+        const ordered = (refs: Map<number, RefObject<HTMLDivElement>>) => Array.from(refs).sort((a, b) =>
+            a[1].current.compareDocumentPosition(b[1].current) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1);
+        const items = ordered(this.itemRefs);
+        const reindex = <T, >(map: Map<number, T>) => {
+            const values = items.map(([index]) => map.get(index));
+            map.clear();
+            values.forEach((value, index) => map.set(index, value));
+        };
+        reindex(this.itemRefs);
+        reindex(this.itemMinMap);
+        reindex(this.itemMaxMap);
+        reindex(this.itemDefaultSizeList);
+        reindex(this.itemResizeStart);
+        reindex(this.itemResizing);
+        reindex(this.itemResizeEnd);
+        const handlers = ordered(this.handlerRefs);
+        this.handlerRefs.clear();
+        handlers.forEach(([, ref], index) => this.handlerRefs.set(index, ref));
+        this.foundation.itemMinusMap.clear();
+        this.foundation.itemPercentMap.clear();
+        this.foundation.initSpace();
     }
 
     getGroupSize = () => {

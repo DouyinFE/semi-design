@@ -20,8 +20,7 @@ export class ResizableHandlerFoundation<P = Record<string, any>, S = Record<stri
     };
 
     onTouchStart = (e: TouchEvent) => {
-        const touch = e.targetTouches[0];
-        this.getProp('onResizeStart')(touch, this.getProp('direction'), 'touch');
+        this.getProp('onResizeStart')(e, this.getProp('direction'), 'touch');
     }
 
     destroy(): void {
@@ -386,14 +385,14 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
     }
 
 
-    onResizeStart = (e: MouseEvent, direction: Direction, type: ResizeEventType) => {
+    onResizeStart = (e: MouseEvent | TouchEvent, direction: Direction, type: ResizeEventType) => {
         this.type = type;
         this.resizable = this._adapter.getResizable();
         if (!this.resizable || !this.window) {
             return;
         }
 
-        const { clientX, clientY } = e;
+        const { clientX, clientY } = type === 'touch' ? (e as TouchEvent).targetTouches[0] : e as MouseEvent;
         const props = this.getProps();
         const states = this.getStates();
 
@@ -468,11 +467,10 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
 
     onTouchMove = (event: TouchEvent) => {
         event.preventDefault();
-        const touch = event.targetTouches[0];
-        this.changePosition(touch);
+        this.changePosition(event);
     }
 
-    changePosition = (event: Touch | MouseEvent) => {
+    changePosition = (event: TouchEvent | MouseEvent) => {
         const states = this.getStates();
         const props = this.getProps();
 
@@ -480,7 +478,7 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
             return;
         }
 
-        const { clientX, clientY } = event;
+        const { clientX, clientY } = this.type === 'touch' ? (event as TouchEvent).targetTouches[0] : event as MouseEvent;
         const { direction, original, width, height } = states;
         const parentSize = this.getParentSize();
         let { maxWidth, maxHeight, minWidth, minHeight } = props;
