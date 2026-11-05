@@ -37,6 +37,9 @@ export interface SliderProps{
     'aria-label'?: string;
     'aria-labelledby'?: string;
     'aria-valuetext'?: string;
+    'aria-describedby'?: string;
+    'aria-errormessage'?: string;
+    'aria-invalid'?: boolean | 'false' | 'true' | 'grammar' | 'spelling';
     getAriaValueText?: (value: number, index?: number) => string;
     handleDot?: {
         size?: string;
