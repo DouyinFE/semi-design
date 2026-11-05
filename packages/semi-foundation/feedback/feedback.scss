@@ -84,7 +84,15 @@ $module: #{$prefix}-feedback;
             }
         }
 
-        @keyframes #{$prefix}-sidesheet-slideShow_bottom {
+        .#{$prefix}-sidesheet-animation-content_show_bottom {
+            animation-name: #{$module}-slideShow_bottom;
+        }
+
+        .#{$prefix}-sidesheet-animation-content_hide_bottom {
+            animation-name: #{$module}-slideHide_bottom;
+        }
+
+        @keyframes #{$module}-slideShow_bottom {
             from {
                 transform: translateY(calc(100% + $spacing-feedback_sidesheet_bottom_inner_wrap-bottom));
             }
@@ -93,7 +101,7 @@ $module: #{$prefix}-feedback;
             }
         }
 
-        @keyframes #{$prefix}-sidesheet-slideHide_bottom {
+        @keyframes #{$module}-slideHide_bottom {
             from {
                 transform: translateY(0);
             }
