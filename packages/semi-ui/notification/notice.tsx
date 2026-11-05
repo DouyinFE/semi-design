@@ -23,7 +23,7 @@ export interface NoticeReactProps extends NoticeProps {
     onClick?: (e: React.MouseEvent) => void;
     onAnimationEnd?: (e: React.AnimationEvent) => void;
     onAnimationStart?: (e: React.AnimationEvent) => void;
-    isClosing?: boolean;
+    isClosing?: boolean
 }
 
 const prefixCls = cssClasses.NOTICE;
@@ -145,6 +145,11 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
     };
 
     close = (e: React.MouseEvent) => {
+        // The button stays clickable during the leave animation.
+        if (this.props.isClosing) {
+            e.stopPropagation();
+            return;
+        }
         this.props.onCloseClick(this.props.id);
         this.foundation.close(e);
     };
