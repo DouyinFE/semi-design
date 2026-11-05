@@ -1,6 +1,4 @@
 import { Form, Select } from '../../index';
-import { noop } from 'lodash';
-import { func } from 'prop-types';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 import { sleep as baseSleep } from '../../_test_/utils/index';
 
@@ -457,6 +455,45 @@ describe('Form-field', () => {
         await sleep(200);
         form.update();
         expect(formApi.getError('text')).not.toBeUndefined();
+    });
+
+    it('validate before unRegister', async () => {
+        let formApi = null;
+
+        const Foo = () => (
+            <Form
+                initValues={{
+                    text: 'semi',
+                }}
+                getFormApi={api => {
+                    formApi = api;
+                }}
+            >
+                {({ formState }) => (
+                    <>
+                        {!!formState.values.text && (
+                            <Form.Input
+                                field="text"
+                                rules={[
+                                    { required: true },
+                                ]}
+                            />
+                        )}
+                    </>
+                )}
+            </Form>
+        );
+
+        const form = mount(<Foo />);
+        const event = { target: { value: '' } };
+        form.find(`.${BASE_CLASS_PREFIX}-input`).simulate('change', event);
+        await sleep(200);
+        form.update();
+
+        formApi.setValue('text', 'foo');
+        expect(await formApi.validate()).toEqual({
+            text: 'foo',
+        });
     });
 
     // TODO
