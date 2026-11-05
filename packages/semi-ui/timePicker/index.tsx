@@ -22,6 +22,16 @@ export default class LocaleTimePicker extends React.PureComponent<LocalePickerPr
     static __SemiComponentName__ = "TimePicker";
     static defaultProps = getDefaultPropsFromGlobalConfig(LocaleTimePicker.__SemiComponentName__, BaseTimePicker.defaultProps);
 
+    pickerRef = React.createRef<BaseTimePicker>();
+
+    focus() {
+        this.pickerRef.current?.focus();
+    }
+
+    blur() {
+        this.pickerRef.current?.blur();
+    }
+
     render() {
         const { type } = this.props;
         return (
@@ -30,6 +40,7 @@ export default class LocaleTimePicker extends React.PureComponent<LocalePickerPr
                     <LocaleConsumer componentName="TimePicker">
                         {(locale: Locale['TimePicker'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => (
                             <BaseTimePicker
+                                ref={this.pickerRef}
                                 timeZone={timeZone}
                                 placeholder={get(locale, ['placeholder', type])}
                                 {...this.props}

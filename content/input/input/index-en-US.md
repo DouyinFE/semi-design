@@ -591,8 +591,8 @@ import { Input, TextArea } from '@douyinfe/semi-ui';
 | showClear         | Display the clear button when the input box has content and hover or focus                                                                                         | boolean                         | false   |
 | style             | Inline style for the outer container                                                                                                           | CSSProperties                   | -       |
 | textareaStyle     | Style for the textarea element, can be used to set height, background color, etc. **>=2.94.0** | CSSProperties | - |
-| onBlur            | Callback invoked when input loses focus                                                                                | (e:event) => void               | -       |
-| onChange          | Callback invoked when input value changes                                                                              | (value:string, e:event) => void |         |
+| onBlur            | Callback invoked when input loses focus. When the clear button causes the blur, e is that button's click event | (e:event) => void               | -       |
+| onChange          | Callback invoked when input value changes. When the clear button is clicked, e is that button's click event, so read the content from value | (value:string, e:event) => void |         |
 | onClear           | Callback invoked when clicking clear icon                                                                | (e:event) => void               |         |
 | onEnterPress      | Callback invoked when pressing enter                                                                                   | (e:event) => void               | -       |
 | onFocus           | Callback invoked when input gets focus                                                                                 | (e:event) => void               | -       |

@@ -6,6 +6,7 @@ import { noop, get, isEqual } from 'lodash';
 
 import NavigationFoundation, { NavigationAdapter } from '@douyinfe/semi-foundation/navigation/foundation';
 import { strings, cssClasses, numbers } from '@douyinfe/semi-foundation/navigation/constants';
+import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 
 import SubNav, { SubNavProps } from './SubNav';
 import Item, { NavItemProps, ItemKey } from './Item';
@@ -88,7 +89,7 @@ function createAddKeysFn(context: Nav, keyName: string | number) {
     return function addKeys(...keys: (string | number)[]) {
         const handleKeys = new Set(context.state[keyName]);
 
-        keys.forEach(key => key && handleKeys.add(key));
+        keys.forEach(key => !isNullOrUndefined(key) && handleKeys.add(key));
 
         context.setState({ [keyName]: Array.from(handleKeys) } as any);
     };
@@ -98,7 +99,7 @@ function createRemoveKeysFn(context: Nav, keyName: string) {
     return function removeKeys(...keys: string[]) {
         const handleKeys = new Set(context.state[keyName]);
 
-        keys.forEach(key => key && handleKeys.delete(key));
+        keys.forEach(key => !isNullOrUndefined(key) && handleKeys.delete(key));
 
         context.setState({ [keyName]: Array.from(handleKeys) } as any);
     };

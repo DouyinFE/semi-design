@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Patvirtinti',
         cancel: 'Atšaukti',
+        close: 'Uždaryti',
+    },
+    Banner: {
+        close: 'Uždaryti',
     },
     Tabs: {
+        close: 'Uždaryti',
         more: "Daugiau"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'informacijos elementai'
     },
     Feedback: {
+        placeholder: 'Pateikite papildomų atsiliepimų',
+        optionalPlaceholder: 'Pateikite papildomų atsiliepimų (neprivaloma)',
         submit: 'Pateikti',
         cancel: 'Atšaukti'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'Pasirinkta ${count} elem.',
     },
     Sidebar: {
+        close: 'Uždaryti',
         linkAddSuccess: 'Nuoroda sėkmingai pridėta',
         linkRemoveSuccess: 'Nuoroda sėkmingai pašalinta',
         enterLinkAddress: "Įveskite nuorodos adresą",

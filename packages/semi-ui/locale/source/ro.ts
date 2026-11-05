@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Confirmă',
         cancel: 'Anulează',
+        close: 'Închide',
+    },
+    Banner: {
+        close: 'Închide',
     },
     Tabs: {
+        close: 'Închide',
         more: "Mai mult"
     },
     TimePicker: {
@@ -224,6 +229,8 @@ const local: Locale = {
         annotationText: 'elemente de informație'
     },
     Feedback: {
+        placeholder: 'Oferiți feedback suplimentar',
+        optionalPlaceholder: 'Oferiți feedback suplimentar (opțional)',
         submit: 'Trimite',
         cancel: 'Anulează'
     },
@@ -233,6 +240,7 @@ const local: Locale = {
         selected: '${count} articole selectate',
     },
     Sidebar: {
+        close: 'Închide',
         linkAddSuccess: 'Link adăugat cu succes',
         linkRemoveSuccess: 'Link eliminat cu succes',
         enterLinkAddress: "Introduceți adresa link-ului",

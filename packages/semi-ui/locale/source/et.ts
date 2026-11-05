@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Kinnita',
         cancel: 'Tühista',
+        close: 'Sulge',
+    },
+    Banner: {
+        close: 'Sulge',
     },
     Tabs: {
+        close: 'Sulge',
         more: "Rohkem"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'infokillud'
     },
     Feedback: {
+        placeholder: 'Lisa täiendav tagasiside',
+        optionalPlaceholder: 'Lisa täiendav tagasiside (valikuline)',
         submit: 'Esita',
         cancel: 'Loobu'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'Valitud ${count} elementi',
     },
     Sidebar: {
+        close: 'Sulge',
         linkAddSuccess: 'Link lisati edukalt',
         linkRemoveSuccess: 'Link eemaldati edukalt',
         enterLinkAddress: "Sisesta linki aadress",

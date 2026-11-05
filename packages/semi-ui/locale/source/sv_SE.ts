@@ -19,8 +19,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Bekräfta',
         cancel: 'Avbryt',
+        close: 'Stäng',
+    },
+    Banner: {
+        close: 'Stäng',
     },
     Tabs: {
+        close: 'Stäng',
         more: "Mer"
     },
     TimePicker: {
@@ -226,6 +231,8 @@ const local: Locale = {
         annotationText: 'informationselement'
     },
     Feedback: {
+        placeholder: 'Ge ytterligare feedback',
+        optionalPlaceholder: 'Ge ytterligare feedback (valfritt)',
         submit: 'Skicka',
         cancel: 'Avbryt'
     },
@@ -235,6 +242,7 @@ const local: Locale = {
         selected: '${count} objekt valda',
     },
     Sidebar: {
+        close: 'Stäng',
         linkAddSuccess: 'Länk tillagd framgångsrikt',
         linkRemoveSuccess: 'Länk borttagen framgångsrikt',
         enterLinkAddress: "Ange länkens adress",

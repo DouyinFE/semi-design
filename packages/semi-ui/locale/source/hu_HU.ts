@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Megerősítés',
         cancel: 'Mégse',
+        close: 'Bezárás',
+    },
+    Banner: {
+        close: 'Bezárás',
     },
     Tabs: {
+        close: 'Bezárás',
         more: "Továbbiak"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'információ'
     },
     Feedback: {
+        placeholder: 'Adjon további visszajelzést',
+        optionalPlaceholder: 'Adjon további visszajelzést (nem kötelező)',
         submit: 'Beküldés',
         cancel: 'Mégse'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: '${count} elem kiválasztva',
     },
     Sidebar: {
+        close: 'Bezárás',
         linkAddSuccess: 'A link sikeresen hozzáadva',
         linkRemoveSuccess: 'A link sikeresen eltávolítva',
         enterLinkAddress: "Adja meg a link címét",

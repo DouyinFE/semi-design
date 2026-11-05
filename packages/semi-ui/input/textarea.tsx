@@ -46,8 +46,9 @@ export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
     showCounter?: boolean;
     showClear?: boolean;
     onClear?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
-    onChange?: (value: string, e: React.MouseEvent<HTMLTextAreaElement>) => void;
-    onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
+    // Clearing reports the click on the clear button, whose target is not the textarea.
+    onChange?: (value: string, e: React.ChangeEvent<HTMLTextAreaElement> | React.MouseEvent<HTMLDivElement>) => void;
+    onBlur?: (e: React.FocusEvent<HTMLTextAreaElement> | React.MouseEvent<HTMLDivElement>) => void;
     onFocus?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
     onInput?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
     onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
@@ -85,7 +86,7 @@ export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
      * When autosize is enabled, this property will be ignored.
      * Note: this prop only takes effect when explicitly provided.
      */
-    resize?: 'none' | 'both' | 'horizontal' | 'vertical' | 'block' | 'inline';
+    resize?: 'none' | 'both' | 'horizontal' | 'vertical' | 'block' | 'inline'
 }
 
 export interface TextAreaState {
@@ -98,7 +99,7 @@ export interface TextAreaState {
     // Used to trigger re-render of line numbers when textarea resizes
     textareaWidth: number;
     // Used to constrain line number panel height to textarea viewport
-    textareaHeight: number;
+    textareaHeight: number
 }
 
 class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
@@ -200,11 +201,11 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             getRef: () => this.libRef.current,
             toggleFocusing: (focusing: boolean) => this.setState({ isFocus: focusing }),
             toggleHovering: (hovering: boolean) => this.setState({ isHover: hovering }),
-            notifyChange: (val: string, e: React.MouseEvent<HTMLTextAreaElement>) => {
+            notifyChange: (val: string, e: React.ChangeEvent<HTMLTextAreaElement> | React.MouseEvent<HTMLDivElement>) => {
                 this.props.onChange(val, e);
             },
             notifyClear: (e: React.MouseEvent<HTMLTextAreaElement>) => this.props.onClear(e),
-            notifyBlur: (val: string, e: React.FocusEvent<HTMLTextAreaElement>) => this.props.onBlur(e),
+            notifyBlur: (val: string, e: React.FocusEvent<HTMLTextAreaElement> | React.MouseEvent<HTMLDivElement>) => this.props.onBlur(e),
             notifyFocus: (val: string, e: React.FocusEvent<HTMLTextAreaElement>) => this.props.onFocus(e),
             notifyKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
                 this.props.onKeyDown(e);
@@ -506,7 +507,8 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             onResize,
             resize,
             disabled,
-            readonly,
+            readonly: legacyReadonly,
+            readOnly,
             className,
             showCounter,
             validateStatus,
@@ -529,6 +531,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             ...rest
         } = this.props;
         const { isFocus, value, minLength: stateMinLength } = this.state;
+        const readonly = Boolean(legacyReadonly || readOnly);
 
         // Only opt-in to the new resize behavior when `resize` prop is explicitly provided.
         // This guarantees the default width behavior remains identical to previous versions.
@@ -582,7 +585,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             placeholder: !placeholder ? null : placeholder,
             onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => this.foundation.handleChange(e.target.value, e),
             onFocus: (e: React.FocusEvent<HTMLTextAreaElement>) => this.foundation.handleFocus(e),
-            onBlur: (e: React.FocusEvent<HTMLTextAreaElement>) => this.foundation.handleBlur(e.nativeEvent),
+            onBlur: (e: React.FocusEvent<HTMLTextAreaElement>) => this.foundation.handleBlur(e),
             onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => this.foundation.handleKeyDown(e),
             onScroll: this.handleTextAreaScroll,
             value: value === null || value === undefined ? '' : value,

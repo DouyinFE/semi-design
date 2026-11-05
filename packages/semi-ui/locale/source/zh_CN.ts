@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: '确定',
         cancel: '取消',
+        close: '关闭',
+    },
+    Banner: {
+        close: '关闭',
     },
     Tabs: {
+        close: '关闭',
         more: "更多",
     },
     TimePicker: {
@@ -225,6 +230,8 @@ const local: Locale = {
         annotationText: '篇资料'
     },
     Feedback: {
+        placeholder: '请提供更多反馈',
+        optionalPlaceholder: '请提供更多反馈（选填）',
         submit: '提交',
         cancel: '取消'
     },
@@ -234,6 +241,7 @@ const local: Locale = {
         selected: '已选 ${count} 个',
     },
     Sidebar: {
+        close: '关闭',
         linkAddSuccess: '已添加链接',
         linkRemoveSuccess: '已移除链接',
         enterLinkAddress: "输入链接地址",

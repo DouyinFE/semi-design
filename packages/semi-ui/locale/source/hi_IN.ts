@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'पुष्टि करें',
         cancel: 'रद्द करें',
+        close: 'बंद करें',
+    },
+    Banner: {
+        close: 'बंद करें',
     },
     Tabs: {
+        close: 'बंद करें',
         more: "ज़्यादा"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'जानकारी के टुकड़े'
     },
     Feedback: {
+        placeholder: 'अतिरिक्त फ़ीडबैक दें',
+        optionalPlaceholder: 'अतिरिक्त फ़ीडबैक दें (वैकल्पिक)',
         submit: 'सबमिट करें',
         cancel: 'रद्द करें'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: '${count} आइटम चुने गए',
     },
     Sidebar: {
+        close: 'बंद करें',
         linkAddSuccess: 'लिंक सफलतापूर्वक जोड़ा गया',
         linkRemoveSuccess: 'लिंक सफलतापूर्वक हटा दिया गया',
         enterLinkAddress: "लिंक का पता दर्ज करें",

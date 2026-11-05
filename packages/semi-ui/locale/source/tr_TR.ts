@@ -13,9 +13,14 @@ const local: Locale = {
     },
     Modal: {
         confirm: 'Tamam',
-        cancel: 'İptal'
+        cancel: 'İptal',
+        close: 'Kapat',
+    },
+    Banner: {
+        close: 'Kapat',
     },
     Tabs: {
+        close: 'Kapat',
         more: "Daha"
     },
     TimePicker: {
@@ -222,6 +227,8 @@ const local: Locale = {
         annotationText: 'bilgi elemanı'
     },
     Feedback: {
+        placeholder: 'Ek geri bildirim sağlayın',
+        optionalPlaceholder: 'Ek geri bildirim sağlayın (isteğe bağlı)',
         submit: 'Göndermek',
         cancel: 'İptal'
     },
@@ -231,6 +238,7 @@ const local: Locale = {
         selected: '${count} öğe seçildi',
     },
     Sidebar: {
+        close: 'Kapat',
         linkAddSuccess: 'Bağlantı başarıyla eklendi',
         linkRemoveSuccess: 'Bağlantı başarıyla silindi',
         enterLinkAddress: "Bağlantı adresini girin",

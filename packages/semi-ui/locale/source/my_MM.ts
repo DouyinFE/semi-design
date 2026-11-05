@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'အတည်ပြုမည်',
         cancel: 'ပယ်ဖျက်မည်',
+        close: 'ပိတ်ရန်',
+    },
+    Banner: {
+        close: 'ပိတ်ရန်',
     },
     Tabs: {
+        close: 'ပိတ်ရန်',
         more: "နောက်ထပ်"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'အချက်အလက် အရေအတွက်'
     },
     Feedback: {
+        placeholder: 'နောက်ထပ် အကြံပြုချက် ပေးပါ',
+        optionalPlaceholder: 'နောက်ထပ် အကြံပြုချက် ပေးပါ (ရွေးချယ်နိုင်သည်)',
         submit: '‌ပေးပို့မည်',
         cancel: 'ပယ်ဖျက်မည်'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'ပစ္စည်း ${count} ခု ရွေးချယ်ထားသည်',
     },
     Sidebar: {
+        close: 'ပိတ်ရန်',
         linkAddSuccess: 'လင့်ခ်ကိုအောင်မြင်စွာထည့်သွင်းခဲ့သည်',
         linkRemoveSuccess: 'လင့်ခ်ကိုအောင်မြင်စွာဖယ်ရှားခဲ့သည်',
         enterLinkAddress: "လင့်ခ်အိပ်ဒက်ကိုထည့်သွင်းပါ",

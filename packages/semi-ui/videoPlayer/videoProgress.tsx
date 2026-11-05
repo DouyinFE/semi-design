@@ -49,7 +49,6 @@ export default class VideoProgress extends BaseComponent<VideoProgressProps, Vid
 
         this.sliderRef = React.createRef();
         this.handleRef = React.createRef();
-        this.markersList = this.initMarkerList();
         this.foundation = new VideoProgressFoundation(this.adapter);
     }
 
@@ -126,6 +125,7 @@ export default class VideoProgress extends BaseComponent<VideoProgressProps, Vid
     }
 
     render() {
+        this.markersList = this.initMarkerList();
         const { showTooltip, max, value: currentValue } = this.props;
         const { movingInfo, isHandleHovering, isDragging, activeIndex } = this.state;
         const sliderContent = (

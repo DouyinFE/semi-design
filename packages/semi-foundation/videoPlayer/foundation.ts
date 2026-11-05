@@ -2,6 +2,8 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { numbers } from './constants';
 import { throttle } from 'lodash';
 
+const FULLSCREEN_CHANGE_EVENTS = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'];
+
 export interface VideoPlayerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getVideo: () => HTMLVideoElement | null;
     getVideoWrapper: () => HTMLDivElement | null;
@@ -16,6 +18,7 @@ export interface VideoPlayerAdapter<P = Record<string, any>, S = Record<string, 
     setIsError: (isError: boolean) => void;
     setIsMirror: (isMirror: boolean) => void;
     setIsPlaying: (isPlaying: boolean) => void;
+    setIsFullscreen: (isFullscreen: boolean) => void;
     setMuted: (muted: boolean) => void;
     setNotificationContent: (content: string) => void;
     setPlaybackRate: (rate: number) => void;
@@ -301,6 +304,7 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
 
     handleFullscreenChange = () => {
         const isFullScreen = this.checkFullScreen();
+        this._adapter.setIsFullscreen(isFullScreen);
         if (isFullScreen) {
             document.addEventListener('mousemove', this.handleMouseMove);
         } else {
@@ -320,14 +324,15 @@ export default class VideoPlayerFoundation<P = Record<string, any>, S = Record<s
         const video = this._adapter.getVideo();
         if (!video) return;
         document.addEventListener('keydown', this.handleBodyKeyDown);
-        document.addEventListener('fullscreenchange', this.handleFullscreenChange);
+        // Keep in sync with the prefixed properties read by checkFullScreen
+        FULLSCREEN_CHANGE_EVENTS.forEach(event => document.addEventListener(event, this.handleFullscreenChange));
         video.addEventListener('leavepictureinpicture', this.handleLeavePictureInPicture);
     }
 
     unregisterEvent = () => {
         const video = this._adapter.getVideo();
         document.removeEventListener('keydown', this.handleBodyKeyDown);
-        document.removeEventListener('fullscreenchange', this.handleFullscreenChange);
+        FULLSCREEN_CHANGE_EVENTS.forEach(event => document.removeEventListener(event, this.handleFullscreenChange));
         if (video) {
             video.removeEventListener('leavepictureinpicture', this.handleLeavePictureInPicture);
         }

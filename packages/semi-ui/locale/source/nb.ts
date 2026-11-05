@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Bekreft',
         cancel: 'Avbryt',
+        close: 'Lukk',
+    },
+    Banner: {
+        close: 'Lukk',
     },
     Tabs: {
+        close: 'Lukk',
         more: "Mer"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'dokumenter'
     },
     Feedback: {
+        placeholder: 'Gi ytterligere tilbakemelding',
+        optionalPlaceholder: 'Gi ytterligere tilbakemelding (valgfritt)',
         submit: 'Send inn',
         cancel: 'Avbryt'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: '${count} elementer er valgt',
     },
     Sidebar: {
+        close: 'Lukk',
         linkAddSuccess: 'Lenke lagt til vellykket',
         linkRemoveSuccess: 'Lenke fjernet vellykket',
         enterLinkAddress: "Skriv inn lenkens adresse",

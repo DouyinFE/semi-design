@@ -110,9 +110,9 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         this._adapter.unregisterEvents(this.type);
     }
 
-    onResizeStart = (handlerIndex: number, e: MouseEvent | Touch, type: ResizeEventType) => { // handler ref
+    onResizeStart = (handlerIndex: number, e: MouseEvent | TouchEvent, type: ResizeEventType) => { // handler ref
         this.type = type;
-        let { clientX, clientY } = e;
+        let { clientX, clientY } = type === 'touch' ? (e as TouchEvent).targetTouches[0] : e as MouseEvent;
         let lastItem = this._adapter.getItem(handlerIndex), nextItem = this._adapter.getItem(handlerIndex + 1);
         let lastOffset: number, nextOffset: number;
         // offset caused by padding and border
@@ -263,7 +263,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
 
         for (let i = 0; i < this._adapter.getItemCount(); i++) {
             if (i === 0) {
-                this.itemMinusMap.set(i, handlerSizes[i] / 2);
+                this.itemMinusMap.set(i, (handlerSizes[i] || 0) / 2);
             } else if (i === this._adapter.getItemCount() - 1) {
                 this.itemMinusMap.set(i, handlerSizes[i - 1] / 2);
             } else {
@@ -382,6 +382,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
     }, 200) 
 
     destroy(): void {
-        
+        this.ensureConstraint.cancel();
+        this.unregisterEvents();
     }
 }

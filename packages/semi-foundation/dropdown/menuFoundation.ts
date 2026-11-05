@@ -25,20 +25,19 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
     onMenuKeydown(event: any): void {
         const menu = getAncestorNodeByRole(event.target, 'tooltip');
         
-        if (!this.menuItemNodes) {
-            this.menuItemNodes = [...(event.target.parentNode).getElementsByTagName('li')].filter(item => item.ariaDisabled !== "true");
-        }
+        // event.target can be an element inside an item, such as an input, so read items from the menu handling the event
+        const items: HTMLElement[] = [...event.currentTarget.getElementsByTagName('li')];
+        const isEnabled = (item: HTMLElement) => item.getAttribute('aria-disabled') !== 'true';
+        this.menuItemNodes = items.filter(isEnabled);
+        this.firstChars = this.menuItemNodes.map(item => item.textContent.trim()[0]?.toLowerCase());
 
-        if (this.firstChars.length === 0) {
-            this.menuItemNodes.forEach((item: Element) => {
-                // the menuItemNodes can be an component and not exit textContent
-                this.firstChars.push(item.textContent.trim()[0]?.toLowerCase());
-            });
-        }
+        const isItemTarget = items.includes(event.target);
+        // get the currently focused menu item, which contains the target when focus is on an element inside an item
+        const focusedItem = (!isItemTarget && items.find(item => item.contains(event.target))) || items.find(item => item.tabIndex === 0);
+        const curItem = focusedItem && isEnabled(focusedItem) ? focusedItem : undefined;
+        // The focused item can become disabled while keeping focus, so arrow keys continue from its DOM position
+        const disabledCurIndex = focusedItem && !curItem ? items.indexOf(focusedItem) : -1;
 
-        // get the currently focused menu item
-        const curItem = this.menuItemNodes.find(item => item.tabIndex === 0);
-        
         switch (event.key) {
             case ' ':
             case 'Enter':
@@ -50,15 +49,25 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
                 this.handleEscape(menu);
                 break;
             case 'ArrowUp':
-                setFocusToPreviousMenuItem(this.menuItemNodes, curItem);
+                if (disabledCurIndex >= 0) {
+                    const before = items.slice(0, disabledCurIndex).filter(isEnabled);
+                    setFocusToItem(items, before[before.length - 1] ?? this.menuItemNodes[this.menuItemNodes.length - 1]);
+                } else {
+                    setFocusToPreviousMenuItem(this.menuItemNodes, curItem);
+                }
                 handlePrevent(event);
                 break;
             case 'ArrowDown':
-                setFocusToNextMenuitem(this.menuItemNodes, curItem);
+                if (disabledCurIndex >= 0) {
+                    setFocusToItem(items, items.slice(disabledCurIndex + 1).find(isEnabled) ?? this.menuItemNodes[0]);
+                } else {
+                    setFocusToNextMenuitem(this.menuItemNodes, curItem);
+                }
                 handlePrevent(event);
                 break;
             default:
-                if (isPrintableCharacter(event.key)) {
+                // Characters typed into an element inside an item, such as an input, belong to that element
+                if (isItemTarget && isPrintableCharacter(event.key)) {
                     this.setFocusByFirstCharacter(curItem, event.key);
                     // it can be an input on Dropdown, handlePrevent may affect the input of the component
                     // handlePrevent(event); 

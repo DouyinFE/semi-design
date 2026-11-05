@@ -105,7 +105,7 @@ export interface selectMethod {
     focus?: () => void;
     close?: () => void;
     open?: () => void;
-    rePosition?: () => void;
+    rePosition?: () => void
 }
 export type SelectSize = 'small' | 'large' | 'default';
 
@@ -198,15 +198,15 @@ export type SelectProps<T = BasicSelectValue> = {
     showRestTagsPopover?: boolean;
     restTagsPopoverProps?: PopoverProps
 } & Pick<
-    TooltipProps,
-    | 'spacing'
-    | 'getPopupContainer'
-    | 'motion'
-    | 'autoAdjustOverflow'
-    | 'mouseLeaveDelay'
-    | 'mouseEnterDelay'
-    | 'stopPropagation'
-    | 'rePosKey'
+TooltipProps,
+| 'spacing'
+| 'getPopupContainer'
+| 'motion'
+| 'autoAdjustOverflow'
+| 'mouseLeaveDelay'
+| 'mouseEnterDelay'
+| 'stopPropagation'
+| 'rePosKey'
 >;
 
 export interface SelectState {
@@ -743,7 +743,7 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
     }
 
     renderDropdownInput() {
-        const { size, multiple, disabled, inputProps, filter, searchPosition, searchPlaceholder } = this.props;
+        const { size, multiple, disabled, inputProps, filter, searchPosition, searchPlaceholder, autoFocus, preventScroll } = this.props;
         const { inputValue, focusIndex } = this.state;
         const wrapperCls = cls(`${prefixcls}-dropdown-search-wrapper`, {
 
@@ -761,6 +761,9 @@ class Select<T = BasicSelectValue> extends BaseComponent<SelectProps<T>, SelectS
             onChange: this.handleInputChange,
             placeholder: searchPlaceholder,
             showClear: true,
+            // This input mounts after the popup commits, later than the open callback that tries to focus it
+            autoFocus,
+            preventScroll,
             ...inputProps,
             /**
              * When searchPosition is trigger, the keyboard events are bound to the outer trigger div, so there is no need to listen in input.

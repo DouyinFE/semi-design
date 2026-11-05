@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'تؤكد',
         cancel: 'إلغاء',
+        close: 'إغلاق',
+    },
+    Banner: {
+        close: 'إغلاق',
     },
     Tabs: {
+        close: 'إغلاق',
         more: "أكثر"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'عناصر من المعلومات'
     },
     Feedback: {
+        placeholder: 'قدّم ملاحظات إضافية',
+        optionalPlaceholder: 'قدّم ملاحظات إضافية (اختياري)',
         submit: 'إرسال',
         cancel: 'إلغاء'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'تم اختيار ${count} عناصر',
     },
     Sidebar: {
+        close: 'إغلاق',
         linkAddSuccess: 'تمت إضافة الرابط بنجاح',
         linkRemoveSuccess: 'تمت إزالة الرابط بنجاح',
         enterLinkAddress: "أدخل عنوان الرابط",

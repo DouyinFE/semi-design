@@ -56,7 +56,7 @@ export interface PaginationProps {
      * allowing users to handle page changes themselves in onPageSizeChange callback.
      * @default false
      */
-    preventPageChangeOnPageSizeChange?: boolean;
+    preventPageChangeOnPageSizeChange?: boolean
 }
 
 export interface PaginationState {
@@ -211,7 +211,9 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         };
 
         let pagerHasChanged = false;
-        let allPageNumberNeedUpdate = false;
+        let allPageNumberNeedUpdate = prevProps.size !== this.props.size ||
+            prevProps.hoverShowPageSelect !== this.props.hoverShowPageSelect ||
+            prevProps.disabled !== this.props.disabled;
 
         if (prevProps.currentPage !== this.props.currentPage) {
             pagerHasChanged = true;
@@ -233,7 +235,8 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         }
 
         if (allPageNumberNeedUpdate) {
-            this.foundation.updateAllPageNumbers(pagerProps.total, pagerProps.pageSize);
+            // updatePage applies the pageSize prop. Otherwise state holds the size in effect, which the size changer may have changed.
+            this.foundation.updateAllPageNumbers(pagerProps.total, pagerHasChanged ? pagerProps.pageSize : this.state.pageSize);
         }
     }
 

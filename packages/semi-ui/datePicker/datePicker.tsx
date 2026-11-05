@@ -427,9 +427,9 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             });
         }
 
-        if (prevProps.open !== this.props.open) {
+        if (prevProps.open !== this.props.open || prevProps.disabled !== this.props.disabled) {
             this.foundation.initPanelOpenStatus();
-            if (!this.props.open) {
+            if (!this.props.open || this.props.disabled) {
                 this.foundation.clearRangeInputFocus();
             }
         }

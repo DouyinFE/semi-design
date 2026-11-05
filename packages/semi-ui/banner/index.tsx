@@ -10,6 +10,8 @@ import { IconClose, IconAlertTriangle, IconInfoCircle, IconTickCircle, IconAlert
 
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import BaseComponent from '../_base/baseComponent';
+import LocaleConsumer from '../locale/localeConsumer';
+import { Locale } from '../locale/interface';
 
 const prefixCls = cssClasses.PREFIX;
 const types = strings.TYPE;
@@ -104,15 +106,20 @@ export default class Banner extends BaseComponent<BannerProps, BannerState> {
             return closeIcon;
         }
         const closer = (
-            <Button
-                className={`${prefixCls}-close`}
-                onClick={this.remove}
-                icon={closeIcon || <IconClose x-semi-prop="closeIcon" aria-hidden={true}/>}
-                theme="borderless"
-                size="small"
-                type="tertiary"
-                aria-label='Close'
-            />
+            <LocaleConsumer<Locale['Banner']> componentName="Banner">
+                {(locale) => (
+                    <Button
+                        className={`${prefixCls}-close`}
+                        onClick={this.remove}
+                        icon={closeIcon || <IconClose x-semi-prop="closeIcon" aria-hidden={true}/>}
+                        theme="borderless"
+                        size="small"
+                        type="tertiary"
+                        // a hand-written locale from an older version has no Banner section
+                        aria-label={locale?.close}
+                    />
+                )}
+            </LocaleConsumer>
         );
         return closer;
     }

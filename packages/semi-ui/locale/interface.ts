@@ -12,9 +12,14 @@ export interface Locale {
     };
     Modal: {
         confirm: string;
-        cancel: string
+        cancel: string;
+        close: string
+    };
+    Banner: {
+        close: string
     };
     Tabs: {
+        close: string;
         more: string
     };
     TimePicker: {
@@ -105,7 +110,7 @@ export interface Locale {
         ascend: string;
         cancelSort: string;
         confirmFilter: string;
-        resetFilter: string;
+        resetFilter: string
     };
     Select: {
         emptyText: string;
@@ -140,7 +145,7 @@ export interface Locale {
         fail: string;
         cropTitle?: string;
         cropOk?: string;
-        cropCancel?: string;
+        cropCancel?: string
     };
     TreeSelect: {
         searchPlaceholder: string
@@ -224,6 +229,8 @@ export interface Locale {
         annotationText: string
     };
     Feedback: {
+        placeholder: string;
+        optionalPlaceholder: string;
         submit: string;
         cancel: string
     };
@@ -233,6 +240,7 @@ export interface Locale {
         selected: string
     };
     Sidebar: {
+        close: string;
         linkAddSuccess: string;
         linkRemoveSuccess: string;
         enterLinkAddress: string;
