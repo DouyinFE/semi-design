@@ -66,9 +66,9 @@ export const ReferenceWidget = (props: ReferenceWidgetProps) => {
         <div 
             className={prefixCls} 
         >
-            {references.map((reference) => (
+            {references.map((reference, index) => (
                 // todo: 确认背景色和一行分布几个
-                <div className={referencePrefixCls} key={reference.id}>
+                <div className={referencePrefixCls} key={reference.id ?? index}>
                     <IconSendMsgStroked />
                     <span className={`${referencePrefixCls}-content`}>
                         {renderReferenceIcon(reference.name)}
