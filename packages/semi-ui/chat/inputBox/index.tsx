@@ -16,6 +16,7 @@ const textAutoSize = { minRows: 1, maxRows: 5 };
 class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
 
     inputAreaRef: React.RefObject<any>;
+    uploadRef = React.createRef<Upload>();
     static propTypes = {
         uploadProps: PropTypes.object,
     };
@@ -64,14 +65,16 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
     }
 
     renderUploadButton = () => {
-        const { uploadProps, uploadRef, uploadTipProps, clickUpload } = this.props;
-        if (!clickUpload) {
+        const { uploadProps, uploadRef = this.uploadRef, uploadTipProps, clickUpload, pasteUpload, dragUpload } = this.props;
+        const { attachment } = this.state;
+        const canUpload = clickUpload || pasteUpload || dragUpload;
+        if (!canUpload && !attachment.length) {
             return null;
         }
-        const { attachment } = this.state;
         const { className, onChange, renderFileItem, children, ...rest } = uploadProps;
         const realUploadProps = {
             ...rest,
+            addOnPasting: canUpload && rest.addOnPasting,
             className: cls(`${PREFIX_INPUT_BOX}-upload`, {
                 [className]: className
             }),
@@ -88,7 +91,9 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
                 theme='borderless'
             />}
         </Upload>;
-        return (uploadTipProps ? <Tooltip {...uploadTipProps}><span>{uploadNode}</span></Tooltip> : uploadNode);
+        return <div style={{ display: clickUpload ? 'contents' : 'none' }}>
+            {uploadTipProps ? <Tooltip {...uploadTipProps}><span>{uploadNode}</span></Tooltip> : uploadNode}
+        </div>;
     }
 
     renderInputArea = () => {
@@ -110,7 +115,7 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
             />
             <Attachment 
                 attachment={attachment as any} 
-                onClear={this.foundation.onAttachmentDelete}
+                onClear={file => (this.props.uploadRef ?? this.uploadRef).current?.remove(file)}
             />
         </div>);
     }

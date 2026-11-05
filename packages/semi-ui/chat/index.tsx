@@ -409,6 +409,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                         uploadTipProps={uploadTipProps}
                         sendHotKey={sendHotKey}
                         clickUpload={clickUpload}
+                        dragUpload={dragUpload}
                         pasteUpload={pasteUpload}
                     />
                     {bottomSlot}
