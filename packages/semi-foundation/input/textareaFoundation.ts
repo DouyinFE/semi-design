@@ -273,12 +273,16 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
 
     isAllowClear() {
         const { value, isFocus, isHover } = this._adapter.getStates();
-        const { showClear, disabled, readonly } = this._adapter.getProps();
-        const allowClear = value && showClear && !disabled && (isFocus || isHover) && !readonly;
+        const { showClear, disabled, readonly, readOnly } = this._adapter.getProps();
+        const allowClear = value && showClear && !disabled && (isFocus || isHover) && !readonly && !readOnly;
         return allowClear;
     }
 
     handleClear(e) {
+        const { readonly, readOnly } = this.getProps();
+        if (readonly || readOnly) {
+            return;
+        }
         const { isFocus } = this.getStates();
         if (this._isControlledComponent('value')) {
             this._adapter.setState({
@@ -303,9 +307,9 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
      * @param {Event} e
      */
     handleClick(e: any) {
-        const { disabled, readonly } = this._adapter.getProps();
+        const { disabled, readonly, readOnly } = this._adapter.getProps();
         const { isFocus } = this._adapter.getStates();
-        if (disabled || readonly || isFocus) {
+        if (disabled || readonly || readOnly || isFocus) {
             return;
         }
         // do not handle bubbling up events
@@ -320,9 +324,9 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
      * @param {Event} e
      */
     handleCounterClick(e: any) {
-        const { disabled, readonly } = this._adapter.getProps();
+        const { disabled, readonly, readOnly } = this._adapter.getProps();
         const { isFocus } = this._adapter.getStates();
-        if (disabled || readonly || isFocus) {
+        if (disabled || readonly || readOnly || isFocus) {
             return;
         }
         this._adapter.focusInput();

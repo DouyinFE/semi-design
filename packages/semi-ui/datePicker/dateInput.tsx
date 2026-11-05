@@ -453,7 +453,8 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                 ref={inputRef}
                 insetLabel={insetLabel}
                 disabled={disabled}
-                showClearIgnoreDisabled={showClearIgnoreDisabled}
+                // inputReadOnly only blocks typing, the picker's clear button stays available
+                showClearIgnoreDisabled={showClearIgnoreDisabled || (Boolean(inputReadOnly) && !disabled)}
                 readonly={inputReadOnly}
                 className={inputCls}
                 style={inputStyle}

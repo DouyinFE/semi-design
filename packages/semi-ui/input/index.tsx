@@ -452,7 +452,8 @@ class Input extends BaseComponent<InputProps, InputState> {
             insetLabelId,
             validateStatus,
             type,
-            readonly,
+            readonly: legacyReadonly,
+            readOnly,
             size,
             suffix,
             style,
@@ -472,6 +473,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             ...rest
         } = this.props;
         const { value, isFocus, minLength: stateMinLength } = this.state;
+        const readonly = Boolean(legacyReadonly || readOnly);
         const suffixAllowClear = this.foundation.isAllowClear();
         const suffixIsIcon = isSemiIcon(suffix);
         const ref = this.getInputRef();
