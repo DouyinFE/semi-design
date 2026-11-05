@@ -13,6 +13,11 @@ const removeKeys = function removeKeys(originKeys: (string | number)[] = [], ...
     return Array.from(keySet);
 };
 
+const hasKeys = function hasKeys(originKeys: (string | number)[] = [], ...willCheckKeys: (string | number)[]) {
+    const keySet = new Set(originKeys);
+    return willCheckKeys.some(key => key && keySet.has(key));   
+};
+
 export interface OnOpenChangeData {
     itemKey: string | number;
     openKeys: (string | number)[];
@@ -32,12 +37,12 @@ export interface SubNavAdapter<P = Record<string, any>, S = Record<string, any>>
     getOpenKeys(): (string | number)[];
     getOpenKeysIsControlled(): boolean;
     getCanUpdateOpenKeys(): boolean;
-    updateOpen(isOpen: boolean): void;
     notifyGlobalOpenChange(data: OnOpenChangeData): void;
     notifyGlobalOnSelect(data: OnSelectData): void;
     notifyGlobalOnClick(data: OnClickData): void;
     getIsSelected(itemKey: string | number): boolean;
-    getIsOpen(): boolean
+    getIsOpen(): boolean;
+    updateOpenKeys(openKeys: (string | number)[]): void
 }
 
 export default class SubNavFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<SubNavAdapter<P, S>, P, S> {
@@ -46,10 +51,12 @@ export default class SubNavFoundation<P = Record<string, any>, S = Record<string
     }
 
     _timer: number;
+    _currentHoverAlreadyOpen: null | number | string;
 
     init() {
         // this.log('invoke SubNavFoundation init()');
         this._timer = null;
+        this._currentHoverAlreadyOpen = null;
     }
 
     destroy() {
@@ -74,13 +81,28 @@ export default class SubNavFoundation<P = Record<string, any>, S = Record<string
         const canUpdateOpenKeys = this._adapter.getCanUpdateOpenKeys();
         const rawOpenKeys = this._adapter.getOpenKeys();
 
-        const openKeys = visible ? addKeys(rawOpenKeys, itemKey) : removeKeys(rawOpenKeys, itemKey);
+        let openKeys = rawOpenKeys;
+
+        if (visible) {
+            if (hasKeys(rawOpenKeys, itemKey)) {
+                // 如果 state.openKeys已经存在，说明他之前就已经处于open态，不需要再次将其写入 state.openKeys中
+            } else {
+                // 如果 itemKey 跟 _currentHoverAlreadyOpen 不相同，说明是新的 hover，正常更新 state.openKeys
+                openKeys = addKeys(rawOpenKeys, itemKey);
+            }
+            this._currentHoverAlreadyOpen = itemKey;
+        } else {
+            if (itemKey !== this._currentHoverAlreadyOpen) {
+                openKeys = removeKeys(rawOpenKeys, itemKey);
+            }
+            this._currentHoverAlreadyOpen = null;
+        }
 
         this.clearDelayTimer();
 
         if (!openKeysIsControlled) {
             if (canUpdateOpenKeys) {
-                this._adapter.updateOpen(visible);
+                this._adapter.updateOpenKeys(openKeys);
             }
             // this._adapter.updateIsHovered(visible);
         }
@@ -117,7 +139,7 @@ export default class SubNavFoundation<P = Record<string, any>, S = Record<string
         const canUpdateOpenKeys = this._adapter.getCanUpdateOpenKeys();
 
         if (!openKeysIsControlled && canUpdateOpenKeys) {
-            this._adapter.updateOpen(isOpen);
+            this._adapter.updateOpenKeys(openKeys);
         }
         this._adapter.notifyGlobalOpenChange(cbVal);
         this._adapter.notifyGlobalOnClick(cbVal);
