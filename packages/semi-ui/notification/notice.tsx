@@ -23,7 +23,7 @@ export interface NoticeReactProps extends NoticeProps {
     onClick?: (e: React.MouseEvent) => void;
     onAnimationEnd?: (e: React.AnimationEvent) => void;
     onAnimationStart?: (e: React.AnimationEvent) => void;
-    isClosing?: boolean;
+    isClosing?: boolean
 }
 
 const prefixCls = cssClasses.NOTICE;
@@ -169,9 +169,7 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
             style,
             ...attr
         } = this.props;
-        const { visible } = this.state;
         const wrapper = cls(prefixCls, className, {
-            [`${prefixCls}-close`]: !visible,
             [`${prefixCls}-icon-show`]: types.includes(type),
             [`${prefixCls}-${type}`]: true,
             [`${prefixCls}-${theme}`]: theme === 'light',

@@ -194,20 +194,6 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         return <Dropdown.Menu>{content}</Dropdown.Menu>;
     }
 
-    renderPopCard() {
-        const { render, contentClassName, style, showTick, prefixCls } = this.props;
-        const className = classnames(prefixCls, contentClassName);
-        const { level = 0 } = this.context;
-        const contextValue = { showTick, level: level + 1 };
-        return (
-            <DropdownContext.Provider value={contextValue}>
-                <div className={className} style={style}>
-                    <div className={`${prefixCls}-content`}>{render}</div>
-                </div>
-            </DropdownContext.Provider>
-        );
-    }
-
     render() {
         const {
             children,
