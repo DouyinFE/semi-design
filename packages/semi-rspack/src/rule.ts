@@ -24,7 +24,7 @@ export function createThemeLoaderRule(opts?: SemiWebpackPluginOptions) {
         ...themeOptions,
         prefixCls: opts.prefixCls,
         variables: stringifyVariableRecord(opts.variables),
-        include: opts.include,
+        include: opts.include !== undefined ? opts.include : themeOptions.include,
         cssLayer: opts.cssLayer
     };
     const loaderInfo = {
@@ -62,7 +62,7 @@ export function createThemeLoaderRule(opts?: SemiWebpackPluginOptions) {
 
 export function createOmitCssLoaderRule(_opts?: SemiWebpackPluginOptions) {
     return {
-        test: /@douyinfe(\/|\\)+semi-[^/]+(\/|\\)+.+env\.js$/,
+        test: /@douyinfe(\/|\\)+semi-(ui|icons)(-\d+)?(\/|\\)+lib(\/|\\)+.+\.js$/,
         use: [{ loader: OMIT_CSS_LOADER }],
     };
 }
