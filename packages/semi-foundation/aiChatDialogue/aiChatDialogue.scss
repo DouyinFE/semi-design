@@ -19,11 +19,6 @@ $module: #{$prefix}-ai-chat-dialogue;
         position: relative;
         overflow-y: scroll;
 
-        &-scroll-hidden {
-            &::-webkit-scrollbar {
-                display: none;
-            }
-        }
     }
 
     &-wrapper {
