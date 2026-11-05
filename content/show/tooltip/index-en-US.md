@@ -25,7 +25,7 @@ At the same time, in order to calculate the positioning of the popup layer, it i
 
 1. Functional components wrapped with `forwardRef` pass props and refs to the actual DOM nodes within their children.
 2. Actual DOM nodes, such as span, div, p, etc.
-3. Class components do not require mandatory ref binding, but must ensure that props can be passed to the actual DOM nodes. (**Note**: This rule only applies to React versions lower than v19; `@douyinfe/semi-ui` is not applicable in React v19. See [React v19 Adaptation Notes](/en-US/start/react19#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9))
+3. Class components must forward props to the actual DOM node. React 19 removed `findDOMNode`; Semi provides a compatibility fallback for resolving class component DOM nodes starting in 2.95.1. Because this fallback depends on React internals, wrap custom class components in a DOM element or use a function component that correctly forwards a DOM ref. All supported React versions use `@douyinfe/semi-ui`; see the [React 19 guide](/en-US/ecosystem/react19).
 
 ```jsx live=true noInline=true dir="column"
 import React, { forwardRef } from 'react';
@@ -51,8 +51,9 @@ function Demo() {
             <Tooltip content={'semi design'}>
                 <FCChildren />
             </Tooltip>
+            {/* A DOM wrapper avoids relying on the compatibility fallback */}
             <Tooltip content={'semi design'}>
-                <MyComponent />
+                <span><MyComponent /></span>
             </Tooltip>
             <Tooltip content={'semi design'}>
                 <span style={style}>DOM</span>

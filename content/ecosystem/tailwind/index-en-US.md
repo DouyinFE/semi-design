@@ -29,6 +29,8 @@ There is no effect or component library style exception when using some atomic c
 #### Cause Analysis
 When using Tailwind, Tailwind modifies the dom style through className, which also affects the Semi component library. At the same time, Tailwind enables [Preflight](https://tailwindcss.com/docs/preflight) by default to reset the browser's default style.
 
+Projects with Preflight enabled usually do not need an additional `reset-css`. Adding another global reset does not resolve style priority conflicts. If you disable Preflight, choose a reset strategy appropriate for your project.
+
 At this time, depending on the configuration of your project and the import of the entry, there are two possibilities:
 
 1. Tailwind is introduced before Semi style, and Semi has higher priority
@@ -82,7 +84,50 @@ module.exports = {
 };
 ```
 
-For users who use neither webpack or rspack build, please refer to the principle to layer-wrap semi's css yourself
+- Vite users: install `@douyinfe/semi-vite-plugin` (>= 2.98.0) and enable `cssLayer` in your existing React project's Vite configuration. This plugin processes Semi styles; it does not replace Tailwind's own build configuration.
+
+```shell
+npm install -D @douyinfe/semi-vite-plugin
+```
+
+For **Tailwind v4** with `@tailwindcss/vite`:
+
+```shell
+npm install -D tailwindcss@^4 @tailwindcss/vite@^4
+```
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
+import semiTheming from '@douyinfe/semi-vite-plugin';
+
+export default defineConfig({
+    plugins: [
+        react(),
+        tailwindcss(),
+        semiTheming({ cssLayer: true }),
+    ],
+});
+```
+
+For **Tailwind v3**, retain your existing Tailwind PostCSS configuration. Do not install or use `@tailwindcss/vite`; configure Vite as follows:
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import semiTheming from '@douyinfe/semi-vite-plugin';
+
+export default defineConfig({
+    plugins: [react(), semiTheming({ cssLayer: true })],
+});
+```
+
+For either Vite setup, continue with the next section to configure the layer order and entry CSS for your Tailwind version. If you also need a theme package, add `theme` and other options to the same `semiTheming` configuration; see [Customize Theme](/en-US/advanced/customize-theme).
+
+For other build tools, refer to the principle below to wrap Semi CSS in a layer.
 
 ** 3. Modify Tailwind entry configuration**
 
@@ -90,11 +135,17 @@ For users who use neither webpack or rspack build, please refer to the principle
 The configuration methods for Tailwind v3 and v4 are different. Please choose the corresponding configuration method based on the version you are using.
 </Notice>
 
+<Notice type="warning" title="Ensure the CSS layer order in production">
+The entry import order below preserves the final CSS order in most projects, but the production output and the browser's actual styles are the source of truth. The layer order declaration must take effect before any styles first declare those layers, so normal declarations follow the intended priority: Preflight below Semi, and Semi below utilities. Enabling `cssLayer`, or putting an import on the first source line alone, does not cover every production chunking and CSS extraction setup. Verify the result using the “Check the production output” section below.
+</Notice>
+
 **Tailwind v4 Configuration:**
+
+Include Tailwind's default `components` layer before `utilities` in the initial order declaration. Otherwise, Tailwind's later declaration appends `components` after the known layers, allowing custom component styles in that layer to override utility classes.
 
 1. Create a CSS file (e.g., `semi-layer.css`) with the following content:
 ```css
-@layer theme, base, semi, utilities;
+@layer theme, base, semi, components, utilities;
 ```
 
 2. Import this file at the **very top** of your project's JS entry file (e.g., `main.tsx`, `App.tsx`, or `index.js`), before all other import statements:
@@ -109,7 +160,7 @@ import { Button } from '@douyinfe/semi-ui';
 
 <Notice type="warning" title="Important">
 
-`semi-layer.css` must be imported before any CSS file containing `@import "tailwindcss";` and before any Semi component imports, otherwise the CSS Layer order will be incorrect. It is recommended to place it on the first line of the entry file.
+In the source entry, import `semi-layer.css` before any CSS file containing `@import "tailwindcss";` and before any Semi component imports, preferably on the first line. Also ensure that the layer order declaration precedes the relevant layer styles in the production output.
 
 </Notice>
 
@@ -140,6 +191,31 @@ Modify it to (copy directly):
 
 And import the above modified file at the **top** of the project's JS entry file (i.e. App.tsx or index.js). (Usually a Tailwind project has already processed the import of the above files, just put the import statement before all import statements)
 
+**4. Check the production output (applies to Tailwind v3 and v4)**
+
+After configuration, run the project's production build and preview its output. A working development server or a successful build alone is not sufficient verification:
+
+1. Inspect the order of `<link rel="stylesheet">` / `<style>` elements in the generated HTML and the content order of their CSS files. Ensure that the complete layer order declaration precedes the first declaration of the relevant layers. This means cascade order in the document and stylesheets, not the order in which network requests finish.
+2. With `manualChunks`, shared dependency chunks, or other CSS extraction settings, Semi CSS may appear before the entry CSS. For example, if `@layer semi { ... }` appears before `@layer theme, base, semi, components, utilities;`, the latter cannot reorder the already registered `semi` layer, so Preflight may override Semi instead. Even when the build emits a single CSS file, check the declaration order inside it.
+3. In the production preview, check both default component styles and utility overrides. For example, verify the Button background and padding, and confirm that an explicitly applied padding utility still works.
+
+If entry imports cannot guarantee the production order, declare the layer order in the HTML `<head>` before all other styles. Keep the existing Tailwind entry CSS and the Semi plugin's `cssLayer` configuration. For example, a Vite project using Tailwind v4 can add the following to `index.html`:
+
+```html
+<head>
+    <style>@layer theme, base, semi, components, utilities;</style>
+    <!-- Other styles and entry scripts -->
+</head>
+```
+
+For Tailwind v3, replace the declaration inside the `<style>` element with:
+
+```css
+@layer tailwind-base, semi, tailwind-components, tailwind-utils;
+```
+
+If the project uses a strict Content Security Policy (CSP), authorize the inline style with an appropriate nonce/hash, or use a separate stylesheet guaranteed to load first, and verify the production output order again. Do not disable CSP for this declaration.
+
 
 <Notice title="Compatible with lower version browsers">
 CSS Layer requires a browser version higher than Chromium 99 <a target="_blank" href="https://caniuse.com/?search=CSS%20Cascade%20Layers">(compatibility table)</a>, if you The website requires a lower version browser to access and needs to add CSS Layer Polyfill. Please refer to this Polyfill's <a target="_blank" href="https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-cascade-layers">PostCSS plugin documentation</a>
@@ -149,7 +225,7 @@ CSS Layer requires a browser version higher than Chromium 99 <a target="_blank" 
 #### Principle
 Through the CSS Layer feature, priority setting of styles from different sources is achieved.
 
-After enabling the plugin, all Semi styles will be wrapped by `@layer {xxxx}`. In addition, we also manually set the layers of various types of Tailwind styles in the project.
+The plugin wraps Semi's compiled component and theme styles in `@layer semi { ... }`. Tailwind's style layers are configured separately in the application.
 
 In addition, we configured the priority order of various Layers:
 ```css

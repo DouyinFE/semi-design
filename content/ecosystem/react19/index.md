@@ -24,7 +24,7 @@ React 19 移除了传统的 `ReactDOM.render` API，改为使用 `createRoot`。
 
 ### 2. `ReactDOM.findDOMNode` 被移除
 
-React 19 移除了 `ReactDOM.findDOMNode` API，该 API 用于从类组件实例获取对应的 DOM 节点。Semi 的以下组件受影响：
+React 19 移除了 `ReactDOM.findDOMNode` API，该 API 用于从类组件实例获取对应的 DOM 节点。Semi 从 2.95.1 起提供类组件 DOM 解析的兼容回退，以下组件会使用相关 DOM 解析能力：
 
 - `Tooltip` 及所有基于它的弹出层组件（`Popover`、`PopConfirm`、`Dropdown` 等）
 
@@ -111,12 +111,12 @@ function App() {
 
 ### Tooltip 与类组件的限制
 
-由于 React 19 移除了 `ReactDOM.findDOMNode`，当 `Tooltip`（及基于它的 `Popover`、`PopConfirm`、`Dropdown` 等）的 children 是**类组件**时，可能无法正确获取 DOM 节点进行定位。
+当 `Tooltip`（及基于它的 `Popover`、`PopConfirm`、`Dropdown` 等）的 children 是**类组件**时，Semi 2.95.1 及以上版本可在 React 19 下通过兼容回退解析 DOM 节点。这不代表类组件在 React 19 下不受支持，但回退依赖 React 内部的 Fiber 结构，不建议自定义触发器依赖它；优先转发真实 DOM ref，或用 DOM 元素包裹类组件。
 
-**受影响的场景**：
+**依赖兼容回退的写法**：
 
 ```jsx
-// ❌ 类组件作为 Tooltip 的直接子元素可能无法正确定位
+// 类组件作为直接子元素时会依赖 DOM 解析兼容回退
 class MyComponent extends React.Component {
     render() {
         return <span {...this.props}>Content</span>;
@@ -128,7 +128,7 @@ class MyComponent extends React.Component {
 </Tooltip>
 ```
 
-**解决方案**：用 DOM 元素包裹类组件
+**推荐方案**：用 DOM 元素包裹类组件
 
 ```jsx
 // ✅ 推荐：用 DOM 元素包裹
@@ -139,7 +139,7 @@ class MyComponent extends React.Component {
 </Tooltip>
 ```
 
-**不受影响的场景**：
+**不依赖类组件 DOM 回退的写法**：
 
 - 函数组件配合 `forwardRef` 正确转发 ref 的情况
 - 原生 DOM 元素（如 `<span>`、`<div>`、`<button>` 等）

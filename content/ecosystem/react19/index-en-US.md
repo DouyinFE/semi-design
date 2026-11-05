@@ -24,7 +24,7 @@ React 19 removed the legacy `ReactDOM.render` API in favor of `createRoot`. The 
 
 ### 2. `ReactDOM.findDOMNode` Removed
 
-React 19 removed the `ReactDOM.findDOMNode` API, which was used to get the DOM node from a class component instance. The following Semi components are affected:
+React 19 removed the `ReactDOM.findDOMNode` API, which was used to get the DOM node from a class component instance. Semi provides a compatibility fallback starting in 2.95.1; the following components use this DOM resolution capability:
 
 - `Tooltip` and all popup components based on it (`Popover`, `PopConfirm`, `Dropdown`, etc.)
 
@@ -111,12 +111,12 @@ function App() {
 
 ### Tooltip and Class Component Limitations
 
-Due to the removal of `ReactDOM.findDOMNode` in React 19, when the children of `Tooltip` (and components based on it like `Popover`, `PopConfirm`, `Dropdown`, etc.) is a **class component**, it may not be able to correctly get the DOM node for positioning.
+When the child of `Tooltip` (or a component based on it, such as `Popover`, `PopConfirm`, or `Dropdown`) is a **class component**, Semi 2.95.1 and later can resolve its DOM node through a compatibility fallback in React 19. Class components are not categorically unsupported, but the fallback relies on React's internal Fiber structure. Prefer forwarding a real DOM ref or wrapping a custom class component in a DOM element instead of depending on this fallback.
 
-**Affected scenarios**:
+**A pattern that relies on the compatibility fallback**:
 
 ```jsx
-// ❌ Class component as direct child of Tooltip may not position correctly
+// A class component used directly relies on the DOM resolution fallback
 class MyComponent extends React.Component {
     render() {
         return <span {...this.props}>Content</span>;
@@ -128,7 +128,7 @@ class MyComponent extends React.Component {
 </Tooltip>
 ```
 
-**Solution**: Wrap the class component with a DOM element
+**Recommended approach**: Wrap the class component with a DOM element
 
 ```jsx
 // ✅ Recommended: wrap with a DOM element
@@ -139,7 +139,7 @@ class MyComponent extends React.Component {
 </Tooltip>
 ```
 
-**Unaffected scenarios**:
+**Patterns that do not rely on the class component DOM fallback**:
 
 - Function components that correctly forward ref using `forwardRef`
 - Native DOM elements (like `<span>`, `<div>`, `<button>`, etc.)

@@ -24,7 +24,7 @@ Tooltip 需要将 DOM 事件监听器应用到 children 中，如果子元素是
 
 1. 使用 forwardRef 包裹后的函数式组件，将 props 与 ref 透传到 children 内真实的 DOM 节点上
 2. 真实 DOM 节点, 如 span，div，p...
-3. Class Component，不强制绑定ref，但需要确保 props 可被透传至真实的 DOM 节点上 (**注**: 此条规则仅在 React 版本低于 v19 时使用 @douyinfe/semi-ui 可行， 在 React v19 版本使用 @douyinfe/semi-ui-19 不可行，详情见 [React v19 适配注意事项](/zh-CN/start/react19#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9))
+3. Class Component，需要确保 props 可被透传至真实的 DOM 节点上。React 19 移除了 `findDOMNode`，Semi 从 2.95.1 起提供类组件 DOM 解析的兼容回退；由于该回退依赖 React 内部结构，推荐用真实 DOM 元素包裹自定义类组件，或改用正确转发 DOM ref 的函数组件。各 React 版本均使用 `@douyinfe/semi-ui`，详情见 [React 19 适配指南](/zh-CN/ecosystem/react19)。
 
 
 ```jsx live=true noInline=true dir="column"
@@ -51,8 +51,9 @@ function Demo() {
             <Tooltip content={'semi design'}>
                 <FCChildren />
             </Tooltip>
+            {/* 推荐用真实 DOM 元素包裹类组件，避免依赖兼容回退 */}
             <Tooltip content={'semi design'}>
-                <MyComponent />
+                <span><MyComponent /></span>
             </Tooltip>
             <Tooltip content={'semi design'}>
                 <span style={style}>DOM</span>

@@ -8,13 +8,15 @@ order: 2
 ---
 
 Semi Design 由抖音前端团队负责维护，提供 React 版本开箱即用的70+ 组件、 Figam Variant UI Kit  
-你可在任意 React 项目中引入使用 （新项目更推荐通过 Rsbuild、CreateReactApp、Vite 新建），当前支持搭配 React v16、v17、v18 、v19（[React v19 适配](/zh-CN/start/react19)）版本使用  
+你可在任意 React 项目中引入使用 （新项目更推荐通过 Rsbuild、CreateReactApp、Vite 新建），当前支持搭配 React v16、v17、v18 、v19（[React v19 适配](/zh-CN/ecosystem/react19)）版本使用
 
-若你需要使用 prefixCls、主题、CSS Layer等编译时定制能力的场景，我们更推荐使用 Webpack 或 Rspack/Rsbuild 作为工程化构建方案  
+若你需要使用 prefixCls、主题、CSS Layer 等编译时定制能力，可使用对应的 Semi 构建插件，支持 Webpack、Rspack/Rsbuild 和 Vite。配置见[定制主题](/zh-CN/advanced/customize-theme)；与 Tailwind 搭配时另请参阅 [Tailwind 搭配使用](/zh-CN/ecosystem/tailwind)。
 （字节跳动用户，若使用的是公司内部相关工程化方案，配置请查阅飞书文档：<a href="https://bytedance.larkoffice.com/wiki/FaRwweDLmigrD0k8wLgcDaQtnbb" target="_blank">Semi工程化 FAQ</a>）
 
-<Notice title='注意事项'>
-组件包 @douyinfe/semi-ui 适用于 React 版本低于 v19 的情况，如果使用 React v19，请使用 @douyinfe/semi-ui-19，下文中所有示例中的 @douyinfe/semi-ui 均可替换为 @douyinfe/semi-ui-19。
+<Notice title='React 版本说明'>
+
+React 16、17、18、19 均使用同一个组件包 `@douyinfe/semi-ui`。React 19 项目需在应用入口、首次使用 Semi 组件前导入 `@douyinfe/semi-ui/react19-adapter`，无需另装 `@douyinfe/semi-ui-19`。旧包的迁移步骤和使用限制见 [React 19 适配指南](/zh-CN/ecosystem/react19)。
+
 </Notice>
 
 ## 1、安装 Semi
@@ -34,11 +36,19 @@ pnpm add @douyinfe/semi-ui
 
 ## 2、使用组件
 
-在 Webpack、Rspack、create-react-app 或 Vite 项目中使用时，无需进行任何编译项配置，直接使用即可。构建时所有相关资源均会按需打包    
+仅使用默认主题时，在 Webpack、Rspack、create-react-app 或 Vite 项目中通常无需额外的 Semi 编译插件，组件样式会随组件引入。定制主题或配置 Tailwind 样式层时，请参考对应指南中的构建配置。
+
+**React 19 项目**先在应用入口添加以下导入，确保在使用 Semi 组件之前完成适配。React 16/17/18 项目不需要此导入：
+
+```js
+// main.tsx 或 index.tsx，仅 React 19 项目需要
+import '@douyinfe/semi-ui/react19-adapter';
+```
+
+然后在组件文件中统一从 `@douyinfe/semi-ui` 导入：
 
 ```jsx
-import React, { Component } from 'react';
-// 如果为 React v19，需要从 @douyinfe/semi-ui-19 中导出组件
+import React from 'react';
 import { Button, Toast } from '@douyinfe/semi-ui';
 
 const SemiApp = () => {
@@ -46,9 +56,17 @@ const SemiApp = () => {
         <Button onClick={() => Toast.warning({ content: 'welcome' })}>Hello Semi</Button>
     );
 };
+
+export default SemiApp;
 ```
 
-> 推荐在项目中引入 [reset.css](https://www.npmjs.com/package/reset-css)，它可以重置浏览器自带的默认样式，避免不同UA之间的样式差异。
+> 如果项目尚未使用样式重置方案，可引入 [reset.css](https://www.npmjs.com/package/reset-css)，以减少浏览器默认样式差异。使用 Tailwind CSS 且已启用 Preflight 时，通常无需再引入 reset.css，避免重复重置；如果禁用了 Preflight，请根据项目需要选择重置方案。Tailwind 与 Semi 的样式优先级配置见 [Tailwind 搭配使用](/zh-CN/ecosystem/tailwind)。
+
+### 按需加载与自动导入
+
+按需加载与省略源码中的 `import` 是两回事。上述显式导入方式可由构建工具进行 tree shaking，无需为了按需打包额外配置自动导入插件。
+
+`@douyinfe/semi-vite-plugin`、`@douyinfe/semi-webpack-plugin` 等官方构建插件用于主题、CSS 前缀和样式处理，不会自动生成 `Button`、`Toast` 等 JSX 组件的 import，也不提供组件自动导入 resolver。本文推荐保留显式导入，使用编辑器的自动导入功能；若选择第三方自动导入工具，请按该工具的 React/JSX 支持情况自行配置。
 
 ## 3、在 NextJs 中使用
 
