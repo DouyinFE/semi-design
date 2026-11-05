@@ -166,6 +166,7 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
                                 cleanup();
                             };
                         }
+                        return undefined;
                     };
                 }
                 return this.composedRef;
