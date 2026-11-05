@@ -758,13 +758,13 @@ describe('AutoComplete', () => {
         expect(ac.find('input').instance().value).toEqual('updated');
     });
 
-    it('【id】passes id to wrapper', () => {
+    it('【id】passes id to input', () => {
         const props = {
             id: 'my-autocomplete',
             ...commonProps,
         };
         const ac = getAc(props);
-        expect(ac.find(`.${BASE_CLASS_PREFIX}-autocomplete`).prop('id')).toEqual('my-autocomplete');
+        expect(ac.find('input').prop('id')).toEqual('my-autocomplete');
     });
 
     it('【Option】renders with object data and custom label', () => {
