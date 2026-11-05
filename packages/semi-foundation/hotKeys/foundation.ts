@@ -16,7 +16,7 @@ export default class HotKeysFoundation<P = Record<string, any>, S = Record<strin
         // init Listener
         this._adapter.registerEvent();
         const hotKeys = this.getProps().hotKeys;
-        if (!this.isValidHotKeys(hotKeys)) {
+        if (hotKeys && !this.isValidHotKeys(hotKeys)) {
             throw new Error('HotKeys must have one common key and 0/some modifier key');
         }   
     }
@@ -40,9 +40,12 @@ export default class HotKeysFoundation<P = Record<string, any>, S = Record<strin
 
     handleKeyDown = (event: KeyboardEvent): void => {
         const { mergeMetaCtrl: merged, hotKeys, preventDefault } = this.getProps();
+        if (!hotKeys) {
+            return;
+        }
         let allModifier = new Array(4).fill(false); // Meta Shift Alt Ctrl
         let clickedModifier = [event.metaKey, event.shiftKey, event.altKey, event.ctrlKey];
-        const keysPressed = hotKeys?.map((key: KeyboardEvent["key"]) => {
+        const keysPressed = hotKeys.map((key: KeyboardEvent["key"]) => {
             key = key.toLowerCase();
             if (key === Keys.Meta) {
                 allModifier[0] = true;
