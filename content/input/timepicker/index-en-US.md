@@ -359,6 +359,8 @@ Some internal methods provided by TimePicker can be accessed through ref:
 | blur()  | Remove focus  |
 | focus() | Get the focus |
 
+`blur` and `focus` act on the input inside the trigger. When a custom `triggerRender` has no input, they do nothing.
+
 ## Content Guidelines
 - The time selector includes at least hours and minutes, such as: 11:30, which can be adapted to 12-hour or 24-hour format during localization
 - When 12-hour clock is selected, it needs to be used together with AM/PM
