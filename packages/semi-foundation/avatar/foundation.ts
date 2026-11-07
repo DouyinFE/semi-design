@@ -25,9 +25,9 @@ export default class AvatarFoundation<P = Record<string, any>, S = Record<string
 
     destroy() { }
 
-    handleImgLoadError() {
+    handleImgLoadError(event?: any) {
         const { onError } = this.getProps();
-        const errorFlag = onError ? onError() : undefined;
+        const errorFlag = onError ? onError(event) : undefined;
         if (errorFlag !== false) {
             this._adapter.notifyImgState(false);
         }
