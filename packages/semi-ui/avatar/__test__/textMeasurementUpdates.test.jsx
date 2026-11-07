@@ -40,6 +40,14 @@ describe('Avatar text measurement updates', () => {
             expect(scale(wrapper)).toBeCloseTo(42 / 75);
         } finally { wrapper.unmount(); }
     });
+    it('measures the text after src is cleared', () => {
+        const wrapper = mount(<Avatar src="image.png" gap={4}>LONGTEXT</Avatar>);
+        try {
+            wrapper.setProps({ src: undefined });
+            expect(wrapper.find('img')).toHaveLength(0);
+            expect(scale(wrapper)).toBeCloseTo(40 / 75);
+        } finally { wrapper.unmount(); }
+    });
     it('retains text-content updates and one-scale short text', () => {
         const wrapper = mount(<Avatar size="100px" gap={4}>LONGTEXT</Avatar>);
         try {

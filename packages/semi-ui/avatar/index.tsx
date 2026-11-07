@@ -165,12 +165,15 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
                 }
             };
         }
+        // Text shows when there is no src or the image failed; clearing src keeps isImgExist true.
+        const isTextVisible = !this.props.src || !this.state.isImgExist;
+        const wasTextVisible = !prevProps.src || !prevState.isImgExist;
         if (typeof this.props.children === "string" &&
-            (!this.props.src || !this.state.isImgExist) &&
+            isTextVisible &&
             (this.props.children !== prevProps.children ||
                 this.props.size !== prevProps.size ||
                 this.props.gap !== prevProps.gap ||
-                this.state.isImgExist !== prevState.isImgExist)) {
+                !wasTextVisible)) {
             this.foundation.changeScale();
         }
     }
