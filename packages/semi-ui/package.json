@@ -7953,6 +7953,11 @@
             "import": "./lib/es/*.css",
             "require": "./lib/cjs/*.css",
             "default": "./lib/cjs/*.css"
+        },
+        "./dist/css/*": {
+            "import": "./dist/css/*",
+            "require": "./dist/css/*",
+            "default": "./dist/css/*"
         }
     },
     "scripts": {

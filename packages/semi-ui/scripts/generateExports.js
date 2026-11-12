@@ -124,6 +124,12 @@ function generateExports() {
             import: './lib/es/*.css',
             require: './lib/cjs/*.css',
             default: './lib/cjs/*.css'
+        },
+        // 全量聚合产物（semi.css / semi.min.css / semi.layer.css）
+        './dist/css/*': {
+            import: './dist/css/*',
+            require: './dist/css/*',
+            default: './dist/css/*'
         }
     };
 
