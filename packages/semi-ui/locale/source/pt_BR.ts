@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'OK',
         cancel: 'Cancelar',
+        close: 'Fechar',
+    },
+    Banner: {
+        close: 'Fechar',
     },
     Tabs: {
+        close: 'Fechar',
         more: "Mais"
     },
     TimePicker: {
@@ -229,6 +234,8 @@ const local: Locale = {
         annotationText: 'elementos de informação'
     },
     Feedback: {
+        placeholder: 'Forneça comentários adicionais',
+        optionalPlaceholder: 'Forneça comentários adicionais (opcional)',
         submit: 'Enviar',
         cancel: 'Cancelar'
     },
@@ -238,6 +245,7 @@ const local: Locale = {
         selected: '${count} itens selecionados',
     },
     Sidebar: {
+        close: 'Fechar',
         linkAddSuccess: 'Link adicionado com sucesso',
         linkRemoveSuccess: 'Link removido com sucesso',
         enterLinkAddress: "Insira o endereço do link",

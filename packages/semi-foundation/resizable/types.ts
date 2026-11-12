@@ -17,7 +17,7 @@ export interface HandleClassName {
 export type ResizeEventType = 'mouse' | 'touch'; 
 
 export type HandlerCallback = (
-    e: MouseEvent,
+    e: MouseEvent | TouchEvent,
     direction: Direction,
     type?: ResizeEventType,
 ) => void;
@@ -59,7 +59,7 @@ export type ResizeCallback = (
 ) => void;
 
 export type ResizeStartCallback = (
-    e: MouseEvent | Touch,
+    e: MouseEvent | TouchEvent,
     dir: Direction,
 ) => void | boolean;
 

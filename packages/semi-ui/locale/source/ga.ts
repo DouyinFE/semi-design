@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Deimhnigh',
         cancel: 'Cealaigh',
+        close: 'Dún',
+    },
+    Banner: {
+        close: 'Dún',
     },
     Tabs: {
+        close: 'Dún',
         more: "Tuilleadh"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'píosaí eolais'
     },
     Feedback: {
+        placeholder: 'Tabhair aiseolas breise',
+        optionalPlaceholder: 'Tabhair aiseolas breise (roghnach)',
         submit: 'Cuir isteach',
         cancel: 'Cealaigh'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'Roghnaíodh ${count} mír',
     },
     Sidebar: {
+        close: 'Dún',
         linkAddSuccess: 'Nasc curtha leis go rathúil',
         linkRemoveSuccess: 'Nasc bainte air go rathúil',
         enterLinkAddress: "Iontráil seoladh an nasca",

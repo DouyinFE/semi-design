@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Vahvista',
         cancel: 'Peruuta',
+        close: 'Sulje',
+    },
+    Banner: {
+        close: 'Sulje',
     },
     Tabs: {
+        close: 'Sulje',
         more: "Lisää"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'tietolähdettä'
     },
     Feedback: {
+        placeholder: 'Anna lisäpalautetta',
+        optionalPlaceholder: 'Anna lisäpalautetta (valinnainen)',
         submit: 'Lähetä',
         cancel: 'Peruuta'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'Valitut ${count} kohdetta',
     },
     Sidebar: {
+        close: 'Sulje',
         linkAddSuccess: 'Linkki lisätty onnistuneesti',
         linkRemoveSuccess: 'Linkki poistettu onnistuneesti',
         enterLinkAddress: "Syötä linkin osoite",

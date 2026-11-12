@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Kumpirmahin',
         cancel: 'Kanselahin',
+        close: 'Isara',
+    },
+    Banner: {
+        close: 'Isara',
     },
     Tabs: {
+        close: 'Isara',
         more: "Higit pa"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: '(na) uri ng impormasyon'
     },
     Feedback: {
+        placeholder: 'Magbigay ng karagdagang feedback',
+        optionalPlaceholder: 'Magbigay ng karagdagang feedback (opsyonal)',
         submit: 'Isumite',
         cancel: 'Kanselahin'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'Napili ang ${count} (na) item',
     },
     Sidebar: {
+        close: 'Isara',
         linkAddSuccess: 'Matagumpay na idinagdag ang link',
         linkRemoveSuccess: 'Matagumpay na inalis ang link',
         enterLinkAddress: "Ipasok ang address ng link",

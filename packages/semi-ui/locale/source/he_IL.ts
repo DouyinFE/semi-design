@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'אישור',
         cancel: 'ביטול',
+        close: 'סגור',
+    },
+    Banner: {
+        close: 'סגור',
     },
     Tabs: {
+        close: 'סגור',
         more: "עוד"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'פיסות מידע'
     },
     Feedback: {
+        placeholder: 'ספק משוב נוסף',
+        optionalPlaceholder: 'ספק משוב נוסף (אופציונלי)',
         submit: 'שליחה',
         cancel: 'ביטול'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'נבחרו ${count} פריטים',
     },
     Sidebar: {
+        close: 'סגור',
         linkAddSuccess: 'הקישור נוסף בהצלחה',
         linkRemoveSuccess: 'הקישור הוסר בהצלחה',
         enterLinkAddress: "הכנס כתובת קישור",

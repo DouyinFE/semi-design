@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'تصدیق کریں',
         cancel: 'منسوخ کریں',
+        close: 'بند کریں',
+    },
+    Banner: {
+        close: 'بند کریں',
     },
     Tabs: {
+        close: 'بند کریں',
         more: "مزید"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'معلومات'
     },
     Feedback: {
+        placeholder: 'اضافی رائے دیں',
+        optionalPlaceholder: 'اضافی رائے دیں (اختیاری)',
         submit: 'جمع کروائیں',
         cancel: 'منسوخ کریں'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: '${count} آئٹمز منتخب کی گئیں',
     },
     Sidebar: {
+        close: 'بند کریں',
         linkAddSuccess: 'لنک کامیابی سے شامل کیا گیا',
         linkRemoveSuccess: 'لنک کامیابی سے ہٹا دیا گیا',
         enterLinkAddress: "لنک کا ایڈریس درج کریں",

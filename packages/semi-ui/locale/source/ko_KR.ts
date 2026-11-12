@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: '확인',
         cancel: '취소',
+        close: '닫기',
+    },
+    Banner: {
+        close: '닫기',
     },
     Tabs: {
+        close: '닫기',
         more: "더"
     },
     TimePicker: {
@@ -222,6 +227,8 @@ const local: Locale = {
         annotationText: '정보 요소'
     },
     Feedback: {
+        placeholder: '추가 의견을 입력해 주세요',
+        optionalPlaceholder: '추가 의견을 입력해 주세요 (선택 사항)',
         submit: '제출',
         cancel: '취소'
     },
@@ -231,6 +238,7 @@ const local: Locale = {
         selected: '선택된 ${count} 개',
     },
     Sidebar: {
+        close: '닫기',
         linkAddSuccess: '링크가 성공적으로 추가되었습니다',
         linkRemoveSuccess: '링크가 성공적으로 삭제되었습니다',
         enterLinkAddress: "링크 주소를 입력해주세요",

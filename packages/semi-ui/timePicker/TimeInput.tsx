@@ -193,6 +193,8 @@ class TimeInput extends BaseComponent<TimeInputProps, any> {
                 value={value as any}
                 placeholder={placeholder || locale.placeholder[type]}
                 readonly={Boolean(inputReadOnly)}
+                // inputReadOnly only blocks typing, the picker's clear button stays available
+                showClearIgnoreDisabled={Boolean(inputReadOnly) && !disabled}
                 onChange={this.handleChange}
                 onFocus={this.handleFocus}
                 onBlur={this.handleBlur}

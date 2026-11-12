@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Підтвердити',
         cancel: 'Скасувати',
+        close: 'Закрити',
+    },
+    Banner: {
+        close: 'Закрити',
     },
     Tabs: {
+        close: 'Закрити',
         more: "Більше"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'частини інформації'
     },
     Feedback: {
+        placeholder: 'Залиште додатковий відгук',
+        optionalPlaceholder: 'Залиште додатковий відгук (необов’язково)',
         submit: 'Надіслати',
         cancel: 'Скасувати'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: 'Вибрано елементів: ${count}',
     },
     Sidebar: {
+        close: 'Закрити',
         linkAddSuccess: 'Посилання успішно додано',
         linkRemoveSuccess: 'Посилання успішно видалено',
         enterLinkAddress: "Введіть адресу посилання",

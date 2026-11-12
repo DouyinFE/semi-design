@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Sahkan',
         cancel: 'Batal',
+        close: 'Tutup',
+    },
+    Banner: {
+        close: 'Tutup',
     },
     Tabs: {
+        close: 'Tutup',
         more: "Lagi"
     },
     TimePicker: {
@@ -221,6 +226,8 @@ const local: Locale = {
         annotationText: 'elemen informasi'
     },
     Feedback: {
+        placeholder: 'Berikan maklum balas tambahan',
+        optionalPlaceholder: 'Berikan maklum balas tambahan (pilihan)',
         submit: 'Hantar',
         cancel: 'Batal'
     },
@@ -230,6 +237,7 @@ const local: Locale = {
         selected: '${count} item dipilih',
     },
     Sidebar: {
+        close: 'Tutup',
         linkAddSuccess: 'Pautan berjaya ditambah',
         linkRemoveSuccess: 'Pautan berjaya dibuang',
         enterLinkAddress: "Masukkan alamat pautan",

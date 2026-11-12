@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: 'Xác nhận',
         cancel: 'Huỷ bỏ',
+        close: 'Đóng',
+    },
+    Banner: {
+        close: 'Đóng',
     },
     Tabs: {
+        close: 'Đóng',
         more: "Hơn"
     },
     TimePicker: {
@@ -224,6 +229,8 @@ const local: Locale = {
         annotationText: 'thành phần thông tin'
     },
     Feedback: {
+        placeholder: 'Cung cấp thêm phản hồi',
+        optionalPlaceholder: 'Cung cấp thêm phản hồi (không bắt buộc)',
         submit: 'Nộp',
         cancel: 'Hủy'
     },
@@ -233,6 +240,7 @@ const local: Locale = {
         selected: 'Đã chọn ${count} mục',
     },
     Sidebar: {
+        close: 'Đóng',
         linkAddSuccess: 'Liên kết đã được thêm thành công',
         linkRemoveSuccess: 'Liên kết đã được xóa thành công',
         enterLinkAddress: "Nhập địa chỉ liên kết",

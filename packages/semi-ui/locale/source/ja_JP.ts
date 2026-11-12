@@ -14,8 +14,13 @@ const local: Locale = {
     Modal: {
         confirm: '確認する',
         cancel: 'キャンセル',
+        close: '閉じる',
+    },
+    Banner: {
+        close: '閉じる',
     },
     Tabs: {
+        close: '閉じる',
         more: "もっと"
     },
     TimePicker: {
@@ -225,6 +230,8 @@ const local: Locale = {
         annotationText: '情報要素'
     },
     Feedback: {
+        placeholder: '追加のフィードバックを入力してください',
+        optionalPlaceholder: '追加のフィードバックを入力してください（任意）',
         submit: '送信',
         cancel: 'キャンセル'
     },
@@ -234,6 +241,7 @@ const local: Locale = {
         selected: '選択された ${count} 個',
     },
     Sidebar: {
+        close: '閉じる',
         linkAddSuccess: 'リンクを正常に追加しました',
         linkRemoveSuccess: 'リンクを正常に削除しました',
         enterLinkAddress: "リンクアドレスを入力してください",

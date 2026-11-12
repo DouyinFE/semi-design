@@ -73,9 +73,15 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
 
     async evaluateContent() {
         const version = ++this.evaluationVersion;
-        const MDXContentComponent = await this.foundation.evaluate(this.props.raw);
-        if (version === this.evaluationVersion) {
-            this.setState({ MDXContentComponent });
+        try {
+            const MDXContentComponent = await this.foundation.evaluate(this.props.raw);
+            if (version === this.evaluationVersion) {
+                this.setState({ MDXContentComponent });
+            }
+        } catch (error) {
+            if (version === this.evaluationVersion) {
+                console.error('[Semi MarkdownRender] Failed to compile raw content.', error);
+            }
         }
     }
 

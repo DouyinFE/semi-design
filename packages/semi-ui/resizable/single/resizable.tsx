@@ -243,6 +243,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
 
     render() {
         const { className, style, children, maxHeight, maxWidth, minHeight, minWidth } = this.props;
+        const sizeStyle = this.foundation.sizeStyle;
         const resizeStyle: React.CSSProperties = {
             userSelect: this.state.isResizing ? 'none' : 'auto',
             maxWidth: maxWidth,
@@ -250,11 +251,16 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
             minWidth: minWidth,
             minHeight: minHeight,
             ...style,
-            ...this.foundation.sizeStyle,
+            ...sizeStyle,
         };
 
         if (this.state?.flexBasis) {
-            resizeStyle.flexBasis = this.state.flexBasis;
+            // A controlled size owns the main axis: state.flexBasis lags behind it when the parent refuses a change
+            const { flexDirection } = this.foundation;
+            const controlled = this.props.size?.[flexDirection === 'column' ? 'height' : 'width'];
+            resizeStyle.flexBasis = flexDirection && typeof controlled !== 'undefined'
+                ? sizeStyle[flexDirection === 'column' ? 'height' : 'width']
+                : this.state.flexBasis;
         }
 
         return (
