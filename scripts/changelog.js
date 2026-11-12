@@ -28,7 +28,7 @@ function readFile(filename) {
 }
 
 function getVersion(str) {
-    const versionReg = /.*((\d{1,2}\.){2}\d{1,2}(-\w+\.\d+)?)/;
+    const versionReg = /.*((\d+\.){2}\d+(-\w+\.\d+)?)/;
     let result = versionReg.exec(str);
     return get(result, '1', '').trim().toLowerCase();
 }
