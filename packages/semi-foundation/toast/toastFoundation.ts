@@ -39,7 +39,7 @@ export interface ToastInstance extends ToastProps{
 export interface ToastState{}
 
 
-export interface ToastAdapter extends DefaultAdapter<ToastProps, ToastState>{
+export interface ToastAdapter<S = ToastState> extends DefaultAdapter<ToastProps, S>{
     notifyWrapperToRemove: (id: string) => void;
     notifyClose: () => void
 }

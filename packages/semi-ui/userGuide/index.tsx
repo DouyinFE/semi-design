@@ -7,7 +7,7 @@ import { Position } from '../tooltip/index';
 import BaseComponent from '../_base/baseComponent';
 import Popover from '../popover';
 import Portal from '../_portal';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import Button, { ButtonProps } from '../button';
 import Modal from '../modal';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
@@ -67,6 +67,8 @@ export interface UserGuideState {
 
 class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     static contextType = ConfigContext;
+    // contextType provides the value at runtime; annotate it so `this.context` is not `unknown`
+    context: ContextValue;
 
     static propTypes = {
         mask: PropTypes.bool,

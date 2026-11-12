@@ -52,8 +52,9 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
 
     static defaultProps = {};
     static wrapperId: null | string;
-    private static wrapper: HTMLDivElement | null = null;
-    private static pendingToasts = new Map<string, ToastReactProps>();
+    // TS4094: a private static on an exported class expression breaks declaration emit
+    static wrapper: HTMLDivElement | null = null;
+    static pendingToasts = new Map<string, ToastReactProps>();
     stack: boolean = false;
     appliedUpdates = new WeakSet<ToastInstance>();
 

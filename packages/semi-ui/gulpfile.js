@@ -16,7 +16,7 @@ gulp.task('cleanLib', function cleanLib() {
 });
 
 gulp.task('compileTSXForESM', function compileTSXForESM() {
-    const tsStream = gulp.src(['**/*.tsx', '**/*.ts', '!**/node_modules/**/*.*', '!**/_story/**/*.*'])
+    const tsStream = gulp.src(['**/*.tsx', '**/*.ts', '!**/node_modules/**/*.*', '!**/_story/**/*.*', '!**/__test__/**/*.*'])
         .pipe(gulpTS({
             ...tsConfig.compilerOptions,
             rootDir: path.join(__dirname, '..')
@@ -37,7 +37,7 @@ gulp.task('compileTSXForESM', function compileTSXForESM() {
 });
 
 gulp.task('compileTSXForCJS', function compileTSXForCJS() {
-    const tsStream = gulp.src(['**/*.tsx', '**/*.ts', '!**/node_modules/**/*.*', '!**/_story/**/*.*'])
+    const tsStream = gulp.src(['**/*.tsx', '**/*.ts', '!**/node_modules/**/*.*', '!**/_story/**/*.*', '!**/__test__/**/*.*'])
         .pipe(gulpTS({
             ...tsConfig.compilerOptions,
             rootDir: path.join(__dirname, '..')

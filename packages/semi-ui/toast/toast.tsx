@@ -9,7 +9,7 @@ import Button from '../iconButton/index';
 import { IconClose, IconAlertTriangle, IconInfoCircle, IconTickCircle, IconAlertCircle } from '@douyinfe/semi-icons';
 import { noop } from 'lodash';
 import { getDefaultPropsFromGlobalConfig, isSemiIcon } from '../_utils';
-import ResizeObserver, { ResizeEntry } from '../resizeObserver';
+import ResizeObserver, { ResizeEntry, ObserverProperty } from '../resizeObserver';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -72,7 +72,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastReactState> {
 
     context: ContextValue;
 
-    get adapter(): ToastAdapter {
+    get adapter(): ToastAdapter<ToastReactState> {
         return {
             ...super.adapter,
             notifyWrapperToRemove: (id: string) => {
@@ -184,7 +184,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastReactState> {
         if (this.props.stack) {
             const height = this.props.stackExpanded ? this.state.height : 0;
             return <div className={`${prefixCls}-zero-height-wrapper`} style={{ height }}>
-                <ResizeObserver onResize={this.handleResize} observerProperty="height">
+                <ResizeObserver onResize={this.handleResize} observerProperty={ObserverProperty.Height}>
                     {toastEle}
                 </ResizeObserver>
             </div>;
