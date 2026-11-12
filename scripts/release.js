@@ -28,7 +28,7 @@ const genVersionChangeLog = (path, targetVersion) => {
         }
         if (!begin) {
             if (line.startsWith('####')) {
-                const versionReg = /.*((\d{1,2}\.){2}\d{1,2}(-\w+\.\d+)?)/;
+                const versionReg = /.*((\d+\.){2}\d+(-\w+\.\d+)?)/;
                 let result = versionReg.exec(line);
                 begin = _.get(result, '1', '').trim().toLowerCase() === targetVersion;
             }
