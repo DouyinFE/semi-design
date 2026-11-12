@@ -204,7 +204,10 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
     }
 
     handlePanelChange(result: { isAM: boolean; value: string; timeStampValue: number }, index = 0) {
-        // console.log(result, index);
+        // An exiting panel can still receive a click after the picker becomes disabled.
+        if (this.getProp('disabled')) {
+            return;
+        }
         const formatToken = this.getValidFormat();
         const dateFnsLocale = this.getProp('dateFnsLocale');
         const oldValue: Date[] = this.getState('value');
