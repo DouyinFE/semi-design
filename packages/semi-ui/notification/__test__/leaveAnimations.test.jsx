@@ -28,6 +28,46 @@ describe('Notification leaving notices', () => {
         host.remove();
     });
 
+    describe('activating the close button again while leaving', () => {
+        const callbacks = () => ({ onClose: sinon.spy(), onCloseClick: sinon.spy(), onClick: sinon.spy() });
+        const clickClose = id => notice(id).querySelector('.semi-notification-notice-icon-close').click();
+        const open = (id, spies) => list.add({ id, title: id, duration: 0, ...spies });
+
+        it('notifies once when clicked twice', () => {
+            const spies = callbacks();
+            open('c', spies);
+            clickClose('c');
+            expectLeaving('c');
+            clickClose('c');
+            expectLeaving('c');
+            expect(spies.onClose.callCount).toBe(1);
+            expect(spies.onCloseClick.callCount).toBe(1);
+            expect(spies.onClick.called).toBe(false);
+        });
+
+        it('stays silent after Notification.close', () => {
+            const spies = callbacks();
+            open('c', spies);
+            list.remove('c');
+            clickClose('c');
+            expectLeaving('c');
+            expect(spies.onClose.called).toBe(false);
+            expect(spies.onCloseClick.called).toBe(false);
+            expect(spies.onClick.called).toBe(false);
+        });
+
+        it('notifies a notice reopened with the same id', () => {
+            const spies = callbacks();
+            open('c', spies);
+            clickClose('c');
+            clickClose('c');
+            open('c', spies);
+            clickClose('c');
+            expect(spies.onClose.callCount).toBe(2);
+            expect(spies.onCloseClick.callCount).toBe(2);
+        });
+    });
+
     it('keeps every notice when closing two in one React batch', () => {
         ReactDOM.unstable_batchedUpdates(() => {
             list.remove('a');
