@@ -467,6 +467,43 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 );
             }
 
+            // `treeData` may have been empty on mount (async load), so the selected value could not be
+            // resolved back then and none of its ancestors got expanded. Try again once the node map exists,
+            // but only when the value was just resolved: a later data refresh must not re-expand a node the
+            // user collapsed in the meantime.
+            const canResolveAsyncValue = Boolean(prevProps && treeData && !isExpandControlled &&
+                !props.expandAll && !props.defaultExpandAll);
+            if (!newState.expandedKeys && canResolveAsyncValue) {
+                const selectedValue = isUndefined(props.value) || isNull(props.value)
+                    ? props.defaultValue
+                    : props.value;
+                if (!isUndefined(selectedValue) && !isNull(selectedValue)) {
+                    const normalizedValue = normalizeValue(selectedValue, withObject, keyMaps);
+                    const selectedKeys = findKeysForValues(
+                        normalizedValue,
+                        prevState.cachedKeyValuePairs || {},
+                        props.multiple
+                    );
+                    const wasResolved = selectedKeys.some(
+                        selectedKey => prevState.keyEntities && prevState.keyEntities[selectedKey]
+                    );
+                    if (!wasResolved) {
+                        const ancestorKeys = calcExpandedKeysForValues(
+                            normalizedValue,
+                            keyEntities,
+                            props.multiple,
+                            valueEntities
+                        );
+                        if (ancestorKeys.size) {
+                            // Merge instead of replace: keep whatever the user expanded by hand.
+                            const mergedExpandedKeys = new Set(prevState.expandedKeys || []);
+                            ancestorKeys.forEach(expandedKey => mergedExpandedKeys.add(expandedKey));
+                            newState.expandedKeys = mergedExpandedKeys;
+                        }
+                    }
+                }
+            }
+
             if (!newState.expandedKeys) {
                 delete newState.expandedKeys;
             }
