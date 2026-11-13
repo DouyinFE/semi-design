@@ -596,6 +596,22 @@
         "category": "Interface"
     },
     {
+        "name": "pin",
+        "category": "Objects"
+    },
+    {
+        "name": "pin_stroked",
+        "category": "Objects"
+    },
+    {
+        "name": "pin_off",
+        "category": "Objects"
+    },
+    {
+        "name": "pin_off_stroked",
+        "category": "Objects"
+    },
+    {
         "name": "arrow_down_left",
         "category": "Arrow"
     },
