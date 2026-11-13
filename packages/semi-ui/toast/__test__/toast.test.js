@@ -8,10 +8,8 @@ describe('Toast', () => {
     beforeEach(async () => {
         // semi-animation会使用Date.now()，所以这里需要clear掉全局的advanceTo对Date的修改
         clear();
-        const tw = document.querySelector(`.${BASE_CLASS_PREFIX}-toast-wrapper`);
-        if (tw) {
-            tw.childNodes[0].innerHTML = '';
-        }
+        Toast.destroyAll();
+        await Promise.resolve();
     });
     afterEach(async () => {
         // await sleep(500);
