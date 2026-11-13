@@ -1,7 +1,6 @@
 import React, { PureComponent, isValidElement, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, isSet } from 'lodash';
 
 import Store from '@douyinfe/semi-foundation/utils/Store';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/table/constants';
@@ -104,19 +103,6 @@ class SectionRow extends PureComponent<SectionRowProps> {
                 }
             },
         };
-    };
-
-    collectGroupedData = () => {
-        const { data, group, rowKey } = this.props;
-
-        if (Array.isArray(data) && data.length && isSet(group)) {
-            return data.filter(record => {
-                const realRowKey = typeof rowKey === 'function' ? rowKey(record) : get(record, rowKey);
-                return realRowKey != null && realRowKey !== '' && group.has(realRowKey);
-            });
-        }
-
-        return [];
     };
 
     renderExpandIcon = (record: any) => {

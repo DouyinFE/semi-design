@@ -45,19 +45,8 @@ export interface ItemAdapter<P = Record<string, any>, S = Record<string, any>> e
 
 export default class ItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ItemAdapter<P, S>, P, S> {
 
-    _timer: number;
-    _mounted: boolean;
     constructor(adapter: ItemAdapter<P, S>) {
         super({ ...adapter });
-    }
-
-    init() {
-        this._timer = null;
-        this._mounted = true;
-    }
-
-    destroy() {
-        this._mounted = false;
     }
 
     isValidKey(itemKey: string) {

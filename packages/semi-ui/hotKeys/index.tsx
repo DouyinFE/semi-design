@@ -45,7 +45,6 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
         onClick: noop,
         onHotKey: noop,
         mergeMetaCtrl: false,
-        render: undefined,
         getListenerTarget: () => document.body,
         className: '',
         style: null,

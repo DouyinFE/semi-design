@@ -126,8 +126,6 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
         this.clickState = false;
         this._adapter.setFocusVisible(false);
     }
-
-    destroy() {}
 }
 
 export interface BaseCheckboxProps {

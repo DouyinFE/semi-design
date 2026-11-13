@@ -148,7 +148,6 @@ export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, B
                                 showTooltip: opts ? { opts } : false,
                                 pos: ellipsisPos,
                             }}
-                            // icon={this.renderIcon(icon)}
                             style={{ maxWidth: width }}
                             size={compact ? 'small' : 'normal'}
                         >
@@ -197,14 +196,12 @@ export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, B
             style,
             active,
             shouldRenderSeparator
-            // children,
         } = this.props;
         const pageLabel = active ? { 'aria-current': 'page' as const } : {};
         const item = this.renderItem();
         const separator = this.props.separator || <span className={`${clsPrefix}-separator`}>{this.context.separator}</span>;
         const wrapperCLs = cls(className, {
             [`${clsPrefix}-item-wrap`]: true,
-            // [`${clsPrefix}-item-wrap-iconOnly`]: !!children && this.props.icon,
         });
         return (
             <span className={wrapperCLs} style={style} {...pageLabel} {...this.getDataAttr(this.props)}>

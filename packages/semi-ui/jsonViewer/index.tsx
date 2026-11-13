@@ -195,12 +195,6 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
             this.foundation.jsonViewer.dispose();
             this.foundation.init();
             this.setupResizeObserver();
-            return;
-        }
-
-        // autoWrap toggle may require attaching/detaching observer.
-        if (prevProps.options?.autoWrap !== this.props.options?.autoWrap) {
-            this.setupResizeObserver();
         }
     }
 

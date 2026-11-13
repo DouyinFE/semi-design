@@ -34,10 +34,6 @@ class CheckboxGroupFoundation extends BaseFoundation<CheckboxGroupAdapter> {
         const prevValue: any[] = this.getState('value');
         let newValue = [];
 
-        if (!Array.isArray(prevValue)) {
-            newValue = [prevValue];
-        }
-
         if (evt.target.checked) {
             newValue = [...prevValue, evt.target.value];
         } else {
@@ -73,8 +69,6 @@ class CheckboxGroupFoundation extends BaseFoundation<CheckboxGroupAdapter> {
             warning(true, 'Warning: [Semi CheckboxGroup] value should be an Array');
         }
     }
-
-    destroy() {}
 }
 
 export default CheckboxGroupFoundation;
