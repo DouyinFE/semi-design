@@ -344,6 +344,10 @@ IconPhoneStroked
 IconPieChart2Stroked
 IconPieChartStroked
 IconPiechartH5Stroked
+IconPin
+IconPinOff
+IconPinOffStroked
+IconPinStroked
 IconPipixiaLogo
 IconPlay
 IconPlayCircle
