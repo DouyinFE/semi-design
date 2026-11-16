@@ -54,7 +54,7 @@ jobs:
                     echo "no changes";
                   fi
                   npm config set registry=https://registry.npmjs.org/
-                  npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+                  npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN_NEW }}
                   npm whoami
                   DIST_TAG=latest
                   if [[ ${{ github.event.inputs.release_type }} == 'beta' ]]; then
