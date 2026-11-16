@@ -2,6 +2,80 @@ import sinon from 'sinon';
 import AIChatInputFoundation from '@douyinfe/semi-foundation/aiChatInput/foundation';
 
 describe('AIChatInputFoundation', () => {
+    describe('sending multiline content', () => {
+        function createFoundation(content, props = {}, attachments = []) {
+            const notifyMessageSend = sinon.spy();
+            const foundation = new AIChatInputFoundation({
+                getProp: key => props[key],
+                getProps: () => props,
+                getStates: () => ({ attachments }),
+                getEditor: () => ({ getJSON: () => ({ type: 'doc', content }) }),
+                getConfigureValue: () => ({}),
+                notifyMessageSend,
+                setState: () => {},
+            });
+            return { foundation, notifyMessageSend };
+        }
+
+        it.each([1, 2])('should send text after %i empty paragraphs', count => {
+            const content = [
+                ...Array.from({ length: count }, () => ({ type: 'paragraph' })),
+                { type: 'paragraph', content: [{ type: 'text', text: 'Hello' }] },
+            ];
+            const { foundation, notifyMessageSend } = createFoundation(content);
+
+            expect(foundation.canSend()).toEqual(true);
+            foundation.handleSend();
+
+            expect(notifyMessageSend.callCount).toEqual(1);
+            expect(notifyMessageSend.firstCall.args[0].inputContents).toEqual([
+                { type: 'text', text: 'Hello' },
+            ]);
+        });
+
+        it('should keep a document containing only empty paragraphs disabled', () => {
+            const { foundation, notifyMessageSend } = createFoundation([
+                { type: 'paragraph' },
+                { type: 'paragraph' },
+            ]);
+
+            expect(foundation.canSend()).toEqual(false);
+            foundation.handleSend();
+            expect(notifyMessageSend.callCount).toEqual(0);
+        });
+
+        it('should allow a slot after an empty paragraph', () => {
+            const { foundation, notifyMessageSend } = createFoundation([
+                { type: 'paragraph' },
+                { type: 'paragraph', content: [{ type: 'selectSlot', attrs: { value: 'English' } }] },
+            ]);
+
+            expect(foundation.canSend()).toEqual(true);
+            foundation.handleSend();
+            expect(notifyMessageSend.firstCall.args[0].inputContents).toEqual([
+                { type: 'text', text: 'English' },
+            ]);
+        });
+
+        it('should continue allowing attachments with an empty document', () => {
+            const attachments = [{ uid: '1', name: 'a.png', status: 'success' }];
+            const { foundation, notifyMessageSend } = createFoundation([{ type: 'paragraph' }], {}, attachments);
+
+            expect(foundation.canSend()).toEqual(true);
+            foundation.handleSend();
+            expect(notifyMessageSend.firstCall.args[0].attachments).toEqual(attachments);
+        });
+
+        it.each([false, true])('should respect an explicit canSend=%s', canSend => {
+            const { foundation } = createFoundation([
+                { type: 'paragraph' },
+                { type: 'paragraph', content: [{ type: 'text', text: 'Hello' }] },
+            ], { canSend });
+
+            expect(foundation.canSend()).toEqual(canSend);
+        });
+    });
+
     it('should trigger uploadProps.onRemove when deleting uploaded file', async () => {
         const attachment = {
             uid: '1',
