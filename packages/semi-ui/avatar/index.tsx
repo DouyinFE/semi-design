@@ -88,6 +88,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
     foundation!: AvatarFoundation;
     avatarRef: React.RefObject<HTMLElement | null>;
+    private imageVersion = 0;
 
     constructor(props: AvatarProps) {
         super(props);
@@ -142,26 +143,45 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         this.foundation.init();
     }
 
-    componentDidUpdate(prevProps: AvatarProps) {
+    componentDidUpdate(prevProps: AvatarProps, prevState: AvatarState) {
+        if (this.props.src !== prevProps.src) {
+            this.imageVersion++;
+        }
         if (this.props.src && this.props.src !== prevProps.src) {
+            const version = this.imageVersion;
             const image = new Image(0, 0);
             image.src = this.props.src;
             image.onload = () => {
-                this.setState({ isImgExist: true });
+                if (version === this.imageVersion) {
+                    this.setState({ isImgExist: true });
+                }
             };
             image.onerror = () => {
-                this.setState({ isImgExist: false });
+                if (version === this.imageVersion) {
+                    this.setState({ isImgExist: false });
+                }
             };
             image.onabort = () => {
-                this.setState({ isImgExist: false });
+                if (version === this.imageVersion) {
+                    this.setState({ isImgExist: false });
+                }
             };
         }
-        if (typeof this.props.children === "string" && this.props.children !== prevProps.children) {
+        // Text shows when there is no src or the image failed; clearing src keeps isImgExist true.
+        const isTextVisible = !this.props.src || !this.state.isImgExist;
+        const wasTextVisible = !prevProps.src || !prevState.isImgExist;
+        if (typeof this.props.children === "string" &&
+            isTextVisible &&
+            (this.props.children !== prevProps.children ||
+                this.props.size !== prevProps.size ||
+                this.props.gap !== prevProps.gap ||
+                !wasTextVisible)) {
             this.foundation.changeScale();
         }
     }
 
     componentWillUnmount() {
+        this.imageVersion++;
         this.foundation.destroy();
     }
 
@@ -173,8 +193,8 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         this.foundation.handleLeave(e);
     }
 
-    handleError() {
-        this.foundation.handleImgLoadError();
+    handleError(event: React.SyntheticEvent<HTMLImageElement>) {
+        this.foundation.handleImgLoadError(event);
     }
 
     handleKeyDown(event: any) {
@@ -324,7 +344,10 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             color,
             className,
             hoverMask,
+            onMouseEnter,
+            onMouseLeave,
             onClick,
+            onError,
             imgAttr,
             src,
             srcSet,

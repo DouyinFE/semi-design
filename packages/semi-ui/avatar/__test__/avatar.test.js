@@ -335,7 +335,8 @@ describe('Avatar', () => {
             .find('img')
             .at(0)
             .simulate('error');
-        expect(spyOnError.callCount).toBe(2);
+        expect(spyOnError.callCount).toBe(1);
+        avatar.unmount();
     })
 
     it('onClick', () => {
