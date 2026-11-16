@@ -570,12 +570,26 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
             formattedValue = this.parseInternationalCurrency(value);
         }
 
+        // An explicitly provided 0 is a valid fraction-digit value, but the
+        // historical `||` fallbacks treated it as "not configured" and fell
+        // through to `precision` (or to the currency's default digits). Use
+        // nullish fallbacks so precision={0} and explicit 0 bounds are honoured.
+        const legacyMin = minimumFractionDigits || precision || undefined;
+        const legacyMax = maximumFractionDigits || precision || undefined;
+        const minFD = minimumFractionDigits ?? precision ?? undefined;
+        const maxFD = maximumFractionDigits ?? precision ?? undefined;
+        // Mixed `precision` + explicit bounds can produce min > max, which
+        // Intl.NumberFormat rejects. Those combinations previously resolved
+        // through the `||` chain; keep that result so this fix changes only
+        // the explicit-zero cases and leaves mixed-option precedence intact.
+        const keepLegacy = minFD !== undefined && maxFD !== undefined && maxFD < minFD;
+
         const formatter = new Intl.NumberFormat(localeCode, {
             style: 'currency',
             currency: this._getFinalCurrency() || this.getCurrencyByLocaleCode(),
             currencyDisplay: currencyDisplay,
-            minimumFractionDigits: minimumFractionDigits || precision || undefined,
-            maximumFractionDigits: maximumFractionDigits || precision || undefined,
+            minimumFractionDigits: keepLegacy ? legacyMin : minFD,
+            maximumFractionDigits: keepLegacy ? legacyMax : maxFD,
         });
 
         const formatted = formatter.format(Number(formattedValue)); 
