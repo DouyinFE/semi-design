@@ -34,17 +34,8 @@ export interface ConfigProps {
 export default class NotificationListFoundation extends BaseFoundation<NotificationListAdapter> {
 
     addNotice(opts: NoticeProps) {
-        // let notices = this._adapter.getNotices();
         const notices = this._adapter.getNotices();
-
-        // opts = { ...opts, id };
-        // if (opts.duration) {
-        //     setTimeout(() => {
-        //         this.removeNotice(opts.id);
-        //     }, opts.duration * 1000);
-        // }
         this._adapter.updateNotices([opts, ...notices]);
-        // return id;
     }
 
     has(id: string) {
@@ -60,7 +51,6 @@ export default class NotificationListFoundation extends BaseFoundation<Notificat
 
     removeNotice(id: string) {
         let notices = this._adapter.getNotices();
-        // let notices = this._adapter.getNotices();
         const removedItems: NoticeInstance[] = [];
         notices = notices.filter(notice => {
             if (notice.id === id) {

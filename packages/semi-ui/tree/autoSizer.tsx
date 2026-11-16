@@ -34,14 +34,6 @@ export default class AutoSizer extends PureComponent<AutoSizerProps, AutoSizerSt
         };
     }
 
-    componentDidMount() {
-        const { height } = this.state;
-        // if height is a number, pass it directly to virtual-list
-        if (typeof height === 'number') {
-            return;
-        }
-    }
-
     _onResize = (entries: ResizeEntry[]) => {
         // observe parent node height
         const target = entries && entries[1] && entries[1].target;

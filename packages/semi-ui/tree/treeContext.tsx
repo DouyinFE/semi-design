@@ -16,7 +16,6 @@ export interface TreeContextValue {
     motionType?: string;
     filterTreeNode?: boolean | ((inputValue: string, treeNodeString: string) => void);
     keyEntities?: KeyEntities;
-    onNodeClick?: any;
     onNodeExpand?: (e: MouseEvent | KeyboardEvent, treeNode: TreeNodeProps) => void;
     onNodeSelect?: (e: MouseEvent | KeyboardEvent, treeNode: TreeNodeProps) => void;
     onNodeCheck?: (e: MouseEvent | KeyboardEvent, treeNode: TreeNodeProps) => void;

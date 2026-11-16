@@ -57,7 +57,6 @@ class DropdownItemInner extends BaseComponent<DropdownItemProps & { innerRef?: R
 
     static defaultProps = {
         disabled: false,
-        divided: false,
         selected: false,
         onMouseEnter: noop,
         onMouseLeave: noop,

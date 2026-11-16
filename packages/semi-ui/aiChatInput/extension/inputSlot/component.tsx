@@ -48,11 +48,9 @@ const InputSlotComponent = (props: NodeViewProps) => {
         const dom = editor.view.dom;
         dom.addEventListener('compositionstart', onCompositionStart, true);
         dom.addEventListener('compositionend', onCompositionEnd, true);
-        dom.addEventListener('compositioncancel', onCompositionEnd, true);
         return () => {
             dom.removeEventListener('compositionstart', onCompositionStart, true);
             dom.removeEventListener('compositionend', onCompositionEnd, true);
-            dom.removeEventListener('compositioncancel', onCompositionEnd, true);
         };
     }, [editor, isSelectionInsideThisSlot]);
 

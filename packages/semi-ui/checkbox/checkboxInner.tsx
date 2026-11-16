@@ -3,7 +3,6 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { noop } from 'lodash';
 import { checkboxClasses as css } from '@douyinfe/semi-foundation/checkbox/constants';
-import { Context } from './context';
 import { IconCheckboxTick, IconCheckboxIndeterminate } from '@douyinfe/semi-icons';
 
 export interface CheckboxInnerProps {
@@ -30,8 +29,6 @@ export interface CheckboxInnerProps {
 }
 
 class CheckboxInner extends PureComponent<CheckboxInnerProps> {
-    static contextType = Context;
-
     static propTypes = {
         autoFocus: PropTypes.bool,
         'aria-describedby': PropTypes.string,
@@ -54,9 +51,6 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
         preventScroll: PropTypes.bool,
     };
 
-    static defaultProps = {
-        onChange: noop,
-    };
     inputEntity: HTMLInputElement;
 
     blur() {

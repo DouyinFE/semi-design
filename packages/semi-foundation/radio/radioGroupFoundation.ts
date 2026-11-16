@@ -68,6 +68,4 @@ export default class RadioGroupFoundation extends BaseFoundation<RadioGroupAdapt
     _setValue(value: any) {
         this._adapter.setValue(value);
     }
-
-    destroy() {}
 }

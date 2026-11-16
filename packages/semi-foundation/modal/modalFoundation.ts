@@ -79,12 +79,6 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
     private _lastCancelTarget: EventTarget | null = null;
     private _lastOkTarget: EventTarget | null = null;
 
-    constructor(adapter: ModalAdapter) {
-        super({
-            ...adapter,
-        });
-    }
-
     destroy() {
         this._debouncedOk.cancel();
         this._debouncedCancel.cancel();

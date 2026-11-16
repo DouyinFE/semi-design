@@ -1,4 +1,4 @@
-import React, { createRef, isValidElement, MouseEvent, ReactElement, ReactNode, RefCallback, RefObject } from 'react';
+import React, { isValidElement, MouseEvent, ReactNode } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tabs/constants';
@@ -77,8 +77,6 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         arrowPosition: "both",
     });
 
-    contentRef: RefObject<HTMLDivElement>;
-    contentHeight: string;
     foundation: TabsFoundation;
 
     constructor(props: TabsProps) {
@@ -90,8 +88,6 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             prevActiveKey: null,
             forceDisableMotion: false
         };
-        this.contentRef = createRef();
-        this.contentHeight = 'auto';
     }
 
     componentDidMount(): void {
@@ -196,10 +192,6 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         }
     }
 
-    setContentRef: RefCallback<HTMLDivElement> = ref => {
-        this.contentRef = { current: ref };
-    };
-
     getPanes = (): PlainTab[] => {
         const { tabList, children } = this.props;
         if (Array.isArray(tabList) && tabList.length) {
@@ -216,20 +208,6 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
 
     onTabClick = (activeKey: string, event: MouseEvent<HTMLDivElement>): void => {
         this.foundation.handleTabClick(activeKey, event);
-    };
-
-    /* istanbul ignore next */
-    rePosChildren = (children: ReactElement<any>[], activeKey: string): ReactElement<any>[] => {
-        const newChildren: ReactElement<any>[] = [];
-
-        const falttenChildren = React.Children.toArray(children) as ReactElement<any>[];
-
-        if (children.length) {
-            newChildren.push(...falttenChildren.filter(child => child.props && child.props.itemKey === activeKey));
-            newChildren.push(...falttenChildren.filter(child => child.props && child.props.itemKey !== activeKey));
-        }
-
-        return newChildren;
     };
 
     getActiveItem = (): ReactNode | ReactNode[] => {
@@ -332,7 +310,6 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
                 >
                     {tabBar}
                     <div
-                        ref={this.setContentRef}
                         role={tabList ? 'tabpanel' : undefined}
                         id={tabList && tabsId ? `${tabsId}-panel-${activeKey}` : undefined}
                         aria-labelledby={tabList && tabsId ? `${tabsId}-tab-${activeKey}` : undefined}

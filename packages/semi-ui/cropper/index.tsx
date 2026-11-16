@@ -128,43 +128,39 @@ class Cropper extends BaseComponent<CropperProps, CropperState> {
         }
         if (!isUndefined(newRotate) && newRotate !== rotate) {
             nextState.rotate = newRotate;
-            if (loaded) {
-                // 因为以裁切框的左上方顶点作为原点，所以centerPoint 的 y 坐标与实际的坐标系方向相反，
-                // 因此 y 方向需要先做变换，再使用旋转变换公式计算中心点坐标
-                const rotateCenter = {
-                    x: cropperBox.centerPoint.x,
-                    y: - cropperBox.centerPoint.y
-                };
-                const imgCenter = {
-                    x: imgData.centerPoint.x,
-                    y: - imgData.centerPoint.y
-                };
-                const angle = (newRotate - rotate) * Math.PI / 180;
-                nextImgCenter = {
-                    x: (imgCenter.x - rotateCenter.x) * Math.cos(angle) + (imgCenter.y - rotateCenter.y) * Math.sin(angle) + rotateCenter.x,
-                    y: - (-(imgCenter.x - rotateCenter.x) * Math.sin(angle) + (imgCenter.y - rotateCenter.y) * Math.cos(angle) + rotateCenter.y),
-                };
-            }
+            // 因为以裁切框的左上方顶点作为原点，所以centerPoint 的 y 坐标与实际的坐标系方向相反，
+            // 因此 y 方向需要先做变换，再使用旋转变换公式计算中心点坐标
+            const rotateCenter = {
+                x: cropperBox.centerPoint.x,
+                y: - cropperBox.centerPoint.y
+            };
+            const imgCenter = {
+                x: imgData.centerPoint.x,
+                y: - imgData.centerPoint.y
+            };
+            const angle = (newRotate - rotate) * Math.PI / 180;
+            nextImgCenter = {
+                x: (imgCenter.x - rotateCenter.x) * Math.cos(angle) + (imgCenter.y - rotateCenter.y) * Math.sin(angle) + rotateCenter.x,
+                y: - (-(imgCenter.x - rotateCenter.x) * Math.sin(angle) + (imgCenter.y - rotateCenter.y) * Math.cos(angle) + rotateCenter.y),
+            };
         }
         if (!isUndefined(newZoom) && newZoom !== zoom) {
             nextState.zoom = newZoom;
-            if (loaded) {
-                // 同上
-                const scaleCenter = {
-                    x: cropperBox.centerPoint.x,
-                    y: - cropperBox.centerPoint.y
-                };
-                const currentImgCenter = {
-                    x: nextImgCenter.x,
-                    y: - nextImgCenter.y
-                };
-                nextWidth = imgData.width / zoom * newZoom;
-                nextHeight = imgData.height / zoom * newZoom;
-                nextImgCenter = {
-                    x: (currentImgCenter.x - scaleCenter.x) / zoom * newZoom + scaleCenter.x,
-                    y: - [(currentImgCenter.y - scaleCenter.y) / zoom * newZoom + scaleCenter.y],
-                };
-            } 
+            // 同上
+            const scaleCenter = {
+                x: cropperBox.centerPoint.x,
+                y: - cropperBox.centerPoint.y
+            };
+            const currentImgCenter = {
+                x: nextImgCenter.x,
+                y: - nextImgCenter.y
+            };
+            nextWidth = imgData.width / zoom * newZoom;
+            nextHeight = imgData.height / zoom * newZoom;
+            nextImgCenter = {
+                x: (currentImgCenter.x - scaleCenter.x) / zoom * newZoom + scaleCenter.x,
+                y: - [(currentImgCenter.y - scaleCenter.y) / zoom * newZoom + scaleCenter.y],
+            };
         }
 
         if ((newRotate !== rotate || newZoom !== zoom)) {

@@ -19,11 +19,6 @@ export default class LocaleProvider extends Component<LocaleProviderProps> {
         locale: DefaultLocale
     };
 
-    constructor(props: LocaleProviderProps) {
-        super(props);
-        this.state = {};
-    }
-
     render() {
         const { children, locale } = this.props;
         return (
