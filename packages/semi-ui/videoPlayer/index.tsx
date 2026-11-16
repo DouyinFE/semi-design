@@ -91,6 +91,8 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
 
     private videoRef: React.RefObject<HTMLVideoElement>;
     private videoWrapperRef: React.RefObject<HTMLDivElement>;
+    private composedRefSource: VideoPlayerProps['forwardRef'];
+    private composedRef: (node: HTMLVideoElement) => void | (() => void);
     foundation: VideoPlayerFoundation;
 
     constructor(props: VideoPlayerProps) {
@@ -151,10 +153,24 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
         const { forwardRef } = this.props;
         if (!isUndefined(forwardRef)) {
             if (typeof forwardRef === 'function') {
-                return (node: HTMLVideoElement) => {
-                    forwardRef(node);
-                    this.videoRef = { current: node };
-                };
+                // Keep the callback identity stable per forwardRef, otherwise React detaches and reattaches it every render.
+                if (this.composedRefSource !== forwardRef) {
+                    this.composedRefSource = forwardRef;
+                    this.composedRef = (node: HTMLVideoElement) => {
+                        this.videoRef = { current: node };
+                        const cleanup: unknown = forwardRef(node);
+                        // React 19 skips the null call when a cleanup exists, so clear the inner ref there.
+                        // Return nothing otherwise: React 16/18 warn on callback ref return values.
+                        if (typeof cleanup === 'function') {
+                            return () => {
+                                this.videoRef = { current: null };
+                                cleanup();
+                            };
+                        }
+                        return undefined;
+                    };
+                }
+                return this.composedRef;
             } else if (Object.prototype.toString.call(forwardRef) === '[object Object]') {
                 this.videoRef = forwardRef as React.RefObject<HTMLVideoElement>;
                 return forwardRef;
@@ -545,8 +561,8 @@ class VideoPlayer extends BaseComponent<VideoPlayerProps, VideoPlayerState> {
     }
 }
 
-const ForwardVideoPlayer = React.forwardRef<HTMLVideoElement, Omit<VideoPlayerProps, 'forwardRef'>>((props, ref) => (
-    <VideoPlayer {...props} forwardRef={ref} />
+const ForwardVideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>((props, ref) => (
+    <VideoPlayer {...props} forwardRef={ref ?? props.forwardRef} />
 ));
 
 export default ForwardVideoPlayer;
