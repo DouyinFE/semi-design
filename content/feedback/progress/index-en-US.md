@@ -410,9 +410,9 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 
 | PROPERTIES | Instructions | Type | Default |
 | --- | --- | --- | --- |
-| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute) attribute. Used to add a label description to the current element to improve a11y<br/>**provided after v2.2.0** | string |  |
-| aria-labelledby | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute) attribute. Indicates that the id of some element is the label of the current element. It is used to determine the connection between controls or control groups and their labels, to improve a11y<br/>**provided after v2.2.0** | string |  |  |
-| aria-valuetext | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute) attribute. Used to improve a11y<br/>**provided after v2.2.0** | string |  |  |
+| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-label) attribute. Used to add a label description to the current element to improve a11y<br/>**provided after v2.2.0** | string |  |
+| aria-labelledby | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-labelledby) attribute. Indicates that the id of some element is the label of the current element. It is used to determine the connection between controls or control groups and their labels, to improve a11y<br/>**provided after v2.2.0** | string |  |  |
+| aria-valuetext | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-labelledby) attribute. Used to improve a11y<br/>**provided after v2.2.0** | string |  |  |
 | className | style class name | string |  |
 | direction | The direction of the bar progress bar `horizontal`, `vertical` | string | 'horizontal' |
 | id | id attribute <br/>**provided after v2.2.0** | string |  |

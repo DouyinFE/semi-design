@@ -175,8 +175,8 @@ import { Switch } from '@douyinfe/semi-ui';
 
 | Properties | Instructions | Type | Default | version |
 | --- | --- | --- | --- | --- |
-| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute) used to define a string that labels the current element. Use it in cases where a text label is not visible on the screen | string |  | 2.2.0 |
-| aria-labelledby | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute)attribute establishes relationships between objects and their label(s), and its value should be one or more element IDs, which refer to elements that have the text needed for labeling. | string |  | 2.2.0 |
+| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-label) used to define a string that labels the current element. Use it in cases where a text label is not visible on the screen | string |  | 2.2.0 |
+| aria-labelledby | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-labelledby)attribute establishes relationships between objects and their label(s), and its value should be one or more element IDs, which refer to elements that have the text needed for labeling. | string |  | 2.2.0 |
 | className | The CSS class name of the wrapper element | string |  |  |
 | checked | Indicates whether currently selected, used with onchange | boolean | false |  |
 | checkedText | Content displayed when open, invalid when size is small | React Node |  | - |

@@ -431,9 +431,9 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute)属性，用来给当前元素加上的标签描述, 用于提升可访问性<br/>**v2.2.0 后提供** | string |  |
-| aria-labelledby | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute)属性，表明某些元素的 id 是当前元素的标签。它被用来确定控件或控件组与它们标签之间的联系, 提升可访问性<br/>**v2.2.0 后提供** | string |  |  |
-| aria-valuetext | [aria-valuetext](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-valuetext_attribute)属性，用于提升可访问性<br/>**v2.2.0 后提供** | string |  |  |
+| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-label)属性，用来给当前元素加上的标签描述, 用于提升可访问性<br/>**v2.2.0 后提供** | string |  |
+| aria-labelledby | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-labelledby)属性，表明某些元素的 id 是当前元素的标签。它被用来确定控件或控件组与它们标签之间的联系, 提升可访问性<br/>**v2.2.0 后提供** | string |  |  |
+| aria-valuetext | [aria-valuetext](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuetext)属性，用于提升可访问性<br/>**v2.2.0 后提供** | string |  |  |
 | className | 样式类名 | string |  |
 | direction | 条状进度条方向 `horizontal`、`vertical` | string | 'horizontal' |
 | format | 格式化函数，入参为当前百分比，return 的结果将会直接渲染在圆形进度条中心 | (percent: number) => ReactNode | (percent) => percent + '%' |
