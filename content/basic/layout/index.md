@@ -524,7 +524,7 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
 | className | 类名                                                               | string  | -      |
 | hasSider  | 表示子元素里有 Sider，一般不用指定。可用于服务端渲染时避免样式闪动 | boolean | -      |
 | style     | 样式                                                               | CSSProperties  | -      |
-| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute) 属性，用来给当前元素加上的标签描述, 提升可访问性 >=2.3.0 | string | - |
+| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-label) 属性，用来给当前元素加上的标签描述, 提升可访问性 >=2.3.0 | string | - |
 | role | [role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) 属性, 提升可访问性 >=2.3.0 | string | - |
 
 ### Layout.Sider
@@ -535,7 +535,7 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
 | className | 类名 | string | - |
 | style | 样式 | CSSProperties | - |
 | onBreakpoint | 触发响应式布局断点时的回调 | (screen: string, broken: bool) => void | - |
-| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute)属性，用来给当前元素加上的标签描述, 提升可访问性 >=2.3.0 | string | - |
+| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-label)属性，用来给当前元素加上的标签描述, 提升可访问性 >=2.3.0 | string | - |
 | role | [role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)属性, 提升可访问性 >=2.3.0  | string | - |
 
 ### responsive map

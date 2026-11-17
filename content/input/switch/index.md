@@ -170,8 +170,8 @@ import { Switch } from '@douyinfe/semi-ui';
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute)属性，用来给当前元素加上的标签描述, 提升可访问性 | string |  | 2.2.0 |
-| aria-labelledby | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute)属性，表明某些元素的 id 是某一对象的标签。它被用来确定控件或控件组与它们标签之间的联系, 提升可访问性 | string |  | 2.2.0 |
+| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-label)属性，用来给当前元素加上的标签描述, 提升可访问性 | string |  | 2.2.0 |
+| aria-labelledby | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-labelledby)属性，表明某些元素的 id 是某一对象的标签。它被用来确定控件或控件组与它们标签之间的联系, 提升可访问性 | string |  | 2.2.0 |
 | className | 类名 | string |  |
 | checked | 指示当前是否选中,配合 onChange 使用 | boolean | false |  |
 | checkedText | 打开时展示的内容, size 为 small 时无效 | ReactNode |  |  |

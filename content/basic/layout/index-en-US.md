@@ -513,7 +513,7 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
 | className  | Class name                                                                                                                                 | string  | -       |
 | hasSider   | Indicates that there is a Sider in the child element, which is generally not specified. It can be used to avoid style flashing during SSR. | boolean | -       |
 | style      | Style                                                                                                                                      | CSSProperties  | -       |
-| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute) attribute, used to label the current element Description, improve accessibility | string | | 2.2.0 |
+| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-label) attribute, used to label the current element Description, improve accessibility | string | | 2.2.0 |
 | role | [role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) attribute to improve accessibility | string | | 2.2.0 |
 
 ### Layout.Sider
@@ -524,7 +524,7 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
 | className    | Class name                                                                             | string                               | -       |
 | style        | Style                                                                                  | CSSProperties                               | -       |
 | onBreakpoint | Callback function when triggering a responsive layout breakpoint                       | (screen: string, broken: bool) => void | -       |
-| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute) attribute, used to label the current element Description, improve accessibility | string | | 2.2.0 |
+| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-label) attribute, used to label the current element Description, improve accessibility | string | | 2.2.0 |
 | role | [role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) attribute to improve accessibility | string | | 2.2.0 |
 
 ### responsive map
