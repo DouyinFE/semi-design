@@ -50,6 +50,34 @@ describe('Chat upload modes', () => {
         expect(container.querySelector('.semi-chat-inputBox-uploadButton').closest('[style="display: none;"]')).toBeTruthy();
     });
 
+    it.each(['drag', 'paste'])('does not upload by %s while uploadProps.disabled is set', async mode => {
+        const customRequest = sinon.spy();
+        const onChange = sinon.spy();
+        const onInputChange = sinon.spy();
+        const enableUpload = { clickUpload: false, dragUpload: true, pasteUpload: true };
+        const chat = disabled => <Chat chats={[]} hints={[]} roleConfig={{}} enableUpload={enableUpload} uploadProps={{ disabled, action: '/upload', customRequest, onChange }} onInputChange={onInputChange} />;
+        const { container, rerender } = render(chat(true));
+        const file = new File(['example'], 'example.txt', { type: 'text/plain' });
+        const upload = () => {
+            if (mode === 'drag') {
+                fireEvent.dragOver(container.querySelector('.semi-chat'));
+                fireEvent.drop(container.querySelector('.semi-chat-dropArea'), { dataTransfer: { files: [file] } });
+            } else {
+                fireEvent.paste(container.querySelector('textarea'), { clipboardData: { items: [{ getAsFile: () => file }] } });
+            }
+        };
+        upload();
+        await new Promise(resolve => setTimeout(resolve, 0));
+        expect(customRequest.called).toBe(false);
+        expect(onChange.called).toBe(false);
+        expect(onInputChange.called).toBe(false);
+        expect(container.querySelector('.semi-chat-attachment-file-title')).toBeNull();
+        rerender(chat(false));
+        upload();
+        await waitFor(() => expect(customRequest.calledOnce).toBe(true));
+        expect(container.querySelector('.semi-chat-attachment-file-title')?.textContent).toBe('example.txt');
+    });
+
     it('does not mount Upload when all upload modes are disabled', () => {
         const { container } = render(<Chat chats={[]} hints={[]} roleConfig={{}} enableUpload={false} />);
         expect(container.querySelector('input[type="file"]')).toBeNull();
