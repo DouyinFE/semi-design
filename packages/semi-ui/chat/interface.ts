@@ -176,6 +176,7 @@ export interface InputBoxProps {
     onClearContext?: (e: any) => void;
     onInputChange?: (props: {inputValue: string; attachment: FileItem[]}) => void;
     clickUpload?: boolean;
+    dragUpload?: boolean;
     pasteUpload?: boolean
 }
 

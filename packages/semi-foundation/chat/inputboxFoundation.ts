@@ -38,16 +38,6 @@ export default class InputBoxFoundation <P = Record<string, any>, S = Record<str
         });
     }
     
-    onAttachmentDelete = (props: any) => {
-        const { content, attachment } = this.getStates();
-        const newAttachMent = attachment.filter(item => item.uid !== props.uid);
-        this._adapter.setAttachment(newAttachMent);
-        this._adapter.notifyInputChange({
-            inputValue: content,
-            attachment: newAttachMent
-        });
-    }
-    
     onSend = (e: any) => {
         if (this.getDisableSend()) {
             return; 

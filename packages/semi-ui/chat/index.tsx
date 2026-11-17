@@ -192,7 +192,8 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             },
             manualUpload: (file: File[]) => {
                 const uploadComponent = this.uploadRef.current;
-                if (uploadComponent) {
+                // Upload.insert does not check disabled, so drag and paste must respect it here.
+                if (uploadComponent && !this.props.uploadProps?.disabled) {
                     uploadComponent.insert(file);
                 }
             },
@@ -409,6 +410,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                         uploadTipProps={uploadTipProps}
                         sendHotKey={sendHotKey}
                         clickUpload={clickUpload}
+                        dragUpload={dragUpload}
                         pasteUpload={pasteUpload}
                     />
                     {bottomSlot}
