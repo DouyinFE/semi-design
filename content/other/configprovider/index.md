@@ -530,6 +530,8 @@ function Demo(props = {}) {
 
 如果你想准确设置一个地区的时区，推荐使用 IANA 标识而不是前面的用法。这里可以查看 [IANA 标识列表](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)，以及时区是否有夏令时。
 
+夏令时切换当天，DatePicker 和 TimePicker 把用户选择的时刻转换为时间戳时遵循以下规则，范围选择的开始和结束时间相同：重复出现的时刻（如纽约 2026-11-01 01:30）取第一次出现对应的时间戳；被跳过的时刻（如纽约 2026-03-08 02:30）沿用跳变前的偏移，即向后顺延（得到 03:30）。传入的 `value` 或 `defaultValue` 本身是时间戳，切换 `timeZone` 时保留原时间戳，不会被重新解析。
+
 ### FAQ
 
 - ConfigProvider中没有提供全局自定义prefix classname的功能，有类似需求如何实现（例如SDK中使用了Semi，期望打包的dom样式不带.semi-xx前缀，以免被宿主的全局 CSS 影响）？

@@ -225,14 +225,15 @@ const zonedTimeToUtc = (date: string | number | Date, timeZone: string | number,
         zoned.setUTCHours(hour % 24, minute, second, 0);
         return zoned.getTime() - Math.floor(timestamp / 1000) * 1000;
     };
-    // Resolve offsets from UTC instants so DST choices do not depend on the host timezone.
-    const initialOffset = offsetAt(wallTime);
-    const nextOffset = offsetAt(wallTime - initialOffset);
-    if (initialOffset === nextOffset) {
-        return new Date(wallTime - initialOffset);
-    }
-    const finalOffset = offsetAt(wallTime - nextOffset);
-    return new Date(wallTime - (nextOffset === finalOffset ? nextOffset : Math.max(nextOffset, finalOffset)));
+    // Resolve offsets from UTC instants so DST choices do not depend on the host timezone. The rule matches
+    // Temporal's "compatible" disambiguation: a repeated wall time maps to the earlier instant, and a skipped
+    // wall time keeps the offset in effect before the transition, which moves it forward.
+    // shortcut: assumes at most one offset change within a day of the wall time, upgrade if a zone ever has two.
+    const DAY = 24 * 60 * 60 * 1000;
+    const offsetBefore = offsetAt(wallTime - DAY);
+    const offsetAfter = offsetAt(wallTime + DAY);
+    const candidates = [wallTime - offsetBefore, wallTime - offsetAfter].filter(instant => offsetAt(instant) === wallTime - instant);
+    return new Date(candidates.length ? Math.min(...candidates) : wallTime - offsetBefore);
 };
 
 /**

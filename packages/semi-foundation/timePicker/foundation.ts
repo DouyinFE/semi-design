@@ -48,6 +48,10 @@ export interface TimePickerAdapter<P = Record<string, any>, S = Record<string, a
 
 class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TimePickerAdapter<P, S>, P, S> {
 
+    // Zoned dates built from a known instant. Converting their wall time back would re-resolve a repeated
+    // DST time to its first occurrence, so the original instant is kept until the user picks a new time.
+    private zonedInstants = new WeakMap<Date, Date>();
+
     constructor(adapter: TimePickerAdapter<P, S>) {
         super({ ...adapter });
     }
@@ -115,6 +119,16 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         return ['string', 'number'].includes(typeof timeZone) && timeZone !== '';
     }
 
+    toZoned(instant: Date, timeZone: string | number) {
+        const zoned = utcToZonedTime(instant, timeZone);
+        this.zonedInstants.set(zoned, instant);
+        return zoned;
+    }
+
+    toInstant(date: Date, timeZone: string | number) {
+        return this.zonedInstants.get(date) ?? zonedTimeToUtc(date, timeZone);
+    }
+
     getDefaultFormatIfNeed(): string {
         if (this._isInProps('format')) {
             return this.getProp('format');
@@ -146,7 +160,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         (value as any[]).forEach(v => {
             const pv = parseToDate(v, formatToken, dateFnsLocale);
             if (!isNaN(pv.getTime())) {
-                parsedValues.push(this.isValidTimeZone(timeZone) ? utcToZonedTime(pv, timeZone) : pv);
+                parsedValues.push(this.isValidTimeZone(timeZone) ? this.toZoned(pv, timeZone) : pv);
             }
         });
 
@@ -235,10 +249,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         if (!invalid) {
             if (this.isValidTimeZone(timeZone)) {
                 dates = dates.map(date =>
-                    utcToZonedTime(
-                        this.isValidTimeZone(__prevTimeZone) ? zonedTimeToUtc(date, __prevTimeZone) : date,
-                        timeZone
-                    )
+                    this.toZoned(this.isValidTimeZone(__prevTimeZone) ? this.toInstant(date, __prevTimeZone) : date, timeZone)
                 );
             }
             if (this._adapter.isRangePicker()) {
@@ -477,10 +488,10 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         if (this.isValidTimeZone(timeZone) && _value) {
             const formatToken = this.getValidFormat();
             if (Array.isArray(_value)) {
-                _value = _value.map(v => zonedTimeToUtc(v, timeZone));
+                _value = _value.map(v => this.toInstant(v, timeZone));
                 str = _value.map(v => format(v, formatToken));
             } else {
-                _value = zonedTimeToUtc(_value, timeZone);
+                _value = this.toInstant(_value, timeZone);
                 str = format(_value, formatToken);
             }
         }

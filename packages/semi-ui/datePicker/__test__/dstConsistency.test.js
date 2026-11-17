@@ -6,15 +6,14 @@ describe('DatePicker timezone conversion across host timezones', () => {
         expect(zonedTimeToUtc(wallTime, 'America/New_York').toISOString()).toBe('2026-11-01T05:30:12.123Z');
     });
 
-    it('keeps the UTC-host decision for a half-hour transition', () => {
+    it('uses the earlier occurrence of a repeated half-hour transition', () => {
         const wallTime = new Date(2026, 3, 5, 1, 45);
-        expect(zonedTimeToUtc(wallTime, 'Australia/Lord_Howe').toISOString()).toBe('2026-04-04T15:15:00.000Z');
+        expect(zonedTimeToUtc(wallTime, 'Australia/Lord_Howe').toISOString()).toBe('2026-04-04T14:45:00.000Z');
     });
 
-    it('keeps the existing UTC-host rule for a gap when the wall time can be represented', () => {
-        const wallTime = new Date(2026, 2, 8, 2, 30);
-        const expected = wallTime.getHours() === 2 ? '2026-03-08T06:30:00.000Z' : '2026-03-08T07:30:00.000Z';
-        expect(zonedTimeToUtc(wallTime, 'America/New_York').toISOString()).toBe(expected);
+    it('moves a skipped wall time forward whether or not the host skips it', () => {
+        expect(zonedTimeToUtc(new Date(2026, 2, 8, 2, 30), 'America/New_York').toISOString()).toBe('2026-03-08T07:30:00.000Z');
+        expect(zonedTimeToUtc(new Date(2026, 9, 4, 2, 15), 'Australia/Lord_Howe').toISOString()).toBe('2026-10-03T15:45:00.000Z');
     });
 
     it.each([['America/New_York', '2026-10-26T16:30:12.123Z'], ['Asia/Kathmandu', '2026-10-26T06:45:12.123Z'], [8, '2026-10-26T04:30:12.123Z']])('preserves ordinary dates for %s', (zone, expected) => {

@@ -523,6 +523,8 @@ When you use numbers or similar writing of `GMT-09:00`, Semi will internally con
 
 If you want to accurately set the time zone of a region, it is recommended to use the IANA identifiers instead of the previous usage. Here you can check the [IANA list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), and whether the time zone has daylight saving time.
 
+On a daylight saving transition day, DatePicker and TimePicker convert the picked wall time to an instant with the following rule, and the start and end of a range follow the same rule: a repeated wall time (such as 2026-11-01 01:30 in New York) maps to its first occurrence; a skipped wall time (such as 2026-03-08 02:30 in New York) keeps the offset in effect before the transition, so it moves forward (to 03:30). A `value` or `defaultValue` you pass in is already an instant, so it is kept as is when `timeZone` changes instead of being resolved again.
+
 
 ### FAQ
 

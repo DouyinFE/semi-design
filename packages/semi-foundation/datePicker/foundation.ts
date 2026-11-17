@@ -231,6 +231,9 @@ export interface DatePickerAdapter extends DefaultAdapter<DatePickerFoundationPr
  *  task 2. When the input box changes, update the date value = > Notify the change
  */
 export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapter> {
+    // Zoned dates built from a known instant. Converting their wall time back would re-resolve a repeated
+    // DST time to its first occurrence, so the original instant is kept until the user picks a new date.
+    private zonedInstants = new WeakMap<Date, Date>();
 
     constructor(adapter: DatePickerAdapter) {
         super({ ...adapter });
@@ -294,9 +297,15 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
                 let parsedV = (v || v === 0) && this._parseValue(v);
                 if (parsedV) {
                     if (isValidTimeZone(prevTimeZone)) {
-                        parsedV = zonedTimeToUtc(parsedV, prevTimeZone);
+                        parsedV = this.toInstant(parsedV, prevTimeZone);
                     }
-                    result.push(isValidTimeZone(timeZone) ? utcToZonedTime(parsedV, timeZone) : parsedV);
+                    if (isValidTimeZone(timeZone)) {
+                        const zoned = utcToZonedTime(parsedV, timeZone);
+                        this.zonedInstants.set(zoned, parsedV);
+                        result.push(zoned);
+                    } else {
+                        result.push(parsedV);
+                    }
                 } else {
                     warning(true, `[Semi DatePicker] value cannot be parsed, value: ${String(v)}`);
                 }
@@ -304,6 +313,10 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         }
 
         return result;
+    }
+
+    toInstant(date: Date, timeZone: string | number) {
+        return this.zonedInstants.get(date) ?? zonedTimeToUtc(date, timeZone);
     }
 
     _isMultiple() {
@@ -1124,7 +1137,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         const timeZone = this.getProp('timeZone');
 
         if (isValidTimeZone(timeZone)) {
-            _value = _value.map(date => zonedTimeToUtc(date, timeZone));
+            _value = _value.map(date => this.toInstant(date, timeZone));
         }
         const type = this.getProp('type');
         const formatToken = this.getProp('format') || getDefaultFormatTokenByType(type);
