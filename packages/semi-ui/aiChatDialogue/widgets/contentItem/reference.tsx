@@ -68,7 +68,8 @@ export const ReferenceWidget = (props: ReferenceWidgetProps) => {
         >
             {references.map((reference, index) => (
                 // todo: 确认背景色和一行分布几个
-                <div className={referencePrefixCls} key={reference.id ?? index}>
+                // Separate prefixes keep an explicit id such as '1' from colliding with an index fallback.
+                <div className={referencePrefixCls} key={reference.id != null ? `id:${reference.id}` : `index:${index}`}>
                     <IconSendMsgStroked />
                     <span className={`${referencePrefixCls}-content`}>
                         {renderReferenceIcon(reference.name)}

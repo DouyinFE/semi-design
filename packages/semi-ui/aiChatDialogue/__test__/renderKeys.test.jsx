@@ -30,4 +30,21 @@ describe('AIChatDialogue list keys', () => {
         spy.mockRestore();
         expect(keyWarnings.length).toBe(0);
     });
+
+    it('does not reuse an explicit reference id as an index fallback', () => {
+        const spy = rs.spyOn(console, 'error').mockImplementation(() => {});
+        const div = document.createElement('div');
+        document.body.appendChild(div);
+        ReactDOM.render(<AIChatDialogue chats={[{
+            id: 'message', role: 'user', content: 'text',
+            references: [{ id: '1', name: 'a.pdf' }, { name: 'b.pdf' }],
+        }]} roleConfig={{ user: { name: 'User' } }} />, div);
+        const names = [...div.querySelectorAll('.semi-ai-chat-dialogue-reference-name')].map(node => node.textContent);
+        ReactDOM.unmountComponentAtNode(div);
+        div.remove();
+        const keyWarnings = spy.mock.calls.filter(c => String(c[0]).includes('same key'));
+        spy.mockRestore();
+        expect(names).toEqual(['a.pdf', 'b.pdf']);
+        expect(keyWarnings.length).toBe(0);
+    });
 });
