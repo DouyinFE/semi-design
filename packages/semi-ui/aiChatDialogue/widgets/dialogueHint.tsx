@@ -25,13 +25,15 @@ const Hint = React.memo((props: HintProps) => {
         >
             {hints.map((item: string, index: number) => {
                 if (renderHintBox) {
-                    return renderHintBox({
-                        content: item, 
-                        index: index,
-                        onHintClick: () => {
-                            onHintClick?.(item);
-                        }
-                    });
+                    return <React.Fragment key={index}>
+                        {renderHintBox({
+                            content: item,
+                            index: index,
+                            onHintClick: () => {
+                                onHintClick?.(item);
+                            }
+                        })}
+                    </React.Fragment>;
                 }
                 return (
                     <div 

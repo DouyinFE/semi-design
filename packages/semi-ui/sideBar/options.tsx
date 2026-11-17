@@ -13,7 +13,7 @@ const Option = React.memo((props: OptionProps) => {
         {options?.map(option => {
             const { icon, name, key } = option;
             if (typeof renderOptionItem === 'function') {
-                return renderOptionItem(option, onChange);
+                return <React.Fragment key={key}>{renderOptionItem(option, onChange)}</React.Fragment>;
             }
             return <Button
                 className={cls(`${prefixCls}-button`, {

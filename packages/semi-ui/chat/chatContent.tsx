@@ -27,7 +27,7 @@ const ChatContent = React.memo((props: ChatContentProps) => {
             {chats.map((item, index) => {
                 const lastMessage = index === chats.length - 1;
                 return item.role === ROLE.DIVIDER ? (
-                    renderDivider ? renderDivider(item) :
+                    renderDivider ? <React.Fragment key={item.id}>{renderDivider(item)}</React.Fragment> :
                     <Divider key={item.id} className={PREFIX_DIVIDER}>
                         <LocaleConsumer<Locale["Chat"]> componentName="Chat" >
                             {(locale: Locale["Chat"]) => locale['clearContext']}
