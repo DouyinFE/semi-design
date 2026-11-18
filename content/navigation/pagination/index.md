@@ -202,7 +202,7 @@ import { Pagination } from '@douyinfe/semi-ui';
 | preventPageChangeOnPageSizeChange | 切换 pageSize 时是否阻止自动调整 currentPage。默认情况下，切换 pageSize 时组件会自动计算新的 currentPage 以保持当前数据位置，设为 true 后由用户自行控制页码变化 | boolean | false | - |
 | style              | 样式                                                                              | object                                          |                     |
 | size               | 尺寸                                                                              | string                                          |                     |
-| showTotal          | 是否显示总页数                                                                    | boolean                                         |                     |
+| showTotal          | 是否显示总页数                                                                    | boolean                                         | false               |
 | showSizeChanger    | 是否显示切换页容量的 Select，size为small时不生效                                                       | boolean                                         | false               |
 | showQuickJumper    | 是否显示切换页码的 Input                                  | boolean                                         | false               | 1.31.0|
 | total              | 总条数                                                                            | number                                          | 1                   |

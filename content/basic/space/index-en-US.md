@@ -170,7 +170,7 @@ import { Space, Button } from '@douyinfe/semi-ui';
 |-|-|-|-|-|
 |align|Alignment, optional:  `start`、`end`、`center`、`baseline`|string|`center`|>=1.17.0|
 |className|Class name|string|-|>=1.17.0|
-|spacing|The space size, optional:  `loose`、`medium`、`tight` 、number and array|string\|number\|array|`medium`|>=1.17.0|
+|spacing|The space size, optional:  `loose`、`medium`、`tight` 、number and array|string\|number\|array|`tight`|>=1.17.0|
 |style|Inline style|CSSProperties|-|>=1.17.0|
 |vertical|Set to vertical spacing|boolean|false|>=1.17.0|
 |wrap|Whether to wrap|boolean|false|>=1.17.0|

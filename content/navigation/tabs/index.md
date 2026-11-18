@@ -947,7 +947,7 @@ class App extends React.Component {
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | activeKey | 当前激活的 tab 页的 itemKey 值 | string | 无 |
-| arrowPosition | 折叠模式下，左右切换箭头渲染位置 **>=2.61.0** | "start" "end" "both" | 无 |
+| arrowPosition | 折叠模式下，左右切换箭头渲染位置 **>=2.61.0** | "start" "end" "both" | "both" |
 | className | 类名 | string | 无 |
 | collapsible | 折叠的 Tabs，**>=1.1.0**，支持 `auto` 自动判断是否溢出 | boolean \| 'auto' | false |
 | dropdownProps | 用于在折叠模式下透传参数到下拉菜单的 Dropdown 组件 | { start: DropdownProps, end: DropdownProps } | 无 |

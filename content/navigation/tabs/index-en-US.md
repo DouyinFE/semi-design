@@ -953,7 +953,7 @@ class App extends React.Component {
 | onChange | Callback function when switching tab pages | function(activeKey: string) | None |
 | onTabClick | Click event | function(key: string, e: Event) | None |
 | onTabClose | executed when tab closed by user, **>=2.1.0** | function(tabKey: string) | None |
-| arrowPosition | Arrow rendering position **>=2.61.0** | "start" "end" "both" | 无 |
+| arrowPosition | Arrow rendering position **>=2.61.0** | "start" "end" "both" | "both" |
 | onVisibleTabsChange | Overflow item switching change callback **>=2.61.0** | (visibleState:Record\<string,bool\>)=>void | None |
 
 ### TabPane
