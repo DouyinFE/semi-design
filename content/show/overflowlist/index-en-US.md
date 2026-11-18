@@ -219,7 +219,7 @@ import { IconAlarm, IconBookmark, IconCamera, IconDuration, IconEdit, IconFolder
 | ---------- |----------------------------------------| --------------------- | ------- | ------- |
 | className  | Class name.                            | string                | -       | -   |
 | onVisibleStateChange | Hide and display state change callback | (visibleState: Map\<string, boolean\>) => void; | -          | 2.61.0 |
-| renderMode | Render mode.                           | `collapse`\| `scroll` | `true`  | -       |
+| renderMode | Render mode.                           | `collapse`\| `scroll` | `collapse` | -       |
 | style      | OverflowList style                     | React.CSSProperties   | -       | -   |
 
 ### renderMode='collapse'
