@@ -235,7 +235,7 @@ const local: Locale = {
         cancel: 'Отмена'
     },
     AIChatInput: {
-        template: 'Tрафарет',
+        template: 'Трафарет',
         configure: 'Конфигурация',
         selected: 'Выбрано ${count} элементов',
     },
