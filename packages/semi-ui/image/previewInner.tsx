@@ -265,7 +265,11 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     }
 
     componentWillUnmount() {
-        this.foundation.clearTimer();
+        if (this.props.visible) {
+            this.foundation.afterHide();
+        } else {
+            this.foundation.clearTimer();
+        }
     }
 
     isInGroup() {
