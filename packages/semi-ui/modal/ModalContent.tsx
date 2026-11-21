@@ -84,9 +84,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                 }
             },
             removeKeyDownEventListener: () => {
-                if (this.props.closeOnEsc) {
-                    document.removeEventListener('keydown', this.foundation.handleKeyDown);
-                }
+                document.removeEventListener('keydown', this.foundation.handleKeyDown);
             },
             getMouseState: () => this.state.dialogMouseDown,
             modalDialogFocus: () => {
@@ -116,6 +114,21 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
     }
 
     componentDidMount() {
+        if (this.props.visible) {
+            this.activate();
+        }
+    }
+
+    componentDidUpdate(prevProps: ModalContentReactProps) {
+        if (!prevProps.visible && this.props.visible) {
+            this.setState({ prevFocusElement: FocusTrapHandle.getActiveElement() });
+            this.activate();
+        } else if (prevProps.visible && !this.props.visible) {
+            this.foundation.destroy();
+        }
+    }
+
+    activate = () => {
         this.foundation.handleKeyDownEventListenerMount();
         this.foundation.modalDialogFocus();
         const nodes = FocusTrapHandle.getFocusableElements(this.modalDialogRef.current);
@@ -127,7 +140,9 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
 
     componentWillUnmount() {
         clearTimeout(this.timeoutId);
-        this.foundation.destroy();
+        if (this.props.visible) {
+            this.foundation.destroy();
+        }
     }
 
     onKeyDown = (e: React.MouseEvent) => {
