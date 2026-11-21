@@ -116,8 +116,9 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
     }
 
     getDefaultFormatIfNeed(): string {
-        if (this._isInProps('format')) {
-            return this.getProp('format');
+        const format = this.getProp('format');
+        if (!isNullOrUndefined(format)) {
+            return format;
         } else if (this.getProp('use12Hours')) {
             return strings.DEFAULT_FORMAT_A;
         } else {
