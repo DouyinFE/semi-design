@@ -84,15 +84,18 @@ class ChatBoxAction extends BaseComponent<ChatBoxActionProps, ChatBoxActionState
             },
             copyToClipboardAndToast: () => {
                 const { message = {}, toast } = this.props;
+                let copied = false;
                 if (typeof message.content === 'string') {
-                    copy(message.content);
+                    copied = copy(message.content);
                 } else if (Array.isArray(message.content)) {
                     const content = message.content?.map(item => item.text).join('');
-                    copy(content);
+                    copied = copy(content);
                 }
-                toast.success({
-                    content: this.copySuccessNode
-                });
+                if (copied) {
+                    toast.success({
+                        content: this.copySuccessNode
+                    });
+                }
             },
             notifyLikeMessage: () => {
                 const { message, onMessageGoodFeedback } = this.props;

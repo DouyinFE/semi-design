@@ -68,7 +68,9 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
         const { content, duration, onCopy } = this.props;
         const res = copy(content);
         onCopy && onCopy(e, content, res);
-        this.setCopied(content, duration);
+        if (res) {
+            this.setCopied(content, duration);
+        }
     };
 
     setCopied = (item: string, timer: number) => {

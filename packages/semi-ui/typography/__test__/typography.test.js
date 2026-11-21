@@ -3,6 +3,8 @@ import * as _ from 'lodash';
 import Typography from '../index';
 import Base from '../base';
 
+rs.mock('copy-text-to-clipboard', () => ({ default: () => true }));
+
 describe(`Typography`, () => {
     beforeEach(() => {
         document.getSelection = () => {

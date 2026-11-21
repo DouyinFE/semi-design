@@ -62,8 +62,9 @@ class DialogueAction extends BaseComponent<AIChatDialogueActionProps, AIChatDial
             },
             copyToClipboardAndToast: () => {
                 const { message } = this.props;
+                let copied = false;
                 if (typeof message?.content === 'string') {
-                    copy(message.content);
+                    copied = copy(message.content);
                 } else if (Array.isArray(message?.content)) {
                     const content = message.content?.map(item => {
                         if (typeof (item as any)?.content === 'string') {
@@ -72,11 +73,13 @@ class DialogueAction extends BaseComponent<AIChatDialogueActionProps, AIChatDial
                             return (item as any)?.content?.map(innerItem => innerItem?.text).join('');
                         }
                     }).join('');
-                    copy(content);
+                    copied = copy(content);
                 }
-                Toast.success({
-                    content: this.copySuccessNode
-                });
+                if (copied) {
+                    Toast.success({
+                        content: this.copySuccessNode
+                    });
+                }
             },
             notifyLikeMessage: () => {
                 const { message, onMessageGoodFeedback } = this.props;
