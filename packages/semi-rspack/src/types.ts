@@ -9,5 +9,6 @@ export interface SemiWebpackPluginOptions {
 }
 
 export interface SemiThemeOptions {
-    name?: string
+    name?: string;
+    include?: string
 }

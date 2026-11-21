@@ -67,6 +67,8 @@ function getScssImportPaths(components: string[]) {
         foundationPath: '@douyinfe/semi-foundation/lib/es/'
     };
     const specialCase = {
+        'AIChatInput': `${pathsObj.foundationPath}aiChatInput/aiChatInput.scss`,
+        'AIChatDialogue': `${pathsObj.foundationPath}aiChatDialogue/aiChatDialogue.scss`,
         'Icon': pathsObj.IconPath,
         'Base': pathsObj.basePath,
         'Portal': `${pathsObj.foundationPath}_portal/portal.scss`,

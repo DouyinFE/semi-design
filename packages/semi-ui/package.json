@@ -2175,6 +2175,11 @@
             "import": "./lib/es/react19-adapter.js",
             "require": "./lib/cjs/react19-adapter.js"
         },
+        "./lib/es/_base/base.scss": {
+            "import": "./lib/es/_base/base.scss",
+            "require": "./lib/cjs/_base/base.scss",
+            "default": "./lib/es/_base/base.scss"
+        },
         "./lib/es/_base/base.css": {
             "import": "./lib/es/_base/base.css",
             "require": "./lib/cjs/_base/base.css",
