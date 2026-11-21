@@ -69,6 +69,13 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
 
     foundation!: AudioPlayerFoundation;
 
+    static getDerivedStateFromProps(props: AudioPlayerProps, state: AudioPlayerState) {
+        if (Array.isArray(props.audioUrl) && props.audioUrl.length > 0 && state.currentIndex >= props.audioUrl.length) {
+            return { currentIndex: 0 };
+        }
+        return null;
+    }
+
     constructor(props: AudioPlayerProps) {
         super(props);
         this.state = {
