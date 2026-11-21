@@ -94,5 +94,5 @@ export default function useNotification() {
             close: removeElement,
         },
         <>{elements}</>,
-    ];
+    ] as const;
 }
