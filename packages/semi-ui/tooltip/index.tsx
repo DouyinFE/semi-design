@@ -205,6 +205,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     popupResizeObserver: ResizeObserver;
     popupResizeTimer: ReturnType<typeof setTimeout>;
     popupSizeStabilizeTimer: ReturnType<typeof setTimeout>;
+    popupPositionFallbackTimer: ReturnType<typeof setTimeout>;
+    containerPositionFrame: number;
     getPopupContainer: () => HTMLElement;
     containerPosition: string;
     foundation: TooltipFoundation;
@@ -330,7 +332,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                                 scheduleStableEmit();
                             }
                             // Safety net: bail out after 100ms even if RO never fires
-                            setTimeout(() => {
+                            this.popupPositionFallbackTimer = setTimeout(() => {
                                 if (!emitted) {
                                     emitOnce();
                                 }
@@ -341,7 +343,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         if (el && el.offsetWidth > 0 && el.offsetHeight > 0) {
                             emit();
                         } else {
-                            setTimeout(emit, 0);
+                            this.popupPositionFallbackTimer = setTimeout(emit, 0);
                         }
                     }
                 );
@@ -529,7 +531,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     this.containerPosition = positionInBody;
                     return;
                 }
-                requestAnimationFrame(() => {
+                this.containerPositionFrame = requestAnimationFrame(() => {
                     const container = this.getPopupContainer();
                     if (container && isHTMLElement(container)) {
                         // getComputedStyle need first parameter is Element type
@@ -601,6 +603,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
     componentWillUnmount() {
         this.mounted = false;
+        cancelAnimationFrame(this.containerPositionFrame);
         this.disconnectPopupResizeObserver();
         this.foundation.destroy();
     }
@@ -608,6 +611,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     disconnectPopupResizeObserver = () => {
         clearTimeout(this.popupResizeTimer);
         clearTimeout(this.popupSizeStabilizeTimer);
+        clearTimeout(this.popupPositionFallbackTimer);
         this.popupResizeObserver?.disconnect();
         this.popupResizeObserver = null;
     };
