@@ -13,7 +13,7 @@ export interface BaseSkill {
     [key: string]: any
 }
 
-export type Suggestion = string[] | {
+export type Suggestion = string | {
     content: string;
     [key: string]: any
 }
