@@ -17,6 +17,7 @@ export interface OptionProps extends BasicOptionProps {
     disabled?: boolean;
     showTick?: boolean;
     className?: string;
+    _optionId?: string;
     style?: React.CSSProperties
 }
 class Option extends PureComponent<OptionProps> {
@@ -34,6 +35,7 @@ class Option extends PureComponent<OptionProps> {
         focused: PropTypes.bool,
         showTick: PropTypes.bool,
         className: PropTypes.string,
+        _optionId: PropTypes.string,
         style: PropTypes.object,
         onMouseEnter: PropTypes.func,
         prefixCls: PropTypes.string,
@@ -77,6 +79,7 @@ class Option extends PureComponent<OptionProps> {
             focused,
             showTick,
             className,
+            _optionId,
             style,
             onMouseEnter,
             prefixCls,
@@ -127,6 +130,7 @@ class Option extends PureComponent<OptionProps> {
         return (
             // eslint-disable-next-line jsx-a11y/interactive-supports-focus,jsx-a11y/click-events-have-key-events
             <div
+                id={_optionId}
                 className={optionClassName}
                 onClick={e => {
                     this.onClick({ value, label, children, ...rest }, e);
