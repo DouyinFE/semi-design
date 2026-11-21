@@ -7,10 +7,18 @@
  * @param {Number} num2
  */
 export function plus(num1: number, num2: number) {
-    const num1Digits = (num1.toString().split('.')[1] || '').length;
-    const num2Digits = (num2.toString().split('.')[1] || '').length;
-    const baseNum = Math.pow(10, Math.max(num1Digits, num2Digits));
-    return (Math.round(num1 * baseNum + num2 * baseNum)) / baseNum;
+    const digits = Math.max(...[num1, num2].map(num => {
+        const [coefficient, exponent = '0'] = num.toString().split('e');
+        return Math.max(0, (coefficient.split('.')[1] || '').length - Number(exponent));
+    }));
+    const baseNum = Math.pow(10, digits);
+    const scaledSum = num1 * baseNum + num2 * baseNum;
+    if (!Number.isFinite(scaledSum)) {
+        return num1 + num2;
+    }
+    // Shift back in decimal form to avoid introducing division rounding errors.
+    const [coefficient, exponent = '0'] = Math.round(scaledSum).toString().split('e');
+    return Number(`${coefficient}e${Number(exponent) - digits}`);
 }
 
 export function minus(num1: number, num2: number) {
