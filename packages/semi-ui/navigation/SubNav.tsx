@@ -137,8 +137,6 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             getOpenKeys: () => this.context && this.context.openKeys,
             getOpenKeysIsControlled: () => this.context && this.context.openKeysIsControlled,
             getCanUpdateOpenKeys: () => this.context && this.context.canUpdateOpenKeys,
-            updateOpen: isOpen =>
-                this._invokeContextFunc(isOpen ? 'addOpenKeys' : 'removeOpenKeys', this.props.itemKey),
             notifyGlobalOpenChange: (...args) => this._invokeContextFunc('onOpenChange', ...args),
             notifyGlobalOnSelect: (...args) => this._invokeContextFunc('onSelect', ...args),
             notifyGlobalOnClick: (...args) => this._invokeContextFunc('onClick', ...args),
@@ -150,7 +148,8 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             getIsOpen: () => {
                 const { itemKey } = this.props;
                 return Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(this.props.itemKey));
-            }
+            },
+            updateOpenKeys: (newOpenKeys) => { this.context.updateOpenKeys(newOpenKeys); }
         };
     }
 
