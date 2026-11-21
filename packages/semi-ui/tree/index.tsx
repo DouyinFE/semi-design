@@ -405,6 +405,12 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                     keyMaps
                 );
                 newState.flattenNodes = flattenNodes;
+                // The hide motion renders from this snapshot, so refresh it with the new data while keeping its node set
+                if (treeDataRefUpdated && !dataStructureUpdated && prevState.motionType === 'hide' && prevState.motionKeys.size && prevState.cachedFlattenNodes) {
+                    const snapshotKeys = new Set(prevState.cachedFlattenNodes.map(node => node.key));
+                    newState.cachedFlattenNodes = flattenTreeData(treeData, new Set(Object.keys(keyEntities)), keyMaps)
+                        .filter(node => snapshotKeys.has(node.key));
+                }
             }
         } else {
             let filteredState;

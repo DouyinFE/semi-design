@@ -150,7 +150,8 @@ export type TransitionNodes<T> = Array<T | Array<T>>;
 export interface NodeListState {
     transitionNodes: TransitionNodes<FlattenNode>;
     cachedMotionKeys?: Set<string>;
-    cachedData?: FlattenNode[]
+    cachedData?: FlattenNode[];
+    cachedFlattenList?: FlattenNode[]
 }
 
 export interface ScrollData {
