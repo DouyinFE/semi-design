@@ -1114,7 +1114,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
 
             // If expandedRowKeys includes groupKey, add to expandedRows
             for (let i = 0, len = expandedRowKeys.length; i < len; i++) {
-                if (groups.has(realKey)) {
+                if (groups.has(expandedRowKeys[i])) {
                     expandedRows.push({ groupKey: expandedRowKeys[i] });
                 }
             }
