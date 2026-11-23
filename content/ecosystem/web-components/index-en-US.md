@@ -4,7 +4,7 @@ title: Web Components
 icon: doc-webcomponents
 localeCode: en-US
 order: 14
-brief: Semi UI 在 web components 中使用的最佳实践
+brief: Best practices for using Semi UI in web components
 ---
 
 [Web components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) is a set of techniques for creating reusable custom elements that are compatible across browsers and frameworks , has good encapsulation and reusability, and is widely used in developing browser plug-ins and cross-frame components.
