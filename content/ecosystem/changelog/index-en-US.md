@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.105.1 (2026-11-23)
+- 【Fix】
+    - Fixed `formApi.setValues` setting `formState.values` to `undefined` when given `undefined` / `null`, which made nested field updates throw `Cannot convert undefined or null to object` since 2.105.0 [f6d542aa5](https://github.com/DouyinFE/semi-design/commit/f6d542aa5)
+
 #### 🎉 2.105.0 (2026-11-12)
 - 【Fix】
     - Fixed the `exports` field missing `./dist/css/*`, which made the full stylesheet (`semi.css`, `semi.min.css`, `semi.layer.css`) unimportable under webpack 5 / Vite / Rspack [#4102](https://github.com/DouyinFE/semi-design/pull/4102)

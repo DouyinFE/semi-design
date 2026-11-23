@@ -14,6 +14,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.105.1 (2026-11-23)
+- 【Fix】
+    - 修复 `formApi.setValues` 传入 `undefined` / `null` 时将 `formState.values` 置为 `undefined`，导致 2.105.0 起更新嵌套字段抛出 `Cannot convert undefined or null to object` 的问题 [f6d542aa5](https://github.com/DouyinFE/semi-design/commit/f6d542aa5)
+
 #### 🎉 2.105.0 (2026-11-12)
 - 【Fix】
     - 修复 `exports` 字段未导出 `./dist/css/*`，导致 webpack 5 / Vite / Rspack 下无法引入全量样式文件（`semi.css`、`semi.min.css`、`semi.layer.css`）的问题 [#4102](https://github.com/DouyinFE/semi-design/pull/4102)
