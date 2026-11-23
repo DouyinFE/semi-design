@@ -81,6 +81,14 @@ describe('Form state snapshots', () => {
         expect(foundation.data.values).toEqual({ name: 'replacement' });
     });
 
+    it('keeps form state writable when overriding with nullish values', () => {
+        const foundation = createFoundation();
+        foundation.setValues(undefined, { isOverride: true });
+        expect(foundation.data.values).toEqual({});
+        expect(() => foundation.updateStateValue('rows[0].name', 'second', {})).not.toThrow();
+        expect(foundation.data.values.rows[0].name).toBe('second');
+    });
+
     it.each(['form', 'field'])('returns the checked snapshot after asynchronous %s validation', async level => {
         let finish;
         const pending = new Promise(resolve => { finish = resolve; });

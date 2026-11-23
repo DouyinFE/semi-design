@@ -484,7 +484,9 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     }
 
     setValues(values: any, { isOverride = false }): void {
-        const _values = this._adapter.cloneDeep(values);
+        // formState.values must stay an object: isOverride writes it back verbatim, and copyFieldPath assumes it.
+        // 必须保证 formState.values 是对象：isOverride 会原样写回，copyFieldPath 也依赖它
+        const _values = values == null ? {} : this._adapter.cloneDeep(values);
         this.fields.forEach(field => {
             const value = ObjectUtil.get(_values, field.field);
             // When calling setValues to override the values, only need to trigger onValueChange and onChange once, so setNotNotify of setValue to true
