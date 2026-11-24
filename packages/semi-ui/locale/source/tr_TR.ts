@@ -6,10 +6,10 @@ const local: Locale = {
     dateFnsLocale: tr,
     currency: 'TRY',
     Pagination: {
-        page: 'Sayfa',
+        page: '',
         pageSize: 'Sayfa başı öğe: ${pageSize}',
         total: 'Toplam sayfa: ${total}',
-        jumpTo: 'Atlamak'
+        jumpTo: 'Sayfaya git'
     },
     Modal: {
         confirm: 'Tamam',
@@ -21,23 +21,20 @@ const local: Locale = {
     },
     Tabs: {
         close: 'Kapat',
-        more: "Daha"
+        more: "Daha fazla"
     },
     TimePicker: {
         placeholder: {
             time: 'Lütfen bir zaman seçin',
             timeRange: 'Lütfen bir zaman aralığı seçin'
         },
-        begin: 'Başlangıç ​​zamanı',
+        begin: 'Başlangıç zamanı',
         end: 'Bitiş zamanı',
-        // hour: 'Saat',
-        // minute: 'Dakika',
-        // second: 'İkinci',
         hour: '',
         minute: '',
         second: '',
-        AM: 'AM',
-        PM: 'PM'
+        AM: 'ÖÖ',
+        PM: 'ÖS'
     },
     DatePicker: {
         placeholder: {
@@ -45,19 +42,19 @@ const local: Locale = {
             dateTime: 'Lütfen bir tarih ve saat seçin',
             dateRange: ['Başlangıç tarihi', 'Bitiş tarihi'],
             dateTimeRange: ['Başlangıç tarihi', 'Bitiş tarihi'],
-            monthRange: ['Başlangıç ​​ayı', 'Bitiş ayı']
+            monthRange: ['Başlangıç ayı', 'Bitiş ayı']
         },
         presets: 'Hızlı seçim',
         footer: {
             confirm: 'Tamam',
             cancel: 'İptal'
         },
-        selectDate: 'Tarih seçmek için geri dönün',
-        selectTime: 'saat seçin',
+        selectDate: 'Tarih seçin',
+        selectTime: 'Saat seçin',
         year: 'yıl',
         month: 'ay',
         day: 'gün',
-        monthText: '${year}yıl ${month}',
+        monthText: '${month} ${year}',
         months:
         {
             1: 'Ocak',
@@ -74,24 +71,24 @@ const local: Locale = {
             12: 'Aralık',
         },
         fullMonths: {
-            1: '1',
-            2: '2',
-            3: '3',
-            4: '4',
-            5: '5',
-            6: '6',
-            7: '7',
-            8: '8',
-            9: '9',
-            10: '10',
-            11: '11',
-            12: '12'
+            1: 'Ocak',
+            2: 'Şubat',
+            3: 'Mart',
+            4: 'Nisan',
+            5: 'Mayıs',
+            6: 'Haziran',
+            7: 'Temmuz',
+            8: 'Ağustos',
+            9: 'Eylül',
+            10: 'Ekim',
+            11: 'Kasım',
+            12: 'Aralık'
         },
         weeks: {
             Mon: 'Pzt',
-            Tue: 'Salı',
+            Tue: 'Sal',
             Wed: 'Çar',
-            Thu: 'Perş',
+            Thu: 'Per',
             Fri: 'Cum',
             Sat: 'Cmt',
             Sun: 'Paz'
@@ -102,8 +99,8 @@ const local: Locale = {
     },
     Navigation:
     {
-        collapseText: 'kenar çubuğunu daralt',
-        expandText: 'Kenar çubuğunu genişlet '
+        collapseText: 'Kenar çubuğunu daralt',
+        expandText: 'Kenar çubuğunu genişlet'
     },
     Popconfirm: {
         confirm: 'Tamam',
@@ -113,44 +110,46 @@ const local: Locale = {
     {
         emptyText: 'Henüz veri yok',
         pageText:
-            '${currentStart} öğesini görüntüle - ${currentEnd} öğe, toplam ${total} öğe ',
+            '${total} öğeden ${currentStart}-${currentEnd} arası gösteriliyor',
         descend: 'Azalan sıralama için tıklayın',
         ascend: 'Artan sıralama için tıklayın',
         cancelSort: 'Sıralamayı iptal et',
         confirmFilter: 'Tamam',
         resetFilter: 'Sıfırla',
-    
     },
     Select: { emptyText: 'Henüz veri yok', createText: 'Oluştur' },
     Cascader: { emptyText: 'Henüz veri yok' },
-    Tree: { emptyText: 'Henüz veri yok', searchPlaceholder: 'Arama ' },
+    Tree: { emptyText: 'Henüz veri yok', searchPlaceholder: 'Ara' },
     List: { emptyText: 'Henüz veri yok' },
     Calendar:
     {
         allDay: 'Tüm gün',
-        AM: 'Sabah ${time}',
-        PM: 'öğleden sonra ${time}',
-        datestring: 'gün',
-        remaining: '${remained} öğe var'
+        AM: 'ÖÖ ${time}',
+        PM: 'ÖS ${time}',
+        datestring: '',
+        remaining: '${remained} tane daha'
     },
     Upload:
     {
         mainText:
-            'dosyaları yüklemek için tıklayın veya dosyaları buraya sürükleyip bırakın',
-        illegalTips: 'bu tür dosyalar desteklenmiyor',
-        legalTips: 'bırakın ve yüklemeye başlayın',
-        retry: 'Yeniden Dene',
+            'Dosya yüklemek için tıklayın veya dosyayı buraya sürükleyin',
+        illegalTips: 'Bu dosya türü desteklenmiyor',
+        legalTips: 'Yüklemeyi başlatmak için bırakın',
+        retry: 'Yeniden dene',
         replace: 'Dosyayı değiştir',
-        clear: 'Boş',
-        selectedFiles: 'Seçili dosya',
+        clear: 'Temizle',
+        selectedFiles: 'Seçili dosyalar',
         illegalSize: 'Dosya boyutu geçersiz',
-        fail: 'Yükleme başarısız'
+        fail: 'Yükleme başarısız',
+        cropTitle: 'Resmi kırp',
+        cropOk: 'Tamam',
+        cropCancel: 'İptal',
     },
-    TreeSelect: { searchPlaceholder: 'Arama ' },
+    TreeSelect: { searchPlaceholder: 'Ara' },
     Typography:
     {
         copy: 'Kopyala',
-        copied: 'Kopyalama başarılı',
+        copied: 'Kopyalandı',
         expand: 'Genişlet',
         collapse: 'Daralt'
     },
@@ -158,9 +157,9 @@ const local: Locale = {
     {
         emptyLeft: 'Henüz veri yok',
         emptySearch: 'Arama sonucu yok',
-        emptyRight: 'İçerik yok, soldan kontrol edilemez',
-        placeholder: 'Arama',
-        clear: 'Boş',
+        emptyRight: 'İçerik yok, soldan seçin',
+        placeholder: 'Ara',
+        clear: 'Temizle',
         selectAll: 'Tümünü seç',
         clearSelectAll: 'Tümünün seçimini kaldır',
         total: 'Toplam öğe: ${total}',
@@ -170,15 +169,15 @@ const local: Locale = {
         optional: '(isteğe bağlı)',
     },
     Image: {
-        preview: 'Ön izleme',
+        preview: 'Önizleme',
         loading: 'Yükleniyor',
         loadError: 'Yükleme başarısız',
         prevTip: 'Önceki',
         nextTip: 'Sonraki',
         zoomInTip: 'Yakınlaştır',
-        zoomOutTip: 'uzaklaştır',
+        zoomOutTip: 'Uzaklaştır',
         rotateTip: 'Döndür',
-        downloadTip: 'indir',
+        downloadTip: 'İndir',
         adaptiveTip: 'Sayfaya uyarla',
         originTip: 'Orijinal boyut',
     },
@@ -186,10 +185,10 @@ const local: Locale = {
         deleteConfirm: 'Bu sohbeti silmek istediğinize emin misiniz?',
         clearContext: 'Bağlam temizlendi',
         copySuccess: 'Başarıyla kopyalandı',
-        stop: 'Durmak',
+        stop: 'Durdur',
         copy: 'Kopyala',
-        copied: 'Kopyalama başarılı',
-        dropAreaText: 'Dosyayı buraya yerleştirin',
+        copied: 'Kopyalandı',
+        dropAreaText: 'Dosyayı buraya bırakın',
     },
     UserGuide: {
         skip: 'Atla',
@@ -204,9 +203,9 @@ const local: Locale = {
         replaceAll: 'Tümünü değiştir',
     },
     VideoPlayer: {
-        rateChange: 'Hızı ${rate}\'e değiştir',
-        qualityChange: 'Kaliteyi ${quality}\'e değiştir',
-        routeChange: 'Rota ${route}\'e değiştir',
+        rateChange: 'Hız: ${rate}',
+        qualityChange: 'Kalite: ${quality}',
+        routeChange: 'Kaynak: ${route}',
         mirror: 'Ayna',
         cancelMirror: 'Aynayı kaldır',
         loading: 'Yükleniyor...',
@@ -216,25 +215,25 @@ const local: Locale = {
     },
     AIChatDialogue: {
         delete: 'Sil',
-        deleteConfirm: 'Bu sohbeti silmek istediğinize emin misiniz?',
-        deleteContent: 'Bu sohbet silinmiştir.',
+        deleteConfirm: 'Bu mesajı silmek istediğinizden emin misiniz?',
+        deleteContent: 'Bu mesaj kalıcı olarak silinecek ve geri getirilemeyecek.',
         copySuccess: 'Başarıyla kopyalandı',
         loading: 'Yükleniyor...',
         reasoning: {
-            completed: 'İşlem tamamlandı',
-            thinking: 'İşlem devam ediyor...'
+            completed: 'Düşünme tamamlandı',
+            thinking: 'Düşünüyor...'
         },
-        annotationText: 'bilgi elemanı'
+        annotationText: 'kaynak'
     },
     Feedback: {
         placeholder: 'Ek geri bildirim sağlayın',
         optionalPlaceholder: 'Ek geri bildirim sağlayın (isteğe bağlı)',
-        submit: 'Göndermek',
+        submit: 'Gönder',
         cancel: 'İptal'
     },
     AIChatInput: {
         template: 'Şablon',
-        configure: 'Yapılandırma',
+        configure: 'Yapılandır',
         selected: '${count} öğe seçildi',
     },
     Sidebar: {
@@ -242,21 +241,21 @@ const local: Locale = {
         linkAddSuccess: 'Bağlantı başarıyla eklendi',
         linkRemoveSuccess: 'Bağlantı başarıyla silindi',
         enterLinkAddress: "Bağlantı adresini girin",
-        validateFailInfo: 'Doğrulama başarısız, tekrar yükleyin',
-        uploadFailInfo: 'Yükleme başarısız, tekrar deneyin',
+        validateFailInfo: 'Doğrulama başarısız, lütfen tekrar yükleyin',
+        uploadFailInfo: 'Yükleme başarısız, lütfen tekrar deneyin',
         uploadImgInfo: 'Resim yüklemek için tıklayın veya buraya sürükleyin',
-        defaultMcpInfo: "Varsayılan MCP, kapatılamaz",
-        searchPlaceholder: 'Buraya girin',
-        emptyCustomMcpInfo: 'Henüz özelleştirilmiş MCP bulunmamaktadır',
-        newMcpAdd: 'Özelleştirilmiş MCP',
+        defaultMcpInfo: "Hazır MCP, kapatılamaz",
+        searchPlaceholder: 'Lütfen girin',
+        emptyCustomMcpInfo: 'Henüz özel MCP yok',
+        newMcpAdd: 'Özel MCP',
         mcpConfigure: 'MCP Yapılandırması',
-        annotationTitle: 'Referans Kaynağı',
-        activeMCPNumber: 'Aktif MCP Sayısı:',
+        annotationTitle: 'Kaynaklar',
+        activeMCPNumber: 'Etkin MCP sayısı:',
         copySuccess: 'Başarıyla kopyalandı',
     },
     AudioPlayer: {
-        backward: 'Geri ${skipDuration}s',
-        forward: 'İleri ${skipDuration}s',
+        backward: '${skipDuration} sn geri',
+        forward: '${skipDuration} sn ileri',
         prev: 'Önceki',
         next: 'Sonraki',
         loop: 'Döngü',
@@ -265,5 +264,5 @@ const local: Locale = {
     }
 };
 
-// [i18n-Turkish] 
+// [i18n-Turkish]
 export default local;
