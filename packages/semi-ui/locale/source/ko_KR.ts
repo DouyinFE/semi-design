@@ -34,7 +34,7 @@ const local: Locale = {
         hour: '',
         minute: '',
         second: '',
-        AM: '아침',
+        AM: '오전',
         PM: '오후',
     },
     DatePicker: {
@@ -50,11 +50,11 @@ const local: Locale = {
             confirm: '확인',
             cancel: '취소',
         },
-        selectDate: '선택 날짜 반환',
+        selectDate: '날짜 선택',
         selectTime: '시간 선택',
         year: '년',
         month: '월',
-        day: '주간',
+        day: '일',
         monthText: '${year}년 ${month}',
         months: {
             1: '1 월',
@@ -133,18 +133,21 @@ const local: Locale = {
         AM: '오전 ${time}시',
         PM: '오후 ${time}시',
         datestring: '일',
-        remaining: '${remained} 가지 더',
+        remaining: '${remained}개 더',
     },
     Upload: {
         mainText: '파일 업로드를 클릭하거나 여기로 파일 드래그',
         illegalTips: '이 유형의 파일은 지원되지 않습니다',
-        legalTips: '마우스를 놓습니다 업로드 시작',
+        legalTips: '놓으면 업로드를 시작합니다',
         retry: '재시도',
         replace: '파일 바꾸기',
-        clear: '클리어',
+        clear: '지우기',
         selectedFiles: '선택된 파일',
         illegalSize: '잘못된 파일 크기',
         fail: '업로드 실패',
+        cropTitle: '이미지 자르기',
+        cropOk: '확인',
+        cropCancel: '취소',
     },
     TreeSelect: {
         searchPlaceholder: '검색',
@@ -152,8 +155,8 @@ const local: Locale = {
     Typography: {
         copy: '복사',
         copied: '복사했습니다',
-        expand: '배포',
-        collapse: '접어',
+        expand: '펼치기',
+        collapse: '접기',
     },
     Transfer: {
         emptyLeft: '결과 없음',
@@ -167,10 +170,10 @@ const local: Locale = {
         selected: '선택한 항목: ${total}',
     },
     Form: {
-        optional: '(선택 과목)',
+        optional: '(선택 사항)',
     },
     Image: {
-        preview: '시사',
+        preview: '미리보기',
         loading: '로딩 중',
         loadError: '불러 오지 못했습니다',
         prevTip: '이전',
@@ -217,7 +220,7 @@ const local: Locale = {
     AIChatDialogue: {
         delete: '삭제',
         deleteConfirm: '이 메시지를 삭제하시겠습니까?',
-        deleteContent: '이 메시지는 삭제되었습니다.',
+        deleteContent: '이 메시지는 영구적으로 삭제되며 복구할 수 없습니다.',
         copySuccess: '복사 성공',
         loading: '로딩 중...',
         reasoning: {
