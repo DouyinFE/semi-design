@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.105.2 (2026-11-24)
+- 【Fix】
+    - Fixed errors when reading Form `values` in rows whose defaults come only from `ArrayField.initValue`. These rows now render after the client mounts instead of appearing in the server HTML. [66c99ceb6](https://github.com/DouyinFE/semi-design/commit/66c99ceb6)
+
 #### 🎉 2.105.1 (2026-11-23)
 - 【Fix】
     - Fixed `formApi.setValues` setting `formState.values` to `undefined` when given `undefined` / `null`, which made nested field updates throw `Cannot convert undefined or null to object` since 2.105.0 [f6d542aa5](https://github.com/DouyinFE/semi-design/commit/f6d542aa5)

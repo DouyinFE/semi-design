@@ -14,6 +14,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.105.2 (2026-11-24)
+- 【Fix】
+    - 修复 Form 首次挂载时，仅通过 `ArrayField.initValue` 设置的默认行早于表单值渲染，导致行内读取 `values` 报错的问题。该场景的默认行会在客户端挂载后渲染，不再出现在服务端 HTML 中。[66c99ceb6](https://github.com/DouyinFE/semi-design/commit/66c99ceb6)
+
 #### 🎉 2.105.1 (2026-11-23)
 - 【Fix】
     - 修复 `formApi.setValues` 传入 `undefined` / `null` 时将 `formState.values` 置为 `undefined`，导致 2.105.0 起更新嵌套字段抛出 `Cannot convert undefined or null to object` 的问题 [f6d542aa5](https://github.com/DouyinFE/semi-design/commit/f6d542aa5)
