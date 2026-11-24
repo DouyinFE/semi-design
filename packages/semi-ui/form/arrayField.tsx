@@ -75,6 +75,7 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
     cacheUpdateKey: string | number;
     context: FormUpdaterContextType;
     private initValueForReset: any[];
+    private deferInitialRows: boolean;
 
     constructor(props: ArrayFieldProps, context: FormUpdaterContextType) {
         super(props, context);
@@ -82,8 +83,11 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         const { field } = this.props;
         const initValueInForm = context.getValue(field);
         const initValue = initValueInProps || initValueInForm;
+        // Form already exposed its first values snapshot; don't render default rows it cannot see yet.
+        this.deferInitialRows = context.isInitialFormMount && isUndefined(initValueInForm) &&
+            Array.isArray(initValueInProps) && initValueInProps.length > 0;
         this.state = {
-            keys: generateKeys(initValue),
+            keys: this.deferInitialRows ? [] : generateKeys(initValue),
         };
         this.add = this.add.bind(this);
         this.addWithInitValue = this.addWithInitValue.bind(this);
@@ -99,12 +103,12 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         this.shouldUseInitValue = !context.getArrayField(field);
 
         // Separate the arrays that reset and the usual add and remove modify, otherwise they will affect each other
-        const initValueCopyForFormState = copy(initValue);
         this.initValueForReset = copy(initValue);
+        // Keep the registration available to a sibling that calls reset during mount.
         context.registerArrayField(field, copy(this.initValueForReset), this);
-        // register ArrayField will update state.updateKey to render, So there is no need to execute forceUpdate here
-        context.updateStateValue(field, initValueCopyForFormState, { notNotify: true, notUpdate: true });
-
+        if (!this.deferInitialRows) {
+            context.updateStateValue(field, copy(initValue), { notNotify: true, notUpdate: true });
+        }
     }
 
     componentDidMount() {
@@ -112,6 +116,14 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         const { field } = this.props;
         if (this.context.getArrayField(field)?.owner !== this) {
             this.context.registerArrayField(field, copy(this.initValueForReset), this);
+        }
+        if (this.deferInitialRows) {
+            this.deferInitialRows = false;
+            // Keep earlier API writes; otherwise publish the default without notifying onChange.
+            // componentDidUpdate generates the rows after Form renders the new snapshot.
+            if (isUndefined(this.context.getValue(field))) {
+                this.context.updateStateValue(field, copy(this.initValueForReset), { notNotify: true });
+            }
         }
     }
 

@@ -13,6 +13,33 @@ describe('ArrayField registration lifecycle', () => {
         </ArrayField>
     );
 
+    it('publishes ArrayField defaults before rendering rows that read Form values', async () => {
+        function Schedule({ open }) {
+            return open ? (
+                <Form>
+                    {({ values }) => (
+                        <ArrayField field="rows" initValue={initial}>
+                            {({ arrayFields }) => arrayFields.map(({ key: rowKey }, index) => (
+                                <output key={rowKey}>{values.rows[index].name}</output>
+                            ))}
+                        </ArrayField>
+                    )}
+                </Form>
+            ) : null;
+        }
+        const wrapper = mount(<Schedule open={false} />);
+        try {
+            for (let i = 0; i < 2; i++) {
+                await act(async () => wrapper.setProps({ open: true }));
+                wrapper.update();
+                expect(wrapper.find('output').text()).toBe('initial');
+                await act(async () => wrapper.setProps({ open: false }));
+            }
+        } finally {
+            wrapper.unmount();
+        }
+    });
+
     it.each(['setValues', 'setValue'])('updates all rows after replacing the same field with %s', async operation => {
         let api;
         const wrapper = mount(<Form getFormApi={value => { api = value; }}>{renderArray('first', initial)}</Form>);
@@ -119,12 +146,14 @@ describe('ArrayField registration lifecycle', () => {
         }
     });
 
-    it('restores initValue when reset is called before the ArrayField mounts', async () => {
+    it.each([false, true])('preserves writes and reset before the ArrayField mounts (reset: %s)', async reset => {
         let api;
         class ResetOnMount extends React.Component {
             componentDidMount() {
                 api.setValue('rows', next);
-                api.reset();
+                if (reset) {
+                    api.reset();
+                }
             }
             render() {
                 return null;
@@ -139,8 +168,9 @@ describe('ArrayField registration lifecycle', () => {
                 </Form>);
             });
             wrapper.update();
-            expect(api.getValues().rows).toEqual(initial);
-            expect(wrapper.find('input').map(input => input.prop('value'))).toEqual(['initial']);
+            const expected = reset ? initial : next;
+            expect(api.getValues().rows).toEqual(expected);
+            expect(wrapper.find('input').map(input => input.prop('value'))).toEqual(expected.map(row => row.name));
         } finally {
             wrapper.unmount();
         }

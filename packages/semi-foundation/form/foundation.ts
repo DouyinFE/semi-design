@@ -21,6 +21,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     fields: Map<string, FieldStaff>;
     registered: Record<string, boolean>;
     registeredArrayField: Map<string, ArrayFieldStaff>;
+    private initialFormMountComplete = false;
 
     constructor(adapter: BaseFormAdapter) {
         super({ ...adapter });
@@ -82,6 +83,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     }
 
     init() {
+        this.initialFormMountComplete = true;
         this._adapter.initFormId();
     }
 
@@ -697,6 +699,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     // For Field and ArrayField to read and modify FormState
     getModifyFormStateApi() {
         return {
+            isInitialFormMount: !this.initialFormMountComplete,
             register: this.register,
             unRegister: this.unRegister,
             updateStateValue: this.updateStateValue,
