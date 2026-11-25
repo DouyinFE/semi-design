@@ -286,7 +286,9 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             onHandleUpAfter: () => {
                 const { currentValue } = this.state;
                 const value = this.foundation.outPutValue(currentValue);
-                this.props.onAfterChange(value);
+                const { min = 0, max = 100 } = this.props;
+                const clamp = (item: number) => Math.min(max, Math.max(min, item));
+                this.props.onAfterChange(Array.isArray(value) ? value.map(clamp) : clamp(value));
             },
             unSubscribeEventListener: () => {
                 Array.from(this.eventListenerSet).forEach(clear => clear());
