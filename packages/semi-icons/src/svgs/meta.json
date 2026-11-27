@@ -2082,5 +2082,13 @@
     {
         "name": "globe_stroke_stroked",
         "category": "Objects"
+    },
+    {
+        "name": "hard_drive",
+        "category": "Objects"
+    },
+    {
+        "name": "hard_drive_stroked",
+        "category": "Objects"
     }
 ]

@@ -238,6 +238,8 @@ IconH7
 IconH8
 IconH9
 IconHandle
+IconHardDrive
+IconHardDriveStroked
 IconHash
 IconHeartStroked
 IconHelm
