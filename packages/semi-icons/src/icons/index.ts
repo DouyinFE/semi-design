@@ -243,6 +243,8 @@ export { default as IconH7 } from './IconH7';
 export { default as IconH8 } from './IconH8';
 export { default as IconH9 } from './IconH9';
 export { default as IconHandle } from './IconHandle';
+export { default as IconHardDrive } from './IconHardDrive';
+export { default as IconHardDriveStroked } from './IconHardDriveStroked';
 export { default as IconHash } from './IconHash';
 export { default as IconHeartStroked } from './IconHeartStroked';
 export { default as IconHelm } from './IconHelm';
