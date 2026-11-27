@@ -18,6 +18,17 @@ describe('Divider', () => {
         expect(demo.getDOMNode().textContent).toEqual('divider title');
     });
 
+    it('test numeric 0 title', () => {
+        const demo = mount(<Divider>{0}</Divider>);
+        expect(demo.exists('.semi-divider-with-text')).toEqual(true);
+        expect(demo.find('.semi-divider_inner-text').text()).toEqual('0');
+    });
+
+    it('test empty title', () => {
+        const demo = mount(<Divider>{null}</Divider>);
+        expect(demo.exists('.semi-divider-with-text')).toEqual(false);
+    });
+
     it('test align', () => {
 
         const demo = mount(

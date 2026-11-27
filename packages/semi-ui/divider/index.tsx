@@ -1,6 +1,7 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/divider/constants';
+import isReactRenderable from '@douyinfe/semi-foundation/utils/isReactRenderable';
 import '@douyinfe/semi-foundation/divider/divider.scss';
 
 
@@ -35,12 +36,14 @@ const Divider: React.FC<DividerProps> = props => {
         ...rest
     } = props;
 
+    const hasChildren = isReactRenderable(children);
+
     const dividerClassNames = cls(`${prefixCls}-divider`, className, {
         [`${prefixCls}-divider-horizontal`]: layout === 'horizontal',
         [`${prefixCls}-divider-vertical`]: layout === 'vertical',
         [`${prefixCls}-divider-dashed`]: !!dashed,
-        [`${prefixCls}-divider-with-text`]: children && layout === 'horizontal',
-        [`${prefixCls}-divider-with-text-${align}`]: children && layout === 'horizontal',
+        [`${prefixCls}-divider-with-text`]: hasChildren && layout === 'horizontal',
+        [`${prefixCls}-divider-with-text-${align}`]: hasChildren && layout === 'horizontal',
     });
 
     let overrideDefaultStyle: CSSProperties = {};
@@ -60,8 +63,8 @@ const Divider: React.FC<DividerProps> = props => {
 
     return (
         <div {...rest} className={dividerClassNames} style={{ ...overrideDefaultStyle, ...style }}>
-            {children && layout === 'horizontal' ? (
-                typeof children === 'string' ? (
+            {hasChildren && layout === 'horizontal' ? (
+                typeof children === 'string' || typeof children === 'number' ? (
                     <span className={`${prefixCls}-divider_inner-text`} x-semi-prop="children">
                         {children}
                     </span>
